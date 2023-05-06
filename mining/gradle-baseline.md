@@ -300,24 +300,24 @@ in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineE
 ## RuleId[id=SimplifyOptionalCallChains]
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
-in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/ImmutablesBuilderMissingInitialization.java`
-#### Snippet
-```java
-                        ASTHelpers.hasAnnotation(classSymbol, "org.immutables.value.Value.Immutable", state))
-                .findAny();
-        if (!interfaceClass.isPresent()) {
-            return Description.NO_MATCH;
-        }
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
 in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/PreferSafeLoggableExceptions.java`
 #### Snippet
 ```java
                 .reduce((one, two) -> one);
 
         if (!messageArg.isPresent()) {
+            return Description.NO_MATCH;
+        }
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/ImmutablesBuilderMissingInitialization.java`
+#### Snippet
+```java
+                        ASTHelpers.hasAnnotation(classSymbol, "org.immutables.value.Value.Immutable", state))
+                .findAny();
+        if (!interfaceClass.isPresent()) {
             return Description.NO_MATCH;
         }
 ```
@@ -348,6 +348,30 @@ in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/Slf4jLev
 
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
+in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/StrictUnusedVariable.java`
+#### Snippet
+```java
+                .filter(a -> allUsageSites.stream().noneMatch(tp -> tp.getLeaf().equals(a)))
+                .findFirst();
+        if (!removedVariableTree.isPresent() || !reassignment.isPresent()) {
+            return SuggestedFix.builder().build();
+        }
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/StrictUnusedVariable.java`
+#### Snippet
+```java
+                .filter(a -> allUsageSites.stream().noneMatch(tp -> tp.getLeaf().equals(a)))
+                .findFirst();
+        if (!removedVariableTree.isPresent() || !reassignment.isPresent()) {
+            return SuggestedFix.builder().build();
+        }
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
 in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/StringBuilderConstantParameters.java`
 #### Snippet
 ```java
@@ -355,30 +379,6 @@ in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/StringBu
         Optional<List<ExpressionTree>> result = tree.getMethodSelect().accept(StringBuilderVisitor.INSTANCE, state);
         if (!result.isPresent()) {
             return Description.NO_MATCH;
-        }
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/StrictUnusedVariable.java`
-#### Snippet
-```java
-                .filter(a -> allUsageSites.stream().noneMatch(tp -> tp.getLeaf().equals(a)))
-                .findFirst();
-        if (!removedVariableTree.isPresent() || !reassignment.isPresent()) {
-            return SuggestedFix.builder().build();
-        }
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/StrictUnusedVariable.java`
-#### Snippet
-```java
-                .filter(a -> allUsageSites.stream().noneMatch(tp -> tp.getLeaf().equals(a)))
-                .findFirst();
-        if (!removedVariableTree.isPresent() || !reassignment.isPresent()) {
-            return SuggestedFix.builder().build();
         }
 ```
 
@@ -433,6 +433,18 @@ in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineM
 
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
+Dereference of `type` may produce `NullPointerException`
+in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/ImmutablesReferenceEquality.java`
+#### Snippet
+```java
+    protected boolean matchArgument(ExpressionTree tree, VisitorState state) {
+        Type type = ASTHelpers.getType(tree);
+        if (!(type.tsym instanceof ClassSymbol)) {
+            return false;
+        }
+```
+
+### DataFlowIssue
 Argument `ASTHelpers.getResultType(tree)` might be null
 in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/MoreAbstractAsKeyOfSetOrMap.java`
 #### Snippet
@@ -454,18 +466,6 @@ in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/ClassIni
                     && isSubtype(ASTHelpers.enclosingClass(methodSymbol).type, baseType, state)) {
                 state.reportMatch(describeMatch(node));
                 return null;
-```
-
-### DataFlowIssue
-Dereference of `type` may produce `NullPointerException`
-in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/ImmutablesReferenceEquality.java`
-#### Snippet
-```java
-    protected boolean matchArgument(ExpressionTree tree, VisitorState state) {
-        Type type = ASTHelpers.getType(tree);
-        if (!(type.tsym instanceof ClassSymbol)) {
-            return false;
-        }
 ```
 
 ### DataFlowIssue
@@ -505,18 +505,6 @@ in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/Implicit
 ```
 
 ### DataFlowIssue
-Method invocation `getModifiers` may produce `NullPointerException`
-in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/ThrowSpecificity.java`
-#### Snippet
-```java
-                && (symbol.isStatic()
-                        || methodModifiers.contains(Modifier.FINAL)
-                        || ASTHelpers.enclosingClass(symbol).getModifiers().contains(Modifier.FINAL));
-    }
-
-```
-
-### DataFlowIssue
 Unboxing of `VALIDATE_METHODS_MESSAGE_ARGS.get(methodName)` may produce `NullPointerException`
 in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/ValidateConstantMessage.java`
 #### Snippet
@@ -525,6 +513,18 @@ in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/Validate
 
         int messageArgNumber = VALIDATE_METHODS_MESSAGE_ARGS.get(methodName);
         List<? extends ExpressionTree> args = tree.getArguments();
+
+```
+
+### DataFlowIssue
+Method invocation `getModifiers` may produce `NullPointerException`
+in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/ThrowSpecificity.java`
+#### Snippet
+```java
+                && (symbol.isStatic()
+                        || methodModifiers.contains(Modifier.FINAL)
+                        || ASTHelpers.enclosingClass(symbol).getModifiers().contains(Modifier.FINAL));
+    }
 
 ```
 
@@ -565,18 +565,6 @@ in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/StrictUn
 ```
 
 ### DataFlowIssue
-Argument `value` might be null
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineExactDependencies.java`
-#### Snippet
-```java
-                    compileClasspath.getAttributes().keySet().forEach(attribute -> {
-                        Object value = compileClasspath.getAttributes().getAttribute(attribute);
-                        conf.getAttributes().attribute((Attribute<Object>) attribute, value);
-                    });
-                });
-```
-
-### DataFlowIssue
 Method invocation `getRequired` may produce `NullPointerException`
 in `gradle-junit-reports/src/main/java/com/palantir/gradle/junit/CheckstyleReportHandler.java`
 #### Snippet
@@ -588,19 +576,19 @@ in `gradle-junit-reports/src/main/java/com/palantir/gradle/junit/CheckstyleRepor
 
 ```
 
-## RuleId[id=RedundantCast]
-### RedundantCast
-Casting `(classTree, state) -> {...}` to `Matcher` is redundant
-in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/MoreMatchers.java`
+### DataFlowIssue
+Argument `value` might be null
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineExactDependencies.java`
 #### Snippet
 ```java
-     */
-    static <T extends ClassTree> Matcher<T> classEnclosingClass(Matcher<ClassTree> matcher) {
-        return (Matcher<T>) (classTree, state) -> {
-            TreePath currentPath = state.getPath().getParentPath();
-            while (currentPath != null) {
+                    compileClasspath.getAttributes().keySet().forEach(attribute -> {
+                        Object value = compileClasspath.getAttributes().getAttribute(attribute);
+                        conf.getAttributes().attribute((Attribute<Object>) attribute, value);
+                    });
+                });
 ```
 
+## RuleId[id=RedundantCast]
 ### RedundantCast
 Casting `(tree, state) -> {...}` to `Matcher` is redundant
 in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/MoreMatchers.java`
@@ -611,6 +599,18 @@ in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/MoreMatc
         return (Matcher<T>) (tree, state) -> {
             if (tree instanceof ClassTree) {
                 return containsModifier(((ClassTree) tree).getModifiers(), state, modifier);
+```
+
+### RedundantCast
+Casting `(classTree, state) -> {...}` to `Matcher` is redundant
+in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/MoreMatchers.java`
+#### Snippet
+```java
+     */
+    static <T extends ClassTree> Matcher<T> classEnclosingClass(Matcher<ClassTree> matcher) {
+        return (Matcher<T>) (classTree, state) -> {
+            TreePath currentPath = state.getPath().getParentPath();
+            while (currentPath != null) {
 ```
 
 ### RedundantCast
@@ -839,42 +839,6 @@ in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/tasks/CheckExplic
 ```
 
 ### Deprecation
-'org.gradle.util.GFileUtils' is deprecated
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/tasks/CheckClassUniquenessLockTask.java`
-#### Snippet
-```java
-        if (lockFile.exists()) {
-            if (getProject().getGradle().getStartParameter().isWriteDependencyLocks()) {
-                GFileUtils.deleteQuietly(lockFile);
-                getLogger()
-                        .lifecycle(
-```
-
-### Deprecation
-'org.gradle.util.GFileUtils' is deprecated
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/tasks/CheckClassUniquenessLockTask.java`
-#### Snippet
-```java
-    private void ensureLockfileContains(String expected) {
-        if (getProject().getGradle().getStartParameter().isWriteDependencyLocks()) {
-            GFileUtils.writeFile(expected, lockFile);
-            getLogger()
-                    .lifecycle("Updated {}", getProject().getRootDir().toPath().relativize(lockFile.toPath()));
-```
-
-### Deprecation
-'org.gradle.util.GFileUtils' is deprecated
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/tasks/CheckClassUniquenessLockTask.java`
-#### Snippet
-```java
-        }
-
-        String onDisk = GFileUtils.readFile(lockFile);
-        if (!onDisk.equals(expected)) {
-            List<String> onDiskLines = Splitter.on('\n').splitToList(onDisk);
-```
-
-### Deprecation
 'groovy.util.XmlParser' is deprecated
 in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/XmlUtils.java`
 #### Snippet
@@ -944,6 +908,42 @@ in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineC
             JavaPluginConvention javaConvention = project.getConvention().getPlugin(JavaPluginConvention.class);
             // We use the "JavadocMethod" module in our Checkstyle configuration, making
             // Java 8+ new doclint compiler feature redundant.
+```
+
+### Deprecation
+'org.gradle.util.GFileUtils' is deprecated
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/tasks/CheckClassUniquenessLockTask.java`
+#### Snippet
+```java
+    private void ensureLockfileContains(String expected) {
+        if (getProject().getGradle().getStartParameter().isWriteDependencyLocks()) {
+            GFileUtils.writeFile(expected, lockFile);
+            getLogger()
+                    .lifecycle("Updated {}", getProject().getRootDir().toPath().relativize(lockFile.toPath()));
+```
+
+### Deprecation
+'org.gradle.util.GFileUtils' is deprecated
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/tasks/CheckClassUniquenessLockTask.java`
+#### Snippet
+```java
+        }
+
+        String onDisk = GFileUtils.readFile(lockFile);
+        if (!onDisk.equals(expected)) {
+            List<String> onDiskLines = Splitter.on('\n').splitToList(onDisk);
+```
+
+### Deprecation
+'org.gradle.util.GFileUtils' is deprecated
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/tasks/CheckClassUniquenessLockTask.java`
+#### Snippet
+```java
+        if (lockFile.exists()) {
+            if (getProject().getGradle().getStartParameter().isWriteDependencyLocks()) {
+                GFileUtils.deleteQuietly(lockFile);
+                getLogger()
+                        .lifecycle(
 ```
 
 ### Deprecation
@@ -1128,30 +1128,6 @@ in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineS
 
 ### Deprecation
 'getConvention()' is deprecated
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineErrorProne.java`
-#### Snippet
-```java
-
-            Optional<SourceSet> maybeSourceSet = project
-                    .getConvention()
-                    .getPlugin(JavaPluginConvention.class)
-                    .getSourceSets()
-```
-
-### Deprecation
-'org.gradle.api.plugins.JavaPluginConvention' is deprecated
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineErrorProne.java`
-#### Snippet
-```java
-            Optional<SourceSet> maybeSourceSet = project
-                    .getConvention()
-                    .getPlugin(JavaPluginConvention.class)
-                    .getSourceSets()
-                    .matching(ss -> javaCompile.getName().equals(ss.getCompileJavaTaskName()))
-```
-
-### Deprecation
-'getConvention()' is deprecated
 in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineTesting.java`
 #### Snippet
 ```java
@@ -1176,6 +1152,42 @@ in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineT
 
 ### Deprecation
 'getConvention()' is deprecated
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineErrorProne.java`
+#### Snippet
+```java
+
+            Optional<SourceSet> maybeSourceSet = project
+                    .getConvention()
+                    .getPlugin(JavaPluginConvention.class)
+                    .getSourceSets()
+```
+
+### Deprecation
+'org.gradle.api.plugins.JavaPluginConvention' is deprecated
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineErrorProne.java`
+#### Snippet
+```java
+            Optional<SourceSet> maybeSourceSet = project
+                    .getConvention()
+                    .getPlugin(JavaPluginConvention.class)
+                    .getSourceSets()
+                    .matching(ss -> javaCompile.getName().equals(ss.getCompileJavaTaskName()))
+```
+
+### Deprecation
+'org.gradle.util.GUtil' is deprecated
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineExactDependencies.java`
+#### Snippet
+```java
+        String baseName = sourceSet.getName().equals(SourceSet.MAIN_SOURCE_SET_NAME)
+                ? ""
+                : GUtil.toCamelCase(sourceSet.getName());
+        return StringUtils.uncapitalize(baseName + StringUtils.capitalize("compile"));
+    }
+```
+
+### Deprecation
+'getConvention()' is deprecated
 in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineExactDependencies.java`
 #### Snippet
 ```java
@@ -1196,18 +1208,6 @@ in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineE
                     .getPlugin(JavaPluginConvention.class)
                     .getSourceSets()
                     .all(sourceSet ->
-```
-
-### Deprecation
-'org.gradle.util.GUtil' is deprecated
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineExactDependencies.java`
-#### Snippet
-```java
-        String baseName = sourceSet.getName().equals(SourceSet.MAIN_SOURCE_SET_NAME)
-                ? ""
-                : GUtil.toCamelCase(sourceSet.getName());
-        return StringUtils.uncapitalize(baseName + StringUtils.capitalize("compile"));
-    }
 ```
 
 ## RuleId[id=SuspiciousMethodCalls]
@@ -1238,38 +1238,14 @@ in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/Baseline.
 
 ### NullableProblems
 Not annotated parameter overrides @NonNullApi parameter
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineConfig.java`
-#### Snippet
-```java
-
-        @Override
-        public void execute(Task task) {
-            if (configuration.getFiles().size() != 1) {
-                throw new IllegalArgumentException("Expected to find exactly one config dependency in the "
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNullApi parameter
 in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineNullAway.java`
 #### Snippet
 ```java
-                project.getTasks().withType(JavaCompile.class).configureEach(new Action<JavaCompile>() {
-                    @Override
-                    public void execute(JavaCompile javaCompile) {
-                        ((ExtensionAware) javaCompile.getOptions())
-                                .getExtensions()
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNullApi parameter
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineNullAway.java`
-#### Snippet
-```java
-        proj.afterEvaluate(new Action<Project>() {
+        configureErrorProneOptions(project, new Action<ErrorProneOptions>() {
             @Override
-            public void execute(Project project) {
-                project.getTasks().withType(JavaCompile.class).configureEach(new Action<JavaCompile>() {
-                    @Override
+            public void execute(ErrorProneOptions options) {
+                options.option("NullAway:AnnotatedPackages", String.join(",", DEFAULT_ANNOTATED_PACKAGES));
+                // Relax some checks for test code
 ```
 
 ### NullableProblems
@@ -1289,11 +1265,35 @@ Not annotated parameter overrides @NonNullApi parameter
 in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineNullAway.java`
 #### Snippet
 ```java
-        configureErrorProneOptions(project, new Action<ErrorProneOptions>() {
+        proj.afterEvaluate(new Action<Project>() {
             @Override
-            public void execute(ErrorProneOptions options) {
-                options.option("NullAway:AnnotatedPackages", String.join(",", DEFAULT_ANNOTATED_PACKAGES));
-                // Relax some checks for test code
+            public void execute(Project project) {
+                project.getTasks().withType(JavaCompile.class).configureEach(new Action<JavaCompile>() {
+                    @Override
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNullApi parameter
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineNullAway.java`
+#### Snippet
+```java
+                project.getTasks().withType(JavaCompile.class).configureEach(new Action<JavaCompile>() {
+                    @Override
+                    public void execute(JavaCompile javaCompile) {
+                        ((ExtensionAware) javaCompile.getOptions())
+                                .getExtensions()
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNullApi parameter
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineConfig.java`
+#### Snippet
+```java
+
+        @Override
+        public void execute(Task task) {
+            if (configuration.getFiles().size() != 1) {
+                throw new IllegalArgumentException("Expected to find exactly one config dependency in the "
 ```
 
 ### NullableProblems
@@ -1370,30 +1370,6 @@ in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversi
 
 ### NullableProblems
 Not annotated method overrides method annotated with @NonNullApi
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversions/BaselineJavadocTool.java`
-#### Snippet
-```java
-
-    @Override
-    public RegularFile getExecutablePath() {
-        return JavaInstallationMetadataUtils.findExecutable(javaInstallationMetadata, "javadoc");
-    }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NonNullApi
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversions/BaselineJavadocTool.java`
-#### Snippet
-```java
-
-    @Override
-    public JavaInstallationMetadata getMetadata() {
-        return javaInstallationMetadata;
-    }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NonNullApi
 in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversions/BaselineJavaLauncher.java`
 #### Snippet
 ```java
@@ -1418,13 +1394,25 @@ in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversi
 
 ### NullableProblems
 Not annotated method overrides method annotated with @NonNullApi
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversions/JavaInstallationMetadataWrapper.java`
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversions/BaselineJavadocTool.java`
 #### Snippet
 ```java
 
     @Override
-    public String getJavaRuntimeVersion() {
-        return delegate.get().getJavaRuntimeVersion();
+    public JavaInstallationMetadata getMetadata() {
+        return javaInstallationMetadata;
+    }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NonNullApi
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversions/BaselineJavadocTool.java`
+#### Snippet
+```java
+
+    @Override
+    public RegularFile getExecutablePath() {
+        return JavaInstallationMetadataUtils.findExecutable(javaInstallationMetadata, "javadoc");
     }
 ```
 
@@ -1447,8 +1435,8 @@ in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversi
 ```java
 
     @Override
-    public String getJvmVersion() {
-        return delegate.get().getJvmVersion();
+    public String getJavaRuntimeVersion() {
+        return delegate.get().getJavaRuntimeVersion();
     }
 ```
 
@@ -1461,6 +1449,18 @@ in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversi
     @Override
     public Directory getInstallationPath() {
         return delegate.get().getInstallationPath();
+    }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NonNullApi
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversions/JavaInstallationMetadataWrapper.java`
+#### Snippet
+```java
+
+    @Override
+    public String getJvmVersion() {
+        return delegate.get().getJvmVersion();
     }
 ```
 
@@ -1493,11 +1493,11 @@ Not annotated parameter overrides @NonNullApi parameter
 in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineModuleJvmArgs.java`
 #### Snippet
 ```java
-
-                @Override
-                public void execute(Test test) {
-                    test.getJvmArgumentProviders().add(new CommandLineArgumentProvider() {
-
+                    jar.doFirst(new Action<Task>() {
+                        @Override
+                        public void execute(Task task) {
+                            jar.manifest(new Action<Manifest>() {
+                                @Override
 ```
 
 ### NullableProblems
@@ -1517,11 +1517,11 @@ Not annotated parameter overrides @NonNullApi parameter
 in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineModuleJvmArgs.java`
 #### Snippet
 ```java
-            project.getTasks().withType(Jar.class).configureEach(new Action<Jar>() {
-                @Override
-                public void execute(Jar jar) {
-                    jar.doFirst(new Action<Task>() {
-                        @Override
+                            jar.manifest(new Action<Manifest>() {
+                                @Override
+                                public void execute(Manifest manifest) {
+                                    addManifestAttribute(jar, manifest, ADD_EXPORTS_ATTRIBUTE, extension.exports());
+                                    addManifestAttribute(jar, manifest, ADD_OPENS_ATTRIBUTE, extension.opens());
 ```
 
 ### NullableProblems
@@ -1529,11 +1529,23 @@ Not annotated parameter overrides @NonNullApi parameter
 in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineModuleJvmArgs.java`
 #### Snippet
 ```java
+
+                @Override
+                public void execute(Test test) {
+                    test.getJvmArgumentProviders().add(new CommandLineArgumentProvider() {
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNullApi parameter
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineModuleJvmArgs.java`
+#### Snippet
+```java
+            project.getTasks().withType(Jar.class).configureEach(new Action<Jar>() {
+                @Override
+                public void execute(Jar jar) {
                     jar.doFirst(new Action<Task>() {
                         @Override
-                        public void execute(Task task) {
-                            jar.manifest(new Action<Manifest>() {
-                                @Override
 ```
 
 ### NullableProblems
@@ -1550,74 +1562,134 @@ in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineM
 
 ### NullableProblems
 Not annotated parameter overrides @NonNullApi parameter
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineModuleJvmArgs.java`
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversions/BaselineJavaVersion.java`
 #### Snippet
 ```java
-                            jar.manifest(new Action<Manifest>() {
-                                @Override
-                                public void execute(Manifest manifest) {
-                                    addManifestAttribute(jar, manifest, ADD_EXPORTS_ATTRIBUTE, extension.exports());
-                                    addManifestAttribute(jar, manifest, ADD_OPENS_ATTRIBUTE, extension.opens());
+                scalaCompileTask.doFirst(new Action<Task>() {
+                    @Override
+                    public void execute(Task task) {
+                        ((ScalaCompile) task)
+                                .setSourceCompatibility(
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNullApi parameter
-in `gradle-junit-reports/src/main/java/com/palantir/gradle/junit/BuildFinishedAction.java`
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversions/BaselineJavaVersion.java`
 #### Snippet
 ```java
-    @Override
-    @SuppressWarnings("StrictUnusedVariable")
-    public void execute(BuildResult result) {
-        Report report = new Report.Builder()
-                .name("gradle")
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNullApi parameter
-in `gradle-junit-reports/src/main/java/com/palantir/gradle/junit/XmlReportFailuresSupplier.java`
-#### Snippet
-```java
-        task.getProject().afterEvaluate(new Action<Project>() {
+        project.getTasks().withType(ScalaDoc.class).configureEach(new Action<ScalaDoc>() {
             @Override
-            public void execute(Project _project) {
-                reportHandler.configureTask(task);
+            public void execute(ScalaDoc scalaDoc) {
+                scalaDoc.getJavaLauncher().set(javaToolchain.flatMap(BaselineJavaToolchain::javaLauncher));
             }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNullApi parameter
-in `gradle-junit-reports/src/main/java/com/palantir/gradle/junit/BuildFailureListener.java`
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversions/BaselineJavaVersion.java`
 #### Snippet
 ```java
-
-    @Override
-    public void beforeExecute(Task _task) {}
-
-    @Override
+                javadocTask.doFirst(new Action<Task>() {
+                    @Override
+                    public void execute(Task task) {
+                        CoreJavadocOptions options = (CoreJavadocOptions) ((Javadoc) task).getOptions();
+                        if (target.get().enablePreview()) {
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNullApi parameter
-in `gradle-junit-reports/src/main/java/com/palantir/gradle/junit/BuildFailureListener.java`
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversions/BaselineJavaVersion.java`
 #### Snippet
 ```java
-
-    @Override
-    public synchronized void afterExecute(Task task, TaskState state) {
-        if (!isTracked.test(task)) {
-            Report.TestCase.Builder testCase =
+                    .register("checkJavaVersions", CheckJavaVersionsTask.class, new Action<CheckJavaVersionsTask>() {
+                        @Override
+                        public void execute(CheckJavaVersionsTask task) {
+                            task.getTargetVersion().set(extension.target());
+                            task.getRuntimeVersion().set(extension.runtime());
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNullApi parameter
-in `gradle-junit-reports/src/main/java/com/palantir/gradle/junit/BuildFailureListener.java`
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversions/BaselineJavaVersion.java`
 #### Snippet
 ```java
+            project.getTasks().withType(Checkstyle.class).configureEach(new Action<Checkstyle>() {
+                @Override
+                public void execute(Checkstyle checkstyle) {
+                    checkstyle.getJavaLauncher().set(javaToolchain.flatMap(BaselineJavaToolchain::javaLauncher));
+                }
+```
 
-    @Override
-    public synchronized void afterExecute(Task task, TaskState state) {
-        if (!isTracked.test(task)) {
-            Report.TestCase.Builder testCase =
+### NullableProblems
+Not annotated parameter overrides @NonNullApi parameter
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversions/BaselineJavaVersion.java`
+#### Snippet
+```java
+                javaCompileTask.doFirst(new Action<Task>() {
+                    @Override
+                    public void execute(Task task) {
+                        ((JavaCompile) task)
+                                .setSourceCompatibility(
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNullApi parameter
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversions/BaselineJavaVersion.java`
+#### Snippet
+```java
+        project.getTasks().withType(JavaExec.class).configureEach(new Action<JavaExec>() {
+            @Override
+            public void execute(JavaExec javaExec) {
+                javaExec.getJavaLauncher().set(javaToolchain.flatMap(BaselineJavaToolchain::javaLauncher));
+                javaExec.getJvmArgumentProviders().add(new EnablePreviewArgumentProvider(runtime));
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNullApi parameter
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversions/BaselineJavaVersion.java`
+#### Snippet
+```java
+        project.getTasks().withType(GroovyCompile.class).configureEach(new Action<GroovyCompile>() {
+            @Override
+            public void execute(GroovyCompile groovyCompileTask) {
+                groovyCompileTask.getJavaLauncher().set(javaToolchain.flatMap(BaselineJavaToolchain::javaLauncher));
+                groovyCompileTask
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNullApi parameter
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversions/BaselineJavaVersion.java`
+#### Snippet
+```java
+            javaPluginExtension.toolchain(new Action<JavaToolchainSpec>() {
+                @Override
+                public void execute(JavaToolchainSpec javaToolchainSpec) {
+                    javaToolchainSpec
+                            .getLanguageVersion()
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNullApi parameter
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversions/BaselineJavaVersion.java`
+#### Snippet
+```java
+        project.getTasks().withType(ScalaCompile.class).configureEach(new Action<ScalaCompile>() {
+            @Override
+            public void execute(ScalaCompile scalaCompileTask) {
+                scalaCompileTask.getJavaLauncher().set(javaToolchain.flatMap(BaselineJavaToolchain::javaLauncher));
+                scalaCompileTask
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNullApi parameter
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversions/BaselineJavaVersion.java`
+#### Snippet
+```java
+                groovyCompileTask.doFirst(new Action<Task>() {
+                    @Override
+                    public void execute(Task task) {
+                        ((GroovyCompile) task)
+                                .setSourceCompatibility(
 ```
 
 ### NullableProblems
@@ -1649,90 +1721,6 @@ Not annotated parameter overrides @NonNullApi parameter
 in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversions/BaselineJavaVersion.java`
 #### Snippet
 ```java
-                scalaCompileTask.doFirst(new Action<Task>() {
-                    @Override
-                    public void execute(Task task) {
-                        ((ScalaCompile) task)
-                                .setSourceCompatibility(
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNullApi parameter
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversions/BaselineJavaVersion.java`
-#### Snippet
-```java
-                javadocTask.doFirst(new Action<Task>() {
-                    @Override
-                    public void execute(Task task) {
-                        CoreJavadocOptions options = (CoreJavadocOptions) ((Javadoc) task).getOptions();
-                        if (target.get().enablePreview()) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNullApi parameter
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversions/BaselineJavaVersion.java`
-#### Snippet
-```java
-        project.getTasks().withType(ScalaCompile.class).configureEach(new Action<ScalaCompile>() {
-            @Override
-            public void execute(ScalaCompile scalaCompileTask) {
-                scalaCompileTask.getJavaLauncher().set(javaToolchain.flatMap(BaselineJavaToolchain::javaLauncher));
-                scalaCompileTask
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNullApi parameter
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversions/BaselineJavaVersion.java`
-#### Snippet
-```java
-            javaPluginExtension.toolchain(new Action<JavaToolchainSpec>() {
-                @Override
-                public void execute(JavaToolchainSpec javaToolchainSpec) {
-                    javaToolchainSpec
-                            .getLanguageVersion()
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNullApi parameter
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversions/BaselineJavaVersion.java`
-#### Snippet
-```java
-            project.getTasks().withType(Checkstyle.class).configureEach(new Action<Checkstyle>() {
-                @Override
-                public void execute(Checkstyle checkstyle) {
-                    checkstyle.getJavaLauncher().set(javaToolchain.flatMap(BaselineJavaToolchain::javaLauncher));
-                }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNullApi parameter
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversions/BaselineJavaVersion.java`
-#### Snippet
-```java
-        project.getTasks().withType(JavaExec.class).configureEach(new Action<JavaExec>() {
-            @Override
-            public void execute(JavaExec javaExec) {
-                javaExec.getJavaLauncher().set(javaToolchain.flatMap(BaselineJavaToolchain::javaLauncher));
-                javaExec.getJvmArgumentProviders().add(new EnablePreviewArgumentProvider(runtime));
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNullApi parameter
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversions/BaselineJavaVersion.java`
-#### Snippet
-```java
-                    .register("checkJavaVersions", CheckJavaVersionsTask.class, new Action<CheckJavaVersionsTask>() {
-                        @Override
-                        public void execute(CheckJavaVersionsTask task) {
-                            task.getTargetVersion().set(extension.target());
-                            task.getRuntimeVersion().set(extension.runtime());
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNullApi parameter
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversions/BaselineJavaVersion.java`
-#### Snippet
-```java
         project.getTasks().withType(Javadoc.class).configureEach(new Action<Javadoc>() {
             @Override
             public void execute(Javadoc javadocTask) {
@@ -1742,50 +1730,62 @@ in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversi
 
 ### NullableProblems
 Not annotated parameter overrides @NonNullApi parameter
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversions/BaselineJavaVersion.java`
+in `gradle-junit-reports/src/main/java/com/palantir/gradle/junit/XmlReportFailuresSupplier.java`
 #### Snippet
 ```java
-                groovyCompileTask.doFirst(new Action<Task>() {
-                    @Override
-                    public void execute(Task task) {
-                        ((GroovyCompile) task)
-                                .setSourceCompatibility(
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNullApi parameter
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversions/BaselineJavaVersion.java`
-#### Snippet
-```java
-                javaCompileTask.doFirst(new Action<Task>() {
-                    @Override
-                    public void execute(Task task) {
-                        ((JavaCompile) task)
-                                .setSourceCompatibility(
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNullApi parameter
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversions/BaselineJavaVersion.java`
-#### Snippet
-```java
-        project.getTasks().withType(ScalaDoc.class).configureEach(new Action<ScalaDoc>() {
+        task.getProject().afterEvaluate(new Action<Project>() {
             @Override
-            public void execute(ScalaDoc scalaDoc) {
-                scalaDoc.getJavaLauncher().set(javaToolchain.flatMap(BaselineJavaToolchain::javaLauncher));
+            public void execute(Project _project) {
+                reportHandler.configureTask(task);
             }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNullApi parameter
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversions/BaselineJavaVersion.java`
+in `gradle-junit-reports/src/main/java/com/palantir/gradle/junit/BuildFinishedAction.java`
 #### Snippet
 ```java
-        project.getTasks().withType(GroovyCompile.class).configureEach(new Action<GroovyCompile>() {
-            @Override
-            public void execute(GroovyCompile groovyCompileTask) {
-                groovyCompileTask.getJavaLauncher().set(javaToolchain.flatMap(BaselineJavaToolchain::javaLauncher));
-                groovyCompileTask
+    @Override
+    @SuppressWarnings("StrictUnusedVariable")
+    public void execute(BuildResult result) {
+        Report report = new Report.Builder()
+                .name("gradle")
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNullApi parameter
+in `gradle-junit-reports/src/main/java/com/palantir/gradle/junit/BuildFailureListener.java`
+#### Snippet
+```java
+
+    @Override
+    public synchronized void afterExecute(Task task, TaskState state) {
+        if (!isTracked.test(task)) {
+            Report.TestCase.Builder testCase =
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNullApi parameter
+in `gradle-junit-reports/src/main/java/com/palantir/gradle/junit/BuildFailureListener.java`
+#### Snippet
+```java
+
+    @Override
+    public synchronized void afterExecute(Task task, TaskState state) {
+        if (!isTracked.test(task)) {
+            Report.TestCase.Builder testCase =
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNullApi parameter
+in `gradle-junit-reports/src/main/java/com/palantir/gradle/junit/BuildFailureListener.java`
+#### Snippet
+```java
+
+    @Override
+    public void beforeExecute(Task _task) {}
+
+    @Override
 ```
 
 ### NullableProblems
@@ -1904,11 +1904,11 @@ in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/ZeroWarm
 in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/ImmutablesBuilderMissingInitialization.java`
 #### Snippet
 ```java
-                .map(type -> type.tsym)
-                .map(filterByType(ClassSymbol.class))
+        return Streams.stream(builderClass.members().getSymbols())
+                .map(filterByType(MethodSymbol.class))
                 .flatMap(Streams::stream)
-                .filter(classSymbol ->
-                        ASTHelpers.hasAnnotation(classSymbol, "org.immutables.value.Value.Immutable", state))
+                .filter(symbol -> !symbol.isStaticOrInstanceInit()
+                        && !symbol.isConstructor()
 ```
 
 ### UnstableApiUsage
@@ -1916,11 +1916,11 @@ in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/Immutabl
 in `baseline-error-prone/src/main/java/com/palantir/baseline/errorprone/ImmutablesBuilderMissingInitialization.java`
 #### Snippet
 ```java
-        return Streams.stream(builderClass.members().getSymbols())
-                .map(filterByType(MethodSymbol.class))
+                .map(type -> type.tsym)
+                .map(filterByType(ClassSymbol.class))
                 .flatMap(Streams::stream)
-                .filter(symbol -> !symbol.isStaticOrInstanceInit()
-                        && !symbol.isConstructor()
+                .filter(classSymbol ->
+                        ASTHelpers.hasAnnotation(classSymbol, "org.immutables.value.Value.Immutable", state))
 ```
 
 ### UnstableApiUsage
@@ -1952,6 +1952,18 @@ in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/util/VersionUtils
 in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/tasks/CheckUnusedDependenciesTask.java`
 #### Snippet
 ```java
+        excludeSourceOnlyDependencies();
+
+        Set<ResolvedArtifact> necessaryArtifacts = Streams.stream(
+                        sourceClasses.get().iterator())
+                .flatMap(BaselineExactDependencies::referencedClasses)
+```
+
+### UnstableApiUsage
+'stream(java.util.Iterator)' is marked unstable with @Beta
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/tasks/CheckUnusedDependenciesTask.java`
+#### Snippet
+```java
     /** All classes which are mentioned in this project's source code. */
     private Set<String> referencedClasses() {
         return Streams.stream(sourceClasses.get().iterator())
@@ -1961,14 +1973,14 @@ in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/tasks/CheckUnused
 
 ### UnstableApiUsage
 'stream(java.util.Iterator)' is marked unstable with @Beta
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/tasks/CheckUnusedDependenciesTask.java`
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/tasks/CheckImplicitDependenciesTask.java`
 #### Snippet
 ```java
-        excludeSourceOnlyDependencies();
-
-        Set<ResolvedArtifact> necessaryArtifacts = Streams.stream(
-                        sourceClasses.get().iterator())
+    /** All classes which are mentioned in this project's source code. */
+    private Set<String> referencedClasses() {
+        return Streams.stream(sourceClasses.get().iterator())
                 .flatMap(BaselineExactDependencies::referencedClasses)
+                .collect(Collectors.toSet());
 ```
 
 ### UnstableApiUsage
@@ -1981,18 +1993,6 @@ in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/tasks/CheckImplic
                 .flatMap(Streams::stream)
                 .sorted(ARTIFACT_COMPARATOR)
                 .collect(Collectors.toList());
-```
-
-### UnstableApiUsage
-'stream(java.util.Iterator)' is marked unstable with @Beta
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/tasks/CheckImplicitDependenciesTask.java`
-#### Snippet
-```java
-    /** All classes which are mentioned in this project's source code. */
-    private Set<String> referencedClasses() {
-        return Streams.stream(sourceClasses.get().iterator())
-                .flatMap(BaselineExactDependencies::referencedClasses)
-                .collect(Collectors.toSet());
 ```
 
 ### UnstableApiUsage
@@ -2116,15 +2116,15 @@ in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/services/JarClass
 ```
 
 ### UnstableApiUsage
-'isConfigureOnDemand()' is marked unstable with @Incubating
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineExactDependencies.java`
+'getJavaLauncher()' is marked unstable with @Incubating
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversions/BaselineJavaVersion.java`
 #### Snippet
 ```java
-                .beforeResolve(ir -> Preconditions.checkState(
-                        projectsEvaluated.get()
-                                || (project.getGradle().getStartParameter().isConfigureOnDemand()
-                                        && project.getState().getExecuted()),
-                        "Tried to resolve %s too early.",
+            @Override
+            public void execute(ScalaDoc scalaDoc) {
+                scalaDoc.getJavaLauncher().set(javaToolchain.flatMap(BaselineJavaToolchain::javaLauncher));
+            }
+        });
 ```
 
 ### UnstableApiUsage
@@ -2144,23 +2144,23 @@ in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversi
 in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversions/BaselineJavaVersion.java`
 #### Snippet
 ```java
-            @Override
-            public void execute(ScalaDoc scalaDoc) {
-                scalaDoc.getJavaLauncher().set(javaToolchain.flatMap(BaselineJavaToolchain::javaLauncher));
-            }
-        });
-```
-
-### UnstableApiUsage
-'getJavaLauncher()' is marked unstable with @Incubating
-in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/javaversions/BaselineJavaVersion.java`
-#### Snippet
-```java
                 @Override
                 public void execute(Checkstyle checkstyle) {
                     checkstyle.getJavaLauncher().set(javaToolchain.flatMap(BaselineJavaToolchain::javaLauncher));
                 }
             });
+```
+
+### UnstableApiUsage
+'isConfigureOnDemand()' is marked unstable with @Incubating
+in `gradle-baseline-java/src/main/groovy/com/palantir/baseline/plugins/BaselineExactDependencies.java`
+#### Snippet
+```java
+                .beforeResolve(ir -> Preconditions.checkState(
+                        projectsEvaluated.get()
+                                || (project.getGradle().getStartParameter().isConfigureOnDemand()
+                                        && project.getState().getExecuted()),
+                        "Tried to resolve %s too early.",
 ```
 
 ## RuleId[id=IgnoreResultOfCall]
