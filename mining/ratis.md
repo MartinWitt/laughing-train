@@ -239,6 +239,18 @@ in `ratis-server/src/main/java/org/apache/ratis/server/impl/PeerConfiguration.ja
 #### Snippet
 ```java
   /**
+   * Peers are voting members such as LEADER, CANDIDATE and FOLLOWER
+   * @see org.apache.ratis.proto.RaftProtos.RaftPeerRole
+   */
+  private final Map<RaftPeerId, RaftPeer> peers;
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.ratis.proto.RaftProtos.RaftPeerRole`
+in `ratis-server/src/main/java/org/apache/ratis/server/impl/PeerConfiguration.java`
+#### Snippet
+```java
+  /**
    * Listeners are non-voting members.
    * @see org.apache.ratis.proto.RaftProtos.RaftPeerRole#LISTENER
    */
@@ -255,18 +267,6 @@ in `ratis-server/src/main/java/org/apache/ratis/server/impl/PeerConfiguration.ja
    * @see org.apache.ratis.proto.RaftProtos.RaftPeerRole#LISTENER
    */
   private final Map<RaftPeerId, RaftPeer> listeners;
-```
-
-### JavadocReference
-Cannot resolve symbol `org.apache.ratis.proto.RaftProtos.RaftPeerRole`
-in `ratis-server/src/main/java/org/apache/ratis/server/impl/PeerConfiguration.java`
-#### Snippet
-```java
-  /**
-   * Peers are voting members such as LEADER, CANDIDATE and FOLLOWER
-   * @see org.apache.ratis.proto.RaftProtos.RaftPeerRole
-   */
-  private final Map<RaftPeerId, RaftPeer> peers;
 ```
 
 ### JavadocReference
@@ -318,6 +318,18 @@ public interface RaftConfiguration {
 ```
 
 ### JavadocReference
+Cannot resolve symbol `AppendEntriesRequestProto`
+in `ratis-server-api/src/main/java/org/apache/ratis/server/leader/LeaderState.java`
+#### Snippet
+```java
+  void restart(LogAppender appender);
+
+  /** @return a new {@link AppendEntriesRequestProto} object. */
+  AppendEntriesRequestProto newAppendEntriesRequestProto(FollowerInfo follower,
+      List<LogEntryProto> entries, TermIndex previous, long callId);
+```
+
+### JavadocReference
 Cannot resolve symbol `AppendEntriesReplyProto`
 in `ratis-server-api/src/main/java/org/apache/ratis/server/leader/LeaderState.java`
 #### Snippet
@@ -330,15 +342,39 @@ in `ratis-server-api/src/main/java/org/apache/ratis/server/leader/LeaderState.ja
 ```
 
 ### JavadocReference
-Cannot resolve symbol `AppendEntriesRequestProto`
-in `ratis-server-api/src/main/java/org/apache/ratis/server/leader/LeaderState.java`
+Cannot resolve symbol `InstallSnapshotRequestProto`
+in `ratis-server-api/src/main/java/org/apache/ratis/server/leader/LogAppender.java`
 #### Snippet
 ```java
-  void restart(LogAppender appender);
+  InstallSnapshotRequestProto newInstallSnapshotNotificationRequest(TermIndex firstAvailableLogTermIndex);
 
-  /** @return a new {@link AppendEntriesRequestProto} object. */
-  AppendEntriesRequestProto newAppendEntriesRequestProto(FollowerInfo follower,
-      List<LogEntryProto> entries, TermIndex previous, long callId);
+  /** @return an {@link Iterable} of {@link InstallSnapshotRequestProto} for sending the given snapshot. */
+  Iterable<InstallSnapshotRequestProto> newInstallSnapshotRequests(String requestId, SnapshotInfo snapshot);
+
+```
+
+### JavadocReference
+Cannot resolve symbol `AppendEntriesRequestProto`
+in `ratis-server-api/src/main/java/org/apache/ratis/server/leader/LogAppender.java`
+#### Snippet
+```java
+  }
+
+  /** @return the call id for the next {@link AppendEntriesRequestProto}. */
+  long getCallId();
+
+```
+
+### JavadocReference
+Cannot resolve symbol `InstallSnapshotRequestProto`
+in `ratis-server-api/src/main/java/org/apache/ratis/server/leader/LogAppender.java`
+#### Snippet
+```java
+  AppendEntriesRequestProto newAppendEntriesRequest(long callId, boolean heartbeat) throws RaftLogIOException;
+
+  /** @return a new {@link InstallSnapshotRequestProto} object. */
+  InstallSnapshotRequestProto newInstallSnapshotNotificationRequest(TermIndex firstAvailableLogTermIndex);
+
 ```
 
 ### JavadocReference
@@ -387,42 +423,6 @@ in `ratis-server-api/src/main/java/org/apache/ratis/server/leader/LogAppender.ja
    * @return a new {@link AppendEntriesRequestProto} object.
    */
   AppendEntriesRequestProto newAppendEntriesRequest(long callId, boolean heartbeat) throws RaftLogIOException;
-```
-
-### JavadocReference
-Cannot resolve symbol `InstallSnapshotRequestProto`
-in `ratis-server-api/src/main/java/org/apache/ratis/server/leader/LogAppender.java`
-#### Snippet
-```java
-  InstallSnapshotRequestProto newInstallSnapshotNotificationRequest(TermIndex firstAvailableLogTermIndex);
-
-  /** @return an {@link Iterable} of {@link InstallSnapshotRequestProto} for sending the given snapshot. */
-  Iterable<InstallSnapshotRequestProto> newInstallSnapshotRequests(String requestId, SnapshotInfo snapshot);
-
-```
-
-### JavadocReference
-Cannot resolve symbol `InstallSnapshotRequestProto`
-in `ratis-server-api/src/main/java/org/apache/ratis/server/leader/LogAppender.java`
-#### Snippet
-```java
-  AppendEntriesRequestProto newAppendEntriesRequest(long callId, boolean heartbeat) throws RaftLogIOException;
-
-  /** @return a new {@link InstallSnapshotRequestProto} object. */
-  InstallSnapshotRequestProto newInstallSnapshotNotificationRequest(TermIndex firstAvailableLogTermIndex);
-
-```
-
-### JavadocReference
-Cannot resolve symbol `AppendEntriesRequestProto`
-in `ratis-server-api/src/main/java/org/apache/ratis/server/leader/LogAppender.java`
-#### Snippet
-```java
-  }
-
-  /** @return the call id for the next {@link AppendEntriesRequestProto}. */
-  long getCallId();
-
 ```
 
 ### JavadocReference
@@ -618,27 +618,15 @@ in `ratis-server-api/src/main/java/org/apache/ratis/statemachine/TransactionCont
 ```
 
 ### JavadocReference
-Cannot resolve symbol `RaftConfigurationProto`
+Cannot resolve symbol `RoleInfoProto`
 in `ratis-server-api/src/main/java/org/apache/ratis/statemachine/StateMachine.java`
 #### Snippet
 ```java
-    /**
-     * Notify the {@link StateMachine} a configuration change.
-     * This method will be invoked when a {@link RaftConfigurationProto} is processed.
-     *
-     * @param term term of the current log entry
-```
+    default void notifyFollowerSlowness(RoleInfoProto leaderInfo, RaftPeer slowFollower) {}
 
-### JavadocReference
-Cannot resolve symbol `LogEntryProto`
-in `ratis-server-api/src/main/java/org/apache/ratis/statemachine/StateMachine.java`
-#### Snippet
-```java
-     *
-     * When there is an error, this method is invoked to clean up the associated resources.
-     * If this stream is not yet linked (see {@link DataApi#link(DataStream, LogEntryProto)}),
-     * the state machine may choose to remove the data or to keep the data internally for future recovery.
-     * If this stream is already linked, the data must not be removed.
+    /** @deprecated Use {@link #notifyFollowerSlowness(RoleInfoProto, RaftPeer)}. */
+    @Deprecated
+    default void notifyFollowerSlowness(RoleInfoProto leaderInfo) {}
 ```
 
 ### JavadocReference
@@ -678,6 +666,30 @@ in `ratis-server-api/src/main/java/org/apache/ratis/statemachine/StateMachine.ja
 ```
 
 ### JavadocReference
+Cannot resolve symbol `RaftConfigurationProto`
+in `ratis-server-api/src/main/java/org/apache/ratis/statemachine/StateMachine.java`
+#### Snippet
+```java
+    /**
+     * Notify the {@link StateMachine} a configuration change.
+     * This method will be invoked when a {@link RaftConfigurationProto} is processed.
+     *
+     * @param term term of the current log entry
+```
+
+### JavadocReference
+Cannot resolve symbol `LogEntryProto`
+in `ratis-server-api/src/main/java/org/apache/ratis/statemachine/StateMachine.java`
+#### Snippet
+```java
+     *
+     * When there is an error, this method is invoked to clean up the associated resources.
+     * If this stream is not yet linked (see {@link DataApi#link(DataStream, LogEntryProto)}),
+     * the state machine may choose to remove the data or to keep the data internally for future recovery.
+     * If this stream is already linked, the data must not be removed.
+```
+
+### JavadocReference
 Cannot resolve symbol `InstallSnapshotResult`
 in `ratis-server-api/src/main/java/org/apache/ratis/statemachine/StateMachine.java`
 #### Snippet
@@ -699,18 +711,6 @@ in `ratis-server-api/src/main/java/org/apache/ratis/statemachine/StateMachine.ja
    * prepare a {@link StateMachineLogEntryProto},
    * and then build a {@link TransactionContext}.
    * The implementation should also be light-weighted.
-```
-
-### JavadocReference
-Cannot resolve symbol `RoleInfoProto`
-in `ratis-server-api/src/main/java/org/apache/ratis/statemachine/StateMachine.java`
-#### Snippet
-```java
-    default void notifyFollowerSlowness(RoleInfoProto leaderInfo, RaftPeer slowFollower) {}
-
-    /** @deprecated Use {@link #notifyFollowerSlowness(RoleInfoProto, RaftPeer)}. */
-    @Deprecated
-    default void notifyFollowerSlowness(RoleInfoProto leaderInfo) {}
 ```
 
 ## RuleId[id=UnnecessarySemicolon]
@@ -740,18 +740,6 @@ in `ratis-grpc/src/main/java/org/apache/ratis/grpc/metrics/intercept/client/Metr
 ```
 
 ### DataFlowIssue
-Method invocation `get` may produce `NullPointerException`
-in `ratis-grpc/src/main/java/org/apache/ratis/grpc/GrpcUtil.java`
-#### Snippet
-```java
-    if (t instanceof StatusRuntimeException) {
-      final Metadata trailers = ((StatusRuntimeException)t).getTrailers();
-      String callId = trailers.get(CALL_ID);
-      return callId != null ? Integer.parseInt(callId) : -1;
-    }
-```
-
-### DataFlowIssue
 Method invocation `length` may produce `NullPointerException`
 in `ratis-grpc/src/main/java/org/apache/ratis/grpc/metrics/intercept/server/MetricServerInterceptor.java`
 #### Snippet
@@ -761,6 +749,18 @@ in `ratis-grpc/src/main/java/org/apache/ratis/grpc/metrics/intercept/server/Metr
     String methodName = method.getFullMethodName().substring(serviceName.length() + 1);
     return identifier + "_" + serviceName + "_" + methodName;
   }
+```
+
+### DataFlowIssue
+Method invocation `get` may produce `NullPointerException`
+in `ratis-grpc/src/main/java/org/apache/ratis/grpc/GrpcUtil.java`
+#### Snippet
+```java
+    if (t instanceof StatusRuntimeException) {
+      final Metadata trailers = ((StatusRuntimeException)t).getTrailers();
+      String callId = trailers.get(CALL_ID);
+      return callId != null ? Integer.parseInt(callId) : -1;
+    }
 ```
 
 ### DataFlowIssue
@@ -864,14 +864,14 @@ in `ratis-client/src/main/java/org/apache/ratis/client/impl/RaftClientImpl.java`
 
 ### PlaceholderCountMatchesArgumentCount
 Fewer arguments provided (2) than placeholders specified (3)
-in `ratis-server/src/main/java/org/apache/ratis/server/leader/LogAppenderBase.java`
+in `ratis-server/src/main/java/org/apache/ratis/server/leader/LogAppenderDefault.java`
 #### Snippet
 ```java
-
-    final List<LogEntryProto> protos = buffer.pollList(getHeartbeatWaitTimeMs(), EntryWithData::getEntry,
-        (entry, time, exception) -> LOG.warn("Failed to get {} in {}: {}", entry, time, exception));
-    buffer.clear();
-    assertProtos(protos, followerNext, previous, snapshotIndex);
+        // TODO should have more detailed retry policy here.
+        if (retry++ % 10 == 0) { // to reduce the number of messages
+          LOG.warn("{}: Failed to appendEntries (retry={}): {}", this, retry++, ioe);
+        }
+        handleException(ioe);
 ```
 
 ### PlaceholderCountMatchesArgumentCount
@@ -888,14 +888,14 @@ in `ratis-server/src/main/java/org/apache/ratis/server/leader/LogAppenderDefault
 
 ### PlaceholderCountMatchesArgumentCount
 Fewer arguments provided (2) than placeholders specified (3)
-in `ratis-server/src/main/java/org/apache/ratis/server/leader/LogAppenderDefault.java`
+in `ratis-server/src/main/java/org/apache/ratis/server/leader/LogAppenderBase.java`
 #### Snippet
 ```java
-        // TODO should have more detailed retry policy here.
-        if (retry++ % 10 == 0) { // to reduce the number of messages
-          LOG.warn("{}: Failed to appendEntries (retry={}): {}", this, retry++, ioe);
-        }
-        handleException(ioe);
+
+    final List<LogEntryProto> protos = buffer.pollList(getHeartbeatWaitTimeMs(), EntryWithData::getEntry,
+        (entry, time, exception) -> LOG.warn("Failed to get {} in {}: {}", entry, time, exception));
+    buffer.clear();
+    assertProtos(protos, followerNext, previous, snapshotIndex);
 ```
 
 ## RuleId[id=DeprecatedIsStillUsed]
@@ -1034,18 +1034,6 @@ in `ratis-server/src/main/java/org/apache/ratis/server/impl/WatchRequests.java`
 
 ### ForLoopReplaceableByWhile
 `for` loop statement may be replace by 'while' loop
-in `ratis-server/src/main/java/org/apache/ratis/server/storage/StorageImplUtils.java`
-#### Snippet
-```java
-      }
-
-      for (; !dirsPerVol.isEmpty(); ) {
-        final File vol = chooseMin(dirsPerVol);
-        final File dir = new File(vol, storageDirName);
-```
-
-### ForLoopReplaceableByWhile
-`for` loop statement may be replace by 'while' loop
 in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/SegmentedRaftLogCache.java`
 #### Snippet
 ```java
@@ -1054,6 +1042,18 @@ in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/Segment
           for(; i.hasNext(); ) {
             failClientRequest.accept(i.next());
           }
+```
+
+### ForLoopReplaceableByWhile
+`for` loop statement may be replace by 'while' loop
+in `ratis-server/src/main/java/org/apache/ratis/server/storage/StorageImplUtils.java`
+#### Snippet
+```java
+      }
+
+      for (; !dirsPerVol.isEmpty(); ) {
+        final File vol = chooseMin(dirsPerVol);
+        final File dir = new File(vol, storageDirName);
 ```
 
 ### ForLoopReplaceableByWhile
@@ -1082,18 +1082,6 @@ in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/Server.
 
 ### ForLoopReplaceableByWhile
 `for` loop statement may be replace by 'while' loop
-in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/SegmentedRaftLogWorker.java`
-#### Snippet
-```java
-    LOG.debug("{} adds IO task {}", name, task);
-    try(UncheckedAutoCloseable ignored = raftLogMetrics.startQueuingDelayTimer()) {
-      for(; !queue.offer(task, ONE_SECOND); ) {
-        Preconditions.assertTrue(isAlive(),
-            "the worker thread is not alive");
-```
-
-### ForLoopReplaceableByWhile
-`for` loop statement may be replace by 'while' loop
 in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/FileInfo.java`
 #### Snippet
 ```java
@@ -1114,6 +1102,18 @@ in `ratis-examples/src/main/java/org/apache/ratis/examples/arithmetic/cli/Server
     for(; raftServer.getLifeCycleState() != LifeCycle.State.CLOSED;) {
       TimeUnit.SECONDS.sleep(1);
     }
+```
+
+### ForLoopReplaceableByWhile
+`for` loop statement may be replace by 'while' loop
+in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/SegmentedRaftLogWorker.java`
+#### Snippet
+```java
+    LOG.debug("{} adds IO task {}", name, task);
+    try(UncheckedAutoCloseable ignored = raftLogMetrics.startQueuingDelayTimer()) {
+      for(; !queue.offer(task, ONE_SECOND); ) {
+        Preconditions.assertTrue(isAlive(),
+            "the worker thread is not alive");
 ```
 
 ## RuleId[id=SwitchStatementWithTooFewBranches]
@@ -1395,18 +1395,6 @@ in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerProxy.java
 in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerImpl.java`
 #### Snippet
 ```java
-        } catch (NoSuchFileException e) {
-          LOG.warn("{}: Some file does not exist {}", getMemberId(), dir, e);
-        } catch (Exception ignored) {
-          LOG.error("{}: Failed to remove RaftStorageDirectory {}", getMemberId(), dir, ignored);
-          break;
-```
-
-### CatchMayIgnoreException
-'catch' parameter named `ignored` is used
-in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerImpl.java`
-#### Snippet
-```java
       try {
         jmxAdapter.unregister();
       } catch (Exception ignored) {
@@ -1510,6 +1498,18 @@ in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerImpl.java`
       }
 ```
 
+### CatchMayIgnoreException
+'catch' parameter named `ignored` is used
+in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerImpl.java`
+#### Snippet
+```java
+        } catch (NoSuchFileException e) {
+          LOG.warn("{}: Some file does not exist {}", getMemberId(), dir, e);
+        } catch (Exception ignored) {
+          LOG.error("{}: Failed to remove RaftStorageDirectory {}", getMemberId(), dir, ignored);
+          break;
+```
+
 ## RuleId[id=MismatchedJavadocCode]
 ### MismatchedJavadocCode
 Method is specified to return set but the return type is map
@@ -1610,18 +1610,6 @@ in `ratis-examples/src/main/java/org/apache/ratis/examples/common/Constants.java
 ```
 
 ### IOStreamConstructor
-'OutputStream' can be constructed using 'Files.newOutputStream()'
-in `ratis-examples/src/main/java/org/apache/ratis/examples/arithmetic/ArithmeticStateMachine.java`
-#### Snippet
-```java
-
-    try(ObjectOutputStream out = new ObjectOutputStream(
-        new BufferedOutputStream(new FileOutputStream(snapshotFile)))) {
-      out.writeObject(copy);
-    } catch(IOException ioe) {
-```
-
-### IOStreamConstructor
 'InputStream' can be constructed using 'Files.newInputStream()'
 in `ratis-examples/src/main/java/org/apache/ratis/examples/arithmetic/ArithmeticStateMachine.java`
 #### Snippet
@@ -1631,6 +1619,18 @@ in `ratis-examples/src/main/java/org/apache/ratis/examples/arithmetic/Arithmetic
             new BufferedInputStream(new FileInputStream(snapshotFile)))) {
       reset();
       setLastAppliedTermIndex(last);
+```
+
+### IOStreamConstructor
+'OutputStream' can be constructed using 'Files.newOutputStream()'
+in `ratis-examples/src/main/java/org/apache/ratis/examples/arithmetic/ArithmeticStateMachine.java`
+#### Snippet
+```java
+
+    try(ObjectOutputStream out = new ObjectOutputStream(
+        new BufferedOutputStream(new FileOutputStream(snapshotFile)))) {
+      out.writeObject(copy);
+    } catch(IOException ioe) {
 ```
 
 ## RuleId[id=Deprecation]
@@ -1688,6 +1688,18 @@ in `ratis-common/src/main/java/org/apache/ratis/conf/ConfUtils.java`
 
 ### TrivialStringConcatenation
 Empty string used in concatenation
+in `ratis-common/src/main/java/org/apache/ratis/util/StringUtils.java`
+#### Snippet
+```java
+        return "COMPLETED";
+      }
+      return "" + future.join();
+    }
+  }
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
 in `ratis-common/src/main/java/org/apache/ratis/util/SlidingWindow.java`
 #### Snippet
 ```java
@@ -1700,12 +1712,12 @@ in `ratis-common/src/main/java/org/apache/ratis/util/SlidingWindow.java`
 
 ### TrivialStringConcatenation
 Empty string used in concatenation
-in `ratis-common/src/main/java/org/apache/ratis/util/StringUtils.java`
+in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerProxy.java`
 #### Snippet
 ```java
-        return "COMPLETED";
-      }
-      return "" + future.join();
+
+    String toString(RaftGroupId groupId, CompletableFuture<RaftServerImpl> f) {
+      return "" + (f != null && f.isDone()? f.join(): groupId + ":" + f);
     }
   }
 ```
@@ -1720,18 +1732,6 @@ in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/LogProtoUtils.jav
           .orElseGet(() -> proto -> "" + ClientInvocationId.valueOf(proto))
           .apply(entry.getStateMachineLogEntry());
     } else if (entry.hasMetadataEntry()) {
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `ratis-server/src/main/java/org/apache/ratis/server/impl/RaftServerProxy.java`
-#### Snippet
-```java
-
-    String toString(RaftGroupId groupId, CompletableFuture<RaftServerImpl> f) {
-      return "" + (f != null && f.isDone()? f.join(): groupId + ":" + f);
-    }
-  }
 ```
 
 ### TrivialStringConcatenation
@@ -1920,6 +1920,18 @@ in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/FileStoreCo
 ## RuleId[id=FieldCanBeLocal]
 ### FieldCanBeLocal
 Field can be converted to a local variable
+in `ratis-grpc/src/main/java/org/apache/ratis/grpc/metrics/intercept/server/MetricServerCall.java`
+#### Snippet
+```java
+  private final MessageMetrics metrics;
+  private final String metricNamPrefix;
+  private final ServerCall<R,S> delegate;
+
+  MetricServerCall(ServerCall<R,S> delegate,
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
 in `ratis-grpc/src/main/java/org/apache/ratis/grpc/metrics/intercept/server/MetricServerCallListener.java`
 #### Snippet
 ```java
@@ -1940,18 +1952,6 @@ in `ratis-grpc/src/main/java/org/apache/ratis/grpc/metrics/intercept/server/Metr
   private MessageMetrics metrics;
 
   MetricServerCallListener(
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `ratis-grpc/src/main/java/org/apache/ratis/grpc/metrics/intercept/server/MetricServerCall.java`
-#### Snippet
-```java
-  private final MessageMetrics metrics;
-  private final String metricNamPrefix;
-  private final ServerCall<R,S> delegate;
-
-  MetricServerCall(ServerCall<R,S> delegate,
 ```
 
 ### FieldCanBeLocal
@@ -1980,26 +1980,14 @@ in `ratis-examples/src/main/java/org/apache/ratis/examples/common/SubCommandBase
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/Server.java`
+in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/LoadGen.java`
 #### Snippet
 ```java
 
-  @Parameter(names = {"--writeThreadNum"}, description = "Number of write thread")
-  private int writeThreadNum = 20;
+  @Parameter(names = {"--sync"}, description = "Whether sync every bufferSize", required = false)
+  private int sync = 0;
 
-  @Parameter(names = {"--readThreadNum"}, description = "Number of read thread")
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/Server.java`
-#### Snippet
-```java
-
-  @Parameter(names = {"--readThreadNum"}, description = "Number of read thread")
-  private int readThreadNum = 20;
-
-  @Parameter(names = {"--commitThreadNum"}, description = "Number of commit thread")
+  @Override
 ```
 
 ### FieldCanBeLocal
@@ -2020,6 +2008,18 @@ in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/Server.
 #### Snippet
 ```java
 
+  @Parameter(names = {"--readThreadNum"}, description = "Number of read thread")
+  private int readThreadNum = 20;
+
+  @Parameter(names = {"--commitThreadNum"}, description = "Number of commit thread")
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/Server.java`
+#### Snippet
+```java
+
   @Parameter(names = {"--deleteThreadNum"}, description = "Number of delete thread")
   private int deleteThreadNum = 3;
 
@@ -2028,14 +2028,14 @@ in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/Server.
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/LoadGen.java`
+in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/Server.java`
 #### Snippet
 ```java
 
-  @Parameter(names = {"--sync"}, description = "Whether sync every bufferSize", required = false)
-  private int sync = 0;
+  @Parameter(names = {"--writeThreadNum"}, description = "Number of write thread")
+  private int writeThreadNum = 20;
 
-  @Override
+  @Parameter(names = {"--readThreadNum"}, description = "Number of read thread")
 ```
 
 ## RuleId[id=IgnoreResultOfCall]
@@ -2458,15 +2458,15 @@ public class ChecksumException extends IOException {
 ```
 
 ### FieldMayBeFinal
-Field `storage` may be 'final'
+Field `startIndex` may be 'final'
 in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/LogSegment.java`
 #### Snippet
 ```java
+  private AtomicLong totalCacheSize = new AtomicLong(0);
+  /** Segment start index, inclusive. */
+  private long startIndex;
   /** Segment end index, inclusive. */
   private volatile long endIndex;
-  private RaftStorage storage;
-  private final SizeInBytes maxOpSize;
-  private final LogEntryLoader cacheLoader;
 ```
 
 ### FieldMayBeFinal
@@ -2482,15 +2482,15 @@ in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/LogSegm
 ```
 
 ### FieldMayBeFinal
-Field `startIndex` may be 'final'
+Field `storage` may be 'final'
 in `ratis-server/src/main/java/org/apache/ratis/server/raftlog/segmented/LogSegment.java`
 #### Snippet
 ```java
-  private AtomicLong totalCacheSize = new AtomicLong(0);
-  /** Segment start index, inclusive. */
-  private long startIndex;
   /** Segment end index, inclusive. */
   private volatile long endIndex;
+  private RaftStorage storage;
+  private final SizeInBytes maxOpSize;
+  private final LogEntryLoader cacheLoader;
 ```
 
 ### FieldMayBeFinal
@@ -2506,27 +2506,27 @@ in `ratis-examples/src/main/java/org/apache/ratis/examples/common/SubCommandBase
 ```
 
 ### FieldMayBeFinal
-Field `writeThreadNum` may be 'final'
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/Server.java`
+Field `sync` may be 'final'
+in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/LoadGen.java`
 #### Snippet
 ```java
 
-  @Parameter(names = {"--writeThreadNum"}, description = "Number of write thread")
-  private int writeThreadNum = 20;
+  @Parameter(names = {"--sync"}, description = "Whether sync every bufferSize", required = false)
+  private int sync = 0;
 
-  @Parameter(names = {"--readThreadNum"}, description = "Number of read thread")
+  @Override
 ```
 
 ### FieldMayBeFinal
-Field `readThreadNum` may be 'final'
+Field `storageDir` may be 'final'
 in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/Server.java`
 #### Snippet
 ```java
+  @Parameter(names = {"--storage", "-s"}, description = "Storage dir, eg. --storage dir1 --storage dir2",
+      required = true)
+  private List<File> storageDir = new ArrayList<>();
 
-  @Parameter(names = {"--readThreadNum"}, description = "Number of read thread")
-  private int readThreadNum = 20;
-
-  @Parameter(names = {"--commitThreadNum"}, description = "Number of commit thread")
+  @Parameter(names = {"--writeThreadNum"}, description = "Number of write thread")
 ```
 
 ### FieldMayBeFinal
@@ -2542,6 +2542,18 @@ in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/Server.
 ```
 
 ### FieldMayBeFinal
+Field `readThreadNum` may be 'final'
+in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/Server.java`
+#### Snippet
+```java
+
+  @Parameter(names = {"--readThreadNum"}, description = "Number of read thread")
+  private int readThreadNum = 20;
+
+  @Parameter(names = {"--commitThreadNum"}, description = "Number of commit thread")
+```
+
+### FieldMayBeFinal
 Field `deleteThreadNum` may be 'final'
 in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/Server.java`
 #### Snippet
@@ -2554,39 +2566,15 @@ in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/Server.
 ```
 
 ### FieldMayBeFinal
-Field `storageDir` may be 'final'
+Field `writeThreadNum` may be 'final'
 in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/Server.java`
 #### Snippet
 ```java
-  @Parameter(names = {"--storage", "-s"}, description = "Storage dir, eg. --storage dir1 --storage dir2",
-      required = true)
-  private List<File> storageDir = new ArrayList<>();
 
   @Parameter(names = {"--writeThreadNum"}, description = "Number of write thread")
-```
+  private int writeThreadNum = 20;
 
-### FieldMayBeFinal
-Field `sync` may be 'final'
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/LoadGen.java`
-#### Snippet
-```java
-
-  @Parameter(names = {"--sync"}, description = "Whether sync every bufferSize", required = false)
-  private int sync = 0;
-
-  @Override
-```
-
-### FieldMayBeFinal
-Field `bufferSizeInBytes` may be 'final'
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/Client.java`
-#### Snippet
-```java
-  @Parameter(names = {"--bufferSize"}, description = "Size of buffer in bytes, should less than 4MB, " +
-      "i.e BUFFER_BYTE_LIMIT_DEFAULT", required = false)
-  private int bufferSizeInBytes = 1024;
-
-  @Parameter(names = {"--numFiles"}, description = "Number of files to be written", required = true)
+  @Parameter(names = {"--readThreadNum"}, description = "Number of read thread")
 ```
 
 ### FieldMayBeFinal
@@ -2602,15 +2590,15 @@ in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/Client.
 ```
 
 ### FieldMayBeFinal
-Field `dataStreamType` may be 'final'
-in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/DataStream.java`
+Field `bufferSizeInBytes` may be 'final'
+in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/Client.java`
 #### Snippet
 ```java
+  @Parameter(names = {"--bufferSize"}, description = "Size of buffer in bytes, should less than 4MB, " +
+      "i.e BUFFER_BYTE_LIMIT_DEFAULT", required = false)
+  private int bufferSizeInBytes = 1024;
 
-  @Parameter(names = {"--type"}, description = DESCRIPTION, required = true)
-  private String dataStreamType = Type.NettyFileRegion.name();
-
-  @Parameter(names = {"--syncSize"}, description = "Sync every syncSize, syncSize % bufferSize should be zero," +
+  @Parameter(names = {"--numFiles"}, description = "Number of files to be written", required = true)
 ```
 
 ### FieldMayBeFinal
@@ -2623,6 +2611,18 @@ in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/DataStr
   private int syncSize = -1;
 
   int getSyncSize() {
+```
+
+### FieldMayBeFinal
+Field `dataStreamType` may be 'final'
+in `ratis-examples/src/main/java/org/apache/ratis/examples/filestore/cli/DataStream.java`
+#### Snippet
+```java
+
+  @Parameter(names = {"--type"}, description = DESCRIPTION, required = true)
+  private String dataStreamType = Type.NettyFileRegion.name();
+
+  @Parameter(names = {"--syncSize"}, description = "Sync every syncSize, syncSize % bufferSize should be zero," +
 ```
 
 ## RuleId[id=MismatchedCollectionQueryUpdate]
