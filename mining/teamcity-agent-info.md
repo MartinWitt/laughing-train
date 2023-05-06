@@ -1,35 +1,43 @@
 # teamcity-agent-info 
  
 # Bad smells
-I found 5 bad smells with 2 repairable:
+I found 4 bad smells with 2 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| ReturnNull | 2 | false |
 | UnnecessaryToStringCall | 2 | true |
-| Convert2Lambda | 1 | false |
-## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildserver/agentInfo/AgentSystemInfo.java`
+| SpringBeanConstructorArgInspection | 1 | false |
+| SpringXmlAutowireExplicitlyInspection | 1 | false |
+## RuleId[id=SpringBeanConstructorArgInspection]
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'AgentSystemInfo'#treeend
+
+*** ** * ** ***
+
+|--------------------------------------------------|---|-----------|
+| **AgentSystemInfo(...):**                        |   | **Bean:** |
+| BuildAgentConfiguration config                   |   | **???**   |
+| BuildAgent agent                                 |   | **???**   |
+| EventDispatcher\<AgentLifeCycleListener\> events |   | **???**   |
+in `src/META-INF/build-agent-plugin-agentInfo.xml`
 #### Snippet
 ```java
-      }
-    }
-    return null;
-  }
+       default-autowire="constructor">
 
+  <bean class="jetbrains.buildserver.agentInfo.AgentSystemInfo"/>
+</beans>
 ```
 
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildserver/agentInfo/AgentSystemInfo.java`
+## RuleId[id=SpringXmlAutowireExplicitlyInspection]
+### SpringXmlAutowireExplicitlyInspection
+Make autowired dependency explicit
+in `src/META-INF/build-agent-plugin-agentInfo.xml`
 #### Snippet
 ```java
-    }
-    LOG.warn("Failed to get CPU count.");
-    return null;
-  }
+                           http://www.springframework.org/schema/lang
+                           http://www.springframework.org/schema/lang/spring-lang-2.0.xsd"
+       default-autowire="constructor">
 
+  <bean class="jetbrains.buildserver.agentInfo.AgentSystemInfo"/>
 ```
 
 ## RuleId[id=UnnecessaryToStringCall]
@@ -55,18 +63,5 @@ in `src/jetbrains/buildserver/agentInfo/AgentSystemInfo.java`
         LOG.warn("Failed to get total memory size: " + e1.toString());
       }
     }
-```
-
-## RuleId[id=Convert2Lambda]
-### Convert2Lambda
-Anonymous new Runnable() can be replaced with lambda
-in `src/jetbrains/buildserver/agentInfo/AgentSystemInfo.java`
-#### Snippet
-```java
-    final ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor(new NamedDeamonThreadFactory("agent-info recent updates pool"));
-
-    final Runnable action = ExceptionUtil.catchAll("update free space", new Runnable() {
-      public void run() {
-        if (agent.isRunning()) return;
 ```
 
