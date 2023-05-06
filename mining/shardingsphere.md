@@ -1,17 +1,17 @@
 # shardingsphere 
  
 # Bad smells
-I found 501 bad smells with 0 repairable:
+I found 510 bad smells with 0 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| DuplicatedCode | 258 | false |
+| DuplicatedCode | 266 | false |
 | InjectedReferences | 51 | false |
 | UnstableApiUsage | 38 | false |
 | UNCHECKED_WARNING | 31 | false |
 | DataFlowIssue | 21 | false |
 | AutoCloseableResource | 15 | false |
 | Deprecation | 13 | false |
-| ConstantValue | 12 | false |
+| ConstantValue | 11 | false |
 | OptionalGetWithoutIsPresent | 11 | false |
 | RegExpSimplifiable | 7 | false |
 | NullableProblems | 7 | false |
@@ -24,6 +24,7 @@ I found 501 bad smells with 0 repairable:
 | OptionalAssignedToNull | 2 | false |
 | ConditionCoveredByFurtherCondition | 2 | false |
 | RedundantCast | 2 | false |
+| UnusedAssignment | 2 | false |
 | WrapperTypeMayBePrimitive | 1 | false |
 | EmptyTryBlock | 1 | false |
 | AssignmentUsedAsCondition | 1 | false |
@@ -158,6 +159,54 @@ in `features/sharding/core/src/main/java/org/apache/shardingsphere/sharding/rewr
 ```
 
 ### UNCHECKED_WARNING
+Unchecked cast: 'org.apache.shardingsphere.sql.parser.api.ASTNode' to 'org.apache.shardingsphere.sql.parser.sql.common.value.collection.CollectionValue'
+in `sql-parser/dialect/mysql/src/main/java/org/apache/shardingsphere/sql/parser/mysql/visitor/statement/type/MySQLDALStatementVisitor.java`
+#### Snippet
+```java
+    public ASTNode visitChecksumTable(final ChecksumTableContext ctx) {
+        MySQLChecksumTableStatement result = new MySQLChecksumTableStatement();
+        result.getTables().addAll(((CollectionValue<SimpleTableSegment>) visit(ctx.tableList())).getValue());
+        return result;
+    }
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'org.apache.shardingsphere.sql.parser.api.ASTNode' to 'org.apache.shardingsphere.sql.parser.sql.common.value.collection.CollectionValue'
+in `sql-parser/dialect/mysql/src/main/java/org/apache/shardingsphere/sql/parser/mysql/visitor/statement/type/MySQLDALStatementVisitor.java`
+#### Snippet
+```java
+    public ASTNode visitCheckTable(final CheckTableContext ctx) {
+        MySQLCheckTableStatement result = new MySQLCheckTableStatement();
+        result.getTables().addAll(((CollectionValue<SimpleTableSegment>) visit(ctx.tableList())).getValue());
+        return result;
+    }
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'org.apache.shardingsphere.sql.parser.api.ASTNode' to 'org.apache.shardingsphere.sql.parser.sql.common.value.collection.CollectionValue'
+in `sql-parser/dialect/mysql/src/main/java/org/apache/shardingsphere/sql/parser/mysql/visitor/statement/type/MySQLDALStatementVisitor.java`
+#### Snippet
+```java
+        }
+        if (null != ctx.partitionList()) {
+            result.getPartitions().addAll(((CollectionValue<PartitionSegment>) visit(ctx.partitionList())).getValue());
+        }
+        return result;
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'org.apache.shardingsphere.sql.parser.api.ASTNode' to 'org.apache.shardingsphere.sql.parser.sql.common.value.collection.CollectionValue'
+in `sql-parser/dialect/mysql/src/main/java/org/apache/shardingsphere/sql/parser/mysql/visitor/statement/type/MySQLDALStatementVisitor.java`
+#### Snippet
+```java
+            SimpleTableSegment table = (SimpleTableSegment) visit(ctx.tableName());
+            PartitionDefinitionSegment segment = new PartitionDefinitionSegment(ctx.tableName().getStart().getStartIndex(), ctx.partitionList().getStop().getStopIndex(), table);
+            segment.getPartitions().addAll(((CollectionValue<PartitionSegment>) visit(ctx.partitionList())).getValue());
+            result.setPartitionDefinition(segment);
+        }
+```
+
+### UNCHECKED_WARNING
 Unchecked assignment: 'java.util.Collection' to 'java.util.Collection'. Reason: '((CollectionValue) visit(ctx.keyListWithExpression()))' has raw type, so result of getValue is erased
 in `sql-parser/dialect/mysql/src/main/java/org/apache/shardingsphere/sql/parser/mysql/visitor/statement/type/MySQLDDLStatementVisitor.java`
 #### Snippet
@@ -207,83 +256,11 @@ in `sql-parser/dialect/mysql/src/main/java/org/apache/shardingsphere/sql/parser/
 
 ### UNCHECKED_WARNING
 Unchecked cast: 'org.apache.shardingsphere.sql.parser.api.ASTNode' to 'org.apache.shardingsphere.sql.parser.sql.common.value.collection.CollectionValue'
-in `sql-parser/dialect/mysql/src/main/java/org/apache/shardingsphere/sql/parser/mysql/visitor/statement/type/MySQLDALStatementVisitor.java`
-#### Snippet
-```java
-    public ASTNode visitChecksumTable(final ChecksumTableContext ctx) {
-        MySQLChecksumTableStatement result = new MySQLChecksumTableStatement();
-        result.getTables().addAll(((CollectionValue<SimpleTableSegment>) visit(ctx.tableList())).getValue());
-        return result;
-    }
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'org.apache.shardingsphere.sql.parser.api.ASTNode' to 'org.apache.shardingsphere.sql.parser.sql.common.value.collection.CollectionValue'
-in `sql-parser/dialect/mysql/src/main/java/org/apache/shardingsphere/sql/parser/mysql/visitor/statement/type/MySQLDALStatementVisitor.java`
-#### Snippet
-```java
-        }
-        if (null != ctx.partitionList()) {
-            result.getPartitions().addAll(((CollectionValue<PartitionSegment>) visit(ctx.partitionList())).getValue());
-        }
-        return result;
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'org.apache.shardingsphere.sql.parser.api.ASTNode' to 'org.apache.shardingsphere.sql.parser.sql.common.value.collection.CollectionValue'
-in `sql-parser/dialect/mysql/src/main/java/org/apache/shardingsphere/sql/parser/mysql/visitor/statement/type/MySQLDALStatementVisitor.java`
-#### Snippet
-```java
-            SimpleTableSegment table = (SimpleTableSegment) visit(ctx.tableName());
-            PartitionDefinitionSegment segment = new PartitionDefinitionSegment(ctx.tableName().getStart().getStartIndex(), ctx.partitionList().getStop().getStopIndex(), table);
-            segment.getPartitions().addAll(((CollectionValue<PartitionSegment>) visit(ctx.partitionList())).getValue());
-            result.setPartitionDefinition(segment);
-        }
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'org.apache.shardingsphere.sql.parser.api.ASTNode' to 'org.apache.shardingsphere.sql.parser.sql.common.value.collection.CollectionValue'
-in `sql-parser/dialect/mysql/src/main/java/org/apache/shardingsphere/sql/parser/mysql/visitor/statement/type/MySQLDALStatementVisitor.java`
-#### Snippet
-```java
-    public ASTNode visitCheckTable(final CheckTableContext ctx) {
-        MySQLCheckTableStatement result = new MySQLCheckTableStatement();
-        result.getTables().addAll(((CollectionValue<SimpleTableSegment>) visit(ctx.tableList())).getValue());
-        return result;
-    }
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'org.apache.shardingsphere.sql.parser.api.ASTNode' to 'org.apache.shardingsphere.sql.parser.sql.common.value.collection.CollectionValue'
-in `sql-parser/dialect/oracle/src/main/java/org/apache/shardingsphere/sql/parser/oracle/visitor/statement/type/OracleDMLStatementVisitor.java`
-#### Snippet
-```java
-        if (null != ctx.columnNames()) {
-            ColumnNamesContext columnNames = ctx.columnNames();
-            CollectionValue<ColumnSegment> columnSegments = (CollectionValue<ColumnSegment>) visit(columnNames);
-            result.setInsertColumns(new InsertColumnsSegment(columnNames.start.getStartIndex(), columnNames.stop.getStopIndex(), columnSegments.getValue()));
-        } else {
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Collection' to 'java.util.Collection'. Reason: '((CollectionValue) visit(ctx.createIndexDefinitionClause().tableIndexClause().indexExpressions()))' has raw type, so result of getValue is erased
-in `sql-parser/dialect/oracle/src/main/java/org/apache/shardingsphere/sql/parser/oracle/visitor/statement/type/OracleDDLStatementVisitor.java`
-#### Snippet
-```java
-        if (null != ctx.createIndexDefinitionClause().tableIndexClause()) {
-            result.setTable((SimpleTableSegment) visit(ctx.createIndexDefinitionClause().tableIndexClause().tableName()));
-            result.getColumns().addAll(((CollectionValue) visit(ctx.createIndexDefinitionClause().tableIndexClause().indexExpressions())).getValue());
-        }
-        result.setIndex((IndexSegment) visit(ctx.indexName()));
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'org.apache.shardingsphere.sql.parser.api.ASTNode' to 'org.apache.shardingsphere.sql.parser.sql.common.value.collection.CollectionValue'
 in `sql-parser/dialect/sqlserver/src/main/java/org/apache/shardingsphere/sql/parser/sqlserver/visitor/statement/type/SQLServerDCLStatementVisitor.java`
 #### Snippet
 ```java
-            if (null != ctx.grantClassPrivilegesClause().classPrivileges().columnNames()) {
-                for (ColumnNamesContext each : ctx.grantClassPrivilegesClause().classPrivileges().columnNames()) {
+            if (null != ctx.revokeClassPrivilegesClause().classPrivileges().columnNames()) {
+                for (ColumnNamesContext each : ctx.revokeClassPrivilegesClause().classPrivileges().columnNames()) {
                     result.getColumns().addAll(((CollectionValue<ColumnSegment>) visit(each)).getValue());
                 }
             }
@@ -294,8 +271,8 @@ Unchecked cast: 'org.apache.shardingsphere.sql.parser.api.ASTNode' to 'org.apach
 in `sql-parser/dialect/sqlserver/src/main/java/org/apache/shardingsphere/sql/parser/sqlserver/visitor/statement/type/SQLServerDCLStatementVisitor.java`
 #### Snippet
 ```java
-            if (null != ctx.revokeClassPrivilegesClause().classPrivileges().columnNames()) {
-                for (ColumnNamesContext each : ctx.revokeClassPrivilegesClause().classPrivileges().columnNames()) {
+            if (null != ctx.grantClassPrivilegesClause().classPrivileges().columnNames()) {
+                for (ColumnNamesContext each : ctx.grantClassPrivilegesClause().classPrivileges().columnNames()) {
                     result.getColumns().addAll(((CollectionValue<ColumnSegment>) visit(each)).getValue());
                 }
             }
@@ -338,6 +315,30 @@ in `sql-parser/dialect/sqlserver/src/main/java/org/apache/shardingsphere/sql/par
 ```
 
 ### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Collection' to 'java.util.Collection'. Reason: '((CollectionValue) visit(ctx.createIndexDefinitionClause().tableIndexClause().indexExpressions()))' has raw type, so result of getValue is erased
+in `sql-parser/dialect/oracle/src/main/java/org/apache/shardingsphere/sql/parser/oracle/visitor/statement/type/OracleDDLStatementVisitor.java`
+#### Snippet
+```java
+        if (null != ctx.createIndexDefinitionClause().tableIndexClause()) {
+            result.setTable((SimpleTableSegment) visit(ctx.createIndexDefinitionClause().tableIndexClause().tableName()));
+            result.getColumns().addAll(((CollectionValue) visit(ctx.createIndexDefinitionClause().tableIndexClause().indexExpressions())).getValue());
+        }
+        result.setIndex((IndexSegment) visit(ctx.indexName()));
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'org.apache.shardingsphere.sql.parser.api.ASTNode' to 'org.apache.shardingsphere.sql.parser.sql.common.value.collection.CollectionValue'
+in `sql-parser/dialect/oracle/src/main/java/org/apache/shardingsphere/sql/parser/oracle/visitor/statement/type/OracleDMLStatementVisitor.java`
+#### Snippet
+```java
+        if (null != ctx.columnNames()) {
+            ColumnNamesContext columnNames = ctx.columnNames();
+            CollectionValue<ColumnSegment> columnSegments = (CollectionValue<ColumnSegment>) visit(columnNames);
+            result.setInsertColumns(new InsertColumnsSegment(columnNames.start.getStartIndex(), columnNames.stop.getStopIndex(), columnSegments.getValue()));
+        } else {
+```
+
+### UNCHECKED_WARNING
 Unchecked cast: 'org.apache.shardingsphere.sql.parser.api.ASTNode' to 'org.apache.shardingsphere.sql.parser.sql.common.value.collection.CollectionValue'
 in `sql-parser/dialect/postgresql/src/main/java/org/apache/shardingsphere/sql/parser/postgresql/visitor/statement/type/PostgreSQLDMLStatementVisitor.java`
 #### Snippet
@@ -374,18 +375,6 @@ in `sql-parser/dialect/opengauss/src/main/java/org/apache/shardingsphere/sql/par
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Collection' to 'java.util.Collection'. Reason: '((CollectionValue) visit(ctx.qualifiedNameList()))' has raw type, so result of getValue is erased
-in `sql-parser/dialect/postgresql/src/main/java/org/apache/shardingsphere/sql/parser/postgresql/visitor/statement/type/PostgreSQLDDLStatementVisitor.java`
-#### Snippet
-```java
-    public ASTNode visitDropSequence(final DropSequenceContext ctx) {
-        PostgreSQLDropSequenceStatement result = new PostgreSQLDropSequenceStatement();
-        result.setSequenceNames(((CollectionValue) visit(ctx.qualifiedNameList())).getValue());
-        return result;
-    }
-```
-
-### UNCHECKED_WARNING
 Unchecked assignment: 'org.apache.shardingsphere.sql.parser.sql.common.value.collection.CollectionValue' to 'org.apache.shardingsphere.sql.parser.sql.common.value.collection.CollectionValue'
 in `sql-parser/dialect/opengauss/src/main/java/org/apache/shardingsphere/sql/parser/opengauss/visitor/statement/OpenGaussStatementVisitor.java`
 #### Snippet
@@ -395,6 +384,18 @@ in `sql-parser/dialect/opengauss/src/main/java/org/apache/shardingsphere/sql/par
             result.combine((CollectionValue) visit(ctx.qualifiedNameList()));
         }
         return result;
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Collection' to 'java.util.Collection'. Reason: '((CollectionValue) visit(ctx.qualifiedNameList()))' has raw type, so result of getValue is erased
+in `sql-parser/dialect/postgresql/src/main/java/org/apache/shardingsphere/sql/parser/postgresql/visitor/statement/type/PostgreSQLDDLStatementVisitor.java`
+#### Snippet
+```java
+    public ASTNode visitDropSequence(final DropSequenceContext ctx) {
+        PostgreSQLDropSequenceStatement result = new PostgreSQLDropSequenceStatement();
+        result.setSequenceNames(((CollectionValue) visit(ctx.qualifiedNameList())).getValue());
+        return result;
+    }
 ```
 
 ### UNCHECKED_WARNING
@@ -424,7 +425,7 @@ in `db-protocol/core/src/main/java/org/apache/shardingsphere/db/protocol/codec/P
 ## RuleId[id=MagicConstant]
 ### MagicConstant
 Should be one of: Connection.TRANSACTION_NONE, Connection.TRANSACTION_READ_UNCOMMITTED, ...
-in `proxy/backend/core/src/main/java/org/apache/shardingsphere/proxy/backend/connector/BackendConnection.java`
+in `proxy/backend/core/src/main/java/org/apache/shardingsphere/proxy/backend/connector/ProxyDatabaseConnectionManager.java`
 #### Snippet
 ```java
         }
@@ -460,15 +461,15 @@ in `proxy/backend/type/postgresql/src/main/java/org/apache/shardingsphere/proxy/
 ```
 
 ### InjectedReferences
-Unknown encoding: 'ISO-8859-14'
+Unknown encoding: 'UHC'
 in `proxy/backend/type/postgresql/src/main/java/org/apache/shardingsphere/proxy/backend/postgresql/handler/admin/PostgreSQLCharacterSets.java`
 #### Snippet
 ```java
-    LATIN6(() -> Charset.forName("ISO-8859-10"), "ISO885910"),
-    LATIN7(() -> Charset.forName("ISO-8859-13"), "ISO885913"),
-    LATIN8(() -> Charset.forName("ISO-8859-14"), "ISO885914"),
-    LATIN9(() -> Charset.forName("LATIN9"), "ISO885915"),
-    LATIN10(() -> Charset.forName("LATIN10"), "ISO885916"),
+    BIG5(() -> Charset.forName("BIG5"), "WIN950", "Windows950"),
+    GBK(() -> Charset.forName("GBK"), "WIN936", "Windows936"),
+    UHC(() -> Charset.forName("UHC"), "WIN949", "Windows949"),
+    GB18030(() -> Charset.forName("GB18030")),
+    JOHAB(() -> Charset.forName("JOHAB")),
 ```
 
 ### InjectedReferences
@@ -484,30 +485,6 @@ in `proxy/backend/type/postgresql/src/main/java/org/apache/shardingsphere/proxy/
 ```
 
 ### InjectedReferences
-Unknown encoding: 'EUC_JIS_2004'
-in `proxy/backend/type/postgresql/src/main/java/org/apache/shardingsphere/proxy/backend/postgresql/handler/admin/PostgreSQLCharacterSets.java`
-#### Snippet
-```java
-    EUC_KR(() -> Charset.forName("EUC_KR")),
-    EUC_TW(() -> Charset.forName("EUC_TW")),
-    EUC_JIS_2004(() -> Charset.forName("EUC_JIS_2004")),
-    UTF8(() -> StandardCharsets.UTF_8, "Unicode", "UTF_8"),
-    MULE_INTERNAL(() -> Charset.forName("MULE_INTERNAL")),
-```
-
-### InjectedReferences
-Unknown encoding: 'UHC'
-in `proxy/backend/type/postgresql/src/main/java/org/apache/shardingsphere/proxy/backend/postgresql/handler/admin/PostgreSQLCharacterSets.java`
-#### Snippet
-```java
-    BIG5(() -> Charset.forName("BIG5"), "WIN950", "Windows950"),
-    GBK(() -> Charset.forName("GBK"), "WIN936", "Windows936"),
-    UHC(() -> Charset.forName("UHC"), "WIN949", "Windows949"),
-    GB18030(() -> Charset.forName("GB18030")),
-    JOHAB(() -> Charset.forName("JOHAB")),
-```
-
-### InjectedReferences
 Unknown encoding: 'WINDOWS-866'
 in `proxy/backend/type/postgresql/src/main/java/org/apache/shardingsphere/proxy/backend/postgresql/handler/admin/PostgreSQLCharacterSets.java`
 #### Snippet
@@ -520,15 +497,27 @@ in `proxy/backend/type/postgresql/src/main/java/org/apache/shardingsphere/proxy/
 ```
 
 ### InjectedReferences
-Unknown encoding: 'ucs2'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+Unknown encoding: 'ISO-8859-14'
+in `proxy/backend/type/postgresql/src/main/java/org/apache/shardingsphere/proxy/backend/postgresql/handler/admin/PostgreSQLCharacterSets.java`
 #### Snippet
 ```java
-    UCS2_SWEDISH_CI(136, () -> Charset.forName("ucs2")),
-    UCS2_TURKISH_CI(137, () -> Charset.forName("ucs2")),
-    UCS2_CZECH_CI(138, () -> Charset.forName("ucs2")),
-    UCS2_DANISH_CI(139, () -> Charset.forName("ucs2")),
-    UCS2_LITHUANIAN_CI(140, () -> Charset.forName("ucs2")),
+    LATIN6(() -> Charset.forName("ISO-8859-10"), "ISO885910"),
+    LATIN7(() -> Charset.forName("ISO-8859-13"), "ISO885913"),
+    LATIN8(() -> Charset.forName("ISO-8859-14"), "ISO885914"),
+    LATIN9(() -> Charset.forName("LATIN9"), "ISO885915"),
+    LATIN10(() -> Charset.forName("LATIN10"), "ISO885916"),
+```
+
+### InjectedReferences
+Unknown encoding: 'EUC_JIS_2004'
+in `proxy/backend/type/postgresql/src/main/java/org/apache/shardingsphere/proxy/backend/postgresql/handler/admin/PostgreSQLCharacterSets.java`
+#### Snippet
+```java
+    EUC_KR(() -> Charset.forName("EUC_KR")),
+    EUC_TW(() -> Charset.forName("EUC_TW")),
+    EUC_JIS_2004(() -> Charset.forName("EUC_JIS_2004")),
+    UTF8(() -> StandardCharsets.UTF_8, "Unicode", "UTF_8"),
+    MULE_INTERNAL(() -> Charset.forName("MULE_INTERNAL")),
 ```
 
 ### InjectedReferences
@@ -536,11 +525,35 @@ Unknown encoding: 'ucs2'
 in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
 #### Snippet
 ```java
-    UCS2_UNICODE_CI(128, () -> Charset.forName("ucs2")),
+    UCS2_SPANISH2_CI(142, () -> Charset.forName("ucs2")),
+    UCS2_ROMAN_CI(143, () -> Charset.forName("ucs2")),
+    UCS2_PERSIAN_CI(144, () -> Charset.forName("ucs2")),
+    UCS2_ESPERANTO_CI(145, () -> Charset.forName("ucs2")),
+    UCS2_HUNGARIAN_CI(146, () -> Charset.forName("ucs2")),
+```
+
+### InjectedReferences
+Unknown encoding: 'swe7'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    LATIN1_SWEDISH_CI(8, () -> StandardCharsets.ISO_8859_1),
+    LATIN2_GENERAL_CI(9, () -> Charset.forName("latin2")),
+    SWE7_SWEDISH_CI(10, () -> Charset.forName("swe7")),
+    ASCII_GENERAL_CI(11, () -> StandardCharsets.US_ASCII),
+    UJIS_JAPANESE_CI(12, () -> Charset.forName("ujis")),
+```
+
+### InjectedReferences
+Unknown encoding: 'ucs2'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
     UCS2_ICELANDIC_CI(129, () -> Charset.forName("ucs2")),
     UCS2_LATVIAN_CI(130, () -> Charset.forName("ucs2")),
     UCS2_ROMANIAN_CI(131, () -> Charset.forName("ucs2")),
     UCS2_SLOVENIAN_CI(132, () -> Charset.forName("ucs2")),
+    UCS2_POLISH_CI(133, () -> Charset.forName("ucs2")),
 ```
 
 ### InjectedReferences
@@ -548,23 +561,47 @@ Unknown encoding: 'ucs2'
 in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
 #### Snippet
 ```java
+    UCS2_DANISH_CI(139, () -> Charset.forName("ucs2")),
+    UCS2_LITHUANIAN_CI(140, () -> Charset.forName("ucs2")),
+    UCS2_SLOVAK_CI(141, () -> Charset.forName("ucs2")),
+    UCS2_SPANISH2_CI(142, () -> Charset.forName("ucs2")),
+    UCS2_ROMAN_CI(143, () -> Charset.forName("ucs2")),
+```
+
+### InjectedReferences
+Unknown encoding: 'ucs2'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    UCS2_SINHALA_CI(147, () -> Charset.forName("ucs2")),
+    UCS2_GERMAN2_CI(148, () -> Charset.forName("ucs2")),
     UCS2_CROATIAN_CI(149, () -> Charset.forName("ucs2")),
     UCS2_UNICODE_520_CI(150, () -> Charset.forName("ucs2")),
     UCS2_VIETNAMESE_CI(151, () -> Charset.forName("ucs2")),
-    UCS2_GENERAL_MYSQL500_CI(159, () -> Charset.forName("ucs2")),
-    UTF32_UNICODE_CI(160, () -> Charset.forName("utf32")),
 ```
 
 ### InjectedReferences
-Unknown encoding: 'ucs2'
+Unknown encoding: 'swe7'
 in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
 #### Snippet
 ```java
-    UCS2_ROMANIAN_CI(131, () -> Charset.forName("ucs2")),
-    UCS2_SLOVENIAN_CI(132, () -> Charset.forName("ucs2")),
-    UCS2_POLISH_CI(133, () -> Charset.forName("ucs2")),
-    UCS2_ESTONIAN_CI(134, () -> Charset.forName("ucs2")),
-    UCS2_SPANISH_CI(135, () -> Charset.forName("ucs2")),
+    CP850_BIN(80, () -> Charset.forName("cp850")),
+    CP852_BIN(81, () -> Charset.forName("cp852")),
+    SWE7_BIN(82, () -> Charset.forName("swe7")),
+    UTF8_BIN(83, () -> StandardCharsets.UTF_8),
+    BIG5_BIN(84, () -> Charset.forName("big5")),
+```
+
+### InjectedReferences
+Unknown encoding: 'keybcs2'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    HEBREW_BIN(71, () -> Charset.forName("hebrew")),
+    HP8_BIN(72, () -> Charset.forName("hp8")),
+    KEYBCS2_BIN(73, () -> Charset.forName("keybcs2")),
+    KOI8R_BIN(74, () -> Charset.forName("koi8-r")),
+    KOI8U_BIN(75, () -> Charset.forName("koi8-u")),
 ```
 
 ### InjectedReferences
@@ -577,6 +614,114 @@ in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/
     GEOSTD8_GENERAL_CI(92, () -> Charset.forName("geostd8")),
     GEOSTD8_BIN(93, () -> Charset.forName("geostd8")),
     LATIN1_SPANISH_CI(94, () -> StandardCharsets.ISO_8859_1),
+```
+
+### InjectedReferences
+Unknown encoding: 'keybcs2'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    UCS2_GENERAL_CI(35, () -> Charset.forName("ucs2")),
+    CP866_GENERAL_CI(36, () -> Charset.forName("cp866")),
+    KEYBCS2_GENERAL_CI(37, () -> Charset.forName("keybcs2")),
+    MACCE_GENERAL_CI(38, () -> Charset.forName("macce")),
+    MACROMAN_GENERAL_CI(39, () -> Charset.forName("macroman")),
+```
+
+### InjectedReferences
+Unknown encoding: 'dec8'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    BIG5_CHINESE_CI(1, () -> Charset.forName("big5")),
+    LATIN2_CZECH_CS(2, () -> Charset.forName("latin2")),
+    DEC8_SWEDISH_CI(3, () -> Charset.forName("dec8")),
+    CP850_GENERAL_CI(4, () -> Charset.forName("cp850")),
+    LATIN1_GERMAN1_CI(5, () -> StandardCharsets.ISO_8859_1),
+```
+
+### InjectedReferences
+Unknown encoding: 'ucs2'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    UTF16_VIETNAMESE_CI(124, () -> StandardCharsets.UTF_16),
+    UCS2_UNICODE_CI(128, () -> Charset.forName("ucs2")),
+    UCS2_ICELANDIC_CI(129, () -> Charset.forName("ucs2")),
+    UCS2_LATVIAN_CI(130, () -> Charset.forName("ucs2")),
+    UCS2_ROMANIAN_CI(131, () -> Charset.forName("ucs2")),
+```
+
+### InjectedReferences
+Unknown encoding: 'ucs2'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    UCS2_TURKISH_CI(137, () -> Charset.forName("ucs2")),
+    UCS2_CZECH_CI(138, () -> Charset.forName("ucs2")),
+    UCS2_DANISH_CI(139, () -> Charset.forName("ucs2")),
+    UCS2_LITHUANIAN_CI(140, () -> Charset.forName("ucs2")),
+    UCS2_SLOVAK_CI(141, () -> Charset.forName("ucs2")),
+```
+
+### InjectedReferences
+Unknown encoding: 'ucs2'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    UCS2_ESTONIAN_CI(134, () -> Charset.forName("ucs2")),
+    UCS2_SPANISH_CI(135, () -> Charset.forName("ucs2")),
+    UCS2_SWEDISH_CI(136, () -> Charset.forName("ucs2")),
+    UCS2_TURKISH_CI(137, () -> Charset.forName("ucs2")),
+    UCS2_CZECH_CI(138, () -> Charset.forName("ucs2")),
+```
+
+### InjectedReferences
+Unknown encoding: 'geostd8'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    UJIS_BIN(91, () -> Charset.forName("ujis")),
+    GEOSTD8_GENERAL_CI(92, () -> Charset.forName("geostd8")),
+    GEOSTD8_BIN(93, () -> Charset.forName("geostd8")),
+    LATIN1_SPANISH_CI(94, () -> StandardCharsets.ISO_8859_1),
+    CP932_JAPANESE_CI(95, () -> Charset.forName("cp932")),
+```
+
+### InjectedReferences
+Unknown encoding: 'ucs2'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    UCS2_SPANISH_CI(135, () -> Charset.forName("ucs2")),
+    UCS2_SWEDISH_CI(136, () -> Charset.forName("ucs2")),
+    UCS2_TURKISH_CI(137, () -> Charset.forName("ucs2")),
+    UCS2_CZECH_CI(138, () -> Charset.forName("ucs2")),
+    UCS2_DANISH_CI(139, () -> Charset.forName("ucs2")),
+```
+
+### InjectedReferences
+Unknown encoding: 'ucs2'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    UCS2_SLOVENIAN_CI(132, () -> Charset.forName("ucs2")),
+    UCS2_POLISH_CI(133, () -> Charset.forName("ucs2")),
+    UCS2_ESTONIAN_CI(134, () -> Charset.forName("ucs2")),
+    UCS2_SPANISH_CI(135, () -> Charset.forName("ucs2")),
+    UCS2_SWEDISH_CI(136, () -> Charset.forName("ucs2")),
+```
+
+### InjectedReferences
+Unknown encoding: 'ucs2'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    UCS2_HUNGARIAN_CI(146, () -> Charset.forName("ucs2")),
+    UCS2_SINHALA_CI(147, () -> Charset.forName("ucs2")),
+    UCS2_GERMAN2_CI(148, () -> Charset.forName("ucs2")),
+    UCS2_CROATIAN_CI(149, () -> Charset.forName("ucs2")),
+    UCS2_UNICODE_520_CI(150, () -> Charset.forName("ucs2")),
 ```
 
 ### InjectedReferences
@@ -596,114 +741,6 @@ Unknown encoding: 'ucs2'
 in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
 #### Snippet
 ```java
-    UCS2_DANISH_CI(139, () -> Charset.forName("ucs2")),
-    UCS2_LITHUANIAN_CI(140, () -> Charset.forName("ucs2")),
-    UCS2_SLOVAK_CI(141, () -> Charset.forName("ucs2")),
-    UCS2_SPANISH2_CI(142, () -> Charset.forName("ucs2")),
-    UCS2_ROMAN_CI(143, () -> Charset.forName("ucs2")),
-```
-
-### InjectedReferences
-Unknown encoding: 'ucs2'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    UCS2_SPANISH2_CI(142, () -> Charset.forName("ucs2")),
-    UCS2_ROMAN_CI(143, () -> Charset.forName("ucs2")),
-    UCS2_PERSIAN_CI(144, () -> Charset.forName("ucs2")),
-    UCS2_ESPERANTO_CI(145, () -> Charset.forName("ucs2")),
-    UCS2_HUNGARIAN_CI(146, () -> Charset.forName("ucs2")),
-```
-
-### InjectedReferences
-Unknown encoding: 'ucs2'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    UCS2_GERMAN2_CI(148, () -> Charset.forName("ucs2")),
-    UCS2_CROATIAN_CI(149, () -> Charset.forName("ucs2")),
-    UCS2_UNICODE_520_CI(150, () -> Charset.forName("ucs2")),
-    UCS2_VIETNAMESE_CI(151, () -> Charset.forName("ucs2")),
-    UCS2_GENERAL_MYSQL500_CI(159, () -> Charset.forName("ucs2")),
-```
-
-### InjectedReferences
-Unknown encoding: 'dec8'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    BIG5_CHINESE_CI(1, () -> Charset.forName("big5")),
-    LATIN2_CZECH_CS(2, () -> Charset.forName("latin2")),
-    DEC8_SWEDISH_CI(3, () -> Charset.forName("dec8")),
-    CP850_GENERAL_CI(4, () -> Charset.forName("cp850")),
-    LATIN1_GERMAN1_CI(5, () -> StandardCharsets.ISO_8859_1),
-```
-
-### InjectedReferences
-Unknown encoding: 'swe7'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    LATIN1_SWEDISH_CI(8, () -> StandardCharsets.ISO_8859_1),
-    LATIN2_GENERAL_CI(9, () -> Charset.forName("latin2")),
-    SWE7_SWEDISH_CI(10, () -> Charset.forName("swe7")),
-    ASCII_GENERAL_CI(11, () -> StandardCharsets.US_ASCII),
-    UJIS_JAPANESE_CI(12, () -> Charset.forName("ujis")),
-```
-
-### InjectedReferences
-Unknown encoding: 'keybcs2'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    UCS2_GENERAL_CI(35, () -> Charset.forName("ucs2")),
-    CP866_GENERAL_CI(36, () -> Charset.forName("cp866")),
-    KEYBCS2_GENERAL_CI(37, () -> Charset.forName("keybcs2")),
-    MACCE_GENERAL_CI(38, () -> Charset.forName("macce")),
-    MACROMAN_GENERAL_CI(39, () -> Charset.forName("macroman")),
-```
-
-### InjectedReferences
-Unknown encoding: 'hp8'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    GREEK_BIN(70, () -> Charset.forName("greek")),
-    HEBREW_BIN(71, () -> Charset.forName("hebrew")),
-    HP8_BIN(72, () -> Charset.forName("hp8")),
-    KEYBCS2_BIN(73, () -> Charset.forName("keybcs2")),
-    KOI8R_BIN(74, () -> Charset.forName("koi8-r")),
-```
-
-### InjectedReferences
-Unknown encoding: 'dec8'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    CP1256_BIN(67, () -> Charset.forName("cp1256")),
-    CP866_BIN(68, () -> Charset.forName("cp866")),
-    DEC8_BIN(69, () -> Charset.forName("dec8")),
-    GREEK_BIN(70, () -> Charset.forName("greek")),
-    HEBREW_BIN(71, () -> Charset.forName("hebrew")),
-```
-
-### InjectedReferences
-Unknown encoding: 'eucjpms'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    CP932_BIN(96, () -> Charset.forName("cp932")),
-    EUCJPMS_JAPANESE_CI(97, () -> Charset.forName("eucjpms")),
-    EUCJPMS_BIN(98, () -> Charset.forName("eucjpms")),
-    CP1250_POLISH_CI(99, () -> Charset.forName("cp1250")),
-    UTF16_UNICODE_CI(101, () -> StandardCharsets.UTF_16),
-```
-
-### InjectedReferences
-Unknown encoding: 'ucs2'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
     UTF16_UNICODE_520_CI(123, () -> StandardCharsets.UTF_16),
     UTF16_VIETNAMESE_CI(124, () -> StandardCharsets.UTF_16),
     UCS2_UNICODE_CI(128, () -> Charset.forName("ucs2")),
@@ -716,107 +753,11 @@ Unknown encoding: 'ucs2'
 in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
 #### Snippet
 ```java
-    UCS2_ESTONIAN_CI(134, () -> Charset.forName("ucs2")),
-    UCS2_SPANISH_CI(135, () -> Charset.forName("ucs2")),
-    UCS2_SWEDISH_CI(136, () -> Charset.forName("ucs2")),
-    UCS2_TURKISH_CI(137, () -> Charset.forName("ucs2")),
-    UCS2_CZECH_CI(138, () -> Charset.forName("ucs2")),
-```
-
-### InjectedReferences
-Unknown encoding: 'ucs2'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    UCS2_SLOVENIAN_CI(132, () -> Charset.forName("ucs2")),
     UCS2_POLISH_CI(133, () -> Charset.forName("ucs2")),
     UCS2_ESTONIAN_CI(134, () -> Charset.forName("ucs2")),
     UCS2_SPANISH_CI(135, () -> Charset.forName("ucs2")),
     UCS2_SWEDISH_CI(136, () -> Charset.forName("ucs2")),
-```
-
-### InjectedReferences
-Unknown encoding: 'geostd8'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    UJIS_BIN(91, () -> Charset.forName("ujis")),
-    GEOSTD8_GENERAL_CI(92, () -> Charset.forName("geostd8")),
-    GEOSTD8_BIN(93, () -> Charset.forName("geostd8")),
-    LATIN1_SPANISH_CI(94, () -> StandardCharsets.ISO_8859_1),
-    CP932_JAPANESE_CI(95, () -> Charset.forName("cp932")),
-```
-
-### InjectedReferences
-Unknown encoding: 'ucs2'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    UCS2_ROMAN_CI(143, () -> Charset.forName("ucs2")),
-    UCS2_PERSIAN_CI(144, () -> Charset.forName("ucs2")),
-    UCS2_ESPERANTO_CI(145, () -> Charset.forName("ucs2")),
-    UCS2_HUNGARIAN_CI(146, () -> Charset.forName("ucs2")),
-    UCS2_SINHALA_CI(147, () -> Charset.forName("ucs2")),
-```
-
-### InjectedReferences
-Unknown encoding: 'ucs2'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    UCS2_SLOVAK_CI(141, () -> Charset.forName("ucs2")),
-    UCS2_SPANISH2_CI(142, () -> Charset.forName("ucs2")),
-    UCS2_ROMAN_CI(143, () -> Charset.forName("ucs2")),
-    UCS2_PERSIAN_CI(144, () -> Charset.forName("ucs2")),
-    UCS2_ESPERANTO_CI(145, () -> Charset.forName("ucs2")),
-```
-
-### InjectedReferences
-Unknown encoding: 'ucs2'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    UCS2_ESPERANTO_CI(145, () -> Charset.forName("ucs2")),
-    UCS2_HUNGARIAN_CI(146, () -> Charset.forName("ucs2")),
-    UCS2_SINHALA_CI(147, () -> Charset.forName("ucs2")),
-    UCS2_GERMAN2_CI(148, () -> Charset.forName("ucs2")),
-    UCS2_CROATIAN_CI(149, () -> Charset.forName("ucs2")),
-```
-
-### InjectedReferences
-Unknown encoding: 'ujis'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    TIS620_BIN(89, () -> Charset.forName("tis620")),
-    UCS2_BIN(90, () -> Charset.forName("ucs2")),
-    UJIS_BIN(91, () -> Charset.forName("ujis")),
-    GEOSTD8_GENERAL_CI(92, () -> Charset.forName("geostd8")),
-    GEOSTD8_BIN(93, () -> Charset.forName("geostd8")),
-```
-
-### InjectedReferences
-Unknown encoding: 'ucs2'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    UCS2_SPANISH_CI(135, () -> Charset.forName("ucs2")),
-    UCS2_SWEDISH_CI(136, () -> Charset.forName("ucs2")),
     UCS2_TURKISH_CI(137, () -> Charset.forName("ucs2")),
-    UCS2_CZECH_CI(138, () -> Charset.forName("ucs2")),
-    UCS2_DANISH_CI(139, () -> Charset.forName("ucs2")),
-```
-
-### InjectedReferences
-Unknown encoding: 'eucjpms'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    CP932_JAPANESE_CI(95, () -> Charset.forName("cp932")),
-    CP932_BIN(96, () -> Charset.forName("cp932")),
-    EUCJPMS_JAPANESE_CI(97, () -> Charset.forName("eucjpms")),
-    EUCJPMS_BIN(98, () -> Charset.forName("eucjpms")),
-    CP1250_POLISH_CI(99, () -> Charset.forName("cp1250")),
 ```
 
 ### InjectedReferences
@@ -824,47 +765,23 @@ Unknown encoding: 'ucs2'
 in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
 #### Snippet
 ```java
-    UCS2_HUNGARIAN_CI(146, () -> Charset.forName("ucs2")),
-    UCS2_SINHALA_CI(147, () -> Charset.forName("ucs2")),
+    UCS2_LATVIAN_CI(130, () -> Charset.forName("ucs2")),
+    UCS2_ROMANIAN_CI(131, () -> Charset.forName("ucs2")),
+    UCS2_SLOVENIAN_CI(132, () -> Charset.forName("ucs2")),
+    UCS2_POLISH_CI(133, () -> Charset.forName("ucs2")),
+    UCS2_ESTONIAN_CI(134, () -> Charset.forName("ucs2")),
+```
+
+### InjectedReferences
+Unknown encoding: 'ucs2'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
     UCS2_GERMAN2_CI(148, () -> Charset.forName("ucs2")),
     UCS2_CROATIAN_CI(149, () -> Charset.forName("ucs2")),
     UCS2_UNICODE_520_CI(150, () -> Charset.forName("ucs2")),
-```
-
-### InjectedReferences
-Unknown encoding: 'ucs2'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    UTF16_VIETNAMESE_CI(124, () -> StandardCharsets.UTF_16),
-    UCS2_UNICODE_CI(128, () -> Charset.forName("ucs2")),
-    UCS2_ICELANDIC_CI(129, () -> Charset.forName("ucs2")),
-    UCS2_LATVIAN_CI(130, () -> Charset.forName("ucs2")),
-    UCS2_ROMANIAN_CI(131, () -> Charset.forName("ucs2")),
-```
-
-### InjectedReferences
-Unknown encoding: 'ucs2'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    UTF8_GENERAL_CI(33, () -> StandardCharsets.UTF_8),
-    CP1250_CZECH_CS(34, () -> Charset.forName("cp1250")),
-    UCS2_GENERAL_CI(35, () -> Charset.forName("ucs2")),
-    CP866_GENERAL_CI(36, () -> Charset.forName("cp866")),
-    KEYBCS2_GENERAL_CI(37, () -> Charset.forName("keybcs2")),
-```
-
-### InjectedReferences
-Unknown encoding: 'ucs2'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    SJIS_BIN(88, () -> Charset.forName("sjis")),
-    TIS620_BIN(89, () -> Charset.forName("tis620")),
-    UCS2_BIN(90, () -> Charset.forName("ucs2")),
-    UJIS_BIN(91, () -> Charset.forName("ujis")),
-    GEOSTD8_GENERAL_CI(92, () -> Charset.forName("geostd8")),
+    UCS2_VIETNAMESE_CI(151, () -> Charset.forName("ucs2")),
+    UCS2_GENERAL_MYSQL500_CI(159, () -> Charset.forName("ucs2")),
 ```
 
 ### InjectedReferences
@@ -880,30 +797,6 @@ in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/
 ```
 
 ### InjectedReferences
-Unknown encoding: 'keybcs2'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    HEBREW_BIN(71, () -> Charset.forName("hebrew")),
-    HP8_BIN(72, () -> Charset.forName("hp8")),
-    KEYBCS2_BIN(73, () -> Charset.forName("keybcs2")),
-    KOI8R_BIN(74, () -> Charset.forName("koi8-r")),
-    KOI8U_BIN(75, () -> Charset.forName("koi8-u")),
-```
-
-### InjectedReferences
-Unknown encoding: 'hp8'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    CP850_GENERAL_CI(4, () -> Charset.forName("cp850")),
-    LATIN1_GERMAN1_CI(5, () -> StandardCharsets.ISO_8859_1),
-    HP8_ENGLISH_CI(6, () -> Charset.forName("hp8")),
-    KOI8R_GENERAL_CI(7, () -> Charset.forName("koi8-r")),
-    LATIN1_SWEDISH_CI(8, () -> StandardCharsets.ISO_8859_1),
-```
-
-### InjectedReferences
 Unknown encoding: 'macce'
 in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
 #### Snippet
@@ -916,99 +809,15 @@ in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/
 ```
 
 ### InjectedReferences
-Unknown encoding: 'ucs2'
+Unknown encoding: 'eucjpms'
 in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
 #### Snippet
 ```java
-    UCS2_UNICODE_520_CI(150, () -> Charset.forName("ucs2")),
-    UCS2_VIETNAMESE_CI(151, () -> Charset.forName("ucs2")),
-    UCS2_GENERAL_MYSQL500_CI(159, () -> Charset.forName("ucs2")),
-    UTF32_UNICODE_CI(160, () -> Charset.forName("utf32")),
-    UTF32_ICELANDIC_CI(161, () -> Charset.forName("utf32")),
-```
-
-### InjectedReferences
-Unknown encoding: 'ucs2'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    UCS2_SINHALA_CI(147, () -> Charset.forName("ucs2")),
-    UCS2_GERMAN2_CI(148, () -> Charset.forName("ucs2")),
-    UCS2_CROATIAN_CI(149, () -> Charset.forName("ucs2")),
-    UCS2_UNICODE_520_CI(150, () -> Charset.forName("ucs2")),
-    UCS2_VIETNAMESE_CI(151, () -> Charset.forName("ucs2")),
-```
-
-### InjectedReferences
-Unknown encoding: 'ucs2'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    UCS2_LATVIAN_CI(130, () -> Charset.forName("ucs2")),
-    UCS2_ROMANIAN_CI(131, () -> Charset.forName("ucs2")),
-    UCS2_SLOVENIAN_CI(132, () -> Charset.forName("ucs2")),
-    UCS2_POLISH_CI(133, () -> Charset.forName("ucs2")),
-    UCS2_ESTONIAN_CI(134, () -> Charset.forName("ucs2")),
-```
-
-### InjectedReferences
-Unknown encoding: 'ucs2'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    UCS2_PERSIAN_CI(144, () -> Charset.forName("ucs2")),
-    UCS2_ESPERANTO_CI(145, () -> Charset.forName("ucs2")),
-    UCS2_HUNGARIAN_CI(146, () -> Charset.forName("ucs2")),
-    UCS2_SINHALA_CI(147, () -> Charset.forName("ucs2")),
-    UCS2_GERMAN2_CI(148, () -> Charset.forName("ucs2")),
-```
-
-### InjectedReferences
-Unknown encoding: 'swe7'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    CP850_BIN(80, () -> Charset.forName("cp850")),
-    CP852_BIN(81, () -> Charset.forName("cp852")),
-    SWE7_BIN(82, () -> Charset.forName("swe7")),
-    UTF8_BIN(83, () -> StandardCharsets.UTF_8),
-    BIG5_BIN(84, () -> Charset.forName("big5")),
-```
-
-### InjectedReferences
-Unknown encoding: 'ucs2'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    UCS2_LITHUANIAN_CI(140, () -> Charset.forName("ucs2")),
-    UCS2_SLOVAK_CI(141, () -> Charset.forName("ucs2")),
-    UCS2_SPANISH2_CI(142, () -> Charset.forName("ucs2")),
-    UCS2_ROMAN_CI(143, () -> Charset.forName("ucs2")),
-    UCS2_PERSIAN_CI(144, () -> Charset.forName("ucs2")),
-```
-
-### InjectedReferences
-Unknown encoding: 'ucs2'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    UCS2_POLISH_CI(133, () -> Charset.forName("ucs2")),
-    UCS2_ESTONIAN_CI(134, () -> Charset.forName("ucs2")),
-    UCS2_SPANISH_CI(135, () -> Charset.forName("ucs2")),
-    UCS2_SWEDISH_CI(136, () -> Charset.forName("ucs2")),
-    UCS2_TURKISH_CI(137, () -> Charset.forName("ucs2")),
-```
-
-### InjectedReferences
-Unknown encoding: 'ucs2'
-in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
-#### Snippet
-```java
-    UCS2_ICELANDIC_CI(129, () -> Charset.forName("ucs2")),
-    UCS2_LATVIAN_CI(130, () -> Charset.forName("ucs2")),
-    UCS2_ROMANIAN_CI(131, () -> Charset.forName("ucs2")),
-    UCS2_SLOVENIAN_CI(132, () -> Charset.forName("ucs2")),
-    UCS2_POLISH_CI(133, () -> Charset.forName("ucs2")),
+    CP932_BIN(96, () -> Charset.forName("cp932")),
+    EUCJPMS_JAPANESE_CI(97, () -> Charset.forName("eucjpms")),
+    EUCJPMS_BIN(98, () -> Charset.forName("eucjpms")),
+    CP1250_POLISH_CI(99, () -> Charset.forName("cp1250")),
+    UTF16_UNICODE_CI(101, () -> StandardCharsets.UTF_16),
 ```
 
 ### InjectedReferences
@@ -1028,11 +837,83 @@ Unknown encoding: 'ucs2'
 in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
 #### Snippet
 ```java
-    UCS2_TURKISH_CI(137, () -> Charset.forName("ucs2")),
-    UCS2_CZECH_CI(138, () -> Charset.forName("ucs2")),
-    UCS2_DANISH_CI(139, () -> Charset.forName("ucs2")),
-    UCS2_LITHUANIAN_CI(140, () -> Charset.forName("ucs2")),
-    UCS2_SLOVAK_CI(141, () -> Charset.forName("ucs2")),
+    UCS2_UNICODE_CI(128, () -> Charset.forName("ucs2")),
+    UCS2_ICELANDIC_CI(129, () -> Charset.forName("ucs2")),
+    UCS2_LATVIAN_CI(130, () -> Charset.forName("ucs2")),
+    UCS2_ROMANIAN_CI(131, () -> Charset.forName("ucs2")),
+    UCS2_SLOVENIAN_CI(132, () -> Charset.forName("ucs2")),
+```
+
+### InjectedReferences
+Unknown encoding: 'ucs2'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    UCS2_ESPERANTO_CI(145, () -> Charset.forName("ucs2")),
+    UCS2_HUNGARIAN_CI(146, () -> Charset.forName("ucs2")),
+    UCS2_SINHALA_CI(147, () -> Charset.forName("ucs2")),
+    UCS2_GERMAN2_CI(148, () -> Charset.forName("ucs2")),
+    UCS2_CROATIAN_CI(149, () -> Charset.forName("ucs2")),
+```
+
+### InjectedReferences
+Unknown encoding: 'ucs2'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    UCS2_UNICODE_520_CI(150, () -> Charset.forName("ucs2")),
+    UCS2_VIETNAMESE_CI(151, () -> Charset.forName("ucs2")),
+    UCS2_GENERAL_MYSQL500_CI(159, () -> Charset.forName("ucs2")),
+    UTF32_UNICODE_CI(160, () -> Charset.forName("utf32")),
+    UTF32_ICELANDIC_CI(161, () -> Charset.forName("utf32")),
+```
+
+### InjectedReferences
+Unknown encoding: 'hp8'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    CP850_GENERAL_CI(4, () -> Charset.forName("cp850")),
+    LATIN1_GERMAN1_CI(5, () -> StandardCharsets.ISO_8859_1),
+    HP8_ENGLISH_CI(6, () -> Charset.forName("hp8")),
+    KOI8R_GENERAL_CI(7, () -> Charset.forName("koi8-r")),
+    LATIN1_SWEDISH_CI(8, () -> StandardCharsets.ISO_8859_1),
+```
+
+### InjectedReferences
+Unknown encoding: 'eucjpms'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    CP932_JAPANESE_CI(95, () -> Charset.forName("cp932")),
+    CP932_BIN(96, () -> Charset.forName("cp932")),
+    EUCJPMS_JAPANESE_CI(97, () -> Charset.forName("eucjpms")),
+    EUCJPMS_BIN(98, () -> Charset.forName("eucjpms")),
+    CP1250_POLISH_CI(99, () -> Charset.forName("cp1250")),
+```
+
+### InjectedReferences
+Unknown encoding: 'ucs2'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    UCS2_ROMAN_CI(143, () -> Charset.forName("ucs2")),
+    UCS2_PERSIAN_CI(144, () -> Charset.forName("ucs2")),
+    UCS2_ESPERANTO_CI(145, () -> Charset.forName("ucs2")),
+    UCS2_HUNGARIAN_CI(146, () -> Charset.forName("ucs2")),
+    UCS2_SINHALA_CI(147, () -> Charset.forName("ucs2")),
+```
+
+### InjectedReferences
+Unknown encoding: 'hp8'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    GREEK_BIN(70, () -> Charset.forName("greek")),
+    HEBREW_BIN(71, () -> Charset.forName("hebrew")),
+    HP8_BIN(72, () -> Charset.forName("hp8")),
+    KEYBCS2_BIN(73, () -> Charset.forName("keybcs2")),
+    KOI8R_BIN(74, () -> Charset.forName("koi8-r")),
 ```
 
 ### InjectedReferences
@@ -1048,6 +929,30 @@ in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/
 ```
 
 ### InjectedReferences
+Unknown encoding: 'ucs2'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    UCS2_SWEDISH_CI(136, () -> Charset.forName("ucs2")),
+    UCS2_TURKISH_CI(137, () -> Charset.forName("ucs2")),
+    UCS2_CZECH_CI(138, () -> Charset.forName("ucs2")),
+    UCS2_DANISH_CI(139, () -> Charset.forName("ucs2")),
+    UCS2_LITHUANIAN_CI(140, () -> Charset.forName("ucs2")),
+```
+
+### InjectedReferences
+Unknown encoding: 'ujis'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    TIS620_BIN(89, () -> Charset.forName("tis620")),
+    UCS2_BIN(90, () -> Charset.forName("ucs2")),
+    UJIS_BIN(91, () -> Charset.forName("ujis")),
+    GEOSTD8_GENERAL_CI(92, () -> Charset.forName("geostd8")),
+    GEOSTD8_BIN(93, () -> Charset.forName("geostd8")),
+```
+
+### InjectedReferences
 Unknown encoding: 'ujis'
 in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
 #### Snippet
@@ -1057,6 +962,102 @@ in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/
     UJIS_JAPANESE_CI(12, () -> Charset.forName("ujis")),
     SJIS_JAPANESE_CI(13, () -> Charset.forName("sjis")),
     CP1251_BULGARIAN_CI(14, () -> Charset.forName("cp1251")),
+```
+
+### InjectedReferences
+Unknown encoding: 'ucs2'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    UCS2_LITHUANIAN_CI(140, () -> Charset.forName("ucs2")),
+    UCS2_SLOVAK_CI(141, () -> Charset.forName("ucs2")),
+    UCS2_SPANISH2_CI(142, () -> Charset.forName("ucs2")),
+    UCS2_ROMAN_CI(143, () -> Charset.forName("ucs2")),
+    UCS2_PERSIAN_CI(144, () -> Charset.forName("ucs2")),
+```
+
+### InjectedReferences
+Unknown encoding: 'ucs2'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    UCS2_ROMANIAN_CI(131, () -> Charset.forName("ucs2")),
+    UCS2_SLOVENIAN_CI(132, () -> Charset.forName("ucs2")),
+    UCS2_POLISH_CI(133, () -> Charset.forName("ucs2")),
+    UCS2_ESTONIAN_CI(134, () -> Charset.forName("ucs2")),
+    UCS2_SPANISH_CI(135, () -> Charset.forName("ucs2")),
+```
+
+### InjectedReferences
+Unknown encoding: 'ucs2'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    UCS2_PERSIAN_CI(144, () -> Charset.forName("ucs2")),
+    UCS2_ESPERANTO_CI(145, () -> Charset.forName("ucs2")),
+    UCS2_HUNGARIAN_CI(146, () -> Charset.forName("ucs2")),
+    UCS2_SINHALA_CI(147, () -> Charset.forName("ucs2")),
+    UCS2_GERMAN2_CI(148, () -> Charset.forName("ucs2")),
+```
+
+### InjectedReferences
+Unknown encoding: 'ucs2'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    SJIS_BIN(88, () -> Charset.forName("sjis")),
+    TIS620_BIN(89, () -> Charset.forName("tis620")),
+    UCS2_BIN(90, () -> Charset.forName("ucs2")),
+    UJIS_BIN(91, () -> Charset.forName("ujis")),
+    GEOSTD8_GENERAL_CI(92, () -> Charset.forName("geostd8")),
+```
+
+### InjectedReferences
+Unknown encoding: 'ucs2'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    UCS2_CROATIAN_CI(149, () -> Charset.forName("ucs2")),
+    UCS2_UNICODE_520_CI(150, () -> Charset.forName("ucs2")),
+    UCS2_VIETNAMESE_CI(151, () -> Charset.forName("ucs2")),
+    UCS2_GENERAL_MYSQL500_CI(159, () -> Charset.forName("ucs2")),
+    UTF32_UNICODE_CI(160, () -> Charset.forName("utf32")),
+```
+
+### InjectedReferences
+Unknown encoding: 'ucs2'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    UTF8_GENERAL_CI(33, () -> StandardCharsets.UTF_8),
+    CP1250_CZECH_CS(34, () -> Charset.forName("cp1250")),
+    UCS2_GENERAL_CI(35, () -> Charset.forName("ucs2")),
+    CP866_GENERAL_CI(36, () -> Charset.forName("cp866")),
+    KEYBCS2_GENERAL_CI(37, () -> Charset.forName("keybcs2")),
+```
+
+### InjectedReferences
+Unknown encoding: 'ucs2'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    UCS2_SLOVAK_CI(141, () -> Charset.forName("ucs2")),
+    UCS2_SPANISH2_CI(142, () -> Charset.forName("ucs2")),
+    UCS2_ROMAN_CI(143, () -> Charset.forName("ucs2")),
+    UCS2_PERSIAN_CI(144, () -> Charset.forName("ucs2")),
+    UCS2_ESPERANTO_CI(145, () -> Charset.forName("ucs2")),
+```
+
+### InjectedReferences
+Unknown encoding: 'dec8'
+in `db-protocol/mysql/src/main/java/org/apache/shardingsphere/db/protocol/mysql/constant/MySQLCharacterSet.java`
+#### Snippet
+```java
+    CP1256_BIN(67, () -> Charset.forName("cp1256")),
+    CP866_BIN(68, () -> Charset.forName("cp866")),
+    DEC8_BIN(69, () -> Charset.forName("dec8")),
+    GREEK_BIN(70, () -> Charset.forName("greek")),
+    HEBREW_BIN(71, () -> Charset.forName("hebrew")),
 ```
 
 ## RuleId[id=EmptyTryBlock]
@@ -1135,18 +1136,6 @@ in `kernel/data-pipeline/core/src/main/java/org/apache/shardingsphere/data/pipel
 ```
 
 ### DataFlowIssue
-Method invocation `multiplyBy` may produce `NullPointerException`
-in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/metadata/translatable/TranslatableTableScan.java`
-#### Snippet
-```java
-    @Override
-    public RelOptCost computeSelfCost(final RelOptPlanner planner, final RelMetadataQuery mq) {
-        return super.computeSelfCost(planner, mq).multiplyBy(((double) number + 2D) / ((double) table.getRowType().getFieldCount() + 2D));
-    }
-    
-```
-
-### DataFlowIssue
 Argument `table.getExpression(FederationTranslatableTable.class)` might be null
 in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/metadata/translatable/TranslatableTableScan.java`
 #### Snippet
@@ -1195,6 +1184,18 @@ in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlf
 ```
 
 ### DataFlowIssue
+Method invocation `multiplyBy` may produce `NullPointerException`
+in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/metadata/translatable/TranslatableTableScan.java`
+#### Snippet
+```java
+    @Override
+    public RelOptCost computeSelfCost(final RelOptPlanner planner, final RelMetadataQuery mq) {
+        return super.computeSelfCost(planner, mq).multiplyBy(((double) number + 2D) / ((double) table.getRowType().getFieldCount() + 2D));
+    }
+    
+```
+
+### DataFlowIssue
 Passing a non-null argument to `Optional`
 in `features/sharding/distsql/handler/src/main/java/org/apache/shardingsphere/sharding/distsql/handler/query/ShowShardingTableRuleExecutor.java`
 #### Snippet
@@ -1204,6 +1205,30 @@ in `features/sharding/distsql/handler/src/main/java/org/apache/shardingsphere/sh
                 : Optional.ofNullable(shardingTableRuleConfig.getDatabaseShardingStrategy());
     }
     
+```
+
+### DataFlowIssue
+Condition `child instanceof FieldLengthContext` is redundant and can be replaced with a null check
+in `sql-parser/dialect/mysql/src/main/java/org/apache/shardingsphere/sql/parser/mysql/visitor/format/MySQLFormatVisitor.java`
+#### Snippet
+```java
+        for (int i = 0; i < childCount; i++) {
+            ParseTree child = ctx.getChild(i);
+            if (i != 0 && !(child instanceof FieldLengthContext || child instanceof PrecisionContext || child instanceof StringListContext || child instanceof TypeDatetimePrecisionContext)) {
+                formatPrint(" ");
+            }
+```
+
+### DataFlowIssue
+Method invocation `tableName` may produce `NullPointerException`
+in `sql-parser/dialect/mysql/src/main/java/org/apache/shardingsphere/sql/parser/mysql/visitor/statement/type/MySQLDCLStatementVisitor.java`
+#### Snippet
+```java
+        String schemaName = null;
+        String tableName;
+        if (null != ((GrantLevelTableContext) ctx).tableName().owner()) {
+            schemaName = new IdentifierValue(((GrantLevelTableContext) ctx).tableName().owner().getText()).getValue();
+        }
 ```
 
 ### DataFlowIssue
@@ -1228,30 +1253,6 @@ in `sql-parser/dialect/mysql/src/main/java/org/apache/shardingsphere/sql/parser/
                 case "procedure":
                     result.setAclType(ACLTypeEnum.PROCEDURE);
                     break;
-```
-
-### DataFlowIssue
-Method invocation `tableName` may produce `NullPointerException`
-in `sql-parser/dialect/mysql/src/main/java/org/apache/shardingsphere/sql/parser/mysql/visitor/statement/type/MySQLDCLStatementVisitor.java`
-#### Snippet
-```java
-        String schemaName = null;
-        String tableName;
-        if (null != ((GrantLevelTableContext) ctx).tableName().owner()) {
-            schemaName = new IdentifierValue(((GrantLevelTableContext) ctx).tableName().owner().getText()).getValue();
-        }
-```
-
-### DataFlowIssue
-Condition `child instanceof FieldLengthContext` is redundant and can be replaced with a null check
-in `sql-parser/dialect/mysql/src/main/java/org/apache/shardingsphere/sql/parser/mysql/visitor/format/MySQLFormatVisitor.java`
-#### Snippet
-```java
-        for (int i = 0; i < childCount; i++) {
-            ParseTree child = ctx.getChild(i);
-            if (i != 0 && !(child instanceof FieldLengthContext || child instanceof PrecisionContext || child instanceof StringListContext || child instanceof TypeDatetimePrecisionContext)) {
-                formatPrint(" ");
-            }
 ```
 
 ### DataFlowIssue
@@ -2240,20 +2241,6 @@ in `features/encrypt/core/src/main/java/org/apache/shardingsphere/encrypt/rewrit
         addCipherColumn(tableName, columnName, result);
         addAssistedQueryColumn(tableName, columnName, result);
         addLikeQueryColumn(tableName, columnName, result);
-        addPlainColumn(tableName, columnName, result);
-        return result;
-```
-
-### DuplicatedCode
-Duplicated code
-in `features/encrypt/core/src/main/java/org/apache/shardingsphere/encrypt/rewrite/token/generator/EncryptAssignmentTokenGenerator.java`
-#### Snippet
-```java
-        EncryptLiteralAssignmentToken result = new EncryptLiteralAssignmentToken(assignmentSegment.getColumns().get(0).getStartIndex(), assignmentSegment.getStopIndex());
-        addCipherAssignment(schemaName, tableName, assignmentSegment, result);
-        addAssistedQueryAssignment(schemaName, tableName, assignmentSegment, result);
-        addLikeAssignment(schemaName, tableName, assignmentSegment, result);
-        addPlainAssignment(tableName, assignmentSegment, result);
         return result;
 ```
 
@@ -2266,21 +2253,6 @@ in `features/encrypt/core/src/main/java/org/apache/shardingsphere/encrypt/rewrit
         Object cipherValue = encryptRule.getEncryptValues(databaseName, schemaName, tableName, assignmentSegment.getColumns().get(0).getIdentifier().getValue(),
                 Collections.singletonList(originalValue)).iterator().next();
         token.addAssignment(encryptRule.getCipherColumn(tableName, assignmentSegment.getColumns().get(0).getIdentifier().getValue()), cipherValue);
-```
-
-### DuplicatedCode
-Duplicated code
-in `features/encrypt/core/src/main/java/org/apache/shardingsphere/encrypt/rewrite/token/generator/EncryptPredicateRightValueTokenGenerator.java`
-#### Snippet
-```java
-        Collection<Integer> parameterMarkerIndexes = encryptCondition.getPositionIndexMap().keySet();
-        if (encryptCondition instanceof EncryptBinaryCondition && ((EncryptBinaryCondition) encryptCondition).getExpressionSegment() instanceof FunctionSegment) {
-            return new EncryptPredicateFunctionRightValueToken(startIndex, stopIndex,
-                    ((FunctionSegment) ((EncryptBinaryCondition) encryptCondition).getExpressionSegment()).getFunctionName(), indexValues, parameterMarkerIndexes);
-        }
-        return encryptCondition instanceof EncryptInCondition
-                ? new EncryptPredicateInRightValueToken(startIndex, stopIndex, indexValues, parameterMarkerIndexes)
-                : new EncryptPredicateEqualRightValueToken(startIndex, stopIndex, indexValues, parameterMarkerIndexes);
 ```
 
 ### DuplicatedCode
@@ -2681,7 +2653,7 @@ in `infra/common/src/main/java/org/apache/shardingsphere/infra/metadata/database
 
 ### DuplicatedCode
 Duplicated code
-in `infra/context/src/main/java/org/apache/shardingsphere/infra/context/refresher/type/table/AlterTableStatementSchemaRefresher.java`
+in `infra/context/src/main/java/org/apache/shardingsphere/infra/connection/refresher/type/table/AlterTableStatementSchemaRefresher.java`
 #### Snippet
 ```java
         ShardingSphereRuleMetaData ruleMetaData = new ShardingSphereRuleMetaData(new LinkedList<>(database.getRuleMetaData().getRules()));
@@ -2697,7 +2669,7 @@ in `infra/context/src/main/java/org/apache/shardingsphere/infra/context/refreshe
 
 ### DuplicatedCode
 Duplicated code
-in `infra/context/src/main/java/org/apache/shardingsphere/infra/context/refresher/type/table/CreateTableStatementSchemaRefresher.java`
+in `infra/context/src/main/java/org/apache/shardingsphere/infra/connection/refresher/type/table/CreateTableStatementSchemaRefresher.java`
 #### Snippet
 ```java
         ShardingSphereRuleMetaData ruleMetaData = new ShardingSphereRuleMetaData(new LinkedList<>(database.getRuleMetaData().getRules()));
@@ -2772,12 +2744,12 @@ Duplicated code
 in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/jdbc/core/statement/ShardingSpherePreparedStatement.java`
 #### Snippet
 ```java
-        Optional<String> result = connection.getConnectionManager().getConnectionContext().getTrafficInstanceId();
+        Optional<String> result = connection.getDatabaseConnectionManager().getConnectionContext().getTrafficInstanceId();
         if (!result.isPresent()) {
             result = getInstanceId(queryContext);
         }
         if (connection.isHoldTransaction() && result.isPresent()) {
-            connection.getConnectionManager().getConnectionContext().setTrafficInstanceId(result.get());
+            connection.getDatabaseConnectionManager().getConnectionContext().setTrafficInstanceId(result.get());
         }
         return result;
 ```
@@ -2787,8 +2759,8 @@ Duplicated code
 in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/jdbc/core/statement/ShardingSpherePreparedStatement.java`
 #### Snippet
 ```java
-        ConnectionTransaction connectionTransaction = connection.getConnectionManager().getConnectionTransaction();
-        boolean isInTransaction = connection.getConnectionManager().getConnectionContext().getTransactionContext().isInTransaction();
+        ConnectionTransaction connectionTransaction = connection.getDatabaseConnectionManager().getConnectionTransaction();
+        boolean isInTransaction = connection.getDatabaseConnectionManager().getConnectionContext().getTransactionContext().isInTransaction();
         SQLStatement sqlStatement = executionContext.getSqlStatementContext().getSqlStatement();
         return TransactionType.isDistributedTransaction(connectionTransaction.getTransactionType()) && !isInTransaction && sqlStatement instanceof DMLStatement
                 && !(sqlStatement instanceof SelectStatement) && executionContext.getExecutionUnits().size() > 1;
@@ -2947,6 +2919,71 @@ in `kernel/data-pipeline/scenario/consistencycheck/src/main/java/org/apache/shar
         ShardingSpherePreconditions.checkState(latestCheckJobId.isPresent(), () -> new ConsistencyCheckJobNotFoundException(parentJobId));
         String checkJobId = latestCheckJobId.get();
         Optional<ConsistencyCheckJobItemProgress> progressOptional = getJobItemProgress(checkJobId, 0);
+```
+
+### DuplicatedCode
+Duplicated code
+in `kernel/metadata/core/src/main/java/org/apache/shardingsphere/metadata/factory/InternalMetaDataFactory.java`
+#### Snippet
+```java
+        Map<String, ShardingSphereDatabase> result = new ConcurrentHashMap<>(databaseConfigMap.size(), 1);
+        for (Entry<String, DatabaseConfiguration> entry : databaseConfigMap.entrySet()) {
+            String databaseName = entry.getKey();
+            if (entry.getValue().getDataSources().isEmpty()) {
+                result.put(databaseName.toLowerCase(), ShardingSphereDatabase.create(databaseName, protocolType));
+            } else {
+                result.put(databaseName.toLowerCase(), create(databaseName, persistService, entry.getValue(), props, instanceContext));
+            }
+        }
+        return result;
+```
+
+### DuplicatedCode
+Duplicated code
+in `kernel/metadata/core/src/main/java/org/apache/shardingsphere/metadata/persist/MetaDataPersistService.java`
+#### Snippet
+```java
+        Map<String, DataSourceProperties> dataSourcePropertiesMap = getDataSourcePropertiesMap(databaseConfigs.getDataSources());
+        if (dataSourcePropertiesMap.isEmpty() && databaseConfigs.getRuleConfigurations().isEmpty()) {
+            databaseMetaDataService.addDatabase(databaseName);
+        } else {
+            dataSourceService.persist(databaseName, getDataSourcePropertiesMap(databaseConfigs.getDataSources()));
+            databaseRulePersistService.persist(databaseName, dataSources, rules, databaseConfigs.getRuleConfigurations());
+        }
+```
+
+### DuplicatedCode
+Duplicated code
+in `kernel/metadata/core/src/main/java/org/apache/shardingsphere/metadata/persist/MetaDataPersistService.java`
+#### Snippet
+```java
+        Map<String, DataSourceProperties> result = new LinkedHashMap<>(dataSourceMap.size(), 1);
+        for (Entry<String, DataSource> entry : dataSourceMap.entrySet()) {
+            result.put(entry.getKey(), DataSourcePropertiesCreator.create(entry.getValue()));
+        }
+        return result;
+```
+
+### DuplicatedCode
+Duplicated code
+in `kernel/metadata/core/src/main/java/org/apache/shardingsphere/metadata/persist/MetaDataPersistService.java`
+#### Snippet
+```java
+        Map<String, DataSource> result = new LinkedHashMap<>(persistedDataSourcePropsMap.size(), 1);
+        for (Entry<String, DataSourceProperties> entry : persistedDataSourcePropsMap.entrySet()) {
+            String dataSourceName = entry.getKey();
+            DataSourceProperties persistedDataSourceProps = entry.getValue();
+            DataSource localConfiguredDataSource = localConfiguredDataSources.get(dataSourceName);
+            if (null == localConfiguredDataSource) {
+                result.put(dataSourceName, DataSourcePoolCreator.create(persistedDataSourceProps));
+            } else if (DataSourcePropertiesCreator.create(localConfiguredDataSource).equals(persistedDataSourceProps)) {
+                result.put(dataSourceName, localConfiguredDataSource);
+            } else {
+                result.put(dataSourceName, DataSourcePoolCreator.create(persistedDataSourceProps));
+                new DataSourcePoolDestroyer(localConfiguredDataSource).asyncDestroy();
+            }
+        }
+        return result;
 ```
 
 ### DuplicatedCode
@@ -3159,14 +3196,102 @@ in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlf
 
 ### DuplicatedCode
 Duplicated code
+in `mode/core/src/main/java/org/apache/shardingsphere/mode/metadata/MetaDataContextsFactory.java`
+#### Snippet
+```java
+        boolean databaseMetaDataExisted = databaseMetaDataExisted(persistService);
+        Map<String, DatabaseConfiguration> effectiveDatabaseConfigs = getDatabaseConfigurations(databaseMetaDataExisted,
+                getDatabaseNames(instanceContext, param.getDatabaseConfigs(), persistService), param.getDatabaseConfigs(), persistService);
+        checkDataSourceStates(effectiveDatabaseConfigs, storageNodes, param.isForce());
+        Collection<RuleConfiguration> globalRuleConfigs = getGlobalRuleConfigs(databaseMetaDataExisted, persistService, param.getGlobalRuleConfigs());
+        ConfigurationProperties props = getConfigurationProperties(databaseMetaDataExisted, persistService, param.getProps());
+        Map<String, ShardingSphereDatabase> databases = getDatabases(databaseMetaDataExisted, persistService, effectiveDatabaseConfigs, props, instanceContext);
+        ShardingSphereRuleMetaData globalMetaData = new ShardingSphereRuleMetaData(GlobalRulesBuilder.buildRules(globalRuleConfigs, databases, props));
+        MetaDataContexts result = new MetaDataContexts(persistService, new ShardingSphereMetaData(databases, globalMetaData, props));
+        persistDatabaseConfigurations(databaseMetaDataExisted, param, result);
+        persistMetaData(databaseMetaDataExisted, result);
+        return result;
+```
+
+### DuplicatedCode
+Duplicated code
+in `mode/core/src/main/java/org/apache/shardingsphere/mode/metadata/MetaDataContextsFactory.java`
+#### Snippet
+```java
+        Map<String, DataSourceState> result = new HashMap<>(storageDataSourceStates.size(), 1);
+        storageDataSourceStates.forEach((key, value) -> {
+            List<String> values = Splitter.on(".").splitToList(key);
+            Preconditions.checkArgument(3 == values.size(), "Illegal data source of storage node.");
+            String databaseName = values.get(0);
+            String dataSourceName = values.get(2);
+            result.put(databaseName + "." + dataSourceName, DataSourceState.valueOf(value.getStatus().name()));
+        });
+        return result;
+```
+
+### DuplicatedCode
+Duplicated code
+in `mode/core/src/main/java/org/apache/shardingsphere/mode/metadata/MetaDataContextsFactory.java`
+#### Snippet
+```java
+        metadataContexts.getPersistService().persistGlobalRuleConfiguration(param.getGlobalRuleConfigs(), param.getProps());
+        for (Entry<String, ? extends DatabaseConfiguration> entry : param.getDatabaseConfigs().entrySet()) {
+            String databaseName = entry.getKey();
+            metadataContexts.getPersistService().persistConfigurations(entry.getKey(), entry.getValue(),
+                    metadataContexts.getMetaData().getDatabase(databaseName).getResourceMetaData().getDataSources(),
+                    metadataContexts.getMetaData().getDatabase(databaseName).getRuleMetaData().getRules());
+        }
+```
+
+### DuplicatedCode
+Duplicated code
+in `mode/core/src/main/java/org/apache/shardingsphere/mode/metadata/MetaDataContextsFactory.java`
+#### Snippet
+```java
+        if (!databaseMetaDataExisted) {
+            metaDataContexts.getMetaData().getDatabases().values().forEach(each -> each.getSchemas()
+                    .forEach((schemaName, schema) -> metaDataContexts.getPersistService().getDatabaseMetaDataService().persist(each.getName(), schemaName, schema)));
+            metaDataContexts.getShardingSphereData().getDatabaseData().forEach((databaseName, databaseData) -> databaseData.getSchemaData().forEach((schemaName, schemaData) -> metaDataContexts
+                    .getPersistService().getShardingSphereDataPersistService().persist(databaseName, schemaName, schemaData, metaDataContexts.getMetaData().getDatabases())));
+        }
+```
+
+### DuplicatedCode
+Duplicated code
+in `mode/type/cluster/core/src/main/java/org/apache/shardingsphere/mode/manager/cluster/ClusterContextManagerBuilder.java`
+#### Snippet
+```java
+        ClusterPersistRepository repository = getClusterPersistRepository((ClusterPersistRepositoryConfiguration) param.getModeConfiguration().getRepository());
+        RegistryCenter registryCenter = new RegistryCenter(repository, new EventBusContext(), param.getInstanceMetaData(), param.getDatabaseConfigs());
+        InstanceContext instanceContext = buildInstanceContext(registryCenter, param);
+        if (registryCenter.getRepository() instanceof InstanceContextAware) {
+            ((InstanceContextAware) registryCenter.getRepository()).setInstanceContext(instanceContext);
+        }
+```
+
+### DuplicatedCode
+Duplicated code
 in `mode/type/cluster/core/src/main/java/org/apache/shardingsphere/mode/manager/cluster/ClusterModeContextManager.java`
 #### Snippet
 ```java
-        DatabaseMetaDataPersistService databaseMetaDataService = contextManager.getMetaDataContexts().getPersistService().getDatabaseMetaDataService();
+        DatabaseMetaDataBasedPersistService databaseMetaDataService = contextManager.getMetaDataContexts().getPersistService().getDatabaseMetaDataService();
         databaseMetaDataService.getTableMetaDataPersistService().persist(databaseName, schemaName, tables);
         databaseMetaDataService.getViewMetaDataPersistService().persist(databaseName, schemaName, views);
         alterSchemaMetaDataPOJO.getDroppedTables().forEach(each -> databaseMetaDataService.getTableMetaDataPersistService().delete(databaseName, schemaName, each));
         alterSchemaMetaDataPOJO.getDroppedViews().forEach(each -> databaseMetaDataService.getViewMetaDataPersistService().delete(databaseName, schemaName, each));
+```
+
+### DuplicatedCode
+Duplicated code
+in `mode/type/cluster/core/src/main/java/org/apache/shardingsphere/mode/manager/cluster/coordinator/subscriber/ConfigurationChangedSubscriber.java`
+#### Snippet
+```java
+        for (Entry<String, Collection<String>> entry : rule.getDataSourceMapper().entrySet()) {
+            if (!database.getGroupName().equals(entry.getKey())) {
+                continue;
+            }
+            entry.getValue().forEach(each -> rule.updateStatus(new StorageNodeDataSourceChangedEvent(database, storageNodeDataSource)));
+        }
 ```
 
 ### DuplicatedCode
@@ -3275,7 +3400,7 @@ in `proxy/frontend/type/mysql/src/main/java/org/apache/shardingsphere/proxy/fron
             count++;
             while (!context.channel().isWritable() && context.channel().isActive()) {
                 context.flush();
-                backendConnection.getResourceLock().doAwait();
+                databaseConnectionManager.getResourceLock().doAwait();
             }
             DatabasePacket<?> dataValue = queryCommandExecutor.getQueryRowPacket();
             context.write(dataValue);
@@ -5914,7 +6039,7 @@ in `mode/type/cluster/core/src/main/java/org/apache/shardingsphere/mode/manager/
 #### Snippet
 ```java
     
-    private Matcher matchInstanceOnlinePath(final String onlineInstancePath) {
+    private Matcher getInstanceOnlinePathMatcher(final String onlineInstancePath) {
         return Pattern.compile(ComputeNode.getOnlineInstanceNodePath() + "/([\\S]+)/([\\S]+)$", Pattern.CASE_INSENSITIVE).matcher(onlineInstancePath);
     }
     
@@ -5926,7 +6051,7 @@ in `mode/type/cluster/core/src/main/java/org/apache/shardingsphere/mode/manager/
 #### Snippet
 ```java
     
-    private Matcher matchInstanceOnlinePath(final String onlineInstancePath) {
+    private Matcher getInstanceOnlinePathMatcher(final String onlineInstancePath) {
         return Pattern.compile(ComputeNode.getOnlineInstanceNodePath() + "/([\\S]+)/([\\S]+)$", Pattern.CASE_INSENSITIVE).matcher(onlineInstancePath);
     }
     
@@ -5938,32 +6063,8 @@ in `mode/type/cluster/core/src/main/java/org/apache/shardingsphere/mode/manager/
 #### Snippet
 ```java
     
-    private static Matcher getShowProcessTriggerMatcher(final DataChangedEvent event) {
-        return Pattern.compile(ComputeNode.getProcessTriggerNodePatch() + "/([\\S]+):([\\S]+)$", Pattern.CASE_INSENSITIVE).matcher(event.getKey());
-    }
-    
-```
-
-### RegExpSimplifiable
-`[\\S]` can be simplified to '\\S'
-in `mode/type/cluster/core/src/main/java/org/apache/shardingsphere/mode/manager/cluster/coordinator/registry/status/compute/watcher/ComputeNodeStateChangedWatcher.java`
-#### Snippet
-```java
-    
-    private static Matcher getShowProcessTriggerMatcher(final DataChangedEvent event) {
-        return Pattern.compile(ComputeNode.getProcessTriggerNodePatch() + "/([\\S]+):([\\S]+)$", Pattern.CASE_INSENSITIVE).matcher(event.getKey());
-    }
-    
-```
-
-### RegExpSimplifiable
-`[\\S]` can be simplified to '\\S'
-in `mode/type/cluster/core/src/main/java/org/apache/shardingsphere/mode/manager/cluster/coordinator/registry/status/compute/watcher/ComputeNodeStateChangedWatcher.java`
-#### Snippet
-```java
-    
-    private static Matcher getKillProcessIdMatcher(final DataChangedEvent event) {
-        Pattern pattern = Pattern.compile(ComputeNode.getProcessKillNodePatch() + "/([\\S]+):([\\S]+)$", Pattern.CASE_INSENSITIVE);
+    private static Matcher getKillProcessTriggerMatcher(final DataChangedEvent event) {
+        Pattern pattern = Pattern.compile(ComputeNode.getKillProcessTriggerNodePath() + "/([\\S]+):([\\S]+)$", Pattern.CASE_INSENSITIVE);
         return pattern.matcher(event.getKey());
     }
 ```
@@ -5974,10 +6075,34 @@ in `mode/type/cluster/core/src/main/java/org/apache/shardingsphere/mode/manager/
 #### Snippet
 ```java
     
-    private static Matcher getKillProcessIdMatcher(final DataChangedEvent event) {
-        Pattern pattern = Pattern.compile(ComputeNode.getProcessKillNodePatch() + "/([\\S]+):([\\S]+)$", Pattern.CASE_INSENSITIVE);
+    private static Matcher getKillProcessTriggerMatcher(final DataChangedEvent event) {
+        Pattern pattern = Pattern.compile(ComputeNode.getKillProcessTriggerNodePath() + "/([\\S]+):([\\S]+)$", Pattern.CASE_INSENSITIVE);
         return pattern.matcher(event.getKey());
     }
+```
+
+### RegExpSimplifiable
+`[\\S]` can be simplified to '\\S'
+in `mode/type/cluster/core/src/main/java/org/apache/shardingsphere/mode/manager/cluster/coordinator/registry/status/compute/watcher/ComputeNodeStateChangedWatcher.java`
+#### Snippet
+```java
+    
+    private static Matcher getShowProcessListTriggerMatcher(final DataChangedEvent event) {
+        return Pattern.compile(ComputeNode.getShowProcessListTriggerNodePath() + "/([\\S]+):([\\S]+)$", Pattern.CASE_INSENSITIVE).matcher(event.getKey());
+    }
+    
+```
+
+### RegExpSimplifiable
+`[\\S]` can be simplified to '\\S'
+in `mode/type/cluster/core/src/main/java/org/apache/shardingsphere/mode/manager/cluster/coordinator/registry/status/compute/watcher/ComputeNodeStateChangedWatcher.java`
+#### Snippet
+```java
+    
+    private static Matcher getShowProcessListTriggerMatcher(final DataChangedEvent event) {
+        return Pattern.compile(ComputeNode.getShowProcessListTriggerNodePath() + "/([\\S]+):([\\S]+)$", Pattern.CASE_INSENSITIVE).matcher(event.getKey());
+    }
+    
 ```
 
 ### RegExpSimplifiable
@@ -6031,78 +6156,6 @@ public final class ShardingSphereYamlRepresenter extends Representer {
 
 ### Deprecation
 'operand(java.lang.Class, org.apache.calcite.plan.RelOptRuleOperand, org.apache.calcite.plan.RelOptRuleOperand...)' is deprecated
-in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/metadata/translatable/TranslatableFilterRule.java`
-#### Snippet
-```java
-    
-    public TranslatableFilterRule(final RelBuilderFactory relBuilderFactory) {
-        super(operand(LogicalFilter.class, operand(TranslatableTableScan.class, none())), relBuilderFactory, "TranslatableFilterRule");
-    }
-    
-```
-
-### Deprecation
-'operand(java.lang.Class, org.apache.calcite.plan.RelOptRuleOperand, org.apache.calcite.plan.RelOptRuleOperand...)' is deprecated
-in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/metadata/translatable/TranslatableProjectRule.java`
-#### Snippet
-```java
-    
-    public TranslatableProjectRule(final RelBuilderFactory relBuilderFactory) {
-        super(operand(LogicalProject.class, operand(TranslatableTableScan.class, none())), relBuilderFactory, "TranslatableProjectRule");
-    }
-    
-```
-
-### Deprecation
-'operand(java.lang.Class, org.apache.calcite.plan.RelOptRuleOperandChildren)' is deprecated
-in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/metadata/translatable/TranslatableProjectRule.java`
-#### Snippet
-```java
-    
-    public TranslatableProjectRule(final RelBuilderFactory relBuilderFactory) {
-        super(operand(LogicalProject.class, operand(TranslatableTableScan.class, none())), relBuilderFactory, "TranslatableProjectRule");
-    }
-    
-```
-
-### Deprecation
-'operand(java.lang.Class, org.apache.calcite.plan.RelOptRuleOperandChildren)' is deprecated
-in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/metadata/translatable/TranslatableFilterRule.java`
-#### Snippet
-```java
-    
-    public TranslatableFilterRule(final RelBuilderFactory relBuilderFactory) {
-        super(operand(LogicalFilter.class, operand(TranslatableTableScan.class, none())), relBuilderFactory, "TranslatableFilterRule");
-    }
-    
-```
-
-### Deprecation
-'none()' is deprecated
-in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/metadata/translatable/TranslatableFilterRule.java`
-#### Snippet
-```java
-    
-    public TranslatableFilterRule(final RelBuilderFactory relBuilderFactory) {
-        super(operand(LogicalFilter.class, operand(TranslatableTableScan.class, none())), relBuilderFactory, "TranslatableFilterRule");
-    }
-    
-```
-
-### Deprecation
-'none()' is deprecated
-in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/metadata/translatable/TranslatableProjectRule.java`
-#### Snippet
-```java
-    
-    public TranslatableProjectRule(final RelBuilderFactory relBuilderFactory) {
-        super(operand(LogicalProject.class, operand(TranslatableTableScan.class, none())), relBuilderFactory, "TranslatableProjectRule");
-    }
-    
-```
-
-### Deprecation
-'operand(java.lang.Class, org.apache.calcite.plan.RelOptRuleOperand, org.apache.calcite.plan.RelOptRuleOperand...)' is deprecated
 in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/metadata/translatable/TranslatableProjectFilterRule.java`
 #### Snippet
 ```java
@@ -6145,6 +6198,78 @@ in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlf
     
     public TranslatableProjectFilterRule(final RelBuilderFactory relBuilderFactory) {
         super(operand(LogicalProject.class, operand(LogicalFilter.class, operand(TranslatableTableScan.class, none()))), relBuilderFactory, "TranslatableProjectFilterRule");
+    }
+    
+```
+
+### Deprecation
+'operand(java.lang.Class, org.apache.calcite.plan.RelOptRuleOperand, org.apache.calcite.plan.RelOptRuleOperand...)' is deprecated
+in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/metadata/translatable/TranslatableProjectRule.java`
+#### Snippet
+```java
+    
+    public TranslatableProjectRule(final RelBuilderFactory relBuilderFactory) {
+        super(operand(LogicalProject.class, operand(TranslatableTableScan.class, none())), relBuilderFactory, "TranslatableProjectRule");
+    }
+    
+```
+
+### Deprecation
+'operand(java.lang.Class, org.apache.calcite.plan.RelOptRuleOperand, org.apache.calcite.plan.RelOptRuleOperand...)' is deprecated
+in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/metadata/translatable/TranslatableFilterRule.java`
+#### Snippet
+```java
+    
+    public TranslatableFilterRule(final RelBuilderFactory relBuilderFactory) {
+        super(operand(LogicalFilter.class, operand(TranslatableTableScan.class, none())), relBuilderFactory, "TranslatableFilterRule");
+    }
+    
+```
+
+### Deprecation
+'operand(java.lang.Class, org.apache.calcite.plan.RelOptRuleOperandChildren)' is deprecated
+in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/metadata/translatable/TranslatableFilterRule.java`
+#### Snippet
+```java
+    
+    public TranslatableFilterRule(final RelBuilderFactory relBuilderFactory) {
+        super(operand(LogicalFilter.class, operand(TranslatableTableScan.class, none())), relBuilderFactory, "TranslatableFilterRule");
+    }
+    
+```
+
+### Deprecation
+'none()' is deprecated
+in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/metadata/translatable/TranslatableFilterRule.java`
+#### Snippet
+```java
+    
+    public TranslatableFilterRule(final RelBuilderFactory relBuilderFactory) {
+        super(operand(LogicalFilter.class, operand(TranslatableTableScan.class, none())), relBuilderFactory, "TranslatableFilterRule");
+    }
+    
+```
+
+### Deprecation
+'operand(java.lang.Class, org.apache.calcite.plan.RelOptRuleOperandChildren)' is deprecated
+in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/metadata/translatable/TranslatableProjectRule.java`
+#### Snippet
+```java
+    
+    public TranslatableProjectRule(final RelBuilderFactory relBuilderFactory) {
+        super(operand(LogicalProject.class, operand(TranslatableTableScan.class, none())), relBuilderFactory, "TranslatableProjectRule");
+    }
+    
+```
+
+### Deprecation
+'none()' is deprecated
+in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/metadata/translatable/TranslatableProjectRule.java`
+#### Snippet
+```java
+    
+    public TranslatableProjectRule(final RelBuilderFactory relBuilderFactory) {
+        super(operand(LogicalProject.class, operand(TranslatableTableScan.class, none())), relBuilderFactory, "TranslatableProjectRule");
     }
     
 ```
@@ -6198,7 +6323,7 @@ in `kernel/data-pipeline/api/src/main/java/org/apache/shardingsphere/data/pipeli
     
     @NonNull
     private final TableName tableName;
-    
+}
 ```
 
 ### NullableProblems
@@ -6361,18 +6486,6 @@ in `features/sharding/distsql/statement/src/main/java/org/apache/shardingsphere/
 
 ## RuleId[id=OptionalAssignedToNull]
 ### OptionalAssignedToNull
-Null is used for 'Optional' type in assignment
-in `kernel/data-pipeline/core/src/main/java/org/apache/shardingsphere/data/pipeline/core/check/consistency/algorithm/AbstractStreamingDataConsistencyCalculateAlgorithm.java`
-#### Snippet
-```java
-            calculateIfNecessary();
-            Optional<DataConsistencyCalculatedResult> nextResult = this.nextResult;
-            this.nextResult = null;
-            return nextResult.orElse(null);
-        }
-```
-
-### OptionalAssignedToNull
 Optional value is compared with null
 in `kernel/data-pipeline/core/src/main/java/org/apache/shardingsphere/data/pipeline/core/check/consistency/algorithm/AbstractStreamingDataConsistencyCalculateAlgorithm.java`
 #### Snippet
@@ -6384,10 +6497,22 @@ in `kernel/data-pipeline/core/src/main/java/org/apache/shardingsphere/data/pipel
             }
 ```
 
+### OptionalAssignedToNull
+Null is used for 'Optional' type in assignment
+in `kernel/data-pipeline/core/src/main/java/org/apache/shardingsphere/data/pipeline/core/check/consistency/algorithm/AbstractStreamingDataConsistencyCalculateAlgorithm.java`
+#### Snippet
+```java
+            calculateIfNecessary();
+            Optional<DataConsistencyCalculatedResult> nextResult = this.nextResult;
+            this.nextResult = null;
+            return nextResult.orElse(null);
+        }
+```
+
 ## RuleId[id=AutoCloseableResource]
 ### AutoCloseableResource
 'Connection' used without 'try'-with-resources statement
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/jdbc/core/connection/ConnectionManager.java`
+in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/jdbc/core/connection/DriverDatabaseConnectionManager.java`
 #### Snippet
 ```java
      */
@@ -6458,18 +6583,6 @@ in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/jdbc/core/statement
 ```
 
 ### AutoCloseableResource
-'CloseableClient' used without 'try'-with-resources statement
-in `mode/type/cluster/repository/provider/etcd/src/main/java/org/apache/shardingsphere/mode/repository/cluster/etcd/EtcdRepository.java`
-#### Snippet
-```java
-        buildParentPath(key);
-        long leaseId = client.getLeaseClient().grant(etcdProps.getValue(EtcdPropertyKey.TIME_TO_LIVE_SECONDS)).get().getID();
-        client.getLeaseClient().keepAlive(leaseId, Observers.observer(response -> {
-        }));
-        client.getKVClient().put(ByteSequence.from(key, StandardCharsets.UTF_8), ByteSequence.from(value, StandardCharsets.UTF_8), PutOption.newBuilder().withLeaseId(leaseId).build()).get();
-```
-
-### AutoCloseableResource
 'Watcher' used without 'try'-with-resources statement
 in `mode/type/cluster/repository/provider/etcd/src/main/java/org/apache/shardingsphere/mode/repository/cluster/etcd/EtcdRepository.java`
 #### Snippet
@@ -6482,20 +6595,20 @@ in `mode/type/cluster/repository/provider/etcd/src/main/java/org/apache/sharding
 ```
 
 ### AutoCloseableResource
-'Connection' used without 'try'-with-resources statement
-in `proxy/backend/core/src/main/java/org/apache/shardingsphere/proxy/backend/connector/BackendConnection.java`
+'CloseableClient' used without 'try'-with-resources statement
+in `mode/type/cluster/repository/provider/etcd/src/main/java/org/apache/shardingsphere/mode/repository/cluster/etcd/EtcdRepository.java`
 #### Snippet
 ```java
-        String databaseType;
-        try {
-            databaseType = values.iterator().next().getMetaData().getDatabaseProductName();
-        } catch (final SQLException ex) {
-            exceptions.add(ex);
+        buildParentPath(key);
+        long leaseId = client.getLeaseClient().grant(etcdProps.getValue(EtcdPropertyKey.TIME_TO_LIVE_SECONDS)).get().getID();
+        client.getLeaseClient().keepAlive(leaseId, Observers.observer(response -> {
+        }));
+        client.getKVClient().put(ByteSequence.from(key, StandardCharsets.UTF_8), ByteSequence.from(value, StandardCharsets.UTF_8), PutOption.newBuilder().withLeaseId(leaseId).build()).get();
 ```
 
 ### AutoCloseableResource
 'Connection' used without 'try'-with-resources statement
-in `proxy/backend/core/src/main/java/org/apache/shardingsphere/proxy/backend/connector/BackendConnection.java`
+in `proxy/backend/core/src/main/java/org/apache/shardingsphere/proxy/backend/connector/ProxyDatabaseConnectionManager.java`
 #### Snippet
 ```java
             return;
@@ -6503,6 +6616,18 @@ in `proxy/backend/core/src/main/java/org/apache/shardingsphere/proxy/backend/con
         String databaseType = connections.iterator().next().getMetaData().getDatabaseProductName();
         List<String> setSQLs = connectionSession.getRequiredSessionVariableRecorder().toSetSQLs(databaseType);
         SQLException sqlException = null;
+```
+
+### AutoCloseableResource
+'Connection' used without 'try'-with-resources statement
+in `proxy/backend/core/src/main/java/org/apache/shardingsphere/proxy/backend/connector/ProxyDatabaseConnectionManager.java`
+#### Snippet
+```java
+        String databaseType;
+        try {
+            databaseType = values.iterator().next().getMetaData().getDatabaseProductName();
+        } catch (final SQLException ex) {
+            exceptions.add(ex);
 ```
 
 ### AutoCloseableResource
@@ -6523,8 +6648,8 @@ in `proxy/frontend/type/postgresql/src/main/java/org/apache/shardingsphere/proxy
 #### Snippet
 ```java
         ExecutionUnit executionUnitSample = executionContext.getExecutionUnits().iterator().next();
-        BackendConnection backendConnection = connectionSession.getBackendConnection();
-        Connection connection = backendConnection.getConnections(executionUnitSample.getDataSourceName(), 1, ConnectionMode.CONNECTION_STRICTLY).iterator().next();
+        ProxyDatabaseConnectionManager databaseConnectionManager = connectionSession.getDatabaseConnectionManager();
+        Connection connection = databaseConnectionManager.getConnections(executionUnitSample.getDataSourceName(), 1, ConnectionMode.CONNECTION_STRICTLY).iterator().next();
         try (PreparedStatement actualPreparedStatement = connection.prepareStatement(executionUnitSample.getSqlUnit().getSql())) {
             populateParameterTypes(logicPreparedStatement, actualPreparedStatement);
 ```
@@ -6701,152 +6826,32 @@ in `kernel/data-pipeline/dialect/postgresql/src/main/java/org/apache/shardingsph
                 }
 ```
 
-## RuleId[id=OptionalGetWithoutIsPresent]
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/dal/impl/ShowBinlogEventsStatementAssert.java`
+## RuleId[id=UnusedAssignment]
+### UnusedAssignment
+The value changed at `columnIndex++` is never used
+in `features/encrypt/core/src/main/java/org/apache/shardingsphere/encrypt/rewrite/token/generator/EncryptForUseDefaultInsertColumnsTokenGenerator.java`
 #### Snippet
 ```java
-        } else {
-            assertNotNull(actual.getLimit(), assertContext.getText("Actual limit clause should exist."));
-            LimitClauseAssert.assertOffset(assertContext, actual.getLimit().getOffset().get(), expected.getLimitClause().getOffset());
-            LimitClauseAssert.assertRowCount(assertContext, actual.getLimit().getRowCount().get(), expected.getLimitClause().getRowCount());
-        }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/dal/impl/ShowBinlogEventsStatementAssert.java`
-#### Snippet
-```java
-            assertNotNull(actual.getLimit(), assertContext.getText("Actual limit clause should exist."));
-            LimitClauseAssert.assertOffset(assertContext, actual.getLimit().getOffset().get(), expected.getLimitClause().getOffset());
-            LimitClauseAssert.assertRowCount(assertContext, actual.getLimit().getRowCount().get(), expected.getLimitClause().getRowCount());
-        }
-    }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/ral/impl/queryable/ShowTableMetaDataStatementAssert.java`
-#### Snippet
-```java
-    public static void assertIs(final SQLCaseAssertContext assertContext, final ShowTableMetaDataStatement actual, final ShowTableMetaDataStatementTestCase expected) {
-        if (ExistingAssert.assertIs(assertContext, actual, expected)) {
-            DatabaseAssert.assertIs(assertContext, actual.getDatabase().get(), expected.getDatabase());
-            assertThat(assertContext.getText("Table assertion error:"), actual.getTableNames(), is(expected.getTableNames()));
-        }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/ral/impl/updatable/ImportMetaDataStatementAssert.java`
-#### Snippet
-```java
-    public static void assertIs(final SQLCaseAssertContext assertContext, final ImportMetaDataStatement actual, final ImportMetaDataStatementTestCase expected) {
-        if (ExistingAssert.assertIs(assertContext, actual, expected)) {
-            assertThat(actual.getFilePath().get(), is(expected.getFilePath()));
-        }
-    }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/ral/impl/updatable/RefreshTableMetaDataStatementAssert.java`
-#### Snippet
-```java
-        if (ExistingAssert.assertIs(assertContext, actual, expected)) {
-            if (null != expected.getTableName()) {
-                assertThat(assertContext.getText("Table name assertion error"), actual.getTableName().get(), is(expected.getTableName()));
+                if (encryptTable.findLikeQueryEncryptorName(columnName).isPresent()) {
+                    addLikeQueryColumn(result, encryptTable, columnName, columnIndex);
+                    columnIndex++;
+                }
             }
-            if (null != expected.getStorageUnitName()) {
 ```
 
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/ral/impl/updatable/RefreshTableMetaDataStatementAssert.java`
+### UnusedAssignment
+The value changed at `indexDelta++` is never used
+in `features/encrypt/core/src/main/java/org/apache/shardingsphere/encrypt/rewrite/token/generator/EncryptInsertValuesTokenGenerator.java`
 #### Snippet
 ```java
+                if (encryptRule.findLikeQueryEncryptor(tableName, columnName).isPresent()) {
+                    addLikeQueryColumn(insertValueToken, encryptRule.findLikeQueryEncryptor(tableName, columnName).get(), columnIndex, encryptContext, insertValueContext, originalValue, indexDelta);
+                    indexDelta++;
+                }
             }
-            if (null != expected.getStorageUnitName()) {
-                assertThat(assertContext.getText("Storage unit name assertion error"), actual.getStorageUnitName().get(), is(expected.getStorageUnitName()));
-            }
-            if (null != expected.getSchemaName()) {
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/ral/impl/updatable/RefreshTableMetaDataStatementAssert.java`
-#### Snippet
-```java
-            }
-            if (null != expected.getSchemaName()) {
-                assertThat(assertContext.getText("Schema name assertion error"), actual.getSchemaName().get(), is(expected.getSchemaName()));
-            }
-        }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `proxy/backend/core/src/main/java/org/apache/shardingsphere/proxy/backend/handler/transaction/TransactionBackendHandler.java`
-#### Snippet
-```java
-        ShardingSpherePreconditions.checkState(connectionSession.getTransactionStatus().isInTransaction() || !isSchemaSupportedDatabaseType(),
-                () -> new SQLFeatureNotSupportedException("ROLLBACK TO SAVEPOINT can only be used in transaction blocks"));
-        backendTransactionManager.rollbackTo(((RollbackStatement) tclStatement).getSavepointName().get());
-    }
-    
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `proxy/backend/type/hbase/src/main/java/org/apache/shardingsphere/proxy/backend/hbase/checker/HeterogeneousSelectStatementChecker.java`
-#### Snippet
-```java
-        Optional<LimitSegment> limitSegment = selectStatement.getLimit();
-        if (limitSegment.isPresent()) {
-            Preconditions.checkArgument(!selectStatement.getLimit().get().getOffset().isPresent(), "Do not supported offset segment");
-            Optional<PaginationValueSegment> paginationSegment = selectStatement.getLimit().flatMap(LimitSegment::getRowCount);
-            Long maxScanLimitSize = HBaseContext.getInstance().getProps().<Long>getValue(HBasePropertyKey.MAX_SCAN_LIMIT_SIZE);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `features/encrypt/core/src/main/java/org/apache/shardingsphere/encrypt/rewrite/token/generator/EncryptInsertOnUpdateTokenGenerator.java`
-#### Snippet
-```java
-        ColumnSegment columnSegment = assignmentSegment.getColumns().get(0);
-        String column = columnSegment.getIdentifier().getValue();
-        ColumnSegment valueColumnSegment = (ColumnSegment) functionSegment.getParameters().stream().findFirst().get();
-        String valueColumn = valueColumnSegment.getIdentifier().getValue();
-        EncryptFunctionAssignmentToken result = new EncryptFunctionAssignmentToken(columnSegment.getStartIndex(), assignmentSegment.getStopIndex());
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `features/encrypt/core/src/main/java/org/apache/shardingsphere/encrypt/rewrite/token/generator/EncryptInsertOnUpdateTokenGenerator.java`
-#### Snippet
-```java
-            boolean leftEncryptorPresent = encryptRule.findEncryptor(tableName, each.getColumns().get(0).getIdentifier().getValue()).isPresent();
-            if (each.getValue() instanceof FunctionSegment && "VALUES".equalsIgnoreCase(((FunctionSegment) each.getValue()).getFunctionName())) {
-                ColumnSegment rightColumn = (ColumnSegment) ((FunctionSegment) each.getValue()).getParameters().stream().findFirst().get();
-                boolean rightEncryptorPresent = encryptRule.findEncryptor(tableName, rightColumn.getIdentifier().getValue()).isPresent();
-                if (!leftEncryptorPresent && !rightEncryptorPresent) {
 ```
 
 ## RuleId[id=ConstantValue]
-### ConstantValue
-Condition `!connectionTransaction.isRollbackOnly()` is always `true` when reached
-in `jdbc/core/src/main/java/org/apache/shardingsphere/driver/jdbc/core/connection/ConnectionManager.java`
-#### Snippet
-```java
-        if (connectionTransaction.isLocalTransaction() && connectionTransaction.isRollbackOnly()) {
-            forceExecuteTemplate.execute(cachedConnections.values(), Connection::rollback);
-        } else if (connectionTransaction.isLocalTransaction() && !connectionTransaction.isRollbackOnly()) {
-            forceExecuteTemplate.execute(cachedConnections.values(), Connection::commit);
-        } else {
-```
-
 ### ConstantValue
 Result of `actual.getColumnWild().isPresent()` is always 'false'
 in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/dal/impl/ExplainStatementAssert.java`
@@ -6869,30 +6874,6 @@ in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/in
             assertFalse(actual.getTable().isPresent(), assertContext.getText("Actual table should not exist."));
         }
     }
-```
-
-### ConstantValue
-Value `ctx` is always 'null'
-in `sql-parser/dialect/mysql/src/main/java/org/apache/shardingsphere/sql/parser/mysql/visitor/statement/type/MySQLDCLStatementVisitor.java`
-#### Snippet
-```java
-            
-        }
-        if (ctx instanceof GrantLevelSchemaGlobalContext) {
-            String schemaName = new IdentifierValue(((GrantLevelSchemaGlobalContext) ctx).schemaName().getText()).getValue();
-            return new GrantLevelSegment(ctx.start.getStartIndex(), ctx.stop.getStopIndex(), schemaName, "*");
-```
-
-### ConstantValue
-Value `ctx` is always 'null'
-in `sql-parser/dialect/mysql/src/main/java/org/apache/shardingsphere/sql/parser/mysql/visitor/statement/type/MySQLDCLStatementVisitor.java`
-#### Snippet
-```java
-        String schemaName = null;
-        String tableName;
-        if (null != ((GrantLevelTableContext) ctx).tableName().owner()) {
-            schemaName = new IdentifierValue(((GrantLevelTableContext) ctx).tableName().owner().getText()).getValue();
-        }
 ```
 
 ### ConstantValue
@@ -6968,6 +6949,30 @@ in `sql-parser/dialect/mysql/src/main/java/org/apache/shardingsphere/sql/parser/
 ```
 
 ### ConstantValue
+Value `ctx` is always 'null'
+in `sql-parser/dialect/mysql/src/main/java/org/apache/shardingsphere/sql/parser/mysql/visitor/statement/type/MySQLDCLStatementVisitor.java`
+#### Snippet
+```java
+            
+        }
+        if (ctx instanceof GrantLevelSchemaGlobalContext) {
+            String schemaName = new IdentifierValue(((GrantLevelSchemaGlobalContext) ctx).schemaName().getText()).getValue();
+            return new GrantLevelSegment(ctx.start.getStartIndex(), ctx.stop.getStopIndex(), schemaName, "*");
+```
+
+### ConstantValue
+Value `ctx` is always 'null'
+in `sql-parser/dialect/mysql/src/main/java/org/apache/shardingsphere/sql/parser/mysql/visitor/statement/type/MySQLDCLStatementVisitor.java`
+#### Snippet
+```java
+        String schemaName = null;
+        String tableName;
+        if (null != ((GrantLevelTableContext) ctx).tableName().owner()) {
+            schemaName = new IdentifierValue(((GrantLevelTableContext) ctx).tableName().owner().getText()).getValue();
+        }
+```
+
+### ConstantValue
 Value `each` is always 'null'
 in `sql-parser/dialect/mysql/src/main/java/org/apache/shardingsphere/sql/parser/mysql/visitor/statement/type/MySQLDDLStatementVisitor.java`
 #### Snippet
@@ -6977,6 +6982,139 @@ in `sql-parser/dialect/mysql/src/main/java/org/apache/shardingsphere/sql/parser/
             if (each instanceof AlterConstraintContext || each instanceof AlterCheckContext) {
                 result.getValue().add((AlterDefinitionSegment) visit(each));
             }
+```
+
+## RuleId[id=OptionalGetWithoutIsPresent]
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/dal/impl/ShowBinlogEventsStatementAssert.java`
+#### Snippet
+```java
+        } else {
+            assertNotNull(actual.getLimit(), assertContext.getText("Actual limit clause should exist."));
+            LimitClauseAssert.assertOffset(assertContext, actual.getLimit().getOffset().get(), expected.getLimitClause().getOffset());
+            LimitClauseAssert.assertRowCount(assertContext, actual.getLimit().getRowCount().get(), expected.getLimitClause().getRowCount());
+        }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/dal/impl/ShowBinlogEventsStatementAssert.java`
+#### Snippet
+```java
+            assertNotNull(actual.getLimit(), assertContext.getText("Actual limit clause should exist."));
+            LimitClauseAssert.assertOffset(assertContext, actual.getLimit().getOffset().get(), expected.getLimitClause().getOffset());
+            LimitClauseAssert.assertRowCount(assertContext, actual.getLimit().getRowCount().get(), expected.getLimitClause().getRowCount());
+        }
+    }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/ral/impl/queryable/ShowTableMetaDataStatementAssert.java`
+#### Snippet
+```java
+    public static void assertIs(final SQLCaseAssertContext assertContext, final ShowTableMetaDataStatement actual, final ShowTableMetaDataStatementTestCase expected) {
+        if (ExistingAssert.assertIs(assertContext, actual, expected)) {
+            DatabaseAssert.assertIs(assertContext, actual.getDatabase().get(), expected.getDatabase());
+            assertThat(assertContext.getText("Table assertion error:"), actual.getTableNames(), is(expected.getTableNames()));
+        }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/ral/impl/updatable/RefreshTableMetaDataStatementAssert.java`
+#### Snippet
+```java
+        if (ExistingAssert.assertIs(assertContext, actual, expected)) {
+            if (null != expected.getTableName()) {
+                assertThat(assertContext.getText("Table name assertion error"), actual.getTableName().get(), is(expected.getTableName()));
+            }
+            if (null != expected.getStorageUnitName()) {
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/ral/impl/updatable/RefreshTableMetaDataStatementAssert.java`
+#### Snippet
+```java
+            }
+            if (null != expected.getStorageUnitName()) {
+                assertThat(assertContext.getText("Storage unit name assertion error"), actual.getStorageUnitName().get(), is(expected.getStorageUnitName()));
+            }
+            if (null != expected.getSchemaName()) {
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/ral/impl/updatable/RefreshTableMetaDataStatementAssert.java`
+#### Snippet
+```java
+            }
+            if (null != expected.getSchemaName()) {
+                assertThat(assertContext.getText("Schema name assertion error"), actual.getSchemaName().get(), is(expected.getSchemaName()));
+            }
+        }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `test/it/parser/src/main/java/org/apache/shardingsphere/test/it/sql/parser/internal/asserts/statement/ral/impl/updatable/ImportMetaDataStatementAssert.java`
+#### Snippet
+```java
+    public static void assertIs(final SQLCaseAssertContext assertContext, final ImportMetaDataStatement actual, final ImportMetaDataStatementTestCase expected) {
+        if (ExistingAssert.assertIs(assertContext, actual, expected)) {
+            assertThat(actual.getFilePath().get(), is(expected.getFilePath()));
+        }
+    }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `proxy/backend/core/src/main/java/org/apache/shardingsphere/proxy/backend/handler/transaction/TransactionBackendHandler.java`
+#### Snippet
+```java
+        ShardingSpherePreconditions.checkState(connectionSession.getTransactionStatus().isInTransaction() || !isSchemaSupportedDatabaseType(),
+                () -> new SQLFeatureNotSupportedException("ROLLBACK TO SAVEPOINT can only be used in transaction blocks"));
+        backendTransactionManager.rollbackTo(((RollbackStatement) tclStatement).getSavepointName().get());
+    }
+    
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `proxy/backend/type/hbase/src/main/java/org/apache/shardingsphere/proxy/backend/hbase/checker/HeterogeneousSelectStatementChecker.java`
+#### Snippet
+```java
+        Optional<LimitSegment> limitSegment = selectStatement.getLimit();
+        if (limitSegment.isPresent()) {
+            Preconditions.checkArgument(!selectStatement.getLimit().get().getOffset().isPresent(), "Do not supported offset segment");
+            Optional<PaginationValueSegment> paginationSegment = selectStatement.getLimit().flatMap(LimitSegment::getRowCount);
+            Long maxScanLimitSize = HBaseContext.getInstance().getProps().<Long>getValue(HBasePropertyKey.MAX_SCAN_LIMIT_SIZE);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `features/encrypt/core/src/main/java/org/apache/shardingsphere/encrypt/rewrite/token/generator/EncryptInsertOnUpdateTokenGenerator.java`
+#### Snippet
+```java
+            boolean leftEncryptorPresent = encryptRule.findEncryptor(tableName, each.getColumns().get(0).getIdentifier().getValue()).isPresent();
+            if (each.getValue() instanceof FunctionSegment && "VALUES".equalsIgnoreCase(((FunctionSegment) each.getValue()).getFunctionName())) {
+                ColumnSegment rightColumn = (ColumnSegment) ((FunctionSegment) each.getValue()).getParameters().stream().findFirst().get();
+                boolean rightEncryptorPresent = encryptRule.findEncryptor(tableName, rightColumn.getIdentifier().getValue()).isPresent();
+                if (!leftEncryptorPresent && !rightEncryptorPresent) {
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `features/encrypt/core/src/main/java/org/apache/shardingsphere/encrypt/rewrite/token/generator/EncryptInsertOnUpdateTokenGenerator.java`
+#### Snippet
+```java
+        ColumnSegment columnSegment = assignmentSegment.getColumns().get(0);
+        String column = columnSegment.getIdentifier().getValue();
+        ColumnSegment valueColumnSegment = (ColumnSegment) functionSegment.getParameters().stream().findFirst().get();
+        String valueColumn = valueColumnSegment.getIdentifier().getValue();
+        EncryptFunctionAssignmentToken result = new EncryptFunctionAssignmentToken(columnSegment.getStartIndex(), assignmentSegment.getStopIndex());
 ```
 
 ## RuleId[id=BigDecimalMethodWithoutRoundingCalled]
@@ -7186,6 +7324,18 @@ in `kernel/data-pipeline/cdc/client/src/main/java/org/apache/shardingsphere/data
 ```
 
 ### UnstableApiUsage
+'acquire(int)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
+in `kernel/data-pipeline/core/src/main/java/org/apache/shardingsphere/data/pipeline/core/ratelimit/TPSJobRateLimitAlgorithm.java`
+#### Snippet
+```java
+            case DELETE:
+            case UPDATE:
+                rateLimiter.acquire(null != data ? data.intValue() : 1);
+                break;
+            default:
+```
+
+### UnstableApiUsage
 'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
 in `kernel/data-pipeline/core/src/main/java/org/apache/shardingsphere/data/pipeline/core/ratelimit/TPSJobRateLimitAlgorithm.java`
 #### Snippet
@@ -7223,26 +7373,14 @@ in `kernel/data-pipeline/core/src/main/java/org/apache/shardingsphere/data/pipel
 
 ### UnstableApiUsage
 'acquire(int)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
-in `kernel/data-pipeline/core/src/main/java/org/apache/shardingsphere/data/pipeline/core/ratelimit/TPSJobRateLimitAlgorithm.java`
-#### Snippet
-```java
-            case DELETE:
-            case UPDATE:
-                rateLimiter.acquire(null != data ? data.intValue() : 1);
-                break;
-            default:
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
 in `kernel/data-pipeline/core/src/main/java/org/apache/shardingsphere/data/pipeline/core/ratelimit/QPSJobRateLimitAlgorithm.java`
 #### Snippet
 ```java
-    private int qps = 50;
+            return;
+        }
+        rateLimiter.acquire(null != data ? data.intValue() : 1);
+    }
     
-    private RateLimiter rateLimiter;
-    
-    @Override
 ```
 
 ### UnstableApiUsage
@@ -7270,123 +7408,15 @@ in `kernel/data-pipeline/core/src/main/java/org/apache/shardingsphere/data/pipel
 ```
 
 ### UnstableApiUsage
-'acquire(int)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
+'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
 in `kernel/data-pipeline/core/src/main/java/org/apache/shardingsphere/data/pipeline/core/ratelimit/QPSJobRateLimitAlgorithm.java`
 #### Snippet
 ```java
-            return;
-        }
-        rateLimiter.acquire(null != data ? data.intValue() : 1);
-    }
+    private int qps = 50;
     
-```
-
-### UnstableApiUsage
-'of(org.apache.calcite.rex.RexUnknownAs, com.google.common.collect.RangeSet)' is unstable because its signature references unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
-in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/rexnode/SQLOptimizerRexNodeVisitor.java`
-#### Snippet
-```java
-            }
-        }
-        return Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.copyOf(rangeList));
-    }
+    private RateLimiter rateLimiter;
     
-```
-
-### UnstableApiUsage
-'com.google.common.collect.ImmutableRangeSet' is marked unstable with @Beta
-in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/rexnode/SQLOptimizerRexNodeVisitor.java`
-#### Snippet
-```java
-            }
-        }
-        return Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.copyOf(rangeList));
-    }
-    
-```
-
-### UnstableApiUsage
-'copyOf(java.lang.Iterable\>)' is declared in unstable class 'com.google.common.collect.ImmutableRangeSet' marked with @Beta
-in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/rexnode/SQLOptimizerRexNodeVisitor.java`
-#### Snippet
-```java
-            }
-        }
-        return Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.copyOf(rangeList));
-    }
-    
-```
-
-### UnstableApiUsage
-'of(org.apache.calcite.rex.RexUnknownAs, com.google.common.collect.RangeSet)' is unstable because its signature references unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
-in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/rexnode/SQLOptimizerRexNodeVisitor.java`
-#### Snippet
-```java
-        Range.range(lowerValue, BoundType.OPEN, upperValue, BoundType.OPEN);
-        return null == ctx.LP_()
-                ? Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.CLOSED, upperValue, BoundType.CLOSED)))
-                : Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.OPEN, upperValue, BoundType.OPEN)));
-    }
-```
-
-### UnstableApiUsage
-'com.google.common.collect.ImmutableRangeSet' is marked unstable with @Beta
-in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/rexnode/SQLOptimizerRexNodeVisitor.java`
-#### Snippet
-```java
-        Range.range(lowerValue, BoundType.OPEN, upperValue, BoundType.OPEN);
-        return null == ctx.LP_()
-                ? Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.CLOSED, upperValue, BoundType.CLOSED)))
-                : Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.OPEN, upperValue, BoundType.OPEN)));
-    }
-```
-
-### UnstableApiUsage
-'of(com.google.common.collect.Range)' is declared in unstable class 'com.google.common.collect.ImmutableRangeSet' marked with @Beta
-in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/rexnode/SQLOptimizerRexNodeVisitor.java`
-#### Snippet
-```java
-        Range.range(lowerValue, BoundType.OPEN, upperValue, BoundType.OPEN);
-        return null == ctx.LP_()
-                ? Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.CLOSED, upperValue, BoundType.CLOSED)))
-                : Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.OPEN, upperValue, BoundType.OPEN)));
-    }
-```
-
-### UnstableApiUsage
-'of(org.apache.calcite.rex.RexUnknownAs, com.google.common.collect.RangeSet)' is unstable because its signature references unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
-in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/rexnode/SQLOptimizerRexNodeVisitor.java`
-#### Snippet
-```java
-        return null == ctx.LP_()
-                ? Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.CLOSED, upperValue, BoundType.CLOSED)))
-                : Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.OPEN, upperValue, BoundType.OPEN)));
-    }
-    
-```
-
-### UnstableApiUsage
-'com.google.common.collect.ImmutableRangeSet' is marked unstable with @Beta
-in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/rexnode/SQLOptimizerRexNodeVisitor.java`
-#### Snippet
-```java
-        return null == ctx.LP_()
-                ? Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.CLOSED, upperValue, BoundType.CLOSED)))
-                : Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.OPEN, upperValue, BoundType.OPEN)));
-    }
-    
-```
-
-### UnstableApiUsage
-'of(com.google.common.collect.Range)' is declared in unstable class 'com.google.common.collect.ImmutableRangeSet' marked with @Beta
-in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/rexnode/SQLOptimizerRexNodeVisitor.java`
-#### Snippet
-```java
-        return null == ctx.LP_()
-                ? Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.CLOSED, upperValue, BoundType.CLOSED)))
-                : Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.OPEN, upperValue, BoundType.OPEN)));
-    }
-    
+    @Override
 ```
 
 ### UnstableApiUsage
@@ -7445,6 +7475,114 @@ in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlf
             rangeSet.add(Range.singleton(value));
         }
         return Sarg.of(RexUnknownAs.UNKNOWN, rangeSet);
+    }
+    
+```
+
+### UnstableApiUsage
+'of(org.apache.calcite.rex.RexUnknownAs, com.google.common.collect.RangeSet)' is unstable because its signature references unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
+in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/rexnode/SQLOptimizerRexNodeVisitor.java`
+#### Snippet
+```java
+        Range.range(lowerValue, BoundType.OPEN, upperValue, BoundType.OPEN);
+        return null == ctx.LP_()
+                ? Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.CLOSED, upperValue, BoundType.CLOSED)))
+                : Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.OPEN, upperValue, BoundType.OPEN)));
+    }
+```
+
+### UnstableApiUsage
+'com.google.common.collect.ImmutableRangeSet' is marked unstable with @Beta
+in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/rexnode/SQLOptimizerRexNodeVisitor.java`
+#### Snippet
+```java
+        Range.range(lowerValue, BoundType.OPEN, upperValue, BoundType.OPEN);
+        return null == ctx.LP_()
+                ? Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.CLOSED, upperValue, BoundType.CLOSED)))
+                : Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.OPEN, upperValue, BoundType.OPEN)));
+    }
+```
+
+### UnstableApiUsage
+'of(com.google.common.collect.Range)' is declared in unstable class 'com.google.common.collect.ImmutableRangeSet' marked with @Beta
+in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/rexnode/SQLOptimizerRexNodeVisitor.java`
+#### Snippet
+```java
+        Range.range(lowerValue, BoundType.OPEN, upperValue, BoundType.OPEN);
+        return null == ctx.LP_()
+                ? Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.CLOSED, upperValue, BoundType.CLOSED)))
+                : Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.OPEN, upperValue, BoundType.OPEN)));
+    }
+```
+
+### UnstableApiUsage
+'of(org.apache.calcite.rex.RexUnknownAs, com.google.common.collect.RangeSet)' is unstable because its signature references unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
+in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/rexnode/SQLOptimizerRexNodeVisitor.java`
+#### Snippet
+```java
+        return null == ctx.LP_()
+                ? Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.CLOSED, upperValue, BoundType.CLOSED)))
+                : Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.OPEN, upperValue, BoundType.OPEN)));
+    }
+    
+```
+
+### UnstableApiUsage
+'com.google.common.collect.ImmutableRangeSet' is marked unstable with @Beta
+in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/rexnode/SQLOptimizerRexNodeVisitor.java`
+#### Snippet
+```java
+        return null == ctx.LP_()
+                ? Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.CLOSED, upperValue, BoundType.CLOSED)))
+                : Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.OPEN, upperValue, BoundType.OPEN)));
+    }
+    
+```
+
+### UnstableApiUsage
+'of(com.google.common.collect.Range)' is declared in unstable class 'com.google.common.collect.ImmutableRangeSet' marked with @Beta
+in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/rexnode/SQLOptimizerRexNodeVisitor.java`
+#### Snippet
+```java
+        return null == ctx.LP_()
+                ? Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.CLOSED, upperValue, BoundType.CLOSED)))
+                : Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.of(Range.range(lowerValue, BoundType.OPEN, upperValue, BoundType.OPEN)));
+    }
+    
+```
+
+### UnstableApiUsage
+'of(org.apache.calcite.rex.RexUnknownAs, com.google.common.collect.RangeSet)' is unstable because its signature references unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
+in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/rexnode/SQLOptimizerRexNodeVisitor.java`
+#### Snippet
+```java
+            }
+        }
+        return Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.copyOf(rangeList));
+    }
+    
+```
+
+### UnstableApiUsage
+'com.google.common.collect.ImmutableRangeSet' is marked unstable with @Beta
+in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/rexnode/SQLOptimizerRexNodeVisitor.java`
+#### Snippet
+```java
+            }
+        }
+        return Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.copyOf(rangeList));
+    }
+    
+```
+
+### UnstableApiUsage
+'copyOf(java.lang.Iterable\>)' is declared in unstable class 'com.google.common.collect.ImmutableRangeSet' marked with @Beta
+in `kernel/sql-federation/optimizer/src/main/java/org/apache/shardingsphere/sqlfederation/optimizer/rexnode/SQLOptimizerRexNodeVisitor.java`
+#### Snippet
+```java
+            }
+        }
+        return Sarg.of(RexUnknownAs.UNKNOWN, ImmutableRangeSet.copyOf(rangeList));
     }
     
 ```
