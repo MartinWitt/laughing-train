@@ -120,27 +120,15 @@ in `tracing/src/main/java/com/palantir/tracing/DetachedSpan.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'requestId'
-in `tracing/src/main/java/com/palantir/tracing/TraceState.java`
+`Optional` used as type for field 'originalTrace'
+in `tracing/src/main/java/com/palantir/tracing/DeferredTracer.java`
 #### Snippet
 ```java
-            AtomicReferenceFieldUpdater.newUpdater(TraceState.class, TraceLocalMap.class, "traceLocals");
+    private static final class TaggedCloseableTrace implements CloseableTrace {
+        private final Map<String, String> metadata;
+        private final Optional<Trace> originalTrace;
 
-    static TraceState of(String traceId, Optional<String> requestId, Optional<String> forUserAgent) {
-        checkArgument(!Strings.isNullOrEmpty(traceId), "traceId must be non-empty");
-        checkNotNull(requestId, "requestId should be not-null");
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'forUserAgent'
-in `tracing/src/main/java/com/palantir/tracing/TraceState.java`
-#### Snippet
-```java
-            AtomicReferenceFieldUpdater.newUpdater(TraceState.class, TraceLocalMap.class, "traceLocals");
-
-    static TraceState of(String traceId, Optional<String> requestId, Optional<String> forUserAgent) {
-        checkArgument(!Strings.isNullOrEmpty(traceId), "traceId must be non-empty");
-        checkNotNull(requestId, "requestId should be not-null");
+        TaggedCloseableTrace(Optional<Trace> originalTrace, Map<String, String> metadata) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -168,15 +156,87 @@ in `tracing/src/main/java/com/palantir/tracing/DeferredTracer.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'originalTrace'
-in `tracing/src/main/java/com/palantir/tracing/DeferredTracer.java`
+`Optional` used as type for parameter 'requestId'
+in `tracing/src/main/java/com/palantir/tracing/TraceState.java`
 #### Snippet
 ```java
-    private static final class TaggedCloseableTrace implements CloseableTrace {
-        private final Map<String, String> metadata;
-        private final Optional<Trace> originalTrace;
+            AtomicReferenceFieldUpdater.newUpdater(TraceState.class, TraceLocalMap.class, "traceLocals");
 
-        TaggedCloseableTrace(Optional<Trace> originalTrace, Map<String, String> metadata) {
+    static TraceState of(String traceId, Optional<String> requestId, Optional<String> forUserAgent) {
+        checkArgument(!Strings.isNullOrEmpty(traceId), "traceId must be non-empty");
+        checkNotNull(requestId, "requestId should be not-null");
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'forUserAgent'
+in `tracing/src/main/java/com/palantir/tracing/TraceState.java`
+#### Snippet
+```java
+            AtomicReferenceFieldUpdater.newUpdater(TraceState.class, TraceLocalMap.class, "traceLocals");
+
+    static TraceState of(String traceId, Optional<String> requestId, Optional<String> forUserAgent) {
+        checkArgument(!Strings.isNullOrEmpty(traceId), "traceId must be non-empty");
+        checkNotNull(requestId, "requestId should be not-null");
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'forUserAgent'
+in `tracing/src/main/java/com/palantir/tracing/Tracer.java`
+#### Snippet
+```java
+            Observability observability,
+            String traceId,
+            Optional<String> forUserAgent,
+            @Safe String operation,
+            SpanType type) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'isObservable'
+in `tracing/src/main/java/com/palantir/tracing/Tracer.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static void initTrace(Optional<Boolean> isObservable, String traceId) {
+        Observability observability = isObservable
+                .map(observable -> observable ? Observability.SAMPLE : Observability.DO_NOT_SAMPLE)
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'forUserAgent'
+in `tracing/src/main/java/com/palantir/tracing/Tracer.java`
+#### Snippet
+```java
+            Observability observability,
+            String traceId,
+            Optional<String> forUserAgent,
+            Optional<String> parentSpanId,
+            @Safe String operation,
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'parentSpanId'
+in `tracing/src/main/java/com/palantir/tracing/Tracer.java`
+#### Snippet
+```java
+            String traceId,
+            Optional<String> forUserAgent,
+            Optional<String> parentSpanId,
+            @Safe String operation,
+            SpanType type) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'openSpan'
+in `tracing/src/main/java/com/palantir/tracing/Tracer.java`
+#### Snippet
+```java
+
+    private static <T> void completeSpanAndNotifyObservers(
+            Optional<OpenSpan> openSpan, TagTranslator<? super T> tag, T state, String traceId) {
+        //noinspection OptionalIsPresent - Avoid lambda allocation in hot paths
+        if (openSpan.isPresent()) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -216,39 +276,15 @@ in `tracing/src/main/java/com/palantir/tracing/Tracer.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'forUserAgent'
-in `tracing/src/main/java/com/palantir/tracing/Tracer.java`
-#### Snippet
-```java
-            Observability observability,
-            String traceId,
-            Optional<String> forUserAgent,
-            Optional<String> parentSpanId,
-            @Safe String operation,
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'parentSpanId'
 in `tracing/src/main/java/com/palantir/tracing/Tracer.java`
 #### Snippet
 ```java
-            String traceId,
-            Optional<String> forUserAgent,
-            Optional<String> parentSpanId,
-            @Safe String operation,
-            SpanType type) {
-```
+        private final Optional<String> parentSpanId;
 
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'forUserAgent'
-in `tracing/src/main/java/com/palantir/tracing/Tracer.java`
-#### Snippet
-```java
-            Observability observability,
-            String traceId,
-            Optional<String> forUserAgent,
-            @Safe String operation,
-            SpanType type) {
+        UnsampledDetachedSpan(TraceState traceState, Optional<String> parentSpanId) {
+            this.traceState = traceState;
+            this.parentSpanId = parentSpanId;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -288,30 +324,6 @@ in `tracing/src/main/java/com/palantir/tracing/Tracer.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'isObservable'
-in `tracing/src/main/java/com/palantir/tracing/Tracer.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static void initTrace(Optional<Boolean> isObservable, String traceId) {
-        Observability observability = isObservable
-                .map(observable -> observable ? Observability.SAMPLE : Observability.DO_NOT_SAMPLE)
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'parentSpanId'
-in `tracing/src/main/java/com/palantir/tracing/Tracer.java`
-#### Snippet
-```java
-        private final Optional<String> parentSpanId;
-
-        UnsampledDetachedSpan(TraceState traceState, Optional<String> parentSpanId) {
-            this.traceState = traceState;
-            this.parentSpanId = parentSpanId;
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'parentSpanId'
 in `tracing/src/main/java/com/palantir/tracing/Tracer.java`
 #### Snippet
@@ -321,18 +333,6 @@ in `tracing/src/main/java/com/palantir/tracing/Tracer.java`
         SampledDetachedSpan(String operation, SpanType type, TraceState traceState, Optional<String> parentSpanId) {
             this.traceState = traceState;
             this.openSpan = OpenSpan.of(operation, Tracers.randomId(), type, parentSpanId);
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'forUserAgent'
-in `tracing/src/main/java/com/palantir/tracing/Tracer.java`
-#### Snippet
-```java
-            Observability observability,
-            String traceId,
-            Optional<String> forUserAgent,
-            @Safe String operation,
-            String parentSpanId,
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -348,15 +348,15 @@ in `tracing/src/main/java/com/palantir/tracing/Tracer.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'openSpan'
+`Optional` used as type for parameter 'forUserAgent'
 in `tracing/src/main/java/com/palantir/tracing/Tracer.java`
 #### Snippet
 ```java
-
-    private static <T> void completeSpanAndNotifyObservers(
-            Optional<OpenSpan> openSpan, TagTranslator<? super T> tag, T state, String traceId) {
-        //noinspection OptionalIsPresent - Avoid lambda allocation in hot paths
-        if (openSpan.isPresent()) {
+            Observability observability,
+            String traceId,
+            Optional<String> forUserAgent,
+            @Safe String operation,
+            String parentSpanId,
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -403,6 +403,18 @@ Unchecked cast: 'java.lang.Object' to 'T'
 in `tracing/src/main/java/com/palantir/tracing/TraceLocal.java`
 #### Snippet
 ```java
+        }
+
+        return (T) traceLocals.remove(this);
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'T'
+in `tracing/src/main/java/com/palantir/tracing/TraceLocal.java`
+#### Snippet
+```java
             }
 
             return (T) traceLocals.get(this);
@@ -434,18 +446,6 @@ in `tracing/src/main/java/com/palantir/tracing/TraceLocal.java`
 
 ```
 
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'T'
-in `tracing/src/main/java/com/palantir/tracing/TraceLocal.java`
-#### Snippet
-```java
-        }
-
-        return (T) traceLocals.remove(this);
-    }
-
-```
-
 ## RuleId[id=JavadocDeclaration]
 ### JavadocDeclaration
 Javadoc pointing to itself
@@ -453,10 +453,10 @@ in `tracing/src/main/java/com/palantir/tracing/Tracers.java`
 #### Snippet
 ```java
     /**
-     * Wraps the provided executor service to make submitted tasks traceable with a fresh {@link Trace trace} for each
-     * execution, see {@link #wrapWithNewTrace(String, ExecutorService)}. This method should not be used to wrap a
-     * ScheduledExecutorService that has already been {@link #wrap(ExecutorService) wrapped}. If this is done, a new
-     * trace will be generated for each execution, effectively bypassing the intent of the previous wrapping. The given
+     * Wraps the provided scheduled executor service to make submitted tasks traceable, see
+     * {@link #wrap(ScheduledExecutorService)}. This method should not be used to wrap a ScheduledExecutorService that
+     * has already been {@link #wrapWithNewTrace(ScheduledExecutorService) wrapped with new trace}. If this is done, a
+     * new trace will be generated for each execution, effectively bypassing the intent of this method.
 ```
 
 ### JavadocDeclaration
@@ -477,71 +477,10 @@ in `tracing/src/main/java/com/palantir/tracing/Tracers.java`
 #### Snippet
 ```java
     /**
-     * Wraps the provided scheduled executor service to make submitted tasks traceable, see
-     * {@link #wrap(ScheduledExecutorService)}. This method should not be used to wrap a ScheduledExecutorService that
-     * has already been {@link #wrapWithNewTrace(ScheduledExecutorService) wrapped with new trace}. If this is done, a
-     * new trace will be generated for each execution, effectively bypassing the intent of this method.
-```
-
-## RuleId[id=FieldMayBeFinal]
-### FieldMayBeFinal
-Field `filterUrlMapping` may be 'final'
-in `tracing-undertow-jakarta-testing/src/main/java/com/palantir/undertest/UndertowServerExtension.java`
-#### Snippet
-```java
-
-    // LinkedHashMap preserves order
-    private Map<String, String> filterUrlMapping = new LinkedHashMap<>();
-
-    private List<Object> jerseyObjects = new ArrayList<>();
-```
-
-### FieldMayBeFinal
-Field `servlets` may be 'final'
-in `tracing-undertow-jakarta-testing/src/main/java/com/palantir/undertest/UndertowServerExtension.java`
-#### Snippet
-```java
-    private CloseableHttpClient httpClient;
-
-    private List<ServletInfo> servlets = new ArrayList<>();
-    private List<FilterInfo> filters = new ArrayList<>();
-
-```
-
-### FieldMayBeFinal
-Field `filters` may be 'final'
-in `tracing-undertow-jakarta-testing/src/main/java/com/palantir/undertest/UndertowServerExtension.java`
-#### Snippet
-```java
-
-    private List<ServletInfo> servlets = new ArrayList<>();
-    private List<FilterInfo> filters = new ArrayList<>();
-
-    // LinkedHashMap preserves order
-```
-
-### FieldMayBeFinal
-Field `jerseyObjects` may be 'final'
-in `tracing-undertow-jakarta-testing/src/main/java/com/palantir/undertest/UndertowServerExtension.java`
-#### Snippet
-```java
-    private Map<String, String> filterUrlMapping = new LinkedHashMap<>();
-
-    private List<Object> jerseyObjects = new ArrayList<>();
-
-    public static UndertowServerExtension create() {
-```
-
-### FieldMayBeFinal
-Field `config` may be 'final'
-in `tracing-test-utils/src/main/java/com/palantir/tracing/HtmlFormatter.java`
-#### Snippet
-```java
-
-final class HtmlFormatter {
-    private RenderConfig config;
-
-    private HtmlFormatter(RenderConfig config) {
+     * Wraps the provided executor service to make submitted tasks traceable with a fresh {@link Trace trace} for each
+     * execution, see {@link #wrapWithNewTrace(String, ExecutorService)}. This method should not be used to wrap a
+     * ScheduledExecutorService that has already been {@link #wrap(ExecutorService) wrapped}. If this is done, a new
+     * trace will be generated for each execution, effectively bypassing the intent of the previous wrapping. The given
 ```
 
 ## RuleId[id=DeprecatedIsStillUsed]
@@ -570,18 +509,6 @@ in `tracing/src/main/java/com/palantir/tracing/RandomSampler.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'completeSpan' is still used
-in `tracing/src/main/java/com/palantir/tracing/Tracer.java`
-#### Snippet
-```java
-    @CheckReturnValue
-    @Deprecated
-    public static Optional<Span> completeSpan(@Safe Map<String, String> metadata) {
-        Trace trace = currentTrace.get();
-        if (trace == null) {
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'initTraceWithSpan' is still used
 in `tracing/src/main/java/com/palantir/tracing/Tracer.java`
 #### Snippet
@@ -591,6 +518,18 @@ in `tracing/src/main/java/com/palantir/tracing/Tracer.java`
     public static void initTraceWithSpan(
             Observability observability, String traceId, @Safe String operation, String parentSpanId, SpanType type) {
         setTrace(createTrace(
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'completeSpan' is still used
+in `tracing/src/main/java/com/palantir/tracing/Tracer.java`
+#### Snippet
+```java
+    @CheckReturnValue
+    @Deprecated
+    public static Optional<Span> completeSpan(@Safe Map<String, String> metadata) {
+        Trace trace = currentTrace.get();
+        if (trace == null) {
 ```
 
 ### DeprecatedIsStillUsed
@@ -664,6 +603,67 @@ in `tracing-api/src/main/java/com/palantir/tracing/api/TraceTags.java`
     // /** The HTTP host part of the URL. */
     // public static final String HTTP_URL_HOST = "http.url_details.host";
     /** The HTTP port part of the URL. */
+```
+
+## RuleId[id=FieldMayBeFinal]
+### FieldMayBeFinal
+Field `jerseyObjects` may be 'final'
+in `tracing-undertow-jakarta-testing/src/main/java/com/palantir/undertest/UndertowServerExtension.java`
+#### Snippet
+```java
+    private Map<String, String> filterUrlMapping = new LinkedHashMap<>();
+
+    private List<Object> jerseyObjects = new ArrayList<>();
+
+    public static UndertowServerExtension create() {
+```
+
+### FieldMayBeFinal
+Field `servlets` may be 'final'
+in `tracing-undertow-jakarta-testing/src/main/java/com/palantir/undertest/UndertowServerExtension.java`
+#### Snippet
+```java
+    private CloseableHttpClient httpClient;
+
+    private List<ServletInfo> servlets = new ArrayList<>();
+    private List<FilterInfo> filters = new ArrayList<>();
+
+```
+
+### FieldMayBeFinal
+Field `filterUrlMapping` may be 'final'
+in `tracing-undertow-jakarta-testing/src/main/java/com/palantir/undertest/UndertowServerExtension.java`
+#### Snippet
+```java
+
+    // LinkedHashMap preserves order
+    private Map<String, String> filterUrlMapping = new LinkedHashMap<>();
+
+    private List<Object> jerseyObjects = new ArrayList<>();
+```
+
+### FieldMayBeFinal
+Field `filters` may be 'final'
+in `tracing-undertow-jakarta-testing/src/main/java/com/palantir/undertest/UndertowServerExtension.java`
+#### Snippet
+```java
+
+    private List<ServletInfo> servlets = new ArrayList<>();
+    private List<FilterInfo> filters = new ArrayList<>();
+
+    // LinkedHashMap preserves order
+```
+
+### FieldMayBeFinal
+Field `config` may be 'final'
+in `tracing-test-utils/src/main/java/com/palantir/tracing/HtmlFormatter.java`
+#### Snippet
+```java
+
+final class HtmlFormatter {
+    private RenderConfig config;
+
+    private HtmlFormatter(RenderConfig config) {
 ```
 
 ## RuleId[id=UastIncorrectHttpHeaderInspection]
@@ -886,8 +886,20 @@ in `tracing/src/main/java/com/palantir/tracing/WrappingScheduledExecutorService.
 ```java
 
     @Override
-    public final <V> ScheduledFuture<V> schedule(Callable<V> task, long delay, TimeUnit unit) {
-        return delegate.schedule(wrapTask(task), delay, unit);
+    public final ScheduledFuture<?> scheduleAtFixedRate(
+            Runnable command, long initialDelay, long period, TimeUnit unit) {
+        return delegate.scheduleAtFixedRate(wrapRecurring(command), initialDelay, period, unit);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `tracing/src/main/java/com/palantir/tracing/WrappingScheduledExecutorService.java`
+#### Snippet
+```java
+    @Override
+    public final ScheduledFuture<?> scheduleAtFixedRate(
+            Runnable command, long initialDelay, long period, TimeUnit unit) {
+        return delegate.scheduleAtFixedRate(wrapRecurring(command), initialDelay, period, unit);
     }
 ```
 
@@ -896,22 +908,10 @@ Not annotated parameter overrides @NotNull parameter
 in `tracing/src/main/java/com/palantir/tracing/WrappingScheduledExecutorService.java`
 #### Snippet
 ```java
-
     @Override
-    public final <V> ScheduledFuture<V> schedule(Callable<V> task, long delay, TimeUnit unit) {
-        return delegate.schedule(wrapTask(task), delay, unit);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `tracing/src/main/java/com/palantir/tracing/WrappingScheduledExecutorService.java`
-#### Snippet
-```java
-
-    @Override
-    public final <V> ScheduledFuture<V> schedule(Callable<V> task, long delay, TimeUnit unit) {
-        return delegate.schedule(wrapTask(task), delay, unit);
+    public final ScheduledFuture<?> scheduleAtFixedRate(
+            Runnable command, long initialDelay, long period, TimeUnit unit) {
+        return delegate.scheduleAtFixedRate(wrapRecurring(command), initialDelay, period, unit);
     }
 ```
 
@@ -958,20 +958,8 @@ in `tracing/src/main/java/com/palantir/tracing/WrappingScheduledExecutorService.
 ```java
 
     @Override
-    public final ScheduledFuture<?> scheduleAtFixedRate(
-            Runnable command, long initialDelay, long period, TimeUnit unit) {
-        return delegate.scheduleAtFixedRate(wrapRecurring(command), initialDelay, period, unit);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `tracing/src/main/java/com/palantir/tracing/WrappingScheduledExecutorService.java`
-#### Snippet
-```java
-    @Override
-    public final ScheduledFuture<?> scheduleAtFixedRate(
-            Runnable command, long initialDelay, long period, TimeUnit unit) {
-        return delegate.scheduleAtFixedRate(wrapRecurring(command), initialDelay, period, unit);
+    public final <V> ScheduledFuture<V> schedule(Callable<V> task, long delay, TimeUnit unit) {
+        return delegate.schedule(wrapTask(task), delay, unit);
     }
 ```
 
@@ -980,10 +968,22 @@ Not annotated parameter overrides @NotNull parameter
 in `tracing/src/main/java/com/palantir/tracing/WrappingScheduledExecutorService.java`
 #### Snippet
 ```java
+
     @Override
-    public final ScheduledFuture<?> scheduleAtFixedRate(
-            Runnable command, long initialDelay, long period, TimeUnit unit) {
-        return delegate.scheduleAtFixedRate(wrapRecurring(command), initialDelay, period, unit);
+    public final <V> ScheduledFuture<V> schedule(Callable<V> task, long delay, TimeUnit unit) {
+        return delegate.schedule(wrapTask(task), delay, unit);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `tracing/src/main/java/com/palantir/tracing/WrappingScheduledExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public final <V> ScheduledFuture<V> schedule(Callable<V> task, long delay, TimeUnit unit) {
+        return delegate.schedule(wrapTask(task), delay, unit);
     }
 ```
 
@@ -1020,6 +1020,186 @@ in `tracing/src/main/java/com/palantir/tracing/WrappingScheduledExecutorService.
     public final ScheduledFuture<?> scheduleWithFixedDelay(
             Runnable command, long initialDelay, long delay, TimeUnit unit) {
         return delegate.scheduleWithFixedDelay(wrapRecurring(command), initialDelay, delay, unit);
+    }
+```
+
+### NullableProblems
+Constructor parameter for @Nullable field might be annotated @Nullable itself
+in `tracing/src/main/java/com/palantir/tracing/DeferredTracer.java`
+#### Snippet
+```java
+    }
+
+    public DeferredTracer(@Safe String operation, @Safe Map<String, String> metadata) {
+        Optional<Trace> maybeTrace = Tracer.copyTrace();
+        if (maybeTrace.isPresent()) {
+```
+
+### NullableProblems
+Constructor parameter for @Nullable field might be annotated @Nullable itself
+in `tracing/src/main/java/com/palantir/tracing/DeferredTracer.java`
+#### Snippet
+```java
+    }
+
+    public DeferredTracer(@Safe String operation, @Safe Map<String, String> metadata) {
+        Optional<Trace> maybeTrace = Tracer.copyTrace();
+        if (maybeTrace.isPresent()) {
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NotNull
+in `tracing/src/main/java/com/palantir/tracing/WrappingExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public final <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
+            throws InterruptedException {
+        return delegate.invokeAll(wrapTasks(tasks), timeout, unit);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `tracing/src/main/java/com/palantir/tracing/WrappingExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public final <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
+            throws InterruptedException {
+        return delegate.invokeAll(wrapTasks(tasks), timeout, unit);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `tracing/src/main/java/com/palantir/tracing/WrappingExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public final <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
+            throws InterruptedException {
+        return delegate.invokeAll(wrapTasks(tasks), timeout, unit);
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NotNull
+in `tracing/src/main/java/com/palantir/tracing/WrappingExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public final Future<?> submit(Runnable task) {
+        return delegate.submit(wrapTask(task));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `tracing/src/main/java/com/palantir/tracing/WrappingExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public final Future<?> submit(Runnable task) {
+        return delegate.submit(wrapTask(task));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `tracing/src/main/java/com/palantir/tracing/WrappingExecutorService.java`
+#### Snippet
+```java
+    // These methods wrap before delegating.
+    @Override
+    public final void execute(Runnable command) {
+        delegate.execute(wrapTask(command));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `tracing/src/main/java/com/palantir/tracing/WrappingExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public final <T> T invokeAny(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
+            throws InterruptedException, ExecutionException, TimeoutException {
+        return delegate.invokeAny(wrapTasks(tasks), timeout, unit);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `tracing/src/main/java/com/palantir/tracing/WrappingExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public final <T> T invokeAny(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
+            throws InterruptedException, ExecutionException, TimeoutException {
+        return delegate.invokeAny(wrapTasks(tasks), timeout, unit);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `tracing/src/main/java/com/palantir/tracing/WrappingExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public final boolean awaitTermination(long timeout, TimeUnit unit) throws InterruptedException {
+        return delegate.awaitTermination(timeout, unit);
+    }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NotNull
+in `tracing/src/main/java/com/palantir/tracing/WrappingExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public final <T> T invokeAny(Collection<? extends Callable<T>> tasks)
+            throws InterruptedException, ExecutionException {
+        return delegate.invokeAny(wrapTasks(tasks));
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `tracing/src/main/java/com/palantir/tracing/WrappingExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public final <T> T invokeAny(Collection<? extends Callable<T>> tasks)
+            throws InterruptedException, ExecutionException {
+        return delegate.invokeAny(wrapTasks(tasks));
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NotNull
+in `tracing/src/main/java/com/palantir/tracing/WrappingExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public final <T> Future<T> submit(Callable<T> task) {
+        return delegate.submit(wrapTask(checkNotNull(task)));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `tracing/src/main/java/com/palantir/tracing/WrappingExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public final <T> Future<T> submit(Callable<T> task) {
+        return delegate.submit(wrapTask(checkNotNull(task)));
     }
 ```
 
@@ -1085,186 +1265,6 @@ in `tracing/src/main/java/com/palantir/tracing/WrappingExecutorService.java`
 
 ### NullableProblems
 Not annotated parameter overrides @NotNull parameter
-in `tracing/src/main/java/com/palantir/tracing/WrappingExecutorService.java`
-#### Snippet
-```java
-    // These methods wrap before delegating.
-    @Override
-    public final void execute(Runnable command) {
-        delegate.execute(wrapTask(command));
-    }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NotNull
-in `tracing/src/main/java/com/palantir/tracing/WrappingExecutorService.java`
-#### Snippet
-```java
-
-    @Override
-    public final <T> Future<T> submit(Callable<T> task) {
-        return delegate.submit(wrapTask(checkNotNull(task)));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `tracing/src/main/java/com/palantir/tracing/WrappingExecutorService.java`
-#### Snippet
-```java
-
-    @Override
-    public final <T> Future<T> submit(Callable<T> task) {
-        return delegate.submit(wrapTask(checkNotNull(task)));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `tracing/src/main/java/com/palantir/tracing/WrappingExecutorService.java`
-#### Snippet
-```java
-
-    @Override
-    public final boolean awaitTermination(long timeout, TimeUnit unit) throws InterruptedException {
-        return delegate.awaitTermination(timeout, unit);
-    }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NotNull
-in `tracing/src/main/java/com/palantir/tracing/WrappingExecutorService.java`
-#### Snippet
-```java
-
-    @Override
-    public final <T> T invokeAny(Collection<? extends Callable<T>> tasks)
-            throws InterruptedException, ExecutionException {
-        return delegate.invokeAny(wrapTasks(tasks));
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `tracing/src/main/java/com/palantir/tracing/WrappingExecutorService.java`
-#### Snippet
-```java
-
-    @Override
-    public final <T> T invokeAny(Collection<? extends Callable<T>> tasks)
-            throws InterruptedException, ExecutionException {
-        return delegate.invokeAny(wrapTasks(tasks));
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NotNull
-in `tracing/src/main/java/com/palantir/tracing/WrappingExecutorService.java`
-#### Snippet
-```java
-
-    @Override
-    public final Future<?> submit(Runnable task) {
-        return delegate.submit(wrapTask(task));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `tracing/src/main/java/com/palantir/tracing/WrappingExecutorService.java`
-#### Snippet
-```java
-
-    @Override
-    public final Future<?> submit(Runnable task) {
-        return delegate.submit(wrapTask(task));
-    }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NotNull
-in `tracing/src/main/java/com/palantir/tracing/WrappingExecutorService.java`
-#### Snippet
-```java
-
-    @Override
-    public final <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
-            throws InterruptedException {
-        return delegate.invokeAll(wrapTasks(tasks), timeout, unit);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `tracing/src/main/java/com/palantir/tracing/WrappingExecutorService.java`
-#### Snippet
-```java
-
-    @Override
-    public final <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
-            throws InterruptedException {
-        return delegate.invokeAll(wrapTasks(tasks), timeout, unit);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `tracing/src/main/java/com/palantir/tracing/WrappingExecutorService.java`
-#### Snippet
-```java
-
-    @Override
-    public final <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
-            throws InterruptedException {
-        return delegate.invokeAll(wrapTasks(tasks), timeout, unit);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `tracing/src/main/java/com/palantir/tracing/WrappingExecutorService.java`
-#### Snippet
-```java
-
-    @Override
-    public final <T> T invokeAny(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
-            throws InterruptedException, ExecutionException, TimeoutException {
-        return delegate.invokeAny(wrapTasks(tasks), timeout, unit);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `tracing/src/main/java/com/palantir/tracing/WrappingExecutorService.java`
-#### Snippet
-```java
-
-    @Override
-    public final <T> T invokeAny(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
-            throws InterruptedException, ExecutionException, TimeoutException {
-        return delegate.invokeAny(wrapTasks(tasks), timeout, unit);
-```
-
-### NullableProblems
-Constructor parameter for @Nullable field might be annotated @Nullable itself
-in `tracing/src/main/java/com/palantir/tracing/DeferredTracer.java`
-#### Snippet
-```java
-    }
-
-    public DeferredTracer(@Safe String operation, @Safe Map<String, String> metadata) {
-        Optional<Trace> maybeTrace = Tracer.copyTrace();
-        if (maybeTrace.isPresent()) {
-```
-
-### NullableProblems
-Constructor parameter for @Nullable field might be annotated @Nullable itself
-in `tracing/src/main/java/com/palantir/tracing/DeferredTracer.java`
-#### Snippet
-```java
-    }
-
-    public DeferredTracer(@Safe String operation, @Safe Map<String, String> metadata) {
-        Optional<Trace> maybeTrace = Tracer.copyTrace();
-        if (maybeTrace.isPresent()) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
 in `tracing-test-utils/src/main/java/com/palantir/tracing/TimeBounds.java`
 #### Snippet
 ```java
@@ -1319,35 +1319,11 @@ in `tracing/src/main/java/com/palantir/tracing/TraceLocal.java`
 in `tracing-test-utils/src/main/java/com/palantir/tracing/SpanAnalyzer.java`
 #### Snippet
 ```java
-    @Value.Immutable
-    interface Result {
-        ImmutableGraph<Span> graph();
-
-        Span root();
-```
-
-### UnstableApiUsage
-'com.google.common.graph.ImmutableGraph' is marked unstable with @Beta
-in `tracing-test-utils/src/main/java/com/palantir/tracing/SpanAnalyzer.java`
-#### Snippet
-```java
     private SpanAnalyzer() {}
 
     private static Stream<Span> depthFirstTraversalOrderedByStartTime(ImmutableGraph<Span> graph, Span parentSpan) {
         Stream<Span> children =
                 children(graph, parentSpan).flatMap(child -> depthFirstTraversalOrderedByStartTime(graph, child));
-```
-
-### UnstableApiUsage
-'com.google.common.graph.ImmutableGraph' is marked unstable with @Beta
-in `tracing-test-utils/src/main/java/com/palantir/tracing/SpanAnalyzer.java`
-#### Snippet
-```java
-    }
-
-    private static List<Span> sortedChildren(ImmutableGraph<Span> graph, Span node) {
-        return children(graph, node)
-                .sorted(Comparator.comparingLong(Span::getStartTimeMicroSeconds))
 ```
 
 ### UnstableApiUsage
@@ -1518,6 +1494,30 @@ in `tracing-test-utils/src/main/java/com/palantir/tracing/SpanAnalyzer.java`
     }
 ```
 
+### UnstableApiUsage
+'com.google.common.graph.ImmutableGraph' is marked unstable with @Beta
+in `tracing-test-utils/src/main/java/com/palantir/tracing/SpanAnalyzer.java`
+#### Snippet
+```java
+    }
+
+    private static List<Span> sortedChildren(ImmutableGraph<Span> graph, Span node) {
+        return children(graph, node)
+                .sorted(Comparator.comparingLong(Span::getStartTimeMicroSeconds))
+```
+
+### UnstableApiUsage
+'com.google.common.graph.ImmutableGraph' is marked unstable with @Beta
+in `tracing-test-utils/src/main/java/com/palantir/tracing/SpanAnalyzer.java`
+#### Snippet
+```java
+    @Value.Immutable
+    interface Result {
+        ImmutableGraph<Span> graph();
+
+        Span root();
+```
+
 ## RuleId[id=StringConcatenationInsideStringBufferAppend]
 ### StringConcatenationInsideStringBufferAppend
 String concatenation as argument to `StringBuilder.append()` call
@@ -1534,18 +1534,6 @@ in `tracing-test-utils/src/main/java/com/palantir/tracing/HtmlFormatter.java`
 ## RuleId[id=BlockingMethodInNonBlockingContext]
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
-in `tracing-servlet/src/main/java/com/palantir/tracing/servlet/LeakedTraceFilter.java`
-#### Snippet
-```java
-        }
-        try {
-            chain.doFilter(request, response);
-        } finally {
-            if (Tracer.hasTraceId()) {
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
 in `tracing-jaxrs/src/main/java/com/palantir/tracing/jaxrs/JaxRsTracers.java`
 #### Snippet
 ```java
@@ -1554,6 +1542,18 @@ in `tracing-jaxrs/src/main/java/com/palantir/tracing/jaxrs/JaxRsTracers.java`
                 delegate.write(output);
             }
         }
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `tracing-servlet/src/main/java/com/palantir/tracing/servlet/LeakedTraceFilter.java`
+#### Snippet
+```java
+        }
+        try {
+            chain.doFilter(request, response);
+        } finally {
+            if (Tracer.hasTraceId()) {
 ```
 
 ### BlockingMethodInNonBlockingContext
@@ -1597,9 +1597,21 @@ Possibly blocking call in non-blocking context could lead to thread starvation
 in `tracing/src/main/java/com/palantir/tracing/WrappingExecutorService.java`
 #### Snippet
 ```java
-    @Override
-    public final <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks) throws InterruptedException {
-        return delegate.invokeAll(wrapTasks(tasks));
+    public final <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
+            throws InterruptedException {
+        return delegate.invokeAll(wrapTasks(tasks), timeout, unit);
+    }
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `tracing/src/main/java/com/palantir/tracing/WrappingExecutorService.java`
+#### Snippet
+```java
+    public final <T> T invokeAny(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
+            throws InterruptedException, ExecutionException, TimeoutException {
+        return delegate.invokeAny(wrapTasks(tasks), timeout, unit);
     }
 
 ```
@@ -1633,21 +1645,9 @@ Possibly blocking call in non-blocking context could lead to thread starvation
 in `tracing/src/main/java/com/palantir/tracing/WrappingExecutorService.java`
 #### Snippet
 ```java
-    public final <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
-            throws InterruptedException {
-        return delegate.invokeAll(wrapTasks(tasks), timeout, unit);
-    }
-
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `tracing/src/main/java/com/palantir/tracing/WrappingExecutorService.java`
-#### Snippet
-```java
-    public final <T> T invokeAny(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
-            throws InterruptedException, ExecutionException, TimeoutException {
-        return delegate.invokeAny(wrapTasks(tasks), timeout, unit);
+    @Override
+    public final <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks) throws InterruptedException {
+        return delegate.invokeAll(wrapTasks(tasks));
     }
 
 ```
@@ -1674,18 +1674,6 @@ in `tracing-test-utils/src/main/java/com/palantir/tracing/TestTracingExtension.j
         Files.createDirectories(outputPath);
         Path actualPath = outputPath.resolve("actual.html");
         Path expectedPath = outputPath.resolve("expected.html");
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `tracing-test-utils/src/main/java/com/palantir/tracing/api/Serialization.java`
-#### Snippet
-```java
-
-    public static List<Span> deserialize(Path file) throws IOException {
-        try (Stream<String> lines = Files.lines(file)) {
-            return lines.map(line -> {
-                        try {
 ```
 
 ### BlockingMethodInNonBlockingContext
@@ -1734,6 +1722,18 @@ in `tracing-test-utils/src/main/java/com/palantir/tracing/api/Serialization.java
                     outputStream.write('\n');
                 } catch (IOException e) {
                     throw new RuntimeException(e);
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `tracing-test-utils/src/main/java/com/palantir/tracing/api/Serialization.java`
+#### Snippet
+```java
+
+    public static List<Span> deserialize(Path file) throws IOException {
+        try (Stream<String> lines = Files.lines(file)) {
+            return lines.map(line -> {
+                        try {
 ```
 
 ### BlockingMethodInNonBlockingContext
