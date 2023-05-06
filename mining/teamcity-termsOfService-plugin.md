@@ -8,8 +8,8 @@ I found 18 bad smells with 2 repairable:
 | UNUSED_IMPORT | 4 | false |
 | DataFlowIssue | 2 | false |
 | InnerClassMayBeStatic | 2 | true |
-| SpringXmlAutowireExplicitlyInspection | 1 | false |
 | DuplicatedCode | 1 | false |
+| SpringXmlAutowireExplicitlyInspection | 1 | false |
 | TrivialIf | 1 | false |
 ## RuleId[id=SpringBeanConstructorArgInspection]
 ### SpringBeanConstructorArgInspection
@@ -154,19 +154,6 @@ in `termsOfService-server/src/main/resources/META-INF/build-server-plugin-terms-
 
 ```
 
-## RuleId[id=SpringXmlAutowireExplicitlyInspection]
-### SpringXmlAutowireExplicitlyInspection
-Make autowired dependency explicit
-in `termsOfService-server/src/main/resources/META-INF/build-server-plugin-terms-of-service.xml`
-#### Snippet
-```java
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-               http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
-       default-autowire="constructor">
-
-    <bean class="jetbrains.buildServer.termsOfService.TermsOfServiceHandlerInterceptor" lazy-init="false"/>
-```
-
 ## RuleId[id=DuplicatedCode]
 ### DuplicatedCode
 Duplicated code
@@ -184,19 +171,20 @@ in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/Acc
         Optional<TermsOfServiceManager.Agreement> agreement = myManager.findAgreement(agreementId);
 ```
 
-## RuleId[id=DataFlowIssue]
-### DataFlowIssue
-Argument `myGuestNotice` might be null
-in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
+## RuleId[id=SpringXmlAutowireExplicitlyInspection]
+### SpringXmlAutowireExplicitlyInspection
+Make autowired dependency explicit
+in `termsOfService-server/src/main/resources/META-INF/build-server-plugin-terms-of-service.xml`
 #### Snippet
 ```java
-        }
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+               http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
+       default-autowire="constructor">
 
-        return Optional.of(myGuestNotice);
-    }
-
+    <bean class="jetbrains.buildServer.termsOfService.TermsOfServiceHandlerInterceptor" lazy-init="false"/>
 ```
 
+## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
 Variable is already assigned to this value
 in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
@@ -207,6 +195,18 @@ in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/Ter
                     parsedEnforcementDate = null;
                 }
             }
+```
+
+### DataFlowIssue
+Argument `myGuestNotice` might be null
+in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
+#### Snippet
+```java
+        }
+
+        return Optional.of(myGuestNotice);
+    }
+
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
@@ -260,18 +260,6 @@ import javax.servlet.http.HttpServletRequest;
 
 ## RuleId[id=InnerClassMayBeStatic]
 ### InnerClassMayBeStatic
-Inner class `ExternalAgreementLinkSettings` may be 'static'
-in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
-#### Snippet
-```java
-    }
-
-    class ExternalAgreementLinkSettings implements TermsOfServiceManager.ExternalAgreementLink {
-        private final String text;
-        private final String url;
-```
-
-### InnerClassMayBeStatic
 Inner class `GuestNoticeSettings` may be 'static'
 in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
 #### Snippet
@@ -281,6 +269,18 @@ in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/Ter
     class GuestNoticeSettings implements GuestNotice {
         private final String title;
         private final String note;
+```
+
+### InnerClassMayBeStatic
+Inner class `ExternalAgreementLinkSettings` may be 'static'
+in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
+#### Snippet
+```java
+    }
+
+    class ExternalAgreementLinkSettings implements TermsOfServiceManager.ExternalAgreementLink {
+        private final String text;
+        private final String url;
 ```
 
 ## RuleId[id=TrivialIf]
