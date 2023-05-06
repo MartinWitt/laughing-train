@@ -1,89 +1,37 @@
 # keyple-card-calypso-crypto-legacysam-java-lib 
  
 # Bad smells
-I found 26 bad smells with 0 repairable:
+I found 22 bad smells with 0 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | IgnoreResultOfCall | 16 | false |
-| ReturnNull | 4 | false |
+| UNCHECKED_WARNING | 2 | false |
 | UnstableApiUsage | 2 | false |
-| AssignmentToMethodParameter | 1 | false |
-| ZeroLengthArrayInitialization | 1 | false |
 | UNUSED_IMPORT | 1 | false |
 | ReplaceCallWithBinaryOperator | 1 | false |
-## RuleId[id=AssignmentToMethodParameter]
-### AssignmentToMethodParameter
-Assignment to method parameter `diversifier`
-in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/CommandSelectDiversifier.java`
-#### Snippet
-```java
-      byte[] tmp = new byte[newLength];
-      System.arraycopy(diversifier, 0, tmp, newLength - diversifier.length, diversifier.length);
-      diversifier = tmp;
-    }
-
-```
-
-## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
-in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/LegacySamResourceProfileExtensionAdapter.java`
-#### Snippet
-```java
-
-    if (!reader.isCardPresent()) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/LegacySamResourceProfileExtensionAdapter.java`
-#### Snippet
-```java
-    }
-
-    return null;
-  }
-}
-```
-
-### ReturnNull
-Return of `null`
+## RuleId[id=UNCHECKED_WARNING]
+### UNCHECKED_WARNING
+Unchecked cast: 'org.eclipse.keyple.card.calypso.crypto.legacysam.DtoAdapters.CommonSignatureComputationDataAdapter' to 'T'
 in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/DtoAdapters.java`
 #### Snippet
 ```java
-    @Override
-    public byte[] getAid() {
-      return null;
-    }
+      implements CommonSignatureComputationData<T> {
 
+    private final T currentInstance = (T) this;
+    private byte[] data;
+    private byte kif;
 ```
 
-### ReturnNull
-Return of `null`
+### UNCHECKED_WARNING
+Unchecked cast: 'org.eclipse.keyple.card.calypso.crypto.legacysam.DtoAdapters.CommonSignatureVerificationDataAdapter' to 'T'
 in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/DtoAdapters.java`
 #### Snippet
 ```java
-    @Override
-    public String getCardProtocol() {
-      return null;
-    }
+      implements CommonSignatureVerificationData<T> {
 
-```
-
-## RuleId[id=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/LegacySamAdapter.java`
-#### Snippet
-```java
-  @Override
-  public byte[] getSelectApplicationResponse() {
-    return new byte[0];
-  }
-
+    private final T currentInstance = (T) this;
+    private byte[] data;
+    private byte[] signature;
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
@@ -140,14 +88,14 @@ in `build.gradle.kts`
 ## RuleId[id=IgnoreResultOfCall]
 ### IgnoreResultOfCall
 Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/LSTransactionManagerFactoryAdapter.java`
+in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/LegacySamCardExtensionService.java`
 #### Snippet
 ```java
-          "The provided 'sam' must be an instance of 'LegacySamAdapter'");
-    }
-    Assert.getInstance().notNull(samCommands, "samCommands");
-    return new LSAsyncTransactionExecutorManagerAdapter(
-        (ProxyReaderApi) samReader, (LegacySamAdapter) sam, samCommands);
+  public CardResourceProfileExtension createLegacySamResourceProfileExtension(
+      LegacySamSelection legacySamSelection) {
+    Assert.getInstance().notNull(legacySamSelection, "Legacy SAM selection");
+    return new LegacySamResourceProfileExtensionAdapter(legacySamSelection);
+  }
 ```
 
 ### IgnoreResultOfCall
@@ -163,51 +111,15 @@ in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/LSTransaction
 ```
 
 ### IgnoreResultOfCall
-Result of `Assert.isInRange()` is ignored
-in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/LSAsyncTransactionCreatorManagerAdapter.java`
-#### Snippet
-```java
-        .isInRange(
-            counterNumber, MIN_COUNTER_CEILING_NUMBER, MAX_COUNTER_CEILING_NUMBER, "counterNumber")
-        .isInRange(
-            ceilingValue, MIN_COUNTER_CEILING_VALUE, MAX_COUNTER_CEILING_VALUE, "ceilingValue");
-
-```
-
-### IgnoreResultOfCall
-Result of `Assert.isInRange()` is ignored
-in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/LSAsyncTransactionCreatorManagerAdapter.java`
-#### Snippet
-```java
-        .isInRange(
-            counterNumber, MIN_COUNTER_CEILING_NUMBER, MAX_COUNTER_CEILING_NUMBER, "counterNumber")
-        .isInRange(
-            ceilingValue, MIN_COUNTER_CEILING_VALUE, MAX_COUNTER_CEILING_VALUE, "ceilingValue");
-
-```
-
-### IgnoreResultOfCall
 Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/LegacySamCardExtensionService.java`
+in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/LSTransactionManagerFactoryAdapter.java`
 #### Snippet
 ```java
-  public CardResourceProfileExtension createLegacySamResourceProfileExtension(
-      LegacySamSelection legacySamSelection) {
-    Assert.getInstance().notNull(legacySamSelection, "Legacy SAM selection");
-    return new LegacySamResourceProfileExtensionAdapter(legacySamSelection);
-  }
-```
-
-### IgnoreResultOfCall
-Result of `Assert.isTrue()` is ignored
-in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/LSSecuritySettingAdapter.java`
-#### Snippet
-```java
-        .notNull(controlSam, "controlSam")
-        .notNull(controlSam.getProductType(), "productType")
-        .isTrue(controlSam.getProductType() != LegacySam.ProductType.UNKNOWN, "productType");
-    if (!(samReader instanceof ProxyReaderApi)) {
-      throw new IllegalArgumentException(
+          "The provided 'sam' must be an instance of 'LegacySamAdapter'");
+    }
+    Assert.getInstance().notNull(samCommands, "samCommands");
+    return new LSAsyncTransactionExecutorManagerAdapter(
+        (ProxyReaderApi) samReader, (LegacySamAdapter) sam, samCommands);
 ```
 
 ### IgnoreResultOfCall
@@ -220,18 +132,6 @@ in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/KeyParameterA
     Assert.getInstance().isInRange(parameterNumber, 1, 10, "parameterNumber");
     return keyParameters[2 + parameterNumber];
   }
-```
-
-### IgnoreResultOfCall
-Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/LegacySamSelectionAdapter.java`
-#### Snippet
-```java
-  public LegacySamSelection filterByProductType(LegacySam.ProductType productType) {
-
-    Assert.getInstance().notNull(productType, "productType");
-
-    this.productType = productType;
 ```
 
 ### IgnoreResultOfCall
@@ -251,6 +151,18 @@ Result of `Assert.notNull()` is ignored
 in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/LegacySamSelectionAdapter.java`
 #### Snippet
 ```java
+  public LegacySamSelection filterByProductType(LegacySam.ProductType productType) {
+
+    Assert.getInstance().notNull(productType, "productType");
+
+    this.productType = productType;
+```
+
+### IgnoreResultOfCall
+Result of `Assert.notNull()` is ignored
+in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/LegacySamSelectionAdapter.java`
+#### Snippet
+```java
   public LegacySamSelection filterBySerialNumber(String serialNumberRegex) {
 
     Assert.getInstance().notNull(serialNumberRegex, "serialNumberRegex");
@@ -259,12 +171,60 @@ in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/LegacySamSele
 ```
 
 ### IgnoreResultOfCall
+Result of `Assert.isInRange()` is ignored
+in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/LSAsyncTransactionCreatorManagerAdapter.java`
+#### Snippet
+```java
+        .isInRange(
+            counterNumber, MIN_COUNTER_CEILING_NUMBER, MAX_COUNTER_CEILING_NUMBER, "counterNumber")
+        .isInRange(
+            ceilingValue, MIN_COUNTER_CEILING_VALUE, MAX_COUNTER_CEILING_VALUE, "ceilingValue");
+
+```
+
+### IgnoreResultOfCall
+Result of `Assert.isInRange()` is ignored
+in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/LSAsyncTransactionCreatorManagerAdapter.java`
+#### Snippet
+```java
+        .isInRange(
+            counterNumber, MIN_COUNTER_CEILING_NUMBER, MAX_COUNTER_CEILING_NUMBER, "counterNumber")
+        .isInRange(
+            ceilingValue, MIN_COUNTER_CEILING_VALUE, MAX_COUNTER_CEILING_VALUE, "ceilingValue");
+
+```
+
+### IgnoreResultOfCall
+Result of `Assert.isTrue()` is ignored
+in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/LSSecuritySettingAdapter.java`
+#### Snippet
+```java
+        .notNull(controlSam, "controlSam")
+        .notNull(controlSam.getProductType(), "productType")
+        .isTrue(controlSam.getProductType() != LegacySam.ProductType.UNKNOWN, "productType");
+    if (!(samReader instanceof ProxyReaderApi)) {
+      throw new IllegalArgumentException(
+```
+
+### IgnoreResultOfCall
+Result of `Assert.isInRange()` is ignored
+in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/LSFreeTransactionManagerAdapter.java`
+#### Snippet
+```java
+  public LSFreeTransactionManager prepareReadCounterStatus(int counterNumber) {
+    Assert.getInstance()
+        .isInRange(counterNumber, MIN_COUNTER_NUMBER, MAX_COUNTER_NUMBER, "counterNumber");
+    for (Command command : getTargetSamCommands()) {
+      if (command instanceof CommandReadCounter
+```
+
+### IgnoreResultOfCall
 Result of `Assert.isTrue()` is ignored
 in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/LSFreeTransactionManagerAdapter.java`
 #### Snippet
 ```java
-          .notNull(dataAdapter.getSignature(), "signature")
-          .isInRange(dataAdapter.getSignature().length, 1, 8, MSG_SIGNATURE_SIZE)
+              dataAdapter.getData().length % 8 == 0, "length of data to sign is a multiple of 8")
+          .isInRange(dataAdapter.getSignatureSize(), 1, 8, MSG_SIGNATURE_SIZE)
           .isTrue(
               dataAdapter.getKeyDiversifier() == null
                   || (dataAdapter.getKeyDiversifier().length >= 1
@@ -299,8 +259,8 @@ Result of `Assert.isTrue()` is ignored
 in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/LSFreeTransactionManagerAdapter.java`
 #### Snippet
 ```java
-              dataAdapter.getData().length % 8 == 0, "length of data to sign is a multiple of 8")
-          .isInRange(dataAdapter.getSignatureSize(), 1, 8, MSG_SIGNATURE_SIZE)
+          .notNull(dataAdapter.getSignature(), "signature")
+          .isInRange(dataAdapter.getSignature().length, 1, 8, MSG_SIGNATURE_SIZE)
           .isTrue(
               dataAdapter.getKeyDiversifier() == null
                   || (dataAdapter.getKeyDiversifier().length >= 1
@@ -316,17 +276,5 @@ in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/LSFreeTransac
           .isTrue(
               dataAdapter.getKeyDiversifier() == null
                   || (dataAdapter.getKeyDiversifier().length >= 1
-```
-
-### IgnoreResultOfCall
-Result of `Assert.isInRange()` is ignored
-in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/LSFreeTransactionManagerAdapter.java`
-#### Snippet
-```java
-  public LSFreeTransactionManager prepareReadCounterStatus(int counterNumber) {
-    Assert.getInstance()
-        .isInRange(counterNumber, MIN_COUNTER_NUMBER, MAX_COUNTER_NUMBER, "counterNumber");
-    for (Command command : getTargetSamCommands()) {
-      if (command instanceof CommandReadCounter
 ```
 
