@@ -53,42 +53,6 @@ Redundant default parameter value assignment
 in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
 #### Snippet
 ```java
-     * Comma Separated list of Classifiers to include when indexing.
-     */
-    @Parameter( property = "includeClassifiers", defaultValue = "" )
-    protected String includeClassifiers;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
-#### Snippet
-```java
-     * Comma separated list of ArtifactIds to include when indexing.
-     */
-    @Parameter( property = "includeArtifactIds", defaultValue = "" )
-    protected String includeArtifactIds;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
-#### Snippet
-```java
-     * Comma separated list of GroupIds to include when indexing.
-     */
-    @Parameter( property = "includeGroupIds", defaultValue = "" )
-    protected String includeGroupIds;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
-#### Snippet
-```java
      * Scope to include. Empty string indicates all scopes (default).
      */
     @Parameter( property = "includeScope", defaultValue = "" )
@@ -101,10 +65,10 @@ Redundant default parameter value assignment
 in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
 #### Snippet
 ```java
-     * Scope to exclude. Empty string indicates no scopes (default).
+     * Comma Separated list of Types to include when indexing.
      */
-    @Parameter( property = "excludeScope", defaultValue = "" )
-    protected String excludeScope;
+    @Parameter( property = "includeTypes", defaultValue = "" )
+    protected String includeTypes;
 
 ```
 
@@ -113,10 +77,46 @@ Redundant default parameter value assignment
 in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
 #### Snippet
 ```java
-     * Comma Separated list of Types to include when indexing.
+     * Comma Separated list of Classifiers to include when indexing.
      */
-    @Parameter( property = "includeTypes", defaultValue = "" )
-    protected String includeTypes;
+    @Parameter( property = "includeClassifiers", defaultValue = "" )
+    protected String includeClassifiers;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
+#### Snippet
+```java
+     * Comma Separated list of Types to exclude when indexing.
+     */
+    @Parameter( property = "excludeTypes", defaultValue = "" )
+    protected String excludeTypes;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
+#### Snippet
+```java
+     * Comma separated list of ArtifactIds to exclude when indexing.
+     */
+    @Parameter( property = "excludeArtifactIds", defaultValue = "" )
+    protected String excludeArtifactIds;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
+#### Snippet
+```java
+     * Scope to exclude. Empty string indicates no scopes (default).
+     */
+    @Parameter( property = "excludeScope", defaultValue = "" )
+    protected String excludeScope;
 
 ```
 
@@ -149,10 +149,10 @@ Redundant default parameter value assignment
 in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
 #### Snippet
 ```java
-     * Comma separated list of ArtifactIds to exclude when indexing.
+     * Comma separated list of GroupIds to include when indexing.
      */
-    @Parameter( property = "excludeArtifactIds", defaultValue = "" )
-    protected String excludeArtifactIds;
+    @Parameter( property = "includeGroupIds", defaultValue = "" )
+    protected String includeGroupIds;
 
 ```
 
@@ -161,10 +161,10 @@ Redundant default parameter value assignment
 in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
 #### Snippet
 ```java
-     * Comma Separated list of Types to exclude when indexing.
+     * Comma separated list of ArtifactIds to include when indexing.
      */
-    @Parameter( property = "excludeTypes", defaultValue = "" )
-    protected String excludeTypes;
+    @Parameter( property = "includeArtifactIds", defaultValue = "" )
+    protected String includeArtifactIds;
 
 ```
 
