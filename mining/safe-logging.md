@@ -109,18 +109,6 @@ in `preconditions-assertj/src/main/java/com/palantir/logsafe/testing/LoggableExc
 
 ## RuleId[id=NullableProblems]
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
-in `safe-logging/src/main/java/com/palantir/logsafe/Arg.java`
-#### Snippet
-```java
-public abstract class Arg<T> implements Serializable {
-
-    @Nonnull
-    private final String name;
-
-```
-
-### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
 in `safe-logging/src/main/java/com/palantir/logsafe/Arg.java`
 #### Snippet
@@ -129,6 +117,18 @@ in `safe-logging/src/main/java/com/palantir/logsafe/Arg.java`
 
     @Nullable
     private final T value;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
+in `safe-logging/src/main/java/com/palantir/logsafe/Arg.java`
+#### Snippet
+```java
+public abstract class Arg<T> implements Serializable {
+
+    @Nonnull
+    private final String name;
 
 ```
 
