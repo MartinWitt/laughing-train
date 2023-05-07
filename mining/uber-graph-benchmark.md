@@ -125,30 +125,6 @@ in `core/src/main/java/com/uber/ugb/db/Subgraph.java`
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'T'
-in `core/src/main/java/com/uber/ugb/schema/SchemaManager.java`
-#### Snippet
-```java
-            logger.info("loading resource:" + path);
-            try (InputStream is = SchemaManager.class.getResourceAsStream(path)) {
-                return (T) new Yaml(new Constructor(resourceClass)).load(is);
-            }
-        }
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'com.uber.ugb.schema.SchemaManager.StorageSchemaElement' to 'com.uber.ugb.schema.SchemaManager.StorageSchemaElement'
-in `core/src/main/java/com/uber/ugb/schema/SchemaManager.java`
-#### Snippet
-```java
-            throws InvalidSchemaException {
-
-        StorageSchemaElement<E, T> storageSchemaElement = getSchemaElement(element);
-        if (null == storageSchemaElement && !element.getAbstract()) {
-            storageSchemaElement = createSchemaElement(element);
-```
-
-### UNCHECKED_WARNING
 Unchecked assignment: 'java.util.List' to 'java.util.List'. Reason: 'el' has raw type, so result of getDependencies is erased
 in `core/src/main/java/com/uber/ugb/schema/SchemaManager.java`
 #### Snippet
@@ -158,18 +134,6 @@ in `core/src/main/java/com/uber/ugb/schema/SchemaManager.java`
             List<StorageSchemaElement> deps = el.getDependencies();
             for (StorageSchemaElement dep : deps) {
                 dep.getDependents().remove(el);
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'T'
-in `core/src/main/java/com/uber/ugb/schema/SchemaManager.java`
-#### Snippet
-```java
-            File file = new File(baseDirectory, path);
-            try (InputStream is = new FileInputStream(file)) {
-                return (T) new Yaml(new Constructor(resourceClass)).load(is);
-            }
-        }
 ```
 
 ### UNCHECKED_WARNING
@@ -194,6 +158,42 @@ in `core/src/main/java/com/uber/ugb/schema/SchemaManager.java`
                 return addRelationType(storageSchemaElement);
             default:
                 throw new IllegalStateException();
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'T'
+in `core/src/main/java/com/uber/ugb/schema/SchemaManager.java`
+#### Snippet
+```java
+            File file = new File(baseDirectory, path);
+            try (InputStream is = new FileInputStream(file)) {
+                return (T) new Yaml(new Constructor(resourceClass)).load(is);
+            }
+        }
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'T'
+in `core/src/main/java/com/uber/ugb/schema/SchemaManager.java`
+#### Snippet
+```java
+            logger.info("loading resource:" + path);
+            try (InputStream is = SchemaManager.class.getResourceAsStream(path)) {
+                return (T) new Yaml(new Constructor(resourceClass)).load(is);
+            }
+        }
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'com.uber.ugb.schema.SchemaManager.StorageSchemaElement' to 'com.uber.ugb.schema.SchemaManager.StorageSchemaElement'
+in `core/src/main/java/com/uber/ugb/schema/SchemaManager.java`
+#### Snippet
+```java
+            throws InvalidSchemaException {
+
+        StorageSchemaElement<E, T> storageSchemaElement = getSchemaElement(element);
+        if (null == storageSchemaElement && !element.getAbstract()) {
+            storageSchemaElement = createSchemaElement(element);
 ```
 
 ### UNCHECKED_WARNING
@@ -237,6 +237,30 @@ Unchecked cast: 'com.uber.ugb.schema.model.Type' to 'E'
 in `core/src/main/java/com/uber/ugb/schema/model/Type.java`
 #### Snippet
 ```java
+        Set<E> inferredTypes = new HashSet<>();
+        Stack<E> types = new Stack<E>();
+        types.push((E) this);
+        while (!types.isEmpty()) {
+            E type = types.pop();
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.util.List' to 'java.util.List'
+in `core/src/main/java/com/uber/ugb/schema/model/Type.java`
+#### Snippet
+```java
+            E type = types.pop();
+            inferredTypes.add(type);
+            for (E ext : (List<E>) type.getExtends()) {
+                types.push(ext);
+            }
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'com.uber.ugb.schema.model.Type' to 'E'
+in `core/src/main/java/com/uber/ugb/schema/model/Type.java`
+#### Snippet
+```java
     protected <T> T getField(final Function<E, T> accessor) {
 
         T value = accessor.apply((E) this);
@@ -269,27 +293,15 @@ in `core/src/main/java/com/uber/ugb/schema/model/Type.java`
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'com.uber.ugb.schema.model.Type' to 'E'
-in `core/src/main/java/com/uber/ugb/schema/model/Type.java`
+Unchecked call to 'put(E)' as a member of raw type 'java.util.concurrent.ArrayBlockingQueue'
+in `core/src/main/java/com/uber/ugb/db/ParallelWriteDBWrapper.java`
 #### Snippet
 ```java
-        Set<E> inferredTypes = new HashSet<>();
-        Stack<E> types = new Stack<E>();
-        types.push((E) this);
-        while (!types.isEmpty()) {
-            E type = types.pop();
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.util.List' to 'java.util.List'
-in `core/src/main/java/com/uber/ugb/schema/model/Type.java`
-#### Snippet
-```java
-            E type = types.pop();
-            inferredTypes.add(type);
-            for (E ext : (List<E>) type.getExtends()) {
-                types.push(ext);
-            }
+        try {
+            this.todoCounter.incrementAndGet();
+            this.todos.put(new VertexWriteRequest(label, id, keyValues));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
 ```
 
 ### UNCHECKED_WARNING
@@ -302,18 +314,6 @@ in `core/src/main/java/com/uber/ugb/db/ParallelWriteDBWrapper.java`
             this.todos.put(new EdgeWriteRequest(
                 edgeLabel,
                 outVertexLabel, outVertexId,
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'put(E)' as a member of raw type 'java.util.concurrent.ArrayBlockingQueue'
-in `core/src/main/java/com/uber/ugb/db/ParallelWriteDBWrapper.java`
-#### Snippet
-```java
-        try {
-            this.todoCounter.incrementAndGet();
-            this.todos.put(new VertexWriteRequest(label, id, keyValues));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
 ```
 
 ## RuleId[id=UnnecessarySemicolon]
@@ -367,18 +367,6 @@ in `core/src/main/java/com/uber/ugb/schema/SchemaBuilder.java`
 ```
 
 ### DataFlowIssue
-Dereference of `edgeDistrbutionDir.listFiles()` may produce `NullPointerException`
-in `core/src/main/java/com/uber/ugb/GraphModelBuilder.java`
-#### Snippet
-```java
-            throw new InvalidSchemaException("not a directory: " + edgeDistrbutionDir);
-        }
-        for (File file : edgeDistrbutionDir.listFiles()) {
-            String fileName = file.getName();
-            if (fileName.endsWith(".csv")) {
-```
-
-### DataFlowIssue
 Dereference of `graghConceptDir.listFiles()` may produce `NullPointerException`
 in `core/src/main/java/com/uber/ugb/GraphModelBuilder.java`
 #### Snippet
@@ -388,6 +376,18 @@ in `core/src/main/java/com/uber/ugb/GraphModelBuilder.java`
         for (File file : graghConceptDir.listFiles()) {
             if (file.getName().endsWith(".yaml")) {
                 addConcept(new FileInputStream(file));
+```
+
+### DataFlowIssue
+Dereference of `edgeDistrbutionDir.listFiles()` may produce `NullPointerException`
+in `core/src/main/java/com/uber/ugb/GraphModelBuilder.java`
+#### Snippet
+```java
+            throw new InvalidSchemaException("not a directory: " + edgeDistrbutionDir);
+        }
+        for (File file : edgeDistrbutionDir.listFiles()) {
+            String fileName = file.getName();
+            if (fileName.endsWith(".csv")) {
 ```
 
 ## RuleId[id=CommentedOutCode]
@@ -529,18 +529,6 @@ in `core/src/main/java/com/uber/ugb/schema/SchemaBuilder.java`
 ```java
     }
 
-    protected void checkRequiredAndNonempty(final String field, final String fieldName) throws InvalidSchemaException {
-        checkRequiredField(field, fieldName);
-        checkArgument(0 < field.trim().length(), fieldName + " may not be empty");
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `core/src/main/java/com/uber/ugb/schema/SchemaBuilder.java`
-#### Snippet
-```java
-    }
-
     protected void checkArgument(final boolean argument, final String failureMessage) throws InvalidSchemaException {
         if (!argument) {
             throw new InvalidSchemaException(failureMessage);
@@ -556,6 +544,18 @@ in `core/src/main/java/com/uber/ugb/schema/SchemaBuilder.java`
     protected <T> void checkRequiredField(final T field, final String fieldName) throws InvalidSchemaException {
         if (null == field) {
             throw new InvalidSchemaException(fieldName + " is required");
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `core/src/main/java/com/uber/ugb/schema/SchemaBuilder.java`
+#### Snippet
+```java
+    }
+
+    protected void checkRequiredAndNonempty(final String field, final String fieldName) throws InvalidSchemaException {
+        checkRequiredField(field, fieldName);
+        checkArgument(0 < field.trim().length(), fieldName + " may not be empty");
 ```
 
 ## RuleId[id=IOStreamConstructor]
@@ -612,11 +612,11 @@ in `core/src/main/java/com/uber/ugb/schema/SchemaBuilder.java`
 in `core/src/main/java/com/uber/ugb/GraphModelBuilder.java`
 #### Snippet
 ```java
-
-    public void setStatistics(File statisticsFile) throws FileNotFoundException {
-        this.statisticsInputStream = new FileInputStream(statisticsFile);
-    }
-
+        for (File file : graghConceptDir.listFiles()) {
+            if (file.getName().endsWith(".yaml")) {
+                addConcept(new FileInputStream(file));
+            } else if (file.isDirectory()) {
+                addConceptDirectory(file);
 ```
 
 ### IOStreamConstructor
@@ -624,11 +624,11 @@ in `core/src/main/java/com/uber/ugb/GraphModelBuilder.java`
 in `core/src/main/java/com/uber/ugb/GraphModelBuilder.java`
 #### Snippet
 ```java
-        for (File file : graghConceptDir.listFiles()) {
-            if (file.getName().endsWith(".yaml")) {
-                addConcept(new FileInputStream(file));
-            } else if (file.isDirectory()) {
-                addConceptDirectory(file);
+
+    public void setStatistics(File statisticsFile) throws FileNotFoundException {
+        this.statisticsInputStream = new FileInputStream(statisticsFile);
+    }
+
 ```
 
 ## RuleId[id=CollectionAddAllCanBeReplacedWithConstructor]
@@ -662,8 +662,8 @@ in `core/src/main/java/com/uber/ugb/schema/SchemaBuilder.java`
 in `core/src/main/java/com/uber/ugb/db/CsvOutputDB.java`
 #### Snippet
 ```java
-    public void cleanup() throws DBException {
-        out.close();
+            }
+        }
         return;
     }
 
@@ -674,8 +674,8 @@ in `core/src/main/java/com/uber/ugb/db/CsvOutputDB.java`
 in `core/src/main/java/com/uber/ugb/db/CsvOutputDB.java`
 #### Snippet
 ```java
-            }
-        }
+    public void cleanup() throws DBException {
+        out.close();
         return;
     }
 
@@ -707,18 +707,6 @@ in `core/src/main/java/com/uber/ugb/GraphScraper.java`
 ```
 
 ### InnerClassMayBeStatic
-Inner class `EdgeWriteRequest` may be 'static'
-in `core/src/main/java/com/uber/ugb/db/ParallelWriteDBWrapper.java`
-#### Snippet
-```java
-    }
-
-    class EdgeWriteRequest {
-        QualifiedName edgeLabel;
-        QualifiedName outVertexLabel;
-```
-
-### InnerClassMayBeStatic
 Inner class `VertexWriteRequest` may be 'static'
 in `core/src/main/java/com/uber/ugb/db/ParallelWriteDBWrapper.java`
 #### Snippet
@@ -728,6 +716,18 @@ in `core/src/main/java/com/uber/ugb/db/ParallelWriteDBWrapper.java`
     class VertexWriteRequest {
         QualifiedName label;
         Object id;
+```
+
+### InnerClassMayBeStatic
+Inner class `EdgeWriteRequest` may be 'static'
+in `core/src/main/java/com/uber/ugb/db/ParallelWriteDBWrapper.java`
+#### Snippet
+```java
+    }
+
+    class EdgeWriteRequest {
+        QualifiedName edgeLabel;
+        QualifiedName outVertexLabel;
 ```
 
 ## RuleId[id=SuspiciousMethodCalls]
@@ -794,18 +794,6 @@ public class StringGenerator extends Generator<String> {
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `core/src/main/java/com/uber/ugb/model/generator/EmailGenerator.java`
-#### Snippet
-```java
-public class EmailGenerator extends Generator<String> {
-
-    private static String randomText = "abcdefghijklmnopqrstuvwxyz";
-    private static String[] domains = {"gmail.com", "yahoo.com", "outlook.com", "inbox.com", "icloud.com", "mail.com"};
-
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
 in `core/src/main/java/com/uber/ugb/db/KeyValueDB.java`
 #### Snippet
 ```java
@@ -814,6 +802,18 @@ in `core/src/main/java/com/uber/ugb/db/KeyValueDB.java`
     private static String REVERSE_SUFFIX = "_r";
 
     static {
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `core/src/main/java/com/uber/ugb/model/generator/EmailGenerator.java`
+#### Snippet
+```java
+public class EmailGenerator extends Generator<String> {
+
+    private static String randomText = "abcdefghijklmnopqrstuvwxyz";
+    private static String[] domains = {"gmail.com", "yahoo.com", "outlook.com", "inbox.com", "icloud.com", "mail.com"};
+
 ```
 
 ### FieldCanBeLocal
@@ -833,11 +833,11 @@ Field can be converted to a local variable
 in `core/src/main/java/com/uber/ugb/model/generator/UnixTimeMsGenerator.java`
 #### Snippet
 ```java
-public class UnixTimeMsGenerator extends Generator<Long> {
 
     private long base = 1537310687576L;
     private long tenYears = 10 * 35 * 24 * 60 * 60 * 1000;
 
+    @Override
 ```
 
 ### FieldCanBeLocal
@@ -845,11 +845,11 @@ Field can be converted to a local variable
 in `core/src/main/java/com/uber/ugb/model/generator/UnixTimeMsGenerator.java`
 #### Snippet
 ```java
+public class UnixTimeMsGenerator extends Generator<Long> {
 
     private long base = 1537310687576L;
     private long tenYears = 10 * 35 * 24 * 60 * 60 * 1000;
 
-    @Override
 ```
 
 ### FieldCanBeLocal
@@ -895,11 +895,11 @@ Synchronization on a non-final field `out`
 in `core/src/main/java/com/uber/ugb/db/CsvOutputDB.java`
 #### Snippet
 ```java
-    @Override
-    public Status writeVertex(QualifiedName label, Object id, Object... keyValues) {
+                            QualifiedName inVertexLabel, Object inVertexId,
+                            Object... keyValues) {
         synchronized (out){
-            out.print("v:");
-            out.print(label);
+            out.print("e:");
+            out.print(edgeLabel);
 ```
 
 ### SynchronizeOnNonFinalField
@@ -907,11 +907,11 @@ Synchronization on a non-final field `out`
 in `core/src/main/java/com/uber/ugb/db/CsvOutputDB.java`
 #### Snippet
 ```java
-                            QualifiedName inVertexLabel, Object inVertexId,
-                            Object... keyValues) {
+    @Override
+    public Status writeVertex(QualifiedName label, Object id, Object... keyValues) {
         synchronized (out){
-            out.print("e:");
-            out.print(edgeLabel);
+            out.print("v:");
+            out.print(label);
 ```
 
 ## RuleId[id=IntegerMultiplicationImplicitCastToLong]
@@ -951,6 +951,19 @@ in `core/src/main/java/com/uber/ugb/util/RandomPermutationTest.java`
         while (true) { // exit by failing with OOME
             long time = timeToEvaluate(() -> new RandomPermutation(size.value));
             System.out.println("permutation of size " + size.value + " --> " + time + " ms to construct");
+```
+
+## RuleId[id=RedundantCast]
+### RedundantCast
+Casting `findTotalWeight()` to `float` is redundant
+in `core/src/main/java/com/uber/ugb/model/Partitioner.java`
+#### Snippet
+```java
+        Map<QualifiedName, Long> partition = new LinkedHashMap<>();
+        long remaining = total;
+        float totalWeight = (float) findTotalWeight();
+        for (Map.Entry<QualifiedName, Float> e : weightByLabel.entrySet()) {
+            QualifiedName label = e.getKey();
 ```
 
 ## RuleId[id=JavadocDeclaration]
@@ -1024,19 +1037,6 @@ in `core/src/main/java/com/uber/ugb/measurement/LatencyHistogram.java`
      * @param latencyNs
      */
     public void measure(long latencyNs) {
-```
-
-## RuleId[id=RedundantCast]
-### RedundantCast
-Casting `findTotalWeight()` to `float` is redundant
-in `core/src/main/java/com/uber/ugb/model/Partitioner.java`
-#### Snippet
-```java
-        Map<QualifiedName, Long> partition = new LinkedHashMap<>();
-        long remaining = total;
-        float totalWeight = (float) findTotalWeight();
-        for (Map.Entry<QualifiedName, Float> e : weightByLabel.entrySet()) {
-            QualifiedName label = e.getKey();
 ```
 
 ## RuleId[id=FieldMayBeFinal]
@@ -1113,27 +1113,15 @@ public class GraphScraper {
 ```
 
 ### FieldMayBeFinal
-Field `randomText` may be 'final'
-in `core/src/main/java/com/uber/ugb/model/generator/EmailGenerator.java`
+Field `REVERSE_SUFFIX` may be 'final'
+in `core/src/main/java/com/uber/ugb/db/KeyValueDB.java`
 #### Snippet
 ```java
-public class EmailGenerator extends Generator<String> {
+    private static FSTConfiguration conf = FSTConfiguration.createDefaultConfiguration();
+    private static String Separator = ":";
+    private static String REVERSE_SUFFIX = "_r";
 
-    private static String randomText = "abcdefghijklmnopqrstuvwxyz";
-    private static String[] domains = {"gmail.com", "yahoo.com", "outlook.com", "inbox.com", "icloud.com", "mail.com"};
-
-```
-
-### FieldMayBeFinal
-Field `domains` may be 'final'
-in `core/src/main/java/com/uber/ugb/model/generator/EmailGenerator.java`
-#### Snippet
-```java
-
-    private static String randomText = "abcdefghijklmnopqrstuvwxyz";
-    private static String[] domains = {"gmail.com", "yahoo.com", "outlook.com", "inbox.com", "icloud.com", "mail.com"};
-
-    @Override
+    static {
 ```
 
 ### FieldMayBeFinal
@@ -1161,13 +1149,37 @@ public class KeyValueDB extends AbstractSubgraphDB {
 ```
 
 ### FieldMayBeFinal
+Field `randomText` may be 'final'
+in `core/src/main/java/com/uber/ugb/model/generator/EmailGenerator.java`
+#### Snippet
+```java
+public class EmailGenerator extends Generator<String> {
+
+    private static String randomText = "abcdefghijklmnopqrstuvwxyz";
+    private static String[] domains = {"gmail.com", "yahoo.com", "outlook.com", "inbox.com", "icloud.com", "mail.com"};
+
+```
+
+### FieldMayBeFinal
+Field `domains` may be 'final'
+in `core/src/main/java/com/uber/ugb/model/generator/EmailGenerator.java`
+#### Snippet
+```java
+
+    private static String randomText = "abcdefghijklmnopqrstuvwxyz";
+    private static String[] domains = {"gmail.com", "yahoo.com", "outlook.com", "inbox.com", "icloud.com", "mail.com"};
+
+    @Override
+```
+
+### FieldMayBeFinal
 Field `REVERSE_SUFFIX` may be 'final'
-in `core/src/main/java/com/uber/ugb/db/KeyValueDB.java`
+in `core/src/main/java/com/uber/ugb/db/PrefixKeyValueDB.java`
 #### Snippet
 ```java
     private static FSTConfiguration conf = FSTConfiguration.createDefaultConfiguration();
-    private static String Separator = ":";
-    private static String REVERSE_SUFFIX = "_r";
+    private static byte Separator = 0x01;
+    private static byte REVERSE_SUFFIX = 'r';
 
     static {
 ```
@@ -1182,18 +1194,6 @@ in `core/src/main/java/com/uber/ugb/db/PrefixKeyValueDB.java`
     private static byte Separator = 0x01;
     private static byte REVERSE_SUFFIX = 'r';
 
-```
-
-### FieldMayBeFinal
-Field `REVERSE_SUFFIX` may be 'final'
-in `core/src/main/java/com/uber/ugb/db/PrefixKeyValueDB.java`
-#### Snippet
-```java
-    private static FSTConfiguration conf = FSTConfiguration.createDefaultConfiguration();
-    private static byte Separator = 0x01;
-    private static byte REVERSE_SUFFIX = 'r';
-
-    static {
 ```
 
 ### FieldMayBeFinal
@@ -1221,6 +1221,54 @@ in `core/src/main/java/com/uber/ugb/schema/model/Type.java`
 ```
 
 ### FieldMayBeFinal
+Field `logger` may be 'final'
+in `core/src/main/java/com/uber/ugb/util/ProgressReporter.java`
+#### Snippet
+```java
+public class ProgressReporter {
+
+    private static Logger logger = Logger.getLogger(ProgressReporter.class.getName());
+
+    String prefix;
+```
+
+### FieldMayBeFinal
+Field `tenYears` may be 'final'
+in `core/src/main/java/com/uber/ugb/model/generator/UnixTimeMsGenerator.java`
+#### Snippet
+```java
+
+    private long base = 1537310687576L;
+    private long tenYears = 10 * 35 * 24 * 60 * 60 * 1000;
+
+    @Override
+```
+
+### FieldMayBeFinal
+Field `base` may be 'final'
+in `core/src/main/java/com/uber/ugb/model/generator/UnixTimeMsGenerator.java`
+#### Snippet
+```java
+public class UnixTimeMsGenerator extends Generator<Long> {
+
+    private long base = 1537310687576L;
+    private long tenYears = 10 * 35 * 24 * 60 * 60 * 1000;
+
+```
+
+### FieldMayBeFinal
+Field `executorService` may be 'final'
+in `core/src/main/java/com/uber/ugb/db/ParallelWriteDBWrapper.java`
+#### Snippet
+```java
+    private AtomicLong runnableCounter;
+    private AtomicBoolean isClosing;
+    private ExecutorService executorService;
+
+    public ParallelWriteDBWrapper(DB db, int concurrency) {
+```
+
+### FieldMayBeFinal
 Field `isClosing` may be 'final'
 in `core/src/main/java/com/uber/ugb/db/ParallelWriteDBWrapper.java`
 #### Snippet
@@ -1245,18 +1293,6 @@ in `core/src/main/java/com/uber/ugb/db/ParallelWriteDBWrapper.java`
 ```
 
 ### FieldMayBeFinal
-Field `executorService` may be 'final'
-in `core/src/main/java/com/uber/ugb/db/ParallelWriteDBWrapper.java`
-#### Snippet
-```java
-    private AtomicLong runnableCounter;
-    private AtomicBoolean isClosing;
-    private ExecutorService executorService;
-
-    public ParallelWriteDBWrapper(DB db, int concurrency) {
-```
-
-### FieldMayBeFinal
 Field `concurrency` may be 'final'
 in `core/src/main/java/com/uber/ugb/db/ParallelWriteDBWrapper.java`
 #### Snippet
@@ -1266,18 +1302,6 @@ in `core/src/main/java/com/uber/ugb/db/ParallelWriteDBWrapper.java`
     private int concurrency;
     private ArrayBlockingQueue todos;
     private AtomicLong todoCounter;
-```
-
-### FieldMayBeFinal
-Field `todoCounter` may be 'final'
-in `core/src/main/java/com/uber/ugb/db/ParallelWriteDBWrapper.java`
-#### Snippet
-```java
-    private int concurrency;
-    private ArrayBlockingQueue todos;
-    private AtomicLong todoCounter;
-    private AtomicLong runnableCounter;
-    private AtomicBoolean isClosing;
 ```
 
 ### FieldMayBeFinal
@@ -1293,6 +1317,18 @@ public class ParallelWriteDBWrapper extends DB {
 ```
 
 ### FieldMayBeFinal
+Field `todoCounter` may be 'final'
+in `core/src/main/java/com/uber/ugb/db/ParallelWriteDBWrapper.java`
+#### Snippet
+```java
+    private int concurrency;
+    private ArrayBlockingQueue todos;
+    private AtomicLong todoCounter;
+    private AtomicLong runnableCounter;
+    private AtomicBoolean isClosing;
+```
+
+### FieldMayBeFinal
 Field `todos` may be 'final'
 in `core/src/main/java/com/uber/ugb/db/ParallelWriteDBWrapper.java`
 #### Snippet
@@ -1302,54 +1338,6 @@ in `core/src/main/java/com/uber/ugb/db/ParallelWriteDBWrapper.java`
     private ArrayBlockingQueue todos;
     private AtomicLong todoCounter;
     private AtomicLong runnableCounter;
-```
-
-### FieldMayBeFinal
-Field `logger` may be 'final'
-in `core/src/main/java/com/uber/ugb/util/ProgressReporter.java`
-#### Snippet
-```java
-public class ProgressReporter {
-
-    private static Logger logger = Logger.getLogger(ProgressReporter.class.getName());
-
-    String prefix;
-```
-
-### FieldMayBeFinal
-Field `base` may be 'final'
-in `core/src/main/java/com/uber/ugb/model/generator/UnixTimeMsGenerator.java`
-#### Snippet
-```java
-public class UnixTimeMsGenerator extends Generator<Long> {
-
-    private long base = 1537310687576L;
-    private long tenYears = 10 * 35 * 24 * 60 * 60 * 1000;
-
-```
-
-### FieldMayBeFinal
-Field `tenYears` may be 'final'
-in `core/src/main/java/com/uber/ugb/model/generator/UnixTimeMsGenerator.java`
-#### Snippet
-```java
-
-    private long base = 1537310687576L;
-    private long tenYears = 10 * 35 * 24 * 60 * 60 * 1000;
-
-    @Override
-```
-
-### FieldMayBeFinal
-Field `props` may be 'final'
-in `hbase/src/main/java/com/uber/ugb/db/hbase/HBaseDB.java`
-#### Snippet
-```java
-
-        private static byte[] cf = "cf1".getBytes();
-        private static byte[] props = "p".getBytes();
-
-        Configuration config = HBaseConfiguration.create();
 ```
 
 ### FieldMayBeFinal
@@ -1377,15 +1365,15 @@ public class HBaseDB extends PrefixKeyValueDB {
 ```
 
 ### FieldMayBeFinal
-Field `dataCenter` may be 'final'
-in `cassandra/src/main/java/com/uber/ugb/db/cassandra/CassandraDB.java`
+Field `props` may be 'final'
+in `hbase/src/main/java/com/uber/ugb/db/hbase/HBaseDB.java`
 #### Snippet
 ```java
-        private Cluster cluster;
-        private Session session;
-        private String dataCenter;
-        private String keyspace;
-        private String vertexTableName;
+
+        private static byte[] cf = "cf1".getBytes();
+        private static byte[] props = "p".getBytes();
+
+        Configuration config = HBaseConfiguration.create();
 ```
 
 ### FieldMayBeFinal
@@ -1398,6 +1386,30 @@ in `cassandra/src/main/java/com/uber/ugb/db/cassandra/CassandraDB.java`
     private static ConsistencyLevel consistencyLevel = ConsistencyLevel.LOCAL_ONE;
 
     transient CassandraStore cassandraStore;
+```
+
+### FieldMayBeFinal
+Field `dataCenter` may be 'final'
+in `cassandra/src/main/java/com/uber/ugb/db/cassandra/CassandraDB.java`
+#### Snippet
+```java
+        private Cluster cluster;
+        private Session session;
+        private String dataCenter;
+        private String keyspace;
+        private String vertexTableName;
+```
+
+### FieldMayBeFinal
+Field `edgeTableName` may be 'final'
+in `cassandra/src/main/java/com/uber/ugb/db/cassandra/CassandraDB.java`
+#### Snippet
+```java
+        private String keyspace;
+        private String vertexTableName;
+        private String edgeTableName;
+
+        public CassandraStore(Properties properties) {
 ```
 
 ### FieldMayBeFinal
@@ -1437,15 +1449,15 @@ public class CassandraDB extends PrefixKeyValueDB {
 ```
 
 ### FieldMayBeFinal
-Field `edgeTableName` may be 'final'
-in `cassandra/src/main/java/com/uber/ugb/db/cassandra/CassandraDB.java`
+Field `operations` may be 'final'
+in `core/src/main/java/com/uber/ugb/measurement/LatencyHistogram.java`
 #### Snippet
 ```java
-        private String keyspace;
-        private String vertexTableName;
-        private String edgeTableName;
-
-        public CassandraStore(Properties properties) {
+    private final String name;
+    private long overflowCount;
+    private AtomicLong operations;
+    private AtomicLong totalLatencyNs;
+    private long minNs;
 ```
 
 ### FieldMayBeFinal
@@ -1458,18 +1470,6 @@ in `core/src/main/java/com/uber/ugb/measurement/LatencyHistogram.java`
     private AtomicLong totalLatencyNs;
     private long minNs;
     private long maxNs;
-```
-
-### FieldMayBeFinal
-Field `operations` may be 'final'
-in `core/src/main/java/com/uber/ugb/measurement/LatencyHistogram.java`
-#### Snippet
-```java
-    private final String name;
-    private long overflowCount;
-    private AtomicLong operations;
-    private AtomicLong totalLatencyNs;
-    private long minNs;
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
@@ -1666,10 +1666,10 @@ in `core/src/main/java/com/uber/ugb/db/PrefixKeyValueDB.java`
 #### Snippet
 ```java
 
-    protected byte[] genEdgeKeySuffix(Object outVertexId, Object inVertexId, boolean isBackward) {
+    protected byte[] genVertexKey(QualifiedName label, Object id) {
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
-        if (isBackward) {
-            out.write(conf.asByteArray(outVertexId));
+        out.write(id.toString().getBytes());
+        out.write(Separator);
 ```
 
 ### UnstableApiUsage
@@ -1678,10 +1678,10 @@ in `core/src/main/java/com/uber/ugb/db/PrefixKeyValueDB.java`
 #### Snippet
 ```java
 
-    protected byte[] genEdgeKeySuffix(Object outVertexId, Object inVertexId, boolean isBackward) {
+    protected byte[] genVertexKey(QualifiedName label, Object id) {
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
-        if (isBackward) {
-            out.write(conf.asByteArray(outVertexId));
+        out.write(id.toString().getBytes());
+        out.write(Separator);
 ```
 
 ### UnstableApiUsage
@@ -1714,10 +1714,10 @@ in `core/src/main/java/com/uber/ugb/db/PrefixKeyValueDB.java`
 #### Snippet
 ```java
 
-    protected byte[] genVertexKey(QualifiedName label, Object id) {
+    protected byte[] genEdgeKeySuffix(Object outVertexId, Object inVertexId, boolean isBackward) {
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
-        out.write(id.toString().getBytes());
-        out.write(Separator);
+        if (isBackward) {
+            out.write(conf.asByteArray(outVertexId));
 ```
 
 ### UnstableApiUsage
@@ -1726,9 +1726,9 @@ in `core/src/main/java/com/uber/ugb/db/PrefixKeyValueDB.java`
 #### Snippet
 ```java
 
-    protected byte[] genVertexKey(QualifiedName label, Object id) {
+    protected byte[] genEdgeKeySuffix(Object outVertexId, Object inVertexId, boolean isBackward) {
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
-        out.write(id.toString().getBytes());
-        out.write(Separator);
+        if (isBackward) {
+            out.write(conf.asByteArray(outVertexId));
 ```
 
