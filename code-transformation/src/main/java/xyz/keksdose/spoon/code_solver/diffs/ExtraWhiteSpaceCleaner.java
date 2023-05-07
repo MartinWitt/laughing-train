@@ -28,9 +28,9 @@ public class ExtraWhiteSpaceCleaner implements GitDiffCleaner {
                 content = content.lines()
                         .map(v -> changeIfMatches(insertDelta, v, gitLineChange))
                         .collect(Collectors.joining(lineEnding));
-                if (endsWithLineEnding) {
-                    content += lineEnding;
-                }
+            }
+            if (endsWithLineEnding) {
+                content += lineEnding;
             }
         }
         return content;
