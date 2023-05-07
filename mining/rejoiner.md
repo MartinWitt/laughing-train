@@ -21,42 +21,6 @@ I found 42 bad smells with 1 repairable:
 | UnstableApiUsage | 1 | false |
 ## RuleId[id=UNCHECKED_WARNING]
 ### UNCHECKED_WARNING
-Unchecked call to 'onNext(V)' as a member of raw type 'io.grpc.stub.StreamObserver'
-in `rejoiner-grpc/src/main/java/com/google/api/graphql/grpc/GraphQlStreamObserver.java`
-#### Snippet
-```java
-    R graphQlResponse = getData(value, pathListVale);
-
-    rejoinerStreamingContext.responseStreamObserver().onNext(graphQlResponse);
-
-    try {
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'com.google.common.util.concurrent.ListenableFuture'
-in `rejoiner/src/main/java/com/google/api/graphql/execution/GuavaListenableFutureSupport.java`
-#### Snippet
-```java
-              Object data = dataFetcher.get(dataFetchingEnvironment);
-              if (data instanceof ListenableFuture) {
-                ListenableFuture<Object> listenableFuture = (ListenableFuture<Object>) data;
-                CompletableFuture<Object> completableFuture = new CompletableFuture<>();
-                Futures.addCallback(
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'java.util.Map'
-in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/GqlInputConverter.java`
-#### Snippet
-```java
-          descriptorMapping.get(getReferenceName(field.getMessageType()));
-      return createProtoBuf(
-          fieldTypeDescriptor, builder.newBuilderForField(field), (Map<String, Object>) value);
-    }
-
-```
-
-### UNCHECKED_WARNING
 Unchecked cast: 'java.lang.reflect.Type' to 'java.lang.Class'
 in `rejoiner-guice/src/main/java/com/google/api/graphql/rejoiner/GaxSchemaModule.java`
 #### Snippet
@@ -78,6 +42,42 @@ in `rejoiner-guice/src/main/java/com/google/api/graphql/rejoiner/GaxSchemaModule
                     (Class<? extends Message>) callable.getActualTypeArguments()[0];
                 Descriptors.Descriptor requestDescriptor =
                     (Descriptors.Descriptor)
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'forEach(BiConsumer)' as a member of raw type 'java.util.Map'
+in `examples/schema/src/main/java/com/google/api/graphql/schema/GraphQlServlet.java`
+#### Snippet
+```java
+    Map<String, Object> variablesWithStringKey = new HashMap<>();
+    if (variables instanceof Map) {
+      ((Map) variables).forEach((k, v) -> variablesWithStringKey.put(String.valueOf(k), v));
+    }
+    return variablesWithStringKey;
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'com.google.common.util.concurrent.ListenableFuture'
+in `rejoiner/src/main/java/com/google/api/graphql/execution/GuavaListenableFutureSupport.java`
+#### Snippet
+```java
+              Object data = dataFetcher.get(dataFetchingEnvironment);
+              if (data instanceof ListenableFuture) {
+                ListenableFuture<Object> listenableFuture = (ListenableFuture<Object>) data;
+                CompletableFuture<Object> completableFuture = new CompletableFuture<>();
+                Futures.addCallback(
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'onNext(V)' as a member of raw type 'io.grpc.stub.StreamObserver'
+in `rejoiner-grpc/src/main/java/com/google/api/graphql/grpc/GraphQlStreamObserver.java`
+#### Snippet
+```java
+    R graphQlResponse = getData(value, pathListVale);
+
+    rejoinerStreamingContext.responseStreamObserver().onNext(graphQlResponse);
+
+    try {
 ```
 
 ### UNCHECKED_WARNING
@@ -105,28 +105,28 @@ in `rejoiner-guice/src/main/java/com/google/api/graphql/rejoiner/GrpcSchemaModul
 ```
 
 ### UNCHECKED_WARNING
-Unchecked call to 'forEach(BiConsumer)' as a member of raw type 'java.util.Map'
-in `examples/schema/src/main/java/com/google/api/graphql/schema/GraphQlServlet.java`
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/GqlInputConverter.java`
 #### Snippet
 ```java
-    Map<String, Object> variablesWithStringKey = new HashMap<>();
-    if (variables instanceof Map) {
-      ((Map) variables).forEach((k, v) -> variablesWithStringKey.put(String.valueOf(k), v));
+          descriptorMapping.get(getReferenceName(field.getMessageType()));
+      return createProtoBuf(
+          fieldTypeDescriptor, builder.newBuilderForField(field), (Map<String, Object>) value);
     }
-    return variablesWithStringKey;
+
 ```
 
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
-Argument `UNDERSCORE_TO_CAMEL.convert(field.getName())` might be null
-in `rejoiner-grpc/src/main/java/com/google/api/graphql/grpc/ProtoToMap.java`
+Method invocation `getFieldDefinitions` may produce `NullPointerException`
+in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/Type.java`
 #### Snippet
 ```java
-            (field, value) ->
-                variablesBuilder.put(
-                    UNDERSCORE_TO_CAMEL.convert(field.getName()), mapValues(field, value)));
-    return variablesBuilder.build();
-  }
+    public GraphQLObjectType apply(GraphQLObjectType input) {
+      ImmutableList.Builder<GraphQLFieldDefinition> remainingFields = ImmutableList.builder();
+      for (GraphQLFieldDefinition field : input.getFieldDefinitions()) {
+        if (!fieldNamesToRemove.contains(field.getName())) {
+          remainingFields.add(field);
 ```
 
 ### DataFlowIssue
@@ -154,15 +154,15 @@ in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/Type.java`
 ```
 
 ### DataFlowIssue
-Method invocation `getFieldDefinitions` may produce `NullPointerException`
-in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/Type.java`
+Argument `UNDERSCORE_TO_CAMEL.convert(field.getName())` might be null
+in `rejoiner-grpc/src/main/java/com/google/api/graphql/grpc/ProtoToMap.java`
 #### Snippet
 ```java
-    public GraphQLObjectType apply(GraphQLObjectType input) {
-      ImmutableList.Builder<GraphQLFieldDefinition> remainingFields = ImmutableList.builder();
-      for (GraphQLFieldDefinition field : input.getFieldDefinitions()) {
-        if (!fieldNamesToRemove.contains(field.getName())) {
-          remainingFields.add(field);
+            (field, value) ->
+                variablesBuilder.put(
+                    UNDERSCORE_TO_CAMEL.convert(field.getName()), mapValues(field, value)));
+    return variablesBuilder.build();
+  }
 ```
 
 ### DataFlowIssue
@@ -337,6 +337,18 @@ in `schema/common/src/main/java/com/google/api/graphql/schema/FuturesConverter.j
 
 ### Deprecation
 'dataFetcher(graphql.schema.DataFetcher)' is deprecated
+in `rejoiner-guice/src/main/java/com/google/api/graphql/rejoiner/GaxSchemaModule.java`
+#### Snippet
+```java
+                    .argument(GqlInputConverter.createArgument(requestDescriptor, "input"))
+                    .type(responseType)
+                    .dataFetcher(dataFetcher)
+                    .build();
+              } catch (Exception e) {
+```
+
+### Deprecation
+'dataFetcher(graphql.schema.DataFetcher)' is deprecated
 in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/ProtoToGql.java`
 #### Snippet
 ```java
@@ -360,27 +372,27 @@ in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/ProtoToGql.java`
 ```
 
 ### Deprecation
-'dataFetcher(graphql.schema.DataFetcher)' is deprecated
-in `rejoiner-guice/src/main/java/com/google/api/graphql/rejoiner/GaxSchemaModule.java`
+'staticValue(java.lang.Object)' is deprecated
+in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/SchemaDefinitionReader.java`
 #### Snippet
 ```java
-                    .argument(GqlInputConverter.createArgument(requestDescriptor, "input"))
-                    .type(responseType)
-                    .dataFetcher(dataFetcher)
-                    .build();
-              } catch (Exception e) {
+            .add(
+                GraphQLFieldDefinition.newFieldDefinition()
+                    .staticValue("")
+                    .name(namespace)
+                    .description(namespace)
 ```
 
 ### Deprecation
-'dataFetcher(graphql.schema.DataFetcher)' is deprecated
-in `rejoiner-guice/src/main/java/com/google/api/graphql/rejoiner/GrpcSchemaModule.java`
+'staticValue(java.lang.Object)' is deprecated
+in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/SchemaDefinitionReader.java`
 #### Snippet
 ```java
-                    .argument(GqlInputConverter.createArgument(requestDescriptor, "input"))
-                    .type(responseType)
-                    .dataFetcher(dataFetcher)
-                    .build();
-              } catch (Exception e) {
+            .add(
+                GraphQLFieldDefinition.newFieldDefinition()
+                    .staticValue("")
+                    .name(namespace)
+                    .description(namespace)
 ```
 
 ### Deprecation
@@ -396,30 +408,6 @@ in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/SchemaDefinitionReade
 ```
 
 ### Deprecation
-'staticValue(java.lang.Object)' is deprecated
-in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/SchemaDefinitionReader.java`
-#### Snippet
-```java
-            .add(
-                GraphQLFieldDefinition.newFieldDefinition()
-                    .staticValue("")
-                    .name(namespace)
-                    .description(namespace)
-```
-
-### Deprecation
-'staticValue(java.lang.Object)' is deprecated
-in `rejoiner/src/main/java/com/google/api/graphql/rejoiner/SchemaDefinitionReader.java`
-#### Snippet
-```java
-            .add(
-                GraphQLFieldDefinition.newFieldDefinition()
-                    .staticValue("")
-                    .name(namespace)
-                    .description(namespace)
-```
-
-### Deprecation
 'getFields()' is deprecated
 in `rejoiner/src/main/java/com/google/api/graphql/grpc/SelectorToFieldMask.java`
 #### Snippet
@@ -429,6 +417,18 @@ in `rejoiner/src/main/java/com/google/api/graphql/grpc/SelectorToFieldMask.java`
     for (Field field : environment.getFields()) {
       for (Selection<?> selection1 : field.getSelectionSet().getSelections()) {
         if (selection1 instanceof Field) {
+```
+
+### Deprecation
+'dataFetcher(graphql.schema.DataFetcher)' is deprecated
+in `rejoiner-guice/src/main/java/com/google/api/graphql/rejoiner/GrpcSchemaModule.java`
+#### Snippet
+```java
+                    .argument(GqlInputConverter.createArgument(requestDescriptor, "input"))
+                    .type(responseType)
+                    .dataFetcher(dataFetcher)
+                    .build();
+              } catch (Exception e) {
 ```
 
 ## RuleId[id=SuspiciousMethodCalls]
