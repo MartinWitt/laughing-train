@@ -60,18 +60,6 @@ in `common/src/main/java/com/google/tsunami/common/net/http/HttpResponse.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'input'
-in `plugin/src/main/java/com/google/tsunami/plugin/payload/Validator.java`
-#### Snippet
-```java
-   * @return whether a payload is executed on the scan target.
-   */
-  boolean isExecuted(Optional<ByteString> input);
-}
-
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'serviceName'
 in `common/src/main/java/com/google/tsunami/common/data/NetworkServiceUtils.java`
 #### Snippet
@@ -105,6 +93,18 @@ in `plugin/src/main/java/com/google/tsunami/plugin/payload/testing/FakePayloadGe
       Optional<MockWebServer> callbackServer, Optional<SecureRandom> secureRng) {
 
     this.tcsConfig.callbackAddress = callbackServer.map(c -> c.getHostName()).orElse(null);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'input'
+in `plugin/src/main/java/com/google/tsunami/plugin/payload/Validator.java`
+#### Snippet
+```java
+   * @return whether a payload is executed on the scan target.
+   */
+  boolean isExecuted(Optional<ByteString> input);
+}
+
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -269,90 +269,6 @@ public final class NetworkServiceUtils {
 ```
 
 ### JavadocReference
-Cannot resolve symbol `NetworkService`
-in `common/src/main/java/com/google/tsunami/common/net/http/HttpClient.java`
-#### Snippet
-```java
-   *
-   * @param httpRequest the HTTP request to be sent by this client.
-   * @param networkService the {@link NetworkService} proto to be used for the HOST header.
-   * @return the response returned from the HTTP server.
-   * @throws IOException if an I/O error occurs during the HTTP request.
-```
-
-### JavadocReference
-Cannot resolve symbol `NetworkService`
-in `common/src/main/java/com/google/tsunami/common/net/http/HttpClient.java`
-#### Snippet
-```java
-   *
-   * @param httpRequest the HTTP request to be sent by this client.
-   * @param networkService the {@link NetworkService} proto to be used for the HOST header.
-   * @return the future for the response to be returned from the HTTP server.
-   */
-```
-
-### JavadocReference
-Cannot resolve symbol `NetworkEndpoint`
-in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a {@link NetworkEndpoint} proto buffer object from the given ip address and hostname.
-   *
-   * @param hostname the hostname of the network endpoint
-```
-
-### JavadocReference
-Cannot resolve symbol `NetworkEndpoint`
-in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
-#### Snippet
-```java
-   * @param hostname the hostname of the network endpoint
-   * @param ipAddress the IP address of the network endpoint.
-   * @return the created {@link NetworkEndpoint} instance from the IP address and hostname.
-   */
-  public static NetworkEndpoint forIpAndHostname(String ipAddress, String hostname) {
-```
-
-### JavadocReference
-Cannot resolve symbol `NetworkEndpoint`
-in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
-#### Snippet
-```java
-
-  /**
-   * Converts the given {@link NetworkEndpoint} to its uri authority representation.
-   *
-   * <p>For example:
-```
-
-### JavadocReference
-Cannot resolve symbol `NetworkEndpoint`
-in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
-#### Snippet
-```java
-   * </ul>
-   *
-   * @param networkEndpoint the {@link NetworkEndpoint} instance to be converted.
-   * @return the URI authority converted from the {@link NetworkEndpoint} instance.
-   */
-```
-
-### JavadocReference
-Cannot resolve symbol `NetworkEndpoint`
-in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
-#### Snippet
-```java
-   *
-   * @param networkEndpoint the {@link NetworkEndpoint} instance to be converted.
-   * @return the URI authority converted from the {@link NetworkEndpoint} instance.
-   */
-  public static String toUriAuthority(NetworkEndpoint networkEndpoint) {
-```
-
-### JavadocReference
 Cannot resolve symbol `NetworkEndpoint`
 in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
 #### Snippet
@@ -410,6 +326,66 @@ in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.jav
    * @return the {@link NetworkEndpoint} instance from the parameters.
    */
   public static NetworkEndpoint forNetworkEndpointAndPort(
+```
+
+### JavadocReference
+Cannot resolve symbol `NetworkEndpoint`
+in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
+#### Snippet
+```java
+
+  /**
+   * Converts the given {@link NetworkEndpoint} to its uri authority representation.
+   *
+   * <p>For example:
+```
+
+### JavadocReference
+Cannot resolve symbol `NetworkEndpoint`
+in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
+#### Snippet
+```java
+   * </ul>
+   *
+   * @param networkEndpoint the {@link NetworkEndpoint} instance to be converted.
+   * @return the URI authority converted from the {@link NetworkEndpoint} instance.
+   */
+```
+
+### JavadocReference
+Cannot resolve symbol `NetworkEndpoint`
+in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
+#### Snippet
+```java
+   *
+   * @param networkEndpoint the {@link NetworkEndpoint} instance to be converted.
+   * @return the URI authority converted from the {@link NetworkEndpoint} instance.
+   */
+  public static String toUriAuthority(NetworkEndpoint networkEndpoint) {
+```
+
+### JavadocReference
+Cannot resolve symbol `NetworkEndpoint`
+in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a {@link NetworkEndpoint} proto buffer object from the given ip address and hostname.
+   *
+   * @param hostname the hostname of the network endpoint
+```
+
+### JavadocReference
+Cannot resolve symbol `NetworkEndpoint`
+in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
+#### Snippet
+```java
+   * @param hostname the hostname of the network endpoint
+   * @param ipAddress the IP address of the network endpoint.
+   * @return the created {@link NetworkEndpoint} instance from the IP address and hostname.
+   */
+  public static NetworkEndpoint forIpAndHostname(String ipAddress, String hostname) {
 ```
 
 ### JavadocReference
@@ -518,6 +494,30 @@ in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.jav
    * @return the created {@link NetworkEndpoint} instance from the given IP address.
    */
   public static NetworkEndpoint forIp(String ipAddress) {
+```
+
+### JavadocReference
+Cannot resolve symbol `NetworkService`
+in `common/src/main/java/com/google/tsunami/common/net/http/HttpClient.java`
+#### Snippet
+```java
+   *
+   * @param httpRequest the HTTP request to be sent by this client.
+   * @param networkService the {@link NetworkService} proto to be used for the HOST header.
+   * @return the future for the response to be returned from the HTTP server.
+   */
+```
+
+### JavadocReference
+Cannot resolve symbol `NetworkService`
+in `common/src/main/java/com/google/tsunami/common/net/http/HttpClient.java`
+#### Snippet
+```java
+   *
+   * @param httpRequest the HTTP request to be sent by this client.
+   * @param networkService the {@link NetworkService} proto to be used for the HOST header.
+   * @return the response returned from the HTTP server.
+   * @throws IOException if an I/O error occurs during the HTTP request.
 ```
 
 ### JavadocReference
@@ -810,11 +810,11 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `common/src/main/java/com/google/tsunami/common/command/CommandExecutor.java`
 #### Snippet
 ```java
+  private final String[] args;
   private Process process;
   @Nullable private String output;
   @Nullable private String error;
 
-  public CommandExecutor(String... args) {
 ```
 
 ### NullableProblems
@@ -822,11 +822,11 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `common/src/main/java/com/google/tsunami/common/command/CommandExecutor.java`
 #### Snippet
 ```java
-  private final String[] args;
   private Process process;
   @Nullable private String output;
   @Nullable private String error;
 
+  public CommandExecutor(String... args) {
 ```
 
 ### NullableProblems
@@ -1028,30 +1028,6 @@ in `common/src/main/java/com/google/tsunami/common/net/http/HttpClientConfigProp
 #### Snippet
 ```java
   /**
-   * The timeout in seconds for complete HTTP calls. See
-   * https://square.github.io/okhttp/4.x/okhttp/okhttp3/-ok-http-client/-builder/call-timeout/ for
-   * more details.
-   */
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `common/src/main/java/com/google/tsunami/common/net/http/HttpClientConfigProperties.java`
-#### Snippet
-```java
-  /**
-   * The timeout in seconds for the write operations for HTTP connections. See
-   * https://square.github.io/okhttp/4.x/okhttp/okhttp3/-ok-http-client/-builder/write-timeout/ for
-   * more details.
-   */
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `common/src/main/java/com/google/tsunami/common/net/http/HttpClientConfigProperties.java`
-#### Snippet
-```java
-  /**
    * The timeout in seconds for the read operations for HTTP connections. See
    * https://square.github.io/okhttp/4.x/okhttp/okhttp3/-ok-http-client/-builder/read-timeout/ for
    * more details.
@@ -1067,6 +1043,30 @@ in `common/src/main/java/com/google/tsunami/common/net/http/HttpClientConfigProp
    * The timeout in seconds for new HTTP connections. See
    * https://square.github.io/okhttp/4.x/okhttp/okhttp3/-ok-http-client/-builder/connect-timeout/
    * for more details.
+   */
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `common/src/main/java/com/google/tsunami/common/net/http/HttpClientConfigProperties.java`
+#### Snippet
+```java
+  /**
+   * The timeout in seconds for complete HTTP calls. See
+   * https://square.github.io/okhttp/4.x/okhttp/okhttp3/-ok-http-client/-builder/call-timeout/ for
+   * more details.
+   */
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `common/src/main/java/com/google/tsunami/common/net/http/HttpClientConfigProperties.java`
+#### Snippet
+```java
+  /**
+   * The timeout in seconds for the write operations for HTTP connections. See
+   * https://square.github.io/okhttp/4.x/okhttp/okhttp3/-ok-http-client/-builder/write-timeout/ for
+   * more details.
    */
 ```
 
@@ -1265,6 +1265,18 @@ in `plugin/src/main/java/com/google/tsunami/plugin/PluginManager.java`
 ```
 
 ### UnstableApiUsage
+'addDelayedShutdownHook(java.util.concurrent.ExecutorService, long, java.util.concurrent.TimeUnit)' is marked unstable with @Beta
+in `common/src/main/java/com/google/tsunami/common/concurrent/BaseThreadPoolModule.java`
+#### Snippet
+```java
+
+      if (shutdownDelay != null) {
+        MoreExecutors.addDelayedShutdownHook(
+            service, shutdownDelay.toMillis(), TimeUnit.MILLISECONDS);
+      }
+```
+
+### UnstableApiUsage
 'com.google.common.net.InetAddresses' is marked unstable with @Beta
 in `main/src/main/java/com/google/tsunami/main/cli/option/validator/IpValidator.java`
 #### Snippet
@@ -1313,66 +1325,6 @@ in `main/src/main/java/com/google/tsunami/main/cli/option/validator/IpValidator.
 ```
 
 ### UnstableApiUsage
-'addDelayedShutdownHook(java.util.concurrent.ExecutorService, long, java.util.concurrent.TimeUnit)' is marked unstable with @Beta
-in `common/src/main/java/com/google/tsunami/common/concurrent/BaseThreadPoolModule.java`
-#### Snippet
-```java
-
-      if (shutdownDelay != null) {
-        MoreExecutors.addDelayedShutdownHook(
-            service, shutdownDelay.toMillis(), TimeUnit.MILLISECONDS);
-      }
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.FluentFuture' is marked unstable with @Beta
-in `workflow/src/main/java/com/google/tsunami/workflow/DefaultScanningWorkflow.java`
-#### Snippet
-```java
-                        pluginExecutorProvider.get().executeAsync(vulnDetectorExecutorConfig))
-                .collect(toImmutableList());
-    return FluentFuture.from(Futures.successfulAsList(detectionResultFutures))
-        .transform(
-            detectionResult -> generateScanResults(detectionResult, reconnaissanceReport),
-```
-
-### UnstableApiUsage
-'from(com.google.common.util.concurrent.ListenableFuture)' is declared in unstable class 'com.google.common.util.concurrent.FluentFuture' marked with @Beta
-in `workflow/src/main/java/com/google/tsunami/workflow/DefaultScanningWorkflow.java`
-#### Snippet
-```java
-                        pluginExecutorProvider.get().executeAsync(vulnDetectorExecutorConfig))
-                .collect(toImmutableList());
-    return FluentFuture.from(Futures.successfulAsList(detectionResultFutures))
-        .transform(
-            detectionResult -> generateScanResults(detectionResult, reconnaissanceReport),
-```
-
-### UnstableApiUsage
-'successfulAsList(java.lang.Iterable\>)' is marked unstable with @Beta
-in `workflow/src/main/java/com/google/tsunami/workflow/DefaultScanningWorkflow.java`
-#### Snippet
-```java
-                        pluginExecutorProvider.get().executeAsync(vulnDetectorExecutorConfig))
-                .collect(toImmutableList());
-    return FluentFuture.from(Futures.successfulAsList(detectionResultFutures))
-        .transform(
-            detectionResult -> generateScanResults(detectionResult, reconnaissanceReport),
-```
-
-### UnstableApiUsage
-'transform(com.google.common.base.Function, java.util.concurrent.Executor)' is declared in unstable class 'com.google.common.util.concurrent.FluentFuture' marked with @Beta
-in `workflow/src/main/java/com/google/tsunami/workflow/DefaultScanningWorkflow.java`
-#### Snippet
-```java
-                .collect(toImmutableList());
-    return FluentFuture.from(Futures.successfulAsList(detectionResultFutures))
-        .transform(
-            detectionResult -> generateScanResults(detectionResult, reconnaissanceReport),
-            directExecutor());
-```
-
-### UnstableApiUsage
 'com.google.common.util.concurrent.FluentFuture' is marked unstable with @Beta
 in `workflow/src/main/java/com/google/tsunami/workflow/DefaultScanningWorkflow.java`
 #### Snippet
@@ -1394,18 +1346,6 @@ in `workflow/src/main/java/com/google/tsunami/workflow/DefaultScanningWorkflow.j
     return FluentFuture.from(Futures.successfulAsList(fingerprintingResultFutures))
         .transform(
             executionResults ->
-```
-
-### UnstableApiUsage
-'com.google.common.net.HostAndPort' is marked unstable with @Beta
-in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
-#### Snippet
-```java
-  }
-
-  public static HostAndPort toHostAndPort(NetworkEndpoint networkEndpoint) {
-    switch (networkEndpoint.getType()) {
-      case IP:
 ```
 
 ### UnstableApiUsage
@@ -1430,18 +1370,6 @@ in `workflow/src/main/java/com/google/tsunami/workflow/DefaultScanningWorkflow.j
         .transform(
             executionResults ->
                 ReconnaissanceReport.newBuilder()
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.FluentFuture' is marked unstable with @Beta
-in `workflow/src/main/java/com/google/tsunami/workflow/DefaultScanningWorkflow.java`
-#### Snippet
-```java
-    executionTracer.startPortScanning(ImmutableList.of(matchedPortScanner.get()));
-    logger.atInfo().log("Starting port scanning phase of the scanning workflow.");
-    return FluentFuture.from(pluginExecutorProvider.get().executeAsync(executorConfig))
-        .transformAsync(
-            pluginExecutionResult ->
 ```
 
 ### UnstableApiUsage
@@ -1517,138 +1445,6 @@ in `workflow/src/main/java/com/google/tsunami/workflow/DefaultScanningWorkflow.j
 ```
 
 ### UnstableApiUsage
-'com.google.common.net.HostAndPort' is marked unstable with @Beta
-in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
-#### Snippet
-```java
-    switch (networkEndpoint.getType()) {
-      case IP:
-        return HostAndPort.fromHost(networkEndpoint.getIpAddress().getAddress());
-      case IP_PORT:
-        return HostAndPort.fromParts(
-```
-
-### UnstableApiUsage
-'fromHost(java.lang.String)' is declared in unstable class 'com.google.common.net.HostAndPort' marked with @Beta
-in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
-#### Snippet
-```java
-    switch (networkEndpoint.getType()) {
-      case IP:
-        return HostAndPort.fromHost(networkEndpoint.getIpAddress().getAddress());
-      case IP_PORT:
-        return HostAndPort.fromParts(
-```
-
-### UnstableApiUsage
-'com.google.common.net.HostAndPort' is marked unstable with @Beta
-in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
-#### Snippet
-```java
-        return HostAndPort.fromHost(networkEndpoint.getIpAddress().getAddress());
-      case IP_PORT:
-        return HostAndPort.fromParts(
-            networkEndpoint.getIpAddress().getAddress(), networkEndpoint.getPort().getPortNumber());
-      case HOSTNAME:
-```
-
-### UnstableApiUsage
-'fromParts(java.lang.String, int)' is declared in unstable class 'com.google.common.net.HostAndPort' marked with @Beta
-in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
-#### Snippet
-```java
-        return HostAndPort.fromHost(networkEndpoint.getIpAddress().getAddress());
-      case IP_PORT:
-        return HostAndPort.fromParts(
-            networkEndpoint.getIpAddress().getAddress(), networkEndpoint.getPort().getPortNumber());
-      case HOSTNAME:
-```
-
-### UnstableApiUsage
-'com.google.common.net.HostAndPort' is marked unstable with @Beta
-in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
-#### Snippet
-```java
-      case HOSTNAME:
-      case IP_HOSTNAME:
-        return HostAndPort.fromHost(networkEndpoint.getHostname().getName());
-      case HOSTNAME_PORT:
-      case IP_HOSTNAME_PORT:
-```
-
-### UnstableApiUsage
-'fromHost(java.lang.String)' is declared in unstable class 'com.google.common.net.HostAndPort' marked with @Beta
-in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
-#### Snippet
-```java
-      case HOSTNAME:
-      case IP_HOSTNAME:
-        return HostAndPort.fromHost(networkEndpoint.getHostname().getName());
-      case HOSTNAME_PORT:
-      case IP_HOSTNAME_PORT:
-```
-
-### UnstableApiUsage
-'com.google.common.net.HostAndPort' is marked unstable with @Beta
-in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
-#### Snippet
-```java
-      case HOSTNAME_PORT:
-      case IP_HOSTNAME_PORT:
-        return HostAndPort.fromParts(
-            networkEndpoint.getHostname().getName(), networkEndpoint.getPort().getPortNumber());
-      case UNRECOGNIZED:
-```
-
-### UnstableApiUsage
-'fromParts(java.lang.String, int)' is declared in unstable class 'com.google.common.net.HostAndPort' marked with @Beta
-in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
-#### Snippet
-```java
-      case HOSTNAME_PORT:
-      case IP_HOSTNAME_PORT:
-        return HostAndPort.fromParts(
-            networkEndpoint.getHostname().getName(), networkEndpoint.getPort().getPortNumber());
-      case UNRECOGNIZED:
-```
-
-### UnstableApiUsage
-'toString()' is declared in unstable class 'com.google.common.net.HostAndPort' marked with @Beta
-in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
-#### Snippet
-```java
-   */
-  public static String toUriAuthority(NetworkEndpoint networkEndpoint) {
-    return toHostAndPort(networkEndpoint).toString();
-  }
-
-```
-
-### UnstableApiUsage
-'com.google.common.net.InetAddresses' is marked unstable with @Beta
-in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
-#### Snippet
-```java
-  public static NetworkEndpoint forHostname(String hostname) {
-    checkArgument(
-        !InetAddresses.isInetAddress(hostname), "Expected hostname, got IP address '%s'", hostname);
-
-    return NetworkEndpoint.newBuilder()
-```
-
-### UnstableApiUsage
-'isInetAddress(java.lang.String)' is declared in unstable class 'com.google.common.net.InetAddresses' marked with @Beta
-in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
-#### Snippet
-```java
-  public static NetworkEndpoint forHostname(String hostname) {
-    checkArgument(
-        !InetAddresses.isInetAddress(hostname), "Expected hostname, got IP address '%s'", hostname);
-
-    return NetworkEndpoint.newBuilder()
-```
-
-### UnstableApiUsage
 'catching(java.lang.Class, com.google.common.base.Function, java.util.concurrent.Executor)' is declared in unstable class 'com.google.common.util.concurrent.FluentFuture' marked with @Beta
 in `workflow/src/main/java/com/google/tsunami/workflow/DefaultScanningWorkflow.java`
 #### Snippet
@@ -1673,27 +1469,183 @@ in `workflow/src/main/java/com/google/tsunami/workflow/DefaultScanningWorkflow.j
 ```
 
 ### UnstableApiUsage
-'com.google.common.net.InetAddresses' is marked unstable with @Beta
-in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
+'com.google.common.util.concurrent.FluentFuture' is marked unstable with @Beta
+in `workflow/src/main/java/com/google/tsunami/workflow/DefaultScanningWorkflow.java`
 #### Snippet
 ```java
-   */
-  public static NetworkEndpoint forIpAndPort(String ipAddress, int port) {
-    checkArgument(InetAddresses.isInetAddress(ipAddress), "'%s' is not an IP address.", ipAddress);
-    checkArgument(
-        0 <= port && port <= MAX_PORT_NUMBER,
+    executionTracer.startPortScanning(ImmutableList.of(matchedPortScanner.get()));
+    logger.atInfo().log("Starting port scanning phase of the scanning workflow.");
+    return FluentFuture.from(pluginExecutorProvider.get().executeAsync(executorConfig))
+        .transformAsync(
+            pluginExecutionResult ->
 ```
 
 ### UnstableApiUsage
-'isInetAddress(java.lang.String)' is declared in unstable class 'com.google.common.net.InetAddresses' marked with @Beta
+'com.google.common.util.concurrent.FluentFuture' is marked unstable with @Beta
+in `workflow/src/main/java/com/google/tsunami/workflow/DefaultScanningWorkflow.java`
+#### Snippet
+```java
+                        pluginExecutorProvider.get().executeAsync(vulnDetectorExecutorConfig))
+                .collect(toImmutableList());
+    return FluentFuture.from(Futures.successfulAsList(detectionResultFutures))
+        .transform(
+            detectionResult -> generateScanResults(detectionResult, reconnaissanceReport),
+```
+
+### UnstableApiUsage
+'from(com.google.common.util.concurrent.ListenableFuture)' is declared in unstable class 'com.google.common.util.concurrent.FluentFuture' marked with @Beta
+in `workflow/src/main/java/com/google/tsunami/workflow/DefaultScanningWorkflow.java`
+#### Snippet
+```java
+                        pluginExecutorProvider.get().executeAsync(vulnDetectorExecutorConfig))
+                .collect(toImmutableList());
+    return FluentFuture.from(Futures.successfulAsList(detectionResultFutures))
+        .transform(
+            detectionResult -> generateScanResults(detectionResult, reconnaissanceReport),
+```
+
+### UnstableApiUsage
+'successfulAsList(java.lang.Iterable\>)' is marked unstable with @Beta
+in `workflow/src/main/java/com/google/tsunami/workflow/DefaultScanningWorkflow.java`
+#### Snippet
+```java
+                        pluginExecutorProvider.get().executeAsync(vulnDetectorExecutorConfig))
+                .collect(toImmutableList());
+    return FluentFuture.from(Futures.successfulAsList(detectionResultFutures))
+        .transform(
+            detectionResult -> generateScanResults(detectionResult, reconnaissanceReport),
+```
+
+### UnstableApiUsage
+'transform(com.google.common.base.Function, java.util.concurrent.Executor)' is declared in unstable class 'com.google.common.util.concurrent.FluentFuture' marked with @Beta
+in `workflow/src/main/java/com/google/tsunami/workflow/DefaultScanningWorkflow.java`
+#### Snippet
+```java
+                .collect(toImmutableList());
+    return FluentFuture.from(Futures.successfulAsList(detectionResultFutures))
+        .transform(
+            detectionResult -> generateScanResults(detectionResult, reconnaissanceReport),
+            directExecutor());
+```
+
+### UnstableApiUsage
+'toString()' is declared in unstable class 'com.google.common.net.HostAndPort' marked with @Beta
 in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
 #### Snippet
 ```java
    */
-  public static NetworkEndpoint forIpAndPort(String ipAddress, int port) {
-    checkArgument(InetAddresses.isInetAddress(ipAddress), "'%s' is not an IP address.", ipAddress);
-    checkArgument(
-        0 <= port && port <= MAX_PORT_NUMBER,
+  public static String toUriAuthority(NetworkEndpoint networkEndpoint) {
+    return toHostAndPort(networkEndpoint).toString();
+  }
+
+```
+
+### UnstableApiUsage
+'com.google.common.net.HostAndPort' is marked unstable with @Beta
+in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
+#### Snippet
+```java
+  }
+
+  public static HostAndPort toHostAndPort(NetworkEndpoint networkEndpoint) {
+    switch (networkEndpoint.getType()) {
+      case IP:
+```
+
+### UnstableApiUsage
+'com.google.common.net.HostAndPort' is marked unstable with @Beta
+in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
+#### Snippet
+```java
+    switch (networkEndpoint.getType()) {
+      case IP:
+        return HostAndPort.fromHost(networkEndpoint.getIpAddress().getAddress());
+      case IP_PORT:
+        return HostAndPort.fromParts(
+```
+
+### UnstableApiUsage
+'fromHost(java.lang.String)' is declared in unstable class 'com.google.common.net.HostAndPort' marked with @Beta
+in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
+#### Snippet
+```java
+    switch (networkEndpoint.getType()) {
+      case IP:
+        return HostAndPort.fromHost(networkEndpoint.getIpAddress().getAddress());
+      case IP_PORT:
+        return HostAndPort.fromParts(
+```
+
+### UnstableApiUsage
+'com.google.common.net.HostAndPort' is marked unstable with @Beta
+in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
+#### Snippet
+```java
+        return HostAndPort.fromHost(networkEndpoint.getIpAddress().getAddress());
+      case IP_PORT:
+        return HostAndPort.fromParts(
+            networkEndpoint.getIpAddress().getAddress(), networkEndpoint.getPort().getPortNumber());
+      case HOSTNAME:
+```
+
+### UnstableApiUsage
+'fromParts(java.lang.String, int)' is declared in unstable class 'com.google.common.net.HostAndPort' marked with @Beta
+in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
+#### Snippet
+```java
+        return HostAndPort.fromHost(networkEndpoint.getIpAddress().getAddress());
+      case IP_PORT:
+        return HostAndPort.fromParts(
+            networkEndpoint.getIpAddress().getAddress(), networkEndpoint.getPort().getPortNumber());
+      case HOSTNAME:
+```
+
+### UnstableApiUsage
+'com.google.common.net.HostAndPort' is marked unstable with @Beta
+in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
+#### Snippet
+```java
+      case HOSTNAME:
+      case IP_HOSTNAME:
+        return HostAndPort.fromHost(networkEndpoint.getHostname().getName());
+      case HOSTNAME_PORT:
+      case IP_HOSTNAME_PORT:
+```
+
+### UnstableApiUsage
+'fromHost(java.lang.String)' is declared in unstable class 'com.google.common.net.HostAndPort' marked with @Beta
+in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
+#### Snippet
+```java
+      case HOSTNAME:
+      case IP_HOSTNAME:
+        return HostAndPort.fromHost(networkEndpoint.getHostname().getName());
+      case HOSTNAME_PORT:
+      case IP_HOSTNAME_PORT:
+```
+
+### UnstableApiUsage
+'com.google.common.net.HostAndPort' is marked unstable with @Beta
+in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
+#### Snippet
+```java
+      case HOSTNAME_PORT:
+      case IP_HOSTNAME_PORT:
+        return HostAndPort.fromParts(
+            networkEndpoint.getHostname().getName(), networkEndpoint.getPort().getPortNumber());
+      case UNRECOGNIZED:
+```
+
+### UnstableApiUsage
+'fromParts(java.lang.String, int)' is declared in unstable class 'com.google.common.net.HostAndPort' marked with @Beta
+in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
+#### Snippet
+```java
+      case HOSTNAME_PORT:
+      case IP_HOSTNAME_PORT:
+        return HostAndPort.fromParts(
+            networkEndpoint.getHostname().getName(), networkEndpoint.getPort().getPortNumber());
+      case UNRECOGNIZED:
 ```
 
 ### UnstableApiUsage
@@ -1718,6 +1670,54 @@ in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.jav
     InetAddress inetAddress = InetAddresses.forString(ipAddress);
 
     if (inetAddress instanceof Inet4Address) {
+```
+
+### UnstableApiUsage
+'com.google.common.net.InetAddresses' is marked unstable with @Beta
+in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
+#### Snippet
+```java
+  public static NetworkEndpoint forHostname(String hostname) {
+    checkArgument(
+        !InetAddresses.isInetAddress(hostname), "Expected hostname, got IP address '%s'", hostname);
+
+    return NetworkEndpoint.newBuilder()
+```
+
+### UnstableApiUsage
+'isInetAddress(java.lang.String)' is declared in unstable class 'com.google.common.net.InetAddresses' marked with @Beta
+in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
+#### Snippet
+```java
+  public static NetworkEndpoint forHostname(String hostname) {
+    checkArgument(
+        !InetAddresses.isInetAddress(hostname), "Expected hostname, got IP address '%s'", hostname);
+
+    return NetworkEndpoint.newBuilder()
+```
+
+### UnstableApiUsage
+'com.google.common.net.InetAddresses' is marked unstable with @Beta
+in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
+#### Snippet
+```java
+   */
+  public static NetworkEndpoint forIpAndPort(String ipAddress, int port) {
+    checkArgument(InetAddresses.isInetAddress(ipAddress), "'%s' is not an IP address.", ipAddress);
+    checkArgument(
+        0 <= port && port <= MAX_PORT_NUMBER,
+```
+
+### UnstableApiUsage
+'isInetAddress(java.lang.String)' is declared in unstable class 'com.google.common.net.InetAddresses' marked with @Beta
+in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
+#### Snippet
+```java
+   */
+  public static NetworkEndpoint forIpAndPort(String ipAddress, int port) {
+    checkArgument(InetAddresses.isInetAddress(ipAddress), "'%s' is not an IP address.", ipAddress);
+    checkArgument(
+        0 <= port && port <= MAX_PORT_NUMBER,
 ```
 
 ### UnstableApiUsage
@@ -1754,54 +1754,6 @@ in `common/src/main/java/com/google/tsunami/common/config/YamlConfigLoader.java`
       return Files.newReader(new File(configFile), UTF_8);
     } catch (FileNotFoundException e) {
       logger.atWarning().log(
-```
-
-### UnstableApiUsage
-'com.google.common.io.Resources' is marked unstable with @Beta
-in `plugin/src/main/java/com/google/tsunami/plugin/payload/PayloadGeneratorModule.java`
-#### Snippet
-```java
-    Map<String, Object> rawYamlData =
-        yaml.load(
-            Resources.toString(
-                Resources.getResource(this.getClass(), "payload_definitions.yaml"),
-                UTF_8));
-```
-
-### UnstableApiUsage
-'toString(java.net.URL, java.nio.charset.Charset)' is declared in unstable class 'com.google.common.io.Resources' marked with @Beta
-in `plugin/src/main/java/com/google/tsunami/plugin/payload/PayloadGeneratorModule.java`
-#### Snippet
-```java
-    Map<String, Object> rawYamlData =
-        yaml.load(
-            Resources.toString(
-                Resources.getResource(this.getClass(), "payload_definitions.yaml"),
-                UTF_8));
-```
-
-### UnstableApiUsage
-'com.google.common.io.Resources' is marked unstable with @Beta
-in `plugin/src/main/java/com/google/tsunami/plugin/payload/PayloadGeneratorModule.java`
-#### Snippet
-```java
-        yaml.load(
-            Resources.toString(
-                Resources.getResource(this.getClass(), "payload_definitions.yaml"),
-                UTF_8));
-
-```
-
-### UnstableApiUsage
-'getResource(java.lang.Class, java.lang.String)' is declared in unstable class 'com.google.common.io.Resources' marked with @Beta
-in `plugin/src/main/java/com/google/tsunami/plugin/payload/PayloadGeneratorModule.java`
-#### Snippet
-```java
-        yaml.load(
-            Resources.toString(
-                Resources.getResource(this.getClass(), "payload_definitions.yaml"),
-                UTF_8));
-
 ```
 
 ### UnstableApiUsage
@@ -1850,6 +1802,54 @@ in `plugin/src/main/java/com/google/tsunami/plugin/payload/PayloadGeneratorModul
         InetAddresses.isInetAddress(callbackAddress) || InternetDomainName.isValid(callbackAddress),
         "Invalid callback address specified");
     checkArgument(callbackPort > 0 && callbackPort < 65536, "Invalid port number specified");
+```
+
+### UnstableApiUsage
+'com.google.common.io.Resources' is marked unstable with @Beta
+in `plugin/src/main/java/com/google/tsunami/plugin/payload/PayloadGeneratorModule.java`
+#### Snippet
+```java
+    Map<String, Object> rawYamlData =
+        yaml.load(
+            Resources.toString(
+                Resources.getResource(this.getClass(), "payload_definitions.yaml"),
+                UTF_8));
+```
+
+### UnstableApiUsage
+'toString(java.net.URL, java.nio.charset.Charset)' is declared in unstable class 'com.google.common.io.Resources' marked with @Beta
+in `plugin/src/main/java/com/google/tsunami/plugin/payload/PayloadGeneratorModule.java`
+#### Snippet
+```java
+    Map<String, Object> rawYamlData =
+        yaml.load(
+            Resources.toString(
+                Resources.getResource(this.getClass(), "payload_definitions.yaml"),
+                UTF_8));
+```
+
+### UnstableApiUsage
+'com.google.common.io.Resources' is marked unstable with @Beta
+in `plugin/src/main/java/com/google/tsunami/plugin/payload/PayloadGeneratorModule.java`
+#### Snippet
+```java
+        yaml.load(
+            Resources.toString(
+                Resources.getResource(this.getClass(), "payload_definitions.yaml"),
+                UTF_8));
+
+```
+
+### UnstableApiUsage
+'getResource(java.lang.Class, java.lang.String)' is declared in unstable class 'com.google.common.io.Resources' marked with @Beta
+in `plugin/src/main/java/com/google/tsunami/plugin/payload/PayloadGeneratorModule.java`
+#### Snippet
+```java
+        yaml.load(
+            Resources.toString(
+                Resources.getResource(this.getClass(), "payload_definitions.yaml"),
+                UTF_8));
+
 ```
 
 ### UnstableApiUsage
