@@ -21,18 +21,6 @@ I found 79 bad smells with 7 repairable:
 | ConstantValue | 1 | false |
 ## RuleId[id=MismatchedArrayReadWrite]
 ### MismatchedArrayReadWrite
-Contents of array `ZERO_ARRAY` are read, but never written to
-in `jimfs/src/main/java/com/google/common/jimfs/Util.java`
-#### Snippet
-```java
-
-  private static final int ARRAY_LEN = 8192;
-  private static final byte[] ZERO_ARRAY = new byte[ARRAY_LEN];
-  private static final byte[][] NULL_ARRAY = new byte[ARRAY_LEN][];
-
-```
-
-### MismatchedArrayReadWrite
 Contents of array `NULL_ARRAY` are read, but never written to
 in `jimfs/src/main/java/com/google/common/jimfs/Util.java`
 #### Snippet
@@ -42,6 +30,18 @@ in `jimfs/src/main/java/com/google/common/jimfs/Util.java`
   private static final byte[][] NULL_ARRAY = new byte[ARRAY_LEN][];
 
   /** Zeroes all bytes between off (inclusive) and off + len (exclusive) in the given array. */
+```
+
+### MismatchedArrayReadWrite
+Contents of array `ZERO_ARRAY` are read, but never written to
+in `jimfs/src/main/java/com/google/common/jimfs/Util.java`
+#### Snippet
+```java
+
+  private static final int ARRAY_LEN = 8192;
+  private static final byte[] ZERO_ARRAY = new byte[ARRAY_LEN];
+  private static final byte[][] NULL_ARRAY = new byte[ARRAY_LEN][];
+
 ```
 
 ## RuleId[id=UnnecessaryModifier]
@@ -76,22 +76,10 @@ in `jimfs/src/main/java/com/google/common/jimfs/JimfsFileChannel.java`
 in `jimfs/src/main/java/com/google/common/jimfs/JimfsFileSystem.java`
 #### Snippet
 ```java
-  @Override
-  public ImmutableSet<FileStore> getFileStores() {
+  /** Converts the given URI into a path in this file system. */
+  public JimfsPath toPath(URI uri) {
     fileStore.state().checkOpen();
-    return ImmutableSet.<FileStore>of(fileStore);
-  }
-```
-
-### AutoCloseableResource
-'FileSystemState' used without 'try'-with-resources statement
-in `jimfs/src/main/java/com/google/common/jimfs/JimfsFileSystem.java`
-#### Snippet
-```java
-  /** Gets the URI of the given path in this file system. */
-  public URI toUri(JimfsPath path) {
-    fileStore.state().checkOpen();
-    return pathService.toUri(uri, path.toAbsolutePath());
+    return pathService.fromUri(uri);
   }
 ```
 
@@ -105,18 +93,6 @@ in `jimfs/src/main/java/com/google/common/jimfs/JimfsFileSystem.java`
     fileStore.state().checkOpen();
     return pathService.createPathMatcher(syntaxAndPattern);
   }
-```
-
-### AutoCloseableResource
-'FileSystemState' used without 'try'-with-resources statement
-in `jimfs/src/main/java/com/google/common/jimfs/JimfsFileSystem.java`
-#### Snippet
-```java
-      // ensure thread pool is closed when file system is closed
-      fileStore
-          .state()
-          .register(
-              new Closeable() {
 ```
 
 ### AutoCloseableResource
@@ -148,10 +124,22 @@ in `jimfs/src/main/java/com/google/common/jimfs/JimfsFileSystem.java`
 in `jimfs/src/main/java/com/google/common/jimfs/JimfsFileSystem.java`
 #### Snippet
 ```java
-  /** Converts the given URI into a path in this file system. */
-  public JimfsPath toPath(URI uri) {
+      // ensure thread pool is closed when file system is closed
+      fileStore
+          .state()
+          .register(
+              new Closeable() {
+```
+
+### AutoCloseableResource
+'FileSystemState' used without 'try'-with-resources statement
+in `jimfs/src/main/java/com/google/common/jimfs/JimfsFileSystem.java`
+#### Snippet
+```java
+  @Override
+  public ImmutableSet<FileStore> getFileStores() {
     fileStore.state().checkOpen();
-    return pathService.fromUri(uri);
+    return ImmutableSet.<FileStore>of(fileStore);
   }
 ```
 
@@ -168,15 +156,15 @@ in `jimfs/src/main/java/com/google/common/jimfs/JimfsFileSystem.java`
 ```
 
 ### AutoCloseableResource
-'FileChannel' used without 'try'-with-resources statement
-in `jimfs/src/main/java/com/google/common/jimfs/JimfsFileSystemProvider.java`
+'FileSystemState' used without 'try'-with-resources statement
+in `jimfs/src/main/java/com/google/common/jimfs/JimfsFileSystem.java`
 #### Snippet
 ```java
-      throws IOException {
-    // call newFileChannel and cast so that FileChannel support is checked there
-    JimfsFileChannel channel = (JimfsFileChannel) newFileChannel(path, options, attrs);
-    if (executor == null) {
-      JimfsFileSystem fileSystem = (JimfsFileSystem) path.getFileSystem();
+  /** Gets the URI of the given path in this file system. */
+  public URI toUri(JimfsPath path) {
+    fileStore.state().checkOpen();
+    return pathService.toUri(uri, path.toAbsolutePath());
+  }
 ```
 
 ### AutoCloseableResource
@@ -189,6 +177,18 @@ in `jimfs/src/main/java/com/google/common/jimfs/SystemJimfsFileSystemProvider.ja
         fileSystems.remove(uri);
       }
     };
+```
+
+### AutoCloseableResource
+'FileChannel' used without 'try'-with-resources statement
+in `jimfs/src/main/java/com/google/common/jimfs/JimfsFileSystemProvider.java`
+#### Snippet
+```java
+      throws IOException {
+    // call newFileChannel and cast so that FileChannel support is checked there
+    JimfsFileChannel channel = (JimfsFileChannel) newFileChannel(path, options, attrs);
+    if (executor == null) {
+      JimfsFileSystem fileSystem = (JimfsFileSystem) path.getFileSystem();
 ```
 
 ### AutoCloseableResource
@@ -302,18 +302,6 @@ in `jimfs/src/main/java/com/google/common/jimfs/FileTree.java`
 ```
 
 ### DataFlowIssue
-Argument `inheritedViews.get("basic")` might be null
-in `jimfs/src/main/java/com/google/common/jimfs/DosAttributeProvider.java`
-#### Snippet
-```java
-  public DosFileAttributeView view(
-      FileLookup lookup, ImmutableMap<String, FileAttributeView> inheritedViews) {
-    return new View(lookup, (BasicFileAttributeView) inheritedViews.get("basic"));
-  }
-
-```
-
-### DataFlowIssue
 Unboxing of `file.getAttribute("dos", "readonly")` may produce `NullPointerException`
 in `jimfs/src/main/java/com/google/common/jimfs/DosAttributeProvider.java`
 #### Snippet
@@ -362,6 +350,18 @@ in `jimfs/src/main/java/com/google/common/jimfs/DosAttributeProvider.java`
 ```
 
 ### DataFlowIssue
+Argument `inheritedViews.get("basic")` might be null
+in `jimfs/src/main/java/com/google/common/jimfs/DosAttributeProvider.java`
+#### Snippet
+```java
+  public DosFileAttributeView view(
+      FileLookup lookup, ImmutableMap<String, FileAttributeView> inheritedViews) {
+    return new View(lookup, (BasicFileAttributeView) inheritedViews.get("basic"));
+  }
+
+```
+
+### DataFlowIssue
 Argument `inheritedViews.get("owner")` might be null
 in `jimfs/src/main/java/com/google/common/jimfs/AclAttributeProvider.java`
 #### Snippet
@@ -395,6 +395,30 @@ in `jimfs/src/main/java/com/google/common/jimfs/PosixAttributeProvider.java`
         (FileOwnerAttributeView) inheritedViews.get("owner"));
   }
 
+```
+
+### DataFlowIssue
+Argument `linkName` might be null
+in `jimfs/src/main/java/com/google/common/jimfs/FileSystemView.java`
+#### Snippet
+```java
+          lookUp(link, Options.NOFOLLOW_LINKS).requireDoesNotExist(link).directory();
+
+      linkParent.link(linkName, existingFile);
+      linkParent.setLastModifiedTime(now());
+    } finally {
+```
+
+### DataFlowIssue
+Argument `path.name()` might be null
+in `jimfs/src/main/java/com/google/common/jimfs/FileSystemView.java`
+#### Snippet
+```java
+      File newFile = fileCreator.get();
+      store.setInitialAttributes(newFile, attrs);
+      parent.link(path.name(), newFile);
+      parent.setLastModifiedTime(now());
+      return newFile;
 ```
 
 ### DataFlowIssue
@@ -434,63 +458,27 @@ in `jimfs/src/main/java/com/google/common/jimfs/FileSystemView.java`
 ```
 
 ### DataFlowIssue
-Argument `linkName` might be null
-in `jimfs/src/main/java/com/google/common/jimfs/FileSystemView.java`
+Argument `provider` might be null
+in `jimfs/src/main/java/com/google/common/jimfs/AttributeService.java`
 #### Snippet
 ```java
-          lookUp(link, Options.NOFOLLOW_LINKS).requireDoesNotExist(link).directory();
+      // for 'view:*' format, get all keys for all providers for the view
+      AttributeProvider provider = providersByName.get(view);
+      readAll(file, provider, result);
 
-      linkParent.link(linkName, existingFile);
-      linkParent.setLastModifiedTime(now());
-    } finally {
+      for (String inheritedView : provider.inherits()) {
 ```
 
 ### DataFlowIssue
-Argument `path.name()` might be null
-in `jimfs/src/main/java/com/google/common/jimfs/FileSystemView.java`
+Argument `inheritedProvider` might be null
+in `jimfs/src/main/java/com/google/common/jimfs/AttributeService.java`
 #### Snippet
 ```java
-      File newFile = fileCreator.get();
-      store.setInitialAttributes(newFile, attrs);
-      parent.link(path.name(), newFile);
-      parent.setLastModifiedTime(now());
-      return newFile;
-```
-
-### DataFlowIssue
-Argument `user` might be null
-in `jimfs/src/main/java/com/google/common/jimfs/UnixAttributeProvider.java`
-#### Snippet
-```java
-      case "uid":
-        UserPrincipal user = (UserPrincipal) file.getAttribute("owner", "owner");
-        return getUniqueId(user);
-      case "gid":
-        GroupPrincipal group = (GroupPrincipal) file.getAttribute("posix", "group");
-```
-
-### DataFlowIssue
-Argument `group` might be null
-in `jimfs/src/main/java/com/google/common/jimfs/UnixAttributeProvider.java`
-#### Snippet
-```java
-      case "gid":
-        GroupPrincipal group = (GroupPrincipal) file.getAttribute("posix", "group");
-        return getUniqueId(group);
-      case "mode":
-        Set<PosixFilePermission> permissions =
-```
-
-### DataFlowIssue
-Argument `permissions` might be null
-in `jimfs/src/main/java/com/google/common/jimfs/UnixAttributeProvider.java`
-#### Snippet
-```java
-        Set<PosixFilePermission> permissions =
-            (Set<PosixFilePermission>) file.getAttribute("posix", "permissions");
-        return toMode(permissions);
-      case "ctime":
-        return file.getCreationTime();
+      for (String inheritedView : provider.inherits()) {
+        AttributeProvider inheritedProvider = providersByName.get(inheritedView);
+        readAll(file, inheritedProvider, result);
+      }
+    } else {
 ```
 
 ### DataFlowIssue
@@ -542,27 +530,39 @@ in `jimfs/src/main/java/com/google/common/jimfs/AttributeService.java`
 ```
 
 ### DataFlowIssue
-Argument `provider` might be null
-in `jimfs/src/main/java/com/google/common/jimfs/AttributeService.java`
+Argument `user` might be null
+in `jimfs/src/main/java/com/google/common/jimfs/UnixAttributeProvider.java`
 #### Snippet
 ```java
-      // for 'view:*' format, get all keys for all providers for the view
-      AttributeProvider provider = providersByName.get(view);
-      readAll(file, provider, result);
-
-      for (String inheritedView : provider.inherits()) {
+      case "uid":
+        UserPrincipal user = (UserPrincipal) file.getAttribute("owner", "owner");
+        return getUniqueId(user);
+      case "gid":
+        GroupPrincipal group = (GroupPrincipal) file.getAttribute("posix", "group");
 ```
 
 ### DataFlowIssue
-Argument `inheritedProvider` might be null
-in `jimfs/src/main/java/com/google/common/jimfs/AttributeService.java`
+Argument `group` might be null
+in `jimfs/src/main/java/com/google/common/jimfs/UnixAttributeProvider.java`
 #### Snippet
 ```java
-      for (String inheritedView : provider.inherits()) {
-        AttributeProvider inheritedProvider = providersByName.get(inheritedView);
-        readAll(file, inheritedProvider, result);
-      }
-    } else {
+      case "gid":
+        GroupPrincipal group = (GroupPrincipal) file.getAttribute("posix", "group");
+        return getUniqueId(group);
+      case "mode":
+        Set<PosixFilePermission> permissions =
+```
+
+### DataFlowIssue
+Argument `permissions` might be null
+in `jimfs/src/main/java/com/google/common/jimfs/UnixAttributeProvider.java`
+#### Snippet
+```java
+        Set<PosixFilePermission> permissions =
+            (Set<PosixFilePermission>) file.getAttribute("posix", "permissions");
+        return toMode(permissions);
+      case "ctime":
+        return file.getCreationTime();
 ```
 
 ## RuleId[id=UnnecessaryStringEscape]
@@ -712,18 +712,6 @@ in `jimfs/src/main/java/com/google/common/jimfs/FileFactory.java`
 
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
-in `jimfs/src/main/java/com/google/common/jimfs/BasicAttributeProvider.java`
-#### Snippet
-```java
-  private static final class View extends AbstractAttributeView implements BasicFileAttributeView {
-
-    protected View(FileLookup lookup) {
-      super(lookup);
-    }
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
 in `jimfs/src/main/java/com/google/common/jimfs/PathService.java`
 #### Snippet
 ```java
@@ -732,6 +720,18 @@ in `jimfs/src/main/java/com/google/common/jimfs/PathService.java`
   protected final JimfsPath createPathInternal(@NullableDecl Name root, Iterable<Name> names) {
     return new JimfsPath(this, root, names);
   }
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `jimfs/src/main/java/com/google/common/jimfs/BasicAttributeProvider.java`
+#### Snippet
+```java
+  private static final class View extends AbstractAttributeView implements BasicFileAttributeView {
+
+    protected View(FileLookup lookup) {
+      super(lookup);
+    }
 ```
 
 ### ProtectedMemberInFinalClass
@@ -849,6 +849,18 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@o
 in `jimfs/src/main/java/com/google/common/jimfs/DirectoryEntry.java`
 #### Snippet
 ```java
+  private final Name name;
+
+  @NullableDecl private final File file;
+
+  @NullableDecl DirectoryEntry next; // for use in Directory
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.compatqual.NullableDecl'
+in `jimfs/src/main/java/com/google/common/jimfs/DirectoryEntry.java`
+#### Snippet
+```java
   @NullableDecl private final File file;
 
   @NullableDecl DirectoryEntry next; // for use in Directory
@@ -858,14 +870,14 @@ in `jimfs/src/main/java/com/google/common/jimfs/DirectoryEntry.java`
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.compatqual.NullableDecl'
-in `jimfs/src/main/java/com/google/common/jimfs/DirectoryEntry.java`
+in `jimfs/src/main/java/com/google/common/jimfs/JimfsAsynchronousFileChannel.java`
 #### Snippet
 ```java
-  private final Name name;
+    private final ListenableFuture<R> future;
+    private final CompletionHandler<R, ? super A> completionHandler;
+    @NullableDecl private final A attachment;
 
-  @NullableDecl private final File file;
-
-  @NullableDecl DirectoryEntry next; // for use in Directory
+    private CompletionHandlerCallback(
 ```
 
 ### NullableProblems
@@ -881,15 +893,27 @@ in `jimfs/src/main/java/com/google/common/jimfs/PathType.java`
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.compatqual.NullableDecl'
-in `jimfs/src/main/java/com/google/common/jimfs/File.java`
+Not annotated method overrides method annotated with @NotNull
+in `jimfs/src/main/java/com/google/common/jimfs/JimfsPath.java`
 #### Snippet
 ```java
-  private FileTime lastModifiedTime;
 
-  @NullableDecl // null when only the basic view is used (default)
-  private Table<String, String, Object> attributes;
+  @Override
+  public URI toUri() {
+    return getJimfsFileSystem().toUri(this);
+  }
+```
 
+### NullableProblems
+Not annotated method overrides method annotated with @NotNull
+in `jimfs/src/main/java/com/google/common/jimfs/JimfsPath.java`
+#### Snippet
+```java
+
+  @Override
+  public Iterator<Path> iterator() {
+    return asList().iterator();
+  }
 ```
 
 ### NullableProblems
@@ -905,15 +929,15 @@ in `jimfs/src/main/java/com/google/common/jimfs/JimfsPath.java`
 ```
 
 ### NullableProblems
-Not annotated method overrides method annotated with @NotNull
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.compatqual.NullableDecl'
 in `jimfs/src/main/java/com/google/common/jimfs/JimfsPath.java`
 #### Snippet
 ```java
+final class JimfsPath implements Path {
 
-  @Override
-  public Iterator<Path> iterator() {
-    return asList().iterator();
-  }
+  @NullableDecl private final Name root;
+  private final ImmutableList<Name> names;
+  private final PathService pathService;
 ```
 
 ### NullableProblems
@@ -954,38 +978,14 @@ in `jimfs/src/main/java/com/google/common/jimfs/JimfsPath.java`
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.compatqual.NullableDecl'
-in `jimfs/src/main/java/com/google/common/jimfs/JimfsPath.java`
+in `jimfs/src/main/java/com/google/common/jimfs/File.java`
 #### Snippet
 ```java
-final class JimfsPath implements Path {
+  private FileTime lastModifiedTime;
 
-  @NullableDecl private final Name root;
-  private final ImmutableList<Name> names;
-  private final PathService pathService;
-```
+  @NullableDecl // null when only the basic view is used (default)
+  private Table<String, String, Object> attributes;
 
-### NullableProblems
-Not annotated method overrides method annotated with @NotNull
-in `jimfs/src/main/java/com/google/common/jimfs/JimfsPath.java`
-#### Snippet
-```java
-
-  @Override
-  public URI toUri() {
-    return getJimfsFileSystem().toUri(this);
-  }
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.compatqual.NullableDecl'
-in `jimfs/src/main/java/com/google/common/jimfs/JimfsAsynchronousFileChannel.java`
-#### Snippet
-```java
-    private final ListenableFuture<R> future;
-    private final CompletionHandler<R, ? super A> completionHandler;
-    @NullableDecl private final A attachment;
-
-    private CompletionHandlerCallback(
 ```
 
 ## RuleId[id=ConstantValue]
@@ -1007,11 +1007,11 @@ Result of `BlockingQueue.offer()` is ignored
 in `jimfs/src/main/java/com/google/common/jimfs/AbstractWatchService.java`
 #### Snippet
 ```java
-    if (key == poison) {
-      // ensure other blocking threads get the poison
+    if (open.compareAndSet(true, false)) {
+      queue.clear();
       queue.offer(poison);
-      throw new ClosedWatchServiceException();
     }
+  }
 ```
 
 ### IgnoreResultOfCall
@@ -1019,10 +1019,10 @@ Result of `BlockingQueue.offer()` is ignored
 in `jimfs/src/main/java/com/google/common/jimfs/AbstractWatchService.java`
 #### Snippet
 ```java
-    if (open.compareAndSet(true, false)) {
-      queue.clear();
+    if (key == poison) {
+      // ensure other blocking threads get the poison
       queue.offer(poison);
+      throw new ClosedWatchServiceException();
     }
-  }
 ```
 
