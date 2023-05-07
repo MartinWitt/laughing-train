@@ -182,18 +182,6 @@ in `src/main/java/org/assertj/vavr/api/soft/AutoCloseableSoftVavrAssertions.java
 
 ### JavadocReference
 Cannot resolve symbol `Condition`
-in `src/main/java/org/assertj/vavr/api/SeqShouldBeAtIndex.java`
-#### Snippet
-```java
-/**
- * Creates an error message indicating that an assertion that verifies a group of elements contains a value at a given index that
- * satisfies a {@link Condition} failed.
- *
- * @author Michał Chmielarz
-```
-
-### JavadocReference
-Cannot resolve symbol `Condition`
 in `src/main/java/org/assertj/vavr/api/AbstractSeqAssert.java`
 #### Snippet
 ```java
@@ -214,6 +202,18 @@ in `src/main/java/org/assertj/vavr/api/AbstractSeqAssert.java`
      * Verifies that the actual object at the given index in the actual group satisfies the given condition (alias of {@link #has(Condition, Index)}).
      *
      * @param condition the given condition.
+```
+
+### JavadocReference
+Cannot resolve symbol `Condition`
+in `src/main/java/org/assertj/vavr/api/SeqShouldBeAtIndex.java`
+#### Snippet
+```java
+/**
+ * Creates an error message indicating that an assertion that verifies a group of elements contains a value at a given index that
+ * satisfies a {@link Condition} failed.
+ *
+ * @author Michał Chmielarz
 ```
 
 ### JavadocReference
@@ -373,6 +373,18 @@ in `src/main/java/org/assertj/vavr/api/AbstractEitherAssert.java`
 ```
 
 ### JavadocReference
+Cannot resolve symbol `Condition`
+in `src/main/java/org/assertj/vavr/api/AbstractOptionAssert.java`
+#### Snippet
+```java
+
+    /**
+     * Verifies that the actual {@link Option} contains a value which satisfies the given {@link Condition}.
+     *
+     * @param condition the given condition.
+```
+
+### JavadocReference
 Cannot resolve symbol `Assertions`
 in `src/main/java/org/assertj/vavr/api/AbstractOptionAssert.java`
 #### Snippet
@@ -394,18 +406,6 @@ in `src/main/java/org/assertj/vavr/api/AbstractOptionAssert.java`
      * {@link Assertions#setAllowExtractingPrivateFields(boolean)}.
      *
      * @return {@code this} assertion object.
-```
-
-### JavadocReference
-Cannot resolve symbol `Condition`
-in `src/main/java/org/assertj/vavr/api/AbstractOptionAssert.java`
-#### Snippet
-```java
-
-    /**
-     * Verifies that the actual {@link Option} contains a value which satisfies the given {@link Condition}.
-     *
-     * @param condition the given condition.
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
@@ -448,11 +448,23 @@ in `src/main/java/org/assertj/vavr/api/AbstractOptionAssert.java`
 ```
 
 ### FieldMayBeFinal
-Field `failures` may be 'final'
-in `src/main/java/org/assertj/vavr/internal/Maps.java`
+Field `conditions` may be 'final'
+in `src/main/java/org/assertj/vavr/internal/Multimaps.java`
 #### Snippet
 ```java
-    private static final Maps INSTANCE = new Maps();
+    private Failures failures = Failures.instance();
+
+    private Conditions conditions = Conditions.instance();
+
+    private Multimaps() {
+```
+
+### FieldMayBeFinal
+Field `failures` may be 'final'
+in `src/main/java/org/assertj/vavr/internal/Multimaps.java`
+#### Snippet
+```java
+    private static final Multimaps INSTANCE = new Multimaps();
 
     private Failures failures = Failures.instance();
 
@@ -473,26 +485,14 @@ in `src/main/java/org/assertj/vavr/internal/Maps.java`
 
 ### FieldMayBeFinal
 Field `failures` may be 'final'
-in `src/main/java/org/assertj/vavr/internal/Multimaps.java`
+in `src/main/java/org/assertj/vavr/internal/Maps.java`
 #### Snippet
 ```java
-    private static final Multimaps INSTANCE = new Multimaps();
+    private static final Maps INSTANCE = new Maps();
 
     private Failures failures = Failures.instance();
 
     private Conditions conditions = Conditions.instance();
-```
-
-### FieldMayBeFinal
-Field `conditions` may be 'final'
-in `src/main/java/org/assertj/vavr/internal/Multimaps.java`
-#### Snippet
-```java
-    private Failures failures = Failures.instance();
-
-    private Conditions conditions = Conditions.instance();
-
-    private Multimaps() {
 ```
 
 ## RuleId[id=JavaReflectionMemberAccess]
