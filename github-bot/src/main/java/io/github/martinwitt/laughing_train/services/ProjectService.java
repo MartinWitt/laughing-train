@@ -5,13 +5,11 @@ import com.google.common.flogger.FluentLogger;
 import io.github.martinwitt.laughing_train.data.Project;
 import io.github.martinwitt.laughing_train.data.ProjectRequest;
 import io.github.martinwitt.laughing_train.data.ProjectResult;
-import io.quarkus.vertx.ConsumeEvent;
 import io.smallrye.mutiny.Uni;
 import io.smallrye.mutiny.unchecked.Unchecked;
 import io.vertx.core.Vertx;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
@@ -31,25 +29,29 @@ public class ProjectService {
     @Inject
     Vertx vertx;
 
-    @ConsumeEvent(value = ServiceAddresses.PROJECT_REQUEST, blocking = true)
-    public ProjectResult handleProjectRequest(ProjectRequest request) throws IOException {
-        logger.atInfo().log("Received project request %s", request);
-        if (request instanceof ProjectRequest.WithUrl url) {
+    public ProjectResult handleProjectRequest(ProjectRequest request) {
+        try {
+            logger.atInfo().log("Received project request %s", request);
+            if (request instanceof ProjectRequest.WithUrl url) {
 
-            String repoName = StringUtils.substringAfterLast(url.url(), "/").replace(".git", "");
-            Path dir = Files.createTempDirectory("laughing-train-" + repoName + random.nextLong());
-            cleanAfter60min(dir);
-            return checkoutRepo(url, dir)
-                    .onItem()
-                    .invoke(() -> logger.atInfo().log("Cloned %s to %s", url.url(), dir))
-                    .onFailure()
-                    .invoke(e -> logger.atSevere().withCause(e).log("Error while cloning %s to %s", url.url(), dir))
-                    .onFailure()
-                    .invoke(e -> FileUtils.deleteQuietly(dir.toFile()))
-                    .onItemOrFailure()
-                    .<ProjectResult>transform((git, error) -> toResult(url, repoName, dir, git, error))
-                    .await()
-                    .indefinitely();
+                String repoName = StringUtils.substringAfterLast(url.url(), "/").replace(".git", "");
+                Path dir = Files.createTempDirectory("laughing-train-" + repoName + random.nextLong());
+                cleanAfter60min(dir);
+                return checkoutRepo(url, dir)
+                        .onItem()
+                        .invoke(() -> logger.atInfo().log("Cloned %s to %s", url.url(), dir))
+                        .onFailure()
+                        .invoke(e -> logger.atSevere().withCause(e).log("Error while cloning %s to %s", url.url(), dir))
+                        .onFailure()
+                        .invoke(e -> FileUtils.deleteQuietly(dir.toFile()))
+                        .onItemOrFailure()
+                        .<ProjectResult>transform((git, error) -> toResult(url, repoName, dir, git, error))
+                        .await()
+                        .indefinitely();
+            }
+        } catch (Exception e) {
+            logger.atSevere().withCause(e).log("Error while handling project request %s", request);
+            return new ProjectResult.Error(e.getMessage());
         }
         return new ProjectResult.Error("Unknown request");
     }
