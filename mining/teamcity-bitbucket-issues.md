@@ -1,84 +1,119 @@
 # teamcity-bitbucket-issues 
  
 # Bad smells
-I found 6 bad smells with 0 repairable:
+I found 7 bad smells with 0 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| BoundedWildcard | 4 | false |
-| RedundantFieldInitialization | 1 | false |
-| DoubleBraceInitialization | 1 | false |
-## RuleId[id=RedundantFieldInitialization]
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `TeamCity.BitBucketIssues-server/src/main/java/jetbrains/buildServer/issueTracker/bitbucket/auth/BitBucketAuthenticator.java`
+| SpringBeanConstructorArgInspection | 3 | false |
+| SpringXmlAutowireExplicitlyInspection | 2 | false |
+| Deprecation | 2 | false |
+## RuleId[id=SpringBeanConstructorArgInspection]
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'BitBucketIssueProviderType'#treeend
+
+*** ** * ** ***
+
+|--------------------------------------|---|-----------|
+| **BitBucketIssueProviderType(...):** |   | **Bean:** |
+| PluginDescriptor pluginDescriptor    |   | **???**   |
+in `TeamCity.BitBucketIssues-server/src/main/resources/META-INF/build-server-plugin-TeamCity.BitBucketIssues.xml`
 #### Snippet
 ```java
-public class BitBucketAuthenticator implements IssueFetcherAuthenticator {
+       default-autowire="constructor">
 
-  private Credentials myCredentials = null;
-
-  public BitBucketAuthenticator(@NotNull final Map<String, String > properties) {
+  <bean class="jetbrains.buildServer.issueTracker.bitbucket.BitBucketIssueProviderType"/>
+  <bean class="jetbrains.buildServer.issueTracker.bitbucket.BitBucketIssueFetcher"/>
+  <bean class="jetbrains.buildServer.issueTracker.bitbucket.BitBucketIssueProviderFactory"/>
 ```
 
-## RuleId[id=DoubleBraceInitialization]
-### DoubleBraceInitialization
-Double brace initialization
-in `TeamCity.BitBucketIssues-server/src/main/java/jetbrains/buildServer/issueTracker/bitbucket/BitBucketIssueProviderType.java`
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'BitBucketIssueFetcher'#treeend
+
+*** ** * ** ***
+
+|---------------------------------------------|---|------------------------------|
+| **BitBucketIssueFetcher(...):**             |   | **Bean:**                    |
+| EhCacheUtil cacheUtil                       |   | **???**                      |
+| IssueParser parser                          |   | Autowired: null(IssueParser) |
+| SSLTrustStoreProvider sslTrustStoreProvider |   | **???**                      |
+in `TeamCity.BitBucketIssues-server/src/main/resources/META-INF/build-server-plugin-TeamCity.BitBucketIssues.xml`
 #### Snippet
 ```java
-  @Override
-  public Map<String, String> getDefaultProperties() {
-    return new HashMap<String, String>() {{
-      put(PARAM_AUTH_TYPE, AUTH_ANONYMOUS);
-      put(PARAM_PATTERN, DEFAULT_ISSUE_PATTERN);
+
+  <bean class="jetbrains.buildServer.issueTracker.bitbucket.BitBucketIssueProviderType"/>
+  <bean class="jetbrains.buildServer.issueTracker.bitbucket.BitBucketIssueFetcher"/>
+  <bean class="jetbrains.buildServer.issueTracker.bitbucket.BitBucketIssueProviderFactory"/>
+  <bean class="jetbrains.buildServer.issueTracker.bitbucket.IssueParser"/>
 ```
 
-## RuleId[id=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? super InvalidProperty`
-in `TeamCity.BitBucketIssues-server/src/main/java/jetbrains/buildServer/issueTracker/bitbucket/BitBucketIssueProvider.java`
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'IssueTrackerSuggestion'#treeend
+
+*** ** * ** ***
+
+|---------------------------------------------|---|---------------------------------------------|
+| **IssueTrackerSuggestion(...):**            |   | **Bean:**                                   |
+| PluginDescriptor pluginDescriptor           |   | **???**                                     |
+| PagePlaces pagePlaces                       |   | **???**                                     |
+| IssueProvidersManager issueProvidersManager |   | **???**                                     |
+| BitBucketIssueProviderType type             |   | Autowired: null(BitBucketIssueProviderType) |
+in `TeamCity.BitBucketIssues-server/src/main/resources/META-INF/build-server-plugin-TeamCity.BitBucketIssues.xml`
 #### Snippet
 ```java
-    }
+  <bean class="jetbrains.buildServer.issueTracker.bitbucket.BitBucketIssueProviderFactory"/>
+  <bean class="jetbrains.buildServer.issueTracker.bitbucket.IssueParser"/>
+  <bean class="jetbrains.buildServer.issueTracker.bitbucket.health.IssueTrackerSuggestion"/>
 
-    private boolean checkNotEmptyParam(@NotNull final Collection<InvalidProperty> invalid,
-                                       @NotNull final Map<String, String> map,
-                                       @NotNull final String propertyName,
+</beans>
 ```
 
-### BoundedWildcard
-Can generalize to `? extends List`
-in `TeamCity.BitBucketIssues-server/src/main/java/jetbrains/buildServer/issueTracker/bitbucket/health/IssueTrackerSuggestion.java`
+## RuleId[id=SpringXmlAutowireExplicitlyInspection]
+### SpringXmlAutowireExplicitlyInspection
+Make autowired dependency explicit
+in `TeamCity.BitBucketIssues-server/fake-teamcity-server-plugin-context.xml`
 #### Snippet
 ```java
-  }
-
-  private Set<String> extractFetchUrls(@NotNull final Stream<List<? extends VcsRoot>> stream) {
-    return stream.flatMap(List::stream)
-            .map(this::getFetchUrl)
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+       default-autowire="constructor">
+  <!-- this is a fake spring context xml to make IntelliJ IDEA know all implicit beans that are available for plugin -->
+  <bean class="jetbrains.buildServer.web.openapi.PluginDescriptor"/>
 ```
 
-### BoundedWildcard
-Can generalize to `? extends SBuildType`
-in `TeamCity.BitBucketIssues-server/src/main/java/jetbrains/buildServer/issueTracker/bitbucket/health/IssueTrackerSuggestion.java`
+### SpringXmlAutowireExplicitlyInspection
+Make autowired dependency explicit
+in `TeamCity.BitBucketIssues-server/src/main/resources/META-INF/build-server-plugin-TeamCity.BitBucketIssues.xml`
 #### Snippet
 ```java
-  }
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+       default-autowire="constructor">
 
-  private Set<String> getPathsFromVcsRoots(@NotNull final List<SBuildType> buildTypes) {
-    return extractFetchUrls(buildTypes.stream().map(BuildTypeSettings::getVcsRoots));
-  }
+  <bean class="jetbrains.buildServer.issueTracker.bitbucket.BitBucketIssueProviderType"/>
 ```
 
-### BoundedWildcard
-Can generalize to `? extends SBuildType`
-in `TeamCity.BitBucketIssues-server/src/main/java/jetbrains/buildServer/issueTracker/bitbucket/health/IssueTrackerSuggestion.java`
+## RuleId[id=Deprecation]
+### Deprecation
+'getHttpFile(java.lang.String, jetbrains.buildServer.http.SimpleCredentials, boolean, java.security.KeyStore)' is deprecated
+in `TeamCity.BitBucketIssues-server/src/main/java/jetbrains/buildServer/issueTracker/bitbucket/BitBucketIssueFetcher.java`
 #### Snippet
 ```java
-  }
+        .retrieveCredentials(new BasicIssueFetcherAuthenticator(credentials));
+      KeyStore trustStore = mySslTrustStoreProvider.getTrustStore();
+      InputStream body = getHttpFile(issueURL, simpleCredentials, true, trustStore);
+      return myParser.parse(IOUtils.toString(body, "UTF-8"));
+    });
+```
 
-  private Set<String> getPathsFromInstances(@NotNull final List<SBuildType> buildTypes) {
-    return extractFetchUrls(buildTypes.stream().map(SBuildType::getVcsRootInstances));
-  }
+### Deprecation
+'AbstractIssueFetcher(jetbrains.buildServer.util.cache.EhCacheUtil)' is deprecated
+in `TeamCity.BitBucketIssues-server/src/main/java/jetbrains/buildServer/issueTracker/bitbucket/BitBucketIssueFetcher.java`
+#### Snippet
+```java
+    @NotNull final SSLTrustStoreProvider sslTrustStoreProvider
+  ) {
+    super(cacheUtil);
+    myParser = parser;
+    mySslTrustStoreProvider = sslTrustStoreProvider;
 ```
 
