@@ -1,25 +1,25 @@
 # incubator-baremaps 
  
 # Bad smells
-I found 495 bad smells with 26 repairable:
+I found 505 bad smells with 26 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| JavadocDeclaration | 199 | false |
-| FieldMayBeFinal | 81 | false |
+| JavadocDeclaration | 206 | false |
+| FieldMayBeFinal | 83 | false |
 | FieldCanBeLocal | 27 | false |
-| DuplicatedCode | 25 | false |
+| DuplicatedCode | 26 | false |
 | UnstableApiUsage | 25 | false |
 | DuplicateBranchesInSwitch | 21 | false |
 | UNCHECKED_WARNING | 14 | false |
 | DataFlowIssue | 11 | false |
 | UnnecessaryLocalVariable | 10 | true |
 | ProtectedMemberInFinalClass | 8 | true |
-| Deprecation | 8 | false |
+| Deprecation | 7 | false |
 | OptionalGetWithoutIsPresent | 6 | false |
 | LongLiteralsEndingWithLowercaseL | 5 | false |
+| ConstantValue | 5 | false |
 | UnnecessaryModifier | 4 | true |
 | SuspiciousMethodCalls | 4 | false |
-| ConstantValue | 4 | false |
 | UnnecessarySemicolon | 3 | false |
 | ObviousNullCheck | 3 | false |
 | SwitchStatementWithTooFewBranches | 3 | false |
@@ -43,22 +43,10 @@ I found 495 bad smells with 26 repairable:
 | SuspiciousToArrayCall | 1 | false |
 | DuplicateThrows | 1 | false |
 | ArraysAsListWithZeroOrOneArgument | 1 | false |
-| NullArgumentToVariableArgMethod | 1 | false |
 | PointlessBooleanExpression | 1 | true |
+| NullArgumentToVariableArgMethod | 1 | false |
 | UnusedAssignment | 1 | false |
 ## RuleId[id=ToArrayCallWithZeroLengthArrayArgument]
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new Coordinate\[coords.size()\]'
-in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/function/RelationGeometryBuilder.java`
-#### Snippet
-```java
-      List<Long> refs = referenceMap.get(member.getRef());
-      List<Coordinate> coords = refs.stream().map(coordinateMap::get).toList();
-      Coordinate[] array = coords.toArray(new Coordinate[coords.size()]);
-      return GEOMETRY_FACTORY_WGS84.createLineString(array);
-    } catch (Exception e) {
-```
-
 ### ToArrayCallWithZeroLengthArrayArgument
 Call to `toArray()` with pre-sized array argument 'new Coordinate\[list.size()\]'
 in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/function/WayGeometryBuilder.java`
@@ -71,7 +59,43 @@ in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/function/WayGe
       if (!line.isEmpty()) {
 ```
 
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new Coordinate\[coords.size()\]'
+in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/function/RelationGeometryBuilder.java`
+#### Snippet
+```java
+      List<Long> refs = referenceMap.get(member.getRef());
+      List<Coordinate> coords = refs.stream().map(coordinateMap::get).toList();
+      Coordinate[] array = coords.toArray(new Coordinate[coords.size()]);
+      return GEOMETRY_FACTORY_WGS84.createLineString(array);
+    } catch (Exception e) {
+```
+
 ## RuleId[id=UnnecessaryModifier]
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `baremaps-core/src/main/java/org/apache/baremaps/vectortile/expression/Expressions.java`
+#### Snippet
+```java
+  }
+
+  public static Module jacksonModule() {
+    var simpleModule = new SimpleModule("SimpleModule", new Version(1, 0, 0, null));
+    simpleModule.addDeserializer(Expression.class, new ExpressionDeserializer());
+```
+
+### UnnecessaryModifier
+Modifier `private` is redundant for enum constructors
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileGeometryType.java`
+#### Snippet
+```java
+  private int value;
+
+  private ShapefileGeometryType(int value) {
+    this.value = value;
+  }
+```
+
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
 in `baremaps-core/src/main/java/org/apache/baremaps/collection/DataCollection.java`
@@ -94,30 +118,6 @@ in `baremaps-core/src/main/java/org/apache/baremaps/collection/DataCollection.ja
   public abstract long sizeAsLong();
 
   /** {@inheritDoc} */
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `baremaps-core/src/main/java/org/apache/baremaps/mvt/expression/Expressions.java`
-#### Snippet
-```java
-  }
-
-  public static Module jacksonModule() {
-    var simpleModule = new SimpleModule("SimpleModule", new Version(1, 0, 0, null));
-    simpleModule.addDeserializer(Expression.class, new ExpressionDeserializer());
-```
-
-### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileGeometryType.java`
-#### Snippet
-```java
-  private int value;
-
-  private ShapefileGeometryType(int value) {
-    this.value = value;
-  }
 ```
 
 ## RuleId[id=MagicConstant]
@@ -159,6 +159,30 @@ in `baremaps-core/src/main/java/org/apache/baremaps/vectortile/VectorTileUtils.j
 ```
 
 ## RuleId[id=UNCHECKED_WARNING]
+### UNCHECKED_WARNING
+Unchecked call to 'add(E)' as a member of raw type 'java.util.ArrayList'
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/flatgeobuf/internal/TableConversions.java`
+#### Snippet
+```java
+    var geometryBuffer = feature.geometry();
+    var geometry = GeometryConversions.deserialize(geometryBuffer, geometryBuffer.type());
+    values.add(geometry);
+
+    if (feature.propertiesLength() > 0) {
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'add(E)' as a member of raw type 'java.util.ArrayList'
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/flatgeobuf/internal/TableConversions.java`
+#### Snippet
+```java
+        var column = headerMeta.columns.get(type);
+        var value = readValue(propertiesBuffer, column);
+        values.add(value);
+      }
+    }
+```
+
 ### UNCHECKED_WARNING
 Unchecked call to 'add(E)' as a member of raw type 'java.util.ArrayList'
 in `baremaps-core/src/main/java/org/apache/baremaps/workflow/tasks/Entity.java`
@@ -208,90 +232,6 @@ in `baremaps-core/src/main/java/org/apache/baremaps/workflow/tasks/Entity.java`
 ```
 
 ### UNCHECKED_WARNING
-Unchecked call to 'forEach(Consumer)' as a member of raw type 'java.util.stream.Stream'
-in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/function/RelationGeometryBuilder.java`
-#### Snippet
-```java
-          }
-        });
-    lineMerger.getMergedLineStrings().stream().forEach(geometry -> {
-      LineString line = (LineString) geometry;
-      if (line.isClosed()) {
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.function.Supplier' to 'java.util.function.Supplier'
-in `baremaps-core/src/main/java/org/apache/baremaps/stream/SupplierUtils.java`
-#### Snippet
-```java
-   */
-  public static <T> Supplier<T> memoize(Supplier<T> supplier, int timeToLiveMillis) {
-    return new Supplier() {
-      long t1 = System.currentTimeMillis();
-      T value = supplier.get();
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.stream.Stream' to 'java.util.stream.Stream'. Reason: 'mergedGeometries' has raw type, so result of stream is erased
-in `baremaps-core/src/main/java/org/apache/baremaps/workflow/tasks/TransformEntityCollection.java`
-#### Snippet
-```java
-    var mergedGeometries = lineMerger.getMergedLineStrings();
-
-    return mergedGeometries.stream();
-  }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'set(int, E)' as a member of raw type 'java.util.List'
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/RowImpl.java`
-#### Snippet
-```java
-    for (int i = 0; i < schema().columns().size(); i++) {
-      if (schema().columns().get(i).name().equals(column)) {
-        values.set(i, value);
-        return;
-      }
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'de.bytefish.pgbulkinsert.pgsql.handlers.BaseValueHandler' to 'de.bytefish.pgbulkinsert.pgsql.handlers.BaseValueHandler'
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/postgres/PostgresStore.java`
-#### Snippet
-```java
-              writer.writeNull();
-            } else {
-              writer.write(typeToHandler.get(value.getClass()), value);
-            }
-          }
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'add(E)' as a member of raw type 'java.util.ArrayList'
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/flatgeobuf/internal/TableConversions.java`
-#### Snippet
-```java
-    var geometryBuffer = feature.geometry();
-    var geometry = GeometryConversions.deserialize(geometryBuffer, geometryBuffer.type());
-    values.add(geometry);
-
-    if (feature.propertiesLength() > 0) {
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'add(E)' as a member of raw type 'java.util.ArrayList'
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/flatgeobuf/internal/TableConversions.java`
-#### Snippet
-```java
-        var column = headerMeta.columns.get(type);
-        var value = readValue(propertiesBuffer, column);
-        values.add(value);
-      }
-    }
-```
-
-### UNCHECKED_WARNING
 Unchecked call to 'DataStack(DataList)' as a member of raw type 'org.apache.baremaps.collection.algorithm.ExternalMergeSort.DataStack'
 in `baremaps-core/src/main/java/org/apache/baremaps/collection/algorithm/ExternalMergeSort.java`
 #### Snippet
@@ -316,6 +256,30 @@ in `baremaps-core/src/main/java/org/apache/baremaps/collection/algorithm/Externa
 ```
 
 ### UNCHECKED_WARNING
+Unchecked call to 'set(int, E)' as a member of raw type 'java.util.List'
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/RowImpl.java`
+#### Snippet
+```java
+    for (int i = 0; i < schema().columns().size(); i++) {
+      if (schema().columns().get(i).name().equals(column)) {
+        values.set(i, value);
+        return;
+      }
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.stream.Stream' to 'java.util.stream.Stream'. Reason: 'mergedGeometries' has raw type, so result of stream is erased
+in `baremaps-core/src/main/java/org/apache/baremaps/workflow/tasks/TransformEntityCollection.java`
+#### Snippet
+```java
+    var mergedGeometries = lineMerger.getMergedLineStrings();
+
+    return mergedGeometries.stream();
+  }
+
+```
+
+### UNCHECKED_WARNING
 Unchecked assignment: 'java.util.List' to 'java.util.List'. Reason: 'geometryCollection' has raw type, so result of getGeometries is erased
 in `baremaps-core/src/main/java/org/apache/baremaps/storage/geopackage/GeoPackageTable.java`
 #### Snippet
@@ -325,6 +289,42 @@ in `baremaps-core/src/main/java/org/apache/baremaps/storage/geopackage/GeoPackag
     List<mil.nga.sf.Geometry> geometries = geometryCollection.getGeometries();
     return geometryFactory.createGeometryCollection(
         geometries.stream().map(this::asJtsGeometry).toArray(Geometry[]::new));
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'forEach(Consumer)' as a member of raw type 'java.util.stream.Stream'
+in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/function/RelationGeometryBuilder.java`
+#### Snippet
+```java
+          }
+        });
+    lineMerger.getMergedLineStrings().stream().forEach(geometry -> {
+      LineString line = (LineString) geometry;
+      if (line.isClosed()) {
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'de.bytefish.pgbulkinsert.pgsql.handlers.BaseValueHandler' to 'de.bytefish.pgbulkinsert.pgsql.handlers.BaseValueHandler'
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/postgres/PostgresStore.java`
+#### Snippet
+```java
+              writer.writeNull();
+            } else {
+              writer.write(typeToHandler.get(value.getClass()), value);
+            }
+          }
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.function.Supplier' to 'java.util.function.Supplier'
+in `baremaps-core/src/main/java/org/apache/baremaps/stream/SupplierUtils.java`
+#### Snippet
+```java
+   */
+  public static <T> Supplier<T> memoize(Supplier<T> supplier, int timeToLiveMillis) {
+    return new Supplier() {
+      long t1 = System.currentTimeMillis();
+      T value = supplier.get();
 ```
 
 ## RuleId[id=EmptyTryBlock]
@@ -379,35 +379,47 @@ in `baremaps-core/src/main/java/org/apache/baremaps/iploc/database/InetnumLocati
 
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
-Switch label `"OSMHeader"` is unreachable
-in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/function/BlobToBlockMapper.java`
+Method invocation `readAllBytes` may produce `NullPointerException`
+in `baremaps-server/src/main/java/org/apache/baremaps/server/ServerResources.java`
 #### Snippet
 ```java
-    try {
-      switch (blob.header().getType()) {
-        case "OSMHeader":
-          return new HeaderBlockReader(blob).read();
-        case "OSMData":
-```
-
-### DataFlowIssue
-Switch label `"OSMData"` is unreachable
-in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/function/BlobToBlockMapper.java`
-#### Snippet
-```java
-        case "OSMHeader":
-          return new HeaderBlockReader(blob).read();
-        case "OSMData":
-          return new DataBlockReader(blob).read();
-        default:
+    path = String.format("assets/%s", path);
+    try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(path)) {
+      var bytes = inputStream.readAllBytes();
+      return Response.ok().entity(bytes).build();
+    } catch (NullPointerException | IOException e) {
 ```
 
 ### DataFlowIssue
 Method invocation `readAllBytes` may produce `NullPointerException`
-in `baremaps-server/src/main/java/org/apache/baremaps/server/GeocoderResources.java`
+in `baremaps-server/src/main/java/org/apache/baremaps/server/DevResources.java`
 #### Snippet
 ```java
-    path = String.format("geocoder/%s", path);
+    path = String.format("assets/%s", path);
+    try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(path)) {
+      var bytes = inputStream.readAllBytes();
+      return Response.ok().entity(bytes).build();
+    } catch (NullPointerException | IOException e) {
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `baremaps-core/src/main/java/org/apache/baremaps/workflow/tasks/ExecuteSql.java`
+#### Snippet
+```java
+    var queries = Arrays.stream(sql.split(";"));
+    if (parallel) {
+      queries = queries.parallel();
+    }
+    queries.forEach(
+```
+
+### DataFlowIssue
+Method invocation `readAllBytes` may produce `NullPointerException`
+in `baremaps-server/src/main/java/org/apache/baremaps/server/IplocResources.java`
+#### Snippet
+```java
+    path = String.format("iploc/%s", path);
     try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(path)) {
       var bytes = inputStream.readAllBytes();
       return Response.ok().entity(bytes).build();
@@ -424,42 +436,6 @@ in `baremaps-core/src/main/java/org/apache/baremaps/collection/algorithm/Externa
       tmpStream = tmpStream.parallel();
     }
     if (distinct) {
-```
-
-### DataFlowIssue
-Method invocation `readAllBytes` may produce `NullPointerException`
-in `baremaps-server/src/main/java/org/apache/baremaps/server/DevResources.java`
-#### Snippet
-```java
-    path = String.format("assets/%s", path);
-    try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(path)) {
-      var bytes = inputStream.readAllBytes();
-      return Response.ok().entity(bytes).build();
-    } catch (NullPointerException | IOException e) {
-```
-
-### DataFlowIssue
-Method invocation `readAllBytes` may produce `NullPointerException`
-in `baremaps-server/src/main/java/org/apache/baremaps/server/ServerResources.java`
-#### Snippet
-```java
-    path = String.format("assets/%s", path);
-    try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(path)) {
-      var bytes = inputStream.readAllBytes();
-      return Response.ok().entity(bytes).build();
-    } catch (NullPointerException | IOException e) {
-```
-
-### DataFlowIssue
-Method invocation `readAllBytes` may produce `NullPointerException`
-in `baremaps-server/src/main/java/org/apache/baremaps/server/IplocResources.java`
-#### Snippet
-```java
-    path = String.format("iploc/%s", path);
-    try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(path)) {
-      var bytes = inputStream.readAllBytes();
-      return Response.ok().entity(bytes).build();
-    } catch (NullPointerException | IOException e) {
 ```
 
 ### DataFlowIssue
@@ -499,30 +475,42 @@ in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/xml/XmlEntityS
 ```
 
 ### DataFlowIssue
-Variable is already assigned to this value
-in `baremaps-core/src/main/java/org/apache/baremaps/workflow/tasks/ExecuteSql.java`
+Switch label `"OSMHeader"` is unreachable
+in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/function/BlobToBlockMapper.java`
 #### Snippet
 ```java
-    var queries = Arrays.stream(sql.split(";"));
-    if (parallel) {
-      queries = queries.parallel();
-    }
-    queries.forEach(
+    try {
+      switch (blob.header().getType()) {
+        case "OSMHeader":
+          return new HeaderBlockReader(blob).read();
+        case "OSMData":
+```
+
+### DataFlowIssue
+Switch label `"OSMData"` is unreachable
+in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/function/BlobToBlockMapper.java`
+#### Snippet
+```java
+        case "OSMHeader":
+          return new HeaderBlockReader(blob).read();
+        case "OSMData":
+          return new DataBlockReader(blob).read();
+        default:
+```
+
+### DataFlowIssue
+Method invocation `readAllBytes` may produce `NullPointerException`
+in `baremaps-server/src/main/java/org/apache/baremaps/server/GeocoderResources.java`
+#### Snippet
+```java
+    path = String.format("geocoder/%s", path);
+    try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(path)) {
+      var bytes = inputStream.readAllBytes();
+      return Response.ok().entity(bytes).build();
+    } catch (NullPointerException | IOException e) {
 ```
 
 ## RuleId[id=EmptyStatementBody]
-### EmptyStatementBody
-`while` statement has empty body
-in `baremaps-core/src/main/java/org/apache/baremaps/stream/BatchedSpliterator.java`
-#### Snippet
-```java
-  public Spliterator<T> trySplit() {
-    List<T> batch = new ArrayList<>();
-    while (batch.size() < batchSize && tryAdvance(batch::add)) {
-    }
-
-```
-
 ### EmptyStatementBody
 `if` statement has empty body
 in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/function/OpenstreetmapDocumentMapper.java`
@@ -535,19 +523,19 @@ in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/function/Opens
     }
 ```
 
-## RuleId[id=SimplifyStreamApiCallChains]
-### SimplifyStreamApiCallChains
-''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
-in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/function/RelationGeometryBuilder.java`
+### EmptyStatementBody
+`while` statement has empty body
+in `baremaps-core/src/main/java/org/apache/baremaps/stream/BatchedSpliterator.java`
 #### Snippet
 ```java
-          }
-        });
-    lineMerger.getMergedLineStrings().stream().forEach(geometry -> {
-      LineString line = (LineString) geometry;
-      if (line.isClosed()) {
+  public Spliterator<T> trySplit() {
+    List<T> batch = new ArrayList<>();
+    while (batch.size() < batchSize && tryAdvance(batch::add)) {
+    }
+
 ```
 
+## RuleId[id=SimplifyStreamApiCallChains]
 ### SimplifyStreamApiCallChains
 ''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
 in `baremaps-core/src/main/java/org/apache/baremaps/vectortile/VectorTileEncoder.java`
@@ -558,6 +546,18 @@ in `baremaps-core/src/main/java/org/apache/baremaps/vectortile/VectorTileEncoder
         .forEach(feature -> encodeFeature(feature, builder::addFeatures));
 
     // Encode the keys and values
+```
+
+### SimplifyStreamApiCallChains
+''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
+in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/function/RelationGeometryBuilder.java`
+#### Snippet
+```java
+          }
+        });
+    lineMerger.getMergedLineStrings().stream().forEach(geometry -> {
+      LineString line = (LineString) geometry;
+      if (line.isClosed()) {
 ```
 
 ## RuleId[id=ManualArrayCopy]
@@ -952,7 +952,7 @@ in `baremaps-core/src/main/java/org/apache/baremaps/config/ConfigReader.java`
 
 ### SwitchStatementWithTooFewBranches
 'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/xml/XmlChangeSpliterator.java`
+in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/xml/XmlEntitySpliterator.java`
 #### Snippet
 ```java
     reader.nextTag();
@@ -964,7 +964,7 @@ in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/xml/XmlChangeS
 
 ### SwitchStatementWithTooFewBranches
 'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/xml/XmlEntitySpliterator.java`
+in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/xml/XmlChangeSpliterator.java`
 #### Snippet
 ```java
     reader.nextTag();
@@ -989,6 +989,21 @@ in `baremaps-benchmark/src/main/java/org/apache/baremaps/benchmarks/DataMapBench
         throw new RuntimeException("Invalid value");
       }
     }
+```
+
+### DuplicatedCode
+Duplicated code
+in `baremaps-cli/src/main/java/org/apache/baremaps/cli/map/Serve.java`
+#### Snippet
+```java
+    var objectMapper = defaultObjectMapper();
+    var configReader = new ConfigReader();
+    var tileset = objectMapper.readValue(configReader.read(this.tileset), Tileset.class);
+    var caffeineSpec = CaffeineSpec.parse(cache);
+    var datasource = PostgresUtils.dataSource(database);
+
+    var tileStore = new PostgresTileStore(datasource, tileset);
+    var tileCache = new TileCache(tileStore, caffeineSpec);
 ```
 
 ### DuplicatedCode
@@ -1450,6 +1465,54 @@ in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/S
 ## RuleId[id=ProtectedMemberInFinalClass]
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
+in `baremaps-core/src/main/java/org/apache/baremaps/database/tile/Tile.java`
+#### Snippet
+```java
+  }
+
+  protected static Tile max(Envelope envelope, int zoom) {
+    return Tile.fromLonLat(envelope.getMaxX() - EPSILON, envelope.getMinY() + EPSILON, zoom);
+  }
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `baremaps-core/src/main/java/org/apache/baremaps/database/tile/Tile.java`
+#### Snippet
+```java
+  }
+
+  protected static Tile min(Envelope envelope, int zoom) {
+    return Tile.fromLonLat(envelope.getMinX(), envelope.getMaxY(), zoom);
+  }
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `baremaps-core/src/main/java/org/apache/baremaps/database/tile/Tile.java`
+#### Snippet
+```java
+  }
+
+  protected static double tile2lon(int x, int z) {
+    return x / Math.pow(2.0, z) * 360.0 - 180;
+  }
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `baremaps-core/src/main/java/org/apache/baremaps/database/tile/Tile.java`
+#### Snippet
+```java
+  }
+
+  protected static double tile2lat(int y, int z) {
+    double n = Math.PI - (2.0 * Math.PI * y) / Math.pow(2.0, z);
+    return Math.toDegrees(Math.atan(Math.sinh(n)));
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
 in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/model/Info.java`
 #### Snippet
 ```java
@@ -1458,6 +1521,18 @@ in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/model/Info.jav
   protected final LocalDateTime timestamp;
 
   protected final long changeset;
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/model/Info.java`
+#### Snippet
+```java
+public final class Info {
+
+  protected final int version;
+
+  protected final LocalDateTime timestamp;
 ```
 
 ### ProtectedMemberInFinalClass
@@ -1484,79 +1559,7 @@ in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/model/Info.jav
   protected final int uid;
 ```
 
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/model/Info.java`
-#### Snippet
-```java
-public final class Info {
-
-  protected final int version;
-
-  protected final LocalDateTime timestamp;
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `baremaps-core/src/main/java/org/apache/baremaps/database/tile/Tile.java`
-#### Snippet
-```java
-  }
-
-  protected static double tile2lat(int y, int z) {
-    double n = Math.PI - (2.0 * Math.PI * y) / Math.pow(2.0, z);
-    return Math.toDegrees(Math.atan(Math.sinh(n)));
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `baremaps-core/src/main/java/org/apache/baremaps/database/tile/Tile.java`
-#### Snippet
-```java
-  }
-
-  protected static double tile2lon(int x, int z) {
-    return x / Math.pow(2.0, z) * 360.0 - 180;
-  }
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `baremaps-core/src/main/java/org/apache/baremaps/database/tile/Tile.java`
-#### Snippet
-```java
-  }
-
-  protected static Tile max(Envelope envelope, int zoom) {
-    return Tile.fromLonLat(envelope.getMaxX() - EPSILON, envelope.getMinY() + EPSILON, zoom);
-  }
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `baremaps-core/src/main/java/org/apache/baremaps/database/tile/Tile.java`
-#### Snippet
-```java
-  }
-
-  protected static Tile min(Envelope envelope, int zoom) {
-    return Tile.fromLonLat(envelope.getMinX(), envelope.getMaxY(), zoom);
-  }
-```
-
 ## RuleId[id=StringBufferReplaceableByString]
-### StringBufferReplaceableByString
-`StringBuilder builder` can be replaced with 'String'
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/postgres/PostgresStore.java`
-#### Snippet
-```java
-   */
-  protected String copy(Schema schema) {
-    var builder = new StringBuilder();
-    builder.append("COPY \"");
-    builder.append(schema.name());
-```
-
 ### StringBufferReplaceableByString
 `StringBuilder builder` can be replaced with 'String'
 in `baremaps-core/src/main/java/org/apache/baremaps/storage/postgres/PostgresStore.java`
@@ -1569,29 +1572,65 @@ in `baremaps-core/src/main/java/org/apache/baremaps/storage/postgres/PostgresSto
     builder.append(schema.name());
 ```
 
-## RuleId[id=Deprecation]
-### Deprecation
-'stream(java.util.Collection)' is deprecated
-in `baremaps-core/src/main/java/org/apache/baremaps/collection/DataMap.java`
+### StringBufferReplaceableByString
+`StringBuilder builder` can be replaced with 'String'
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/postgres/PostgresStore.java`
 #### Snippet
 ```java
    */
-  public List<E> getAll(List<Long> keys) {
-    return Streams.stream(keys).map(this::get).toList();
-  }
+  protected String copy(Schema schema) {
+    var builder = new StringBuilder();
+    builder.append("COPY \"");
+    builder.append(schema.name());
+```
 
+## RuleId[id=Deprecation]
+### Deprecation
+'Version(int, int, int, java.lang.String)' is deprecated
+in `baremaps-core/src/main/java/org/apache/baremaps/vectortile/expression/Expressions.java`
+#### Snippet
+```java
+
+  public static Module jacksonModule() {
+    var simpleModule = new SimpleModule("SimpleModule", new Version(1, 0, 0, null));
+    simpleModule.addDeserializer(Expression.class, new ExpressionDeserializer());
+    return simpleModule;
 ```
 
 ### Deprecation
-'contextResolverFor(com.fasterxml.jackson.databind.ObjectMapper)' is deprecated
-in `baremaps-cli/src/main/java/org/apache/baremaps/cli/ogcapi/OgcApi.java`
+'Version(int, int, int, java.lang.String)' is deprecated
+in `baremaps-core/src/main/java/org/apache/baremaps/vectortile/expression/Expressions.java`
 #### Snippet
 ```java
-            TilesetsResource.class, StudioResource.class, ImportResource.class,
-            MultiPartFeature.class)
-        .register(new ApiResource("studio-openapi.yaml")).register(contextResolverFor(mapper))
-        .register(new AbstractBinder() {
-          @Override
+  static String write(Expression expression) throws IOException {
+    var mapper = new ObjectMapper();
+    var simpleModule = new SimpleModule("SimpleModule", new Version(1, 0, 0, null));
+    simpleModule.addSerializer(Expression.class, new ExpressionSerializer());
+    mapper.registerModule(simpleModule);
+```
+
+### Deprecation
+'Version(int, int, int, java.lang.String)' is deprecated
+in `baremaps-core/src/main/java/org/apache/baremaps/vectortile/expression/Expressions.java`
+#### Snippet
+```java
+  static Expression read(String json) throws IOException {
+    var mapper = new ObjectMapper();
+    var simpleModule = new SimpleModule("SimpleModule", new Version(1, 0, 0, null));
+    simpleModule.addDeserializer(Expression.class, new ExpressionDeserializer());
+    mapper.registerModule(simpleModule);
+```
+
+### Deprecation
+'createMultiPoint(org.locationtech.jts.geom.Coordinate\[\])' is deprecated
+in `baremaps-core/src/main/java/org/apache/baremaps/collection/type/geometry/MultiPointDataType.java`
+#### Snippet
+```java
+  public MultiPoint read(ByteBuffer buffer, int position) {
+    var coordinates = coordinateArrayDataType.read(buffer, position);
+    return geometryFactory.createMultiPoint(coordinates);
+  }
+}
 ```
 
 ### Deprecation
@@ -1607,42 +1646,6 @@ in `baremaps-cli/src/main/java/org/apache/baremaps/cli/map/Serve.java`
 ```
 
 ### Deprecation
-'Version(int, int, int, java.lang.String)' is deprecated
-in `baremaps-core/src/main/java/org/apache/baremaps/mvt/expression/Expressions.java`
-#### Snippet
-```java
-
-  public static Module jacksonModule() {
-    var simpleModule = new SimpleModule("SimpleModule", new Version(1, 0, 0, null));
-    simpleModule.addDeserializer(Expression.class, new ExpressionDeserializer());
-    return simpleModule;
-```
-
-### Deprecation
-'Version(int, int, int, java.lang.String)' is deprecated
-in `baremaps-core/src/main/java/org/apache/baremaps/mvt/expression/Expressions.java`
-#### Snippet
-```java
-  static Expression read(String json) throws IOException {
-    var mapper = new ObjectMapper();
-    var simpleModule = new SimpleModule("SimpleModule", new Version(1, 0, 0, null));
-    simpleModule.addDeserializer(Expression.class, new ExpressionDeserializer());
-    mapper.registerModule(simpleModule);
-```
-
-### Deprecation
-'Version(int, int, int, java.lang.String)' is deprecated
-in `baremaps-core/src/main/java/org/apache/baremaps/mvt/expression/Expressions.java`
-#### Snippet
-```java
-  static String write(Expression expression) throws IOException {
-    var mapper = new ObjectMapper();
-    var simpleModule = new SimpleModule("SimpleModule", new Version(1, 0, 0, null));
-    simpleModule.addSerializer(Expression.class, new ExpressionSerializer());
-    mapper.registerModule(simpleModule);
-```
-
-### Deprecation
 'contextResolverFor(com.fasterxml.jackson.databind.ObjectMapper)' is deprecated
 in `baremaps-cli/src/main/java/org/apache/baremaps/cli/map/Dev.java`
 #### Snippet
@@ -1655,15 +1658,15 @@ in `baremaps-cli/src/main/java/org/apache/baremaps/cli/map/Dev.java`
 ```
 
 ### Deprecation
-'createMultiPoint(org.locationtech.jts.geom.Coordinate\[\])' is deprecated
-in `baremaps-core/src/main/java/org/apache/baremaps/collection/type/geometry/MultiPointDataType.java`
+'stream(java.util.Collection)' is deprecated
+in `baremaps-core/src/main/java/org/apache/baremaps/collection/DataMap.java`
 #### Snippet
 ```java
-  public MultiPoint read(ByteBuffer buffer, int position) {
-    var coordinates = coordinateArrayDataType.read(buffer, position);
-    return geometryFactory.createMultiPoint(coordinates);
+   */
+  public List<E> getAll(List<Long> keys) {
+    return Streams.stream(keys).map(this::get).toList();
   }
-}
+
 ```
 
 ## RuleId[id=UnnecessaryReturn]
@@ -1706,18 +1709,6 @@ in `baremaps-core/src/main/java/org/apache/baremaps/collection/MonotonicDataMap.
 ```
 
 ### SuspiciousMethodCalls
-Suspicious call to 'Collection.contains()'
-in `baremaps-core/src/main/java/org/apache/baremaps/collection/MemoryAlignedDataMap.java`
-#### Snippet
-```java
-  @Override
-  public boolean containsValue(Object value) {
-    return values().contains(value);
-  }
-
-```
-
-### SuspiciousMethodCalls
 Suspicious call to 'AbstractCollection.contains()'
 in `baremaps-core/src/main/java/org/apache/baremaps/collection/MonotonicFixedSizeDataMap.java`
 #### Snippet
@@ -1741,17 +1732,29 @@ in `baremaps-core/src/main/java/org/apache/baremaps/collection/MonotonicFixedSiz
 
 ```
 
-## RuleId[id=NullableProblems]
-### NullableProblems
-Not annotated method overrides method annotated with @NotNull
-in `baremaps-core/src/main/java/org/apache/baremaps/workflow/tasks/TransformEntityCollection.java`
+### SuspiciousMethodCalls
+Suspicious call to 'Collection.contains()'
+in `baremaps-core/src/main/java/org/apache/baremaps/collection/MemoryAlignedDataMap.java`
 #### Snippet
 ```java
+  @Override
+  public boolean containsValue(Object value) {
+    return values().contains(value);
+  }
 
-      @Override
-      public Iterator<Row> iterator() {
-        return groups.entrySet().stream().flatMap(entry -> {
-          var tags = IntStream.range(0, recipe.groupBy.size()).boxed()
+```
+
+## RuleId[id=NullableProblems]
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/utils/InputStreamProgress.java`
+#### Snippet
+```java
+  /** {@inheritDoc} */
+  @Override
+  public int read(byte[] b, int off, int len) throws IOException {
+    int n = super.read(b, off, len);
+    if (n != -1) {
 ```
 
 ### NullableProblems
@@ -1767,184 +1770,28 @@ in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/utils/InputStr
 ```
 
 ### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/utils/InputStreamProgress.java`
+Not annotated method overrides method annotated with @NotNull
+in `baremaps-core/src/main/java/org/apache/baremaps/workflow/tasks/TransformEntityCollection.java`
 #### Snippet
 ```java
-  /** {@inheritDoc} */
-  @Override
-  public int read(byte[] b, int off, int len) throws IOException {
-    int n = super.read(b, off, len);
-    if (n != -1) {
+
+      @Override
+      public Iterator<Row> iterator() {
+        return groups.entrySet().stream().flatMap(entry -> {
+          var tags = IntStream.range(0, recipe.groupBy.size()).boxed()
 ```
 
 ## RuleId[id=FieldCanBeLocal]
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `baremaps-core/src/main/java/org/apache/baremaps/iploc/IpLoc.java`
+in `baremaps-core/src/main/java/org/apache/baremaps/database/tile/PostgresQueryGenerator.java`
 #### Snippet
 ```java
-public class IpLoc {
+  private final String schemaPattern;
+  private final String tableNamePattern;
+  private final String columnNamePattern;
+  private final String[] types;
 
-  private final float SCORE_THRESHOLD = 0.1f;
-
-  private final InetnumLocationDao inetnumLocationDao;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `baremaps-cli/src/main/java/org/apache/baremaps/cli/ogcapi/OgcApi.java`
-#### Snippet
-```java
-
-  @Option(names = {"--port"}, paramLabel = "PORT", description = "The port of the server.")
-  private int port = 9000;
-
-  @Override
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `baremaps-cli/src/main/java/org/apache/baremaps/cli/map/Serve.java`
-#### Snippet
-```java
-
-  @Option(names = {"--cache"}, paramLabel = "CACHE", description = "The caffeine cache directive.")
-  private String cache = "";
-
-  @Option(names = {"--tileset"}, paramLabel = "TILESET", description = "The tileset file.",
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `baremaps-cli/src/main/java/org/apache/baremaps/cli/map/Serve.java`
-#### Snippet
-```java
-
-  @Option(names = {"--port"}, paramLabel = "PORT", description = "The port of the server.")
-  private int port = 9000;
-
-  @Override
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `baremaps-cli/src/main/java/org/apache/baremaps/cli/database/UpdateOpenStreetMap.java`
-#### Snippet
-```java
-  @Option(names = {"--srid"}, paramLabel = "SRID",
-      description = "The projection used by the database.")
-  private int srid = 3857;
-
-  @Override
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `baremaps-cli/src/main/java/org/apache/baremaps/cli/map/Dev.java`
-#### Snippet
-```java
-
-  @Option(names = {"--port"}, paramLabel = "PORT", description = "The port of the server.")
-  private int port = 9000;
-
-  @Override
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `baremaps-cli/src/main/java/org/apache/baremaps/cli/geocoder/Serve.java`
-#### Snippet
-```java
-
-  @Option(names = {"--port"}, paramLabel = "PORT", description = "The port of the server.")
-  private int port = 9000;
-
-  @Override
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `baremaps-cli/src/main/java/org/apache/baremaps/cli/database/ImportOpenStreetMap.java`
-#### Snippet
-```java
-  @Option(names = {"--srid"}, paramLabel = "SRID",
-      description = "The projection used by the database.")
-  private int srid = 3857;
-
-  @Override
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `baremaps-cli/src/main/java/org/apache/baremaps/cli/map/Export.java`
-#### Snippet
-```java
-  @Option(names = {"--batch-array-index"}, paramLabel = "READER",
-      description = "The index of the batch in the array.")
-  private int batchArrayIndex = 0;
-
-  @Option(names = {"--mbtiles"}, paramLabel = "MBTILES",
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `baremaps-cli/src/main/java/org/apache/baremaps/cli/map/Export.java`
-#### Snippet
-```java
-  @Option(names = {"--batch-array-size"}, paramLabel = "BATCH_ARRAY_SIZE",
-      description = "The size of the batch array.")
-  private int batchArraySize = 1;
-
-  @Option(names = {"--batch-array-index"}, paramLabel = "READER",
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `baremaps-cli/src/main/java/org/apache/baremaps/cli/map/Export.java`
-#### Snippet
-```java
-  @Option(names = {"--mbtiles"}, paramLabel = "MBTILES",
-      description = "The repository is in the MBTiles format.")
-  private boolean mbtiles = false;
-
-  @Override
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileInputStream.java`
-#### Snippet
-```java
-
-  /** Shapefile. */
-  private File shapefile;
-
-  /** Database file. */
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileInputStream.java`
-#### Snippet
-```java
-
-  /** Database file. */
-  private File databaseFile;
-
-  /** Shapefile index. */
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `baremaps-ogcapi/src/main/java/org/apache/baremaps/ogcapi/ImportResource.java`
-#### Snippet
-```java
-public class ImportResource {
-
-  private final Jdbi jdbi;
-
-  @Inject
 ```
 
 ### FieldCanBeLocal
@@ -1973,26 +1820,110 @@ in `baremaps-core/src/main/java/org/apache/baremaps/database/tile/TileIterator.j
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/DbaseByteReader.java`
+in `baremaps-cli/src/main/java/org/apache/baremaps/cli/database/ImportOpenStreetMap.java`
 #### Snippet
 ```java
+  @Option(names = {"--srid"}, paramLabel = "SRID",
+      description = "The projection used by the database.")
+  private int srid = 3857;
 
-  /** Connection properties. */
-  private Properties info;
-
-  /**
+  @Override
 ```
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileByteReader.java`
+in `baremaps-cli/src/main/java/org/apache/baremaps/cli/geocoder/Serve.java`
 #### Snippet
 ```java
 
-  /** Shapefile records lengths (loaded from .SHX file, if any found). */
-  private ArrayList<Integer> recordsLengths;
+  @Option(names = {"--port"}, paramLabel = "PORT", description = "The port of the server.")
+  private int port = 9000;
 
-  /** JTS geometry factory. */
+  @Override
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `baremaps-cli/src/main/java/org/apache/baremaps/cli/map/Export.java`
+#### Snippet
+```java
+  @Option(names = {"--batch-array-index"}, paramLabel = "READER",
+      description = "The index of the batch in the array.")
+  private int batchArrayIndex = 0;
+
+  @Option(names = {"--mbtiles"}, paramLabel = "MBTILES",
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `baremaps-cli/src/main/java/org/apache/baremaps/cli/map/Export.java`
+#### Snippet
+```java
+  @Option(names = {"--mbtiles"}, paramLabel = "MBTILES",
+      description = "The repository is in the MBTiles format.")
+  private boolean mbtiles = false;
+
+  @Override
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `baremaps-cli/src/main/java/org/apache/baremaps/cli/map/Export.java`
+#### Snippet
+```java
+  @Option(names = {"--batch-array-size"}, paramLabel = "BATCH_ARRAY_SIZE",
+      description = "The size of the batch array.")
+  private int batchArraySize = 1;
+
+  @Option(names = {"--batch-array-index"}, paramLabel = "READER",
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `baremaps-cli/src/main/java/org/apache/baremaps/cli/database/UpdateOpenStreetMap.java`
+#### Snippet
+```java
+  @Option(names = {"--srid"}, paramLabel = "SRID",
+      description = "The projection used by the database.")
+  private int srid = 3857;
+
+  @Override
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `baremaps-cli/src/main/java/org/apache/baremaps/cli/ogcapi/OgcApi.java`
+#### Snippet
+```java
+
+  @Option(names = {"--cache"}, paramLabel = "CACHE", description = "The caffeine cache directive.")
+  private String cache = "";
+
+  @Option(names = {"--tileset"}, paramLabel = "TILESET", description = "The tileset file.",
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `baremaps-cli/src/main/java/org/apache/baremaps/cli/ogcapi/OgcApi.java`
+#### Snippet
+```java
+
+  @Option(names = {"--port"}, paramLabel = "PORT", description = "The port of the server.")
+  private int port = 9000;
+
+  @Override
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/DBaseFieldDescriptor.java`
+#### Snippet
+```java
+
+  /** Reserved 3. */
+  private byte[] dbasePlusLanReserved3 = new byte[2];
+
+  /** Undocumented use. */
 ```
 
 ### FieldCanBeLocal
@@ -2024,18 +1955,6 @@ Field can be converted to a local variable
 in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/DBaseFieldDescriptor.java`
 #### Snippet
 ```java
-
-  /** Reserved 3. */
-  private byte[] dbasePlusLanReserved3 = new byte[2];
-
-  /** Undocumented use. */
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/DBaseFieldDescriptor.java`
-#### Snippet
-```java
   /** Work area id. */
   @SuppressWarnings("unused") // Kept in case of later ALTER TABLE sql calls.
   private byte workAreaID;
@@ -2057,7 +1976,7 @@ in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/D
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `baremaps-cli/src/main/java/org/apache/baremaps/cli/iploc/Serve.java`
+in `baremaps-cli/src/main/java/org/apache/baremaps/cli/map/Serve.java`
 #### Snippet
 ```java
 
@@ -2069,12 +1988,84 @@ in `baremaps-cli/src/main/java/org/apache/baremaps/cli/iploc/Serve.java`
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `baremaps-cli/src/main/java/org/apache/baremaps/cli/geocoder/Search.java`
+in `baremaps-cli/src/main/java/org/apache/baremaps/cli/map/Serve.java`
 #### Snippet
 ```java
-      names = {"--limit"}, paramLabel = "LIMIT",
-      description = "The number of result to return.", required = false)
-  private Integer limit = 10;
+
+  @Option(names = {"--cache"}, paramLabel = "CACHE", description = "The caffeine cache directive.")
+  private String cache = "";
+
+  @Option(names = {"--tileset"}, paramLabel = "TILESET", description = "The tileset file.",
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `baremaps-cli/src/main/java/org/apache/baremaps/cli/map/Dev.java`
+#### Snippet
+```java
+
+  @Option(names = {"--port"}, paramLabel = "PORT", description = "The port of the server.")
+  private int port = 9000;
+
+  @Override
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileInputStream.java`
+#### Snippet
+```java
+
+  /** Database file. */
+  private File databaseFile;
+
+  /** Shapefile index. */
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileInputStream.java`
+#### Snippet
+```java
+
+  /** Shapefile. */
+  private File shapefile;
+
+  /** Database file. */
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `baremaps-core/src/main/java/org/apache/baremaps/iploc/IpLoc.java`
+#### Snippet
+```java
+public class IpLoc {
+
+  private final float SCORE_THRESHOLD = 0.1f;
+
+  private final InetnumLocationDao inetnumLocationDao;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/DbaseByteReader.java`
+#### Snippet
+```java
+
+  /** Connection properties. */
+  private Properties info;
+
+  /**
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `baremaps-cli/src/main/java/org/apache/baremaps/cli/iploc/Serve.java`
+#### Snippet
+```java
+
+  @Option(names = {"--port"}, paramLabel = "PORT", description = "The port of the server.")
+  private int port = 9000;
 
   @Override
 ```
@@ -2093,29 +2084,29 @@ in `baremaps-cli/src/main/java/org/apache/baremaps/cli/geocoder/Search.java`
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `baremaps-core/src/main/java/org/apache/baremaps/database/tile/PostgresQueryGenerator.java`
+in `baremaps-cli/src/main/java/org/apache/baremaps/cli/geocoder/Search.java`
 #### Snippet
 ```java
-  private final String schemaPattern;
-  private final String tableNamePattern;
-  private final String columnNamePattern;
-  private final String[] types;
+      names = {"--limit"}, paramLabel = "LIMIT",
+      description = "The number of result to return.", required = false)
+  private Integer limit = 10;
 
+  @Override
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileByteReader.java`
+#### Snippet
+```java
+
+  /** Shapefile records lengths (loaded from .SHX file, if any found). */
+  private ArrayList<Integer> recordsLengths;
+
+  /** JTS geometry factory. */
 ```
 
 ## RuleId[id=IgnoreResultOfCall]
-### IgnoreResultOfCall
-Result of `FileChannel.write()` is ignored
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/flatgeobuf/FlatGeoBufTable.java`
-#### Snippet
-```java
-        ByteBuffer data = featureBuilder.dataBuffer();
-        while (data.hasRemaining()) {
-          channel.write(data);
-        }
-      }
-```
-
 ### IgnoreResultOfCall
 Result of `File.delete()` is ignored
 in `baremaps-core/src/main/java/org/apache/baremaps/collection/utils/FileUtils.java`
@@ -2126,6 +2117,18 @@ in `baremaps-core/src/main/java/org/apache/baremaps/collection/utils/FileUtils.j
       files.sorted(Comparator.reverseOrder()).map(Path::toFile).forEach(File::delete);
     }
   }
+```
+
+### IgnoreResultOfCall
+Result of `FileChannel.write()` is ignored
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/flatgeobuf/FlatGeoBufTable.java`
+#### Snippet
+```java
+        ByteBuffer data = featureBuilder.dataBuffer();
+        while (data.hasRemaining()) {
+          channel.write(data);
+        }
+      }
 ```
 
 ## RuleId[id=AccessStaticViaInstance]
@@ -2160,9 +2163,9 @@ in `baremaps-cli/src/main/java/org/apache/baremaps/cli/geocoder/Search.java`
 #### Snippet
 ```java
   @Option(
-      names = {"--limit"}, paramLabel = "LIMIT",
-      description = "The number of result to return.", required = false)
-  private Integer limit = 10;
+      names = {"--country"}, paramLabel = "COUNTRY", description = "The country code filter.",
+      required = false)
+  private String countryCode = "";
 
 ```
 
@@ -2172,9 +2175,9 @@ in `baremaps-cli/src/main/java/org/apache/baremaps/cli/geocoder/Search.java`
 #### Snippet
 ```java
   @Option(
-      names = {"--country"}, paramLabel = "COUNTRY", description = "The country code filter.",
-      required = false)
-  private String countryCode = "";
+      names = {"--limit"}, paramLabel = "LIMIT",
+      description = "The number of result to return.", required = false)
+  private Integer limit = 10;
 
 ```
 
@@ -2193,543 +2196,51 @@ in `baremaps-core/src/main/java/org/apache/baremaps/collection/type/geometry/Pol
 
 ## RuleId[id=JavadocDeclaration]
 ### JavadocDeclaration
-`@return` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/iploc/nic/NicObject.java`
+`@param input` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/pbf/BlobIterator.java`
 #### Snippet
 ```java
-   * Return the attributes as a map
+   * Constructs a {@code BlobIterator} with the specified {@code InputStream}.
    *
-   * @return
+   * @param input
    */
-  public Map<String, String> toMap() {
+  public BlobIterator(InputStream input) {
 ```
 
 ### JavadocDeclaration
-`@param latitude` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/iploc/data/Location.java`
+`@param input` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/xml/XmlEntityReader.java`
 #### Snippet
 ```java
-   * Create a new location using the given latitude and longitude
+   * Creates an ordered stream of OSM entities from a XML file.
    *
-   * @param latitude
-   * @param longitude
-   */
-```
-
-### JavadocDeclaration
-`@param longitude` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/iploc/data/Location.java`
-#### Snippet
-```java
-   *
-   * @param latitude
-   * @param longitude
-   */
-  public Location(double latitude, double longitude) {
-```
-
-### JavadocDeclaration
-`@param uniqueIpResource` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/iploc/data/Ipv4.java`
-#### Snippet
-```java
-   * Construct an Ipv4 from a UniqueIpResource
-   *
-   * @param uniqueIpResource
-   */
-  protected Ipv4(UniqueIpResource uniqueIpResource) {
-```
-
-### JavadocDeclaration
-`@param bytes` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/iploc/data/Ipv4.java`
-#### Snippet
-```java
-   * zero byte to prevent negative value in the two's-complement binary representation
-   *
-   * @param bytes
+   * @param input
    * @return
    */
 ```
 
 ### JavadocDeclaration
 `@return` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/iploc/data/Ipv4.java`
+in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/xml/XmlEntityReader.java`
 #### Snippet
 ```java
    *
-   * @param bytes
+   * @param input
    * @return
    */
-  private static byte[] forceIpOn4Bytes(byte[] bytes) {
-```
-
-### JavadocDeclaration
-`@param ip` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/iploc/data/Ipv4.java`
-#### Snippet
-```java
-   * Constructs an Ipv4 range from an ip
-   *
-   * @param ip
-   */
-  public Ipv4(byte[] ip) {
+  public Stream<Entity> stream(InputStream input) {
 ```
 
 ### JavadocDeclaration
 `@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/iploc/IpLoc.java`
+in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/HeaderRepository.java`
 #### Snippet
 ```java
-   * @param nicObject the nicObject
-   * @return the optional inetnum location
-   * @throws IOException
-   * @throws ParseException
+   * Selects all the headers.
+   *
+   * @throws RepositoryException
    */
-```
-
-### JavadocDeclaration
-IOException is not declared to be thrown by method nicObjectToInetnumLocation
-in `baremaps-core/src/main/java/org/apache/baremaps/iploc/IpLoc.java`
-#### Snippet
-```java
-   * @param nicObject the nicObject
-   * @return the optional inetnum location
-   * @throws IOException
-   * @throws ParseException
-   */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/iploc/IpLoc.java`
-#### Snippet
-```java
-   * @return the optional inetnum location
-   * @throws IOException
-   * @throws ParseException
-   */
-  private Optional<InetnumLocation> nicObjectToInetnumLocation(NicObject nicObject) {
-```
-
-### JavadocDeclaration
-ParseException is not declared to be thrown by method nicObjectToInetnumLocation
-in `baremaps-core/src/main/java/org/apache/baremaps/iploc/IpLoc.java`
-#### Snippet
-```java
-   * @return the optional inetnum location
-   * @throws IOException
-   * @throws ParseException
-   */
-  private Optional<InetnumLocation> nicObjectToInetnumLocation(NicObject nicObject) {
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/iploc/IpLoc.java`
-#### Snippet
-```java
-   * @param countryCode the country code filter
-   * @return an optional of the location
-   * @throws IOException
-   * @throws ParseException
-   */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/iploc/IpLoc.java`
-#### Snippet
-```java
-   * @return an optional of the location
-   * @throws IOException
-   * @throws ParseException
-   */
-  private Optional<Location> findLocation(String searchTerms, String countryCode)
-```
-
-### JavadocDeclaration
-`@param asyncStream` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
-#### Snippet
-```java
-   * and a buffer size.
-   *
-   * @param asyncStream
-   * @param completionOrder
-   * @param <T>
-```
-
-### JavadocDeclaration
-`@param completionOrder` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
-#### Snippet
-```java
-   *
-   * @param asyncStream
-   * @param completionOrder
-   * @param <T>
-   * @return a buffered stream
-```
-
-### JavadocDeclaration
-`@param ` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
-#### Snippet
-```java
-   * @param asyncStream
-   * @param completionOrder
-   * @param <T>
-   * @return a buffered stream
-   */
-```
-
-### JavadocDeclaration
-`@param stream` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
-#### Snippet
-```java
-   * Buffer the asynchronous mapping of the provided stream according to a buffer size.
-   *
-   * @param stream
-   * @param asyncMapper
-   * @param bufferSize
-```
-
-### JavadocDeclaration
-`@param asyncMapper` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
-#### Snippet
-```java
-   *
-   * @param stream
-   * @param asyncMapper
-   * @param bufferSize
-   * @param <T>
-```
-
-### JavadocDeclaration
-`@param bufferSize` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
-#### Snippet
-```java
-   * @param stream
-   * @param asyncMapper
-   * @param bufferSize
-   * @param <T>
-   * @return a buffered stream
-```
-
-### JavadocDeclaration
-`@param ` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
-#### Snippet
-```java
-   * @param asyncMapper
-   * @param bufferSize
-   * @param <T>
-   * @return a buffered stream
-   */
-```
-
-### JavadocDeclaration
-`@param stream` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
-#### Snippet
-```java
-   * Parallelize the provided stream of unknown size and split it according to the batch size.
-   *
-   * @param stream
-   * @param batchSize
-   * @param <T>
-```
-
-### JavadocDeclaration
-`@param batchSize` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
-#### Snippet
-```java
-   *
-   * @param stream
-   * @param batchSize
-   * @param <T>
-   * @return a parallel stream
-```
-
-### JavadocDeclaration
-`@param ` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
-#### Snippet
-```java
-   * @param stream
-   * @param batchSize
-   * @param <T>
-   * @return a parallel stream
-   */
-```
-
-### JavadocDeclaration
-`@param asyncStream` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
-#### Snippet
-```java
-   * and a buffer size.
-   *
-   * @param asyncStream
-   * @param completionOrder
-   * @param bufferSize
-```
-
-### JavadocDeclaration
-`@param completionOrder` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
-#### Snippet
-```java
-   *
-   * @param asyncStream
-   * @param completionOrder
-   * @param bufferSize
-   * @param <T>
-```
-
-### JavadocDeclaration
-`@param bufferSize` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
-#### Snippet
-```java
-   * @param asyncStream
-   * @param completionOrder
-   * @param bufferSize
-   * @param <T>
-   * @return a buffered stream
-```
-
-### JavadocDeclaration
-`@param ` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
-#### Snippet
-```java
-   * @param completionOrder
-   * @param bufferSize
-   * @param <T>
-   * @return a buffered stream
-   */
-```
-
-### JavadocDeclaration
-`@param stream` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
-#### Snippet
-```java
-   * Buffer the asynchronous mapping of the provided stream according to a buffer size.
-   *
-   * @param stream
-   * @param asyncMapper
-   * @param bufferSize
-```
-
-### JavadocDeclaration
-`@param asyncMapper` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
-#### Snippet
-```java
-   *
-   * @param stream
-   * @param asyncMapper
-   * @param bufferSize
-   * @param <T>
-```
-
-### JavadocDeclaration
-`@param bufferSize` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
-#### Snippet
-```java
-   * @param stream
-   * @param asyncMapper
-   * @param bufferSize
-   * @param <T>
-   * @return a buffered stream
-```
-
-### JavadocDeclaration
-`@param ` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
-#### Snippet
-```java
-   * @param asyncMapper
-   * @param bufferSize
-   * @param <T>
-   * @return a buffered stream
-   */
-```
-
-### JavadocDeclaration
-`@param stream` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
-#### Snippet
-```java
-   * Parallelize the provided stream of unknown size.
-   *
-   * @param stream
-   * @param <T>
-   * @return a parallel stream
-```
-
-### JavadocDeclaration
-`@param ` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
-#### Snippet
-```java
-   *
-   * @param stream
-   * @param <T>
-   * @return a parallel stream
-   */
-```
-
-### JavadocDeclaration
-`@param asyncStream` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
-#### Snippet
-```java
-   * Buffer the completion of the provided asynchronous stream according to a buffer size.
-   *
-   * @param asyncStream
-   * @param bufferSize
-   * @param <T>
-```
-
-### JavadocDeclaration
-`@param bufferSize` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
-#### Snippet
-```java
-   *
-   * @param asyncStream
-   * @param bufferSize
-   * @param <T>
-   * @return a buffered stream
-```
-
-### JavadocDeclaration
-`@param ` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
-#### Snippet
-```java
-   * @param asyncStream
-   * @param bufferSize
-   * @param <T>
-   * @return a buffered stream
-   */
-```
-
-### JavadocDeclaration
-`@param asyncStream` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
-#### Snippet
-```java
-   * Buffer the completion of the provided asynchronous stream according to a buffer size.
-   *
-   * @param asyncStream
-   * @param bufferSize
-   * @param <T>
-```
-
-### JavadocDeclaration
-`@param bufferSize` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
-#### Snippet
-```java
-   *
-   * @param asyncStream
-   * @param bufferSize
-   * @param <T>
-   * @return a buffered stream
-```
-
-### JavadocDeclaration
-`@param ` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
-#### Snippet
-```java
-   * @param asyncStream
-   * @param bufferSize
-   * @param <T>
-   * @return a buffered stream
-   */
-```
-
-### JavadocDeclaration
-`@param stream` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
-#### Snippet
-```java
-   * Buffer the asynchronous mapping of the provided stream according to a buffer size.
-   *
-   * @param stream
-   * @param asyncMapper
-   * @param bufferSize
-```
-
-### JavadocDeclaration
-`@param asyncMapper` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
-#### Snippet
-```java
-   *
-   * @param stream
-   * @param asyncMapper
-   * @param bufferSize
-   * @param <T>
-```
-
-### JavadocDeclaration
-`@param bufferSize` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
-#### Snippet
-```java
-   * @param stream
-   * @param asyncMapper
-   * @param bufferSize
-   * @param <T>
-   * @return a buffered stream
-```
-
-### JavadocDeclaration
-`@param ` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
-#### Snippet
-```java
-   * @param asyncMapper
-   * @param bufferSize
-   * @param <T>
-   * @return a buffered stream
-   */
-```
-
-### JavadocDeclaration
-`@param iterator` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
-#### Snippet
-```java
-   * Create an ordered sequential stream from an iterator of unknown size.
-   *
-   * @param iterator
-   * @param <T>
-   * @return a ordered sequential stream.
-```
-
-### JavadocDeclaration
-`@param ` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
-#### Snippet
-```java
-   *
-   * @param iterator
-   * @param <T>
-   * @return a ordered sequential stream.
-   */
+  List<Header> selectAll() throws RepositoryException;
 ```
 
 ### JavadocDeclaration
@@ -2746,98 +2257,134 @@ in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/HeaderRe
 
 ### JavadocDeclaration
 `@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/HeaderRepository.java`
+in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/pbf/HeaderBlockReader.java`
 #### Snippet
 ```java
-   * Selects all the headers.
+   *
+   * @param blob the blob
+   * @throws DataFormatException
+   * @throws InvalidProtocolBufferException
+   */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/pbf/HeaderBlockReader.java`
+#### Snippet
+```java
+   * @param blob the blob
+   * @throws DataFormatException
+   * @throws InvalidProtocolBufferException
+   */
+  public HeaderBlockReader(Blob blob) throws DataFormatException, InvalidProtocolBufferException {
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/Repository.java`
+#### Snippet
+```java
+   * @param keys a list of keys
+   * @return a list of values
+   * @throws RepositoryException
+   */
+  List<V> get(List<K> keys) throws RepositoryException;
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/Repository.java`
+#### Snippet
+```java
+   *
+   * @param value the value to put
+   * @throws RepositoryException
+   */
+  void put(V value) throws RepositoryException;
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/Repository.java`
+#### Snippet
+```java
+   *
+   * @param values a list of the values to put
+   * @throws RepositoryException
+   */
+  void put(List<V> values) throws RepositoryException;
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/Repository.java`
+#### Snippet
+```java
+   *
+   * @param keys the list of keys
+   * @throws RepositoryException
+   */
+  void delete(List<K> keys) throws RepositoryException;
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/Repository.java`
+#### Snippet
+```java
+   * Truncate the repository.
    *
    * @throws RepositoryException
    */
-  List<Header> selectAll() throws RepositoryException;
+  void truncate() throws RepositoryException;
 ```
 
 ### JavadocDeclaration
-`@param start` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/iploc/data/Ipv4Range.java`
+`@throws` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/Repository.java`
 #### Snippet
 ```java
-   * Constructs an Ipv4 range from a start and end ips
-   *
-   * @param start
-   * @param end
+   * @param key the id of the value
+   * @return the selected value if it exists, null otherwise
+   * @throws RepositoryException
    */
+  V get(K key) throws RepositoryException;
 ```
 
 ### JavadocDeclaration
-`@param end` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/iploc/data/Ipv4Range.java`
+`@throws` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/Repository.java`
 #### Snippet
 ```java
+   * Drops the repository.
    *
-   * @param start
-   * @param end
+   * @throws RepositoryException
    */
-  public Ipv4Range(byte[] start, byte[] end) {
+  void drop() throws RepositoryException;
 ```
 
 ### JavadocDeclaration
-`@param wkb` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/utils/GeometryUtils.java`
+`@throws` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/Repository.java`
 #### Snippet
 ```java
-   * Deserializes a geometry in the WKB format.
+   * Creates the repository.
    *
-   * @param wkb
-   * @return
+   * @throws RepositoryException
    */
+  void create() throws RepositoryException;
 ```
 
 ### JavadocDeclaration
-`@return` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/utils/GeometryUtils.java`
+`@throws` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/Repository.java`
 #### Snippet
 ```java
    *
-   * @param wkb
-   * @return
+   * @param key the key of the value to delete
+   * @throws RepositoryException
    */
-  public static Geometry deserialize(byte[] wkb) {
-```
-
-### JavadocDeclaration
-`@param geometry` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/utils/GeometryUtils.java`
-#### Snippet
-```java
-   * Serializes a geometry in the WKB format.
-   *
-   * @param geometry
-   * @return
-   */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/utils/GeometryUtils.java`
-#### Snippet
-```java
-   *
-   * @param geometry
-   * @return
-   */
-  public static byte[] serialize(Geometry geometry) {
-```
-
-### JavadocDeclaration
-`@param dataSource` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresHeaderRepository.java`
-#### Snippet
-```java
-   * Constructs a {@code PostgresHeaderRepository}.
-   *
-   * @param dataSource
-   */
-  public PostgresHeaderRepository(DataSource dataSource) {
+  void delete(K key) throws RepositoryException;
 ```
 
 ### JavadocDeclaration
@@ -2925,12 +2472,24 @@ in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/Postgres
 ```
 
 ### JavadocDeclaration
+`@param dataSource` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresHeaderRepository.java`
+#### Snippet
+```java
+   * Constructs a {@code PostgresHeaderRepository}.
+   *
+   * @param dataSource
+   */
+  public PostgresHeaderRepository(DataSource dataSource) {
+```
+
+### JavadocDeclaration
 `@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/model/Blob.java`
+in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/pbf/DataBlockReader.java`
 #### Snippet
 ```java
    *
-   * @return the data
+   * @param blob the blob
    * @throws DataFormatException
    * @throws InvalidProtocolBufferException
    */
@@ -2938,158 +2497,74 @@ in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/model/Blob.jav
 
 ### JavadocDeclaration
 `@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/model/Blob.java`
+in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/pbf/DataBlockReader.java`
 #### Snippet
 ```java
-   * @return the data
+   * @param blob the blob
    * @throws DataFormatException
    * @throws InvalidProtocolBufferException
    */
-  public ByteString data() throws DataFormatException, InvalidProtocolBufferException {
+  public DataBlockReader(Blob blob) throws DataFormatException, InvalidProtocolBufferException {
 ```
 
 ### JavadocDeclaration
-`@param dataSource` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresNodeRepository.java`
+`@param input` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/xml/XmlChangeReader.java`
 #### Snippet
 ```java
-   * Constructs a {@code PostgresNodeRepository} with custom parameters.
+   * Creates an ordered stream of OSM changes from an XML file.
    *
-   * @param dataSource
-   * @param tableName
-   * @param idColumn
-```
-
-### JavadocDeclaration
-`@param tableName` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresNodeRepository.java`
-#### Snippet
-```java
-   *
-   * @param dataSource
-   * @param tableName
-   * @param idColumn
-   * @param versionColumn
-```
-
-### JavadocDeclaration
-`@param idColumn` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresNodeRepository.java`
-#### Snippet
-```java
-   * @param dataSource
-   * @param tableName
-   * @param idColumn
-   * @param versionColumn
-   * @param uidColumn
-```
-
-### JavadocDeclaration
-`@param versionColumn` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresNodeRepository.java`
-#### Snippet
-```java
-   * @param tableName
-   * @param idColumn
-   * @param versionColumn
-   * @param uidColumn
-   * @param timestampColumn
-```
-
-### JavadocDeclaration
-`@param uidColumn` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresNodeRepository.java`
-#### Snippet
-```java
-   * @param idColumn
-   * @param versionColumn
-   * @param uidColumn
-   * @param timestampColumn
-   * @param changesetColumn
-```
-
-### JavadocDeclaration
-`@param timestampColumn` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresNodeRepository.java`
-#### Snippet
-```java
-   * @param versionColumn
-   * @param uidColumn
-   * @param timestampColumn
-   * @param changesetColumn
-   * @param tagsColumn
-```
-
-### JavadocDeclaration
-`@param changesetColumn` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresNodeRepository.java`
-#### Snippet
-```java
-   * @param uidColumn
-   * @param timestampColumn
-   * @param changesetColumn
-   * @param tagsColumn
-   * @param longitudeColumn
-```
-
-### JavadocDeclaration
-`@param tagsColumn` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresNodeRepository.java`
-#### Snippet
-```java
-   * @param timestampColumn
-   * @param changesetColumn
-   * @param tagsColumn
-   * @param longitudeColumn
-   * @param latitudeColumn
-```
-
-### JavadocDeclaration
-`@param longitudeColumn` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresNodeRepository.java`
-#### Snippet
-```java
-   * @param changesetColumn
-   * @param tagsColumn
-   * @param longitudeColumn
-   * @param latitudeColumn
-   * @param geometryColumn
-```
-
-### JavadocDeclaration
-`@param latitudeColumn` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresNodeRepository.java`
-#### Snippet
-```java
-   * @param tagsColumn
-   * @param longitudeColumn
-   * @param latitudeColumn
-   * @param geometryColumn
+   * @param input
+   * @return
    */
 ```
 
 ### JavadocDeclaration
-`@param geometryColumn` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresNodeRepository.java`
+`@return` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/xml/XmlChangeReader.java`
 #### Snippet
 ```java
-   * @param longitudeColumn
-   * @param latitudeColumn
-   * @param geometryColumn
+   *
+   * @param input
+   * @return
    */
-  public PostgresNodeRepository(DataSource dataSource, String tableName, String idColumn,
+  public Stream<Change> stream(InputStream input) {
 ```
 
 ### JavadocDeclaration
-`@param dataSource` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresNodeRepository.java`
+`@throws` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/tile/MBTiles.java`
 #### Snippet
 ```java
-   * Constructs a {@code PostgresNodeRepository}.
    *
-   * @param dataSource
+   * @return the metadata
+   * @throws IOException
    */
-  public PostgresNodeRepository(DataSource dataSource) {
+  public Map<String, String> readMetadata() throws IOException {
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/tile/MBTiles.java`
+#### Snippet
+```java
+   * Initializes the SQLite database.
+   *
+   * @throws TileStoreException
+   */
+  public void initializeDatabase() throws TileStoreException {
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/tile/MBTiles.java`
+#### Snippet
+```java
+   *
+   * @param metadata the metadata
+   * @throws IOException
+   */
+  public void writeMetadata(Map<String, String> metadata) throws IOException {
 ```
 
 ### JavadocDeclaration
@@ -3114,6 +2589,198 @@ in `baremaps-core/src/main/java/org/apache/baremaps/database/tile/TileCache.java
    * @param spec
    */
   public TileCache(TileStore tileStore, CaffeineSpec spec) {
+```
+
+### JavadocDeclaration
+`@param style` tag description is missing
+in `baremaps-ogcapi/src/main/java/org/apache/baremaps/ogcapi/StylesResource.java`
+#### Snippet
+```java
+   * Constructs a {@code StylesResource}.
+   *
+   * @param style
+   * @param objectMapper
+   * @throws IOException
+```
+
+### JavadocDeclaration
+`@param objectMapper` tag description is missing
+in `baremaps-ogcapi/src/main/java/org/apache/baremaps/ogcapi/StylesResource.java`
+#### Snippet
+```java
+   *
+   * @param style
+   * @param objectMapper
+   * @throws IOException
+   */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `baremaps-ogcapi/src/main/java/org/apache/baremaps/ogcapi/StylesResource.java`
+#### Snippet
+```java
+   * @param style
+   * @param objectMapper
+   * @throws IOException
+   */
+  @Inject
+```
+
+### JavadocDeclaration
+`@param dataSource` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresWayRepository.java`
+#### Snippet
+```java
+   * Constructs a {@code PostgresWayRepository} with custom parameters.
+   *
+   * @param dataSource
+   * @param tableName
+   * @param idColumn
+```
+
+### JavadocDeclaration
+`@param tableName` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresWayRepository.java`
+#### Snippet
+```java
+   *
+   * @param dataSource
+   * @param tableName
+   * @param idColumn
+   * @param versionColumn
+```
+
+### JavadocDeclaration
+`@param idColumn` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresWayRepository.java`
+#### Snippet
+```java
+   * @param dataSource
+   * @param tableName
+   * @param idColumn
+   * @param versionColumn
+   * @param uidColumn
+```
+
+### JavadocDeclaration
+`@param versionColumn` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresWayRepository.java`
+#### Snippet
+```java
+   * @param tableName
+   * @param idColumn
+   * @param versionColumn
+   * @param uidColumn
+   * @param timestampColumn
+```
+
+### JavadocDeclaration
+`@param uidColumn` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresWayRepository.java`
+#### Snippet
+```java
+   * @param idColumn
+   * @param versionColumn
+   * @param uidColumn
+   * @param timestampColumn
+   * @param changesetColumn
+```
+
+### JavadocDeclaration
+`@param timestampColumn` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresWayRepository.java`
+#### Snippet
+```java
+   * @param versionColumn
+   * @param uidColumn
+   * @param timestampColumn
+   * @param changesetColumn
+   * @param tagsColumn
+```
+
+### JavadocDeclaration
+`@param changesetColumn` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresWayRepository.java`
+#### Snippet
+```java
+   * @param uidColumn
+   * @param timestampColumn
+   * @param changesetColumn
+   * @param tagsColumn
+   * @param nodesColumn
+```
+
+### JavadocDeclaration
+`@param tagsColumn` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresWayRepository.java`
+#### Snippet
+```java
+   * @param timestampColumn
+   * @param changesetColumn
+   * @param tagsColumn
+   * @param nodesColumn
+   * @param geometryColumn
+```
+
+### JavadocDeclaration
+`@param nodesColumn` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresWayRepository.java`
+#### Snippet
+```java
+   * @param changesetColumn
+   * @param tagsColumn
+   * @param nodesColumn
+   * @param geometryColumn
+   */
+```
+
+### JavadocDeclaration
+`@param geometryColumn` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresWayRepository.java`
+#### Snippet
+```java
+   * @param tagsColumn
+   * @param nodesColumn
+   * @param geometryColumn
+   */
+  public PostgresWayRepository(DataSource dataSource, String tableName, String idColumn,
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/tile/TileStore.java`
+#### Snippet
+```java
+   *
+   * @param tile the tile
+   * @throws TileStoreException
+   */
+  void delete(Tile tile) throws TileStoreException;
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/tile/TileStore.java`
+#### Snippet
+```java
+   * @param tile the tile
+   * @param blob the content of the tile
+   * @throws TileStoreException
+   */
+  void write(Tile tile, ByteBuffer blob) throws TileStoreException;
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/tile/TileStore.java`
+#### Snippet
+```java
+   * @param tile the tile
+   * @return the content of the tile
+   * @throws TileStoreException
+   */
+  ByteBuffer read(Tile tile) throws TileStoreException;
 ```
 
 ### JavadocDeclaration
@@ -3273,111 +2940,867 @@ in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/Postgres
 ```
 
 ### JavadocDeclaration
-`@param input` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/xml/XmlEntityReader.java`
+`@param wkb` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/utils/GeometryUtils.java`
 #### Snippet
 ```java
-   * Creates an ordered stream of OSM entities from a XML file.
+   * Deserializes a geometry in the WKB format.
    *
-   * @param input
+   * @param wkb
    * @return
    */
 ```
 
 ### JavadocDeclaration
 `@return` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/xml/XmlEntityReader.java`
+in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/utils/GeometryUtils.java`
 #### Snippet
 ```java
    *
-   * @param input
+   * @param wkb
    * @return
    */
-  public Stream<Entity> stream(InputStream input) {
+  public static Geometry deserialize(byte[] wkb) {
 ```
 
 ### JavadocDeclaration
-`@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/pbf/HeaderBlockReader.java`
+`@param geometry` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/utils/GeometryUtils.java`
+#### Snippet
+```java
+   * Serializes a geometry in the WKB format.
+   *
+   * @param geometry
+   * @return
+   */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/utils/GeometryUtils.java`
 #### Snippet
 ```java
    *
-   * @param blob the blob
-   * @throws DataFormatException
-   * @throws InvalidProtocolBufferException
+   * @param geometry
+   * @return
    */
+  public static byte[] serialize(Geometry geometry) {
 ```
 
 ### JavadocDeclaration
 `@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/pbf/HeaderBlockReader.java`
+in `baremaps-core/src/main/java/org/apache/baremaps/database/PostgresUtils.java`
 #### Snippet
 ```java
-   * @param blob the blob
-   * @throws DataFormatException
-   * @throws InvalidProtocolBufferException
+   * @param connection the JDBC connection
+   * @param resource the path of the resource file
+   * @throws IOException
+   * @throws SQLException
    */
-  public HeaderBlockReader(Blob blob) throws DataFormatException, InvalidProtocolBufferException {
 ```
 
 ### JavadocDeclaration
 `@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/tile/TileStore.java`
+in `baremaps-core/src/main/java/org/apache/baremaps/database/PostgresUtils.java`
+#### Snippet
+```java
+   * @param resource the path of the resource file
+   * @throws IOException
+   * @throws SQLException
+   */
+  public static void executeResource(Connection connection, String resource)
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresJsonbMapper.java`
+#### Snippet
+```java
+   * @param input a valid json object
+   * @return a map with the entry of the objects
+   * @throws JsonProcessingException
+   */
+  public static Map<String, Object> toMap(String input) throws JsonProcessingException {
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresJsonbMapper.java`
+#### Snippet
+```java
+   * @param input a map with the entry of the object
+   * @return a Json string representing the object
+   * @throws JsonProcessingException
+   */
+  public static String toJson(Map<String, Object> input) throws JsonProcessingException {
+```
+
+### JavadocDeclaration
+`@param consumer` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/function/ChangeEntitiesHandler.java`
+#### Snippet
+```java
+   * Change}.
+   *
+   * @param consumer
+   */
+  public ChangeEntitiesHandler(Consumer<Entity> consumer) {
+```
+
+### JavadocDeclaration
+`@param ip` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/iploc/data/Ipv4.java`
+#### Snippet
+```java
+   * Constructs an Ipv4 range from an ip
+   *
+   * @param ip
+   */
+  public Ipv4(byte[] ip) {
+```
+
+### JavadocDeclaration
+`@param bytes` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/iploc/data/Ipv4.java`
+#### Snippet
+```java
+   * zero byte to prevent negative value in the two's-complement binary representation
+   *
+   * @param bytes
+   * @return
+   */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/iploc/data/Ipv4.java`
 #### Snippet
 ```java
    *
-   * @param tile the tile
-   * @throws TileStoreException
+   * @param bytes
+   * @return
    */
-  void delete(Tile tile) throws TileStoreException;
+  private static byte[] forceIpOn4Bytes(byte[] bytes) {
 ```
 
 ### JavadocDeclaration
-`@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/tile/TileStore.java`
+`@param uniqueIpResource` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/iploc/data/Ipv4.java`
 #### Snippet
 ```java
-   * @param tile the tile
-   * @return the content of the tile
-   * @throws TileStoreException
+   * Construct an Ipv4 from a UniqueIpResource
+   *
+   * @param uniqueIpResource
    */
-  ByteBuffer read(Tile tile) throws TileStoreException;
+  protected Ipv4(UniqueIpResource uniqueIpResource) {
 ```
 
 ### JavadocDeclaration
-`@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/tile/TileStore.java`
+`@param geometryFactory` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/collection/type/geometry/GeometryDataType.java`
 #### Snippet
 ```java
-   * @param tile the tile
-   * @param blob the content of the tile
-   * @throws TileStoreException
+   * Constructs a {@code GeometryDataType} with a specified {@code GeometryFactory}.
+   *
+   * @param geometryFactory
    */
-  void write(Tile tile, ByteBuffer blob) throws TileStoreException;
+  public GeometryDataType(GeometryFactory geometryFactory) {
+```
+
+### JavadocDeclaration
+`@param ` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/collection/algorithm/ExternalMergeSort.java`
+#### Snippet
+```java
+   * @param distinct The flag indicating if duplicates should be discarded
+   * @param parallel The flag indicating if parallelism should be used
+   * @param <T>
+   * @return the sorted batches
+   */
+```
+
+### JavadocDeclaration
+`@param ` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/collection/algorithm/ExternalMergeSort.java`
+#### Snippet
+```java
+   * @param distinct The flag indicating if duplicates should be discarded
+   * @param parallel The flag indicating if parallelism should be used
+   * @param <T>
+   * @return the sorted batch
+   */
 ```
 
 ### JavadocDeclaration
 `@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/pbf/DataBlockReader.java`
+in `baremaps-core/src/main/java/org/apache/baremaps/collection/algorithm/ExternalMergeSort.java`
+#### Snippet
+```java
+   * @param distinct The flag indicating if duplicates should be discarded
+   * @return the number of data sorted
+   * @throws IOException
+   */
+  private static <T> long mergeSortedBatches(
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/collection/algorithm/ExternalMergeSort.java`
+#### Snippet
+```java
+   * @param distinct The flag indicating if duplicates should be discarded
+   * @param parallel The flag indicating if parallelism should be used
+   * @throws IOException
+   */
+  public static <T> void sort(
+```
+
+### JavadocDeclaration
+`@param start` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/iploc/data/Ipv4Range.java`
+#### Snippet
+```java
+   * Constructs an Ipv4 range from a start and end ips
+   *
+   * @param start
+   * @param end
+   */
+```
+
+### JavadocDeclaration
+`@param end` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/iploc/data/Ipv4Range.java`
 #### Snippet
 ```java
    *
-   * @param blob the blob
-   * @throws DataFormatException
-   * @throws InvalidProtocolBufferException
+   * @param start
+   * @param end
+   */
+  public Ipv4Range(byte[] start, byte[] end) {
+```
+
+### JavadocDeclaration
+`@param uriInfo` tag description is missing
+in `baremaps-ogcapi/src/main/java/org/apache/baremaps/ogcapi/TilesResource.java`
+#### Snippet
+```java
+   * Constructs a {@code StylesResource}.
+   *
+   * @param uriInfo
+   * @param tileset
+   * @param objectMapper
+```
+
+### JavadocDeclaration
+`@param tileset` tag description is missing
+in `baremaps-ogcapi/src/main/java/org/apache/baremaps/ogcapi/TilesResource.java`
+#### Snippet
+```java
+   *
+   * @param uriInfo
+   * @param tileset
+   * @param objectMapper
+   * @throws IOException
+```
+
+### JavadocDeclaration
+`@param objectMapper` tag description is missing
+in `baremaps-ogcapi/src/main/java/org/apache/baremaps/ogcapi/TilesResource.java`
+#### Snippet
+```java
+   * @param uriInfo
+   * @param tileset
+   * @param objectMapper
+   * @throws IOException
    */
 ```
 
 ### JavadocDeclaration
 `@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/pbf/DataBlockReader.java`
+in `baremaps-ogcapi/src/main/java/org/apache/baremaps/ogcapi/TilesResource.java`
 #### Snippet
 ```java
-   * @param blob the blob
-   * @throws DataFormatException
-   * @throws InvalidProtocolBufferException
+   * @param tileset
+   * @param objectMapper
+   * @throws IOException
    */
-  public DataBlockReader(Blob blob) throws DataFormatException, InvalidProtocolBufferException {
+  @Inject
+```
+
+### JavadocDeclaration
+`@param dataSource` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresNodeRepository.java`
+#### Snippet
+```java
+   * Constructs a {@code PostgresNodeRepository}.
+   *
+   * @param dataSource
+   */
+  public PostgresNodeRepository(DataSource dataSource) {
+```
+
+### JavadocDeclaration
+`@param dataSource` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresNodeRepository.java`
+#### Snippet
+```java
+   * Constructs a {@code PostgresNodeRepository} with custom parameters.
+   *
+   * @param dataSource
+   * @param tableName
+   * @param idColumn
+```
+
+### JavadocDeclaration
+`@param tableName` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresNodeRepository.java`
+#### Snippet
+```java
+   *
+   * @param dataSource
+   * @param tableName
+   * @param idColumn
+   * @param versionColumn
+```
+
+### JavadocDeclaration
+`@param idColumn` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresNodeRepository.java`
+#### Snippet
+```java
+   * @param dataSource
+   * @param tableName
+   * @param idColumn
+   * @param versionColumn
+   * @param uidColumn
+```
+
+### JavadocDeclaration
+`@param versionColumn` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresNodeRepository.java`
+#### Snippet
+```java
+   * @param tableName
+   * @param idColumn
+   * @param versionColumn
+   * @param uidColumn
+   * @param timestampColumn
+```
+
+### JavadocDeclaration
+`@param uidColumn` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresNodeRepository.java`
+#### Snippet
+```java
+   * @param idColumn
+   * @param versionColumn
+   * @param uidColumn
+   * @param timestampColumn
+   * @param changesetColumn
+```
+
+### JavadocDeclaration
+`@param timestampColumn` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresNodeRepository.java`
+#### Snippet
+```java
+   * @param versionColumn
+   * @param uidColumn
+   * @param timestampColumn
+   * @param changesetColumn
+   * @param tagsColumn
+```
+
+### JavadocDeclaration
+`@param changesetColumn` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresNodeRepository.java`
+#### Snippet
+```java
+   * @param uidColumn
+   * @param timestampColumn
+   * @param changesetColumn
+   * @param tagsColumn
+   * @param longitudeColumn
+```
+
+### JavadocDeclaration
+`@param tagsColumn` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresNodeRepository.java`
+#### Snippet
+```java
+   * @param timestampColumn
+   * @param changesetColumn
+   * @param tagsColumn
+   * @param longitudeColumn
+   * @param latitudeColumn
+```
+
+### JavadocDeclaration
+`@param longitudeColumn` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresNodeRepository.java`
+#### Snippet
+```java
+   * @param changesetColumn
+   * @param tagsColumn
+   * @param longitudeColumn
+   * @param latitudeColumn
+   * @param geometryColumn
+```
+
+### JavadocDeclaration
+`@param latitudeColumn` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresNodeRepository.java`
+#### Snippet
+```java
+   * @param tagsColumn
+   * @param longitudeColumn
+   * @param latitudeColumn
+   * @param geometryColumn
+   */
+```
+
+### JavadocDeclaration
+`@param geometryColumn` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresNodeRepository.java`
+#### Snippet
+```java
+   * @param longitudeColumn
+   * @param latitudeColumn
+   * @param geometryColumn
+   */
+  public PostgresNodeRepository(DataSource dataSource, String tableName, String idColumn,
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/stream/ConsumerUtils.java`
+#### Snippet
+```java
+   *
+   * @param type the type of the input
+   * @return
+   * @param <T>
+   */
+```
+
+### JavadocDeclaration
+`@param ` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/stream/ConsumerUtils.java`
+#### Snippet
+```java
+   * @param type the type of the input
+   * @return
+   * @param <T>
+   */
+  public static <T> Consumer<T> chain(Class<T> type) {
+```
+
+### JavadocDeclaration
+`@param stream` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
+#### Snippet
+```java
+   * Buffer the asynchronous mapping of the provided stream according to a buffer size.
+   *
+   * @param stream
+   * @param asyncMapper
+   * @param bufferSize
+```
+
+### JavadocDeclaration
+`@param asyncMapper` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
+#### Snippet
+```java
+   *
+   * @param stream
+   * @param asyncMapper
+   * @param bufferSize
+   * @param <T>
+```
+
+### JavadocDeclaration
+`@param bufferSize` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
+#### Snippet
+```java
+   * @param stream
+   * @param asyncMapper
+   * @param bufferSize
+   * @param <T>
+   * @return a buffered stream
+```
+
+### JavadocDeclaration
+`@param ` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
+#### Snippet
+```java
+   * @param asyncMapper
+   * @param bufferSize
+   * @param <T>
+   * @return a buffered stream
+   */
+```
+
+### JavadocDeclaration
+`@param stream` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
+#### Snippet
+```java
+   * Buffer the asynchronous mapping of the provided stream according to a buffer size.
+   *
+   * @param stream
+   * @param asyncMapper
+   * @param bufferSize
+```
+
+### JavadocDeclaration
+`@param asyncMapper` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
+#### Snippet
+```java
+   *
+   * @param stream
+   * @param asyncMapper
+   * @param bufferSize
+   * @param <T>
+```
+
+### JavadocDeclaration
+`@param bufferSize` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
+#### Snippet
+```java
+   * @param stream
+   * @param asyncMapper
+   * @param bufferSize
+   * @param <T>
+   * @return a buffered stream
+```
+
+### JavadocDeclaration
+`@param ` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
+#### Snippet
+```java
+   * @param asyncMapper
+   * @param bufferSize
+   * @param <T>
+   * @return a buffered stream
+   */
+```
+
+### JavadocDeclaration
+`@param asyncStream` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
+#### Snippet
+```java
+   * and a buffer size.
+   *
+   * @param asyncStream
+   * @param completionOrder
+   * @param bufferSize
+```
+
+### JavadocDeclaration
+`@param completionOrder` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
+#### Snippet
+```java
+   *
+   * @param asyncStream
+   * @param completionOrder
+   * @param bufferSize
+   * @param <T>
+```
+
+### JavadocDeclaration
+`@param bufferSize` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
+#### Snippet
+```java
+   * @param asyncStream
+   * @param completionOrder
+   * @param bufferSize
+   * @param <T>
+   * @return a buffered stream
+```
+
+### JavadocDeclaration
+`@param ` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
+#### Snippet
+```java
+   * @param completionOrder
+   * @param bufferSize
+   * @param <T>
+   * @return a buffered stream
+   */
+```
+
+### JavadocDeclaration
+`@param stream` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
+#### Snippet
+```java
+   * Parallelize the provided stream of unknown size.
+   *
+   * @param stream
+   * @param <T>
+   * @return a parallel stream
+```
+
+### JavadocDeclaration
+`@param ` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
+#### Snippet
+```java
+   *
+   * @param stream
+   * @param <T>
+   * @return a parallel stream
+   */
+```
+
+### JavadocDeclaration
+`@param stream` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
+#### Snippet
+```java
+   * Buffer the asynchronous mapping of the provided stream according to a buffer size.
+   *
+   * @param stream
+   * @param asyncMapper
+   * @param bufferSize
+```
+
+### JavadocDeclaration
+`@param asyncMapper` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
+#### Snippet
+```java
+   *
+   * @param stream
+   * @param asyncMapper
+   * @param bufferSize
+   * @param <T>
+```
+
+### JavadocDeclaration
+`@param bufferSize` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
+#### Snippet
+```java
+   * @param stream
+   * @param asyncMapper
+   * @param bufferSize
+   * @param <T>
+   * @return a buffered stream
+```
+
+### JavadocDeclaration
+`@param ` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
+#### Snippet
+```java
+   * @param asyncMapper
+   * @param bufferSize
+   * @param <T>
+   * @return a buffered stream
+   */
+```
+
+### JavadocDeclaration
+`@param stream` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
+#### Snippet
+```java
+   * Parallelize the provided stream of unknown size and split it according to the batch size.
+   *
+   * @param stream
+   * @param batchSize
+   * @param <T>
+```
+
+### JavadocDeclaration
+`@param batchSize` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
+#### Snippet
+```java
+   *
+   * @param stream
+   * @param batchSize
+   * @param <T>
+   * @return a parallel stream
+```
+
+### JavadocDeclaration
+`@param ` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
+#### Snippet
+```java
+   * @param stream
+   * @param batchSize
+   * @param <T>
+   * @return a parallel stream
+   */
+```
+
+### JavadocDeclaration
+`@param asyncStream` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
+#### Snippet
+```java
+   * Buffer the completion of the provided asynchronous stream according to a buffer size.
+   *
+   * @param asyncStream
+   * @param bufferSize
+   * @param <T>
+```
+
+### JavadocDeclaration
+`@param bufferSize` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
+#### Snippet
+```java
+   *
+   * @param asyncStream
+   * @param bufferSize
+   * @param <T>
+   * @return a buffered stream
+```
+
+### JavadocDeclaration
+`@param ` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
+#### Snippet
+```java
+   * @param asyncStream
+   * @param bufferSize
+   * @param <T>
+   * @return a buffered stream
+   */
+```
+
+### JavadocDeclaration
+`@param asyncStream` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
+#### Snippet
+```java
+   * Buffer the completion of the provided asynchronous stream according to a buffer size.
+   *
+   * @param asyncStream
+   * @param bufferSize
+   * @param <T>
+```
+
+### JavadocDeclaration
+`@param bufferSize` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
+#### Snippet
+```java
+   *
+   * @param asyncStream
+   * @param bufferSize
+   * @param <T>
+   * @return a buffered stream
+```
+
+### JavadocDeclaration
+`@param ` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
+#### Snippet
+```java
+   * @param asyncStream
+   * @param bufferSize
+   * @param <T>
+   * @return a buffered stream
+   */
+```
+
+### JavadocDeclaration
+`@param asyncStream` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
+#### Snippet
+```java
+   * and a buffer size.
+   *
+   * @param asyncStream
+   * @param completionOrder
+   * @param <T>
+```
+
+### JavadocDeclaration
+`@param completionOrder` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
+#### Snippet
+```java
+   *
+   * @param asyncStream
+   * @param completionOrder
+   * @param <T>
+   * @return a buffered stream
+```
+
+### JavadocDeclaration
+`@param ` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
+#### Snippet
+```java
+   * @param asyncStream
+   * @param completionOrder
+   * @param <T>
+   * @return a buffered stream
+   */
+```
+
+### JavadocDeclaration
+`@param iterator` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
+#### Snippet
+```java
+   * Create an ordered sequential stream from an iterator of unknown size.
+   *
+   * @param iterator
+   * @param <T>
+   * @return a ordered sequential stream.
+```
+
+### JavadocDeclaration
+`@param ` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/stream/StreamUtils.java`
+#### Snippet
+```java
+   *
+   * @param iterator
+   * @param <T>
+   * @return a ordered sequential stream.
+   */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/iploc/database/SqliteUtils.java`
+#### Snippet
+```java
+   * @param databaseUrl the JDBC url
+   * @param resource the path of the resource file
+   * @throws SQLException
+   */
+  public static void executeResource(String databaseUrl, String resource)
+```
+
+### JavadocDeclaration
+`@param size` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/collection/type/MemoryAlignedDataType.java`
+#### Snippet
+```java
+   * Constructs a {@link MemoryAlignedDataType}.
+   *
+   * @param size
+   */
+  public MemoryAlignedDataType(int size) {
 ```
 
 ### JavadocDeclaration
@@ -3401,7 +3824,7 @@ in `baremaps-core/src/main/java/org/apache/baremaps/iploc/database/InetnumLocati
    * @return
    * @throws SQLException
    */
-  public Connection getWriteConnection() throws SQLException {
+  public Connection getReadConnection() throws SQLException {
 ```
 
 ### JavadocDeclaration
@@ -3437,31 +3860,19 @@ in `baremaps-core/src/main/java/org/apache/baremaps/iploc/database/InetnumLocati
    * @return
    * @throws SQLException
    */
-  public Connection getReadConnection() throws SQLException {
+  public Connection getWriteConnection() throws SQLException {
 ```
 
 ### JavadocDeclaration
-`@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/PostgresUtils.java`
+`@return` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/iploc/nic/NicObject.java`
 #### Snippet
 ```java
-   * @param connection the JDBC connection
-   * @param resource the path of the resource file
-   * @throws IOException
-   * @throws SQLException
+   * Return the attributes as a map
+   *
+   * @return
    */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/PostgresUtils.java`
-#### Snippet
-```java
-   * @param resource the path of the resource file
-   * @throws IOException
-   * @throws SQLException
-   */
-  public static void executeResource(Connection connection, String resource)
+  public Map<String, String> toMap() {
 ```
 
 ### JavadocDeclaration
@@ -3513,291 +3924,123 @@ in `baremaps-core/src/main/java/org/apache/baremaps/collection/algorithm/Hilbert
 ```
 
 ### JavadocDeclaration
-`@param geometryFactory` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/collection/type/geometry/GeometryDataType.java`
+`@throws` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/iploc/IpLoc.java`
 #### Snippet
 ```java
-   * Constructs a {@code GeometryDataType} with a specified {@code GeometryFactory}.
-   *
-   * @param geometryFactory
-   */
-  public GeometryDataType(GeometryFactory geometryFactory) {
-```
-
-### JavadocDeclaration
-`@param input` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/pbf/BlobIterator.java`
-#### Snippet
-```java
-   * Constructs a {@code BlobIterator} with the specified {@code InputStream}.
-   *
-   * @param input
-   */
-  public BlobIterator(InputStream input) {
-```
-
-### JavadocDeclaration
-`@param ` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/collection/algorithm/ExternalMergeSort.java`
-#### Snippet
-```java
-   * @param distinct The flag indicating if duplicates should be discarded
-   * @param parallel The flag indicating if parallelism should be used
-   * @param <T>
-   * @return the sorted batch
+   * @param countryCode the country code filter
+   * @return an optional of the location
+   * @throws IOException
+   * @throws ParseException
    */
 ```
 
 ### JavadocDeclaration
 `@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/collection/algorithm/ExternalMergeSort.java`
+in `baremaps-core/src/main/java/org/apache/baremaps/iploc/IpLoc.java`
 #### Snippet
 ```java
-   * @param distinct The flag indicating if duplicates should be discarded
-   * @return the number of data sorted
+   * @return an optional of the location
    * @throws IOException
+   * @throws ParseException
    */
-  private static <T> long mergeSortedBatches(
+  private Optional<Location> findLocation(String searchTerms, String countryCode)
 ```
 
 ### JavadocDeclaration
-`@param ` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/collection/algorithm/ExternalMergeSort.java`
+`@throws` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/iploc/IpLoc.java`
 #### Snippet
 ```java
-   * @param distinct The flag indicating if duplicates should be discarded
-   * @param parallel The flag indicating if parallelism should be used
-   * @param <T>
-   * @return the sorted batches
+   * @param nicObject the nicObject
+   * @return the optional inetnum location
+   * @throws IOException
+   * @throws ParseException
+   */
+```
+
+### JavadocDeclaration
+IOException is not declared to be thrown by method nicObjectToInetnumLocation
+in `baremaps-core/src/main/java/org/apache/baremaps/iploc/IpLoc.java`
+#### Snippet
+```java
+   * @param nicObject the nicObject
+   * @return the optional inetnum location
+   * @throws IOException
+   * @throws ParseException
    */
 ```
 
 ### JavadocDeclaration
 `@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/collection/algorithm/ExternalMergeSort.java`
+in `baremaps-core/src/main/java/org/apache/baremaps/iploc/IpLoc.java`
 #### Snippet
 ```java
-   * @param distinct The flag indicating if duplicates should be discarded
-   * @param parallel The flag indicating if parallelism should be used
+   * @return the optional inetnum location
    * @throws IOException
+   * @throws ParseException
    */
-  public static <T> void sort(
+  private Optional<InetnumLocation> nicObjectToInetnumLocation(NicObject nicObject) {
+```
+
+### JavadocDeclaration
+ParseException is not declared to be thrown by method nicObjectToInetnumLocation
+in `baremaps-core/src/main/java/org/apache/baremaps/iploc/IpLoc.java`
+#### Snippet
+```java
+   * @return the optional inetnum location
+   * @throws IOException
+   * @throws ParseException
+   */
+  private Optional<InetnumLocation> nicObjectToInetnumLocation(NicObject nicObject) {
 ```
 
 ### JavadocDeclaration
 `@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/tile/MBTiles.java`
+in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/model/Blob.java`
 #### Snippet
 ```java
    *
-   * @param metadata the metadata
-   * @throws IOException
-   */
-  public void writeMetadata(Map<String, String> metadata) throws IOException {
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/tile/MBTiles.java`
-#### Snippet
-```java
-   *
-   * @return the metadata
-   * @throws IOException
-   */
-  public Map<String, String> readMetadata() throws IOException {
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/tile/MBTiles.java`
-#### Snippet
-```java
-   * Initializes the SQLite database.
-   *
-   * @throws TileStoreException
-   */
-  public void initializeDatabase() throws TileStoreException {
-```
-
-### JavadocDeclaration
-`@param value` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
-#### Snippet
-```java
-   * Writes a list of short values.
-   *
-   * @param value
-   * @throws IOException
+   * @return the data
+   * @throws DataFormatException
+   * @throws InvalidProtocolBufferException
    */
 ```
 
 ### JavadocDeclaration
 `@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
+in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/model/Blob.java`
 #### Snippet
 ```java
-   *
-   * @param value
-   * @throws IOException
+   * @return the data
+   * @throws DataFormatException
+   * @throws InvalidProtocolBufferException
    */
-  public void writeShortList(List<Short> value) throws IOException {
+  public ByteString data() throws DataFormatException, InvalidProtocolBufferException {
 ```
 
 ### JavadocDeclaration
-`@param value` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
+`@param latitude` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/iploc/data/Location.java`
 #### Snippet
 ```java
-   * Writes a double value.
+   * Create a new location using the given latitude and longitude
    *
-   * @param value
-   * @throws IOException
-   */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
-#### Snippet
-```java
-   *
-   * @param value
-   * @throws IOException
-   */
-  public void writeDouble(Double value) throws IOException {
-```
-
-### JavadocDeclaration
-`@param value` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
-#### Snippet
-```java
-   * Writes a string value.
-   *
-   * @param value
-   * @throws IOException
+   * @param latitude
+   * @param longitude
    */
 ```
 
 ### JavadocDeclaration
-`@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
+`@param longitude` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/iploc/data/Location.java`
 #### Snippet
 ```java
    *
-   * @param value
-   * @throws IOException
+   * @param latitude
+   * @param longitude
    */
-  public void write(String value) throws IOException {
-```
-
-### JavadocDeclaration
-`@param value` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
-#### Snippet
-```java
-   * Writes a list of boolean values.
-   *
-   * @param value
-   * @throws IOException
-   */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
-#### Snippet
-```java
-   *
-   * @param value
-   * @throws IOException
-   */
-  public void writeBooleanList(List<Boolean> value) throws IOException {
-```
-
-### JavadocDeclaration
-`@param value` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
-#### Snippet
-```java
-   * Writes an integer value.
-   *
-   * @param value
-   * @throws IOException
-   */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
-#### Snippet
-```java
-   *
-   * @param value
-   * @throws IOException
-   */
-  public void writeInteger(Integer value) throws IOException {
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
-#### Snippet
-```java
-   * Writes a null value.
-   *
-   * @throws IOException
-   */
-  public <T> void write(BaseValueHandler<T> handler, T value) throws IOException {
-```
-
-### JavadocDeclaration
-`@param value` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
-#### Snippet
-```java
-   * Writes a list of integer values.
-   *
-   * @param value
-   * @throws IOException
-   */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
-#### Snippet
-```java
-   *
-   * @param value
-   * @throws IOException
-   */
-  public void writeIntegerList(List<Integer> value) throws IOException {
-```
-
-### JavadocDeclaration
-`@param value` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
-#### Snippet
-```java
-   * Writes a date value.
-   *
-   * @param value
-   * @throws IOException
-   */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
-#### Snippet
-```java
-   *
-   * @param value
-   * @throws IOException
-   */
-  public void writeLocalDate(LocalDate value) throws IOException {
+  public Location(double latitude, double longitude) {
 ```
 
 ### JavadocDeclaration
@@ -3810,6 +4053,30 @@ in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.jav
    * @param data
    */
   public CopyWriter(PGCopyOutputStream data) {
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
+#### Snippet
+```java
+   * Writes a null value.
+   *
+   * @throws IOException
+   */
+  public void writeNull() throws IOException {
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
+#### Snippet
+```java
+   * Writes the header of the query.
+   *
+   * @throws IOException
+   */
+  public void writeHeader() throws IOException {
 ```
 
 ### JavadocDeclaration
@@ -3865,174 +4132,6 @@ in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.jav
 in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
 #### Snippet
 ```java
-   * Writes a float value.
-   *
-   * @param value
-   * @throws IOException
-   */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
-#### Snippet
-```java
-   *
-   * @param value
-   * @throws IOException
-   */
-  public void writeFloat(Float value) throws IOException {
-```
-
-### JavadocDeclaration
-`@param value` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
-#### Snippet
-```java
-   * Writes a list of string values.
-   *
-   * @param value
-   * @throws IOException
-   */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
-#### Snippet
-```java
-   *
-   * @param value
-   * @throws IOException
-   */
-  public void write(List<String> value) throws IOException {
-```
-
-### JavadocDeclaration
-`@param columns` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
-#### Snippet
-```java
-   * Writes the number of columns affected by the query.
-   *
-   * @param columns
-   * @throws IOException
-   */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
-#### Snippet
-```java
-   *
-   * @param columns
-   * @throws IOException
-   */
-  public void startRow(int columns) throws IOException {
-```
-
-### JavadocDeclaration
-`@param value` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
-#### Snippet
-```java
-   * Writes a geometry value.
-   *
-   * @param value
-   * @throws IOException
-   */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
-#### Snippet
-```java
-   *
-   * @param value
-   * @throws IOException
-   */
-  public void writePostgisGeometry(Geometry value) throws IOException {
-```
-
-### JavadocDeclaration
-`@param value` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
-#### Snippet
-```java
-   * Writes a jsonb array
-   *
-   * @param value
-   * @throws IOException
-   */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
-#### Snippet
-```java
-   *
-   * @param value
-   * @throws IOException
-   */
-  public void writeJsonb(String value) throws IOException {
-```
-
-### JavadocDeclaration
-`@param value` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
-#### Snippet
-```java
-   * Writes a boolean value.
-   *
-   * @param value
-   * @throws IOException
-   */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
-#### Snippet
-```java
-   *
-   * @param value
-   * @throws IOException
-   */
-  public void writeBoolean(Boolean value) throws IOException {
-```
-
-### JavadocDeclaration
-`@param value` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
-#### Snippet
-```java
-   * Writes a map value.
-   *
-   * @param value
-   * @throws IOException
-   */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
-#### Snippet
-```java
-   *
-   * @param value
-   * @throws IOException
-   */
-  public void writeHstore(Map<String, String> value) throws IOException {
-```
-
-### JavadocDeclaration
-`@param value` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
-#### Snippet
-```java
    * Writes a long value.
    *
    * @param value
@@ -4057,7 +4156,7 @@ in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.jav
 in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
 #### Snippet
 ```java
-   * Writes a list of date values.
+   * Writes a date value.
    *
    * @param value
    * @throws IOException
@@ -4073,91 +4172,7 @@ in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.jav
    * @param value
    * @throws IOException
    */
-  public void writeLocalDateTime(LocalDateTime value) throws IOException {
-```
-
-### JavadocDeclaration
-`@param value` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
-#### Snippet
-```java
-   * Writes a list of double values.
-   *
-   * @param value
-   * @throws IOException
-   */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
-#### Snippet
-```java
-   *
-   * @param value
-   * @throws IOException
-   */
-  public void writeDoubleArray(List<Double> value) throws IOException {
-```
-
-### JavadocDeclaration
-`@param value` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
-#### Snippet
-```java
-   * Writes a byte array value.
-   *
-   * @param value
-   * @throws IOException
-   */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
-#### Snippet
-```java
-   *
-   * @param value
-   * @throws IOException
-   */
-  public void writeByteArray(byte[] value) throws IOException {
-```
-
-### JavadocDeclaration
-`@param value` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
-#### Snippet
-```java
-   * Writes a list of inet adress values.
-   *
-   * @param value
-   * @throws IOException
-   */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
-#### Snippet
-```java
-   *
-   * @param value
-   * @throws IOException
-   */
-  public void writeInet6Adress(Inet6Address value) throws IOException {
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
-#### Snippet
-```java
-   * Writes the header of the query.
-   *
-   * @throws IOException
-   */
-  public void writeHeader() throws IOException {
+  public void writeLocalDate(LocalDate value) throws IOException {
 ```
 
 ### JavadocDeclaration
@@ -4182,6 +4197,30 @@ in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.jav
    * @throws IOException
    */
   public void writeShort(Short value) throws IOException {
+```
+
+### JavadocDeclaration
+`@param value` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
+#### Snippet
+```java
+   * Writes a list of date values.
+   *
+   * @param value
+   * @throws IOException
+   */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
+#### Snippet
+```java
+   *
+   * @param value
+   * @throws IOException
+   */
+  public void writeLocalDateTime(LocalDateTime value) throws IOException {
 ```
 
 ### JavadocDeclaration
@@ -4233,6 +4272,198 @@ in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.jav
 ```
 
 ### JavadocDeclaration
+`@param value` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
+#### Snippet
+```java
+   * Writes a list of boolean values.
+   *
+   * @param value
+   * @throws IOException
+   */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
+#### Snippet
+```java
+   *
+   * @param value
+   * @throws IOException
+   */
+  public void writeBooleanList(List<Boolean> value) throws IOException {
+```
+
+### JavadocDeclaration
+`@param value` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
+#### Snippet
+```java
+   * Writes a byte array value.
+   *
+   * @param value
+   * @throws IOException
+   */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
+#### Snippet
+```java
+   *
+   * @param value
+   * @throws IOException
+   */
+  public void writeByteArray(byte[] value) throws IOException {
+```
+
+### JavadocDeclaration
+`@param value` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
+#### Snippet
+```java
+   * Writes a list of integer values.
+   *
+   * @param value
+   * @throws IOException
+   */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
+#### Snippet
+```java
+   *
+   * @param value
+   * @throws IOException
+   */
+  public void writeIntegerList(List<Integer> value) throws IOException {
+```
+
+### JavadocDeclaration
+`@param value` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
+#### Snippet
+```java
+   * Writes an integer value.
+   *
+   * @param value
+   * @throws IOException
+   */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
+#### Snippet
+```java
+   *
+   * @param value
+   * @throws IOException
+   */
+  public void writeInteger(Integer value) throws IOException {
+```
+
+### JavadocDeclaration
+`@param value` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
+#### Snippet
+```java
+   * Writes a double value.
+   *
+   * @param value
+   * @throws IOException
+   */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
+#### Snippet
+```java
+   *
+   * @param value
+   * @throws IOException
+   */
+  public void writeDouble(Double value) throws IOException {
+```
+
+### JavadocDeclaration
+`@param value` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
+#### Snippet
+```java
+   * Writes a map value.
+   *
+   * @param value
+   * @throws IOException
+   */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
+#### Snippet
+```java
+   *
+   * @param value
+   * @throws IOException
+   */
+  public void writeHstore(Map<String, String> value) throws IOException {
+```
+
+### JavadocDeclaration
+`@param value` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
+#### Snippet
+```java
+   * Writes a list of short values.
+   *
+   * @param value
+   * @throws IOException
+   */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
+#### Snippet
+```java
+   *
+   * @param value
+   * @throws IOException
+   */
+  public void writeShortList(List<Short> value) throws IOException {
+```
+
+### JavadocDeclaration
+`@param columns` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
+#### Snippet
+```java
+   * Writes the number of columns affected by the query.
+   *
+   * @param columns
+   * @throws IOException
+   */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
+#### Snippet
+```java
+   *
+   * @param columns
+   * @throws IOException
+   */
+  public void startRow(int columns) throws IOException {
+```
+
+### JavadocDeclaration
 `@throws` tag description is missing
 in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
 #### Snippet
@@ -4241,368 +4472,608 @@ in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.jav
    *
    * @throws IOException
    */
-  public void writeNull() throws IOException {
+  public <T> void write(BaseValueHandler<T> handler, T value) throws IOException {
+```
+
+### JavadocDeclaration
+`@param value` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
+#### Snippet
+```java
+   * Writes a string value.
+   *
+   * @param value
+   * @throws IOException
+   */
 ```
 
 ### JavadocDeclaration
 `@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/Repository.java`
+in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
 #### Snippet
 ```java
-   * @param key the id of the value
-   * @return the selected value if it exists, null otherwise
-   * @throws RepositoryException
+   *
+   * @param value
+   * @throws IOException
    */
-  V get(K key) throws RepositoryException;
+  public void write(String value) throws IOException {
+```
+
+### JavadocDeclaration
+`@param value` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
+#### Snippet
+```java
+   * Writes a jsonb array
+   *
+   * @param value
+   * @throws IOException
+   */
 ```
 
 ### JavadocDeclaration
 `@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/Repository.java`
+in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
 #### Snippet
 ```java
    *
-   * @param key the key of the value to delete
-   * @throws RepositoryException
+   * @param value
+   * @throws IOException
    */
-  void delete(K key) throws RepositoryException;
+  public void writeJsonb(String value) throws IOException {
+```
+
+### JavadocDeclaration
+`@param value` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
+#### Snippet
+```java
+   * Writes a float value.
+   *
+   * @param value
+   * @throws IOException
+   */
 ```
 
 ### JavadocDeclaration
 `@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/Repository.java`
+in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
 #### Snippet
 ```java
-   * Truncate the repository.
    *
-   * @throws RepositoryException
+   * @param value
+   * @throws IOException
    */
-  void truncate() throws RepositoryException;
+  public void writeFloat(Float value) throws IOException {
+```
+
+### JavadocDeclaration
+`@param value` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
+#### Snippet
+```java
+   * Writes a list of double values.
+   *
+   * @param value
+   * @throws IOException
+   */
 ```
 
 ### JavadocDeclaration
 `@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/Repository.java`
+in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
 #### Snippet
 ```java
    *
-   * @param keys the list of keys
-   * @throws RepositoryException
+   * @param value
+   * @throws IOException
    */
-  void delete(List<K> keys) throws RepositoryException;
+  public void writeDoubleArray(List<Double> value) throws IOException {
+```
+
+### JavadocDeclaration
+`@param value` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
+#### Snippet
+```java
+   * Writes a list of inet adress values.
+   *
+   * @param value
+   * @throws IOException
+   */
 ```
 
 ### JavadocDeclaration
 `@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/Repository.java`
+in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
 #### Snippet
 ```java
-   * Drops the repository.
    *
-   * @throws RepositoryException
+   * @param value
+   * @throws IOException
    */
-  void drop() throws RepositoryException;
+  public void writeInet6Adress(Inet6Address value) throws IOException {
+```
+
+### JavadocDeclaration
+`@param value` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
+#### Snippet
+```java
+   * Writes a geometry value.
+   *
+   * @param value
+   * @throws IOException
+   */
 ```
 
 ### JavadocDeclaration
 `@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/Repository.java`
+in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
 #### Snippet
 ```java
-   * @param keys a list of keys
-   * @return a list of values
-   * @throws RepositoryException
+   *
+   * @param value
+   * @throws IOException
    */
-  List<V> get(List<K> keys) throws RepositoryException;
+  public void writePostgisGeometry(Geometry value) throws IOException {
+```
+
+### JavadocDeclaration
+`@param value` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
+#### Snippet
+```java
+   * Writes a list of string values.
+   *
+   * @param value
+   * @throws IOException
+   */
 ```
 
 ### JavadocDeclaration
 `@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/Repository.java`
+in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
 #### Snippet
 ```java
-   * Creates the repository.
    *
-   * @throws RepositoryException
+   * @param value
+   * @throws IOException
    */
-  void create() throws RepositoryException;
+  public void write(List<String> value) throws IOException {
+```
+
+### JavadocDeclaration
+`@param value` tag description is missing
+in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
+#### Snippet
+```java
+   * Writes a boolean value.
+   *
+   * @param value
+   * @throws IOException
+   */
 ```
 
 ### JavadocDeclaration
 `@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/Repository.java`
+in `baremaps-core/src/main/java/org/apache/baremaps/database/copy/CopyWriter.java`
 #### Snippet
 ```java
    *
-   * @param value the value to put
-   * @throws RepositoryException
+   * @param value
+   * @throws IOException
    */
-  void put(V value) throws RepositoryException;
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/Repository.java`
-#### Snippet
-```java
-   *
-   * @param values a list of the values to put
-   * @throws RepositoryException
-   */
-  void put(List<V> values) throws RepositoryException;
-```
-
-### JavadocDeclaration
-`@param consumer` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/function/ChangeEntitiesHandler.java`
-#### Snippet
-```java
-   * Change}.
-   *
-   * @param consumer
-   */
-  public ChangeEntitiesHandler(Consumer<Entity> consumer) {
-```
-
-### JavadocDeclaration
-`@param dataSource` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresWayRepository.java`
-#### Snippet
-```java
-   * Constructs a {@code PostgresWayRepository} with custom parameters.
-   *
-   * @param dataSource
-   * @param tableName
-   * @param idColumn
-```
-
-### JavadocDeclaration
-`@param tableName` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresWayRepository.java`
-#### Snippet
-```java
-   *
-   * @param dataSource
-   * @param tableName
-   * @param idColumn
-   * @param versionColumn
-```
-
-### JavadocDeclaration
-`@param idColumn` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresWayRepository.java`
-#### Snippet
-```java
-   * @param dataSource
-   * @param tableName
-   * @param idColumn
-   * @param versionColumn
-   * @param uidColumn
-```
-
-### JavadocDeclaration
-`@param versionColumn` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresWayRepository.java`
-#### Snippet
-```java
-   * @param tableName
-   * @param idColumn
-   * @param versionColumn
-   * @param uidColumn
-   * @param timestampColumn
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/stream/ConsumerUtils.java`
-#### Snippet
-```java
-   *
-   * @param type the type of the input
-   * @return
-   * @param <T>
-   */
-```
-
-### JavadocDeclaration
-`@param ` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/stream/ConsumerUtils.java`
-#### Snippet
-```java
-   * @param type the type of the input
-   * @return
-   * @param <T>
-   */
-  public static <T> Consumer<T> chain(Class<T> type) {
-```
-
-### JavadocDeclaration
-`@param uidColumn` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresWayRepository.java`
-#### Snippet
-```java
-   * @param idColumn
-   * @param versionColumn
-   * @param uidColumn
-   * @param timestampColumn
-   * @param changesetColumn
-```
-
-### JavadocDeclaration
-`@param timestampColumn` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresWayRepository.java`
-#### Snippet
-```java
-   * @param versionColumn
-   * @param uidColumn
-   * @param timestampColumn
-   * @param changesetColumn
-   * @param tagsColumn
-```
-
-### JavadocDeclaration
-`@param changesetColumn` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresWayRepository.java`
-#### Snippet
-```java
-   * @param uidColumn
-   * @param timestampColumn
-   * @param changesetColumn
-   * @param tagsColumn
-   * @param nodesColumn
-```
-
-### JavadocDeclaration
-`@param tagsColumn` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresWayRepository.java`
-#### Snippet
-```java
-   * @param timestampColumn
-   * @param changesetColumn
-   * @param tagsColumn
-   * @param nodesColumn
-   * @param geometryColumn
-```
-
-### JavadocDeclaration
-`@param nodesColumn` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresWayRepository.java`
-#### Snippet
-```java
-   * @param changesetColumn
-   * @param tagsColumn
-   * @param nodesColumn
-   * @param geometryColumn
-   */
-```
-
-### JavadocDeclaration
-`@param geometryColumn` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresWayRepository.java`
-#### Snippet
-```java
-   * @param tagsColumn
-   * @param nodesColumn
-   * @param geometryColumn
-   */
-  public PostgresWayRepository(DataSource dataSource, String tableName, String idColumn,
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/iploc/database/SqliteUtils.java`
-#### Snippet
-```java
-   * @param databaseUrl the JDBC url
-   * @param resource the path of the resource file
-   * @throws SQLException
-   */
-  public static void executeResource(String databaseUrl, String resource)
-```
-
-### JavadocDeclaration
-`@param input` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/xml/XmlChangeReader.java`
-#### Snippet
-```java
-   * Creates an ordered stream of OSM changes from an XML file.
-   *
-   * @param input
-   * @return
-   */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/xml/XmlChangeReader.java`
-#### Snippet
-```java
-   *
-   * @param input
-   * @return
-   */
-  public Stream<Change> stream(InputStream input) {
-```
-
-### JavadocDeclaration
-`@param size` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/collection/type/MemoryAlignedDataType.java`
-#### Snippet
-```java
-   * Constructs a {@link MemoryAlignedDataType}.
-   *
-   * @param size
-   */
-  public MemoryAlignedDataType(int size) {
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresJsonbMapper.java`
-#### Snippet
-```java
-   * @param input a map with the entry of the object
-   * @return a Json string representing the object
-   * @throws JsonProcessingException
-   */
-  public static String toJson(Map<String, Object> input) throws JsonProcessingException {
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `baremaps-core/src/main/java/org/apache/baremaps/database/repository/PostgresJsonbMapper.java`
-#### Snippet
-```java
-   * @param input a valid json object
-   * @return a map with the entry of the objects
-   * @throws JsonProcessingException
-   */
-  public static Map<String, Object> toMap(String input) throws JsonProcessingException {
+  public void writeBoolean(Boolean value) throws IOException {
 ```
 
 ## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
-Field `longitude` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/iploc/data/Location.java`
+Field `dataSources` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/workflow/WorkflowContext.java`
 #### Snippet
 ```java
+public class WorkflowContext {
 
-  private double latitude;
-  private double longitude;
+  private Map<String, DataSource> dataSources = new ConcurrentHashMap<>() {};
 
   /**
 ```
 
 ### FieldMayBeFinal
-Field `latitude` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/iploc/data/Location.java`
+Field `fis` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/CommonByteReader.java`
 #### Snippet
 ```java
-public class Location {
 
-  private double latitude;
-  private double longitude;
+  /** Input Stream on the DBF. */
+  private FileInputStream fis;
 
+  /** File channel on the file. */
+```
+
+### FieldMayBeFinal
+Field `file` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/CommonByteReader.java`
+#### Snippet
+```java
+
+  /** The File. */
+  private File file;
+
+  /** Input Stream on the DBF. */
+```
+
+### FieldMayBeFinal
+Field `byteBuffer` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/CommonByteReader.java`
+#### Snippet
+```java
+
+  /** Buffer reader. */
+  private MappedByteBuffer byteBuffer;
+
+  /** Indicates if the byte buffer is closed. */
+```
+
+### FieldMayBeFinal
+Field `fc` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/CommonByteReader.java`
+#### Snippet
+```java
+
+  /** File channel on the file. */
+  private FileChannel fc;
+
+  /** Buffer reader. */
+```
+
+### FieldMayBeFinal
+Field `id` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/workflow/tasks/Entity.java`
+#### Snippet
+```java
+public class Entity implements Row {
+
+  private long id;
+
+  private Map<String, String> tags;
+```
+
+### FieldMayBeFinal
+Field `geometry` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/workflow/tasks/Entity.java`
+#### Snippet
+```java
+  private Map<String, String> tags;
+
+  private Geometry geometry;
+
+  public Entity(long id, Map<String, String> tags, Geometry geometry) {
+```
+
+### FieldMayBeFinal
+Field `tags` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/workflow/tasks/Entity.java`
+#### Snippet
+```java
+  private long id;
+
+  private Map<String, String> tags;
+
+  private Geometry geometry;
+```
+
+### FieldMayBeFinal
+Field `mmin` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileDescriptor.java`
+#### Snippet
+```java
+
+  /** M Min. */
+  private double mmin; // little
+
+  /** M Max. */
+```
+
+### FieldMayBeFinal
+Field `fileCode` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileDescriptor.java`
+#### Snippet
+```java
+public class ShapefileDescriptor {
+  /** File code. */
+  private int fileCode; // big
+
+  /** File length. */
+```
+
+### FieldMayBeFinal
+Field `xmin` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileDescriptor.java`
+#### Snippet
+```java
+
+  /** X Min. */
+  private double xmin; // little
+
+  /** Y Min. */
+```
+
+### FieldMayBeFinal
+Field `zmin` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileDescriptor.java`
+#### Snippet
+```java
+
+  /** Z Min. */
+  private double zmin; // little
+
+  /** Z Max. */
+```
+
+### FieldMayBeFinal
+Field `ymax` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileDescriptor.java`
+#### Snippet
+```java
+
+  /** Y Max. */
+  private double ymax; // little
+
+  /** Z Min. */
+```
+
+### FieldMayBeFinal
+Field `shapefileGeometryType` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileDescriptor.java`
+#### Snippet
+```java
+
+  /** Shapefile type. */
+  private ShapefileGeometryType shapefileGeometryType; // little
+
+  /** X Min. */
+```
+
+### FieldMayBeFinal
+Field `ymin` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileDescriptor.java`
+#### Snippet
+```java
+
+  /** Y Min. */
+  private double ymin; // little
+
+  /** X Max. */
+```
+
+### FieldMayBeFinal
+Field `fileLength` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileDescriptor.java`
+#### Snippet
+```java
+
+  /** File length. */
+  private int fileLength; // big // The value for file length is the total length of the file in
+                          // 16-bit
+  // words
+```
+
+### FieldMayBeFinal
+Field `zmax` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileDescriptor.java`
+#### Snippet
+```java
+
+  /** Z Max. */
+  private double zmax; // little
+
+  /** M Min. */
+```
+
+### FieldMayBeFinal
+Field `mmax` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileDescriptor.java`
+#### Snippet
+```java
+
+  /** M Max. */
+  private double mmax; // little
+
+  /**
+```
+
+### FieldMayBeFinal
+Field `xmax` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileDescriptor.java`
+#### Snippet
+```java
+
+  /** X Max. */
+  private double xmax; // little
+
+  /** Y Max. */
+```
+
+### FieldMayBeFinal
+Field `version` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileDescriptor.java`
+#### Snippet
+```java
+
+  /** File version. */
+  private int version; // little
+
+  /** Shapefile type. */
+```
+
+### FieldMayBeFinal
+Field `lock` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/collection/AppendOnlyBuffer.java`
+#### Snippet
+```java
+  private long size;
+
+  private Lock lock = new ReentrantLock();
+
+  /**
+```
+
+### FieldMayBeFinal
+Field `list` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/collection/algorithm/ExternalMergeSort.java`
+#### Snippet
+```java
+  static final class DataStack<T> implements AutoCloseable {
+
+    private DataList<T> list;
+
+    private Long index = 0l;
+```
+
+### FieldMayBeFinal
+Field `srid` may be 'final'
+in `baremaps-cli/src/main/java/org/apache/baremaps/cli/database/ImportOpenStreetMap.java`
+#### Snippet
+```java
+  @Option(names = {"--srid"}, paramLabel = "SRID",
+      description = "The projection used by the database.")
+  private int srid = 3857;
+
+  @Override
+```
+
+### FieldMayBeFinal
+Field `value` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileGeometryType.java`
+#### Snippet
+```java
+
+  // used for initializing the enumeration
+  private int value;
+
+  private ShapefileGeometryType(int value) {
+```
+
+### FieldMayBeFinal
+Field `host` may be 'final'
+in `baremaps-cli/src/main/java/org/apache/baremaps/cli/geocoder/Serve.java`
+#### Snippet
+```java
+
+  @Option(names = {"--host"}, paramLabel = "HOST", description = "The host of the server.")
+  private String host = "localhost";
+
+  @Option(names = {"--port"}, paramLabel = "PORT", description = "The port of the server.")
+```
+
+### FieldMayBeFinal
+Field `port` may be 'final'
+in `baremaps-cli/src/main/java/org/apache/baremaps/cli/geocoder/Serve.java`
+#### Snippet
+```java
+
+  @Option(names = {"--port"}, paramLabel = "PORT", description = "The port of the server.")
+  private int port = 9000;
+
+  @Override
+```
+
+### FieldMayBeFinal
+Field `size` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/collection/DataList.java`
+#### Snippet
+```java
+      private long index = 0;
+
+      private long size = sizeAsLong();
+
+      @Override
+```
+
+### FieldMayBeFinal
+Field `batchArrayIndex` may be 'final'
+in `baremaps-cli/src/main/java/org/apache/baremaps/cli/map/Export.java`
+#### Snippet
+```java
+  @Option(names = {"--batch-array-index"}, paramLabel = "READER",
+      description = "The index of the batch in the array.")
+  private int batchArrayIndex = 0;
+
+  @Option(names = {"--mbtiles"}, paramLabel = "MBTILES",
+```
+
+### FieldMayBeFinal
+Field `mbtiles` may be 'final'
+in `baremaps-cli/src/main/java/org/apache/baremaps/cli/map/Export.java`
+#### Snippet
+```java
+  @Option(names = {"--mbtiles"}, paramLabel = "MBTILES",
+      description = "The repository is in the MBTiles format.")
+  private boolean mbtiles = false;
+
+  @Override
+```
+
+### FieldMayBeFinal
+Field `batchArraySize` may be 'final'
+in `baremaps-cli/src/main/java/org/apache/baremaps/cli/map/Export.java`
+#### Snippet
+```java
+  @Option(names = {"--batch-array-size"}, paramLabel = "BATCH_ARRAY_SIZE",
+      description = "The size of the batch array.")
+  private int batchArraySize = 1;
+
+  @Option(names = {"--batch-array-index"}, paramLabel = "READER",
+```
+
+### FieldMayBeFinal
+Field `srid` may be 'final'
+in `baremaps-cli/src/main/java/org/apache/baremaps/cli/database/UpdateOpenStreetMap.java`
+#### Snippet
+```java
+  @Option(names = {"--srid"}, paramLabel = "SRID",
+      description = "The projection used by the database.")
+  private int srid = 3857;
+
+  @Override
+```
+
+### FieldMayBeFinal
+Field `cache` may be 'final'
+in `baremaps-cli/src/main/java/org/apache/baremaps/cli/ogcapi/OgcApi.java`
+#### Snippet
+```java
+
+  @Option(names = {"--cache"}, paramLabel = "CACHE", description = "The caffeine cache directive.")
+  private String cache = "";
+
+  @Option(names = {"--tileset"}, paramLabel = "TILESET", description = "The tileset file.",
+```
+
+### FieldMayBeFinal
+Field `host` may be 'final'
+in `baremaps-cli/src/main/java/org/apache/baremaps/cli/ogcapi/OgcApi.java`
+#### Snippet
+```java
+
+  @Option(names = {"--host"}, paramLabel = "HOST", description = "The host of the server.")
+  private String host = "localhost";
+
+  @Option(names = {"--port"}, paramLabel = "PORT", description = "The port of the server.")
+```
+
+### FieldMayBeFinal
+Field `port` may be 'final'
+in `baremaps-cli/src/main/java/org/apache/baremaps/cli/ogcapi/OgcApi.java`
+#### Snippet
+```java
+
+  @Option(names = {"--port"}, paramLabel = "PORT", description = "The port of the server.")
+  private int port = 9000;
+
+  @Override
 ```
 
 ### FieldMayBeFinal
@@ -4613,6 +5084,342 @@ in `baremaps-core/src/main/java/org/apache/baremaps/collection/MemoryAlignedData
   private final long segmentMask;
 
   private AtomicLong size;
+
+  /**
+```
+
+### FieldMayBeFinal
+Field `dbasePlusLanReserved3` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/DBaseFieldDescriptor.java`
+#### Snippet
+```java
+
+  /** Reserved 3. */
+  private byte[] dbasePlusLanReserved3 = new byte[2];
+
+  /** Undocumented use. */
+```
+
+### FieldMayBeFinal
+Field `fieldType` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/DBaseFieldDescriptor.java`
+#### Snippet
+```java
+
+  /** Field type. */
+  private DBaseDataType fieldType;
+
+  /** Field address (Field data address (address is set in memory; not useful on disk). */
+```
+
+### FieldMayBeFinal
+Field `dbasePlusLanReserved2` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/DBaseFieldDescriptor.java`
+#### Snippet
+```java
+
+  /** Reserved 2. */
+  private byte[] dbasePlusLanReserved2 = new byte[2];
+
+  /** Work area id. */
+```
+
+### FieldMayBeFinal
+Field `fieldLength` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/DBaseFieldDescriptor.java`
+#### Snippet
+```java
+
+  /** Field length. */
+  private byte fieldLength;
+
+  /** Decimal count. */
+```
+
+### FieldMayBeFinal
+Field `fieldDecimalCount` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/DBaseFieldDescriptor.java`
+#### Snippet
+```java
+
+  /** Decimal count. */
+  private byte fieldDecimalCount;
+
+  /** Reserved 2. */
+```
+
+### FieldMayBeFinal
+Field `fieldAddress` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/DBaseFieldDescriptor.java`
+#### Snippet
+```java
+
+  /** Field address (Field data address (address is set in memory; not useful on disk). */
+  private byte[] fieldAddress = new byte[4];
+
+  /** Field length. */
+```
+
+### FieldMayBeFinal
+Field `workAreaID` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/DBaseFieldDescriptor.java`
+#### Snippet
+```java
+  /** Work area id. */
+  @SuppressWarnings("unused") // Kept in case of later ALTER TABLE sql calls.
+  private byte workAreaID;
+
+  /** Reserved 3. */
+```
+
+### FieldMayBeFinal
+Field `fieldName` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/DBaseFieldDescriptor.java`
+#### Snippet
+```java
+public class DBaseFieldDescriptor {
+  /** Field name. */
+  private byte[] fieldName = new byte[11];
+
+  /** Field name as String, for performance issues. */
+```
+
+### FieldMayBeFinal
+Field `setFields` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/DBaseFieldDescriptor.java`
+#### Snippet
+```java
+  /** Undocumented use. */
+  @SuppressWarnings("unused") // Kept in case of later ALTER TABLE sql calls.
+  private byte setFields;
+
+  /**
+```
+
+### FieldMayBeFinal
+Field `resultSet` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/postgres/PostgresTable.java`
+#### Snippet
+```java
+    private Connection connection;
+    private Statement statement;
+    private ResultSet resultSet;
+    private boolean hasNext;
+
+```
+
+### FieldMayBeFinal
+Field `connection` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/postgres/PostgresTable.java`
+#### Snippet
+```java
+  public class PostgresIterator implements Iterator<Row>, AutoCloseable {
+
+    private Connection connection;
+    private Statement statement;
+    private ResultSet resultSet;
+```
+
+### FieldMayBeFinal
+Field `statement` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/postgres/PostgresTable.java`
+#### Snippet
+```java
+
+    private Connection connection;
+    private Statement statement;
+    private ResultSet resultSet;
+    private boolean hasNext;
+```
+
+### FieldMayBeFinal
+Field `port` may be 'final'
+in `baremaps-cli/src/main/java/org/apache/baremaps/cli/map/Serve.java`
+#### Snippet
+```java
+
+  @Option(names = {"--port"}, paramLabel = "PORT", description = "The port of the server.")
+  private int port = 9000;
+
+  @Override
+```
+
+### FieldMayBeFinal
+Field `cache` may be 'final'
+in `baremaps-cli/src/main/java/org/apache/baremaps/cli/map/Serve.java`
+#### Snippet
+```java
+
+  @Option(names = {"--cache"}, paramLabel = "CACHE", description = "The caffeine cache directive.")
+  private String cache = "";
+
+  @Option(names = {"--tileset"}, paramLabel = "TILESET", description = "The tileset file.",
+```
+
+### FieldMayBeFinal
+Field `host` may be 'final'
+in `baremaps-cli/src/main/java/org/apache/baremaps/cli/map/Serve.java`
+#### Snippet
+```java
+
+  @Option(names = {"--host"}, paramLabel = "HOST", description = "The host of the server.")
+  private String host = "localhost";
+
+  @Option(names = {"--port"}, paramLabel = "PORT", description = "The port of the server.")
+```
+
+### FieldMayBeFinal
+Field `port` may be 'final'
+in `baremaps-cli/src/main/java/org/apache/baremaps/cli/map/Dev.java`
+#### Snippet
+```java
+
+  @Option(names = {"--port"}, paramLabel = "PORT", description = "The port of the server.")
+  private int port = 9000;
+
+  @Override
+```
+
+### FieldMayBeFinal
+Field `cache` may be 'final'
+in `baremaps-cli/src/main/java/org/apache/baremaps/cli/map/Dev.java`
+#### Snippet
+```java
+
+  @Option(names = {"--cache"}, paramLabel = "CACHE", description = "The caffeine cache directive.")
+  private String cache = "";
+
+  @Option(names = {"--tileset"}, paramLabel = "TILESET", description = "The tileset file.",
+```
+
+### FieldMayBeFinal
+Field `host` may be 'final'
+in `baremaps-cli/src/main/java/org/apache/baremaps/cli/map/Dev.java`
+#### Snippet
+```java
+
+  @Option(names = {"--host"}, paramLabel = "HOST", description = "The host of the server.")
+  private String host = "localhost";
+
+  @Option(names = {"--port"}, paramLabel = "PORT", description = "The port of the server.")
+```
+
+### FieldMayBeFinal
+Field `geometryDataType` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/collection/type/geometry/GeometryCollectionDataType.java`
+#### Snippet
+```java
+  private final GeometryFactory geometryFactory;
+
+  private GeometryDataType geometryDataType;
+
+  /**
+```
+
+### FieldMayBeFinal
+Field `size` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/collection/FixedSizeDataList.java`
+#### Snippet
+```java
+  private final Memory memory;
+
+  private AtomicLong size;
+
+  /**
+```
+
+### FieldMayBeFinal
+Field `shapefileReader` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileInputStream.java`
+#### Snippet
+```java
+
+  /** Shapefile reader. */
+  private ShapefileByteReader shapefileReader;
+
+  /**
+```
+
+### FieldMayBeFinal
+Field `dbaseReader` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileInputStream.java`
+#### Snippet
+```java
+public class ShapefileInputStream extends InputStream {
+
+  private DbaseByteReader dbaseReader;
+
+  /** Shapefile. */
+```
+
+### FieldMayBeFinal
+Field `databaseFile` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileInputStream.java`
+#### Snippet
+```java
+
+  /** Database file. */
+  private File databaseFile;
+
+  /** Shapefile index. */
+```
+
+### FieldMayBeFinal
+Field `schema` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileInputStream.java`
+#### Snippet
+```java
+
+  /** Schema of the features contained in this shapefile. */
+  private Schema schema;
+
+  /** Shapefile reader. */
+```
+
+### FieldMayBeFinal
+Field `hasShapefileIndex` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileInputStream.java`
+#### Snippet
+```java
+
+  /** Indicates that the shape file has a valid index provided with it. */
+  private boolean hasShapefileIndex;
+
+  /** Schema of the features contained in this shapefile. */
+```
+
+### FieldMayBeFinal
+Field `shapefile` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileInputStream.java`
+#### Snippet
+```java
+
+  /** Shapefile. */
+  private File shapefile;
+
+  /** Database file. */
+```
+
+### FieldMayBeFinal
+Field `schema` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/flatgeobuf/FlatGeoBufTable.java`
+#### Snippet
+```java
+  private final Path file;
+
+  private Schema schema;
+
+  /**
+```
+
+### FieldMayBeFinal
+Field `iplocStats` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/iploc/IpLoc.java`
+#### Snippet
+```java
+  private final InetnumLocationDao inetnumLocationDao;
+  private final SearcherManager searcherManager;
+  private IpLocStats iplocStats;
 
   /**
 ```
@@ -4654,399 +5461,15 @@ in `baremaps-core/src/main/java/org/apache/baremaps/workflow/tasks/EntityDataTyp
 ```
 
 ### FieldMayBeFinal
-Field `lock` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/collection/AppendOnlyBuffer.java`
+Field `min` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/utils/ProjectionTransformer.java`
 #### Snippet
 ```java
-  private long size;
+  private final CoordinateTransform transform;
 
-  private Lock lock = new ReentrantLock();
+  private ProjCoordinate min;
 
-  /**
-```
-
-### FieldMayBeFinal
-Field `id` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/workflow/tasks/Entity.java`
-#### Snippet
-```java
-public class Entity implements Row {
-
-  private long id;
-
-  private Map<String, String> tags;
-```
-
-### FieldMayBeFinal
-Field `geometry` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/workflow/tasks/Entity.java`
-#### Snippet
-```java
-  private Map<String, String> tags;
-
-  private Geometry geometry;
-
-  public Entity(long id, Map<String, String> tags, Geometry geometry) {
-```
-
-### FieldMayBeFinal
-Field `tags` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/workflow/tasks/Entity.java`
-#### Snippet
-```java
-  private long id;
-
-  private Map<String, String> tags;
-
-  private Geometry geometry;
-```
-
-### FieldMayBeFinal
-Field `size` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/collection/DataList.java`
-#### Snippet
-```java
-      private long index = 0;
-
-      private long size = sizeAsLong();
-
-      @Override
-```
-
-### FieldMayBeFinal
-Field `iplocStats` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/iploc/IpLoc.java`
-#### Snippet
-```java
-  private final InetnumLocationDao inetnumLocationDao;
-  private final SearcherManager searcherManager;
-  private IpLocStats iplocStats;
-
-  /**
-```
-
-### FieldMayBeFinal
-Field `port` may be 'final'
-in `baremaps-cli/src/main/java/org/apache/baremaps/cli/ogcapi/OgcApi.java`
-#### Snippet
-```java
-
-  @Option(names = {"--port"}, paramLabel = "PORT", description = "The port of the server.")
-  private int port = 9000;
-
-  @Override
-```
-
-### FieldMayBeFinal
-Field `host` may be 'final'
-in `baremaps-cli/src/main/java/org/apache/baremaps/cli/map/Serve.java`
-#### Snippet
-```java
-
-  @Option(names = {"--host"}, paramLabel = "HOST", description = "The host of the server.")
-  private String host = "localhost";
-
-  @Option(names = {"--port"}, paramLabel = "PORT", description = "The port of the server.")
-```
-
-### FieldMayBeFinal
-Field `cache` may be 'final'
-in `baremaps-cli/src/main/java/org/apache/baremaps/cli/map/Serve.java`
-#### Snippet
-```java
-
-  @Option(names = {"--cache"}, paramLabel = "CACHE", description = "The caffeine cache directive.")
-  private String cache = "";
-
-  @Option(names = {"--tileset"}, paramLabel = "TILESET", description = "The tileset file.",
-```
-
-### FieldMayBeFinal
-Field `port` may be 'final'
-in `baremaps-cli/src/main/java/org/apache/baremaps/cli/map/Serve.java`
-#### Snippet
-```java
-
-  @Option(names = {"--port"}, paramLabel = "PORT", description = "The port of the server.")
-  private int port = 9000;
-
-  @Override
-```
-
-### FieldMayBeFinal
-Field `srid` may be 'final'
-in `baremaps-cli/src/main/java/org/apache/baremaps/cli/database/UpdateOpenStreetMap.java`
-#### Snippet
-```java
-  @Option(names = {"--srid"}, paramLabel = "SRID",
-      description = "The projection used by the database.")
-  private int srid = 3857;
-
-  @Override
-```
-
-### FieldMayBeFinal
-Field `cache` may be 'final'
-in `baremaps-cli/src/main/java/org/apache/baremaps/cli/map/Dev.java`
-#### Snippet
-```java
-
-  @Option(names = {"--cache"}, paramLabel = "CACHE", description = "The caffeine cache directive.")
-  private String cache = "";
-
-  @Option(names = {"--tileset"}, paramLabel = "TILESET", description = "The tileset file.",
-```
-
-### FieldMayBeFinal
-Field `host` may be 'final'
-in `baremaps-cli/src/main/java/org/apache/baremaps/cli/map/Dev.java`
-#### Snippet
-```java
-
-  @Option(names = {"--host"}, paramLabel = "HOST", description = "The host of the server.")
-  private String host = "localhost";
-
-  @Option(names = {"--port"}, paramLabel = "PORT", description = "The port of the server.")
-```
-
-### FieldMayBeFinal
-Field `port` may be 'final'
-in `baremaps-cli/src/main/java/org/apache/baremaps/cli/map/Dev.java`
-#### Snippet
-```java
-
-  @Option(names = {"--port"}, paramLabel = "PORT", description = "The port of the server.")
-  private int port = 9000;
-
-  @Override
-```
-
-### FieldMayBeFinal
-Field `size` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/collection/MemoryAlignedDataMap.java`
-#### Snippet
-```java
-      private long index = 0;
-
-      private long size = sizeAsLong();
-
-      @Override
-```
-
-### FieldMayBeFinal
-Field `size` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/collection/MemoryAlignedDataMap.java`
-#### Snippet
-```java
-      private long index = 0;
-
-      private long size = sizeAsLong();
-
-      @Override
-```
-
-### FieldMayBeFinal
-Field `size` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/collection/MemoryAlignedDataMap.java`
-#### Snippet
-```java
-      private long index = 0;
-
-      private long size = sizeAsLong();
-
-      @Override
-```
-
-### FieldMayBeFinal
-Field `host` may be 'final'
-in `baremaps-cli/src/main/java/org/apache/baremaps/cli/geocoder/Serve.java`
-#### Snippet
-```java
-
-  @Option(names = {"--host"}, paramLabel = "HOST", description = "The host of the server.")
-  private String host = "localhost";
-
-  @Option(names = {"--port"}, paramLabel = "PORT", description = "The port of the server.")
-```
-
-### FieldMayBeFinal
-Field `port` may be 'final'
-in `baremaps-cli/src/main/java/org/apache/baremaps/cli/geocoder/Serve.java`
-#### Snippet
-```java
-
-  @Option(names = {"--port"}, paramLabel = "PORT", description = "The port of the server.")
-  private int port = 9000;
-
-  @Override
-```
-
-### FieldMayBeFinal
-Field `srid` may be 'final'
-in `baremaps-cli/src/main/java/org/apache/baremaps/cli/database/ImportOpenStreetMap.java`
-#### Snippet
-```java
-  @Option(names = {"--srid"}, paramLabel = "SRID",
-      description = "The projection used by the database.")
-  private int srid = 3857;
-
-  @Override
-```
-
-### FieldMayBeFinal
-Field `batchArrayIndex` may be 'final'
-in `baremaps-cli/src/main/java/org/apache/baremaps/cli/map/Export.java`
-#### Snippet
-```java
-  @Option(names = {"--batch-array-index"}, paramLabel = "READER",
-      description = "The index of the batch in the array.")
-  private int batchArrayIndex = 0;
-
-  @Option(names = {"--mbtiles"}, paramLabel = "MBTILES",
-```
-
-### FieldMayBeFinal
-Field `batchArraySize` may be 'final'
-in `baremaps-cli/src/main/java/org/apache/baremaps/cli/map/Export.java`
-#### Snippet
-```java
-  @Option(names = {"--batch-array-size"}, paramLabel = "BATCH_ARRAY_SIZE",
-      description = "The size of the batch array.")
-  private int batchArraySize = 1;
-
-  @Option(names = {"--batch-array-index"}, paramLabel = "READER",
-```
-
-### FieldMayBeFinal
-Field `mbtiles` may be 'final'
-in `baremaps-cli/src/main/java/org/apache/baremaps/cli/map/Export.java`
-#### Snippet
-```java
-  @Option(names = {"--mbtiles"}, paramLabel = "MBTILES",
-      description = "The repository is in the MBTiles format.")
-  private boolean mbtiles = false;
-
-  @Override
-```
-
-### FieldMayBeFinal
-Field `fc` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/CommonByteReader.java`
-#### Snippet
-```java
-
-  /** File channel on the file. */
-  private FileChannel fc;
-
-  /** Buffer reader. */
-```
-
-### FieldMayBeFinal
-Field `fis` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/CommonByteReader.java`
-#### Snippet
-```java
-
-  /** Input Stream on the DBF. */
-  private FileInputStream fis;
-
-  /** File channel on the file. */
-```
-
-### FieldMayBeFinal
-Field `file` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/CommonByteReader.java`
-#### Snippet
-```java
-
-  /** The File. */
-  private File file;
-
-  /** Input Stream on the DBF. */
-```
-
-### FieldMayBeFinal
-Field `byteBuffer` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/CommonByteReader.java`
-#### Snippet
-```java
-
-  /** Buffer reader. */
-  private MappedByteBuffer byteBuffer;
-
-  /** Indicates if the byte buffer is closed. */
-```
-
-### FieldMayBeFinal
-Field `schema` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileInputStream.java`
-#### Snippet
-```java
-
-  /** Schema of the features contained in this shapefile. */
-  private Schema schema;
-
-  /** Shapefile reader. */
-```
-
-### FieldMayBeFinal
-Field `dbaseReader` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileInputStream.java`
-#### Snippet
-```java
-public class ShapefileInputStream extends InputStream {
-
-  private DbaseByteReader dbaseReader;
-
-  /** Shapefile. */
-```
-
-### FieldMayBeFinal
-Field `hasShapefileIndex` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileInputStream.java`
-#### Snippet
-```java
-
-  /** Indicates that the shape file has a valid index provided with it. */
-  private boolean hasShapefileIndex;
-
-  /** Schema of the features contained in this shapefile. */
-```
-
-### FieldMayBeFinal
-Field `shapefile` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileInputStream.java`
-#### Snippet
-```java
-
-  /** Shapefile. */
-  private File shapefile;
-
-  /** Database file. */
-```
-
-### FieldMayBeFinal
-Field `databaseFile` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileInputStream.java`
-#### Snippet
-```java
-
-  /** Database file. */
-  private File databaseFile;
-
-  /** Shapefile index. */
-```
-
-### FieldMayBeFinal
-Field `shapefileReader` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileInputStream.java`
-#### Snippet
-```java
-
-  /** Shapefile reader. */
-  private ShapefileByteReader shapefileReader;
-
-  /**
+  private ProjCoordinate max;
 ```
 
 ### FieldMayBeFinal
@@ -5062,39 +5485,135 @@ in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/utils/Projecti
 ```
 
 ### FieldMayBeFinal
-Field `min` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/utils/ProjectionTransformer.java`
+Field `size` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/collection/MemoryAlignedDataMap.java`
 #### Snippet
 ```java
-  private final CoordinateTransform transform;
+      private long index = 0;
 
-  private ProjCoordinate min;
+      private long size = sizeAsLong();
 
-  private ProjCoordinate max;
+      @Override
 ```
 
 ### FieldMayBeFinal
-Field `geometryDataType` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/collection/type/geometry/GeometryCollectionDataType.java`
+Field `size` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/collection/MemoryAlignedDataMap.java`
 #### Snippet
 ```java
-  private final GeometryFactory geometryFactory;
+      private long index = 0;
 
-  private GeometryDataType geometryDataType;
+      private long size = sizeAsLong();
+
+      @Override
+```
+
+### FieldMayBeFinal
+Field `size` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/collection/MemoryAlignedDataMap.java`
+#### Snippet
+```java
+      private long index = 0;
+
+      private long size = sizeAsLong();
+
+      @Override
+```
+
+### FieldMayBeFinal
+Field `fieldsDescriptors` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/DbaseByteReader.java`
+#### Snippet
+```java
+  protected byte[] dbaseLastUpdate = new byte[3];
+  /** List of field descriptors. */
+  private List<DBaseFieldDescriptor> fieldsDescriptors = new ArrayList<>();
+
+  /** Connection properties. */
+```
+
+### FieldMayBeFinal
+Field `info` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/DbaseByteReader.java`
+#### Snippet
+```java
+
+  /** Connection properties. */
+  private Properties info;
 
   /**
 ```
 
 ### FieldMayBeFinal
-Field `list` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/collection/algorithm/ExternalMergeSort.java`
+Field `host` may be 'final'
+in `baremaps-cli/src/main/java/org/apache/baremaps/cli/iploc/Serve.java`
 #### Snippet
 ```java
-  static final class DataStack<T> implements AutoCloseable {
 
-    private DataList<T> list;
+  @Option(names = {"--host"}, paramLabel = "HOST", description = "The host of the server.")
+  private String host = "localhost";
 
-    private Long index = 0l;
+  @Option(names = {"--port"}, paramLabel = "PORT", description = "The port of the server.")
+```
+
+### FieldMayBeFinal
+Field `port` may be 'final'
+in `baremaps-cli/src/main/java/org/apache/baremaps/cli/iploc/Serve.java`
+#### Snippet
+```java
+
+  @Option(names = {"--port"}, paramLabel = "PORT", description = "The port of the server.")
+  private int port = 9000;
+
+  @Override
+```
+
+### FieldMayBeFinal
+Field `longitude` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/iploc/data/Location.java`
+#### Snippet
+```java
+
+  private double latitude;
+  private double longitude;
+
+  /**
+```
+
+### FieldMayBeFinal
+Field `latitude` may be 'final'
+in `baremaps-core/src/main/java/org/apache/baremaps/iploc/data/Location.java`
+#### Snippet
+```java
+public class Location {
+
+  private double latitude;
+  private double longitude;
+
+```
+
+### FieldMayBeFinal
+Field `countryCode` may be 'final'
+in `baremaps-cli/src/main/java/org/apache/baremaps/cli/geocoder/Search.java`
+#### Snippet
+```java
+      names = {"--country"}, paramLabel = "COUNTRY", description = "The country code filter.",
+      required = false)
+  private String countryCode = "";
+
+  @Option(
+```
+
+### FieldMayBeFinal
+Field `limit` may be 'final'
+in `baremaps-cli/src/main/java/org/apache/baremaps/cli/geocoder/Search.java`
+#### Snippet
+```java
+      names = {"--limit"}, paramLabel = "LIMIT",
+      description = "The number of result to return.", required = false)
+  private Integer limit = 10;
+
+  @Override
 ```
 
 ### FieldMayBeFinal
@@ -5122,198 +5641,6 @@ public class ShapefileReader {
 ```
 
 ### FieldMayBeFinal
-Field `schema` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/flatgeobuf/FlatGeoBufTable.java`
-#### Snippet
-```java
-  private final Path file;
-
-  private Schema schema;
-
-  /**
-```
-
-### FieldMayBeFinal
-Field `mmax` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileDescriptor.java`
-#### Snippet
-```java
-
-  /** M Max. */
-  private double mmax; // little
-
-  /**
-```
-
-### FieldMayBeFinal
-Field `ymin` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileDescriptor.java`
-#### Snippet
-```java
-
-  /** Y Min. */
-  private double ymin; // little
-
-  /** X Max. */
-```
-
-### FieldMayBeFinal
-Field `mmin` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileDescriptor.java`
-#### Snippet
-```java
-
-  /** M Min. */
-  private double mmin; // little
-
-  /** M Max. */
-```
-
-### FieldMayBeFinal
-Field `shapefileGeometryType` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileDescriptor.java`
-#### Snippet
-```java
-
-  /** Shapefile type. */
-  private ShapefileGeometryType shapefileGeometryType; // little
-
-  /** X Min. */
-```
-
-### FieldMayBeFinal
-Field `fileCode` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileDescriptor.java`
-#### Snippet
-```java
-public class ShapefileDescriptor {
-  /** File code. */
-  private int fileCode; // big
-
-  /** File length. */
-```
-
-### FieldMayBeFinal
-Field `xmax` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileDescriptor.java`
-#### Snippet
-```java
-
-  /** X Max. */
-  private double xmax; // little
-
-  /** Y Max. */
-```
-
-### FieldMayBeFinal
-Field `zmax` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileDescriptor.java`
-#### Snippet
-```java
-
-  /** Z Max. */
-  private double zmax; // little
-
-  /** M Min. */
-```
-
-### FieldMayBeFinal
-Field `ymax` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileDescriptor.java`
-#### Snippet
-```java
-
-  /** Y Max. */
-  private double ymax; // little
-
-  /** Z Min. */
-```
-
-### FieldMayBeFinal
-Field `xmin` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileDescriptor.java`
-#### Snippet
-```java
-
-  /** X Min. */
-  private double xmin; // little
-
-  /** Y Min. */
-```
-
-### FieldMayBeFinal
-Field `zmin` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileDescriptor.java`
-#### Snippet
-```java
-
-  /** Z Min. */
-  private double zmin; // little
-
-  /** Z Max. */
-```
-
-### FieldMayBeFinal
-Field `version` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileDescriptor.java`
-#### Snippet
-```java
-
-  /** File version. */
-  private int version; // little
-
-  /** Shapefile type. */
-```
-
-### FieldMayBeFinal
-Field `fileLength` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileDescriptor.java`
-#### Snippet
-```java
-
-  /** File length. */
-  private int fileLength; // big // The value for file length is the total length of the file in
-                          // 16-bit
-  // words
-```
-
-### FieldMayBeFinal
-Field `value` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileGeometryType.java`
-#### Snippet
-```java
-
-  // used for initializing the enumeration
-  private int value;
-
-  private ShapefileGeometryType(int value) {
-```
-
-### FieldMayBeFinal
-Field `info` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/DbaseByteReader.java`
-#### Snippet
-```java
-
-  /** Connection properties. */
-  private Properties info;
-
-  /**
-```
-
-### FieldMayBeFinal
-Field `fieldsDescriptors` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/DbaseByteReader.java`
-#### Snippet
-```java
-  protected byte[] dbaseLastUpdate = new byte[3];
-  /** List of field descriptors. */
-  private List<DBaseFieldDescriptor> fieldsDescriptors = new ArrayList<>();
-
-  /** Connection properties. */
-```
-
-### FieldMayBeFinal
 Field `geometryFactory` may be 'final'
 in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileByteReader.java`
 #### Snippet
@@ -5337,235 +5664,7 @@ in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/S
   /** Shapefile index. */
 ```
 
-### FieldMayBeFinal
-Field `dbasePlusLanReserved2` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/DBaseFieldDescriptor.java`
-#### Snippet
-```java
-
-  /** Reserved 2. */
-  private byte[] dbasePlusLanReserved2 = new byte[2];
-
-  /** Work area id. */
-```
-
-### FieldMayBeFinal
-Field `fieldLength` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/DBaseFieldDescriptor.java`
-#### Snippet
-```java
-
-  /** Field length. */
-  private byte fieldLength;
-
-  /** Decimal count. */
-```
-
-### FieldMayBeFinal
-Field `fieldAddress` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/DBaseFieldDescriptor.java`
-#### Snippet
-```java
-
-  /** Field address (Field data address (address is set in memory; not useful on disk). */
-  private byte[] fieldAddress = new byte[4];
-
-  /** Field length. */
-```
-
-### FieldMayBeFinal
-Field `dbasePlusLanReserved3` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/DBaseFieldDescriptor.java`
-#### Snippet
-```java
-
-  /** Reserved 3. */
-  private byte[] dbasePlusLanReserved3 = new byte[2];
-
-  /** Undocumented use. */
-```
-
-### FieldMayBeFinal
-Field `fieldType` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/DBaseFieldDescriptor.java`
-#### Snippet
-```java
-
-  /** Field type. */
-  private DBaseDataType fieldType;
-
-  /** Field address (Field data address (address is set in memory; not useful on disk). */
-```
-
-### FieldMayBeFinal
-Field `workAreaID` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/DBaseFieldDescriptor.java`
-#### Snippet
-```java
-  /** Work area id. */
-  @SuppressWarnings("unused") // Kept in case of later ALTER TABLE sql calls.
-  private byte workAreaID;
-
-  /** Reserved 3. */
-```
-
-### FieldMayBeFinal
-Field `setFields` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/DBaseFieldDescriptor.java`
-#### Snippet
-```java
-  /** Undocumented use. */
-  @SuppressWarnings("unused") // Kept in case of later ALTER TABLE sql calls.
-  private byte setFields;
-
-  /**
-```
-
-### FieldMayBeFinal
-Field `fieldDecimalCount` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/DBaseFieldDescriptor.java`
-#### Snippet
-```java
-
-  /** Decimal count. */
-  private byte fieldDecimalCount;
-
-  /** Reserved 2. */
-```
-
-### FieldMayBeFinal
-Field `fieldName` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/DBaseFieldDescriptor.java`
-#### Snippet
-```java
-public class DBaseFieldDescriptor {
-  /** Field name. */
-  private byte[] fieldName = new byte[11];
-
-  /** Field name as String, for performance issues. */
-```
-
-### FieldMayBeFinal
-Field `size` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/collection/FixedSizeDataList.java`
-#### Snippet
-```java
-  private final Memory memory;
-
-  private AtomicLong size;
-
-  /**
-```
-
-### FieldMayBeFinal
-Field `port` may be 'final'
-in `baremaps-cli/src/main/java/org/apache/baremaps/cli/iploc/Serve.java`
-#### Snippet
-```java
-
-  @Option(names = {"--port"}, paramLabel = "PORT", description = "The port of the server.")
-  private int port = 9000;
-
-  @Override
-```
-
-### FieldMayBeFinal
-Field `host` may be 'final'
-in `baremaps-cli/src/main/java/org/apache/baremaps/cli/iploc/Serve.java`
-#### Snippet
-```java
-
-  @Option(names = {"--host"}, paramLabel = "HOST", description = "The host of the server.")
-  private String host = "localhost";
-
-  @Option(names = {"--port"}, paramLabel = "PORT", description = "The port of the server.")
-```
-
-### FieldMayBeFinal
-Field `resultSet` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/postgres/PostgresTable.java`
-#### Snippet
-```java
-    private Connection connection;
-    private Statement statement;
-    private ResultSet resultSet;
-    private boolean hasNext;
-
-```
-
-### FieldMayBeFinal
-Field `statement` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/postgres/PostgresTable.java`
-#### Snippet
-```java
-
-    private Connection connection;
-    private Statement statement;
-    private ResultSet resultSet;
-    private boolean hasNext;
-```
-
-### FieldMayBeFinal
-Field `connection` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/postgres/PostgresTable.java`
-#### Snippet
-```java
-  public class PostgresIterator implements Iterator<Row>, AutoCloseable {
-
-    private Connection connection;
-    private Statement statement;
-    private ResultSet resultSet;
-```
-
-### FieldMayBeFinal
-Field `dataSources` may be 'final'
-in `baremaps-core/src/main/java/org/apache/baremaps/workflow/WorkflowContext.java`
-#### Snippet
-```java
-public class WorkflowContext {
-
-  private Map<String, DataSource> dataSources = new ConcurrentHashMap<>() {};
-
-  /**
-```
-
-### FieldMayBeFinal
-Field `limit` may be 'final'
-in `baremaps-cli/src/main/java/org/apache/baremaps/cli/geocoder/Search.java`
-#### Snippet
-```java
-      names = {"--limit"}, paramLabel = "LIMIT",
-      description = "The number of result to return.", required = false)
-  private Integer limit = 10;
-
-  @Override
-```
-
-### FieldMayBeFinal
-Field `countryCode` may be 'final'
-in `baremaps-cli/src/main/java/org/apache/baremaps/cli/geocoder/Search.java`
-#### Snippet
-```java
-      names = {"--country"}, paramLabel = "COUNTRY", description = "The country code filter.",
-      required = false)
-  private String countryCode = "";
-
-  @Option(
-```
-
 ## RuleId[id=MismatchedCollectionQueryUpdate]
-### MismatchedCollectionQueryUpdate
-Contents of collection `recordsLengths` are updated, but never queried
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileByteReader.java`
-#### Snippet
-```java
-
-  /** Shapefile records lengths (loaded from .SHX file, if any found). */
-  private ArrayList<Integer> recordsLengths;
-
-  /** JTS geometry factory. */
-```
-
 ### MismatchedCollectionQueryUpdate
 Contents of collection `flatGeoBufTable` are queried, but never updated
 in `baremaps-core/src/main/java/org/apache/baremaps/storage/flatgeobuf/FlatGeoBufStore.java`
@@ -5578,17 +5677,41 @@ in `baremaps-core/src/main/java/org/apache/baremaps/storage/flatgeobuf/FlatGeoBu
     } catch (IOException e) {
 ```
 
-## RuleId[id=UnnecessaryLocalVariable]
-### UnnecessaryLocalVariable
-Local variable `config` is redundant
-in `baremaps-core/src/main/java/org/apache/baremaps/config/ConfigReader.java`
+### MismatchedCollectionQueryUpdate
+Contents of collection `recordsLengths` are updated, but never queried
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/ShapefileByteReader.java`
 #### Snippet
 ```java
-  public String read(Path path) throws IOException {
-    var extension = com.google.common.io.Files.getFileExtension(path.toString());
-    var config = switch (extension) {
-      case "js" -> eval(path);
-      default -> Files.readString(path);
+
+  /** Shapefile records lengths (loaded from .SHX file, if any found). */
+  private ArrayList<Integer> recordsLengths;
+
+  /** JTS geometry factory. */
+```
+
+## RuleId[id=UnnecessaryLocalVariable]
+### UnnecessaryLocalVariable
+Local variable `object` is redundant
+in `baremaps-server/src/main/java/org/apache/baremaps/server/DevResources.java`
+#### Snippet
+```java
+  public Style getStyle() throws IOException {
+    var config = configReader.read(style);
+    var object = objectMapper.readValue(config, Style.class);
+    return object;
+  }
+```
+
+### UnnecessaryLocalVariable
+Local variable `object` is redundant
+in `baremaps-server/src/main/java/org/apache/baremaps/server/DevResources.java`
+#### Snippet
+```java
+  public Tileset getTileset() throws IOException {
+    var config = configReader.read(tileset);
+    var object = objectMapper.readValue(config, Tileset.class);
+    return object;
+  }
 ```
 
 ### UnnecessaryLocalVariable
@@ -5604,6 +5727,30 @@ in `baremaps-core/src/main/java/org/apache/baremaps/workflow/WorkflowExecutor.ja
 ```
 
 ### UnnecessaryLocalVariable
+Local variable `scaledGeometry` is redundant
+in `baremaps-core/src/main/java/org/apache/baremaps/vectortile/VectorTileUtils.java`
+#### Snippet
+```java
+    affineTransformation.scale(1 / scaleX, -1 / scaleY);
+    affineTransformation.translate(envelope.getMinX(), envelope.getMinY());
+    Geometry scaledGeometry = affineTransformation.transform(geometry);
+
+    // Build the final geometry
+```
+
+### UnnecessaryLocalVariable
+Local variable `config` is redundant
+in `baremaps-core/src/main/java/org/apache/baremaps/config/ConfigReader.java`
+#### Snippet
+```java
+  public String read(Path path) throws IOException {
+    var extension = com.google.common.io.Files.getFileExtension(path.toString());
+    var config = switch (extension) {
+      case "js" -> eval(path);
+      default -> Files.readString(path);
+```
+
+### UnnecessaryLocalVariable
 Local variable `value` is redundant
 in `baremaps-core/src/main/java/org/apache/baremaps/collection/algorithm/Hilbert.java`
 #### Snippet
@@ -5613,6 +5760,18 @@ in `baremaps-core/src/main/java/org/apache/baremaps/collection/algorithm/Hilbert
     long value = ((i1 << 1) | i0);
 
     return value;
+```
+
+### UnnecessaryLocalVariable
+Local variable `recordNumber` is redundant
+in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/DbaseByteReader.java`
+#### Snippet
+```java
+  public int getRowNum() {
+    int position = getByteBuffer().position();
+    int recordNumber = (position - Short.toUnsignedInt(this.firstRecordPosition))
+        / Short.toUnsignedInt(this.recordLength);
+    return recordNumber;
 ```
 
 ### UnnecessaryLocalVariable
@@ -5651,58 +5810,10 @@ in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/CollectionUtil
             new PairDataType<>(new LongDataType(), new LongDataType()),
 ```
 
-### UnnecessaryLocalVariable
-Local variable `object` is redundant
-in `baremaps-server/src/main/java/org/apache/baremaps/server/DevResources.java`
-#### Snippet
-```java
-  public Style getStyle() throws IOException {
-    var config = configReader.read(style);
-    var object = objectMapper.readValue(config, Style.class);
-    return object;
-  }
-```
-
-### UnnecessaryLocalVariable
-Local variable `object` is redundant
-in `baremaps-server/src/main/java/org/apache/baremaps/server/DevResources.java`
-#### Snippet
-```java
-  public Tileset getTileset() throws IOException {
-    var config = configReader.read(tileset);
-    var object = objectMapper.readValue(config, Tileset.class);
-    return object;
-  }
-```
-
-### UnnecessaryLocalVariable
-Local variable `scaledGeometry` is redundant
-in `baremaps-core/src/main/java/org/apache/baremaps/vectortile/VectorTileUtils.java`
-#### Snippet
-```java
-    affineTransformation.scale(1 / scaleX, -1 / scaleY);
-    affineTransformation.translate(envelope.getMinX(), envelope.getMinY());
-    Geometry scaledGeometry = affineTransformation.transform(geometry);
-
-    // Build the final geometry
-```
-
-### UnnecessaryLocalVariable
-Local variable `recordNumber` is redundant
-in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/DbaseByteReader.java`
-#### Snippet
-```java
-  public int getRowNum() {
-    int position = getByteBuffer().position();
-    int recordNumber = (position - Short.toUnsignedInt(this.firstRecordPosition))
-        / Short.toUnsignedInt(this.recordLength);
-    return recordNumber;
-```
-
 ## RuleId[id=DuplicateThrows]
 ### DuplicateThrows
 There is a more general exception, 'java.io.IOException', in the throws list already.
-in `baremaps-core/src/main/java/org/apache/baremaps/mvt/expression/Expressions.java`
+in `baremaps-core/src/main/java/org/apache/baremaps/vectortile/expression/Expressions.java`
 #### Snippet
 ```java
     @Override
@@ -5725,19 +5836,6 @@ in `baremaps-cli/src/main/java/org/apache/baremaps/cli/map/Init.java`
           defaultObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsBytes(tilesetObject));
 ```
 
-## RuleId[id=NullArgumentToVariableArgMethod]
-### NullArgumentToVariableArgMethod
-Confusing argument `null`, unclear if a varargs or non-varargs call is desired
-in `baremaps-core/src/main/java/org/apache/baremaps/database/tile/PostgresQueryGenerator.java`
-#### Snippet
-```java
-   */
-  public PostgresQueryGenerator(DataSource dataSource) {
-    this(dataSource, null, null, null, null, null);
-  }
-
-```
-
 ## RuleId[id=PointlessBooleanExpression]
 ### PointlessBooleanExpression
 `getByteBuffer().hasRemaining() == false` can be simplified to '!getByteBuffer().hasRemaining()'
@@ -5749,6 +5847,19 @@ in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/D
     if (getByteBuffer().hasRemaining() == false) {
       return false;
     }
+```
+
+## RuleId[id=NullArgumentToVariableArgMethod]
+### NullArgumentToVariableArgMethod
+Confusing argument `null`, unclear if a varargs or non-varargs call is desired
+in `baremaps-core/src/main/java/org/apache/baremaps/database/tile/PostgresQueryGenerator.java`
+#### Snippet
+```java
+   */
+  public PostgresQueryGenerator(DataSource dataSource) {
+    this(dataSource, null, null, null, null, null);
+  }
+
 ```
 
 ## RuleId[id=UnusedAssignment]
@@ -5765,6 +5876,30 @@ in `baremaps-core/src/main/java/org/apache/baremaps/workflow/tasks/UnzipFile.jav
 ```
 
 ## RuleId[id=ConstantValue]
+### ConstantValue
+Condition `s != -1` is always `true`
+in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/utils/InputStreamProgress.java`
+#### Snippet
+```java
+  public long skip(long n) throws IOException {
+    long s = super.skip(n);
+    if (s != -1) {
+      position += s;
+      listener.accept(position);
+```
+
+### ConstantValue
+Value `landingPage` is always 'null'
+in `baremaps-ogcapi/src/main/java/org/apache/baremaps/ogcapi/DefaultResource.java`
+#### Snippet
+```java
+                    .type("text/html")
+                    .rel("service-doc")));
+    return Response.ok(landingPage).build();
+  }
+}
+```
+
 ### ConstantValue
 Condition `command == LINE_TO` is always `true`
 in `baremaps-core/src/main/java/org/apache/baremaps/vectortile/VectorTileDecoder.java`
@@ -5799,18 +5934,6 @@ in `baremaps-core/src/main/java/org/apache/baremaps/storage/shapefile/internal/S
     shapeFileIndexSuffix = shapefile.endsWith("shp") ? "shx" : shapeFileIndexSuffix;
     shapeFileIndexSuffix = shapefile.endsWith("SHP") ? "SHX" : shapeFileIndexSuffix;
     shapeFileIndexSuffix = shapefile.endsWith("Shp") ? "Shx" : shapeFileIndexSuffix;
-```
-
-### ConstantValue
-Condition `s != -1` is always `true`
-in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/utils/InputStreamProgress.java`
-#### Snippet
-```java
-  public long skip(long n) throws IOException {
-    long s = super.skip(n);
-    if (s != -1) {
-      position += s;
-      listener.accept(position);
 ```
 
 ## RuleId[id=OptionalGetWithoutIsPresent]
@@ -5888,87 +6011,39 @@ in `baremaps-core/src/main/java/org/apache/baremaps/workflow/WorkflowExecutor.ja
 
 ## RuleId[id=UnstableApiUsage]
 ### UnstableApiUsage
-'stream(java.util.Collection)' is marked unstable with @Beta
-in `baremaps-core/src/main/java/org/apache/baremaps/collection/DataMap.java`
+'predecessors(N)' is declared in unstable interface 'com.google.common.graph.Graph' marked with @Beta
+in `baremaps-core/src/main/java/org/apache/baremaps/workflow/WorkflowExecutor.java`
 #### Snippet
 ```java
    */
-  public List<E> getAll(List<Long> keys) {
-    return Streams.stream(keys).map(this::get).toList();
-  }
+  private CompletableFuture<Void> getPreviousFutureStep(String stepId) {
+    var predecessors = graph.predecessors(stepId).stream().toList();
 
+    // If the step has no predecessor,
 ```
 
 ### UnstableApiUsage
-'readLines(java.lang.Readable)' is marked unstable with @Beta
-in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/state/StateReader.java`
+'nodes()' is declared in unstable interface 'com.google.common.graph.Graph' marked with @Beta
+in `baremaps-core/src/main/java/org/apache/baremaps/workflow/WorkflowExecutor.java`
 #### Snippet
 ```java
-    InputStreamReader reader = new InputStreamReader(input, StandardCharsets.UTF_8);
-    Map<String, String> map = new HashMap<>();
-    for (String line : CharStreams.readLines(reader)) {
-      String[] array = line.split("=");
-      if (array.length == 2) {
+  public CompletableFuture<Void> execute() {
+    // Create futures for each end step
+    var endSteps = graph.nodes().stream()
+        .filter(this::isEndStep)
+        .map(this::getFutureStep)
 ```
 
 ### UnstableApiUsage
-'stream(java.util.Iterator)' is marked unstable with @Beta
-in `baremaps-core/src/main/java/org/apache/baremaps/collection/IndexedDataMap.java`
+'com.google.common.graph.Graph' is marked unstable with @Beta
+in `baremaps-core/src/main/java/org/apache/baremaps/workflow/WorkflowExecutor.java`
 #### Snippet
 ```java
-  @Override
-  protected Iterator<E> valueIterator() {
-    return Streams.stream(keyIterator()).map(this::get).iterator();
-  }
+  private final Map<String, CompletableFuture<Void>> futures;
 
-```
+  private final Graph<String> graph;
 
-### UnstableApiUsage
-'stream(java.util.Iterator)' is marked unstable with @Beta
-in `baremaps-core/src/main/java/org/apache/baremaps/collection/IndexedDataMap.java`
-#### Snippet
-```java
-  @Override
-  protected Iterator<Entry<Long, E>> entryIterator() {
-    return Streams.stream(keyIterator()).map(k -> Map.entry(k, get(k))).iterator();
-  }
-
-```
-
-### UnstableApiUsage
-'zip(java.util.stream.Stream, java.util.stream.Stream**, java.util.function.BiFunction)' is marked unstable with @Beta**
-in `baremaps-core/src/main/java/org/apache/baremaps/collection/MonotonicFixedSizeDataMap.java`
-#### Snippet
-```java
-  @Override
-  protected Iterator<Entry<Long, E>> entryIterator() {
-    return Streams.zip(
-        Streams.stream(keyIterator()),
-        Streams.stream(valueIterator()),
-```
-
-### UnstableApiUsage
-'stream(java.util.Iterator)' is marked unstable with @Beta
-in `baremaps-core/src/main/java/org/apache/baremaps/collection/MonotonicFixedSizeDataMap.java`
-#### Snippet
-```java
-  protected Iterator<Entry<Long, E>> entryIterator() {
-    return Streams.zip(
-        Streams.stream(keyIterator()),
-        Streams.stream(valueIterator()),
-        (k, v) -> Map.entry(k, v)).iterator();
-```
-
-### UnstableApiUsage
-'stream(java.util.Iterator)' is marked unstable with @Beta
-in `baremaps-core/src/main/java/org/apache/baremaps/collection/MonotonicFixedSizeDataMap.java`
-#### Snippet
-```java
-    return Streams.zip(
-        Streams.stream(keyIterator()),
-        Streams.stream(valueIterator()),
-        (k, v) -> Map.entry(k, v)).iterator();
-  }
+  private final List<StepMeasure> stepMeasures;
 ```
 
 ### UnstableApiUsage
@@ -6104,39 +6179,15 @@ in `baremaps-core/src/main/java/org/apache/baremaps/workflow/WorkflowExecutor.ja
 ```
 
 ### UnstableApiUsage
-'nodes()' is declared in unstable interface 'com.google.common.graph.Graph' marked with @Beta
-in `baremaps-core/src/main/java/org/apache/baremaps/workflow/WorkflowExecutor.java`
+'readLines(java.lang.Readable)' is marked unstable with @Beta
+in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/state/StateReader.java`
 #### Snippet
 ```java
-  public CompletableFuture<Void> execute() {
-    // Create futures for each end step
-    var endSteps = graph.nodes().stream()
-        .filter(this::isEndStep)
-        .map(this::getFutureStep)
-```
-
-### UnstableApiUsage
-'predecessors(N)' is declared in unstable interface 'com.google.common.graph.Graph' marked with @Beta
-in `baremaps-core/src/main/java/org/apache/baremaps/workflow/WorkflowExecutor.java`
-#### Snippet
-```java
-   */
-  private CompletableFuture<Void> getPreviousFutureStep(String stepId) {
-    var predecessors = graph.predecessors(stepId).stream().toList();
-
-    // If the step has no predecessor,
-```
-
-### UnstableApiUsage
-'com.google.common.graph.Graph' is marked unstable with @Beta
-in `baremaps-core/src/main/java/org/apache/baremaps/workflow/WorkflowExecutor.java`
-#### Snippet
-```java
-  private final Map<String, CompletableFuture<Void>> futures;
-
-  private final Graph<String> graph;
-
-  private final List<StepMeasure> stepMeasures;
+    InputStreamReader reader = new InputStreamReader(input, StandardCharsets.UTF_8);
+    Map<String, String> map = new HashMap<>();
+    for (String line : CharStreams.readLines(reader)) {
+      String[] array = line.split("=");
+      if (array.length == 2) {
 ```
 
 ### UnstableApiUsage
@@ -6185,5 +6236,77 @@ in `baremaps-core/src/main/java/org/apache/baremaps/openstreetmap/xml/XmlEntityS
     int uid = uidValue != null && Ints.tryParse(uidValue) != null ? Ints.tryParse(uidValue) : -1;
     return new Info(version, timestamp, changeset, uid);
   }
+```
+
+### UnstableApiUsage
+'zip(java.util.stream.Stream, java.util.stream.Stream**, java.util.function.BiFunction)' is marked unstable with @Beta**
+in `baremaps-core/src/main/java/org/apache/baremaps/collection/MonotonicFixedSizeDataMap.java`
+#### Snippet
+```java
+  @Override
+  protected Iterator<Entry<Long, E>> entryIterator() {
+    return Streams.zip(
+        Streams.stream(keyIterator()),
+        Streams.stream(valueIterator()),
+```
+
+### UnstableApiUsage
+'stream(java.util.Iterator)' is marked unstable with @Beta
+in `baremaps-core/src/main/java/org/apache/baremaps/collection/MonotonicFixedSizeDataMap.java`
+#### Snippet
+```java
+  protected Iterator<Entry<Long, E>> entryIterator() {
+    return Streams.zip(
+        Streams.stream(keyIterator()),
+        Streams.stream(valueIterator()),
+        (k, v) -> Map.entry(k, v)).iterator();
+```
+
+### UnstableApiUsage
+'stream(java.util.Iterator)' is marked unstable with @Beta
+in `baremaps-core/src/main/java/org/apache/baremaps/collection/MonotonicFixedSizeDataMap.java`
+#### Snippet
+```java
+    return Streams.zip(
+        Streams.stream(keyIterator()),
+        Streams.stream(valueIterator()),
+        (k, v) -> Map.entry(k, v)).iterator();
+  }
+```
+
+### UnstableApiUsage
+'stream(java.util.Iterator)' is marked unstable with @Beta
+in `baremaps-core/src/main/java/org/apache/baremaps/collection/IndexedDataMap.java`
+#### Snippet
+```java
+  @Override
+  protected Iterator<E> valueIterator() {
+    return Streams.stream(keyIterator()).map(this::get).iterator();
+  }
+
+```
+
+### UnstableApiUsage
+'stream(java.util.Iterator)' is marked unstable with @Beta
+in `baremaps-core/src/main/java/org/apache/baremaps/collection/IndexedDataMap.java`
+#### Snippet
+```java
+  @Override
+  protected Iterator<Entry<Long, E>> entryIterator() {
+    return Streams.stream(keyIterator()).map(k -> Map.entry(k, get(k))).iterator();
+  }
+
+```
+
+### UnstableApiUsage
+'stream(java.util.Collection)' is marked unstable with @Beta
+in `baremaps-core/src/main/java/org/apache/baremaps/collection/DataMap.java`
+#### Snippet
+```java
+   */
+  public List<E> getAll(List<Long> keys) {
+    return Streams.stream(keys).map(this::get).toList();
+  }
+
 ```
 
