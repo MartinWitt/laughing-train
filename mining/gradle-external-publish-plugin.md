@@ -60,18 +60,6 @@ in `src/main/java/com/palantir/gradle/externalpublish/GpgSigningKey.java`
 ## RuleId[id=NullableProblems]
 ### NullableProblems
 Not annotated parameter overrides @NonNullApi parameter
-in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishCustomPlugin.java`
-#### Snippet
-```java
-public final class ExternalPublishCustomPlugin implements Plugin<Project> {
-    @Override
-    public void apply(Project project) {
-        ExternalPublishBasePlugin basePlugin = ExternalPublishBasePlugin.applyTo(project);
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNullApi parameter
 in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishDistPlugin.java`
 #### Snippet
 ```java
@@ -84,26 +72,14 @@ in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishDistPlugin.
 
 ### NullableProblems
 Not annotated parameter overrides @NonNullApi parameter
-in `src/main/java/com/palantir/gradle/externalpublish/CircleCiContextDeadlineAvoidance.java`
+in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishCustomPlugin.java`
 #### Snippet
 ```java
-        task.doFirst(new Action<Task>() {
-            @Override
-            public void execute(Task _ignored) {
-                spammerTask.set(CIRCLE_CI_OUTPUT_SPAMMER.scheduleWithFixedDelay(
-                        () -> {
-```
+public final class ExternalPublishCustomPlugin implements Plugin<Project> {
+    @Override
+    public void apply(Project project) {
+        ExternalPublishBasePlugin basePlugin = ExternalPublishBasePlugin.applyTo(project);
 
-### NullableProblems
-Not annotated parameter overrides @NonNullApi parameter
-in `src/main/java/com/palantir/gradle/externalpublish/CircleCiContextDeadlineAvoidance.java`
-#### Snippet
-```java
-        task.doLast(new Action<Task>() {
-            @Override
-            public void execute(Task _ignored) {
-                spammerTask.get().cancel(true);
-            }
 ```
 
 ### NullableProblems
@@ -120,13 +96,37 @@ in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishJarPlugin.j
 
 ### NullableProblems
 Not annotated parameter overrides @NonNullApi parameter
-in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishApplicationDistPlugin.java`
+in `src/main/java/com/palantir/gradle/externalpublish/CircleCiContextDeadlineAvoidance.java`
 #### Snippet
 ```java
-    private static final class FixWindowsStartScripts implements Action<Task> {
-        @Override
-        public void execute(Task task) {
-            CreateStartScripts createStartScripts = (CreateStartScripts) task;
+        task.doLast(new Action<Task>() {
+            @Override
+            public void execute(Task _ignored) {
+                spammerTask.get().cancel(true);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNullApi parameter
+in `src/main/java/com/palantir/gradle/externalpublish/CircleCiContextDeadlineAvoidance.java`
+#### Snippet
+```java
+        task.doFirst(new Action<Task>() {
+            @Override
+            public void execute(Task _ignored) {
+                spammerTask.set(CIRCLE_CI_OUTPUT_SPAMMER.scheduleWithFixedDelay(
+                        () -> {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNullApi parameter
+in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishRootPlugin.java`
+#### Snippet
+```java
+
+    @Override
+    public final void apply(Project rootProjectVal) {
+        this.rootProject = rootProjectVal;
 
 ```
 
@@ -144,13 +144,13 @@ in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishApplication
 
 ### NullableProblems
 Not annotated parameter overrides @NonNullApi parameter
-in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishRootPlugin.java`
+in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishApplicationDistPlugin.java`
 #### Snippet
 ```java
-
-    @Override
-    public final void apply(Project rootProjectVal) {
-        this.rootProject = rootProjectVal;
+    private static final class FixWindowsStartScripts implements Action<Task> {
+        @Override
+        public void execute(Task task) {
+            CreateStartScripts createStartScripts = (CreateStartScripts) task;
 
 ```
 
