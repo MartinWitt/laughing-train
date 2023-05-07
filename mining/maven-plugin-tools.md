@@ -1,44 +1,41 @@
 # maven-plugin-tools 
  
 # Bad smells
-I found 259 bad smells with 9 repairable:
+I found 311 bad smells with 6 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
+| JavadocDeclaration | 75 | false |
+| JavadocReference | 44 | false |
 | OptionalUsedAsFieldOrParameterType | 40 | false |
-| BoundedWildcard | 31 | false |
-| ReturnNull | 29 | false |
-| DynamicRegexReplaceableByCompiledPattern | 16 | false |
+| FieldMayBeFinal | 26 | false |
 | RegExpRedundantEscape | 15 | false |
-| AssignmentToMethodParameter | 13 | false |
 | ConstantValue | 12 | false |
 | StringBufferReplaceableByString | 11 | false |
 | DeprecatedIsStillUsed | 10 | false |
-| UnnecessaryFullyQualifiedName | 9 | false |
+| DuplicatedCode | 8 | false |
 | IgnoreResultOfCall | 8 | false |
-| RedundantFieldInitialization | 8 | false |
+| Deprecation | 7 | false |
 | StringConcatenationInsideStringBufferAppend | 7 | false |
-| RedundantSuppression | 5 | false |
-| UnnecessaryUnboxing | 4 | false |
+| CdiInjectionPointsInspection | 5 | false |
+| UNCHECKED_WARNING | 4 | false |
+| TrivialIf | 4 | false |
 | ExtendsAnnotation | 4 | false |
+| ArraysAsListWithZeroOrOneArgument | 4 | false |
 | UnnecessaryStringEscape | 3 | true |
-| SizeReplaceableByIsEmpty | 3 | true |
-| UnnecessaryBoxing | 3 | false |
-| MissingDeprecatedAnnotation | 3 | false |
 | ToArrayCallWithZeroLengthArrayArgument | 2 | true |
 | OptionalIsPresent | 2 | false |
 | DataFlowIssue | 2 | false |
-| ObsoleteCollection | 2 | false |
-| NonSerializableFieldInSerializableClass | 2 | false |
+| RefusedBequest | 2 | false |
 | MismatchedJavadocCode | 2 | false |
-| ZeroLengthArrayInitialization | 2 | false |
+| IOStreamConstructor | 2 | false |
+| JavadocLinkAsPlainText | 2 | false |
 | UnusedAssignment | 2 | false |
 | StringOperationCanBeSimplified | 1 | false |
 | CommentedOutCode | 1 | false |
 | RegExpSimplifiable | 1 | false |
 | InnerClassMayBeStatic | 1 | true |
-| NestedAssignment | 1 | false |
-| RedundantImplements | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
+| NullableProblems | 1 | false |
+| FieldCanBeLocal | 1 | false |
 | DuplicateThrows | 1 | false |
 | EqualsWhichDoesntCheckParameterClass | 1 | false |
 ## RuleId[id=ToArrayCallWithZeroLengthArrayArgument]
@@ -91,6 +88,584 @@ in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/J
         }
 ```
 
+## RuleId[id=UNCHECKED_WARNING]
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
+in `maven-plugin-report-plugin/src/main/java/org/apache/maven/plugins/plugin/descriptor/EnhancedPluginDescriptorBuilder.java`
+#### Snippet
+```java
+        PlexusConfiguration[] parameterConfigurations = c.getChild("parameters").getChildren("parameter");
+
+        List<Parameter> parameters = new ArrayList<>(mojoDescriptor.getParameters());
+        Map<String, Parameter> parameterMap = new LinkedHashMap<>(mojoDescriptor.getParameterMap());
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.LinkedHashMap' to 'java.util.Map'
+in `maven-plugin-report-plugin/src/main/java/org/apache/maven/plugins/plugin/descriptor/EnhancedPluginDescriptorBuilder.java`
+#### Snippet
+```java
+
+        List<Parameter> parameters = new ArrayList<>(mojoDescriptor.getParameters());
+        Map<String, Parameter> parameterMap = new LinkedHashMap<>(mojoDescriptor.getParameterMap());
+
+        for (PlexusConfiguration d : parameterConfigurations) {
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.LinkedHashSet' to 'java.util.Set'
+in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/DescriptorGeneratorMojo.java`
+#### Snippet
+```java
+        Set<Artifact> filteredArtifacts;
+        if (mojoDependencies == null) {
+            filteredArtifacts = new LinkedHashSet<>(project.getArtifacts());
+        } else if (mojoDependencies.isEmpty()) {
+            filteredArtifacts = null;
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Map' to 'java.util.Map'
+in `maven-script/maven-script-ant/src/main/java/org/apache/maven/script/ant/AntMojoWrapper.java`
+#### Snippet
+```java
+
+    public void setPluginContext(Map pluginContext) {
+        this.pluginContext = pluginContext;
+    }
+
+```
+
+## RuleId[id=JavadocReference]
+### JavadocReference
+Cannot resolve symbol `ArtifactRepositoryMetadata`
+in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/metadata/AddPluginArtifactMetadataMojo.java`
+#### Snippet
+```java
+ * </ol>
+ *
+ * @see ArtifactRepositoryMetadata
+ * @see GroupRepositoryMetadata
+ *
+```
+
+### JavadocReference
+Cannot resolve symbol `Parameter`
+in `maven-plugin-plugin/src/main/java/org/apache/maven/plugins/plugin/descriptor_old/EnhancedPluginDescriptorBuilder.java`
+#### Snippet
+```java
+ * {@link org.apache.maven.tools.plugin.generator.PluginDescriptorFilesGenerator} and
+ * used by {@link PluginReport}.
+ * Populates the slightly extended {@link Parameter} object {@link EnhancedParameterWrapper}.
+ */
+@Deprecated
+```
+
+### JavadocReference
+Cannot resolve symbol `PlexusConfigurationException`
+in `maven-plugin-plugin/src/main/java/org/apache/maven/plugins/plugin/descriptor_old/EnhancedPluginDescriptorBuilder.java`
+#### Snippet
+```java
+     * MNG-6109</a> when using Maven-3.3.9 and before.
+     * Method can be removed once Maven 3.5.0 is the prerequisite for this plugin.
+     * @throws PlexusConfigurationException
+     *
+     * @since 3.5.1
+```
+
+### JavadocReference
+Cannot resolve symbol `Parameter`
+in `maven-plugin-report-plugin/src/main/java/org/apache/maven/plugins/plugin/descriptor/EnhancedPluginDescriptorBuilder.java`
+#### Snippet
+```java
+ * {@link org.apache.maven.tools.plugin.generator.PluginDescriptorFilesGenerator} and
+ * used by {@link PluginReport}.
+ * Populates the slightly extended {@link Parameter} object {@link EnhancedParameterWrapper}.
+ * In addition populates all (optional) elements added after Maven Plugin API 3.2.5.
+ */
+```
+
+### JavadocReference
+Cannot resolve symbol `PlexusConfigurationException`
+in `maven-plugin-report-plugin/src/main/java/org/apache/maven/plugins/plugin/descriptor/EnhancedPluginDescriptorBuilder.java`
+#### Snippet
+```java
+     * MNG-6109</a> when using Maven-3.3.9 and before.
+     * Method can be removed once Maven 3.5.0 is the prerequisite for this plugin.
+     * @throws PlexusConfigurationException
+     *
+     * @since 3.5.1
+```
+
+### JavadocReference
+Cannot resolve symbol `InvalidPluginDescriptorException`
+in `maven-script/maven-plugin-tools-beanshell/src/main/java/org/apache/maven/tools/plugin/extractor/beanshell/BeanshellMojoDescriptorExtractor.java`
+#### Snippet
+```java
+     * @param request  not null
+     * @return a new Mojo descriptor instance
+     * @throws InvalidPluginDescriptorException
+     *          if any
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `Artifact`
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/PluginToolsRequest.java`
+#### Snippet
+```java
+
+    /**
+     * Returns the list of {@link Artifact} used in class path scanning for annotations
+     *
+     * @return the dependencies
+```
+
+### JavadocReference
+Cannot resolve symbol `MavenProject`
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/PluginToolsRequest.java`
+#### Snippet
+```java
+
+    /**
+     * @param project the current {@link MavenProject}
+     * @see PluginToolsRequest#getProject()
+     * @return This request.
+```
+
+### JavadocReference
+Cannot resolve symbol `org.eclipse.aether.version.VersionConstraint`
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/PluginToolsRequest.java`
+#### Snippet
+```java
+     *
+     * @return the required Java version for this plugin or {@code null} if unknown.
+     *  Is a value according to semantics of {@link org.eclipse.aether.version.VersionConstraint}.
+     * @since 3.8.0
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `PluginDescriptor`
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/PluginToolsRequest.java`
+#### Snippet
+```java
+    /**
+     * @see PluginToolsRequest#getPluginDescriptor()
+     * @param pluginDescriptor the {@link PluginDescriptor}
+     * @return This request.
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `org.eclipse.aether.version.VersionConstraint`
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/PluginToolsRequest.java`
+#### Snippet
+```java
+     *
+     * @param requiredJavaVersion the required Java version for this plugin or {@code null} if unknown.
+     *  Must be a value according to semantics of {@link org.eclipse.aether.version.VersionConstraint}.
+     * @return This request.
+     * @since 3.8.0
+```
+
+### JavadocReference
+Cannot resolve symbol `PluginDescriptor`
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/PluginToolsRequest.java`
+#### Snippet
+```java
+
+    /**
+     * @return Return the {@link PluginDescriptor} currently being populated as part of the build of the
+     * current plugin project.
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `MavenProject`
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/PluginToolsRequest.java`
+#### Snippet
+```java
+
+    /**
+     * @return Return the current {@link MavenProject} instance in use.
+     */
+    MavenProject getProject();
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.maven.plugin.descriptor.MojoDescriptor`
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/PluginToolsRequest.java`
+#### Snippet
+```java
+/**
+ * Request that encapsulates all information relevant to the process of extracting
+ * {@link org.apache.maven.plugin.descriptor.MojoDescriptor MojoDescriptor}
+ * instances from metadata for a certain type of mojo.
+ *
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.maven.plugin.descriptor.MojoDescriptor`
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/DefaultPluginToolsRequest.java`
+#### Snippet
+```java
+/**
+ * Default implementation of {@link PluginToolsRequest}, which is used to pass parameters to components used to extract
+ * {@link org.apache.maven.plugin.descriptor.MojoDescriptor MojoDescriptor} instances from different types of metadata
+ * for a given plugin.
+ *
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.tools.ant.PropertyHelper`
+in `maven-script/maven-script-ant/src/main/java/org/apache/maven/script/ant/AntPropertyHelper.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.tools.ant.PropertyHelper#getPropertyHook(java.lang.String, java.lang.String, boolean)
+     */
+    public synchronized Object getPropertyHook(String ns, String name, boolean user) {
+```
+
+### JavadocReference
+Cannot resolve symbol `getPropertyHook(java.lang.String, java.lang.String, boolean)`
+in `maven-script/maven-script-ant/src/main/java/org/apache/maven/script/ant/AntPropertyHelper.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.tools.ant.PropertyHelper#getPropertyHook(java.lang.String, java.lang.String, boolean)
+     */
+    public synchronized Object getPropertyHook(String ns, String name, boolean user) {
+```
+
+### JavadocReference
+Cannot resolve symbol `ExpressionEvaluator`
+in `maven-script/maven-script-ant/src/main/java/org/apache/maven/script/ant/AntPropertyHelper.java`
+#### Snippet
+```java
+
+    /**
+     * @deprecated use {@link #AntPropertyHelper(ExpressionEvaluator, Set, Log)} to resolve maven.dependency.*
+     * properties
+     * @param exprEvaluator
+```
+
+### JavadocReference
+Cannot resolve symbol `Log`
+in `maven-script/maven-script-ant/src/main/java/org/apache/maven/script/ant/AntPropertyHelper.java`
+#### Snippet
+```java
+
+    /**
+     * @deprecated use {@link #AntPropertyHelper(ExpressionEvaluator, Set, Log)} to resolve maven.dependency.*
+     * properties
+     * @param exprEvaluator
+```
+
+### JavadocReference
+Cannot resolve symbol `javadocLinks`
+in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/DescriptorGeneratorMojo.java`
+#### Snippet
+```java
+
+    /**
+     * The Maven Settings, for evaluating proxy settings used to access {@link #javadocLinks}
+     *
+     * @since 3.7.0
+```
+
+### JavadocReference
+Cannot resolve symbol `getDescription()`
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/ExtendedMojoDescriptor.java`
+#### Snippet
+```java
+
+    /**
+     * Indicates if the methods {@link #getDescription()}, {@link #getDeprecated()}, {@link Parameter#getDescription()}
+     * and {@link Parameter#getDeprecated()} return XHTML values.
+     * @return {@code true} if aforementioned methods return XHTML values, if {@code false} those values contain
+```
+
+### JavadocReference
+Cannot resolve symbol `getDeprecated()`
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/ExtendedMojoDescriptor.java`
+#### Snippet
+```java
+
+    /**
+     * Indicates if the methods {@link #getDescription()}, {@link #getDeprecated()}, {@link Parameter#getDescription()}
+     * and {@link Parameter#getDeprecated()} return XHTML values.
+     * @return {@code true} if aforementioned methods return XHTML values, if {@code false} those values contain
+```
+
+### JavadocReference
+Cannot resolve symbol `Parameter`
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/ExtendedMojoDescriptor.java`
+#### Snippet
+```java
+
+    /**
+     * Indicates if the methods {@link #getDescription()}, {@link #getDeprecated()}, {@link Parameter#getDescription()}
+     * and {@link Parameter#getDeprecated()} return XHTML values.
+     * @return {@code true} if aforementioned methods return XHTML values, if {@code false} those values contain
+```
+
+### JavadocReference
+Cannot resolve symbol `getDescription()`
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/ExtendedMojoDescriptor.java`
+#### Snippet
+```java
+
+    /**
+     * Indicates if the methods {@link #getDescription()}, {@link #getDeprecated()}, {@link Parameter#getDescription()}
+     * and {@link Parameter#getDeprecated()} return XHTML values.
+     * @return {@code true} if aforementioned methods return XHTML values, if {@code false} those values contain
+```
+
+### JavadocReference
+Cannot resolve symbol `Parameter`
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/ExtendedMojoDescriptor.java`
+#### Snippet
+```java
+    /**
+     * Indicates if the methods {@link #getDescription()}, {@link #getDeprecated()}, {@link Parameter#getDescription()}
+     * and {@link Parameter#getDeprecated()} return XHTML values.
+     * @return {@code true} if aforementioned methods return XHTML values, if {@code false} those values contain
+     * javadoc (HTML + custom javadoc tags) (for legacy extractors)
+```
+
+### JavadocReference
+Cannot resolve symbol `getDeprecated()`
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/ExtendedMojoDescriptor.java`
+#### Snippet
+```java
+    /**
+     * Indicates if the methods {@link #getDescription()}, {@link #getDeprecated()}, {@link Parameter#getDescription()}
+     * and {@link Parameter#getDeprecated()} return XHTML values.
+     * @return {@code true} if aforementioned methods return XHTML values, if {@code false} those values contain
+     * javadoc (HTML + custom javadoc tags) (for legacy extractors)
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoDescriptor`
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/ExtendedMojoDescriptor.java`
+#### Snippet
+```java
+
+/**
+ * Extensions to {@link MojoDescriptor} not supported by Maven 3.2.5.
+ *
+ * @author Kristian Rosenvold
+```
+
+### JavadocReference
+Cannot resolve symbol `Parameter`
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/EnhancedParameterWrapper.java`
+#### Snippet
+```java
+
+/**
+ * Wrapper around regular {@link Parameter} which adds capability to
+ * read/write a type javadoc URL
+ */
+```
+
+### JavadocReference
+Cannot resolve symbol `PluginDescriptor`
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/ExtendedPluginDescriptor.java`
+#### Snippet
+```java
+
+/**
+ * Extensions to {@link PluginDescriptor} not supported by Maven 3.2.5.
+ * This is a wrapper around an existing PluginDescriptor.
+ */
+```
+
+### JavadocReference
+Cannot resolve symbol `MavenReportException`
+in `maven-plugin-report-plugin/src/main/java/org/apache/maven/plugin/plugin/report/PluginReport.java`
+#### Snippet
+```java
+     * @param pluginDescriptor not null
+     * @param locale           not null
+     * @throws MavenReportException if any
+     */
+    private void generateMojosDocumentation(PluginDescriptor pluginDescriptor, Locale locale)
+```
+
+### JavadocReference
+Cannot resolve symbol `Parameter`
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/util/PluginUtils.java`
+#### Snippet
+```java
+     *
+     * @param parameters The mojo parameters to sort, may be <code>null</code>.
+     * @see Parameter#getName()
+     * @since 2.4.4
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `getName()`
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/util/PluginUtils.java`
+#### Snippet
+```java
+     *
+     * @param parameters The mojo parameters to sort, may be <code>null</code>.
+     * @see Parameter#getName()
+     * @since 2.4.4
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoDescriptor`
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/util/PluginUtils.java`
+#### Snippet
+```java
+     *
+     * @param mojoDescriptors The mojo descriptors to sort, may be <code>null</code>.
+     * @see MojoDescriptor#getGoal()
+     */
+    public static void sortMojos(List<MojoDescriptor> mojoDescriptors) {
+```
+
+### JavadocReference
+Cannot resolve symbol `getGoal()`
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/util/PluginUtils.java`
+#### Snippet
+```java
+     *
+     * @param mojoDescriptors The mojo descriptors to sort, may be <code>null</code>.
+     * @see MojoDescriptor#getGoal()
+     */
+    public static void sortMojos(List<MojoDescriptor> mojoDescriptors) {
+```
+
+### JavadocReference
+Cannot resolve symbol `MavenReportException`
+in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/report_old/PluginReport.java`
+#### Snippet
+```java
+     * @param pluginDescriptor not null
+     * @param locale           not null
+     * @throws MavenReportException if any
+     */
+    private void generateMojosDocumentation(PluginDescriptor pluginDescriptor, Locale locale)
+```
+
+### JavadocReference
+Cannot resolve symbol `InvalidPluginDescriptorException`
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/scanner/MojoScanner.java`
+#### Snippet
+```java
+     * @param request not null
+     * @throws ExtractionException if any
+     * @throws InvalidPluginDescriptorException if any
+     * @since 2.5
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `InvalidPluginDescriptorException`
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/extractor/MojoDescriptorExtractor.java`
+#### Snippet
+```java
+     * @return a list of mojo descriptors. These may return HTML values for some fields.
+     * @throws ExtractionException if any
+     * @throws InvalidPluginDescriptorException if any
+     * @since 2.5
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `InvalidPluginDescriptorException`
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/extractor/AbstractScriptedMojoDescriptorExtractor.java`
+#### Snippet
+```java
+     * @return always null
+     * @throws ExtractionException if any
+     * @throws InvalidPluginDescriptorException if any
+     */
+    protected List<MojoDescriptor> extractMojoDescriptorsFromMetadata(
+```
+
+### JavadocReference
+Cannot resolve symbol `InvalidPluginDescriptorException`
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/extractor/AbstractScriptedMojoDescriptorExtractor.java`
+#### Snippet
+```java
+     * @return always null
+     * @throws ExtractionException if any
+     * @throws InvalidPluginDescriptorException if any
+     */
+    protected List<MojoDescriptor> extractMojoDescriptors(
+```
+
+### JavadocReference
+Cannot resolve symbol `InvalidParameterException`
+in `maven-plugin-tools-java/src/main/java/org/apache/maven/tools/plugin/extractor/javadoc/JavaJavadocMojoDescriptorExtractor.java`
+#### Snippet
+```java
+    /**
+     * @param mojoDescriptor not null
+     * @throws InvalidParameterException if any
+     */
+    protected void validate(MojoDescriptor mojoDescriptor) throws InvalidParameterException {
+```
+
+### JavadocReference
+Cannot resolve symbol `InvalidPluginDescriptorException`
+in `maven-plugin-tools-java/src/main/java/org/apache/maven/tools/plugin/extractor/javadoc/JavaJavadocMojoDescriptorExtractor.java`
+#### Snippet
+```java
+     * @param mojoDescriptor not null
+     * @param javaClass not null
+     * @throws InvalidPluginDescriptorException if any
+     */
+    private void extractParameters(MojoDescriptor mojoDescriptor, JavaClass javaClass)
+```
+
+### JavadocReference
+Cannot resolve symbol `InvalidPluginDescriptorException`
+in `maven-plugin-tools-java/src/main/java/org/apache/maven/tools/plugin/extractor/javadoc/JavaJavadocMojoDescriptorExtractor.java`
+#### Snippet
+```java
+     * @param javaClass not null
+     * @return a mojo descriptor
+     * @throws InvalidPluginDescriptorException if any
+     */
+    protected MojoDescriptor createMojoDescriptor(JavaClass javaClass) throws InvalidPluginDescriptorException {
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.maven.plugin.descriptor.MojoDescriptor`
+in `maven-plugin-tools-java/src/main/java/org/apache/maven/tools/plugin/extractor/javadoc/JavaJavadocMojoDescriptorExtractor.java`
+#### Snippet
+```java
+ * https://maven.apache.org/developers/mojo-api-specification.html</a>
+ *
+ * @see org.apache.maven.plugin.descriptor.MojoDescriptor
+ */
+@Named(JavaJavadocMojoDescriptorExtractor.NAME)
+```
+
+### JavadocReference
+Cannot resolve symbol `InvalidParameterException`
+in `maven-plugin-tools-java/src/main/java/org/apache/maven/tools/plugin/extractor/javadoc/JavaJavadocMojoDescriptorExtractor.java`
+#### Snippet
+```java
+     * @param parameter not null
+     * @param i positive number
+     * @throws InvalidParameterException if any
+     */
+    protected void validateParameter(Parameter parameter, int i) throws InvalidParameterException {
+```
+
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
 Argument `getClass().getResourceAsStream("/extractor.bsh")` might be null
@@ -114,19 +689,6 @@ in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/ge
                 InputStreamReader isReader = new InputStreamReader(is, UTF_8)) {
             // isReader =
             velocityComponent.getEngine().evaluate(context, stringWriter, "", isReader);
-```
-
-## RuleId[id=StringOperationCanBeSimplified]
-### StringOperationCanBeSimplified
-Unnecessary string length argument
-in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
-#### Snippet
-```java
-        }
-        String packageName = binaryName.substring(0, indexOfDotBetweenPackageAndClass);
-        String className = binaryName.substring(indexOfDotBetweenPackageAndClass + 1, binaryName.length());
-        return new AbstractMap.SimpleEntry<>(packageName, className);
-    }
 ```
 
 ## RuleId[id=UnnecessaryStringEscape]
@@ -166,6 +728,19 @@ in `maven-script/maven-plugin-tools-model/src/main/java/org/apache/maven/tools/p
 
 ```
 
+## RuleId[id=StringOperationCanBeSimplified]
+### StringOperationCanBeSimplified
+Unnecessary string length argument
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
+#### Snippet
+```java
+        }
+        String packageName = binaryName.substring(0, indexOfDotBetweenPackageAndClass);
+        String className = binaryName.substring(indexOfDotBetweenPackageAndClass + 1, binaryName.length());
+        return new AbstractMap.SimpleEntry<>(packageName, className);
+    }
+```
+
 ## RuleId[id=CommentedOutCode]
 ### CommentedOutCode
 Commented out code (2 lines)
@@ -180,30 +755,6 @@ in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/e
 ```
 
 ## RuleId[id=DeprecatedIsStillUsed]
-### DeprecatedIsStillUsed
-Deprecated member 'PARAMETER_EXPRESSION' is still used
-in `maven-plugin-tools-java/src/main/java/org/apache/maven/tools/plugin/extractor/javadoc/JavadocMojoAnnotation.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    String PARAMETER_EXPRESSION = "expression";
-
-    /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'MULTI_EXECUTION_STRATEGY' is still used
-in `maven-plugin-tools-java/src/main/java/org/apache/maven/tools/plugin/extractor/javadoc/JavadocMojoAnnotation.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    String MULTI_EXECUTION_STRATEGY = "attainAlways";
-
-    /**
-```
-
 ### DeprecatedIsStillUsed
 Deprecated member 'AntMojoComponentFactory' is still used
 in `maven-script/maven-script-ant/src/main/java/org/apache/maven/script/ant/AntMojoComponentFactory.java`
@@ -226,42 +777,6 @@ in `maven-script/maven-script-ant/src/main/java/org/apache/maven/script/ant/AntM
 public class AntMojoWrapper extends AbstractMojo implements ContextEnabled, MapOrientedComponent, LogEnabled {
 
     private Map<String, Object> pluginContext;
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'AntMojoDescriptorExtractor' is still used
-in `maven-script/maven-plugin-tools-ant/src/main/java/org/apache/maven/tools/plugin/extractor/ant/AntMojoDescriptorExtractor.java`
-#### Snippet
-```java
-@Named(AntMojoDescriptorExtractor.NAME)
-@Singleton
-public class AntMojoDescriptorExtractor extends AbstractScriptedMojoDescriptorExtractor {
-    public static final String NAME = "ant";
-
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'makeHtmlValid' is still used
-in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/GeneratorUtils.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static String makeHtmlValid(String description) {
-
-        if (StringUtils.isEmpty(description)) {
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'toText' is still used
-in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/GeneratorUtils.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static String toText(String html) {
-        if (StringUtils.isEmpty(html)) {
-            return "";
 ```
 
 ### DeprecatedIsStillUsed
@@ -289,6 +804,66 @@ public class PluginMetadataParseException extends Exception {
 ```
 
 ### DeprecatedIsStillUsed
+Deprecated member 'makeHtmlValid' is still used
+in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/GeneratorUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static String makeHtmlValid(String description) {
+
+        if (StringUtils.isEmpty(description)) {
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'toText' is still used
+in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/GeneratorUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static String toText(String html) {
+        if (StringUtils.isEmpty(html)) {
+            return "";
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'PARAMETER_EXPRESSION' is still used
+in `maven-plugin-tools-java/src/main/java/org/apache/maven/tools/plugin/extractor/javadoc/JavadocMojoAnnotation.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    String PARAMETER_EXPRESSION = "expression";
+
+    /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'MULTI_EXECUTION_STRATEGY' is still used
+in `maven-plugin-tools-java/src/main/java/org/apache/maven/tools/plugin/extractor/javadoc/JavadocMojoAnnotation.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    String MULTI_EXECUTION_STRATEGY = "attainAlways";
+
+    /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'AntMojoDescriptorExtractor' is still used
+in `maven-script/maven-plugin-tools-ant/src/main/java/org/apache/maven/tools/plugin/extractor/ant/AntMojoDescriptorExtractor.java`
+#### Snippet
+```java
+@Named(AntMojoDescriptorExtractor.NAME)
+@Singleton
+public class AntMojoDescriptorExtractor extends AbstractScriptedMojoDescriptorExtractor {
+    public static final String NAME = "ant";
+
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'PluginMetadataParser' is still used
 in `maven-script/maven-plugin-tools-model/src/main/java/org/apache/maven/tools/plugin/extractor/model/PluginMetadataParser.java`
 #### Snippet
@@ -302,6 +877,54 @@ public class PluginMetadataParser {
 
 ## RuleId[id=RegExpRedundantEscape]
 ### RegExpRedundantEscape
+Redundant character escape `\\(` in RegExp
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocReference.java`
+#### Snippet
+```java
+     */
+    private static final Pattern REFERENCE_VALUE_PATTERN =
+            Pattern.compile("^\\s*(?:(.+)/)??([^#\\s/]+)?(?:#([^\\s\\(]+(?:\\([^\\)]*\\))?))?(?: +(.*))?$");
+
+    private static final int GROUP_INDEX_MODULE = 1;
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\)` in RegExp
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocReference.java`
+#### Snippet
+```java
+     */
+    private static final Pattern REFERENCE_VALUE_PATTERN =
+            Pattern.compile("^\\s*(?:(.+)/)??([^#\\s/]+)?(?:#([^\\s\\(]+(?:\\([^\\)]*\\))?))?(?: +(.*))?$");
+
+    private static final int GROUP_INDEX_MODULE = 1;
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\\"` in RegExp
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
+#### Snippet
+```java
+    static Pattern getAnchorPattern(String anchorNameOrId) {
+        // javadoc 17 uses"<section ... id=<anchor> >"
+        return Pattern.compile(".*(name|NAME|id)=\\\"" + Pattern.quote(anchorNameOrId) + "\\\"");
+    }
+
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\\"` in RegExp
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
+#### Snippet
+```java
+    static Pattern getAnchorPattern(String anchorNameOrId) {
+        // javadoc 17 uses"<section ... id=<anchor> >"
+        return Pattern.compile(".*(name|NAME|id)=\\\"" + Pattern.quote(anchorNameOrId) + "\\\"");
+    }
+
+```
+
+### RegExpRedundantEscape
 Redundant character escape `\\}` in RegExp
 in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/converter/JavadocInlineTagsToXhtmlConverter.java`
 #### Snippet
@@ -323,6 +946,42 @@ in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/e
     private static final Pattern INLINE_TAG_PATTERN = Pattern.compile("\\{@([^\\s]*)(?:\\s([^\\}]*))?\\}");
     private static final int GROUP_TAG_NAME = 1;
     private static final int GROUP_REFERENCE = 2;
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\\"` in RegExp
+in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginXdocGenerator.java`
+#### Snippet
+```java
+     * group 1 = link target, group 2 = link label
+     */
+    private static final Pattern HTML_LINK_PATTERN = Pattern.compile("<a href=\\\"([^\\\"]*)\\\">(.*?)</a>");
+
+    private static final Logger LOG = LoggerFactory.getLogger(PluginXdocGenerator.class);
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\\"` in RegExp
+in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginXdocGenerator.java`
+#### Snippet
+```java
+     * group 1 = link target, group 2 = link label
+     */
+    private static final Pattern HTML_LINK_PATTERN = Pattern.compile("<a href=\\\"([^\\\"]*)\\\">(.*?)</a>");
+
+    private static final Logger LOG = LoggerFactory.getLogger(PluginXdocGenerator.class);
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\\"` in RegExp
+in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginXdocGenerator.java`
+#### Snippet
+```java
+     * group 1 = link target, group 2 = link label
+     */
+    private static final Pattern HTML_LINK_PATTERN = Pattern.compile("<a href=\\\"([^\\\"]*)\\\">(.*?)</a>");
+
+    private static final Logger LOG = LoggerFactory.getLogger(PluginXdocGenerator.class);
 ```
 
 ### RegExpRedundantEscape
@@ -397,163 +1056,367 @@ in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/ge
                 final int clazz = 3;
 ```
 
-### RegExpRedundantEscape
-Redundant character escape `\\\"` in RegExp
-in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginXdocGenerator.java`
+## RuleId[id=RefusedBequest]
+### RefusedBequest
+Method `clone()` does not call 'super.clone()'
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/EnhancedParameterWrapper.java`
 #### Snippet
 ```java
-     * group 1 = link target, group 2 = link label
-     */
-    private static final Pattern HTML_LINK_PATTERN = Pattern.compile("<a href=\\\"([^\\\"]*)\\\">(.*?)</a>");
-
-    private static final Logger LOG = LoggerFactory.getLogger(PluginXdocGenerator.class);
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\\"` in RegExp
-in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginXdocGenerator.java`
-#### Snippet
-```java
-     * group 1 = link target, group 2 = link label
-     */
-    private static final Pattern HTML_LINK_PATTERN = Pattern.compile("<a href=\\\"([^\\\"]*)\\\">(.*?)</a>");
-
-    private static final Logger LOG = LoggerFactory.getLogger(PluginXdocGenerator.class);
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\\"` in RegExp
-in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginXdocGenerator.java`
-#### Snippet
-```java
-     * group 1 = link target, group 2 = link label
-     */
-    private static final Pattern HTML_LINK_PATTERN = Pattern.compile("<a href=\\\"([^\\\"]*)\\\">(.*?)</a>");
-
-    private static final Logger LOG = LoggerFactory.getLogger(PluginXdocGenerator.class);
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\(` in RegExp
-in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocReference.java`
-#### Snippet
-```java
-     */
-    private static final Pattern REFERENCE_VALUE_PATTERN =
-            Pattern.compile("^\\s*(?:(.+)/)??([^#\\s/]+)?(?:#([^\\s\\(]+(?:\\([^\\)]*\\))?))?(?: +(.*))?$");
-
-    private static final int GROUP_INDEX_MODULE = 1;
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\)` in RegExp
-in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocReference.java`
-#### Snippet
-```java
-     */
-    private static final Pattern REFERENCE_VALUE_PATTERN =
-            Pattern.compile("^\\s*(?:(.+)/)??([^#\\s/]+)?(?:#([^\\s\\(]+(?:\\([^\\)]*\\))?))?(?: +(.*))?$");
-
-    private static final int GROUP_INDEX_MODULE = 1;
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\\"` in RegExp
-in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
-#### Snippet
-```java
-    static Pattern getAnchorPattern(String anchorNameOrId) {
-        // javadoc 17 uses"<section ... id=<anchor> >"
-        return Pattern.compile(".*(name|NAME|id)=\\\"" + Pattern.quote(anchorNameOrId) + "\\\"");
     }
 
+    public Parameter clone() {
+        return delegate.clone();
+    }
 ```
 
-### RegExpRedundantEscape
-Redundant character escape `\\\"` in RegExp
-in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
+### RefusedBequest
+Method `clone()` does not call 'super.clone()'
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/ExtendedPluginDescriptor.java`
 #### Snippet
 ```java
-    static Pattern getAnchorPattern(String anchorNameOrId) {
-        // javadoc 17 uses"<section ... id=<anchor> >"
-        return Pattern.compile(".*(name|NAME|id)=\\\"" + Pattern.quote(anchorNameOrId) + "\\\"");
     }
 
+    public PluginDescriptor clone() {
+        return delegate.clone();
+    }
 ```
 
-## RuleId[id=ObsoleteCollection]
-### ObsoleteCollection
-Obsolete collection type `Stack` used
-in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/GeneratorUtils.java`
+## RuleId[id=DuplicatedCode]
+### DuplicatedCode
+Duplicated code
+in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/report_old/PluginReport.java`
 #### Snippet
 ```java
-         * <code>null</code> element denotes an unordered list.
-         */
-        private Stack<Counter> numbering = new Stack<>();
+        try {
+            File outputDir = outputDirectory;
+            outputDir.mkdirs();
 
-        /**
+            PluginXdocGenerator generator = new PluginXdocGenerator(
+                    getProject(), locale, getReportOutputDirectory(), disableInternalJavadocLinkValidation);
+            PluginToolsRequest pluginToolsRequest = new DefaultPluginToolsRequest(getProject(), pluginDescriptor);
+            generator.execute(outputDir, pluginToolsRequest);
+        } catch (GeneratorException e) {
+            throw new MavenReportException("Error writing plugin documentation", e);
+        }
 ```
 
-### ObsoleteCollection
-Obsolete collection type `Stack<>` used
-in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/GeneratorUtils.java`
+### DuplicatedCode
+Duplicated code
+in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/report_old/PluginReport.java`
 #### Snippet
 ```java
-         * <code>null</code> element denotes an unordered list.
-         */
-        private Stack<Counter> numbering = new Stack<>();
+startSection(getTitle());
 
-        /**
+            if (!(pluginDescriptor.getMojos() != null
+                    && pluginDescriptor.getMojos().size() > 0)) {
+                paragraph(getBundle(locale).getString("report.plugin.goals.nogoal"));
+                endSection();
+                return;
+            }
+
+            paragraph(getBundle(locale).getString("report.plugin.goals.intro"));
+
+            boolean hasMavenReport = false;
+            for (Iterator<MojoDescriptor> i = pluginDescriptor.getMojos().iterator(); i.hasNext(); ) {
+                MojoDescriptor mojo = i.next();
+
+                if (GeneratorUtils.isMavenReport(mojo.getImplementation(), project)) {
+                    hasMavenReport = true;
+                }
+            }
+
+            startTable();
+
+            String goalColumnName = getBundle(locale).getString("report.plugin.goals.column.goal");
+            String isMavenReport = getBundle(locale).getString("report.plugin.goals.column.isMavenReport");
+            String descriptionColumnName = getBundle(locale).getString("report.plugin.goals.column.description");
+            if (hasMavenReport) {
+                tableHeader(new String[] {goalColumnName, isMavenReport, descriptionColumnName});
+            } else {
+                tableHeader(new String[] {goalColumnName, descriptionColumnName});
+            }
+
+            List<MojoDescriptor> mojos = new ArrayList<>();
+            mojos.addAll(pluginDescriptor.getMojos());
+            PluginUtils.sortMojos(mojos);
+            for (MojoDescriptor mojo : mojos) {
+                String goalName = mojo.getFullGoalName();
+
+                /*
+                 * Added ./ to define a relative path
+                 * @see AbstractMavenReportRenderer#getValidHref(java.lang.String)
+                 */
+                String goalDocumentationLink = "./" + mojo.getGoal() + "-mojo.html";
+
+                String description;
+                if (StringUtils.isNotEmpty(mojo.getDeprecated())) {
+                    description = "<strong>" + getBundle(locale).getString("report.plugin.goal.deprecated")
+                            + "</strong> " + mojo.getDeprecated();
+                } else if (StringUtils.isNotEmpty(mojo.getDescription())) {
+                    description = mojo.getDescription();
+                } else {
+                    description = getBundle(locale).getString("report.plugin.goal.nodescription");
+                }
+
+                sink.tableRow();
+                tableCell(createLinkPatternedText(goalName, goalDocumentationLink));
+                if (hasMavenReport) {
+                    if (GeneratorUtils.isMavenReport(mojo.getImplementation(), project)) {
+                        sink.tableCell();
+                        sink.text(getBundle(locale).getString("report.plugin.isReport"));
+                        sink.tableCell_();
+                    } else {
+                        sink.tableCell();
+                        sink.text(getBundle(locale).getString("report.plugin.isNotReport"));
+                        sink.tableCell_();
+                    }
+                }
+                tableCell(description, true);
+                sink.tableRow_();
+            }
+
+            endTable();
+
+            startSection(getBundle(locale).getString("report.plugin.systemrequirements"));
+
+            paragraph(getBundle(locale).getString("report.plugin.systemrequirements.intro"));
+
+            startTable();
+
+            String maven = discoverMavenRequirement(project, requirements);
+            sink.tableRow();
+            tableCell(getBundle(locale).getString("report.plugin.systemrequirements.maven"));
+            tableCell(
+                    (maven != null
+                            ? maven
+                            : getBundle(locale).getString("report.plugin.systemrequirements.nominimum")));
+            sink.tableRow_();
+
+            String jdk = discoverJdkRequirement(project, requirements);
+            sink.tableRow();
+            tableCell(getBundle(locale).getString("report.plugin.systemrequirements.jdk"));
+            tableCell((jdk != null ? jdk : getBundle(locale).getString("report.plugin.systemrequirements.nominimum")));
+            sink.tableRow_();
 ```
 
-## RuleId[id=NonSerializableFieldInSerializableClass]
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'upperBound' in a Serializable class
-in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocLinkGenerator.java`
+### DuplicatedCode
+Duplicated code
+in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/report_old/PluginReport.java`
 #### Snippet
 ```java
-        // upper bound is exclusive, lower bound inclusive (null means unlimited)
-        private final JavaVersion lowerBound;
-        private final JavaVersion upperBound;
+            if (requirementsHistories.isEmpty()) {
+                return;
+            }
 
-        JavadocToolVersionRange(JavaVersion lowerBound, JavaVersion upperBound) {
+            startSection(getBundle(locale).getString("report.plugin.systemrequirements.history"));
+            paragraph(getBundle(locale).getString("report.plugin.systemrequirements.history.intro"));
+
+            startTable();
+            tableHeader(new String[] {
+                getBundle(locale).getString("report.plugin.systemrequirements.history.version"),
+                getBundle(locale).getString("report.plugin.systemrequirements.history.maven"),
+                getBundle(locale).getString("report.plugin.systemrequirements.history.jdk")
+            });
+
+            requirementsHistories.forEach(requirementsHistory -> {
+                sink.tableRow();
+                tableCell(requirementsHistory.getVersion());
+                tableCell(requirementsHistory.getMaven());
+                tableCell(requirementsHistory.getJdk());
+                sink.tableRow_();
+            });
+            endTable();
+
+            endSection();
 ```
 
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'lowerBound' in a Serializable class
-in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocLinkGenerator.java`
+### DuplicatedCode
+Duplicated code
+in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/report_old/PluginReport.java`
 #### Snippet
 ```java
+startSection(getBundle(locale).getString("report.plugin.usage"));
 
-        // upper bound is exclusive, lower bound inclusive (null means unlimited)
-        private final JavaVersion lowerBound;
-        private final JavaVersion upperBound;
+            // Configuration
+            sink.paragraph();
+            text(getBundle(locale).getString("report.plugin.usage.intro"));
+            sink.paragraph_();
 
+            StringBuilder sb = new StringBuilder();
+            sb.append("<project>").append('\n');
+            sb.append("  ...").append('\n');
+            sb.append("  <build>").append('\n');
+            sb.append("    <!-- " + getBundle(locale).getString("report.plugin.usage.pluginManagement") + " -->")
+                    .append('\n');
+            sb.append("    <pluginManagement>").append('\n');
+            sb.append("      <plugins>").append('\n');
+            sb.append("        <plugin>").append('\n');
+            sb.append("          <groupId>")
+                    .append(pluginDescriptor.getGroupId())
+                    .append("</groupId>")
+                    .append('\n');
+            sb.append("          <artifactId>")
+                    .append(pluginDescriptor.getArtifactId())
+                    .append("</artifactId>")
+                    .append('\n');
+            sb.append("          <version>")
+                    .append(pluginDescriptor.getVersion())
+                    .append("</version>")
+                    .append('\n');
+            if (hasExtensionsToLoad) {
+                sb.append("          <extensions>true</extensions>").append('\n');
+            }
+            sb.append("        </plugin>").append('\n');
+            sb.append("        ...").append('\n');
+            sb.append("      </plugins>").append('\n');
+            sb.append("    </pluginManagement>").append('\n');
+            sb.append("    <!-- " + getBundle(locale).getString("report.plugin.usage.plugins") + " -->")
+                    .append('\n');
+            sb.append("    <plugins>").append('\n');
+            sb.append("      <plugin>").append('\n');
+            sb.append("        <groupId>")
+                    .append(pluginDescriptor.getGroupId())
+                    .append("</groupId>")
+                    .append('\n');
+            sb.append("        <artifactId>")
+                    .append(pluginDescriptor.getArtifactId())
+                    .append("</artifactId>")
+                    .append('\n');
+            sb.append("      </plugin>").append('\n');
+            sb.append("      ...").append('\n');
+            sb.append("    </plugins>").append('\n');
+            sb.append("  </build>").append('\n');
+
+            if (hasMavenReport) {
+                sb.append("  ...").append('\n');
+                sb.append("  <!-- " + getBundle(locale).getString("report.plugin.usage.reporting") + " -->")
+                        .append('\n');
+                sb.append("  <reporting>").append('\n');
+                sb.append("    <plugins>").append('\n');
+                sb.append("      <plugin>").append('\n');
+                sb.append("        <groupId>")
+                        .append(pluginDescriptor.getGroupId())
+                        .append("</groupId>")
+                        .append('\n');
+                sb.append("        <artifactId>")
+                        .append(pluginDescriptor.getArtifactId())
+                        .append("</artifactId>")
+                        .append('\n');
+                sb.append("        <version>")
+                        .append(pluginDescriptor.getVersion())
+                        .append("</version>")
+                        .append('\n');
+                sb.append("      </plugin>").append('\n');
+                sb.append("      ...").append('\n');
+                sb.append("    </plugins>").append('\n');
+                sb.append("  </reporting>").append('\n');
+            }
+
+            sb.append("  ...").append('\n');
+            sb.append("</project>").append('\n');
+
+            verbatimText(sb.toString());
+
+            sink.paragraph();
+            linkPatternedText(getBundle(locale).getString("report.plugin.configuration.end"));
+            sink.paragraph_();
+
+            endSection();
 ```
 
-## RuleId[id=MismatchedJavadocCode]
-### MismatchedJavadocCode
-Method is specified to return list but the return type is array
-in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/util/PluginUtils.java`
+### DuplicatedCode
+Duplicated code
+in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/report_old/PluginReport.java`
 #### Snippet
 ```java
-     * @param basedir not null
-     * @param include not null
-     * @return list of included files with default SCM excluded files
-     */
-    public static String[] findSources(String basedir, String include) {
+            if (jdk != null) {
+                return jdk;
+            }
+
+            Plugin compiler = getCompilerPlugin(project.getBuild().getPluginsAsMap());
+            if (compiler == null) {
+                compiler = getCompilerPlugin(project.getPluginManagement().getPluginsAsMap());
+            }
+
+            jdk = getPluginParameter(compiler, "release");
+            if (jdk != null) {
+                return jdk;
+            }
+
+            jdk = project.getProperties().getProperty("maven.compiler.release");
+            if (jdk != null) {
+                return jdk;
+            }
+
+            jdk = getPluginParameter(compiler, "target");
+            if (jdk != null) {
+                return jdk;
+            }
+
+            // default value
+            jdk = project.getProperties().getProperty("maven.compiler.target");
+            if (jdk != null) {
+                return jdk;
+            }
+
+            // return "1.5" by default?
+
+            String version = (compiler == null) ? null : compiler.getVersion();
+
+            if (version != null) {
+                return "Default target for maven-compiler-plugin version " + version;
+            }
 ```
 
-### MismatchedJavadocCode
-Method is specified to return list but the return type is array
-in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/util/PluginUtils.java`
+### DuplicatedCode
+Duplicated code
+in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/report_old/PluginReport.java`
 #### Snippet
 ```java
-     * @param include not null
-     * @param exclude could be null
-     * @return list of included files
-     */
-    public static String[] findSources(String basedir, String include, String exclude) {
+            if (plugin != null) {
+                Xpp3Dom pluginConf = (Xpp3Dom) plugin.getConfiguration();
+
+                if (pluginConf != null) {
+                    Xpp3Dom target = pluginConf.getChild(parameter);
+
+                    if (target != null) {
+                        return target.getValue();
+                    }
+                }
+            }
+
+            return null;
+```
+
+### DuplicatedCode
+Duplicated code
+in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/report_old/RequirementsHistory.java`
+#### Snippet
+```java
+        final StringBuilder sb = new StringBuilder("RequirementsHistory{");
+        sb.append("version='").append(version).append('\'');
+        sb.append(", maven='").append(maven).append('\'');
+        sb.append(", jdk='").append(jdk).append('\'');
+        sb.append('}');
+        return sb.toString();
+```
+
+### DuplicatedCode
+Duplicated code
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/JavaAnnotationsMojoDescriptorExtractor.java`
+#### Snippet
+```java
+                parameterAnnotationContent.setDescription(getDescriptionFromElement(element, context));
+
+                DocletTag deprecated = element.getTagByName("deprecated");
+                if (deprecated != null) {
+                    parameterAnnotationContent.setDeprecated(getRawValueFromTaglet(deprecated, context));
+                }
+
+                DocletTag since = element.getTagByName("since");
+                if (since != null) {
+                    parameterAnnotationContent.setSince(getRawValueFromTaglet(since, context));
+                }
 ```
 
 ## RuleId[id=RegExpSimplifiable]
@@ -569,44 +1432,154 @@ in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/e
     private static final int GROUP_REFERENCE = 2;
 ```
 
-## RuleId[id=SizeReplaceableByIsEmpty]
-### SizeReplaceableByIsEmpty
-`pluginDescriptor.getMojos().size() > 0` can be replaced with '!pluginDescriptor.getMojos().isEmpty()'
-in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/report_old/PluginReport.java`
+## RuleId[id=MismatchedJavadocCode]
+### MismatchedJavadocCode
+Method is specified to return list but the return type is array
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/util/PluginUtils.java`
 #### Snippet
 ```java
-
-            if (!(pluginDescriptor.getMojos() != null
-                    && pluginDescriptor.getMojos().size() > 0)) {
-                paragraph(getBundle(locale).getString("report.plugin.goals.nogoal"));
-                endSection();
+     * @param include not null
+     * @param exclude could be null
+     * @return list of included files
+     */
+    public static String[] findSources(String basedir, String include, String exclude) {
 ```
 
-### SizeReplaceableByIsEmpty
-`requirements.getOthers().size() > 0` can be replaced with '!requirements.getOthers().isEmpty()'
-in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/report_old/PluginReport.java`
+### MismatchedJavadocCode
+Method is specified to return list but the return type is array
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/util/PluginUtils.java`
 #### Snippet
 ```java
+     * @param basedir not null
+     * @param include not null
+     * @return list of included files with default SCM excluded files
+     */
+    public static String[] findSources(String basedir, String include) {
+```
+
+## RuleId[id=IOStreamConstructor]
+### IOStreamConstructor
+'InputStream' can be constructed using 'Files.newInputStream()'
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/scanner/DefaultMojoAnnotationsScanner.java`
+#### Snippet
+```java
+
+        String zipEntryName = null;
+        try (ZipInputStream archiveStream = new ZipInputStream(new FileInputStream(archiveFile))) {
+            String archiveFilename = archiveFile.getAbsolutePath();
+            for (ZipEntry zipEntry = archiveStream.getNextEntry();
+```
+
+### IOStreamConstructor
+'InputStream' can be constructed using 'Files.newInputStream()'
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/scanner/DefaultMojoAnnotationsScanner.java`
+#### Snippet
+```java
+
+            try (InputStream is = //
+                    new BufferedInputStream(new FileInputStream(new File(classDirectory, classFile)))) {
+                analyzeClassStream(mojoAnnotatedClasses, is, artifact, excludeMojo, classDirname, classFile);
             }
-
-            if (requirements.getOthers() != null && requirements.getOthers().size() > 0) {
-                for (Iterator it = requirements.getOthers().keySet().iterator(); it.hasNext(); ) {
-                    String key = it.next().toString();
 ```
 
-### SizeReplaceableByIsEmpty
-`pluginDescriptor.getMojos().size() > 0` can be replaced with '!pluginDescriptor.getMojos().isEmpty()'
-in `maven-plugin-report-plugin/src/main/java/org/apache/maven/plugin/plugin/report/PluginReport.java`
+## RuleId[id=Deprecation]
+### Deprecation
+'makeHtmlValid(java.lang.String)' is deprecated
+in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginDescriptorFilesGenerator.java`
+#### Snippet
+```java
+        if (!containsXhtmlValue) // text comes from legacy extractor
+        {
+            xhtmlText = GeneratorUtils.makeHtmlValid(text);
+        } else {
+            xhtmlText = text;
+```
+
+### Deprecation
+'toURL()' is deprecated
+in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/GeneratorUtils.java`
+#### Snippet
+```java
+            for (String classPathString : classPathStrings) {
+                try {
+                    urls.add(new File(classPathString).toURL());
+                } catch (MalformedURLException e) {
+                    throw new IllegalArgumentException(e);
+```
+
+### Deprecation
+'MAVEN_COMPONENTS' is deprecated
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/JavaAnnotationsMojoDescriptorExtractor.java`
 #### Snippet
 ```java
 
-            if (!(pluginDescriptor.getMojos() != null
-                    && pluginDescriptor.getMojos().size() > 0)) {
-                paragraph(getBundle(locale).getString("report.plugin.goals.nogoal"));
-                endSection();
+                // recognize Maven-injected objects as components annotations instead of parameters
+                String expression = PluginUtils.MAVEN_COMPONENTS.get(componentAnnotationContent.getRoleClassName());
+                if (expression == null) {
+                    // normal component
+```
+
+### Deprecation
+'MAVEN_COMPONENTS' is deprecated
+in `maven-plugin-tools-java/src/main/java/org/apache/maven/tools/plugin/extractor/javadoc/JavaJavadocMojoDescriptorExtractor.java`
+#### Snippet
+```java
+                // Note: the expressions we are looking for, i.e. "${project}", are in the values of the Map,
+                // so the lookup mechanism is different here than in maven-plugin-tools-annotations
+                boolean isDeprecated = PluginUtils.MAVEN_COMPONENTS.containsValue(role);
+
+                if (!isDeprecated) {
+```
+
+### Deprecation
+'PARAMETER_EXPRESSION' is deprecated
+in `maven-plugin-tools-java/src/main/java/org/apache/maven/tools/plugin/extractor/javadoc/JavaJavadocMojoDescriptorExtractor.java`
+#### Snippet
+```java
+                }
+
+                String expression = parameter.getNamedParameter(JavadocMojoAnnotation.PARAMETER_EXPRESSION);
+                String property = parameter.getNamedParameter(JavadocMojoAnnotation.PARAMETER_PROPERTY);
+
+```
+
+### Deprecation
+'MULTI_EXECUTION_STRATEGY' is deprecated
+in `maven-plugin-tools-java/src/main/java/org/apache/maven/tools/plugin/extractor/javadoc/JavaJavadocMojoDescriptorExtractor.java`
+#### Snippet
+```java
+
+        // executionStrategy (and deprecated @attainAlways)
+        tag = findInClassHierarchy(javaClass, JavadocMojoAnnotation.MULTI_EXECUTION_STRATEGY);
+        if (tag != null) {
+            getLogger()
+```
+
+### Deprecation
+'MULTI_EXECUTION_STRATEGY' is deprecated
+in `maven-plugin-tools-java/src/main/java/org/apache/maven/tools/plugin/extractor/javadoc/JavaJavadocMojoDescriptorExtractor.java`
+#### Snippet
+```java
+        if (tag != null) {
+            getLogger()
+                    .warn("@" + JavadocMojoAnnotation.MULTI_EXECUTION_STRATEGY + " in "
+                            + javaClass.getFullyQualifiedName() + " is deprecated: please use '@"
+                            + JavadocMojoAnnotation.EXECUTION_STATEGY + " always' instead.");
 ```
 
 ## RuleId[id=StringBufferReplaceableByString]
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/report_old/Requirements.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Requirements{");
+        sb.append("maven='").append(maven).append('\'');
+        sb.append(", jdk='").append(jdk).append('\'');
+```
+
 ### StringBufferReplaceableByString
 `StringBuilder sb` can be replaced with 'String'
 in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/report_old/RequirementsHistory.java`
@@ -621,14 +1594,14 @@ in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/report_old/
 
 ### StringBufferReplaceableByString
 `StringBuilder sb` can be replaced with 'String'
-in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/report_old/Requirements.java`
+in `maven-plugin-report-plugin/src/main/java/org/apache/maven/plugin/plugin/report/RequirementsHistory.java`
 #### Snippet
 ```java
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Requirements{");
-        sb.append("maven='").append(maven).append('\'');
-        sb.append(", jdk='").append(jdk).append('\'');
+        final StringBuilder sb = new StringBuilder("RequirementsHistory{");
+        sb.append("version='").append(version).append('\'');
+        sb.append(", maven='").append(maven).append('\'');
 ```
 
 ### StringBufferReplaceableByString
@@ -644,15 +1617,15 @@ in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/e
 ```
 
 ### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/datamodel/ExecuteAnnotationContent.java`
+`StringBuilder shortType` can be replaced with 'String'
+in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginXdocGenerator.java`
 #### Snippet
 ```java
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        sb.append("ExecuteAnnotationContent");
-        sb.append("{goal='").append(goal).append('\'');
+            return getShortTypeOfSimpleType(type);
+        } else {
+            StringBuilder shortType = new StringBuilder();
+            shortType.append(getShortTypeOfSimpleType(type.substring(0, startTypeArguments)));
+            shortType
 ```
 
 ### StringBufferReplaceableByString
@@ -665,6 +1638,18 @@ in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/e
         final StringBuilder sb = new StringBuilder();
         sb.append("AnnotatedField");
         sb.append("{fieldName='").append(fieldName).append('\'');
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/datamodel/ExecuteAnnotationContent.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder();
+        sb.append("ExecuteAnnotationContent");
+        sb.append("{goal='").append(goal).append('\'');
 ```
 
 ### StringBufferReplaceableByString
@@ -693,18 +1678,6 @@ in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/e
 
 ### StringBufferReplaceableByString
 `StringBuilder sb` can be replaced with 'String'
-in `maven-plugin-report-plugin/src/main/java/org/apache/maven/plugin/plugin/report/RequirementsHistory.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("RequirementsHistory{");
-        sb.append("version='").append(version).append('\'');
-        sb.append(", maven='").append(maven).append('\'');
-```
-
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
 in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/datamodel/ParameterAnnotationContent.java`
 #### Snippet
 ```java
@@ -713,18 +1686,6 @@ in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/e
         final StringBuilder sb = new StringBuilder();
         sb.append(super.toString());
         sb.append("ParameterAnnotationContent");
-```
-
-### StringBufferReplaceableByString
-`StringBuilder shortType` can be replaced with 'String'
-in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginXdocGenerator.java`
-#### Snippet
-```java
-            return getShortTypeOfSimpleType(type);
-        } else {
-            StringBuilder shortType = new StringBuilder();
-            shortType.append(getShortTypeOfSimpleType(type.substring(0, startTypeArguments)));
-            shortType
 ```
 
 ### StringBufferReplaceableByString
@@ -737,6 +1698,67 @@ in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/e
                 StringBuilder memberBuilder = new StringBuilder(methodName);
                 memberBuilder.append("(");
                 memberBuilder.append(parameterTypes.stream()
+```
+
+## RuleId[id=CdiInjectionPointsInspection]
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/scanner/DefaultMojoScanner.java`
+#### Snippet
+```java
+     */
+    @Inject
+    public DefaultMojoScanner(Map<String, MojoDescriptorExtractor> extractors) {
+        this.mojoDescriptorExtractors = extractors;
+
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/converter/JavadocInlineTagsToXhtmlConverter.java`
+#### Snippet
+```java
+
+    @Inject
+    public JavadocInlineTagsToXhtmlConverter(Map<String, JavadocInlineTagToHtmlConverter> converters) {
+        this.converters = converters;
+    }
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/converter/JavadocBlockTagsToXhtmlConverter.java`
+#### Snippet
+```java
+    public JavadocBlockTagsToXhtmlConverter(
+            JavadocInlineTagsToXhtmlConverter inlineTagsConverter,
+            Map<String, JavadocBlockTagToHtmlConverter> blockTagConverters) {
+        this.inlineTagsConverter = inlineTagsConverter;
+        this.blockTagConverters = blockTagConverters;
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/JavaAnnotationsMojoDescriptorExtractor.java`
+#### Snippet
+```java
+
+    @Inject
+    private ArchiverManager archiverManager;
+
+    @Inject
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/JavaAnnotationsMojoDescriptorExtractor.java`
+#### Snippet
+```java
+
+    @Inject
+    private RepositorySystem repositorySystem;
+
+    @Inject
 ```
 
 ## RuleId[id=InnerClassMayBeStatic]
@@ -752,480 +1774,103 @@ in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/ge
         }
 ```
 
-## RuleId[id=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends JavadocBlockTagToHtmlConverter`
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/converter/JavadocBlockTagsToXhtmlConverter.java`
-#### Snippet
-```java
-    public JavadocBlockTagsToXhtmlConverter(
-            JavadocInlineTagsToXhtmlConverter inlineTagsConverter,
-            Map<String, JavadocBlockTagToHtmlConverter> blockTagConverters) {
-        this.inlineTagsConverter = inlineTagsConverter;
-        this.blockTagConverters = blockTagConverters;
-```
-
-### BoundedWildcard
-Can generalize to `? extends RequirementsHistory`
-in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/report_old/PluginReport.java`
-#### Snippet
-```java
-                MavenProject project,
-                Requirements requirements,
-                List<RequirementsHistory> requirementsHistories,
-                Sink sink,
-                PluginDescriptor pluginDescriptor,
-```
-
-### BoundedWildcard
-Can generalize to `? extends Plugin`
-in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/report_old/PluginReport.java`
-#### Snippet
-```java
-        }
-
-        private static Plugin getCompilerPlugin(Map<String, Plugin> pluginsAsMap) {
-            return pluginsAsMap.get("org.apache.maven.plugins:maven-compiler-plugin");
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavadocInlineTagToHtmlConverter`
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/converter/JavadocInlineTagsToXhtmlConverter.java`
-#### Snippet
-```java
-
-    @Inject
-    public JavadocInlineTagsToXhtmlConverter(Map<String, JavadocInlineTagToHtmlConverter> converters) {
-        this.converters = converters;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/scanner/DefaultMojoAnnotationsScanner.java`
-#### Snippet
-```java
-
-    private void analyzeClassStream(
-            Map<String, MojoAnnotatedClass> mojoAnnotatedClasses,
-            InputStream is,
-            Artifact artifact,
-```
-
-### BoundedWildcard
-Can generalize to `? super MojoAnnotatedClass`
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/scanner/DefaultMojoAnnotationsScanner.java`
-#### Snippet
-```java
-
-    private void analyzeClassStream(
-            Map<String, MojoAnnotatedClass> mojoAnnotatedClasses,
-            InputStream is,
-            Artifact artifact,
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/scanner/DefaultMojoAnnotationsScanner.java`
-#### Snippet
-```java
-
-    protected void scan(
-            Map<String, MojoAnnotatedClass> mojoAnnotatedClasses,
-            File source,
-            List<String> includePatterns,
-```
-
-### BoundedWildcard
-Can generalize to `? super MojoAnnotatedClass`
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/scanner/DefaultMojoAnnotationsScanner.java`
-#### Snippet
-```java
-
-    protected void scan(
-            Map<String, MojoAnnotatedClass> mojoAnnotatedClasses,
-            File source,
-            List<String> includePatterns,
-```
-
-### BoundedWildcard
-Can generalize to `? extends Artifact`
-in `maven-script/maven-script-ant/src/main/java/org/apache/maven/script/ant/AntPropertyHelper.java`
-#### Snippet
-```java
-     * @param l
-     */
-    public AntPropertyHelper(ExpressionEvaluator exprEvaluator, Set<Artifact> artifacts, Log l) {
-        this.mavenProject = null;
-        this.exprEvaluator = exprEvaluator;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Artifact`
-in `maven-script/maven-script-ant/src/main/java/org/apache/maven/script/ant/AntMojoWrapper.java`
-#### Snippet
-```java
-    }
-
-    public Path getPathFromArtifacts(Collection<Artifact> artifacts, Project antProject)
-            throws DependencyResolutionRequiredException {
-        List<String> list = new ArrayList<>(artifacts.size());
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/converter/tag/LinkUtils.java`
-#### Snippet
-```java
-            FullyQualifiedJavadocReference fqReference,
-            ConverterContext context,
-            UnaryOperator<String> labelDecorator,
-            String htmlComment) {
-        String label = getReferenceLabel(fqReference, context);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Plugin`
-in `maven-plugin-report-plugin/src/main/java/org/apache/maven/plugin/plugin/report/PluginReport.java`
-#### Snippet
-```java
-        }
-
-        private static Plugin getCompilerPlugin(Map<String, Plugin> pluginsAsMap) {
-            return pluginsAsMap.get("org.apache.maven.plugins:maven-compiler-plugin");
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? extends RequirementsHistory`
-in `maven-plugin-report-plugin/src/main/java/org/apache/maven/plugin/plugin/report/PluginReport.java`
-#### Snippet
-```java
-        PluginOverviewRenderer(
-                MavenProject project,
-                List<RequirementsHistory> requirementsHistories,
-                Sink sink,
-                PluginDescriptor pluginDescriptor,
-```
-
-### BoundedWildcard
-Can generalize to `? extends Artifact`
-in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/GeneratorUtils.java`
-#### Snippet
-```java
-     * @return list of component dependencies, without in provided scope
-     */
-    public static List<ComponentDependency> toComponentDependencies(Collection<Artifact> artifacts) {
-        List<ComponentDependency> componentDeps = new LinkedList<>();
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends Parameter`
-in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginXdocGenerator.java`
-#### Snippet
-```java
-     * @param w              not null
-     */
-    private void writeParameterList(String title, List<Parameter> parameterList, XMLWriter w, String goal) {
-        w.startElement("subsection");
-        w.addAttribute("name", title);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Parameter`
-in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginXdocGenerator.java`
-#### Snippet
-```java
-     * @return the parameters list without components.
-     */
-    private List<Parameter> filterParameters(List<Parameter> parameterList) {
-        List<Parameter> filtered = new ArrayList<>();
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends Parameter`
-in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginXdocGenerator.java`
-#### Snippet
-```java
-     * @return list of parameters depending the value of <code>required</code>
-     */
-    private List<Parameter> getParametersByRequired(boolean required, List<Parameter> parameterList) {
-        List<Parameter> list = new ArrayList<>();
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends MojoDescriptor`
-in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/util/PluginUtils.java`
-#### Snippet
-```java
-     * @see MojoDescriptor#getGoal()
-     */
-    public static void sortMojos(List<MojoDescriptor> mojoDescriptors) {
-        if (mojoDescriptors != null) {
-            Collections.sort(mojoDescriptors, new Comparator<MojoDescriptor>() {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Parameter`
-in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/util/PluginUtils.java`
-#### Snippet
-```java
-     * @since 2.4.4
-     */
-    public static void sortMojoParameters(List<Parameter> parameters) {
-        if (parameters != null) {
-            Collections.sort(parameters, new Comparator<Parameter>() {
-```
-
-### BoundedWildcard
-Can generalize to `? extends MojoAnnotatedClass`
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/JavaAnnotationsMojoDescriptorExtractor.java`
-#### Snippet
-```java
-
-    protected MojoAnnotatedClass findClassWithExecuteAnnotationInParentHierarchy(
-            MojoAnnotatedClass mojoAnnotatedClass, Map<String, MojoAnnotatedClass> mojoAnnotatedClasses) {
-        if (mojoAnnotatedClass.getExecute() != null) {
-            return mojoAnnotatedClass;
-```
-
-### BoundedWildcard
-Can generalize to `? extends File`
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/JavaAnnotationsMojoDescriptorExtractor.java`
-#### Snippet
-```java
-
-    private void extendJavaProjectBuilder(
-            JavaProjectBuilder builder, List<File> sourceDirectories, Set<Artifact> artifacts) {
-
-        // Build isolated Classloader with only the artifacts of the project (none of this plugin)
-```
-
-### BoundedWildcard
-Can generalize to `? extends Artifact`
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/JavaAnnotationsMojoDescriptorExtractor.java`
-#### Snippet
-```java
-
-    private void extendJavaProjectBuilder(
-            JavaProjectBuilder builder, List<File> sourceDirectories, Set<Artifact> artifacts) {
-
-        // Build isolated Classloader with only the artifacts of the project (none of this plugin)
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaClass`
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/JavaAnnotationsMojoDescriptorExtractor.java`
+## RuleId[id=NullableProblems]
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/extractor/GroupKey.java`
 #### Snippet
 ```java
      */
-    private Map<String, JavaAnnotatedElement> extractFieldsAnnotations(
-            JavaClass javaClass, Map<String, JavaClass> javaClassesMap) {
-        try {
-            Map<String, JavaAnnotatedElement> rawParams = new TreeMap<>();
+    @Override
+    public int compareTo(final GroupKey o) {
+        if (JAVA_GROUP.equals(this.group) && !JAVA_GROUP.equals(o.group)) {
+            return -1;
 ```
 
-### BoundedWildcard
-Can generalize to `? extends MojoAnnotatedClass`
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/JavaAnnotationsMojoDescriptorExtractor.java`
+## RuleId[id=JavadocLinkAsPlainText]
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/DescriptorGeneratorMojo.java`
 #### Snippet
 ```java
-
-    private JavaProjectBuilder scanJavadoc(
-            PluginToolsRequest request, Collection<MojoAnnotatedClass> mojoAnnotatedClasses)
-            throws ExtractionException {
-        // found artifact from reactors to scan sources
+     * <pre>
+     * &lt;externalJavadocBaseUrls&gt;
+     *   &lt;externalJavadocBaseUrl&gt;https://docs.oracle.com/javase/8/docs/api/&lt;/externalJavadocBaseUrl&gt;
+     * &lt;externalJavadocBaseUrls&gt;
+     * </pre>
 ```
 
-### BoundedWildcard
-Can generalize to `? extends MojoAnnotatedClass`
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/JavaAnnotationsMojoDescriptorExtractor.java`
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/DescriptorGeneratorMojo.java`
 #### Snippet
 ```java
-            MojoAnnotatedClass mojoAnnotatedClass,
-            List<ParameterAnnotationContent> parameterAnnotationContents,
-            Map<String, MojoAnnotatedClass> mojoAnnotatedClasses) {
-        parameterAnnotationContents.addAll(mojoAnnotatedClass.getParameters().values());
-        String parentClassName = mojoAnnotatedClass.getParentClassName();
+     * &lt;externalJavadocBaseUrls&gt;
+     * </pre>
+     * is valid because <code>https://docs.oracle.com/javase/8/docs/api/package-list</code> exists.
+     * See <a href="https://docs.oracle.com/en/java/javase/17/docs/specs/man/javadoc.html#standard-doclet-options">
+     * link option of the javadoc tool</a>.
 ```
 
-### BoundedWildcard
-Can generalize to `? extends MojoAnnotatedClass`
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/JavaAnnotationsMojoDescriptorExtractor.java`
-#### Snippet
-```java
-            MojoAnnotatedClass mojoAnnotatedClass,
-            List<ComponentAnnotationContent> componentAnnotationContents,
-            Map<String, MojoAnnotatedClass> mojoAnnotatedClasses) {
-        componentAnnotationContents.addAll(mojoAnnotatedClass.getComponents().values());
-        String parentClassName = mojoAnnotatedClass.getParentClassName();
-```
-
-### BoundedWildcard
-Can generalize to `? extends JavaClass`
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/JavaAnnotationsMojoDescriptorExtractor.java`
+## RuleId[id=FieldCanBeLocal]
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/DescriptorGeneratorMojo.java`
 #### Snippet
 ```java
      */
-    private Map<String, JavaAnnotatedElement> extractMethodsAnnotations(
-            JavaClass javaClass, Map<String, JavaClass> javaClassesMap) {
-        try {
-            Map<String, JavaAnnotatedElement> rawParams = new TreeMap<>();
+    @Parameter(defaultValue = "true", property = "maven.plugin.checkExpectedProvidedScope")
+    private boolean checkExpectedProvidedScope = true;
+
+    /**
 ```
 
-### BoundedWildcard
-Can generalize to `? extends MojoDescriptorExtractor`
-in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/scanner/DefaultMojoScanner.java`
-#### Snippet
-```java
-     */
-    @Inject
-    public DefaultMojoScanner(Map<String, MojoDescriptorExtractor> extractors) {
-        this.mojoDescriptorExtractors = extractors;
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends MojoAnnotatedClass`
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/converter/JavaClassConverterContext.java`
-#### Snippet
-```java
-            JavaClass declaringClass,
-            JavaProjectBuilder javaProjectBuilder,
-            Map<String, MojoAnnotatedClass> mojoAnnotatedClasses,
-            JavadocLinkGenerator linkGenerator,
-            int lineNumber) {
-```
-
-### BoundedWildcard
-Can generalize to `? super URI`
+## RuleId[id=TrivialIf]
+### TrivialIf
+`if` statement can be simplified
 in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
 #### Snippet
 ```java
-            FullyQualifiedJavadocReference javadocReference,
-            URI baseUri,
-            BiFunction<URI, FullyQualifiedJavadocReference, URI> fragmentAppender,
-            Optional<String> pathPrefix)
-            throws IllegalArgumentException {
-```
-
-### BoundedWildcard
-Can generalize to `? super FullyQualifiedJavadocReference`
-in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
-#### Snippet
-```java
-            FullyQualifiedJavadocReference javadocReference,
-            URI baseUri,
-            BiFunction<URI, FullyQualifiedJavadocReference, URI> fragmentAppender,
-            Optional<String> pathPrefix)
-            throws IllegalArgumentException {
-```
-
-## RuleId[id=RedundantSuppression]
-### RedundantSuppression
-Redundant suppression
-in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/extractor/AbstractScriptedMojoDescriptorExtractor.java`
-#### Snippet
-```java
-        MavenProject project = request.getProject();
-
-        @SuppressWarnings("unchecked")
-        Map<String, Set<File>> scriptFilesKeyedByBasedir =
-                gatherFilesByBasedir(project.getBasedir(), project.getScriptSourceRoots(), scriptExtension, request);
-
-        List<MojoDescriptor> mojoDescriptors;
-```
-
-### RedundantSuppression
-Redundant suppression
-in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/extractor/AbstractScriptedMojoDescriptorExtractor.java`
-#### Snippet
-```java
-        List<MojoDescriptor> mojoDescriptors;
-        if (!StringUtils.isEmpty(metadataExtension)) {
-            @SuppressWarnings("unchecked")
-            Map<String, Set<File>> metadataFilesKeyedByBasedir = gatherFilesByBasedir(
-                    project.getBasedir(), project.getScriptSourceRoots(), metadataExtension, request);
-
-            mojoDescriptors = extractMojoDescriptorsFromMetadata(metadataFilesKeyedByBasedir, request);
-```
-
-### RedundantSuppression
-Redundant suppression
-in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/GeneratorUtils.java`
-#### Snippet
-```java
-     */
-    @SuppressWarnings("unchecked")
-    public static boolean isMavenReport(String impl, MavenProject project) throws IllegalArgumentException {
-        if (impl == null) {
-            throw new IllegalArgumentException("mojo implementation should be declared");
-```
-
-### RedundantSuppression
-Redundant suppression
-in `maven-script/maven-plugin-tools-ant/src/main/java/org/apache/maven/tools/plugin/extractor/ant/AntMojoDescriptorExtractor.java`
-#### Snippet
-```java
-
-                    for (MojoDescriptor descriptor : mojoDescriptors) {
-                        @SuppressWarnings("unchecked")
-                        Map<String, ?> paramMap = descriptor.getParameterMap();
-
-                        if (!paramMap.containsKey("basedir")) {
-```
-
-### RedundantSuppression
-Redundant suppression
-in `maven-script/maven-plugin-tools-ant/src/main/java/org/apache/maven/tools/plugin/extractor/ant/AntMojoDescriptorExtractor.java`
-#### Snippet
-```java
-                        }
-
-                        @SuppressWarnings("unchecked")
-                        List<ComponentRequirement> requirements = descriptor.getRequirements();
-                        Map<String, ComponentRequirement> reqMap = new HashMap<>();
-
-```
-
-## RuleId[id=UnnecessaryBoxing]
-### UnnecessaryBoxing
-Unnecessary boxing
-in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/GeneratorUtils.java`
-#### Snippet
-```java
-                if (packageNames.get(name) != null) {
-                    int next = (packageNames.get(name)).intValue() + 1;
-                    packageNames.put(name, Integer.valueOf(next));
-                } else {
-                    packageNames.put(name, Integer.valueOf(1));
-```
-
-### UnnecessaryBoxing
-Unnecessary boxing
-in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/GeneratorUtils.java`
-#### Snippet
-```java
-                    packageNames.put(name, Integer.valueOf(next));
-                } else {
-                    packageNames.put(name, Integer.valueOf(1));
+            if (moduleName.isPresent()) {
+                String actualModuleName = containedPackageNamesAndModules.get(packageName.get());
+                if (!moduleName.get().equals(actualModuleName)) {
+                    return false;
                 }
-            } else {
 ```
 
-### UnnecessaryBoxing
-Unnecessary boxing
-in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/GeneratorUtils.java`
+### TrivialIf
+`if` statement can be simplified
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
 #### Snippet
 ```java
                 }
             } else {
-                packageNames.put("", Integer.valueOf(1));
+                if (!containedPackageNamesAndModules.containsKey(packageName.get())) {
+                    return false;
+                }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
+#### Snippet
+```java
             }
+        } else if (moduleName.isPresent()) {
+            if (!containedPackageNamesAndModules.containsValue(moduleName.get())) {
+                return false;
+            }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/datamodel/ParameterAnnotationContent.java`
+#### Snippet
+```java
+            return false;
+        }
+        if (!Objects.equals(property, that.property)) {
+            return false;
         }
 ```
 
@@ -1244,30 +1889,6 @@ in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/DescriptorG
 
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
-in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/report_old/PluginReport.java`
-#### Snippet
-```java
-        try {
-            File outputDir = outputDirectory;
-            outputDir.mkdirs();
-
-            PluginXdocGenerator generator = new PluginXdocGenerator(
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginHelpGenerator.java`
-#### Snippet
-```java
-
-            File helpClass = new File(destinationDirectory, sourcePath);
-            helpClass.getParentFile().mkdirs();
-
-            String helpClassSources = getHelpClassSources(getPluginHelpPath(mavenProject));
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
 in `maven-plugin-report-plugin/src/main/java/org/apache/maven/plugin/plugin/report/PluginReport.java`
 #### Snippet
 ```java
@@ -1280,26 +1901,14 @@ in `maven-plugin-report-plugin/src/main/java/org/apache/maven/plugin/plugin/repo
 
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
-in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginDescriptorFilesGenerator.java`
+in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/report_old/PluginReport.java`
 #### Snippet
 ```java
+        try {
+            File outputDir = outputDirectory;
+            outputDir.mkdirs();
 
-        if (!destinationFile.getParentFile().exists()) {
-            destinationFile.getParentFile().mkdirs();
-        }
-
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/JavaAnnotationsMojoDescriptorExtractor.java`
-#### Snippet
-```java
-                                + sourcesArtifact.getArtifactId() + "/" + sourcesArtifact.getVersion()
-                                + "/" + sourcesArtifact.getClassifier());
-                extractDirectory.mkdirs();
-
-                UnArchiver unArchiver = archiverManager.getUnArchiver("jar");
+            PluginXdocGenerator generator = new PluginXdocGenerator(
 ```
 
 ### IgnoreResultOfCall
@@ -1326,91 +1935,43 @@ in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/extractor
 
 ```
 
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginHelpGenerator.java`
+#### Snippet
+```java
+
+            File helpClass = new File(destinationDirectory, sourcePath);
+            helpClass.getParentFile().mkdirs();
+
+            String helpClassSources = getHelpClassSources(getPluginHelpPath(mavenProject));
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginDescriptorFilesGenerator.java`
+#### Snippet
+```java
+
+        if (!destinationFile.getParentFile().exists()) {
+            destinationFile.getParentFile().mkdirs();
+        }
+
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/JavaAnnotationsMojoDescriptorExtractor.java`
+#### Snippet
+```java
+                                + sourcesArtifact.getArtifactId() + "/" + sourcesArtifact.getVersion()
+                                + "/" + sourcesArtifact.getClassifier());
+                extractDirectory.mkdirs();
+
+                UnArchiver unArchiver = archiverManager.getUnArchiver("jar");
+```
+
 ## RuleId[id=OptionalUsedAsFieldOrParameterType]
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'moduleName'
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/converter/tag/LinkUtils.java`
-#### Snippet
-```java
-
-    private static String createLabel(
-            Optional<String> moduleName,
-            Optional<String> packageName,
-            Optional<String> className,
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'packageName'
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/converter/tag/LinkUtils.java`
-#### Snippet
-```java
-    private static String createLabel(
-            Optional<String> moduleName,
-            Optional<String> packageName,
-            Optional<String> className,
-            Optional<String> member) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'className'
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/converter/tag/LinkUtils.java`
-#### Snippet
-```java
-            Optional<String> moduleName,
-            Optional<String> packageName,
-            Optional<String> className,
-            Optional<String> member) {
-        StringBuilder sb = new StringBuilder();
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'member'
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/converter/tag/LinkUtils.java`
-#### Snippet
-```java
-            Optional<String> packageName,
-            Optional<String> className,
-            Optional<String> member) {
-        StringBuilder sb = new StringBuilder();
-        if (packageName.isPresent() && !"java.lang".equals(packageName.get())) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'packageNameClassName'
-in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocReference.java`
-#### Snippet
-```java
-    private final Optional<String> moduleName;
-
-    private final Optional<String> packageNameClassName;
-
-    private final Optional<String> member; // optional, but may appear with both className and packageName being null
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'label'
-in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocReference.java`
-#### Snippet
-```java
-    private final Optional<String> member; // optional, but may appear with both className and packageName being null
-
-    private final Optional<String> label;
-
-    /*
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'moduleName'
-in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocReference.java`
-#### Snippet
-```java
- */
-public class JavadocReference {
-    private final Optional<String> moduleName;
-
-    private final Optional<String> packageNameClassName;
-```
-
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'moduleName'
 in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocReference.java`
@@ -1460,6 +2021,18 @@ in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/J
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'moduleName'
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocReference.java`
+#### Snippet
+```java
+ */
+public class JavadocReference {
+    private final Optional<String> moduleName;
+
+    private final Optional<String> packageNameClassName;
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'member'
 in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocReference.java`
 #### Snippet
@@ -1472,183 +2045,27 @@ in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/J
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'member'
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/converter/JavaClassConverterContext.java`
+`Optional` used as type for field 'packageNameClassName'
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocReference.java`
 #### Snippet
 ```java
+    private final Optional<String> moduleName;
 
-    private Optional<FullyQualifiedJavadocReference> resolveMember(
-            String fullyQualifiedPackageNameClassName, Optional<String> member, Optional<String> label) {
-        return resolveMember(fullyQualifiedPackageNameClassName, "", member, label);
-    }
+    private final Optional<String> packageNameClassName;
+
+    private final Optional<String> member; // optional, but may appear with both className and packageName being null
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'label'
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/converter/JavaClassConverterContext.java`
+`Optional` used as type for field 'label'
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocReference.java`
 #### Snippet
 ```java
+    private final Optional<String> member; // optional, but may appear with both className and packageName being null
 
-    private Optional<FullyQualifiedJavadocReference> resolveMember(
-            String fullyQualifiedPackageNameClassName, Optional<String> member, Optional<String> label) {
-        return resolveMember(fullyQualifiedPackageNameClassName, "", member, label);
-    }
-```
+    private final Optional<String> label;
 
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'member'
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/converter/JavaClassConverterContext.java`
-#### Snippet
-```java
-
-    private Optional<FullyQualifiedJavadocReference> resolveMember(
-            JavaClass javaClass, Optional<String> member, Optional<String> label) {
-        final Optional<MemberType> memberType;
-        Optional<String> resolvedMember = member;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'label'
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/converter/JavaClassConverterContext.java`
-#### Snippet
-```java
-
-    private Optional<FullyQualifiedJavadocReference> resolveMember(
-            JavaClass javaClass, Optional<String> member, Optional<String> label) {
-        final Optional<MemberType> memberType;
-        Optional<String> resolvedMember = member;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'member'
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/converter/JavaClassConverterContext.java`
-#### Snippet
-```java
-            String fullyQualifiedPackageNameClassName,
-            String nestedClassName,
-            Optional<String> member,
-            Optional<String> label) {
-        JavaClass javaClass = javaProjectBuilder.getClassByName(fullyQualifiedPackageNameClassName);
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'label'
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/converter/JavaClassConverterContext.java`
-#### Snippet
-```java
-            String nestedClassName,
-            Optional<String> member,
-            Optional<String> label) {
-        JavaClass javaClass = javaProjectBuilder.getClassByName(fullyQualifiedPackageNameClassName);
-        if (!isClassFound(javaClass)) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'javaModule'
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/converter/JavaClassConverterContext.java`
-#### Snippet
-```java
-    final int lineNumber;
-
-    final Optional<JavaModule> javaModule;
-
-    final Map<String, Object> attributes;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'optionalMember'
-in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
-#### Snippet
-```java
-     */
-    // CHECKSTYLE_ON: LineLength
-    URI appendMemberAsFragment(URI url, Optional<String> optionalMember, Optional<MemberType> optionalMemberType)
-            throws URISyntaxException, IOException {
-        if (!optionalMember.isPresent()) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'optionalMemberType'
-in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
-#### Snippet
-```java
-     */
-    // CHECKSTYLE_ON: LineLength
-    URI appendMemberAsFragment(URI url, Optional<String> optionalMember, Optional<MemberType> optionalMemberType)
-            throws URISyntaxException, IOException {
-        if (!optionalMember.isPresent()) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'moduleName'
-in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
-#### Snippet
-```java
-    }
-
-    public boolean hasEntryFor(Optional<String> moduleName, Optional<String> packageName) {
-        if (containedPackageNamesAndModules.isEmpty()) {
-            throw new UnsupportedOperationException(
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'packageName'
-in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
-#### Snippet
-```java
-    }
-
-    public boolean hasEntryFor(Optional<String> moduleName, Optional<String> packageName) {
-        if (containedPackageNamesAndModules.isEmpty()) {
-            throw new UnsupportedOperationException(
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'moduleName'
-in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
-#### Snippet
-```java
-
-    static URI createLink(
-            URI baseUri, Optional<String> moduleName, Optional<String> packageName, Optional<String> className)
-            throws URISyntaxException {
-        StringBuilder link = new StringBuilder();
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'packageName'
-in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
-#### Snippet
-```java
-
-    static URI createLink(
-            URI baseUri, Optional<String> moduleName, Optional<String> packageName, Optional<String> className)
-            throws URISyntaxException {
-        StringBuilder link = new StringBuilder();
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'className'
-in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
-#### Snippet
-```java
-
-    static URI createLink(
-            URI baseUri, Optional<String> moduleName, Optional<String> packageName, Optional<String> className)
-            throws URISyntaxException {
-        StringBuilder link = new StringBuilder();
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'pathPrefix'
-in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
-#### Snippet
-```java
-            URI baseUri,
-            BiFunction<URI, FullyQualifiedJavadocReference, URI> fragmentAppender,
-            Optional<String> pathPrefix)
-            throws IllegalArgumentException {
-        try {
+    /*
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -1724,6 +2141,18 @@ in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/F
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'label'
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/FullyQualifiedJavadocReference.java`
+#### Snippet
+```java
+    }
+
+    public FullyQualifiedJavadocReference(String packageName, Optional<String> label, boolean isExternal) {
+        this(packageName, Optional.empty(), Optional.empty(), Optional.empty(), label, isExternal);
+    }
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'memberType'
 in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/FullyQualifiedJavadocReference.java`
 #### Snippet
@@ -1733,6 +2162,18 @@ in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/F
     private final Optional<MemberType> memberType;
 
     /** The type of the member part of the reference. */
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'packageName'
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/FullyQualifiedJavadocReference.java`
+#### Snippet
+```java
+    private final boolean isExternal;
+
+    private final Optional<String> packageName;
+
+    private final Optional<MemberType> memberType;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -1784,428 +2225,1445 @@ in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/F
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'label'
-in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/FullyQualifiedJavadocReference.java`
+`Optional` used as type for parameter 'moduleName'
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
+#### Snippet
+```java
+
+    static URI createLink(
+            URI baseUri, Optional<String> moduleName, Optional<String> packageName, Optional<String> className)
+            throws URISyntaxException {
+        StringBuilder link = new StringBuilder();
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'packageName'
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
+#### Snippet
+```java
+
+    static URI createLink(
+            URI baseUri, Optional<String> moduleName, Optional<String> packageName, Optional<String> className)
+            throws URISyntaxException {
+        StringBuilder link = new StringBuilder();
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'className'
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
+#### Snippet
+```java
+
+    static URI createLink(
+            URI baseUri, Optional<String> moduleName, Optional<String> packageName, Optional<String> className)
+            throws URISyntaxException {
+        StringBuilder link = new StringBuilder();
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'pathPrefix'
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
+#### Snippet
+```java
+            URI baseUri,
+            BiFunction<URI, FullyQualifiedJavadocReference, URI> fragmentAppender,
+            Optional<String> pathPrefix)
+            throws IllegalArgumentException {
+        try {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'optionalMember'
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
+#### Snippet
+```java
+     */
+    // CHECKSTYLE_ON: LineLength
+    URI appendMemberAsFragment(URI url, Optional<String> optionalMember, Optional<MemberType> optionalMemberType)
+            throws URISyntaxException, IOException {
+        if (!optionalMember.isPresent()) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'optionalMemberType'
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
+#### Snippet
+```java
+     */
+    // CHECKSTYLE_ON: LineLength
+    URI appendMemberAsFragment(URI url, Optional<String> optionalMember, Optional<MemberType> optionalMemberType)
+            throws URISyntaxException, IOException {
+        if (!optionalMember.isPresent()) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'moduleName'
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
 #### Snippet
 ```java
     }
 
-    public FullyQualifiedJavadocReference(String packageName, Optional<String> label, boolean isExternal) {
-        this(packageName, Optional.empty(), Optional.empty(), Optional.empty(), label, isExternal);
+    public boolean hasEntryFor(Optional<String> moduleName, Optional<String> packageName) {
+        if (containedPackageNamesAndModules.isEmpty()) {
+            throw new UnsupportedOperationException(
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'packageName'
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
+#### Snippet
+```java
+    }
+
+    public boolean hasEntryFor(Optional<String> moduleName, Optional<String> packageName) {
+        if (containedPackageNamesAndModules.isEmpty()) {
+            throw new UnsupportedOperationException(
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'moduleName'
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/converter/tag/LinkUtils.java`
+#### Snippet
+```java
+
+    private static String createLabel(
+            Optional<String> moduleName,
+            Optional<String> packageName,
+            Optional<String> className,
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'packageName'
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/converter/tag/LinkUtils.java`
+#### Snippet
+```java
+    private static String createLabel(
+            Optional<String> moduleName,
+            Optional<String> packageName,
+            Optional<String> className,
+            Optional<String> member) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'className'
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/converter/tag/LinkUtils.java`
+#### Snippet
+```java
+            Optional<String> moduleName,
+            Optional<String> packageName,
+            Optional<String> className,
+            Optional<String> member) {
+        StringBuilder sb = new StringBuilder();
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'member'
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/converter/tag/LinkUtils.java`
+#### Snippet
+```java
+            Optional<String> packageName,
+            Optional<String> className,
+            Optional<String> member) {
+        StringBuilder sb = new StringBuilder();
+        if (packageName.isPresent() && !"java.lang".equals(packageName.get())) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'member'
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/converter/JavaClassConverterContext.java`
+#### Snippet
+```java
+            String fullyQualifiedPackageNameClassName,
+            String nestedClassName,
+            Optional<String> member,
+            Optional<String> label) {
+        JavaClass javaClass = javaProjectBuilder.getClassByName(fullyQualifiedPackageNameClassName);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'label'
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/converter/JavaClassConverterContext.java`
+#### Snippet
+```java
+            String nestedClassName,
+            Optional<String> member,
+            Optional<String> label) {
+        JavaClass javaClass = javaProjectBuilder.getClassByName(fullyQualifiedPackageNameClassName);
+        if (!isClassFound(javaClass)) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'member'
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/converter/JavaClassConverterContext.java`
+#### Snippet
+```java
+
+    private Optional<FullyQualifiedJavadocReference> resolveMember(
+            JavaClass javaClass, Optional<String> member, Optional<String> label) {
+        final Optional<MemberType> memberType;
+        Optional<String> resolvedMember = member;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'label'
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/converter/JavaClassConverterContext.java`
+#### Snippet
+```java
+
+    private Optional<FullyQualifiedJavadocReference> resolveMember(
+            JavaClass javaClass, Optional<String> member, Optional<String> label) {
+        final Optional<MemberType> memberType;
+        Optional<String> resolvedMember = member;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'javaModule'
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/converter/JavaClassConverterContext.java`
+#### Snippet
+```java
+    final int lineNumber;
+
+    final Optional<JavaModule> javaModule;
+
+    final Map<String, Object> attributes;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'member'
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/converter/JavaClassConverterContext.java`
+#### Snippet
+```java
+
+    private Optional<FullyQualifiedJavadocReference> resolveMember(
+            String fullyQualifiedPackageNameClassName, Optional<String> member, Optional<String> label) {
+        return resolveMember(fullyQualifiedPackageNameClassName, "", member, label);
     }
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'packageName'
-in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/FullyQualifiedJavadocReference.java`
-#### Snippet
-```java
-    private final boolean isExternal;
-
-    private final Optional<String> packageName;
-
-    private final Optional<MemberType> memberType;
-```
-
-## RuleId[id=UnnecessaryUnboxing]
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `maven-plugin-tools-java/src/main/java/org/apache/maven/tools/plugin/extractor/javadoc/JavaJavadocMojoDescriptorExtractor.java`
-#### Snippet
-```java
-
-            if (StringUtils.isNotEmpty(value)) {
-                defaultValue = Boolean.valueOf(value).booleanValue();
-            }
-        }
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `maven-plugin-tools-java/src/main/java/org/apache/maven/tools/plugin/extractor/javadoc/JavaJavadocMojoDescriptorExtractor.java`
-#### Snippet
-```java
-
-            if (StringUtils.isNotEmpty(value)) {
-                return Boolean.valueOf(value).booleanValue();
-            } else {
-                return defaultForTag;
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/GeneratorUtils.java`
-#### Snippet
-```java
-                String name = impl.substring(0, impl.lastIndexOf('.'));
-                if (packageNames.get(name) != null) {
-                    int next = (packageNames.get(name)).intValue() + 1;
-                    packageNames.put(name, Integer.valueOf(next));
-                } else {
-```
-
-### UnnecessaryUnboxing
-Unnecessary unboxing
-in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/GeneratorUtils.java`
-#### Snippet
-```java
-        int max = 0;
-        for (Map.Entry<String, Integer> entry : packageNames.entrySet()) {
-            int value = entry.getValue().intValue();
-            if (value > max) {
-                max = value;
-```
-
-## RuleId[id=MissingDeprecatedAnnotation]
-### MissingDeprecatedAnnotation
-Missing '@Deprecated' annotation
-in `maven-script/maven-script-ant/src/main/java/org/apache/maven/script/ant/AntPropertyHelper.java`
-#### Snippet
-```java
-     * @param l
-     */
-    public AntPropertyHelper(ExpressionEvaluator exprEvaluator, Log l) {
-        this(exprEvaluator, Collections.<Artifact>emptySet(), l);
-    }
-```
-
-### MissingDeprecatedAnnotation
-Missing '@Deprecated' annotation
-in `maven-script/maven-script-ant/src/main/java/org/apache/maven/script/ant/AntPropertyHelper.java`
-#### Snippet
-```java
-     * @param l
-     */
-    public AntPropertyHelper(MavenProject project, Log l) {
-        mavenProject = project;
-        log = l;
-```
-
-### MissingDeprecatedAnnotation
-Missing '@Deprecated' annotation
-in `maven-script/maven-script-ant/src/main/java/org/apache/maven/script/ant/AntPropertyHelper.java`
-#### Snippet
-```java
-     * @return The property value.
-     */
-    private Object getPropertyHook(String ns, String name, boolean user, MavenProject mavenProject) {
-        Object val = null;
-        try {
-```
-
-## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/HelpGeneratorMojo.java`
-#### Snippet
-```java
-        if (packageName == null) {
-            packageName = project.getGroupId() + "." + project.getArtifactId();
-            packageName = packageName.replace("-", "_");
-
-            String[] packageItems = packageName.split("\\.");
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/scanner/visitors/MojoClassVisitor.java`
-#### Snippet
-```java
-        }
-        String typeParameters = declaration.substring(startTypeParameters + 1, declaration.lastIndexOf('>'));
-        return Arrays.asList(typeParameters.split(", "));
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/HtmlToPlainTextConverter.java`
-#### Snippet
-```java
-        public String toString() {
-            // collate multiple consecutive spaces
-            return accum.toString().replaceAll(" +", " ").replace("\n ", "\n");
-        }
-    }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/HtmlToPlainTextConverter.java`
-#### Snippet
-```java
-        public String toString() {
-            // collate multiple consecutive spaces
-            return accum.toString().replaceAll(" +", " ").replace("\n ", "\n");
-        }
-    }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginHelpGenerator.java`
-#### Snippet
-```java
-        // Apply OS lineSeparator instead of template's lineSeparator to have consistent separators for
-        // all source files.
-        return stringWriter.toString().replaceAll("(\r\n|\n|\r)", System.lineSeparator());
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginDescriptorFilesGenerator.java`
-#### Snippet
-```java
-            // some heuristics here
-            String[] parameterTypes = type.substring(startOfParameterType + 1, type.lastIndexOf(">"))
-                    .split(",\\s*");
-            switch (parameterTypes.length) {
-                case 1: // if only one parameter type, assume collection, first parameter type is most interesting
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginXdocGenerator.java`
-#### Snippet
-```java
-
-    private static String getShortTypeOfTypeArgument(String type) {
-        String[] typeArguments = type.split(",\\s*");
-        StringBuilder shortType = new StringBuilder();
-        for (int i = 0; i < typeArguments.length; i++) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginXdocGenerator.java`
-#### Snippet
-```java
-    private String escapeXml(String text) {
-        if (text != null) {
-            text = text.replace("&", "&amp;");
-            text = text.replace("<", "&lt;");
-            text = text.replace(">", "&gt;");
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginXdocGenerator.java`
-#### Snippet
-```java
-        if (text != null) {
-            text = text.replace("&", "&amp;");
-            text = text.replace("<", "&lt;");
-            text = text.replace(">", "&gt;");
-            text = text.replace("\"", "&quot;");
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginXdocGenerator.java`
-#### Snippet
-```java
-            text = text.replace("&", "&amp;");
-            text = text.replace("<", "&lt;");
-            text = text.replace(">", "&gt;");
-            text = text.replace("\"", "&quot;");
-            text = text.replace("\'", "&apos;");
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginXdocGenerator.java`
-#### Snippet
-```java
-            text = text.replace("<", "&lt;");
-            text = text.replace(">", "&gt;");
-            text = text.replace("\"", "&quot;");
-            text = text.replace("\'", "&apos;");
-        }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginXdocGenerator.java`
-#### Snippet
-```java
-            text = text.replace(">", "&gt;");
-            text = text.replace("\"", "&quot;");
-            text = text.replace("\'", "&apos;");
-        }
-        return text;
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
+`Optional` used as type for parameter 'label'
 in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/converter/JavaClassConverterContext.java`
 #### Snippet
 ```java
-                if (importName.endsWith(".*")) {
-                    resolvedName = resolveMember(
-                            importName.replace("*", packageNameClassName), reference.getMember(), reference.getLabel());
-                    if (resolvedName.isPresent()) {
-                        return resolvedName.get();
+
+    private Optional<FullyQualifiedJavadocReference> resolveMember(
+            String fullyQualifiedPackageNameClassName, Optional<String> member, Optional<String> label) {
+        return resolveMember(fullyQualifiedPackageNameClassName, "", member, label);
+    }
 ```
 
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
+## RuleId[id=JavadocDeclaration]
+### JavadocDeclaration
+`@throws` tag description is missing
+in `maven-plugin-plugin/src/main/java/org/apache/maven/plugins/plugin/descriptor_old/EnhancedPluginDescriptorBuilder.java`
 #### Snippet
 ```java
-            case JDK7_OR_LOWER:
-                // separate argument by spaces
-                fragment = fragment.replace(",", ", ");
-                break;
-            case JDK8_OR_9:
+     * MNG-6109</a> when using Maven-3.3.9 and before.
+     * Method can be removed once Maven 3.5.0 is the prerequisite for this plugin.
+     * @throws PlexusConfigurationException
+     *
+     * @since 3.5.1
 ```
 
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
+### JavadocDeclaration
+Javadoc pointing to itself
+in `maven-plugin-annotations/src/main/java/org/apache/maven/plugins/annotations/Execute.java`
 #### Snippet
 ```java
-            case JDK8_OR_9:
-                // replace [] by ":A"
-                fragment = fragment.replace("[]", ":A");
-                // separate arguments by "-", enclose all arguments in "-" for javadoc 8
-                fragment = fragment.replace('(', '-').replace(')', '-').replace(',', '-');
+     * Custom lifecycle phase to fork. Note that specifying a phase overrides specifying a goal.
+     * This element should only be used for non-standard phases. For standard phases rather use {@link #phase()}.
+     * Only one of {@link #customPhase()} and {@link #phase()} must be set.
+     * @return the custom phase id
+     * @since 3.8.0
 ```
 
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/FullyQualifiedJavadocReference.java`
+### JavadocDeclaration
+Javadoc pointing to itself
+in `maven-plugin-annotations/src/main/java/org/apache/maven/plugins/annotations/Execute.java`
 #### Snippet
 ```java
-                throw new IllegalArgumentException("When member is set, also the member type needs to be set");
-            }
-            if (member.get().matches(".*\\s.*")) {
-                throw new IllegalArgumentException("member must not contain any whitespace characters!");
-            }
-```
-
-## RuleId[id=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util` is unnecessary and can be removed
-in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/report_old/Requirements.java`
-#### Snippet
-```java
-     * Field others.
+     * Lifecycle phase to fork. Note that specifying a phase overrides specifying a goal.
+     * For custom lifecycle phase ids use {@link #customPhase()} instead.
+     * Only one of {@link #customPhase()} and {@link #phase()} must be set.
+     * @return the phase
      */
-    private java.util.Properties others;
-
-    public String getMaven() {
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.plugin.descriptor` is unnecessary and can be removed
-in `maven-plugin-tools-java/src/main/java/org/apache/maven/tools/plugin/extractor/javadoc/JavaJavadocMojoDescriptorExtractor.java`
+### JavadocDeclaration
+`@throws` tag description is missing
+in `maven-plugin-report-plugin/src/main/java/org/apache/maven/plugins/plugin/descriptor/EnhancedPluginDescriptorBuilder.java`
 #### Snippet
 ```java
- * https://maven.apache.org/developers/mojo-api-specification.html</a>
- *
- * @see org.apache.maven.plugin.descriptor.MojoDescriptor
+     * MNG-6109</a> when using Maven-3.3.9 and before.
+     * Method can be removed once Maven 3.5.0 is the prerequisite for this plugin.
+     * @throws PlexusConfigurationException
+     *
+     * @since 3.5.1
+```
+
+### JavadocDeclaration
+`@param javadocVersion` tag description is missing
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/PluginToolsRequest.java`
+#### Snippet
+```java
+    /**
+     *
+     * @param javadocVersion
+     * @return This request.
+     * @since 3.7.0
+```
+
+### JavadocDeclaration
+`@param javadocLinks` tag description is missing
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/PluginToolsRequest.java`
+#### Snippet
+```java
+    /**
+     *
+     * @param javadocLinks
+     * @return This request.
+     * @since 3.7.0
+```
+
+### JavadocDeclaration
+`@param mavenApiVersion` tag description is missing
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/PluginToolsRequest.java`
+#### Snippet
+```java
+    /**
+     *
+     * @param mavenApiVersion
+     * @return his request.
+     * @since 3.8.0
+```
+
+### JavadocDeclaration
+`@param ns` tag description is missing
+in `maven-script/maven-script-ant/src/main/java/org/apache/maven/script/ant/AntPropertyHelper.java`
+#### Snippet
+```java
+    /**
+     * @deprecated added to keep backwards compatibility
+     * @param ns
+     * @param name
+     * @param user
+```
+
+### JavadocDeclaration
+`@param name` tag description is missing
+in `maven-script/maven-script-ant/src/main/java/org/apache/maven/script/ant/AntPropertyHelper.java`
+#### Snippet
+```java
+     * @deprecated added to keep backwards compatibility
+     * @param ns
+     * @param name
+     * @param user
+     * @param mavenProject
+```
+
+### JavadocDeclaration
+`@param user` tag description is missing
+in `maven-script/maven-script-ant/src/main/java/org/apache/maven/script/ant/AntPropertyHelper.java`
+#### Snippet
+```java
+     * @param ns
+     * @param name
+     * @param user
+     * @param mavenProject
+     * @return The property value.
+```
+
+### JavadocDeclaration
+`@param mavenProject` tag description is missing
+in `maven-script/maven-script-ant/src/main/java/org/apache/maven/script/ant/AntPropertyHelper.java`
+#### Snippet
+```java
+     * @param name
+     * @param user
+     * @param mavenProject
+     * @return The property value.
+     */
+```
+
+### JavadocDeclaration
+`@param exprEvaluator` tag description is missing
+in `maven-script/maven-script-ant/src/main/java/org/apache/maven/script/ant/AntPropertyHelper.java`
+#### Snippet
+```java
+
+    /**
+     * @param exprEvaluator
+     * @param artifacts
+     * @param l
+```
+
+### JavadocDeclaration
+`@param artifacts` tag description is missing
+in `maven-script/maven-script-ant/src/main/java/org/apache/maven/script/ant/AntPropertyHelper.java`
+#### Snippet
+```java
+    /**
+     * @param exprEvaluator
+     * @param artifacts
+     * @param l
+     */
+```
+
+### JavadocDeclaration
+`@param l` tag description is missing
+in `maven-script/maven-script-ant/src/main/java/org/apache/maven/script/ant/AntPropertyHelper.java`
+#### Snippet
+```java
+     * @param exprEvaluator
+     * @param artifacts
+     * @param l
+     */
+    public AntPropertyHelper(ExpressionEvaluator exprEvaluator, Set<Artifact> artifacts, Log l) {
+```
+
+### JavadocDeclaration
+`@param project` tag description is missing
+in `maven-script/maven-script-ant/src/main/java/org/apache/maven/script/ant/AntPropertyHelper.java`
+#### Snippet
+```java
+    /**
+     * @deprecated use the other constructor
+     * @param project
+     * @param l
+     */
+```
+
+### JavadocDeclaration
+`@param l` tag description is missing
+in `maven-script/maven-script-ant/src/main/java/org/apache/maven/script/ant/AntPropertyHelper.java`
+#### Snippet
+```java
+     * @deprecated use the other constructor
+     * @param project
+     * @param l
+     */
+    public AntPropertyHelper(MavenProject project, Log l) {
+```
+
+### JavadocDeclaration
+`@param exprEvaluator` tag description is missing
+in `maven-script/maven-script-ant/src/main/java/org/apache/maven/script/ant/AntPropertyHelper.java`
+#### Snippet
+```java
+     * @deprecated use {@link #AntPropertyHelper(ExpressionEvaluator, Set, Log)} to resolve maven.dependency.*
+     * properties
+     * @param exprEvaluator
+     * @param l
+     */
+```
+
+### JavadocDeclaration
+`@param l` tag description is missing
+in `maven-script/maven-script-ant/src/main/java/org/apache/maven/script/ant/AntPropertyHelper.java`
+#### Snippet
+```java
+     * properties
+     * @param exprEvaluator
+     * @param l
+     */
+    public AntPropertyHelper(ExpressionEvaluator exprEvaluator, Log l) {
+```
+
+### JavadocDeclaration
+`@param containsXhtmlTextValues` tag description is missing
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/ExtendedMojoDescriptor.java`
+#### Snippet
+```java
+
+    /**
+     * @param containsXhtmlTextValues
+     * @since 3.7.0
+     */
+```
+
+### JavadocDeclaration
+`@param externalJavadocSiteUrls` tag description is missing
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocLinkGenerator.java`
+#### Snippet
+```java
+     * Constructor for online external sites only.
+     *
+     * @param externalJavadocSiteUrls
+     * @param settings
+     */
+```
+
+### JavadocDeclaration
+`@param settings` tag description is missing
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocLinkGenerator.java`
+#### Snippet
+```java
+     *
+     * @param externalJavadocSiteUrls
+     * @param settings
+     */
+    public JavadocLinkGenerator(List<URI> externalJavadocSiteUrls, Settings settings) {
+```
+
+### JavadocDeclaration
+`@param internalJavadocSiteUrl` tag description is missing
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocLinkGenerator.java`
+#### Snippet
+```java
+     * Constructor for both an internal (offline) and external (online) sites.
+     *
+     * @param internalJavadocSiteUrl
+     * @param internalJavadocVersion
+     * @param externalJavadocSiteUrls
+```
+
+### JavadocDeclaration
+`@param internalJavadocVersion` tag description is missing
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocLinkGenerator.java`
+#### Snippet
+```java
+     *
+     * @param internalJavadocSiteUrl
+     * @param internalJavadocVersion
+     * @param externalJavadocSiteUrls
+     * @param settings
+```
+
+### JavadocDeclaration
+`@param externalJavadocSiteUrls` tag description is missing
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocLinkGenerator.java`
+#### Snippet
+```java
+     * @param internalJavadocSiteUrl
+     * @param internalJavadocVersion
+     * @param externalJavadocSiteUrls
+     * @param settings
+     */
+```
+
+### JavadocDeclaration
+`@param settings` tag description is missing
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocLinkGenerator.java`
+#### Snippet
+```java
+     * @param internalJavadocVersion
+     * @param externalJavadocSiteUrls
+     * @param settings
+     */
+    public JavadocLinkGenerator(
+```
+
+### JavadocDeclaration
+`@param javadocReference` tag description is missing
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocLinkGenerator.java`
+#### Snippet
+```java
+     * Only uses the offline site for references returning {@code false} for
+     * {@link FullyQualifiedJavadocReference#isExternal()}.
+     * @param javadocReference
+     * @return the (deep-) link towards a javadoc page
+     * @throws IllegalArgumentException in case no javadoc link could be generated for the given reference
+```
+
+### JavadocDeclaration
+`@param request` tag description is missing
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/scanner/MojoAnnotationsScanner.java`
+#### Snippet
+```java
+     * Scan classes for mojo annotations.
+     *
+     * @param request
+     * @return map of mojo-annotated classes keyed by full class name
+     * @throws ExtractionException
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/scanner/MojoAnnotationsScanner.java`
+#### Snippet
+```java
+     * @param request
+     * @return map of mojo-annotated classes keyed by full class name
+     * @throws ExtractionException
+     */
+    Map<String, MojoAnnotatedClass> scan(MojoAnnotationsScannerRequest request) throws ExtractionException;
+```
+
+### JavadocDeclaration
+Parameter name expected
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
+#### Snippet
+```java
+     * Generates a link to a javadoc html page below the javadoc site represented by this object.
+     * The link is not validated (i.e. might point to a non-existing page)
+     * @param
+     * @return the (deep-)link towards a javadoc page
+     * @throws IllegalArgumentException if no link can be created
+```
+
+### JavadocDeclaration
+`@param url` tag description is missing
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
+#### Snippet
+```java
+    // CHECKSTYLE_OFF: LineLength
+    /**
+     * @param url
+     * @param optionalMember
+     * @param optionalMemberType
+```
+
+### JavadocDeclaration
+`@param optionalMember` tag description is missing
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
+#### Snippet
+```java
+    /**
+     * @param url
+     * @param optionalMember
+     * @param optionalMemberType
+     * @return
+```
+
+### JavadocDeclaration
+`@param optionalMemberType` tag description is missing
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
+#### Snippet
+```java
+     * @param url
+     * @param optionalMember
+     * @param optionalMemberType
+     * @return
+     * @throws URISyntaxException
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
+#### Snippet
+```java
+     * @param optionalMember
+     * @param optionalMemberType
+     * @return
+     * @throws URISyntaxException
+     * @throws IOException
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
+#### Snippet
+```java
+     * @param optionalMemberType
+     * @return
+     * @throws URISyntaxException
+     * @throws IOException
+     * @see <a href=
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
+#### Snippet
+```java
+     * @return
+     * @throws URISyntaxException
+     * @throws IOException
+     * @see <a href=
+     *      "https://github.com/openjdk/jdk8u-dev/blob/f0ac31998d8396d92b4ce99aa345c05e6fd0f02a/langtools/src/share/classes/com/sun/tools/doclets/formats/html/markup/HtmlDocWriter.java#L154">
+```
+
+### JavadocDeclaration
+`@param version` tag description is missing
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
+#### Snippet
+```java
+     * canonical format given by member is using parentheses and comma.
+     *
+     * @param version
+     * @param member
+     * @param isConstructor
+```
+
+### JavadocDeclaration
+`@param member` tag description is missing
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
+#### Snippet
+```java
+     *
+     * @param version
+     * @param member
+     * @param isConstructor
+     * @return the anchor
+```
+
+### JavadocDeclaration
+`@param isConstructor` tag description is missing
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
+#### Snippet
+```java
+     * @param version
+     * @param member
+     * @param isConstructor
+     * @return the anchor
+     */
+```
+
+### JavadocDeclaration
+`@param url` tag description is missing
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
+#### Snippet
+```java
+    /**
+     * Constructor for online sites having an accessible {@code package-list} or {@code element-list}.
+     * @param url
+     * @param settings
+     * @throws IOException
+```
+
+### JavadocDeclaration
+`@param settings` tag description is missing
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
+#### Snippet
+```java
+     * Constructor for online sites having an accessible {@code package-list} or {@code element-list}.
+     * @param url
+     * @param settings
+     * @throws IOException
+     */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
+#### Snippet
+```java
+     * @param url
+     * @param settings
+     * @throws IOException
+     */
+    JavadocSite(final URI url, final Settings settings) throws IOException {
+```
+
+### JavadocDeclaration
+`@param access` tag description is missing
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/scanner/visitors/MojoClassVisitor.java`
+#### Snippet
+```java
+     * <a href="https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-4.html#jvms-4.3.4">JVMS 4.3.4</a>
+     * and returns the type parameters.
+     * @param access
+     * @param signature
+     * @param isField
+```
+
+### JavadocDeclaration
+`@param signature` tag description is missing
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/scanner/visitors/MojoClassVisitor.java`
+#### Snippet
+```java
+     * and returns the type parameters.
+     * @param access
+     * @param signature
+     * @param isField
+     * @return the list of type parameters (may be empty)
+```
+
+### JavadocDeclaration
+`@param isField` tag description is missing
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/scanner/visitors/MojoClassVisitor.java`
+#### Snippet
+```java
+     * @param access
+     * @param signature
+     * @param isField
+     * @return the list of type parameters (may be empty)
+     */
+```
+
+### JavadocDeclaration
+`@param type` tag description is missing
+in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginDescriptorFilesGenerator.java`
+#### Snippet
+```java
+    /**
+     *
+     * @param type
+     * @param containsXhtmlValue
+     * @param text
+```
+
+### JavadocDeclaration
+`@param containsXhtmlValue` tag description is missing
+in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginDescriptorFilesGenerator.java`
+#### Snippet
+```java
+     *
+     * @param type
+     * @param containsXhtmlValue
+     * @param text
+     * @return the normalized text value (i.e. potentially converted to XHTML)
+```
+
+### JavadocDeclaration
+`@param text` tag description is missing
+in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginDescriptorFilesGenerator.java`
+#### Snippet
+```java
+     * @param type
+     * @param containsXhtmlValue
+     * @param text
+     * @return the normalized text value (i.e. potentially converted to XHTML)
+     */
+```
+
+### JavadocDeclaration
+`@param w` tag description is missing
+in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginDescriptorFilesGenerator.java`
+#### Snippet
+```java
+    /**
+     * Writes parameter type information and potentially also the related javadoc URL.
+     * @param w
+     * @param type
+     * @param javadocLinkGenerator
+```
+
+### JavadocDeclaration
+`@param type` tag description is missing
+in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginDescriptorFilesGenerator.java`
+#### Snippet
+```java
+     * Writes parameter type information and potentially also the related javadoc URL.
+     * @param w
+     * @param type
+     * @param javadocLinkGenerator
+     * @param parameter
+```
+
+### JavadocDeclaration
+`@param javadocLinkGenerator` tag description is missing
+in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginDescriptorFilesGenerator.java`
+#### Snippet
+```java
+     * @param w
+     * @param type
+     * @param javadocLinkGenerator
+     * @param parameter
+     * @param goal
+```
+
+### JavadocDeclaration
+`@param parameter` tag description is missing
+in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginDescriptorFilesGenerator.java`
+#### Snippet
+```java
+     * @param type
+     * @param javadocLinkGenerator
+     * @param parameter
+     * @param goal
+     */
+```
+
+### JavadocDeclaration
+`@param goal` tag description is missing
+in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginDescriptorFilesGenerator.java`
+#### Snippet
+```java
+     * @param javadocLinkGenerator
+     * @param parameter
+     * @param goal
+     */
+    protected void writeParameterType(
+```
+
+### JavadocDeclaration
+`@param ` tag description is missing
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/converter/ConverterContext.java`
+#### Snippet
+```java
+    /**
+     * Stores some attribute in the current context
+     * @param <T>
+     * @param name
+     * @param value
+```
+
+### JavadocDeclaration
+`@param name` tag description is missing
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/converter/ConverterContext.java`
+#### Snippet
+```java
+     * Stores some attribute in the current context
+     * @param <T>
+     * @param name
+     * @param value
+     * @return the old attribute value or null.
+```
+
+### JavadocDeclaration
+`@param value` tag description is missing
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/converter/ConverterContext.java`
+#### Snippet
+```java
+     * @param <T>
+     * @param name
+     * @param value
+     * @return the old attribute value or null.
+     */
+```
+
+### JavadocDeclaration
+`@param ` tag description is missing
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/converter/ConverterContext.java`
+#### Snippet
+```java
+    /**
+     * Retrieves some attribute value from the current context.
+     * @param <T>
+     * @param name
+     * @param clazz
+```
+
+### JavadocDeclaration
+`@param name` tag description is missing
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/converter/ConverterContext.java`
+#### Snippet
+```java
+     * Retrieves some attribute value from the current context.
+     * @param <T>
+     * @param name
+     * @param clazz
+     * @param defaultValue
+```
+
+### JavadocDeclaration
+`@param clazz` tag description is missing
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/converter/ConverterContext.java`
+#### Snippet
+```java
+     * @param <T>
+     * @param name
+     * @param clazz
+     * @param defaultValue
+     * @return the value of the attribute with the given name or {@code null} if it does not exist
+```
+
+### JavadocDeclaration
+`@param defaultValue` tag description is missing
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/converter/ConverterContext.java`
+#### Snippet
+```java
+     * @param name
+     * @param clazz
+     * @param defaultValue
+     * @return the value of the attribute with the given name or {@code null} if it does not exist
+     */
+```
+
+### JavadocDeclaration
+`@param reference` tag description is missing
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/converter/ConverterContext.java`
+#### Snippet
+```java
+    /**
+     *
+     * @param reference
+     * @return true in case either the current container class or any of its super classes are referenced
+     */
+```
+
+### JavadocDeclaration
+`@param archiveFile` tag description is missing
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/scanner/DefaultMojoAnnotationsScanner.java`
+#### Snippet
+```java
+
+    /**
+     * @param archiveFile
+     * @param artifact
+     * @param excludeMojo     for dependencies, we exclude Mojo annotations found
+```
+
+### JavadocDeclaration
+`@param artifact` tag description is missing
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/scanner/DefaultMojoAnnotationsScanner.java`
+#### Snippet
+```java
+    /**
+     * @param archiveFile
+     * @param artifact
+     * @param excludeMojo     for dependencies, we exclude Mojo annotations found
+     * @return annotated classes found
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/scanner/DefaultMojoAnnotationsScanner.java`
+#### Snippet
+```java
+     * @param excludeMojo     for dependencies, we exclude Mojo annotations found
+     * @return annotated classes found
+     * @throws IOException
+     * @throws ExtractionException
+     */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/scanner/DefaultMojoAnnotationsScanner.java`
+#### Snippet
+```java
+     * @return annotated classes found
+     * @throws IOException
+     * @throws ExtractionException
+     */
+    protected Map<String, MojoAnnotatedClass> scanArchive(File archiveFile, Artifact artifact, boolean excludeMojo)
+```
+
+### JavadocDeclaration
+`@param classDirectory` tag description is missing
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/scanner/DefaultMojoAnnotationsScanner.java`
+#### Snippet
+```java
+
+    /**
+     * @param classDirectory
+     * @param includePatterns
+     * @param artifact
+```
+
+### JavadocDeclaration
+`@param includePatterns` tag description is missing
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/scanner/DefaultMojoAnnotationsScanner.java`
+#### Snippet
+```java
+    /**
+     * @param classDirectory
+     * @param includePatterns
+     * @param artifact
+     * @param excludeMojo     for dependencies, we exclude Mojo annotations found
+```
+
+### JavadocDeclaration
+`@param artifact` tag description is missing
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/scanner/DefaultMojoAnnotationsScanner.java`
+#### Snippet
+```java
+     * @param classDirectory
+     * @param includePatterns
+     * @param artifact
+     * @param excludeMojo     for dependencies, we exclude Mojo annotations found
+     * @return annotated classes found
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/scanner/DefaultMojoAnnotationsScanner.java`
+#### Snippet
+```java
+     * @param excludeMojo     for dependencies, we exclude Mojo annotations found
+     * @return annotated classes found
+     * @throws IOException
+     * @throws ExtractionException
+     */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/scanner/DefaultMojoAnnotationsScanner.java`
+#### Snippet
+```java
+     * @return annotated classes found
+     * @throws IOException
+     * @throws ExtractionException
+     */
+    protected Map<String, MojoAnnotatedClass> scanDirectory(
+```
+
+### JavadocDeclaration
+`@param text` tag description is missing
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/converter/JavadocInlineTagsToXhtmlConverter.java`
+#### Snippet
+```java
+    /**
+     * Converts the given text containing arbitrarily many inline javadoc tags with their according HTML replacement.
+     * @param text
+     * @param context
+     * @return
+```
+
+### JavadocDeclaration
+`@param context` tag description is missing
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/converter/JavadocInlineTagsToXhtmlConverter.java`
+#### Snippet
+```java
+     * Converts the given text containing arbitrarily many inline javadoc tags with their according HTML replacement.
+     * @param text
+     * @param context
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/converter/JavadocInlineTagsToXhtmlConverter.java`
+#### Snippet
+```java
+     * @param text
+     * @param context
+     * @return
+     */
+    public String convert(String text, ConverterContext context) {
+```
+
+### JavadocDeclaration
+`@param label` tag description is missing
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/converter/tag/inline/LinkTagToHtmlConverter.java`
+#### Snippet
+```java
+     * Encloses the given label in {@code code} HTML tags.
+     *
+     * @param label
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/converter/tag/inline/LinkTagToHtmlConverter.java`
+#### Snippet
+```java
+     *
+     * @param label
+     * @return
+     */
+    static String decorateLinkLabel(String label) {
+```
+
+### JavadocDeclaration
+`@param reference` tag description is missing
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/converter/JavaClassConverterContext.java`
+#### Snippet
+```java
+
+    /**
+     * @param reference
+     * @return true in case either the current context class or any of its super classes are referenced
+     */
+```
+
+## RuleId[id=FieldMayBeFinal]
+### FieldMayBeFinal
+Field `packagingTypes` may be 'final'
+in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/AbstractGeneratorMojo.java`
+#### Snippet
+```java
+     */
+    @Parameter
+    private List<String> packagingTypes = Collections.singletonList("maven-plugin");
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `mojo` may be 'final'
+in `maven-script/maven-script-beanshell/src/main/java/org/apache/maven/script/beanshell/BeanshellMojoAdapter.java`
+#### Snippet
+```java
+@Deprecated
+public class BeanshellMojoAdapter extends AbstractMojo implements BshComponent {
+    private Mojo mojo;
+
+    private Interpreter interpreter;
+```
+
+### FieldMayBeFinal
+Field `interpreter` may be 'final'
+in `maven-script/maven-script-beanshell/src/main/java/org/apache/maven/script/beanshell/BeanshellMojoAdapter.java`
+#### Snippet
+```java
+    private Mojo mojo;
+
+    private Interpreter interpreter;
+
+    public BeanshellMojoAdapter(Mojo mojo, Interpreter interpreter) {
+```
+
+### FieldMayBeFinal
+Field `artifactMap` may be 'final'
+in `maven-script/maven-script-ant/src/main/java/org/apache/maven/script/ant/AntPropertyHelper.java`
+#### Snippet
+```java
+    private ExpressionEvaluator exprEvaluator;
+    private MavenProject mavenProject;
+    private Map<String, String> artifactMap = new HashMap<String, String>();
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `mavenProject` may be 'final'
+in `maven-script/maven-script-ant/src/main/java/org/apache/maven/script/ant/AntPropertyHelper.java`
+#### Snippet
+```java
+    private Log log;
+    private ExpressionEvaluator exprEvaluator;
+    private MavenProject mavenProject;
+    private Map<String, String> artifactMap = new HashMap<String, String>();
+
+```
+
+### FieldMayBeFinal
+Field `log` may be 'final'
+in `maven-script/maven-script-ant/src/main/java/org/apache/maven/script/ant/AntPropertyHelper.java`
+#### Snippet
+```java
+public class AntPropertyHelper extends PropertyHelper {
+    private static final String DEPENDENCY_PREFIX = "maven.dependency.";
+    private Log log;
+    private ExpressionEvaluator exprEvaluator;
+    private MavenProject mavenProject;
+```
+
+### FieldMayBeFinal
+Field `expectedProvidedScopeGroupIds` may be 'final'
+in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/DescriptorGeneratorMojo.java`
+#### Snippet
+```java
+     */
+    @Parameter
+    private List<String> expectedProvidedScopeGroupIds = Collections.singletonList("org.apache.maven");
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `checkExpectedProvidedScope` may be 'final'
+in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/DescriptorGeneratorMojo.java`
+#### Snippet
+```java
+     */
+    @Parameter(defaultValue = "true", property = "maven.plugin.checkExpectedProvidedScope")
+    private boolean checkExpectedProvidedScope = true;
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `expectedProvidedScopeExclusions` may be 'final'
+in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/DescriptorGeneratorMojo.java`
+#### Snippet
+```java
+     */
+    @Parameter
+    private List<String> expectedProvidedScopeExclusions = Arrays.asList(
+            "org.apache.maven:maven-archiver", "org.apache.maven:maven-jxr", "org.apache.maven:plexus-utils");
+
+```
+
+### FieldMayBeFinal
+Field `mojoDependencies` may be 'final'
+in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/DescriptorGeneratorMojo.java`
+#### Snippet
+```java
+     */
+    @Parameter
+    private List<String> mojoDependencies = null;
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `unconstructedParts` may be 'final'
+in `maven-script/maven-script-ant/src/main/java/org/apache/maven/script/ant/AntMojoWrapper.java`
+#### Snippet
+```java
+    private Logger logger;
+
+    private transient List<String> unconstructedParts = new ArrayList<>();
+
+    public AntMojoWrapper(AntScriptInvoker scriptInvoker) {
+```
+
+### FieldMayBeFinal
+Field `requirementsHistories` may be 'final'
+in `maven-plugin-report-plugin/src/main/java/org/apache/maven/plugin/plugin/report/PluginReport.java`
+#### Snippet
+```java
+     */
+    @Parameter
+    private List<RequirementsHistory> requirementsHistories = new ArrayList<>();
+
+    @Component
+```
+
+### FieldMayBeFinal
+Field `requirementsHistories` may be 'final'
+in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/report_old/PluginReport.java`
+#### Snippet
+```java
+     */
+    @Parameter
+    private List<RequirementsHistory> requirementsHistories = new ArrayList<>();
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `accum` may be 'final'
+in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/HtmlToPlainTextConverter.java`
+#### Snippet
+```java
+    // the formatting rules, implemented in a breadth-first DOM traverse
+    private static class FormattingVisitor implements NodeVisitor {
+        private StringBuilder accum = new StringBuilder(); // holds the accumulated text
+
+        // hit when the node is first seen
+```
+
+### FieldMayBeFinal
+Field `annotationClassName` may be 'final'
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/scanner/visitors/MojoAnnotationVisitor.java`
+#### Snippet
+```java
  */
-@Named(JavaJavadocMojoDescriptorExtractor.NAME)
+public class MojoAnnotationVisitor extends AnnotationVisitor {
+    private String annotationClassName;
+
+    private Map<String, Object> annotationValues = new HashMap<>();
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.tools.ant` is unnecessary and can be removed
-in `maven-script/maven-script-ant/src/main/java/org/apache/maven/script/ant/AntPropertyHelper.java`
+### FieldMayBeFinal
+Field `annotationValues` may be 'final'
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/scanner/visitors/MojoAnnotationVisitor.java`
 #### Snippet
 ```java
+    private String annotationClassName;
 
-    /**
-     * @see org.apache.tools.ant.PropertyHelper#getPropertyHook(java.lang.String, java.lang.String, boolean)
-     */
-    public synchronized Object getPropertyHook(String ns, String name, boolean user) {
+    private Map<String, Object> annotationValues = new HashMap<>();
+
+    MojoAnnotationVisitor(String annotationClassName) {
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `maven-script/maven-script-ant/src/main/java/org/apache/maven/script/ant/AntPropertyHelper.java`
+### FieldMayBeFinal
+Field `annotationVisitorMap` may be 'final'
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/scanner/visitors/MojoFieldVisitor.java`
 #### Snippet
 ```java
+    private String fieldName;
 
-    /**
-     * @see org.apache.tools.ant.PropertyHelper#getPropertyHook(java.lang.String, java.lang.String, boolean)
-     */
-    public synchronized Object getPropertyHook(String ns, String name, boolean user) {
+    private Map<String, MojoAnnotationVisitor> annotationVisitorMap = new HashMap<>();
+
+    private String className;
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `maven-script/maven-script-ant/src/main/java/org/apache/maven/script/ant/AntPropertyHelper.java`
+### FieldMayBeFinal
+Field `fieldName` may be 'final'
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/scanner/visitors/MojoFieldVisitor.java`
 #### Snippet
 ```java
+ */
+public class MojoFieldVisitor extends FieldVisitor implements MojoParameterVisitor {
+    private String fieldName;
 
-    /**
-     * @see org.apache.tools.ant.PropertyHelper#getPropertyHook(java.lang.String, java.lang.String, boolean)
-     */
-    public synchronized Object getPropertyHook(String ns, String name, boolean user) {
+    private Map<String, MojoAnnotationVisitor> annotationVisitorMap = new HashMap<>();
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.plugin.descriptor` is unnecessary, and can be replaced with an import
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/JavaAnnotationsMojoDescriptorExtractor.java`
+### FieldMayBeFinal
+Field `className` may be 'final'
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/scanner/visitors/MojoFieldVisitor.java`
 #### Snippet
 ```java
+    private Map<String, MojoAnnotationVisitor> annotationVisitorMap = new HashMap<>();
 
-            for (ParameterAnnotationContent parameterAnnotationContent : new TreeSet<>(parameters.values())) {
-                org.apache.maven.plugin.descriptor.Parameter parameter =
-                        new org.apache.maven.plugin.descriptor.Parameter();
-                String name = StringUtils.isEmpty(parameterAnnotationContent.name())
+    private String className;
+
+    private final List<String> typeParameters;
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.plugin.descriptor` is unnecessary, and can be replaced with an import
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/JavaAnnotationsMojoDescriptorExtractor.java`
+### FieldMayBeFinal
+Field `annotationVisitorMap` may be 'final'
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/scanner/visitors/MojoMethodVisitor.java`
 #### Snippet
 ```java
-            for (ParameterAnnotationContent parameterAnnotationContent : new TreeSet<>(parameters.values())) {
-                org.apache.maven.plugin.descriptor.Parameter parameter =
-                        new org.apache.maven.plugin.descriptor.Parameter();
-                String name = StringUtils.isEmpty(parameterAnnotationContent.name())
-                        ? parameterAnnotationContent.getFieldName()
+    private final String fieldName;
+    private final List<String> typeParameters;
+    private Map<String, MojoAnnotationVisitor> annotationVisitorMap = new HashMap<>();
+
+    public MojoMethodVisitor(String fieldName, String className, List<String> typeParameters) {
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.plugin.descriptor` is unnecessary, and can be replaced with an import
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/JavaAnnotationsMojoDescriptorExtractor.java`
+### FieldMayBeFinal
+Field `fieldVisitors` may be 'final'
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/scanner/visitors/MojoClassVisitor.java`
 #### Snippet
 ```java
+    private Map<String, MojoAnnotationVisitor> annotationVisitorMap = new HashMap<>();
 
-            for (ComponentAnnotationContent componentAnnotationContent : new TreeSet<>(components.values())) {
-                org.apache.maven.plugin.descriptor.Parameter parameter =
-                        new org.apache.maven.plugin.descriptor.Parameter();
-                parameter.setName(componentAnnotationContent.getFieldName());
+    private List<MojoFieldVisitor> fieldVisitors = new ArrayList<>();
+
+    private List<MojoMethodVisitor> methodVisitors = new ArrayList<>();
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.plugin.descriptor` is unnecessary, and can be replaced with an import
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/JavaAnnotationsMojoDescriptorExtractor.java`
+### FieldMayBeFinal
+Field `annotationVisitorMap` may be 'final'
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/scanner/visitors/MojoClassVisitor.java`
 #### Snippet
 ```java
-            for (ComponentAnnotationContent componentAnnotationContent : new TreeSet<>(components.values())) {
-                org.apache.maven.plugin.descriptor.Parameter parameter =
-                        new org.apache.maven.plugin.descriptor.Parameter();
-                parameter.setName(componentAnnotationContent.getFieldName());
+    private MojoAnnotatedClass mojoAnnotatedClass;
 
+    private Map<String, MojoAnnotationVisitor> annotationVisitorMap = new HashMap<>();
+
+    private List<MojoFieldVisitor> fieldVisitors = new ArrayList<>();
 ```
 
-## RuleId[id=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
-in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
+### FieldMayBeFinal
+Field `methodVisitors` may be 'final'
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/scanner/visitors/MojoClassVisitor.java`
 #### Snippet
 ```java
-            String line;
-            String module = null;
-            while ((line = reader.readLine()) != null) {
-                // each line starting with "module:" contains the module name afterwards
-                if (line.startsWith(PREFIX_MODULE)) {
+    private List<MojoFieldVisitor> fieldVisitors = new ArrayList<>();
+
+    private List<MojoMethodVisitor> methodVisitors = new ArrayList<>();
+
+    private int version;
+```
+
+### FieldMayBeFinal
+Field `reflector` may be 'final'
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/scanner/DefaultMojoAnnotationsScanner.java`
+#### Snippet
+```java
+    private static final String EMPTY = "";
+
+    private Reflector reflector = new Reflector();
+
+    @Override
+```
+
+### FieldMayBeFinal
+Field `numbering` may be 'final'
+in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/GeneratorUtils.java`
+#### Snippet
+```java
+         * <code>null</code> element denotes an unordered list.
+         */
+        private Stack<Counter> numbering = new Stack<>();
+
+        /**
+```
+
+### FieldMayBeFinal
+Field `annotationOnMethod` may be 'final'
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/datamodel/ParameterAnnotationContent.java`
+#### Snippet
+```java
+    private String className;
+
+    private boolean annotationOnMethod;
+
+    private final List<String> typeParameters;
 ```
 
 ## RuleId[id=ExtendsAnnotation]
@@ -2257,635 +3715,6 @@ public class ParameterAnnotationContent extends AnnotatedField implements Parame
     private String name;
 ```
 
-## RuleId[id=RedundantFieldInitialization]
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/DescriptorGeneratorMojo.java`
-#### Snippet
-```java
-     */
-    @Parameter
-    private List<String> mojoDependencies = null;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/datamodel/MojoAnnotationContent.java`
-#### Snippet
-```java
-    private String configurator;
-
-    private boolean threadSafe = false;
-
-    @Override
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/datamodel/MojoAnnotationContent.java`
-#### Snippet
-```java
-    private boolean requiresReports = false;
-
-    private boolean aggregator = false;
-
-    private boolean requiresDirectInvocation = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/datamodel/MojoAnnotationContent.java`
-#### Snippet
-```java
-    private boolean requiresProject = true;
-
-    private boolean requiresReports = false;
-
-    private boolean aggregator = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/datamodel/MojoAnnotationContent.java`
-#### Snippet
-```java
-    private boolean aggregator = false;
-
-    private boolean requiresDirectInvocation = false;
-
-    private boolean requiresOnline = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/datamodel/MojoAnnotationContent.java`
-#### Snippet
-```java
-    private boolean requiresDirectInvocation = false;
-
-    private boolean requiresOnline = false;
-
-    private boolean inheritByDefault = true;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/datamodel/ParameterAnnotationContent.java`
-#### Snippet
-```java
-    private boolean required = false;
-
-    private boolean readonly = false;
-
-    private String className;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/datamodel/ParameterAnnotationContent.java`
-#### Snippet
-```java
-    private String defaultValue;
-
-    private boolean required = false;
-
-    private boolean readonly = false;
-```
-
-## RuleId[id=AssignmentToMethodParameter]
-### AssignmentToMethodParameter
-Assignment to method parameter `name`
-in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/HelpGeneratorMojo.java`
-#### Snippet
-```java
-    private String prefixSpecialCase(String name) {
-        if (SourceVersion.isKeyword(name) || !Character.isJavaIdentifierStart(name.charAt(0))) {
-            name = "_" + name;
-        }
-        return name;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `defaultValue`
-in `maven-plugin-tools-java/src/main/java/org/apache/maven/tools/plugin/extractor/javadoc/JavaJavadocMojoDescriptorExtractor.java`
-#### Snippet
-```java
-
-            if (StringUtils.isNotEmpty(value)) {
-                defaultValue = Boolean.valueOf(value).booleanValue();
-            }
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `text`
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/converter/tag/JavadocTagToHtmlConverter.java`
-#### Snippet
-```java
-    protected static String escapeXmlElement(String text) {
-        if (text.indexOf('<') >= 0) {
-            text = LT.matcher(text).replaceAll("&lt;");
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `text`
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/converter/tag/JavadocTagToHtmlConverter.java`
-#### Snippet
-```java
-
-        if (text.indexOf('>') >= 0) {
-            text = GT.matcher(text).replaceAll("&gt;");
-        }
-        return text;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/GeneratorUtils.java`
-#### Snippet
-```java
-
-        if (value == null) {
-            value = "";
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `addedUl`
-in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginXdocGenerator.java`
-#### Snippet
-```java
-        if (!addedUl) {
-            w.startElement("ul");
-            addedUl = true;
-        }
-        return addedUl;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `text`
-in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginXdocGenerator.java`
-#### Snippet
-```java
-    private String escapeXml(String text) {
-        if (text != null) {
-            text = text.replace("&", "&amp;");
-            text = text.replace("<", "&lt;");
-            text = text.replace(">", "&gt;");
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `text`
-in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginXdocGenerator.java`
-#### Snippet
-```java
-        if (text != null) {
-            text = text.replace("&", "&amp;");
-            text = text.replace("<", "&lt;");
-            text = text.replace(">", "&gt;");
-            text = text.replace("\"", "&quot;");
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `text`
-in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginXdocGenerator.java`
-#### Snippet
-```java
-            text = text.replace("&", "&amp;");
-            text = text.replace("<", "&lt;");
-            text = text.replace(">", "&gt;");
-            text = text.replace("\"", "&quot;");
-            text = text.replace("\'", "&apos;");
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `text`
-in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginXdocGenerator.java`
-#### Snippet
-```java
-            text = text.replace("<", "&lt;");
-            text = text.replace(">", "&gt;");
-            text = text.replace("\"", "&quot;");
-            text = text.replace("\'", "&apos;");
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `text`
-in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginXdocGenerator.java`
-#### Snippet
-```java
-            text = text.replace(">", "&gt;");
-            text = text.replace("\"", "&quot;");
-            text = text.replace("\'", "&apos;");
-        }
-        return text;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `className`
-in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
-#### Snippet
-```java
-            if (className.endsWith("[]")) {
-                // url must point to simple class
-                className = className.substring(0, className.length() - 2);
-            }
-            return createLink(baseUri, Optional.empty(), Optional.of(packageName), Optional.of(className));
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `binaryName`
-in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
-#### Snippet
-```java
-            indexOfDotBetweenPackageAndClass = binaryName.lastIndexOf('.', indexOfDollar);
-            // replace dollar by dot
-            binaryName = binaryName.replace('$', '.');
-        } else {
-            indexOfDotBetweenPackageAndClass = binaryName.lastIndexOf('.');
-```
-
-## RuleId[id=RedundantImplements]
-### RedundantImplements
-Redundant interface declaration `ContextEnabled`
-in `maven-script/maven-script-ant/src/main/java/org/apache/maven/script/ant/AntMojoWrapper.java`
-#### Snippet
-```java
- */
-@Deprecated
-public class AntMojoWrapper extends AbstractMojo implements ContextEnabled, MapOrientedComponent, LogEnabled {
-
-    private Map<String, Object> pluginContext;
-```
-
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-19-02-19-38.301.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
-```
-
-## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
-in `maven-plugin-plugin/src/main/java/org/apache/maven/artifact/repository/metadata/GroupRepositoryMetadata.java`
-#### Snippet
-```java
-
-    public String getArtifactId() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-plugin-plugin/src/main/java/org/apache/maven/artifact/repository/metadata/GroupRepositoryMetadata.java`
-#### Snippet
-```java
-
-    public ArtifactRepository getRepository() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-plugin-plugin/src/main/java/org/apache/maven/artifact/repository/metadata/GroupRepositoryMetadata.java`
-#### Snippet
-```java
-
-    public String getBaseVersion() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/DescriptorGeneratorMojo.java`
-#### Snippet
-```java
-            getLog().warn("Cannot determine the minimally required Java version automatically, it is recommended to "
-                    + "configure some explicit value manually.");
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/scanner/visitors/MojoMethodVisitor.java`
-#### Snippet
-```java
-        String annotationClassName = Type.getType(desc).getClassName();
-        if (!MojoAnnotationsScanner.METHOD_LEVEL_ANNOTATIONS.contains(annotationClassName)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/scanner/visitors/MojoFieldVisitor.java`
-#### Snippet
-```java
-        String annotationClassName = Type.getType(desc).getClassName();
-        if (!MojoAnnotationsScanner.FIELD_LEVEL_ANNOTATIONS.contains(annotationClassName)) {
-            return null;
-        }
-        MojoAnnotationVisitor mojoAnnotationVisitor = new MojoAnnotationVisitor(annotationClassName);
-```
-
-### ReturnNull
-Return of `null`
-in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/report_old/PluginReport.java`
-#### Snippet
-```java
-            }
-
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/scanner/visitors/MojoClassVisitor.java`
-#### Snippet
-```java
-        if ((access & Opcodes.ACC_PUBLIC) != Opcodes.ACC_PUBLIC
-                || (access & Opcodes.ACC_STATIC) == Opcodes.ACC_STATIC) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/scanner/visitors/MojoClassVisitor.java`
-#### Snippet
-```java
-
-        if (name.length() < 4 || !(name.startsWith("add") || name.startsWith("set"))) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/scanner/visitors/MojoClassVisitor.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/scanner/visitors/MojoClassVisitor.java`
-#### Snippet
-```java
-        String annotationClassName = Type.getType(desc).getClassName();
-        if (!MojoAnnotationsScanner.CLASS_LEVEL_ANNOTATIONS.contains(annotationClassName)) {
-            return null;
-        }
-        if (annotationClassName.startsWith(MojoAnnotationsScanner.V4_API_ANNOTATIONS_PACKAGE)) {
-```
-
-### ReturnNull
-Return of `null`
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/datamodel/ExecuteAnnotationContent.java`
-#### Snippet
-```java
-    @Override
-    public Class<? extends Annotation> annotationType() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/datamodel/ComponentAnnotationContent.java`
-#### Snippet
-```java
-    public Class<?> role() {
-        // not used
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/datamodel/ComponentAnnotationContent.java`
-#### Snippet
-```java
-    @Override
-    public Class<? extends Annotation> annotationType() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/datamodel/MojoAnnotationContent.java`
-#### Snippet
-```java
-    @Override
-    public Class<? extends Annotation> annotationType() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/datamodel/ParameterAnnotationContent.java`
-#### Snippet
-```java
-    @Override
-    public Class<? extends Annotation> annotationType() {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-plugin-report-plugin/src/main/java/org/apache/maven/plugin/plugin/report/PluginReport.java`
-#### Snippet
-```java
-            }
-
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-plugin-report-plugin/src/main/java/org/apache/maven/plugin/plugin/report/PluginReport.java`
-#### Snippet
-```java
-            }
-
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginXdocGenerator.java`
-#### Snippet
-```java
-        }
-        // no property can be extracted
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/JavaAnnotationsMojoDescriptorExtractor.java`
-#### Snippet
-```java
-        String parentClassName = mojoAnnotatedClass.getParentClassName();
-        if (StringUtils.isEmpty(parentClassName)) {
-            return null;
-        }
-        MojoAnnotatedClass parent = mojoAnnotatedClasses.get(parentClassName);
-```
-
-### ReturnNull
-Return of `null`
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/JavaAnnotationsMojoDescriptorExtractor.java`
-#### Snippet
-```java
-        MojoAnnotatedClass parent = mojoAnnotatedClasses.get(parentClassName);
-        if (parent == null) {
-            return null;
-        }
-        return findClassWithExecuteAnnotationInParentHierarchy(parent, mojoAnnotatedClasses);
-```
-
-### ReturnNull
-Return of `null`
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/JavaAnnotationsMojoDescriptorExtractor.java`
-#### Snippet
-```java
-        String comment = element.getComment();
-        if (comment == null) {
-            return null;
-        }
-        StringBuilder description = new StringBuilder(javadocInlineTagsToHtmlConverter.convert(comment, context));
-```
-
-### ReturnNull
-Return of `null`
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/JavaAnnotationsMojoDescriptorExtractor.java`
-#### Snippet
-```java
-        if (project.getProjectReferences() == null
-                || project.getProjectReferences().isEmpty()) {
-            return null;
-        }
-        Collection<MavenProject> mavenProjects = project.getProjectReferences().values();
-```
-
-### ReturnNull
-Return of `null`
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/JavaAnnotationsMojoDescriptorExtractor.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/JavaAnnotationsMojoDescriptorExtractor.java`
-#### Snippet
-```java
-        } catch (NoClassDefFoundError e) {
-            if (e.getMessage().replace('/', '.').contains(MojoAnnotationsScanner.V4_API_PLUGIN_PACKAGE)) {
-                return null;
-            }
-            String str;
-```
-
-### ReturnNull
-Return of `null`
-in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/extractor/MojoDescriptorExtractor.java`
-#### Snippet
-```java
-     */
-    default String getRequiredJavaVersion() {
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/extractor/AbstractScriptedMojoDescriptorExtractor.java`
-#### Snippet
-```java
-     */
-    protected String getMetadataFileExtension(PluginToolsRequest request) {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/extractor/AbstractScriptedMojoDescriptorExtractor.java`
-#### Snippet
-```java
-            Map<String, Set<File>> metadataFilesByBasedir, PluginToolsRequest request)
-            throws ExtractionException, InvalidPluginDescriptorException {
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/extractor/AbstractScriptedMojoDescriptorExtractor.java`
-#### Snippet
-```java
-            Map<String, Set<File>> scriptFilesKeyedByBasedir, PluginToolsRequest request)
-            throws ExtractionException, InvalidPluginDescriptorException {
-        return null;
-    }
-
-```
-
 ## RuleId[id=DuplicateThrows]
 ### DuplicateThrows
 There is a more general exception, 'java.io.IOException', in the throws list already.
@@ -2899,42 +3728,53 @@ in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/J
     }
 ```
 
-## RuleId[id=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `maven-plugin-tools-java/src/main/java/org/apache/maven/tools/plugin/extractor/javadoc/JavaJavadocMojoDescriptorExtractor.java`
+## RuleId[id=ArraysAsListWithZeroOrOneArgument]
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/scanner/MojoAnnotationsScannerRequest.java`
 #### Snippet
 ```java
-            }
-        }
-        builder.addClassLoader(new URLClassLoader(urls.toArray(new URL[0]), ClassLoader.getSystemClassLoader()));
+    private Set<Artifact> dependencies = new HashSet<>();
 
-        MavenProject project = request.getProject();
+    private List<String> includePatterns = Arrays.asList("**/*.class");
+
+    private List<File> sourceDirectories = new ArrayList<>();
 ```
 
-### ZeroLengthArrayInitialization
-Allocation of zero length array
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
+#### Snippet
+```java
+
+        // Some server reject requests that do not have an Accept header
+        builder.setDefaultHeaders(Arrays.asList(new BasicHeader(HttpHeaders.ACCEPT, "*/*")));
+
+        if (settings != null && settings.getActiveProxy() != null) {
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
 in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/JavaAnnotationsMojoDescriptorExtractor.java`
 #### Snippet
 ```java
-            }
-        }
-        builder.addClassLoader(new URLClassLoader(urls.toArray(new URL[0]), ClassLoader.getSystemClassLoader()));
 
-        for (File source : sourceDirectories) {
+        File output = new File(request.getProject().getBuild().getOutputDirectory());
+        mojoAnnotationsScannerRequest.setClassesDirectories(Arrays.asList(output));
+
+        mojoAnnotationsScannerRequest.setDependencies(request.getDependencies());
 ```
 
-## RuleId[id=EqualsWhichDoesntCheckParameterClass]
-### EqualsWhichDoesntCheckParameterClass
-`equals()` should check the class of its parameter
-in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/EnhancedParameterWrapper.java`
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/extractor/annotations/JavaAnnotationsMojoDescriptorExtractor.java`
 #### Snippet
 ```java
-    }
+                unArchiver.extract();
 
-    public boolean equals(Object other) {
-        return delegate.equals(other);
-    }
+                extendJavaProjectBuilder(builder, Arrays.asList(extractDirectory), request.getDependencies());
+            } else if (sourcesArtifact.getFile().isDirectory()) {
+                extendJavaProjectBuilder(builder, Arrays.asList(sourcesArtifact.getFile()), request.getDependencies());
 ```
 
 ## RuleId[id=UnusedAssignment]
@@ -2960,6 +3800,19 @@ in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/J
         BufferedReader reader = null;
 
         if ("file".equals(url.getProtocol())) {
+```
+
+## RuleId[id=EqualsWhichDoesntCheckParameterClass]
+### EqualsWhichDoesntCheckParameterClass
+`equals()` should check the class of its parameter
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/EnhancedParameterWrapper.java`
+#### Snippet
+```java
+    }
+
+    public boolean equals(Object other) {
+        return delegate.equals(other);
+    }
 ```
 
 ## RuleId[id=ConstantValue]
@@ -2988,6 +3841,30 @@ in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/report_old/
 ```
 
 ### ConstantValue
+Condition `httpMethod != null` is always `true`
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
+#### Snippet
+```java
+                    super.close();
+
+                    if (httpMethod != null) {
+                        httpMethod.releaseConnection();
+                    }
+```
+
+### ConstantValue
+Condition `httpClient != null` is always `true`
+in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
+#### Snippet
+```java
+                        httpMethod.releaseConnection();
+                    }
+                    if (httpClient != null) {
+                        httpClient.close();
+                    }
+```
+
+### ConstantValue
 Value `v4Api` is always 'true'
 in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginDescriptorFilesGenerator.java`
 #### Snippet
@@ -3000,27 +3877,15 @@ in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/ge
 ```
 
 ### ConstantValue
-Condition `requirements != null` is always `true`
-in `maven-script/maven-plugin-tools-ant/src/main/java/org/apache/maven/tools/plugin/extractor/ant/AntMojoDescriptorExtractor.java`
+Condition `type != DescriptorType.LIMITED_FOR_HELP_MOJO` is always `false`
+in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginDescriptorFilesGenerator.java`
 #### Snippet
 ```java
-                        Map<String, ComponentRequirement> reqMap = new HashMap<>();
+            w.endElement();
 
-                        if (requirements != null) {
-                            for (ComponentRequirement req : requirements) {
-                                reqMap.put(req.getRole(), req);
-```
-
-### ConstantValue
-Value `pendingNewline` is always 'false'
-in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/GeneratorUtils.java`
-#### Snippet
-```java
-                        && numbering.isEmpty()) {
-                    pendingNewline = false;
-                    newline(pendingNewline);
-                } else {
-                    newline(true);
+            if (type != DescriptorType.LIMITED_FOR_HELP_MOJO) {
+                GeneratorUtils.writeDependencies(w, pluginDescriptor);
+            }
 ```
 
 ### ConstantValue
@@ -3040,6 +3905,18 @@ Value `addedUl` is always 'false'
 in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginXdocGenerator.java`
 #### Snippet
 ```java
+
+            boolean addedUl = false;
+            addedUl = addUl(w, addedUl, parameter.getType());
+            String typeValue = getLinkedType(parameter, false);
+            writeDetail(getString("pluginxdoc.mojodescriptor.parameter.type"), typeValue, w);
+```
+
+### ConstantValue
+Value `addedUl` is always 'false'
+in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginXdocGenerator.java`
+#### Snippet
+```java
         String value;
         if (mojoDescriptor.isProjectRequired()) {
             addedUl = addUl(w, addedUl);
@@ -3048,15 +3925,15 @@ in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/ge
 ```
 
 ### ConstantValue
-Value `addedUl` is always 'false'
-in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/PluginXdocGenerator.java`
+Value `pendingNewline` is always 'false'
+in `maven-plugin-tools-generators/src/main/java/org/apache/maven/tools/plugin/generator/GeneratorUtils.java`
 #### Snippet
 ```java
-
-            boolean addedUl = false;
-            addedUl = addUl(w, addedUl, parameter.getType());
-            String typeValue = getLinkedType(parameter, false);
-            writeDetail(getString("pluginxdoc.mojodescriptor.parameter.type"), typeValue, w);
+                        && numbering.isEmpty()) {
+                    pendingNewline = false;
+                    newline(pendingNewline);
+                } else {
+                    newline(true);
 ```
 
 ### ConstantValue
@@ -3083,34 +3960,10 @@ in `maven-plugin-tools-annotations/src/main/java/org/apache/maven/tools/plugin/e
         } else {
 ```
 
-### ConstantValue
-Condition `httpMethod != null` is always `true`
-in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
-#### Snippet
-```java
-                    super.close();
-
-                    if (httpMethod != null) {
-                        httpMethod.releaseConnection();
-                    }
-```
-
-### ConstantValue
-Condition `httpClient != null` is always `true`
-in `maven-plugin-tools-api/src/main/java/org/apache/maven/tools/plugin/javadoc/JavadocSite.java`
-#### Snippet
-```java
-                        httpMethod.releaseConnection();
-                    }
-                    if (httpClient != null) {
-                        httpClient.close();
-                    }
-```
-
 ## RuleId[id=StringConcatenationInsideStringBufferAppend]
 ### StringConcatenationInsideStringBufferAppend
 String concatenation as argument to `StringBuilder.append()` call
-in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/report_old/PluginReport.java`
+in `maven-plugin-report-plugin/src/main/java/org/apache/maven/plugin/plugin/report/PluginReport.java`
 #### Snippet
 ```java
             sb.append("  ...").append('\n');
@@ -3122,7 +3975,7 @@ in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/report_old/
 
 ### StringConcatenationInsideStringBufferAppend
 String concatenation as argument to `StringBuilder.append()` call
-in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/report_old/PluginReport.java`
+in `maven-plugin-report-plugin/src/main/java/org/apache/maven/plugin/plugin/report/PluginReport.java`
 #### Snippet
 ```java
             sb.append("      </plugins>").append('\n');
@@ -3134,7 +3987,7 @@ in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/report_old/
 
 ### StringConcatenationInsideStringBufferAppend
 String concatenation as argument to `StringBuilder.append()` call
-in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/report_old/PluginReport.java`
+in `maven-plugin-report-plugin/src/main/java/org/apache/maven/plugin/plugin/report/PluginReport.java`
 #### Snippet
 ```java
             if (hasMavenReport) {
@@ -3146,7 +3999,7 @@ in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/report_old/
 
 ### StringConcatenationInsideStringBufferAppend
 String concatenation as argument to `StringBuilder.append()` call
-in `maven-plugin-report-plugin/src/main/java/org/apache/maven/plugin/plugin/report/PluginReport.java`
+in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/report_old/PluginReport.java`
 #### Snippet
 ```java
             sb.append("  ...").append('\n');
@@ -3158,7 +4011,7 @@ in `maven-plugin-report-plugin/src/main/java/org/apache/maven/plugin/plugin/repo
 
 ### StringConcatenationInsideStringBufferAppend
 String concatenation as argument to `StringBuilder.append()` call
-in `maven-plugin-report-plugin/src/main/java/org/apache/maven/plugin/plugin/report/PluginReport.java`
+in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/report_old/PluginReport.java`
 #### Snippet
 ```java
             sb.append("      </plugins>").append('\n');
@@ -3170,7 +4023,7 @@ in `maven-plugin-report-plugin/src/main/java/org/apache/maven/plugin/plugin/repo
 
 ### StringConcatenationInsideStringBufferAppend
 String concatenation as argument to `StringBuilder.append()` call
-in `maven-plugin-report-plugin/src/main/java/org/apache/maven/plugin/plugin/report/PluginReport.java`
+in `maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/report_old/PluginReport.java`
 #### Snippet
 ```java
             if (hasMavenReport) {
