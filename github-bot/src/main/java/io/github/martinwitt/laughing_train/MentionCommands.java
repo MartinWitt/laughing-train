@@ -1,23 +1,17 @@
 package io.github.martinwitt.laughing_train;
 
 import com.google.common.flogger.FluentLogger;
-import io.github.martinwitt.laughing_train.data.AnalyzerRequest;
-import io.github.martinwitt.laughing_train.data.ProjectRequest;
-import io.github.martinwitt.laughing_train.data.ProjectResult;
 import io.github.martinwitt.laughing_train.data.QodanaResult;
 import io.github.martinwitt.laughing_train.services.QodanaService;
-import io.github.martinwitt.laughing_train.services.ServiceAddresses;
 import io.quarkiverse.githubapp.event.IssueComment;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
-import io.vertx.core.eventbus.DeliveryOptions;
 import io.vertx.core.eventbus.EventBus;
 import io.vertx.core.eventbus.Message;
 import jakarta.inject.Inject;
 import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import org.kohsuke.github.GHEventPayload;
 import org.kohsuke.github.GHIssue;
@@ -62,34 +56,12 @@ public class MentionCommands {
                 issue.getComments().get(0).update(config.regenerateConfig());
             }
         }
-        if (comment.contains("@laughing-train list")) {
-            eventBus.<ProjectResult>request(
-                            ServiceAddresses.PROJECT_REQUEST,
-                            new ProjectRequest.WithUrl(GitHubUtils.getTransportUrl(issueComment)),
-                            new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(300)))
-                    .onComplete(v -> runQodanaOnRepo(issueComment, v));
-
-            return;
-        }
         if (comment.contains("@laughing-train close")) {
             closePullRequestsWithLabelName(GitHubUtils.getOpenPullRequests(issueComment), Constants.LABEL_NAME);
             return;
         }
         if (comment.contains("@laughing-train hi")) {
             issueComment.getIssue().comment("Hi, I'm a bot. I'm here to help you with your code quality.");
-        }
-    }
-
-    private void runQodanaOnRepo(
-            GHEventPayload.IssueComment issueComment, AsyncResult<? extends Message<ProjectResult>> v) {
-        if (v.succeeded() && v.result().body() instanceof ProjectResult.Success success) {
-            vertx.executeBlocking(project -> eventBus.<QodanaResult>request(
-                    ServiceAddresses.QODANA_ANALYZER_REQUEST,
-                    new AnalyzerRequest.WithProject(success.project()),
-                    new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(300)),
-                    new ListCommandHandler(issueComment)));
-        } else {
-            logger.atSevere().withCause(v.cause()).log("Failed to get project");
         }
     }
 

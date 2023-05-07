@@ -10,7 +10,6 @@ import io.github.martinwitt.laughing_train.data.FindProjectConfigRequest;
 import io.github.martinwitt.laughing_train.data.QodanaResult;
 import io.github.martinwitt.laughing_train.domain.entity.AnalyzerResult;
 import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
-import io.quarkus.vertx.ConsumeEvent;
 import io.smallrye.health.api.AsyncHealthCheck;
 import io.smallrye.mutiny.Uni;
 import io.smallrye.mutiny.infrastructure.Infrastructure;
@@ -85,7 +84,6 @@ public class QodanaService {
         return analyzer.runQodana(dir);
     }
 
-    @ConsumeEvent(value = ServiceAddresses.QODANA_ANALYZER_REQUEST, blocking = true)
     public QodanaResult analyze(AnalyzerRequest request) {
         logger.atInfo().log("Received request %s", request);
         try {
