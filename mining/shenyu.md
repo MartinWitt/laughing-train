@@ -1,421 +1,3099 @@
 # shenyu 
  
 # Bad smells
-I found 845 bad smells with 96 repairable:
+I found 1124 bad smells with 9 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| BoundedWildcard | 199 | false |
-| ReturnNull | 132 | false |
-| UtilityClassWithoutPrivateConstructor | 68 | true |
-| DynamicRegexReplaceableByCompiledPattern | 58 | false |
-| UseOfPropertiesAsHashtable | 51 | false |
-| UnnecessaryFullyQualifiedName | 39 | false |
-| DataFlowIssue | 29 | false |
-| AssignmentToStaticFieldFromInstanceMethod | 21 | false |
-| UnnecessarySuperQualifier | 17 | false |
-| NestedAssignment | 16 | false |
-| ZeroLengthArrayInitialization | 16 | false |
-| FieldAccessedSynchronizedAndUnsynchronized | 13 | false |
-| EmptyMethod | 13 | false |
-| RedundantImplements | 12 | false |
-| SynchronizeOnThis | 10 | false |
-| RedundantSuppression | 9 | false |
-| RedundantMethodOverride | 8 | false |
-| ConstantValue | 8 | false |
-| NonSerializableFieldInSerializableClass | 8 | false |
-| NonProtectedConstructorInAbstractClass | 8 | true |
-| NullableProblems | 7 | false |
-| CallToStringConcatCanBeReplacedByOperator | 7 | false |
-| RedundantLengthCheck | 7 | false |
-| SizeReplaceableByIsEmpty | 6 | true |
-| CodeBlock2Expr | 6 | true |
-| StringEqualsEmptyString | 6 | false |
-| KeySetIterationMayUseEntrySet | 4 | false |
-| MissortedModifiers | 4 | false |
+| SpringXmlModelInspection | 284 | false |
+| JavadocReference | 262 | false |
+| SpringBootApplicationYaml | 218 | false |
+| DuplicatedCode | 61 | false |
+| UnparsedCustomBeanInspection | 35 | false |
+| ConstantValue | 35 | false |
+| NullableProblems | 27 | false |
+| AutoCloseableResource | 25 | false |
+| SpringBootApplicationProperties | 24 | false |
+| DataFlowIssue | 23 | false |
+| UNCHECKED_WARNING | 19 | false |
+| JavadocLinkAsPlainText | 12 | false |
+| WebProperties | 12 | false |
+| FieldCanBeLocal | 11 | false |
+| FieldMayBeFinal | 7 | false |
+| Deprecation | 6 | false |
+| RedundantLengthCheck | 6 | false |
+| EqualsBetweenInconvertibleTypes | 4 | false |
 | ExcessiveLambdaUsage | 4 | false |
-| InstanceofCatchParameter | 4 | false |
-| AssignmentToLambdaParameter | 4 | false |
-| ReplaceAssignmentWithOperatorAssignment | 3 | false |
-| DoubleBraceInitialization | 3 | false |
-| UnusedAssignment | 3 | false |
-| Convert2MethodRef | 3 | false |
+| UnusedAssignment | 4 | false |
 | InnerClassMayBeStatic | 3 | true |
+| RedundantCast | 3 | false |
 | SynchronizationOnLocalVariableOrMethodParameter | 3 | false |
 | UnnecessaryLocalVariable | 3 | true |
 | UnstableApiUsage | 3 | false |
 | UnnecessaryReturn | 2 | true |
+| RedundantMethodOverride | 2 | false |
 | UnnecessarySemicolon | 2 | false |
 | SimplifyStreamApiCallChains | 2 | false |
 | MismatchedJavadocCode | 2 | false |
-| UtilityClassWithPublicConstructor | 2 | false |
 | RedundantCompareCall | 2 | false |
-| StaticCallOnSubclass | 1 | false |
-| RedundantClassCall | 1 | false |
-| WhileCanBeForeach | 1 | false |
-| Java8ListReplaceAll | 1 | false |
+| ReactorZipWithMonoVoid | 1 | false |
 | DuplicateBranchesInSwitch | 1 | false |
+| SimplifiableConditionalExpression | 1 | false |
 | SillyAssignment | 1 | false |
 | ThrowablePrintedToSystemOut | 1 | false |
 | InfiniteLoopStatement | 1 | false |
 | NullArgumentToVariableArgMethod | 1 | false |
+| NonAtomicOperationOnVolatileField | 1 | false |
+| WriteOnlyObject | 1 | false |
 | StringConcatenationInsideStringBufferAppend | 1 | false |
-| IOResource | 1 | false |
-| SocketResource | 1 | false |
-| FieldMayBeStatic | 1 | false |
+| RequiredBeanTypeInspection | 1 | false |
+| ProtectedMemberInFinalClass | 1 | true |
 | ThreadRun | 1 | false |
-| SystemOutErr | 1 | false |
-## RuleId[id=StaticCallOnSubclass]
-### StaticCallOnSubclass
-Static method `startPage()` declared in class 'com.github.pagehelper.page.PageMethod' but referenced via subclass 'com.github.pagehelper.PageHelper'
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/PageService.java`
+| DanglingJavadoc | 1 | false |
+| SuspiciousMethodCalls | 1 | false |
+| TrivialIf | 1 | false |
+| JavadocDeclaration | 1 | false |
+| SpringXmlAutowireExplicitlyInspection | 1 | false |
+## RuleId[id=ReactorZipWithMonoVoid]
+### ReactorZipWithMonoVoid
+Calling zip method with Mono parameter will not have any effect
+in `shenyu-plugin/shenyu-plugin-websocket/src/main/java/org/apache/shenyu/plugin/websocket/WebSocketPlugin.java`
 #### Snippet
 ```java
-    default PageInfo<R> searchByPage(final PageCondition<Q> pageCondition) {
-        doConditionPreProcessing(pageCondition.getCondition());
-        PageHelper.startPage(pageCondition.getPageNum(), pageCondition.getPageSize());
-        return new PageInfo<>(searchByCondition(pageCondition.getCondition()));
-    }
+                    Mono<Void> serverSessionSend = session.send(
+                            webSocketSession.receive().doOnNext(WebSocketMessage::retain));
+                    return Mono.zip(sessionSend, serverSessionSend).then();
+                }
+                
 ```
 
-## RuleId[id=RedundantClassCall]
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/support/SpringMvcContract.java`
+## RuleId[id=UnparsedCustomBeanInspection]
+### UnparsedCustomBeanInspection
+Unsupported tag 'service' for namespace 'http://sofastack.io/schema/sofaboot', please file issue (Help\|Submit a Bug Report...)
+in `shenyu-examples/shenyu-examples-sofa/shenyu-examples-sofa-service/src/main/resources/invoke-server-example.xml`
 #### Snippet
 ```java
-                                             final Method method, final ShenyuClientFactoryBean shenyuClientFactoryBean) {
+       default-autowire="byName">
 
-        if (!RequestMapping.class.isInstance(methodAnnotation)
-                && !methodAnnotation.annotationType().isAnnotationPresent(RequestMapping.class)) {
-            return;
+    <sofa:service ref="sofaSingleParamService" interface="org.apache.shenyu.examples.sofa.api.service.SofaSingleParamService">
+        <sofa:binding.bolt/>
+    </sofa:service>
 ```
 
-## RuleId[id=WhileCanBeForeach]
-### WhileCanBeForeach
-`while` loop can be replaced with enhanced 'for'
-in `shenyu-plugin/shenyu-plugin-brpc/src/main/java/org/apache/shenyu/plugin/brpc/spi/SharedThreadPoolFactory.java`
+### UnparsedCustomBeanInspection
+Unsupported tag 'service' for namespace 'http://sofastack.io/schema/sofaboot', please file issue (Help\|Submit a Bug Report...)
+in `shenyu-examples/shenyu-examples-sofa/shenyu-examples-sofa-service/src/main/resources/invoke-server-example.xml`
 #### Snippet
 ```java
-        Iterator var1 = this.threadPoolMap.values().iterator();
+    </sofa:service>
 
-        while (var1.hasNext()) {
-            ThreadPoolExecutor threadPool = (ThreadPoolExecutor) var1.next();
-            if (!threadPool.isShutdown()) {
+    <sofa:service ref="sofaMultiParamService" interface="org.apache.shenyu.examples.sofa.api.service.SofaMultiParamService">
+        <sofa:binding.bolt/>
+    </sofa:service>
 ```
 
-## RuleId[id=AssignmentToStaticFieldFromInstanceMethod]
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `uriRegisterDTO` from instance context
-in `shenyu-register-center/shenyu-register-client/shenyu-register-client-http/src/main/java/org/apache/shenyu/register/client/http/HttpClientRegisterRepository.java`
+### UnparsedCustomBeanInspection
+Unsupported tag 'application' for namespace 'http://code.alibabatech.com/schema/dubbo', please file issue (Help\|Submit a Bug Report...)
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/spring-dubbo.xml`
 #### Snippet
 ```java
-        }
-        doRegister(registerDTO, Constants.URI_PATH, Constants.URI);
-        uriRegisterDTO = registerDTO;
-    }
+       https://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
+    <dubbo:application name="test-dubbo-service"/>
+    <dubbo:registry address="${dubbo.registry.address}"/>
+    <dubbo:protocol name="dubbo" port="${dubbo.registry.port}"/>
 ```
 
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `apiDocRegisterDTO` from instance context
-in `shenyu-register-center/shenyu-register-client/shenyu-register-client-http/src/main/java/org/apache/shenyu/register/client/http/HttpClientRegisterRepository.java`
+### UnparsedCustomBeanInspection
+Unsupported tag 'registry' for namespace 'http://code.alibabatech.com/schema/dubbo', please file issue (Help\|Submit a Bug Report...)
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/spring-dubbo.xml`
 #### Snippet
 ```java
-    protected void doPersistApiDoc(final ApiDocRegisterDTO registerDTO) {
-        doRegister(registerDTO, Constants.API_DOC_PATH, Constants.API_DOC_TYPE);
-        apiDocRegisterDTO = registerDTO;
-    }
-    
-```
 
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `dataDesensitizeAlg` from instance context
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-common/src/main/java/org/apache/shenyu/plugin/logging/common/AbstractLoggingPlugin.java`
-#### Snippet
-```java
-            if (desensitized) {
-                Collections.addAll(keywordSets, keywords.split(";"));
-                dataDesensitizeAlg = Optional.ofNullable(commonLoggingRuleHandle.getMaskType()).orElse(DataDesensitizeEnum.MD5_ENCRYPT.getDataDesensitizeAlg());
-                LOG.info("current plugin:{}, keyword:{}, dataDesensitizeAlg:{}", pluginEnum().getName(), keywords, dataDesensitizeAlg);
-            }
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `desensitized` from instance context
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-console/src/main/java/org/apache/shenyu/plugin/logging/console/LoggingConsolePlugin.java`
-#### Snippet
-```java
-        if (Objects.nonNull(commonLoggingRuleHandle)) {
-            String keywords = commonLoggingRuleHandle.getKeyword();
-            desensitized = StringUtils.isNotBlank(keywords) && commonLoggingRuleHandle.getMaskStatus();
-            if (desensitized) {
-                Collections.addAll(keywordSets, keywords.split(";"));
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `dataDesensitizeAlg` from instance context
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-console/src/main/java/org/apache/shenyu/plugin/logging/console/LoggingConsolePlugin.java`
-#### Snippet
-```java
-            if (desensitized) {
-                Collections.addAll(keywordSets, keywords.split(";"));
-                dataDesensitizeAlg = Optional.ofNullable(commonLoggingRuleHandle.getMaskType()).orElse(DataDesensitizeEnum.MD5_ENCRYPT.getDataDesensitizeAlg());
-                keyWordMatch = new KeyWordMatch(keywordSets);
-                LOG.info("current plugin:{}, keyword:{}, dataDesensitizedAlg:{}", this.named(), keywords, dataDesensitizeAlg);
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `keyWordMatch` from instance context
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-console/src/main/java/org/apache/shenyu/plugin/logging/console/LoggingConsolePlugin.java`
-#### Snippet
-```java
-                Collections.addAll(keywordSets, keywords.split(";"));
-                dataDesensitizeAlg = Optional.ofNullable(commonLoggingRuleHandle.getMaskType()).orElse(DataDesensitizeEnum.MD5_ENCRYPT.getDataDesensitizeAlg());
-                keyWordMatch = new KeyWordMatch(keywordSets);
-                LOG.info("current plugin:{}, keyword:{}, dataDesensitizedAlg:{}", this.named(), keywords, dataDesensitizeAlg);
-            }
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `zombieRemovalTimes` from instance context
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/UpstreamCheckService.java`
-#### Snippet
-```java
-        this.scheduledTime = Integer.parseInt(props.getProperty(Constants.SCHEDULED_TIME, Constants.SCHEDULED_TIME_VALUE));
-        this.registerType = shenyuRegisterCenterConfig.getRegisterType();
-        zombieRemovalTimes = Integer.parseInt(props.getProperty(Constants.ZOMBIE_REMOVAL_TIMES, Constants.ZOMBIE_REMOVAL_TIMES_VALUE));
-        if (REGISTER_TYPE_HTTP.equalsIgnoreCase(registerType)) {
-            setup();
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `supportSwaggerPluginMap` from instance context
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/manager/impl/LoadServiceDocEntryImpl.java`
-#### Snippet
-```java
-            return Collections.emptyList();
-        }
-        supportSwaggerPluginMap = pluginDOList.stream().filter(Objects::nonNull)
-            .collect(Collectors.toMap(PluginDO::getId, PluginDO::getName, (value1, value2) -> value1));
+    <dubbo:application name="test-dubbo-service"/>
+    <dubbo:registry address="${dubbo.registry.address}"/>
+    <dubbo:protocol name="dubbo" port="${dubbo.registry.port}"/>
 
 ```
 
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `hookNamePrefix` from instance context
-in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/shutdown/ShenyuClientShutdownHook.java`
+### UnparsedCustomBeanInspection
+Unsupported tag 'protocol' for namespace 'http://code.alibabatech.com/schema/dubbo', please file issue (Help\|Submit a Bug Report...)
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/spring-dubbo.xml`
 #### Snippet
 ```java
-            }
+    <dubbo:application name="test-dubbo-service"/>
+    <dubbo:registry address="${dubbo.registry.address}"/>
+    <dubbo:protocol name="dubbo" port="${dubbo.registry.port}"/>
 
-            hookNamePrefix = null;
-            hookId = new AtomicInteger(0);
-            props = null;
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
 ```
 
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `hookId` from instance context
-in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/shutdown/ShenyuClientShutdownHook.java`
+### UnparsedCustomBeanInspection
+Unsupported tag 'service' for namespace 'http://code.alibabatech.com/schema/dubbo', please file issue (Help\|Submit a Bug Report...)
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/spring-dubbo.xml`
 #### Snippet
 ```java
+    <dubbo:protocol name="dubbo" port="${dubbo.registry.port}"/>
 
-            hookNamePrefix = null;
-            hookId = new AtomicInteger(0);
-            props = null;
-            delayHooks = null;
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
 ```
 
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `props` from instance context
-in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/shutdown/ShenyuClientShutdownHook.java`
+### UnparsedCustomBeanInspection
+Unsupported tag 'service' for namespace 'http://code.alibabatech.com/schema/dubbo', please file issue (Help\|Submit a Bug Report...)
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/spring-dubbo.xml`
 #### Snippet
 ```java
-            hookNamePrefix = null;
-            hookId = new AtomicInteger(0);
-            props = null;
-            delayHooks = null;
-            delayedHooks = null;
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
 ```
 
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `delayHooks` from instance context
-in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/shutdown/ShenyuClientShutdownHook.java`
+### UnparsedCustomBeanInspection
+Unsupported tag 'service' for namespace 'http://code.alibabatech.com/schema/dubbo', please file issue (Help\|Submit a Bug Report...)
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/spring-dubbo.xml`
 #### Snippet
 ```java
-            hookId = new AtomicInteger(0);
-            props = null;
-            delayHooks = null;
-            delayedHooks = null;
-        }
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `delayedHooks` from instance context
-in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/shutdown/ShenyuClientShutdownHook.java`
-#### Snippet
-```java
-            props = null;
-            delayHooks = null;
-            delayedHooks = null;
-        }
-    }
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `ShenyuClientShutdownHook.props` from instance context
-in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/shutdown/ShenyuClientShutdownHook.java`
-#### Snippet
-```java
-        Runtime.getRuntime().addShutdownHook(new Thread(repository::close, name));
-        LOG.info("Add hook {}", name);
-        ShenyuClientShutdownHook.props = config.getProps();
-    }
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
 
 ```
 
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `MqttContext.userName` from instance context
-in `shenyu-protocol/shenyu-protocol-mqtt/src/main/java/org/apache/shenyu/protocol/mqtt/MqttContext.java`
+### UnparsedCustomBeanInspection
+Unsupported tag 'service' for namespace 'http://code.alibabatech.com/schema/dubbo', please file issue (Help\|Submit a Bug Report...)
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/spring-dubbo.xml`
 #### Snippet
 ```java
-     */
-    public void setUserName(final String userName) {
-        MqttContext.userName = userName;
-    }
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+
+</beans>
+```
+
+### UnparsedCustomBeanInspection
+Unsupported tag 'application' for namespace 'http://code.alibabatech.com/schema/dubbo', please file issue (Help\|Submit a Bug Report...)
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-alibaba-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+       https://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <dubbo:application name="test-dubbo-service"/>
+
+    <dubbo:registry address="${dubbo.zk}"/>
+```
+
+### UnparsedCustomBeanInspection
+Unsupported tag 'registry' for namespace 'http://code.alibabatech.com/schema/dubbo', please file issue (Help\|Submit a Bug Report...)
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-alibaba-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:application name="test-dubbo-service"/>
+
+    <dubbo:registry address="${dubbo.zk}"/>
+
+    <dubbo:protocol name="dubbo" port="20888"/>
+```
+
+### UnparsedCustomBeanInspection
+Unsupported tag 'protocol' for namespace 'http://code.alibabatech.com/schema/dubbo', please file issue (Help\|Submit a Bug Report...)
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-alibaba-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:registry address="${dubbo.zk}"/>
+
+    <dubbo:protocol name="dubbo" port="20888"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+```
+
+### UnparsedCustomBeanInspection
+Unsupported tag 'service' for namespace 'http://code.alibabatech.com/schema/dubbo', please file issue (Help\|Submit a Bug Report...)
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-alibaba-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:protocol name="dubbo" port="20888"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+```
+
+### UnparsedCustomBeanInspection
+Unsupported tag 'service' for namespace 'http://code.alibabatech.com/schema/dubbo', please file issue (Help\|Submit a Bug Report...)
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-alibaba-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+```
+
+### UnparsedCustomBeanInspection
+Unsupported tag 'service' for namespace 'http://code.alibabatech.com/schema/dubbo', please file issue (Help\|Submit a Bug Report...)
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-alibaba-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+```
+
+### UnparsedCustomBeanInspection
+Unsupported tag 'service' for namespace 'http://code.alibabatech.com/schema/dubbo', please file issue (Help\|Submit a Bug Report...)
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-alibaba-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+</beans>
 
 ```
 
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `MqttContext.workerGroupThreadCount` from instance context
-in `shenyu-protocol/shenyu-protocol-mqtt/src/main/java/org/apache/shenyu/protocol/mqtt/MqttContext.java`
+### UnparsedCustomBeanInspection
+Unsupported tag 'application' for namespace 'http://code.alibabatech.com/schema/dubbo', please file issue (Help\|Submit a Bug Report...)
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service/src/main/resources/spring-dubbo.xml`
 #### Snippet
 ```java
-     */
-    public void setWorkerGroupThreadCount(final int workerGroupThreadCount) {
-        MqttContext.workerGroupThreadCount = workerGroupThreadCount;
-    }
+       https://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <dubbo:application name="test-dubbo-service"/>
+    <dubbo:registry address="${dubbo.registry.address}"/>
+    <dubbo:protocol name="dubbo" port="20888"/>
+```
+
+### UnparsedCustomBeanInspection
+Unsupported tag 'registry' for namespace 'http://code.alibabatech.com/schema/dubbo', please file issue (Help\|Submit a Bug Report...)
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+
+    <dubbo:application name="test-dubbo-service"/>
+    <dubbo:registry address="${dubbo.registry.address}"/>
+    <dubbo:protocol name="dubbo" port="20888"/>
 
 ```
 
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `MqttContext.maxPayloadSize` from instance context
-in `shenyu-protocol/shenyu-protocol-mqtt/src/main/java/org/apache/shenyu/protocol/mqtt/MqttContext.java`
+### UnparsedCustomBeanInspection
+Unsupported tag 'protocol' for namespace 'http://code.alibabatech.com/schema/dubbo', please file issue (Help\|Submit a Bug Report...)
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service/src/main/resources/spring-dubbo.xml`
 #### Snippet
 ```java
-     */
-    public void setMaxPayloadSize(final int maxPayloadSize) {
-        MqttContext.maxPayloadSize = maxPayloadSize;
-    }
+    <dubbo:application name="test-dubbo-service"/>
+    <dubbo:registry address="${dubbo.registry.address}"/>
+    <dubbo:protocol name="dubbo" port="20888"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService" version="v0.0.2"/>
+```
+
+### UnparsedCustomBeanInspection
+Unsupported tag 'service' for namespace 'http://code.alibabatech.com/schema/dubbo', please file issue (Help\|Submit a Bug Report...)
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:protocol name="dubbo" port="20888"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService" version="v0.0.2"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService" version="v0.0.2"/>
+</beans>
+```
+
+### UnparsedCustomBeanInspection
+Unsupported tag 'service' for namespace 'http://code.alibabatech.com/schema/dubbo', please file issue (Help\|Submit a Bug Report...)
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService" version="v0.0.2"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService" version="v0.0.2"/>
+</beans>
 
 ```
 
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `MqttContext.port` from instance context
-in `shenyu-protocol/shenyu-protocol-mqtt/src/main/java/org/apache/shenyu/protocol/mqtt/MqttContext.java`
+### UnparsedCustomBeanInspection
+Unsupported tag 'application' for namespace 'http://code.alibabatech.com/schema/dubbo', please file issue (Help\|Submit a Bug Report...)
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-alibaba-dubbo-service/src/main/resources/spring-dubbo.xml`
 #### Snippet
 ```java
-     */
-    public void setPort(final int port) {
-        MqttContext.port = port;
-    }
+       https://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <dubbo:application name="test-dubbo-service"/>
+
+    <dubbo:registry address="${dubbo.zk}"/>
+```
+
+### UnparsedCustomBeanInspection
+Unsupported tag 'registry' for namespace 'http://code.alibabatech.com/schema/dubbo', please file issue (Help\|Submit a Bug Report...)
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-alibaba-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:application name="test-dubbo-service"/>
+
+    <dubbo:registry address="${dubbo.zk}"/>
+
+    <dubbo:protocol name="dubbo" port="20888"/>
+```
+
+### UnparsedCustomBeanInspection
+Unsupported tag 'protocol' for namespace 'http://code.alibabatech.com/schema/dubbo', please file issue (Help\|Submit a Bug Report...)
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-alibaba-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:registry address="${dubbo.zk}"/>
+
+    <dubbo:protocol name="dubbo" port="20888"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService" version="v0.0.1"/>
+```
+
+### UnparsedCustomBeanInspection
+Unsupported tag 'service' for namespace 'http://code.alibabatech.com/schema/dubbo', please file issue (Help\|Submit a Bug Report...)
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-alibaba-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:protocol name="dubbo" port="20888"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService" version="v0.0.1"/>
+```
+
+### UnparsedCustomBeanInspection
+Unsupported tag 'service' for namespace 'http://code.alibabatech.com/schema/dubbo', please file issue (Help\|Submit a Bug Report...)
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-alibaba-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService" version="v0.0.1"/>
+```
+
+### UnparsedCustomBeanInspection
+Unsupported tag 'service' for namespace 'http://code.alibabatech.com/schema/dubbo', please file issue (Help\|Submit a Bug Report...)
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-alibaba-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService" version="v0.0.1"/>
+```
+
+### UnparsedCustomBeanInspection
+Unsupported tag 'service' for namespace 'http://code.alibabatech.com/schema/dubbo', please file issue (Help\|Submit a Bug Report...)
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-alibaba-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService" version="v0.0.1"/>
+</beans>
 
 ```
 
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `MqttContext.password` from instance context
-in `shenyu-protocol/shenyu-protocol-mqtt/src/main/java/org/apache/shenyu/protocol/mqtt/MqttContext.java`
+### UnparsedCustomBeanInspection
+Unsupported tag 'application' for namespace 'http://code.alibabatech.com/schema/dubbo', please file issue (Help\|Submit a Bug Report...)
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/spring-dubbo.xml`
 #### Snippet
 ```java
-     */
-    public void setPassword(final String password) {
-        MqttContext.password = password;
-    }
+       https://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <dubbo:application name="test-dubbo-service"/>
+    <dubbo:registry address="${dubbo.registry.address}"/>
+    <dubbo:protocol name="dubbo" port="${dubbo.registry.port}"/>
+```
+
+### UnparsedCustomBeanInspection
+Unsupported tag 'registry' for namespace 'http://code.alibabatech.com/schema/dubbo', please file issue (Help\|Submit a Bug Report...)
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+
+    <dubbo:application name="test-dubbo-service"/>
+    <dubbo:registry address="${dubbo.registry.address}"/>
+    <dubbo:protocol name="dubbo" port="${dubbo.registry.port}"/>
 
 ```
 
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `MqttContext.leakDetectorLevel` from instance context
-in `shenyu-protocol/shenyu-protocol-mqtt/src/main/java/org/apache/shenyu/protocol/mqtt/MqttContext.java`
+### UnparsedCustomBeanInspection
+Unsupported tag 'protocol' for namespace 'http://code.alibabatech.com/schema/dubbo', please file issue (Help\|Submit a Bug Report...)
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/spring-dubbo.xml`
 #### Snippet
 ```java
-     */
-    public void setLeakDetectorLevel(final String leakDetectorLevel) {
-        MqttContext.leakDetectorLevel = leakDetectorLevel;
-    }
-}
+    <dubbo:application name="test-dubbo-service"/>
+    <dubbo:registry address="${dubbo.registry.address}"/>
+    <dubbo:protocol name="dubbo" port="${dubbo.registry.port}"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
 ```
 
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `MqttContext.bossGroupThreadCount` from instance context
-in `shenyu-protocol/shenyu-protocol-mqtt/src/main/java/org/apache/shenyu/protocol/mqtt/MqttContext.java`
+### UnparsedCustomBeanInspection
+Unsupported tag 'service' for namespace 'http://code.alibabatech.com/schema/dubbo', please file issue (Help\|Submit a Bug Report...)
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/spring-dubbo.xml`
 #### Snippet
 ```java
-     */
-    public void setBossGroupThreadCount(final int bossGroupThreadCount) {
-        MqttContext.bossGroupThreadCount = bossGroupThreadCount;
-    }
+    <dubbo:protocol name="dubbo" port="${dubbo.registry.port}"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+```
+
+### UnparsedCustomBeanInspection
+Unsupported tag 'service' for namespace 'http://code.alibabatech.com/schema/dubbo', please file issue (Help\|Submit a Bug Report...)
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+```
+
+### UnparsedCustomBeanInspection
+Unsupported tag 'service' for namespace 'http://code.alibabatech.com/schema/dubbo', please file issue (Help\|Submit a Bug Report...)
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
 
 ```
 
-## RuleId[id=Java8ListReplaceAll]
-### Java8ListReplaceAll
-The loop can be replaced with 'List.replaceAll'
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-desensitize-api/src/main/java/org/apache/shenyu/plugin/logging/desensitize/api/utils/DataDesensitizeUtils.java`
+### UnparsedCustomBeanInspection
+Unsupported tag 'service' for namespace 'http://code.alibabatech.com/schema/dubbo', please file issue (Help\|Submit a Bug Report...)
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/spring-dubbo.xml`
 #### Snippet
 ```java
-                                   final KeyWordMatch keyWordMatch, final String dataDesensitizeAlg) {
-        if (desensitized && keyWordMatch.matches(keyword)) {
-            for (int i = 0; i < source.size(); i++) {
-                String ret = DataDesensitizeFactory.selectDesensitize(source.get(i), dataDesensitizeAlg);
-                source.set(i, ret);
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+
+</beans>
 ```
 
-## RuleId[id=KeySetIterationMayUseEntrySet]
-### KeySetIterationMayUseEntrySet
-Iteration over `headers.keySet()` may be replaced with 'entrySet()' iteration
-in `shenyu-sdk/shenyu-sdk-okhttp/src/main/java/org/apache/shenyu/sdk/okhttp/OkHttpShenyuSdkClient.java`
+## RuleId[id=SpringBootApplicationYaml]
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.database.dialect'
+in `shenyu-admin/src/main/resources/application-mysql.yml`
 #### Snippet
 ```java
-        Map<String, Collection<String>> headers = request.getHeaders();
-        Request.Builder builder = new Request.Builder().url(url);
-        for (String name : headers.keySet()) {
-            for (String value : headers.get(name)) {
-                builder.addHeader(name, value);
+shenyu:
+  database:
+    dialect: mysql
+    init_enable: true
+
 ```
 
-### KeySetIterationMayUseEntrySet
-Iteration over `this.consulIndexes.keySet()` may be replaced with 'entrySet()' iteration
-in `shenyu-sync-data-center/shenyu-sync-data-consul/src/main/java/org/apache/shenyu/sync/data/consul/ConsulSyncDataService.java`
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.database.init_enable'
+in `shenyu-admin/src/main/resources/application-mysql.yml`
 #### Snippet
 ```java
-    private void watchConfigKeyValues() {
-        if (this.running.get()) {
-            for (String context : this.consulIndexes.keySet()) {
-                try {
-                    Long currentIndex = this.consulIndexes.get(context);
+  database:
+    dialect: mysql
+    init_enable: true
+
+spring:
 ```
 
-### KeySetIterationMayUseEntrySet
-Iteration over `headers.keySet()` may be replaced with 'entrySet()' iteration
-in `shenyu-sdk/shenyu-sdk-httpclient/src/main/java/org/apache/shenyu/sdk/httpclient/HttpShenyuSdkClient.java`
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.datasource.url'
+in `shenyu-admin/src/main/resources/application-mysql.yml`
 #### Snippet
 ```java
-
-        Map<String, Collection<String>> headers = request.getHeaders();
-        for (String name : headers.keySet()) {
-            for (String value : headers.get(name)) {
-                requestBuilder.addHeader(name, value);
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/shenyu?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: xyzj1a2y3
 ```
 
-### KeySetIterationMayUseEntrySet
-Iteration over `paramMap.keySet()` may be replaced with 'entrySet()' iteration
-in `shenyu-plugin/shenyu-plugin-api/src/main/java/org/apache/shenyu/plugin/api/utils/BodyParamUtils.java`
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.datasource.username'
+in `shenyu-admin/src/main/resources/application-mysql.yml`
 #### Snippet
 ```java
-    public static Pair<String[], Object[]> buildSingleParameter(final String body, final String parameterTypes) {
-        final Map<String, Object> paramMap = GsonUtils.getInstance().toObjectMap(body);
-        for (String key : paramMap.keySet()) {
-            Object obj = paramMap.get(key);
-            if (obj instanceof JsonObject) {
+  datasource:
+    url: jdbc:mysql://localhost:3306/shenyu?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: xyzj1a2y3
+    driver-class-name: com.mysql.cj.jdbc.Driver
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.datasource.password'
+in `shenyu-admin/src/main/resources/application-mysql.yml`
+#### Snippet
+```java
+    url: jdbc:mysql://localhost:3306/shenyu?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: xyzj1a2y3
+    driver-class-name: com.mysql.cj.jdbc.Driver
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.datasource.driver-class-name'
+in `shenyu-admin/src/main/resources/application-mysql.yml`
+#### Snippet
+```java
+    username: root
+    password: xyzj1a2y3
+    driver-class-name: com.mysql.cj.jdbc.Driver
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.database.dialect'
+in `shenyu-admin/src/main/resources/application-oracle.yml`
+#### Snippet
+```java
+shenyu:
+  database:
+    dialect: oracle
+    init_enable: true
+
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.database.init_enable'
+in `shenyu-admin/src/main/resources/application-oracle.yml`
+#### Snippet
+```java
+  database:
+    dialect: oracle
+    init_enable: true
+
+spring:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.datasource.url'
+in `shenyu-admin/src/main/resources/application-oracle.yml`
+#### Snippet
+```java
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521/shenyu
+    username: root
+    password: 123456
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.datasource.username'
+in `shenyu-admin/src/main/resources/application-oracle.yml`
+#### Snippet
+```java
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521/shenyu
+    username: root
+    password: 123456
+    driver-class-name: oracle.jdbc.OracleDriver
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.datasource.password'
+in `shenyu-admin/src/main/resources/application-oracle.yml`
+#### Snippet
+```java
+    url: jdbc:oracle:thin:@localhost:1521/shenyu
+    username: root
+    password: 123456
+    driver-class-name: oracle.jdbc.OracleDriver
+
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.datasource.driver-class-name'
+in `shenyu-admin/src/main/resources/application-oracle.yml`
+#### Snippet
+```java
+    username: root
+    password: 123456
+    driver-class-name: oracle.jdbc.OracleDriver
+
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.database.dialect'
+in `shenyu-admin/src/main/resources/application-h2.yml`
+#### Snippet
+```java
+shenyu:
+  database:
+    dialect: h2
+    init_script: "sql-script/h2/schema.sql"
+    init_enable: true
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.database.init_script'
+in `shenyu-admin/src/main/resources/application-h2.yml`
+#### Snippet
+```java
+  database:
+    dialect: h2
+    init_script: "sql-script/h2/schema.sql"
+    init_enable: true
+
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.database.init_enable'
+in `shenyu-admin/src/main/resources/application-h2.yml`
+#### Snippet
+```java
+    dialect: h2
+    init_script: "sql-script/h2/schema.sql"
+    init_enable: true
+
+spring:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.datasource.url'
+in `shenyu-admin/src/main/resources/application-h2.yml`
+#### Snippet
+```java
+spring:
+  datasource:
+    url: jdbc:h2:mem:${HOME:${HOMEDRIVE}${HOMEPATH}}/shenyu;DB_CLOSE_DELAY=-1;MODE=MySQL;
+    username: sa
+    password: sa
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.datasource.username'
+in `shenyu-admin/src/main/resources/application-h2.yml`
+#### Snippet
+```java
+  datasource:
+    url: jdbc:h2:mem:${HOME:${HOMEDRIVE}${HOMEPATH}}/shenyu;DB_CLOSE_DELAY=-1;MODE=MySQL;
+    username: sa
+    password: sa
+    driver-class-name: org.h2.Driver
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.datasource.password'
+in `shenyu-admin/src/main/resources/application-h2.yml`
+#### Snippet
+```java
+    url: jdbc:h2:mem:${HOME:${HOMEDRIVE}${HOMEPATH}}/shenyu;DB_CLOSE_DELAY=-1;MODE=MySQL;
+    username: sa
+    password: sa
+    driver-class-name: org.h2.Driver
+
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.datasource.driver-class-name'
+in `shenyu-admin/src/main/resources/application-h2.yml`
+#### Snippet
+```java
+    username: sa
+    password: sa
+    driver-class-name: org.h2.Driver
+
+
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.database.dialect'
+in `shenyu-admin/src/main/resources/application-pg.yml`
+#### Snippet
+```java
+shenyu:
+    database:
+      dialect: postgresql
+      init_enable: true
+
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.database.init_enable'
+in `shenyu-admin/src/main/resources/application-pg.yml`
+#### Snippet
+```java
+    database:
+      dialect: postgresql
+      init_enable: true
+
+spring:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.datasource.url'
+in `shenyu-admin/src/main/resources/application-pg.yml`
+#### Snippet
+```java
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/shenyu
+    username: postgres
+    password: 123456
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.datasource.username'
+in `shenyu-admin/src/main/resources/application-pg.yml`
+#### Snippet
+```java
+  datasource:
+    url: jdbc:postgresql://localhost:5432/shenyu
+    username: postgres
+    password: 123456
+    driver-class-name: org.postgresql.Driver
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.datasource.password'
+in `shenyu-admin/src/main/resources/application-pg.yml`
+#### Snippet
+```java
+    url: jdbc:postgresql://localhost:5432/shenyu
+    username: postgres
+    password: 123456
+    driver-class-name: org.postgresql.Driver
+
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.datasource.driver-class-name'
+in `shenyu-admin/src/main/resources/application-pg.yml`
+#### Snippet
+```java
+    username: postgres
+    password: 123456
+    driver-class-name: org.postgresql.Driver
+
+mybatis:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'mybatis.type-handlers-package'
+in `shenyu-admin/src/main/resources/application-pg.yml`
+#### Snippet
+```java
+
+mybatis:
+  type-handlers-package: org.apache.shenyu.admin.mybatis.pg.handler
+
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'server.port'
+in `shenyu-admin/src/main/resources/application.yml`
+#### Snippet
+```java
+
+server:
+  port: 9095
+  address: 0.0.0.0
+
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'server.address'
+in `shenyu-admin/src/main/resources/application.yml`
+#### Snippet
+```java
+server:
+  port: 9095
+  address: 0.0.0.0
+
+spring:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.profiles.active'
+in `shenyu-admin/src/main/resources/application.yml`
+#### Snippet
+```java
+spring:
+  profiles:
+    active: h2
+  thymeleaf:
+    cache: true
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.thymeleaf.cache'
+in `shenyu-admin/src/main/resources/application.yml`
+#### Snippet
+```java
+    active: h2
+  thymeleaf:
+    cache: true
+    encoding: utf-8
+    enabled: true
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.thymeleaf.encoding'
+in `shenyu-admin/src/main/resources/application.yml`
+#### Snippet
+```java
+  thymeleaf:
+    cache: true
+    encoding: utf-8
+    enabled: true
+    prefix: classpath:/static/
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.thymeleaf.enabled'
+in `shenyu-admin/src/main/resources/application.yml`
+#### Snippet
+```java
+    cache: true
+    encoding: utf-8
+    enabled: true
+    prefix: classpath:/static/
+    suffix: .html
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.thymeleaf.prefix'
+in `shenyu-admin/src/main/resources/application.yml`
+#### Snippet
+```java
+    encoding: utf-8
+    enabled: true
+    prefix: classpath:/static/
+    suffix: .html
+  mvc:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.thymeleaf.suffix'
+in `shenyu-admin/src/main/resources/application.yml`
+#### Snippet
+```java
+    enabled: true
+    prefix: classpath:/static/
+    suffix: .html
+  mvc:
+    pathmatch:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.mvc.pathmatch.matching-strategy'
+in `shenyu-admin/src/main/resources/application.yml`
+#### Snippet
+```java
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  jackson:
+    time-zone: GMT+8 # GMT , Asia/Shanghai
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.jackson.time-zone'
+in `shenyu-admin/src/main/resources/application.yml`
+#### Snippet
+```java
+      matching-strategy: ant_path_matcher
+  jackson:
+    time-zone: GMT+8 # GMT , Asia/Shanghai
+
+management:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'management.endpoints.web.exposure.include'
+in `shenyu-admin/src/main/resources/application.yml`
+#### Snippet
+```java
+    web:
+      exposure:
+        include:
+          - 'health'
+          - 'prometheus'
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'management.endpoints.enabled-by-default'
+in `shenyu-admin/src/main/resources/application.yml`
+#### Snippet
+```java
+          - 'health'
+          - 'prometheus'
+    enabled-by-default: true
+
+mybatis:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'mybatis.config-location'
+in `shenyu-admin/src/main/resources/application.yml`
+#### Snippet
+```java
+
+mybatis:
+  config-location: classpath:/mybatis/mybatis-config.xml
+  mapper-locations: classpath:/mappers/*.xml
+
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'mybatis.mapper-locations'
+in `shenyu-admin/src/main/resources/application.yml`
+#### Snippet
+```java
+mybatis:
+  config-location: classpath:/mybatis/mybatis-config.xml
+  mapper-locations: classpath:/mappers/*.xml
+
+shenyu:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.register.registerType'
+in `shenyu-admin/src/main/resources/application.yml`
+#### Snippet
+```java
+shenyu:
+  register:
+    registerType: http #http #zookeeper #etcd #nacos #consul
+    serverLists: #localhost:2181 #http://localhost:2379 #localhost:8848
+    props:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.register.serverLists'
+in `shenyu-admin/src/main/resources/application.yml`
+#### Snippet
+```java
+  register:
+    registerType: http #http #zookeeper #etcd #nacos #consul
+    serverLists: #localhost:2181 #http://localhost:2379 #localhost:8848
+    props:
+      sessionTimeout: 5000
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.register.props.sessionTimeout'
+in `shenyu-admin/src/main/resources/application.yml`
+#### Snippet
+```java
+    serverLists: #localhost:2181 #http://localhost:2379 #localhost:8848
+    props:
+      sessionTimeout: 5000
+      connectionTimeout: 2000
+      checked: true
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.register.props.connectionTimeout'
+in `shenyu-admin/src/main/resources/application.yml`
+#### Snippet
+```java
+    props:
+      sessionTimeout: 5000
+      connectionTimeout: 2000
+      checked: true
+      zombieCheckThreads: 10
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.register.props.checked'
+in `shenyu-admin/src/main/resources/application.yml`
+#### Snippet
+```java
+      sessionTimeout: 5000
+      connectionTimeout: 2000
+      checked: true
+      zombieCheckThreads: 10
+      zombieCheckTimes: 5
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.register.props.zombieCheckThreads'
+in `shenyu-admin/src/main/resources/application.yml`
+#### Snippet
+```java
+      connectionTimeout: 2000
+      checked: true
+      zombieCheckThreads: 10
+      zombieCheckTimes: 5
+      scheduledTime: 10
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.register.props.zombieCheckTimes'
+in `shenyu-admin/src/main/resources/application.yml`
+#### Snippet
+```java
+      checked: true
+      zombieCheckThreads: 10
+      zombieCheckTimes: 5
+      scheduledTime: 10
+      nacosNameSpace: ShenyuRegisterCenter
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.register.props.scheduledTime'
+in `shenyu-admin/src/main/resources/application.yml`
+#### Snippet
+```java
+      zombieCheckThreads: 10
+      zombieCheckTimes: 5
+      scheduledTime: 10
+      nacosNameSpace: ShenyuRegisterCenter
+  sync:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.register.props.nacosNameSpace'
+in `shenyu-admin/src/main/resources/application.yml`
+#### Snippet
+```java
+      zombieCheckTimes: 5
+      scheduledTime: 10
+      nacosNameSpace: ShenyuRegisterCenter
+  sync:
+    websocket:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.sync.websocket.enabled'
+in `shenyu-admin/src/main/resources/application.yml`
+#### Snippet
+```java
+  sync:
+    websocket:
+      enabled: true
+      messageMaxSize: 10240
+      allowOrigins: ws://localhost:9095;ws://localhost:9195;
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.sync.websocket.messageMaxSize'
+in `shenyu-admin/src/main/resources/application.yml`
+#### Snippet
+```java
+    websocket:
+      enabled: true
+      messageMaxSize: 10240
+      allowOrigins: ws://localhost:9095;ws://localhost:9195;
+#    apollo:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.sync.websocket.allowOrigins'
+in `shenyu-admin/src/main/resources/application.yml`
+#### Snippet
+```java
+      enabled: true
+      messageMaxSize: 10240
+      allowOrigins: ws://localhost:9095;ws://localhost:9195;
+#    apollo:
+#      meta: http://localhost:8080
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.ldap.enabled'
+in `shenyu-admin/src/main/resources/application.yml`
+#### Snippet
+```java
+#      url: http://localhost:8500
+  ldap:
+    enabled: false
+    url: ldap://xxxx:xxx
+    bind-dn: cn=xxx,dc=xxx,dc=xxx
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.ldap.url'
+in `shenyu-admin/src/main/resources/application.yml`
+#### Snippet
+```java
+  ldap:
+    enabled: false
+    url: ldap://xxxx:xxx
+    bind-dn: cn=xxx,dc=xxx,dc=xxx
+    password: xxxx
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.ldap.bind-dn'
+in `shenyu-admin/src/main/resources/application.yml`
+#### Snippet
+```java
+    enabled: false
+    url: ldap://xxxx:xxx
+    bind-dn: cn=xxx,dc=xxx,dc=xxx
+    password: xxxx
+    base-dn: ou=xxx,dc=xxx,dc=xxx
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.ldap.password'
+in `shenyu-admin/src/main/resources/application.yml`
+#### Snippet
+```java
+    url: ldap://xxxx:xxx
+    bind-dn: cn=xxx,dc=xxx,dc=xxx
+    password: xxxx
+    base-dn: ou=xxx,dc=xxx,dc=xxx
+    object-class: person
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.ldap.base-dn'
+in `shenyu-admin/src/main/resources/application.yml`
+#### Snippet
+```java
+    bind-dn: cn=xxx,dc=xxx,dc=xxx
+    password: xxxx
+    base-dn: ou=xxx,dc=xxx,dc=xxx
+    object-class: person
+    login-field: cn
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.ldap.object-class'
+in `shenyu-admin/src/main/resources/application.yml`
+#### Snippet
+```java
+    password: xxxx
+    base-dn: ou=xxx,dc=xxx,dc=xxx
+    object-class: person
+    login-field: cn
+  jwt:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.ldap.login-field'
+in `shenyu-admin/src/main/resources/application.yml`
+#### Snippet
+```java
+    base-dn: ou=xxx,dc=xxx,dc=xxx
+    object-class: person
+    login-field: cn
+  jwt:
+    expired-seconds: 86400000
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.jwt.expired-seconds'
+in `shenyu-admin/src/main/resources/application.yml`
+#### Snippet
+```java
+    login-field: cn
+  jwt:
+    expired-seconds: 86400000
+  shiro:
+    white-list:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.shiro.white-list'
+in `shenyu-admin/src/main/resources/application.yml`
+#### Snippet
+```java
+    expired-seconds: 86400000
+  shiro:
+    white-list:
+      - /
+      - /favicon.*
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.swagger.enable'
+in `shenyu-admin/src/main/resources/application.yml`
+#### Snippet
+```java
+      - /csrf
+  swagger:
+    enable: true
+  dashboard:
+    core:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.dashboard.core.onlySuperAdminPermission'
+in `shenyu-admin/src/main/resources/application.yml`
+#### Snippet
+```java
+  dashboard:
+    core:
+      onlySuperAdminPermission:
+        - system:manager:add
+        - system:manager:edit
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.level.root'
+in `shenyu-admin/src/main/resources/application.yml`
+#### Snippet
+```java
+        - system:resource:deleteMenu
+  level:
+    root: info
+    org.springframework.boot: info
+    org.apache.ibatis: info
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.level.org.springframework.boot'
+in `shenyu-admin/src/main/resources/application.yml`
+#### Snippet
+```java
+  level:
+    root: info
+    org.springframework.boot: info
+    org.apache.ibatis: info
+    org.apache.shenyu.bonuspoint: info
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.level.org.apache.ibatis'
+in `shenyu-admin/src/main/resources/application.yml`
+#### Snippet
+```java
+    root: info
+    org.springframework.boot: info
+    org.apache.ibatis: info
+    org.apache.shenyu.bonuspoint: info
+    org.apache.shenyu.lottery: info
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.level.org.apache.shenyu.bonuspoint'
+in `shenyu-admin/src/main/resources/application.yml`
+#### Snippet
+```java
+    org.springframework.boot: info
+    org.apache.ibatis: info
+    org.apache.shenyu.bonuspoint: info
+    org.apache.shenyu.lottery: info
+    org.apache.shenyu: info
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.level.org.apache.shenyu.lottery'
+in `shenyu-admin/src/main/resources/application.yml`
+#### Snippet
+```java
+    org.apache.ibatis: info
+    org.apache.shenyu.bonuspoint: info
+    org.apache.shenyu.lottery: info
+    org.apache.shenyu: info
+
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.level.org.apache.shenyu'
+in `shenyu-admin/src/main/resources/application.yml`
+#### Snippet
+```java
+    org.apache.shenyu.bonuspoint: info
+    org.apache.shenyu.lottery: info
+    org.apache.shenyu: info
+
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'server.port'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+
+server:
+  port: 9195
+  address: 0.0.0.0
+
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'server.address'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+server:
+  port: 9195
+  address: 0.0.0.0
+
+spring:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.main.allow-bean-definition-overriding'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: shenyu-bootstrap
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.application.name'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+    allow-bean-definition-overriding: true
+  application:
+    name: shenyu-bootstrap
+  codec:
+    max-in-memory-size: 2MB
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.codec.max-in-memory-size'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+    name: shenyu-bootstrap
+  codec:
+    max-in-memory-size: 2MB
+  cloud:
+    discovery:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.cloud.discovery.enabled'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+  cloud:
+    discovery:
+      enabled: false
+    nacos:
+      discovery:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'eureka.client.enabled'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+eureka:
+  client:
+    enabled: false
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'eureka.client.serviceUrl.defaultZone'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+    enabled: false
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'eureka.instance.prefer-ip-address'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+#  security:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'management.health.defaults.enabled'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+  health:
+    defaults:
+      enabled: false
+
+shenyu:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.matchCache.selector.selectorEnabled'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+  matchCache:
+    selector:
+      selectorEnabled: false
+      initialCapacity: 10000 # initial capacity in cache
+      maximumSize: 10000 # max size in cache
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.matchCache.selector.initialCapacity'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+    selector:
+      selectorEnabled: false
+      initialCapacity: 10000 # initial capacity in cache
+      maximumSize: 10000 # max size in cache
+    rule:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.matchCache.selector.maximumSize'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+      selectorEnabled: false
+      initialCapacity: 10000 # initial capacity in cache
+      maximumSize: 10000 # max size in cache
+    rule:
+      initialCapacity: 10000 # initial capacity in cache
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.matchCache.rule.initialCapacity'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+      maximumSize: 10000 # max size in cache
+    rule:
+      initialCapacity: 10000 # initial capacity in cache
+      maximumSize: 65536 # max size in cache
+  trie:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.matchCache.rule.maximumSize'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+    rule:
+      initialCapacity: 10000 # initial capacity in cache
+      maximumSize: 65536 # max size in cache
+  trie:
+    enabled: true
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.trie.enabled'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+      maximumSize: 65536 # max size in cache
+  trie:
+    enabled: true
+    childrenSize: 10000
+    pathVariableSize: 1000
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.trie.childrenSize'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+  trie:
+    enabled: true
+    childrenSize: 10000
+    pathVariableSize: 1000
+    pathRuleCacheSize: 1000
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.trie.pathVariableSize'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+    enabled: true
+    childrenSize: 10000
+    pathVariableSize: 1000
+    pathRuleCacheSize: 1000
+    matchMode: antPathMatch
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.trie.pathRuleCacheSize'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+    childrenSize: 10000
+    pathVariableSize: 1000
+    pathRuleCacheSize: 1000
+    matchMode: antPathMatch
+  netty:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.trie.matchMode'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+    pathVariableSize: 1000
+    pathRuleCacheSize: 1000
+    matchMode: antPathMatch
+  netty:
+    http:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.netty.http.webServerFactoryEnabled'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+    http:
+      # set to false, user can custom the netty tcp server config.
+      webServerFactoryEnabled: true
+      selectCount: 1
+      workerCount: 8
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.netty.http.selectCount'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+      # set to false, user can custom the netty tcp server config.
+      webServerFactoryEnabled: true
+      selectCount: 1
+      workerCount: 8
+      accessLog: false
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.netty.http.workerCount'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+      webServerFactoryEnabled: true
+      selectCount: 1
+      workerCount: 8
+      accessLog: false
+      serverSocketChannel:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.netty.http.accessLog'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+      selectCount: 1
+      workerCount: 8
+      accessLog: false
+      serverSocketChannel:
+        soRcvBuf: 87380
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.netty.http.serverSocketChannel.soRcvBuf'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+      accessLog: false
+      serverSocketChannel:
+        soRcvBuf: 87380
+        soBackLog: 128
+        soReuseAddr: false
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.netty.http.serverSocketChannel.soBackLog'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+      serverSocketChannel:
+        soRcvBuf: 87380
+        soBackLog: 128
+        soReuseAddr: false
+        connectTimeoutMillis: 10000
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.netty.http.serverSocketChannel.soReuseAddr'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+        soRcvBuf: 87380
+        soBackLog: 128
+        soReuseAddr: false
+        connectTimeoutMillis: 10000
+        writeBufferHighWaterMark: 65536
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.netty.http.serverSocketChannel.connectTimeoutMillis'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+        soBackLog: 128
+        soReuseAddr: false
+        connectTimeoutMillis: 10000
+        writeBufferHighWaterMark: 65536
+        writeBufferLowWaterMark: 32768
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.netty.http.serverSocketChannel.writeBufferHighWaterMark'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+        soReuseAddr: false
+        connectTimeoutMillis: 10000
+        writeBufferHighWaterMark: 65536
+        writeBufferLowWaterMark: 32768
+        writeSpinCount: 16
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.netty.http.serverSocketChannel.writeBufferLowWaterMark'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+        connectTimeoutMillis: 10000
+        writeBufferHighWaterMark: 65536
+        writeBufferLowWaterMark: 32768
+        writeSpinCount: 16
+        autoRead: false
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.netty.http.serverSocketChannel.writeSpinCount'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+        writeBufferHighWaterMark: 65536
+        writeBufferLowWaterMark: 32768
+        writeSpinCount: 16
+        autoRead: false
+        allocType: "pooled"
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.netty.http.serverSocketChannel.autoRead'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+        writeBufferLowWaterMark: 32768
+        writeSpinCount: 16
+        autoRead: false
+        allocType: "pooled"
+        messageSizeEstimator: 8
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.netty.http.serverSocketChannel.allocType'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+        writeSpinCount: 16
+        autoRead: false
+        allocType: "pooled"
+        messageSizeEstimator: 8
+        singleEventExecutorPerGroup: true
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.netty.http.serverSocketChannel.messageSizeEstimator'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+        autoRead: false
+        allocType: "pooled"
+        messageSizeEstimator: 8
+        singleEventExecutorPerGroup: true
+      socketChannel:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.netty.http.serverSocketChannel.singleEventExecutorPerGroup'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+        allocType: "pooled"
+        messageSizeEstimator: 8
+        singleEventExecutorPerGroup: true
+      socketChannel:
+        soKeepAlive: false
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.netty.http.socketChannel.soKeepAlive'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+        singleEventExecutorPerGroup: true
+      socketChannel:
+        soKeepAlive: false
+        soReuseAddr: false
+        soLinger: -1
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.netty.http.socketChannel.soReuseAddr'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+      socketChannel:
+        soKeepAlive: false
+        soReuseAddr: false
+        soLinger: -1
+        tcpNoDelay: true
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.netty.http.socketChannel.soLinger'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+        soKeepAlive: false
+        soReuseAddr: false
+        soLinger: -1
+        tcpNoDelay: true
+        soRcvBuf: 87380
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.netty.http.socketChannel.tcpNoDelay'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+        soReuseAddr: false
+        soLinger: -1
+        tcpNoDelay: true
+        soRcvBuf: 87380
+        soSndBuf: 16384
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.netty.http.socketChannel.soRcvBuf'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+        soLinger: -1
+        tcpNoDelay: true
+        soRcvBuf: 87380
+        soSndBuf: 16384
+        ipTos: 0
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.netty.http.socketChannel.soSndBuf'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+        tcpNoDelay: true
+        soRcvBuf: 87380
+        soSndBuf: 16384
+        ipTos: 0
+        allowHalfClosure: false
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.netty.http.socketChannel.ipTos'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+        soRcvBuf: 87380
+        soSndBuf: 16384
+        ipTos: 0
+        allowHalfClosure: false
+        connectTimeoutMillis: 10000
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.netty.http.socketChannel.allowHalfClosure'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+        soSndBuf: 16384
+        ipTos: 0
+        allowHalfClosure: false
+        connectTimeoutMillis: 10000
+        writeBufferHighWaterMark: 65536
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.netty.http.socketChannel.connectTimeoutMillis'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+        ipTos: 0
+        allowHalfClosure: false
+        connectTimeoutMillis: 10000
+        writeBufferHighWaterMark: 65536
+        writeBufferLowWaterMark: 32768
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.netty.http.socketChannel.writeBufferHighWaterMark'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+        allowHalfClosure: false
+        connectTimeoutMillis: 10000
+        writeBufferHighWaterMark: 65536
+        writeBufferLowWaterMark: 32768
+        writeSpinCount: 16
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.netty.http.socketChannel.writeBufferLowWaterMark'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+        connectTimeoutMillis: 10000
+        writeBufferHighWaterMark: 65536
+        writeBufferLowWaterMark: 32768
+        writeSpinCount: 16
+        autoRead: false
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.netty.http.socketChannel.writeSpinCount'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+        writeBufferHighWaterMark: 65536
+        writeBufferLowWaterMark: 32768
+        writeSpinCount: 16
+        autoRead: false
+        allocType: "pooled"
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.netty.http.socketChannel.autoRead'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+        writeBufferLowWaterMark: 32768
+        writeSpinCount: 16
+        autoRead: false
+        allocType: "pooled"
+        messageSizeEstimator: 8
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.netty.http.socketChannel.allocType'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+        writeSpinCount: 16
+        autoRead: false
+        allocType: "pooled"
+        messageSizeEstimator: 8
+        singleEventExecutorPerGroup: true
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.netty.http.socketChannel.messageSizeEstimator'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+        autoRead: false
+        allocType: "pooled"
+        messageSizeEstimator: 8
+        singleEventExecutorPerGroup: true
+#  httpclient:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.netty.http.socketChannel.singleEventExecutorPerGroup'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+        allocType: "pooled"
+        messageSizeEstimator: 8
+        singleEventExecutorPerGroup: true
+#  httpclient:
+#    strategy: webClient
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.register.enabled'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+#      daemon: true
+  register:
+    enabled: false
+    registerType: zookeeper #etcd #consul
+    serverLists: localhost:2181 #http://localhost:2379 #localhost:8848
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.register.registerType'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+  register:
+    enabled: false
+    registerType: zookeeper #etcd #consul
+    serverLists: localhost:2181 #http://localhost:2379 #localhost:8848
+    props:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.register.serverLists'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+    enabled: false
+    registerType: zookeeper #etcd #consul
+    serverLists: localhost:2181 #http://localhost:2379 #localhost:8848
+    props:
+  cross:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.register.props'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+    registerType: zookeeper #etcd #consul
+    serverLists: localhost:2181 #http://localhost:2379 #localhost:8848
+    props:
+  cross:
+    enabled: true
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.cross.enabled'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+    props:
+  cross:
+    enabled: true
+    allowedHeaders:
+    allowedMethods: "*"
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.cross.allowedHeaders'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+  cross:
+    enabled: true
+    allowedHeaders:
+    allowedMethods: "*"
+    allowedAnyOrigin: true # the same of Access-Control-Allow-Origin: "*"
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.cross.allowedMethods'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+    enabled: true
+    allowedHeaders:
+    allowedMethods: "*"
+    allowedAnyOrigin: true # the same of Access-Control-Allow-Origin: "*"
+#    allowedOrigin:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.cross.allowedAnyOrigin'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+    allowedHeaders:
+    allowedMethods: "*"
+    allowedAnyOrigin: true # the same of Access-Control-Allow-Origin: "*"
+#    allowedOrigin:
+      # format : schema://prefix spacer domain
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.cross.allowedExpose'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+#        - http://e.apache.org
+#      originRegex: ^http(|s)://(.*\.|)abc.com$
+    allowedExpose: ""
+    maxAge: "18000"
+    allowCredentials: true
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.cross.maxAge'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+#      originRegex: ^http(|s)://(.*\.|)abc.com$
+    allowedExpose: ""
+    maxAge: "18000"
+    allowCredentials: true
+
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.cross.allowCredentials'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+    allowedExpose: ""
+    maxAge: "18000"
+    allowCredentials: true
+
+  switchConfig:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.switchConfig.local'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+
+  switchConfig:
+    local: true
+    collapseSlashes: false
+  file:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.switchConfig.collapseSlashes'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+  switchConfig:
+    local: true
+    collapseSlashes: false
+  file:
+    enabled: true
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.file.enabled'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+    collapseSlashes: false
+  file:
+    enabled: true
+    maxSize : 10
+  sync:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.file.maxSize'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+  file:
+    enabled: true
+    maxSize : 10
+  sync:
+    websocket:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.sync.websocket.urls'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+  sync:
+    websocket:
+      urls: ws://localhost:9095/websocket
+      allowOrigin: ws://localhost:9195
+#    apollo:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.sync.websocket.allowOrigin'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+    websocket:
+      urls: ws://localhost:9095/websocket
+      allowOrigin: ws://localhost:9195
+#    apollo:
+#      appId: shenyu
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.exclude.enabled'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+#      watchDelay: 1000
+  exclude:
+    enabled: false
+    paths:
+      - /favicon.ico
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.exclude.paths'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+  exclude:
+    enabled: false
+    paths:
+      - /favicon.ico
+  fallback:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.fallback.enabled'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+      - /favicon.ico
+  fallback:
+    enabled: false
+    paths:
+      - /fallback/hystrix
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.fallback.paths'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+  fallback:
+    enabled: false
+    paths:
+      - /fallback/hystrix
+      - /fallback/resilience4j
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.health.enabled'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+      - /fallback/sentinel
+  health:
+    enabled: false
+    paths:
+      - /actuator
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.health.paths'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+  health:
+    enabled: false
+    paths:
+      - /actuator
+      - /health_check
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.extPlugin.path'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+      - /health_check
+  extPlugin:
+    path:
+    enabled: true
+    threads: 1
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.extPlugin.enabled'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+  extPlugin:
+    path:
+    enabled: true
+    threads: 1
+    scheduleTime: 300
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.extPlugin.threads'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+    path:
+    enabled: true
+    threads: 1
+    scheduleTime: 300
+    scheduleDelay: 30
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.extPlugin.scheduleTime'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+    enabled: true
+    threads: 1
+    scheduleTime: 300
+    scheduleDelay: 30
+  scheduler:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.extPlugin.scheduleDelay'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+    threads: 1
+    scheduleTime: 300
+    scheduleDelay: 30
+  scheduler:
+    enabled: false
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.scheduler.enabled'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+    scheduleDelay: 30
+  scheduler:
+    enabled: false
+    type: fixed
+    threads: 16
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.scheduler.type'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+  scheduler:
+    enabled: false
+    type: fixed
+    threads: 16
+  upstreamCheck:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.scheduler.threads'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+    enabled: false
+    type: fixed
+    threads: 16
+  upstreamCheck:
+    enabled: false
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.upstreamCheck.enabled'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+    threads: 16
+  upstreamCheck:
+    enabled: false
+    poolSize: 10
+    timeout: 3000
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.upstreamCheck.poolSize'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+  upstreamCheck:
+    enabled: false
+    poolSize: 10
+    timeout: 3000
+    healthyThreshold: 1
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.upstreamCheck.timeout'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+    enabled: false
+    poolSize: 10
+    timeout: 3000
+    healthyThreshold: 1
+    unhealthyThreshold: 1
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.upstreamCheck.healthyThreshold'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+    poolSize: 10
+    timeout: 3000
+    healthyThreshold: 1
+    unhealthyThreshold: 1
+    interval: 5000
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.upstreamCheck.unhealthyThreshold'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+    timeout: 3000
+    healthyThreshold: 1
+    unhealthyThreshold: 1
+    interval: 5000
+    printEnabled: true
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.upstreamCheck.interval'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+    healthyThreshold: 1
+    unhealthyThreshold: 1
+    interval: 5000
+    printEnabled: true
+    printInterval: 60000
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.upstreamCheck.printEnabled'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+    unhealthyThreshold: 1
+    interval: 5000
+    printEnabled: true
+    printInterval: 60000
+  ribbon:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.upstreamCheck.printInterval'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+    interval: 5000
+    printEnabled: true
+    printInterval: 60000
+  ribbon:
+    serverListRefreshInterval: 10000
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.ribbon.serverListRefreshInterval'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+    printInterval: 60000
+  ribbon:
+    serverListRefreshInterval: 10000
+  metrics:
+    enabled: false
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.metrics.enabled'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+    serverListRefreshInterval: 10000
+  metrics:
+    enabled: false
+    name : prometheus
+    host: 127.0.0.1
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.metrics.name'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+  metrics:
+    enabled: false
+    name : prometheus
+    host: 127.0.0.1
+    port: 8090
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.metrics.host'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+    enabled: false
+    name : prometheus
+    host: 127.0.0.1
+    port: 8090
+    jmxConfig:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.metrics.port'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+    name : prometheus
+    host: 127.0.0.1
+    port: 8090
+    jmxConfig:
+    props:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.metrics.jmxConfig'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+    host: 127.0.0.1
+    port: 8090
+    jmxConfig:
+    props:
+      jvm_enabled: true
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.metrics.props.jvm_enabled'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+    jmxConfig:
+    props:
+      jvm_enabled: true
+#  plugins:
+#    rate-limiter.enabled: false
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.local.enabled'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+#    rate-limiter.enabled: false
+  local:
+    enabled: false
+    sha512Key: "BA3253876AED6BC22D4A6FF53D8406C6AD864195ED144AB5C87621B6C233B548BAEAE6956DF346EC8C17F5EA10F35EE3CBC514797ED7DDD3145464E2A0BAB413"
+#  sharedPool:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.local.sha512Key'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+  local:
+    enabled: false
+    sha512Key: "BA3253876AED6BC22D4A6FF53D8406C6AD864195ED144AB5C87621B6C233B548BAEAE6956DF346EC8C17F5EA10F35EE3CBC514797ED7DDD3145464E2A0BAB413"
+#  sharedPool:
+#    enable: true
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'logging.level.root'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+logging:
+  level:
+    root: info
+    org.springframework.boot: info
+    org.apache.ibatis: info
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'logging.level.org.springframework.boot'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+  level:
+    root: info
+    org.springframework.boot: info
+    org.apache.ibatis: info
+    org.apache.shenyu.bonuspoint: info
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'logging.level.org.apache.ibatis'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+    root: info
+    org.springframework.boot: info
+    org.apache.ibatis: info
+    org.apache.shenyu.bonuspoint: info
+    org.apache.shenyu.lottery: info
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'logging.level.org.apache.shenyu.bonuspoint'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+    org.springframework.boot: info
+    org.apache.ibatis: info
+    org.apache.shenyu.bonuspoint: info
+    org.apache.shenyu.lottery: info
+    org.apache.shenyu: info
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'logging.level.org.apache.shenyu.lottery'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+    org.apache.ibatis: info
+    org.apache.shenyu.bonuspoint: info
+    org.apache.shenyu.lottery: info
+    org.apache.shenyu: info
+
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'logging.level.org.apache.shenyu'
+in `shenyu-bootstrap/src/main/resources/application.yml`
+#### Snippet
+```java
+    org.apache.shenyu.bonuspoint: info
+    org.apache.shenyu.lottery: info
+    org.apache.shenyu: info
+
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.database.dialect'
+in `shenyu-admin/src/test/resources/application-h2.yml`
+#### Snippet
+```java
+shenyu:
+  database:
+    dialect: h2
+    init_script: "sql-script/h2/schema.sql"
+    init_enable: true
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.database.init_script'
+in `shenyu-admin/src/test/resources/application-h2.yml`
+#### Snippet
+```java
+  database:
+    dialect: h2
+    init_script: "sql-script/h2/schema.sql"
+    init_enable: true
+
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.database.init_enable'
+in `shenyu-admin/src/test/resources/application-h2.yml`
+#### Snippet
+```java
+    dialect: h2
+    init_script: "sql-script/h2/schema.sql"
+    init_enable: true
+
+spring:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.datasource.url'
+in `shenyu-admin/src/test/resources/application-h2.yml`
+#### Snippet
+```java
+spring:
+  datasource:
+    url: jdbc:h2:mem:~/shenyu;DB_CLOSE_DELAY=-1;MODE=MySQL;
+    username: sa
+    password: sa
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.datasource.username'
+in `shenyu-admin/src/test/resources/application-h2.yml`
+#### Snippet
+```java
+  datasource:
+    url: jdbc:h2:mem:~/shenyu;DB_CLOSE_DELAY=-1;MODE=MySQL;
+    username: sa
+    password: sa
+    driver-class-name: org.h2.Driver
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.datasource.password'
+in `shenyu-admin/src/test/resources/application-h2.yml`
+#### Snippet
+```java
+    url: jdbc:h2:mem:~/shenyu;DB_CLOSE_DELAY=-1;MODE=MySQL;
+    username: sa
+    password: sa
+    driver-class-name: org.h2.Driver
+
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.datasource.driver-class-name'
+in `shenyu-admin/src/test/resources/application-h2.yml`
+#### Snippet
+```java
+    username: sa
+    password: sa
+    driver-class-name: org.h2.Driver
+
+
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'server.port'
+in `shenyu-admin/src/test/resources/application.yml`
+#### Snippet
+```java
+
+server:
+  port: 9095
+  address: 0.0.0.0
+
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'server.address'
+in `shenyu-admin/src/test/resources/application.yml`
+#### Snippet
+```java
+server:
+  port: 9095
+  address: 0.0.0.0
+
+spring:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.profiles.active'
+in `shenyu-admin/src/test/resources/application.yml`
+#### Snippet
+```java
+spring:
+  profiles:
+    active: h2
+  thymeleaf:
+    cache: true
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.thymeleaf.cache'
+in `shenyu-admin/src/test/resources/application.yml`
+#### Snippet
+```java
+    active: h2
+  thymeleaf:
+    cache: true
+    encoding: utf-8
+    enabled: true
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.thymeleaf.encoding'
+in `shenyu-admin/src/test/resources/application.yml`
+#### Snippet
+```java
+  thymeleaf:
+    cache: true
+    encoding: utf-8
+    enabled: true
+    prefix: classpath:/static/
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.thymeleaf.enabled'
+in `shenyu-admin/src/test/resources/application.yml`
+#### Snippet
+```java
+    cache: true
+    encoding: utf-8
+    enabled: true
+    prefix: classpath:/static/
+    suffix: .html
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.thymeleaf.prefix'
+in `shenyu-admin/src/test/resources/application.yml`
+#### Snippet
+```java
+    encoding: utf-8
+    enabled: true
+    prefix: classpath:/static/
+    suffix: .html
+
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'spring.thymeleaf.suffix'
+in `shenyu-admin/src/test/resources/application.yml`
+#### Snippet
+```java
+    enabled: true
+    prefix: classpath:/static/
+    suffix: .html
+
+mybatis:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'mybatis.config-location'
+in `shenyu-admin/src/test/resources/application.yml`
+#### Snippet
+```java
+
+mybatis:
+  config-location: classpath:/mybatis/mybatis-config.xml
+  mapper-locations: classpath:/mappers/*.xml
+
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'mybatis.mapper-locations'
+in `shenyu-admin/src/test/resources/application.yml`
+#### Snippet
+```java
+mybatis:
+  config-location: classpath:/mybatis/mybatis-config.xml
+  mapper-locations: classpath:/mappers/*.xml
+
+shenyu:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.register.registerType'
+in `shenyu-admin/src/test/resources/application.yml`
+#### Snippet
+```java
+shenyu:
+  register:
+    registerType: http #http #zookeeper #etcd #nacos #consul
+    serverLists: #localhost:2181 #http://localhost:2379 #localhost:8848
+    props:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.register.serverLists'
+in `shenyu-admin/src/test/resources/application.yml`
+#### Snippet
+```java
+  register:
+    registerType: http #http #zookeeper #etcd #nacos #consul
+    serverLists: #localhost:2181 #http://localhost:2379 #localhost:8848
+    props:
+      sessionTimeout: 5000
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.register.props.sessionTimeout'
+in `shenyu-admin/src/test/resources/application.yml`
+#### Snippet
+```java
+    serverLists: #localhost:2181 #http://localhost:2379 #localhost:8848
+    props:
+      sessionTimeout: 5000
+      connectionTimeout: 2000
+      checked: true
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.register.props.connectionTimeout'
+in `shenyu-admin/src/test/resources/application.yml`
+#### Snippet
+```java
+    props:
+      sessionTimeout: 5000
+      connectionTimeout: 2000
+      checked: true
+      zombieCheckTimes: 5
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.register.props.checked'
+in `shenyu-admin/src/test/resources/application.yml`
+#### Snippet
+```java
+      sessionTimeout: 5000
+      connectionTimeout: 2000
+      checked: true
+      zombieCheckTimes: 5
+      scheduledTime: 10
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.register.props.zombieCheckTimes'
+in `shenyu-admin/src/test/resources/application.yml`
+#### Snippet
+```java
+      connectionTimeout: 2000
+      checked: true
+      zombieCheckTimes: 5
+      scheduledTime: 10
+      nacosNameSpace: ShenyuRegisterCenter
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.register.props.scheduledTime'
+in `shenyu-admin/src/test/resources/application.yml`
+#### Snippet
+```java
+      checked: true
+      zombieCheckTimes: 5
+      scheduledTime: 10
+      nacosNameSpace: ShenyuRegisterCenter
+  sync:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.register.props.nacosNameSpace'
+in `shenyu-admin/src/test/resources/application.yml`
+#### Snippet
+```java
+      zombieCheckTimes: 5
+      scheduledTime: 10
+      nacosNameSpace: ShenyuRegisterCenter
+  sync:
+    websocket:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.sync.websocket.enabled'
+in `shenyu-admin/src/test/resources/application.yml`
+#### Snippet
+```java
+  sync:
+    websocket:
+      enabled: true
+#      zookeeper:
+#        url: localhost:2181
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.aes.secret.key'
+in `shenyu-admin/src/test/resources/application.yml`
+#### Snippet
+```java
+  aes:
+    secret:
+      key: 2095132720951327
+      iv: 6075877187097700
+  ldap:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.aes.secret.iv'
+in `shenyu-admin/src/test/resources/application.yml`
+#### Snippet
+```java
+    secret:
+      key: 2095132720951327
+      iv: 6075877187097700
+  ldap:
+    enabled: false
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.ldap.enabled'
+in `shenyu-admin/src/test/resources/application.yml`
+#### Snippet
+```java
+      iv: 6075877187097700
+  ldap:
+    enabled: false
+    url: ldap://xxxx:xxx
+    bind-dn: cn=xxx,dc=xxx,dc=xxx
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.ldap.url'
+in `shenyu-admin/src/test/resources/application.yml`
+#### Snippet
+```java
+  ldap:
+    enabled: false
+    url: ldap://xxxx:xxx
+    bind-dn: cn=xxx,dc=xxx,dc=xxx
+    password: xxxx
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.ldap.bind-dn'
+in `shenyu-admin/src/test/resources/application.yml`
+#### Snippet
+```java
+    enabled: false
+    url: ldap://xxxx:xxx
+    bind-dn: cn=xxx,dc=xxx,dc=xxx
+    password: xxxx
+    base-dn: ou=xxx,dc=xxx,dc=xxx
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.ldap.password'
+in `shenyu-admin/src/test/resources/application.yml`
+#### Snippet
+```java
+    url: ldap://xxxx:xxx
+    bind-dn: cn=xxx,dc=xxx,dc=xxx
+    password: xxxx
+    base-dn: ou=xxx,dc=xxx,dc=xxx
+    object-class: person
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.ldap.base-dn'
+in `shenyu-admin/src/test/resources/application.yml`
+#### Snippet
+```java
+    bind-dn: cn=xxx,dc=xxx,dc=xxx
+    password: xxxx
+    base-dn: ou=xxx,dc=xxx,dc=xxx
+    object-class: person
+    login-field: cn
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.ldap.object-class'
+in `shenyu-admin/src/test/resources/application.yml`
+#### Snippet
+```java
+    password: xxxx
+    base-dn: ou=xxx,dc=xxx,dc=xxx
+    object-class: person
+    login-field: cn
+  jwt:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.ldap.login-field'
+in `shenyu-admin/src/test/resources/application.yml`
+#### Snippet
+```java
+    base-dn: ou=xxx,dc=xxx,dc=xxx
+    object-class: person
+    login-field: cn
+  jwt:
+    expired-seconds: 86400000
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.jwt.expired-seconds'
+in `shenyu-admin/src/test/resources/application.yml`
+#### Snippet
+```java
+    login-field: cn
+  jwt:
+    expired-seconds: 86400000
+  shiro:
+    white-list:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.shiro.white-list'
+in `shenyu-admin/src/test/resources/application.yml`
+#### Snippet
+```java
+    expired-seconds: 86400000
+  shiro:
+    white-list:
+      - /
+      - /favicon.*
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'shenyu.swagger.enable'
+in `shenyu-admin/src/test/resources/application.yml`
+#### Snippet
+```java
+      - /csrf
+  swagger:
+    enable: true
+
+logging:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'logging.level.root'
+in `shenyu-admin/src/test/resources/application.yml`
+#### Snippet
+```java
+logging:
+  level:
+    root: info
+    org.springframework.boot: info
+    org.apache.ibatis: info
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'logging.level.org.springframework.boot'
+in `shenyu-admin/src/test/resources/application.yml`
+#### Snippet
+```java
+  level:
+    root: info
+    org.springframework.boot: info
+    org.apache.ibatis: info
+    org.apache.shenyu.bonuspoint: info
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'logging.level.org.apache.ibatis'
+in `shenyu-admin/src/test/resources/application.yml`
+#### Snippet
+```java
+    root: info
+    org.springframework.boot: info
+    org.apache.ibatis: info
+    org.apache.shenyu.bonuspoint: info
+    org.apache.shenyu.lottery: info
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'logging.level.org.apache.shenyu.bonuspoint'
+in `shenyu-admin/src/test/resources/application.yml`
+#### Snippet
+```java
+    org.springframework.boot: info
+    org.apache.ibatis: info
+    org.apache.shenyu.bonuspoint: info
+    org.apache.shenyu.lottery: info
+    org.apache.shenyu: info
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'logging.level.org.apache.shenyu.lottery'
+in `shenyu-admin/src/test/resources/application.yml`
+#### Snippet
+```java
+    org.apache.ibatis: info
+    org.apache.shenyu.bonuspoint: info
+    org.apache.shenyu.lottery: info
+    org.apache.shenyu: info
+
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'logging.level.org.apache.shenyu'
+in `shenyu-admin/src/test/resources/application.yml`
+#### Snippet
+```java
+    org.apache.shenyu.bonuspoint: info
+    org.apache.shenyu.lottery: info
+    org.apache.shenyu: info
+
 ```
 
 ## RuleId[id=DuplicateBranchesInSwitch]
@@ -431,80 +3109,92 @@ in `shenyu-protocol/shenyu-protocol-mqtt/src/main/java/org/apache/shenyu/protoco
             case 1:
 ```
 
-## RuleId[id=SizeReplaceableByIsEmpty]
-### SizeReplaceableByIsEmpty
-`coldest.size() == 0` can be replaced with 'coldest.isEmpty()'
-in `shenyu-common/src/main/java/org/apache/shenyu/common/cache/MemorySafeWindowTinyLFUMap.java`
+## RuleId[id=Deprecation]
+### Deprecation
+'withPrefix(io.etcd.jetcd.ByteSequence)' is deprecated
+in `shenyu-sync-data-center/shenyu-sync-data-etcd/src/main/java/org/apache/shenyu/sync/data/etcd/EtcdClient.java`
 #### Snippet
 ```java
-        cache.policy().eviction().ifPresent(eviction -> {
-            final Map<@NonNull K, @NonNull V> coldest = eviction.coldest(1);
-            if (coldest.size() == 0) {
-                return;
-            }
+        Watch.Listener listener = watch(updateHandler, deleteHandler);
+        WatchOption option = WatchOption.newBuilder()
+                .withPrefix(ByteSequence.from(key, UTF_8))
+                .build();
+        Watch.Watcher watch = client.getWatchClient().watch(ByteSequence.from(key, UTF_8), option, listener);
 ```
 
-### SizeReplaceableByIsEmpty
-`file.length() > 0` can be replaced with '!file.isEmpty()'
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/VersionUtils.java`
+### Deprecation
+'withPrefix(io.etcd.jetcd.ByteSequence)' is deprecated
+in `shenyu-sync-data-center/shenyu-sync-data-etcd/src/main/java/org/apache/shenyu/sync/data/etcd/EtcdClient.java`
 #### Snippet
 ```java
-                file = file.substring(i + 1);
-            }
-            while (file.length() > 0 && !Character.isDigit(file.charAt(0))) {
-                i = file.indexOf("-");
-                if (i < 0) {
+        ByteSequence prefixByteSequence = bytesOf(prefix);
+        GetOption getOption = GetOption.newBuilder()
+                .withPrefix(prefixByteSequence)
+                .withSortField(GetOption.SortTarget.KEY)
+                .withSortOrder(GetOption.SortOrder.ASCEND)
 ```
 
-### SizeReplaceableByIsEmpty
-`shenyuValidation.length() > 0` can be replaced with '!shenyuValidation.isEmpty()'
-in `shenyu-client/shenyu-client-dubbo/shenyu-client-alibaba-dubbo/src/main/java/org/apache/shenyu/client/alibaba/dubbo/validation/AlibabaDubboClientValidator.java`
+### Deprecation
+'withPrefix(io.etcd.jetcd.ByteSequence)' is deprecated
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/listener/etcd/EtcdClient.java`
 #### Snippet
 ```java
-        String shenyuValidation = url.getParameter("shenyuValidation");
-        ValidatorFactory factory;
-        if (shenyuValidation != null && shenyuValidation.length() > 0) {
-            factory = Validation.byProvider((Class) ReflectUtils.forName(shenyuValidation)).configure().buildValidatorFactory();
-        } else {
+    public void deleteEtcdPathRecursive(final String path) {
+        DeleteOption option = DeleteOption.newBuilder()
+                .withPrefix(ByteSequence.from(path, StandardCharsets.UTF_8))
+                .build();
+        client.getKVClient().delete(ByteSequence.from(path, StandardCharsets.UTF_8), option);
 ```
 
-### SizeReplaceableByIsEmpty
-`shenyuValidation.length() > 0` can be replaced with '!shenyuValidation.isEmpty()'
-in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/validation/ApacheDubboClientValidator.java`
+### Deprecation
+'withPrefix(io.etcd.jetcd.ByteSequence)' is deprecated
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/listener/etcd/EtcdClient.java`
 #### Snippet
 ```java
-        String shenyuValidation = url.getParameter("shenyuValidation");
-        ValidatorFactory factory;
-        if (shenyuValidation != null && shenyuValidation.length() > 0) {
-            factory = Validation.byProvider((Class) ReflectUtils.forName(shenyuValidation)).configure().buildValidatorFactory();
-        } else {
+        try {
+            GetOption option = GetOption.newBuilder()
+                    .withPrefix(ByteSequence.from(key, StandardCharsets.UTF_8))
+                    .build();
+            List<KeyValue> keyValues = client.getKVClient().get(ByteSequence.from(key, StandardCharsets.UTF_8), option).get().getKvs();
 ```
 
-### SizeReplaceableByIsEmpty
-`this.root.getChildren().size() == 0` can be replaced with 'this.root.getChildren().isEmpty()'
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/trie/ShenyuTrie.java`
+### Deprecation
+'withPrefix(io.etcd.jetcd.ByteSequence)' is deprecated
+in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-etcd/src/main/java/org/apache/shenyu/register/client/server/etcd/client/EtcdClient.java`
 #### Snippet
 ```java
-     */
-    public boolean isEmpty() {
-        return this.root.getChildren().size() == 0
-                && this.root.getPathVariablesSet().size() == 0
-                && Objects.isNull(this.root.getPathVariableNode());
+        Watch.Listener listener = watch(exitSignSupplier, storeKey, consumer);
+        WatchOption option = WatchOption.newBuilder()
+                .withPrefix(ByteSequence.from(key, StandardCharsets.UTF_8))
+                .build();
+        Watch.Watcher watch = client.getWatchClient().watch(ByteSequence.from(key, StandardCharsets.UTF_8), option, listener);
 ```
 
-### SizeReplaceableByIsEmpty
-`this.root.getPathVariablesSet().size() == 0` can be replaced with 'this.root.getPathVariablesSet().isEmpty()'
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/trie/ShenyuTrie.java`
+### Deprecation
+'withPrefix(io.etcd.jetcd.ByteSequence)' is deprecated
+in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-etcd/src/main/java/org/apache/shenyu/register/client/server/etcd/client/EtcdClient.java`
 #### Snippet
 ```java
-    public boolean isEmpty() {
-        return this.root.getChildren().size() == 0
-                && this.root.getPathVariablesSet().size() == 0
-                && Objects.isNull(this.root.getPathVariableNode());
-    }
+        KV kv = client.getKVClient();
+        ByteSequence storePrefix = ByteSequence.from(prefix, StandardCharsets.UTF_8);
+        GetOption option = GetOption.newBuilder().withKeysOnly(true).withPrefix(storePrefix).build();
+        GetResponse response = kv.get(storePrefix, option).get();
+        return response.getKvs().stream()
 ```
 
 ## RuleId[id=UnnecessaryReturn]
+### UnnecessaryReturn
+`return` is unnecessary as the last statement in a 'void' method
+in `shenyu-plugin/shenyu-plugin-tars/src/main/java/org/apache/shenyu/plugin/tars/cache/ApplicationConfigCache.java`
+#### Snippet
+```java
+                return;
+            default:
+                return;
+        }
+    }
+```
+
 ### UnnecessaryReturn
 `return` is unnecessary as the last statement in a 'void' method
 in `shenyu-plugin/shenyu-plugin-sofa/src/main/java/org/apache/shenyu/plugin/sofa/cache/ApplicationConfigCache.java`
@@ -517,16 +3207,17 @@ in `shenyu-plugin/shenyu-plugin-sofa/src/main/java/org/apache/shenyu/plugin/sofa
     }
 ```
 
-### UnnecessaryReturn
-`return` is unnecessary as the last statement in a 'void' method
-in `shenyu-plugin/shenyu-plugin-tars/src/main/java/org/apache/shenyu/plugin/tars/cache/ApplicationConfigCache.java`
+## RuleId[id=SimplifiableConditionalExpression]
+### SimplifiableConditionalExpression
+`Objects.isNull(jsonObject.get("type")) ? false : "array".equals(jsonObject.get("type").getAsString())` can be simplified to '!Objects.isNull(jsonObject.get("type")) \&\& "array".equals(jsonObject.get("type").getAsString())'
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/manager/impl/SwaggerDocParser.java`
 #### Snippet
 ```java
-                return;
-            default:
-                return;
-        }
-    }
+    private RefInfo getRefInfo(final JsonObject jsonObject) {
+        JsonElement refElement;
+        boolean isArray = Objects.isNull(jsonObject.get("type")) ? false : "array".equals(jsonObject.get("type").getAsString());
+        if (isArray) {
+            refElement = jsonObject.getAsJsonObject("items").get("$ref");
 ```
 
 ## RuleId[id=SillyAssignment]
@@ -542,2406 +3233,101 @@ in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-common/src/main/ja
 
 ```
 
-## RuleId[id=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends ShenyuRequestLog`
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-tencent-cls/src/main/java/org/apache/shenyu/plugin/tencent/cls/client/TencentClsLogCollectClient.java`
-#### Snippet
-```java
-     */
-    @Override
-    public void consume0(@NonNull final List<ShenyuRequestLog> logs) {
-        logs.forEach(this::sendLog);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends AnnotatedParameterProcessor`
-in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/proxy/ShenyuClientMethodHandler.java`
-#### Snippet
-```java
-                                     final RequestTemplate requestTemplate,
-                                     final ShenyuSdkClient shenyuHttpClient,
-                                     final Map<Class<? extends Annotation>, AnnotatedParameterProcessor> annotatedArgumentProcessors) {
-        this.shenyuClient = shenyuClient;
-        this.requestTemplate = requestTemplate;
-```
-
-### BoundedWildcard
-Can generalize to `? extends URIRegisterDTO`
-in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-zookeeper/src/main/java/org/apache/shenyu/register/client/server/zookeeper/ZookeeperClientServerRegisterRepository.java`
-#### Snippet
-```java
-    }
-
-    private void publishRegisterURI(final List<URIRegisterDTO> registerDTOList) {
-        publisher.publish(registerDTOList);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends AnnotatedParameterProcessor`
-in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/proxy/ShenyuClientInvocationHandler.java`
-#### Snippet
-```java
-
-    private Map<Class<? extends Annotation>, AnnotatedParameterProcessor> toAnnotatedArgumentProcessorMap(
-            final Collection<AnnotatedParameterProcessor> processors) {
-        Map<Class<? extends Annotation>, AnnotatedParameterProcessor> result = new HashMap<>();
-        for (AnnotatedParameterProcessor processor : processors) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ShenyuRequestLog`
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/main/java/org/apache/shenyu/plugin/aliyun/sls/client/AliyunSlsLogCollectClient.java`
-#### Snippet
-```java
-     */
-    @Override
-    public void consume0(@NonNull final List<ShenyuRequestLog> logs) {
-        logs.forEach(this::sendLog);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends RuleData`
-in `shenyu-sync-data-center/shenyu-sync-data-http/src/main/java/org/apache/shenyu/sync/data/http/refresh/RuleDataRefresh.java`
-#### Snippet
-```java
-
-    @Override
-    protected void refresh(final List<RuleData> data) {
-        if (CollectionUtils.isEmpty(data)) {
-            LOG.info("clear all rule cache, old cache");
-```
-
-### BoundedWildcard
-Can generalize to `? extends PluginData`
-in `shenyu-sync-data-center/shenyu-sync-data-http/src/main/java/org/apache/shenyu/sync/data/http/refresh/PluginDataRefresh.java`
-#### Snippet
-```java
-
-    @Override
-    protected void refresh(final List<PluginData> data) {
-        pluginDataSubscriber.refreshPluginDataAll();
-        if (CollectionUtils.isEmpty(data)) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends MetaDataSubscriber`
-in `shenyu-sync-data-center/shenyu-sync-data-http/src/main/java/org/apache/shenyu/sync/data/http/refresh/MetaDataRefresh.java`
-#### Snippet
-```java
-    private final List<MetaDataSubscriber> metaDataSubscribers;
-
-    public MetaDataRefresh(final List<MetaDataSubscriber> metaDataSubscribers) {
-        this.metaDataSubscribers = metaDataSubscribers;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends MetaData`
-in `shenyu-sync-data-center/shenyu-sync-data-http/src/main/java/org/apache/shenyu/sync/data/http/refresh/MetaDataRefresh.java`
-#### Snippet
-```java
-
-    @Override
-    protected void refresh(final List<MetaData> data) {
-        if (CollectionUtils.isEmpty(data)) {
-            LOG.info("clear all metaData cache");
-```
-
-### BoundedWildcard
-Can generalize to `? extends AppAuthData`
-in `shenyu-sync-data-center/shenyu-sync-data-http/src/main/java/org/apache/shenyu/sync/data/http/refresh/AppAuthDataRefresh.java`
-#### Snippet
-```java
-
-    @Override
-    protected void refresh(final List<AppAuthData> data) {
-        if (CollectionUtils.isEmpty(data)) {
-            LOG.info("clear all appAuth data cache");
-```
-
-### BoundedWildcard
-Can generalize to `? extends AuthDataSubscriber`
-in `shenyu-sync-data-center/shenyu-sync-data-http/src/main/java/org/apache/shenyu/sync/data/http/refresh/AppAuthDataRefresh.java`
-#### Snippet
-```java
-    private final List<AuthDataSubscriber> authDataSubscribers;
-
-    public AppAuthDataRefresh(final List<AuthDataSubscriber> authDataSubscribers) {
-        this.authDataSubscribers = authDataSubscribers;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends SelectorData`
-in `shenyu-sync-data-center/shenyu-sync-data-http/src/main/java/org/apache/shenyu/sync/data/http/refresh/SelectorDataRefresh.java`
-#### Snippet
-```java
-
-    @Override
-    protected void refresh(final List<SelectorData> data) {
-        if (CollectionUtils.isEmpty(data)) {
-            LOG.info("clear all selector cache, old cache");
-```
-
-### BoundedWildcard
-Can generalize to `? extends ShenyuRequestLog`
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-kafka/src/main/java/org/apache/shenyu/plugin/logging/kafka/client/KafkaLogCollectClient.java`
-#### Snippet
-```java
-     */
-    @Override
-    public void consume0(@NonNull final List<ShenyuRequestLog> logs) {
-        logs.forEach(log -> {
-            String logTopic = StringUtils.defaultIfBlank(LogCollectConfigUtils.getTopic(log.getPath(), apiTopicMap), topic);
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-consul/src/main/java/org/apache/shenyu/register/client/server/consul/ShenyuConsulConfigWatch.java`
-#### Snippet
-```java
-    }
-
-    private Map<String, GetValue> extractGetValue(final Response<List<GetValue>> response) {
-        Map<String, GetValue> valueMap = new HashMap<>();
-        List<GetValue> values = response.getValue();
-```
-
-### BoundedWildcard
-Can generalize to `? extends URIRegisterDTO`
-in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-etcd/src/main/java/org/apache/shenyu/register/client/server/etcd/EtcdClientServerRegisterRepository.java`
-#### Snippet
-```java
-    }
-
-    private void publishURI(final List<URIRegisterDTO> registerDTOList) {
-        publisher.publish(registerDTOList);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super Throwable`
-in `shenyu-plugin/shenyu-plugin-resilience4j/src/main/java/org/apache/shenyu/plugin/resilience4j/executor/RateLimiterExecutor.java`
-#### Snippet
-```java
-
-    @Override
-    public <T> Mono<T> run(final Mono<T> toRun, final Function<Throwable, Mono<T>> fallback, final Resilience4JConf conf) {
-        RateLimiter rateLimiter = Resilience4JRegistryFactory.rateLimiter(conf.getId(), conf.getRateLimiterConfig());
-        Mono<T> to = toRun.transformDeferred(RateLimiterOperator.of(rateLimiter));
-```
-
-### BoundedWildcard
-Can generalize to `? extends Mono`
-in `shenyu-plugin/shenyu-plugin-resilience4j/src/main/java/org/apache/shenyu/plugin/resilience4j/executor/RateLimiterExecutor.java`
-#### Snippet
-```java
-
-    @Override
-    public <T> Mono<T> run(final Mono<T> toRun, final Function<Throwable, Mono<T>> fallback, final Resilience4JConf conf) {
-        RateLimiter rateLimiter = Resilience4JRegistryFactory.rateLimiter(conf.getId(), conf.getRateLimiterConfig());
-        Mono<T> to = toRun.transformDeferred(RateLimiterOperator.of(rateLimiter));
-```
-
-### BoundedWildcard
-Can generalize to `? super Event`
-in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-etcd/src/main/java/org/apache/shenyu/register/client/server/etcd/client/EtcdClient.java`
-#### Snippet
-```java
-
-    private Watch.Listener watch(final Supplier<Boolean> exitSignSupplier, final ByteSequence storeKey,
-                                 final BiConsumer<Event, Node> consumer) {
-        return Watch.listener(response -> {
-            while (!exitSignSupplier.get()) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Node`
-in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-etcd/src/main/java/org/apache/shenyu/register/client/server/etcd/client/EtcdClient.java`
-#### Snippet
-```java
-
-    private Watch.Listener watch(final Supplier<Boolean> exitSignSupplier, final ByteSequence storeKey,
-                                 final BiConsumer<Event, Node> consumer) {
-        return Watch.listener(response -> {
-            while (!exitSignSupplier.get()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends DivideUpstream`
-in `shenyu-plugin/shenyu-plugin-springcloud/src/main/java/org/apache/shenyu/plugin/springcloud/handler/SpringCloudPluginDataHandler.java`
-#### Snippet
-```java
-    }
-
-    private List<Upstream> convertUpstreamList(final List<DivideUpstream> upstreamList) {
-        return upstreamList.stream().map(u -> Upstream.builder()
-                .protocol(u.getProtocol())
-```
-
-### BoundedWildcard
-Can generalize to `? extends SelectorData`
-in `shenyu-sync-data-center/shenyu-sync-data-websocket/src/main/java/org/apache/shenyu/plugin/sync/data/websocket/handler/SelectorDataHandler.java`
-#### Snippet
-```java
-
-    @Override
-    protected void doUpdate(final List<SelectorData> dataList) {
-        dataList.forEach(pluginDataSubscriber::onSelectorSubscribe);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends SelectorData`
-in `shenyu-sync-data-center/shenyu-sync-data-websocket/src/main/java/org/apache/shenyu/plugin/sync/data/websocket/handler/SelectorDataHandler.java`
-#### Snippet
-```java
-
-    @Override
-    protected void doDelete(final List<SelectorData> dataList) {
-        dataList.forEach(pluginDataSubscriber::unSelectorSubscribe);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends RuleData`
-in `shenyu-sync-data-center/shenyu-sync-data-websocket/src/main/java/org/apache/shenyu/plugin/sync/data/websocket/handler/RuleDataHandler.java`
-#### Snippet
-```java
-
-    @Override
-    protected void doUpdate(final List<RuleData> dataList) {
-        dataList.forEach(pluginDataSubscriber::onRuleSubscribe);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends RuleData`
-in `shenyu-sync-data-center/shenyu-sync-data-websocket/src/main/java/org/apache/shenyu/plugin/sync/data/websocket/handler/RuleDataHandler.java`
-#### Snippet
-```java
-
-    @Override
-    protected void doDelete(final List<RuleData> dataList) {
-        dataList.forEach(pluginDataSubscriber::unRuleSubscribe);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends MetaData`
-in `shenyu-sync-data-center/shenyu-sync-data-websocket/src/main/java/org/apache/shenyu/plugin/sync/data/websocket/handler/MetaDataHandler.java`
-#### Snippet
-```java
-
-    @Override
-    protected void doDelete(final List<MetaData> dataList) {
-        dataList.forEach(metaData -> metaDataSubscribers.forEach(metaDataSubscriber -> metaDataSubscriber.unSubscribe(metaData)));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends MetaData`
-in `shenyu-sync-data-center/shenyu-sync-data-websocket/src/main/java/org/apache/shenyu/plugin/sync/data/websocket/handler/MetaDataHandler.java`
-#### Snippet
-```java
-
-    @Override
-    protected void doUpdate(final List<MetaData> dataList) {
-        dataList.forEach(metaData -> metaDataSubscribers.forEach(metaDataSubscriber -> metaDataSubscriber.onSubscribe(metaData)));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends MetaData`
-in `shenyu-sync-data-center/shenyu-sync-data-websocket/src/main/java/org/apache/shenyu/plugin/sync/data/websocket/handler/MetaDataHandler.java`
-#### Snippet
-```java
-
-    @Override
-    protected void doRefresh(final List<MetaData> dataList) {
-        metaDataSubscribers.forEach(MetaDataSubscriber::refresh);
-        dataList.forEach(metaData -> metaDataSubscribers.forEach(metaDataSubscriber -> metaDataSubscriber.onSubscribe(metaData)));
-```
-
-### BoundedWildcard
-Can generalize to `? extends MetaDataSubscriber`
-in `shenyu-sync-data-center/shenyu-sync-data-websocket/src/main/java/org/apache/shenyu/plugin/sync/data/websocket/handler/MetaDataHandler.java`
-#### Snippet
-```java
-    private final List<MetaDataSubscriber> metaDataSubscribers;
-
-    public MetaDataHandler(final List<MetaDataSubscriber> metaDataSubscribers) {
-        this.metaDataSubscribers = metaDataSubscribers;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super Throwable`
-in `shenyu-plugin/shenyu-plugin-resilience4j/src/main/java/org/apache/shenyu/plugin/resilience4j/executor/CombinedExecutor.java`
-#### Snippet
-```java
-
-    @Override
-    public <T> Mono<T> run(final Mono<T> run, final Function<Throwable, Mono<T>> fallback, final Resilience4JConf resilience4JConf) {
-        RateLimiter rateLimiter = Resilience4JRegistryFactory.rateLimiter(resilience4JConf.getId(), resilience4JConf.getRateLimiterConfig());
-        CircuitBreaker circuitBreaker = Resilience4JRegistryFactory.circuitBreaker(resilience4JConf.getId(), resilience4JConf.getCircuitBreakerConfig());
-```
-
-### BoundedWildcard
-Can generalize to `? extends Mono`
-in `shenyu-plugin/shenyu-plugin-resilience4j/src/main/java/org/apache/shenyu/plugin/resilience4j/executor/CombinedExecutor.java`
-#### Snippet
-```java
-
-    @Override
-    public <T> Mono<T> run(final Mono<T> run, final Function<Throwable, Mono<T>> fallback, final Resilience4JConf resilience4JConf) {
-        RateLimiter rateLimiter = Resilience4JRegistryFactory.rateLimiter(resilience4JConf.getId(), resilience4JConf.getRateLimiterConfig());
-        CircuitBreaker circuitBreaker = Resilience4JRegistryFactory.circuitBreaker(resilience4JConf.getId(), resilience4JConf.getCircuitBreakerConfig());
-```
-
-### BoundedWildcard
-Can generalize to `? extends AppAuthData`
-in `shenyu-sync-data-center/shenyu-sync-data-websocket/src/main/java/org/apache/shenyu/plugin/sync/data/websocket/handler/AuthDataHandler.java`
-#### Snippet
-```java
-
-    @Override
-    protected void doRefresh(final List<AppAuthData> dataList) {
-        authDataSubscribers.forEach(AuthDataSubscriber::refresh);
-        dataList.forEach(appAuthData -> authDataSubscribers.forEach(authDataSubscriber -> authDataSubscriber.onSubscribe(appAuthData)));
-```
-
-### BoundedWildcard
-Can generalize to `? extends AppAuthData`
-in `shenyu-sync-data-center/shenyu-sync-data-websocket/src/main/java/org/apache/shenyu/plugin/sync/data/websocket/handler/AuthDataHandler.java`
-#### Snippet
-```java
-
-    @Override
-    protected void doDelete(final List<AppAuthData> dataList) {
-        dataList.forEach(appAuthData -> authDataSubscribers.forEach(authDataSubscriber -> authDataSubscriber.unSubscribe(appAuthData)));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends AppAuthData`
-in `shenyu-sync-data-center/shenyu-sync-data-websocket/src/main/java/org/apache/shenyu/plugin/sync/data/websocket/handler/AuthDataHandler.java`
-#### Snippet
-```java
-
-    @Override
-    protected void doUpdate(final List<AppAuthData> dataList) {
-        dataList.forEach(appAuthData -> authDataSubscribers.forEach(authDataSubscriber -> authDataSubscriber.onSubscribe(appAuthData)));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends AuthDataSubscriber`
-in `shenyu-sync-data-center/shenyu-sync-data-websocket/src/main/java/org/apache/shenyu/plugin/sync/data/websocket/handler/AuthDataHandler.java`
-#### Snippet
-```java
-    private final List<AuthDataSubscriber> authDataSubscribers;
-
-    public AuthDataHandler(final List<AuthDataSubscriber> authDataSubscribers) {
-        this.authDataSubscribers = authDataSubscribers;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends PluginData`
-in `shenyu-sync-data-center/shenyu-sync-data-websocket/src/main/java/org/apache/shenyu/plugin/sync/data/websocket/handler/PluginDataHandler.java`
-#### Snippet
-```java
-
-    @Override
-    protected void doDelete(final List<PluginData> dataList) {
-        dataList.forEach(pluginDataSubscriber::unSubscribe);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends PluginData`
-in `shenyu-sync-data-center/shenyu-sync-data-websocket/src/main/java/org/apache/shenyu/plugin/sync/data/websocket/handler/PluginDataHandler.java`
-#### Snippet
-```java
-
-    @Override
-    protected void doUpdate(final List<PluginData> dataList) {
-        dataList.forEach(pluginDataSubscriber::onSubscribe);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super L`
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-common/src/main/java/org/apache/shenyu/plugin/logging/common/body/LoggingServerHttpResponse.java`
-#### Snippet
-```java
-     */
-    public LoggingServerHttpResponse(final ServerHttpResponse delegate, final L logInfo,
-                                     final LogCollector<L> logCollector, final boolean desensitized,
-                                     final Set<String> keyWordSet, final String dataDesensitizeAlg) {
-        super(delegate);
-```
-
-### BoundedWildcard
-Can generalize to `? super ServerWebExchangeMatcher`
-in `shenyu-plugin/shenyu-plugin-oauth2/src/main/java/org/apache/shenyu/plugin/oauth2/filter/OAuth2PreFilter.java`
-#### Snippet
-```java
-    private final List<ServerWebExchangeMatcher> matchers;
-
-    public OAuth2PreFilter(final List<ServerWebExchangeMatcher> matchers) {
-        this.matchers = matchers;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends MetaDataSubscriber`
-in `shenyu-sync-data-center/shenyu-sync-data-consul/src/main/java/org/apache/shenyu/sync/data/consul/handler/ConsulCacheHandler.java`
-#### Snippet
-```java
-
-    public ConsulCacheHandler(final PluginDataSubscriber pluginDataSubscriber,
-                              final List<MetaDataSubscriber> metaDataSubscribers,
-                              final List<AuthDataSubscriber> authDataSubscribers) {
-        this.pluginDataSubscriber = pluginDataSubscriber;
-```
-
-### BoundedWildcard
-Can generalize to `? extends AuthDataSubscriber`
-in `shenyu-sync-data-center/shenyu-sync-data-consul/src/main/java/org/apache/shenyu/sync/data/consul/handler/ConsulCacheHandler.java`
-#### Snippet
-```java
-    public ConsulCacheHandler(final PluginDataSubscriber pluginDataSubscriber,
-                              final List<MetaDataSubscriber> metaDataSubscribers,
-                              final List<AuthDataSubscriber> authDataSubscribers) {
-        this.pluginDataSubscriber = pluginDataSubscriber;
-        this.metaDataSubscribers = metaDataSubscribers;
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/model/page/PageResultUtils.java`
-#### Snippet
-```java
-     * @return the common pager
-     */
-    public static <T> CommonPager<T> result(final PageParameter pageParameter, final Supplier<Integer> countSupplier, final Supplier<List<T>> listSupplier) {
-        Integer count = countSupplier.get();
-        if (Objects.nonNull(count) && count > 0) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/model/page/PageResultUtils.java`
-#### Snippet
-```java
-     * @return the common pager
-     */
-    public static <T> CommonPager<T> result(final PageParameter pageParameter, final Supplier<List<T>> listSupplier) {
-        return new CommonPager<>(pageParameter, listSupplier.get());
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/ListUtil.java`
-#### Snippet
-```java
-     * @return list1
-     */
-    public static <T> List<T> merge(final List<T> list1, final List<T> list2) {
-        list1.addAll(list2);
-        return list1;
-```
-
-### BoundedWildcard
-Can generalize to `? extends R`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/ListUtil.java`
-#### Snippet
-```java
-     * @return list
-     */
-    public static <R> R findFirst(final List<R> list, final Function<R, Boolean> function) {
-        if (CollectionUtils.isEmpty(list)) {
-            return null;
-```
-
-### BoundedWildcard
-Can generalize to `? super R`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/ListUtil.java`
-#### Snippet
-```java
-     * @return list
-     */
-    public static <R> R findFirst(final List<R> list, final Function<R, Boolean> function) {
-        if (CollectionUtils.isEmpty(list)) {
-            return null;
-```
-
-### BoundedWildcard
-Can generalize to `? extends U`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/ListUtil.java`
-#### Snippet
-```java
-     * @return list
-     */
-    public static <K, U> Map<K, U> toMap(final Collection<U> list, final Function<? super U, ? extends K> function) {
-        return toMap(list, function, Function.identity());
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/ListUtil.java`
-#### Snippet
-```java
-     * @return collection1
-     */
-    public static <T> Set<T> mergeSet(final Set<T> set1, final Set<T> set2) {
-        set1.addAll(set2);
-        return set1;
-```
-
-### BoundedWildcard
-Can generalize to `? extends U`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/ListUtil.java`
-#### Snippet
-```java
-     * @return list
-     */
-    public static <K, U> Map<K, List<U>> groupBy(final Collection<U> list, final Function<? super U, ? extends K> function) {
-        if (CollectionUtils.isEmpty(list)) {
-            return Collections.emptyMap();
-```
-
-### BoundedWildcard
-Can generalize to `? extends SelectorHandleConverter`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/config/ShenyuAdminConfiguration.java`
-#### Snippet
-```java
-     */
-    @Bean
-    public SelectorHandleConverterFactor selectorHandleConverterFactor(final List<SelectorHandleConverter> converterList) {
-        Map<String, SelectorHandleConverter> converterMap = converterList.stream().collect(Collectors.toMap(SelectorHandleConverter::pluginName, Function.identity()));
-        return new SelectorHandleConverterFactor(converterMap);
-```
-
-### BoundedWildcard
-Can generalize to `? extends ShenyuClientRegisterService`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/config/RegisterCenterConfiguration.java`
-#### Snippet
-```java
-    @Bean(destroyMethod = "close")
-    public ShenyuClientServerRegisterRepository shenyuClientServerRegisterRepository(final ShenyuRegisterCenterConfig shenyuRegisterCenterConfig,
-                                                                               final List<ShenyuClientRegisterService> shenyuClientRegisterService) {
-        String registerType = shenyuRegisterCenterConfig.getRegisterType();
-        ShenyuClientServerRegisterRepository registerRepository = ExtensionLoader.getExtensionLoader(ShenyuClientServerRegisterRepository.class).getJoin(registerType);
-```
-
-### BoundedWildcard
-Can generalize to `? extends ResourceVO`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/ResourceUtil.java`
-#### Snippet
-```java
-     * @return {@linkplain List} menu infos.
-     */
-    public static List<PermissionMenuVO.MenuInfo> buildMenu(final List<ResourceVO> metaList) {
-        
-        List<PermissionMenuVO.MenuInfo> retList = new ArrayList<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Q`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/PageService.java`
-#### Snippet
-```java
-     * @return list
-     */
-    default PageInfo<R> searchByPage(final PageCondition<Q> pageCondition) {
-        doConditionPreProcessing(pageCondition.getCondition());
-        PageHelper.startPage(pageCondition.getPageNum(), pageCondition.getPageSize());
-```
-
-### BoundedWildcard
-Can generalize to `? extends ResourceVO`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/PermissionServiceImpl.java`
-#### Snippet
-```java
-     * @return {@linkplain List} Auth perms
-     */
-    private List<AuthPerm> getAuthPerm(final List<ResourceVO> resourceVOList) {
-        return resourceVOList.stream()
-                .filter(item -> item.getResourceType().equals(ResourceTypeConstants.MENU_TYPE_2))
-```
-
-### BoundedWildcard
-Can generalize to `? extends ResourceVO`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/RoleServiceImpl.java`
-#### Snippet
-```java
-     * @return list of {@linkplain ResourceInfo}
-     */
-    private List<ResourceInfo> getTreeModelList(final List<ResourceVO> metaList) {
-        final List<ResourceInfo> retList = new ArrayList<>();
-        if (CollectionUtils.isEmpty(metaList)) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends SelectorConditionDTO`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/SelectorServiceImpl.java`
-#### Snippet
-```java
-    }
-    
-    private void createCondition(final String selectorId, final List<SelectorConditionDTO> selectorConditions) {
-        for (SelectorConditionDTO condition : selectorConditions) {
-            condition.setSelectorId(selectorId);
-```
-
-### BoundedWildcard
-Can generalize to `? extends SelectorConditionDTO`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/SelectorServiceImpl.java`
-#### Snippet
-```java
-    }
-    
-    private void publishEvent(final SelectorDO selectorDO, final List<SelectorConditionDTO> selectorConditions) {
-        PluginDO pluginDO = pluginMapper.selectById(selectorDO.getPluginId());
-        List<ConditionData> conditionDataList = ListUtil.map(selectorConditions, ConditionTransfer.INSTANCE::mapToSelectorDTO);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/HttpUtils.java`
-#### Snippet
-```java
-     * @param cookieStore cookieStore
-     */
-    public void setCookieStore(final Map<String, List<Cookie>> cookieStore) {
-        this.cookieStore = cookieStore;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends UploadFile`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/HttpUtils.java`
-#### Snippet
-```java
-     */
-    public Response requestFile(final String url, final Map<String, ?> form, final Map<String, String> header,
-        final List<UploadFile> files)
-        throws IOException {
-        MultipartBody.Builder bodyBuilder = new MultipartBody.Builder();
-```
-
-### BoundedWildcard
-Can generalize to `? extends UpstreamInstance`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/manager/impl/ServiceDocManagerImpl.java`
-#### Snippet
-```java
-
-    @Override
-    public void pullApiDocument(final Set<UpstreamInstance> currentServices) {
-        currentServices.forEach(this::pullApiDocument);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/TagServiceImpl.java`
-#### Snippet
-```java
-     * @param id id
-     */
-    private void recurseUpdateTag(final Map<String, TagDO> allData, final Map<String, List<String>> relationMap, final String id) {
-        if (CollectionUtils.isEmpty(relationMap.get(id))) {
-            return;
-```
-
-### BoundedWildcard
-Can generalize to `? super DocInfo`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/manager/impl/DocManagerImpl.java`
-#### Snippet
-```java
-     */
-    @Override
-    public void addDocInfo(final String clusterName, final String docInfoJson, final Consumer<DocInfo> callback) {
-        if (StringUtils.isEmpty(docInfoJson)) {
-            return;
-```
-
-### BoundedWildcard
-Can generalize to `? extends DocItem`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/manager/impl/SwaggerDocParser.java`
-#### Snippet
-```java
-    }
-
-    private int getMuduleOrder(final List<DocItem> items) {
-        if (CollectionUtils.isEmpty(items)) {
-            return Integer.MAX_VALUE;
-```
-
-### BoundedWildcard
-Can generalize to `? extends UpstreamInstance`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/manager/impl/LoadServiceDocEntryImpl.java`
-#### Snippet
-```java
-    }
-
-    private UpstreamInstance getClusterLastUpdateInstance(final List<UpstreamInstance> allInstances) {
-        if (CollectionUtils.isEmpty(allInstances)) {
-            return null;
-```
-
-### BoundedWildcard
-Can generalize to `? extends SelectorData`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/manager/impl/LoadServiceDocEntryImpl.java`
-#### Snippet
-```java
-    }
-
-    private List<UpstreamInstance> getLastUpdateInstanceList(final List<SelectorData> changedList) {
-        if (CollectionUtils.isEmpty(changedList)) {
-            LOG.info("getLastUpdateInstanceList, changedList is empty.");
-```
-
-### BoundedWildcard
-Can generalize to `? extends URIRegisterDTO`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/register/ShenyuClientRegisterTarsServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    private List<TarsUpstream> buildTarsUpstreamList(final List<URIRegisterDTO> uriList) {
-        return uriList.stream().map(dto -> CommonUpstreamUtils.buildDefaultTarsUpstream(dto.getHost(), dto.getPort()))
-                .collect(Collectors.toCollection(CopyOnWriteArrayList::new));
-```
-
-### BoundedWildcard
-Can generalize to `? extends URIRegisterDTO`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/register/ShenyuClientRegisterWebSocketServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    private List<WebSocketUpstream> buildWebSocketUpstreamList(final List<URIRegisterDTO> uriList) {
-        return uriList.stream()
-            .map(dto -> CommonUpstreamUtils.buildWebSocketUpstream(dto.getProtocol(), dto.getHost(), dto.getPort()))
-```
-
-### BoundedWildcard
-Can generalize to `? extends CommonUpstream`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/converter/SpringCloudSelectorHandleConverter.java`
-#### Snippet
-```java
-    
-    @Override
-    protected Object doHandle(final String handle, final List<CommonUpstream> aliveList) {
-        SpringCloudSelectorHandle selectorHandle = convert(handle);
-        List<DivideUpstream> existList = updateStatusAndFilter(selectorHandle.getDivideUpstreams(), aliveList);
-```
-
-### BoundedWildcard
-Can generalize to `? extends CommonUpstream`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/converter/DubboSelectorHandleConverter.java`
-#### Snippet
-```java
-    
-    @Override
-    protected Object doHandle(final String handle, final List<CommonUpstream> aliveList) {
-        List<DubboUpstream> existList = updateStatusAndFilter(convert(handle), aliveList);
-        aliveList.stream().filter(alive -> existList.stream().noneMatch(valid -> valid.getUpstreamUrl().equals(alive.getUpstreamUrl())))
-```
-
-### BoundedWildcard
-Can generalize to `? extends URIRegisterDTO`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/register/ShenyuClientRegisterDubboServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    private List<DubboUpstream> buildDubboUpstreamList(final List<URIRegisterDTO> uriList) {
-        return uriList.stream()
-                .map(dto -> CommonUpstreamUtils.buildDefaultDubboUpstream(dto.getHost(), dto.getPort()))
-```
-
-### BoundedWildcard
-Can generalize to `? extends URIRegisterDTO`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/register/ShenyuClientRegisterGrpcServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    private List<GrpcUpstream> buildGrpcUpstreamList(final List<URIRegisterDTO> uriList) {
-        return uriList.stream()
-                .map(dto -> CommonUpstreamUtils.buildDefaultGrpcUpstream(dto.getHost(), dto.getPort()))
-```
-
-### BoundedWildcard
-Can generalize to `? extends URIRegisterDTO`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/register/ShenyuClientRegisterDivideServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    private List<DivideUpstream> buildDivideUpstreamList(final List<URIRegisterDTO> uriList) {
-        return uriList.stream()
-                .map(dto -> CommonUpstreamUtils.buildDivideUpstream(dto.getProtocol(), dto.getHost(), dto.getPort()))
-```
-
-### BoundedWildcard
-Can generalize to `? extends URIRegisterDTO`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/register/AbstractShenyuClientRegisterServiceImpl.java`
-#### Snippet
-```java
-     */
-    @Override
-    public String doRegisterURI(final String selectorName, final List<URIRegisterDTO> uriList) {
-        if (CollectionUtils.isEmpty(uriList)) {
-            return "";
-```
-
-### BoundedWildcard
-Can generalize to `? extends SelectorHandleConverter`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/converter/SelectorHandleConverterFactor.java`
-#### Snippet
-```java
-     * @param maps the maps
-     */
-    public SelectorHandleConverterFactor(final Map<String, SelectorHandleConverter> maps) {
-        this.maps = maps;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/converter/AbstractSelectorHandleConverter.java`
-#### Snippet
-```java
-     */
-    @Override
-    public <T extends CommonUpstream> List<T> updateStatusAndFilter(final List<T> existList, final List<? extends CommonUpstream> aliveList) {
-        if (CollectionUtils.isEmpty(aliveList) || CollectionUtils.isEmpty(existList)) {
-            return Lists.newArrayList();
-```
-
-### BoundedWildcard
-Can generalize to `? extends CommonUpstream`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/converter/DivideSelectorHandleConverter.java`
-#### Snippet
-```java
-     */
-    @Override
-    protected Object doHandle(final String handle, final List<CommonUpstream> aliveList) {
-        List<DivideUpstream> existList = updateStatusAndFilter(convert(handle), aliveList);
-        aliveList.stream().filter(alive -> existList.stream().noneMatch(valid -> valid.getUpstreamUrl().equals(alive.getUpstreamUrl())))
-```
-
-### BoundedWildcard
-Can generalize to `? extends CommonUpstream`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/converter/GrpcSelectorHandleConverter.java`
-#### Snippet
-```java
-    
-    @Override
-    protected Object doHandle(final String handle, final List<CommonUpstream> aliveList) {
-        List<GrpcUpstream> existList = updateStatusAndFilter(convert(handle), aliveList);
-        aliveList.stream().filter(alive -> existList.stream().noneMatch(valid -> valid.getUpstreamUrl().equals(alive.getUpstreamUrl())))
-```
-
-### BoundedWildcard
-Can generalize to `? extends CommonUpstream`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/converter/TarsSelectorHandleConverter.java`
-#### Snippet
-```java
-     */
-    @Override
-    protected Object doHandle(final String handle, final List<CommonUpstream> aliveList) {
-        List<TarsUpstream> existList = updateStatusAndFilter(convert(handle), aliveList);
-        aliveList.stream().filter(alive -> existList.stream().noneMatch(valid -> valid.getUpstreamUrl().equals(alive.getUpstreamUrl())))
-```
-
-### BoundedWildcard
-Can generalize to `? extends URIRegisterDTO`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/register/ShenyuClientRegisterSpringCloudServiceImpl.java`
-#### Snippet
-```java
-    }
-
-    private List<DivideUpstream> buildDivideUpstreamList(final List<URIRegisterDTO> uriList) {
-        return uriList.stream()
-                .map(dto -> CommonUpstreamUtils.buildDefaultDivideUpstream(dto.getHost(), dto.getPort()))
-```
-
-### BoundedWildcard
-Can generalize to `? extends SelectorData`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/listener/AbstractNodeDataChangedListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void onSelectorChanged(final List<SelectorData> changed, final DataEventTypeEnum eventType) {
-        if (eventType == DataEventTypeEnum.REFRESH && !changed.isEmpty()) {
-            String selectorParentPath = DefaultPathConstants.buildSelectorParentPath(changed.get(0).getPluginName());
-```
-
-### BoundedWildcard
-Can generalize to `? extends AppAuthData`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/listener/AbstractNodeDataChangedListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void onAppAuthChanged(final List<AppAuthData> changed, final DataEventTypeEnum eventType) {
-        for (AppAuthData data : changed) {
-            String appAuthPath = DefaultPathConstants.buildAppAuthPath(data.getAppKey());
-```
-
-### BoundedWildcard
-Can generalize to `? extends RuleData`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/listener/AbstractNodeDataChangedListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void onRuleChanged(final List<RuleData> changed, final DataEventTypeEnum eventType) {
-        if (eventType == DataEventTypeEnum.REFRESH && !changed.isEmpty()) {
-            String selectorParentPath = DefaultPathConstants.buildRuleParentPath(changed.get(0).getPluginName());
-```
-
-### BoundedWildcard
-Can generalize to `? extends PluginData`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/listener/AbstractNodeDataChangedListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void onPluginChanged(final List<PluginData> changed, final DataEventTypeEnum eventType) {
-        for (PluginData data : changed) {
-            String pluginPath = DefaultPathConstants.buildPluginPath(data.getName());
-```
-
-### BoundedWildcard
-Can generalize to `? extends MetaData`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/listener/AbstractNodeDataChangedListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void onMetaDataChanged(final List<MetaData> changed, final DataEventTypeEnum eventType) {
-        for (MetaData data : changed) {
-            try {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ShenyuClientRegisterService`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/disruptor/subscriber/MetadataExecutorSubscriber.java`
-#### Snippet
-```java
-    private final Map<String, ShenyuClientRegisterService> shenyuClientRegisterService;
-
-    public MetadataExecutorSubscriber(final Map<String, ShenyuClientRegisterService> shenyuClientRegisterService) {
-        this.shenyuClientRegisterService = shenyuClientRegisterService;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends MetaDataRegisterDTO`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/disruptor/subscriber/MetadataExecutorSubscriber.java`
-#### Snippet
-```java
-
-    @Override
-    public void executor(final Collection<MetaDataRegisterDTO> metaDataRegisterDTOList) {
-        metaDataRegisterDTOList.forEach(meta -> {
-            Optional.ofNullable(this.shenyuClientRegisterService.get(meta.getRpcType()))
-```
-
-### BoundedWildcard
-Can generalize to `? extends ShenyuClientRegisterService`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/disruptor/subscriber/ApiDocExecutorSubscriber.java`
-#### Snippet
-```java
-    private final Map<String, ShenyuClientRegisterService> shenyuClientRegisterService;
-
-    public ApiDocExecutorSubscriber(final Map<String, ShenyuClientRegisterService> shenyuClientRegisterService) {
-        this.shenyuClientRegisterService = shenyuClientRegisterService;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends ApiDocRegisterDTO`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/disruptor/subscriber/ApiDocExecutorSubscriber.java`
-#### Snippet
-```java
-
-    @Override
-    public void executor(final Collection<ApiDocRegisterDTO> dataList) {
-        dataList.forEach(apiDoc -> Optional.ofNullable(this.shenyuClientRegisterService.get(apiDoc.getRpcType()))
-                .ifPresent(shenyuClientRegisterService -> {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ShenyuClientRegisterService`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/disruptor/subscriber/URIRegisterExecutorSubscriber.java`
-#### Snippet
-```java
-     * @param shenyuClientRegisterService the shenyu client register service
-     */
-    public URIRegisterExecutorSubscriber(final Map<String, ShenyuClientRegisterService> shenyuClientRegisterService) {
-        this.shenyuClientRegisterService = shenyuClientRegisterService;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends URIRegisterDTO`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/disruptor/subscriber/URIRegisterExecutorSubscriber.java`
-#### Snippet
-```java
-    }
-    
-    private Map<String, List<URIRegisterDTO>> buildData(final Collection<URIRegisterDTO> dataList) {
-        Map<String, List<URIRegisterDTO>> resultMap = new HashMap<>(8);
-        for (URIRegisterDTO dto : dataList) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends URIRegisterDTO`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/disruptor/subscriber/URIRegisterExecutorSubscriber.java`
-#### Snippet
-```java
-    
-    @Override
-    public void executor(final Collection<URIRegisterDTO> dataList) {
-        if (CollectionUtils.isEmpty(dataList)) {
-            return;
-```
-
-### BoundedWildcard
-Can generalize to `? extends SelectorData`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/listener/AbstractListDataChangedListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void onSelectorChanged(final List<SelectorData> changed, final DataEventTypeEnum eventType) {
-        updateSelectorMap(getConfig(changeData.getSelectorDataId()));
-        switch (eventType) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends PluginData`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/listener/AbstractListDataChangedListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void onPluginChanged(final List<PluginData> changed, final DataEventTypeEnum eventType) {
-        updatePluginMap(getConfig(changeData.getPluginDataId()));
-        switch (eventType) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends MetaData`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/listener/AbstractListDataChangedListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void onMetaDataChanged(final List<MetaData> changed, final DataEventTypeEnum eventType) {
-        updateMetaDataMap(getConfig(changeData.getMetaDataId()));
-        switch (eventType) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends AppAuthData`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/listener/AbstractListDataChangedListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void onAppAuthChanged(final List<AppAuthData> changed, final DataEventTypeEnum eventType) {
-        updateAuthMap(getConfig(changeData.getAuthDataId()));
-        switch (eventType) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends RuleData`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/listener/AbstractListDataChangedListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void onRuleChanged(final List<RuleData> changed, final DataEventTypeEnum eventType) {
-        updateRuleMap(getConfig(changeData.getRuleDataId()));
-        switch (eventType) {
-```
-
-### BoundedWildcard
-Can generalize to `? super TimerTask`
-in `shenyu-common/src/main/java/org/apache/shenyu/common/timer/TimerTaskList.java`
-#### Snippet
-```java
-     * @param consumer the consumer
-     */
-    public synchronized void foreach(final Consumer<TimerTask> consumer) {
-        TimerTaskEntry entry = root.next;
-        while (entry != root) {
-```
-
-### BoundedWildcard
-Can generalize to `? super TimerTaskEntry`
-in `shenyu-common/src/main/java/org/apache/shenyu/common/timer/TimerTaskList.java`
-#### Snippet
-```java
-     * @param consumer the consumer
-     */
-    synchronized void flush(final Consumer<TimerTaskEntry> consumer) {
-        TimerTaskEntry head = root.next;
-        while (head != root) {
-```
-
-### BoundedWildcard
-Can generalize to `? super E`
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/FreshBeanHolder.java`
-#### Snippet
-```java
-    private volatile O o;
-
-    public FreshBeanHolder(final Function<E, O> function) {
-        this.function = function;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends O`
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/FreshBeanHolder.java`
-#### Snippet
-```java
-    private volatile O o;
-
-    public FreshBeanHolder(final Function<E, O> function) {
-        this.function = function;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/JarDependencyUtils.java`
-#### Snippet
-```java
-     * @param dependencies dependencies
-     */
-    private static void addDependencies(final String typeName, final Set<String> dependencies) {
-        if (!typeName.startsWith("java") && !typeName.startsWith("javax")) {
-            dependencies.add(typeName.replace("/", "."));
-```
-
-### BoundedWildcard
-Can generalize to `? super ReflectiveOperationException`
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/ReflectUtils.java`
-#### Snippet
-```java
-     */
-    public static Object invokeMethod(final Object object, final String method,
-        final Consumer<ReflectiveOperationException> errorCallBack, final Object... args) {
-        try {
-            return MethodUtils.invokeMethod(object, method, args);
-```
-
-### BoundedWildcard
-Can generalize to `? super E`
-in `shenyu-common/src/main/java/org/apache/shenyu/common/concurrent/DiscardOldestPolicy.java`
-#### Snippet
-```java
-
-    @Override
-    public void reject(final E e, final Queue<E> queue) {
-        queue.poll();
-        queue.offer(e);
-```
-
-### BoundedWildcard
-Can generalize to `? extends ReactiveOAuth2AuthorizedClientService`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-oauth2/src/main/java/org/apache/shenyu/springboot/starter/plugin/oauth2/OAuth2PluginConfiguration.java`
-#### Snippet
-```java
-     */
-    @Bean
-    public ShenyuPlugin oAuth2Plugin(final ObjectProvider<ReactiveOAuth2AuthorizedClientService> authorizedClientServiceProvider) {
-        return new OAuth2Plugin(authorizedClientServiceProvider.getObject());
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends StreamObserver`
-in `shenyu-plugin/shenyu-plugin-grpc/src/main/java/org/apache/shenyu/plugin/grpc/proto/CompositeStreamObserver.java`
-#### Snippet
-```java
-    private final ImmutableList<StreamObserver<T>> observers;
-
-    private CompositeStreamObserver(final ImmutableList<StreamObserver<T>> observers) {
-        this.observers = observers;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends ShenyuServiceInstance`
-in `shenyu-plugin/shenyu-plugin-grpc/src/main/java/org/apache/shenyu/plugin/grpc/resolver/ShenyuServiceInstanceLists.java`
-#### Snippet
-```java
-     * @param shenyuServiceInstances the shenyu service instances
-     */
-    public void addShenyuServiceInstances(final List<ShenyuServiceInstance> shenyuServiceInstances) {
-        this.shenyuServiceInstances.addAll(shenyuServiceInstances);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `shenyu-plugin/shenyu-plugin-grpc/src/main/java/org/apache/shenyu/plugin/grpc/loadbalance/AbstractLoadBalancer.java`
-#### Snippet
-```java
-    }
-    
-    private <T> Set<T> setsDifference(final Set<T> a, final Set<T> b) {
-        Set<T> aCopy = new HashSet<>(a);
-        aCopy.removeAll(b);
-```
-
-### BoundedWildcard
-Can generalize to `? extends SubChannelCopy`
-in `shenyu-plugin/shenyu-plugin-grpc/src/main/java/org/apache/shenyu/plugin/grpc/loadbalance/picker/RoundRobinPicker.java`
-#### Snippet
-```java
-
-    @Override
-    protected SubChannelCopy pick(final List<SubChannelCopy> list) {
-        if (CollectionUtils.isEmpty(list)) {
-            return null;
-```
-
-### BoundedWildcard
-Can generalize to `? extends ShenyuServiceInstance`
-in `shenyu-plugin/shenyu-plugin-grpc/src/main/java/org/apache/shenyu/plugin/grpc/resolver/ShenyuNameResolver.java`
-#### Snippet
-```java
-        }
-
-        private boolean needsToUpdateConnections(final List<ShenyuServiceInstance> newInstanceList) {
-            if (!Objects.equals(this.savedInstanceList.size(), newInstanceList.size())) {
-                return true;
-```
-
-### BoundedWildcard
-Can generalize to `? extends MessageWriter`
-in `shenyu-plugin/shenyu-plugin-response/src/main/java/org/apache/shenyu/plugin/response/ResponsePlugin.java`
-#### Snippet
-```java
-     * @param writerMap the writer map
-     */
-    public ResponsePlugin(final Map<String, MessageWriter> writerMap) {
-        this.writerMap = writerMap;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends SubChannelCopy`
-in `shenyu-plugin/shenyu-plugin-grpc/src/main/java/org/apache/shenyu/plugin/grpc/loadbalance/picker/RandomPicker.java`
-#### Snippet
-```java
-    }
-
-    private int getRandomIndexByWeight(final List<SubChannelCopy> list) {
-        final int sumWeight = list.stream().mapToInt(SubChannelCopy::getWeight).sum();
-        if (sumWeight <= 0) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ShenyuRequestLog`
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-pulsar/src/main/java/org/apache/shenyu/plugin/logging/pulsar/client/PulsarLogCollectClient.java`
-#### Snippet
-```java
-
-    @Override
-    public void consume0(@NonNull final List<ShenyuRequestLog> logs) {
-        logs.forEach(log -> producer.sendAsync(toBytes(log)));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends ZookeeperClient`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-zookeeper/src/main/java/org/apache/shenyu/springboot/sync/data/zookeeper/ZookeeperSyncDataConfiguration.java`
-#### Snippet
-```java
-     */
-    @Bean
-    public SyncDataService syncDataService(final ObjectProvider<ZookeeperClient> zookeeperClient, final ObjectProvider<PluginDataSubscriber> pluginSubscriber,
-                                           final ObjectProvider<List<MetaDataSubscriber>> metaSubscribers, final ObjectProvider<List<AuthDataSubscriber>> authSubscribers) {
-        LOGGER.info("you use zookeeper sync shenyu data.......");
-```
-
-### BoundedWildcard
-Can generalize to `? extends PluginDataSubscriber`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-zookeeper/src/main/java/org/apache/shenyu/springboot/sync/data/zookeeper/ZookeeperSyncDataConfiguration.java`
-#### Snippet
-```java
-     */
-    @Bean
-    public SyncDataService syncDataService(final ObjectProvider<ZookeeperClient> zookeeperClient, final ObjectProvider<PluginDataSubscriber> pluginSubscriber,
-                                           final ObjectProvider<List<MetaDataSubscriber>> metaSubscribers, final ObjectProvider<List<AuthDataSubscriber>> authSubscribers) {
-        LOGGER.info("you use zookeeper sync shenyu data.......");
-```
-
-### BoundedWildcard
-Can generalize to `? extends PluginDataSubscriber`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-websocket/src/main/java/org/apache/shenyu/springboot/starter/sync/data/websocket/WebsocketSyncDataConfiguration.java`
-#### Snippet
-```java
-     */
-    @Bean
-    public SyncDataService websocketSyncDataService(final ObjectProvider<WebsocketConfig> websocketConfig, final ObjectProvider<PluginDataSubscriber> pluginSubscriber,
-                                           final ObjectProvider<List<MetaDataSubscriber>> metaSubscribers, final ObjectProvider<List<AuthDataSubscriber>> authSubscribers) {
-        LOGGER.info("you use websocket sync shenyu data.......");
-```
-
-### BoundedWildcard
-Can generalize to `? extends ApplicationEventPublisher`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-gateway/src/main/java/org/apache/shenyu/springboot/starter/gateway/ShenyuConfiguration.java`
-#### Snippet
-```java
-    @Bean
-    public PluginDataSubscriber pluginDataSubscriber(final ObjectProvider<List<PluginDataHandler>> pluginDataHandlerList,
-                                                     final ObjectProvider<ApplicationEventPublisher> eventPublisher,
-                                                     final ShenyuConfig shenyuConfig) {
-        return new CommonPluginDataSubscriber(pluginDataHandlerList.getIfAvailable(Collections::emptyList),
-```
-
-### BoundedWildcard
-Can generalize to `? extends DiscoveryClient`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-springcloud/src/main/java/org/apache/shenyu/springboot/starter/plugin/springcloud/SpringCloudPluginConfiguration.java`
-#### Snippet
-```java
-     */
-    @Bean
-    public ShenyuSpringCloudServiceChooser shenyuSpringCloudLoadBalancerClient(final ObjectProvider<DiscoveryClient> discoveryClient) {
-        return new ShenyuSpringCloudServiceChooser(discoveryClient.getIfAvailable());
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends AbstractRegistrar`>
-in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/register/ClientApiRefreshedEventListener.java`
-#### Snippet
-```java
-    private final ApiBeansExtractor<T> apiBeanExtractor;
-
-    public ClientApiRefreshedEventListener(final List<AbstractRegistrar<ApiBean<T>>> apiBeanRegistrars, final ApiBeansExtractor<T> apiBeanExtractor) {
-
-        this.apiBeanExtractor = apiBeanExtractor;
-```
-
-### BoundedWildcard
-Can generalize to `? super ConstraintViolation`
-in `shenyu-client/shenyu-client-dubbo/shenyu-client-alibaba-dubbo/src/main/java/org/apache/shenyu/client/alibaba/dubbo/validation/AlibabaDubboClientValidator.java`
-#### Snippet
-```java
-    }
-
-    private void validate(final Set<ConstraintViolation<?>> violations, final Object arg, final Class<?>... groups) {
-        if (arg != null && !isPrimitives(arg.getClass())) {
-            if (arg instanceof Object[]) {
-```
-
-### BoundedWildcard
-Can generalize to `? super ConstraintViolation`
-in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/validation/ApacheDubboClientValidator.java`
-#### Snippet
-```java
-    }
-
-    private void validate(final Set<ConstraintViolation<?>> violations, final Object arg, final Class<?>... groups) {
-        if (arg != null && !ReflectUtils.isPrimitives(arg.getClass())) {
-            if (arg instanceof Object[]) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ConsulClient`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-consul/src/main/java/org/apache/shenyu/springboot/sync/data/consul/ConsulSyncDataConfiguration.java`
-#### Snippet
-```java
-     */
-    @Bean
-    public SyncDataService syncDataService(final ObjectProvider<ConsulClient> consulClient,
-                                           final ObjectProvider<ConsulConfig> consulConfig,
-                                           final ObjectProvider<PluginDataSubscriber> pluginSubscriber,
-```
-
-### BoundedWildcard
-Can generalize to `? extends ConsulConfig`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-consul/src/main/java/org/apache/shenyu/springboot/sync/data/consul/ConsulSyncDataConfiguration.java`
-#### Snippet
-```java
-    @Bean
-    public SyncDataService syncDataService(final ObjectProvider<ConsulClient> consulClient,
-                                           final ObjectProvider<ConsulConfig> consulConfig,
-                                           final ObjectProvider<PluginDataSubscriber> pluginSubscriber,
-                                           final ObjectProvider<List<MetaDataSubscriber>> metaSubscribers,
-```
-
-### BoundedWildcard
-Can generalize to `? extends PluginDataSubscriber`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-consul/src/main/java/org/apache/shenyu/springboot/sync/data/consul/ConsulSyncDataConfiguration.java`
-#### Snippet
-```java
-    public SyncDataService syncDataService(final ObjectProvider<ConsulClient> consulClient,
-                                           final ObjectProvider<ConsulConfig> consulConfig,
-                                           final ObjectProvider<PluginDataSubscriber> pluginSubscriber,
-                                           final ObjectProvider<List<MetaDataSubscriber>> metaSubscribers,
-                                           final ObjectProvider<List<AuthDataSubscriber>> authSubscribers) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ConfigService`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-nacos/src/main/java/org/apache/shenyu/springboot/starter/sync/data/nacos/NacosSyncDataConfiguration.java`
-#### Snippet
-```java
-     */
-    @Bean
-    public SyncDataService nacosSyncDataService(final ObjectProvider<ConfigService> configService, final ObjectProvider<PluginDataSubscriber> pluginSubscriber,
-                                           final ObjectProvider<List<MetaDataSubscriber>> metaSubscribers, final ObjectProvider<List<AuthDataSubscriber>> authSubscribers) {
-        LOGGER.info("you use nacos sync shenyu data.......");
-```
-
-### BoundedWildcard
-Can generalize to `? extends PluginDataSubscriber`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-nacos/src/main/java/org/apache/shenyu/springboot/starter/sync/data/nacos/NacosSyncDataConfiguration.java`
-#### Snippet
-```java
-     */
-    @Bean
-    public SyncDataService nacosSyncDataService(final ObjectProvider<ConfigService> configService, final ObjectProvider<PluginDataSubscriber> pluginSubscriber,
-                                           final ObjectProvider<List<MetaDataSubscriber>> metaSubscribers, final ObjectProvider<List<AuthDataSubscriber>> authSubscribers) {
-        LOGGER.info("you use nacos sync shenyu data.......");
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/register/registrar/AbstractRegistrar.java`
-#### Snippet
-```java
-    private final Matcher<T> matcher;
-
-    protected AbstractRegistrar(final Matcher<T> matcher) {
-        this.matcher = matcher;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super ApiBean`.ApiDefinition
-in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/register/registrar/ApiBeanRegistrar.java`
-#### Snippet
-```java
-
-    public ApiBeanRegistrar(final Matcher<ApiBean<T>> matcher,
-                            final AbstractRegistrar<ApiBean<T>.ApiDefinition> apiRegistrar) {
-        super(matcher);
-        this.apiRegistrar = apiRegistrar;
-```
-
-### BoundedWildcard
-Can generalize to `? extends ApiDocRegisterDTO`
-in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/disruptor/subcriber/ShenyuClientApiDocExecutorSubscriber.java`
-#### Snippet
-```java
-
-    @Override
-    public void executor(final Collection<ApiDocRegisterDTO> dataList) {
-        for (ApiDocRegisterDTO apiDocRegisterDTO : dataList) {
-            shenyuClientRegisterRepository.persistApiDoc(apiDocRegisterDTO);
-```
-
-### BoundedWildcard
-Can generalize to `? extends MetaDataRegisterDTO`
-in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/disruptor/subcriber/ShenyuClientMetadataExecutorSubscriber.java`
-#### Snippet
-```java
-    
-    @Override
-    public void executor(final Collection<MetaDataRegisterDTO> metaDataRegisterDTOList) {
-        for (MetaDataRegisterDTO metaDataRegisterDTO : metaDataRegisterDTOList) {
-            shenyuClientRegisterRepository.persistInterface(metaDataRegisterDTO);
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/register/registrar/ApiRegistrar.java`
-#### Snippet
-```java
-
-    public ApiRegistrar(final Matcher<ApiBean<T>.ApiDefinition> matcher,
-                        final Parser<List<D>, ApiBean<T>.ApiDefinition> parser,
-                        final ShenyuClientRegisterEventPublisher publisher) {
-        super(matcher);
-```
-
-### BoundedWildcard
-Can generalize to `? super ApiBean`.ApiDefinition
-in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/register/registrar/ApiRegistrar.java`
-#### Snippet
-```java
-
-    public ApiRegistrar(final Matcher<ApiBean<T>.ApiDefinition> matcher,
-                        final Parser<List<D>, ApiBean<T>.ApiDefinition> parser,
-                        final ShenyuClientRegisterEventPublisher publisher) {
-        super(matcher);
-```
-
-### BoundedWildcard
-Can generalize to `? super ApiBean`
-in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/register/registrar/PreApiBeanRegistrar.java`
-#### Snippet
-```java
-
-    public PreApiBeanRegistrar(final Matcher<ApiBean<T>> matcher,
-                               final Parser<? extends D, ApiBean<T>> parser,
-                               final ShenyuClientRegisterEventPublisher publisher) {
-        super(matcher);
-```
-
-### BoundedWildcard
-Can generalize to `? extends URIRegisterDTO`
-in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/disruptor/subcriber/ShenyuClientURIExecutorSubscriber.java`
-#### Snippet
-```java
-    
-    @Override
-    public void executor(final Collection<URIRegisterDTO> dataList) {
-        for (URIRegisterDTO uriRegisterDTO : dataList) {
-            Stopwatch stopwatch = Stopwatch.createStarted();
-```
-
-### BoundedWildcard
-Can generalize to `? extends DubboParamResolveService`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-dubbo/shenyu-spring-boot-starter-plugin-alibaba-dubbo/src/main/java/org/apache/shenyu/springboot/starter/plugin/alibaba/dubbo/AlibabaDubboPluginConfiguration.java`
-#### Snippet
-```java
-     */
-    @Bean
-    public ShenyuPlugin alibabaDubboPlugin(final ObjectProvider<DubboParamResolveService> dubboParamResolveServices) {
-        return new AlibabaDubboPlugin(new AlibabaDubboProxyService(dubboParamResolveServices.getIfAvailable()));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `shenyu-loadbalancer/src/main/java/org/apache/shenyu/loadbalancer/cache/UpstreamCheckTask.java`
-#### Snippet
-```java
-    }
-
-    private void removeFromMap(final Map<String, List<Upstream>> map, final String selectorId, final Upstream upstream) {
-        synchronized (lock) {
-            List<Upstream> list = map.get(selectorId);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `shenyu-loadbalancer/src/main/java/org/apache/shenyu/loadbalancer/cache/UpstreamCheckTask.java`
-#### Snippet
-```java
-    }
-
-    private void putToMap(final Map<String, List<Upstream>> map, final String selectorId, final Upstream upstream) {
-        synchronized (lock) {
-            List<Upstream> list = MapUtils.computeIfAbsent(map, selectorId, k -> Lists.newArrayList());
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `shenyu-plugin/shenyu-plugin-request/src/main/java/org/apache/shenyu/plugin/request/RequestPlugin.java`
-#### Snippet
-```java
-    }
-
-    private void replaceParameterKey(final Map.Entry<String, String> shenyuParam, final MultiValueMap<String, String> queryParams) {
-        List<String> values = queryParams.get(shenyuParam.getKey());
-        if (Objects.nonNull(values)) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `shenyu-plugin/shenyu-plugin-request/src/main/java/org/apache/shenyu/plugin/request/RequestPlugin.java`
-#### Snippet
-```java
-    }
-
-    private void fillCookie(final Map.Entry<String, String> shenyuCookie, final MultiValueMap<String, HttpCookie> cookies) {
-        cookies.set(shenyuCookie.getKey(), new HttpCookie(shenyuCookie.getKey(), shenyuCookie.getValue()));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super HttpCookie`
-in `shenyu-plugin/shenyu-plugin-request/src/main/java/org/apache/shenyu/plugin/request/RequestPlugin.java`
-#### Snippet
-```java
-    }
-
-    private void fillCookie(final Map.Entry<String, String> shenyuCookie, final MultiValueMap<String, HttpCookie> cookies) {
-        cookies.set(shenyuCookie.getKey(), new HttpCookie(shenyuCookie.getKey(), shenyuCookie.getValue()));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `shenyu-plugin/shenyu-plugin-request/src/main/java/org/apache/shenyu/plugin/request/RequestPlugin.java`
-#### Snippet
-```java
-    }
-
-    private void fillParameter(final Map.Entry<String, String> shenyuParam, final MultiValueMap<String, String> queryParams) {
-        queryParams.set(shenyuParam.getKey(), shenyuParam.getValue());
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `shenyu-plugin/shenyu-plugin-request/src/main/java/org/apache/shenyu/plugin/request/RequestPlugin.java`
-#### Snippet
-```java
-    }
-
-    private void fillParameter(final Map.Entry<String, String> shenyuParam, final MultiValueMap<String, String> queryParams) {
-        queryParams.set(shenyuParam.getKey(), shenyuParam.getValue());
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `shenyu-plugin/shenyu-plugin-request/src/main/java/org/apache/shenyu/plugin/request/RequestPlugin.java`
-#### Snippet
-```java
-    }
-
-    private void replaceCookieKey(final Map.Entry<String, String> shenyuCookie, final MultiValueMap<String, HttpCookie> cookies) {
-        List<HttpCookie> httpCookies = cookies.get(shenyuCookie.getKey());
-        if (Objects.nonNull(httpCookies)) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends TarsInvokePrx`
-in `shenyu-plugin/shenyu-plugin-tars/src/main/java/org/apache/shenyu/plugin/tars/proxy/TarsInvokePrxList.java`
-#### Snippet
-```java
-     * @param tarsInvokePrxList the tars invoke prx list
-     */
-    public void addTarsInvokePrxList(final List<TarsInvokePrx> tarsInvokePrxList) {
-        this.tarsInvokePrxList.addAll(tarsInvokePrxList);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends Operator`
-in `shenyu-plugin/shenyu-plugin-param-mapping/src/main/java/org/apache/shenyu/plugin/param/mapping/ParamMappingPlugin.java`
-#### Snippet
-```java
-    private final Map<String, Operator> operatorMap;
-
-    public ParamMappingPlugin(final Map<String, Operator> operatorMap) {
-        this.operatorMap = operatorMap;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends DivideUpstream`
-in `shenyu-plugin/shenyu-plugin-divide/src/main/java/org/apache/shenyu/plugin/divide/handler/DividePluginDataHandler.java`
-#### Snippet
-```java
-    }
-    
-    private List<Upstream> convertUpstreamList(final List<DivideUpstream> upstreamList) {
-        return upstreamList.stream().map(u -> Upstream.builder()
-                .protocol(u.getProtocol())
-```
-
-### BoundedWildcard
-Can generalize to `? extends ShenyuLoaderResult`
-in `shenyu-web/src/main/java/org/apache/shenyu/web/loader/ShenyuLoaderService.java`
-#### Snippet
-```java
-     * @param results results
-     */
-    private void loaderPlugins(final List<ShenyuLoaderResult> results) {
-        if (CollectionUtils.isEmpty(results)) {
-            return;
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sdk/src/main/java/org/apache/shenyu/springboot/starter/sdk/ShenyuSdkAutoConfiguration.java`
-#### Snippet
-```java
-    @Bean
-    public ShenyuSdkClient shenyuSdkClient(final RegisterConfig config,
-                                           final ObjectProvider<List<ShenyuSdkRequestInterceptor>> requestInterceptorsProvider,
-                                           final ObjectProvider<ShenyuInstanceRegisterRepository> instanceRegisterRepositoryProvider) {
-        Properties props = config.getProps();
-```
-
-### BoundedWildcard
-Can generalize to `? extends ShenyuInstanceRegisterRepository`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sdk/src/main/java/org/apache/shenyu/springboot/starter/sdk/ShenyuSdkAutoConfiguration.java`
-#### Snippet
-```java
-    public ShenyuSdkClient shenyuSdkClient(final RegisterConfig config,
-                                           final ObjectProvider<List<ShenyuSdkRequestInterceptor>> requestInterceptorsProvider,
-                                           final ObjectProvider<ShenyuInstanceRegisterRepository> instanceRegisterRepositoryProvider) {
-        Properties props = config.getProps();
-        String clientType = props.getProperty("clientType", "httpclient");
-```
-
-### BoundedWildcard
-Can generalize to `? extends ShenyuPlugin`
-in `shenyu-web/src/main/java/org/apache/shenyu/web/handler/ShenyuWebHandler.java`
-#### Snippet
-```java
-         * @param plugins the plugins
-         */
-        DefaultShenyuPluginChain(final List<ShenyuPlugin> plugins) {
-            this.plugins = plugins;
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? extends ShenyuPlugin`
-in `shenyu-web/src/main/java/org/apache/shenyu/web/handler/ShenyuWebHandler.java`
-#### Snippet
-```java
-     * @param extPlugins the ext plugins
-     */
-    public void putExtPlugins(final List<ShenyuPlugin> extPlugins) {
-        if (CollectionUtils.isEmpty(extPlugins)) {
-            return;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Pair`
-in `shenyu-plugin/shenyu-plugin-cryptor/src/main/java/org/apache/shenyu/plugin/cryptor/strategy/MapTypeEnum.java`
-#### Snippet
-```java
-     * @return String
-     */
-    public String map(final String originalBody, final List<Pair<String, String>> modifiedPairs) {
-        if (CollectionUtils.isEmpty(modifiedPairs)) {
-            return originalBody;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Pair`
-in `shenyu-plugin/shenyu-plugin-cryptor/src/main/java/org/apache/shenyu/plugin/cryptor/utils/CryptorUtil.java`
-#### Snippet
-```java
-     * @return new body
-     */
-    public static String crypt(final CryptorRuleHandler ruleHandle, final List<Pair<String, String>> pairs, final String originalBody, final ServerWebExchange exchange) {
-        List<Pair<String, String>> modifiedPairs = pairs.stream().map(pair -> Pair.of(pair.getLeft(), CryptorStrategyFactory.match(ruleHandle, pair.getRight())))
-                .filter(pair -> StringUtils.isNoneBlank(pair.getRight()))
-```
-
-### BoundedWildcard
-Can generalize to `? extends HttpConfig`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-http/src/main/java/org/apache/shenyu/springboot/starter/sync/data/http/HttpSyncDataConfiguration.java`
-#### Snippet
-```java
-     */
-    @Bean
-    public SyncDataService httpSyncDataService(final ObjectProvider<HttpConfig> httpConfig,
-                                               final ObjectProvider<PluginDataSubscriber> pluginSubscriber,
-                                               final ObjectProvider<RestTemplate> restTemplate,
-```
-
-### BoundedWildcard
-Can generalize to `? extends PluginDataSubscriber`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-http/src/main/java/org/apache/shenyu/springboot/starter/sync/data/http/HttpSyncDataConfiguration.java`
-#### Snippet
-```java
-    @Bean
-    public SyncDataService httpSyncDataService(final ObjectProvider<HttpConfig> httpConfig,
-                                               final ObjectProvider<PluginDataSubscriber> pluginSubscriber,
-                                               final ObjectProvider<RestTemplate> restTemplate,
-                                               final ObjectProvider<List<MetaDataSubscriber>> metaSubscribers,
-```
-
-### BoundedWildcard
-Can generalize to `? extends RestTemplate`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-http/src/main/java/org/apache/shenyu/springboot/starter/sync/data/http/HttpSyncDataConfiguration.java`
-#### Snippet
-```java
-    public SyncDataService httpSyncDataService(final ObjectProvider<HttpConfig> httpConfig,
-                                               final ObjectProvider<PluginDataSubscriber> pluginSubscriber,
-                                               final ObjectProvider<RestTemplate> restTemplate,
-                                               final ObjectProvider<List<MetaDataSubscriber>> metaSubscribers,
-                                               final ObjectProvider<List<AuthDataSubscriber>> authSubscribers,
-```
-
-### BoundedWildcard
-Can generalize to `? extends AccessTokenManager`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-http/src/main/java/org/apache/shenyu/springboot/starter/sync/data/http/HttpSyncDataConfiguration.java`
-#### Snippet
-```java
-                                               final ObjectProvider<List<MetaDataSubscriber>> metaSubscribers,
-                                               final ObjectProvider<List<AuthDataSubscriber>> authSubscribers,
-                                               final ObjectProvider<AccessTokenManager> accessTokenManager) {
-        LOGGER.info("you use http long pull sync shenyu data");
-        return new HttpSyncDataService(
-```
-
-### BoundedWildcard
-Can generalize to `? extends EtcdClient`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-etcd/src/main/java/org/apache/shenyu/springboot/sync/data/etcd/EtcdSyncDataConfiguration.java`
-#### Snippet
-```java
-     */
-    @Bean
-    public SyncDataService syncDataService(final ObjectProvider<EtcdClient> etcdClients,
-                                           final ObjectProvider<PluginDataSubscriber> pluginSubscriber,
-                                           final ObjectProvider<List<MetaDataSubscriber>> metaSubscribers,
-```
-
-### BoundedWildcard
-Can generalize to `? extends PluginDataSubscriber`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-etcd/src/main/java/org/apache/shenyu/springboot/sync/data/etcd/EtcdSyncDataConfiguration.java`
-#### Snippet
-```java
-    @Bean
-    public SyncDataService syncDataService(final ObjectProvider<EtcdClient> etcdClients,
-                                           final ObjectProvider<PluginDataSubscriber> pluginSubscriber,
-                                           final ObjectProvider<List<MetaDataSubscriber>> metaSubscribers,
-                                           final ObjectProvider<List<AuthDataSubscriber>> authSubscribers) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends DataBuffer`
-in `shenyu-plugin/shenyu-plugin-httpclient/src/main/java/org/apache/shenyu/plugin/httpclient/WebClientPlugin.java`
-#### Snippet
-```java
-    @Override
-    protected Mono<ClientResponse> doRequest(final ServerWebExchange exchange, final String httpMethod, final URI uri,
-                                             final HttpHeaders httpHeaders, final Flux<DataBuffer> body) {
-        // springWebflux5.3 mark #exchange() deprecated. because #echange maybe make memory leak.
-        // https://github.com/spring-projects/spring-framework/issues/25751
-```
-
-### BoundedWildcard
-Can generalize to `? extends ShenyuContextDecorator`
-in `shenyu-plugin/shenyu-plugin-global/src/main/java/org/apache/shenyu/plugin/global/DefaultShenyuContextBuilder.java`
-#### Snippet
-```java
-     * @param decoratorMap the decorator map
-     */
-    public DefaultShenyuContextBuilder(final Map<String, ShenyuContextDecorator> decoratorMap) {
-        this.decoratorMap = decoratorMap;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends URIRegisterDTO`
-in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-nacos/src/main/java/org/apache/shenyu/register/client/server/nacos/NacosClientServerRegisterRepository.java`
-#### Snippet
-```java
-    }
-
-    private void publishRegisterURI(final List<URIRegisterDTO> registerDTOList) {
-        LOGGER.info("publish uri: {}", registerDTOList);
-        publisher.publish(registerDTOList);
-```
-
-### BoundedWildcard
-Can generalize to `? extends HttpClient`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-httpclient/src/main/java/org/apache/shenyu/springboot/starter/plugin/httpclient/HttpClientPluginConfiguration.java`
-#### Snippet
-```java
-         */
-        @Bean
-        public ShenyuPlugin nettyHttpClientPlugin(final ObjectProvider<HttpClient> httpClient) {
-            return new NettyHttpClientPlugin(httpClient.getIfAvailable());
-        }
-```
-
-### BoundedWildcard
-Can generalize to `? extends HttpClient`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-httpclient/src/main/java/org/apache/shenyu/springboot/starter/plugin/httpclient/HttpClientPluginConfiguration.java`
-#### Snippet
-```java
-        public ShenyuPlugin webClientPlugin(
-                final HttpClientProperties properties,
-                final ObjectProvider<HttpClient> httpClient) {
-            WebClient webClient = WebClient.builder()
-                    // fix Exceeded limit on max bytes to buffer
-```
-
-### BoundedWildcard
-Can generalize to `? extends LoopResources`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-httpclient/src/main/java/org/apache/shenyu/springboot/starter/plugin/httpclient/HttpClientPluginConfiguration.java`
-#### Snippet
-```java
-    @Bean
-    public HttpClient httpClient(final HttpClientProperties properties,
-                                 final ObjectProvider<LoopResources> provider) {
-        // configure pool resources.
-        HttpClientProperties.Pool pool = properties.getPool();
-```
-
-### BoundedWildcard
-Can generalize to `? extends SofaParamResolveService`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-sofa/src/main/java/org/apache/shenyu/springboot/starter/plugin/sofa/SofaPluginConfiguration.java`
-#### Snippet
-```java
-     */
-    @Bean
-    public ShenyuPlugin sofaPlugin(final ObjectProvider<SofaParamResolveService> sofaParamResolveService) {
-        return new SofaPlugin(new SofaProxyService(sofaParamResolveService.getIfAvailable()));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends MetaDataSubscriber`
-in `shenyu-sync-data-center/shenyu-sync-data-zookeeper/src/main/java/org/apache/shenyu/sync/data/zookeeper/ZookeeperSyncDataService.java`
-#### Snippet
-```java
-    public ZookeeperSyncDataService(final ZookeeperClient zkClient,
-                                    final PluginDataSubscriber pluginDataSubscriber,
-                                    final List<MetaDataSubscriber> metaDataSubscribers,
-                                    final List<AuthDataSubscriber> authDataSubscribers) {
-        this.zkClient = zkClient;
-```
-
-### BoundedWildcard
-Can generalize to `? extends AuthDataSubscriber`
-in `shenyu-sync-data-center/shenyu-sync-data-zookeeper/src/main/java/org/apache/shenyu/sync/data/zookeeper/ZookeeperSyncDataService.java`
-#### Snippet
-```java
-                                    final PluginDataSubscriber pluginDataSubscriber,
-                                    final List<MetaDataSubscriber> metaDataSubscribers,
-                                    final List<AuthDataSubscriber> authDataSubscribers) {
-        this.zkClient = zkClient;
-        this.pluginDataSubscriber = pluginDataSubscriber;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Config`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-apollo/src/main/java/org/apache/shenyu/springboot/sync/data/apollo/ApolloSyncDataConfiguration.java`
-#### Snippet
-```java
-     */
-    @Bean
-    public ApolloDataService apolloSyncDataService(final ObjectProvider<Config> configService, final ObjectProvider<PluginDataSubscriber> pluginSubscriber,
-                                                   final ObjectProvider<List<MetaDataSubscriber>> metaSubscribers, final ObjectProvider<List<AuthDataSubscriber>> authSubscribers) {
-        LOGGER.info("you use apollo sync shenyu data.......");
-```
-
-### BoundedWildcard
-Can generalize to `? extends PluginDataSubscriber`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-apollo/src/main/java/org/apache/shenyu/springboot/sync/data/apollo/ApolloSyncDataConfiguration.java`
-#### Snippet
-```java
-     */
-    @Bean
-    public ApolloDataService apolloSyncDataService(final ObjectProvider<Config> configService, final ObjectProvider<PluginDataSubscriber> pluginSubscriber,
-                                                   final ObjectProvider<List<MetaDataSubscriber>> metaSubscribers, final ObjectProvider<List<AuthDataSubscriber>> authSubscribers) {
-        LOGGER.info("you use apollo sync shenyu data.......");
-```
-
-### BoundedWildcard
-Can generalize to `? extends MetaDataSubscriber`
-in `shenyu-sync-data-center/shenyu-sync-data-nacos/src/main/java/org/apache/shenyu/sync/data/nacos/handler/NacosCacheHandler.java`
-#### Snippet
-```java
-
-    public NacosCacheHandler(final ConfigService configService, final PluginDataSubscriber pluginDataSubscriber,
-                             final List<MetaDataSubscriber> metaDataSubscribers,
-                             final List<AuthDataSubscriber> authDataSubscribers) {
-        this.configService = configService;
-```
-
-### BoundedWildcard
-Can generalize to `? extends AuthDataSubscriber`
-in `shenyu-sync-data-center/shenyu-sync-data-nacos/src/main/java/org/apache/shenyu/sync/data/nacos/handler/NacosCacheHandler.java`
-#### Snippet
-```java
-    public NacosCacheHandler(final ConfigService configService, final PluginDataSubscriber pluginDataSubscriber,
-                             final List<MetaDataSubscriber> metaDataSubscribers,
-                             final List<AuthDataSubscriber> authDataSubscribers) {
-        this.configService = configService;
-        this.pluginDataSubscriber = pluginDataSubscriber;
-```
-
-### BoundedWildcard
-Can generalize to `? extends ShenyuRequestLog`
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-rocketmq/src/main/java/org/apache/shenyu/plugin/logging/rocketmq/client/RocketMQLogCollectClient.java`
-#### Snippet
-```java
-     */
-    @Override
-    public void consume0(@NonNull final List<ShenyuRequestLog> logs) {
-        logs.forEach(log -> {
-            String logTopic = StringUtils.defaultIfBlank(LogCollectConfigUtils.getTopic(log.getPath(), apiTopicMap), topic);
-```
-
-### BoundedWildcard
-Can generalize to `? extends ShenyuSdkRequestInterceptor`
-in `shenyu-sdk/shenyu-sdk-core/src/main/java/org/apache/shenyu/sdk/core/client/AbstractShenyuSdkClient.java`
-#### Snippet
-```java
-
-    @Override
-    public void init(final RegisterConfig registerConfig, final List<ShenyuSdkRequestInterceptor> requestInterceptors, final ShenyuInstanceRegisterRepository instanceRegisterRepository) {
-        this.registerConfig = registerConfig;
-        this.registerRepository = instanceRegisterRepository;
-```
-
-### BoundedWildcard
-Can generalize to `? extends DefaultJwtRuleHandle.Convert`
-in `shenyu-plugin/shenyu-plugin-jwt/src/main/java/org/apache/shenyu/plugin/jwt/strategy/DefaultJwtConvertStrategy.java`
-#### Snippet
-```java
-    private void addHeader(final HttpHeaders headers,
-                           final Map<String, Object> body,
-                           final List<DefaultJwtRuleHandle.Convert> converters) {
-        for (DefaultJwtRuleHandle.Convert converter : converters) {
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends ShenyuRequestLog`
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/src/main/java/org/apache/shenyu/plugin/logging/clickhouse/client/ClickHouseLogCollectClient.java`
-#### Snippet
-```java
-
-    @Override
-    public void consume0(@NonNull final List<ShenyuRequestLog> logs) throws Exception {
-        if (CollectionUtils.isNotEmpty(logs)) {
-            Object[][] datas = new Object[logs.size()][];
-```
-
-### BoundedWildcard
-Can generalize to `? extends MetaDataSubscriber`
-in `shenyu-sync-data-center/shenyu-sync-data-apollo/src/main/java/org/apache/shenyu/sync/data/apollo/ApolloDataService.java`
-#### Snippet
-```java
-     */
-    public ApolloDataService(final Config configService, final PluginDataSubscriber pluginDataSubscriber,
-                             final List<MetaDataSubscriber> metaDataSubscribers,
-                             final List<AuthDataSubscriber> authDataSubscribers) {
-        this.configService = configService;
-```
-
-### BoundedWildcard
-Can generalize to `? extends AuthDataSubscriber`
-in `shenyu-sync-data-center/shenyu-sync-data-apollo/src/main/java/org/apache/shenyu/sync/data/apollo/ApolloDataService.java`
-#### Snippet
-```java
-    public ApolloDataService(final Config configService, final PluginDataSubscriber pluginDataSubscriber,
-                             final List<MetaDataSubscriber> metaDataSubscribers,
-                             final List<AuthDataSubscriber> authDataSubscribers) {
-        this.configService = configService;
-        this.pluginDataSubscriber = pluginDataSubscriber;
-```
-
-### BoundedWildcard
-Can generalize to `? extends SelectorData`
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/cache/BaseDataCache.java`
-#### Snippet
-```java
-     * @param selectorDataList the selector data list
-     */
-    public void cleanSelectorDataSelf(final List<SelectorData> selectorDataList) {
-        selectorDataList.forEach(this::removeSelectData);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends PluginData`
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/cache/BaseDataCache.java`
-#### Snippet
-```java
-     * @param pluginDataList the plugin data list
-     */
-    public void cleanPluginDataSelf(final List<PluginData> pluginDataList) {
-        pluginDataList.forEach(this::removePluginData);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends RuleData`
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/cache/BaseDataCache.java`
-#### Snippet
-```java
-     * @param ruleDataList the rule data list
-     */
-    public void cleanRuleDataSelf(final List<RuleData> ruleDataList) {
-        ruleDataList.forEach(this::removeRuleData);
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends O`
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/utils/BeanHolder.java`
-#### Snippet
-```java
-    private volatile O o;
-
-    public BeanHolder(final Supplier<O> supplier) {
-        this.supplier = supplier;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends MultiValueMap`
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/utils/HttpParamConverter.java`
-#### Snippet
-```java
-     * @return String string
-     */
-    public static <K, V> String toMap(final Supplier<MultiValueMap<K, V>> supplier) {
-        return GsonUtils.getInstance().toJson(supplier.get().toSingleValueMap());
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends RuleData`
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/AbstractShenyuPlugin.java`
-#### Snippet
-```java
-    }
-
-    private Pair<Boolean, RuleData> matchRule(final ServerWebExchange exchange, final Collection<RuleData> rules) {
-        List<RuleData> filterRuleData = rules.stream()
-                .filter(rule -> filterRule(rule, exchange))
-```
-
-### BoundedWildcard
-Can generalize to `? extends SelectorData`
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/AbstractShenyuPlugin.java`
-#### Snippet
-```java
-    }
-
-    private Pair<Boolean, SelectorData> matchSelector(final ServerWebExchange exchange, final Collection<SelectorData> selectors) {
-        List<SelectorData> filterCollectors = selectors.stream()
-                .filter(selector -> selector.getEnabled() && filterSelector(selector, exchange))
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/support/ResponseDecorator.java`
-#### Snippet
-```java
-
-    public ResponseDecorator(final ServerWebExchange exchange,
-                             final Function<String, String> convert) {
-        super(exchange.getResponse());
-        this.exchange = exchange;
-```
-
-### BoundedWildcard
-Can generalize to `? extends ConditionData`
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/condition/strategy/OrMatchStrategy.java`
-#### Snippet
-```java
-
-    @Override
-    public Boolean match(final List<ConditionData> conditionDataList, final ServerWebExchange exchange) {
-        return conditionDataList
-                .stream()
-```
-
-### BoundedWildcard
-Can generalize to `? extends ConditionData`
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/condition/strategy/AndMatchStrategy.java`
-#### Snippet
-```java
-
-    @Override
-    public Boolean match(final List<ConditionData> conditionDataList, final ServerWebExchange exchange) {
-        return conditionDataList
-                .stream()
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/utils/ServerWebExchangeUtils.java`
-#### Snippet
-```java
-    public static Mono<ServerWebExchange> rewriteRequestBody(final ServerWebExchange exchange,
-                                                             final List<HttpMessageReader<?>> readers,
-                                                             final Function<String, Mono<String>> convert) {
-
-        ServerRequest serverRequest = ServerRequest.create(exchange, readers);
-```
-
-### BoundedWildcard
-Can generalize to `? extends Mono`
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/utils/ServerWebExchangeUtils.java`
-#### Snippet
-```java
-    public static Mono<ServerWebExchange> rewriteRequestBody(final ServerWebExchange exchange,
-                                                             final List<HttpMessageReader<?>> readers,
-                                                             final Function<String, Mono<String>> convert) {
-
-        ServerRequest serverRequest = ServerRequest.create(exchange, readers);
-```
-
-### BoundedWildcard
-Can generalize to `? extends PluginDataHandler`
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/cache/CommonPluginDataSubscriber.java`
-#### Snippet
-```java
-     * @param handlers the handlers
-     */
-    public void putExtendPluginDataHandler(final List<PluginDataHandler> handlers) {
-        if (CollectionUtils.isEmpty(handlers)) {
-            return;
-```
-
-### BoundedWildcard
-Can generalize to `? extends DubboParamResolveService`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-dubbo/shenyu-spring-boot-starter-plugin-apache-dubbo/src/main/java/org/apache/shenyu/springboot/starter/plugin/apache/dubbo/ApacheDubboPluginConfiguration.java`
-#### Snippet
-```java
-     */
-    @Bean
-    public ShenyuPlugin apacheDubboPlugin(final ObjectProvider<DubboParamResolveService> dubboParamResolveServices) {
-        return new ApacheDubboPlugin(new ApacheDubboProxyService(dubboParamResolveServices.getIfAvailable()));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends ShenyuTrieNode`
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/trie/ShenyuTrie.java`
-#### Snippet
-```java
-    }
-
-    private boolean hasWildcardNode(final Map<String, ShenyuTrieNode> children, final String key) {
-        if (Objects.isNull(children)) {
-            return false;
-```
-
-### BoundedWildcard
-Can generalize to `? extends ShenyuTrieNode`
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/trie/ShenyuTrie.java`
-#### Snippet
-```java
-    }
-
-    private ShenyuTrieNode findMatchWildcard(final Map<String, ShenyuTrieNode> children, final String pathPart) {
-        if (Objects.isNull(children)) {
-            return null;
-```
-
-### BoundedWildcard
-Can generalize to `? extends MetaDataSubscriber`
-in `shenyu-sync-data-center/shenyu-sync-data-etcd/src/main/java/org/apache/shenyu/sync/data/etcd/EtcdSyncDataService.java`
-#### Snippet
-```java
-    public EtcdSyncDataService(final EtcdClient etcdClient,
-                               final PluginDataSubscriber pluginDataSubscriber,
-                               final List<MetaDataSubscriber> metaDataSubscribers,
-                               final List<AuthDataSubscriber> authDataSubscribers) {
-        this.etcdClient = etcdClient;
-```
-
-### BoundedWildcard
-Can generalize to `? extends AuthDataSubscriber`
-in `shenyu-sync-data-center/shenyu-sync-data-etcd/src/main/java/org/apache/shenyu/sync/data/etcd/EtcdSyncDataService.java`
-#### Snippet
-```java
-                               final PluginDataSubscriber pluginDataSubscriber,
-                               final List<MetaDataSubscriber> metaDataSubscribers,
-                               final List<AuthDataSubscriber> authDataSubscribers) {
-        this.etcdClient = etcdClient;
-        this.pluginDataSubscriber = pluginDataSubscriber;
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `shenyu-sync-data-center/shenyu-sync-data-etcd/src/main/java/org/apache/shenyu/sync/data/etcd/EtcdClient.java`
-#### Snippet
-```java
-    }
-
-    private Watch.Listener watch(final BiConsumer<String, String> updateHandler,
-                                 final Consumer<String> deleteHandler) {
-        return Watch.listener(response -> {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `shenyu-sync-data-center/shenyu-sync-data-etcd/src/main/java/org/apache/shenyu/sync/data/etcd/EtcdClient.java`
-#### Snippet
-```java
-    }
-
-    private Watch.Listener watch(final BiConsumer<String, String> updateHandler,
-                                 final Consumer<String> deleteHandler) {
-        return Watch.listener(response -> {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `shenyu-sync-data-center/shenyu-sync-data-etcd/src/main/java/org/apache/shenyu/sync/data/etcd/EtcdClient.java`
-#### Snippet
-```java
-
-    private Watch.Listener watch(final BiConsumer<String, String> updateHandler,
-                                 final Consumer<String> deleteHandler) {
-        return Watch.listener(response -> {
-            for (WatchEvent event : response.getEvents()) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `shenyu-plugin/shenyu-plugin-sign/src/main/java/org/apache/shenyu/plugin/sign/service/ComposableSignService.java`
-#### Snippet
-```java
-    private VerifyResult verifySign(final String signKey,
-                                    final SignParameters signParameters,
-                                    final BiFunction<String, SignParameters, String> signFunction) {
-
-        String sign = signFunction.apply(signKey, signParameters);
-```
-
-### BoundedWildcard
-Can generalize to `? super SignParameters`
-in `shenyu-plugin/shenyu-plugin-sign/src/main/java/org/apache/shenyu/plugin/sign/service/ComposableSignService.java`
-#### Snippet
-```java
-    private VerifyResult verifySign(final String signKey,
-                                    final SignParameters signParameters,
-                                    final BiFunction<String, SignParameters, String> signFunction) {
-
-        String sign = signFunction.apply(signKey, signParameters);
-```
-
 ## RuleId[id=NullableProblems]
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/DashboardUserServiceImpl.java`
+Not annotated method overrides method annotated with @ElementTypesAreNonnullByDefault
+in `shenyu-plugin/shenyu-plugin-tars/src/main/java/org/apache/shenyu/plugin/tars/cache/ApplicationConfigCache.java`
 #### Snippet
 ```java
-    private final LdapProperties ldapProperties;
-    
-    @Nullable
-    private final LdapTemplate ldapTemplate;
-    
+                @NonNull
+                @Override
+                public TarsInvokePrxList load(@NonNull final String key) {
+                    return new TarsInvokePrxList(null, null, null);
+                }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+in `shenyu-plugin/shenyu-plugin-tars/src/main/java/org/apache/shenyu/plugin/tars/cache/ApplicationConfigCache.java`
+#### Snippet
+```java
+                @NonNull
+                @Override
+                public TarsInvokePrxList load(@NonNull final String key) {
+                    return new TarsInvokePrxList(null, null, null);
+                }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @ElementTypesAreNonnullByDefault
+in `shenyu-plugin/shenyu-plugin-brpc/src/main/java/org/apache/shenyu/plugin/brpc/cache/ApplicationConfigCache.java`
+#### Snippet
+```java
+            .build(new CacheLoader<String, ServiceConfig>() {
+                @Override
+                public ServiceConfig load(@NonNull final String key) {
+                    return new ServiceConfig();
+                }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+in `shenyu-plugin/shenyu-plugin-brpc/src/main/java/org/apache/shenyu/plugin/brpc/cache/ApplicationConfigCache.java`
+#### Snippet
+```java
+            .build(new CacheLoader<String, ServiceConfig>() {
+                @Override
+                public ServiceConfig load(@NonNull final String key) {
+                    return new ServiceConfig();
+                }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @EverythingIsNonNull
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/HttpUtils.java`
+#### Snippet
+```java
+
+                @Override
+                public List<Cookie> loadForRequest(final HttpUrl httpUrl) {
+                    List<Cookie> cookies = cookieStore.get(httpUrl.host());
+                    return cookies != null ? cookies : new ArrayList<>();
+```
+
+### NullableProblems
+Not annotated parameter overrides @EverythingIsNonNull parameter
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/HttpUtils.java`
+#### Snippet
+```java
+
+                @Override
+                public List<Cookie> loadForRequest(final HttpUrl httpUrl) {
+                    List<Cookie> cookies = cookieStore.get(httpUrl.host());
+                    return cookies != null ? cookies : new ArrayList<>();
+```
+
+### NullableProblems
+Not annotated parameter overrides @EverythingIsNonNull parameter
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/HttpUtils.java`
+#### Snippet
+```java
+            .cookieJar(new CookieJar() {
+                @Override
+                public void saveFromResponse(final HttpUrl httpUrl, final List<Cookie> list) {
+                    cookieStore.put(httpUrl.host(), list);
+                }
+```
+
+### NullableProblems
+Not annotated parameter overrides @EverythingIsNonNull parameter
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/HttpUtils.java`
+#### Snippet
+```java
+            .cookieJar(new CookieJar() {
+                @Override
+                public void saveFromResponse(final HttpUrl httpUrl, final List<Cookie> list) {
+                    cookieStore.put(httpUrl.host(), list);
+                }
 ```
 
 ### NullableProblems
@@ -2957,112 +3343,546 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/DashboardUse
 ```
 
 ### NullableProblems
-Overridden method parameters are not annotated
-in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/client/AbstractContextRefreshedEventListener.java`
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/DashboardUserServiceImpl.java`
 #### Snippet
 ```java
-    protected void handleClass(final Class<?> clazz,
-                               final T bean,
-                               @NonNull final A beanShenyuClient,
-                               final String superPath) {
-        publisher.publishEvent(buildMetaDataDTO(bean, beanShenyuClient, pathJoin(contextPath, superPath), clazz, null));
+    private final LdapProperties ldapProperties;
+    
+    @Nullable
+    private final LdapTemplate ldapTemplate;
+    
 ```
 
 ### NullableProblems
-Overridden method parameters are not annotated
-in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/client/AbstractContextRefreshedEventListener.java`
+Not annotated parameter overrides @NotNull parameter
+in `shenyu-common/src/main/java/org/apache/shenyu/common/timer/TimerTaskList.java`
+#### Snippet
+```java
+    
+    @Override
+    public int compareTo(final Delayed delayed) {
+        boolean other = delayed instanceof TimerTaskList;
+        if (other) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `shenyu-common/src/main/java/org/apache/shenyu/common/concurrent/MemorySafeLinkedBlockingQueue.java`
 #### Snippet
 ```java
 
     @Override
-    public void onApplicationEvent(@NonNull final ContextRefreshedEvent event) {
-        context = event.getApplicationContext();
-        Map<String, T> beans = getBeans(context);
+    public boolean offer(final E e) {
+        if (!hasRemainedMemory()) {
+            rejector.reject(e, this);
 ```
 
 ### NullableProblems
-Overridden method parameters are not annotated
-in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/client/AbstractContextRefreshedEventListener.java`
-#### Snippet
-```java
-    protected abstract String buildApiPath(Method method,
-                                           String superPath,
-                                           @NonNull A methodShenyuClient);
-
-    protected String pathJoin(@NonNull final String... path) {
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/client/AbstractContextRefreshedEventListener.java`
+Not annotated parameter overrides @NotNull parameter
+in `shenyu-common/src/main/java/org/apache/shenyu/common/concurrent/ShenyuThreadPoolExecutor.java`
 #### Snippet
 ```java
 
-    protected abstract MetaDataRegisterDTO buildMetaDataDTO(T bean,
-                                                            @NonNull A shenyuClient,
-                                                            String path,
-                                                            Class<?> clazz,
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.springframework.lang.Nullable'
-in `shenyu-client/shenyu-client-websocket/shenyu-client-spring-websocket/src/main/java/org/apache/shenyu/client/spring/websocket/init/ShenyuServerEndpointerExporter.java`
-#### Snippet
-```java
-    private static final Logger LOG = LoggerFactory.getLogger(ShenyuServerEndpointerExporter.class);
-
-    @Nullable
-    private ServerContainer serverContainer;
-
-```
-
-## RuleId[id=MissortedModifiers]
-### MissortedModifiers
-Missorted modifiers `final @Nullable`
-in `shenyu-plugin/shenyu-plugin-cache/shenyu-plugin-cache-redis/src/main/java/org/apache/shenyu/plugin/cache/redis/serializer/ByteArrayRedisSerializer.java`
-#### Snippet
-```java
     @Override
-    @Nullable
-    public byte[] deserialize(final @Nullable byte[] bytes) throws SerializationException {
-        return bytes;
+    public void execute(final Runnable command) {
+        if (Objects.isNull(command)) {
+            throw new NullPointerException();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `shenyu-common/src/main/java/org/apache/shenyu/common/concurrent/MemoryLimitedLinkedBlockingQueue.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean offer(final E e) {
+        return memoryLimiter.acquire(e) && super.offer(e);
     }
 ```
 
-### MissortedModifiers
-Missorted modifiers `final @Nullable`
-in `shenyu-plugin/shenyu-plugin-cache/shenyu-plugin-cache-redis/src/main/java/org/apache/shenyu/plugin/cache/redis/serializer/ByteArrayRedisSerializer.java`
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `shenyu-common/src/main/java/org/apache/shenyu/common/concurrent/TaskQueue.java`
 #### Snippet
 ```java
+
     @Override
-    @Nullable
-    public byte[] serialize(final @Nullable byte[] bytes) throws SerializationException {
-        return bytes;
-    }
+    default boolean offer(final E e) {
+        if (Objects.isNull(getExecutor())) {
+            throw new RejectedExecutionException("The task queue does not have executor!");
 ```
 
-### MissortedModifiers
-Missorted modifiers `final @Qualifier(PRE_API_META_BEAN_MATCHER)`
-in `shenyu-client/shenyu-client-autoconfig/src/main/java/org/apache/shenyu/client/auto/config/ClientRegisterConfiguration.java`
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `shenyu-common/src/main/java/org/apache/shenyu/common/concurrent/ShenyuThreadFactory.java`
 #### Snippet
 ```java
-    @Bean(name = "PreApiMetaBeanRegistrar")
-    @ConditionalOnProperty(value = "shenyu.register.api.meta.enabled", matchIfMissing = true, havingValue = "true")
-    public <T> PreApiBeanRegistrar<T, DataTypeParent> buildApiMetaBeanPreRegistrar(final @Qualifier(PRE_API_META_BEAN_MATCHER) Matcher<ApiBean<T>> preApiMetaBeanMatcher,
-                                                                                   final ApiMetaBeanParser<T> apiBeanMetaParser,
-                                                                                   final ShenyuClientRegisterEventPublisher publisher) {
+
+    @Override
+    public Thread newThread(final Runnable runnable) {
+        Thread thread = new Thread(THREAD_GROUP, runnable,
+                THREAD_GROUP.getName() + "-" + namePrefix + "-" + THREAD_NUMBER.getAndIncrement());
 ```
 
-### MissortedModifiers
-Missorted modifiers `final @NonNull`
-in `shenyu-client/shenyu-client-http/shenyu-client-springcloud/src/main/java/org/apache/shenyu/client/springcloud/init/SpringCloudClientEventListener.java`
+### NullableProblems
+Not annotated parameter overrides @NonNullApi parameter
+in `shenyu-protocol/shenyu-protocol-tcp/src/main/java/org/apache/shenyu/protocol/tcp/connection/ActivityConnectionObserver.java`
 #### Snippet
 ```java
+
     @Override
-    protected MetaDataRegisterDTO buildMetaDataDTO(final Object bean,
-                                                   final @NonNull ShenyuSpringCloudClient shenyuClient,
-                                                   final String path, final Class<?> clazz, final Method method) {
-        return MetaDataRegisterDTO.builder()
+    public void onStateChange(final Connection connection, final State newState) {
+        if (newState == State.CONNECTED) {
+            cache.put(connection, newState);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNullApi parameter
+in `shenyu-protocol/shenyu-protocol-tcp/src/main/java/org/apache/shenyu/protocol/tcp/connection/ActivityConnectionObserver.java`
+#### Snippet
+```java
+
+    @Override
+    public void onStateChange(final Connection connection, final State newState) {
+        if (newState == State.CONNECTED) {
+            cache.put(connection, newState);
+```
+
+### NullableProblems
+Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/main/java/org/apache/shenyu/plugin/aliyun/sls/client/AliyunSlsLogCollectClient.java`
+#### Snippet
+```java
+
+        @Override
+        public void onFailure(final Throwable throwable) {
+            if (throwable instanceof ResultFailedException) {
+                Result result = ((ResultFailedException) throwable).getResult();
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @ElementTypesAreNonnullByDefault
+in `shenyu-plugin/shenyu-plugin-grpc/src/main/java/org/apache/shenyu/plugin/grpc/cache/ApplicationConfigCache.java`
+#### Snippet
+```java
+                @Override
+                @NonNull
+                public ShenyuServiceInstanceLists load(@NonNull final String key) {
+                    return new ShenyuServiceInstanceLists(key);
+                }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+in `shenyu-plugin/shenyu-plugin-grpc/src/main/java/org/apache/shenyu/plugin/grpc/cache/ApplicationConfigCache.java`
+#### Snippet
+```java
+                @Override
+                @NonNull
+                public ShenyuServiceInstanceLists load(@NonNull final String key) {
+                    return new ShenyuServiceInstanceLists(key);
+                }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @ElementTypesAreNonnullByDefault
+in `shenyu-plugin/shenyu-plugin-motan/src/main/java/org/apache/shenyu/plugin/motan/cache/ApplicationConfigCache.java`
+#### Snippet
+```java
+                @Override
+                @NonNull
+                public RefererConfig<CommonHandler> load(@NonNull final String key) {
+                    return new RefererConfig<>();
+                }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+in `shenyu-plugin/shenyu-plugin-motan/src/main/java/org/apache/shenyu/plugin/motan/cache/ApplicationConfigCache.java`
+#### Snippet
+```java
+                @Override
+                @NonNull
+                public RefererConfig<CommonHandler> load(@NonNull final String key) {
+                    return new RefererConfig<>();
+                }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-tencent-cls/src/main/java/org/apache/shenyu/plugin/tencent/cls/client/TencentClsLogCollectClient.java`
+#### Snippet
+```java
+
+        @Override
+        public void onFailure(final Throwable throwable) {
+            if (throwable instanceof ResultFailedException) {
+                Result result = ((ResultFailedException) throwable).getResult();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `shenyu-disruptor/src/main/java/org/apache/shenyu/disruptor/thread/DisruptorThreadFactory.java`
+#### Snippet
+```java
+
+    @Override
+    public Thread newThread(final Runnable runnable) {
+        Thread thread = new Thread(THREAD_GROUP, runnable,
+                THREAD_GROUP.getName() + "-" + namePrefix + "-" + THREAD_NUMBER.getAndIncrement());
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @ElementTypesAreNonnullByDefault
+in `shenyu-plugin/shenyu-plugin-sofa/src/main/java/org/apache/shenyu/plugin/sofa/cache/ApplicationConfigCache.java`
+#### Snippet
+```java
+                @Override
+                @NonNull
+                public ConsumerConfig<GenericService> load(@NonNull final String key) {
+                    return new ConsumerConfig<>();
+                }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+in `shenyu-plugin/shenyu-plugin-sofa/src/main/java/org/apache/shenyu/plugin/sofa/cache/ApplicationConfigCache.java`
+#### Snippet
+```java
+                @Override
+                @NonNull
+                public ConsumerConfig<GenericService> load(@NonNull final String key) {
+                    return new ConsumerConfig<>();
+                }
+```
+
+## RuleId[id=EqualsBetweenInconvertibleTypes]
+### EqualsBetweenInconvertibleTypes
+`equals` between objects of inconvertible types 'Class' and 'Class'
+in `shenyu-web/src/main/java/org/apache/shenyu/web/loader/ShenyuPluginClassLoader.java`
+#### Snippet
+```java
+                if (!next) {
+                    Annotation[] annotations = clazz.getAnnotations();
+                    next = Arrays.stream(annotations).anyMatch(e -> e.annotationType().equals(Component.class)
+                            || e.annotationType().equals(Service.class));
+                }
+```
+
+### EqualsBetweenInconvertibleTypes
+`equals` between objects of inconvertible types 'Class' and 'Class'
+in `shenyu-web/src/main/java/org/apache/shenyu/web/loader/ShenyuPluginClassLoader.java`
+#### Snippet
+```java
+                    Annotation[] annotations = clazz.getAnnotations();
+                    next = Arrays.stream(annotations).anyMatch(e -> e.annotationType().equals(Component.class)
+                            || e.annotationType().equals(Service.class));
+                }
+                if (next) {
+```
+
+### EqualsBetweenInconvertibleTypes
+`equals` between objects of inconvertible types 'Class' and 'Class'
+in `shenyu-web/src/main/java/org/apache/shenyu/web/loader/ShenyuPluginLoader.java`
+#### Snippet
+```java
+                if (!next) {
+                    Annotation[] annotations = clazz.getAnnotations();
+                    next = Arrays.stream(annotations).anyMatch(e -> e.annotationType().equals(Component.class)
+                            || e.annotationType().equals(Service.class));
+                }
+```
+
+### EqualsBetweenInconvertibleTypes
+`equals` between objects of inconvertible types 'Class' and 'Class'
+in `shenyu-web/src/main/java/org/apache/shenyu/web/loader/ShenyuPluginLoader.java`
+#### Snippet
+```java
+                    Annotation[] annotations = clazz.getAnnotations();
+                    next = Arrays.stream(annotations).anyMatch(e -> e.annotationType().equals(Component.class)
+                            || e.annotationType().equals(Service.class));
+                }
+                if (next) {
+```
+
+## RuleId[id=JavadocLinkAsPlainText]
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `shenyu-sync-data-center/shenyu-sync-data-websocket/src/main/java/org/apache/shenyu/plugin/sync/data/websocket/WebsocketSyncDataService.java`
+#### Snippet
+```java
+
+    /**
+     * see https://github.com/apache/tomcat/blob/main/java/org/apache/tomcat/websocket/Constants.java#L99.
+     */
+    private static final String ORIGIN_HEADER_NAME = "Origin";
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/model/dto/MockRequestRecordDTO.java`
+#### Snippet
+```java
+
+    /**
+     * whole url,such as curl http://domain//test1/**?param=test .
+     */
+    private String url;
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/register/AbstractShenyuClientRegisterServiceImpl.java`
+#### Snippet
+```java
+    /**
+     * adjustment such as '/aa/${xxx}/cc' replace to `/aa/`**`/cc` for client simpler annotation.
+     * link: https://github.com/apache/shenyu/pull/3819
+     * @param path the path
+     * @return the replaced path
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `shenyu-common/src/main/java/org/apache/shenyu/common/cache/MemorySafeLRUMap.java`
+#### Snippet
+```java
+ * is that it handles memory issues via {@link org.apache.shenyu.common.concurrent.MemoryLimitCalculator}.
+ *
+ * <p>Note: this class is not thread safe! see https://github.com/apache/shenyu/issues/3929
+ */
+@NotThreadSafe
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/VersionUtils.java`
+#### Snippet
+```java
+
+    /**
+     * checkDuplicate,this method refers to the design of dubbo,url:https://dubbo.apache.org/zh/docs/v2.7/dev/principals/dummy/ .
+     * @param cls cls
+     */
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/MapUtils.java`
+#### Snippet
+```java
+
+    /**
+     * This is jdk8 performance bug, see: https://bugs.openjdk.java.net/browse/JDK-8161372.
+     *
+     * @param map source map
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/main/java/org/apache/shenyu/plugin/aliyun/sls/config/AliyunLogCollectConfig.java`
+#### Snippet
+```java
+        /**
+         * aliyun sls address.
+         * please seee https://help.aliyun.com/document_detail/29008.htm?spm=a2c4g.11186623.0.0.cc7a3de5dJNKOe#reference-wgx-pwq-zdb
+         */
+        private String host;
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-common/src/main/java/org/apache/shenyu/plugin/logging/common/sampler/CountSampler.java`
+#### Snippet
+```java
+    /**
+     * gen random bitSet.
+     * reference resources： http://stackoverflow.com/questions/12817946/generate-a-random-bitset-with-n-1s
+     *
+     * @param size        bitmap size
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-common/src/main/java/org/apache/shenyu/plugin/logging/common/sampler/CountSampler.java`
+#### Snippet
+```java
+/**
+ * used for sample log.
+ * reference resources： http://stackoverflow.com/questions/12817946/generate-a-random-bitset-with-n-1s
+ */
+public class CountSampler implements Sampler {
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `shenyu-plugin/shenyu-plugin-httpclient/src/main/java/org/apache/shenyu/plugin/httpclient/config/HttpClientProperties.java`
+#### Snippet
+```java
+
+    /**
+     * set to false, fix java.io.IOException: Connection reset by peer, see https://github.com/reactor/reactor-netty/issues/388.
+     */
+    private boolean keepAlive;
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-tencent-cls/src/main/java/org/apache/shenyu/plugin/tencent/cls/config/TencentLogCollectConfig.java`
+#### Snippet
+```java
+    /**
+     * global log config.
+     * please seee https://github.com/TencentCloud/tencentcloud-cls-sdk-java/blob/main/README.md#%E9%85%8D%E7%BD%AE%E5%8F%82%E6%95%B0%E8%AF%A6%E8%A7%A3
+     */
+    public static class TencentClsLogConfig extends GenericGlobalConfig {
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-tencent-cls/src/main/java/org/apache/shenyu/plugin/tencent/cls/config/TencentLogCollectConfig.java`
+#### Snippet
+```java
+        /**
+         * Tencent cls endpoint.
+         * please seee https://cloud.tencent.com/document/product/614/18940
+         */
+        private String endpoint;
+```
+
+## RuleId[id=FieldCanBeLocal]
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-zookeeper/src/main/java/org/apache/shenyu/register/client/server/zookeeper/ZookeeperClient.java`
+#### Snippet
+```java
+    private static final Logger LOGGER = LoggerFactory.getLogger(ZookeeperClient.class);
+
+    private final ZookeeperConfig config;
+
+    private final CuratorFramework client;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `shenyu-register-center/shenyu-register-client/shenyu-register-client-zookeeper/src/main/java/org/apache/shenyu/register/client/zookeeper/ZookeeperClient.java`
+#### Snippet
+```java
+    private static final Logger LOGGER = LoggerFactory.getLogger(ZookeeperClient.class);
+
+    private final ZookeeperConfig config;
+
+    private final CuratorFramework client;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/register/ClientInfoRefreshedEventListener.java`
+#### Snippet
+```java
+    private final boolean addPrefixed;
+
+    private final boolean isFull;
+
+    private final String contextPath;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/register/ClientInfoRefreshedEventListener.java`
+#### Snippet
+```java
+    private final String host;
+
+    private final String port;
+
+    private final ShenyuClientRegisterEventPublisher publisher;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/register/ClientInfoRefreshedEventListener.java`
+#### Snippet
+```java
+public final class ClientInfoRefreshedEventListener implements ApplicationListener<ContextRefreshedEvent> {
+
+    private final boolean addPrefixed;
+
+    private final boolean isFull;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/register/ClientInfoRefreshedEventListener.java`
+#### Snippet
+```java
+    private final RpcTypeEnum rpcTypeEnum;
+
+    private final String ipAndPort;
+
+    private final String host;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `shenyu-register-center/shenyu-register-common/src/main/java/org/apache/shenyu/register/common/dto/MetaDataRegisterDTO.java`
+#### Snippet
+```java
+        private boolean registerMetaData;
+
+        private long timeMillis;
+
+        private boolean addPrefixed;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `shenyu-sync-data-center/shenyu-sync-data-zookeeper/src/main/java/org/apache/shenyu/sync/data/zookeeper/ZookeeperClient.java`
+#### Snippet
+```java
+    private static final Logger LOGGER = LoggerFactory.getLogger(ZookeeperClient.class);
+
+    private final ZookeeperConfig config;
+
+    private final CuratorFramework client;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `shenyu-register-center/shenyu-register-instance/shenyu-register-instance-zookeeper/src/main/java/org/apache/shenyu/register/instance/zookeeper/ZookeeperClient.java`
+#### Snippet
+```java
+    private static final Logger LOGGER = LoggerFactory.getLogger(ZookeeperClient.class);
+
+    private final ZookeeperConfig config;
+
+    private final CuratorFramework client;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-client/shenyu-spring-boot-starter-client-springmvc/src/main/java/org/apache/shenyu/springboot/starter/client/springmvc/ShenyuSpringMvcClientInfoRegisterConfiguration.java`
+#### Snippet
+```java
+    private final boolean addPrefixed;
+
+    private final boolean isFull;
+
+    private final String contextPath;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/proxy/ShenyuClientMethodHandler.java`
+#### Snippet
+```java
+public class ShenyuClientMethodHandler {
+
+    private final ShenyuClient shenyuClient;
+
+    private final ShenyuSdkClient shenyuHttpClient;
 ```
 
 ## RuleId[id=ThrowablePrintedToSystemOut]
@@ -3080,66 +3900,6 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/HttpUtils.java`
 
 ## RuleId[id=RedundantMethodOverride]
 ### RedundantMethodOverride
-Method `onComplete()` only delegates to its super method
-in `shenyu-client/shenyu-client-grpc/src/main/java/org/apache/shenyu/client/grpc/json/JsonServerCallListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void onComplete() {
-        super.onComplete();
-    }
-```
-
-### RedundantMethodOverride
-Method `onCancel()` only delegates to its super method
-in `shenyu-client/shenyu-client-grpc/src/main/java/org/apache/shenyu/client/grpc/json/JsonServerCallListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void onCancel() {
-        super.onCancel();
-    }
-```
-
-### RedundantMethodOverride
-Method `onHalfClose()` only delegates to its super method
-in `shenyu-client/shenyu-client-grpc/src/main/java/org/apache/shenyu/client/grpc/json/JsonServerCallListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void onHalfClose() {
-        super.onHalfClose();
-    }
-```
-
-### RedundantMethodOverride
-Method `onReady()` only delegates to its super method
-in `shenyu-client/shenyu-client-grpc/src/main/java/org/apache/shenyu/client/grpc/json/JsonServerCallListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void onReady() {
-        super.onReady();
-    }
-```
-
-### RedundantMethodOverride
-Method `getSource()` only delegates to its super method
-in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-consul/src/main/java/org/apache/shenyu/register/client/server/consul/ConsulConfigChangedEvent.java`
-#### Snippet
-```java
-
-    @Override
-    public Object getSource() {
-        return super.getSource();
-    }
-```
-
-### RedundantMethodOverride
 Method `eventName()` is identical to its super method
 in `shenyu-admin/src/main/java/org/apache/shenyu/admin/model/event/plugin/BatchPluginChangedEvent.java`
 #### Snippet
@@ -3152,18 +3912,6 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/model/event/plugin/BatchP
 ```
 
 ### RedundantMethodOverride
-Method `buildContext()` is identical to its super method
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/model/event/plugin/BatchPluginDeletedEvent.java`
-#### Snippet
-```java
-    
-    @Override
-    public String buildContext() {
-        final String plugins = ((Collection<?>) getSource())
-                .stream()
-```
-
-### RedundantMethodOverride
 Method `skip()` is identical to its super method
 in `shenyu-plugin/shenyu-plugin-casdoor/src/main/java/org/apache/shenyu/plugin/casdoor/CasdoorPlugin.java`
 #### Snippet
@@ -3173,211 +3921,6 @@ in `shenyu-plugin/shenyu-plugin-casdoor/src/main/java/org/apache/shenyu/plugin/c
     public boolean skip(final ServerWebExchange exchange) {
         return false;
     }
-```
-
-## RuleId[id=UnnecessarySuperQualifier]
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `shenyu-client/shenyu-client-grpc/src/main/java/org/apache/shenyu/client/grpc/GrpcClientEventListener.java`
-#### Snippet
-```java
-                .appName(getIpAndPort())
-                .rpcType(RpcTypeEnum.GRPC.getName())
-                .host(super.getHost())
-                .port(Integer.parseInt(getPort()))
-                .build();
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `shenyu-client/shenyu-client-grpc/src/main/java/org/apache/shenyu/client/grpc/GrpcClientEventListener.java`
-#### Snippet
-```java
-                .methodName(methodName)
-                .contextPath(getContextPath())
-                .host(super.getHost())
-                .port(Integer.parseInt(getPort()))
-                .path(path)
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `shenyu-client/shenyu-client-brpc/src/main/java/org/apache/shenyu/client/brpc/BrpcContextRefreshedEventListener.java`
-#### Snippet
-```java
-        String serviceName = clazz.getInterfaces().length > 0 ? clazz.getInterfaces()[0].getName() : clazz.getName();
-        String desc = shenyuBrpcClient.desc();
-        String host = super.getHost();
-        String configRuleName = shenyuBrpcClient.ruleName();
-        String ruleName = ("".equals(configRuleName)) ? path : configRuleName;
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `shenyu-client/shenyu-client-brpc/src/main/java/org/apache/shenyu/client/brpc/BrpcContextRefreshedEventListener.java`
-#### Snippet
-```java
-        String configRuleName = shenyuBrpcClient.ruleName();
-        String ruleName = ("".equals(configRuleName)) ? path : configRuleName;
-        int port = Integer.parseInt(super.getPort());
-        String methodName = method.getName();
-        Class<?>[] parameterTypesClazz = method.getParameterTypes();
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `shenyu-client/shenyu-client-brpc/src/main/java/org/apache/shenyu/client/brpc/BrpcContextRefreshedEventListener.java`
-#### Snippet
-```java
-                .appName(this.getAppName())
-                .rpcType(RpcTypeEnum.BRPC.getName())
-                .host(super.getHost())
-                .port(Integer.parseInt(this.getPort()))
-                .build();
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `shenyu-common/src/main/java/org/apache/shenyu/common/concurrent/MemorySafeTaskQueue.java`
-#### Snippet
-```java
-    @Override
-    public boolean doOffer(final Runnable runnable) {
-        return super.offer(runnable);
-    }
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `shenyu-common/src/main/java/org/apache/shenyu/common/concurrent/ShenyuThreadPoolExecutor.java`
-#### Snippet
-```java
-        } catch (RejectedExecutionException e) {
-            // retry to offer the task into queue.
-            final TaskQueue<Runnable> queue = (TaskQueue<Runnable>) super.getQueue();
-            try {
-                if (!queue.retryOffer(command, 0, TimeUnit.MILLISECONDS)) {
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `shenyu-common/src/main/java/org/apache/shenyu/common/concurrent/MemoryLimitedTaskQueue.java`
-#### Snippet
-```java
-    @Override
-    public boolean doOffer(final Runnable runnable) {
-        return super.offer(runnable);
-    }
-}
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `shenyu-client/shenyu-client-sofa/src/main/java/org/apache/shenyu/client/sofa/SofaServiceEventListener.java`
-#### Snippet
-```java
-                .methodName(methodName)
-                .contextPath(contextPath)
-                .host(super.getHost())
-                .port(Integer.parseInt(getPort()))
-                .path(path)
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `shenyu-client/shenyu-client-sofa/src/main/java/org/apache/shenyu/client/sofa/SofaServiceEventListener.java`
-#### Snippet
-```java
-                .appName(this.getAppName())
-                .rpcType(RpcTypeEnum.SOFA.getName())
-                .host(super.getHost())
-                .port(Integer.parseInt(getPort()))
-                .build();
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `shenyu-plugin/shenyu-plugin-ratelimiter/src/main/java/org/apache/shenyu/plugin/ratelimiter/handler/ShenyuReactiveScriptExecutor.java`
-#### Snippet
-```java
-            ByteBuffer[] keysAndArgs = keysAndArgs(argsWriter, keys, args);
-            int keySize = keys.size();
-            return super.eval(connection, script, returnType, keySize, keysAndArgs, resultReader);
-        });
-    }
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `shenyu-client/shenyu-client-http/shenyu-client-springmvc/src/main/java/org/apache/shenyu/client/springmvc/init/SpringMvcClientEventListener.java`
-#### Snippet
-```java
-                    .appName(getAppName())
-                    .protocol(protocol)
-                    .host(super.getHost())
-                    .port(Integer.valueOf(getPort()))
-                    .rpcType(RpcTypeEnum.HTTP.getName())
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `shenyu-client/shenyu-client-tars/src/main/java/org/apache/shenyu/client/tars/TarsServiceBeanEventListener.java`
-#### Snippet
-```java
-            .contextPath(this.contextPath)
-            .path(path)
-            .host(super.getHost())
-            .port(Integer.parseInt(this.getPort()))
-            .ruleName(ruleName)
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `shenyu-client/shenyu-client-http/shenyu-client-springcloud/src/main/java/org/apache/shenyu/client/springcloud/init/SpringCloudClientEventListener.java`
-#### Snippet
-```java
-                    .contextPath(getContextPath())
-                    .appName(getAppName())
-                    .host(super.getHost())
-                    .port(Integer.valueOf(getPort()))
-                    .rpcType(RpcTypeEnum.SPRING_CLOUD.getName())
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `shenyu-client/shenyu-client-websocket/shenyu-client-spring-websocket/src/main/java/org/apache/shenyu/client/spring/websocket/init/SpringWebSocketClientEventListener.java`
-#### Snippet
-```java
-                    .appName(getAppName())
-                    .protocol(protocol)
-                    .host(super.getHost())
-                    .port(Integer.valueOf(getPort()))
-                    .rpcType(RpcTypeEnum.WEB_SOCKET.getName())
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `shenyu-client/shenyu-client-motan/src/main/java/org/apache/shenyu/client/motan/MotanServiceEventListener.java`
-#### Snippet
-```java
-                .contextPath(this.getContextPath())
-                .path(path)
-                .port(Integer.parseInt(super.getPort()))
-                .host(super.getHost())
-                .ruleName(ruleName)
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `shenyu-client/shenyu-client-motan/src/main/java/org/apache/shenyu/client/motan/MotanServiceEventListener.java`
-#### Snippet
-```java
-                .path(path)
-                .port(Integer.parseInt(super.getPort()))
-                .host(super.getHost())
-                .ruleName(ruleName)
-                .pathDesc(desc)
 ```
 
 ## RuleId[id=InfiniteLoopStatement]
@@ -3393,242 +3936,19 @@ in `shenyu-common/src/main/java/org/apache/shenyu/common/timer/HierarchicalWheel
                     timer.advanceClock(100L);
 ```
 
-## RuleId[id=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
-in `shenyu-register-center/shenyu-register-client/shenyu-register-client-http/src/main/java/org/apache/shenyu/register/client/http/utils/RuntimeUtils.java`
-#### Snippet
-```java
-        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                if (!line.contains("LISTEN") || !line.contains(":" + port + " ")) {
-                    continue;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `shenyu-sync-data-center/shenyu-sync-data-websocket/src/main/java/org/apache/shenyu/plugin/sync/data/websocket/client/ShenyuWebsocketClient.java`
-#### Snippet
-```java
-    private void connection() {
-        this.connectBlocking();
-        this.timer.add(timerTask = new AbstractRoundTask(null, TimeUnit.SECONDS.toMillis(10)) {
-            @Override
-            public void doRun(final String key, final TimerTask timerTask) {
-                healthCheck();
-            }
-        });
-    }
-    
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/HttpUtils.java`
-#### Snippet
-```java
-            byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
-
-            while (EOF != (n = input.read(buffer))) {
-                output.write(buffer, 0, n);
-            }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/JarDependencyUtils.java`
-#### Snippet
-```java
-             ZipInputStream zipInputStream = new ZipInputStream(inputStream)) {
-            ZipEntry entry;
-            while ((entry = zipInputStream.getNextEntry()) != null) {
-                if (entry.getName().endsWith(".class")) {
-                    ClassNode classNode = new ClassNode(Opcodes.ASM7);
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `shenyu-plugin/shenyu-plugin-modify-response/src/main/java/org/apache/shenyu/plugin/modify/response/ModifyResponsePlugin.java`
-#### Snippet
-```java
-            HttpStatus statusCode = clientResponse.statusCode();
-            if (this.ruleHandle.getStatusCode() > 0) {
-                this.setStatusCode(statusCode = HttpStatus.valueOf(this.ruleHandle.getStatusCode()));
-            }
-
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `shenyu-common/src/main/java/org/apache/shenyu/common/config/ShenyuConfig.java`
-#### Snippet
-```java
-         */
-        public String getAllowedHeaders() {
-            return allowedHeaders = wrapperHeaders(allowedHeaders);
-        }
-    
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `shenyu-web/src/main/java/org/apache/shenyu/web/filter/CrossFilter.java`
-#### Snippet
-```java
-                // if the origin is not allow check match origin again
-                String originRegex;
-                if (!allowCors && StringUtils.isNotBlank(originRegex = this.filterConfig.getAllowedOrigin().getOriginRegex())) {
-                    allowCors = Pattern.matches(originRegex.trim(), origin);
-                }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `shenyu-web/src/main/java/org/apache/shenyu/web/loader/PluginJarParser.java`
-#### Snippet
-```java
-        try (JarInputStream jarInputStream = new JarInputStream(new ByteArrayInputStream(jarBytes))) {
-            JarEntry jarEntry;
-            while ((jarEntry = jarInputStream.getNextJarEntry()) != null) {
-                String entryName = jarEntry.getName();
-                // get jar version
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `shenyu-web/src/main/java/org/apache/shenyu/web/loader/PluginJarParser.java`
-#### Snippet
-```java
-                    try (ByteArrayOutputStream buffer = new ByteArrayOutputStream()) {
-                        int data;
-                        while ((data = jarInputStream.read()) != -1) {
-                            buffer.write(data);
-                        }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `shenyu-web/src/main/java/org/apache/shenyu/web/loader/PluginJarParser.java`
-#### Snippet
-```java
-                    try (ByteArrayOutputStream buffer = new ByteArrayOutputStream()) {
-                        int data;
-                        while ((data = jarInputStream.read()) != -1) {
-                            buffer.write(data);
-                        }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `shenyu-web/src/main/java/org/apache/shenyu/web/loader/ShenyuPluginLoader.java`
-#### Snippet
-```java
-        try (JarInputStream jarInputStream = new JarInputStream(new ByteArrayInputStream(jarBytes))) {
-            JarEntry jarEntry;
-            while ((jarEntry = jarInputStream.getNextJarEntry()) != null) {
-                String entryName = jarEntry.getName();
-                if (!jarEntry.isDirectory() && entryName.endsWith(".class") && !entryName.contains("$")) {
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `shenyu-web/src/main/java/org/apache/shenyu/web/loader/ShenyuPluginLoader.java`
-#### Snippet
-```java
-                    try (ByteArrayOutputStream buffer = new ByteArrayOutputStream()) {
-                        int data;
-                        while ((data = jarInputStream.read()) != -1) {
-                            buffer.write(data);
-                        }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `shenyu-plugin/shenyu-plugin-cryptor/src/main/java/org/apache/shenyu/plugin/cryptor/utils/CryptorUtil.java`
-#### Snippet
-```java
-
-        String fieldNames;
-        if (StringUtils.isEmpty(fieldNames = ruleHandle.getFieldNames())) {
-            return Pair.of(true, "fieldNames");
-        }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `shenyu-plugin/shenyu-plugin-cryptor/src/main/java/org/apache/shenyu/plugin/cryptor/utils/CryptorUtil.java`
-#### Snippet
-```java
-
-        String mapType;
-        if (StringUtils.isEmpty(mapType = ruleHandle.getMapType())) {
-            ruleHandle.setMapType(ALL.getMapType());
-        }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/trie/ShenyuTrie.java`
-#### Snippet
-```java
-                }
-            } else if (hasWildcardNode(currentNode.getChildren(), pathPart) && wildcard[startIndex] == 0
-                    && Objects.nonNull(matchNode = getAccessAbleNode(wildcard, currentNode, startIndex, WILDCARD, pathPart))) {
-                currentNode = matchNode;
-                startIndex++;
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/trie/ShenyuTrie.java`
-#### Snippet
-```java
-                }
-            } else if (containsKey(currentNode.getChildren(), MATCH_ALL) && matchAll[startIndex] == 0
-                    && Objects.nonNull(matchNode = getAccessAbleNode(matchAll, currentNode, startIndex, MATCH_ALL, pathPart))) {
-                currentNode = matchNode;
-                startIndex++;
-```
-
-## RuleId[id=ReplaceAssignmentWithOperatorAssignment]
-### ReplaceAssignmentWithOperatorAssignment
-`serviceName = serviceName + GrpcConstants.GRPC_JSON_SERVICE` could be simplified to 'serviceName += GrpcConstants.GRPC_JSON_SERVICE'
-in `shenyu-client/shenyu-client-grpc/src/main/java/org/apache/shenyu/client/grpc/json/JsonServerServiceInterceptor.java`
-#### Snippet
-```java
-                serviceNameField.setAccessible(true);
-                String serviceName = (String) serviceNameField.get(md);
-                serviceName = serviceName + GrpcConstants.GRPC_JSON_SERVICE;
-                serviceNameField.set(md, serviceName);
-            }
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`path = path + rewriteUri` could be simplified to 'path += rewriteUri'
-in `shenyu-plugin/shenyu-plugin-api/src/main/java/org/apache/shenyu/plugin/api/utils/RequestUrlUtils.java`
-#### Snippet
-```java
-        final String rewriteUri = (String) exchange.getAttributes().get(Constants.REWRITE_URI);
-        if (StringUtils.isNoneBlank(rewriteUri)) {
-            path = path + rewriteUri;
-        } else {
-            ShenyuContext shenyuContext = exchange.getAttribute(Constants.CONTEXT);
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`path = path + realUrl` could be simplified to 'path += realUrl'
-in `shenyu-plugin/shenyu-plugin-api/src/main/java/org/apache/shenyu/plugin/api/utils/RequestUrlUtils.java`
-#### Snippet
-```java
-            String realUrl = shenyuContext.getRealUrl();
-            if (StringUtils.isNoneBlank(realUrl)) {
-                path = path + realUrl;
-            }
-        }
-```
-
 ## RuleId[id=ExcessiveLambdaUsage]
+### ExcessiveLambdaUsage
+Excessive lambda usage
+in `shenyu-client/shenyu-client-websocket/shenyu-client-spring-websocket/src/main/java/org/apache/shenyu/client/spring/websocket/init/SpringWebSocketClientEventListener.java`
+#### Snippet
+```java
+    @Override
+    public String getPort() {
+        final int port = Integer.parseInt(Optional.ofNullable(super.getPort()).orElseGet(() -> "-1"));
+        final int mergedPort = port <= 0 ? PortUtils.findPort(getContext().getAutowireCapableBeanFactory()) : port;
+        return String.valueOf(mergedPort);
+```
+
 ### ExcessiveLambdaUsage
 Excessive lambda usage
 in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/register/ClientInfoRefreshedEventListener.java`
@@ -3643,18 +3963,6 @@ in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core
 
 ### ExcessiveLambdaUsage
 Excessive lambda usage
-in `shenyu-client/shenyu-client-http/shenyu-client-springmvc/src/main/java/org/apache/shenyu/client/springmvc/init/SpringMvcClientEventListener.java`
-#### Snippet
-```java
-    @Override
-    public String getPort() {
-        final int port = Integer.parseInt(Optional.ofNullable(super.getPort()).orElseGet(() -> "-1"));
-        final int mergedPort = port <= 0 ? PortUtils.findPort(getContext().getAutowireCapableBeanFactory()) : port;
-        return String.valueOf(mergedPort);
-```
-
-### ExcessiveLambdaUsage
-Excessive lambda usage
 in `shenyu-client/shenyu-client-http/shenyu-client-springcloud/src/main/java/org/apache/shenyu/client/springcloud/init/SpringCloudClientEventListener.java`
 #### Snippet
 ```java
@@ -3667,7 +3975,7 @@ in `shenyu-client/shenyu-client-http/shenyu-client-springcloud/src/main/java/org
 
 ### ExcessiveLambdaUsage
 Excessive lambda usage
-in `shenyu-client/shenyu-client-websocket/shenyu-client-spring-websocket/src/main/java/org/apache/shenyu/client/spring/websocket/init/SpringWebSocketClientEventListener.java`
+in `shenyu-client/shenyu-client-http/shenyu-client-springmvc/src/main/java/org/apache/shenyu/client/springmvc/init/SpringMvcClientEventListener.java`
 #### Snippet
 ```java
     @Override
@@ -3675,1636 +3983,6 @@ in `shenyu-client/shenyu-client-websocket/shenyu-client-spring-websocket/src/mai
         final int port = Integer.parseInt(Optional.ofNullable(super.getPort()).orElseGet(() -> "-1"));
         final int mergedPort = port <= 0 ? PortUtils.findPort(getContext().getAutowireCapableBeanFactory()) : port;
         return String.valueOf(mergedPort);
-```
-
-## RuleId[id=CodeBlock2Expr]
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/annotation/RequestParamParameterProcessor.java`
-#### Snippet
-```java
-            pathResult.append(name).append("=").append(arg);
-        } else if (arg instanceof Map) {
-            ((Map<?, ?>) arg).forEach((key, value) -> {
-                pathResult.append(key).append("=").append(value);
-            });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-etcd/src/main/java/org/apache/shenyu/register/client/server/etcd/EtcdClientServerRegisterRepository.java`
-#### Snippet
-```java
-        String rpcPath = RegisterPathConstants.buildURIContextPathParent(rpcType);
-        Set<String> contextList = new HashSet<>();
-        client.getChildren(rpcPath).forEach(dataPath -> {
-            contextList.add(getContext(dataPath));
-        });
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/disruptor/subscriber/MetadataExecutorSubscriber.java`
-#### Snippet
-```java
-    @Override
-    public void executor(final Collection<MetaDataRegisterDTO> metaDataRegisterDTOList) {
-        metaDataRegisterDTOList.forEach(meta -> {
-            Optional.ofNullable(this.shenyuClientRegisterService.get(meta.getRpcType()))
-                    .ifPresent(shenyuClientRegisterService -> {
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `shenyu-plugin/shenyu-plugin-grpc/src/main/java/org/apache/shenyu/plugin/grpc/intercept/ContextClientInterceptor.java`
-#### Snippet
-```java
-            @Override
-            public void start(final Listener<P> responseListener, final Metadata headers) {
-                Optional.ofNullable(GrpcPlugin.RPC_CONTEXT_KEY.get()).ifPresent(map -> map.forEach((k, v) -> {
-                    headers.put(Metadata.Key.of(k, Metadata.ASCII_STRING_MARSHALLER), v);
-                }));
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `shenyu-sync-data-center/shenyu-sync-data-etcd/src/main/java/org/apache/shenyu/sync/data/etcd/EtcdSyncDataService.java`
-#### Snippet
-```java
-    private void watchAllKeys() {
-        keysMap = etcdClient.getKeysMapByPrefix(PRE_FIX);
-        etcdClient.watchDataChange(PRE_FIX, (updateKey, updateValue) -> {
-            keysMap.put(updateKey, updateValue);
-        }, deleteKey -> {
-```
-
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `shenyu-sync-data-center/shenyu-sync-data-etcd/src/main/java/org/apache/shenyu/sync/data/etcd/EtcdSyncDataService.java`
-#### Snippet
-```java
-        etcdClient.watchDataChange(PRE_FIX, (updateKey, updateValue) -> {
-            keysMap.put(updateKey, updateValue);
-        }, deleteKey -> {
-                keysMap.remove(deleteKey);
-            });
-```
-
-## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `eurekaClient` is accessed in both synchronized and unsynchronized contexts
-in `shenyu-register-center/shenyu-register-instance/shenyu-register-instance-eureka/src/main/java/org/apache/shenyu/register/instance/eureka/EurekaInstanceRegisterRepository.java`
-#### Snippet
-```java
-    private static final Logger LOGGER = LoggerFactory.getLogger(EurekaInstanceRegisterRepository.class);
-
-    private EurekaClient eurekaClient;
-
-    private EurekaHttpClient eurekaHttpClient;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `supportSwaggerPluginMap` is accessed in both synchronized and unsynchronized contexts
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/manager/impl/LoadServiceDocEntryImpl.java`
-#### Snippet
-```java
-
-    @SuppressWarnings("unchecked")
-    private static Map<String, String> supportSwaggerPluginMap = Collections.emptyMap();
-
-    private final SelectorService selectorService;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `timerTaskEntry` is accessed in both synchronized and unsynchronized contexts
-in `shenyu-common/src/main/java/org/apache/shenyu/common/timer/TimerTask.java`
-#### Snippet
-```java
-    private final long delayMs;
-    
-    private TimerTaskList.TimerTaskEntry timerTaskEntry;
-    
-    /**
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `currentTime` is accessed in both synchronized and unsynchronized contexts
-in `shenyu-common/src/main/java/org/apache/shenyu/common/timer/TimingWheel.java`
-#### Snippet
-```java
-    private final TimerTaskList[] buckets;
-    
-    private Long currentTime;
-    
-    private TimingWheel overflowWheel;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `overflowWheel` is accessed in both synchronized and unsynchronized contexts
-in `shenyu-common/src/main/java/org/apache/shenyu/common/timer/TimingWheel.java`
-#### Snippet
-```java
-    private Long currentTime;
-    
-    private TimingWheel overflowWheel;
-    
-    /**
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `apolloClient` is accessed in both synchronized and unsynchronized contexts
-in `shenyu-register-center/shenyu-register-client/shenyu-register-client-apollo/src/main/java/org/apache/shenyu/register/client/apollo/ApolloClientRegisterRepository.java`
-#### Snippet
-```java
-    private final ConcurrentLinkedQueue<String> metadataCache = new ConcurrentLinkedQueue<>();
-
-    private ApolloClient apolloClient;
-
-    @Override
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `client` is accessed in both synchronized and unsynchronized contexts
-in `shenyu-register-center/shenyu-register-client/shenyu-register-client-zookeeper/src/main/java/org/apache/shenyu/register/client/zookeeper/ZookeeperClientRegisterRepository.java`
-#### Snippet
-```java
-    private static final Logger LOGGER = LoggerFactory.getLogger(ZookeeperClientRegisterRepository.class);
-
-    private ZookeeperClient client;
-
-    private final Map<String, String> nodeDataMap = new HashMap<>();
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `unhealthyThreshold` is accessed in both synchronized and unsynchronized contexts
-in `shenyu-loadbalancer/src/main/java/org/apache/shenyu/loadbalancer/cache/UpstreamCheckTask.java`
-#### Snippet
-```java
-    private int healthyThreshold = 1;
-
-    private int unhealthyThreshold = 1;
-    
-    /**
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `checkTimeout` is accessed in both synchronized and unsynchronized contexts
-in `shenyu-loadbalancer/src/main/java/org/apache/shenyu/loadbalancer/cache/UpstreamCheckTask.java`
-#### Snippet
-```java
-    private int poolSize;
-
-    private int checkTimeout = 3000;
-
-    private int healthyThreshold = 1;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `healthyThreshold` is accessed in both synchronized and unsynchronized contexts
-in `shenyu-loadbalancer/src/main/java/org/apache/shenyu/loadbalancer/cache/UpstreamCheckTask.java`
-#### Snippet
-```java
-    private int checkTimeout = 3000;
-
-    private int healthyThreshold = 1;
-
-    private int unhealthyThreshold = 1;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `executor` is accessed in both synchronized and unsynchronized contexts
-in `shenyu-loadbalancer/src/main/java/org/apache/shenyu/loadbalancer/cache/UpstreamCheckTask.java`
-#### Snippet
-```java
-    private final int checkInterval;
-
-    private ExecutorService executor;
-
-    private int poolSize;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `configService` is accessed in both synchronized and unsynchronized contexts
-in `shenyu-register-center/shenyu-register-client/shenyu-register-client-nacos/src/main/java/org/apache/shenyu/register/client/nacos/NacosClientRegisterRepository.java`
-#### Snippet
-```java
-    private static final String URI_META_DATA = "uriMetadata";
-    
-    private ConfigService configService;
-    
-    private NamingService namingService;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `namingService` is accessed in both synchronized and unsynchronized contexts
-in `shenyu-register-center/shenyu-register-client/shenyu-register-client-nacos/src/main/java/org/apache/shenyu/register/client/nacos/NacosClientRegisterRepository.java`
-#### Snippet
-```java
-    private ConfigService configService;
-    
-    private NamingService namingService;
-
-    private final ConcurrentLinkedQueue<String> metadataCache = new ConcurrentLinkedQueue<>();
-```
-
-## RuleId[id=UseOfPropertiesAsHashtable]
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-kafka/src/main/java/org/apache/shenyu/plugin/logging/kafka/client/KafkaLogCollectClient.java`
-#### Snippet
-```java
-
-        Properties props = new Properties();
-        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
-        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
-        props.put(CommonClientConfigs.BOOTSTRAP_SERVERS_CONFIG, config.getNamesrvAddr());
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-kafka/src/main/java/org/apache/shenyu/plugin/logging/kafka/client/KafkaLogCollectClient.java`
-#### Snippet
-```java
-        Properties props = new Properties();
-        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
-        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
-        props.put(CommonClientConfigs.BOOTSTRAP_SERVERS_CONFIG, config.getNamesrvAddr());
-        if (!StringUtils.isBlank(config.getSecurityProtocol())
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-kafka/src/main/java/org/apache/shenyu/plugin/logging/kafka/client/KafkaLogCollectClient.java`
-#### Snippet
-```java
-        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
-        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
-        props.put(CommonClientConfigs.BOOTSTRAP_SERVERS_CONFIG, config.getNamesrvAddr());
-        if (!StringUtils.isBlank(config.getSecurityProtocol())
-                && !StringUtils.isBlank(config.getSaslMechanism())) {
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-kafka/src/main/java/org/apache/shenyu/plugin/logging/kafka/client/KafkaLogCollectClient.java`
-#### Snippet
-```java
-        if (!StringUtils.isBlank(config.getSecurityProtocol())
-                && !StringUtils.isBlank(config.getSaslMechanism())) {
-            props.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, config.getSecurityProtocol());
-            props.put(SaslConfigs.SASL_MECHANISM, config.getSaslMechanism());
-            props.put(SaslConfigs.SASL_JAAS_CONFIG,
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-kafka/src/main/java/org/apache/shenyu/plugin/logging/kafka/client/KafkaLogCollectClient.java`
-#### Snippet
-```java
-                && !StringUtils.isBlank(config.getSaslMechanism())) {
-            props.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, config.getSecurityProtocol());
-            props.put(SaslConfigs.SASL_MECHANISM, config.getSaslMechanism());
-            props.put(SaslConfigs.SASL_JAAS_CONFIG,
-                    MessageFormat
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-kafka/src/main/java/org/apache/shenyu/plugin/logging/kafka/client/KafkaLogCollectClient.java`
-#### Snippet
-```java
-            props.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, config.getSecurityProtocol());
-            props.put(SaslConfigs.SASL_MECHANISM, config.getSaslMechanism());
-            props.put(SaslConfigs.SASL_JAAS_CONFIG,
-                    MessageFormat
-                            .format("org.apache.kafka.common.security.scram.ScramLoginModule required username=\"{0}\" password=\"{1}\";",
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/config/DataSyncConfiguration.java`
-#### Snippet
-```java
-            if (Objects.nonNull(nacosProp.getAcm()) && nacosProp.getAcm().isEnabled()) {
-                // Use aliyun ACM service
-                properties.put(PropertyKeyConst.ENDPOINT, nacosProp.getAcm().getEndpoint());
-                properties.put(PropertyKeyConst.NAMESPACE, nacosProp.getAcm().getNamespace());
-                // Use subaccount ACM administrative authority
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/config/DataSyncConfiguration.java`
-#### Snippet
-```java
-                // Use aliyun ACM service
-                properties.put(PropertyKeyConst.ENDPOINT, nacosProp.getAcm().getEndpoint());
-                properties.put(PropertyKeyConst.NAMESPACE, nacosProp.getAcm().getNamespace());
-                // Use subaccount ACM administrative authority
-                properties.put(PropertyKeyConst.ACCESS_KEY, nacosProp.getAcm().getAccessKey());
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/config/DataSyncConfiguration.java`
-#### Snippet
-```java
-                properties.put(PropertyKeyConst.NAMESPACE, nacosProp.getAcm().getNamespace());
-                // Use subaccount ACM administrative authority
-                properties.put(PropertyKeyConst.ACCESS_KEY, nacosProp.getAcm().getAccessKey());
-                properties.put(PropertyKeyConst.SECRET_KEY, nacosProp.getAcm().getSecretKey());
-            } else {
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/config/DataSyncConfiguration.java`
-#### Snippet
-```java
-                // Use subaccount ACM administrative authority
-                properties.put(PropertyKeyConst.ACCESS_KEY, nacosProp.getAcm().getAccessKey());
-                properties.put(PropertyKeyConst.SECRET_KEY, nacosProp.getAcm().getSecretKey());
-            } else {
-                properties.put(PropertyKeyConst.SERVER_ADDR, nacosProp.getUrl());
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/config/DataSyncConfiguration.java`
-#### Snippet
-```java
-                properties.put(PropertyKeyConst.SECRET_KEY, nacosProp.getAcm().getSecretKey());
-            } else {
-                properties.put(PropertyKeyConst.SERVER_ADDR, nacosProp.getUrl());
-                if (StringUtils.isNotBlank(nacosProp.getNamespace())) {
-                    properties.put(PropertyKeyConst.NAMESPACE, nacosProp.getNamespace());
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/config/DataSyncConfiguration.java`
-#### Snippet
-```java
-                properties.put(PropertyKeyConst.SERVER_ADDR, nacosProp.getUrl());
-                if (StringUtils.isNotBlank(nacosProp.getNamespace())) {
-                    properties.put(PropertyKeyConst.NAMESPACE, nacosProp.getNamespace());
-                }
-                if (StringUtils.isNotBlank(nacosProp.getUsername())) {
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/config/DataSyncConfiguration.java`
-#### Snippet
-```java
-                }
-                if (StringUtils.isNotBlank(nacosProp.getUsername())) {
-                    properties.put(PropertyKeyConst.USERNAME, nacosProp.getUsername());
-                }
-                if (StringUtils.isNotBlank(nacosProp.getPassword())) {
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/config/DataSyncConfiguration.java`
-#### Snippet
-```java
-                }
-                if (StringUtils.isNotBlank(nacosProp.getPassword())) {
-                    properties.put(PropertyKeyConst.PASSWORD, nacosProp.getPassword());
-                }
-            }
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-nacos/src/main/java/org/apache/shenyu/springboot/starter/sync/data/nacos/NacosSyncDataConfiguration.java`
-#### Snippet
-```java
-        Properties properties = new Properties();
-        if (nacosConfig.getAcm() != null && nacosConfig.getAcm().isEnabled()) {
-            properties.put(PropertyKeyConst.ENDPOINT, nacosConfig.getAcm().getEndpoint());
-            properties.put(PropertyKeyConst.NAMESPACE, nacosConfig.getAcm().getNamespace());
-            properties.put(PropertyKeyConst.ACCESS_KEY, nacosConfig.getAcm().getAccessKey());
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-nacos/src/main/java/org/apache/shenyu/springboot/starter/sync/data/nacos/NacosSyncDataConfiguration.java`
-#### Snippet
-```java
-        if (nacosConfig.getAcm() != null && nacosConfig.getAcm().isEnabled()) {
-            properties.put(PropertyKeyConst.ENDPOINT, nacosConfig.getAcm().getEndpoint());
-            properties.put(PropertyKeyConst.NAMESPACE, nacosConfig.getAcm().getNamespace());
-            properties.put(PropertyKeyConst.ACCESS_KEY, nacosConfig.getAcm().getAccessKey());
-            properties.put(PropertyKeyConst.SECRET_KEY, nacosConfig.getAcm().getSecretKey());
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-nacos/src/main/java/org/apache/shenyu/springboot/starter/sync/data/nacos/NacosSyncDataConfiguration.java`
-#### Snippet
-```java
-            properties.put(PropertyKeyConst.ENDPOINT, nacosConfig.getAcm().getEndpoint());
-            properties.put(PropertyKeyConst.NAMESPACE, nacosConfig.getAcm().getNamespace());
-            properties.put(PropertyKeyConst.ACCESS_KEY, nacosConfig.getAcm().getAccessKey());
-            properties.put(PropertyKeyConst.SECRET_KEY, nacosConfig.getAcm().getSecretKey());
-        } else {
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-nacos/src/main/java/org/apache/shenyu/springboot/starter/sync/data/nacos/NacosSyncDataConfiguration.java`
-#### Snippet
-```java
-            properties.put(PropertyKeyConst.NAMESPACE, nacosConfig.getAcm().getNamespace());
-            properties.put(PropertyKeyConst.ACCESS_KEY, nacosConfig.getAcm().getAccessKey());
-            properties.put(PropertyKeyConst.SECRET_KEY, nacosConfig.getAcm().getSecretKey());
-        } else {
-            properties.put(PropertyKeyConst.SERVER_ADDR, nacosConfig.getUrl());
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-nacos/src/main/java/org/apache/shenyu/springboot/starter/sync/data/nacos/NacosSyncDataConfiguration.java`
-#### Snippet
-```java
-            properties.put(PropertyKeyConst.SECRET_KEY, nacosConfig.getAcm().getSecretKey());
-        } else {
-            properties.put(PropertyKeyConst.SERVER_ADDR, nacosConfig.getUrl());
-            if (StringUtils.isNotBlank(nacosConfig.getNamespace())) {
-                properties.put(PropertyKeyConst.NAMESPACE, nacosConfig.getNamespace());
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-nacos/src/main/java/org/apache/shenyu/springboot/starter/sync/data/nacos/NacosSyncDataConfiguration.java`
-#### Snippet
-```java
-            properties.put(PropertyKeyConst.SERVER_ADDR, nacosConfig.getUrl());
-            if (StringUtils.isNotBlank(nacosConfig.getNamespace())) {
-                properties.put(PropertyKeyConst.NAMESPACE, nacosConfig.getNamespace());
-            }
-            if (nacosConfig.getUsername() != null) {
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-nacos/src/main/java/org/apache/shenyu/springboot/starter/sync/data/nacos/NacosSyncDataConfiguration.java`
-#### Snippet
-```java
-            }
-            if (nacosConfig.getUsername() != null) {
-                properties.put(PropertyKeyConst.USERNAME, nacosConfig.getUsername());
-            }
-            if (nacosConfig.getPassword() != null) {
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sync-data-center/shenyu-spring-boot-starter-sync-data-nacos/src/main/java/org/apache/shenyu/springboot/starter/sync/data/nacos/NacosSyncDataConfiguration.java`
-#### Snippet
-```java
-            }
-            if (nacosConfig.getPassword() != null) {
-                properties.put(PropertyKeyConst.PASSWORD, nacosConfig.getPassword());
-            }
-        }
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.get()` on properties object
-in `shenyu-web/src/main/java/org/apache/shenyu/web/loader/PluginJarParser.java`
-#### Snippet
-```java
-                        Properties properties = new Properties();
-                        properties.load(new ByteArrayInputStream(classByteArray));
-                        pluginJar.version = properties.get("version").toString();
-                        pluginJar.artifactId = properties.get("artifactId").toString();
-                        pluginJar.groupId = properties.get("groupId").toString();
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.get()` on properties object
-in `shenyu-web/src/main/java/org/apache/shenyu/web/loader/PluginJarParser.java`
-#### Snippet
-```java
-                        properties.load(new ByteArrayInputStream(classByteArray));
-                        pluginJar.version = properties.get("version").toString();
-                        pluginJar.artifactId = properties.get("artifactId").toString();
-                        pluginJar.groupId = properties.get("groupId").toString();
-                    }
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.get()` on properties object
-in `shenyu-web/src/main/java/org/apache/shenyu/web/loader/PluginJarParser.java`
-#### Snippet
-```java
-                        pluginJar.version = properties.get("version").toString();
-                        pluginJar.artifactId = properties.get("artifactId").toString();
-                        pluginJar.groupId = properties.get("groupId").toString();
-                    }
-                    continue;
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-nacos/src/main/java/org/apache/shenyu/register/client/server/nacos/NacosClientServerRegisterRepository.java`
-#### Snippet
-```java
-        Properties properties = config.getProps();
-        Properties nacosProperties = new Properties();
-        nacosProperties.put(PropertyKeyConst.SERVER_ADDR, serverAddr);
-        nacosProperties.put(PropertyKeyConst.NAMESPACE, properties.getProperty("nacosNameSpace"));
-        // the nacos authentication username
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-nacos/src/main/java/org/apache/shenyu/register/client/server/nacos/NacosClientServerRegisterRepository.java`
-#### Snippet
-```java
-        Properties nacosProperties = new Properties();
-        nacosProperties.put(PropertyKeyConst.SERVER_ADDR, serverAddr);
-        nacosProperties.put(PropertyKeyConst.NAMESPACE, properties.getProperty("nacosNameSpace"));
-        // the nacos authentication username
-        nacosProperties.put(PropertyKeyConst.USERNAME, properties.getProperty(PropertyKeyConst.USERNAME, ""));
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-nacos/src/main/java/org/apache/shenyu/register/client/server/nacos/NacosClientServerRegisterRepository.java`
-#### Snippet
-```java
-        nacosProperties.put(PropertyKeyConst.NAMESPACE, properties.getProperty("nacosNameSpace"));
-        // the nacos authentication username
-        nacosProperties.put(PropertyKeyConst.USERNAME, properties.getProperty(PropertyKeyConst.USERNAME, ""));
-        // the nacos authentication password
-        nacosProperties.put(PropertyKeyConst.PASSWORD, properties.getProperty(PropertyKeyConst.PASSWORD, ""));
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-nacos/src/main/java/org/apache/shenyu/register/client/server/nacos/NacosClientServerRegisterRepository.java`
-#### Snippet
-```java
-        nacosProperties.put(PropertyKeyConst.USERNAME, properties.getProperty(PropertyKeyConst.USERNAME, ""));
-        // the nacos authentication password
-        nacosProperties.put(PropertyKeyConst.PASSWORD, properties.getProperty(PropertyKeyConst.PASSWORD, ""));
-        // access key for namespace
-        nacosProperties.put(PropertyKeyConst.ACCESS_KEY, properties.getProperty(PropertyKeyConst.ACCESS_KEY, ""));
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-nacos/src/main/java/org/apache/shenyu/register/client/server/nacos/NacosClientServerRegisterRepository.java`
-#### Snippet
-```java
-        nacosProperties.put(PropertyKeyConst.PASSWORD, properties.getProperty(PropertyKeyConst.PASSWORD, ""));
-        // access key for namespace
-        nacosProperties.put(PropertyKeyConst.ACCESS_KEY, properties.getProperty(PropertyKeyConst.ACCESS_KEY, ""));
-        // secret key for namespace
-        nacosProperties.put(PropertyKeyConst.SECRET_KEY, properties.getProperty(PropertyKeyConst.SECRET_KEY, ""));
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-nacos/src/main/java/org/apache/shenyu/register/client/server/nacos/NacosClientServerRegisterRepository.java`
-#### Snippet
-```java
-        nacosProperties.put(PropertyKeyConst.ACCESS_KEY, properties.getProperty(PropertyKeyConst.ACCESS_KEY, ""));
-        // secret key for namespace
-        nacosProperties.put(PropertyKeyConst.SECRET_KEY, properties.getProperty(PropertyKeyConst.SECRET_KEY, ""));
-
-        try {
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.get()` on properties object
-in `shenyu-sdk/shenyu-sdk-core/src/main/java/org/apache/shenyu/sdk/core/client/AbstractShenyuSdkClient.java`
-#### Snippet
-```java
-        this.requestInterceptors = requestInterceptors;
-        Properties props = registerConfig.getProps();
-        Boolean retryEnable = Optional.ofNullable(props.get("retry.enable")).map(e -> Boolean.parseBoolean(e.toString())).orElse(false);
-        Long period = Optional.ofNullable(props.get("retry.period")).map(l -> Long.parseLong(l.toString())).orElse(100L);
-        long maxPeriod = Optional.ofNullable(props.get("retry.maxPeriod")).map(l -> Long.parseLong(l.toString())).orElse(SECONDS.toMillis(1));
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.get()` on properties object
-in `shenyu-sdk/shenyu-sdk-core/src/main/java/org/apache/shenyu/sdk/core/client/AbstractShenyuSdkClient.java`
-#### Snippet
-```java
-        Properties props = registerConfig.getProps();
-        Boolean retryEnable = Optional.ofNullable(props.get("retry.enable")).map(e -> Boolean.parseBoolean(e.toString())).orElse(false);
-        Long period = Optional.ofNullable(props.get("retry.period")).map(l -> Long.parseLong(l.toString())).orElse(100L);
-        long maxPeriod = Optional.ofNullable(props.get("retry.maxPeriod")).map(l -> Long.parseLong(l.toString())).orElse(SECONDS.toMillis(1));
-        int maxAttempts = Optional.ofNullable(props.get("retry.maxAttempts")).map(l -> Integer.parseInt(l.toString())).orElse(5);
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.get()` on properties object
-in `shenyu-sdk/shenyu-sdk-core/src/main/java/org/apache/shenyu/sdk/core/client/AbstractShenyuSdkClient.java`
-#### Snippet
-```java
-        Boolean retryEnable = Optional.ofNullable(props.get("retry.enable")).map(e -> Boolean.parseBoolean(e.toString())).orElse(false);
-        Long period = Optional.ofNullable(props.get("retry.period")).map(l -> Long.parseLong(l.toString())).orElse(100L);
-        long maxPeriod = Optional.ofNullable(props.get("retry.maxPeriod")).map(l -> Long.parseLong(l.toString())).orElse(SECONDS.toMillis(1));
-        int maxAttempts = Optional.ofNullable(props.get("retry.maxAttempts")).map(l -> Integer.parseInt(l.toString())).orElse(5);
-        this.algorithm = props.getProperty("algorithm", "roundRobin");
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.get()` on properties object
-in `shenyu-sdk/shenyu-sdk-core/src/main/java/org/apache/shenyu/sdk/core/client/AbstractShenyuSdkClient.java`
-#### Snippet
-```java
-        Long period = Optional.ofNullable(props.get("retry.period")).map(l -> Long.parseLong(l.toString())).orElse(100L);
-        long maxPeriod = Optional.ofNullable(props.get("retry.maxPeriod")).map(l -> Long.parseLong(l.toString())).orElse(SECONDS.toMillis(1));
-        int maxAttempts = Optional.ofNullable(props.get("retry.maxAttempts")).map(l -> Integer.parseInt(l.toString())).orElse(5);
-        this.algorithm = props.getProperty("algorithm", "roundRobin");
-        this.scheme = props.getProperty("scheme", "http");
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-alert/src/main/java/org/apache/shenyu/alert/strategy/EmailStrategy.java`
-#### Snippet
-```java
-    private Properties props(final EmailProp emailProp) {
-        Properties props = new Properties();
-        props.put("mail.smtp.host", emailProp.getHost());
-        props.put("mail.smtp.port", emailProp.getPort());
-        props.put("mail.smtp.auth", emailProp.getAuth());
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-alert/src/main/java/org/apache/shenyu/alert/strategy/EmailStrategy.java`
-#### Snippet
-```java
-        Properties props = new Properties();
-        props.put("mail.smtp.host", emailProp.getHost());
-        props.put("mail.smtp.port", emailProp.getPort());
-        props.put("mail.smtp.auth", emailProp.getAuth());
-        props.put("mail.smtp.starttls.enable", emailProp.getEnableTls());
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-alert/src/main/java/org/apache/shenyu/alert/strategy/EmailStrategy.java`
-#### Snippet
-```java
-        props.put("mail.smtp.host", emailProp.getHost());
-        props.put("mail.smtp.port", emailProp.getPort());
-        props.put("mail.smtp.auth", emailProp.getAuth());
-        props.put("mail.smtp.starttls.enable", emailProp.getEnableTls());
-
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-alert/src/main/java/org/apache/shenyu/alert/strategy/EmailStrategy.java`
-#### Snippet
-```java
-        props.put("mail.smtp.port", emailProp.getPort());
-        props.put("mail.smtp.auth", emailProp.getAuth());
-        props.put("mail.smtp.starttls.enable", emailProp.getEnableTls());
-
-        return props;
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-register-center/shenyu-register-client/shenyu-register-client-nacos/src/main/java/org/apache/shenyu/register/client/nacos/NacosClientRegisterRepository.java`
-#### Snippet
-```java
-        Properties properties = config.getProps();
-        Properties nacosProperties = new Properties();
-        nacosProperties.put(PropertyKeyConst.SERVER_ADDR, serverAddr);
-
-        nacosProperties.put(PropertyKeyConst.NAMESPACE, properties.getProperty(NAMESPACE));
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-register-center/shenyu-register-client/shenyu-register-client-nacos/src/main/java/org/apache/shenyu/register/client/nacos/NacosClientRegisterRepository.java`
-#### Snippet
-```java
-        nacosProperties.put(PropertyKeyConst.SERVER_ADDR, serverAddr);
-
-        nacosProperties.put(PropertyKeyConst.NAMESPACE, properties.getProperty(NAMESPACE));
-        // the nacos authentication username
-        nacosProperties.put(PropertyKeyConst.USERNAME, properties.getProperty(PropertyKeyConst.USERNAME, ""));
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-register-center/shenyu-register-client/shenyu-register-client-nacos/src/main/java/org/apache/shenyu/register/client/nacos/NacosClientRegisterRepository.java`
-#### Snippet
-```java
-        nacosProperties.put(PropertyKeyConst.NAMESPACE, properties.getProperty(NAMESPACE));
-        // the nacos authentication username
-        nacosProperties.put(PropertyKeyConst.USERNAME, properties.getProperty(PropertyKeyConst.USERNAME, ""));
-        // the nacos authentication password
-        nacosProperties.put(PropertyKeyConst.PASSWORD, properties.getProperty(PropertyKeyConst.PASSWORD, ""));
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-register-center/shenyu-register-client/shenyu-register-client-nacos/src/main/java/org/apache/shenyu/register/client/nacos/NacosClientRegisterRepository.java`
-#### Snippet
-```java
-        nacosProperties.put(PropertyKeyConst.USERNAME, properties.getProperty(PropertyKeyConst.USERNAME, ""));
-        // the nacos authentication password
-        nacosProperties.put(PropertyKeyConst.PASSWORD, properties.getProperty(PropertyKeyConst.PASSWORD, ""));
-        // access key for namespace
-        nacosProperties.put(PropertyKeyConst.ACCESS_KEY, properties.getProperty(PropertyKeyConst.ACCESS_KEY, ""));
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-register-center/shenyu-register-client/shenyu-register-client-nacos/src/main/java/org/apache/shenyu/register/client/nacos/NacosClientRegisterRepository.java`
-#### Snippet
-```java
-        nacosProperties.put(PropertyKeyConst.PASSWORD, properties.getProperty(PropertyKeyConst.PASSWORD, ""));
-        // access key for namespace
-        nacosProperties.put(PropertyKeyConst.ACCESS_KEY, properties.getProperty(PropertyKeyConst.ACCESS_KEY, ""));
-        // secret key for namespace
-        nacosProperties.put(PropertyKeyConst.SECRET_KEY, properties.getProperty(PropertyKeyConst.SECRET_KEY, ""));
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-register-center/shenyu-register-client/shenyu-register-client-nacos/src/main/java/org/apache/shenyu/register/client/nacos/NacosClientRegisterRepository.java`
-#### Snippet
-```java
-        nacosProperties.put(PropertyKeyConst.ACCESS_KEY, properties.getProperty(PropertyKeyConst.ACCESS_KEY, ""));
-        // secret key for namespace
-        nacosProperties.put(PropertyKeyConst.SECRET_KEY, properties.getProperty(PropertyKeyConst.SECRET_KEY, ""));
-        try {
-            this.configService = ConfigFactory.createConfigService(nacosProperties);
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-register-center/shenyu-register-instance/shenyu-register-instance-nacos/src/main/java/org/apache/shenyu/register/instance/nacos/NacosInstanceRegisterRepository.java`
-#### Snippet
-```java
-        this.groupName = properties.getProperty("groupName", "DEFAULT_GROUP");
-        String serverAddr = config.getServerLists();
-        nacosProperties.put(PropertyKeyConst.SERVER_ADDR, serverAddr);
-        nacosProperties.put(PropertyKeyConst.NAMESPACE, properties.getProperty(NAMESPACE, ""));
-        nacosProperties.put(PropertyKeyConst.USERNAME, properties.getProperty(PropertyKeyConst.USERNAME, ""));
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-register-center/shenyu-register-instance/shenyu-register-instance-nacos/src/main/java/org/apache/shenyu/register/instance/nacos/NacosInstanceRegisterRepository.java`
-#### Snippet
-```java
-        String serverAddr = config.getServerLists();
-        nacosProperties.put(PropertyKeyConst.SERVER_ADDR, serverAddr);
-        nacosProperties.put(PropertyKeyConst.NAMESPACE, properties.getProperty(NAMESPACE, ""));
-        nacosProperties.put(PropertyKeyConst.USERNAME, properties.getProperty(PropertyKeyConst.USERNAME, ""));
-        nacosProperties.put(PropertyKeyConst.PASSWORD, properties.getProperty(PropertyKeyConst.PASSWORD, ""));
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-register-center/shenyu-register-instance/shenyu-register-instance-nacos/src/main/java/org/apache/shenyu/register/instance/nacos/NacosInstanceRegisterRepository.java`
-#### Snippet
-```java
-        nacosProperties.put(PropertyKeyConst.SERVER_ADDR, serverAddr);
-        nacosProperties.put(PropertyKeyConst.NAMESPACE, properties.getProperty(NAMESPACE, ""));
-        nacosProperties.put(PropertyKeyConst.USERNAME, properties.getProperty(PropertyKeyConst.USERNAME, ""));
-        nacosProperties.put(PropertyKeyConst.PASSWORD, properties.getProperty(PropertyKeyConst.PASSWORD, ""));
-        nacosProperties.put(PropertyKeyConst.ACCESS_KEY, properties.getProperty(PropertyKeyConst.ACCESS_KEY, ""));
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-register-center/shenyu-register-instance/shenyu-register-instance-nacos/src/main/java/org/apache/shenyu/register/instance/nacos/NacosInstanceRegisterRepository.java`
-#### Snippet
-```java
-        nacosProperties.put(PropertyKeyConst.NAMESPACE, properties.getProperty(NAMESPACE, ""));
-        nacosProperties.put(PropertyKeyConst.USERNAME, properties.getProperty(PropertyKeyConst.USERNAME, ""));
-        nacosProperties.put(PropertyKeyConst.PASSWORD, properties.getProperty(PropertyKeyConst.PASSWORD, ""));
-        nacosProperties.put(PropertyKeyConst.ACCESS_KEY, properties.getProperty(PropertyKeyConst.ACCESS_KEY, ""));
-        nacosProperties.put(PropertyKeyConst.SECRET_KEY, properties.getProperty(PropertyKeyConst.SECRET_KEY, ""));
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-register-center/shenyu-register-instance/shenyu-register-instance-nacos/src/main/java/org/apache/shenyu/register/instance/nacos/NacosInstanceRegisterRepository.java`
-#### Snippet
-```java
-        nacosProperties.put(PropertyKeyConst.USERNAME, properties.getProperty(PropertyKeyConst.USERNAME, ""));
-        nacosProperties.put(PropertyKeyConst.PASSWORD, properties.getProperty(PropertyKeyConst.PASSWORD, ""));
-        nacosProperties.put(PropertyKeyConst.ACCESS_KEY, properties.getProperty(PropertyKeyConst.ACCESS_KEY, ""));
-        nacosProperties.put(PropertyKeyConst.SECRET_KEY, properties.getProperty(PropertyKeyConst.SECRET_KEY, ""));
-        try {
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `shenyu-register-center/shenyu-register-instance/shenyu-register-instance-nacos/src/main/java/org/apache/shenyu/register/instance/nacos/NacosInstanceRegisterRepository.java`
-#### Snippet
-```java
-        nacosProperties.put(PropertyKeyConst.PASSWORD, properties.getProperty(PropertyKeyConst.PASSWORD, ""));
-        nacosProperties.put(PropertyKeyConst.ACCESS_KEY, properties.getProperty(PropertyKeyConst.ACCESS_KEY, ""));
-        nacosProperties.put(PropertyKeyConst.SECRET_KEY, properties.getProperty(PropertyKeyConst.SECRET_KEY, ""));
-        try {
-            this.namingService = NamingFactory.createNamingService(nacosProperties);
-```
-
-## RuleId[id=EmptyMethod]
-### EmptyMethod
-The method is empty
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/aspect/DataPermissionAspect.java`
-#### Snippet
-```java
-     */
-    @Pointcut("@annotation(org.apache.shenyu.admin.aspect.annotation.DataPermission)")
-    public void dataPermissionCut() { }
-
-
-```
-
-### EmptyMethod
-The method is empty
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/aspect/PageableAspect.java`
-#### Snippet
-```java
-     */
-    @Pointcut("@annotation(org.apache.shenyu.admin.aspect.annotation.Pageable)")
-    public void pageableCut() {
-    }
-    
-```
-
-### EmptyMethod
-The method is empty
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/aspect/PrintApiLogAspect.java`
-#### Snippet
-```java
-     */
-    @Pointcut("@within(org.springframework.web.bind.annotation.RestController)")
-    public void pointCut() {
-    }
-    
-```
-
-### EmptyMethod
-Method only calls its super
-in `shenyu-client/shenyu-client-grpc/src/main/java/org/apache/shenyu/client/grpc/json/JsonServerCallListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void onHalfClose() {
-        super.onHalfClose();
-    }
-```
-
-### EmptyMethod
-Method only calls its super
-in `shenyu-client/shenyu-client-grpc/src/main/java/org/apache/shenyu/client/grpc/json/JsonServerCallListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void onCancel() {
-        super.onCancel();
-    }
-```
-
-### EmptyMethod
-Method only calls its super
-in `shenyu-client/shenyu-client-grpc/src/main/java/org/apache/shenyu/client/grpc/json/JsonServerCallListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void onComplete() {
-        super.onComplete();
-    }
-```
-
-### EmptyMethod
-Method only calls its super
-in `shenyu-client/shenyu-client-grpc/src/main/java/org/apache/shenyu/client/grpc/json/JsonServerCallListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void onReady() {
-        super.onReady();
-    }
-```
-
-### EmptyMethod
-All implementations of this method are empty
-in `shenyu-discovery/shenyu-discovery-api/src/main/java/org/apache/shenyu/discovery/api/ShenyuDiscoveryService.java`
-#### Snippet
-```java
-     * @param config the config
-     */
-    void init(DiscoveryConfig config);
-    
-    /**
-```
-
-### EmptyMethod
-All implementations of this method are empty
-in `shenyu-discovery/shenyu-discovery-api/src/main/java/org/apache/shenyu/discovery/api/ShenyuDiscoveryService.java`
-#### Snippet
-```java
-     * @param listener the listener
-     */
-    void watcher(String key, DataChangedEventListener listener);
-    
-    /**
-```
-
-### EmptyMethod
-All implementations of this method are empty
-in `shenyu-discovery/shenyu-discovery-api/src/main/java/org/apache/shenyu/discovery/api/ShenyuDiscoveryService.java`
-#### Snippet
-```java
-     * @param value the value
-     */
-    void register(String key, String value);
-}
-
-```
-
-### EmptyMethod
-All implementations of this method are empty
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-common/src/main/java/org/apache/shenyu/plugin/logging/common/collector/AbstractLogCollector.java`
-#### Snippet
-```java
-     * @param desensitizeAlg data desensitize algorithm
-     */
-    protected abstract void desensitizeLog(L log, KeyWordMatch keyWordMatch, String desensitizeAlg);
-
-    @Override
-```
-
-### EmptyMethod
-The method is empty
-in `shenyu-protocol/shenyu-protocol-mqtt/src/main/java/org/apache/shenyu/protocol/mqtt/Publish.java`
-#### Snippet
-```java
-     * todo qos0.
-     */
-    private void qos0() {
-
-    }
-```
-
-### EmptyMethod
-Method only calls its super
-in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-consul/src/main/java/org/apache/shenyu/register/client/server/consul/ConsulConfigChangedEvent.java`
-#### Snippet
-```java
-
-    @Override
-    public Object getSource() {
-        return super.getSource();
-    }
-```
-
-## RuleId[id=RedundantImplements]
-### RedundantImplements
-Redundant interface declaration `SearchCondition`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/model/query/RecordLogQueryCondition.java`
-#### Snippet
-```java
- * RecordLogQueryCondition.
- */
-public class RecordLogQueryCondition extends BaseExcludedSearchCondition implements SearchCondition {
-    
-    /**
-```
-
-### RedundantImplements
-Redundant interface declaration `SearchCondition`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/model/query/SelectorQueryCondition.java`
-#### Snippet
-```java
- * this is rule query condition.
- */
-public class SelectorQueryCondition extends BaseExcludedSearchCondition implements SearchCondition, SwitchCondition {
-    
-    /**
-```
-
-### RedundantImplements
-Redundant interface declaration `SearchCondition`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/model/query/PluginQueryCondition.java`
-#### Snippet
-```java
- * this is plugin query condition.
- */
-public class PluginQueryCondition extends BaseExcludedSearchCondition implements SearchCondition, SwitchCondition {
-    
-    /**
-```
-
-### RedundantImplements
-Redundant interface declaration `SearchCondition`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/model/query/RuleQueryCondition.java`
-#### Snippet
-```java
- * this is rule query condition.
- */
-public class RuleQueryCondition extends BaseExcludedSearchCondition implements SearchCondition, SwitchCondition {
-    
-    /**
-```
-
-### RedundantImplements
-Redundant interface declaration `Serializable`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/model/entity/MetaDataDO.java`
-#### Snippet
-```java
- * The type Meta data do.
- */
-public final class MetaDataDO extends BaseDO implements Serializable {
-
-    private static final long serialVersionUID = 3566656950011853160L;
-```
-
-### RedundantImplements
-Redundant interface declaration `Serializable`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/model/result/ShenyuAdminResult.java`
-#### Snippet
-```java
- * ShenyuAdminResult.
- */
-public class ShenyuAdminResult extends AdminResult<Object> implements Serializable {
-
-    /**
-```
-
-### RedundantImplements
-Redundant interface declaration `SelectorHandleConverter`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/converter/SpringCloudSelectorHandleConverter.java`
-#### Snippet
-```java
- */
-@Component
-public class SpringCloudSelectorHandleConverter extends AbstractSelectorHandleConverter implements SelectorHandleConverter {
-    
-    @Override
-```
-
-### RedundantImplements
-Redundant interface declaration `SelectorHandleConverter`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/converter/DubboSelectorHandleConverter.java`
-#### Snippet
-```java
- */
-@Component
-public class DubboSelectorHandleConverter extends AbstractSelectorHandleConverter implements SelectorHandleConverter {
-    
-    @Override
-```
-
-### RedundantImplements
-Redundant interface declaration `ShenyuClientRegisterService`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/register/AbstractShenyuClientRegisterServiceImpl.java`
-#### Snippet
-```java
- * Abstract strategy.
- */
-public abstract class AbstractShenyuClientRegisterServiceImpl extends FallbackShenyuClientRegisterService implements ShenyuClientRegisterService {
-    
-    /**
-```
-
-### RedundantImplements
-Redundant interface declaration `SelectorHandleConverter`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/converter/DivideSelectorHandleConverter.java`
-#### Snippet
-```java
- */
-@Component
-public class DivideSelectorHandleConverter extends AbstractSelectorHandleConverter implements SelectorHandleConverter {
-    
-    @Override
-```
-
-### RedundantImplements
-Redundant interface declaration `SelectorHandleConverter`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/converter/GrpcSelectorHandleConverter.java`
-#### Snippet
-```java
- */
-@Component
-public class GrpcSelectorHandleConverter extends AbstractSelectorHandleConverter implements SelectorHandleConverter {
-    
-    @Override
-```
-
-### RedundantImplements
-Redundant interface declaration `SelectorHandleConverter`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/converter/TarsSelectorHandleConverter.java`
-#### Snippet
-```java
- */
-@Component
-public class TarsSelectorHandleConverter extends AbstractSelectorHandleConverter implements SelectorHandleConverter {
-    
-    @Override
-```
-
-## RuleId[id=CallToStringConcatCanBeReplacedByOperator]
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `shenyu-register-center/shenyu-register-client/shenyu-register-client-http/src/main/java/org/apache/shenyu/register/client/http/HttpClientRegisterRepository.java`
-#### Snippet
-```java
-        for (String server : serverList) {
-            try {
-                Optional<?> login = RegisterUtils.doLogin(username, password, server.concat(Constants.LOGIN_PATH));
-                login.ifPresent(v -> this.accessToken = String.valueOf(v));
-            } catch (Exception e) {
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `shenyu-register-center/shenyu-register-client/shenyu-register-client-http/src/main/java/org/apache/shenyu/register/client/http/HttpClientRegisterRepository.java`
-#### Snippet
-```java
-        for (String server : serverList) {
-            i++;
-            String concat = server.concat(path);
-            try {
-                if (StringUtils.isBlank(accessToken)) {
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/ShenyuSignatureUtils.java`
-#### Snippet
-```java
-            .map(key -> String.join("", key, map.get(key)))
-            .collect(Collectors.joining()).trim()
-            .concat(secureKey);
-        return signContent;
-    }
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/exception/ExceptionHandlers.java`
-#### Snippet
-```java
-        Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
-        return ShenyuAdminResult.error(violations.stream()
-                .map(v -> v.getPropertyPath().toString().concat(": ").concat(v.getMessage()))
-                .collect(Collectors.joining("| ")));
-    }
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/exception/ExceptionHandlers.java`
-#### Snippet
-```java
-        Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
-        return ShenyuAdminResult.error(violations.stream()
-                .map(v -> v.getPropertyPath().toString().concat(": ").concat(v.getMessage()))
-                .collect(Collectors.joining("| ")));
-    }
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/exception/ExceptionHandlers.java`
-#### Snippet
-```java
-        BindingResult bindingResult = e.getBindingResult();
-        String errorMsg = bindingResult.getFieldErrors().stream()
-                .map(f -> f.getField().concat(": ").concat(Optional.ofNullable(f.getDefaultMessage()).orElse("")))
-                .collect(Collectors.joining("| "));
-        return ShenyuAdminResult.error(String.format("Request error! invalid argument [%s]", errorMsg));
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/exception/ExceptionHandlers.java`
-#### Snippet
-```java
-        BindingResult bindingResult = e.getBindingResult();
-        String errorMsg = bindingResult.getFieldErrors().stream()
-                .map(f -> f.getField().concat(": ").concat(Optional.ofNullable(f.getDefaultMessage()).orElse("")))
-                .collect(Collectors.joining("| "));
-        return ShenyuAdminResult.error(String.format("Request error! invalid argument [%s]", errorMsg));
-```
-
-## RuleId[id=InstanceofCatchParameter]
-### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `e`
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-tencent-cls/src/main/java/org/apache/shenyu/plugin/tencent/cls/client/TencentClsLogCollectClient.java`
-#### Snippet
-```java
-            LOG.warn("The current thread has been interrupted during send logs.");
-        } catch (Exception e) {
-            if (e instanceof MaxBatchCountExceedException) {
-                LOG.error("The logs exceeds the maximum batch count, e={}", e.getMessage());
-            } else if (e instanceof LogSizeTooLargeException) {
-```
-
-### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `e`
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-tencent-cls/src/main/java/org/apache/shenyu/plugin/tencent/cls/client/TencentClsLogCollectClient.java`
-#### Snippet
-```java
-            if (e instanceof MaxBatchCountExceedException) {
-                LOG.error("The logs exceeds the maximum batch count, e={}", e.getMessage());
-            } else if (e instanceof LogSizeTooLargeException) {
-                LOG.error("The size of log is larger than the maximum allowable size, e={}", e.getMessage());
-            } else {
-```
-
-### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `e`
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/main/java/org/apache/shenyu/plugin/aliyun/sls/client/AliyunSlsLogCollectClient.java`
-#### Snippet
-```java
-            LOG.warn("The current thread has been interrupted during send logs.");
-        } catch (Exception e) {
-            if (e instanceof MaxBatchCountExceedException) {
-                LOG.error("The logs exceeds the maximum batch count, e={}", e.getMessage());
-            } else if (e instanceof LogSizeTooLargeException) {
-```
-
-### InstanceofCatchParameter
-'instanceof' on 'catch' parameter `e`
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/main/java/org/apache/shenyu/plugin/aliyun/sls/client/AliyunSlsLogCollectClient.java`
-#### Snippet
-```java
-            if (e instanceof MaxBatchCountExceedException) {
-                LOG.error("The logs exceeds the maximum batch count, e={}", e.getMessage());
-            } else if (e instanceof LogSizeTooLargeException) {
-                LOG.error("The size of log is larger than the maximum allowable size, e={}", e.getMessage());
-            } else {
-```
-
-## RuleId[id=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `shenyu-plugin/shenyu-plugin-metrics/src/main/java/org/apache/shenyu/plugin/metrics/reporter/MetricsReporter.java`
-#### Snippet
-```java
-    
-    private static String[] getLabelNames(final List<String> labels) {
-        return labels.toArray(new String[0]);
-    }
-}
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `shenyu-plugin/shenyu-plugin-sofa/src/main/java/org/apache/shenyu/plugin/sofa/param/SofaParamResolveServiceImpl.java`
-#### Snippet
-```java
-            values.add(convertToParameterValue(params.get(paramIndex), parameter));
-        }
-        return new ImmutablePair<>(parameterTypeArr.toArray(new String[0]), values.toArray());
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `shenyu-plugin/shenyu-plugin-sofa/src/main/java/org/apache/shenyu/plugin/sofa/proxy/SofaProxyService.java`
-#### Snippet
-```java
-        Pair<String[], Object[]> pair;
-        if (StringUtils.isBlank(metaData.getParameterTypes()) || ParamCheckUtils.bodyIsEmpty(body)) {
-            pair = new ImmutablePair<>(new String[]{}, new Object[]{});
-        } else {
-            pair = sofaParamResolveService.buildParameter(body, metaData.getParameterTypes());
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `shenyu-plugin/shenyu-plugin-sofa/src/main/java/org/apache/shenyu/plugin/sofa/proxy/SofaProxyService.java`
-#### Snippet
-```java
-        Pair<String[], Object[]> pair;
-        if (StringUtils.isBlank(metaData.getParameterTypes()) || ParamCheckUtils.bodyIsEmpty(body)) {
-            pair = new ImmutablePair<>(new String[]{}, new Object[]{});
-        } else {
-            pair = sofaParamResolveService.buildParameter(body, metaData.getParameterTypes());
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/ShenyuClientsRegistrar.java`
-#### Snippet
-```java
-            qualifierList = Collections.singletonList(getQualifier(client));
-        }
-        return !qualifierList.isEmpty() ? qualifierList.toArray(new String[0]) : null;
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `shenyu-plugin/shenyu-plugin-dubbo/shenyu-plugin-alibaba-dubbo/src/main/java/org/apache/shenyu/plugin/alibaba/dubbo/proxy/AlibabaDubboProxyService.java`
-#### Snippet
-```java
-            Pair<String[], Object[]> pair;
-            if (StringUtils.isBlank(metaData.getParameterTypes()) || ParamCheckUtils.bodyIsEmpty(body)) {
-                pair = new ImmutablePair<>(new String[]{}, new Object[]{});
-            } else {
-                pair = dubboParamResolveService.buildParameter(body, metaData.getParameterTypes());
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `shenyu-plugin/shenyu-plugin-dubbo/shenyu-plugin-alibaba-dubbo/src/main/java/org/apache/shenyu/plugin/alibaba/dubbo/proxy/AlibabaDubboProxyService.java`
-#### Snippet
-```java
-            Pair<String[], Object[]> pair;
-            if (StringUtils.isBlank(metaData.getParameterTypes()) || ParamCheckUtils.bodyIsEmpty(body)) {
-                pair = new ImmutablePair<>(new String[]{}, new Object[]{});
-            } else {
-                pair = dubboParamResolveService.buildParameter(body, metaData.getParameterTypes());
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/ShenyuSignatureUtils.java`
-#### Snippet
-```java
-
-        List<String> storedKeys = Arrays.stream(map.keySet()
-                .toArray(new String[] {}))
-            .sorted(Comparator.naturalOrder())
-            .collect(Collectors.toList());
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/UpstreamCheckService.java`
-#### Snippet
-```java
-    private void waitFinish() {
-        // wait all check success
-        CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
-        // clear, for next time
-        futures.clear();
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `shenyu-client/shenyu-client-dubbo/shenyu-client-alibaba-dubbo/src/main/java/org/apache/shenyu/client/alibaba/dubbo/validation/AlibabaDubboClientValidator.java`
-#### Snippet
-```java
-
-        // convert list to array
-        Class<?>[] classGroups = groups.toArray(new Class<?>[0]);
-
-        Object parameterBean = getMethodParameterBean(clazz, method, arguments);
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `shenyu-plugin/shenyu-plugin-dubbo/shenyu-plugin-apache-dubbo/src/main/java/org/apache/shenyu/plugin/apache/dubbo/proxy/ApacheDubboProxyService.java`
-#### Snippet
-```java
-        Pair<String[], Object[]> pair;
-        if (StringUtils.isBlank(metaData.getParameterTypes()) || ParamCheckUtils.bodyIsEmpty(body)) {
-            pair = new ImmutablePair<>(new String[]{}, new Object[]{});
-        } else {
-            pair = dubboParamResolveService.buildParameter(body, metaData.getParameterTypes());
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `shenyu-plugin/shenyu-plugin-dubbo/shenyu-plugin-apache-dubbo/src/main/java/org/apache/shenyu/plugin/apache/dubbo/proxy/ApacheDubboProxyService.java`
-#### Snippet
-```java
-        Pair<String[], Object[]> pair;
-        if (StringUtils.isBlank(metaData.getParameterTypes()) || ParamCheckUtils.bodyIsEmpty(body)) {
-            pair = new ImmutablePair<>(new String[]{}, new Object[]{});
-        } else {
-            pair = dubboParamResolveService.buildParameter(body, metaData.getParameterTypes());
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `shenyu-protocol/shenyu-protocol-grpc/src/main/java/org/apache/shenyu/protocol/grpc/message/JsonMessage.java`
-#### Snippet
-```java
-        try {
-            Descriptors.FileDescriptor fileDescriptor = Descriptors.FileDescriptor
-                    .buildFrom(fileDescriptorProto, new Descriptors.FileDescriptor[0]);
-            return fileDescriptor.findMessageTypeByName(GrpcConstants.JSON_DESCRIPTOR_PROTO_NAME);
-        } catch (Descriptors.DescriptorValidationException e) {
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `shenyu-client/shenyu-client-http/shenyu-client-springmvc/src/main/java/org/apache/shenyu/client/springmvc/init/SpringMvcClientEventListener.java`
-#### Snippet
-```java
-        }
-        List<ApiHttpMethodEnum> collect = Stream.of(requestMethods).map(item -> ApiHttpMethodEnum.of(item.name())).collect(Collectors.toList());
-        ApiHttpMethodEnum[] apiHttpMethodEnums = collect.toArray(new ApiHttpMethodEnum[]{});
-        String version = "v0.01";
-        return Sextet.with(values, consume, produce, apiHttpMethodEnums, RpcTypeEnum.HTTP, version);
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `shenyu-plugin/shenyu-plugin-api/src/main/java/org/apache/shenyu/plugin/api/utils/BodyParamUtils.java`
-#### Snippet
-```java
-            }
-        }).toArray();
-        String[] paramTypes = paramTypeList.toArray(new String[0]);
-        return new ImmutablePair<>(paramTypes, objects);
-    }
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `shenyu-client/shenyu-client-http/shenyu-client-springcloud/src/main/java/org/apache/shenyu/client/springcloud/init/SpringCloudClientEventListener.java`
-#### Snippet
-```java
-        }
-        List<ApiHttpMethodEnum> collect = Stream.of(requestMethods).map(item -> ApiHttpMethodEnum.of(item.name())).collect(Collectors.toList());
-        ApiHttpMethodEnum[] apiHttpMethodEnums = collect.toArray(new ApiHttpMethodEnum[]{});
-        String version = "v0.01";
-        return Sextet.with(values, consume, produce, apiHttpMethodEnums, RpcTypeEnum.SPRING_CLOUD, version);
-```
-
-## RuleId[id=SynchronizeOnThis]
-### SynchronizeOnThis
-Lock operations on a class may have unforeseen side-effects
-in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/proxy/ShenyuClientProxyFactory.java`
-#### Snippet
-```java
-        }
-
-        synchronized (apiClass) {
-            Object proxy = Proxy.newProxyInstance(apiClass.getClassLoader(),
-                    new Class<?>[]{apiClass},
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `shenyu-register-center/shenyu-register-instance/shenyu-register-instance-eureka/src/main/java/org/apache/shenyu/register/instance/eureka/EurekaInstanceRegisterRepository.java`
-#### Snippet
-```java
-    public List<InstanceEntity> selectInstancesAndWatcher(final String selectKey, final WatcherListener watcherListener) {
-        if (!watcher.contains(selectKey)) {
-            synchronized (this) {
-                if (!watcher.contains(selectKey)) {
-                    watcher.add(selectKey);
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `shenyu-plugin/shenyu-plugin-brpc/src/main/java/org/apache/shenyu/plugin/brpc/spi/SharedThreadPoolFactory.java`
-#### Snippet
-```java
-                try {
-                    ThreadPoolExecutor threadPool;
-                    synchronized (this) {
-                        if (this.threadPoolMap.get(rpcService) != null) {
-                            return (ThreadPoolExecutor) this.threadPoolMap.get(rpcService);
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `shenyu-common/src/main/java/org/apache/shenyu/common/timer/TimerTaskList.java`
-#### Snippet
-```java
-     */
-    public void remove(final TimerTaskEntry timerTaskEntry) {
-        synchronized (this) {
-            if (timerTaskEntry.list == this) {
-                timerTaskEntry.next.prev = timerTaskEntry.prev;
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `shenyu-common/src/main/java/org/apache/shenyu/common/timer/TimerTaskList.java`
-#### Snippet
-```java
-        while (!done) {
-            timerTaskEntry.remove();
-            synchronized (this) {
-                if (timerTaskEntry.list == null) {
-                    TimerTaskEntry tail = root.prev;
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/FreshBeanHolder.java`
-#### Snippet
-```java
-        O fresh = function.apply(e);
-        if (fresh != null) {
-            synchronized (this) {
-                this.o = fresh;
-            }
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `shenyu-common/src/main/java/org/apache/shenyu/common/timer/TimingWheel.java`
-#### Snippet
-```java
-        TimerTaskList bucket = buckets[index];
-        if (bucket == null) {
-            synchronized (this) {
-                bucket = buckets[index];
-                if (bucket == null) {
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `shenyu-web/src/main/java/org/apache/shenyu/web/loader/ShenyuPluginClassLoader.java`
-#### Snippet
-```java
-            return clazz;
-        }
-        synchronized (this) {
-            clazz = classCache.get(name);
-            if (clazz == null) {
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `shenyu-web/src/main/java/org/apache/shenyu/web/loader/ShenyuPluginLoader.java`
-#### Snippet
-```java
-            return clazz;
-        }
-        synchronized (this) {
-            clazz = classCache.get(name);
-            if (clazz == null) {
-```
-
-### SynchronizeOnThis
-Lock operations on a class may have unforeseen side-effects
-in `shenyu-web/src/main/java/org/apache/shenyu/web/loader/ShenyuPluginLoader.java`
-#### Snippet
-```java
-    public static ShenyuPluginLoader getInstance() {
-        if (null == pluginLoader) {
-            synchronized (ShenyuPluginLoader.class) {
-                if (null == pluginLoader) {
-                    pluginLoader = new ShenyuPluginLoader();
-```
-
-## RuleId[id=DoubleBraceInitialization]
-### DoubleBraceInitialization
-Double brace initialization
-in `shenyu-common/src/main/java/org/apache/shenyu/common/config/ShenyuConfig.java`
-#### Snippet
-```java
-
-        static {
-            DEFAULT_ALLOWED_HEADERS = new HashSet<String>() {
-                {
-                    add("x-requested-with");
-```
-
-### DoubleBraceInitialization
-Double brace initialization
-in `shenyu-plugin/shenyu-plugin-response/src/main/java/org/apache/shenyu/plugin/response/strategy/WebClientMessageWriter.java`
-#### Snippet
-```java
-     * the cross headers.
-     */
-    private static final Set<String> CORS_HEADERS = new HashSet<String>() {
-        {
-            add(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS);
-```
-
-### DoubleBraceInitialization
-Double brace initialization
-in `shenyu-plugin/shenyu-plugin-response/src/main/java/org/apache/shenyu/plugin/response/strategy/WebClientMessageWriter.java`
-#### Snippet
-```java
-        // octet-stream => octet-stream
-        // force-download => force-download
-        Set<String> commonBinaryTypes = new HashSet<String>() {
-            {
-                add("image");
 ```
 
 ## RuleId[id=NullArgumentToVariableArgMethod]
@@ -5321,6 +3999,18 @@ in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock
 ```
 
 ## RuleId[id=UnusedAssignment]
+### UnusedAssignment
+Variable `matchNode` initializer `null` is redundant
+in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/trie/ShenyuTrie.java`
+#### Snippet
+```java
+        int[] wildcard = new int[pathParts.length];
+        int[] pathVariable = new int[pathParts.length];
+        ShenyuTrieNode matchNode = null;
+        while (startIndex < pathParts.length) {
+            String pathPart = pathParts[startIndex];
+```
+
 ### UnusedAssignment
 Variable `n` initializer `0` is redundant
 in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/HttpUtils.java`
@@ -5346,40 +4036,52 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/TagServiceIm
 ```
 
 ### UnusedAssignment
-Variable `matchNode` initializer `null` is redundant
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/trie/ShenyuTrie.java`
+Variable `ctClass` initializer `null` is redundant
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/validation/ApacheDubboClientValidator.java`
 #### Snippet
 ```java
-        int[] wildcard = new int[pathParts.length];
-        int[] pathVariable = new int[pathParts.length];
-        ShenyuTrieNode matchNode = null;
-        while (startIndex < pathParts.length) {
-            String pathPart = pathParts[startIndex];
+        ClassPool pool = ClassGenerator.getClassPool(clazz.getClassLoader());
+        synchronized (parameterClassName.intern()) {
+            CtClass ctClass = null;
+            try {
+                ctClass = pool.getCtClass(parameterClassName);
 ```
 
 ## RuleId[id=ConstantValue]
 ### ConstantValue
-Condition `Objects.isNull(reference)` is always `false`
-in `shenyu-plugin/shenyu-plugin-sofa/src/main/java/org/apache/shenyu/plugin/sofa/proxy/SofaProxyService.java`
+Value `beanShenyuClient` is always 'null'
+in `shenyu-client/shenyu-client-websocket/shenyu-client-spring-websocket/src/main/java/org/apache/shenyu/client/spring/websocket/init/SpringWebSocketClientEventListener.java`
 #### Snippet
 ```java
-    public Mono<Object> genericInvoker(final String body, final MetaData metaData, final ServerWebExchange exchange) throws ShenyuException {
-        ConsumerConfig<GenericService> reference = ApplicationConfigCache.getInstance().get(metaData.getPath());
-        if (Objects.isNull(reference) || StringUtils.isEmpty(reference.getInterfaceId())) {
-            ApplicationConfigCache.getInstance().invalidate(metaData.getPath());
-            reference = ApplicationConfigCache.getInstance().initRef(metaData);
+        final Method[] methods = ReflectionUtils.getUniqueDeclaredMethods(clazz);
+        for (Method method : methods) {
+            handleMethod(bean, clazz, beanShenyuClient, method, superPath);
+        }
+    }
 ```
 
 ### ConstantValue
-Condition `Objects.isNull(config)` is always `false`
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-kafka/src/main/java/org/apache/shenyu/plugin/logging/kafka/client/KafkaLogCollectClient.java`
+Value `t` is always 'null'
+in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/fallback/FallbackHandler.java`
 #### Snippet
 ```java
-    @Override
-    public void initClient0(@NonNull final KafkaLogCollectConfig.KafkaLogConfig config) {
-        if (Objects.isNull(config)
-                || StringUtils.isBlank(config.getNamesrvAddr())
-                || StringUtils.isBlank(config.getTopic())) {
+        }
+        if (isSameUri) {
+            return withoutFallback(exchange, t);
+        }
+        // redirect to fallback uri.
+```
+
+### ConstantValue
+Condition `throwable instanceof SentinelPlugin.SentinelFallbackException` is always `false`
+in `shenyu-plugin/shenyu-plugin-sentinel/src/main/java/org/apache/shenyu/plugin/sentinel/fallback/SentinelFallbackHandler.java`
+#### Snippet
+```java
+            exchange.getResponse().setStatusCode(HttpStatus.TOO_MANY_REQUESTS);
+            error = ShenyuResultWrap.error(exchange, ShenyuResultEnum.SENTINEL_BLOCK_ERROR);
+        } else if (throwable instanceof SentinelPlugin.SentinelFallbackException) {
+            return exchange.getAttribute(Constants.RESPONSE_MONO);
+        } else {
 ```
 
 ### ConstantValue
@@ -5395,15 +4097,39 @@ in `shenyu-plugin/shenyu-plugin-brpc/src/main/java/org/apache/shenyu/plugin/brpc
 ```
 
 ### ConstantValue
-Result of `Objects.nonNull(AlibabaDubboConfigCache.getInstance().get(metaData.getPath()))` is always 'true'
-in `shenyu-plugin/shenyu-plugin-dubbo/shenyu-plugin-alibaba-dubbo/src/main/java/org/apache/shenyu/plugin/alibaba/dubbo/handler/AlibabaDubboMetaDataHandler.java`
+Method reference result is always 'true'
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/SandboxServiceImpl.java`
 #### Snippet
 ```java
-    @Override
-    protected boolean isInitialized(final MetaData metaData) {
-        return Objects.nonNull(AlibabaDubboConfigCache.getInstance().get(metaData.getPath()));
+                }
+            })
+            .filter(Objects::nonNull)
+            .collect(Collectors.toList());
     }
+```
 
+### ConstantValue
+Condition `throwable instanceof ResponseStatusException` is always `true`
+in `shenyu-web/src/main/java/org/apache/shenyu/web/handler/GlobalErrorHandler.java`
+#### Snippet
+```java
+        HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+        String errMsg = httpStatus.getReasonPhrase();
+        if (throwable instanceof ResponseStatusException) {
+            httpStatus = ((ResponseStatusException) throwable).getStatus();
+            if (StringUtils.hasLength(((ResponseStatusException) throwable).getReason())) {
+```
+
+### ConstantValue
+Condition `Objects.isNull(ApplicationConfigCache.getInstance().get(exist.getPath()))` is always `false`
+in `shenyu-plugin/shenyu-plugin-motan/src/main/java/org/apache/shenyu/plugin/motan/handler/MotanMetaDataHandler.java`
+#### Snippet
+```java
+        try {
+            MetaData exist = META_DATA.get(metaData.getPath());
+            if (Objects.isNull(exist) || Objects.isNull(ApplicationConfigCache.getInstance().get(exist.getPath()))
+                    || Objects.isNull(ApplicationConfigCache.getInstance().get(exist.getPath()).getRef())) {
+                // The first initialization
 ```
 
 ### ConstantValue
@@ -5419,6 +4145,294 @@ in `shenyu-plugin/shenyu-plugin-dubbo/shenyu-plugin-alibaba-dubbo/src/main/java/
 ```
 
 ### ConstantValue
+Result of `Objects.nonNull(AlibabaDubboConfigCache.getInstance().get(metaData.getPath()))` is always 'true'
+in `shenyu-plugin/shenyu-plugin-dubbo/shenyu-plugin-alibaba-dubbo/src/main/java/org/apache/shenyu/plugin/alibaba/dubbo/handler/AlibabaDubboMetaDataHandler.java`
+#### Snippet
+```java
+    @Override
+    protected boolean isInitialized(final MetaData metaData) {
+        return Objects.nonNull(AlibabaDubboConfigCache.getInstance().get(metaData.getPath()));
+    }
+
+```
+
+### ConstantValue
+Condition `throwable instanceof Resilience4JPlugin.CircuitBreakerStatusCodeException` is always `false`
+in `shenyu-plugin/shenyu-plugin-resilience4j/src/main/java/org/apache/shenyu/plugin/resilience4j/executor/Executor.java`
+#### Snippet
+```java
+            exchange.getResponse().setStatusCode(HttpStatus.GATEWAY_TIMEOUT);
+            error = ShenyuResultWrap.error(exchange, ShenyuResultEnum.SERVICE_TIMEOUT);
+        } else if (throwable instanceof Resilience4JPlugin.CircuitBreakerStatusCodeException) {
+            return Mono.error(throwable);
+        } else if (throwable instanceof CallNotPermittedException) {
+```
+
+### ConstantValue
+Value `memberValue` is always 'null'
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-alibaba-dubbo/src/main/java/org/apache/shenyu/client/alibaba/dubbo/validation/AlibabaDubboClientValidator.java`
+#### Snippet
+```java
+        if (memberValue instanceof BooleanMemberValue) {
+            ((BooleanMemberValue) memberValue).setValue((Boolean) value);
+        } else if (memberValue instanceof ByteMemberValue) {
+            ((ByteMemberValue) memberValue).setValue((Byte) value);
+        } else if (memberValue instanceof CharMemberValue) {
+```
+
+### ConstantValue
+Value `memberValue` is always 'null'
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/validation/ApacheDubboClientValidator.java`
+#### Snippet
+```java
+        if (memberValue instanceof BooleanMemberValue) {
+            ((BooleanMemberValue) memberValue).setValue((Boolean) value);
+        } else if (memberValue instanceof ByteMemberValue) {
+            ((ByteMemberValue) memberValue).setValue((Byte) value);
+        } else if (memberValue instanceof CharMemberValue) {
+```
+
+### ConstantValue
+Value `memberValue` is always 'null'
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/validation/ApacheDubboClientValidator.java`
+#### Snippet
+```java
+        } else if (memberValue instanceof ByteMemberValue) {
+            ((ByteMemberValue) memberValue).setValue((Byte) value);
+        } else if (memberValue instanceof CharMemberValue) {
+            ((CharMemberValue) memberValue).setValue((Character) value);
+        } else if (memberValue instanceof ShortMemberValue) {
+```
+
+### ConstantValue
+Value `memberValue` is always 'null'
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/validation/ApacheDubboClientValidator.java`
+#### Snippet
+```java
+        } else if (memberValue instanceof CharMemberValue) {
+            ((CharMemberValue) memberValue).setValue((Character) value);
+        } else if (memberValue instanceof ShortMemberValue) {
+            ((ShortMemberValue) memberValue).setValue((Short) value);
+        } else if (memberValue instanceof IntegerMemberValue) {
+```
+
+### ConstantValue
+Value `memberValue` is always 'null'
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/validation/ApacheDubboClientValidator.java`
+#### Snippet
+```java
+        } else if (memberValue instanceof ShortMemberValue) {
+            ((ShortMemberValue) memberValue).setValue((Short) value);
+        } else if (memberValue instanceof IntegerMemberValue) {
+            ((IntegerMemberValue) memberValue).setValue((Integer) value);
+        } else if (memberValue instanceof LongMemberValue) {
+```
+
+### ConstantValue
+Value `memberValue` is always 'null'
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/validation/ApacheDubboClientValidator.java`
+#### Snippet
+```java
+        } else if (memberValue instanceof IntegerMemberValue) {
+            ((IntegerMemberValue) memberValue).setValue((Integer) value);
+        } else if (memberValue instanceof LongMemberValue) {
+            ((LongMemberValue) memberValue).setValue((Long) value);
+        } else if (memberValue instanceof FloatMemberValue) {
+```
+
+### ConstantValue
+Value `memberValue` is always 'null'
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/validation/ApacheDubboClientValidator.java`
+#### Snippet
+```java
+        } else if (memberValue instanceof LongMemberValue) {
+            ((LongMemberValue) memberValue).setValue((Long) value);
+        } else if (memberValue instanceof FloatMemberValue) {
+            ((FloatMemberValue) memberValue).setValue((Float) value);
+        } else if (memberValue instanceof DoubleMemberValue) {
+```
+
+### ConstantValue
+Value `memberValue` is always 'null'
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/validation/ApacheDubboClientValidator.java`
+#### Snippet
+```java
+        } else if (memberValue instanceof FloatMemberValue) {
+            ((FloatMemberValue) memberValue).setValue((Float) value);
+        } else if (memberValue instanceof DoubleMemberValue) {
+            ((DoubleMemberValue) memberValue).setValue((Double) value);
+        } else if (memberValue instanceof ClassMemberValue) {
+```
+
+### ConstantValue
+Value `memberValue` is always 'null'
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/validation/ApacheDubboClientValidator.java`
+#### Snippet
+```java
+        } else if (memberValue instanceof DoubleMemberValue) {
+            ((DoubleMemberValue) memberValue).setValue((Double) value);
+        } else if (memberValue instanceof ClassMemberValue) {
+            ((ClassMemberValue) memberValue).setValue(((Class<?>) value).getName());
+        } else if (memberValue instanceof StringMemberValue) {
+```
+
+### ConstantValue
+Value `memberValue` is always 'null'
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/validation/ApacheDubboClientValidator.java`
+#### Snippet
+```java
+        } else if (memberValue instanceof ClassMemberValue) {
+            ((ClassMemberValue) memberValue).setValue(((Class<?>) value).getName());
+        } else if (memberValue instanceof StringMemberValue) {
+            ((StringMemberValue) memberValue).setValue((String) value);
+        } else if (memberValue instanceof EnumMemberValue) {
+```
+
+### ConstantValue
+Value `memberValue` is always 'null'
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/validation/ApacheDubboClientValidator.java`
+#### Snippet
+```java
+        } else if (memberValue instanceof StringMemberValue) {
+            ((StringMemberValue) memberValue).setValue((String) value);
+        } else if (memberValue instanceof EnumMemberValue) {
+            ((EnumMemberValue) memberValue).setValue(((Enum<?>) value).name());
+            /* else if (memberValue instanceof AnnotationMemberValue) */
+```
+
+### ConstantValue
+Value `memberValue` is always 'null'
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-alibaba-dubbo/src/main/java/org/apache/shenyu/client/alibaba/dubbo/validation/AlibabaDubboClientValidator.java`
+#### Snippet
+```java
+        } else if (memberValue instanceof ByteMemberValue) {
+            ((ByteMemberValue) memberValue).setValue((Byte) value);
+        } else if (memberValue instanceof CharMemberValue) {
+            ((CharMemberValue) memberValue).setValue((Character) value);
+        } else if (memberValue instanceof ShortMemberValue) {
+```
+
+### ConstantValue
+Value `memberValue` is always 'null'
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-alibaba-dubbo/src/main/java/org/apache/shenyu/client/alibaba/dubbo/validation/AlibabaDubboClientValidator.java`
+#### Snippet
+```java
+        } else if (memberValue instanceof CharMemberValue) {
+            ((CharMemberValue) memberValue).setValue((Character) value);
+        } else if (memberValue instanceof ShortMemberValue) {
+            ((ShortMemberValue) memberValue).setValue((Short) value);
+        } else if (memberValue instanceof IntegerMemberValue) {
+```
+
+### ConstantValue
+Value `memberValue` is always 'null'
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-alibaba-dubbo/src/main/java/org/apache/shenyu/client/alibaba/dubbo/validation/AlibabaDubboClientValidator.java`
+#### Snippet
+```java
+        } else if (memberValue instanceof ShortMemberValue) {
+            ((ShortMemberValue) memberValue).setValue((Short) value);
+        } else if (memberValue instanceof IntegerMemberValue) {
+            ((IntegerMemberValue) memberValue).setValue((Integer) value);
+        } else if (memberValue instanceof LongMemberValue) {
+```
+
+### ConstantValue
+Value `memberValue` is always 'null'
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-alibaba-dubbo/src/main/java/org/apache/shenyu/client/alibaba/dubbo/validation/AlibabaDubboClientValidator.java`
+#### Snippet
+```java
+        } else if (memberValue instanceof IntegerMemberValue) {
+            ((IntegerMemberValue) memberValue).setValue((Integer) value);
+        } else if (memberValue instanceof LongMemberValue) {
+            ((LongMemberValue) memberValue).setValue((Long) value);
+        } else if (memberValue instanceof FloatMemberValue) {
+```
+
+### ConstantValue
+Value `memberValue` is always 'null'
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-alibaba-dubbo/src/main/java/org/apache/shenyu/client/alibaba/dubbo/validation/AlibabaDubboClientValidator.java`
+#### Snippet
+```java
+        } else if (memberValue instanceof LongMemberValue) {
+            ((LongMemberValue) memberValue).setValue((Long) value);
+        } else if (memberValue instanceof FloatMemberValue) {
+            ((FloatMemberValue) memberValue).setValue((Float) value);
+        } else if (memberValue instanceof DoubleMemberValue) {
+```
+
+### ConstantValue
+Value `memberValue` is always 'null'
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-alibaba-dubbo/src/main/java/org/apache/shenyu/client/alibaba/dubbo/validation/AlibabaDubboClientValidator.java`
+#### Snippet
+```java
+        } else if (memberValue instanceof FloatMemberValue) {
+            ((FloatMemberValue) memberValue).setValue((Float) value);
+        } else if (memberValue instanceof DoubleMemberValue) {
+            ((DoubleMemberValue) memberValue).setValue((Double) value);
+        } else if (memberValue instanceof ClassMemberValue) {
+```
+
+### ConstantValue
+Value `memberValue` is always 'null'
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-alibaba-dubbo/src/main/java/org/apache/shenyu/client/alibaba/dubbo/validation/AlibabaDubboClientValidator.java`
+#### Snippet
+```java
+        } else if (memberValue instanceof DoubleMemberValue) {
+            ((DoubleMemberValue) memberValue).setValue((Double) value);
+        } else if (memberValue instanceof ClassMemberValue) {
+            ((ClassMemberValue) memberValue).setValue(((Class<?>) value).getName());
+        } else if (memberValue instanceof StringMemberValue) {
+```
+
+### ConstantValue
+Value `memberValue` is always 'null'
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-alibaba-dubbo/src/main/java/org/apache/shenyu/client/alibaba/dubbo/validation/AlibabaDubboClientValidator.java`
+#### Snippet
+```java
+        } else if (memberValue instanceof ClassMemberValue) {
+            ((ClassMemberValue) memberValue).setValue(((Class<?>) value).getName());
+        } else if (memberValue instanceof StringMemberValue) {
+            ((StringMemberValue) memberValue).setValue((String) value);
+        } else if (memberValue instanceof EnumMemberValue) {
+```
+
+### ConstantValue
+Value `memberValue` is always 'null'
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-alibaba-dubbo/src/main/java/org/apache/shenyu/client/alibaba/dubbo/validation/AlibabaDubboClientValidator.java`
+#### Snippet
+```java
+        } else if (memberValue instanceof StringMemberValue) {
+            ((StringMemberValue) memberValue).setValue((String) value);
+        } else if (memberValue instanceof EnumMemberValue) {
+            ((EnumMemberValue) memberValue).setValue(((Enum<?>) value).name());
+            /* else if (memberValue instanceof AnnotationMemberValue) */
+```
+
+### ConstantValue
+Value `memberValue` is always 'null'
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-alibaba-dubbo/src/main/java/org/apache/shenyu/client/alibaba/dubbo/validation/AlibabaDubboClientValidator.java`
+#### Snippet
+```java
+            ((EnumMemberValue) memberValue).setValue(((Enum<?>) value).name());
+            /* else if (memberValue instanceof AnnotationMemberValue) */
+        } else if (memberValue instanceof ArrayMemberValue) {
+            CtClass arrayType = type.getComponentType();
+            int len = Array.getLength(value);
+```
+
+### ConstantValue
+Value `memberValue` is always 'null'
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/validation/ApacheDubboClientValidator.java`
+#### Snippet
+```java
+            ((EnumMemberValue) memberValue).setValue(((Enum<?>) value).name());
+            /* else if (memberValue instanceof AnnotationMemberValue) */
+        } else if (memberValue instanceof ArrayMemberValue) {
+            CtClass arrayType = type.getComponentType();
+            int len = Array.getLength(value);
+```
+
+### ConstantValue
 Result of `Objects.nonNull(ApacheDubboConfigCache.getInstance().get(metaData.getPath()))` is always 'true'
 in `shenyu-plugin/shenyu-plugin-dubbo/shenyu-plugin-apache-dubbo/src/main/java/org/apache/shenyu/plugin/apache/dubbo/handler/ApacheDubboMetaDataHandler.java`
 #### Snippet
@@ -5431,27 +4445,53 @@ in `shenyu-plugin/shenyu-plugin-dubbo/shenyu-plugin-apache-dubbo/src/main/java/o
 ```
 
 ### ConstantValue
-Value `beanShenyuClient` is always 'null'
-in `shenyu-client/shenyu-client-websocket/shenyu-client-spring-websocket/src/main/java/org/apache/shenyu/client/spring/websocket/init/SpringWebSocketClientEventListener.java`
+Value `exception` is always 'null'
+in `shenyu-plugin/shenyu-plugin-dubbo/shenyu-plugin-apache-dubbo/src/main/java/org/apache/shenyu/plugin/apache/dubbo/proxy/ApacheDubboProxyService.java`
 #### Snippet
 ```java
-        final Method[] methods = ReflectionUtils.getUniqueDeclaredMethods(clazz);
-        for (Method method : methods) {
-            handleMethod(bean, clazz, beanShenyuClient, method, superPath);
-        }
+            exchange.getAttributes().put(Constants.CLIENT_RESPONSE_RESULT_TYPE, ResultEnum.SUCCESS.getName());
+            return ret;
+        })).onErrorMap(exception -> exception instanceof GenericException ? new ShenyuException(((GenericException) exception).getExceptionMessage()) : new ShenyuException(exception));
     }
+    
 ```
 
 ### ConstantValue
-Condition `Objects.isNull(ApplicationConfigCache.getInstance().get(exist.getPath()))` is always `false`
-in `shenyu-plugin/shenyu-plugin-motan/src/main/java/org/apache/shenyu/plugin/motan/handler/MotanMetaDataHandler.java`
+Condition `Objects.isNull(reference)` is always `false`
+in `shenyu-plugin/shenyu-plugin-sofa/src/main/java/org/apache/shenyu/plugin/sofa/proxy/SofaProxyService.java`
 #### Snippet
 ```java
-        try {
-            MetaData exist = META_DATA.get(metaData.getPath());
-            if (Objects.isNull(exist) || Objects.isNull(ApplicationConfigCache.getInstance().get(exist.getPath()))
-                    || Objects.isNull(ApplicationConfigCache.getInstance().get(exist.getPath()).getRef())) {
-                // The first initialization
+    public Mono<Object> genericInvoker(final String body, final MetaData metaData, final ServerWebExchange exchange) throws ShenyuException {
+        ConsumerConfig<GenericService> reference = ApplicationConfigCache.getInstance().get(metaData.getPath());
+        if (Objects.isNull(reference) || StringUtils.isEmpty(reference.getInterfaceId())) {
+            ApplicationConfigCache.getInstance().invalidate(metaData.getPath());
+            reference = ApplicationConfigCache.getInstance().initRef(metaData);
+```
+
+## RuleId[id=NonAtomicOperationOnVolatileField]
+### NonAtomicOperationOnVolatileField
+Non-atomic operation on volatile field `plugins`
+in `shenyu-web/src/main/java/org/apache/shenyu/web/handler/ShenyuWebHandler.java`
+#### Snippet
+```java
+            case SORTED:
+                // copy a new one, or there will be concurrency problems
+                this.plugins = sortPlugins(new ArrayList<>(this.plugins));
+                break;
+            default:
+```
+
+## RuleId[id=WriteOnlyObject]
+### WriteOnlyObject
+Write-only object
+in `shenyu-protocol/shenyu-protocol-mqtt/src/main/java/org/apache/shenyu/protocol/mqtt/MqttServerConfiguration.java`
+#### Snippet
+```java
+            setPassword(encryptPassword());
+        }
+        MqttContext context = new MqttContext();
+        context.setPassword(getPassword());
+        context.setPort(getPort());
 ```
 
 ## RuleId[id=StringConcatenationInsideStringBufferAppend]
@@ -5467,43 +4507,243 @@ in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-desensitize-api/sr
             sb.append("||");
 ```
 
-## RuleId[id=IOResource]
-### IOResource
-'Socket' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `shenyu-plugin/shenyu-plugin-mqtt/src/main/java/org/apache/shenyu/plugin/mqtt/handler/MqttPluginDataHandler.java`
+## RuleId[id=UNCHECKED_WARNING]
+### UNCHECKED_WARNING
+Unchecked cast: 'org.apache.shenyu.client.core.register.matcher.Matcher\>' to 'org.apache.shenyu.client.core.register.matcher.Matcher'
+in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/register/matcher/Matcher.java`
 #### Snippet
 ```java
-        try {
-            InetAddress address = InetAddress.getByName("127.0.0.1");
-            new Socket(address, port);
-            flag = true;
-        } catch (Exception ignored) {
+    static <T> Matcher<T> not(Matcher<? super T> target) {
+        Objects.requireNonNull(target);
+        return (Matcher<T>) target.negate();
+    }
+}
 ```
 
-## RuleId[id=SocketResource]
-### SocketResource
-'Socket' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `shenyu-plugin/shenyu-plugin-mqtt/src/main/java/org/apache/shenyu/plugin/mqtt/handler/MqttPluginDataHandler.java`
+### UNCHECKED_WARNING
+Unchecked call to 'addSubscribers(ExecutorSubscriber)' as a member of raw type 'org.apache.shenyu.register.common.subsriber.AbstractQueueConsumerFactory'
+in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/disruptor/ShenyuClientRegisterEventPublisher.java`
 #### Snippet
 ```java
-        try {
-            InetAddress address = InetAddress.getByName("127.0.0.1");
-            new Socket(address, port);
-            flag = true;
-        } catch (Exception ignored) {
+    public void start(final ShenyuClientRegisterRepository shenyuClientRegisterRepository) {
+        RegisterClientExecutorFactory factory = new RegisterClientExecutorFactory();
+        factory.addSubscribers(new ShenyuClientMetadataExecutorSubscriber(shenyuClientRegisterRepository));
+        factory.addSubscribers(new ShenyuClientURIExecutorSubscriber(shenyuClientRegisterRepository));
+        factory.addSubscribers(new ShenyuClientApiDocExecutorSubscriber(shenyuClientRegisterRepository));
 ```
 
-## RuleId[id=FieldMayBeStatic]
-### FieldMayBeStatic
-Field `recyclePeriod` may be 'static'
-in `shenyu-loadbalancer/src/main/java/org/apache/shenyu/loadbalancer/spi/RoundRobinLoadBalancer.java`
+### UNCHECKED_WARNING
+Unchecked call to 'addSubscribers(ExecutorSubscriber)' as a member of raw type 'org.apache.shenyu.register.common.subsriber.AbstractQueueConsumerFactory'
+in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/disruptor/ShenyuClientRegisterEventPublisher.java`
 #### Snippet
 ```java
-public class RoundRobinLoadBalancer extends AbstractLoadBalancer {
+        RegisterClientExecutorFactory factory = new RegisterClientExecutorFactory();
+        factory.addSubscribers(new ShenyuClientMetadataExecutorSubscriber(shenyuClientRegisterRepository));
+        factory.addSubscribers(new ShenyuClientURIExecutorSubscriber(shenyuClientRegisterRepository));
+        factory.addSubscribers(new ShenyuClientApiDocExecutorSubscriber(shenyuClientRegisterRepository));
+        providerManage = new DisruptorProviderManage<>(factory);
+```
 
-    private final int recyclePeriod = 60000;
+### UNCHECKED_WARNING
+Unchecked call to 'addSubscribers(ExecutorSubscriber)' as a member of raw type 'org.apache.shenyu.register.common.subsriber.AbstractQueueConsumerFactory'
+in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/disruptor/ShenyuClientRegisterEventPublisher.java`
+#### Snippet
+```java
+        factory.addSubscribers(new ShenyuClientMetadataExecutorSubscriber(shenyuClientRegisterRepository));
+        factory.addSubscribers(new ShenyuClientURIExecutorSubscriber(shenyuClientRegisterRepository));
+        factory.addSubscribers(new ShenyuClientApiDocExecutorSubscriber(shenyuClientRegisterRepository));
+        providerManage = new DisruptorProviderManage<>(factory);
+        providerManage.startup();
+```
 
-    private final ConcurrentMap<String, ConcurrentMap<String, WeightedRoundRobin>> methodWeightMap = new ConcurrentHashMap<>(16);
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.shenyu.disruptor.DisruptorProviderManage' to 'org.apache.shenyu.disruptor.DisruptorProviderManage'
+in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/disruptor/ShenyuClientRegisterEventPublisher.java`
+#### Snippet
+```java
+        factory.addSubscribers(new ShenyuClientURIExecutorSubscriber(shenyuClientRegisterRepository));
+        factory.addSubscribers(new ShenyuClientApiDocExecutorSubscriber(shenyuClientRegisterRepository));
+        providerManage = new DisruptorProviderManage<>(factory);
+        providerManage.startup();
+    }
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'DisruptorProviderManage(QueueConsumerFactory)' as a member of raw type 'org.apache.shenyu.disruptor.DisruptorProviderManage'
+in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/disruptor/ShenyuClientRegisterEventPublisher.java`
+#### Snippet
+```java
+        factory.addSubscribers(new ShenyuClientURIExecutorSubscriber(shenyuClientRegisterRepository));
+        factory.addSubscribers(new ShenyuClientApiDocExecutorSubscriber(shenyuClientRegisterRepository));
+        providerManage = new DisruptorProviderManage<>(factory);
+        providerManage.startup();
+    }
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.IdentityHashMap'
+in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/shutdown/ShenyuClientShutdownHook.java`
+#### Snippet
+```java
+                Field field = clazz.getDeclaredField(props.getProperty("applicationShutdownHooksFieldName", "hooks"));
+                field.setAccessible(true);
+                hooks = (IdentityHashMap<Thread, Thread>) field.get(clazz);
+            } catch (ClassNotFoundException | NoSuchFieldException | IllegalAccessException ex) {
+                LOG.error(ex.getMessage(), ex);
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.concurrent.ConcurrentHashMap' to 'java.util.Map'
+in `shenyu-plugin/shenyu-plugin-brpc/src/main/java/org/apache/shenyu/plugin/brpc/spi/SharedThreadPoolFactory.java`
+#### Snippet
+```java
+    private ThreadPoolExecutor defaultThreadPool;
+
+    private final Map<RpcService, ThreadPoolExecutor> threadPoolMap = new ConcurrentHashMap();
+
+    public SharedThreadPoolFactory() {
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.concurrent.LinkedBlockingQueue' to 'java.util.concurrent.BlockingQueue'
+in `shenyu-plugin/shenyu-plugin-brpc/src/main/java/org/apache/shenyu/plugin/brpc/spi/SharedThreadPoolFactory.java`
+#### Snippet
+```java
+
+                        threadPool = new ThreadPoolExecutor(corePoolSize, maxThreadPoolSize, (long) keepAliveTime,
+                                TimeUnit.SECONDS, new LinkedBlockingQueue(maxQueueSize),
+                                new NamedThreadFactory("service-biz-work"));
+                        this.threadPoolMap.put(rpcService, threadPool);
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'setDataList(List)' as a member of raw type 'org.apache.shenyu.admin.model.page.CommonPager'
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/model/page/CommonPager.java`
+#### Snippet
+```java
+            CommonPager commonPager = new CommonPager();
+            commonPager.setPage(page);
+            commonPager.setDataList(dataList);
+            return commonPager;
+        }
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'org.apache.shenyu.register.common.subsriber.ExecutorTypeSubscriber\>' to 'org.apache.shenyu.register.common.subsriber.ExecutorTypeSubscriber'
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/disruptor/executor/RegisterServerConsumerExecutor.java`
+#### Snippet
+```java
+            Map<DataType, ExecutorTypeSubscriber<DataTypeParent>> maps = getSubscribers()
+                    .stream()
+                    .map(e -> (ExecutorTypeSubscriber<DataTypeParent>) e)
+                    .collect(Collectors.toMap(ExecutorTypeSubscriber::getType, Function.identity()));
+            return new RegisterServerConsumerExecutor(maps);
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.reflect.Type' to 'java.lang.Class'
+in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-common/src/main/java/org/apache/shenyu/plugin/logging/common/handler/AbstractLogPluginDataHandler.java`
+#### Snippet
+```java
+        ParameterizedType parameterizedType = (ParameterizedType) this.getClass().getGenericSuperclass();
+        Type[] actualTypeArguments = parameterizedType.getActualTypeArguments();
+        final Class<C> genericApiConfigClass = (Class<C>) actualTypeArguments[1];
+        LOG.info("handler {} selector data:{}", pluginNamed(), GsonUtils.getGson().toJson(selectorData));
+        String handleJson = selectorData.getHandle();
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.reflect.Type' to 'java.lang.Class'
+in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-common/src/main/java/org/apache/shenyu/plugin/logging/common/handler/AbstractLogPluginDataHandler.java`
+#### Snippet
+```java
+        ParameterizedType parameterizedType = (ParameterizedType) this.getClass().getGenericSuperclass();
+        Type[] actualTypeArguments = parameterizedType.getActualTypeArguments();
+        final Class<T> globalLogConfigClass = (Class<T>) actualTypeArguments[0];
+        LOG.info("handler {} Plugin data: {}", pluginNamed(), GsonUtils.getGson().toJson(pluginData));
+        if (Objects.nonNull(pluginData) && Boolean.TRUE.equals(pluginData.getEnabled())) {
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.shenyu.plugin.base.utils.BeanHolder' to 'java.util.function.Supplier\>\>\>'
+in `shenyu-plugin/shenyu-plugin-general-context/src/main/java/org/apache/shenyu/plugin/general/context/handler/GeneralContextPluginDataHandler.java`
+#### Snippet
+```java
+public class GeneralContextPluginDataHandler implements PluginDataHandler {
+
+    public static final Supplier<CommonHandleCache<String, Map<String, List<GeneralContextHandle>>>> CACHED_HANDLE = new BeanHolder(CommonHandleCache::new);
+
+    @Override
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'BeanHolder(Supplier)' as a member of raw type 'org.apache.shenyu.plugin.base.utils.BeanHolder'
+in `shenyu-plugin/shenyu-plugin-general-context/src/main/java/org/apache/shenyu/plugin/general/context/handler/GeneralContextPluginDataHandler.java`
+#### Snippet
+```java
+public class GeneralContextPluginDataHandler implements PluginDataHandler {
+
+    public static final Supplier<CommonHandleCache<String, Map<String, List<GeneralContextHandle>>>> CACHED_HANDLE = new BeanHolder(CommonHandleCache::new);
+
+    @Override
+```
+
+### UNCHECKED_WARNING
+Unchecked method 'build(CacheLoader)' invocation
+in `shenyu-plugin/shenyu-plugin-dubbo/shenyu-plugin-apache-dubbo/src/main/java/org/apache/shenyu/plugin/apache/dubbo/cache/ApacheDubboConfigCache.java`
+#### Snippet
+```java
+    private ConsumerConfig consumerConfig;
+
+    private final LoadingCache<String, ReferenceConfig<GenericService>> cache = CacheBuilder.newBuilder()
+            .maximumSize(Constants.CACHE_MAX_COUNT)
+            .removalListener((RemovalListener<Object, ReferenceConfig<GenericService>>) notification -> {
+                ReferenceConfig<GenericService> config = notification.getValue();
+                if (Objects.nonNull(config)) {
+                    // After the configuration change, Dubbo destroys the instance, but does not empty it. If it is not handled,
+                    // it will get NULL when reinitializing and cause a NULL pointer problem.
+                    config.destroy();
+                }
+            })
+            .build(new CacheLoader<String, ReferenceConfig<GenericService>>() {
+                @Override
+                @Nonnull
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'. Reason: 'jwt' has raw type, so result of getBody is erased
+in `shenyu-plugin/shenyu-plugin-jwt/src/main/java/org/apache/shenyu/plugin/jwt/JwtPlugin.java`
+#### Snippet
+```java
+                return null;
+            }
+            return (Map<String, Object>) jwt.getBody();
+        }
+        return null;
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `shenyu-plugin/shenyu-plugin-jwt/src/main/java/org/apache/shenyu/plugin/jwt/strategy/DefaultJwtConvertStrategy.java`
+#### Snippet
+```java
+                if (entry.getValue() instanceof Map) {
+                    deep.incrementAndGet();
+                    return parse((Map<String, Object>) entry.getValue(), split, deep);
+                }
+            }
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Collection' to 'java.util.Collection'
+in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/annotation/RequestHeaderParameterProcessor.java`
+#### Snippet
+```java
+            ((Map<?, ?>) arg).forEach((key, value) -> {
+                if (key instanceof String && value instanceof Collection) {
+                    headers.put((String) key, (Collection) value);
+                    shenyuRequest.setHeaders(headers);
+                }
 ```
 
 ## RuleId[id=RedundantLengthCheck]
@@ -5521,55 +4761,7 @@ in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-
 
 ### RedundantLengthCheck
 Redundant array length check
-in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/support/SpringMvcContract.java`
-#### Snippet
-```java
-
-    private void parseHeaders(final RequestTemplate requestTemplate, final RequestMapping annotation) {
-        if (annotation.headers().length > 0) {
-            for (String header : annotation.headers()) {
-                int index = header.indexOf('=');
-```
-
-### RedundantLengthCheck
-Redundant array length check
 in `shenyu-register-center/shenyu-register-client/shenyu-register-client-zookeeper/src/main/java/org/apache/shenyu/register/client/zookeeper/ZookeeperClient.java`
-#### Snippet
-```java
-        TreeCache cache = TreeCache.newBuilder(client, path).build();
-        caches.put(path, cache);
-        if (listeners != null && listeners.length > 0) {
-            for (TreeCacheListener listener : listeners) {
-                cache.getListenable().addListener(listener);
-```
-
-### RedundantLengthCheck
-Redundant array length check
-in `shenyu-client/shenyu-client-dubbo/shenyu-client-alibaba-dubbo/src/main/java/org/apache/shenyu/client/alibaba/dubbo/validation/AlibabaDubboClientValidator.java`
-#### Snippet
-```java
-    private static boolean hasConstraintParameter(final Method method) {
-        Annotation[][] parameterAnnotations = method.getParameterAnnotations();
-        if (parameterAnnotations.length > 0) {
-            for (Annotation[] annotations : parameterAnnotations) {
-                for (Annotation annotation : annotations) {
-```
-
-### RedundantLengthCheck
-Redundant array length check
-in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/validation/ApacheDubboClientValidator.java`
-#### Snippet
-```java
-    private static boolean hasConstraintParameter(final Method method) {
-        Annotation[][] parameterAnnotations = method.getParameterAnnotations();
-        if (parameterAnnotations.length > 0) {
-            for (Annotation[] annotations : parameterAnnotations) {
-                for (Annotation annotation : annotations) {
-```
-
-### RedundantLengthCheck
-Redundant array length check
-in `shenyu-register-center/shenyu-register-instance/shenyu-register-instance-zookeeper/src/main/java/org/apache/shenyu/register/instance/zookeeper/ZookeeperClient.java`
 #### Snippet
 ```java
         TreeCache cache = TreeCache.newBuilder(client, path).build();
@@ -5591,821 +4783,3185 @@ in `shenyu-sync-data-center/shenyu-sync-data-zookeeper/src/main/java/org/apache/
                 cache.getListenable().addListener(listener);
 ```
 
-## RuleId[id=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `LabelNames` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-plugin/shenyu-plugin-metrics/src/main/java/org/apache/shenyu/plugin/metrics/constant/LabelNames.java`
+### RedundantLengthCheck
+Redundant array length check
+in `shenyu-register-center/shenyu-register-instance/shenyu-register-instance-zookeeper/src/main/java/org/apache/shenyu/register/instance/zookeeper/ZookeeperClient.java`
 #### Snippet
 ```java
- * The Label names.
+        TreeCache cache = TreeCache.newBuilder(client, path).build();
+        caches.put(path, cache);
+        if (listeners != null && listeners.length > 0) {
+            for (TreeCacheListener listener : listeners) {
+                cache.getListenable().addListener(listener);
+```
+
+### RedundantLengthCheck
+Redundant array length check
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/validation/ApacheDubboClientValidator.java`
+#### Snippet
+```java
+    private static boolean hasConstraintParameter(final Method method) {
+        Annotation[][] parameterAnnotations = method.getParameterAnnotations();
+        if (parameterAnnotations.length > 0) {
+            for (Annotation[] annotations : parameterAnnotations) {
+                for (Annotation annotation : annotations) {
+```
+
+### RedundantLengthCheck
+Redundant array length check
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-alibaba-dubbo/src/main/java/org/apache/shenyu/client/alibaba/dubbo/validation/AlibabaDubboClientValidator.java`
+#### Snippet
+```java
+    private static boolean hasConstraintParameter(final Method method) {
+        Annotation[][] parameterAnnotations = method.getParameterAnnotations();
+        if (parameterAnnotations.length > 0) {
+            for (Annotation[] annotations : parameterAnnotations) {
+                for (Annotation annotation : annotations) {
+```
+
+## RuleId[id=JavadocReference]
+### JavadocReference
+Cannot resolve symbol `ServiceInstance`
+in `shenyu-plugin/shenyu-plugin-springcloud/src/main/java/org/apache/shenyu/plugin/springcloud/loadbalance/ShenyuSpringCloudServiceChooser.java`
+#### Snippet
+```java
+     *
+     * @param serviceId serviceId
+     * @return {@linkplain ServiceInstance}
+     */
+    private List<ServiceInstance> getServiceInstance(final String serviceId) {
+```
+
+### JavadocReference
+Cannot resolve symbol `ClientHttpRequest`
+in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/support/CachedBodyOutputMessage.java`
+#### Snippet
+```java
+
+/**
+ * Implementation of {@link ClientHttpRequest} that saves body as a field.
+ *
+ * @see <a href="https://github.com/spring-cloud/spring-cloud-gateway/blob/master/spring-cloud-gateway-server/src/main/java/org/springframework/cloud/gateway/filter/factory/rewrite/CachedBodyOutputMessage.java">CachedBodyOutputMessage</a>
+```
+
+### JavadocReference
+Cannot resolve symbol `Subscriber`
+in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/utils/ResponseUtils.java`
+#### Snippet
+```java
+     *
+     * @param outputMessage CachedBodyOutputMessage
+     * @param <T> the reified {@link Subscriber} type
+     * @param throwable     Throwable
+     * @return Mono.
+```
+
+### JavadocReference
+Cannot resolve symbol `ServerWebExchange`
+in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/AbstractShenyuPlugin.java`
+#### Snippet
+```java
+     * this is Template Method child has Implement your own logic.
+     *
+     * @param exchange exchange the current server exchange {@linkplain ServerWebExchange}
+     * @param chain    chain the current chain  {@linkplain ServerWebExchange}
+     * @param selector selector    {@linkplain SelectorData}
+```
+
+### JavadocReference
+Cannot resolve symbol `ServerWebExchange`
+in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/AbstractShenyuPlugin.java`
+#### Snippet
+```java
+     *
+     * @param exchange exchange the current server exchange {@linkplain ServerWebExchange}
+     * @param chain    chain the current chain  {@linkplain ServerWebExchange}
+     * @param selector selector    {@linkplain SelectorData}
+     * @param rule     rule    {@linkplain RuleData}
+```
+
+### JavadocReference
+Cannot resolve symbol `org.springframework.web.util.pattern.PathPattern`
+in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/condition/judge/PathPatternPredicateJudge.java`
+#### Snippet
+```java
+
+/**
+ * 1. it used {@linkplain org.springframework.web.util.pattern.PathPattern}
+ * 2. not support '/api / ** /xxx'.
+ * 3. better performance than {@linkplain org.springframework.util.AntPathMatcher}
+```
+
+### JavadocReference
+Cannot resolve symbol `org.springframework.util.AntPathMatcher`
+in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/condition/judge/PathPatternPredicateJudge.java`
+#### Snippet
+```java
+ * 1. it used {@linkplain org.springframework.web.util.pattern.PathPattern}
+ * 2. not support '/api / ** /xxx'.
+ * 3. better performance than {@linkplain org.springframework.util.AntPathMatcher}
+ * Path pattern predicate judge.
  */
-public final class LabelNames {
-    
+```
+
+### JavadocReference
+Cannot resolve symbol `org.springframework.util.AntPathMatcher`
+in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/trie/ShenyuTrie.java`
+#### Snippet
+```java
+     * @param ruleData rule data
+     * @param bizInfo biz info
+     * @see org.springframework.util.AntPathMatcher
+     * @see org.springframework.web.util.pattern.PathPattern
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `org.springframework.web.util.pattern.PathPattern`
+in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/trie/ShenyuTrie.java`
+#### Snippet
+```java
+     * @param bizInfo biz info
+     * @see org.springframework.util.AntPathMatcher
+     * @see org.springframework.web.util.pattern.PathPattern
+     */
+    public void putNode(final String uriPath, final RuleData ruleData, final Object bizInfo) {
+```
+
+### JavadocReference
+Cannot resolve symbol `ServerWebExchange`
+in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/condition/strategy/MatchStrategy.java`
+#### Snippet
+```java
+     *
+     * @param conditionDataList condition list.
+     * @param exchange          {@linkplain ServerWebExchange}
+     * @return true is match , false is not match.
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `ServerWebExchange`
+in `shenyu-plugin/shenyu-plugin-ratelimiter/src/main/java/org/apache/shenyu/plugin/ratelimiter/resolver/RateLimiterKeyResolver.java`
+#### Snippet
+```java
+     * resolve.
+     *
+     * @param exchange exchange the current server exchange {@linkplain ServerWebExchange}
+     * @return rate limiter key
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `DispatcherHandler`
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-gateway/src/main/java/org/apache/shenyu/springboot/starter/gateway/ShenyuConfiguration.java`
+#### Snippet
+```java
+     * init dispatch handler.
+     *
+     * @return {@link DispatcherHandler}.
+     */
+    @Bean("dispatcherHandler")
+```
+
+### JavadocReference
+Cannot resolve symbol `MediaType`
+in `shenyu-plugin/shenyu-plugin-response/src/main/java/org/apache/shenyu/plugin/response/strategy/NettyClientMessageWriter.java`
+#### Snippet
+```java
+     * stream media type: from APPLICATION_STREAM_JSON upgrade to APPLICATION_STREAM_JSON_VALUE.
+     * Both of the above have expired.
+     * latest version: {@linkplain MediaType#APPLICATION_NDJSON}
+     */
+    private final List<MediaType> streamingMediaTypes = Arrays.asList(MediaType.TEXT_EVENT_STREAM, MediaType.APPLICATION_NDJSON);
+```
+
+### JavadocReference
+Cannot resolve symbol `APPLICATION_NDJSON`
+in `shenyu-plugin/shenyu-plugin-response/src/main/java/org/apache/shenyu/plugin/response/strategy/NettyClientMessageWriter.java`
+#### Snippet
+```java
+     * stream media type: from APPLICATION_STREAM_JSON upgrade to APPLICATION_STREAM_JSON_VALUE.
+     * Both of the above have expired.
+     * latest version: {@linkplain MediaType#APPLICATION_NDJSON}
+     */
+    private final List<MediaType> streamingMediaTypes = Arrays.asList(MediaType.TEXT_EVENT_STREAM, MediaType.APPLICATION_NDJSON);
+```
+
+### JavadocReference
+Cannot resolve symbol `BeanDefinition`
+in `shenyu-plugin/shenyu-plugin-api/src/main/java/org/apache/shenyu/plugin/api/utils/SpringBeanUtils.java`
+#### Snippet
+```java
     /**
+     * Exist spring bean boolean.
+     * Only applies to successful beans registered by the {@linkplain #registerBean(BeanDefinition, ClassLoader)} method.
+     *
+     * @param className the class name
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `MetricsReporter` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-plugin/shenyu-plugin-metrics/src/main/java/org/apache/shenyu/plugin/metrics/reporter/MetricsReporter.java`
+### JavadocReference
+Cannot resolve symbol `ServletResponse`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/shiro/bean/StatelessAuthFilter.java`
 #### Snippet
 ```java
- * Metrics reporter.
- */
-public final class MetricsReporter {
-    
-    private static MetricsRegister metricsRegister;
+     * add cors.
+     *
+     * @param response {@link ServletResponse}
+     */
+    private void wrapCorsResponse(final HttpServletResponse response) {
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `ShenyuClientProxyFactory` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/proxy/ShenyuClientProxyFactory.java`
+### JavadocReference
+Cannot resolve symbol `ServletResponse`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/shiro/bean/StatelessAuthFilter.java`
+#### Snippet
+```java
+     * union response same result form exception.
+     *
+     * @param response {@link ServletResponse}
+     */
+    private void unionFailResponse(final ServletResponse response) throws IOException {
+```
+
+### JavadocReference
+Cannot resolve symbol `LifecycleBeanPostProcessor`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/shiro/config/ShiroConfiguration.java`
+#### Snippet
+```java
+     * shiro's lifecycle in spring.
+     *
+     * @return {@linkplain LifecycleBeanPostProcessor}
+     */
+    @Bean
+```
+
+### JavadocReference
+Cannot resolve symbol `DefaultWebSecurityManager`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/shiro/config/ShiroConfiguration.java`
+#### Snippet
+```java
+     * AuthorizationAttributeSourceAdvisor.
+     *
+     * @param securityManager {@linkplain DefaultWebSecurityManager}
+     * @return {@linkplain AuthorizationAttributeSourceAdvisor}
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `AuthorizationAttributeSourceAdvisor`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/shiro/config/ShiroConfiguration.java`
+#### Snippet
+```java
+     *
+     * @param securityManager {@linkplain DefaultWebSecurityManager}
+     * @return {@linkplain AuthorizationAttributeSourceAdvisor}
+     */
+    @Bean
+```
+
+### JavadocReference
+Cannot resolve symbol `DefaultWebSecurityManager`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/shiro/config/ShiroConfiguration.java`
+#### Snippet
+```java
+     * ShiroFilterFactoryBean.
+     *
+     * @param securityManager {@linkplain DefaultWebSecurityManager}
+     * @param shiroProperties {@linkplain ShiroProperties}
+     * @return {@linkplain ShiroFilterFactoryBean}
+```
+
+### JavadocReference
+Cannot resolve symbol `ShiroFilterFactoryBean`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/shiro/config/ShiroConfiguration.java`
+#### Snippet
+```java
+     * @param securityManager {@linkplain DefaultWebSecurityManager}
+     * @param shiroProperties {@linkplain ShiroProperties}
+     * @return {@linkplain ShiroFilterFactoryBean}
+     */
+    @Bean
+```
+
+### JavadocReference
+Cannot resolve symbol `DefaultWebSecurityManager`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/shiro/config/ShiroConfiguration.java`
+#### Snippet
+```java
+     *
+     * @param shiroRealm shiro's realm
+     * @return {@linkplain DefaultWebSecurityManager}
+     */
+    @Bean("shiroSecurityManager")
+```
+
+### JavadocReference
+Cannot resolve symbol `ProceedingJoinPoint`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/aspect/DataPermissionAspect.java`
+#### Snippet
+```java
+     * Organize SQL parameters with data permissions.
+     *
+     * @param point {@link ProceedingJoinPoint}
+     * @return args {@link List}
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `ProceedingJoinPoint`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/aspect/DataPermissionAspect.java`
+#### Snippet
+```java
+     * Real method processing around.
+     *
+     * @param point point {@link ProceedingJoinPoint}
+     * @return result {@link Object}
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `ProceedingJoinPoint`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/aspect/PageableAspect.java`
+#### Snippet
+```java
+     * mapper processing around.
+     *
+     * @param point point {@link ProceedingJoinPoint}
+     * @return result {@link Object}
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `ProceedingJoinPoint`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/aspect/controller/RestControllerAspect.java`
+#### Snippet
+```java
+     * controller.
+     *
+     * @param point point {@link ProceedingJoinPoint}
+     * @return result {@link Object}
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `DatabaseIdProvider`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/config/DataBaseConfiguration.java`
+#### Snippet
+```java
+     * Database dialect configuration.
+     *
+     * @return {@linkplain DatabaseIdProvider}
+     */
+    @Bean
+```
+
+### JavadocReference
+Cannot resolve symbol `LdapContextSource`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/config/LdapConfiguration.java`
+#### Snippet
+```java
+     *
+     * @param ldapProp the ldap configuration
+     * @return LdapContextSource {@linkplain LdapContextSource}
+     */
+    @Bean
+```
+
+### JavadocReference
+Cannot resolve symbol `LdapTemplate`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/config/LdapConfiguration.java`
+#### Snippet
+```java
+     *
+     * @param ldapContextSource the ldap context source
+     * @return LdapTemplate {@linkplain LdapTemplate}
+     */
+    @Bean
+```
+
+### JavadocReference
+Cannot resolve symbol `org.springframework.context.event.ContextRefreshedEvent`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/UpstreamCheckService.java`
+#### Snippet
+```java
+     * <p>Note: This is to be compatible with older versions of clients
+     * that do not register with the gateway by listening to
+     * {@link org.springframework.context.event.ContextRefreshedEvent},
+     * which will cause some problems,
+     * check <a href="https://github.com/apache/shenyu/issues/3484">...</a> for more details.
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.commons.collections4.map.LRUMap`
+in `shenyu-common/src/main/java/org/apache/shenyu/common/cache/MemorySafeLRUMap.java`
+#### Snippet
+```java
+
+/**
+ * The only difference between this class and {@link org.apache.commons.collections4.map.LRUMap}
+ * is that it handles memory issues via {@link org.apache.shenyu.common.concurrent.MemoryLimitCalculator}.
+ *
+```
+
+### JavadocReference
+Cannot resolve symbol `RequestMapping`
+in `shenyu-client/shenyu-client-http/shenyu-client-springcloud/src/main/java/org/apache/shenyu/client/springcloud/annotation/ShenyuRequestMapping.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link RequestMapping#method}.
+     *
+     * @return the RequestMethod[]
+```
+
+### JavadocReference
+Cannot resolve symbol `method`
+in `shenyu-client/shenyu-client-http/shenyu-client-springcloud/src/main/java/org/apache/shenyu/client/springcloud/annotation/ShenyuRequestMapping.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link RequestMapping#method}.
+     *
+     * @return the RequestMethod[]
+```
+
+### JavadocReference
+Cannot resolve symbol `RequestMapping`
+in `shenyu-client/shenyu-client-http/shenyu-client-springcloud/src/main/java/org/apache/shenyu/client/springcloud/annotation/ShenyuRequestMapping.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link RequestMapping#consumes}.
+     *
+     * @return the string[]
+```
+
+### JavadocReference
+Cannot resolve symbol `consumes`
+in `shenyu-client/shenyu-client-http/shenyu-client-springcloud/src/main/java/org/apache/shenyu/client/springcloud/annotation/ShenyuRequestMapping.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link RequestMapping#consumes}.
+     *
+     * @return the string[]
+```
+
+### JavadocReference
+Cannot resolve symbol `RequestMapping`
+in `shenyu-client/shenyu-client-http/shenyu-client-springcloud/src/main/java/org/apache/shenyu/client/springcloud/annotation/ShenyuRequestMapping.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link RequestMapping#produces}.
+     *
+     * @return the string[]
+```
+
+### JavadocReference
+Cannot resolve symbol `produces`
+in `shenyu-client/shenyu-client-http/shenyu-client-springcloud/src/main/java/org/apache/shenyu/client/springcloud/annotation/ShenyuRequestMapping.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link RequestMapping#produces}.
+     *
+     * @return the string[]
+```
+
+### JavadocReference
+Cannot resolve symbol `RequestMapping`
+in `shenyu-client/shenyu-client-http/shenyu-client-springcloud/src/main/java/org/apache/shenyu/client/springcloud/annotation/ShenyuRequestMapping.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link RequestMapping#value}, {@link ShenyuSpringCloudClient#value}.
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `value`
+in `shenyu-client/shenyu-client-http/shenyu-client-springcloud/src/main/java/org/apache/shenyu/client/springcloud/annotation/ShenyuRequestMapping.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link RequestMapping#value}, {@link ShenyuSpringCloudClient#value}.
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `RequestMapping`
+in `shenyu-client/shenyu-client-http/shenyu-client-springcloud/src/main/java/org/apache/shenyu/client/springcloud/annotation/ShenyuRequestMapping.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link RequestMapping#headers}.
+     *
+     * @return the string[]
+```
+
+### JavadocReference
+Cannot resolve symbol `headers`
+in `shenyu-client/shenyu-client-http/shenyu-client-springcloud/src/main/java/org/apache/shenyu/client/springcloud/annotation/ShenyuRequestMapping.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link RequestMapping#headers}.
+     *
+     * @return the string[]
+```
+
+### JavadocReference
+Cannot resolve symbol `RequestMapping`
+in `shenyu-client/shenyu-client-http/shenyu-client-springcloud/src/main/java/org/apache/shenyu/client/springcloud/annotation/ShenyuRequestMapping.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link RequestMapping#params}.
+     *
+     * @return the string[]
+```
+
+### JavadocReference
+Cannot resolve symbol `params`
+in `shenyu-client/shenyu-client-http/shenyu-client-springcloud/src/main/java/org/apache/shenyu/client/springcloud/annotation/ShenyuRequestMapping.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link RequestMapping#params}.
+     *
+     * @return the string[]
+```
+
+### JavadocReference
+Cannot resolve symbol `RequestMapping`
+in `shenyu-client/shenyu-client-http/shenyu-client-springcloud/src/main/java/org/apache/shenyu/client/springcloud/annotation/ShenyuRequestMapping.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link RequestMapping#path}, {@link ShenyuSpringCloudClient#path}.
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `path`
+in `shenyu-client/shenyu-client-http/shenyu-client-springcloud/src/main/java/org/apache/shenyu/client/springcloud/annotation/ShenyuRequestMapping.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link RequestMapping#path}, {@link ShenyuSpringCloudClient#path}.
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `ServerHttpRequest`
+in `shenyu-web/src/main/java/org/apache/shenyu/web/forward/ForwardedRemoteAddressResolver.java`
+#### Snippet
+```java
+ * Parses the client address from the X-Forwarded-For header. If header is not present.
+ * falls back to {@link RemoteAddressResolver} and
+ * {@link ServerHttpRequest#getRemoteAddress()}. Use the static constructor methods which
+ * meets your security requirements.
+ */
+```
+
+### JavadocReference
+Cannot resolve symbol `getRemoteAddress()`
+in `shenyu-web/src/main/java/org/apache/shenyu/web/forward/ForwardedRemoteAddressResolver.java`
+#### Snippet
+```java
+ * Parses the client address from the X-Forwarded-For header. If header is not present.
+ * falls back to {@link RemoteAddressResolver} and
+ * {@link ServerHttpRequest#getRemoteAddress()}. Use the static constructor methods which
+ * meets your security requirements.
+ */
+```
+
+### JavadocReference
+Cannot resolve symbol `ServerWebExchange`
+in `shenyu-plugin/shenyu-plugin-dubbo/shenyu-plugin-alibaba-dubbo/src/main/java/org/apache/shenyu/plugin/alibaba/dubbo/AlibabaDubboPlugin.java`
+#### Snippet
+```java
+     * do dubbo invoker.
+     *
+     * @param exchange exchange the current server exchange {@linkplain ServerWebExchange}
+     * @param chain    chain the current chain  {@linkplain ServerWebExchange}
+     * @param selector selector    {@linkplain SelectorData}
+```
+
+### JavadocReference
+Cannot resolve symbol `ServerWebExchange`
+in `shenyu-plugin/shenyu-plugin-dubbo/shenyu-plugin-alibaba-dubbo/src/main/java/org/apache/shenyu/plugin/alibaba/dubbo/AlibabaDubboPlugin.java`
+#### Snippet
+```java
+     *
+     * @param exchange exchange the current server exchange {@linkplain ServerWebExchange}
+     * @param chain    chain the current chain  {@linkplain ServerWebExchange}
+     * @param selector selector    {@linkplain SelectorData}
+     * @param rule     rule    {@linkplain RuleData}
+```
+
+### JavadocReference
+Cannot resolve symbol `StandardEvaluationContext`
+in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/StandardExpressionGenerator.java`
+#### Snippet
+```java
+ * Insecure support for SPEL parsed implementations.
+ *
+ * @see StandardEvaluationContext
+ * @see SpelExpressionParser
+ */
+```
+
+### JavadocReference
+Cannot resolve symbol `SpelExpressionParser`
+in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/StandardExpressionGenerator.java`
 #### Snippet
 ```java
  *
+ * @see StandardEvaluationContext
+ * @see SpelExpressionParser
  */
-public final class ShenyuClientProxyFactory {
+@Join
+```
+
+### JavadocReference
+Cannot resolve symbol `SimpleEvaluationContext`
+in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/ExpressionGenerator.java`
+#### Snippet
+```java
+ * The simplified version of the SEPL parsing implementation does not support write function execution.
+ *
+ * @see SimpleEvaluationContext
+ * @see DataBindingPropertyAccessor#forReadOnlyAccess()
+ */
+```
+
+### JavadocReference
+Cannot resolve symbol `DataBindingPropertyAccessor`
+in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/ExpressionGenerator.java`
+#### Snippet
+```java
+ *
+ * @see SimpleEvaluationContext
+ * @see DataBindingPropertyAccessor#forReadOnlyAccess()
+ */
+@Join
+```
+
+### JavadocReference
+Cannot resolve symbol `forReadOnlyAccess()`
+in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/ExpressionGenerator.java`
+#### Snippet
+```java
+ *
+ * @see SimpleEvaluationContext
+ * @see DataBindingPropertyAccessor#forReadOnlyAccess()
+ */
+@Join
+```
+
+### JavadocReference
+Cannot resolve symbol `ServerWebExchange`
+in `shenyu-plugin/shenyu-plugin-dubbo/shenyu-plugin-dubbo-common/src/main/java/org/apache/shenyu/plugin/dubbo/common/AbstractDubboPlugin.java`
+#### Snippet
+```java
+     * this is Template Method child has Implement your own logic.
+     *
+     * @param exchange exchange the current server exchange {@linkplain ServerWebExchange}
+     * @param chain    chain the current chain  {@linkplain ServerWebExchange}
+     * @param selector selector    {@linkplain SelectorData}
+```
+
+### JavadocReference
+Cannot resolve symbol `ServerWebExchange`
+in `shenyu-plugin/shenyu-plugin-dubbo/shenyu-plugin-dubbo-common/src/main/java/org/apache/shenyu/plugin/dubbo/common/AbstractDubboPlugin.java`
+#### Snippet
+```java
+     *
+     * @param exchange exchange the current server exchange {@linkplain ServerWebExchange}
+     * @param chain    chain the current chain  {@linkplain ServerWebExchange}
+     * @param selector selector    {@linkplain SelectorData}
+     * @param rule     rule    {@linkplain RuleData}
+```
+
+### JavadocReference
+Cannot resolve symbol `ServerWebExchange`
+in `shenyu-plugin/shenyu-plugin-dubbo/shenyu-plugin-dubbo-common/src/main/java/org/apache/shenyu/plugin/dubbo/common/AbstractDubboPlugin.java`
+#### Snippet
+```java
+     * do dubbo invoker.
+     *
+     * @param exchange exchange the current server exchange {@linkplain ServerWebExchange}
+     * @param chain    chain the current chain  {@linkplain ServerWebExchange}
+     * @param selector selector    {@linkplain SelectorData}
+```
+
+### JavadocReference
+Cannot resolve symbol `ServerWebExchange`
+in `shenyu-plugin/shenyu-plugin-dubbo/shenyu-plugin-dubbo-common/src/main/java/org/apache/shenyu/plugin/dubbo/common/AbstractDubboPlugin.java`
+#### Snippet
+```java
+     *
+     * @param exchange exchange the current server exchange {@linkplain ServerWebExchange}
+     * @param chain    chain the current chain  {@linkplain ServerWebExchange}
+     * @param selector selector    {@linkplain SelectorData}
+     * @param rule     rule    {@linkplain RuleData}
+```
+
+### JavadocReference
+Cannot resolve symbol `DispatcherHandler`
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-redirect/src/main/java/org/apache/shenyu/springboot/starter/plugin/redirect/RedirectPluginConfiguration.java`
+#### Snippet
+```java
+     * Redirect plugin.
+     *
+     * @param dispatcherHandler {@link DispatcherHandler}
+     * @return the shenyu plugin
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `Service`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
 
     /**
+     * Alias for {@link Service#cache()} .
+     *
+     * @return the string
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `JsonServerServiceInterceptor` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-client/shenyu-client-grpc/src/main/java/org/apache/shenyu/client/grpc/json/JsonServerServiceInterceptor.java`
+### JavadocReference
+Cannot resolve symbol `cache()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
 #### Snippet
 ```java
- * Support json invoke.
- */
-public class JsonServerServiceInterceptor {
-
-    private static final Map<String, Class<?>> REQUEST_CLAZZ_MAP = Maps.newConcurrentMap();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ShenyuInstanceRegisterRepositoryFactory` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-register-center/shenyu-register-instance/shenyu-register-instance-core/src/main/java/org/apache/shenyu/register/instance/core/ShenyuInstanceRegisterRepositoryFactory.java`
-#### Snippet
-```java
- * The type Shenyu instance register repository factory.
- */
-public final class ShenyuInstanceRegisterRepositoryFactory {
-    
-    private static final Map<String, ShenyuInstanceRegisterRepository> REPOSITORY_MAP = new ConcurrentHashMap<>();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `GenericLoggingConstant` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-common/src/main/java/org/apache/shenyu/plugin/logging/common/constant/GenericLoggingConstant.java`
-#### Snippet
-```java
- * generic logging constant.
- */
-public class GenericLoggingConstant {
 
     /**
+     * Alias for {@link Service#cache()} .
+     *
+     * @return the string
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `LogCollectUtils` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-common/src/main/java/org/apache/shenyu/plugin/logging/common/utils/LogCollectUtils.java`
+### JavadocReference
+Cannot resolve symbol `Service`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
 #### Snippet
 ```java
- * log collect utils.
- */
-public class LogCollectUtils {
-
-    private static final List<String> BINARY_TYPE_LIST = Arrays.asList("image", "multipart", "cbor",
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ShenyuAdminBootstrap` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/ShenyuAdminBootstrap.java`
-#### Snippet
-```java
- */
-@SpringBootApplication(exclude = {LdapAutoConfiguration.class})
-public class ShenyuAdminBootstrap {
 
     /**
+     * Alias for {@link Service#interfaceClass()}.
+     *
+     * @return the string
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `PageResultUtils` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/model/page/PageResultUtils.java`
+### JavadocReference
+Cannot resolve symbol `interfaceClass()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
 #### Snippet
 ```java
- * The type Page result utils.
- */
-public class PageResultUtils {
-    
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `BaseTrigger` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/BaseTrigger.java`
-#### Snippet
-```java
- * Trigger Base Utils.
- */
-public class BaseTrigger {
 
     /**
+     * Alias for {@link Service#interfaceClass()}.
+     *
+     * @return the string
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `UploadUtils` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/UploadUtils.java`
+### JavadocReference
+Cannot resolve symbol `Service`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
 #### Snippet
 ```java
- * File upload tool.
- */
-public class UploadUtils {
 
     /**
+     * Alias for {@link Service#delay()} .
+     *
+     * @return the int
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `ShenyuResultMessage` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/ShenyuResultMessage.java`
+### JavadocReference
+Cannot resolve symbol `delay()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
 #### Snippet
 ```java
- *  result message.
- */
-public final class ShenyuResultMessage {
-
-    public static final String SUCCESS = "success";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ThreadLocalUtils` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/ThreadLocalUtils.java`
-#### Snippet
-```java
- * The type Thread local util.
- */
-public class ThreadLocalUtils {
-    
-    private static final ThreadLocal<Map<String, Object>> THREAD_CONTEXT = ThreadLocal.withInitial(HashMap::new);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `CommonUpstreamUtils` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/CommonUpstreamUtils.java`
-#### Snippet
-```java
- * Build upstream for rpc plugin.
- */
-public class CommonUpstreamUtils {
-
-    private static final String LOCALHOST = "localhost";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ShenyuSignatureUtils` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/ShenyuSignatureUtils.java`
-#### Snippet
-```java
- * Shenyu Signature tool.
- */
-public class ShenyuSignatureUtils {
 
     /**
+     * Alias for {@link Service#delay()} .
+     *
+     * @return the int
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `FileUtils` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/HttpUtils.java`
+### JavadocReference
+Cannot resolve symbol `Service`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
 #### Snippet
 ```java
-    }
-
-    public static class FileUtils {
-
-        /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `WheelTimerFactory` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-common/src/main/java/org/apache/shenyu/common/timer/WheelTimerFactory.java`
-#### Snippet
-```java
- * shared wheel time.
- */
-public class WheelTimerFactory {
-    
-    private static final String NAME = "shared_wheel_timer";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `PluginNameAdapter` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/PluginNameAdapter.java`
-#### Snippet
-```java
- * The type Plugin name adapter.
- */
-public class PluginNameAdapter {
-    
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SignUtils` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/SignUtils.java`
-#### Snippet
-```java
- * SignUtils.
- */
-public final class SignUtils {
-
-    public static final String SIGN_MD5 = "MD5";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ParamCheckUtils` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/ParamCheckUtils.java`
-#### Snippet
-```java
- * The type Param check utils.
- */
-public class ParamCheckUtils {
-    
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `PathUtils` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/PathUtils.java`
-#### Snippet
-```java
- * The type Path utils.
- */
-public final class PathUtils {
-    
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SpiLoadFactory` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/SpiLoadFactory.java`
-#### Snippet
-```java
- * SpiLoadFactory.
- */
-public class SpiLoadFactory {
 
     /**
+     * Alias for {@link Service#provider()} .
+     *
+     * @return the string
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `UriUtils` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/UriUtils.java`
+### JavadocReference
+Cannot resolve symbol `provider()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
 #### Snippet
 ```java
- * uri util.
- */
-public class UriUtils {
-    
-    private static final String PRE_FIX = "/";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `JarDependencyUtils` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/JarDependencyUtils.java`
-#### Snippet
-```java
- * Jar package dependency tools.
- */
-public class JarDependencyUtils {
 
     /**
+     * Alias for {@link Service#provider()} .
+     *
+     * @return the string
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `DigestUtils` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/DigestUtils.java`
+### JavadocReference
+Cannot resolve symbol `Service`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
 #### Snippet
 ```java
- * DigestUtils.
- */
-public class DigestUtils {
 
     /**
+     * Alias for {@link Service#registry()} .
+     *
+     * @return the string[]
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `ObjectTypeUtils` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/ObjectTypeUtils.java`
+### JavadocReference
+Cannot resolve symbol `registry()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
 #### Snippet
 ```java
- * ObjectTypeUtils.
- */
-public final class ObjectTypeUtils {
 
     /**
+     * Alias for {@link Service#registry()} .
+     *
+     * @return the string[]
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `LogUtils` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/LogUtils.java`
+### JavadocReference
+Cannot resolve symbol `Service`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
 #### Snippet
 ```java
- * LogUtils.
- */
-public final class LogUtils {
 
     /**
+     * Alias for {@link Service#module()} .
+     *
+     * @return the string
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `ThreadUtils` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/ThreadUtils.java`
+### JavadocReference
+Cannot resolve symbol `module()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
 #### Snippet
 ```java
- * thread utils.
- */
-public class ThreadUtils {
 
     /**
+     * Alias for {@link Service#module()} .
+     *
+     * @return the string
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `ContextPathUtils` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/ContextPathUtils.java`
+### JavadocReference
+Cannot resolve symbol `Service`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
 #### Snippet
 ```java
- * The type Context path utils.
- */
-public class ContextPathUtils {
-    
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `HmacHexUtils` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/HmacHexUtils.java`
-#### Snippet
-```java
- * HmacUtils.
- */
-public class HmacHexUtils {
 
     /**
+     * Alias for {@link Service#application()} .
+     *
+     * @return the string
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `UpstreamCheckUtils` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/UpstreamCheckUtils.java`
+### JavadocReference
+Cannot resolve symbol `application()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
 #### Snippet
 ```java
- * The type Uri utils.
- */
-public class UpstreamCheckUtils {
-
-    private static final String HTTP = "http://";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `RuleHandleConstants` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-common/src/main/java/org/apache/shenyu/common/constant/RuleHandleConstants.java`
-#### Snippet
-```java
- * The Constants for RuleHandles.
- */
-public final class RuleHandleConstants {
 
     /**
+     * Alias for {@link Service#application()} .
+     *
+     * @return the string
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `ResourceTypeConstants` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-common/src/main/java/org/apache/shenyu/common/constant/ResourceTypeConstants.java`
+### JavadocReference
+Cannot resolve symbol `Service`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
 #### Snippet
 ```java
- * The Constants for Resource Type.
- */
-public final class ResourceTypeConstants {
 
     /**
+     * Alias for {@link Service#loadbalance()} .
+     *
+     * @return the string
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `NacosPathConstants` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-common/src/main/java/org/apache/shenyu/common/constant/NacosPathConstants.java`
+### JavadocReference
+Cannot resolve symbol `loadbalance()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
 #### Snippet
 ```java
- * Nacos path constants.
- */
-public final class NacosPathConstants {
 
     /**
+     * Alias for {@link Service#loadbalance()} .
+     *
+     * @return the string
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `MapUtils` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/MapUtils.java`
+### JavadocReference
+Cannot resolve symbol `Service`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
 #### Snippet
 ```java
-import java.util.stream.Collectors;
-
-public class MapUtils {
 
     /**
+     * Alias for {@link Service#protocol()} .
+     *
+     * @return the string[]
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `DubboParamConstants` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-common/src/main/java/org/apache/shenyu/common/constant/DubboParamConstants.java`
+### JavadocReference
+Cannot resolve symbol `protocol()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
 #### Snippet
 ```java
- * DubboParamConstants.
- */
-public final class DubboParamConstants {
 
     /**
+     * Alias for {@link Service#protocol()} .
+     *
+     * @return the string[]
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `ConsulConstants` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-common/src/main/java/org/apache/shenyu/common/constant/ConsulConstants.java`
+### JavadocReference
+Cannot resolve symbol `Service`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
 #### Snippet
 ```java
- * Consul constants.
- */
-public final class ConsulConstants {
-
-    public static final String SYNC_PRE_FIX = "shenyu/sync";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `AdminConstants` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-common/src/main/java/org/apache/shenyu/common/constant/AdminConstants.java`
-#### Snippet
-```java
- * The type Admin constants.
- */
-public final class AdminConstants {
 
     /**
+     * Alias for {@link Service#actives()} .
+     *
+     * @return the int
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `ApolloPathConstants` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-common/src/main/java/org/apache/shenyu/common/constant/ApolloPathConstants.java`
+### JavadocReference
+Cannot resolve symbol `actives()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
 #### Snippet
 ```java
- * apollo path.
- */
-public class ApolloPathConstants {
 
     /**
+     * Alias for {@link Service#actives()} .
+     *
+     * @return the int
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `CommonErrorCode` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-common/src/main/java/org/apache/shenyu/common/exception/CommonErrorCode.java`
+### JavadocReference
+Cannot resolve symbol `Service`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
 #### Snippet
 ```java
- * CommonErrorCode.
- */
-public class CommonErrorCode {
 
     /**
+     * Alias for {@link Service#monitor()} .
+     *
+     * @return the string
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `HttpConstants` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-common/src/main/java/org/apache/shenyu/common/constant/HttpConstants.java`
+### JavadocReference
+Cannot resolve symbol `monitor()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
 #### Snippet
 ```java
- * @since 2.0.0
- */
-public final class HttpConstants {
 
     /**
+     * Alias for {@link Service#monitor()} .
+     *
+     * @return the string
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `MemoryLimitCalculator` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-common/src/main/java/org/apache/shenyu/common/concurrent/MemoryLimitCalculator.java`
+### JavadocReference
+Cannot resolve symbol `Service`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
 #### Snippet
 ```java
- * @see org.apache.shenyu.common.concurrent.MemoryLimiter
- */
-public class MemoryLimitCalculator {
-
-    private static volatile long maxAvailable;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `JsonUtils` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/JsonUtils.java`
-#### Snippet
-```java
- * JsonUtils.
- */
-public final class JsonUtils {
 
     /**
+     * Alias for {@link Service#deprecated()} .
+     *
+     * @return the boolean
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `PortUtils` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/utils/PortUtils.java`
+### JavadocReference
+Cannot resolve symbol `deprecated()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
 #### Snippet
 ```java
- * get the port number exposed by the current tomcat.
- */
-public class PortUtils {
 
     /**
+     * Alias for {@link Service#deprecated()} .
+     *
+     * @return the boolean
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `ShenyuClientConstants` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/constant/ShenyuClientConstants.java`
+### JavadocReference
+Cannot resolve symbol `Service`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
 #### Snippet
 ```java
- * ShenyuClientConstants.
- */
-public final class ShenyuClientConstants {
-    
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `OpenApiUtils` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/utils/OpenApiUtils.java`
-#### Snippet
-```java
- * openApiUtils.
- */
-public class OpenApiUtils {
-
-    private static final String EVERY_PATH = "**";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ShenyuClientRegisterRepositoryFactory` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/register/ShenyuClientRegisterRepositoryFactory.java`
-#### Snippet
-```java
- * The type shenyu client register repository factory.
- */
-public final class ShenyuClientRegisterRepositoryFactory {
-    
-    private static final Map<String, ShenyuClientRegisterRepository> REPOSITORY_MAP = new ConcurrentHashMap<>();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ShenyuClientShutdownHook` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/shutdown/ShenyuClientShutdownHook.java`
-#### Snippet
-```java
- * Shenyu client shutdown hook.
- */
-public class ShenyuClientShutdownHook {
-
-    private static final Logger LOG = LoggerFactory.getLogger(ShenyuClientShutdownHook.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `InstancePathConstants` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-register-center/shenyu-register-instance/shenyu-register-instance-api/src/main/java/org/apache/shenyu/register/instance/api/path/InstancePathConstants.java`
-#### Snippet
-```java
- * zookeeper register center.
- */
-public class InstancePathConstants {
-    
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `GrpcConstants` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-protocol/shenyu-protocol-grpc/src/main/java/org/apache/shenyu/protocol/grpc/constant/GrpcConstants.java`
-#### Snippet
-```java
- * Grpc constants.
- */
-public class GrpcConstants {
 
     /**
+     * Alias for {@link Service#group()} .
+     *
+     * @return the string
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `ShenyuBootstrapApplication` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-bootstrap/src/main/java/org/apache/shenyu/bootstrap/ShenyuBootstrapApplication.java`
+### JavadocReference
+Cannot resolve symbol `group()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
 #### Snippet
 ```java
- */
-@SpringBootApplication
-public class ShenyuBootstrapApplication {
 
     /**
+     * Alias for {@link Service#group()} .
+     *
+     * @return the string
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `RandomUtil` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/util/RandomUtil.java`
+### JavadocReference
+Cannot resolve symbol `Service`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
 #### Snippet
 ```java
- * Random Util.
- */
-public class RandomUtil {
-    
-    /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `MockUtil` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/util/MockUtil.java`
-#### Snippet
-```java
-import static org.apache.shenyu.plugin.mock.util.RandomUtil.randomLowerLetterString;
-
-public class MockUtil {
-
-    private static final Logger LOG = LoggerFactory.getLogger(CurrentTimeGenerator.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `JsonMessage` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-protocol/shenyu-protocol-grpc/src/main/java/org/apache/shenyu/protocol/grpc/message/JsonMessage.java`
-#### Snippet
-```java
- * JsonMessage.
- */
-public class JsonMessage {
-
-    private static final Logger LOG = LoggerFactory.getLogger(JsonMessage.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `JwtConvertStrategyFactory` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-plugin/shenyu-plugin-jwt/src/main/java/org/apache/shenyu/plugin/jwt/strategy/JwtConvertStrategyFactory.java`
-#### Snippet
-```java
-import org.apache.shenyu.spi.ExtensionLoader;
-
-public class JwtConvertStrategyFactory {
-
-    private static final String DEFAULT_JWT_CONVERTER = "default";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ShenyuExtPathPluginJarLoader` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-web/src/main/java/org/apache/shenyu/web/loader/ShenyuExtPathPluginJarLoader.java`
-#### Snippet
-```java
-import java.util.Set;
-
-public class ShenyuExtPathPluginJarLoader {
-
-    private static volatile Set<String> pluginJarName = new HashSet<>();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `PluginJarParser` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-web/src/main/java/org/apache/shenyu/web/loader/PluginJarParser.java`
-#### Snippet
-```java
- * PluginJarParser.
- */
-public class PluginJarParser {
 
     /**
+     * Alias for {@link Service#register()} .
+     *
+     * @return the boolean
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `DataDesensitizeFactory` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-desensitize-api/src/main/java/org/apache/shenyu/plugin/logging/desensitize/api/factory/DataDesensitizeFactory.java`
+### JavadocReference
+Cannot resolve symbol `register()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
 #### Snippet
 ```java
- * shenyu logging desensitized factory.
- */
-public final class DataDesensitizeFactory {
-
-    public DataDesensitizeFactory() {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `DataDesensitizeUtils` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-desensitize-api/src/main/java/org/apache/shenyu/plugin/logging/desensitize/api/utils/DataDesensitizeUtils.java`
-#### Snippet
-```java
- * data desensitize utils.
- */
-public final class DataDesensitizeUtils {
 
     /**
+     * Alias for {@link Service#register()} .
+     *
+     * @return the boolean
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `Util` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-sdk/shenyu-sdk-core/src/main/java/org/apache/shenyu/sdk/core/util/Util.java`
+### JavadocReference
+Cannot resolve symbol `Service`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
 #### Snippet
 ```java
- * Utilities, typically copied in from guava, so as to avoid dependency conflicts.
- */
-public final class Util {
 
     /**
+     * Alias for {@link Service#timeout()} .
+     *
+     * @return the int
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `ShenyuSdkClientFactory` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-sdk/shenyu-sdk-core/src/main/java/org/apache/shenyu/sdk/core/client/ShenyuSdkClientFactory.java`
+### JavadocReference
+Cannot resolve symbol `timeout()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
 #### Snippet
 ```java
- * The type Shenyu sdk client factory.
- */
-public class ShenyuSdkClientFactory {
-
-    private static final Map<String, ShenyuSdkClient> SDK_CLIENT_MAP = new ConcurrentHashMap<>();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `RegisterPathConstants` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-register-center/shenyu-register-common/src/main/java/org/apache/shenyu/register/common/path/RegisterPathConstants.java`
-#### Snippet
-```java
- * zookeeper register center.
- */
-public class RegisterPathConstants {
 
     /**
+     * Alias for {@link Service#timeout()} .
+     *
+     * @return the int
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `ClickHouseLoggingConstant` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/src/main/java/org/apache/shenyu/plugin/logging/clickhouse/constant/ClickHouseLoggingConstant.java`
+### JavadocReference
+Cannot resolve symbol `Service`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
 #### Snippet
 ```java
- * clickHouse logging Constant.
- */
-public class ClickHouseLoggingConstant {
 
     /**
+     * Alias for {@link Service#executes()} .
+     *
+     * @return the int
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `PathMatchUtils` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/utils/PathMatchUtils.java`
+### JavadocReference
+Cannot resolve symbol `executes()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
 #### Snippet
 ```java
- * The type Path match utils.
- */
-public class PathMatchUtils {
-
-    private static final AntPathMatcher MATCHER = new AntPathMatcher();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `HttpParamConverter` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/utils/HttpParamConverter.java`
-#### Snippet
-```java
- * The type Http param converter.
- */
-public final class HttpParamConverter {
-
-    private static final Pattern PATTERN = Pattern.compile("([^&=]+)(=?)([^&]+)?");
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `EncryptUtil` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-protocol/shenyu-protocol-mqtt/src/main/java/org/apache/shenyu/protocol/mqtt/utils/EncryptUtil.java`
-#### Snippet
-```java
- * encrypt util.
- */
-public class EncryptUtil {
 
     /**
+     * Alias for {@link Service#executes()} .
+     *
+     * @return the int
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `ServerWebExchangeUtils` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/utils/ServerWebExchangeUtils.java`
+### JavadocReference
+Cannot resolve symbol `Service`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
 #### Snippet
 ```java
-import java.util.function.Function;
-
-public class ServerWebExchangeUtils {
 
     /**
+     * Alias for {@link Service#parameters()} .
+     *
+     * @return the string[]
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `AlertStrategyFactory` has only 'static' members, and lacks a 'private' constructor
-in `shenyu-alert/src/main/java/org/apache/shenyu/alert/AlertStrategyFactory.java`
+### JavadocReference
+Cannot resolve symbol `parameters()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
 #### Snippet
 ```java
- * The type alert strategy factory.
+
+    /**
+     * Alias for {@link Service#parameters()} .
+     *
+     * @return the string[]
+```
+
+### JavadocReference
+Cannot resolve symbol `Service`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#methods()} .
+     *
+     * @return the Method[]
+```
+
+### JavadocReference
+Cannot resolve symbol `methods()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#methods()} .
+     *
+     * @return the Method[]
+```
+
+### JavadocReference
+Cannot resolve symbol `Service`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#listener()} .
+     *
+     * @return the string[]
+```
+
+### JavadocReference
+Cannot resolve symbol `listener()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#listener()} .
+     *
+     * @return the string[]
+```
+
+### JavadocReference
+Cannot resolve symbol `Service`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#export()} .
+     *
+     * @return the boolean
+```
+
+### JavadocReference
+Cannot resolve symbol `export()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#export()} .
+     *
+     * @return the boolean
+```
+
+### JavadocReference
+Cannot resolve symbol `Service`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#path()}.
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `path()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#path()}.
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `Service`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#interfaceName()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `interfaceName()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#interfaceName()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `Service`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#callbacks()} .
+     *
+     * @return the int
+```
+
+### JavadocReference
+Cannot resolve symbol `callbacks()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#callbacks()} .
+     *
+     * @return the int
+```
+
+### JavadocReference
+Cannot resolve symbol `Service`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#tag()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `tag()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#tag()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `Service`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#version()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `version()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#version()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `Service`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#stub()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `stub()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#stub()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `Service`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#sent()} .
+     *
+     * @return the boolean
+```
+
+### JavadocReference
+Cannot resolve symbol `sent()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#sent()} .
+     *
+     * @return the boolean
+```
+
+### JavadocReference
+Cannot resolve symbol `Service`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#validation()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `validation()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#validation()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `Service`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#proxy()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `proxy()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#proxy()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `Service`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#ondisconnect()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `ondisconnect()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#ondisconnect()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `Service`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#local()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `local()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#local()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `Service`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#onconnect()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `onconnect()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#onconnect()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `Service`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#filter()} .
+     *
+     * @return the string[]
+```
+
+### JavadocReference
+Cannot resolve symbol `filter()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#filter()} .
+     *
+     * @return the string[]
+```
+
+### JavadocReference
+Cannot resolve symbol `Service`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     *Alias for {@link Service#retries()} .
+     *
+     * @return the int
+```
+
+### JavadocReference
+Cannot resolve symbol `retries()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     *Alias for {@link Service#retries()} .
+     *
+     * @return the int
+```
+
+### JavadocReference
+Cannot resolve symbol `Service`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#mock()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `mock()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#mock()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `Service`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#connections()} .
+     *
+     * @return the int
+```
+
+### JavadocReference
+Cannot resolve symbol `connections()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#connections()} .
+     *
+     * @return the int
+```
+
+### JavadocReference
+Cannot resolve symbol `Service`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#cluster()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `cluster()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#cluster()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `Service`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#weight()} .
+     *
+     * @return the int
+```
+
+### JavadocReference
+Cannot resolve symbol `weight()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#weight()} .
+     *
+     * @return the int
+```
+
+### JavadocReference
+Cannot resolve symbol `Service`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#accesslog()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `accesslog()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#accesslog()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `Service`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#layer()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `layer()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#layer()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `Service`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#owner()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `owner()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#owner()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `Service`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#dynamic()} .
+     *
+     * @return the boolean
+```
+
+### JavadocReference
+Cannot resolve symbol `dynamic()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#dynamic()} .
+     *
+     * @return the boolean
+```
+
+### JavadocReference
+Cannot resolve symbol `Service`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#token()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `token()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#token()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `Service`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#async()} .
+     *
+     * @return the boolean
+```
+
+### JavadocReference
+Cannot resolve symbol `async()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#async()} .
+     *
+     * @return the boolean
+```
+
+### JavadocReference
+Cannot resolve symbol `Service`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#document()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `document()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link Service#document()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `DubboService`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#stub()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `stub()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#stub()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `DubboService`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#document()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `document()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#document()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `DubboService`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#interfaceClass()}.
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `interfaceClass()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#interfaceClass()}.
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `DubboService`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     *Alias for {@link DubboService#retries()} .
+     *
+     * @return the int
+```
+
+### JavadocReference
+Cannot resolve symbol `retries()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     *Alias for {@link DubboService#retries()} .
+     *
+     * @return the int
+```
+
+### JavadocReference
+Cannot resolve symbol `DubboService`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#dynamic()} .
+     *
+     * @return the boolean
+```
+
+### JavadocReference
+Cannot resolve symbol `dynamic()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#dynamic()} .
+     *
+     * @return the boolean
+```
+
+### JavadocReference
+Cannot resolve symbol `DubboService`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#cache()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `cache()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#cache()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `DubboService`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#sent()} .
+     *
+     * @return the boolean
+```
+
+### JavadocReference
+Cannot resolve symbol `sent()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#sent()} .
+     *
+     * @return the boolean
+```
+
+### JavadocReference
+Cannot resolve symbol `DubboService`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#loadbalance()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `loadbalance()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#loadbalance()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `DubboService`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#export()} .
+     *
+     * @return the boolean
+```
+
+### JavadocReference
+Cannot resolve symbol `export()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#export()} .
+     *
+     * @return the boolean
+```
+
+### JavadocReference
+Cannot resolve symbol `DubboService`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#delay()} .
+     *
+     * @return the int
+```
+
+### JavadocReference
+Cannot resolve symbol `delay()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#delay()} .
+     *
+     * @return the int
+```
+
+### JavadocReference
+Cannot resolve symbol `DubboService`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#mock()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `mock()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#mock()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `DubboService`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#tag()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `tag()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#tag()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `DubboService`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#interfaceName()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `interfaceName()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#interfaceName()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `DubboService`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#connections()} .
+     *
+     * @return the int
+```
+
+### JavadocReference
+Cannot resolve symbol `connections()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#connections()} .
+     *
+     * @return the int
+```
+
+### JavadocReference
+Cannot resolve symbol `DubboService`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#proxy()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `proxy()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#proxy()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `DubboService`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#version()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `version()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#version()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `DubboService`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#methods()} .
+     *
+     * @return the Method[]
+```
+
+### JavadocReference
+Cannot resolve symbol `methods()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#methods()} .
+     *
+     * @return the Method[]
+```
+
+### JavadocReference
+Cannot resolve symbol `DubboService`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#register()} .
+     *
+     * @return the boolean
+```
+
+### JavadocReference
+Cannot resolve symbol `register()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#register()} .
+     *
+     * @return the boolean
+```
+
+### JavadocReference
+Cannot resolve symbol `DubboService`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#registry()} .
+     *
+     * @return the string[]
+```
+
+### JavadocReference
+Cannot resolve symbol `registry()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#registry()} .
+     *
+     * @return the string[]
+```
+
+### JavadocReference
+Cannot resolve symbol `DubboService`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#cluster()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `cluster()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#cluster()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `DubboService`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#module()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `module()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#module()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `DubboService`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#token()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `token()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#token()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `DubboService`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#group()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `group()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#group()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `DubboService`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#weight()} .
+     *
+     * @return the int
+```
+
+### JavadocReference
+Cannot resolve symbol `weight()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#weight()} .
+     *
+     * @return the int
+```
+
+### JavadocReference
+Cannot resolve symbol `DubboService`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#async()} .
+     *
+     * @return the boolean
+```
+
+### JavadocReference
+Cannot resolve symbol `async()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#async()} .
+     *
+     * @return the boolean
+```
+
+### JavadocReference
+Cannot resolve symbol `DubboService`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#executes()} .
+     *
+     * @return the int
+```
+
+### JavadocReference
+Cannot resolve symbol `executes()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#executes()} .
+     *
+     * @return the int
+```
+
+### JavadocReference
+Cannot resolve symbol `DubboService`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#provider()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `provider()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#provider()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `DubboService`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#accesslog()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `accesslog()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#accesslog()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `DubboService`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#owner()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `owner()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#owner()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `DubboService`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#validation()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `validation()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#validation()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `DubboService`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#parameters()} .
+     *
+     * @return the string[]
+```
+
+### JavadocReference
+Cannot resolve symbol `parameters()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#parameters()} .
+     *
+     * @return the string[]
+```
+
+### JavadocReference
+Cannot resolve symbol `DubboService`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#layer()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `layer()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#layer()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `DubboService`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#local()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `local()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#local()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `DubboService`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#monitor()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `monitor()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#monitor()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `DubboService`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#filter()} .
+     *
+     * @return the string[]
+```
+
+### JavadocReference
+Cannot resolve symbol `filter()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#filter()} .
+     *
+     * @return the string[]
+```
+
+### JavadocReference
+Cannot resolve symbol `DubboService`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#application()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `application()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#application()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `DubboService`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#ondisconnect()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `ondisconnect()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#ondisconnect()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `DubboService`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#callbacks()} .
+     *
+     * @return the int
+```
+
+### JavadocReference
+Cannot resolve symbol `callbacks()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#callbacks()} .
+     *
+     * @return the int
+```
+
+### JavadocReference
+Cannot resolve symbol `DubboService`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#actives()} .
+     *
+     * @return the int
+```
+
+### JavadocReference
+Cannot resolve symbol `actives()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#actives()} .
+     *
+     * @return the int
+```
+
+### JavadocReference
+Cannot resolve symbol `DubboService`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#protocol()} .
+     *
+     * @return the string[]
+```
+
+### JavadocReference
+Cannot resolve symbol `protocol()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#protocol()} .
+     *
+     * @return the string[]
+```
+
+### JavadocReference
+Cannot resolve symbol `DubboService`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#listener()} .
+     *
+     * @return the string[]
+```
+
+### JavadocReference
+Cannot resolve symbol `listener()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#listener()} .
+     *
+     * @return the string[]
+```
+
+### JavadocReference
+Cannot resolve symbol `DubboService`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#onconnect()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `onconnect()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#onconnect()} .
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `DubboService`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#deprecated()} .
+     *
+     * @return the boolean
+```
+
+### JavadocReference
+Cannot resolve symbol `deprecated()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#deprecated()} .
+     *
+     * @return the boolean
+```
+
+### JavadocReference
+Cannot resolve symbol `DubboService`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#timeout()} .
+     *
+     * @return the int
+```
+
+### JavadocReference
+Cannot resolve symbol `timeout()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#timeout()} .
+     *
+     * @return the int
+```
+
+### JavadocReference
+Cannot resolve symbol `DubboService`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#path()}.
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `path()`
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/annotation/ShenyuDubboService.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link DubboService#path()}.
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `ServerWebExchange`
+in `shenyu-plugin/shenyu-plugin-dubbo/shenyu-plugin-apache-dubbo/src/main/java/org/apache/shenyu/plugin/apache/dubbo/ApacheDubboPlugin.java`
+#### Snippet
+```java
+     * do dubbo invoker.
+     *
+     * @param exchange exchange the current server exchange {@linkplain ServerWebExchange}
+     * @param chain    chain the current chain  {@linkplain ServerWebExchange}
+     * @param metaData the medata
+```
+
+### JavadocReference
+Cannot resolve symbol `ServerWebExchange`
+in `shenyu-plugin/shenyu-plugin-dubbo/shenyu-plugin-apache-dubbo/src/main/java/org/apache/shenyu/plugin/apache/dubbo/ApacheDubboPlugin.java`
+#### Snippet
+```java
+     *
+     * @param exchange exchange the current server exchange {@linkplain ServerWebExchange}
+     * @param chain    chain the current chain  {@linkplain ServerWebExchange}
+     * @param metaData the medata
+     * @param param    the param
+```
+
+### JavadocReference
+Cannot resolve symbol `org.springframework.boot.autoconfigure.security.oauth2.client.ClientsConfiguredCondition`
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-plugin/shenyu-spring-boot-starter-plugin-oauth2/src/main/java/org/apache/shenyu/springboot/starter/plugin/oauth2/DefaultClientsConfiguredCondition.java`
+#### Snippet
+```java
+ * if not spring oauth2's config in .yml file, use default java config, else use spring config.
+ *
+ * @see org.springframework.boot.autoconfigure.security.oauth2.client.ClientsConfiguredCondition
  */
-public class AlertStrategyFactory {
+public class DefaultClientsConfiguredCondition extends SpringBootCondition {
+```
+
+### JavadocReference
+Cannot resolve symbol `RequestMapping`
+in `shenyu-client/shenyu-client-http/shenyu-client-springmvc/src/main/java/org/apache/shenyu/client/springmvc/annotation/ShenyuRequestMapping.java`
+#### Snippet
+```java
 
     /**
+     * Alias for {@link RequestMapping#path}, {@link ShenyuSpringMvcClient#path}.
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `path`
+in `shenyu-client/shenyu-client-http/shenyu-client-springmvc/src/main/java/org/apache/shenyu/client/springmvc/annotation/ShenyuRequestMapping.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link RequestMapping#path}, {@link ShenyuSpringMvcClient#path}.
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `RequestMapping`
+in `shenyu-client/shenyu-client-http/shenyu-client-springmvc/src/main/java/org/apache/shenyu/client/springmvc/annotation/ShenyuRequestMapping.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link RequestMapping#method}.
+     *
+     * @return the RequestMethod[]
+```
+
+### JavadocReference
+Cannot resolve symbol `method`
+in `shenyu-client/shenyu-client-http/shenyu-client-springmvc/src/main/java/org/apache/shenyu/client/springmvc/annotation/ShenyuRequestMapping.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link RequestMapping#method}.
+     *
+     * @return the RequestMethod[]
+```
+
+### JavadocReference
+Cannot resolve symbol `RequestMapping`
+in `shenyu-client/shenyu-client-http/shenyu-client-springmvc/src/main/java/org/apache/shenyu/client/springmvc/annotation/ShenyuRequestMapping.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link RequestMapping#consumes}.
+     *
+     * @return the string[]
+```
+
+### JavadocReference
+Cannot resolve symbol `consumes`
+in `shenyu-client/shenyu-client-http/shenyu-client-springmvc/src/main/java/org/apache/shenyu/client/springmvc/annotation/ShenyuRequestMapping.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link RequestMapping#consumes}.
+     *
+     * @return the string[]
+```
+
+### JavadocReference
+Cannot resolve symbol `RequestMapping`
+in `shenyu-client/shenyu-client-http/shenyu-client-springmvc/src/main/java/org/apache/shenyu/client/springmvc/annotation/ShenyuRequestMapping.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link RequestMapping#params}.
+     *
+     * @return the string[]
+```
+
+### JavadocReference
+Cannot resolve symbol `params`
+in `shenyu-client/shenyu-client-http/shenyu-client-springmvc/src/main/java/org/apache/shenyu/client/springmvc/annotation/ShenyuRequestMapping.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link RequestMapping#params}.
+     *
+     * @return the string[]
+```
+
+### JavadocReference
+Cannot resolve symbol `RequestMapping`
+in `shenyu-client/shenyu-client-http/shenyu-client-springmvc/src/main/java/org/apache/shenyu/client/springmvc/annotation/ShenyuRequestMapping.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link RequestMapping#headers}.
+     *
+     * @return the string[]
+```
+
+### JavadocReference
+Cannot resolve symbol `headers`
+in `shenyu-client/shenyu-client-http/shenyu-client-springmvc/src/main/java/org/apache/shenyu/client/springmvc/annotation/ShenyuRequestMapping.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link RequestMapping#headers}.
+     *
+     * @return the string[]
+```
+
+### JavadocReference
+Cannot resolve symbol `RequestMapping`
+in `shenyu-client/shenyu-client-http/shenyu-client-springmvc/src/main/java/org/apache/shenyu/client/springmvc/annotation/ShenyuRequestMapping.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link RequestMapping#value}, {@link ShenyuSpringMvcClient#value}.
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `value`
+in `shenyu-client/shenyu-client-http/shenyu-client-springmvc/src/main/java/org/apache/shenyu/client/springmvc/annotation/ShenyuRequestMapping.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link RequestMapping#value}, {@link ShenyuSpringMvcClient#value}.
+     *
+     * @return the string
+```
+
+### JavadocReference
+Cannot resolve symbol `RequestMapping`
+in `shenyu-client/shenyu-client-http/shenyu-client-springmvc/src/main/java/org/apache/shenyu/client/springmvc/annotation/ShenyuRequestMapping.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link RequestMapping#produces}.
+     *
+     * @return the string[]
+```
+
+### JavadocReference
+Cannot resolve symbol `produces`
+in `shenyu-client/shenyu-client-http/shenyu-client-springmvc/src/main/java/org/apache/shenyu/client/springmvc/annotation/ShenyuRequestMapping.java`
+#### Snippet
+```java
+
+    /**
+     * Alias for {@link RequestMapping#produces}.
+     *
+     * @return the string[]
+```
+
+### JavadocReference
+Cannot resolve symbol `org.springframework.context.annotation.Configuration`
+in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/EnableShenyuClients.java`
+#### Snippet
+```java
+ * {@link ShenyuClient} <code>@ShenyuClient</code>).
+ * Configures component scanning directives for use with
+ * {@link org.springframework.context.annotation.Configuration}
+ * <code>@Configuration</code> classes.
+ */
+```
+
+### JavadocReference
+Cannot resolve symbol `RequestBody`
+in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/annotation/RequestBodyParameterProcessor.java`
+#### Snippet
+```java
+
+/**
+ * {@link RequestBody} parameter processor.
+ */
+public class RequestBodyParameterProcessor implements AnnotatedParameterProcessor {
+```
+
+### JavadocReference
+Cannot resolve symbol `RequestHeader`
+in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/annotation/RequestHeaderParameterProcessor.java`
+#### Snippet
+```java
+
+/**
+ * {@link RequestHeader} parameter processor.
+ */
+public class RequestHeaderParameterProcessor implements AnnotatedParameterProcessor {
+```
+
+### JavadocReference
+Cannot resolve symbol `RequestParam`
+in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/annotation/RequestParamParameterProcessor.java`
+#### Snippet
+```java
+
+/**
+ * {@link RequestParam} parameter processor.
+ */
+public class RequestParamParameterProcessor implements AnnotatedParameterProcessor {
+```
+
+### JavadocReference
+Cannot resolve symbol `PathVariable`
+in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/annotation/PathVariableParameterProcessor.java`
+#### Snippet
+```java
+
+/**
+ * {@link PathVariable} parameter processor.
+ */
+public class PathVariableParameterProcessor implements AnnotatedParameterProcessor {
 ```
 
 ## RuleId[id=UnnecessarySemicolon]
@@ -6435,75 +7991,51 @@ in `shenyu-common/src/main/java/org/apache/shenyu/common/enums/PluginHandlerEven
 
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
-Argument `values` might be null
-in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/support/SpringMvcContract.java`
+Method invocation `addEndpoint` may produce `NullPointerException`
+in `shenyu-client/shenyu-client-websocket/shenyu-client-spring-websocket/src/main/java/org/apache/shenyu/client/spring/websocket/init/ShenyuServerEndpointerExporter.java`
 #### Snippet
 ```java
-        Assert.state(values != null && (values.length == 0 || values.length == 1),
-                String.format("Method %s can only contain at most 1 %s field. Found: %s",
-                        method.getName(), fieldName, Arrays.asList(values)));
-    }
+            }
 
+            serverContainer.addEndpoint(endpointConfig);
+        } catch (DeploymentException ex) {
+            throw new IllegalStateException("Failed to register ServerEndpointConfig: " + endpointConfig, ex);
 ```
 
 ### DataFlowIssue
-Method invocation `method` may produce `NullPointerException`
-in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/support/SpringMvcContract.java`
+Method invocation `iterator` may produce `NullPointerException`
+in `shenyu-sync-data-center/shenyu-sync-data-etcd/src/main/java/org/apache/shenyu/sync/data/etcd/EtcdClient.java`
 #### Snippet
 ```java
-        RequestMapping methodMapping = findMergedAnnotation(method, RequestMapping.class);
-        // HTTP Method
-        RequestMethod[] methods = methodMapping.method();
-        if (methods.length == 0) {
-            methods = new RequestMethod[] {RequestMethod.GET};
-```
-
-### DataFlowIssue
-Argument `field` might be null
-in `shenyu-plugin/shenyu-plugin-sofa/src/main/java/org/apache/shenyu/plugin/sofa/cache/ApplicationConfigCache.java`
-#### Snippet
-```java
-    private void setAsyncRuntimeThreadPool(final ThreadPoolExecutor threadPool) {
-        Field field = ReflectionUtils.findField(AsyncRuntime.class, "asyncThreadPool");
-        ReflectionUtils.makeAccessible(field);
-        ReflectionUtils.setField(field, AsyncRuntime.class, threadPool);
-    }
-```
-
-### DataFlowIssue
-Method invocation `getParameterTypes` may produce `NullPointerException`
-in `shenyu-plugin/shenyu-plugin-brpc/src/main/java/org/apache/shenyu/plugin/brpc/BrpcPlugin.java`
-#### Snippet
-```java
-            return WebFluxResultUtils.result(exchange, error);
         }
-        if (StringUtils.isNoneBlank(metaData.getParameterTypes()) && StringUtils.isBlank(param)) {
-            exchange.getResponse().setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR);
-            Object error = ShenyuResultWrap.error(exchange, ShenyuResultEnum.BRPC_HAVE_BODY_PARAM);
+
+        return keyValues.iterator().next().getValue().toString(UTF_8);
+    }
+
 ```
 
 ### DataFlowIssue
-Method invocation `get` may produce `NullPointerException`
-in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/ShenyuClientsRegistrar.java`
+Condition `t instanceof HttpStatusCodeException` is redundant and can be replaced with a null check
+in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/fallback/FallbackHandler.java`
 #### Snippet
 ```java
-
-        Set<String> basePackages = new HashSet<>();
-        for (String pkg : (String[]) attributes.get("value")) {
-            if (StringUtils.hasText(pkg)) {
-                basePackages.add(pkg);
+    default Mono<Void> fallback(ServerWebExchange exchange, URI uri, Throwable t) {
+        // client HttpStatusCodeException, return the client response directly
+        if (t instanceof HttpStatusCodeException || Objects.isNull(uri)) {
+            return withoutFallback(exchange, t);
+        } 
 ```
 
 ### DataFlowIssue
-Argument `beanFactory` might be null
-in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/ShenyuClientsRegistrar.java`
+Method invocation `add` may produce `NullPointerException`
+in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/trie/ShenyuTrie.java`
 #### Snippet
 ```java
-        String name = getName(attributes);
-        ShenyuClientFactoryBean factoryBean = new ShenyuClientFactoryBean();
-        factoryBean.setBeanFactory(beanFactory);
-        factoryBean.setName(name);
-        factoryBean.setContextId(contextId);
+            // synchronized list
+            synchronized (ruleData.getId()) {
+                ruleDataList.add(ruleData);
+                ruleDataList.sort(Comparator.comparing(RuleData::getSort));
+                node.getPathRuleCache().put(ruleData.getSelectorId(), ruleDataList);
 ```
 
 ### DataFlowIssue
@@ -6513,30 +8045,6 @@ in `shenyu-register-center/shenyu-register-client/shenyu-register-client-http/sr
 ```java
                 .post(body)
                 .build();
-        return client.newCall(request).execute().body().string();
-    }
-
-```
-
-### DataFlowIssue
-Method invocation `newBuilder` may produce `NullPointerException`
-in `shenyu-register-center/shenyu-register-client/shenyu-register-client-http/src/main/java/org/apache/shenyu/register/client/http/utils/OkHttpTools.java`
-#### Snippet
-```java
-    public String get(final String url, final Map<String, Object> query) throws IOException {
-        Request.Builder reqBuild = new Request.Builder();
-        HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
-        query.forEach((K, V) -> urlBuilder.addQueryParameter(K, String.valueOf(V)));
-        reqBuild.url(urlBuilder.build());
-```
-
-### DataFlowIssue
-Method invocation `string` may produce `NullPointerException`
-in `shenyu-register-center/shenyu-register-client/shenyu-register-client-http/src/main/java/org/apache/shenyu/register/client/http/utils/OkHttpTools.java`
-#### Snippet
-```java
-        reqBuild.url(urlBuilder.build());
-        Request request = reqBuild.build();
         return client.newCall(request).execute().body().string();
     }
 
@@ -6579,50 +8087,26 @@ in `shenyu-register-center/shenyu-register-client/shenyu-register-client-http/sr
 ```
 
 ### DataFlowIssue
-Method invocation `setAccessible` may produce `NullPointerException`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/config/SwaggerConfiguration.java`
+Method invocation `newBuilder` may produce `NullPointerException`
+in `shenyu-register-center/shenyu-register-client/shenyu-register-client-http/src/main/java/org/apache/shenyu/register/client/http/utils/OkHttpTools.java`
 #### Snippet
 ```java
-                try {
-                    Field field = ReflectionUtils.findField(bean.getClass(), "handlerMappings");
-                    field.setAccessible(true);
-                    return (List<RequestMappingInfoHandlerMapping>) field.get(bean);
-                } catch (IllegalArgumentException | IllegalAccessException e) {
+    public String get(final String url, final Map<String, Object> query) throws IOException {
+        Request.Builder reqBuild = new Request.Builder();
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
+        query.forEach((K, V) -> urlBuilder.addQueryParameter(K, String.valueOf(V)));
+        reqBuild.url(urlBuilder.build());
 ```
 
 ### DataFlowIssue
-Method invocation `getLoginField` may produce `NullPointerException`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/DashboardUserServiceImpl.java`
+Method invocation `string` may produce `NullPointerException`
+in `shenyu-register-center/shenyu-register-client/shenyu-register-client-http/src/main/java/org/apache/shenyu/register/client/http/utils/OkHttpTools.java`
 #### Snippet
 ```java
-    private DashboardUserVO loginByLdap(final String userName, final String password) {
-        Assert.notNull(ldapProperties, "ldap config is not enable");
-        String searchBase = String.format("%s=%s,%s", ldapProperties.getLoginField(), LdapEncoder.nameEncode(userName), ldapProperties.getBaseDn());
-        String filter = String.format("(objectClass=%s)", ldapProperties.getObjectClass());
-        try {
-```
-
-### DataFlowIssue
-Argument `signContent` might be null
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/SandboxServiceImpl.java`
-#### Snippet
-```java
-        }
-        if (StringUtils.isNotEmpty(appKey)) {
-            response.addHeader("sandbox-beforesign", UriUtils.encode(signContent, StandardCharsets.UTF_8));
-            response.addHeader("sandbox-sign", UriUtils.encode(sign, StandardCharsets.UTF_8));
-        }
-```
-
-### DataFlowIssue
-Argument `sign` might be null
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/SandboxServiceImpl.java`
-#### Snippet
-```java
-        if (StringUtils.isNotEmpty(appKey)) {
-            response.addHeader("sandbox-beforesign", UriUtils.encode(signContent, StandardCharsets.UTF_8));
-            response.addHeader("sandbox-sign", UriUtils.encode(sign, StandardCharsets.UTF_8));
-        }
+        reqBuild.url(urlBuilder.build());
+        Request request = reqBuild.build();
+        return client.newCall(request).execute().body().string();
+    }
 
 ```
 
@@ -6631,11 +8115,11 @@ Method invocation `string` may produce `NullPointerException`
 in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/HttpUtils.java`
 #### Snippet
 ```java
-    public String requestFileString(final String url, final Map<String, ?> form, final Map<String, String> header,
-        final List<UploadFile> files) throws IOException {
-        return requestFile(url, form, header, files).body().string();
+            .newCall(request)
+            .execute()) {
+            return response.body().string();
+        }
     }
-
 ```
 
 ### DataFlowIssue
@@ -6651,30 +8135,6 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/HttpUtils.java`
 ```
 
 ### DataFlowIssue
-Method invocation `string` may produce `NullPointerException`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/HttpUtils.java`
-#### Snippet
-```java
-            .newCall(request)
-            .execute()) {
-            return response.body().string();
-        }
-    }
-```
-
-### DataFlowIssue
-Method invocation `string` may produce `NullPointerException`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/HttpUtils.java`
-#### Snippet
-```java
-            .newCall(request)
-            .execute()) {
-            return response.body().string();
-        }
-    }
-```
-
-### DataFlowIssue
 Method invocation `newBuilder` may produce `NullPointerException`
 in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/HttpUtils.java`
 #### Snippet
@@ -6687,87 +8147,51 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/HttpUtils.java`
 ```
 
 ### DataFlowIssue
-Method invocation `get` may produce `NullPointerException`
-in `shenyu-plugin/shenyu-plugin-dubbo/shenyu-plugin-apache-dubbo/src/main/java/org/apache/shenyu/plugin/apache/dubbo/proxy/ApacheDubboProxyService.java`
+Method invocation `string` may produce `NullPointerException`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/HttpUtils.java`
 #### Snippet
 ```java
-        String namespace = "";
-        if (CollectionUtils.isNotEmpty(exchange.getRequest().getHeaders().get(Constants.NAMESPACE))) {
-            namespace = exchange.getRequest().getHeaders().get(Constants.NAMESPACE).get(0);
-            referenceKey = namespace + ":" + referenceKey;
+            .newCall(request)
+            .execute()) {
+            return response.body().string();
         }
-```
-
-### DataFlowIssue
-Method invocation `getParameterTypes` may produce `NullPointerException`
-in `shenyu-plugin/shenyu-plugin-tars/src/main/java/org/apache/shenyu/plugin/tars/TarsPlugin.java`
-#### Snippet
-```java
-            return WebFluxResultUtils.result(exchange, error);
-        }
-        if (StringUtils.isNoneBlank(metaData.getParameterTypes()) && StringUtils.isBlank(body)) {
-            exchange.getResponse().setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR);
-            Object error = ShenyuResultWrap.error(exchange, ShenyuResultEnum.TARS_HAVE_BODY_PARAM);
-```
-
-### DataFlowIssue
-Method invocation `get` may produce `NullPointerException`
-in `shenyu-plugin/shenyu-plugin-divide/src/main/java/org/apache/shenyu/plugin/divide/DividePlugin.java`
-#### Snippet
-```java
-        // set the http url
-        if (CollectionUtils.isNotEmpty(exchange.getRequest().getHeaders().get(Constants.SPECIFY_DOMAIN))) {
-            upstream.setUrl(exchange.getRequest().getHeaders().get(Constants.SPECIFY_DOMAIN).get(0));
-        }
-        // set domain
-```
-
-### DataFlowIssue
-Argument `field` might be null
-in `shenyu-plugin/shenyu-plugin-tars/src/main/java/org/apache/shenyu/plugin/tars/cache/ApplicationConfigCache.java`
-#### Snippet
-```java
-    private void setCommunicatorThreadPool(final ThreadPoolExecutor threadPool) {
-        Field field = ReflectionUtils.findField(Communicator.class, "threadPoolExecutor");
-        ReflectionUtils.makeAccessible(field);
-        ReflectionUtils.setField(field, communicator, threadPool);
     }
 ```
 
 ### DataFlowIssue
-Method invocation `produces` may produce `NullPointerException`
-in `shenyu-client/shenyu-client-http/shenyu-client-springmvc/src/main/java/org/apache/shenyu/client/springmvc/init/SpringMvcClientEventListener.java`
+Method invocation `string` may produce `NullPointerException`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/HttpUtils.java`
 #### Snippet
 ```java
-    protected Sextet<String[], String, String, ApiHttpMethodEnum[], RpcTypeEnum, String> buildApiDocSextet(final Method method, final Annotation annotation, final Map<String, Object> beans) {
-        RequestMapping requestMapping = AnnotatedElementUtils.findMergedAnnotation(method, RequestMapping.class);
-        String produce = requestMapping.produces().length == 0 ? ShenyuClientConstants.MEDIA_TYPE_ALL_VALUE : String.join(",", requestMapping.produces());
-        String consume = requestMapping.consumes().length == 0 ? ShenyuClientConstants.MEDIA_TYPE_ALL_VALUE : String.join(",", requestMapping.consumes());
-        String[] values = requestMapping.value();
+    public String requestFileString(final String url, final Map<String, ?> form, final Map<String, String> header,
+        final List<UploadFile> files) throws IOException {
+        return requestFile(url, form, header, files).body().string();
+    }
+
 ```
 
 ### DataFlowIssue
-Method invocation `produces` may produce `NullPointerException`
-in `shenyu-client/shenyu-client-http/shenyu-client-springcloud/src/main/java/org/apache/shenyu/client/springcloud/init/SpringCloudClientEventListener.java`
+Method invocation `getLoginField` may produce `NullPointerException`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/DashboardUserServiceImpl.java`
 #### Snippet
 ```java
-    protected Sextet<String[], String, String, ApiHttpMethodEnum[], RpcTypeEnum, String> buildApiDocSextet(final Method method, final Annotation annotation, final Map<String, Object> beans) {
-        RequestMapping requestMapping = AnnotatedElementUtils.findMergedAnnotation(method, RequestMapping.class);
-        String produce = requestMapping.produces().length == 0 ? ShenyuClientConstants.MEDIA_TYPE_ALL_VALUE : String.join(",", requestMapping.produces());
-        String consume = requestMapping.consumes().length == 0 ? ShenyuClientConstants.MEDIA_TYPE_ALL_VALUE : String.join(",", requestMapping.consumes());
-        String[] values = requestMapping.value();
+    private DashboardUserVO loginByLdap(final String userName, final String password) {
+        Assert.notNull(ldapProperties, "ldap config is not enable");
+        String searchBase = String.format("%s=%s,%s", ldapProperties.getLoginField(), LdapEncoder.nameEncode(userName), ldapProperties.getBaseDn());
+        String filter = String.format("(objectClass=%s)", ldapProperties.getObjectClass());
+        try {
 ```
 
 ### DataFlowIssue
-Method invocation `interfaceClass` may produce `NullPointerException`
-in `shenyu-client/shenyu-client-motan/src/main/java/org/apache/shenyu/client/motan/MotanServiceEventListener.java`
+Condition `throwable instanceof ResponseStatusException` is redundant and can be replaced with a null check
+in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-common/src/main/java/org/apache/shenyu/plugin/logging/common/body/LoggingServerHttpResponse.java`
 #### Snippet
 ```java
-                .collect(Collectors.joining(","));
-        String serviceName;
-        if (void.class.equals(service.interfaceClass())) {
-            if (clazz.getInterfaces().length > 0) {
-                serviceName = clazz.getInterfaces()[0].getName();
+    public void logError(final Throwable throwable) {
+        HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+        if (throwable instanceof ResponseStatusException) {
+            httpStatus = ((ResponseStatusException) throwable).getStatus();
+        }
 ```
 
 ### DataFlowIssue
@@ -6782,19 +8206,67 @@ in `shenyu-plugin/shenyu-plugin-sign/src/main/java/org/apache/shenyu/plugin/sign
 
 ```
 
-## RuleId[id=SimplifyStreamApiCallChains]
-### SimplifyStreamApiCallChains
-''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/TagServiceImpl.java`
+### DataFlowIssue
+Method invocation `getClass` will produce `NullPointerException`
+in `shenyu-plugin/shenyu-plugin-httpclient/src/main/java/org/apache/shenyu/plugin/httpclient/NettyHttpClientPlugin.java`
 #### Snippet
 ```java
-        }
-        List<String> subTagIds = relationMap.get(id);
-        subTagIds.stream().forEach(tagId -> {
-            TagDO tagDO = allData.get(tagId);
-            tagDO.setExt(buildExtParamByParentTag(allData.get(id)));
+                        response.setRawStatusCode(res.status().code());
+                    } else {
+                        throw new IllegalStateException("Unable to set status code on response: " + res.status().code() + ", " + response.getClass());
+                    }
+                    response.getHeaders().putAll(headers);
 ```
 
+### DataFlowIssue
+Condition `exception instanceof GenericException` is redundant and can be replaced with a null check
+in `shenyu-plugin/shenyu-plugin-dubbo/shenyu-plugin-apache-dubbo/src/main/java/org/apache/shenyu/plugin/apache/dubbo/proxy/ApacheDubboProxyService.java`
+#### Snippet
+```java
+            exchange.getAttributes().put(Constants.CLIENT_RESPONSE_RESULT_TYPE, ResultEnum.SUCCESS.getName());
+            return ret;
+        })).onErrorMap(exception -> exception instanceof GenericException ? new ShenyuException(((GenericException) exception).getExceptionMessage()) : new ShenyuException(exception));
+    }
+    
+```
+
+### DataFlowIssue
+Argument `values` might be null
+in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/support/SpringMvcContract.java`
+#### Snippet
+```java
+        Assert.state(values != null && (values.length == 0 || values.length == 1),
+                String.format("Method %s can only contain at most 1 %s field. Found: %s",
+                        method.getName(), fieldName, Arrays.asList(values)));
+    }
+
+```
+
+### DataFlowIssue
+Condition `RequestMapping.class.isInstance(methodAnnotation)` is redundant and can be replaced with a null check
+in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/support/SpringMvcContract.java`
+#### Snippet
+```java
+                                             final Method method, final ShenyuClientFactoryBean shenyuClientFactoryBean) {
+
+        if (!RequestMapping.class.isInstance(methodAnnotation)
+                && !methodAnnotation.annotationType().isAnnotationPresent(RequestMapping.class)) {
+            return;
+```
+
+### DataFlowIssue
+Method invocation `annotationType` will produce `NullPointerException`
+in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/support/SpringMvcContract.java`
+#### Snippet
+```java
+
+        if (!RequestMapping.class.isInstance(methodAnnotation)
+                && !methodAnnotation.annotationType().isAnnotationPresent(RequestMapping.class)) {
+            return;
+        }
+```
+
+## RuleId[id=SimplifyStreamApiCallChains]
 ### SimplifyStreamApiCallChains
 Can be replaced with '.keySet().stream()'
 in `shenyu-sync-data-center/shenyu-sync-data-etcd/src/main/java/org/apache/shenyu/sync/data/etcd/EtcdClient.java`
@@ -6807,141 +8279,5076 @@ in `shenyu-sync-data-center/shenyu-sync-data-etcd/src/main/java/org/apache/sheny
                 .filter(e -> Objects.nonNull(e))
 ```
 
-## RuleId[id=Convert2MethodRef]
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/register/registrar/ApiBeanRegistrar.java`
+### SimplifyStreamApiCallChains
+''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/TagServiceImpl.java`
 #### Snippet
 ```java
-    protected void doRegister(final ApiBean<T> element) {
-        List<ApiBean<T>.ApiDefinition> apiDefinition = element.getApiDefinitions();
-        apiDefinition.forEach(api -> apiRegistrar.register(api));
-    }
-}
+        }
+        List<String> subTagIds = relationMap.get(id);
+        subTagIds.stream().forEach(tagId -> {
+            TagDO tagDO = allData.get(tagId);
+            tagDO.setExt(buildExtParamByParentTag(allData.get(id)));
 ```
 
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `shenyu-sync-data-center/shenyu-sync-data-etcd/src/main/java/org/apache/shenyu/sync/data/etcd/EtcdClient.java`
+## RuleId[id=SpringBootApplicationProperties]
+### SpringBootApplicationProperties
+Cannot resolve configuration property 'dubbo.registry.address'
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-client/shenyu-spring-boot-starter-client-alibaba-dubbo/src/test/resources/application.properties`
 #### Snippet
 ```java
-                .map(e -> getSubNodeKeyName(prefix, e.getKey(), separator))
-                .distinct()
-                .filter(e -> Objects.nonNull(e))
-                .collect(Collectors.toList());
-    }
+# limitations under the License.
+
+dubbo.registry.address=zookeeper://localhost:2181
+
+# more see shenyu-register-center module
 ```
 
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `shenyu-sync-data-center/shenyu-sync-data-etcd/src/main/java/org/apache/shenyu/sync/data/etcd/EtcdClient.java`
+### SpringBootApplicationProperties
+Cannot resolve configuration property 'shenyu.register.register-type'
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-client/shenyu-spring-boot-starter-client-alibaba-dubbo/src/test/resources/application.properties`
 #### Snippet
 ```java
-                .map(e -> getSubNodeKeyName(prefix, e.getKey().toString(UTF_8), separator))
-                .distinct()
-                .filter(e -> Objects.nonNull(e))
-                .collect(Collectors.toList());
-    }
+
+# more see shenyu-register-center module
+shenyu.register.register-type=http
+shenyu.register.serverLists=http://localhost:9095
+shenyu.register.props.username=admin
 ```
 
-## RuleId[id=NonSerializableFieldInSerializableClass]
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'code' in a Serializable class
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/model/vo/EnumVO.java`
+### SpringBootApplicationProperties
+Cannot resolve configuration property 'shenyu.register.serverLists'
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-client/shenyu-spring-boot-starter-client-alibaba-dubbo/src/test/resources/application.properties`
 #### Snippet
 ```java
-     * enum code.
-     */
-    private Object code;
-
-    /**
+# more see shenyu-register-center module
+shenyu.register.register-type=http
+shenyu.register.serverLists=http://localhost:9095
+shenyu.register.props.username=admin
+shenyu.register.props.password=123456
 ```
 
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'allPermissionInfo' in a Serializable class
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/model/vo/RoleEditVO.java`
+### SpringBootApplicationProperties
+Cannot resolve configuration property 'shenyu.register.props.username'
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-client/shenyu-spring-boot-starter-client-alibaba-dubbo/src/test/resources/application.properties`
 #### Snippet
 ```java
-     *  all permission info.
-     */
-    private PermissionInfo allPermissionInfo;
+shenyu.register.register-type=http
+shenyu.register.serverLists=http://localhost:9095
+shenyu.register.props.username=admin
+shenyu.register.props.password=123456
 
-    public RoleEditVO() {
 ```
 
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'before' in a Serializable class
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/model/event/AdminDataModelChangedEvent.java`
+### SpringBootApplicationProperties
+Cannot resolve configuration property 'shenyu.register.props.password'
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-client/shenyu-spring-boot-starter-client-alibaba-dubbo/src/test/resources/application.properties`
 #### Snippet
 ```java
-     * before data.
-     */
-    private final Object before;
+shenyu.register.serverLists=http://localhost:9095
+shenyu.register.props.username=admin
+shenyu.register.props.password=123456
+
+# more see org.apache.shenyu.client.core.shutdown.ShenyuClientShutdownHook.TakeoverOtherHooksThread.class
+```
+
+### SpringBootApplicationProperties
+Cannot resolve configuration property 'shenyu.register.props\[shutdownWaitTime\]'
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-client/shenyu-spring-boot-starter-client-alibaba-dubbo/src/test/resources/application.properties`
+#### Snippet
+```java
+
+# more see org.apache.shenyu.client.core.shutdown.ShenyuClientShutdownHook.TakeoverOtherHooksThread.class
+shenyu.register.props[shutdownWaitTime]=3000
+shenyu.register.props[delayOtherHooksExecTime]=2000
+shenyu.register.props[applicationShutdownHooksClassName]=java.lang.ApplicationShutdownHooks
+```
+
+### SpringBootApplicationProperties
+Cannot resolve configuration property 'shenyu.register.props\[delayOtherHooksExecTime\]'
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-client/shenyu-spring-boot-starter-client-alibaba-dubbo/src/test/resources/application.properties`
+#### Snippet
+```java
+# more see org.apache.shenyu.client.core.shutdown.ShenyuClientShutdownHook.TakeoverOtherHooksThread.class
+shenyu.register.props[shutdownWaitTime]=3000
+shenyu.register.props[delayOtherHooksExecTime]=2000
+shenyu.register.props[applicationShutdownHooksClassName]=java.lang.ApplicationShutdownHooks
+shenyu.register.props[applicationShutdownHooksFieldName]=hooks
+```
+
+### SpringBootApplicationProperties
+Cannot resolve configuration property 'shenyu.register.props\[applicationShutdownHooksClassName\]'
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-client/shenyu-spring-boot-starter-client-alibaba-dubbo/src/test/resources/application.properties`
+#### Snippet
+```java
+shenyu.register.props[shutdownWaitTime]=3000
+shenyu.register.props[delayOtherHooksExecTime]=2000
+shenyu.register.props[applicationShutdownHooksClassName]=java.lang.ApplicationShutdownHooks
+shenyu.register.props[applicationShutdownHooksFieldName]=hooks
+
+```
+
+### SpringBootApplicationProperties
+Cannot resolve configuration property 'shenyu.register.props\[applicationShutdownHooksFieldName\]'
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-client/shenyu-spring-boot-starter-client-alibaba-dubbo/src/test/resources/application.properties`
+#### Snippet
+```java
+shenyu.register.props[delayOtherHooksExecTime]=2000
+shenyu.register.props[applicationShutdownHooksClassName]=java.lang.ApplicationShutdownHooks
+shenyu.register.props[applicationShutdownHooksFieldName]=hooks
+
+shenyu.client.dubbo.props[contextPath]=/dubbo
+```
+
+### SpringBootApplicationProperties
+Cannot resolve configuration property 'shenyu.client.dubbo.props\[contextPath\]'
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-client/shenyu-spring-boot-starter-client-alibaba-dubbo/src/test/resources/application.properties`
+#### Snippet
+```java
+shenyu.register.props[applicationShutdownHooksFieldName]=hooks
+
+shenyu.client.dubbo.props[contextPath]=/dubbo
+shenyu.client.dubbo.props[appName]=alibaba-dubbo
+
+```
+
+### SpringBootApplicationProperties
+Cannot resolve configuration property 'shenyu.client.dubbo.props\[appName\]'
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-client/shenyu-spring-boot-starter-client-alibaba-dubbo/src/test/resources/application.properties`
+#### Snippet
+```java
+
+shenyu.client.dubbo.props[contextPath]=/dubbo
+shenyu.client.dubbo.props[appName]=alibaba-dubbo
+
+```
+
+### SpringBootApplicationProperties
+Cannot resolve configuration property 'dubbo.registry.address'
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-client/shenyu-spring-boot-starter-client-apache-dubbo/src/test/resources/application.properties`
+#### Snippet
+```java
+# limitations under the License.
+
+dubbo.registry.address=zookeeper://localhost:2181
+
+# more see shenyu-register-center module
+```
+
+### SpringBootApplicationProperties
+Cannot resolve configuration property 'shenyu.register.register-type'
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-client/shenyu-spring-boot-starter-client-apache-dubbo/src/test/resources/application.properties`
+#### Snippet
+```java
+
+# more see shenyu-register-center module
+shenyu.register.register-type=http
+shenyu.register.serverLists=http://localhost:9095
+shenyu.register.props.username=admin
+```
+
+### SpringBootApplicationProperties
+Cannot resolve configuration property 'shenyu.register.serverLists'
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-client/shenyu-spring-boot-starter-client-apache-dubbo/src/test/resources/application.properties`
+#### Snippet
+```java
+# more see shenyu-register-center module
+shenyu.register.register-type=http
+shenyu.register.serverLists=http://localhost:9095
+shenyu.register.props.username=admin
+shenyu.register.props.password=123456
+```
+
+### SpringBootApplicationProperties
+Cannot resolve configuration property 'shenyu.register.props.username'
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-client/shenyu-spring-boot-starter-client-apache-dubbo/src/test/resources/application.properties`
+#### Snippet
+```java
+shenyu.register.register-type=http
+shenyu.register.serverLists=http://localhost:9095
+shenyu.register.props.username=admin
+shenyu.register.props.password=123456
+
+```
+
+### SpringBootApplicationProperties
+Cannot resolve configuration property 'shenyu.register.props.password'
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-client/shenyu-spring-boot-starter-client-apache-dubbo/src/test/resources/application.properties`
+#### Snippet
+```java
+shenyu.register.serverLists=http://localhost:9095
+shenyu.register.props.username=admin
+shenyu.register.props.password=123456
+
+# more see org.apache.shenyu.client.core.shutdown.ShenyuClientShutdownHook.TakeoverOtherHooksThread.class
+```
+
+### SpringBootApplicationProperties
+Cannot resolve configuration property 'shenyu.register.props\[shutdownWaitTime\]'
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-client/shenyu-spring-boot-starter-client-apache-dubbo/src/test/resources/application.properties`
+#### Snippet
+```java
+
+# more see org.apache.shenyu.client.core.shutdown.ShenyuClientShutdownHook.TakeoverOtherHooksThread.class
+shenyu.register.props[shutdownWaitTime]=3000
+shenyu.register.props[delayOtherHooksExecTime]=2000
+shenyu.register.props[applicationShutdownHooksClassName]=java.lang.ApplicationShutdownHooks
+```
+
+### SpringBootApplicationProperties
+Cannot resolve configuration property 'shenyu.register.props\[delayOtherHooksExecTime\]'
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-client/shenyu-spring-boot-starter-client-apache-dubbo/src/test/resources/application.properties`
+#### Snippet
+```java
+# more see org.apache.shenyu.client.core.shutdown.ShenyuClientShutdownHook.TakeoverOtherHooksThread.class
+shenyu.register.props[shutdownWaitTime]=3000
+shenyu.register.props[delayOtherHooksExecTime]=2000
+shenyu.register.props[applicationShutdownHooksClassName]=java.lang.ApplicationShutdownHooks
+shenyu.register.props[applicationShutdownHooksFieldName]=hooks
+```
+
+### SpringBootApplicationProperties
+Cannot resolve configuration property 'shenyu.register.props\[applicationShutdownHooksClassName\]'
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-client/shenyu-spring-boot-starter-client-apache-dubbo/src/test/resources/application.properties`
+#### Snippet
+```java
+shenyu.register.props[shutdownWaitTime]=3000
+shenyu.register.props[delayOtherHooksExecTime]=2000
+shenyu.register.props[applicationShutdownHooksClassName]=java.lang.ApplicationShutdownHooks
+shenyu.register.props[applicationShutdownHooksFieldName]=hooks
+
+```
+
+### SpringBootApplicationProperties
+Cannot resolve configuration property 'shenyu.register.props\[applicationShutdownHooksFieldName\]'
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-client/shenyu-spring-boot-starter-client-apache-dubbo/src/test/resources/application.properties`
+#### Snippet
+```java
+shenyu.register.props[delayOtherHooksExecTime]=2000
+shenyu.register.props[applicationShutdownHooksClassName]=java.lang.ApplicationShutdownHooks
+shenyu.register.props[applicationShutdownHooksFieldName]=hooks
+
+shenyu.client.dubbo.props[contextPath]=/dubbo
+```
+
+### SpringBootApplicationProperties
+Cannot resolve configuration property 'shenyu.client.dubbo.props\[contextPath\]'
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-client/shenyu-spring-boot-starter-client-apache-dubbo/src/test/resources/application.properties`
+#### Snippet
+```java
+shenyu.register.props[applicationShutdownHooksFieldName]=hooks
+
+shenyu.client.dubbo.props[contextPath]=/dubbo
+shenyu.client.dubbo.props[appName]=apache-dubbo
+shenyu.client.dubbo.props[host]=localhost
+```
+
+### SpringBootApplicationProperties
+Cannot resolve configuration property 'shenyu.client.dubbo.props\[appName\]'
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-client/shenyu-spring-boot-starter-client-apache-dubbo/src/test/resources/application.properties`
+#### Snippet
+```java
+
+shenyu.client.dubbo.props[contextPath]=/dubbo
+shenyu.client.dubbo.props[appName]=apache-dubbo
+shenyu.client.dubbo.props[host]=localhost
+shenyu.client.dubbo.props[port]=20888
+```
+
+### SpringBootApplicationProperties
+Cannot resolve configuration property 'shenyu.client.dubbo.props\[host\]'
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-client/shenyu-spring-boot-starter-client-apache-dubbo/src/test/resources/application.properties`
+#### Snippet
+```java
+shenyu.client.dubbo.props[contextPath]=/dubbo
+shenyu.client.dubbo.props[appName]=apache-dubbo
+shenyu.client.dubbo.props[host]=localhost
+shenyu.client.dubbo.props[port]=20888
+
+```
+
+### SpringBootApplicationProperties
+Cannot resolve configuration property 'shenyu.client.dubbo.props\[port\]'
+in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-client/shenyu-spring-boot-starter-client-apache-dubbo/src/test/resources/application.properties`
+#### Snippet
+```java
+shenyu.client.dubbo.props[appName]=apache-dubbo
+shenyu.client.dubbo.props[host]=localhost
+shenyu.client.dubbo.props[port]=20888
+
+```
+
+## RuleId[id=RequiredBeanTypeInspection]
+### RequiredBeanTypeInspection
+Cannot resolve required base class 'org.springframework.web.accept.ContentNegotiationManager'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/spring-mvc.xml`
+#### Snippet
+```java
+    <context:component-scan base-package="org.apache.shenyu.examples.springmvc.controller"/>
+
+    <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager">
+        <mvc:message-converters register-defaults="false">
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+```
+
+## RuleId[id=SpringXmlModelInspection]
+### SpringXmlModelInspection
+Cannot resolve class or package 'apache'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:protocol name="dubbo" port="${dubbo.registry.port}"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'shenyu'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:protocol name="dubbo" port="${dubbo.registry.port}"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'examples'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:protocol name="dubbo" port="${dubbo.registry.port}"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'dubbo'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:protocol name="dubbo" port="${dubbo.registry.port}"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'apache'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-alibaba-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:protocol name="dubbo" port="20888"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'shenyu'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-alibaba-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:protocol name="dubbo" port="20888"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'api'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:protocol name="dubbo" port="${dubbo.registry.port}"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'examples'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-alibaba-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:protocol name="dubbo" port="20888"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'service'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:protocol name="dubbo" port="${dubbo.registry.port}"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'dubbo'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-alibaba-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:protocol name="dubbo" port="20888"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'api'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-alibaba-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:protocol name="dubbo" port="20888"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'DubboTestService'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:protocol name="dubbo" port="${dubbo.registry.port}"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'apache'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'service'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-alibaba-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:protocol name="dubbo" port="20888"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'DubboTestService'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-alibaba-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:protocol name="dubbo" port="20888"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'apache'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-alibaba-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'shenyu'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-alibaba-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'examples'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-alibaba-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'dubbo'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-alibaba-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'api'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-alibaba-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'service'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-alibaba-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'DubboMultiParamService'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-alibaba-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'apache'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-alibaba-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'shenyu'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-alibaba-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'examples'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-alibaba-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'dubbo'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-alibaba-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'api'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-alibaba-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'service'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-alibaba-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'DubboClassTestService'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-alibaba-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'apache'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-alibaba-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+</beans>
+
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'shenyu'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-alibaba-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+</beans>
+
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'examples'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-alibaba-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+</beans>
+
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'dubbo'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-alibaba-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+</beans>
+
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'api'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-alibaba-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+</beans>
+
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'service'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-alibaba-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+</beans>
+
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'DubboClassMultiParamService'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-alibaba-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+</beans>
+
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'shenyu'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'examples'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'dubbo'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'api'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'service'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'DubboMultiParamService'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'apache'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'shenyu'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'examples'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'dubbo'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'api'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'service'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'DubboClassTestService'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'apache'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+
+</beans>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'shenyu'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+
+</beans>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'examples'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+
+</beans>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'dubbo'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+
+</beans>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'api'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+
+</beans>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'service'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+
+</beans>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'DubboClassMultiParamService'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+
+</beans>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'apache'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:protocol name="dubbo" port="20888"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService" version="v0.0.2"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService" version="v0.0.2"/>
+</beans>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'shenyu'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:protocol name="dubbo" port="20888"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService" version="v0.0.2"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService" version="v0.0.2"/>
+</beans>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'examples'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:protocol name="dubbo" port="20888"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService" version="v0.0.2"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService" version="v0.0.2"/>
+</beans>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'dubbo'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:protocol name="dubbo" port="20888"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService" version="v0.0.2"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService" version="v0.0.2"/>
+</beans>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'api'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:protocol name="dubbo" port="20888"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService" version="v0.0.2"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService" version="v0.0.2"/>
+</beans>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'service'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:protocol name="dubbo" port="20888"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService" version="v0.0.2"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService" version="v0.0.2"/>
+</beans>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'DubboTestService'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:protocol name="dubbo" port="20888"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService" version="v0.0.2"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService" version="v0.0.2"/>
+</beans>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'apache'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService" version="v0.0.2"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService" version="v0.0.2"/>
+</beans>
+
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'shenyu'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService" version="v0.0.2"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService" version="v0.0.2"/>
+</beans>
+
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'examples'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService" version="v0.0.2"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService" version="v0.0.2"/>
+</beans>
+
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'dubbo'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService" version="v0.0.2"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService" version="v0.0.2"/>
+</beans>
+
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'api'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService" version="v0.0.2"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService" version="v0.0.2"/>
+</beans>
+
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'service'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService" version="v0.0.2"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService" version="v0.0.2"/>
+</beans>
+
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'DubboMultiParamService'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService" version="v0.0.2"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService" version="v0.0.2"/>
+</beans>
+
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'apache'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id = "apacheDubboServiceBeanListener" class="org.apache.shenyu.client.apache.dubbo.ApacheDubboServiceBeanListener">
+        <constructor-arg ref="clientPropertiesConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'shenyu'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id = "apacheDubboServiceBeanListener" class="org.apache.shenyu.client.apache.dubbo.ApacheDubboServiceBeanListener">
+        <constructor-arg ref="clientPropertiesConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'client'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id = "apacheDubboServiceBeanListener" class="org.apache.shenyu.client.apache.dubbo.ApacheDubboServiceBeanListener">
+        <constructor-arg ref="clientPropertiesConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'apache'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id = "apacheDubboServiceBeanListener" class="org.apache.shenyu.client.apache.dubbo.ApacheDubboServiceBeanListener">
+        <constructor-arg ref="clientPropertiesConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'dubbo'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id = "apacheDubboServiceBeanListener" class="org.apache.shenyu.client.apache.dubbo.ApacheDubboServiceBeanListener">
+        <constructor-arg ref="clientPropertiesConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'ApacheDubboServiceBeanListener'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id = "apacheDubboServiceBeanListener" class="org.apache.shenyu.client.apache.dubbo.ApacheDubboServiceBeanListener">
+        <constructor-arg ref="clientPropertiesConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'apache'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- conifig ShenyuRegisterCenterConfig according to your registerType -->
+    <bean id="shenyuRegisterCenterConfig" class="org.apache.shenyu.register.common.config.ShenyuRegisterCenterConfig">
+        <property name="registerType" value="http"/>
+        <property name="serverLists" value="http://localhost:9095"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'shenyu'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- conifig ShenyuRegisterCenterConfig according to your registerType -->
+    <bean id="shenyuRegisterCenterConfig" class="org.apache.shenyu.register.common.config.ShenyuRegisterCenterConfig">
+        <property name="registerType" value="http"/>
+        <property name="serverLists" value="http://localhost:9095"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'register'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- conifig ShenyuRegisterCenterConfig according to your registerType -->
+    <bean id="shenyuRegisterCenterConfig" class="org.apache.shenyu.register.common.config.ShenyuRegisterCenterConfig">
+        <property name="registerType" value="http"/>
+        <property name="serverLists" value="http://localhost:9095"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'common'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- conifig ShenyuRegisterCenterConfig according to your registerType -->
+    <bean id="shenyuRegisterCenterConfig" class="org.apache.shenyu.register.common.config.ShenyuRegisterCenterConfig">
+        <property name="registerType" value="http"/>
+        <property name="serverLists" value="http://localhost:9095"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'config'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- conifig ShenyuRegisterCenterConfig according to your registerType -->
+    <bean id="shenyuRegisterCenterConfig" class="org.apache.shenyu.register.common.config.ShenyuRegisterCenterConfig">
+        <property name="registerType" value="http"/>
+        <property name="serverLists" value="http://localhost:9095"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'ShenyuRegisterCenterConfig'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- conifig ShenyuRegisterCenterConfig according to your registerType -->
+    <bean id="shenyuRegisterCenterConfig" class="org.apache.shenyu.register.common.config.ShenyuRegisterCenterConfig">
+        <property name="registerType" value="http"/>
+        <property name="serverLists" value="http://localhost:9095"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'apache'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-alibaba-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:protocol name="dubbo" port="20888"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService" version="v0.0.1"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'shenyu'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-alibaba-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:protocol name="dubbo" port="20888"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService" version="v0.0.1"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'examples'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-alibaba-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:protocol name="dubbo" port="20888"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService" version="v0.0.1"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'dubbo'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-alibaba-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:protocol name="dubbo" port="20888"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService" version="v0.0.1"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'api'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-alibaba-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:protocol name="dubbo" port="20888"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService" version="v0.0.1"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'service'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-alibaba-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:protocol name="dubbo" port="20888"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService" version="v0.0.1"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'DubboTestService'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-alibaba-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:protocol name="dubbo" port="20888"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService" version="v0.0.1"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'apache'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-alibaba-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService" version="v0.0.1"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'shenyu'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-alibaba-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService" version="v0.0.1"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'examples'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-alibaba-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService" version="v0.0.1"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'dubbo'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-alibaba-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService" version="v0.0.1"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'api'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-alibaba-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService" version="v0.0.1"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'service'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-alibaba-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService" version="v0.0.1"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'DubboMultiParamService'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-alibaba-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService" version="v0.0.1"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'apache'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-alibaba-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService" version="v0.0.1"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'shenyu'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-alibaba-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService" version="v0.0.1"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'examples'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-alibaba-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService" version="v0.0.1"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'dubbo'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-alibaba-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService" version="v0.0.1"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'api'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-alibaba-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService" version="v0.0.1"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'service'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-alibaba-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService" version="v0.0.1"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'DubboClassTestService'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-alibaba-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService" version="v0.0.1"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'apache'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-alibaba-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService" version="v0.0.1"/>
+</beans>
+
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'shenyu'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-alibaba-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService" version="v0.0.1"/>
+</beans>
+
+```
+
+### SpringXmlModelInspection
+Cannot resolve property 'registerType'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+    <!-- conifig ShenyuRegisterCenterConfig according to your registerType -->
+    <bean id="shenyuRegisterCenterConfig" class="org.apache.shenyu.register.common.config.ShenyuRegisterCenterConfig">
+        <property name="registerType" value="http"/>
+        <property name="serverLists" value="http://localhost:9095"/>
+        <property name="props">
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'examples'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-alibaba-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService" version="v0.0.1"/>
+</beans>
+
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'dubbo'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-alibaba-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService" version="v0.0.1"/>
+</beans>
+
+```
+
+### SpringXmlModelInspection
+Cannot resolve property 'serverLists'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+    <bean id="shenyuRegisterCenterConfig" class="org.apache.shenyu.register.common.config.ShenyuRegisterCenterConfig">
+        <property name="registerType" value="http"/>
+        <property name="serverLists" value="http://localhost:9095"/>
+        <property name="props">
+            <props>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'api'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-alibaba-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService" version="v0.0.1"/>
+</beans>
+
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'service'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-alibaba-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService" version="v0.0.1"/>
+</beans>
+
+```
+
+### SpringXmlModelInspection
+Cannot resolve property 'props'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+        <property name="registerType" value="http"/>
+        <property name="serverLists" value="http://localhost:9095"/>
+        <property name="props">
+            <props>
+                <prop key="username">admin</prop>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'DubboClassMultiParamService'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-alibaba-dubbo-service/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService" version="v0.0.1"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService" version="v0.0.1"/>
+</beans>
+
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'apache'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+    <!-- ClientPropertiesConfig -->
+    <bean id="clientPropertiesConfig"
+          class="org.apache.shenyu.register.common.config.ShenyuClientConfig.ClientPropertiesConfig">
+        <property name="props">
+            <map>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'shenyu'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+    <!-- ClientPropertiesConfig -->
+    <bean id="clientPropertiesConfig"
+          class="org.apache.shenyu.register.common.config.ShenyuClientConfig.ClientPropertiesConfig">
+        <property name="props">
+            <map>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'register'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+    <!-- ClientPropertiesConfig -->
+    <bean id="clientPropertiesConfig"
+          class="org.apache.shenyu.register.common.config.ShenyuClientConfig.ClientPropertiesConfig">
+        <property name="props">
+            <map>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'common'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+    <!-- ClientPropertiesConfig -->
+    <bean id="clientPropertiesConfig"
+          class="org.apache.shenyu.register.common.config.ShenyuClientConfig.ClientPropertiesConfig">
+        <property name="props">
+            <map>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'config'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+    <!-- ClientPropertiesConfig -->
+    <bean id="clientPropertiesConfig"
+          class="org.apache.shenyu.register.common.config.ShenyuClientConfig.ClientPropertiesConfig">
+        <property name="props">
+            <map>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'ClientPropertiesConfig'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+    <!-- ClientPropertiesConfig -->
+    <bean id="clientPropertiesConfig"
+          class="org.apache.shenyu.register.common.config.ShenyuClientConfig.ClientPropertiesConfig">
+        <property name="props">
+            <map>
+```
+
+### SpringXmlModelInspection
+Cannot resolve property 'props'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+    <bean id="clientPropertiesConfig"
+          class="org.apache.shenyu.register.common.config.ShenyuClientConfig.ClientPropertiesConfig">
+        <property name="props">
+            <map>
+                <entry key="contextPath" value="/dubbo"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'apache'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- for other kind of register method, please use related ShenyuClientRegisterRepository -->
+    <bean id="clientRegisterRepository" class="org.apache.shenyu.register.client.http.HttpClientRegisterRepository">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+    </bean>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'shenyu'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- for other kind of register method, please use related ShenyuClientRegisterRepository -->
+    <bean id="clientRegisterRepository" class="org.apache.shenyu.register.client.http.HttpClientRegisterRepository">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+    </bean>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'register'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- for other kind of register method, please use related ShenyuClientRegisterRepository -->
+    <bean id="clientRegisterRepository" class="org.apache.shenyu.register.client.http.HttpClientRegisterRepository">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+    </bean>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'client'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- for other kind of register method, please use related ShenyuClientRegisterRepository -->
+    <bean id="clientRegisterRepository" class="org.apache.shenyu.register.client.http.HttpClientRegisterRepository">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+    </bean>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'http'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- for other kind of register method, please use related ShenyuClientRegisterRepository -->
+    <bean id="clientRegisterRepository" class="org.apache.shenyu.register.client.http.HttpClientRegisterRepository">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+    </bean>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'HttpClientRegisterRepository'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- for other kind of register method, please use related ShenyuClientRegisterRepository -->
+    <bean id="clientRegisterRepository" class="org.apache.shenyu.register.client.http.HttpClientRegisterRepository">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+    </bean>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'apache'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+    </bean>
+
+    <bean id="shenyuClientShutdownHook" class="org.apache.shenyu.client.core.shutdown.ShenyuClientShutdownHook">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'shenyu'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+    </bean>
+
+    <bean id="shenyuClientShutdownHook" class="org.apache.shenyu.client.core.shutdown.ShenyuClientShutdownHook">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'apache'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:protocol name="dubbo" port="${dubbo.registry.port}"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'client'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+    </bean>
+
+    <bean id="shenyuClientShutdownHook" class="org.apache.shenyu.client.core.shutdown.ShenyuClientShutdownHook">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'shenyu'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:protocol name="dubbo" port="${dubbo.registry.port}"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'core'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+    </bean>
+
+    <bean id="shenyuClientShutdownHook" class="org.apache.shenyu.client.core.shutdown.ShenyuClientShutdownHook">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'examples'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:protocol name="dubbo" port="${dubbo.registry.port}"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'dubbo'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:protocol name="dubbo" port="${dubbo.registry.port}"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'shutdown'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+    </bean>
+
+    <bean id="shenyuClientShutdownHook" class="org.apache.shenyu.client.core.shutdown.ShenyuClientShutdownHook">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'api'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:protocol name="dubbo" port="${dubbo.registry.port}"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'service'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:protocol name="dubbo" port="${dubbo.registry.port}"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'ShenyuClientShutdownHook'
+in `shenyu-examples/shenyu-examples-sdk/shenyu-examples-sdk-dubbo/shenyu-examples-sdk-apache-dubbo-provider/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+    </bean>
+
+    <bean id="shenyuClientShutdownHook" class="org.apache.shenyu.client.core.shutdown.ShenyuClientShutdownHook">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'DubboTestService'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:protocol name="dubbo" port="${dubbo.registry.port}"/>
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'apache'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'shenyu'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'examples'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'dubbo'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'api'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'service'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'DubboMultiParamService'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'apache'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'shenyu'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'examples'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'dubbo'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'api'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'service'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'DubboClassTestService'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboTestService" ref="dubboTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'apache'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+
+</beans>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'shenyu'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+
+</beans>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'examples'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+
+</beans>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'dubbo'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+
+</beans>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'api'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+
+</beans>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'service'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+
+</beans>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'DubboClassMultiParamService'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/spring-dubbo.xml`
+#### Snippet
+```java
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboMultiParamService" ref="dubboMultiParamService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassTestService" ref="dubboClassTestService"/>
+    <dubbo:service timeout="10000" interface="org.apache.shenyu.examples.dubbo.api.service.DubboClassMultiParamService" ref="dubboClassMultiParamService"/>
+
+</beans>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'apache'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id = "apacheDubboServiceBeanListener" class="org.apache.shenyu.client.apache.dubbo.ApacheDubboServiceBeanListener">
+        <constructor-arg ref="clientPropertiesConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'shenyu'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id = "apacheDubboServiceBeanListener" class="org.apache.shenyu.client.apache.dubbo.ApacheDubboServiceBeanListener">
+        <constructor-arg ref="clientPropertiesConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'client'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id = "apacheDubboServiceBeanListener" class="org.apache.shenyu.client.apache.dubbo.ApacheDubboServiceBeanListener">
+        <constructor-arg ref="clientPropertiesConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'apache'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id = "apacheDubboServiceBeanListener" class="org.apache.shenyu.client.apache.dubbo.ApacheDubboServiceBeanListener">
+        <constructor-arg ref="clientPropertiesConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'dubbo'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id = "apacheDubboServiceBeanListener" class="org.apache.shenyu.client.apache.dubbo.ApacheDubboServiceBeanListener">
+        <constructor-arg ref="clientPropertiesConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'ApacheDubboServiceBeanListener'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id = "apacheDubboServiceBeanListener" class="org.apache.shenyu.client.apache.dubbo.ApacheDubboServiceBeanListener">
+        <constructor-arg ref="clientPropertiesConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'apache'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- conifig ShenyuRegisterCenterConfig according to your registerType -->
+    <bean id="shenyuRegisterCenterConfig" class="org.apache.shenyu.register.common.config.ShenyuRegisterCenterConfig">
+        <property name="registerType" value="http"/>
+        <property name="serverLists" value="http://localhost:9095"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'shenyu'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- conifig ShenyuRegisterCenterConfig according to your registerType -->
+    <bean id="shenyuRegisterCenterConfig" class="org.apache.shenyu.register.common.config.ShenyuRegisterCenterConfig">
+        <property name="registerType" value="http"/>
+        <property name="serverLists" value="http://localhost:9095"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'register'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- conifig ShenyuRegisterCenterConfig according to your registerType -->
+    <bean id="shenyuRegisterCenterConfig" class="org.apache.shenyu.register.common.config.ShenyuRegisterCenterConfig">
+        <property name="registerType" value="http"/>
+        <property name="serverLists" value="http://localhost:9095"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'common'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- conifig ShenyuRegisterCenterConfig according to your registerType -->
+    <bean id="shenyuRegisterCenterConfig" class="org.apache.shenyu.register.common.config.ShenyuRegisterCenterConfig">
+        <property name="registerType" value="http"/>
+        <property name="serverLists" value="http://localhost:9095"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'config'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- conifig ShenyuRegisterCenterConfig according to your registerType -->
+    <bean id="shenyuRegisterCenterConfig" class="org.apache.shenyu.register.common.config.ShenyuRegisterCenterConfig">
+        <property name="registerType" value="http"/>
+        <property name="serverLists" value="http://localhost:9095"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'ShenyuRegisterCenterConfig'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- conifig ShenyuRegisterCenterConfig according to your registerType -->
+    <bean id="shenyuRegisterCenterConfig" class="org.apache.shenyu.register.common.config.ShenyuRegisterCenterConfig">
+        <property name="registerType" value="http"/>
+        <property name="serverLists" value="http://localhost:9095"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve property 'registerType'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+    <!-- conifig ShenyuRegisterCenterConfig according to your registerType -->
+    <bean id="shenyuRegisterCenterConfig" class="org.apache.shenyu.register.common.config.ShenyuRegisterCenterConfig">
+        <property name="registerType" value="http"/>
+        <property name="serverLists" value="http://localhost:9095"/>
+        <property name="props">
+```
+
+### SpringXmlModelInspection
+Cannot resolve property 'serverLists'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+    <bean id="shenyuRegisterCenterConfig" class="org.apache.shenyu.register.common.config.ShenyuRegisterCenterConfig">
+        <property name="registerType" value="http"/>
+        <property name="serverLists" value="http://localhost:9095"/>
+        <property name="props">
+            <props>
+```
+
+### SpringXmlModelInspection
+Cannot resolve property 'props'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+        <property name="registerType" value="http"/>
+        <property name="serverLists" value="http://localhost:9095"/>
+        <property name="props">
+            <props>
+                <prop key="username">admin</prop>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'apache'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+    <!-- ClientPropertiesConfig -->
+    <bean id="clientPropertiesConfig"
+          class="org.apache.shenyu.register.common.config.ShenyuClientConfig.ClientPropertiesConfig">
+        <property name="props">
+            <map>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'shenyu'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+    <!-- ClientPropertiesConfig -->
+    <bean id="clientPropertiesConfig"
+          class="org.apache.shenyu.register.common.config.ShenyuClientConfig.ClientPropertiesConfig">
+        <property name="props">
+            <map>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'register'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+    <!-- ClientPropertiesConfig -->
+    <bean id="clientPropertiesConfig"
+          class="org.apache.shenyu.register.common.config.ShenyuClientConfig.ClientPropertiesConfig">
+        <property name="props">
+            <map>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'common'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+    <!-- ClientPropertiesConfig -->
+    <bean id="clientPropertiesConfig"
+          class="org.apache.shenyu.register.common.config.ShenyuClientConfig.ClientPropertiesConfig">
+        <property name="props">
+            <map>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'config'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+    <!-- ClientPropertiesConfig -->
+    <bean id="clientPropertiesConfig"
+          class="org.apache.shenyu.register.common.config.ShenyuClientConfig.ClientPropertiesConfig">
+        <property name="props">
+            <map>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'ClientPropertiesConfig'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+    <!-- ClientPropertiesConfig -->
+    <bean id="clientPropertiesConfig"
+          class="org.apache.shenyu.register.common.config.ShenyuClientConfig.ClientPropertiesConfig">
+        <property name="props">
+            <map>
+```
+
+### SpringXmlModelInspection
+Cannot resolve property 'props'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+    <bean id="clientPropertiesConfig"
+          class="org.apache.shenyu.register.common.config.ShenyuClientConfig.ClientPropertiesConfig">
+        <property name="props">
+            <map>
+                <entry key="contextPath" value="/dubbo"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'apache'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- for other kind of register method, please use related ShenyuClientRegisterRepository -->
+    <bean id="clientRegisterRepository" class="org.apache.shenyu.register.client.http.HttpClientRegisterRepository">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+    </bean>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'shenyu'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- for other kind of register method, please use related ShenyuClientRegisterRepository -->
+    <bean id="clientRegisterRepository" class="org.apache.shenyu.register.client.http.HttpClientRegisterRepository">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+    </bean>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'register'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- for other kind of register method, please use related ShenyuClientRegisterRepository -->
+    <bean id="clientRegisterRepository" class="org.apache.shenyu.register.client.http.HttpClientRegisterRepository">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+    </bean>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'client'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- for other kind of register method, please use related ShenyuClientRegisterRepository -->
+    <bean id="clientRegisterRepository" class="org.apache.shenyu.register.client.http.HttpClientRegisterRepository">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+    </bean>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'http'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- for other kind of register method, please use related ShenyuClientRegisterRepository -->
+    <bean id="clientRegisterRepository" class="org.apache.shenyu.register.client.http.HttpClientRegisterRepository">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+    </bean>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'HttpClientRegisterRepository'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- for other kind of register method, please use related ShenyuClientRegisterRepository -->
+    <bean id="clientRegisterRepository" class="org.apache.shenyu.register.client.http.HttpClientRegisterRepository">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+    </bean>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'apache'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+    </bean>
+
+    <bean id="shenyuClientShutdownHook" class="org.apache.shenyu.client.core.shutdown.ShenyuClientShutdownHook">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'shenyu'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+    </bean>
+
+    <bean id="shenyuClientShutdownHook" class="org.apache.shenyu.client.core.shutdown.ShenyuClientShutdownHook">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'client'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+    </bean>
+
+    <bean id="shenyuClientShutdownHook" class="org.apache.shenyu.client.core.shutdown.ShenyuClientShutdownHook">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'core'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+    </bean>
+
+    <bean id="shenyuClientShutdownHook" class="org.apache.shenyu.client.core.shutdown.ShenyuClientShutdownHook">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'shutdown'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+    </bean>
+
+    <bean id="shenyuClientShutdownHook" class="org.apache.shenyu.client.core.shutdown.ShenyuClientShutdownHook">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'ShenyuClientShutdownHook'
+in `shenyu-examples/shenyu-examples-dubbo/shenyu-examples-apache-dubbo-service-xml/src/main/resources/shenyu.xml`
+#### Snippet
+```java
+    </bean>
+
+    <bean id="shenyuClientShutdownHook" class="org.apache.shenyu.client.core.shutdown.ShenyuClientShutdownHook">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'apache'
+in `shenyu-examples/shenyu-examples-springmvc/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
     
-    /**
+    <bean id="springMvcClientEventListener"
+          class="org.apache.shenyu.client.springmvc.init.SpringMvcClientEventListener">
+        <constructor-arg ref="clientPropertiesConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
 ```
 
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'after' in a Serializable class
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/model/event/AdminDataModelChangedEvent.java`
+### SpringXmlModelInspection
+Cannot resolve class or package 'shenyu'
+in `shenyu-examples/shenyu-examples-springmvc/src/main/resources/context/shenyu.xml`
 #### Snippet
 ```java
-     * after data.
-     */
-    private final Object after;
     
-    /**
+    <bean id="springMvcClientEventListener"
+          class="org.apache.shenyu.client.springmvc.init.SpringMvcClientEventListener">
+        <constructor-arg ref="clientPropertiesConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
 ```
 
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'memoryLimiter' in a Serializable class
-in `shenyu-common/src/main/java/org/apache/shenyu/common/concurrent/MemoryLimitedLinkedBlockingQueue.java`
+### SpringXmlModelInspection
+Cannot resolve class or package 'client'
+in `shenyu-examples/shenyu-examples-springmvc/src/main/resources/context/shenyu.xml`
 #### Snippet
 ```java
-    private static final long serialVersionUID = -6106022470621447542L;
-
-    private final MemoryLimiter memoryLimiter;
-
-    public MemoryLimitedLinkedBlockingQueue(final Instrumentation inst) {
+    
+    <bean id="springMvcClientEventListener"
+          class="org.apache.shenyu.client.springmvc.init.SpringMvcClientEventListener">
+        <constructor-arg ref="clientPropertiesConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
 ```
 
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'data' in a Serializable class
-in `shenyu-plugin/shenyu-plugin-api/src/main/java/org/apache/shenyu/plugin/api/result/DefaultShenyuEntity.java`
+### SpringXmlModelInspection
+Cannot resolve class or package 'springmvc'
+in `shenyu-examples/shenyu-examples-springmvc/src/main/resources/context/shenyu.xml`
 #### Snippet
 ```java
-
-    @JsonBackReference
-    private Object data;
-
-    /**
+    
+    <bean id="springMvcClientEventListener"
+          class="org.apache.shenyu.client.springmvc.init.SpringMvcClientEventListener">
+        <constructor-arg ref="clientPropertiesConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
 ```
 
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'requestTemplate' in a Serializable class
-in `shenyu-sdk/shenyu-sdk-core/src/main/java/org/apache/shenyu/sdk/core/ShenyuRequest.java`
+### SpringXmlModelInspection
+Cannot resolve class or package 'init'
+in `shenyu-examples/shenyu-examples-springmvc/src/main/resources/context/shenyu.xml`
 #### Snippet
 ```java
-    private String body;
-
-    private final RequestTemplate requestTemplate;
-
-    /**
+    
+    <bean id="springMvcClientEventListener"
+          class="org.apache.shenyu.client.springmvc.init.SpringMvcClientEventListener">
+        <constructor-arg ref="clientPropertiesConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
 ```
 
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'bizInfo' in a Serializable class
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/trie/ShenyuTrieNode.java`
+### SpringXmlModelInspection
+Cannot resolve class 'SpringMvcClientEventListener'
+in `shenyu-examples/shenyu-examples-springmvc/src/main/resources/context/shenyu.xml`
 #### Snippet
 ```java
-     * biz info, route info and any other info store here, e.g. ruleId, selectorId and so on.
-     */
-    private Object bizInfo;
+    
+    <bean id="springMvcClientEventListener"
+          class="org.apache.shenyu.client.springmvc.init.SpringMvcClientEventListener">
+        <constructor-arg ref="clientPropertiesConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
+```
 
-    public ShenyuTrieNode() {
+### SpringXmlModelInspection
+Cannot resolve class or package 'apache'
+in `shenyu-examples/shenyu-examples-springmvc/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- conifig ShenyuRegisterCenterConfig according to your registerType -->
+    <bean id="shenyuRegisterCenterConfig" class="org.apache.shenyu.register.common.config.ShenyuRegisterCenterConfig">
+        <property name="registerType" value="http"/>
+        <property name="serverLists" value="http://localhost:9095"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'shenyu'
+in `shenyu-examples/shenyu-examples-springmvc/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- conifig ShenyuRegisterCenterConfig according to your registerType -->
+    <bean id="shenyuRegisterCenterConfig" class="org.apache.shenyu.register.common.config.ShenyuRegisterCenterConfig">
+        <property name="registerType" value="http"/>
+        <property name="serverLists" value="http://localhost:9095"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'register'
+in `shenyu-examples/shenyu-examples-springmvc/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- conifig ShenyuRegisterCenterConfig according to your registerType -->
+    <bean id="shenyuRegisterCenterConfig" class="org.apache.shenyu.register.common.config.ShenyuRegisterCenterConfig">
+        <property name="registerType" value="http"/>
+        <property name="serverLists" value="http://localhost:9095"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'common'
+in `shenyu-examples/shenyu-examples-springmvc/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- conifig ShenyuRegisterCenterConfig according to your registerType -->
+    <bean id="shenyuRegisterCenterConfig" class="org.apache.shenyu.register.common.config.ShenyuRegisterCenterConfig">
+        <property name="registerType" value="http"/>
+        <property name="serverLists" value="http://localhost:9095"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'config'
+in `shenyu-examples/shenyu-examples-springmvc/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- conifig ShenyuRegisterCenterConfig according to your registerType -->
+    <bean id="shenyuRegisterCenterConfig" class="org.apache.shenyu.register.common.config.ShenyuRegisterCenterConfig">
+        <property name="registerType" value="http"/>
+        <property name="serverLists" value="http://localhost:9095"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'ShenyuRegisterCenterConfig'
+in `shenyu-examples/shenyu-examples-springmvc/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- conifig ShenyuRegisterCenterConfig according to your registerType -->
+    <bean id="shenyuRegisterCenterConfig" class="org.apache.shenyu.register.common.config.ShenyuRegisterCenterConfig">
+        <property name="registerType" value="http"/>
+        <property name="serverLists" value="http://localhost:9095"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve property 'registerType'
+in `shenyu-examples/shenyu-examples-springmvc/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+    <!-- conifig ShenyuRegisterCenterConfig according to your registerType -->
+    <bean id="shenyuRegisterCenterConfig" class="org.apache.shenyu.register.common.config.ShenyuRegisterCenterConfig">
+        <property name="registerType" value="http"/>
+        <property name="serverLists" value="http://localhost:9095"/>
+        <property name="props">
+```
+
+### SpringXmlModelInspection
+Cannot resolve property 'serverLists'
+in `shenyu-examples/shenyu-examples-springmvc/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+    <bean id="shenyuRegisterCenterConfig" class="org.apache.shenyu.register.common.config.ShenyuRegisterCenterConfig">
+        <property name="registerType" value="http"/>
+        <property name="serverLists" value="http://localhost:9095"/>
+        <property name="props">
+            <map>
+```
+
+### SpringXmlModelInspection
+Cannot resolve property 'props'
+in `shenyu-examples/shenyu-examples-springmvc/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+        <property name="registerType" value="http"/>
+        <property name="serverLists" value="http://localhost:9095"/>
+        <property name="props">
+            <map>
+                <entry key="username" value="admin"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'apache'
+in `shenyu-examples/shenyu-examples-springmvc/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+    <!-- ClientPropertiesConfig -->
+    <bean id="clientPropertiesConfig"
+          class="org.apache.shenyu.register.common.config.ShenyuClientConfig.ClientPropertiesConfig">
+        <property name="props">
+            <map>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'shenyu'
+in `shenyu-examples/shenyu-examples-springmvc/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+    <!-- ClientPropertiesConfig -->
+    <bean id="clientPropertiesConfig"
+          class="org.apache.shenyu.register.common.config.ShenyuClientConfig.ClientPropertiesConfig">
+        <property name="props">
+            <map>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'register'
+in `shenyu-examples/shenyu-examples-springmvc/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+    <!-- ClientPropertiesConfig -->
+    <bean id="clientPropertiesConfig"
+          class="org.apache.shenyu.register.common.config.ShenyuClientConfig.ClientPropertiesConfig">
+        <property name="props">
+            <map>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'common'
+in `shenyu-examples/shenyu-examples-springmvc/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+    <!-- ClientPropertiesConfig -->
+    <bean id="clientPropertiesConfig"
+          class="org.apache.shenyu.register.common.config.ShenyuClientConfig.ClientPropertiesConfig">
+        <property name="props">
+            <map>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'config'
+in `shenyu-examples/shenyu-examples-springmvc/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+    <!-- ClientPropertiesConfig -->
+    <bean id="clientPropertiesConfig"
+          class="org.apache.shenyu.register.common.config.ShenyuClientConfig.ClientPropertiesConfig">
+        <property name="props">
+            <map>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'ClientPropertiesConfig'
+in `shenyu-examples/shenyu-examples-springmvc/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+    <!-- ClientPropertiesConfig -->
+    <bean id="clientPropertiesConfig"
+          class="org.apache.shenyu.register.common.config.ShenyuClientConfig.ClientPropertiesConfig">
+        <property name="props">
+            <map>
+```
+
+### SpringXmlModelInspection
+Cannot resolve property 'props'
+in `shenyu-examples/shenyu-examples-springmvc/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+    <bean id="clientPropertiesConfig"
+          class="org.apache.shenyu.register.common.config.ShenyuClientConfig.ClientPropertiesConfig">
+        <property name="props">
+            <map>
+                <entry key="contextPath" value="/mvc"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'apache'
+in `shenyu-examples/shenyu-examples-springmvc/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- for other kind of register method, please use related ShenyuClientRegisterRepository -->
+    <bean id="clientRegisterRepository" class="org.apache.shenyu.register.client.http.HttpClientRegisterRepository">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+    </bean>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'shenyu'
+in `shenyu-examples/shenyu-examples-springmvc/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- for other kind of register method, please use related ShenyuClientRegisterRepository -->
+    <bean id="clientRegisterRepository" class="org.apache.shenyu.register.client.http.HttpClientRegisterRepository">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+    </bean>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'register'
+in `shenyu-examples/shenyu-examples-springmvc/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- for other kind of register method, please use related ShenyuClientRegisterRepository -->
+    <bean id="clientRegisterRepository" class="org.apache.shenyu.register.client.http.HttpClientRegisterRepository">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+    </bean>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'client'
+in `shenyu-examples/shenyu-examples-springmvc/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- for other kind of register method, please use related ShenyuClientRegisterRepository -->
+    <bean id="clientRegisterRepository" class="org.apache.shenyu.register.client.http.HttpClientRegisterRepository">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+    </bean>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'http'
+in `shenyu-examples/shenyu-examples-springmvc/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- for other kind of register method, please use related ShenyuClientRegisterRepository -->
+    <bean id="clientRegisterRepository" class="org.apache.shenyu.register.client.http.HttpClientRegisterRepository">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+    </bean>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'HttpClientRegisterRepository'
+in `shenyu-examples/shenyu-examples-springmvc/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- for other kind of register method, please use related ShenyuClientRegisterRepository -->
+    <bean id="clientRegisterRepository" class="org.apache.shenyu.register.client.http.HttpClientRegisterRepository">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+    </bean>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'apache'
+in `shenyu-examples/shenyu-examples-springmvc/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+    </bean>
+
+    <bean id="shenyuClientShutdownHook" class="org.apache.shenyu.client.core.shutdown.ShenyuClientShutdownHook">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'shenyu'
+in `shenyu-examples/shenyu-examples-springmvc/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+    </bean>
+
+    <bean id="shenyuClientShutdownHook" class="org.apache.shenyu.client.core.shutdown.ShenyuClientShutdownHook">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'client'
+in `shenyu-examples/shenyu-examples-springmvc/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+    </bean>
+
+    <bean id="shenyuClientShutdownHook" class="org.apache.shenyu.client.core.shutdown.ShenyuClientShutdownHook">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'core'
+in `shenyu-examples/shenyu-examples-springmvc/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+    </bean>
+
+    <bean id="shenyuClientShutdownHook" class="org.apache.shenyu.client.core.shutdown.ShenyuClientShutdownHook">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'shutdown'
+in `shenyu-examples/shenyu-examples-springmvc/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+    </bean>
+
+    <bean id="shenyuClientShutdownHook" class="org.apache.shenyu.client.core.shutdown.ShenyuClientShutdownHook">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'ShenyuClientShutdownHook'
+in `shenyu-examples/shenyu-examples-springmvc/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+    </bean>
+
+    <bean id="shenyuClientShutdownHook" class="org.apache.shenyu.client.core.shutdown.ShenyuClientShutdownHook">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'apache'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+    <!-- ClientPropertiesConfig -->
+    <bean id="clientPropertiesConfig"
+          class="org.apache.shenyu.register.common.config.ShenyuClientConfig.ClientPropertiesConfig">
+        <property name="props">
+            <map>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'shenyu'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+    <!-- ClientPropertiesConfig -->
+    <bean id="clientPropertiesConfig"
+          class="org.apache.shenyu.register.common.config.ShenyuClientConfig.ClientPropertiesConfig">
+        <property name="props">
+            <map>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'register'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+    <!-- ClientPropertiesConfig -->
+    <bean id="clientPropertiesConfig"
+          class="org.apache.shenyu.register.common.config.ShenyuClientConfig.ClientPropertiesConfig">
+        <property name="props">
+            <map>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'common'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+    <!-- ClientPropertiesConfig -->
+    <bean id="clientPropertiesConfig"
+          class="org.apache.shenyu.register.common.config.ShenyuClientConfig.ClientPropertiesConfig">
+        <property name="props">
+            <map>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'config'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+    <!-- ClientPropertiesConfig -->
+    <bean id="clientPropertiesConfig"
+          class="org.apache.shenyu.register.common.config.ShenyuClientConfig.ClientPropertiesConfig">
+        <property name="props">
+            <map>
+```
+
+### SpringXmlModelInspection
+Cannot resolve package apache
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/spring-mvc.xml`
+#### Snippet
+```java
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+
+    <context:component-scan base-package="org.apache.shenyu.examples.springmvc.controller"/>
+
+    <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager">
+```
+
+### SpringXmlModelInspection
+Cannot resolve package shenyu
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/spring-mvc.xml`
+#### Snippet
+```java
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+
+    <context:component-scan base-package="org.apache.shenyu.examples.springmvc.controller"/>
+
+    <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager">
+```
+
+### SpringXmlModelInspection
+Cannot resolve package examples
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/spring-mvc.xml`
+#### Snippet
+```java
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+
+    <context:component-scan base-package="org.apache.shenyu.examples.springmvc.controller"/>
+
+    <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager">
+```
+
+### SpringXmlModelInspection
+Cannot resolve package springmvc
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/spring-mvc.xml`
+#### Snippet
+```java
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+
+    <context:component-scan base-package="org.apache.shenyu.examples.springmvc.controller"/>
+
+    <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager">
+```
+
+### SpringXmlModelInspection
+Cannot resolve package controller
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/spring-mvc.xml`
+#### Snippet
+```java
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+
+    <context:component-scan base-package="org.apache.shenyu.examples.springmvc.controller"/>
+
+    <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager">
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'springframework'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/spring-mvc.xml`
+#### Snippet
+```java
+    <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager">
+        <mvc:message-converters register-defaults="false">
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <constructor-arg value="UTF-8"/>
+            </bean>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'ClientPropertiesConfig'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+    <!-- ClientPropertiesConfig -->
+    <bean id="clientPropertiesConfig"
+          class="org.apache.shenyu.register.common.config.ShenyuClientConfig.ClientPropertiesConfig">
+        <property name="props">
+            <map>
+```
+
+### SpringXmlModelInspection
+Cannot resolve property 'props'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+    <bean id="clientPropertiesConfig"
+          class="org.apache.shenyu.register.common.config.ShenyuClientConfig.ClientPropertiesConfig">
+        <property name="props">
+            <map>
+                <entry key="contextPath" value="/springmvc"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'apache'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- conifig ShenyuRegisterCenterConfig according to your registerType -->
+    <bean id="shenyuRegisterCenterConfig" class="org.apache.shenyu.register.common.config.ShenyuRegisterCenterConfig">
+        <property name="registerType" value="http"/>
+        <property name="serverLists" value="http://localhost:9095"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'shenyu'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- conifig ShenyuRegisterCenterConfig according to your registerType -->
+    <bean id="shenyuRegisterCenterConfig" class="org.apache.shenyu.register.common.config.ShenyuRegisterCenterConfig">
+        <property name="registerType" value="http"/>
+        <property name="serverLists" value="http://localhost:9095"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'register'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- conifig ShenyuRegisterCenterConfig according to your registerType -->
+    <bean id="shenyuRegisterCenterConfig" class="org.apache.shenyu.register.common.config.ShenyuRegisterCenterConfig">
+        <property name="registerType" value="http"/>
+        <property name="serverLists" value="http://localhost:9095"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'common'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- conifig ShenyuRegisterCenterConfig according to your registerType -->
+    <bean id="shenyuRegisterCenterConfig" class="org.apache.shenyu.register.common.config.ShenyuRegisterCenterConfig">
+        <property name="registerType" value="http"/>
+        <property name="serverLists" value="http://localhost:9095"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'config'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- conifig ShenyuRegisterCenterConfig according to your registerType -->
+    <bean id="shenyuRegisterCenterConfig" class="org.apache.shenyu.register.common.config.ShenyuRegisterCenterConfig">
+        <property name="registerType" value="http"/>
+        <property name="serverLists" value="http://localhost:9095"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'ShenyuRegisterCenterConfig'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- conifig ShenyuRegisterCenterConfig according to your registerType -->
+    <bean id="shenyuRegisterCenterConfig" class="org.apache.shenyu.register.common.config.ShenyuRegisterCenterConfig">
+        <property name="registerType" value="http"/>
+        <property name="serverLists" value="http://localhost:9095"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'http'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/spring-mvc.xml`
+#### Snippet
+```java
+    <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager">
+        <mvc:message-converters register-defaults="false">
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <constructor-arg value="UTF-8"/>
+            </bean>
+```
+
+### SpringXmlModelInspection
+Cannot resolve property 'registerType'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+    <!-- conifig ShenyuRegisterCenterConfig according to your registerType -->
+    <bean id="shenyuRegisterCenterConfig" class="org.apache.shenyu.register.common.config.ShenyuRegisterCenterConfig">
+        <property name="registerType" value="http"/>
+        <property name="serverLists" value="http://localhost:9095"/>
+        <property name="props">
+```
+
+### SpringXmlModelInspection
+Cannot resolve property 'serverLists'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+    <bean id="shenyuRegisterCenterConfig" class="org.apache.shenyu.register.common.config.ShenyuRegisterCenterConfig">
+        <property name="registerType" value="http"/>
+        <property name="serverLists" value="http://localhost:9095"/>
+        <property name="props">
+            <map>
+```
+
+### SpringXmlModelInspection
+Cannot resolve property 'props'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+        <property name="registerType" value="http"/>
+        <property name="serverLists" value="http://localhost:9095"/>
+        <property name="props">
+            <map>
+                <entry key="username" value="admin"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'converter'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/spring-mvc.xml`
+#### Snippet
+```java
+    <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager">
+        <mvc:message-converters register-defaults="false">
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <constructor-arg value="UTF-8"/>
+            </bean>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'apache'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- for other kind of register method, please use related ShenyuClientRegisterRepository -->
+    <bean id="clientRegisterRepository" class="org.apache.shenyu.register.client.http.HttpClientRegisterRepository">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+    </bean>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'shenyu'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- for other kind of register method, please use related ShenyuClientRegisterRepository -->
+    <bean id="clientRegisterRepository" class="org.apache.shenyu.register.client.http.HttpClientRegisterRepository">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+    </bean>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'StringHttpMessageConverter'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/spring-mvc.xml`
+#### Snippet
+```java
+    <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager">
+        <mvc:message-converters register-defaults="false">
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <constructor-arg value="UTF-8"/>
+            </bean>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'springframework'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/spring-mvc.xml`
+#### Snippet
+```java
+                <constructor-arg value="UTF-8"/>
+            </bean>
+            <bean id="gsonHttpMessageConverter" class="org.springframework.http.converter.json.GsonHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'http'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/spring-mvc.xml`
+#### Snippet
+```java
+                <constructor-arg value="UTF-8"/>
+            </bean>
+            <bean id="gsonHttpMessageConverter" class="org.springframework.http.converter.json.GsonHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'converter'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/spring-mvc.xml`
+#### Snippet
+```java
+                <constructor-arg value="UTF-8"/>
+            </bean>
+            <bean id="gsonHttpMessageConverter" class="org.springframework.http.converter.json.GsonHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'json'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/spring-mvc.xml`
+#### Snippet
+```java
+                <constructor-arg value="UTF-8"/>
+            </bean>
+            <bean id="gsonHttpMessageConverter" class="org.springframework.http.converter.json.GsonHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'GsonHttpMessageConverter'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/spring-mvc.xml`
+#### Snippet
+```java
+                <constructor-arg value="UTF-8"/>
+            </bean>
+            <bean id="gsonHttpMessageConverter" class="org.springframework.http.converter.json.GsonHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+```
+
+### SpringXmlModelInspection
+Cannot resolve property 'supportedMediaTypes'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/spring-mvc.xml`
+#### Snippet
+```java
+            </bean>
+            <bean id="gsonHttpMessageConverter" class="org.springframework.http.converter.json.GsonHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>application/json;charset=UTF-8</value>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'springframework'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/spring-mvc.xml`
+#### Snippet
+```java
+    </mvc:annotation-driven>
+
+    <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+        <property name="mediaTypes">
+            <map>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'web'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/spring-mvc.xml`
+#### Snippet
+```java
+    </mvc:annotation-driven>
+
+    <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+        <property name="mediaTypes">
+            <map>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'accept'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/spring-mvc.xml`
+#### Snippet
+```java
+    </mvc:annotation-driven>
+
+    <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+        <property name="mediaTypes">
+            <map>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'ContentNegotiationManagerFactoryBean'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/spring-mvc.xml`
+#### Snippet
+```java
+    </mvc:annotation-driven>
+
+    <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+        <property name="mediaTypes">
+            <map>
+```
+
+### SpringXmlModelInspection
+Cannot resolve property 'mediaTypes'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/spring-mvc.xml`
+#### Snippet
+```java
+
+    <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+        <property name="mediaTypes">
+            <map>
+                <entry key="xml" value="application/xml"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'register'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- for other kind of register method, please use related ShenyuClientRegisterRepository -->
+    <bean id="clientRegisterRepository" class="org.apache.shenyu.register.client.http.HttpClientRegisterRepository">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+    </bean>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'client'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- for other kind of register method, please use related ShenyuClientRegisterRepository -->
+    <bean id="clientRegisterRepository" class="org.apache.shenyu.register.client.http.HttpClientRegisterRepository">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+    </bean>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'http'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- for other kind of register method, please use related ShenyuClientRegisterRepository -->
+    <bean id="clientRegisterRepository" class="org.apache.shenyu.register.client.http.HttpClientRegisterRepository">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+    </bean>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'HttpClientRegisterRepository'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+
+    <!-- for other kind of register method, please use related ShenyuClientRegisterRepository -->
+    <bean id="clientRegisterRepository" class="org.apache.shenyu.register.client.http.HttpClientRegisterRepository">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+    </bean>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'apache'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+
+    <bean id="springMvcClientEventListener"
+          class="org.apache.shenyu.client.springmvc.init.SpringMvcClientEventListener">
+        <constructor-arg ref="clientPropertiesConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'shenyu'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+
+    <bean id="springMvcClientEventListener"
+          class="org.apache.shenyu.client.springmvc.init.SpringMvcClientEventListener">
+        <constructor-arg ref="clientPropertiesConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'client'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+
+    <bean id="springMvcClientEventListener"
+          class="org.apache.shenyu.client.springmvc.init.SpringMvcClientEventListener">
+        <constructor-arg ref="clientPropertiesConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'springmvc'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+
+    <bean id="springMvcClientEventListener"
+          class="org.apache.shenyu.client.springmvc.init.SpringMvcClientEventListener">
+        <constructor-arg ref="clientPropertiesConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve property 'ignoreAcceptHeader'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/spring-mvc.xml`
+#### Snippet
+```java
+            </map>
+        </property>
+        <property name="ignoreAcceptHeader" value="true"/>
+        <property name="favorPathExtension" value="true"/>
+    </bean>
+```
+
+### SpringXmlModelInspection
+Cannot resolve property 'favorPathExtension'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/spring-mvc.xml`
+#### Snippet
+```java
+        </property>
+        <property name="ignoreAcceptHeader" value="true"/>
+        <property name="favorPathExtension" value="true"/>
+    </bean>
+
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'init'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+
+    <bean id="springMvcClientEventListener"
+          class="org.apache.shenyu.client.springmvc.init.SpringMvcClientEventListener">
+        <constructor-arg ref="clientPropertiesConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'SpringMvcClientEventListener'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+
+    <bean id="springMvcClientEventListener"
+          class="org.apache.shenyu.client.springmvc.init.SpringMvcClientEventListener">
+        <constructor-arg ref="clientPropertiesConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'apache'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+    </bean>
+
+    <bean id="shenyuClientShutdownHook" class="org.apache.shenyu.client.core.shutdown.ShenyuClientShutdownHook">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'shenyu'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+    </bean>
+
+    <bean id="shenyuClientShutdownHook" class="org.apache.shenyu.client.core.shutdown.ShenyuClientShutdownHook">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'client'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+    </bean>
+
+    <bean id="shenyuClientShutdownHook" class="org.apache.shenyu.client.core.shutdown.ShenyuClientShutdownHook">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'core'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+    </bean>
+
+    <bean id="shenyuClientShutdownHook" class="org.apache.shenyu.client.core.shutdown.ShenyuClientShutdownHook">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'shutdown'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+    </bean>
+
+    <bean id="shenyuClientShutdownHook" class="org.apache.shenyu.client.core.shutdown.ShenyuClientShutdownHook">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'ShenyuClientShutdownHook'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/resources/context/shenyu.xml`
+#### Snippet
+```java
+    </bean>
+
+    <bean id="shenyuClientShutdownHook" class="org.apache.shenyu.client.core.shutdown.ShenyuClientShutdownHook">
+        <constructor-arg ref="shenyuRegisterCenterConfig"/>
+        <constructor-arg ref="clientRegisterRepository"/>
+```
+
+## RuleId[id=WebProperties]
+### WebProperties
+Cannot resolve class or package 'springframework'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/webapp/WEB-INF/web.xml`
+#### Snippet
+```java
+
+    <listener>
+        <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+    </listener>
+
+```
+
+### WebProperties
+Cannot resolve class or package 'web'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/webapp/WEB-INF/web.xml`
+#### Snippet
+```java
+
+    <listener>
+        <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+    </listener>
+
+```
+
+### WebProperties
+Cannot resolve class or package 'util'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/webapp/WEB-INF/web.xml`
+#### Snippet
+```java
+
+    <listener>
+        <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+    </listener>
+
+```
+
+### WebProperties
+Cannot resolve class 'IntrospectorCleanupListener'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/webapp/WEB-INF/web.xml`
+#### Snippet
+```java
+
+    <listener>
+        <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+    </listener>
+
+```
+
+### WebProperties
+Cannot resolve class or package 'springframework'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/webapp/WEB-INF/web.xml`
+#### Snippet
+```java
+    <filter>
+        <filter-name>encodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+```
+
+### WebProperties
+Cannot resolve class or package 'web'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/webapp/WEB-INF/web.xml`
+#### Snippet
+```java
+    <filter>
+        <filter-name>encodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+```
+
+### WebProperties
+Cannot resolve class or package 'filter'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/webapp/WEB-INF/web.xml`
+#### Snippet
+```java
+    <filter>
+        <filter-name>encodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+```
+
+### WebProperties
+Cannot resolve class 'CharacterEncodingFilter'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/webapp/WEB-INF/web.xml`
+#### Snippet
+```java
+    <filter>
+        <filter-name>encodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+```
+
+### WebProperties
+Cannot resolve class or package 'springframework'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/webapp/WEB-INF/web.xml`
+#### Snippet
+```java
+    <servlet>
+        <servlet-name>dispatcherServlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+```
+
+### WebProperties
+Cannot resolve class or package 'web'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/webapp/WEB-INF/web.xml`
+#### Snippet
+```java
+    <servlet>
+        <servlet-name>dispatcherServlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+```
+
+### WebProperties
+Cannot resolve class or package 'servlet'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/webapp/WEB-INF/web.xml`
+#### Snippet
+```java
+    <servlet>
+        <servlet-name>dispatcherServlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+```
+
+### WebProperties
+Cannot resolve class 'DispatcherServlet'
+in `shenyu-examples/shenyu-examples-springmvc-tomcat/src/main/webapp/WEB-INF/web.xml`
+#### Snippet
+```java
+    <servlet>
+        <servlet-name>dispatcherServlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+```
+
+## RuleId[id=DuplicatedCode]
+### DuplicatedCode
+Duplicated code
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/config/DataSyncConfiguration.java`
+#### Snippet
+```java
+            int sessionTimeout = Objects.isNull(zookeeperProp.getSessionTimeout()) ? 3000 : zookeeperProp.getSessionTimeout();
+            int connectionTimeout = Objects.isNull(zookeeperProp.getConnectionTimeout()) ? 3000 : zookeeperProp.getConnectionTimeout();
+            ZookeeperConfig zkConfig = new ZookeeperConfig(zookeeperProp.getUrl());
+            zkConfig.setSessionTimeoutMilliseconds(sessionTimeout)
+                    .setConnectionTimeoutMilliseconds(connectionTimeout);
+            ZookeeperClient client = new ZookeeperClient(zkConfig);
+            client.start();
+            return client;
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/listener/apollo/ApolloClient.java`
+#### Snippet
+```java
+        OpenItemDTO openItemDTO = new OpenItemDTO();
+        openItemDTO.setKey(key);
+        openItemDTO.setValue(value);
+        openItemDTO.setComment(comment);
+        openItemDTO.setDataChangeCreatedBy(DEFAULT_USER);
+        openItemDTO.setDataChangeLastModifiedBy(DEFAULT_USER);
+        Date now = new Date();
+        openItemDTO.setDataChangeCreatedTime(now);
+        openItemDTO.setDataChangeLastModifiedTime(now);
+
+        this.apolloOpenApiClient.createOrUpdateItem(
+                apolloConfig.getAppId(),
+                apolloConfig.getEnv(),
+                apolloConfig.getClusterName(),
+                apolloConfig.getNamespace(),
+                openItemDTO
+        );
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/model/dto/DetailDTO.java`
+#### Snippet
+```java
+            DetailDO detailDO = new DetailDO();
+            detailDO.setId(this.id);
+            detailDO.setFieldId(this.fieldId);
+            detailDO.setExample(this.example);
+            detailDO.setFieldValue(this.fieldValue);
+            detailDO.setValueDesc(this.valueDesc);
+            detailDO.setDateCreated(this.dateCreated);
+            detailDO.setDateUpdated(this.dateUpdated);
+            return detailDO;
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/model/vo/DetailVO.java`
+#### Snippet
+```java
+            detailVO.setId(this.id);
+            detailVO.setFieldId(this.fieldId);
+            detailVO.setExample(this.example);
+            detailVO.setFieldValue(this.fieldValue);
+            detailVO.setValueDesc(this.valueDesc);
+            detailVO.setDateCreated(this.dateCreated);
+            detailVO.setDateUpdated(this.dateUpdated);
+            return detailVO;
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/model/dto/FieldDTO.java`
+#### Snippet
+```java
+            fieldDO.setId(this.id);
+            fieldDO.setModelId(this.modelId);
+            fieldDO.setSelfModelId(this.selfModelId);
+            fieldDO.setName(this.name);
+            fieldDO.setFieldDesc(this.fieldDesc);
+            fieldDO.setRequired(this.required);
+            fieldDO.setExt(this.ext);
+            fieldDO.setDateCreated(this.dateCreated);
+            fieldDO.setDateUpdated(this.dateUpdated);
+            return fieldDO;
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/model/entity/ApiDO.java`
+#### Snippet
+```java
+            apiDO.setId(id);
+            apiDO.setContextPath(contextPath);
+            apiDO.setApiPath(apiPath);
+            apiDO.setHttpMethod(httpMethod);
+            apiDO.setConsume(consume);
+            apiDO.setProduce(produce);
+            apiDO.setVersion(version);
+            apiDO.setRpcType(rpcType);
+            apiDO.setState(state);
+            apiDO.setExt(ext);
+            apiDO.setApiOwner(apiOwner);
+            apiDO.setApiDesc(apiDesc);
+            apiDO.setApiSource(apiSource);
+            apiDO.setDocument(document);
+            apiDO.setDocumentMd5(documentMd5);
+            apiDO.setDateCreated(dateCreated);
+            apiDO.setDateUpdated(dateUpdated);
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-register-center/shenyu-register-common/src/main/java/org/apache/shenyu/register/common/dto/ApiDocRegisterDTO.java`
+#### Snippet
+```java
+            apiDocRegisterDTO.setContextPath(contextPath);
+            apiDocRegisterDTO.setApiPath(apiPath);
+            apiDocRegisterDTO.setHttpMethod(httpMethod);
+            apiDocRegisterDTO.setConsume(consume);
+            apiDocRegisterDTO.setProduce(produce);
+            apiDocRegisterDTO.setVersion(version);
+            apiDocRegisterDTO.setRpcType(rpcType);
+            apiDocRegisterDTO.setState(state);
+            apiDocRegisterDTO.setExt(ext);
+            apiDocRegisterDTO.setApiOwner(apiOwner);
+            apiDocRegisterDTO.setApiDesc(apiDesc);
+            apiDocRegisterDTO.setApiSource(apiSource);
+            apiDocRegisterDTO.setDocument(document);
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/model/event/dict/DictChangedEvent.java`
+#### Snippet
+```java
+        if (!Objects.equals(before.getType(), after.getType())) {
+            builder.append(String.format("type[%s => %s] ", before.getType(), after.getType()));
+        }
+        if (!Objects.equals(before.getEnabled(), after.getEnabled())) {
+            builder.append(String.format("enable[%s => %s] ", before.getEnabled(), after.getEnabled()));
+        }
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/model/event/plugin/PluginChangedEvent.java`
+#### Snippet
+```java
+        Objects.requireNonNull(after);
+        if (Objects.equals(before, after)) {
+            return "it no change";
+        }
+        final StringBuilder builder = new StringBuilder();
+        if (!Objects.equals(before.getName(), after.getName())) {
+            builder.append(String.format("name[%s => %s] ", before.getName(), after.getName()));
+        }
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/model/event/plugin/PluginChangedEvent.java`
+#### Snippet
+```java
+        if (!Objects.equals(before.getRole(), after.getRole())) {
+            builder.append(String.format("role[%s => %s] ", before.getRole(), after.getRole()));
+        }
+        if (!Objects.equals(before.getEnabled(), after.getEnabled())) {
+            builder.append(String.format("enable[%s => %s] ", before.getEnabled(), after.getEnabled()));
+        }
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/model/event/rule/RuleChangedEvent.java`
+#### Snippet
+```java
+        if (!Objects.equals(before.getEnabled(), after.getEnabled())) {
+            builder.append(String.format("enable[%s => %s] ", before.getEnabled(), after.getEnabled()));
+        }
+        if (!Objects.equals(before.getSort(), after.getSort())) {
+            builder.append(String.format("sort[%s => %s] ", before.getSort(), after.getSort()));
+        }
+        if (!Objects.equals(before.getLoged(), after.getLoged())) {
+            builder.append(String.format("loged[%s => %s] ", before.getLoged(), after.getLoged()));
+        }
+        return builder.toString();
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/mybatis/oracle/OracleSQLUpdateInterceptor.java`
+#### Snippet
+```java
+        Object[] args = invocation.getArgs();
+        MappedStatement ms = (MappedStatement) args[0];
+        Object parameter = args[1];
+        Executor executor = (Executor) invocation.getTarget();
+        for (Class<?> superClass = parameter.getClass(); superClass != Object.class; superClass = superClass.getSuperclass()) {
+            Arrays.stream(superClass.getDeclaredFields())
+                    .filter(f -> matchParam(parameter, f))
+                    .forEach(f -> ReflectUtils.setFieldValue(parameter, f.getName(), new Timestamp(System.currentTimeMillis())));
+        }
+        return executor.update(ms, parameter);
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/ApiServiceImpl.java`
+#### Snippet
+```java
+        return Optional.ofNullable(apiMapper.selectByPrimaryKey(id)).map(item -> {
+            List<TagRelationDO> tagRelations = tagRelationMapper.selectByQuery(TagRelationQuery.builder().apiId(item.getId()).build());
+            List<String> tagIds = tagRelations.stream().map(TagRelationDO::getTagId).collect(Collectors.toList());
+            List<TagVO> tagVOS = Lists.newArrayList();
+            if (CollectionUtils.isNotEmpty(tagIds)) {
+                List<TagDO> tagDOS = tagMapper.selectByIds(tagIds);
+                tagVOS = tagDOS.stream().map(TagVO::buildTagVO).collect(Collectors.toList());
+            }
+            return ApiVO.buildApiVO(item, tagVOS);
+        }).orElse(null);
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/AppAuthServiceImpl.java`
+#### Snippet
+```java
+        List<String> idList = appAuthDOList.stream().map(BaseDO::getId).collect(Collectors.toList());
+        Map<String, List<AuthParamData>> paramMap = this.prepareAuthParamData(idList);
+        Map<String, List<AuthPathData>> pathMap = this.prepareAuthPathData(idList);
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/publish/RuleEventPublisher.java`
+#### Snippet
+```java
+        publish(new BatchRuleDeletedEvent(rules, SessionUtil.visitorName(), null));
+        final List<RuleConditionDO> condition = ruleConditionMapper.selectByRuleIdSet(rules.stream().map(BaseDO::getId).collect(Collectors.toSet()));
+        final Map<String, List<RuleConditionDO>> conditionsRuleGroup = groupBy(condition, RuleConditionDO::getRuleId);
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/register/ShenyuClientRegisterDivideServiceImpl.java`
+#### Snippet
+```java
+        List<DivideUpstream> addList = buildDivideUpstreamList(uriList);
+        List<DivideUpstream> canAddList = new CopyOnWriteArrayList<>();
+        boolean isEventDeleted = uriList.size() == 1 && EventType.DELETED.equals(uriList.get(0).getEventType());
+        if (isEventDeleted) {
+            addList.get(0).setStatus(false);
+        }
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/register/ShenyuClientRegisterDivideServiceImpl.java`
+#### Snippet
+```java
+        if (CollectionUtils.isEmpty(existList)) {
+            canAddList = addList;
+        } else {
+            List<DivideUpstream> diffList = addList.stream().filter(upstream -> !existList.contains(upstream)).collect(Collectors.toList());
+            if (CollectionUtils.isNotEmpty(diffList)) {
+                canAddList.addAll(diffList);
+                existList.addAll(diffList);
+            }
+            List<DivideUpstream> diffStatusList = addList.stream().filter(upstream -> !upstream.isStatus()
+                    || existList.stream().anyMatch(e -> e.equals(upstream) && e.isStatus() != upstream.isStatus())).collect(Collectors.toList());
+            if (CollectionUtils.isNotEmpty(diffStatusList)) {
+                canAddList.addAll(diffStatusList);
+            }
+        }
+
+        if (doSubmit(selectorDO.getId(), canAddList)) {
+            return null;
+        }
+
+        List<DivideUpstream> handleList;
+        if (CollectionUtils.isEmpty(existList)) {
+            handleList = addList;
+        } else {
+            List<DivideUpstream> aliveList;
+            if (isEventDeleted) {
+                aliveList = existList.stream().filter(e -> e.isStatus() && !e.equals(addList.get(0))).collect(Collectors.toList());
+            } else {
+                aliveList = addList;
+            }
+            handleList = divideSelectorHandleConverter.updateStatusAndFilter(existList, aliveList);
+        }
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/transfer/ConditionTransfer.java`
+#### Snippet
+```java
+        return Optional.ofNullable(selectorConditionDO)
+                .map(v -> {
+                    ConditionData conditionData = new ConditionData();
+                    conditionData.setParamType(v.getParamType());
+                    conditionData.setOperator(v.getOperator());
+                    conditionData.setParamName(v.getParamName());
+                    conditionData.setParamValue(v.getParamValue());
+                    return conditionData;
+                })
+                .orElse(null);
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-client/shenyu-client-brpc/src/main/java/org/apache/shenyu/client/brpc/BrpcContextRefreshedEventListener.java`
+#### Snippet
+```java
+        if (Objects.isNull(shenyuBrpcClient)) {
+            return null;
+        }
+        String produce = ShenyuClientConstants.MEDIA_TYPE_ALL_VALUE;
+        String consume = ShenyuClientConstants.MEDIA_TYPE_ALL_VALUE;
+        String[] values = new String[]{shenyuBrpcClient.value()};
+        ApiHttpMethodEnum[] apiHttpMethodEnums = new ApiHttpMethodEnum[]{ApiHttpMethodEnum.NOT_HTTP};
+        String version = "v0.01";
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-client/shenyu-client-brpc/src/main/java/org/apache/shenyu/client/brpc/BrpcContextRefreshedEventListener.java`
+#### Snippet
+```java
+        String[] paramNames = localVariableTableParameterNameDiscoverer.getParameterNames(method);
+        List<Pair<String, String>> params = new ArrayList<>();
+        if (paramNames != null && paramNames.length > 0) {
+            Class<?>[] paramTypes = method.getParameterTypes();
+            for (int i = 0; i < paramNames.length; i++) {
+                params.add(Pair.of(paramTypes[i].getName(), paramNames[i]));
+            }
+        }
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-alibaba-dubbo/src/main/java/org/apache/shenyu/client/alibaba/dubbo/validation/AlibabaDubboClientValidator.java`
+#### Snippet
+```java
+ClassFile classFile = ctClass.getClassFile();
+                classFile.setVersionToJava5();
+                ctClass.addConstructor(CtNewConstructor.defaultConstructor(pool.getCtClass(parameterClassName)));
+                // parameter fields
+                Class<?>[] parameterTypes = method.getParameterTypes();
+                Annotation[][] parameterAnnotations = method.getParameterAnnotations();
+                for (int i = 0; i < parameterTypes.length; i++) {
+                    Class<?> type = parameterTypes[i];
+                    Annotation[] annotations = parameterAnnotations[i];
+                    AnnotationsAttribute attribute = new AnnotationsAttribute(classFile.getConstPool(), AnnotationsAttribute.visibleTag);
+                    for (Annotation annotation : annotations) {
+                        if (annotation.annotationType().isAnnotationPresent(Constraint.class)) {
+                            javassist.bytecode.annotation.Annotation ja = new javassist.bytecode.annotation.Annotation(
+                                    classFile.getConstPool(), pool.getCtClass(annotation.annotationType().getName()));
+                            Method[] members = annotation.annotationType().getMethods();
+                            for (Method member : members) {
+                                if (Modifier.isPublic(member.getModifiers())
+                                        && member.getParameterTypes().length == 0
+                                        && member.getDeclaringClass() == annotation.annotationType()) {
+                                    Object value = member.invoke(annotation);
+                                    if (null != value) {
+                                        MemberValue memberValue = createMemberValue(
+                                                classFile.getConstPool(), pool.get(member.getReturnType().getName()), value);
+                                        ja.addMemberValue(member.getName(), memberValue);
+                                    }
+                                }
+                            }
+                            attribute.addAnnotation(ja);
+                        }
+                    }
+                    String fieldName = method.getName() + "Argument" + i;
+                    CtField ctField = CtField.make("public " + type.getCanonicalName() + " " + fieldName + ";", pool.getCtClass(parameterClassName));
+                    ctField.getFieldInfo().addAttribute(attribute);
+                    ctClass.addField(ctField);
+                }
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-alibaba-dubbo/src/main/java/org/apache/shenyu/client/alibaba/dubbo/validation/AlibabaDubboClientValidator.java`
+#### Snippet
+```java
+        Annotation[][] parameterAnnotations = method.getParameterAnnotations();
+        if (parameterAnnotations.length > 0) {
+            for (Annotation[] annotations : parameterAnnotations) {
+                for (Annotation annotation : annotations) {
+                    if (annotation.annotationType().isAnnotationPresent(Constraint.class)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-alibaba-dubbo/src/main/java/org/apache/shenyu/client/alibaba/dubbo/validation/AlibabaDubboClientValidator.java`
+#### Snippet
+```java
+MemberValue memberValue = javassist.bytecode.annotation.Annotation.createMemberValue(cp, type);
+        if (memberValue instanceof BooleanMemberValue) {
+            ((BooleanMemberValue) memberValue).setValue((Boolean) value);
+        } else if (memberValue instanceof ByteMemberValue) {
+            ((ByteMemberValue) memberValue).setValue((Byte) value);
+        } else if (memberValue instanceof CharMemberValue) {
+            ((CharMemberValue) memberValue).setValue((Character) value);
+        } else if (memberValue instanceof ShortMemberValue) {
+            ((ShortMemberValue) memberValue).setValue((Short) value);
+        } else if (memberValue instanceof IntegerMemberValue) {
+            ((IntegerMemberValue) memberValue).setValue((Integer) value);
+        } else if (memberValue instanceof LongMemberValue) {
+            ((LongMemberValue) memberValue).setValue((Long) value);
+        } else if (memberValue instanceof FloatMemberValue) {
+            ((FloatMemberValue) memberValue).setValue((Float) value);
+        } else if (memberValue instanceof DoubleMemberValue) {
+            ((DoubleMemberValue) memberValue).setValue((Double) value);
+        } else if (memberValue instanceof ClassMemberValue) {
+            ((ClassMemberValue) memberValue).setValue(((Class<?>) value).getName());
+        } else if (memberValue instanceof StringMemberValue) {
+            ((StringMemberValue) memberValue).setValue((String) value);
+        } else if (memberValue instanceof EnumMemberValue) {
+            ((EnumMemberValue) memberValue).setValue(((Enum<?>) value).name());
+            /* else if (memberValue instanceof AnnotationMemberValue) */
+        } else if (memberValue instanceof ArrayMemberValue) {
+            CtClass arrayType = type.getComponentType();
+            int len = Array.getLength(value);
+            MemberValue[] members = new MemberValue[len];
+            for (int i = 0; i < len; i++) {
+                members[i] = createMemberValue(cp, arrayType, Array.get(value, i));
+            }
+            ((ArrayMemberValue) memberValue).setValue(members);
+        }
+        return memberValue;
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-alibaba-dubbo/src/main/java/org/apache/shenyu/client/alibaba/dubbo/validation/AlibabaDubboClientValidator.java`
+#### Snippet
+```java
+        Object parameterBean = getMethodParameterBean(clazz, method, arguments);
+        if (parameterBean != null) {
+            violations.addAll(validator.validate(parameterBean, classGroups));
+        }
+
+        for (Object arg : arguments) {
+            validate(violations, arg, classGroups);
+        }
+
+        if (!violations.isEmpty()) {
+            LOG.error("Failed to validate service: " + clazz.getName() + ", method: " + methodName + ", cause: " + violations);
+            StringBuilder validateError = new StringBuilder();
+            violations.forEach(each -> validateError.append(each.getMessage()).append(","));
+            throw new ValidationException(validateError.substring(0, validateError.length() - 1));
+        }
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-alibaba-dubbo/src/main/java/org/apache/shenyu/client/alibaba/dubbo/validation/AlibabaDubboClientValidator.java`
+#### Snippet
+```java
+            if (arg instanceof Object[]) {
+                for (Object item : (Object[]) arg) {
+                    validate(violations, item, groups);
+                }
+            } else if (arg instanceof Collection) {
+                for (Object item : (Collection<?>) arg) {
+                    validate(violations, item, groups);
+                }
+            } else if (arg instanceof Map) {
+                for (Map.Entry<?, ?> entry : ((Map<?, ?>) arg).entrySet()) {
+                    validate(violations, entry.getKey(), groups);
+                    validate(violations, entry.getValue(), groups);
+                }
+            } else {
+                violations.addAll(validator.validate(arg, groups));
+            }
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-client/shenyu-client-http/shenyu-client-springcloud/src/main/java/org/apache/shenyu/client/springcloud/init/SpringCloudClientEventListener.java`
+#### Snippet
+```java
+        RequestMapping requestMapping = AnnotatedElementUtils.findMergedAnnotation(method, RequestMapping.class);
+        String produce = requestMapping.produces().length == 0 ? ShenyuClientConstants.MEDIA_TYPE_ALL_VALUE : String.join(",", requestMapping.produces());
+        String consume = requestMapping.consumes().length == 0 ? ShenyuClientConstants.MEDIA_TYPE_ALL_VALUE : String.join(",", requestMapping.consumes());
+        String[] values = requestMapping.value();
+        RequestMethod[] requestMethods = requestMapping.method();
+        if (requestMethods.length == 0) {
+            requestMethods = RequestMethod.values();
+        }
+        List<ApiHttpMethodEnum> collect = Stream.of(requestMethods).map(item -> ApiHttpMethodEnum.of(item.name())).collect(Collectors.toList());
+        ApiHttpMethodEnum[] apiHttpMethodEnums = collect.toArray(new ApiHttpMethodEnum[]{});
+        String version = "v0.01";
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-client/shenyu-client-http/shenyu-client-springcloud/src/main/java/org/apache/shenyu/client/springcloud/init/SpringCloudClientEventListener.java`
+#### Snippet
+```java
+        methodShenyuClient = Objects.isNull(methodShenyuClient) ? beanShenyuClient : methodShenyuClient;
+        // the result of ReflectionUtils#getUniqueDeclaredMethods contains methods such as hashCode, wait, toSting
+        // add Objects.nonNull(requestMapping) to make sure not register wrong method
+        if (Objects.nonNull(methodShenyuClient) && Objects.nonNull(requestMapping)) {
+            final MetaDataRegisterDTO metaData = buildMetaDataDTO(bean, methodShenyuClient,
+                    buildApiPath(method, superPath, methodShenyuClient), clazz, method);
+            getPublisher().publishEvent(metaData);
+            getMetaDataMap().put(method, metaData);
+        }
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-client/shenyu-client-http/shenyu-client-springcloud/src/main/java/org/apache/shenyu/client/springcloud/init/SpringCloudClientEventListener.java`
+#### Snippet
+```java
+        if (StringUtils.isNotBlank(methodShenyuClient.path())) {
+            return pathJoin(contextPath, superPath, methodShenyuClient.path());
+        }
+        final String path = getPathByMethod(method);
+        if (StringUtils.isNotBlank(path)) {
+            return pathJoin(contextPath, superPath, path);
+        }
+        return pathJoin(contextPath, superPath);
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-client/shenyu-client-http/shenyu-client-springcloud/src/main/java/org/apache/shenyu/client/springcloud/init/SpringCloudClientEventListener.java`
+#### Snippet
+```java
+        if (Objects.isNull(annotation)) {
+            return null;
+        }
+        final Object value = AnnotationUtils.getValue(annotation, "value");
+        if (value instanceof String && StringUtils.isNotBlank((String) value)) {
+            return (String) value;
+        }
+        if (value instanceof String[] && ArrayUtils.isNotEmpty((String[]) value)
+                && StringUtils.isNotBlank(((String[]) value)[0])) {
+            return ((String[]) value)[0];
+        }
+        return null;
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-client/shenyu-client-http/shenyu-client-springcloud/src/main/java/org/apache/shenyu/client/springcloud/init/SpringCloudClientEventListener.java`
+#### Snippet
+```java
+        if (Objects.nonNull(beanShenyuClient) && StringUtils.isNotBlank(beanShenyuClient.path())) {
+            return beanShenyuClient.path();
+        }
+        RequestMapping requestMapping = AnnotationUtils.findAnnotation(clazz, RequestMapping.class);
+        // Only the first path is supported temporarily
+        if (Objects.nonNull(requestMapping) && ArrayUtils.isNotEmpty(requestMapping.path())
+                && StringUtils.isNotBlank(requestMapping.path()[0])) {
+            return requestMapping.path()[0];
+        }
+        return "";
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-client/shenyu-client-motan/src/main/java/org/apache/shenyu/client/motan/MotanServiceEventListener.java`
+#### Snippet
+```java
+        String desc = shenyuMotanClient.desc();
+        String configRuleName = shenyuMotanClient.ruleName();
+        String ruleName = ("".equals(configRuleName)) ? path : configRuleName;
+        String methodName = method.getName();
+        Class<?>[] parameterTypesClazz = method.getParameterTypes();
+        String parameterTypes = Arrays.stream(parameterTypesClazz).map(Class::getName)
+                .collect(Collectors.joining(","));
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-plugin/shenyu-plugin-brpc/src/main/java/org/apache/shenyu/plugin/brpc/BrpcPlugin.java`
+#### Snippet
+```java
+        String param = exchange.getAttribute(Constants.PARAM_TRANSFORM);
+        ShenyuContext shenyuContext = exchange.getAttribute(Constants.CONTEXT);
+        assert shenyuContext != null;
+        MetaData metaData = exchange.getAttribute(Constants.META_DATA);
+        if (!checkMetaData(metaData)) {
+            assert metaData != null;
+            LOG.error("path is :{}, meta data have error.... {}", shenyuContext.getPath(), metaData);
+            exchange.getResponse().setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR);
+            Object error = ShenyuResultWrap.error(exchange, ShenyuResultEnum.META_DATA_ERROR);
+            return WebFluxResultUtils.result(exchange, error);
+        }
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-plugin/shenyu-plugin-brpc/src/main/java/org/apache/shenyu/plugin/brpc/proxy/BrpcProxyService.java`
+#### Snippet
+```java
+        if (Objects.isNull(config)) {
+            // should not execute to here
+            threadPool = new ThreadPoolExecutor(0, Integer.MAX_VALUE,
+                    60L, TimeUnit.SECONDS,
+                    new SynchronousQueue<Runnable>(),
+                    factory);
+            return;
+        }
+        final String threadpool = Optional.ofNullable(config.getThreadpool()).orElse(Constants.CACHED);
+        switch (threadpool) {
+            case Constants.SHARED:
+                try {
+                    threadPool = SpringBeanUtils.getInstance().getBean(ShenyuThreadPoolExecutor.class);
+                    return;
+                } catch (NoSuchBeanDefinitionException t) {
+                    throw new ShenyuException("shared thread pool is not enable, config ${shenyu.sharedPool.enable} in your xml/yml !", t);
+                }
+            case Constants.FIXED:
+            case Constants.EAGER:
+            case Constants.LIMITED:
+                throw new UnsupportedOperationException();
+            case Constants.CACHED:
+            default:
+                int corePoolSize = Optional.ofNullable(config.getCorethreads()).orElse(0);
+                int maximumPoolSize = Optional.ofNullable(config.getThreads()).orElse(Integer.MAX_VALUE);
+                int queueSize = Optional.ofNullable(config.getQueues()).orElse(0);
+                threadPool = new ThreadPoolExecutor(corePoolSize, maximumPoolSize, 60L, TimeUnit.SECONDS,
+                        queueSize > 0 ? new LinkedBlockingQueue<>(queueSize) : new SynchronousQueue<>(), factory);
+        }
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-plugin/shenyu-plugin-brpc/src/main/java/org/apache/shenyu/plugin/brpc/util/ProxyInfoUtil.java`
+#### Snippet
+```java
+        Object[] param = new Object[paramNames.length];
+        for (int i = 0; i < paramNames.length; i++) {
+            String paramName = paramNames[i];
+            Class<?> paramType = paramTypes[i];
+            if (PRIMITIVE_TYPE.containsKey(paramType.getName())) {
+                param[i] = PRIMITIVE_TYPE.get(paramType.getName()).getFunc().apply(bodyMap.get(paramName));
+            } else {
+                param[i] = bodyMap.get(paramName);
+            }
+        }
+        return param;
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-plugin/shenyu-plugin-dubbo/shenyu-plugin-alibaba-dubbo/src/main/java/org/apache/shenyu/plugin/alibaba/dubbo/cache/AlibabaDubboConfigCache.java`
+#### Snippet
+```java
+        if (Objects.isNull(applicationConfig)) {
+            applicationConfig = new ApplicationConfig("shenyu_proxy");
+        }
+        if (needUpdateRegistryConfig(dubboRegisterConfig)) {
+            RegistryConfig registryConfigTemp = new RegistryConfig();
+            registryConfigTemp.setProtocol(dubboRegisterConfig.getProtocol());
+            registryConfigTemp.setId("shenyu_proxy");
+            registryConfigTemp.setRegister(false);
+            registryConfigTemp.setAddress(dubboRegisterConfig.getRegister());
+            Optional.ofNullable(dubboRegisterConfig.getGroup()).ifPresent(registryConfigTemp::setGroup);
+            registryConfig = registryConfigTemp;
+        }
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-plugin/shenyu-plugin-dubbo/shenyu-plugin-alibaba-dubbo/src/main/java/org/apache/shenyu/plugin/alibaba/dubbo/cache/AlibabaDubboConfigCache.java`
+#### Snippet
+```java
+        reference.setCheck(false);
+        reference.setLoadbalance("gray");
+        
+        Map<String, String> parameters = new HashMap<>(2);
+        parameters.put("dispatcher", "direct");
+        reference.setParameters(parameters);
+        
+        String rpcExt = metaData.getRpcExt();
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-plugin/shenyu-plugin-dubbo/shenyu-plugin-alibaba-dubbo/src/main/java/org/apache/shenyu/plugin/alibaba/dubbo/cache/AlibabaDubboConfigCache.java`
+#### Snippet
+```java
+        if (Objects.nonNull(dubboParam)) {
+            if (StringUtils.isNoneBlank(dubboParam.getVersion())) {
+                reference.setVersion(dubboParam.getVersion());
+            }
+            if (StringUtils.isNoneBlank(dubboParam.getGroup())) {
+                reference.setGroup(dubboParam.getGroup());
+            }
+            if (StringUtils.isNoneBlank(dubboParam.getUrl())) {
+                reference.setUrl(dubboParam.getUrl());
+            }
+            if (StringUtils.isNoneBlank(dubboParam.getCluster())) {
+                reference.setCluster(dubboParam.getCluster());
+            }
+            // set dubbo sub protocol
+            Optional.ofNullable(dubboParam.getProtocol()).ifPresent(reference::setProtocol);
+            Optional.ofNullable(dubboParam.getTimeout()).ifPresent(reference::setTimeout);
+            Optional.ofNullable(dubboParam.getRetries()).ifPresent(reference::setRetries);
+            Optional.ofNullable(dubboParam.getSent()).ifPresent(reference::setSent);
+        }
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-plugin/shenyu-plugin-dubbo/shenyu-plugin-alibaba-dubbo/src/main/java/org/apache/shenyu/plugin/alibaba/dubbo/proxy/AlibabaDubboGrayLoadBalance.java`
+#### Snippet
+```java
+if (CollectionUtils.isNotEmpty(dubboUpstreams)) {
+            Upstream upstream = LoadBalancerFactory.selector(UpstreamCacheManager.getInstance().findUpstreamListBySelectorId(shenyuSelectorId), dubboRuleHandle.getLoadbalance(), remoteAddressIp);
+            if (StringUtils.isBlank(upstream.getUrl()) && StringUtils.isBlank(upstream.getGroup()) && StringUtils.isBlank(upstream.getVersion())) {
+                return ExtensionLoader.getExtensionLoader(LoadBalance.class).getExtension(dubboRuleHandle.getLoadbalance()).select(invokers, url, invocation);
+            }
+            // url is the first level, then is group, the version is the lowest.
+            final List<Invoker<T>> invokerGrays = invokers.stream().filter(each -> {
+                if (StringUtils.isNotBlank(upstream.getUrl())) {
+                    URL eachUrl = each.getUrl();
+                    return eachUrl.getAddress().equals(upstream.getUrl());
+                }
+                return true;
+            }).filter(each -> {
+                if (StringUtils.isNotBlank(upstream.getGroup())) {
+                    final URL eachUrl = each.getUrl();
+                    return upstream.getGroup().equals(eachUrl.getParameter(Constants.GROUP));
+                }
+                return true;
+            }).filter(each -> {
+                if (StringUtils.isNotBlank(upstream.getVersion())) {
+                    final URL eachUrl = each.getUrl();
+                    return upstream.getVersion().equals(eachUrl.getParameter(Constants.VERSION));
+                }
+                return true;
+            }).collect(Collectors.toList());
+            if (CollectionUtils.isEmpty(invokerGrays)) {
+                return select(invokers, url, invocation, dubboRuleHandle.getLoadbalance());
+            }
+            return select(invokerGrays, url, invocation, dubboRuleHandle.getLoadbalance());
+        }
+        return select(invokers, url, invocation, dubboRuleHandle.getLoadbalance());
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-plugin/shenyu-plugin-dubbo/shenyu-plugin-alibaba-dubbo/src/main/java/org/apache/shenyu/plugin/alibaba/dubbo/proxy/AlibabaDubboProxyService.java`
+#### Snippet
+```java
+            GenericService genericService = reference.get();
+            Pair<String[], Object[]> pair;
+            if (StringUtils.isBlank(metaData.getParameterTypes()) || ParamCheckUtils.bodyIsEmpty(body)) {
+                pair = new ImmutablePair<>(new String[]{}, new Object[]{});
+            } else {
+                pair = dubboParamResolveService.buildParameter(body, metaData.getParameterTypes());
+            }
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-aliyun-sls/src/main/java/org/apache/shenyu/plugin/aliyun/sls/client/AliyunSlsLogCollectClient.java`
+#### Snippet
+```java
+        final List<LogItem> logGroup = new ArrayList<>();
+        LogItem logItem = new LogItem((int) (System.currentTimeMillis() / 1000));
+        logItem.PushBack("level", "info");
+        logItem.PushBack("name", log.getRequestUri());
+        logItem.PushBack("message", GsonUtils.getGson().toJson(log));
+        logGroup.add(logItem);
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-common/src/main/java/org/apache/shenyu/plugin/logging/common/body/BodyWriter.java`
+#### Snippet
+```java
+        try {
+            isClosed.compareAndSet(false, true);
+            return new String(stream.toByteArray(), StandardCharsets.UTF_8);
+        } catch (Exception e) {
+            LOG.error("Write failed: ", e);
+            return "Write failed: " + e.getMessage();
+        } finally {
+            try {
+                stream.close();
+            } catch (IOException e) {
+                LOG.error("Close stream error: ", e);
+            }
+            try {
+                channel.close();
+            } catch (IOException e) {
+                LOG.error("Close channel error: ", e);
+            }
+        }
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-plugin/shenyu-plugin-sofa/src/main/java/org/apache/shenyu/plugin/sofa/SofaPlugin.java`
+#### Snippet
+```java
+        String param = exchange.getAttribute(Constants.PARAM_TRANSFORM);
+        ShenyuContext shenyuContext = exchange.getAttribute(Constants.CONTEXT);
+        assert shenyuContext != null;
+        MetaData metaData = exchange.getAttribute(Constants.META_DATA);
+        if (!checkMetaData(metaData)) {
+            assert metaData != null;
+            LOG.error(" path is :{}, meta data have error.... {}", shenyuContext.getPath(), metaData);
+            exchange.getResponse().setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR);
+            Object error = ShenyuResultWrap.error(exchange, ShenyuResultEnum.META_DATA_ERROR);
+            return WebFluxResultUtils.result(exchange, error);
+        }
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-plugin/shenyu-plugin-sofa/src/main/java/org/apache/shenyu/plugin/sofa/cache/ApplicationConfigCache.java`
+#### Snippet
+```java
+        if (Objects.nonNull(threadPool)) {
+            return;
+        }
+        switch (config.getThreadpool()) {
+            case Constants.SHARED:
+                try {
+                    threadPool = SpringBeanUtils.getInstance().getBean(ShenyuThreadPoolExecutor.class);
+                    return;
+                } catch (NoSuchBeanDefinitionException t) {
+                    throw new ShenyuException("shared thread pool is not enable, config ${shenyu.sharedPool.enable} in your xml/yml !", t);
+                }
+            case Constants.FIXED:
+            case Constants.EAGER:
+            case Constants.LIMITED:
+                throw new UnsupportedOperationException();
+            case Constants.CACHED:
+                int corePoolSize = Optional.ofNullable(config.getCorethreads()).orElse(0);
+                int maximumPoolSize = Optional.ofNullable(config.getThreads()).orElse(Integer.MAX_VALUE);
+                int queueSize = Optional.ofNullable(config.getQueues()).orElse(0);
+                threadPool = new ThreadPoolExecutor(corePoolSize, maximumPoolSize, 60L, TimeUnit.SECONDS,
+                        queueSize > 0 ? new LinkedBlockingQueue<>(queueSize) : new SynchronousQueue<>(), factory);
+                return;
+            default:
+                return;
+        }
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-apollo/src/main/java/org/apache/shenyu/register/client/server/apollo/ApolloClientServerRegisterRepository.java`
+#### Snippet
+```java
+        String clusterName = properties.getProperty("clusterName", ConfigConsts.CLUSTER_NAME_DEFAULT);
+        String namespace = properties.getProperty("namespace", ConfigConsts.NAMESPACE_APPLICATION);
+        Optional.ofNullable(appId).ifPresent(x -> System.setProperty(PROP_APP_ID, x));
+        Optional.ofNullable(meta).ifPresent(x -> System.setProperty(PROP_APOLLO_META, x));
+        Optional.ofNullable(clusterName).ifPresent(x -> System.setProperty(APOLLO_CLUSTER, x));
+        Optional.ofNullable(namespace).ifPresent(x -> System.setProperty(APOLLO_NAMESPACE, x));
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-nacos/src/main/java/org/apache/shenyu/register/client/server/nacos/NacosClientServerRegisterRepository.java`
+#### Snippet
+```java
+        nacosProperties.put(PropertyKeyConst.USERNAME, properties.getProperty(PropertyKeyConst.USERNAME, ""));
+        // the nacos authentication password
+        nacosProperties.put(PropertyKeyConst.PASSWORD, properties.getProperty(PropertyKeyConst.PASSWORD, ""));
+        // access key for namespace
+        nacosProperties.put(PropertyKeyConst.ACCESS_KEY, properties.getProperty(PropertyKeyConst.ACCESS_KEY, ""));
+        // secret key for namespace
+        nacosProperties.put(PropertyKeyConst.SECRET_KEY, properties.getProperty(PropertyKeyConst.SECRET_KEY, ""));
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-zookeeper/src/main/java/org/apache/shenyu/register/client/server/zookeeper/ZookeeperClient.java`
+#### Snippet
+```java
+        TreeCache cache = findFromcache(key);
+        if (Objects.isNull(cache)) {
+            return getDirectly(key);
+        }
+        ChildData data = cache.getCurrentData(key);
+        if (Objects.isNull(data)) {
+            return getDirectly(key);
+        }
+        return Objects.isNull(data.getData()) ? null : new String(data.getData(), StandardCharsets.UTF_8);
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-zookeeper/src/main/java/org/apache/shenyu/register/client/server/zookeeper/ZookeeperClient.java`
+#### Snippet
+```java
+        TreeCache cache = TreeCache.newBuilder(client, path).build();
+        caches.put(path, cache);
+        if (listeners != null && listeners.length > 0) {
+            for (TreeCacheListener listener : listeners) {
+                cache.getListenable().addListener(listener);
+            }
+        }
+        try {
+            cache.start();
+        } catch (Exception e) {
+            throw new ShenyuException("failed to add curator cache.", e);
+        }
+        return cache;
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-zookeeper/src/main/java/org/apache/shenyu/register/client/server/zookeeper/ZookeeperClientServerRegisterRepository.java`
+#### Snippet
+```java
+        Properties props = config.getProps();
+        int sessionTimeout = Integer.parseInt(props.getProperty("sessionTimeout", "3000"));
+        int connectionTimeout = Integer.parseInt(props.getProperty("connectionTimeout", "3000"));
+
+        int baseSleepTime = Integer.parseInt(props.getProperty("baseSleepTime", "1000"));
+        int maxRetries = Integer.parseInt(props.getProperty("maxRetries", "3"));
+        int maxSleepTime = Integer.parseInt(props.getProperty("maxSleepTime", String.valueOf(Integer.MAX_VALUE)));
+
+        ZookeeperConfig zkConfig = new ZookeeperConfig(config.getServerLists());
+        zkConfig.setBaseSleepTimeMilliseconds(baseSleepTime)
+                .setMaxRetries(maxRetries)
+                .setMaxSleepTimeMilliseconds(maxSleepTime)
+                .setSessionTimeoutMilliseconds(sessionTimeout)
+                .setConnectionTimeoutMilliseconds(connectionTimeout);
+
+        String digest = props.getProperty("digest");
+        if (!StringUtils.isEmpty(digest)) {
+            zkConfig.setDigest(digest);
+        }
+
+        this.client = new ZookeeperClient(zkConfig);
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-register-center/shenyu-register-client/shenyu-register-client-apollo/src/main/java/org/apache/shenyu/register/client/apollo/ApolloClientRegisterRepository.java`
+#### Snippet
+```java
+        Properties properties = config.getProps();
+        String appId = properties.getProperty("appId");
+        String token = properties.getProperty("token");
+        String env = properties.getProperty("env", "DEV");
+        String clusterName = properties.getProperty("clusterName", ConfigConsts.CLUSTER_NAME_DEFAULT);
+        String namespace = properties.getProperty("namespace", ConfigConsts.NAMESPACE_APPLICATION);
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-register-center/shenyu-register-client/shenyu-register-client-apollo/src/main/java/org/apache/shenyu/register/client/apollo/ApolloClientRegisterRepository.java`
+#### Snippet
+```java
+        ApolloConfig apolloConfig = new ApolloConfig();
+        apolloConfig.setAppId(appId);
+        apolloConfig.setPortalUrl(portalUrl);
+        apolloConfig.setToken(token);
+        apolloConfig.setEnv(env);
+        apolloConfig.setClusterName(clusterName);
+        apolloConfig.setNamespace(namespace);
+
+        this.apolloClient = new ApolloClient(apolloConfig);
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-register-center/shenyu-register-client/shenyu-register-client-consul/src/main/java/org/apache/shenyu/register/client/consul/ConsulClientRegisterRepository.java`
+#### Snippet
+```java
+        String nodeName;
+        String rpcType = metadata.getRpcType();
+        if (Objects.equals(RpcTypeEnum.HTTP.getName(), rpcType)
+                || Objects.equals(RpcTypeEnum.SPRING_CLOUD.getName(), rpcType)) {
+            nodeName = String.join(SELECTOR_JOIN_RULE,
+                    metadata.getContextPath(),
+                    metadata.getRuleName().replace(PATH_SEPARATOR, SELECTOR_JOIN_RULE));
+        } else {
+            nodeName = RegisterPathConstants.buildNodeName(metadata.getServiceName(), metadata.getMethodName());
+        }
+        return nodeName.startsWith(PATH_SEPARATOR) ? nodeName.substring(1) : nodeName;
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-register-center/shenyu-register-client/shenyu-register-client-etcd/src/main/java/org/apache/shenyu/register/client/etcd/EtcdClient.java`
+#### Snippet
+```java
+        try {
+            this.globalLeaseId = client.getLeaseClient().grant(ttl).get().getID();
+            client.getLeaseClient().keepAlive(globalLeaseId, new StreamObserver<LeaseKeepAliveResponse>() {
+                @Override
+                public void onNext(final LeaseKeepAliveResponse leaseKeepAliveResponse) {
+
+                }
+
+                @Override
+                public void onError(final Throwable throwable) {
+                    LOGGER.error("keep alive error", throwable);
+                }
+
+                @Override
+                public void onCompleted() {
+
+                }
+            });
+        } catch (InterruptedException | ExecutionException e) {
+            LOGGER.error("initLease error.", e);
+        }
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-register-center/shenyu-register-client/shenyu-register-client-etcd/src/main/java/org/apache/shenyu/register/client/etcd/EtcdClient.java`
+#### Snippet
+```java
+        try {
+            KV kvClient = client.getKVClient();
+            kvClient.put(ByteSequence.from(key, UTF_8), ByteSequence.from(value, UTF_8),
+                    PutOption.newBuilder().withLeaseId(globalLeaseId).build())
+                    .get(timeout, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException | ExecutionException | TimeoutException e) {
+            LOGGER.error("putEphemeral(key:{},value:{}) error.", key, value, e);
+        }
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-sync-data-center/shenyu-sync-data-consul/src/main/java/org/apache/shenyu/sync/data/consul/handler/ConsulCacheHandler.java`
+#### Snippet
+```java
+        try {
+            List<PluginData> pluginDataList = new ArrayList<>(GsonUtils.getInstance().toObjectMap(configInfo, PluginData.class).values());
+            pluginDataList.forEach(pluginData -> Optional.ofNullable(pluginDataSubscriber).ifPresent(subscriber -> {
+                subscriber.unSubscribe(pluginData);
+                subscriber.onSubscribe(pluginData);
+            }));
+        } catch (JsonParseException e) {
+            LOG.error("sync plugin data have error:", e);
+        }
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-sync-data-center/shenyu-sync-data-consul/src/main/java/org/apache/shenyu/sync/data/consul/handler/ConsulCacheHandler.java`
+#### Snippet
+```java
+        try {
+            List<SelectorData> selectorDataList = GsonUtils.getInstance().toObjectMapList(configInfo, SelectorData.class).values().stream().flatMap(Collection::stream).collect(Collectors.toList());
+            selectorDataList.forEach(selectorData -> Optional.ofNullable(pluginDataSubscriber).ifPresent(subscriber -> {
+                subscriber.unSelectorSubscribe(selectorData);
+                subscriber.onSelectorSubscribe(selectorData);
+            }));
+        } catch (JsonParseException e) {
+            LOG.error("sync selector data have error:", e);
+        }
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-sync-data-center/shenyu-sync-data-consul/src/main/java/org/apache/shenyu/sync/data/consul/handler/ConsulCacheHandler.java`
+#### Snippet
+```java
+        try {
+            List<RuleData> ruleDataList = GsonUtils.getInstance().toObjectMapList(configInfo, RuleData.class).values()
+                    .stream().flatMap(Collection::stream)
+                    .collect(Collectors.toList());
+            ruleDataList.forEach(ruleData -> Optional.ofNullable(pluginDataSubscriber).ifPresent(subscriber -> {
+                subscriber.unRuleSubscribe(ruleData);
+                subscriber.onRuleSubscribe(ruleData);
+            }));
+        } catch (JsonParseException e) {
+            LOG.error("sync rule data have error:", e);
+        }
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-sync-data-center/shenyu-sync-data-consul/src/main/java/org/apache/shenyu/sync/data/consul/handler/ConsulCacheHandler.java`
+#### Snippet
+```java
+        try {
+            List<MetaData> metaDataList = new ArrayList<>(GsonUtils.getInstance().toObjectMap(configInfo, MetaData.class).values());
+            metaDataList.forEach(metaData -> metaDataSubscribers.forEach(subscriber -> {
+                subscriber.unSubscribe(metaData);
+                subscriber.onSubscribe(metaData);
+            }));
+        } catch (JsonParseException e) {
+            LOG.error("sync meta data have error:", e);
+        }
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-sync-data-center/shenyu-sync-data-consul/src/main/java/org/apache/shenyu/sync/data/consul/handler/ConsulCacheHandler.java`
+#### Snippet
+```java
+        try {
+            List<AppAuthData> appAuthDataList = new ArrayList<>(GsonUtils.getInstance().toObjectMap(configInfo, AppAuthData.class).values());
+            appAuthDataList.forEach(appAuthData -> authDataSubscribers.forEach(subscriber -> {
+                subscriber.unSubscribe(appAuthData);
+                subscriber.onSubscribe(appAuthData);
+            }));
+        } catch (JsonParseException e) {
+            LOG.error("sync auth data have error:", e);
+        }
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-sync-data-center/shenyu-sync-data-etcd/src/main/java/org/apache/shenyu/sync/data/etcd/EtcdSyncDataService.java`
+#### Snippet
+```java
+        SelectorData selectorData = new SelectorData();
+        final String selectorId = dataPath.substring(dataPath.lastIndexOf("/") + 1);
+        final String str = dataPath.substring(DefaultPathConstants.SELECTOR_PARENT.length());
+        final String pluginName = str.substring(1, str.length() - selectorId.length() - 1);
+        selectorData.setPluginName(pluginName);
+        selectorData.setId(selectorId);
+        Optional.ofNullable(pluginDataSubscriber).ifPresent(e -> e.unSelectorSubscribe(selectorData));
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-sync-data-center/shenyu-sync-data-etcd/src/main/java/org/apache/shenyu/sync/data/etcd/EtcdSyncDataService.java`
+#### Snippet
+```java
+        String substring = dataPath.substring(dataPath.lastIndexOf("/") + 1);
+        final String str = dataPath.substring(DefaultPathConstants.RULE_PARENT.length());
+        final String pluginName = str.substring(1, str.length() - substring.length() - 1);
+        final List<String> list = Lists.newArrayList(Splitter.on(DefaultPathConstants.SELECTOR_JOIN_RULE).split(substring));
+
+        RuleData ruleData = new RuleData();
+        ruleData.setPluginName(pluginName);
+        ruleData.setSelectorId(list.get(0));
+        ruleData.setId(list.get(1));
+
+        Optional.ofNullable(pluginDataSubscriber).ifPresent(e -> e.unRuleSubscribe(ruleData));
+```
+
+### DuplicatedCode
+Duplicated code
+in `shenyu-web/src/main/java/org/apache/shenyu/web/loader/ShenyuPluginClassLoader.java`
+#### Snippet
+```java
+        if (SpringBeanUtils.getInstance().existBean(className)) {
+            return SpringBeanUtils.getInstance().getBeanByClassName(className);
+        }
+        lock.lock();
+        try {
+            T inst = SpringBeanUtils.getInstance().getBeanByClassName(className);
+            if (Objects.isNull(inst)) {
+                Class<?> clazz = Class.forName(className, false, this);
+                //Exclude ShenyuPlugin subclass and PluginDataHandler subclass
+                // without adding @Component @Service annotation
+                boolean next = ShenyuPlugin.class.isAssignableFrom(clazz)
+                        || PluginDataHandler.class.isAssignableFrom(clazz);
+                if (!next) {
+                    Annotation[] annotations = clazz.getAnnotations();
+                    next = Arrays.stream(annotations).anyMatch(e -> e.annotationType().equals(Component.class)
+                            || e.annotationType().equals(Service.class));
+                }
+                if (next) {
+                    GenericBeanDefinition beanDefinition = new GenericBeanDefinition();
+                    beanDefinition.setBeanClassName(className);
+                    beanDefinition.setAutowireCandidate(true);
+                    beanDefinition.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);
+                    String beanName = SpringBeanUtils.getInstance().registerBean(beanDefinition, this);
+                    inst = SpringBeanUtils.getInstance().getBeanByClassName(beanName);
+                }
+            }
+            return inst;
+        } finally {
+            lock.unlock();
+        }
 ```
 
 ## RuleId[id=MismatchedJavadocCode]
+### MismatchedJavadocCode
+Method is specified to return count but the return type is list
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/mapper/PluginHandleMapper.java`
+#### Snippet
+```java
+     *
+     * @param ids a list of ids
+     * @return the count of deleted
+     */
+    List<PluginHandleDO> selectByIdList(@Param("ids") List<String> ids);
+```
+
 ### MismatchedJavadocCode
 Method is specified to return count but the return type is list
 in `shenyu-admin/src/main/java/org/apache/shenyu/admin/mapper/PluginHandleMapper.java`
@@ -6954,16 +13361,17 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/mapper/PluginHandleMapper
     List<PluginHandleDO> selectByPluginIdList(@Param("pluginIds") List<String> pluginId);
 ```
 
-### MismatchedJavadocCode
-Method is specified to return count but the return type is list
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/mapper/PluginHandleMapper.java`
+## RuleId[id=ProtectedMemberInFinalClass]
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/ShenyuClientsRegistrar.java`
 #### Snippet
 ```java
-     *
-     * @param ids a list of ids
-     * @return the count of deleted
-     */
-    List<PluginHandleDO> selectByIdList(@Param("ids") List<String> ids);
+        return new ClassPathScanningCandidateComponentProvider(false, this.environment) {
+            @Override
+            protected boolean isCandidateComponent(final AnnotatedBeanDefinition beanDefinition) {
+                boolean isCandidate = false;
+                if (beanDefinition.getMetadata().isIndependent()) {
 ```
 
 ## RuleId[id=ThreadRun]
@@ -6979,19 +13387,33 @@ in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core
                     delayHooks.put(delayHook, delayHook);
 ```
 
-## RuleId[id=InnerClassMayBeStatic]
-### InnerClassMayBeStatic
-Inner class `ShenyuCookie` may be 'static'
-in `shenyu-common/src/main/java/org/apache/shenyu/common/dto/convert/rule/RequestHandle.java`
+## RuleId[id=DanglingJavadoc]
+### DanglingJavadoc
+Dangling Javadoc comment
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/model/dto/TagDTO.java`
 #### Snippet
 ```java
-    }
+    private static final long serialVersionUID = 1680976393721978145L;
 
-    public class ShenyuCookie {
-        private Map<String, String> addCookies;
-
+    /**
+     * primary key.
+     */
 ```
 
+## RuleId[id=SuspiciousMethodCalls]
+### SuspiciousMethodCalls
+Suspicious call to 'List.contains()'
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/aspect/controller/SuperAdminPasswordSafeAdvice.java`
+#### Snippet
+```java
+        if (properties.getOnlySuperAdminPermission()
+                .stream()
+                .anyMatch(p -> Arrays.asList(permissions.value()).contains(p))) {
+            
+            final String userId = SessionUtil.visitor().getUserId();
+```
+
+## RuleId[id=InnerClassMayBeStatic]
 ### InnerClassMayBeStatic
 Inner class `ShenyuRequestParameter` may be 'static'
 in `shenyu-common/src/main/java/org/apache/shenyu/common/dto/convert/rule/RequestHandle.java`
@@ -7016,224 +13438,330 @@ in `shenyu-common/src/main/java/org/apache/shenyu/common/dto/convert/rule/Reques
          * need to be appended new header value.
 ```
 
-## RuleId[id=StringEqualsEmptyString]
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `shenyu-client/shenyu-client-brpc/src/main/java/org/apache/shenyu/client/brpc/BrpcContextRefreshedEventListener.java`
+### InnerClassMayBeStatic
+Inner class `ShenyuCookie` may be 'static'
+in `shenyu-common/src/main/java/org/apache/shenyu/common/dto/convert/rule/RequestHandle.java`
 #### Snippet
 ```java
-        String host = super.getHost();
-        String configRuleName = shenyuBrpcClient.ruleName();
-        String ruleName = ("".equals(configRuleName)) ? path : configRuleName;
-        int port = Integer.parseInt(super.getPort());
-        String methodName = method.getName();
-```
-
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/ParamCheckUtils.java`
-#### Snippet
-```java
-     */
-    public static boolean bodyIsEmpty(final String body) {
-        return null == body || "".equals(body) || "null".equals(body);
     }
 
+    public class ShenyuCookie {
+        private Map<String, String> addCookies;
+
 ```
 
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/IpUtils.java`
+## RuleId[id=TrivialIf]
+### TrivialIf
+`if` statement can be simplified
+in `shenyu-plugin/shenyu-plugin-key-auth/src/main/java/org/apache/shenyu/plugin/key/auth/KeyAuthPlugin.java`
 #### Snippet
 ```java
-        String pattern = filterHost;
-        // filter matching ip
-        if ("*".equals(filterHost) || "".equals(filterHost)) {
-            pattern = null;
-        } else if (filterHost != null && !filterHost.contains("*") && !isCompleteHost(filterHost)) {
-```
-
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/IpUtils.java`
-#### Snippet
-```java
-        // return the host ip about this docker located from environment value
-        String dockerHostIp = System.getenv(SYSTEM_ENV_DOCKER_HOST_IP);
-        if (dockerHostIp != null && !"".equals(dockerHostIp)) {
-            return dockerHostIp;
+        }
+        MultiValueMap<String, String> multiValueMap = exchange.getRequest().getQueryParams();
+        if (StringUtils.equals(multiValueMap.getFirst(keyName), key)) {
+            return true;
         }
 ```
 
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `shenyu-client/shenyu-client-tars/src/main/java/org/apache/shenyu/client/tars/TarsServiceBeanEventListener.java`
+## RuleId[id=AutoCloseableResource]
+### AutoCloseableResource
+'Socket' used without 'try'-with-resources statement
+in `shenyu-plugin/shenyu-plugin-mqtt/src/main/java/org/apache/shenyu/plugin/mqtt/handler/MqttPluginDataHandler.java`
 #### Snippet
 ```java
-        String desc = shenyuTarsClient.desc();
-        String configRuleName = shenyuTarsClient.ruleName();
-        String ruleName = ("".equals(configRuleName)) ? path : configRuleName;
-        String methodName = method.getName();
-        Class<?>[] parameterTypesClazz = method.getParameterTypes();
+        try {
+            InetAddress address = InetAddress.getByName("127.0.0.1");
+            new Socket(address, port);
+            flag = true;
+        } catch (Exception ignored) {
 ```
 
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `shenyu-client/shenyu-client-motan/src/main/java/org/apache/shenyu/client/motan/MotanServiceEventListener.java`
+### AutoCloseableResource
+'ClickHouseResponse' used without 'try'-with-resources statement
+in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/src/main/java/org/apache/shenyu/plugin/logging/clickhouse/client/ClickHouseLogCollectClient.java`
 #### Snippet
 ```java
-        String desc = shenyuMotanClient.desc();
-        String configRuleName = shenyuMotanClient.ruleName();
-        String ruleName = ("".equals(configRuleName)) ? path : configRuleName;
-        String methodName = method.getName();
-        Class<?>[] parameterTypesClazz = method.getParameterTypes();
+            client = ClickHouseClient.builder().build();
+            ClickHouseRequest<?> request = client.connect(endpoint).format(ClickHouseFormat.TabSeparatedWithNamesAndTypes);
+            request.query(String.format(ClickHouseLoggingConstant.CREATE_DATABASE_SQL, database)).executeAndWait();
+            request.query(String.format(ClickHouseLoggingConstant.CREATE_TABLE_SQL, database, config.getEngine())).executeAndWait();
+            request.query(String.format(ClickHouseLoggingConstant.CREATE_DISTRIBUTED_TABLE_SQL, database, database, config.getClusterName(), database)).executeAndWait();
 ```
 
-## RuleId[id=RedundantSuppression]
-### RedundantSuppression
-Redundant suppression
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/manager/impl/LoadServiceDocEntryImpl.java`
+### AutoCloseableResource
+'ClickHouseResponse' used without 'try'-with-resources statement
+in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/src/main/java/org/apache/shenyu/plugin/logging/clickhouse/client/ClickHouseLogCollectClient.java`
 #### Snippet
 ```java
-
-    @SuppressWarnings("unchecked")
-    private static Map<String, String> supportSwaggerPluginMap = Collections.emptyMap();
-
-    private final SelectorService selectorService;
+            ClickHouseRequest<?> request = client.connect(endpoint).format(ClickHouseFormat.TabSeparatedWithNamesAndTypes);
+            request.query(String.format(ClickHouseLoggingConstant.CREATE_DATABASE_SQL, database)).executeAndWait();
+            request.query(String.format(ClickHouseLoggingConstant.CREATE_TABLE_SQL, database, config.getEngine())).executeAndWait();
+            request.query(String.format(ClickHouseLoggingConstant.CREATE_DISTRIBUTED_TABLE_SQL, database, database, config.getClusterName(), database)).executeAndWait();
+        } catch (Exception e) {
 ```
 
-### RedundantSuppression
-Redundant suppression
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/support/BodyInserterContext.java`
+### AutoCloseableResource
+'ClickHouseResponse' used without 'try'-with-resources statement
+in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-clickhouse/src/main/java/org/apache/shenyu/plugin/logging/clickhouse/client/ClickHouseLogCollectClient.java`
 #### Snippet
 ```java
-    @SuppressWarnings("NullableProblems")
-    @Override
-    public List<HttpMessageWriter<?>> messageWriters() {
-        return exchangeStrategies.messageWriters();
-    }
+            request.query(String.format(ClickHouseLoggingConstant.CREATE_DATABASE_SQL, database)).executeAndWait();
+            request.query(String.format(ClickHouseLoggingConstant.CREATE_TABLE_SQL, database, config.getEngine())).executeAndWait();
+            request.query(String.format(ClickHouseLoggingConstant.CREATE_DISTRIBUTED_TABLE_SQL, database, database, config.getClusterName(), database)).executeAndWait();
+        } catch (Exception e) {
+            LOG.error("inti ClickHouseLogClient error", e);
 ```
 
-### RedundantSuppression
-Redundant suppression
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/support/BodyInserterContext.java`
+### AutoCloseableResource
+'Watcher' used without 'try'-with-resources statement
+in `shenyu-sync-data-center/shenyu-sync-data-etcd/src/main/java/org/apache/shenyu/sync/data/etcd/EtcdClient.java`
 #### Snippet
 ```java
-    @SuppressWarnings("NullableProblems")
-    @Override
-    public Optional<ServerHttpRequest> serverRequest() {
-        return Optional.empty();
-    }
-```
-
-### RedundantSuppression
-Redundant suppression
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/support/BodyInserterContext.java`
-#### Snippet
-```java
-    @SuppressWarnings("NullableProblems")
-    @Override
-    public Map<String, Object> hints() {
-        return Collections.emptyMap();
-    }
-```
-
-### RedundantSuppression
-Redundant suppression
-in `shenyu-plugin/shenyu-plugin-dubbo/shenyu-plugin-apache-dubbo/src/main/java/org/apache/shenyu/plugin/apache/dubbo/cache/ApacheDubboConfigCache.java`
-#### Snippet
-```java
-     */
-    @SuppressWarnings("deprecation")
-    public ReferenceConfig<GenericService> build(final MetaData metaData, final String namespace) {
-        if (Objects.isNull(applicationConfig) || Objects.isNull(registryConfig)) {
-            return new ReferenceConfig<>();
-```
-
-### RedundantSuppression
-Redundant suppression
-in `shenyu-plugin/shenyu-plugin-param-mapping/src/main/java/org/apache/shenyu/plugin/param/mapping/strategy/FormDataOperator.java`
-#### Snippet
-```java
-        @SuppressWarnings("NullableProblems")
-        @Override
-        public HttpHeaders getHeaders() {
-            long contentLength = headers.getContentLength();
-            if (contentLength == 0) {
-```
-
-### RedundantSuppression
-Redundant suppression
-in `shenyu-plugin/shenyu-plugin-param-mapping/src/main/java/org/apache/shenyu/plugin/param/mapping/strategy/FormDataOperator.java`
-#### Snippet
-```java
-        @SuppressWarnings("NullableProblems")
-        @Override
-        public Flux<DataBuffer> getBody() {
-            return cachedBodyOutputMessage.getBody();
+        if (watchCache.containsKey(key)) {
+            watchCache.get(key).close();
+            watchCache.remove(key);
         }
+    }
 ```
 
-### RedundantSuppression
-Redundant suppression
-in `shenyu-plugin/shenyu-plugin-param-mapping/src/main/java/org/apache/shenyu/plugin/param/mapping/strategy/JsonOperator.java`
+### AutoCloseableResource
+'Response' used without 'try'-with-resources statement
+in `shenyu-register-center/shenyu-register-client/shenyu-register-client-http/src/main/java/org/apache/shenyu/register/client/http/utils/OkHttpTools.java`
 #### Snippet
 ```java
-        @SuppressWarnings("NullableProblems")
-        @Override
-        public HttpHeaders getHeaders() {
-            long contentLength = headers.getContentLength();
-            HttpHeaders httpHeaders = new HttpHeaders();
+                .post(body)
+                .build();
+        return client.newCall(request).execute().body().string();
+    }
+
 ```
 
-### RedundantSuppression
-Redundant suppression
-in `shenyu-plugin/shenyu-plugin-param-mapping/src/main/java/org/apache/shenyu/plugin/param/mapping/strategy/JsonOperator.java`
+### AutoCloseableResource
+'Response' used without 'try'-with-resources statement
+in `shenyu-register-center/shenyu-register-client/shenyu-register-client-http/src/main/java/org/apache/shenyu/register/client/http/utils/OkHttpTools.java`
 #### Snippet
 ```java
-        @SuppressWarnings("NullableProblems")
-        @Override
-        public Flux<DataBuffer> getBody() {
-            return cachedBodyOutputMessage.getBody();
-        }
+        reqBuild.url(urlBuilder.build());
+        Request request = reqBuild.build();
+        return client.newCall(request).execute().body().string();
+    }
+
 ```
 
-## RuleId[id=UtilityClassWithPublicConstructor]
-### UtilityClassWithPublicConstructor
-Class `ShenyuClientShutdownHook` has only 'static' members, and a 'public' constructor
-in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/shutdown/ShenyuClientShutdownHook.java`
+### AutoCloseableResource
+'Response' used without 'try'-with-resources statement
+in `shenyu-register-center/shenyu-register-client/shenyu-register-client-http/src/main/java/org/apache/shenyu/register/client/http/utils/OkHttpTools.java`
 #### Snippet
 ```java
- * Shenyu client shutdown hook.
- */
-public class ShenyuClientShutdownHook {
+                .post(body)
+                .build();
+        return client.newCall(request).execute().body().string();
+    }
 
-    private static final Logger LOG = LoggerFactory.getLogger(ShenyuClientShutdownHook.class);
 ```
 
-### UtilityClassWithPublicConstructor
-Class `DataDesensitizeFactory` has only 'static' members, and a 'public' constructor
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-desensitize-api/src/main/java/org/apache/shenyu/plugin/logging/desensitize/api/factory/DataDesensitizeFactory.java`
+### AutoCloseableResource
+'Response' used without 'try'-with-resources statement
+in `shenyu-register-center/shenyu-register-client/shenyu-register-client-http/src/main/java/org/apache/shenyu/register/client/http/utils/OkHttpTools.java`
 #### Snippet
 ```java
- * shenyu logging desensitized factory.
- */
-public final class DataDesensitizeFactory {
+        reqBuild.url(urlBuilder.build());
+        Request request = reqBuild.build();
+        return client.newCall(request).execute().body().string();
+    }
 
-    public DataDesensitizeFactory() {
 ```
 
-## RuleId[id=SystemOutErr]
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
+### AutoCloseableResource
+'Response' used without 'try'-with-resources statement
+in `shenyu-alert/src/main/java/org/apache/shenyu/alert/strategy/DingTalkStrategy.java`
+#### Snippet
+```java
+                .post(body)
+                .build();
+        OK_HTTP_CLIENT.newCall(request).execute();
+    }
+
+```
+
+### AutoCloseableResource
+'Watcher' used without 'try'-with-resources statement
+in `shenyu-register-center/shenyu-register-instance/shenyu-register-instance-etcd/src/main/java/org/apache/shenyu/register/instance/etcd/EtcdClient.java`
+#### Snippet
+```java
+        WatchOption option = WatchOption.newBuilder().isPrefix(true).build();
+
+        client.getWatchClient().watch(bytesOf(key), option, listener);
+    }
+
+```
+
+### AutoCloseableResource
+'CloseableClient' used without 'try'-with-resources statement
+in `shenyu-register-center/shenyu-register-instance/shenyu-register-instance-etcd/src/main/java/org/apache/shenyu/register/instance/etcd/EtcdClient.java`
+#### Snippet
+```java
+        try {
+            this.globalLeaseId = client.getLeaseClient().grant(ttl).get().getID();
+            client.getLeaseClient().keepAlive(globalLeaseId, new StreamObserver<LeaseKeepAliveResponse>() {
+                @Override
+                public void onNext(final LeaseKeepAliveResponse leaseKeepAliveResponse) {
+```
+
+### AutoCloseableResource
+'Response' used without 'try'-with-resources statement
 in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/HttpUtils.java`
 #### Snippet
 ```java
-                    }
-                } catch (IOException ioe) {
-                    System.err.println(ioe);
-                }
+
+        Request request = builder.build();
+        Response response = httpClient.newCall(request).execute();
+        return response.body().string();
+    }
+```
+
+### AutoCloseableResource
+'Response' used without 'try'-with-resources statement
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/HttpUtils.java`
+#### Snippet
+```java
+    public String requestFileString(final String url, final Map<String, ?> form, final Map<String, String> header,
+        final List<UploadFile> files) throws IOException {
+        return requestFile(url, form, header, files).body().string();
+    }
+
+```
+
+### AutoCloseableResource
+'Response' used without 'try'-with-resources statement
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/HttpUtils.java`
+#### Snippet
+```java
+        Response response = httpClient
+            .newCall(request)
+            .execute();
+        if (response.isSuccessful()) {
+            ResponseBody body = response.body();
+```
+
+### AutoCloseableResource
+'Page' used without 'try'-with-resources statement
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/PageService.java`
+#### Snippet
+```java
+    default PageInfo<R> searchByPage(final PageCondition<Q> pageCondition) {
+        doConditionPreProcessing(pageCondition.getCondition());
+        PageHelper.startPage(pageCondition.getPageNum(), pageCondition.getPageSize());
+        return new PageInfo<>(searchByCondition(pageCondition.getCondition()));
+    }
+```
+
+### AutoCloseableResource
+'Response' used without 'try'-with-resources statement
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/SandboxServiceImpl.java`
+#### Snippet
+```java
+        Map<String, Object> reqParams = this.buildReqBizParams(proxyGatewayDTO);
+        List<HttpUtils.UploadFile> files = this.uploadFiles(request);
+        Response resp = HTTP_UTILS.requestCall(uriComponents.toUriString(), reqParams, header, HttpUtils.HTTPMethod.fromValue(proxyGatewayDTO.getHttpMethod()), files);
+        ResponseBody body = resp.body();
+
+```
+
+### AutoCloseableResource
+'LogCollector' used without 'try'-with-resources statement
+in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-common/src/main/java/org/apache/shenyu/plugin/logging/common/handler/AbstractLogPluginDataHandler.java`
+#### Snippet
+```java
+                // no data, init client
+                this.doRefreshConfig(globalLogConfig);
+                logCollector().start();
             }
+            Singleton.INST.single(globalLogConfigClass, globalLogConfig);
+```
+
+### AutoCloseableResource
+'ShenyuGrpcClient' used without 'try'-with-resources statement
+in `shenyu-plugin/shenyu-plugin-grpc/src/main/java/org/apache/shenyu/plugin/grpc/cache/GrpcClientCache.java`
+#### Snippet
+```java
+     */
+    public static void initGrpcClient(final String contextPath) {
+        MapUtils.computeIfAbsent(CLIENT_CACHE, contextPath, s -> GrpcClientBuilder.buildClient(contextPath));
+    }
+    
+```
+
+### AutoCloseableResource
+'ShenyuPluginClassLoader' used without 'try'-with-resources statement
+in `shenyu-web/src/main/java/org/apache/shenyu/web/loader/ShenyuLoaderService.java`
+#### Snippet
+```java
+            for (PluginJarParser.PluginJar extPath : uploadPluginJars) {
+                LOG.info("shenyu extPlugin find new {} to load", extPath.getAbsolutePath());
+                ShenyuPluginClassLoader extPathClassLoader = ShenyuPluginClassloaderHolder.getSingleton().createExtPathClassLoader(extPath);
+                extendPlugins.addAll(extPathClassLoader.loadUploadedJarPlugins());
+            }
+```
+
+### AutoCloseableResource
+'CloseableClient' used without 'try'-with-resources statement
+in `shenyu-register-center/shenyu-register-client/shenyu-register-client-etcd/src/main/java/org/apache/shenyu/register/client/etcd/EtcdClient.java`
+#### Snippet
+```java
+        try {
+            this.globalLeaseId = client.getLeaseClient().grant(ttl).get().getID();
+            client.getLeaseClient().keepAlive(globalLeaseId, new StreamObserver<LeaseKeepAliveResponse>() {
+                @Override
+                public void onNext(final LeaseKeepAliveResponse leaseKeepAliveResponse) {
+```
+
+### AutoCloseableResource
+'ValidatorFactory' used without 'try'-with-resources statement
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-alibaba-dubbo/src/main/java/org/apache/shenyu/client/alibaba/dubbo/validation/AlibabaDubboClientValidator.java`
+#### Snippet
+```java
+        ValidatorFactory factory;
+        if (shenyuValidation != null && shenyuValidation.length() > 0) {
+            factory = Validation.byProvider((Class) ReflectUtils.forName(shenyuValidation)).configure().buildValidatorFactory();
+        } else {
+            factory = Validation.buildDefaultValidatorFactory();
+```
+
+### AutoCloseableResource
+'ValidatorFactory' used without 'try'-with-resources statement
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-alibaba-dubbo/src/main/java/org/apache/shenyu/client/alibaba/dubbo/validation/AlibabaDubboClientValidator.java`
+#### Snippet
+```java
+            factory = Validation.byProvider((Class) ReflectUtils.forName(shenyuValidation)).configure().buildValidatorFactory();
+        } else {
+            factory = Validation.buildDefaultValidatorFactory();
+        }
+        this.validator = factory.getValidator();
+```
+
+### AutoCloseableResource
+'ValidatorFactory' used without 'try'-with-resources statement
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/validation/ApacheDubboClientValidator.java`
+#### Snippet
+```java
+        ValidatorFactory factory;
+        if (shenyuValidation != null && shenyuValidation.length() > 0) {
+            factory = Validation.byProvider((Class) ReflectUtils.forName(shenyuValidation)).configure().buildValidatorFactory();
+        } else {
+            factory = Validation.buildDefaultValidatorFactory();
+```
+
+### AutoCloseableResource
+'ValidatorFactory' used without 'try'-with-resources statement
+in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/validation/ApacheDubboClientValidator.java`
+#### Snippet
+```java
+            factory = Validation.byProvider((Class) ReflectUtils.forName(shenyuValidation)).configure().buildValidatorFactory();
+        } else {
+            factory = Validation.buildDefaultValidatorFactory();
+        }
+        this.validator = factory.getValidator();
 ```
 
 ## RuleId[id=RedundantCompareCall]
@@ -7261,1280 +13789,165 @@ in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base
                 return null;
 ```
 
-## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-client/shenyu-client-grpc/src/main/java/org/apache/shenyu/client/grpc/GrpcClientEventListener.java`
+## RuleId[id=JavadocDeclaration]
+### JavadocDeclaration
+`@throws` tag description is missing
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/BaseTrigger.java`
 #### Snippet
 ```java
-                                  @Nullable final ShenyuGrpcClient methodShenyuClient) {
-        final String contextPath = getContextPath();
-        return superPath.contains("*") ? pathJoin(contextPath, superPath.replace("*", ""), method.getName())
-                : pathJoin(contextPath, superPath, Objects.requireNonNull(methodShenyuClient).path());
-    }
+     * @param statement {@link PreparedStatement}
+     * @param newRow {@link Object}
+     * @throws SQLException {@link SQLException}
+     */
+    public static void sqlExecute(final Object[] newRow, final PreparedStatement statement) throws SQLException {
 ```
 
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-client/shenyu-client-brpc/src/main/java/org/apache/shenyu/client/brpc/BrpcContextRefreshedEventListener.java`
+## RuleId[id=RedundantCast]
+### RedundantCast
+Casting `annotation.configurator().getConstructor().newInstance()` to `ServerEndpointConfig.Configurator` is redundant
+in `shenyu-client/shenyu-client-websocket/shenyu-client-spring-websocket/src/main/java/org/apache/shenyu/client/spring/websocket/init/ShenyuServerEndpointerExporter.java`
 #### Snippet
 ```java
-                                  @Nullable final ShenyuBrpcClient shenyuBrpcClient) {
-        return superPath.contains("*")
-                ? pathJoin(this.getContextPath(), superPath.replace("*", ""), method.getName())
-                : pathJoin(this.getContextPath(), superPath, Objects.requireNonNull(shenyuBrpcClient).path());
-    }
+        if (!configuratorClazz.equals(ServerEndpointConfig.Configurator.class)) {
+            try {
+                configurator = (ServerEndpointConfig.Configurator) annotation.configurator().getConstructor().newInstance();
+            } catch (ReflectiveOperationException ex) {
+                LOG.error("ShenyuServerEndpoint configurator init fail! Class name: {}, configurator name: {}", pojo.getName(), annotation.configurator().getName());
 ```
 
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-register-center/shenyu-register-client/shenyu-register-client-consul/src/main/java/org/apache/shenyu/register/client/consul/ConsulClientRegisterRepository.java`
+### RedundantCast
+Casting `this.threadPoolMap.get(...)` to `ThreadPoolExecutor` is redundant
+in `shenyu-plugin/shenyu-plugin-brpc/src/main/java/org/apache/shenyu/plugin/brpc/spi/SharedThreadPoolFactory.java`
 #### Snippet
 ```java
-            nodeName = String.join(SELECTOR_JOIN_RULE,
-                    metadata.getContextPath(),
-                    metadata.getRuleName().replace(PATH_SEPARATOR, SELECTOR_JOIN_RULE));
+            return this.defaultThreadPool;
+        } else if (this.threadPoolMap.get(rpcService) != null) {
+            return (ThreadPoolExecutor) this.threadPoolMap.get(rpcService);
         } else {
-            nodeName = RegisterPathConstants.buildNodeName(metadata.getServiceName(), metadata.getMethodName());
+            ServiceConfig serviceConfig = rpcService.getServiceConfig();
 ```
 
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-plugin/shenyu-plugin-brpc/src/main/java/org/apache/shenyu/plugin/brpc/util/ProxyInfoUtil.java`
+### RedundantCast
+Casting `this.threadPoolMap.get(...)` to `ThreadPoolExecutor` is redundant
+in `shenyu-plugin/shenyu-plugin-brpc/src/main/java/org/apache/shenyu/plugin/brpc/spi/SharedThreadPoolFactory.java`
 #### Snippet
 ```java
-     */
-    public static String getProxyName(final MetaData metaData) {
-        return metaData.getPath().replace("/", "") + metaData.getMethodName() + "Proxy";
-    }
-    
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/mybatis/oracle/OracleSQLPrepareInterceptor.java`
-#### Snippet
-```java
-        // replace desc and true
-        String replaceSql = boundSql.getSql().toLowerCase()
-                .replace("`desc`", "\"desc\"")
-                .replace("true", "'true'");
-        // replace`
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/mybatis/oracle/OracleSQLPrepareInterceptor.java`
-#### Snippet
-```java
-        String replaceSql = boundSql.getSql().toLowerCase()
-                .replace("`desc`", "\"desc\"")
-                .replace("true", "'true'");
-        // replace`
-        replaceSql = replaceSql.replace("`", "");
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/mybatis/oracle/OracleSQLPrepareInterceptor.java`
-#### Snippet
-```java
-                .replace("true", "'true'");
-        // replace`
-        replaceSql = replaceSql.replace("`", "");
-        // replace resource
-        if (replaceSql.contains("resource")) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/mybatis/oracle/OracleSQLPrepareInterceptor.java`
-#### Snippet
-```java
-        // replace resource
-        if (replaceSql.contains("resource")) {
-            replaceSql = replaceSql.replace("into resource", "into \"resource\"")
-                    .replace("from resource", "from \"resource\"")
-                    .replace("update resource", "update \"resource\"");
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/mybatis/pg/interceptor/PostgreSQLPrepareInterceptor.java`
-#### Snippet
-```java
-        Field field = boundSql.getClass().getDeclaredField("sql");
-        field.setAccessible(true);
-        field.set(boundSql, boundSql.getSql().replace("`", "\"").toLowerCase());
-
-        return invocation.proceed();
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/mybatis/oracle/OracleSQLPrepareInterceptor.java`
-#### Snippet
-```java
-        if (replaceSql.contains("resource")) {
-            replaceSql = replaceSql.replace("into resource", "into \"resource\"")
-                    .replace("from resource", "from \"resource\"")
-                    .replace("update resource", "update \"resource\"");
-        }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/mybatis/oracle/OracleSQLPrepareInterceptor.java`
-#### Snippet
-```java
-            replaceSql = replaceSql.replace("into resource", "into \"resource\"")
-                    .replace("from resource", "from \"resource\"")
-                    .replace("update resource", "update \"resource\"");
-        }
-        // replace batch insert into
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/mybatis/oracle/OracleSQLPrepareInterceptor.java`
-#### Snippet
-```java
-        // replace batch insert into
-        if (replaceSql.contains("insert into") && replaceSql.split("\\(").length > 3) {
-            replaceSql = replaceSql.replaceAll("\r|\n|\\s", "")
-                    .replace("insertinto", "insert into ")
-                    .replace("values", " SELECT * FROM (")
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/mybatis/oracle/OracleSQLPrepareInterceptor.java`
-#### Snippet
-```java
-        if (replaceSql.contains("insert into") && replaceSql.split("\\(").length > 3) {
-            replaceSql = replaceSql.replaceAll("\r|\n|\\s", "")
-                    .replace("insertinto", "insert into ")
-                    .replace("values", " SELECT * FROM (")
-                    .replace("(?", " SELECT ?")
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/mybatis/oracle/OracleSQLPrepareInterceptor.java`
-#### Snippet
-```java
-            replaceSql = replaceSql.replaceAll("\r|\n|\\s", "")
-                    .replace("insertinto", "insert into ")
-                    .replace("values", " SELECT * FROM (")
-                    .replace("(?", " SELECT ?")
-                    .replace("),", " FROM dual UNION ALL")
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/mybatis/oracle/OracleSQLPrepareInterceptor.java`
-#### Snippet
-```java
-                    .replace("insertinto", "insert into ")
-                    .replace("values", " SELECT * FROM (")
-                    .replace("(?", " SELECT ?")
-                    .replace("),", " FROM dual UNION ALL")
-                    .replace("?)", " ? FROM dual)");
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/mybatis/oracle/OracleSQLPrepareInterceptor.java`
-#### Snippet
-```java
-                    .replace("values", " SELECT * FROM (")
-                    .replace("(?", " SELECT ?")
-                    .replace("),", " FROM dual UNION ALL")
-                    .replace("?)", " ? FROM dual)");
-        }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/mybatis/oracle/OracleSQLPrepareInterceptor.java`
-#### Snippet
-```java
-                    .replace("(?", " SELECT ?")
-                    .replace("),", " FROM dual UNION ALL")
-                    .replace("?)", " ? FROM dual)");
-        }
+                    synchronized (this) {
+                        if (this.threadPoolMap.get(rpcService) != null) {
+                            return (ThreadPoolExecutor) this.threadPoolMap.get(rpcService);
+                        }
 
 ```
 
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/mybatis/oracle/OracleSQLPrepareInterceptor.java`
-#### Snippet
-```java
-        if (replaceSql.contains("select")) {
-            if (replaceSql.contains("where")) {
-                replaceSql = replaceSql.replace("limit 1", "and rownum = 1");
-            } else {
-                replaceSql = replaceSql.replace("limit 1", "where rownum = 1");
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/mybatis/oracle/OracleSQLPrepareInterceptor.java`
-#### Snippet
-```java
-                replaceSql = replaceSql.replace("limit 1", "and rownum = 1");
-            } else {
-                replaceSql = replaceSql.replace("limit 1", "where rownum = 1");
-            }
-        }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/register/AbstractShenyuClientRegisterServiceImpl.java`
-#### Snippet
-```java
-    private String rewritePath(final String path) {
-        if (path.contains(AdminConstants.URI_VARIABLE_SUFFIX)) {
-            return path.replaceAll("(/\\{.*?})+", "/**");
-        }
-        return path;
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/SignUtils.java`
-#### Snippet
-```java
-     */
-    public static String generateKey() {
-        return UUID.randomUUID().toString().replaceAll("-", "").toUpperCase();
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/PathUtils.java`
-#### Snippet
-```java
-                result.append(Constants.PATH_SEPARATOR);
-            }
-            result.append(p.startsWith(Constants.PATH_SEPARATOR) ? p.replaceFirst(Constants.PATH_SEPARATOR, "") : p);
-        }
-        return result.toString();
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/JarDependencyUtils.java`
-#### Snippet
-```java
-    private static void addDependencies(final String typeName, final Set<String> dependencies) {
-        if (!typeName.startsWith("java") && !typeName.startsWith("javax")) {
-            dependencies.add(typeName.replace("/", "."));
-        }
-    }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-register-center/shenyu-register-client/shenyu-register-client-zookeeper/src/main/java/org/apache/shenyu/register/client/zookeeper/ZookeeperClientRegisterRepository.java`
-#### Snippet
-```java
-            nodeName = String.join(DefaultPathConstants.SELECTOR_JOIN_RULE,
-                    metadata.getContextPath(),
-                    metadata.getRuleName().replace(PATH_SEPARATOR, DefaultPathConstants.SELECTOR_JOIN_RULE));
-        } else {
-            nodeName = RegisterPathConstants.buildNodeName(metadata.getServiceName(), metadata.getMethodName());
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-client/shenyu-client-sofa/src/main/java/org/apache/shenyu/client/sofa/SofaServiceEventListener.java`
-#### Snippet
-```java
-                                  @NonNull final ShenyuSofaClient shenyuSofaClient) {
-        final String contextPath = this.getContextPath();
-        return superPath.contains("*") ? pathJoin(contextPath, superPath.replace("*", ""), method.getName())
-                : pathJoin(contextPath, superPath, shenyuSofaClient.path());
-    }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-bootstrap/src/main/java/org/apache/shenyu/bootstrap/config/CollapseSlashesConfiguration.java`
-#### Snippet
-```java
-        return (ServerWebExchange exchange, WebFilterChain chain) -> {
-            ServerHttpRequest request = exchange.getRequest();
-            String newPath = request.getURI().getRawPath().replaceAll("/{2,}", "/");
-            if (!request.getURI().getRawPath().equals(newPath)) {
-                URI newUri = request.getURI().resolve(newPath);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceFirst()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/client/AbstractContextRefreshedEventListener.java`
-#### Snippet
-```java
-                result.append(PATH_SEPARATOR);
-            }
-            result.append(p.startsWith(PATH_SEPARATOR) ? p.replaceFirst(PATH_SEPARATOR, "") : p);
-        }
-        return result.toString();
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-plugin/shenyu-plugin-tars/src/main/java/org/apache/shenyu/plugin/tars/util/PrxInfoUtil.java`
-#### Snippet
-```java
-     */
-    public static String getPrxName(final MetaData metaData) {
-        return metaData.getPath().replace("/", "") + metaData.getMethodName() + "Prx";
-    }
-    
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/PhoneGenerator.java`
-#### Snippet
-```java
-    @Override
-    public boolean match(final String rule) {
-        return rule.matches("^phone$");
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/EmailGenerator.java`
-#### Snippet
-```java
-    @Override
-    public boolean match(final String rule) {
-        return rule.matches("^email$");
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/RandomIntGenerator.java`
-#### Snippet
-```java
-    @Override
-    public boolean match(final String rule) {
-        return rule.matches("^int\\|\\d+-\\d+$");
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/ZhStringGenerator.java`
-#### Snippet
-```java
-    @Override
-    public boolean match(final String rule) {
-        return rule.matches("^zh\\|\\d+-\\d+$");
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/RandomDoubleGenerator.java`
-#### Snippet
-```java
-    @Override
-    public boolean match(final String rule) {
-        return rule.matches("^double\\|\\d+(?:\\.\\d+)?-\\d+(?:\\.\\d+)?.*");
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/Generator.java`
-#### Snippet
-```java
-    default List<String> extractParams(final String rule) {
-        List<String> params = new ArrayList<>();
-        String[] split = rule.split("(?<!\\\\)\\|");
-        if (split.length >= getParamSize() + 1) {
-            params.addAll(Arrays.stream(split)
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/Generator.java`
-#### Snippet
-```java
-        if (split.length >= getParamSize() + 1) {
-            params.addAll(Arrays.stream(split)
-                    .map(p -> p.replaceAll("\\\\\\|", "|"))
-                    .skip(1)
-                    .collect(Collectors.toList()));
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/CurrentTimeGenerator.java`
-#### Snippet
-```java
-    @Override
-    public boolean match(final String rule) {
-        return rule.matches("^current(\\|.+)?");
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/ArrayGenerator.java`
-#### Snippet
-```java
-    @Override
-    public boolean match(final String rule) {
-        return rule.matches("^array\\|.+\\|\\d+$");
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/EnStringGenerator.java`
-#### Snippet
-```java
-    @Override
-    public boolean match(final String rule) {
-        return rule.matches("^en\\|\\d+-\\d+$");
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/BoolGenerator.java`
-#### Snippet
-```java
-    @Override
-    public boolean match(final String rule) {
-        return rule.matches("^bool$");
-    }
-}
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/ExpressionGenerator.java`
-#### Snippet
-```java
-    @Override
-    public boolean match(final String rule) {
-        return rule.matches("^expression\\|.+");
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/RangeDataGenerator.java`
-#### Snippet
-```java
-    @Override
-    public String doGenerate(final List<String> params, final String rule, final MockRequest mockRequest) {
-        String rangeData = params.get(0).replaceAll("\\[(.+)]", "$1");
-        String[] data = Arrays.stream(rangeData.split("(?<!\\\\),"))
-                .map(_data -> _data.replace("\\,", ","))
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/RangeDataGenerator.java`
-#### Snippet
-```java
-    public String doGenerate(final List<String> params, final String rule, final MockRequest mockRequest) {
-        String rangeData = params.get(0).replaceAll("\\[(.+)]", "$1");
-        String[] data = Arrays.stream(rangeData.split("(?<!\\\\),"))
-                .map(_data -> _data.replace("\\,", ","))
-                .toArray(String[]::new);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/RangeDataGenerator.java`
-#### Snippet
-```java
-        String rangeData = params.get(0).replaceAll("\\[(.+)]", "$1");
-        String[] data = Arrays.stream(rangeData.split("(?<!\\\\),"))
-                .map(_data -> _data.replace("\\,", ","))
-                .toArray(String[]::new);
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/RangeDataGenerator.java`
-#### Snippet
-```java
-    @Override
-    public boolean match(final String rule) {
-        boolean matches = rule.matches("^list\\|\\[.+]$");
-        if (matches) {
-            String candidateData = rule.substring(6, rule.length() - 1);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/RangeDataGenerator.java`
-#### Snippet
-```java
-        if (matches) {
-            String candidateData = rule.substring(6, rule.length() - 1);
-            return !candidateData.matches("^\\s+$");
-        }
-        return false;
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/GeneratorFactory.java`
-#### Snippet
-```java
-            }
-            String toString = String.valueOf(generateData);
-            placeHolder = placeHolder.replaceAll("([$|{}()\\]\\[])", "\\\\$1");
-            afterDeal = afterDeal.replaceFirst(placeHolder, toString);
-            placeHolder = getPlaceholder(afterDeal);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-web/src/main/java/org/apache/shenyu/web/forward/ForwardedRemoteAddressResolver.java`
-#### Snippet
-```java
-            return Collections.emptyList();
-        }
-        List<String> values = Arrays.asList(xForwardedValues.get(0).split(", "));
-        if (values.size() == 1 && !StringUtils.hasText(values.get(0))) {
-            return Collections.emptyList();
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-web/src/main/java/org/apache/shenyu/web/loader/PluginJarParser.java`
-#### Snippet
-```java
-                }
-                if (!jarEntry.isDirectory() && entryName.endsWith(".class") && !entryName.contains("$")) {
-                    String className = jarEntry.getName().substring(0, entryName.length() - 6).replaceAll("/", ".");
-                    try (ByteArrayOutputStream buffer = new ByteArrayOutputStream()) {
-                        int data;
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-web/src/main/java/org/apache/shenyu/web/loader/ShenyuPluginLoader.java`
-#### Snippet
-```java
-
-    private String classNameToPath(final String className) {
-        return String.join("", className.replace(".", "/"), ".class");
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-web/src/main/java/org/apache/shenyu/web/loader/ShenyuPluginLoader.java`
-#### Snippet
-```java
-                String entryName = jarEntry.getName();
-                if (entryName.endsWith(".class") && !entryName.contains("$")) {
-                    String className = entryName.substring(0, entryName.length() - 6).replaceAll("/", ".");
-                    if (checkExistence(className)) {
-                        LOG.warn("The same plugin {} already exists", className);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-web/src/main/java/org/apache/shenyu/web/loader/ShenyuPluginLoader.java`
-#### Snippet
-```java
-                String entryName = jarEntry.getName();
-                if (!jarEntry.isDirectory() && entryName.endsWith(".class") && !entryName.contains("$")) {
-                    String className = jarEntry.getName().substring(0, entryName.length() - 6).replaceAll("/", ".");
-                    try (ByteArrayOutputStream buffer = new ByteArrayOutputStream()) {
-                        int data;
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-plugin/shenyu-plugin-casdoor/src/main/java/org/apache/shenyu/plugin/casdoor/handle/CasdoorPluginDateHandler.java`
-#### Snippet
-```java
-        final String clientId = Optional.ofNullable(configMap.get("client_id")).orElse("");
-        String certificate = Optional.ofNullable(configMap.get("certificate")).orElse("");
-        certificate = certificate.replace("\\n", "\n");
-        String organization = Optional.ofNullable(configMap.get("organization-name")).orElse("");
-        String application = Optional.ofNullable(configMap.get("application-name")).orElse("");
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-register-center/shenyu-register-client/shenyu-register-client-etcd/src/main/java/org/apache/shenyu/register/client/etcd/EtcdClientRegisterRepository.java`
-#### Snippet
-```java
-                || Objects.equals(RpcTypeEnum.SPRING_CLOUD.getName(), rpcType)) {
-            nodeName = String.join(SELECTOR_JOIN_RULE, metadata.getContextPath(),
-                    metadata.getRuleName().replace(PATH_SEPARATOR, SELECTOR_JOIN_RULE));
-        } else {
-            nodeName = RegisterPathConstants.buildNodeName(metadata.getServiceName(), metadata.getMethodName());
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-client/shenyu-client-tars/src/main/java/org/apache/shenyu/client/tars/TarsServiceBeanEventListener.java`
-#### Snippet
-```java
-    protected String buildApiPath(final Method method, final String superPath, final ShenyuTarsClient shenyuTarsClient) {
-        return superPath.contains("*")
-                ? pathJoin(contextPath, superPath.replace("*", ""), method.getName())
-                : pathJoin(contextPath, superPath, shenyuTarsClient.path());
-    }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-register-center/shenyu-register-common/src/main/java/org/apache/shenyu/register/common/path/RegisterPathConstants.java`
-#### Snippet
-```java
-    public static String buildServiceConfigPath(final String rpcType, final String contextPath) {
-        final String serviceConfigPathOrigin = String.join(SEPARATOR, ROOT_PATH, "service", rpcType, contextPath)
-                .replace("/", DOT_SEPARATOR).replace("*", "");
-        final String serviceConfigPathAfterSubstring = serviceConfigPathOrigin.substring(1);
-        if (serviceConfigPathAfterSubstring.endsWith(".")) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-register-center/shenyu-register-common/src/main/java/org/apache/shenyu/register/common/path/RegisterPathConstants.java`
-#### Snippet
-```java
-    public static String buildServiceConfigPath(final String rpcType, final String contextPath) {
-        final String serviceConfigPathOrigin = String.join(SEPARATOR, ROOT_PATH, "service", rpcType, contextPath)
-                .replace("/", DOT_SEPARATOR).replace("*", "");
-        final String serviceConfigPathAfterSubstring = serviceConfigPathOrigin.substring(1);
-        if (serviceConfigPathAfterSubstring.endsWith(".")) {
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-register-center/shenyu-register-common/src/main/java/org/apache/shenyu/register/common/path/RegisterPathConstants.java`
-#### Snippet
-```java
-    public static String buildServiceInstancePath(final String rpcType) {
-        return String.join(SEPARATOR, ROOT_PATH, "service", rpcType)
-                .replace("/", DOT_SEPARATOR).substring(1);
-    }
-    
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `shenyu-client/shenyu-client-motan/src/main/java/org/apache/shenyu/client/motan/MotanServiceEventListener.java`
-#### Snippet
-```java
-                                  @Nullable final ShenyuMotanClient methodShenyuClient) {
-        return superPath.contains("*")
-                ? pathJoin(this.getContextPath(), superPath.replace("*", ""), method.getName())
-                : pathJoin(this.getContextPath(), superPath, Objects.requireNonNull(methodShenyuClient).path());
-    }
-```
-
-## RuleId[id=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `io.grpc.protobuf` is unnecessary, and can be replaced with an import
-in `shenyu-client/shenyu-client-grpc/src/main/java/org/apache/shenyu/client/grpc/json/JsonServerServiceInterceptor.java`
-#### Snippet
-```java
-            throws IllegalArgumentException, IllegalAccessException {
-        return useMarshalledMessages(serviceDef,
-                io.grpc.protobuf.ProtoUtils.marshaller(JsonMessage.buildJsonMessage()));
-    }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shenyu.admin.model.query` is unnecessary and can be removed
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/mapper/TagRelationMapper.java`
-#### Snippet
-```java
-     * select tag relation by query.
-     *
-     * @param tagRelationQuery {@linkplain org.apache.shenyu.admin.model.query.TagRelationQuery}
-     * @return {@linkplain List}
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shenyu.admin.model.query` is unnecessary and can be removed
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/mapper/TagMapper.java`
-#### Snippet
-```java
-     * select tag by query.
-     *
-     * @param tagQuery {@linkplain org.apache.shenyu.admin.model.query.TagQuery}
-     * @return {@linkplain List}
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shenyu.admin.service` is unnecessary and can be removed
+## RuleId[id=FieldMayBeFinal]
+### FieldMayBeFinal
+Field `tagRelationMapper` may be 'final'
 in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/TagRelationServiceImpl.java`
 #### Snippet
 ```java
+public class TagRelationServiceImpl implements TagRelationService {
 
-/**
- * Implementation of the {@link org.apache.shenyu.admin.service.TagRelationService}.
- */
-@Service
+    private TagRelationMapper tagRelationMapper;
+
+    public TagRelationServiceImpl(final TagRelationMapper tagRelationMapper) {
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shenyu.admin.service` is unnecessary and can be removed
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/SyncDataServiceImpl.java`
-#### Snippet
-```java
-
-/**
- * Implementation of the {@link org.apache.shenyu.admin.service.SyncDataService}.
- */
-@Service
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shenyu.admin.service` is unnecessary and can be removed
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/MetaDataServiceImpl.java`
-#### Snippet
-```java
-
-/**
- * Implementation of the {@link org.apache.shenyu.admin.service.MetaDataService}.
- */
-@Service
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shenyu.admin.service` is unnecessary and can be removed
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/PluginHandleServiceImpl.java`
-#### Snippet
-```java
-
-/**
- * Implementation of the {@link org.apache.shenyu.admin.service.PluginHandleService}.
- */
-@Service
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shenyu.admin.service` is unnecessary and can be removed
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/PermissionServiceImpl.java`
-#### Snippet
-```java
-
-/**
- * Implementation of the {@link org.apache.shenyu.admin.service.PermissionService}.
- */
-@Service
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shenyu.admin.service` is unnecessary and can be removed
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/ResourceServiceImpl.java`
-#### Snippet
-```java
-
-/**
- * Implementation of the {@link org.apache.shenyu.admin.service.ResourceService}.
- */
-@Service
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shenyu.admin.service` is unnecessary and can be removed
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/ApiServiceImpl.java`
-#### Snippet
-```java
-
-/**
- * Implementation of the {@link org.apache.shenyu.admin.service.ApiService}.
- */
-@Service
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shenyu.admin.service` is unnecessary and can be removed
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/RoleServiceImpl.java`
-#### Snippet
-```java
-
-/**
- * Implementation of the {@link org.apache.shenyu.admin.service.RoleService}.
- */
-@Service
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shenyu.admin.service` is unnecessary and can be removed
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/DashboardUserServiceImpl.java`
-#### Snippet
-```java
-
-/**
- * Implementation of the {@link org.apache.shenyu.admin.service.DashboardUserService}.
- */
-@Service
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shenyu.admin.service` is unnecessary and can be removed
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/RuleServiceImpl.java`
-#### Snippet
-```java
-
-/**
- * Implementation of the {@link org.apache.shenyu.admin.service.RuleService}.
- */
-@Service
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shenyu.admin.service` is unnecessary and can be removed
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/DataPermissionServiceImpl.java`
-#### Snippet
-```java
-
-/**
- * Implementation of the {@link org.apache.shenyu.admin.service.DataPermissionService}.
- */
-@Service
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shenyu.admin.service` is unnecessary and can be removed
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/SelectorServiceImpl.java`
-#### Snippet
-```java
-
-/**
- * Implementation of the {@link org.apache.shenyu.admin.service.SelectorService}.
- * Maintain {@link SelectorDO} and {@link SelectorConditionDO} related data.
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shenyu.admin.service` is unnecessary and can be removed
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/ShenyuDictServiceImpl.java`
-#### Snippet
-```java
-
-/**
- * Implementation of the {@link org.apache.shenyu.admin.service.ShenyuDictService}.
- */
-@Service
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shenyu.admin.service` is unnecessary and can be removed
+### FieldMayBeFinal
+Field `tagMapper` may be 'final'
 in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/TagServiceImpl.java`
 #### Snippet
 ```java
+public class TagServiceImpl implements TagService {
 
-/**
- * Implementation of the {@link org.apache.shenyu.admin.service.TagService}.
- */
-@Service
+    private TagMapper tagMapper;
+
+    public TagServiceImpl(final TagMapper tagMapper) {
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shenyu.admin.service` is unnecessary and can be removed
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/EnumServiceImpl.java`
+### FieldMayBeFinal
+Field `shenyuLoaderService` may be 'final'
+in `shenyu-web/src/main/java/org/apache/shenyu/web/handler/ShenyuWebHandler.java`
 #### Snippet
 ```java
+    private final List<ShenyuPlugin> sourcePlugins;
 
-/**
- * Implementation of the {@link org.apache.shenyu.admin.service.EnumService}.
- */
-@Service
+    private ShenyuLoaderService shenyuLoaderService;
+
+    private final boolean scheduled;
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shenyu.admin.service` is unnecessary and can be removed
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/AppAuthServiceImpl.java`
+### FieldMayBeFinal
+Field `random` may be 'final'
+in `shenyu-loadbalancer/src/main/java/org/apache/shenyu/loadbalancer/spi/P2cLoadBalancer.java`
 #### Snippet
 ```java
+    private static final int PICK_TIMES = 3;
 
-/**
- * Implementation of the {@link org.apache.shenyu.admin.service.AppAuthService}.
- */
-@Service
+    private Random random = new Random();
+
+    /**
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.collections4.map` is unnecessary and can be removed
-in `shenyu-common/src/main/java/org/apache/shenyu/common/cache/MemorySafeLRUMap.java`
+### FieldMayBeFinal
+Field `succeeded` may be 'final'
+in `shenyu-loadbalancer/src/main/java/org/apache/shenyu/loadbalancer/entity/Upstream.java`
 #### Snippet
 ```java
+    private AtomicLong inflight = new AtomicLong(1);
 
-/**
- * The only difference between this class and {@link org.apache.commons.collections4.map.LRUMap}
- * is that it handles memory issues via {@link org.apache.shenyu.common.concurrent.MemoryLimitCalculator}.
- *
+    private AtomicLong succeeded = new AtomicLong(0);
+
+    private AtomicLong succeededElapsed = new AtomicLong(0);
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shenyu.common.concurrent` is unnecessary and can be removed
-in `shenyu-common/src/main/java/org/apache/shenyu/common/cache/MemorySafeLRUMap.java`
+### FieldMayBeFinal
+Field `succeededElapsed` may be 'final'
+in `shenyu-loadbalancer/src/main/java/org/apache/shenyu/loadbalancer/entity/Upstream.java`
 #### Snippet
 ```java
-/**
- * The only difference between this class and {@link org.apache.commons.collections4.map.LRUMap}
- * is that it handles memory issues via {@link org.apache.shenyu.common.concurrent.MemoryLimitCalculator}.
- *
- * <p>Note: this class is not thread safe! see https://github.com/apache/shenyu/issues/3929
+    private AtomicLong succeeded = new AtomicLong(0);
+
+    private AtomicLong succeededElapsed = new AtomicLong(0);
+
+    private Upstream(final Builder builder) {
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shenyu.common.concurrent` is unnecessary and can be removed
-in `shenyu-common/src/main/java/org/apache/shenyu/common/concurrent/Rejector.java`
+### FieldMayBeFinal
+Field `requestTemplate` may be 'final'
+in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/proxy/ShenyuClientMethodHandler.java`
 #### Snippet
 ```java
-/**
- * RejectHandler, it works when you need to custom reject action in
- * {@link org.apache.shenyu.common.concurrent.MemorySafeLinkedBlockingQueue}.
- *
- * @see AbortPolicy
+    private final ShenyuSdkClient shenyuHttpClient;
+
+    private RequestTemplate requestTemplate;
+
+    private final Map<Class<? extends Annotation>, AnnotatedParameterProcessor> annotatedArgumentProcessors;
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shenyu.common.concurrent` is unnecessary and can be removed
-in `shenyu-common/src/main/java/org/apache/shenyu/common/concurrent/MemorySafeTaskQueue.java`
+## RuleId[id=SpringXmlAutowireExplicitlyInspection]
+### SpringXmlAutowireExplicitlyInspection
+Make autowired dependency explicit
+in `shenyu-examples/shenyu-examples-sofa/shenyu-examples-sofa-service/src/main/resources/invoke-server-example.xml`
 #### Snippet
 ```java
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://sofastack.io/schema/sofaboot https://sofastack.io/schema/sofaboot.xsd"
+       default-autowire="byName">
 
-/**
- * MemorySafeTaskQueue in the {@link org.apache.shenyu.common.concurrent.ShenyuThreadPoolExecutor}.
- * It offer a task if the executor's submittedTaskCount less than currentPoolThreadSize
- * or the currentPoolThreadSize more than executor's maximumPoolSize.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `shenyu-common/src/main/java/org/apache/shenyu/common/concurrent/MemoryLimitCalculator.java`
-#### Snippet
-```java
-
-/**
- * {@link java.lang.Runtime#freeMemory()} technology is used to calculate the
- * memory limit by using the percentage of the current maximum available memory,
- * which can be used with {@link org.apache.shenyu.common.concurrent.MemoryLimiter}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shenyu.common.concurrent` is unnecessary and can be removed
-in `shenyu-common/src/main/java/org/apache/shenyu/common/concurrent/MemoryLimitCalculator.java`
-#### Snippet
-```java
- * {@link java.lang.Runtime#freeMemory()} technology is used to calculate the
- * memory limit by using the percentage of the current maximum available memory,
- * which can be used with {@link org.apache.shenyu.common.concurrent.MemoryLimiter}.
- *
- * @see org.apache.shenyu.common.concurrent.MemoryLimiter
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shenyu.common.concurrent` is unnecessary and can be removed
-in `shenyu-common/src/main/java/org/apache/shenyu/common/concurrent/MemoryLimitCalculator.java`
-#### Snippet
-```java
- * which can be used with {@link org.apache.shenyu.common.concurrent.MemoryLimiter}.
- *
- * @see org.apache.shenyu.common.concurrent.MemoryLimiter
- */
-public class MemoryLimitCalculator {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `shenyu-common/src/main/java/org/apache/shenyu/common/concurrent/MemorySafeLinkedBlockingQueue.java`
-#### Snippet
-```java
-
-/**
- * Can completely solve the OOM problem caused by {@link java.util.concurrent.LinkedBlockingQueue},
- * does not depend on {@link java.lang.instrument.Instrumentation} and is easier to use than
- * {@link org.apache.shenyu.common.concurrent.MemoryLimitedLinkedBlockingQueue}.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shenyu.common.concurrent` is unnecessary and can be removed
-in `shenyu-common/src/main/java/org/apache/shenyu/common/concurrent/MemorySafeLinkedBlockingQueue.java`
-#### Snippet
-```java
- * Can completely solve the OOM problem caused by {@link java.util.concurrent.LinkedBlockingQueue},
- * does not depend on {@link java.lang.instrument.Instrumentation} and is easier to use than
- * {@link org.apache.shenyu.common.concurrent.MemoryLimitedLinkedBlockingQueue}.
- */
-public class MemorySafeLinkedBlockingQueue<E> extends LinkedBlockingQueue<E> {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `shenyu-common/src/main/java/org/apache/shenyu/common/concurrent/TaskQueue.java`
-#### Snippet
-```java
-     * @param unit    timeout unit
-     * @return offer success or not
-     * @throws java.util.concurrent.RejectedExecutionException if executor is terminated.
-     * @throws java.lang.InterruptedException                  if the current thread is interrupted.
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `shenyu-common/src/main/java/org/apache/shenyu/common/concurrent/TaskQueue.java`
-#### Snippet
-```java
-     * @return offer success or not
-     * @throws java.util.concurrent.RejectedExecutionException if executor is terminated.
-     * @throws java.lang.InterruptedException                  if the current thread is interrupted.
-     */
-    default boolean retryOffer(final E o, final long timeout, final TimeUnit unit) throws InterruptedException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shenyu.common.concurrent` is unnecessary and can be removed
-in `shenyu-common/src/main/java/org/apache/shenyu/common/concurrent/MemoryLimitedTaskQueue.java`
-#### Snippet
-```java
-
-/**
- * MemoryLimitedTaskQueue in the {@link org.apache.shenyu.common.concurrent.ShenyuThreadPoolExecutor}.
- * It offer a task if the executor's submittedTaskCount less than currentPoolThreadSize
- * or the currentPoolThreadSize more than executor's maximumPoolSize.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.util.concurrent` is unnecessary and can be removed
-in `shenyu-common/src/main/java/org/apache/shenyu/common/concurrent/MemoryLimitedLinkedBlockingQueue.java`
-#### Snippet
-```java
-
-/**
- * Can completely solve the OOM problem caused by {@link java.util.concurrent.LinkedBlockingQueue}.
- *
- * @see org.apache.shenyu.common.concurrent.MemoryLimiter
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shenyu.common.concurrent` is unnecessary and can be removed
-in `shenyu-common/src/main/java/org/apache/shenyu/common/concurrent/MemoryLimitedLinkedBlockingQueue.java`
-#### Snippet
-```java
- * Can completely solve the OOM problem caused by {@link java.util.concurrent.LinkedBlockingQueue}.
- *
- * @see org.apache.shenyu.common.concurrent.MemoryLimiter
- * @see org.apache.shenyu.common.concurrent.MemoryLimitCalculator
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shenyu.common.concurrent` is unnecessary and can be removed
-in `shenyu-common/src/main/java/org/apache/shenyu/common/concurrent/MemoryLimitedLinkedBlockingQueue.java`
-#### Snippet
-```java
- *
- * @see org.apache.shenyu.common.concurrent.MemoryLimiter
- * @see org.apache.shenyu.common.concurrent.MemoryLimitCalculator
- */
-public class MemoryLimitedLinkedBlockingQueue<E> extends LinkedBlockingQueue<E> {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.google.gson` is unnecessary and can be removed
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/GsonUtils.java`
-#### Snippet
-```java
-     * translate JsonArray in covertToMap of Method.
-     *
-     * @param jsonArray the Gson's Object {@link com.google.gson.JsonArray}
-     * @return list about translating jsonArray
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shenyu.common.concurrent` is unnecessary and can be removed
-in `shenyu-common/src/main/java/org/apache/shenyu/common/concurrent/MemoryLimiter.java`
-#### Snippet
-```java
- * memory limiter.
- *
- * @see org.apache.shenyu.common.concurrent.MemoryLimitCalculator
- */
-public class MemoryLimiter {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shenyu.sdk.core` is unnecessary and can be removed
-in `shenyu-sdk/shenyu-sdk-core/src/main/java/org/apache/shenyu/sdk/core/retry/RetryableException.java`
-#### Snippet
-```java
-
-/**
- * This exception is raised when the {@link org.apache.shenyu.sdk.core.ShenyuResponse} is deemed to be retryable, typically via an
- * {@link org.apache.shenyu.common.exception.CommonErrorCode} when the {@link ShenyuResponse#getStatus() status} is 503.
- * Reference to feign.RetryableException.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shenyu.plugin.sign.extractor` is unnecessary and can be removed
-in `shenyu-plugin/shenyu-plugin-sign/src/main/java/org/apache/shenyu/plugin/sign/service/ComposableSignService.java`
-#### Snippet
-```java
- *    + base64Encoding(signature)
- * 2. new ComposableSignService(new CustomExtractor(), new CustomSignProvider())
- *     Customs {@link org.apache.shenyu.plugin.sign.extractor.SignParameterExtractor} and {@link org.apache.shenyu.plugin.sign.provider.SignProvider}
- *  </pre>
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.shenyu.plugin.sign.provider` is unnecessary and can be removed
-in `shenyu-plugin/shenyu-plugin-sign/src/main/java/org/apache/shenyu/plugin/sign/service/ComposableSignService.java`
-#### Snippet
-```java
- *    + base64Encoding(signature)
- * 2. new ComposableSignService(new CustomExtractor(), new CustomSignProvider())
- *     Customs {@link org.apache.shenyu.plugin.sign.extractor.SignParameterExtractor} and {@link org.apache.shenyu.plugin.sign.provider.SignProvider}
- *  </pre>
- */
-```
-
-## RuleId[id=NonProtectedConstructorInAbstractClass]
-### NonProtectedConstructorInAbstractClass
-Constructor `FailbackRegistryRepository()` of an abstract class should not be declared 'public'
-in `shenyu-register-center/shenyu-register-client/shenyu-register-client-api/src/main/java/org/apache/shenyu/register/client/api/FailbackRegistryRepository.java`
-#### Snippet
-```java
-     * Instantiates a new Failback registry repository.
-     */
-    public FailbackRegistryRepository() {
-        this.timer = WheelTimerFactory.getSharedTimer();
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractRoundTask()` of an abstract class should not be declared 'public'
-in `shenyu-common/src/main/java/org/apache/shenyu/common/timer/AbstractRoundTask.java`
-#### Snippet
-```java
-     * @param delayMs the delay ms
-     */
-    public AbstractRoundTask(final String key, final long delayMs) {
-        super(key, delayMs, -1);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractRetryTask()` of an abstract class should not be declared 'public'
-in `shenyu-common/src/main/java/org/apache/shenyu/common/timer/AbstractRetryTask.java`
-#### Snippet
-```java
-     * @param retryLimit the retry limit
-     */
-    public AbstractRetryTask(final String key,
-                             final long delayMs,
-                             final Integer retryCount,
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractRetryTask()` of an abstract class should not be declared 'public'
-in `shenyu-common/src/main/java/org/apache/shenyu/common/timer/AbstractRetryTask.java`
-#### Snippet
-```java
-     * @param delayMs the delay ms
-     */
-    public AbstractRetryTask(final String key,
-                             final long delayMs) {
-        this(key, delayMs, 1);
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractRetryTask()` of an abstract class should not be declared 'public'
-in `shenyu-common/src/main/java/org/apache/shenyu/common/timer/AbstractRetryTask.java`
-#### Snippet
-```java
-     * @param retryCount the retry count
-     */
-    public AbstractRetryTask(final String key,
-                             final long delayMs,
-                             final Integer retryCount) {
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `TimerTask()` of an abstract class should not be declared 'public'
-in `shenyu-common/src/main/java/org/apache/shenyu/common/timer/TimerTask.java`
-#### Snippet
-```java
-     * @param delayMs the delay ms
-     */
-    public TimerTask(final long delayMs) {
-        this(delayMs, TimeUnit.MILLISECONDS);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `TimerTask()` of an abstract class should not be declared 'public'
-in `shenyu-common/src/main/java/org/apache/shenyu/common/timer/TimerTask.java`
-#### Snippet
-```java
-     * @param unit  the unit
-     */
-    public TimerTask(final long delay, final TimeUnit unit) {
-        delayMs = unit.toMillis(delay);
-    }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractContextRefreshedEventListener()` of an abstract class should not be declared 'public'
-in `shenyu-client/shenyu-client-core/src/main/java/org/apache/shenyu/client/core/client/AbstractContextRefreshedEventListener.java`
-#### Snippet
-```java
-     * @param shenyuClientRegisterRepository the shenyuClientRegisterRepository
-     */
-    public AbstractContextRefreshedEventListener(final PropertiesConfig clientConfig,
-                                                 final ShenyuClientRegisterRepository shenyuClientRegisterRepository) {
-        Properties props = clientConfig.getProps();
+    <sofa:service ref="sofaSingleParamService" interface="org.apache.shenyu.examples.sofa.api.service.SofaSingleParamService">
 ```
 
 ## RuleId[id=SynchronizationOnLocalVariableOrMethodParameter]
 ### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on method parameter `apiClass`
-in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/proxy/ShenyuClientProxyFactory.java`
+Synchronization on local variable `shenyuClientRegisterService`
+in `shenyu-admin/src/main/java/org/apache/shenyu/admin/disruptor/subscriber/ApiDocExecutorSubscriber.java`
 #### Snippet
 ```java
-        }
-
-        synchronized (apiClass) {
-            Object proxy = Proxy.newProxyInstance(apiClass.getClassLoader(),
-                    new Class<?>[]{apiClass},
+        dataList.forEach(apiDoc -> Optional.ofNullable(this.shenyuClientRegisterService.get(apiDoc.getRpcType()))
+                .ifPresent(shenyuClientRegisterService -> {
+                    synchronized (shenyuClientRegisterService) {
+                        shenyuClientRegisterService.registerApiDoc(apiDoc);
+                    }
 ```
 
 ### SynchronizationOnLocalVariableOrMethodParameter
@@ -8550,1649 +13963,15 @@ in `shenyu-admin/src/main/java/org/apache/shenyu/admin/disruptor/subscriber/Meta
 ```
 
 ### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on local variable `shenyuClientRegisterService`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/disruptor/subscriber/ApiDocExecutorSubscriber.java`
+Synchronization on method parameter `apiClass`
+in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/proxy/ShenyuClientProxyFactory.java`
 #### Snippet
 ```java
-        dataList.forEach(apiDoc -> Optional.ofNullable(this.shenyuClientRegisterService.get(apiDoc.getRpcType()))
-                .ifPresent(shenyuClientRegisterService -> {
-                    synchronized (shenyuClientRegisterService) {
-                        shenyuClientRegisterService.registerApiDoc(apiDoc);
-                    }
-```
-
-## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
-in `shenyu-client/shenyu-client-grpc/src/main/java/org/apache/shenyu/client/grpc/GrpcClientEventListener.java`
-#### Snippet
-```java
-        ShenyuGrpcClient shenyuGrpcClient = AnnotatedElementUtils.findMergedAnnotation(method, ShenyuGrpcClient.class);
-        if (Objects.isNull(shenyuGrpcClient)) {
-            return null;
-        }
-        String produce = ShenyuClientConstants.MEDIA_TYPE_ALL_VALUE;
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/proxy/ShenyuClientMethodHandler.java`
-#### Snippet
-```java
-    private Object handlerResponse(final ShenyuResponse shenyuResponse, final Class<?> returnType) {
-        if (shenyuResponse == null || void.class == returnType) {
-            return null;
-        } else if (ShenyuResponse.class == returnType) {
-            return shenyuResponse;
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/proxy/ShenyuClientMethodHandler.java`
-#### Snippet
-```java
-            return JsonUtils.jsonToObject(shenyuResponse.getBody(), returnType);
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-zookeeper/src/main/java/org/apache/shenyu/register/client/server/zookeeper/ZookeeperClient.java`
-#### Snippet
-```java
-        try {
-            byte[] ret = client.getData().forPath(key);
-            return Objects.isNull(ret) ? null : new String(ret, StandardCharsets.UTF_8);
-        } catch (Exception e) {
-            throw new ShenyuException(e);
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-zookeeper/src/main/java/org/apache/shenyu/register/client/server/zookeeper/ZookeeperClient.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-zookeeper/src/main/java/org/apache/shenyu/register/client/server/zookeeper/ZookeeperClient.java`
-#### Snippet
-```java
-            return getDirectly(key);
-        }
-        return Objects.isNull(data.getData()) ? null : new String(data.getData(), StandardCharsets.UTF_8);
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/proxy/ShenyuClientInvocationHandler.java`
-#### Snippet
-```java
-                return (FallbackFactory<?>) applicationContext.getBean(fallbackFactory);
-            }
-            return null;
-        } catch (BeansException exception) {
-            LOG.error("No fallback available ", exception);
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/proxy/ShenyuClientInvocationHandler.java`
-#### Snippet
-```java
-        } catch (BeansException exception) {
-            LOG.error("No fallback available ", exception);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-client/shenyu-client-brpc/src/main/java/org/apache/shenyu/client/brpc/BrpcContextRefreshedEventListener.java`
-#### Snippet
-```java
-        ShenyuBrpcClient shenyuBrpcClient = AnnotatedElementUtils.findMergedAnnotation(method, ShenyuBrpcClient.class);
-        if (Objects.isNull(shenyuBrpcClient)) {
-            return null;
-        }
-        String produce = ShenyuClientConstants.MEDIA_TYPE_ALL_VALUE;
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-cache/shenyu-plugin-cache-memory/src/main/java/org/apache/shenyu/plugin/cache/memory/MemoryCache.java`
-#### Snippet
-```java
-                return this.mainCache.get(key).asMap().get(key);
-            }
-            return null;
-        });
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/ShenyuClientsRegistrar.java`
-#### Snippet
-```java
-    private String[] getQualifiers(final Map<String, Object> client) {
-        if (client == null) {
-            return null;
-        }
-        List<String> qualifierList = new ArrayList<>(Arrays.asList((String[]) client.get("qualifiers")));
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/ShenyuClientsRegistrar.java`
-#### Snippet
-```java
-            qualifierList = Collections.singletonList(getQualifier(client));
-        }
-        return !qualifierList.isEmpty() ? qualifierList.toArray(new String[0]) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/ShenyuClientsRegistrar.java`
-#### Snippet
-```java
-    private String getQualifier(final Map<String, Object> client) {
-        if (client == null) {
-            return null;
-        }
-        String qualifier = (String) client.get("qualifier");
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/ShenyuClientsRegistrar.java`
-#### Snippet
-```java
-            return qualifier;
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-sdk/shenyu-sdk-spring/src/main/java/org/apache/shenyu/sdk/spring/ShenyuClientsRegistrar.java`
-#### Snippet
-```java
-                return String.valueOf(evaluateValue);
-            }
-            return null;
-        }
-        return value;
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-brpc/src/main/java/org/apache/shenyu/plugin/brpc/proxy/BrpcProxyService.java`
-#### Snippet
-```java
-        } catch (Exception e) {
-            LOG.error("Exception caught in BrpcProxyService#genericInvoker.", e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-etcd/src/main/java/org/apache/shenyu/register/client/server/etcd/client/EtcdClient.java`
-#### Snippet
-```java
-            LOGGER.error("getChildren(path:{}) error.", path, e);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-etcd/src/main/java/org/apache/shenyu/register/client/server/etcd/client/EtcdClient.java`
-#### Snippet
-```java
-
-        if (Objects.isNull(response)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-springcloud/src/main/java/org/apache/shenyu/plugin/springcloud/loadbalance/ShenyuSpringCloudServiceChooser.java`
-#### Snippet
-```java
-        List<ServiceInstance> available = this.getServiceInstance(serviceId);
-        if (CollectionUtils.isEmpty(available)) {
-            return null;
-        }
-        final SpringCloudSelectorHandle springCloudSelectorHandle = SpringCloudPluginDataHandler.SELECTOR_CACHED.get().obtainHandle(selectorId);
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/model/bean/UpstreamInstance.java`
-#### Snippet
-```java
-            return contextPath.substring(1);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/shiro/config/ShiroRealm.java`
-#### Snippet
-```java
-        Set<String> permissions = permissionService.getAuthPermByUserName(userInfo.getUserName());
-        if (CollectionUtils.isEmpty(permissions)) {
-            return null;
-        }
-        SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/shiro/config/ShiroRealm.java`
-#### Snippet
-```java
-        String token = (String) authenticationToken.getCredentials();
-        if (StringUtils.isEmpty(token)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/ListUtil.java`
-#### Snippet
-```java
-    public static <R> R findFirst(final List<R> list, final Function<R, Boolean> function) {
-        if (CollectionUtils.isEmpty(list)) {
-            return null;
-        }
-        return list.stream().filter(r -> Boolean.TRUE.equals(function.apply(r))).findFirst().orElse(null);
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/PermissionServiceImpl.java`
-#### Snippet
-```java
-        UserInfo userInfo = JwtUtils.getUserInfo();
-        if (Objects.isNull(userInfo)) {
-            return null;
-        }
-        
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/PermissionServiceImpl.java`
-#### Snippet
-```java
-        List<ResourceVO> resourceVOList = getResourceListByUserName(userInfo.getUserName());
-        if (CollectionUtils.isEmpty(resourceVOList)) {
-            return null;
-        }
-        return new PermissionMenuVO(ResourceUtil.buildMenu(resourceVOList), getAuthPerm(resourceVOList), getAllAuthPerms());
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/ResourceServiceImpl.java`
-#### Snippet
-```java
-                .map(ResourceVO::buildResourceVO)
-                .collect(Collectors.toList());
-        return CollectionUtils.isEmpty(resourceVOList) ? null : ResourceUtil.buildMenu(resourceVOList);
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/DashboardUserServiceImpl.java`
-#### Snippet
-```java
-            return dashboardUserVO;
-        } catch (NameNotFoundException e) {
-            return null;
-        } catch (Exception e) {
-            LOG.error("ldap verify error.", e);
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/DashboardUserServiceImpl.java`
-#### Snippet
-```java
-        } catch (Exception e) {
-            LOG.error("ldap verify error.", e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/RuleServiceImpl.java`
-#### Snippet
-```java
-                        }
-                    }
-                    return null;
-                })
-                .filter(Objects::nonNull)
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/SandboxServiceImpl.java`
-#### Snippet
-```java
-                } catch (IOException e) {
-                    LOG.error("upload file fail", e);
-                    return null;
-                }
-            })
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/SandboxServiceImpl.java`
-#### Snippet
-```java
-    private String getSecureKey(final String appKey) {
-        AppAuthDO appAuthDO = appAuthService.findByAppKey(appKey);
-        return Objects.nonNull(appAuthDO) ? appAuthDO.getAppSecret() : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/HttpUtils.java`
-#### Snippet
-```java
-        if (response.isSuccessful()) {
-            ResponseBody body = response.body();
-            return body == null ? null : body.byteStream();
-        }
-        return null;
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/utils/HttpUtils.java`
-#### Snippet
-```java
-            return body == null ? null : body.byteStream();
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/SelectorServiceImpl.java`
-#### Snippet
-```java
-        PluginDO pluginDO = pluginMapper.selectById(selectorDO.getPluginId());
-        if (Objects.isNull(pluginDO)) {
-            return null;
-        }
-        return SelectorDO.transFrom(selectorDO, pluginDO.getName(), conditionDataList);
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/SelectorServiceImpl.java`
-#### Snippet
-```java
-                    PluginDO pluginDO = pluginDOMap.get(pluginId);
-                    if (Objects.isNull(pluginDO)) {
-                        return null;
-                    }
-                    List<ConditionData> conditionDataList = ConditionTransfer.INSTANCE.mapToSelectorDOS(selectorConditionMap.get(id));
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/manager/impl/DocManagerImpl.java`
-#### Snippet
-```java
-        } catch (Exception e) {
-            LOG.error("getDocInfo error= ", e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/manager/impl/SwaggerDocParser.java`
-#### Snippet
-```java
-        }
-        if (Objects.isNull(refElement)) {
-            return null;
-        }
-        String ref = refElement.getAsString();
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/UpstreamCheckService.java`
-#### Snippet
-```java
-                    LOG.error("check the url={} is fail ", commonUpstream.getUpstreamUrl());
-                }
-                return null;
-            }, invokeExecutor).exceptionally(ex -> {
-                LOG.error("An exception occurred during the check of url {}: {}", commonUpstream.getUpstreamUrl(), ex);
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/impl/UpstreamCheckService.java`
-#### Snippet
-```java
-            }, invokeExecutor).exceptionally(ex -> {
-                LOG.error("An exception occurred during the check of url {}: {}", commonUpstream.getUpstreamUrl(), ex);
-                return null;
-            }));
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/manager/impl/LoadServiceDocEntryImpl.java`
-#### Snippet
-```java
-    private UpstreamInstance getClusterLastUpdateInstance(final List<UpstreamInstance> allInstances) {
-        if (CollectionUtils.isEmpty(allInstances)) {
-            return null;
-        }
-        return allInstances.stream()
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/manager/impl/LoadServiceDocEntryImpl.java`
-#### Snippet
-```java
-        if (!supportSwaggerPluginMap.containsKey(selectorData.getPluginId())) {
-            LOG.info("getClusterLastUpdateInstance. pluginNae={} does not support pulling API documents.", selectorData.getPluginName());
-            return null;
-        }
-        List<UpstreamInstance> allInstances = getInstances(selectorData.getPluginId(), selectorData.getHandle(), selectorData.getName(), selectorData.getEnabled());
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/manager/impl/LoadServiceDocEntryImpl.java`
-#### Snippet
-```java
-        List<UpstreamInstance> allInstances = getInstances(selectorData.getPluginId(), selectorData.getHandle(), selectorData.getName(), selectorData.getEnabled());
-        if (Objects.isNull(allInstances)) {
-            return null;
-        }
-        return getClusterLastUpdateInstance(allInstances);
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/manager/impl/LoadServiceDocEntryImpl.java`
-#### Snippet
-```java
-        List<UpstreamInstance> allInstances = getInstances(selectorVO.getPluginId(), selectorVO.getHandle(), selectorVO.getName(), selectorVO.getEnabled());
-        if (CollectionUtils.isEmpty(allInstances)) {
-            return null;
-        }
-        return getClusterLastUpdateInstance(allInstances);
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/register/ShenyuClientRegisterTarsServiceImpl.java`
-#### Snippet
-```java
-
-        if (doSubmit(selectorDO.getId(), canAddList)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/register/ShenyuClientRegisterDubboServiceImpl.java`
-#### Snippet
-```java
-
-        if (doSubmit(selectorDO.getId(), canAddList)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/register/ShenyuClientRegisterGrpcServiceImpl.java`
-#### Snippet
-```java
-
-        if (doSubmit(selectorDO.getId(), canAddList)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/register/ShenyuClientRegisterDivideServiceImpl.java`
-#### Snippet
-```java
-
-        if (doSubmit(selectorDO.getId(), canAddList)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/service/register/ShenyuClientRegisterSpringCloudServiceImpl.java`
-#### Snippet
-```java
-
-        if (doSubmit(selectorDO.getId(), canAddList)) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-admin/src/main/java/org/apache/shenyu/admin/listener/apollo/ApolloClient.java`
-#### Snippet
-```java
-                key);
-        if (openItemDTO == null) {
-            return null;
-        }
-        if (openItemDTO.getKey().equals("timeout")) {
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/UriUtils.java`
-#### Snippet
-```java
-            return URI.create(uri);
-        }
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/ReflectUtils.java`
-#### Snippet
-```java
-    public static Object getFieldValue(final Object obj, final Field field) {
-        if (Objects.isNull(obj) || Objects.isNull(field)) {
-            return null;
-        }
-        field.setAccessible(true);
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/ReflectUtils.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/ReflectUtils.java`
-#### Snippet
-```java
-    public static Object getFieldValue(final Object obj, final String fieldName) {
-        if (Objects.isNull(obj) || StringUtils.isBlank(fieldName)) {
-            return null;
-        }
-        return getFieldValue(obj, getField(obj.getClass(), fieldName));
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/ReflectUtils.java`
-#### Snippet
-```java
-            LOG.error("", e);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/ReflectUtils.java`
-#### Snippet
-```java
-            errorCallBack.accept(e);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/JsonUtils.java`
-#### Snippet
-```java
-        } catch (IOException e) {
-            LOG.warn("write to Object error: " + json, e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/GsonUtils.java`
-#### Snippet
-```java
-                if (reader.peek() == JsonToken.NULL) {
-                    reader.nextNull();
-                    return null;
-                }
-                return Duration.parse(reader.nextString());
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-common/src/main/java/org/apache/shenyu/common/utils/GsonUtils.java`
-#### Snippet
-```java
-        public Map<T, U> deserialize(final JsonElement json, final Type type, final JsonDeserializationContext context) {
-            if (!json.isJsonObject()) {
-                return null;
-            }
-            String className = ((ParameterizedType) type).getRawType().getTypeName();
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-grpc/src/main/java/org/apache/shenyu/plugin/grpc/client/GrpcClientBuilder.java`
-#### Snippet
-```java
-        GrpcRegisterConfig config = Singleton.INST.get(GrpcRegisterConfig.class);
-        if (null == config) {
-            return null;
-        }
-        final String threadpool = Optional.ofNullable(config.getThreadpool()).orElse(Constants.CACHED);
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-grpc/src/main/java/org/apache/shenyu/plugin/grpc/client/GrpcClientBuilder.java`
-#### Snippet
-```java
-            case Constants.CACHED:
-            default:
-                return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-grpc/src/main/java/org/apache/shenyu/plugin/grpc/client/ShenyuGrpcClient.java`
-#### Snippet
-```java
-            default:
-                LOG.info("Unknown methodType:{}", methodType);
-                return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-grpc/src/main/java/org/apache/shenyu/plugin/grpc/loadbalance/picker/RoundRobinPicker.java`
-#### Snippet
-```java
-    protected SubChannelCopy pick(final List<SubChannelCopy> list) {
-        if (CollectionUtils.isEmpty(list)) {
-            return null;
-        }
-        final int size = list.size();
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-register-center/shenyu-register-client/shenyu-register-client-apollo/src/main/java/org/apache/shenyu/register/client/apollo/ApolloClient.java`
-#### Snippet
-```java
-                key);
-        if (openItemDTO == null) {
-            return null;
-        }
-        if (openItemDTO.getKey().equals("timeout")) {
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-grpc/src/main/java/org/apache/shenyu/plugin/grpc/loadbalance/picker/RandomPicker.java`
-#### Snippet
-```java
-    protected SubChannelCopy pick(final List<SubChannelCopy> list) {
-        if (CollectionUtils.isEmpty(list)) {
-            return null;
-        }
-        if (list.size() == 1) {
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-register-center/shenyu-register-client/shenyu-register-client-zookeeper/src/main/java/org/apache/shenyu/register/client/zookeeper/ZookeeperClient.java`
-#### Snippet
-```java
-            return getDirectly(key);
-        }
-        return Objects.isNull(data.getData()) ? null : new String(data.getData(), StandardCharsets.UTF_8);
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-register-center/shenyu-register-client/shenyu-register-client-zookeeper/src/main/java/org/apache/shenyu/register/client/zookeeper/ZookeeperClient.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-register-center/shenyu-register-client/shenyu-register-client-zookeeper/src/main/java/org/apache/shenyu/register/client/zookeeper/ZookeeperClient.java`
-#### Snippet
-```java
-        try {
-            byte[] ret = client.getData().forPath(key);
-            return Objects.isNull(ret) ? null : new String(ret, StandardCharsets.UTF_8);
-        } catch (Exception e) {
-            throw new ShenyuException(e);
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-client/shenyu-client-sofa/src/main/java/org/apache/shenyu/client/sofa/SofaServiceEventListener.java`
-#### Snippet
-```java
-        ShenyuSofaClient shenyuSofaClient = AnnotatedElementUtils.findMergedAnnotation(method, ShenyuSofaClient.class);
-        if (Objects.isNull(shenyuSofaClient)) {
-            return null;
-        }
-        String produce = ShenyuClientConstants.MEDIA_TYPE_ALL_VALUE;
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-client/shenyu-client-dubbo/shenyu-client-alibaba-dubbo/src/main/java/org/apache/shenyu/client/alibaba/dubbo/validation/AlibabaDubboClientValidator.java`
-#### Snippet
-```java
-    private static Object getMethodParameterBean(final Class<?> clazz, final Method method, final Object[] args) {
-        if (!hasConstraintParameter(method)) {
-            return null;
-        }
-        try {
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-client/shenyu-client-dubbo/shenyu-client-alibaba-dubbo/src/main/java/org/apache/shenyu/client/alibaba/dubbo/validation/AlibabaDubboClientValidator.java`
-#### Snippet
-```java
-        } catch (Exception e) {
-            LOG.warn(e.getMessage(), e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/validation/ApacheDubboClientValidator.java`
-#### Snippet
-```java
-    private static Object getMethodParameterBean(final Class<?> clazz, final Method method, final Object[] args) {
-        if (!hasConstraintParameter(method)) {
-            return null;
-        }
-        try {
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/validation/ApacheDubboClientValidator.java`
-#### Snippet
-```java
-        } catch (Exception e) {
-            LOG.warn(e.getMessage(), e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-client/shenyu-client-dubbo/shenyu-client-apache-dubbo/src/main/java/org/apache/shenyu/client/apache/dubbo/validation/ApacheDubboClientValidator.java`
-#### Snippet
-```java
-        Class<?> cached = methodClassMap.get(methodClassName);
-        if (cached != null) {
-            return cached == clazz ? null : cached;
-        }
-        try {
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-loadbalancer/src/main/java/org/apache/shenyu/loadbalancer/spi/AbstractLoadBalancer.java`
-#### Snippet
-```java
-    public Upstream select(final List<Upstream> upstreamList, final String ip) {
-        if (CollectionUtils.isEmpty(upstreamList)) {
-            return null;
-        }
-        if (upstreamList.size() == 1) {
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-register-center/shenyu-register-instance/shenyu-register-instance-zookeeper/src/main/java/org/apache/shenyu/register/instance/zookeeper/ZookeeperClient.java`
-#### Snippet
-```java
-        try {
-            byte[] ret = client.getData().forPath(key);
-            return Objects.isNull(ret) ? null : new String(ret, StandardCharsets.UTF_8);
-        } catch (Exception e) {
-            throw new ShenyuException(e);
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-register-center/shenyu-register-instance/shenyu-register-instance-zookeeper/src/main/java/org/apache/shenyu/register/instance/zookeeper/ZookeeperClient.java`
-#### Snippet
-```java
-            return getDirectly(key);
-        }
-        return Objects.isNull(data.getData()) ? null : new String(data.getData(), StandardCharsets.UTF_8);
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-register-center/shenyu-register-instance/shenyu-register-instance-zookeeper/src/main/java/org/apache/shenyu/register/instance/zookeeper/ZookeeperClient.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/GeneratorFactory.java`
-#### Snippet
-```java
-        int start = rule.indexOf("${");
-        if (start < 0) {
-            return null;
-        }
-        int counter = 1;
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/GeneratorFactory.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-mock/src/main/java/org/apache/shenyu/plugin/mock/generator/GeneratorFactory.java`
-#### Snippet
-```java
-            LOG.warn("{} can not parse,please check", rule);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-jwt/src/main/java/org/apache/shenyu/plugin/jwt/rule/JwtRuleHandle.java`
-#### Snippet
-```java
-    public static JwtRuleHandle newInstance(final String handleJson) {
-        if (Objects.isNull(handleJson)) {
-            return null;
-        }
-        Map<String, Object> handleMap = GsonUtils.getInstance().convertToMap(handleJson);
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-jwt/src/main/java/org/apache/shenyu/plugin/jwt/exception/ThrowingFunction.java`
-#### Snippet
-```java
-            return function.apply();
-        } catch (Exception e) {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-jwt/src/main/java/org/apache/shenyu/plugin/jwt/JwtPlugin.java`
-#### Snippet
-```java
-            finalAuthorization = authorization;
-        } else {
-            return null;
-        }
-        return isAuth2(finalAuthorization) ? finalAuthorization.split(" ")[1] : finalAuthorization;
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-jwt/src/main/java/org/apache/shenyu/plugin/jwt/JwtPlugin.java`
-#### Snippet
-```java
-
-        if (StringUtils.isEmpty(authorization)) {
-            return null;
-        }
-        JwtParserBuilder jwtParserBuilder = Jwts.parserBuilder();
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-jwt/src/main/java/org/apache/shenyu/plugin/jwt/JwtPlugin.java`
-#### Snippet
-```java
-            Jwt jwt = ThrowingFunction.wrap(() -> jwtParserExec.parse(authorization));
-            if (jwt == null) {
-                return null;
-            }
-            return (Map<String, Object>) jwt.getBody();
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-jwt/src/main/java/org/apache/shenyu/plugin/jwt/JwtPlugin.java`
-#### Snippet
-```java
-            return (Map<String, Object>) jwt.getBody();
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-web/src/main/java/org/apache/shenyu/web/loader/ShenyuPluginLoader.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-spring-boot-starter/shenyu-spring-boot-starter-sdk/src/main/java/org/apache/shenyu/springboot/starter/sdk/ShenyuSdkAutoConfiguration.java`
-#### Snippet
-```java
-        final String registerType = config.getRegisterType();
-        if ("local".equals(registerType)) {
-            return null;
-        }
-        return ShenyuInstanceRegisterRepositoryFactory.newAndInitInstance(config);
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-cryptor/src/main/java/org/apache/shenyu/plugin/cryptor/strategy/CryptorStrategyFactory.java`
-#### Snippet
-```java
-                return encrypt(ruleHandle.getStrategyName(), ruleHandle.getEncryptKey(), data);
-            default:
-                return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-cryptor/src/main/java/org/apache/shenyu/plugin/cryptor/strategy/CryptorStrategyFactory.java`
-#### Snippet
-```java
-        } catch (Exception e) {
-            LOG.error("decrypt data error: ", e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-cryptor/src/main/java/org/apache/shenyu/plugin/cryptor/strategy/CryptorStrategyFactory.java`
-#### Snippet
-```java
-        } catch (Exception e) {
-            LOG.error("encrypt data error: ", e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-cryptor/src/main/java/org/apache/shenyu/plugin/cryptor/strategy/MapTypeEnum.java`
-#### Snippet
-```java
-            // can not find field then return originalBody.
-            if (Objects.isNull(parseBody)) {
-                return null;
-            }
-            return CryptorUtil.crypt(ruleHandle, parseBody, originalBody, exchange);
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-cryptor/src/main/java/org/apache/shenyu/plugin/cryptor/strategy/MapTypeEnum.java`
-#### Snippet
-```java
-                    .collect(Collectors.toSet()));
-            if (CollectionUtils.isEmpty(pairs)) {
-                return null;
-            }
-            return CryptorUtil.crypt(ruleHandle, pairs, originalBody, exchange);
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-cryptor/src/main/java/org/apache/shenyu/plugin/cryptor/utils/JsonUtil.java`
-#### Snippet
-```java
-            }
-        } else {
-            return map.get(fieldName) == null ? null : map.get(fieldName).toString();
-        }
-        return str;
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-httpclient/src/main/java/org/apache/shenyu/plugin/httpclient/config/HttpClientProperties.java`
-#### Snippet
-```java
-                    return keyManagerFactory;
-                }
-                return null;
-            } catch (Exception e) {
-                throw new ShenyuException(e);
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-nacos/src/main/java/org/apache/shenyu/register/client/server/nacos/NacosClientServerRegisterRepository.java`
-#### Snippet
-```java
-                @Override
-                public Executor getExecutor() {
-                    return null;
-                }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-client/shenyu-client-http/shenyu-client-springmvc/src/main/java/org/apache/shenyu/client/springmvc/init/SpringMvcClientEventListener.java`
-#### Snippet
-```java
-    private String getPathByAnnotation(@Nullable final Annotation annotation) {
-        if (Objects.isNull(annotation)) {
-            return null;
-        }
-        final Object value = AnnotationUtils.getValue(annotation, "value");
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-client/shenyu-client-http/shenyu-client-springmvc/src/main/java/org/apache/shenyu/client/springmvc/init/SpringMvcClientEventListener.java`
-#### Snippet
-```java
-            return ((String[]) value)[0];
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-client/shenyu-client-http/shenyu-client-springmvc/src/main/java/org/apache/shenyu/client/springmvc/init/SpringMvcClientEventListener.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-api/src/main/java/org/apache/shenyu/plugin/api/result/ShenyuResult.java`
-#### Snippet
-```java
-     */
-    default T error(int code, String message, Object object) {
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-sync-data-center/shenyu-sync-data-zookeeper/src/main/java/org/apache/shenyu/sync/data/zookeeper/ZookeeperClient.java`
-#### Snippet
-```java
-        try {
-            byte[] ret = client.getData().forPath(key);
-            return Objects.isNull(ret) ? null : new String(ret, StandardCharsets.UTF_8);
-        } catch (Exception e) {
-            throw new ShenyuException(e);
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-sync-data-center/shenyu-sync-data-zookeeper/src/main/java/org/apache/shenyu/sync/data/zookeeper/ZookeeperClient.java`
-#### Snippet
-```java
-            return getDirectly(key);
-        }
-        return Objects.isNull(data.getData()) ? null : new String(data.getData(), StandardCharsets.UTF_8);
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-sync-data-center/shenyu-sync-data-zookeeper/src/main/java/org/apache/shenyu/sync/data/zookeeper/ZookeeperClient.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-client/shenyu-client-tars/src/main/java/org/apache/shenyu/client/tars/TarsServiceBeanEventListener.java`
-#### Snippet
-```java
-        ShenyuTarsClient shenyuTarsClient = AnnotatedElementUtils.findMergedAnnotation(method, ShenyuTarsClient.class);
-        if (Objects.isNull(shenyuTarsClient)) {
-            return null;
-        }
-        String produce = ShenyuClientConstants.MEDIA_TYPE_ALL_VALUE;
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-sync-data-center/shenyu-sync-data-nacos/src/main/java/org/apache/shenyu/sync/data/nacos/handler/NacosCacheHandler.java`
-#### Snippet
-```java
-            @Override
-            public Executor getExecutor() {
-                return null;
-            }
-        };
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-rocketmq/src/main/java/org/apache/shenyu/plugin/logging/rocketmq/client/RocketMQLogCollectClient.java`
-#### Snippet
-```java
-    private RPCHook getAclRPCHook(final RocketMQLogCollectConfig.RocketMQLogConfig config) {
-        if (StringUtils.isBlank(config.getAccessKey()) || StringUtils.isBlank(config.getSecretKey())) {
-            return null;
-        }
-        return new AclClientRPCHook(new SessionCredentials(config.getAccessKey(), config.getSecretKey()));
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-apollo/src/main/java/org/apache/shenyu/register/client/server/apollo/ApolloClient.java`
-#### Snippet
-```java
-        // no such key
-        if (openItemDTO == null) {
-            return null;
-        }
-        // todo handle timeout exception
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-register-center/shenyu-register-client-server/shenyu-register-client-server-apollo/src/main/java/org/apache/shenyu/register/client/server/apollo/ApolloClient.java`
-#### Snippet
-```java
-        // todo handle timeout exception
-        if ("timeout".equals(openItemDTO.getKey())) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-client/shenyu-client-http/shenyu-client-springcloud/src/main/java/org/apache/shenyu/client/springcloud/init/SpringCloudClientEventListener.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-client/shenyu-client-http/shenyu-client-springcloud/src/main/java/org/apache/shenyu/client/springcloud/init/SpringCloudClientEventListener.java`
-#### Snippet
-```java
-    private String getPathByAnnotation(@Nullable final Annotation annotation) {
-        if (Objects.isNull(annotation)) {
-            return null;
-        }
-        final Object value = AnnotationUtils.getValue(annotation, "value");
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-client/shenyu-client-http/shenyu-client-springcloud/src/main/java/org/apache/shenyu/client/springcloud/init/SpringCloudClientEventListener.java`
-#### Snippet
-```java
-            return ((String[]) value)[0];
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-client/shenyu-client-websocket/shenyu-client-spring-websocket/src/main/java/org/apache/shenyu/client/spring/websocket/init/SpringWebSocketClientEventListener.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-client/shenyu-client-websocket/shenyu-client-spring-websocket/src/main/java/org/apache/shenyu/client/spring/websocket/init/SpringWebSocketClientEventListener.java`
-#### Snippet
-```java
-        ShenyuSpringWebSocketClient shenyuSpringWebSocketClient = AnnotatedElementUtils.findMergedAnnotation(method, ShenyuSpringWebSocketClient.class);
-        if (Objects.isNull(shenyuSpringWebSocketClient)) {
-            return null;
-        }
-        String produce = ShenyuClientConstants.MEDIA_TYPE_ALL_VALUE;
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-client/shenyu-client-websocket/shenyu-client-spring-websocket/src/main/java/org/apache/shenyu/client/spring/websocket/init/SpringWebSocketClientEventListener.java`
-#### Snippet
-```java
-                                       @NonNull final String... pathAttributeName) {
-        if (Objects.isNull(annotation)) {
-            return null;
-        }
-        for (String s : pathAttributeName) {
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-client/shenyu-client-websocket/shenyu-client-spring-websocket/src/main/java/org/apache/shenyu/client/spring/websocket/init/SpringWebSocketClientEventListener.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-jwt/src/main/java/org/apache/shenyu/plugin/jwt/strategy/DefaultJwtConvertStrategy.java`
-#### Snippet
-```java
-        } catch (Exception exception) {
-            LOG.error("Failed to parse json , please check json format", exception);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/cache/MetaDataCache.java`
-#### Snippet
-```java
-                    return value;
-                });
-        return NULL.equals(metaData) ? null : metaData;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-client/shenyu-client-motan/src/main/java/org/apache/shenyu/client/motan/MotanServiceEventListener.java`
-#### Snippet
-```java
-        ShenyuMotanClient shenyuMotanClient = AnnotatedElementUtils.findMergedAnnotation(method, ShenyuMotanClient.class);
-        if (Objects.isNull(shenyuMotanClient)) {
-            return null;
-        }
-        String produce = ShenyuClientConstants.MEDIA_TYPE_ALL_VALUE;
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/AbstractShenyuPlugin.java`
-#### Snippet
-```java
-
-    private SelectorData obtainSelectorDataCacheIfEnabled(final String path) {
-        return matchCacheConfig.getSelector().getSelectorEnabled() ? MatchDataCache.getInstance().obtainSelectorData(named(), path) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/AbstractShenyuPlugin.java`
-#### Snippet
-```java
-    private RuleData trieMatchRule(final ServerWebExchange exchange, final SelectorData selectorData, final String path) {
-        if (!trieConfig.getEnabled()) {
-            return null;
-        }
-        RuleData ruleData = null;
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/trie/ShenyuTrie.java`
-#### Snippet
-```java
-    public ShenyuTrieNode getNode(final String uriPath) {
-        if (StringUtils.isBlank(uriPath)) {
-            return null;
-        }
-        String strippedPath = StringUtils.strip(uriPath, "/");
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/trie/ShenyuTrie.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/trie/ShenyuTrie.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/trie/ShenyuTrie.java`
-#### Snippet
-```java
-        String[] pathParts = StringUtils.split(strippedPath, "/");
-        if (ArrayUtils.isEmpty(pathParts)) {
-            return null;
-        }
-        int startIndex = 0;
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/trie/ShenyuTrie.java`
-#### Snippet
-```java
-            boolean endPath = Integer.compare(startIndex, pathParts.length - 1) == 0;
-            if (Objects.isNull(currentNode)) {
-                return null;
-            }
-            if (containsKey(currentNode.getChildren(), pathPart)) {
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/trie/ShenyuTrie.java`
-#### Snippet
-```java
-                    currentNode = pair.getRight();
-                } else {
-                    return null;
-                }
-            } else {
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/trie/ShenyuTrie.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/trie/ShenyuTrie.java`
-#### Snippet
-```java
-            return Pair.of(0, root);
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/trie/ShenyuTrie.java`
-#### Snippet
-```java
-    private ShenyuTrieNode findMatchWildcard(final Map<String, ShenyuTrieNode> children, final String pathPart) {
-        if (Objects.isNull(children)) {
-            return null;
-        }
-        return children.values().stream().filter(child -> child.getWildcard() && isMatchWildcardPattern(pathPart, child.getMatchStr())).findFirst().orElse(null);
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-plugin/shenyu-plugin-base/src/main/java/org/apache/shenyu/plugin/base/trie/ShenyuTrie.java`
-#### Snippet
-```java
-            return cache.get(key);
-        }
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `shenyu-sync-data-center/shenyu-sync-data-etcd/src/main/java/org/apache/shenyu/sync/data/etcd/EtcdClient.java`
-#### Snippet
-```java
-    private String getSubNodeKeyName(final String prefix, final String fullPath, final String separator) {
-        if (prefix.length() > fullPath.length()) {
-            return null;
         }
-        String pathWithoutPrefix = fullPath.substring(prefix.length());
-```
 
-### ReturnNull
-Return of `null`
-in `shenyu-sync-data-center/shenyu-sync-data-etcd/src/main/java/org/apache/shenyu/sync/data/etcd/EtcdClient.java`
-#### Snippet
-```java
-
-        if (CollectionUtils.isEmpty(keyValues)) {
-            return null;
-        }
-
-```
-
-## RuleId[id=AssignmentToLambdaParameter]
-### AssignmentToLambdaParameter
-Assignment to lambda parameter `ret`
-in `shenyu-plugin/shenyu-plugin-sofa/src/main/java/org/apache/shenyu/plugin/sofa/proxy/SofaProxyService.java`
-#### Snippet
-```java
-        return Mono.fromFuture(future.thenApply(ret -> {
-            if (Objects.isNull(ret)) {
-                ret = Constants.SOFA_RPC_RESULT_EMPTY;
-            }
-            
-```
-
-### AssignmentToLambdaParameter
-Assignment to lambda parameter `value`
-in `shenyu-plugin/shenyu-plugin-logging/shenyu-plugin-logging-console/src/main/java/org/apache/shenyu/plugin/logging/console/LoggingConsolePlugin.java`
-#### Snippet
-```java
-            params.forEach((key, value) -> {
-                // desensitized query parameters
-                value = Lists.newArrayList(value);
-                DataDesensitizeUtils.desensitizeList(desensitized, key, value, keyWordMatch, dataDesensitizeAlg);
-                logInfo.append(key).append(": ")
-```
-
-### AssignmentToLambdaParameter
-Assignment to lambda parameter `ret`
-in `shenyu-plugin/shenyu-plugin-dubbo/shenyu-plugin-apache-dubbo/src/main/java/org/apache/shenyu/plugin/apache/dubbo/proxy/ApacheDubboProxyService.java`
-#### Snippet
-```java
-        return Mono.fromFuture(invokeAsync(genericService, metaData.getMethodName(), pair.getLeft(), pair.getRight()).thenApply(ret -> {
-            if (Objects.isNull(ret)) {
-                ret = Constants.DUBBO_RPC_RESULT_EMPTY;
-            }
-            exchange.getAttributes().put(Constants.RPC_RESULT, ret);
-```
-
-### AssignmentToLambdaParameter
-Assignment to lambda parameter `ret`
-in `shenyu-plugin/shenyu-plugin-tars/src/main/java/org/apache/shenyu/plugin/tars/TarsPlugin.java`
-#### Snippet
-```java
-        return Mono.fromFuture(future.thenApply(ret -> {
-            if (Objects.isNull(ret)) {
-                ret = Constants.TARS_RPC_RESULT_EMPTY;
-            }
-            exchange.getAttributes().put(Constants.RPC_RESULT, ret);
+        synchronized (apiClass) {
+            Object proxy = Proxy.newProxyInstance(apiClass.getClassLoader(),
+                    new Class<?>[]{apiClass},
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
