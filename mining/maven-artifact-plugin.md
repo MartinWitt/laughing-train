@@ -38,6 +38,18 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/AbstractBuildinfoM
 ## RuleId[id=JavadocReference]
 ### JavadocReference
 Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/BuildInfoWriter.java`
+#### Snippet
+```java
+     * @param buildinfo the build info file
+     * @return output properties
+     * @throws MojoExecutionException
+     */
+    static Properties loadOutputProperties(File buildinfo) throws MojoExecutionException {
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/AbstractBuildinfoMojo.java`
 #### Snippet
 ```java
@@ -60,31 +72,7 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CompareMojo.java`
     private void checkAgainstReference(Map<Artifact, String> artifacts, boolean mono) throws MojoExecutionException {
 ```
 
-### JavadocReference
-Cannot resolve symbol `MojoExecutionException`
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/BuildInfoWriter.java`
-#### Snippet
-```java
-     * @param buildinfo the build info file
-     * @return output properties
-     * @throws MojoExecutionException
-     */
-    static Properties loadOutputProperties(File buildinfo) throws MojoExecutionException {
-```
-
 ## RuleId[id=IOStreamConstructor]
-### IOStreamConstructor
-'OutputStream' can be constructed using 'Files.newOutputStream()'
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/AbstractBuildinfoMojo.java`
-#### Snippet
-```java
-
-        try (PrintWriter p = new PrintWriter(new BufferedWriter(
-                new OutputStreamWriter(new FileOutputStream(buildinfoFile), StandardCharsets.UTF_8)))) {
-            BuildInfoWriter bi = new BuildInfoWriter(getLog(), p, mono, artifactHandlerManager, rtInformation);
-            bi.setIgnoreJavadoc(ignoreJavadoc);
-```
-
 ### IOStreamConstructor
 'InputStream' can be constructed using 'Files.newInputStream()'
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CheckBuildPlanMojo.java`
@@ -111,6 +99,18 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfo
 
 ### IOStreamConstructor
 'OutputStream' can be constructed using 'Files.newOutputStream()'
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/AbstractBuildinfoMojo.java`
+#### Snippet
+```java
+
+        try (PrintWriter p = new PrintWriter(new BufferedWriter(
+                new OutputStreamWriter(new FileOutputStream(buildinfoFile), StandardCharsets.UTF_8)))) {
+            BuildInfoWriter bi = new BuildInfoWriter(getLog(), p, mono, artifactHandlerManager, rtInformation);
+            bi.setIgnoreJavadoc(ignoreJavadoc);
+```
+
+### IOStreamConstructor
+'OutputStream' can be constructed using 'Files.newOutputStream()'
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CompareMojo.java`
 #### Snippet
 ```java
@@ -123,18 +123,6 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CompareMojo.java`
 
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
-Argument `last` might be null
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/AbstractBuildinfoMojo.java`
-#### Snippet
-```java
-            MavenProject last = getLastProject();
-            if (project != last) {
-                skip(last);
-                return;
-            }
-```
-
-### DataFlowIssue
 Dereference of `currentEnv` may produce `NullPointerException`
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
 #### Snippet
@@ -146,7 +134,31 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfo
                         }
 ```
 
+### DataFlowIssue
+Argument `last` might be null
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/AbstractBuildinfoMojo.java`
+#### Snippet
+```java
+            MavenProject last = getLastProject();
+            if (project != last) {
+                skip(last);
+                return;
+            }
+```
+
 ## RuleId[id=JavadocDeclaration]
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/BuildInfoWriter.java`
+#### Snippet
+```java
+     * @param buildinfo the build info file
+     * @return output properties
+     * @throws MojoExecutionException
+     */
+    static Properties loadOutputProperties(File buildinfo) throws MojoExecutionException {
+```
+
 ### JavadocDeclaration
 `@throws` tag description is missing
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/AbstractBuildinfoMojo.java`
@@ -181,18 +193,6 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/CompareMojo.java`
      * @throws MojoExecutionException
      */
     private void checkAgainstReference(Map<Artifact, String> artifacts, boolean mono) throws MojoExecutionException {
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/BuildInfoWriter.java`
-#### Snippet
-```java
-     * @param buildinfo the build info file
-     * @return output properties
-     * @throws MojoExecutionException
-     */
-    static Properties loadOutputProperties(File buildinfo) throws MojoExecutionException {
 ```
 
 ## RuleId[id=FieldMayBeFinal]
@@ -321,18 +321,6 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfo
 
 ## RuleId[id=IgnoreResultOfCall]
 ### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/AbstractBuildinfoMojo.java`
-#### Snippet
-```java
-        MavenProject root = mono ? project : getExecutionRoot();
-
-        buildinfoFile.getParentFile().mkdirs();
-
-        try (PrintWriter p = new PrintWriter(new BufferedWriter(
-```
-
-### IgnoreResultOfCall
 Result of `File.mkdir()` is ignored
 in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfoUtil.java`
 #### Snippet
@@ -342,6 +330,18 @@ in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/ReferenceBuildinfo
                 dir.mkdir();
             }
         }
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `src/main/java/org/apache/maven/plugins/artifact/buildinfo/AbstractBuildinfoMojo.java`
+#### Snippet
+```java
+        MavenProject root = mono ? project : getExecutionRoot();
+
+        buildinfoFile.getParentFile().mkdirs();
+
+        try (PrintWriter p = new PrintWriter(new BufferedWriter(
 ```
 
 ### IgnoreResultOfCall
