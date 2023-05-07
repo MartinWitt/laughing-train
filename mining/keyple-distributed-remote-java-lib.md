@@ -47,39 +47,15 @@ in `build.gradle.kts`
 
 ## RuleId[id=IgnoreResultOfCall]
 ### IgnoreResultOfCall
-Result of `Assert.notEmpty()` is ignored
-in `src/main/java/org/eclipse/keyple/distributed/RemotePluginServerFactoryBuilder.java`
-#### Snippet
-```java
-
-    public Builder(String remotePluginName) {
-      Assert.getInstance().notEmpty(remotePluginName, "remotePluginName");
-      this.remotePluginName = remotePluginName;
-      this.executorService = null;
-```
-
-### IgnoreResultOfCall
 Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/distributed/RemotePluginServerFactoryBuilder.java`
+in `src/main/java/org/eclipse/keyple/distributed/RemotePluginClientFactoryBuilder.java`
 #### Snippet
 ```java
     @Override
-    public BuilderStep withAsyncNode(AsyncEndpointServerSpi endpoint) {
+    public SyncNodePluginStep withSyncNode(SyncEndpointClientSpi endpoint) {
       Assert.getInstance().notNull(endpoint, "endpoint");
-      this.asyncEndpoint = endpoint;
+      this.syncEndpoint = endpoint;
       return this;
-```
-
-### IgnoreResultOfCall
-Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/distributed/RemotePluginServerFactoryBuilder.java`
-#### Snippet
-```java
-      Assert.getInstance()
-          .notEmpty(remotePluginName, "remotePluginName")
-          .notNull(executorService, "executorService");
-      this.remotePluginName = remotePluginName;
-      this.executorService = executorService;
 ```
 
 ### IgnoreResultOfCall
@@ -99,11 +75,11 @@ Result of `Assert.greaterOrEqual()` is ignored
 in `src/main/java/org/eclipse/keyple/distributed/RemotePluginClientFactoryBuilder.java`
 #### Snippet
 ```java
-    @Override
-    public SyncNodeReaderStep withPluginPollingStrategy(int requestFrequencyMillis) {
-      Assert.getInstance().greaterOrEqual(requestFrequencyMillis, 1, "requestFrequencyMillis");
-      this.syncPluginObservationStrategy =
-          new ServerPushEventStrategyAdapter(Type.POLLING, requestFrequencyMillis);
+      Assert.getInstance()
+          .notNull(endpoint, "endpoint")
+          .greaterOrEqual(timeoutSeconds, 1, "timeoutSeconds");
+      this.asyncEndpoint = endpoint;
+      this.asyncNodeClientTimeoutSeconds = timeoutSeconds;
 ```
 
 ### IgnoreResultOfCall
@@ -124,34 +100,10 @@ in `src/main/java/org/eclipse/keyple/distributed/RemotePluginClientFactoryBuilde
 #### Snippet
 ```java
     @Override
-    public BuilderStep withReaderPollingStrategy(int requestFrequencyMillis) {
+    public SyncNodeReaderStep withPluginPollingStrategy(int requestFrequencyMillis) {
       Assert.getInstance().greaterOrEqual(requestFrequencyMillis, 1, "requestFrequencyMillis");
-      this.syncReaderObservationStrategy =
+      this.syncPluginObservationStrategy =
           new ServerPushEventStrategyAdapter(Type.POLLING, requestFrequencyMillis);
-```
-
-### IgnoreResultOfCall
-Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/distributed/RemotePluginClientFactoryBuilder.java`
-#### Snippet
-```java
-    @Override
-    public SyncNodePluginStep withSyncNode(SyncEndpointClientSpi endpoint) {
-      Assert.getInstance().notNull(endpoint, "endpoint");
-      this.syncEndpoint = endpoint;
-      return this;
-```
-
-### IgnoreResultOfCall
-Result of `Assert.greaterOrEqual()` is ignored
-in `src/main/java/org/eclipse/keyple/distributed/RemotePluginClientFactoryBuilder.java`
-#### Snippet
-```java
-      Assert.getInstance()
-          .notNull(endpoint, "endpoint")
-          .greaterOrEqual(timeoutSeconds, 1, "timeoutSeconds");
-      this.asyncEndpoint = endpoint;
-      this.asyncNodeClientTimeoutSeconds = timeoutSeconds;
 ```
 
 ### IgnoreResultOfCall
@@ -164,6 +116,30 @@ in `src/main/java/org/eclipse/keyple/distributed/RemotePluginClientFactoryBuilde
       Assert.getInstance().notEmpty(remotePluginName, "remotePluginName");
       this.remotePluginName = remotePluginName;
       this.isPluginObservationEnabled = true;
+```
+
+### IgnoreResultOfCall
+Result of `Assert.greaterOrEqual()` is ignored
+in `src/main/java/org/eclipse/keyple/distributed/RemotePluginClientFactoryBuilder.java`
+#### Snippet
+```java
+    @Override
+    public BuilderStep withReaderPollingStrategy(int requestFrequencyMillis) {
+      Assert.getInstance().greaterOrEqual(requestFrequencyMillis, 1, "requestFrequencyMillis");
+      this.syncReaderObservationStrategy =
+          new ServerPushEventStrategyAdapter(Type.POLLING, requestFrequencyMillis);
+```
+
+### IgnoreResultOfCall
+Result of `Assert.greaterOrEqual()` is ignored
+in `src/main/java/org/eclipse/keyple/distributed/RemotePoolPluginClientFactoryBuilder.java`
+#### Snippet
+```java
+      Assert.getInstance()
+          .notNull(endpoint, "endpoint")
+          .greaterOrEqual(timeoutSeconds, 1, "timeoutSeconds");
+      this.asyncEndpoint = endpoint;
+      this.asyncNodeClientTimeoutSeconds = timeoutSeconds;
 ```
 
 ### IgnoreResultOfCall
@@ -191,15 +167,39 @@ in `src/main/java/org/eclipse/keyple/distributed/RemotePoolPluginClientFactoryBu
 ```
 
 ### IgnoreResultOfCall
-Result of `Assert.greaterOrEqual()` is ignored
-in `src/main/java/org/eclipse/keyple/distributed/RemotePoolPluginClientFactoryBuilder.java`
+Result of `Assert.notNull()` is ignored
+in `src/main/java/org/eclipse/keyple/distributed/RemotePluginServerFactoryBuilder.java`
 #### Snippet
 ```java
       Assert.getInstance()
-          .notNull(endpoint, "endpoint")
-          .greaterOrEqual(timeoutSeconds, 1, "timeoutSeconds");
+          .notEmpty(remotePluginName, "remotePluginName")
+          .notNull(executorService, "executorService");
+      this.remotePluginName = remotePluginName;
+      this.executorService = executorService;
+```
+
+### IgnoreResultOfCall
+Result of `Assert.notEmpty()` is ignored
+in `src/main/java/org/eclipse/keyple/distributed/RemotePluginServerFactoryBuilder.java`
+#### Snippet
+```java
+
+    public Builder(String remotePluginName) {
+      Assert.getInstance().notEmpty(remotePluginName, "remotePluginName");
+      this.remotePluginName = remotePluginName;
+      this.executorService = null;
+```
+
+### IgnoreResultOfCall
+Result of `Assert.notNull()` is ignored
+in `src/main/java/org/eclipse/keyple/distributed/RemotePluginServerFactoryBuilder.java`
+#### Snippet
+```java
+    @Override
+    public BuilderStep withAsyncNode(AsyncEndpointServerSpi endpoint) {
+      Assert.getInstance().notNull(endpoint, "endpoint");
       this.asyncEndpoint = endpoint;
-      this.asyncNodeClientTimeoutSeconds = timeoutSeconds;
+      return this;
 ```
 
 ### IgnoreResultOfCall
