@@ -1,121 +1,97 @@
 # safe-logging 
  
 # Bad smells
-I found 12 bad smells with 0 repairable:
+I found 7 bad smells with 0 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| UnnecessaryFullyQualifiedName | 8 | false |
+| DuplicatedCode | 3 | false |
 | NullableProblems | 2 | false |
-| ClassNameSameAsAncestorName | 1 | false |
+| Deprecation | 1 | false |
 | DeprecatedIsStillUsed | 1 | false |
-## RuleId[id=ClassNameSameAsAncestorName]
-### ClassNameSameAsAncestorName
-Class name `Assertions` is the same as one of its superclass' names
-in `preconditions-assertj/src/main/java/com/palantir/logsafe/testing/Assertions.java`
-#### Snippet
-```java
-
-@CheckReturnValue
-public class Assertions extends org.assertj.core.api.Assertions {
-    Assertions() {}
-
-```
-
-## RuleId[id=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.logging.log4j` is unnecessary, and can be replaced with an import
+## RuleId[id=DuplicatedCode]
+### DuplicatedCode
+Duplicated code
 in `logger-generator/src/main/java/com/palantir/logsafe/logger/generator/LoggerGenerator.java`
 #### Snippet
 ```java
-                .addModifiers(Modifier.FINAL)
-                .addSuperinterface(BRIDGE_NAME)
-                .addField(FieldSpec.builder(ClassName.get(org.apache.logging.log4j.Marker.class), MARKER_FIELD)
-                        .addModifiers(Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL)
-                        .initializer(
+            MethodSpec.Builder methodBuilder = spec.toBuilder();
+            methodBuilder.modifiers.clear();
+            boolean isVoidMethod = ClassName.VOID.equals(spec.returnType);
+            boolean hasArgList = hasArgList(spec);
+            boolean hasThrowableArg = hasThrowableArg(spec);
+            CodeBlock args = Stream.concat(
+                            Stream.of(CodeBlock.of("$N", MARKER_FIELD)),
+                            spec.parameters.stream().flatMap(param -> {
+                                if (hasArgList && ARGS_LIST_TYPE.equals(param.type)) {
+                                    if (hasThrowableArg) {
+                                        return Stream.of(CodeBlock.of("merge($N, $N)", param.name, THROWABLE_NAME));
+                                    } else {
+                                        return Stream.of(
+                                                CodeBlock.of("$N.toArray(new $T[0])", param.name, Object.class));
+                                    }
+                                } else if (hasThrowableArg && hasArgList && THROWABLE_TYPE.equals(param.type)) {
+                                    return Stream.empty();
+                                }
+                                return Stream.of(CodeBlock.of("$N", param.name));
+                            }))
+                    .collect(CodeBlock.joining(", "));
+            methodBuilder.addAnnotation(Override.class).addModifiers(Modifier.PUBLIC);
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.logging.log4j` is unnecessary, and can be replaced with an import
+### DuplicatedCode
+Duplicated code
 in `logger-generator/src/main/java/com/palantir/logsafe/logger/generator/LoggerGenerator.java`
 #### Snippet
 ```java
-                        .addModifiers(Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL)
-                        .initializer(
-                                "$T.getMarker($S)", org.apache.logging.log4j.MarkerManager.class, Safe.class.getName())
-                        .build())
-                .addField(FieldSpec.builder(ClassName.get(org.apache.logging.log4j.Logger.class), DELEGATE)
+            if (requiresLevelCheck) {
+                methodBuilder.beginControlFlow(
+                        "if ($N())",
+                        LoggerLevel.valueOf(spec.name.toUpperCase(Locale.ENGLISH))
+                                .isEnabled());
+            }
+            methodBuilder.addStatement("$L$N.$N($L)", isVoidMethod ? "" : "return ", DELEGATE, spec.name, args);
+            if (requiresLevelCheck) {
+                methodBuilder.endControlFlow();
+            }
+            loggerBuilder.addMethod(methodBuilder.build());
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.logging.log4j` is unnecessary, and can be replaced with an import
+### DuplicatedCode
+Duplicated code
 in `logger-generator/src/main/java/com/palantir/logsafe/logger/generator/LoggerGenerator.java`
 #### Snippet
 ```java
-                                "$T.getMarker($S)", org.apache.logging.log4j.MarkerManager.class, Safe.class.getName())
-                        .build())
-                .addField(FieldSpec.builder(ClassName.get(org.apache.logging.log4j.Logger.class), DELEGATE)
-                        .addModifiers(Modifier.PRIVATE, Modifier.FINAL)
-                        .build())
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.logging.log4j` is unnecessary, and can be replaced with an import
-in `logger-generator/src/main/java/com/palantir/logsafe/logger/generator/LoggerGenerator.java`
-#### Snippet
-```java
-                .addMethod(MethodSpec.constructorBuilder()
-                        .addParameter(
-                                ParameterSpec.builder(ClassName.get(org.apache.logging.log4j.Logger.class), DELEGATE)
+                        loggerBuilder
+                                .addMethod(MethodSpec.methodBuilder("merge")
+                                        .addModifiers(Modifier.PRIVATE, Modifier.STATIC)
+                                        .returns(ArrayTypeName.of(Object.class))
+                                        .addParameter(ParameterSpec.builder(ARGS_LIST_TYPE, "args")
+                                                .build())
+                                        .addParameter(ParameterSpec.builder(THROWABLE_TYPE, THROWABLE_NAME)
+                                                .build())
+                                        .addStatement(
+                                                "$1T $2N = $3N.toArray(new $4T[$3N.size() + 1])",
+                                                ArrayTypeName.of(Object.class),
+                                                "result",
+                                                "args",
+                                                Object.class)
+                                        .addStatement("$1N[$1N.length - 1] = $2N", "result", THROWABLE_NAME)
+                                        .addStatement("return $N", "result")
                                         .build())
-                        .addStatement(
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `logger-generator/src/main/java/com/palantir/logsafe/logger/generator/LoggerGenerator.java`
-#### Snippet
-```java
-                .addModifiers(Modifier.FINAL)
-                .addSuperinterface(BRIDGE_NAME)
-                .addField(FieldSpec.builder(ClassName.get(org.slf4j.Marker.class), MARKER_FIELD)
-                        .addModifiers(Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL)
-                        .initializer("$T.getMarker($S)", org.slf4j.MarkerFactory.class, Safe.class.getName())
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `logger-generator/src/main/java/com/palantir/logsafe/logger/generator/LoggerGenerator.java`
-#### Snippet
-```java
-                .addField(FieldSpec.builder(ClassName.get(org.slf4j.Marker.class), MARKER_FIELD)
-                        .addModifiers(Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL)
-                        .initializer("$T.getMarker($S)", org.slf4j.MarkerFactory.class, Safe.class.getName())
-                        .build())
-                .addField(FieldSpec.builder(ClassName.get(org.slf4j.Logger.class), DELEGATE)
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `logger-generator/src/main/java/com/palantir/logsafe/logger/generator/LoggerGenerator.java`
-#### Snippet
-```java
-                        .initializer("$T.getMarker($S)", org.slf4j.MarkerFactory.class, Safe.class.getName())
-                        .build())
-                .addField(FieldSpec.builder(ClassName.get(org.slf4j.Logger.class), DELEGATE)
-                        .addModifiers(Modifier.PRIVATE, Modifier.FINAL)
-                        .build())
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.slf4j` is unnecessary, and can be replaced with an import
-in `logger-generator/src/main/java/com/palantir/logsafe/logger/generator/LoggerGenerator.java`
-#### Snippet
-```java
-                        .build())
-                .addMethod(MethodSpec.constructorBuilder()
-                        .addParameter(ParameterSpec.builder(ClassName.get(org.slf4j.Logger.class), DELEGATE)
                                 .build())
-                        .addStatement(
+```
+
+## RuleId[id=Deprecation]
+### Deprecation
+'areEqual(java.lang.Object, java.lang.Object)' is deprecated
+in `preconditions-assertj/src/main/java/com/palantir/logsafe/testing/LoggableExceptionAssert.java`
+#### Snippet
+```java
+
+        String actualMessage = actual.getLogMessage();
+        if (!Objects.areEqual(actualMessage, logMessage)) {
+            throw new AssertionError(String.format(
+                    "Expecting safe logging message:%n <%s>%nbut was:%n <%s>", logMessage, actualMessage));
 ```
 
 ## RuleId[id=DeprecatedIsStillUsed]
