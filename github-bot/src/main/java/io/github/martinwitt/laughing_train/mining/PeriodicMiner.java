@@ -74,7 +74,7 @@ public class PeriodicMiner {
     }
 
     void mine(@Observes StartupEvent event) {
-        vertx.setTimer(TimeUnit.MINUTES.toMillis(5), v -> mineRandomRepo());
+        vertx.setTimer(TimeUnit.MINUTES.toMillis(5), v -> vertx.executeBlocking(it -> mineRandomRepo()));
     }
 
     private void mineRandomRepo() {
@@ -107,7 +107,7 @@ public class PeriodicMiner {
             logger.atWarning().withCause(e).log("Failed to mine random repo");
             registry.counter("mining.error").increment();
         } finally {
-            vertx.setTimer(TimeUnit.MINUTES.toMillis(1), v -> mineRandomRepo());
+            vertx.setTimer(TimeUnit.MINUTES.toMillis(1), v -> vertx.executeBlocking(it -> mineRandomRepo()));
         }
     }
 
