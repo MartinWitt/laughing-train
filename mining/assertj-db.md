@@ -887,6 +887,18 @@ in `src/main/java/org/assertj/db/type/Request.java`
 ```
 
 ### JavadocReference
+Symbol `load()` is inaccessible from here
+in `src/main/java/org/assertj/db/type/Table.java`
+#### Snippet
+```java
+   * Specific implementation of the loading for a {@code Table}.
+   *
+   * @param connection {@link Connection} to the database provided by {@link AbstractDbData#load()} private method.
+   * @throws NullPointerException If the {@link #name} field is {@code null}.
+   * @throws SQLException         SQL Exception.
+```
+
+### JavadocReference
 Symbol `returnToOrigin()` is inaccessible from here
 in `src/main/java/org/assertj/db/navigation/origin/package-info.java`
 #### Snippet
@@ -903,32 +915,8 @@ Symbol `dataSource` is inaccessible from here
 in `src/main/java/org/assertj/db/type/AbstractDbData.java`
 #### Snippet
 ```java
-   * @param index The column index.
-   * @return The column and the values
-   * @throws NullPointerException If the {@link #dataSource} and {@link #source} fields are {@code null}.
-   * @throws AssertJDBException If triggered, this exception wrap a possible {@link SQLException} during the loading.
-   */
-```
-
-### JavadocReference
-Symbol `source` is inaccessible from here
-in `src/main/java/org/assertj/db/type/AbstractDbData.java`
-#### Snippet
-```java
-   * @param index The column index.
-   * @return The column and the values
-   * @throws NullPointerException If the {@link #dataSource} and {@link #source} fields are {@code null}.
-   * @throws AssertJDBException If triggered, this exception wrap a possible {@link SQLException} during the loading.
-   */
-```
-
-### JavadocReference
-Symbol `dataSource` is inaccessible from here
-in `src/main/java/org/assertj/db/type/AbstractDbData.java`
-#### Snippet
-```java
    *
-   * @return The list of the values in columns.
+   * @return The list of the primary key name.
    * @throws NullPointerException If the {@link #dataSource} and {@link #source} fields are {@code null}.
    * @throws AssertJDBException If triggered, this exception wrap a possible {@link SQLException} during the loading.
    */
@@ -940,31 +928,7 @@ in `src/main/java/org/assertj/db/type/AbstractDbData.java`
 #### Snippet
 ```java
    *
-   * @return The list of the values in columns.
-   * @throws NullPointerException If the {@link #dataSource} and {@link #source} fields are {@code null}.
-   * @throws AssertJDBException If triggered, this exception wrap a possible {@link SQLException} during the loading.
-   */
-```
-
-### JavadocReference
-Symbol `dataSource` is inaccessible from here
-in `src/main/java/org/assertj/db/type/AbstractDbData.java`
-#### Snippet
-```java
-   * @param index The index
-   * @return The {@link Row}
-   * @throws NullPointerException If the {@link #dataSource} and {@link #source} fields are {@code null}.
-   * @throws AssertJDBException If triggered, this exception wrap a possible {@link SQLException} during the loading.
-   */
-```
-
-### JavadocReference
-Symbol `source` is inaccessible from here
-in `src/main/java/org/assertj/db/type/AbstractDbData.java`
-#### Snippet
-```java
-   * @param index The index
-   * @return The {@link Row}
+   * @return The list of the primary key name.
    * @throws NullPointerException If the {@link #dataSource} and {@link #source} fields are {@code null}.
    * @throws AssertJDBException If triggered, this exception wrap a possible {@link SQLException} during the loading.
    */
@@ -999,8 +963,8 @@ Symbol `dataSource` is inaccessible from here
 in `src/main/java/org/assertj/db/type/AbstractDbData.java`
 #### Snippet
 ```java
-   *
-   * @return The list of the values.
+   * @param index The column index.
+   * @return The column and the values
    * @throws NullPointerException If the {@link #dataSource} and {@link #source} fields are {@code null}.
    * @throws AssertJDBException If triggered, this exception wrap a possible {@link SQLException} during the loading.
    */
@@ -1011,32 +975,8 @@ Symbol `source` is inaccessible from here
 in `src/main/java/org/assertj/db/type/AbstractDbData.java`
 #### Snippet
 ```java
-   *
-   * @return The list of the values.
-   * @throws NullPointerException If the {@link #dataSource} and {@link #source} fields are {@code null}.
-   * @throws AssertJDBException If triggered, this exception wrap a possible {@link SQLException} during the loading.
-   */
-```
-
-### JavadocReference
-Symbol `dataSource` is inaccessible from here
-in `src/main/java/org/assertj/db/type/AbstractDbData.java`
-#### Snippet
-```java
-   *
-   * @return The list of the primary key name.
-   * @throws NullPointerException If the {@link #dataSource} and {@link #source} fields are {@code null}.
-   * @throws AssertJDBException If triggered, this exception wrap a possible {@link SQLException} during the loading.
-   */
-```
-
-### JavadocReference
-Symbol `source` is inaccessible from here
-in `src/main/java/org/assertj/db/type/AbstractDbData.java`
-#### Snippet
-```java
-   *
-   * @return The list of the primary key name.
+   * @param index The column index.
+   * @return The column and the values
    * @throws NullPointerException If the {@link #dataSource} and {@link #source} fields are {@code null}.
    * @throws AssertJDBException If triggered, this exception wrap a possible {@link SQLException} during the loading.
    */
@@ -1085,6 +1025,78 @@ in `src/main/java/org/assertj/db/type/AbstractDbData.java`
 ```java
    * </p>
    *
+   * @throws NullPointerException If the {@link #dataSource} and {@link #source} fields are {@code null}.
+   * @throws AssertJDBException If triggered, this exception wrap a possible {@link SQLException} during the loading.
+   */
+```
+
+### JavadocReference
+Symbol `dataSource` is inaccessible from here
+in `src/main/java/org/assertj/db/type/AbstractDbData.java`
+#### Snippet
+```java
+   * @param index The index
+   * @return The {@link Row}
+   * @throws NullPointerException If the {@link #dataSource} and {@link #source} fields are {@code null}.
+   * @throws AssertJDBException If triggered, this exception wrap a possible {@link SQLException} during the loading.
+   */
+```
+
+### JavadocReference
+Symbol `source` is inaccessible from here
+in `src/main/java/org/assertj/db/type/AbstractDbData.java`
+#### Snippet
+```java
+   * @param index The index
+   * @return The {@link Row}
+   * @throws NullPointerException If the {@link #dataSource} and {@link #source} fields are {@code null}.
+   * @throws AssertJDBException If triggered, this exception wrap a possible {@link SQLException} during the loading.
+   */
+```
+
+### JavadocReference
+Symbol `dataSource` is inaccessible from here
+in `src/main/java/org/assertj/db/type/AbstractDbData.java`
+#### Snippet
+```java
+   *
+   * @return The list of the values in columns.
+   * @throws NullPointerException If the {@link #dataSource} and {@link #source} fields are {@code null}.
+   * @throws AssertJDBException If triggered, this exception wrap a possible {@link SQLException} during the loading.
+   */
+```
+
+### JavadocReference
+Symbol `source` is inaccessible from here
+in `src/main/java/org/assertj/db/type/AbstractDbData.java`
+#### Snippet
+```java
+   *
+   * @return The list of the values in columns.
+   * @throws NullPointerException If the {@link #dataSource} and {@link #source} fields are {@code null}.
+   * @throws AssertJDBException If triggered, this exception wrap a possible {@link SQLException} during the loading.
+   */
+```
+
+### JavadocReference
+Symbol `dataSource` is inaccessible from here
+in `src/main/java/org/assertj/db/type/AbstractDbData.java`
+#### Snippet
+```java
+   *
+   * @return The list of the values.
+   * @throws NullPointerException If the {@link #dataSource} and {@link #source} fields are {@code null}.
+   * @throws AssertJDBException If triggered, this exception wrap a possible {@link SQLException} during the loading.
+   */
+```
+
+### JavadocReference
+Symbol `source` is inaccessible from here
+in `src/main/java/org/assertj/db/type/AbstractDbData.java`
+#### Snippet
+```java
+   *
+   * @return The list of the values.
    * @throws NullPointerException If the {@link #dataSource} and {@link #source} fields are {@code null}.
    * @throws AssertJDBException If triggered, this exception wrap a possible {@link SQLException} during the loading.
    */
@@ -1112,18 +1124,6 @@ in `src/main/java/org/assertj/db/navigation/ToValueFromColumn.java`
    * @see org.assertj.db.api.ChangeColumnAssert#valueAtStartPoint
    * @see org.assertj.db.api.ChangeColumnValueAssert#valueAtStartPoint
    */
-```
-
-### JavadocReference
-Symbol `load()` is inaccessible from here
-in `src/main/java/org/assertj/db/type/Table.java`
-#### Snippet
-```java
-   * Specific implementation of the loading for a {@code Table}.
-   *
-   * @param connection {@link Connection} to the database provided by {@link AbstractDbData#load()} private method.
-   * @throws NullPointerException If the {@link #name} field is {@code null}.
-   * @throws SQLException         SQL Exception.
 ```
 
 ### JavadocReference
@@ -1239,6 +1239,30 @@ Cannot resolve symbol `Condition`
 in `src/main/java/org/assertj/db/api/assertions/AssertOnValueCondition.java`
 #### Snippet
 ```java
+   * @throws NullPointerException if the given condition is {@code null}.
+   * @throws AssertionError if the actual value satisfies the given condition.
+   * @see org.assertj.db.api.AbstractValueAssert#isNot(Condition)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isNot(Condition)
+   */
+```
+
+### JavadocReference
+Cannot resolve symbol `Condition`
+in `src/main/java/org/assertj/db/api/assertions/AssertOnValueCondition.java`
+#### Snippet
+```java
+   * @throws AssertionError if the actual value satisfies the given condition.
+   * @see org.assertj.db.api.AbstractValueAssert#isNot(Condition)
+   * @see org.assertj.db.api.AbstractAssertWithValues#isNot(Condition)
+   */
+  T isNot(Condition<?> condition);
+```
+
+### JavadocReference
+Cannot resolve symbol `Condition`
+in `src/main/java/org/assertj/db/api/assertions/AssertOnValueCondition.java`
+#### Snippet
+```java
 
   /**
    * Verifies that the actual value satisfies the given condition. This method is an alias for <code>{@link #is(Condition)}</code>.
@@ -1268,30 +1292,6 @@ in `src/main/java/org/assertj/db/api/assertions/AssertOnValueCondition.java`
    * @see org.assertj.db.api.AbstractAssertWithValues#has(Condition)
    */
   T has(Condition<?> condition);
-```
-
-### JavadocReference
-Cannot resolve symbol `Condition`
-in `src/main/java/org/assertj/db/api/assertions/AssertOnValueCondition.java`
-#### Snippet
-```java
-   * @throws NullPointerException if the given condition is {@code null}.
-   * @throws AssertionError if the actual value satisfies the given condition.
-   * @see org.assertj.db.api.AbstractValueAssert#isNot(Condition)
-   * @see org.assertj.db.api.AbstractAssertWithValues#isNot(Condition)
-   */
-```
-
-### JavadocReference
-Cannot resolve symbol `Condition`
-in `src/main/java/org/assertj/db/api/assertions/AssertOnValueCondition.java`
-#### Snippet
-```java
-   * @throws AssertionError if the actual value satisfies the given condition.
-   * @see org.assertj.db.api.AbstractValueAssert#isNot(Condition)
-   * @see org.assertj.db.api.AbstractAssertWithValues#isNot(Condition)
-   */
-  T isNot(Condition<?> condition);
 ```
 
 ## RuleId[id=DataFlowIssue]
@@ -1397,54 +1397,6 @@ Empty string used in concatenation
 in `src/main/java/org/assertj/db/output/impl/PlainOutput.java`
 #### Snippet
 ```java
-      // Column name
-      stringBuilder.append(getCompleteColumnName(sizesList, columnsNameList,
-                                                 "", "TYPE", "" + dataType, "PRIMARY", ""));
-      // Type
-      stringBuilder.append(getCompleteType(sizesList, typesList,
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `src/main/java/org/assertj/db/output/impl/PlainOutput.java`
-#### Snippet
-```java
-      DataType dataType = change.getDataType();
-      String dataName = OutputType.getDataName(change);
-      int dataTypeColumnSize = getColumnSize("" + dataType, dataName);
-      if (size < dataTypeColumnSize) {
-        size = dataTypeColumnSize;
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `src/main/java/org/assertj/db/output/impl/PlainOutput.java`
-#### Snippet
-```java
-   */
-  private static int getColumnSize(String columnName, Object... objects) {
-    int size = ("" + columnName).length();
-    for (Object object : objects) {
-      int valueSize = getText(object).length();
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `src/main/java/org/assertj/db/output/impl/PlainOutput.java`
-#### Snippet
-```java
-    for (Integer size : sizesList) {
-      if (index < otherColumnsContent.length) {
-        stringBuilder.append(getFilledText("" + otherColumnsContent[index], size));
-        stringBuilder.append("|");
-      }
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `src/main/java/org/assertj/db/output/impl/PlainOutput.java`
-#### Snippet
-```java
 
     int changeTypeColumnSize = getColumnSize("TYPE", changeType);
     int dataTypeColumnSize = getColumnSize("" + dataType, dataName);
@@ -1469,11 +1421,47 @@ Empty string used in concatenation
 in `src/main/java/org/assertj/db/output/impl/PlainOutput.java`
 #### Snippet
 ```java
+   */
+  private static int getColumnSize(String columnName, Object... objects) {
+    int size = ("" + columnName).length();
+    for (Object object : objects) {
+      int valueSize = getText(object).length();
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `src/main/java/org/assertj/db/output/impl/PlainOutput.java`
+#### Snippet
+```java
+   */
+  private static String getText(Object object) {
+    return "" + object;
+  }
+
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `src/main/java/org/assertj/db/output/impl/PlainOutput.java`
+#### Snippet
+```java
     for (int size : sizesList) {
       if (index < otherColumnsContent.length) {
         stringBuilder.append(getFilledText("" + otherColumnsContent[index], size));
       } else {
         stringBuilder.append(getCellLine(size));
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `src/main/java/org/assertj/db/output/impl/PlainOutput.java`
+#### Snippet
+```java
+      // Column name
+      stringBuilder.append(getCompleteColumnName(sizesList, columnsNameList,
+                                                 "", "TYPE", "" + dataType, "PRIMARY", ""));
+      // Type
+      stringBuilder.append(getCompleteType(sizesList, typesList,
 ```
 
 ### TrivialStringConcatenation
@@ -1493,131 +1481,23 @@ Empty string used in concatenation
 in `src/main/java/org/assertj/db/output/impl/PlainOutput.java`
 #### Snippet
 ```java
-   */
-  private static String getText(Object object) {
-    return "" + object;
-  }
-
+      DataType dataType = change.getDataType();
+      String dataName = OutputType.getDataName(change);
+      int dataTypeColumnSize = getColumnSize("" + dataType, dataName);
+      if (size < dataTypeColumnSize) {
+        size = dataTypeColumnSize;
 ```
 
 ### TrivialStringConcatenation
 Empty string used in concatenation
-in `src/main/java/org/assertj/db/util/Values.java`
+in `src/main/java/org/assertj/db/output/impl/PlainOutput.java`
 #### Snippet
 ```java
-   */
-  private static boolean isBigDecimalCloseToNumber(BigDecimal nb, Number expected, Number tolerance) {
-    BigDecimal bigExpected = new BigDecimal("" + expected);
-    BigDecimal bigTolerance = new BigDecimal("" + tolerance);
-    BigDecimal bigMin = bigExpected.subtract(bigTolerance);
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `src/main/java/org/assertj/db/util/Values.java`
-#### Snippet
-```java
-  private static boolean isBigDecimalCloseToNumber(BigDecimal nb, Number expected, Number tolerance) {
-    BigDecimal bigExpected = new BigDecimal("" + expected);
-    BigDecimal bigTolerance = new BigDecimal("" + tolerance);
-    BigDecimal bigMin = bigExpected.subtract(bigTolerance);
-    BigDecimal bigMax = bigExpected.add(bigTolerance);
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `src/main/java/org/assertj/db/util/Values.java`
-#### Snippet
-```java
-      } else {
-        try {
-          bi = new BigInteger("" + object);
-        } catch (NumberFormatException e) {
-          throw new AssertJDBException("Expected <%s> can not be compared to a BigInteger (<%s>)", expected, object);
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `src/main/java/org/assertj/db/util/Values.java`
-#### Snippet
-```java
-      } else {
-        try {
-          bd = new BigDecimal("" + object);
-        } catch (NumberFormatException e) {
-          throw new AssertJDBException("Expected <%s> can not be compared to a BigDecimal (<%s>)", expected, object);
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `src/main/java/org/assertj/db/util/Values.java`
-#### Snippet
-```java
-        return Double.compare(d, expectedD);
-      } else if (object instanceof BigInteger) {
-        BigInteger bi = new BigInteger("" + expected);
-        return ((BigInteger) object).compareTo(bi);
-      } else if (object instanceof BigDecimal) {
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `src/main/java/org/assertj/db/util/Values.java`
-#### Snippet
-```java
-        return ((BigInteger) object).compareTo(bi);
-      } else if (object instanceof BigDecimal) {
-        BigDecimal bd = new BigDecimal("" + expected);
-        return ((BigDecimal) object).compareTo(bd);
-      } else if (object instanceof Byte) {
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `src/main/java/org/assertj/db/util/Values.java`
-#### Snippet
-```java
-    } else {
-      try {
-        bd = new BigDecimal("" + object);
-      } catch (NumberFormatException e) {
-        throw new AssertJDBException("Expected <%s> can not be compared to a BigDecimal (<%s>)", expected, object);
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `src/main/java/org/assertj/db/util/Values.java`
-#### Snippet
-```java
-    }
-
-    BigDecimal bigTolerance = new BigDecimal("" + tolerance);
-    BigDecimal bigMin = expected.subtract(bigTolerance);
-    BigDecimal bigMax = expected.add(bigTolerance);
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `src/main/java/org/assertj/db/util/Values.java`
-#### Snippet
-```java
-        }
-      } else if (number instanceof BigInteger) {
-        BigInteger bi = new BigInteger("" + expected);
-        if (((BigInteger) number).compareTo(bi) == 0) {
-          return true;
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `src/main/java/org/assertj/db/util/Values.java`
-#### Snippet
-```java
-        }
-      } else if (number instanceof BigDecimal) {
-        BigDecimal bd = new BigDecimal("" + expected);
-        if (((BigDecimal) number).compareTo(bd) == 0) {
-          return true;
+    for (Integer size : sizesList) {
+      if (index < otherColumnsContent.length) {
+        stringBuilder.append(getFilledText("" + otherColumnsContent[index], size));
+        stringBuilder.append("|");
+      }
 ```
 
 ### TrivialStringConcatenation
@@ -1716,32 +1596,163 @@ in `src/main/java/org/assertj/db/util/Values.java`
     BigInteger bigMax = expected.add(bigTolerance);
 ```
 
-## RuleId[id=RedundantCast]
-### RedundantCast
-Casting `null` to `String[]` is redundant
-in `src/main/java/org/assertj/db/type/Table.java`
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `src/main/java/org/assertj/db/util/Values.java`
 #### Snippet
 ```java
-   */
-  public Table(DataSource dataSource, String name) {
-    this(dataSource, name, (String[]) null, (String[]) null);
-  }
-
+      } else {
+        try {
+          bi = new BigInteger("" + object);
+        } catch (NumberFormatException e) {
+          throw new AssertJDBException("Expected <%s> can not be compared to a BigInteger (<%s>)", expected, object);
 ```
 
-### RedundantCast
-Casting `null` to `String[]` is redundant
-in `src/main/java/org/assertj/db/type/Table.java`
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `src/main/java/org/assertj/db/util/Values.java`
+#### Snippet
+```java
+      } else {
+        try {
+          bd = new BigDecimal("" + object);
+        } catch (NumberFormatException e) {
+          throw new AssertJDBException("Expected <%s> can not be compared to a BigDecimal (<%s>)", expected, object);
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `src/main/java/org/assertj/db/util/Values.java`
+#### Snippet
+```java
+        return Double.compare(d, expectedD);
+      } else if (object instanceof BigInteger) {
+        BigInteger bi = new BigInteger("" + expected);
+        return ((BigInteger) object).compareTo(bi);
+      } else if (object instanceof BigDecimal) {
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `src/main/java/org/assertj/db/util/Values.java`
+#### Snippet
+```java
+        return ((BigInteger) object).compareTo(bi);
+      } else if (object instanceof BigDecimal) {
+        BigDecimal bd = new BigDecimal("" + expected);
+        return ((BigDecimal) object).compareTo(bd);
+      } else if (object instanceof Byte) {
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `src/main/java/org/assertj/db/util/Values.java`
 #### Snippet
 ```java
    */
-  public Table(Source source, String name) {
-    this(source, name, (String[]) null, (String[]) null);
-  }
+  private static boolean isBigDecimalCloseToNumber(BigDecimal nb, Number expected, Number tolerance) {
+    BigDecimal bigExpected = new BigDecimal("" + expected);
+    BigDecimal bigTolerance = new BigDecimal("" + tolerance);
+    BigDecimal bigMin = bigExpected.subtract(bigTolerance);
+```
 
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `src/main/java/org/assertj/db/util/Values.java`
+#### Snippet
+```java
+  private static boolean isBigDecimalCloseToNumber(BigDecimal nb, Number expected, Number tolerance) {
+    BigDecimal bigExpected = new BigDecimal("" + expected);
+    BigDecimal bigTolerance = new BigDecimal("" + tolerance);
+    BigDecimal bigMin = bigExpected.subtract(bigTolerance);
+    BigDecimal bigMax = bigExpected.add(bigTolerance);
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `src/main/java/org/assertj/db/util/Values.java`
+#### Snippet
+```java
+    } else {
+      try {
+        bd = new BigDecimal("" + object);
+      } catch (NumberFormatException e) {
+        throw new AssertJDBException("Expected <%s> can not be compared to a BigDecimal (<%s>)", expected, object);
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `src/main/java/org/assertj/db/util/Values.java`
+#### Snippet
+```java
+    }
+
+    BigDecimal bigTolerance = new BigDecimal("" + tolerance);
+    BigDecimal bigMin = expected.subtract(bigTolerance);
+    BigDecimal bigMax = expected.add(bigTolerance);
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `src/main/java/org/assertj/db/util/Values.java`
+#### Snippet
+```java
+        }
+      } else if (number instanceof BigInteger) {
+        BigInteger bi = new BigInteger("" + expected);
+        if (((BigInteger) number).compareTo(bi) == 0) {
+          return true;
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `src/main/java/org/assertj/db/util/Values.java`
+#### Snippet
+```java
+        }
+      } else if (number instanceof BigDecimal) {
+        BigDecimal bd = new BigDecimal("" + expected);
+        if (((BigDecimal) number).compareTo(bd) == 0) {
+          return true;
 ```
 
 ## RuleId[id=NullArgumentToVariableArgMethod]
+### NullArgumentToVariableArgMethod
+Confusing argument `pksValueStringBuilders`, unclear if a varargs or non-varargs call is desired
+in `src/main/java/org/assertj/db/output/impl/PlainOutput.java`
+#### Snippet
+```java
+    int changeTypeColumnSize = getColumnSize("TYPE", changeType);
+    int dataTypeColumnSize = getColumnSize("" + dataType, dataName);
+    int primaryKeyColumnSize = getColumnSize("PRIMARY", pksValueStringBuilders);
+    List<Integer> sizesList = getSizesList(getColumnSizesList(rowAtStartPoint, rowAtEndPoint),
+                                           changeTypeColumnSize,
+```
+
+### NullArgumentToVariableArgMethod
+Confusing argument `pksValueStringBuilders`, unclear if a varargs or non-varargs call is desired
+in `src/main/java/org/assertj/db/output/impl/PlainOutput.java`
+#### Snippet
+```java
+    int indexColumnSize = getIndexColumnSize(rows.length);
+    StringBuilder[] pksValueStringBuilders = OutputType.getPksValueStringBuilder(rows);
+    int primaryKeyColumnSize = getColumnSize("PRIMARY", pksValueStringBuilders);
+    List<Integer> sizesList = getSizesList(rows.length == 0 ? getColumnSizesList(columnsNameList) : getColumnSizesList(rows),
+                                           indexColumnSize,
+```
+
+### NullArgumentToVariableArgMethod
+Confusing argument `pksValueStringBuilders`, unclear if a varargs or non-varargs call is desired
+in `src/main/java/org/assertj/db/output/impl/PlainOutput.java`
+#### Snippet
+```java
+    int indexColumnSize = getIndexColumnSize(rows.length);
+    StringBuilder[] pksValueStringBuilders = OutputType.getPksValueStringBuilder(rows);
+    int primaryKeyColumnSize = getColumnSize("PRIMARY", pksValueStringBuilders);
+    List<Integer> sizesList = getSizesList(rows.length == 0 ? getColumnSizesList(columnsNameList) : getColumnSizesList(rows),
+                                           indexColumnSize,
+```
+
 ### NullArgumentToVariableArgMethod
 Confusing argument `pksValueStringBuilders`, unclear if a varargs or non-varargs call is desired
 in `src/main/java/org/assertj/db/output/impl/PlainOutput.java`
@@ -1759,18 +1770,6 @@ Confusing argument `pksValueStringBuilders`, unclear if a varargs or non-varargs
 in `src/main/java/org/assertj/db/output/impl/PlainOutput.java`
 #### Snippet
 ```java
-    int indexColumnSize = getIndexColumnSize(rows.length);
-    StringBuilder[] pksValueStringBuilders = OutputType.getPksValueStringBuilder(rows);
-    int primaryKeyColumnSize = getColumnSize("PRIMARY", pksValueStringBuilders);
-    List<Integer> sizesList = getSizesList(rows.length == 0 ? getColumnSizesList(columnsNameList) : getColumnSizesList(rows),
-                                           indexColumnSize,
-```
-
-### NullArgumentToVariableArgMethod
-Confusing argument `pksValueStringBuilders`, unclear if a varargs or non-varargs call is desired
-in `src/main/java/org/assertj/db/output/impl/PlainOutput.java`
-#### Snippet
-```java
     List<String> typesList = OutputType.getTypesList(row);
     StringBuilder[] pksValueStringBuilders = OutputType.getPksValueStringBuilder(row);
     int primaryKeyColumnSize = getColumnSize("PRIMARY", pksValueStringBuilders);
@@ -1778,28 +1777,29 @@ in `src/main/java/org/assertj/db/output/impl/PlainOutput.java`
                                            primaryKeyColumnSize);
 ```
 
-### NullArgumentToVariableArgMethod
-Confusing argument `pksValueStringBuilders`, unclear if a varargs or non-varargs call is desired
-in `src/main/java/org/assertj/db/output/impl/PlainOutput.java`
+## RuleId[id=RedundantCast]
+### RedundantCast
+Casting `null` to `String[]` is redundant
+in `src/main/java/org/assertj/db/type/Table.java`
 #### Snippet
 ```java
-    int indexColumnSize = getIndexColumnSize(rows.length);
-    StringBuilder[] pksValueStringBuilders = OutputType.getPksValueStringBuilder(rows);
-    int primaryKeyColumnSize = getColumnSize("PRIMARY", pksValueStringBuilders);
-    List<Integer> sizesList = getSizesList(rows.length == 0 ? getColumnSizesList(columnsNameList) : getColumnSizesList(rows),
-                                           indexColumnSize,
+   */
+  public Table(Source source, String name) {
+    this(source, name, (String[]) null, (String[]) null);
+  }
+
 ```
 
-### NullArgumentToVariableArgMethod
-Confusing argument `pksValueStringBuilders`, unclear if a varargs or non-varargs call is desired
-in `src/main/java/org/assertj/db/output/impl/PlainOutput.java`
+### RedundantCast
+Casting `null` to `String[]` is redundant
+in `src/main/java/org/assertj/db/type/Table.java`
 #### Snippet
 ```java
-    int changeTypeColumnSize = getColumnSize("TYPE", changeType);
-    int dataTypeColumnSize = getColumnSize("" + dataType, dataName);
-    int primaryKeyColumnSize = getColumnSize("PRIMARY", pksValueStringBuilders);
-    List<Integer> sizesList = getSizesList(getColumnSizesList(rowAtStartPoint, rowAtEndPoint),
-                                           changeTypeColumnSize,
+   */
+  public Table(DataSource dataSource, String name) {
+    this(dataSource, name, (String[]) null, (String[]) null);
+  }
+
 ```
 
 ## RuleId[id=ConstantValue]
