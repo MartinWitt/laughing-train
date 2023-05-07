@@ -46,6 +46,18 @@ String values are compared using `==`, not 'equals()'
 in `src/main/java/org/apache/commons/lang3/BooleanUtils.java`
 #### Snippet
 ```java
+        // Similar performance for null, 'false', and other strings not length 2/3/4.
+        // 'true'/'TRUE' match 4 times slower, 'tRUE'/'True' 7 times slower.
+        if (str == TRUE) {
+            return Boolean.TRUE;
+        }
+```
+
+### StringEquality
+String values are compared using `==`, not 'equals()'
+in `src/main/java/org/apache/commons/lang3/BooleanUtils.java`
+#### Snippet
+```java
      */
     public static boolean toBoolean(final String str, final String trueString, final String falseString) {
         if (str == trueString) {
@@ -62,18 +74,6 @@ in `src/main/java/org/apache/commons/lang3/BooleanUtils.java`
         }
         if (str == falseString) {
             return false;
-        }
-```
-
-### StringEquality
-String values are compared using `==`, not 'equals()'
-in `src/main/java/org/apache/commons/lang3/BooleanUtils.java`
-#### Snippet
-```java
-        // Similar performance for null, 'false', and other strings not length 2/3/4.
-        // 'true'/'TRUE' match 4 times slower, 'tRUE'/'True' 7 times slower.
-        if (str == TRUE) {
-            return Boolean.TRUE;
         }
 ```
 
@@ -141,144 +141,12 @@ in `src/main/java/org/apache/commons/lang3/time/DateUtils.java`
 
 ## RuleId[id=UNCHECKED_WARNING]
 ### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableIntToDoubleFunction' to 'org.apache.commons.lang3.function.FailableIntToDoubleFunction'
-in `src/main/java/org/apache/commons/lang3/function/FailableIntToDoubleFunction.java`
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableObjLongConsumer' to 'org.apache.commons.lang3.function.FailableObjLongConsumer'
+in `src/main/java/org/apache/commons/lang3/function/FailableObjLongConsumer.java`
 #### Snippet
 ```java
      */
-    static <E extends Throwable> FailableIntToDoubleFunction<E> nop() {
-        return NOP;
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableIntConsumer' to 'org.apache.commons.lang3.function.FailableIntConsumer'
-in `src/main/java/org/apache/commons/lang3/function/FailableIntConsumer.java`
-#### Snippet
-```java
-     */
-    static <E extends Throwable> FailableIntConsumer<E> nop() {
-        return NOP;
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableToDoubleFunction' to 'org.apache.commons.lang3.function.FailableToDoubleFunction'
-in `src/main/java/org/apache/commons/lang3/function/FailableToDoubleFunction.java`
-#### Snippet
-```java
-     */
-    static <T, E extends Throwable> FailableToDoubleFunction<T, E> nop() {
-        return NOP;
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableIntFunction' to 'org.apache.commons.lang3.function.FailableIntFunction'
-in `src/main/java/org/apache/commons/lang3/function/FailableIntFunction.java`
-#### Snippet
-```java
-     */
-    static <R, E extends Throwable> FailableIntFunction<R, E> nop() {
-        return NOP;
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableBiConsumer' to 'org.apache.commons.lang3.function.FailableBiConsumer'
-in `src/main/java/org/apache/commons/lang3/function/FailableBiConsumer.java`
-#### Snippet
-```java
-     */
-    static <T, U, E extends Throwable> FailableBiConsumer<T, U, E> nop() {
-        return NOP;
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableLongUnaryOperator' to 'org.apache.commons.lang3.function.FailableLongUnaryOperator'
-in `src/main/java/org/apache/commons/lang3/function/FailableLongUnaryOperator.java`
-#### Snippet
-```java
-     */
-   static <E extends Throwable> FailableLongUnaryOperator<E> nop() {
-        return NOP;
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableIntToLongFunction' to 'org.apache.commons.lang3.function.FailableIntToLongFunction'
-in `src/main/java/org/apache/commons/lang3/function/FailableIntToLongFunction.java`
-#### Snippet
-```java
-     */
-    static <E extends Throwable> FailableIntToLongFunction<E> nop() {
-        return NOP;
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableObjDoubleConsumer' to 'org.apache.commons.lang3.function.FailableObjDoubleConsumer'
-in `src/main/java/org/apache/commons/lang3/function/FailableObjDoubleConsumer.java`
-#### Snippet
-```java
-     */
-   static <T, E extends Throwable> FailableObjDoubleConsumer<T, E> nop() {
-        return NOP;
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableToLongFunction' to 'org.apache.commons.lang3.function.FailableToLongFunction'
-in `src/main/java/org/apache/commons/lang3/function/FailableToLongFunction.java`
-#### Snippet
-```java
-     */
-    static <T, E extends Throwable> FailableToLongFunction<T, E> nop() {
-        return NOP;
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableConsumer' to 'org.apache.commons.lang3.function.FailableConsumer'
-in `src/main/java/org/apache/commons/lang3/function/FailableConsumer.java`
-#### Snippet
-```java
-     */
-    static <T, E extends Throwable> FailableConsumer<T, E> nop() {
-        return NOP;
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableLongConsumer' to 'org.apache.commons.lang3.function.FailableLongConsumer'
-in `src/main/java/org/apache/commons/lang3/function/FailableLongConsumer.java`
-#### Snippet
-```java
-     */
-    static <E extends Throwable> FailableLongConsumer<E> nop() {
-        return NOP;
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableLongToIntFunction' to 'org.apache.commons.lang3.function.FailableLongToIntFunction'
-in `src/main/java/org/apache/commons/lang3/function/FailableLongToIntFunction.java`
-#### Snippet
-```java
-     */
-    static <E extends Throwable> FailableLongToIntFunction<E> nop() {
+    static <T, E extends Throwable> FailableObjLongConsumer<T, E> nop() {
         return NOP;
     }
 
@@ -297,121 +165,133 @@ in `src/main/java/org/apache/commons/lang3/function/FailableToIntBiFunction.java
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableToDoubleBiFunction' to 'org.apache.commons.lang3.function.FailableToDoubleBiFunction'
-in `src/main/java/org/apache/commons/lang3/function/FailableToDoubleBiFunction.java`
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableDoublePredicate' to 'org.apache.commons.lang3.function.FailableDoublePredicate'
+in `src/main/java/org/apache/commons/lang3/function/FailableDoublePredicate.java`
 #### Snippet
 ```java
      */
-    static <T, U, E extends Throwable> FailableToDoubleBiFunction<T, U, E> nop() {
-        return NOP;
+   static <E extends Throwable> FailableDoublePredicate<E> falsePredicate() {
+        return FALSE;
     }
 
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableObjLongConsumer' to 'org.apache.commons.lang3.function.FailableObjLongConsumer'
-in `src/main/java/org/apache/commons/lang3/function/FailableObjLongConsumer.java`
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableDoublePredicate' to 'org.apache.commons.lang3.function.FailableDoublePredicate'
+in `src/main/java/org/apache/commons/lang3/function/FailableDoublePredicate.java`
 #### Snippet
 ```java
      */
-    static <T, E extends Throwable> FailableObjLongConsumer<T, E> nop() {
-        return NOP;
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableToLongBiFunction' to 'org.apache.commons.lang3.function.FailableToLongBiFunction'
-in `src/main/java/org/apache/commons/lang3/function/FailableToLongBiFunction.java`
-#### Snippet
-```java
-     */
-    static <T, U, E extends Throwable> FailableToLongBiFunction<T, U, E> nop() {
-        return NOP;
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableDoubleUnaryOperator' to 'org.apache.commons.lang3.function.FailableDoubleUnaryOperator'
-in `src/main/java/org/apache/commons/lang3/function/FailableDoubleUnaryOperator.java`
-#### Snippet
-```java
-     */
-    static <E extends Throwable> FailableDoubleUnaryOperator<E> nop() {
-        return NOP;
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableBiFunction' to 'org.apache.commons.lang3.function.FailableBiFunction'
-in `src/main/java/org/apache/commons/lang3/function/FailableBiFunction.java`
-#### Snippet
-```java
-     */
-    static <T, U, R, E extends Throwable> FailableBiFunction<T, U, R, E> nop() {
-        return NOP;
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableDoubleToIntFunction' to 'org.apache.commons.lang3.function.FailableDoubleToIntFunction'
-in `src/main/java/org/apache/commons/lang3/function/FailableDoubleToIntFunction.java`
-#### Snippet
-```java
-     */
-   static <E extends Throwable> FailableDoubleToIntFunction<E> nop() {
-        return NOP;
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableDoubleToLongFunction' to 'org.apache.commons.lang3.function.FailableDoubleToLongFunction'
-in `src/main/java/org/apache/commons/lang3/function/FailableDoubleToLongFunction.java`
-#### Snippet
-```java
-     */
-    static <E extends Throwable> FailableDoubleToLongFunction<E> nop() {
-        return NOP;
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableLongFunction' to 'org.apache.commons.lang3.function.FailableLongFunction'
-in `src/main/java/org/apache/commons/lang3/function/FailableLongFunction.java`
-#### Snippet
-```java
-     */
-   static <R, E extends Throwable> FailableLongFunction<R, E> nop() {
-        return NOP;
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableLongPredicate' to 'org.apache.commons.lang3.function.FailableLongPredicate'
-in `src/main/java/org/apache/commons/lang3/function/FailableLongPredicate.java`
-#### Snippet
-```java
-     */
-    static <E extends Throwable> FailableLongPredicate<E> truePredicate() {
+   static <E extends Throwable> FailableDoublePredicate<E> truePredicate() {
         return TRUE;
     }
 
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableLongPredicate' to 'org.apache.commons.lang3.function.FailableLongPredicate'
-in `src/main/java/org/apache/commons/lang3/function/FailableLongPredicate.java`
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableConsumer' to 'org.apache.commons.lang3.function.FailableConsumer'
+in `src/main/java/org/apache/commons/lang3/function/FailableConsumer.java`
 #### Snippet
 ```java
      */
-   static <E extends Throwable> FailableLongPredicate<E> falsePredicate() {
+    static <T, E extends Throwable> FailableConsumer<T, E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableIntPredicate' to 'org.apache.commons.lang3.function.FailableIntPredicate'
+in `src/main/java/org/apache/commons/lang3/function/FailableIntPredicate.java`
+#### Snippet
+```java
+     */
+    static <E extends Throwable> FailableIntPredicate<E> falsePredicate() {
         return FALSE;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableIntPredicate' to 'org.apache.commons.lang3.function.FailableIntPredicate'
+in `src/main/java/org/apache/commons/lang3/function/FailableIntPredicate.java`
+#### Snippet
+```java
+     */
+    static <E extends Throwable> FailableIntPredicate<E> truePredicate() {
+        return TRUE;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableLongConsumer' to 'org.apache.commons.lang3.function.FailableLongConsumer'
+in `src/main/java/org/apache/commons/lang3/function/FailableLongConsumer.java`
+#### Snippet
+```java
+     */
+    static <E extends Throwable> FailableLongConsumer<E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableIntToLongFunction' to 'org.apache.commons.lang3.function.FailableIntToLongFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableIntToLongFunction.java`
+#### Snippet
+```java
+     */
+    static <E extends Throwable> FailableIntToLongFunction<E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableToDoubleFunction' to 'org.apache.commons.lang3.function.FailableToDoubleFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableToDoubleFunction.java`
+#### Snippet
+```java
+     */
+    static <T, E extends Throwable> FailableToDoubleFunction<T, E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableDoubleConsumer' to 'org.apache.commons.lang3.function.FailableDoubleConsumer'
+in `src/main/java/org/apache/commons/lang3/function/FailableDoubleConsumer.java`
+#### Snippet
+```java
+     */
+    static <E extends Throwable> FailableDoubleConsumer<E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableIntUnaryOperator' to 'org.apache.commons.lang3.function.FailableIntUnaryOperator'
+in `src/main/java/org/apache/commons/lang3/function/FailableIntUnaryOperator.java`
+#### Snippet
+```java
+     */
+    static <E extends Throwable> FailableIntUnaryOperator<E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableBiConsumer' to 'org.apache.commons.lang3.function.FailableBiConsumer'
+in `src/main/java/org/apache/commons/lang3/function/FailableBiConsumer.java`
+#### Snippet
+```java
+     */
+    static <T, U, E extends Throwable> FailableBiConsumer<T, U, E> nop() {
+        return NOP;
     }
 
 ```
@@ -429,12 +309,84 @@ in `src/main/java/org/apache/commons/lang3/function/FailableObjIntConsumer.java`
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableDoubleConsumer' to 'org.apache.commons.lang3.function.FailableDoubleConsumer'
-in `src/main/java/org/apache/commons/lang3/function/FailableDoubleConsumer.java`
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableDoubleFunction' to 'org.apache.commons.lang3.function.FailableDoubleFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableDoubleFunction.java`
 #### Snippet
 ```java
      */
-    static <E extends Throwable> FailableDoubleConsumer<E> nop() {
+    static <R, E extends Throwable> FailableDoubleFunction<R, E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableToLongFunction' to 'org.apache.commons.lang3.function.FailableToLongFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableToLongFunction.java`
+#### Snippet
+```java
+     */
+    static <T, E extends Throwable> FailableToLongFunction<T, E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableLongToDoubleFunction' to 'org.apache.commons.lang3.function.FailableLongToDoubleFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableLongToDoubleFunction.java`
+#### Snippet
+```java
+     */
+    static <E extends Throwable> FailableLongToDoubleFunction<E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableIntConsumer' to 'org.apache.commons.lang3.function.FailableIntConsumer'
+in `src/main/java/org/apache/commons/lang3/function/FailableIntConsumer.java`
+#### Snippet
+```java
+     */
+    static <E extends Throwable> FailableIntConsumer<E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableBiPredicate' to 'org.apache.commons.lang3.function.FailableBiPredicate'
+in `src/main/java/org/apache/commons/lang3/function/FailableBiPredicate.java`
+#### Snippet
+```java
+     */
+    static <T, U, E extends Throwable> FailableBiPredicate<T, U, E> falsePredicate() {
+        return FALSE;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableBiPredicate' to 'org.apache.commons.lang3.function.FailableBiPredicate'
+in `src/main/java/org/apache/commons/lang3/function/FailableBiPredicate.java`
+#### Snippet
+```java
+     */
+    static <T, U, E extends Throwable> FailableBiPredicate<T, U, E> truePredicate() {
+        return TRUE;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableToIntFunction' to 'org.apache.commons.lang3.function.FailableToIntFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableToIntFunction.java`
+#### Snippet
+```java
+     */
+    static <T, E extends Throwable> FailableToIntFunction<T, E> nop() {
         return NOP;
     }
 
@@ -465,24 +417,48 @@ in `src/main/java/org/apache/commons/lang3/function/FailablePredicate.java`
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableToIntFunction' to 'org.apache.commons.lang3.function.FailableToIntFunction'
-in `src/main/java/org/apache/commons/lang3/function/FailableToIntFunction.java`
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableDoubleToIntFunction' to 'org.apache.commons.lang3.function.FailableDoubleToIntFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableDoubleToIntFunction.java`
 #### Snippet
 ```java
      */
-    static <T, E extends Throwable> FailableToIntFunction<T, E> nop() {
+   static <E extends Throwable> FailableDoubleToIntFunction<E> nop() {
         return NOP;
     }
 
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableLongToDoubleFunction' to 'org.apache.commons.lang3.function.FailableLongToDoubleFunction'
-in `src/main/java/org/apache/commons/lang3/function/FailableLongToDoubleFunction.java`
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableDoubleUnaryOperator' to 'org.apache.commons.lang3.function.FailableDoubleUnaryOperator'
+in `src/main/java/org/apache/commons/lang3/function/FailableDoubleUnaryOperator.java`
 #### Snippet
 ```java
      */
-    static <E extends Throwable> FailableLongToDoubleFunction<E> nop() {
+    static <E extends Throwable> FailableDoubleUnaryOperator<E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableLongToIntFunction' to 'org.apache.commons.lang3.function.FailableLongToIntFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableLongToIntFunction.java`
+#### Snippet
+```java
+     */
+    static <E extends Throwable> FailableLongToIntFunction<E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableToLongBiFunction' to 'org.apache.commons.lang3.function.FailableToLongBiFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableToLongBiFunction.java`
+#### Snippet
+```java
+     */
+    static <T, U, E extends Throwable> FailableToLongBiFunction<T, U, E> nop() {
         return NOP;
     }
 
@@ -501,109 +477,121 @@ in `src/main/java/org/apache/commons/lang3/function/FailableFunction.java`
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableBiPredicate' to 'org.apache.commons.lang3.function.FailableBiPredicate'
-in `src/main/java/org/apache/commons/lang3/function/FailableBiPredicate.java`
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableDoubleToLongFunction' to 'org.apache.commons.lang3.function.FailableDoubleToLongFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableDoubleToLongFunction.java`
 #### Snippet
 ```java
      */
-    static <T, U, E extends Throwable> FailableBiPredicate<T, U, E> truePredicate() {
-        return TRUE;
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableBiPredicate' to 'org.apache.commons.lang3.function.FailableBiPredicate'
-in `src/main/java/org/apache/commons/lang3/function/FailableBiPredicate.java`
-#### Snippet
-```java
-     */
-    static <T, U, E extends Throwable> FailableBiPredicate<T, U, E> falsePredicate() {
-        return FALSE;
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableIntUnaryOperator' to 'org.apache.commons.lang3.function.FailableIntUnaryOperator'
-in `src/main/java/org/apache/commons/lang3/function/FailableIntUnaryOperator.java`
-#### Snippet
-```java
-     */
-    static <E extends Throwable> FailableIntUnaryOperator<E> nop() {
+    static <E extends Throwable> FailableDoubleToLongFunction<E> nop() {
         return NOP;
     }
 
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableDoubleFunction' to 'org.apache.commons.lang3.function.FailableDoubleFunction'
-in `src/main/java/org/apache/commons/lang3/function/FailableDoubleFunction.java`
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableBiFunction' to 'org.apache.commons.lang3.function.FailableBiFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableBiFunction.java`
 #### Snippet
 ```java
      */
-    static <R, E extends Throwable> FailableDoubleFunction<R, E> nop() {
+    static <T, U, R, E extends Throwable> FailableBiFunction<T, U, R, E> nop() {
         return NOP;
     }
 
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableDoublePredicate' to 'org.apache.commons.lang3.function.FailableDoublePredicate'
-in `src/main/java/org/apache/commons/lang3/function/FailableDoublePredicate.java`
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableLongUnaryOperator' to 'org.apache.commons.lang3.function.FailableLongUnaryOperator'
+in `src/main/java/org/apache/commons/lang3/function/FailableLongUnaryOperator.java`
 #### Snippet
 ```java
      */
-   static <E extends Throwable> FailableDoublePredicate<E> truePredicate() {
-        return TRUE;
+   static <E extends Throwable> FailableLongUnaryOperator<E> nop() {
+        return NOP;
     }
 
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableDoublePredicate' to 'org.apache.commons.lang3.function.FailableDoublePredicate'
-in `src/main/java/org/apache/commons/lang3/function/FailableDoublePredicate.java`
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableLongPredicate' to 'org.apache.commons.lang3.function.FailableLongPredicate'
+in `src/main/java/org/apache/commons/lang3/function/FailableLongPredicate.java`
 #### Snippet
 ```java
      */
-   static <E extends Throwable> FailableDoublePredicate<E> falsePredicate() {
+   static <E extends Throwable> FailableLongPredicate<E> falsePredicate() {
         return FALSE;
     }
 
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableIntPredicate' to 'org.apache.commons.lang3.function.FailableIntPredicate'
-in `src/main/java/org/apache/commons/lang3/function/FailableIntPredicate.java`
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableLongPredicate' to 'org.apache.commons.lang3.function.FailableLongPredicate'
+in `src/main/java/org/apache/commons/lang3/function/FailableLongPredicate.java`
 #### Snippet
 ```java
      */
-    static <E extends Throwable> FailableIntPredicate<E> truePredicate() {
+    static <E extends Throwable> FailableLongPredicate<E> truePredicate() {
         return TRUE;
     }
 
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableIntPredicate' to 'org.apache.commons.lang3.function.FailableIntPredicate'
-in `src/main/java/org/apache/commons/lang3/function/FailableIntPredicate.java`
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableLongFunction' to 'org.apache.commons.lang3.function.FailableLongFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableLongFunction.java`
 #### Snippet
 ```java
      */
-    static <E extends Throwable> FailableIntPredicate<E> falsePredicate() {
-        return FALSE;
+   static <R, E extends Throwable> FailableLongFunction<R, E> nop() {
+        return NOP;
     }
 
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'T\[\]'
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableIntToDoubleFunction' to 'org.apache.commons.lang3.function.FailableIntToDoubleFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableIntToDoubleFunction.java`
 #### Snippet
 ```java
      */
-    public static <T> T[] removeAllOccurrences(final T[] array, final T element) {
-        return (T[]) removeAll((Object) array, indexesOf(array, element));
+    static <E extends Throwable> FailableIntToDoubleFunction<E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableObjDoubleConsumer' to 'org.apache.commons.lang3.function.FailableObjDoubleConsumer'
+in `src/main/java/org/apache/commons/lang3/function/FailableObjDoubleConsumer.java`
+#### Snippet
+```java
+     */
+   static <T, E extends Throwable> FailableObjDoubleConsumer<T, E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableIntFunction' to 'org.apache.commons.lang3.function.FailableIntFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableIntFunction.java`
+#### Snippet
+```java
+     */
+    static <R, E extends Throwable> FailableIntFunction<R, E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableToDoubleBiFunction' to 'org.apache.commons.lang3.function.FailableToDoubleBiFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableToDoubleBiFunction.java`
+#### Snippet
+```java
+     */
+    static <T, U, E extends Throwable> FailableToDoubleBiFunction<T, U, E> nop() {
+        return NOP;
     }
 
 ```
@@ -632,55 +620,19 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 
 ```
 
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'T\[\]'
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
+#### Snippet
+```java
+     */
+    public static <T> T[] removeAllOccurrences(final T[] array, final T element) {
+        return (T[]) removeAll((Object) array, indexesOf(array, element));
+    }
+
+```
+
 ## RuleId[id=JavadocReference]
-### JavadocReference
-Cannot resolve symbol `String`
-in `src/main/java/org/apache/commons/lang3/concurrent/package-info.java`
-#### Snippet
-```java
- * configuring the new {@link org.apache.commons.lang3.concurrent.BasicThreadFactory} instance. Objects of this class
- * are immutable, so these attributes cannot be changed later. The naming pattern is a string which can be passed to
- * {@link String#format(java.util.Locale, String, Object...)}. The placeholder <em>%d</em> is replaced by an
- * increasing counter value. An instance can wrap another {@link java.util.concurrent.ThreadFactory} implementation;
- * this is achieved by calling the builder's
-```
-
-### JavadocReference
-Cannot resolve symbol `format(java.util.Locale, String, Object...)`
-in `src/main/java/org/apache/commons/lang3/concurrent/package-info.java`
-#### Snippet
-```java
- * configuring the new {@link org.apache.commons.lang3.concurrent.BasicThreadFactory} instance. Objects of this class
- * are immutable, so these attributes cannot be changed later. The naming pattern is a string which can be passed to
- * {@link String#format(java.util.Locale, String, Object...)}. The placeholder <em>%d</em> is replaced by an
- * increasing counter value. An instance can wrap another {@link java.util.concurrent.ThreadFactory} implementation;
- * this is achieved by calling the builder's
-```
-
-### JavadocReference
-Cannot resolve symbol `Throwable`
-in `src/main/java/org/apache/commons/lang3/exception/package-info.java`
-#### Snippet
-```java
- * <p>Contains the concept of an exception with context i.e. such an exception will contain a map with keys and values.
- * This provides an easy way to pass valuable state information at exception time in useful form to a calling process.</p>
- * <p>Lastly, {@link org.apache.commons.lang3.exception.ExceptionUtils} also contains {@link Throwable} manipulation
- * and examination routines.</p>
- *
-```
-
-### JavadocReference
-Cannot resolve symbol `MultipartKey`
-in `src/main/java/org/apache/commons/lang3/time/FormatCache.java`
-#### Snippet
-```java
-
-        /**
-         * Constructs an instance of {@link MultipartKey} to hold the specified objects.
-         *
-         * @param keys the set of objects that make up the key.  Each key may be null.
-```
-
 ### JavadocReference
 Cannot resolve symbol `Object`
 in `src/main/java/org/apache/commons/lang3/builder/package-info.java`
@@ -778,25 +730,73 @@ in `src/main/java/org/apache/commons/lang3/builder/package-info.java`
 ```
 
 ### JavadocReference
+Cannot resolve symbol `String`
+in `src/main/java/org/apache/commons/lang3/concurrent/package-info.java`
+#### Snippet
+```java
+ * configuring the new {@link org.apache.commons.lang3.concurrent.BasicThreadFactory} instance. Objects of this class
+ * are immutable, so these attributes cannot be changed later. The naming pattern is a string which can be passed to
+ * {@link String#format(java.util.Locale, String, Object...)}. The placeholder <em>%d</em> is replaced by an
+ * increasing counter value. An instance can wrap another {@link java.util.concurrent.ThreadFactory} implementation;
+ * this is achieved by calling the builder's
+```
+
+### JavadocReference
+Cannot resolve symbol `format(java.util.Locale, String, Object...)`
+in `src/main/java/org/apache/commons/lang3/concurrent/package-info.java`
+#### Snippet
+```java
+ * configuring the new {@link org.apache.commons.lang3.concurrent.BasicThreadFactory} instance. Objects of this class
+ * are immutable, so these attributes cannot be changed later. The naming pattern is a string which can be passed to
+ * {@link String#format(java.util.Locale, String, Object...)}. The placeholder <em>%d</em> is replaced by an
+ * increasing counter value. An instance can wrap another {@link java.util.concurrent.ThreadFactory} implementation;
+ * this is achieved by calling the builder's
+```
+
+### JavadocReference
+Cannot resolve symbol `Throwable`
+in `src/main/java/org/apache/commons/lang3/exception/package-info.java`
+#### Snippet
+```java
+ * <p>Contains the concept of an exception with context i.e. such an exception will contain a map with keys and values.
+ * This provides an easy way to pass valuable state information at exception time in useful form to a calling process.</p>
+ * <p>Lastly, {@link org.apache.commons.lang3.exception.ExceptionUtils} also contains {@link Throwable} manipulation
+ * and examination routines.</p>
+ *
+```
+
+### JavadocReference
+Cannot resolve symbol `MultipartKey`
+in `src/main/java/org/apache/commons/lang3/time/FormatCache.java`
+#### Snippet
+```java
+
+        /**
+         * Constructs an instance of {@link MultipartKey} to hold the specified objects.
+         *
+         * @param keys the set of objects that make up the key.  Each key may be null.
+```
+
+### JavadocReference
 Cannot resolve symbol `org.apache.commons.text.WordUtils`
 in `src/main/java/org/apache/commons/lang3/StringUtils.java`
 #### Snippet
 ```java
-     * per {@link Character#toTitleCase(int)}. No other characters are changed.
+     * per {@link Character#toLowerCase(int)}. No other characters are changed.
      *
-     * <p>For a word based algorithm, see {@link org.apache.commons.text.WordUtils#capitalize(String)}.
+     * <p>For a word based algorithm, see {@link org.apache.commons.text.WordUtils#uncapitalize(String)}.
      * A {@code null} input String returns {@code null}.</p>
      *
 ```
 
 ### JavadocReference
-Cannot resolve symbol `capitalize(String)`
+Cannot resolve symbol `uncapitalize(String)`
 in `src/main/java/org/apache/commons/lang3/StringUtils.java`
 #### Snippet
 ```java
-     * per {@link Character#toTitleCase(int)}. No other characters are changed.
+     * per {@link Character#toLowerCase(int)}. No other characters are changed.
      *
-     * <p>For a word based algorithm, see {@link org.apache.commons.text.WordUtils#capitalize(String)}.
+     * <p>For a word based algorithm, see {@link org.apache.commons.text.WordUtils#uncapitalize(String)}.
      * A {@code null} input String returns {@code null}.</p>
      *
 ```
@@ -806,22 +806,22 @@ Cannot resolve symbol `org.apache.commons.text.WordUtils`
 in `src/main/java/org/apache/commons/lang3/StringUtils.java`
 #### Snippet
 ```java
-     * @param str the String to capitalize, may be null
-     * @return the capitalized String, {@code null} if null String input
-     * @see org.apache.commons.text.WordUtils#capitalize(String)
-     * @see #uncapitalize(String)
+     * @param str the String to uncapitalize, may be null
+     * @return the uncapitalized String, {@code null} if null String input
+     * @see org.apache.commons.text.WordUtils#uncapitalize(String)
+     * @see #capitalize(String)
      * @since 2.0
 ```
 
 ### JavadocReference
-Cannot resolve symbol `capitalize(String)`
+Cannot resolve symbol `uncapitalize(String)`
 in `src/main/java/org/apache/commons/lang3/StringUtils.java`
 #### Snippet
 ```java
-     * @param str the String to capitalize, may be null
-     * @return the capitalized String, {@code null} if null String input
-     * @see org.apache.commons.text.WordUtils#capitalize(String)
-     * @see #uncapitalize(String)
+     * @param str the String to uncapitalize, may be null
+     * @return the uncapitalized String, {@code null} if null String input
+     * @see org.apache.commons.text.WordUtils#uncapitalize(String)
+     * @see #capitalize(String)
      * @since 2.0
 ```
 
@@ -854,21 +854,21 @@ Cannot resolve symbol `org.apache.commons.text.WordUtils`
 in `src/main/java/org/apache/commons/lang3/StringUtils.java`
 #### Snippet
 ```java
-     * per {@link Character#toLowerCase(int)}. No other characters are changed.
+     * per {@link Character#toTitleCase(int)}. No other characters are changed.
      *
-     * <p>For a word based algorithm, see {@link org.apache.commons.text.WordUtils#uncapitalize(String)}.
+     * <p>For a word based algorithm, see {@link org.apache.commons.text.WordUtils#capitalize(String)}.
      * A {@code null} input String returns {@code null}.</p>
      *
 ```
 
 ### JavadocReference
-Cannot resolve symbol `uncapitalize(String)`
+Cannot resolve symbol `capitalize(String)`
 in `src/main/java/org/apache/commons/lang3/StringUtils.java`
 #### Snippet
 ```java
-     * per {@link Character#toLowerCase(int)}. No other characters are changed.
+     * per {@link Character#toTitleCase(int)}. No other characters are changed.
      *
-     * <p>For a word based algorithm, see {@link org.apache.commons.text.WordUtils#uncapitalize(String)}.
+     * <p>For a word based algorithm, see {@link org.apache.commons.text.WordUtils#capitalize(String)}.
      * A {@code null} input String returns {@code null}.</p>
      *
 ```
@@ -878,22 +878,22 @@ Cannot resolve symbol `org.apache.commons.text.WordUtils`
 in `src/main/java/org/apache/commons/lang3/StringUtils.java`
 #### Snippet
 ```java
-     * @param str the String to uncapitalize, may be null
-     * @return the uncapitalized String, {@code null} if null String input
-     * @see org.apache.commons.text.WordUtils#uncapitalize(String)
-     * @see #capitalize(String)
+     * @param str the String to capitalize, may be null
+     * @return the capitalized String, {@code null} if null String input
+     * @see org.apache.commons.text.WordUtils#capitalize(String)
+     * @see #uncapitalize(String)
      * @since 2.0
 ```
 
 ### JavadocReference
-Cannot resolve symbol `uncapitalize(String)`
+Cannot resolve symbol `capitalize(String)`
 in `src/main/java/org/apache/commons/lang3/StringUtils.java`
 #### Snippet
 ```java
-     * @param str the String to uncapitalize, may be null
-     * @return the uncapitalized String, {@code null} if null String input
-     * @see org.apache.commons.text.WordUtils#uncapitalize(String)
-     * @see #capitalize(String)
+     * @param str the String to capitalize, may be null
+     * @return the capitalized String, {@code null} if null String input
+     * @see org.apache.commons.text.WordUtils#capitalize(String)
+     * @see #uncapitalize(String)
      * @since 2.0
 ```
 
@@ -915,11 +915,11 @@ in `src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java`
 in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
-                    final int cp = end - index - 1;
-                    dest -= cp;
-                    System.arraycopy(array, index + 1, result, dest, cp);
-                    // After this copy, we still have room for dest items.
-                }
+            count = set - srcIndex;
+            if (count > 0) {
+                System.arraycopy(array, srcIndex, result, destIndex, count);
+                destIndex += count;
+            }
 ```
 
 ### SuspiciousSystemArraycopy
@@ -927,11 +927,11 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
-                    final int cp = end - index - 1;
-                    dest -= cp;
-                    System.arraycopy(array, index + 1, result, dest, cp);
-                    // After this copy, we still have room for dest items.
-                }
+            count = set - srcIndex;
+            if (count > 0) {
+                System.arraycopy(array, srcIndex, result, destIndex, count);
+                destIndex += count;
+            }
 ```
 
 ### SuspiciousSystemArraycopy
@@ -939,11 +939,11 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
-            }
-            if (end > 0) {
-                System.arraycopy(array, 0, result, 0, end);
-            }
+        count = srcLength - srcIndex;
+        if (count > 0) {
+            System.arraycopy(array, srcIndex, result, destIndex, count);
         }
+        return result;
 ```
 
 ### SuspiciousSystemArraycopy
@@ -951,59 +951,11 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
-            }
-            if (end > 0) {
-                System.arraycopy(array, 0, result, 0, end);
-            }
+        count = srcLength - srcIndex;
+        if (count > 0) {
+            System.arraycopy(array, srcIndex, result, destIndex, count);
         }
-```
-
-### SuspiciousSystemArraycopy
-`array` is not of an array type
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-
-        final Object result = Array.newInstance(array.getClass().getComponentType(), length - 1);
-        System.arraycopy(array, 0, result, 0, index);
-        if (index < length - 1) {
-            System.arraycopy(array, index + 1, result, index, length - index - 1);
-```
-
-### SuspiciousSystemArraycopy
-`result` is not of an array type
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-
-        final Object result = Array.newInstance(array.getClass().getComponentType(), length - 1);
-        System.arraycopy(array, 0, result, 0, index);
-        if (index < length - 1) {
-            System.arraycopy(array, index + 1, result, index, length - index - 1);
-```
-
-### SuspiciousSystemArraycopy
-`array` is not of an array type
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        System.arraycopy(array, 0, result, 0, index);
-        if (index < length - 1) {
-            System.arraycopy(array, index + 1, result, index, length - index - 1);
-        }
-
-```
-
-### SuspiciousSystemArraycopy
-`result` is not of an array type
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-        System.arraycopy(array, 0, result, 0, index);
-        if (index < length - 1) {
-            System.arraycopy(array, index + 1, result, index, length - index - 1);
-        }
-
+        return result;
 ```
 
 ### SuspiciousSystemArraycopy
@@ -1059,11 +1011,11 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
-            count = set - srcIndex;
-            if (count > 0) {
-                System.arraycopy(array, srcIndex, result, destIndex, count);
-                destIndex += count;
-            }
+                    final int cp = end - index - 1;
+                    dest -= cp;
+                    System.arraycopy(array, index + 1, result, dest, cp);
+                    // After this copy, we still have room for dest items.
+                }
 ```
 
 ### SuspiciousSystemArraycopy
@@ -1071,11 +1023,11 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
-            count = set - srcIndex;
-            if (count > 0) {
-                System.arraycopy(array, srcIndex, result, destIndex, count);
-                destIndex += count;
-            }
+                    final int cp = end - index - 1;
+                    dest -= cp;
+                    System.arraycopy(array, index + 1, result, dest, cp);
+                    // After this copy, we still have room for dest items.
+                }
 ```
 
 ### SuspiciousSystemArraycopy
@@ -1083,11 +1035,11 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
-        count = srcLength - srcIndex;
-        if (count > 0) {
-            System.arraycopy(array, srcIndex, result, destIndex, count);
+            }
+            if (end > 0) {
+                System.arraycopy(array, 0, result, 0, end);
+            }
         }
-        return result;
 ```
 
 ### SuspiciousSystemArraycopy
@@ -1095,11 +1047,11 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
-        count = srcLength - srcIndex;
-        if (count > 0) {
-            System.arraycopy(array, srcIndex, result, destIndex, count);
+            }
+            if (end > 0) {
+                System.arraycopy(array, 0, result, 0, end);
+            }
         }
-        return result;
 ```
 
 ### SuspiciousSystemArraycopy
@@ -1126,19 +1078,55 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
         }
 ```
 
-## RuleId[id=DataFlowIssue]
-### DataFlowIssue
-Method invocation `put` may produce `NullPointerException`
-in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
+### SuspiciousSystemArraycopy
+`array` is not of an array type
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
-        for (int i = 0; i < typeParams.length; i++) {
-            final Type typeArg = typeArgs[i];
-            typeVarAssigns.put(
-                    typeParams[i],
-                    typeVarAssigns.getOrDefault(typeArg, typeArg)
+
+        final Object result = Array.newInstance(array.getClass().getComponentType(), length - 1);
+        System.arraycopy(array, 0, result, 0, index);
+        if (index < length - 1) {
+            System.arraycopy(array, index + 1, result, index, length - index - 1);
 ```
 
+### SuspiciousSystemArraycopy
+`result` is not of an array type
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
+#### Snippet
+```java
+
+        final Object result = Array.newInstance(array.getClass().getComponentType(), length - 1);
+        System.arraycopy(array, 0, result, 0, index);
+        if (index < length - 1) {
+            System.arraycopy(array, index + 1, result, index, length - index - 1);
+```
+
+### SuspiciousSystemArraycopy
+`array` is not of an array type
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
+#### Snippet
+```java
+        System.arraycopy(array, 0, result, 0, index);
+        if (index < length - 1) {
+            System.arraycopy(array, index + 1, result, index, length - index - 1);
+        }
+
+```
+
+### SuspiciousSystemArraycopy
+`result` is not of an array type
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
+#### Snippet
+```java
+        System.arraycopy(array, 0, result, 0, index);
+        if (index < length - 1) {
+            System.arraycopy(array, index + 1, result, index, length - index - 1);
+        }
+
+```
+
+## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
 Method invocation `keySet` may produce `NullPointerException`
 in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
@@ -1151,19 +1139,19 @@ in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
             final Type fromTypeArg = unrollVariableAssignments(var, fromTypeVarAssigns);
 ```
 
-## RuleId[id=StaticInitializerReferencesSubClass]
-### StaticInitializerReferencesSubClass
-Referencing subclass MapStrLookup from superclass StrLookup initializer might lead to class loading deadlock
-in `src/main/java/org/apache/commons/lang3/text/StrLookup.java`
+### DataFlowIssue
+Method invocation `put` may produce `NullPointerException`
+in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
 #### Snippet
 ```java
-     * Lookup that always returns null.
-     */
-    private static final StrLookup<String> NONE_LOOKUP = new MapStrLookup<>(null);
-
-    /**
+        for (int i = 0; i < typeParams.length; i++) {
+            final Type typeArg = typeArgs[i];
+            typeVarAssigns.put(
+                    typeParams[i],
+                    typeVarAssigns.getOrDefault(typeArg, typeArg)
 ```
 
+## RuleId[id=StaticInitializerReferencesSubClass]
 ### StaticInitializerReferencesSubClass
 Referencing subclass CharMatcher from superclass StrMatcher initializer might lead to class loading deadlock
 in `src/main/java/org/apache/commons/lang3/text/StrMatcher.java`
@@ -1181,11 +1169,23 @@ Referencing subclass CharMatcher from superclass StrMatcher initializer might le
 in `src/main/java/org/apache/commons/lang3/text/StrMatcher.java`
 #### Snippet
 ```java
-     * Matches the space character.
+     * Matches the double quote character.
      */
-    private static final StrMatcher SPACE_MATCHER = new CharMatcher(' ');
+    private static final StrMatcher SINGLE_QUOTE_MATCHER = new CharMatcher('\'');
     /**
-     * Matches the same characters as StringTokenizer,
+     * Matches the double quote character.
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass CharSetMatcher from superclass StrMatcher initializer might lead to class loading deadlock
+in `src/main/java/org/apache/commons/lang3/text/StrMatcher.java`
+#### Snippet
+```java
+     * namely space, tab, newline, formfeed.
+     */
+    private static final StrMatcher SPLIT_MATCHER = new CharSetMatcher(" \t\n\r\f".toCharArray());
+    /**
+     * Matches the String trim() whitespace characters.
 ```
 
 ### StaticInitializerReferencesSubClass
@@ -1213,15 +1213,15 @@ in `src/main/java/org/apache/commons/lang3/text/StrMatcher.java`
 ```
 
 ### StaticInitializerReferencesSubClass
-Referencing subclass CharMatcher from superclass StrMatcher initializer might lead to class loading deadlock
+Referencing subclass NoMatcher from superclass StrMatcher initializer might lead to class loading deadlock
 in `src/main/java/org/apache/commons/lang3/text/StrMatcher.java`
 #### Snippet
 ```java
-     * Matches the double quote character.
+     * Matches no characters.
      */
-    private static final StrMatcher SINGLE_QUOTE_MATCHER = new CharMatcher('\'');
+    private static final StrMatcher NONE_MATCHER = new NoMatcher();
+
     /**
-     * Matches the double quote character.
 ```
 
 ### StaticInitializerReferencesSubClass
@@ -1237,18 +1237,6 @@ in `src/main/java/org/apache/commons/lang3/text/StrMatcher.java`
 ```
 
 ### StaticInitializerReferencesSubClass
-Referencing subclass NoMatcher from superclass StrMatcher initializer might lead to class loading deadlock
-in `src/main/java/org/apache/commons/lang3/text/StrMatcher.java`
-#### Snippet
-```java
-     * Matches no characters.
-     */
-    private static final StrMatcher NONE_MATCHER = new NoMatcher();
-
-    /**
-```
-
-### StaticInitializerReferencesSubClass
 Referencing subclass TrimMatcher from superclass StrMatcher initializer might lead to class loading deadlock
 in `src/main/java/org/apache/commons/lang3/text/StrMatcher.java`
 #### Snippet
@@ -1261,40 +1249,52 @@ in `src/main/java/org/apache/commons/lang3/text/StrMatcher.java`
 ```
 
 ### StaticInitializerReferencesSubClass
-Referencing subclass CharSetMatcher from superclass StrMatcher initializer might lead to class loading deadlock
+Referencing subclass CharMatcher from superclass StrMatcher initializer might lead to class loading deadlock
 in `src/main/java/org/apache/commons/lang3/text/StrMatcher.java`
 #### Snippet
 ```java
-     * namely space, tab, newline, formfeed.
+     * Matches the space character.
      */
-    private static final StrMatcher SPLIT_MATCHER = new CharSetMatcher(" \t\n\r\f".toCharArray());
+    private static final StrMatcher SPACE_MATCHER = new CharMatcher(' ');
     /**
-     * Matches the String trim() whitespace characters.
+     * Matches the same characters as StringTokenizer,
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass MapStrLookup from superclass StrLookup initializer might lead to class loading deadlock
+in `src/main/java/org/apache/commons/lang3/text/StrLookup.java`
+#### Snippet
+```java
+     * Lookup that always returns null.
+     */
+    private static final StrLookup<String> NONE_LOOKUP = new MapStrLookup<>(null);
+
+    /**
 ```
 
 ## RuleId[id=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
-Deprecated member 'ALWAYS_TRUE_PREDICATE' is still used
+Deprecated member 'findThreads' is still used
 in `src/main/java/org/apache/commons/lang3/ThreadUtils.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public static final AlwaysTruePredicate ALWAYS_TRUE_PREDICATE = new AlwaysTruePredicate();
-
-    private static final Predicate<?> ALWAYS_TRUE = t -> true;
+    public static Collection<Thread> findThreads(final ThreadPredicate predicate) {
+        return findThreads(getSystemThreadGroup(), true, predicate);
+    }
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'ThreadGroupPredicate' is still used
+Deprecated member 'findThreadGroups' is still used
 in `src/main/java/org/apache/commons/lang3/ThreadUtils.java`
 #### Snippet
 ```java
-    // When breaking BC, replace this with Predicate<ThreadGroup>
-    @FunctionalInterface
-    public interface ThreadGroupPredicate {
-
-        /**
+     */
+    @Deprecated
+    public static Collection<ThreadGroup> findThreadGroups(final ThreadGroupPredicate predicate) {
+        return findThreadGroups(getSystemThreadGroup(), true, predicate);
+    }
 ```
 
 ### DeprecatedIsStillUsed
@@ -1322,26 +1322,38 @@ in `src/main/java/org/apache/commons/lang3/ThreadUtils.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'findThreads' is still used
+Deprecated member 'ThreadGroupPredicate' is still used
 in `src/main/java/org/apache/commons/lang3/ThreadUtils.java`
 #### Snippet
 ```java
-     */
-    @Deprecated
-    public static Collection<Thread> findThreads(final ThreadPredicate predicate) {
-        return findThreads(getSystemThreadGroup(), true, predicate);
-    }
+    // When breaking BC, replace this with Predicate<ThreadGroup>
+    @FunctionalInterface
+    public interface ThreadGroupPredicate {
+
+        /**
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'findThreadGroups' is still used
+Deprecated member 'ALWAYS_TRUE_PREDICATE' is still used
 in `src/main/java/org/apache/commons/lang3/ThreadUtils.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public static Collection<ThreadGroup> findThreadGroups(final ThreadGroupPredicate predicate) {
-        return findThreadGroups(getSystemThreadGroup(), true, predicate);
+    public static final AlwaysTruePredicate ALWAYS_TRUE_PREDICATE = new AlwaysTruePredicate();
+
+    private static final Predicate<?> ALWAYS_TRUE = t -> true;
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getUserName' is still used
+in `src/main/java/org/apache/commons/lang3/SystemUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static String getUserName() {
+        return SystemProperties.getUserName();
     }
 ```
 
@@ -1358,18 +1370,6 @@ in `src/main/java/org/apache/commons/lang3/CharEncoding.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'toCharacterObject' is still used
-in `src/main/java/org/apache/commons/lang3/CharUtils.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static Character toCharacterObject(final char ch) {
-        return Character.valueOf(ch);
-    }
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'getNanosOfMiili' is still used
 in `src/main/java/org/apache/commons/lang3/time/DurationUtils.java`
 #### Snippet
@@ -1379,6 +1379,18 @@ in `src/main/java/org/apache/commons/lang3/time/DurationUtils.java`
     public static int getNanosOfMiili(final Duration duration) {
         return getNanosOfMilli(duration);
     }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'ISO_TIME_NO_T_FORMAT' is still used
+in `src/main/java/org/apache/commons/lang3/time/DateFormatUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static final FastDateFormat ISO_TIME_NO_T_FORMAT = ISO_8601_EXTENDED_TIME_FORMAT;
+
+    /**
 ```
 
 ### DeprecatedIsStillUsed
@@ -1394,30 +1406,6 @@ in `src/main/java/org/apache/commons/lang3/time/DateFormatUtils.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'ISO_TIME_FORMAT' is still used
-in `src/main/java/org/apache/commons/lang3/time/DateFormatUtils.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static final FastDateFormat ISO_TIME_FORMAT
-            = FastDateFormat.getInstance("'T'HH:mm:ss");
-
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'ISO_TIME_TIME_ZONE_FORMAT' is still used
-in `src/main/java/org/apache/commons/lang3/time/DateFormatUtils.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static final FastDateFormat ISO_TIME_TIME_ZONE_FORMAT
-            = FastDateFormat.getInstance("'T'HH:mm:ssZZ");
-
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'ISO_DATE_TIME_ZONE_FORMAT' is still used
 in `src/main/java/org/apache/commons/lang3/time/DateFormatUtils.java`
 #### Snippet
@@ -1430,13 +1418,25 @@ in `src/main/java/org/apache/commons/lang3/time/DateFormatUtils.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'ISO_TIME_NO_T_FORMAT' is still used
+Deprecated member 'ISO_TIME_FORMAT' is still used
 in `src/main/java/org/apache/commons/lang3/time/DateFormatUtils.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public static final FastDateFormat ISO_TIME_NO_T_FORMAT = ISO_8601_EXTENDED_TIME_FORMAT;
+    public static final FastDateFormat ISO_TIME_FORMAT
+            = FastDateFormat.getInstance("'T'HH:mm:ss");
+
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'ISO_DATE_FORMAT' is still used
+in `src/main/java/org/apache/commons/lang3/time/DateFormatUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static final FastDateFormat ISO_DATE_FORMAT = ISO_8601_EXTENDED_DATE_FORMAT;
 
     /**
 ```
@@ -1454,49 +1454,37 @@ in `src/main/java/org/apache/commons/lang3/time/DateFormatUtils.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'ISO_DATE_FORMAT' is still used
+Deprecated member 'ISO_TIME_TIME_ZONE_FORMAT' is still used
 in `src/main/java/org/apache/commons/lang3/time/DateFormatUtils.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public static final FastDateFormat ISO_DATE_FORMAT = ISO_8601_EXTENDED_DATE_FORMAT;
+    public static final FastDateFormat ISO_TIME_TIME_ZONE_FORMAT
+            = FastDateFormat.getInstance("'T'HH:mm:ssZZ");
 
-    /**
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'getUserName' is still used
-in `src/main/java/org/apache/commons/lang3/SystemUtils.java`
+Deprecated member 'toCharacterObject' is still used
+in `src/main/java/org/apache/commons/lang3/CharUtils.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public static String getUserName() {
-        return SystemProperties.getUserName();
+    public static Character toCharacterObject(final char ch) {
+        return Character.valueOf(ch);
     }
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'FailableCallable' is still used
+Deprecated member 'FailableRunnable' is still used
 in `src/main/java/org/apache/commons/lang3/Functions.java`
 #### Snippet
 ```java
     @Deprecated
     @FunctionalInterface
-    public interface FailableCallable<R, T extends Throwable> {
-
-        /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'FailablePredicate' is still used
-in `src/main/java/org/apache/commons/lang3/Functions.java`
-#### Snippet
-```java
-    @Deprecated
-    @FunctionalInterface
-    public interface FailablePredicate<I, T extends Throwable> {
+    public interface FailableRunnable<T extends Throwable> {
 
         /**
 ```
@@ -1514,13 +1502,13 @@ in `src/main/java/org/apache/commons/lang3/Functions.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'FailableSupplier' is still used
+Deprecated member 'FailableBiPredicate' is still used
 in `src/main/java/org/apache/commons/lang3/Functions.java`
 #### Snippet
 ```java
     @Deprecated
     @FunctionalInterface
-    public interface FailableSupplier<R, T extends Throwable> {
+    public interface FailableBiPredicate<O1, O2, T extends Throwable> {
 
         /**
 ```
@@ -1538,25 +1526,37 @@ in `src/main/java/org/apache/commons/lang3/Functions.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'FailableRunnable' is still used
+Deprecated member 'FailableSupplier' is still used
 in `src/main/java/org/apache/commons/lang3/Functions.java`
 #### Snippet
 ```java
     @Deprecated
     @FunctionalInterface
-    public interface FailableRunnable<T extends Throwable> {
+    public interface FailableSupplier<R, T extends Throwable> {
 
         /**
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'FailableBiPredicate' is still used
+Deprecated member 'FailablePredicate' is still used
 in `src/main/java/org/apache/commons/lang3/Functions.java`
 #### Snippet
 ```java
     @Deprecated
     @FunctionalInterface
-    public interface FailableBiPredicate<O1, O2, T extends Throwable> {
+    public interface FailablePredicate<I, T extends Throwable> {
+
+        /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'FailableCallable' is still used
+in `src/main/java/org/apache/commons/lang3/Functions.java`
+#### Snippet
+```java
+    @Deprecated
+    @FunctionalInterface
+    public interface FailableCallable<R, T extends Throwable> {
 
         /**
 ```
@@ -1614,18 +1614,6 @@ in `src/main/java/org/apache/commons/lang3/concurrent/ConstantInitializer.java`
 ## RuleId[id=RefusedBequest]
 ### RefusedBequest
 Method `clone()` does not call 'super.clone()'
-in `src/main/java/org/apache/commons/lang3/text/StrTokenizer.java`
-#### Snippet
-```java
-     */
-    @Override
-    public Object clone() {
-        try {
-            return cloneReset();
-```
-
-### RefusedBequest
-Method `clone()` does not call 'super.clone()'
 in `src/main/java/org/apache/commons/lang3/util/FluentBitSet.java`
 #### Snippet
 ```java
@@ -1634,6 +1622,18 @@ in `src/main/java/org/apache/commons/lang3/util/FluentBitSet.java`
     public Object clone() {
         return new FluentBitSet((BitSet) bitSet.clone());
     }
+```
+
+### RefusedBequest
+Method `clone()` does not call 'super.clone()'
+in `src/main/java/org/apache/commons/lang3/text/StrTokenizer.java`
+#### Snippet
+```java
+     */
+    @Override
+    public Object clone() {
+        try {
+            return cloneReset();
 ```
 
 ## RuleId[id=DuplicatedCode]
@@ -1909,6 +1909,102 @@ in `src/main/java/org/apache/commons/lang3/ObjectUtils.java`
 
 ## RuleId[id=Deprecation]
 ### Deprecation
+'org.apache.commons.lang3.RandomUtils' is deprecated
+in `src/main/java/org/apache/commons/lang3/RandomStringUtils.java`
+#### Snippet
+```java
+     */
+    public static String randomAlphabetic(final int minLengthInclusive, final int maxLengthExclusive) {
+        return randomAlphabetic(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
+    }
+
+```
+
+### Deprecation
+'org.apache.commons.lang3.RandomUtils' is deprecated
+in `src/main/java/org/apache/commons/lang3/RandomStringUtils.java`
+#### Snippet
+```java
+     */
+    public static String randomNumeric(final int minLengthInclusive, final int maxLengthExclusive) {
+        return randomNumeric(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
+    }
+
+```
+
+### Deprecation
+'org.apache.commons.lang3.RandomUtils' is deprecated
+in `src/main/java/org/apache/commons/lang3/RandomStringUtils.java`
+#### Snippet
+```java
+     */
+    public static String randomAscii(final int minLengthInclusive, final int maxLengthExclusive) {
+        return randomAscii(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
+    }
+
+```
+
+### Deprecation
+'org.apache.commons.lang3.RandomUtils' is deprecated
+in `src/main/java/org/apache/commons/lang3/RandomStringUtils.java`
+#### Snippet
+```java
+     */
+    public static String randomGraph(final int minLengthInclusive, final int maxLengthExclusive) {
+        return randomGraph(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
+    }
+
+```
+
+### Deprecation
+'org.apache.commons.lang3.RandomUtils' is deprecated
+in `src/main/java/org/apache/commons/lang3/RandomStringUtils.java`
+#### Snippet
+```java
+     */
+    public static String randomPrint(final int minLengthInclusive, final int maxLengthExclusive) {
+        return randomPrint(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
+    }
+
+```
+
+### Deprecation
+'org.apache.commons.lang3.RandomUtils' is deprecated
+in `src/main/java/org/apache/commons/lang3/RandomStringUtils.java`
+#### Snippet
+```java
+     */
+    public static String randomAlphanumeric(final int minLengthInclusive, final int maxLengthExclusive) {
+        return randomAlphanumeric(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
+    }
+
+```
+
+### Deprecation
+'org.apache.commons.lang3.StringEscapeUtils' is deprecated
+in `src/main/java/org/apache/commons/lang3/package-info.java`
+#### Snippet
+```java
+ * <p>Lang has a series of String utilities.
+ * The first is {@link org.apache.commons.lang3.StringUtils}, oodles and oodles of functions which tweak, transform, squeeze and cuddle {@link java.lang.String java.lang.Strings}.
+ * In addition to StringUtils, there are a series of other String manipulating classes; {@link org.apache.commons.lang3.RandomStringUtils} and {@link org.apache.commons.lang3.StringEscapeUtils StringEscapeUtils}.
+ * RandomStringUtils speaks for itself.
+ * It's provides ways in which to generate pieces of text, such as might be used for default passwords.
+```
+
+### Deprecation
+'org.apache.commons.lang3.CharEncoding' is deprecated
+in `src/main/java/org/apache/commons/lang3/package-info.java`
+#### Snippet
+```java
+ * There was no obvious solution and I needed to move onwards, so the simple solution was to wrap that particular test in a <code>if (SystemUtils.isJavaVersionAtLeast(1.3f)) {</code>, make a note and move on.</p>
+ *
+ * <p>The {@link org.apache.commons.lang3.CharEncoding} class is also used to interact with the Java environment and may be used to see which character encodings are supported in a particular environment.</p>
+ *
+ * <h2>Serialization - SerializationUtils, SerializationException</h2>
+```
+
+### Deprecation
 'org.apache.commons.lang3.text.StrBuilder' is deprecated
 in `src/main/java/org/apache/commons/lang3/text/package-info.java`
 #### Snippet
@@ -1944,100 +2040,221 @@ in `src/main/java/org/apache/commons/lang3/text/package-info.java`
  *
 ```
 
-### Deprecation
-'org.apache.commons.lang3.StringEscapeUtils' is deprecated
-in `src/main/java/org/apache/commons/lang3/package-info.java`
+## RuleId[id=FinalStaticMethod]
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
 #### Snippet
 ```java
- * <p>Lang has a series of String utilities.
- * The first is {@link org.apache.commons.lang3.StringUtils}, oodles and oodles of functions which tweak, transform, squeeze and cuddle {@link java.lang.String java.lang.Strings}.
- * In addition to StringUtils, there are a series of other String manipulating classes; {@link org.apache.commons.lang3.RandomStringUtils} and {@link org.apache.commons.lang3.StringEscapeUtils StringEscapeUtils}.
- * RandomStringUtils speaks for itself.
- * It's provides ways in which to generate pieces of text, such as might be used for default passwords.
+     * @since 3.2
+     */
+    public static final ParameterizedType parameterizeWithOwner(final Type owner, final Class<?> rawClass,
+        final Map<TypeVariable<?>, Type> typeVariableMap) {
+        Objects.requireNonNull(rawClass, "rawClass");
 ```
 
-### Deprecation
-'org.apache.commons.lang3.CharEncoding' is deprecated
-in `src/main/java/org/apache/commons/lang3/package-info.java`
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
 #### Snippet
 ```java
- * There was no obvious solution and I needed to move onwards, so the simple solution was to wrap that particular test in a <code>if (SystemUtils.isJavaVersionAtLeast(1.3f)) {</code>, make a note and move on.</p>
- *
- * <p>The {@link org.apache.commons.lang3.CharEncoding} class is also used to interact with the Java environment and may be used to see which character encodings are supported in a particular environment.</p>
- *
- * <h2>Serialization - SerializationUtils, SerializationException</h2>
+     * @since 3.2
+     */
+    public static final ParameterizedType parameterizeWithOwner(final Type owner, final Class<?> rawClass,
+        final Type... typeArguments) {
+        Objects.requireNonNull(rawClass, "rawClass");
 ```
 
-### Deprecation
-'org.apache.commons.lang3.RandomUtils' is deprecated
-in `src/main/java/org/apache/commons/lang3/RandomStringUtils.java`
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
+#### Snippet
+```java
+     * @since 3.2
+     */
+    public static final ParameterizedType parameterize(final Class<?> rawClass, final Type... typeArguments) {
+        return parameterizeWithOwner(null, rawClass, typeArguments);
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
+#### Snippet
+```java
+     * @since 3.2
+     */
+    public static final ParameterizedType parameterize(final Class<?> rawClass,
+        final Map<TypeVariable<?>, Type> typeVariableMap) {
+        Objects.requireNonNull(rawClass, "rawClass");
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
+#### Snippet
+```java
+     * @return String with escaped values, {@code null} if null string input
+     */
+    public static final String escapeJava(final String input) {
+        return ESCAPE_JAVA.translate(input);
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
+#### Snippet
+```java
+     * @since 3.0
+     */
+    public static final String unescapeEcmaScript(final String input) {
+        return UNESCAPE_ECMASCRIPT.translate(input);
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
+#### Snippet
+```java
+     * @since 2.4
+     */
+    public static final String escapeCsv(final String input) {
+        return ESCAPE_CSV.translate(input);
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
 #### Snippet
 ```java
      */
-    public static String randomAlphabetic(final int minLengthInclusive, final int maxLengthExclusive) {
-        return randomAlphabetic(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
+    @Deprecated
+    public static final String escapeXml(final String input) {
+        return ESCAPE_XML.translate(input);
     }
-
 ```
 
-### Deprecation
-'org.apache.commons.lang3.RandomUtils' is deprecated
-in `src/main/java/org/apache/commons/lang3/RandomStringUtils.java`
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
 #### Snippet
 ```java
+     * @since 3.0
      */
-    public static String randomAscii(final int minLengthInclusive, final int maxLengthExclusive) {
-        return randomAscii(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
+    public static final String unescapeHtml4(final String input) {
+        return UNESCAPE_HTML4.translate(input);
     }
-
 ```
 
-### Deprecation
-'org.apache.commons.lang3.RandomUtils' is deprecated
-in `src/main/java/org/apache/commons/lang3/RandomStringUtils.java`
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
 #### Snippet
 ```java
+     * @since 3.2
      */
-    public static String randomPrint(final int minLengthInclusive, final int maxLengthExclusive) {
-        return randomPrint(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
+    public static final String unescapeJson(final String input) {
+        return UNESCAPE_JSON.translate(input);
     }
-
 ```
 
-### Deprecation
-'org.apache.commons.lang3.RandomUtils' is deprecated
-in `src/main/java/org/apache/commons/lang3/RandomStringUtils.java`
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
 #### Snippet
 ```java
+     * @since 3.0
      */
-    public static String randomNumeric(final int minLengthInclusive, final int maxLengthExclusive) {
-        return randomNumeric(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
+    public static final String unescapeHtml3(final String input) {
+        return UNESCAPE_HTML3.translate(input);
     }
-
 ```
 
-### Deprecation
-'org.apache.commons.lang3.RandomUtils' is deprecated
-in `src/main/java/org/apache/commons/lang3/RandomStringUtils.java`
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
 #### Snippet
 ```java
+     * @since 2.4
      */
-    public static String randomAlphanumeric(final int minLengthInclusive, final int maxLengthExclusive) {
-        return randomAlphanumeric(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
+    public static final String unescapeCsv(final String input) {
+        return UNESCAPE_CSV.translate(input);
     }
-
 ```
 
-### Deprecation
-'org.apache.commons.lang3.RandomUtils' is deprecated
-in `src/main/java/org/apache/commons/lang3/RandomStringUtils.java`
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
 #### Snippet
 ```java
+     * @since 3.2
      */
-    public static String randomGraph(final int minLengthInclusive, final int maxLengthExclusive) {
-        return randomGraph(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
+    public static final String escapeJson(final String input) {
+        return ESCAPE_JSON.translate(input);
     }
+```
 
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
+#### Snippet
+```java
+     * @see #escapeXml11(String)
+     */
+    public static final String unescapeXml(final String input) {
+        return UNESCAPE_XML.translate(input);
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
+#### Snippet
+```java
+     * @since 3.0
+     */
+    public static final String escapeHtml3(final String input) {
+        return ESCAPE_HTML3.translate(input);
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
+#### Snippet
+```java
+     * @return a new unescaped {@link String}, {@code null} if null string input
+     */
+    public static final String unescapeJava(final String input) {
+        return UNESCAPE_JAVA.translate(input);
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
+#### Snippet
+```java
+     * @since 3.0
+     */
+    public static final String escapeEcmaScript(final String input) {
+        return ESCAPE_ECMASCRIPT.translate(input);
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
+#### Snippet
+```java
+     * @since 3.0
+     */
+    public static final String escapeHtml4(final String input) {
+        return ESCAPE_HTML4.translate(input);
+    }
 ```
 
 ## RuleId[id=UnnecessaryToStringCall]
@@ -2089,223 +2306,6 @@ in `src/main/java/org/apache/commons/lang3/StringUtils.java`
 
 ```
 
-## RuleId[id=FinalStaticMethod]
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
-#### Snippet
-```java
-     * @since 2.4
-     */
-    public static final String escapeCsv(final String input) {
-        return ESCAPE_CSV.translate(input);
-    }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
-#### Snippet
-```java
-     * @since 3.0
-     */
-    public static final String unescapeHtml3(final String input) {
-        return UNESCAPE_HTML3.translate(input);
-    }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
-#### Snippet
-```java
-     * @since 2.4
-     */
-    public static final String unescapeCsv(final String input) {
-        return UNESCAPE_CSV.translate(input);
-    }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
-#### Snippet
-```java
-     * @since 3.2
-     */
-    public static final String escapeJson(final String input) {
-        return ESCAPE_JSON.translate(input);
-    }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
-#### Snippet
-```java
-     * @since 3.2
-     */
-    public static final String unescapeJson(final String input) {
-        return UNESCAPE_JSON.translate(input);
-    }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
-#### Snippet
-```java
-     * @since 3.0
-     */
-    public static final String escapeEcmaScript(final String input) {
-        return ESCAPE_ECMASCRIPT.translate(input);
-    }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
-#### Snippet
-```java
-     * @since 3.0
-     */
-    public static final String escapeHtml4(final String input) {
-        return ESCAPE_HTML4.translate(input);
-    }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
-#### Snippet
-```java
-     * @see #escapeXml11(String)
-     */
-    public static final String unescapeXml(final String input) {
-        return UNESCAPE_XML.translate(input);
-    }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
-#### Snippet
-```java
-     * @return String with escaped values, {@code null} if null string input
-     */
-    public static final String escapeJava(final String input) {
-        return ESCAPE_JAVA.translate(input);
-    }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
-#### Snippet
-```java
-     * @since 3.0
-     */
-    public static final String unescapeHtml4(final String input) {
-        return UNESCAPE_HTML4.translate(input);
-    }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static final String escapeXml(final String input) {
-        return ESCAPE_XML.translate(input);
-    }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
-#### Snippet
-```java
-     * @return a new unescaped {@link String}, {@code null} if null string input
-     */
-    public static final String unescapeJava(final String input) {
-        return UNESCAPE_JAVA.translate(input);
-    }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
-#### Snippet
-```java
-     * @since 3.0
-     */
-    public static final String unescapeEcmaScript(final String input) {
-        return UNESCAPE_ECMASCRIPT.translate(input);
-    }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
-#### Snippet
-```java
-     * @since 3.0
-     */
-    public static final String escapeHtml3(final String input) {
-        return ESCAPE_HTML3.translate(input);
-    }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
-#### Snippet
-```java
-     * @since 3.2
-     */
-    public static final ParameterizedType parameterizeWithOwner(final Type owner, final Class<?> rawClass,
-        final Map<TypeVariable<?>, Type> typeVariableMap) {
-        Objects.requireNonNull(rawClass, "rawClass");
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
-#### Snippet
-```java
-     * @since 3.2
-     */
-    public static final ParameterizedType parameterize(final Class<?> rawClass, final Type... typeArguments) {
-        return parameterizeWithOwner(null, rawClass, typeArguments);
-    }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
-#### Snippet
-```java
-     * @since 3.2
-     */
-    public static final ParameterizedType parameterize(final Class<?> rawClass,
-        final Map<TypeVariable<?>, Type> typeVariableMap) {
-        Objects.requireNonNull(rawClass, "rawClass");
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
-#### Snippet
-```java
-     * @since 3.2
-     */
-    public static final ParameterizedType parameterizeWithOwner(final Type owner, final Class<?> rawClass,
-        final Type... typeArguments) {
-        Objects.requireNonNull(rawClass, "rawClass");
-```
-
 ## RuleId[id=DanglingJavadoc]
 ### DanglingJavadoc
 Dangling Javadoc comment
@@ -2319,19 +2319,20 @@ in `src/main/java/org/apache/commons/lang3/ClassUtils.java`
         final Map<String, String> map = new HashMap<>();
 ```
 
-## RuleId[id=SuspiciousMethodCalls]
-### SuspiciousMethodCalls
-Suspicious call to 'Map.getOrDefault()'
-in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
+## RuleId[id=RedundantTypeArguments]
+### RedundantTypeArguments
+Explicit type arguments can be inferred
+in `src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java`
 #### Snippet
 ```java
-            typeVarAssigns.put(
-                    typeParams[i],
-                    typeVarAssigns.getOrDefault(typeArg, typeArg)
-            );
-        }
+    public static <R> R rethrow(final Throwable throwable) {
+        // claim that the typeErasure invocation throws a RuntimeException
+        return ExceptionUtils.<R, RuntimeException>eraseType(throwable);
+    }
+
 ```
 
+## RuleId[id=SuspiciousMethodCalls]
 ### SuspiciousMethodCalls
 Suspicious call to 'List.contains()'
 in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
@@ -2344,17 +2345,16 @@ in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
                     // the super type.
 ```
 
-## RuleId[id=RedundantTypeArguments]
-### RedundantTypeArguments
-Explicit type arguments can be inferred
-in `src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java`
+### SuspiciousMethodCalls
+Suspicious call to 'Map.getOrDefault()'
+in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
 #### Snippet
 ```java
-    public static <R> R rethrow(final Throwable throwable) {
-        // claim that the typeErasure invocation throws a RuntimeException
-        return ExceptionUtils.<R, RuntimeException>eraseType(throwable);
-    }
-
+            typeVarAssigns.put(
+                    typeParams[i],
+                    typeVarAssigns.getOrDefault(typeArg, typeArg)
+            );
+        }
 ```
 
 ## RuleId[id=NumberEquality]
@@ -2398,102 +2398,6 @@ in `src/main/java/org/apache/commons/lang3/concurrent/AbstractFutureProxy.java`
 
 ### NullableProblems
 Not annotated parameter overrides @NotNull parameter
-in `src/main/java/org/apache/commons/lang3/math/Fraction.java`
-#### Snippet
-```java
-     */
-    @Override
-    public int compareTo(final Fraction other) {
-        if (this == other) {
-            return 0;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `src/main/java/org/apache/commons/lang3/text/CompositeFormat.java`
-#### Snippet
-```java
-     */
-    @Override // Therefore has to use StringBuffer
-    public StringBuffer format(final Object obj, final StringBuffer toAppendTo,
-            final FieldPosition pos) {
-        return formatter.format(obj, toAppendTo, pos);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `src/main/java/org/apache/commons/lang3/text/CompositeFormat.java`
-#### Snippet
-```java
-    @Override // Therefore has to use StringBuffer
-    public StringBuffer format(final Object obj, final StringBuffer toAppendTo,
-            final FieldPosition pos) {
-        return formatter.format(obj, toAppendTo, pos);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `src/main/java/org/apache/commons/lang3/text/CompositeFormat.java`
-#### Snippet
-```java
-     */
-    @Override
-    public Object parseObject(final String source, final ParsePosition pos) {
-        return parser.parseObject(source, pos);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `src/main/java/org/apache/commons/lang3/concurrent/UncheckedFuture.java`
-#### Snippet
-```java
-     */
-    @Override
-    V get(long timeout, TimeUnit unit);
-
-}
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java`
-#### Snippet
-```java
-     */
-    @Override
-    public void setFormatsByArgumentIndex(final Format[] newFormats) {
-        throw new UnsupportedOperationException();
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java`
-#### Snippet
-```java
-     */
-    @Override
-    public void setFormats(final Format[] newFormats) {
-        throw new UnsupportedOperationException();
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java`
-#### Snippet
-```java
-     */
-    @Override
-    public final void applyPattern(final String pattern) {
-        if (registry == null) {
-            super.applyPattern(pattern);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
 in `src/main/java/org/apache/commons/lang3/concurrent/BasicThreadFactory.java`
 #### Snippet
 ```java
@@ -2506,38 +2410,14 @@ in `src/main/java/org/apache/commons/lang3/concurrent/BasicThreadFactory.java`
 
 ### NullableProblems
 Not annotated parameter overrides @NotNull parameter
-in `src/main/java/org/apache/commons/lang3/time/FastDateFormat.java`
+in `src/main/java/org/apache/commons/lang3/math/Fraction.java`
 #### Snippet
 ```java
      */
     @Override
-    public Object parseObject(final String source, final ParsePosition pos) {
-        return parser.parseObject(source, pos);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `src/main/java/org/apache/commons/lang3/time/FastDateFormat.java`
-#### Snippet
-```java
-     */
-    @Override
-    public StringBuffer format(final Object obj, final StringBuffer toAppendTo, final FieldPosition pos) {
-        return toAppendTo.append(printer.format(obj));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `src/main/java/org/apache/commons/lang3/concurrent/ConcurrentUtils.java`
-#### Snippet
-```java
-         */
-        @Override
-        public T get(final long timeout, final TimeUnit unit) {
-            return value;
-        }
+    public int compareTo(final Fraction other) {
+        if (this == other) {
+            return 0;
 ```
 
 ### NullableProblems
@@ -2559,8 +2439,8 @@ in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
 ```java
         /** {@inheritDoc} */
         @Override
-        public void write(final char[] cbuf, final int off, final int len) {
-            StrBuilder.this.append(cbuf, off, len);
+        public void write(final char[] cbuf) {
+            StrBuilder.this.append(cbuf);
         }
 ```
 
@@ -2595,8 +2475,8 @@ in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
 ```java
         /** {@inheritDoc} */
         @Override
-        public void write(final String str) {
-            StrBuilder.this.append(str);
+        public void write(final char[] cbuf, final int off, final int len) {
+            StrBuilder.this.append(cbuf, off, len);
         }
 ```
 
@@ -2607,25 +2487,168 @@ in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
 ```java
         /** {@inheritDoc} */
         @Override
-        public void write(final char[] cbuf) {
-            StrBuilder.this.append(cbuf);
+        public void write(final String str) {
+            StrBuilder.this.append(str);
         }
 ```
 
-## RuleId[id=NegativeIntConstantInLongContext]
-### NegativeIntConstantInLongContext
-Negative int hexadecimal constant in long context
-in `src/main/java/org/apache/commons/lang3/Conversion.java`
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/org/apache/commons/lang3/text/CompositeFormat.java`
 #### Snippet
 ```java
-        for (int i = 0; i < nInts; i++) {
-            final int shift = i * 32 + srcPos;
-            dst[dstPos + i] = (int) (0xffffffff & (src >> shift));
+     */
+    @Override
+    public Object parseObject(final String source, final ParsePosition pos) {
+        return parser.parseObject(source, pos);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/org/apache/commons/lang3/text/CompositeFormat.java`
+#### Snippet
+```java
+     */
+    @Override // Therefore has to use StringBuffer
+    public StringBuffer format(final Object obj, final StringBuffer toAppendTo,
+            final FieldPosition pos) {
+        return formatter.format(obj, toAppendTo, pos);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/org/apache/commons/lang3/text/CompositeFormat.java`
+#### Snippet
+```java
+    @Override // Therefore has to use StringBuffer
+    public StringBuffer format(final Object obj, final StringBuffer toAppendTo,
+            final FieldPosition pos) {
+        return formatter.format(obj, toAppendTo, pos);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/org/apache/commons/lang3/time/FastDateFormat.java`
+#### Snippet
+```java
+     */
+    @Override
+    public StringBuffer format(final Object obj, final StringBuffer toAppendTo, final FieldPosition pos) {
+        return toAppendTo.append(printer.format(obj));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/org/apache/commons/lang3/time/FastDateFormat.java`
+#### Snippet
+```java
+     */
+    @Override
+    public Object parseObject(final String source, final ParsePosition pos) {
+        return parser.parseObject(source, pos);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/org/apache/commons/lang3/concurrent/ConcurrentUtils.java`
+#### Snippet
+```java
+         */
+        @Override
+        public T get(final long timeout, final TimeUnit unit) {
+            return value;
         }
-        return dst;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/org/apache/commons/lang3/concurrent/UncheckedFuture.java`
+#### Snippet
+```java
+     */
+    @Override
+    V get(long timeout, TimeUnit unit);
+
+}
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java`
+#### Snippet
+```java
+     */
+    @Override
+    public void setFormatsByArgumentIndex(final Format[] newFormats) {
+        throw new UnsupportedOperationException();
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java`
+#### Snippet
+```java
+     */
+    @Override
+    public final void applyPattern(final String pattern) {
+        if (registry == null) {
+            super.applyPattern(pattern);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java`
+#### Snippet
+```java
+     */
+    @Override
+    public void setFormats(final Format[] newFormats) {
+        throw new UnsupportedOperationException();
+    }
 ```
 
 ## RuleId[id=JavadocLinkAsPlainText]
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `src/main/java/org/apache/commons/lang3/SystemUtils.java`
+#### Snippet
+```java
+     * </p>
+     * <ul>
+     * <li>Affects Java versions 7u321, 8u311, 11.0.13-oracle, 17.0.1: https://bugs.openjdk.org/browse/JDK-8274737</li>
+     * <li>Fixed in OpenJDK commit https://github.com/openjdk/jdk/commit/97ea9dd2f24f9f1fb9b9345a4202a825ee28e014</li>
+     * </ul>
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `src/main/java/org/apache/commons/lang3/SystemUtils.java`
+#### Snippet
+```java
+     * <ul>
+     * <li>Affects Java versions 7u321, 8u311, 11.0.13-oracle, 17.0.1: https://bugs.openjdk.org/browse/JDK-8274737</li>
+     * <li>Fixed in OpenJDK commit https://github.com/openjdk/jdk/commit/97ea9dd2f24f9f1fb9b9345a4202a825ee28e014</li>
+     * </ul>
+     * <p>
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java`
+#### Snippet
+```java
+     * @deprecated As of Java 12, we can no longer drop the {@code final} modifier, thus
+     *             rendering this method obsolete. The JDK discussion about this change can be found
+     *             here: https://mail.openjdk.java.net/pipermail/core-libs-dev/2018-November/056486.html
+     * @since 3.3
+     */
+```
+
 ### JavadocLinkAsPlainText
 Link specified as plain text
 in `src/main/java/org/apache/commons/lang3/concurrent/locks/LockingVisitors.java`
@@ -2650,40 +2673,17 @@ in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
      * <p>Example:</p>
 ```
 
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java`
+## RuleId[id=NegativeIntConstantInLongContext]
+### NegativeIntConstantInLongContext
+Negative int hexadecimal constant in long context
+in `src/main/java/org/apache/commons/lang3/Conversion.java`
 #### Snippet
 ```java
-     * @deprecated As of Java 12, we can no longer drop the {@code final} modifier, thus
-     *             rendering this method obsolete. The JDK discussion about this change can be found
-     *             here: https://mail.openjdk.java.net/pipermail/core-libs-dev/2018-November/056486.html
-     * @since 3.3
-     */
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `src/main/java/org/apache/commons/lang3/SystemUtils.java`
-#### Snippet
-```java
-     * </p>
-     * <ul>
-     * <li>Affects Java versions 7u321, 8u311, 11.0.13-oracle, 17.0.1: https://bugs.openjdk.org/browse/JDK-8274737</li>
-     * <li>Fixed in OpenJDK commit https://github.com/openjdk/jdk/commit/97ea9dd2f24f9f1fb9b9345a4202a825ee28e014</li>
-     * </ul>
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `src/main/java/org/apache/commons/lang3/SystemUtils.java`
-#### Snippet
-```java
-     * <ul>
-     * <li>Affects Java versions 7u321, 8u311, 11.0.13-oracle, 17.0.1: https://bugs.openjdk.org/browse/JDK-8274737</li>
-     * <li>Fixed in OpenJDK commit https://github.com/openjdk/jdk/commit/97ea9dd2f24f9f1fb9b9345a4202a825ee28e014</li>
-     * </ul>
-     * <p>
+        for (int i = 0; i < nInts; i++) {
+            final int shift = i * 32 + srcPos;
+            dst[dstPos + i] = (int) (0xffffffff & (src >> shift));
+        }
+        return dst;
 ```
 
 ## RuleId[id=FunctionalExpressionCanBeFolded]
@@ -2727,18 +2727,6 @@ in `src/main/java/org/apache/commons/lang3/time/FastDateParser.java`
 ## RuleId[id=JavadocDeclaration]
 ### JavadocDeclaration
 Javadoc pointing to itself
-in `src/main/java/org/apache/commons/lang3/ClassUtils.java`
-#### Snippet
-```java
-     *
-     * <p>
-     * This method simply gets the name using {@code Class.getName()} and then calls {@link #getShortClassName(Class)}. See
-     * relevant notes there.
-     * </p>
-```
-
-### JavadocDeclaration
-Javadoc pointing to itself
 in `src/main/java/org/apache/commons/lang3/text/StrLookup.java`
 #### Snippet
 ```java
@@ -2746,6 +2734,18 @@ in `src/main/java/org/apache/commons/lang3/text/StrLookup.java`
      * <p>
      * The {@link #lookup(String)} method always returns a String, regardless of
      * the underlying data, by converting it as necessary. For example:
+     * </p>
+```
+
+### JavadocDeclaration
+Javadoc pointing to itself
+in `src/main/java/org/apache/commons/lang3/ClassUtils.java`
+#### Snippet
+```java
+     *
+     * <p>
+     * This method simply gets the name using {@code Class.getName()} and then calls {@link #getShortClassName(Class)}. See
+     * relevant notes there.
      * </p>
 ```
 
@@ -2780,8 +2780,56 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
     @Deprecated
-    public static long[] removeAllOccurences(final long[] array, final long element) {
-        return (long[]) removeAll((Object) array, indexesOf(array, element));
+    public static char[] removeAllOccurences(final char[] array, final char element) {
+        return (char[]) removeAll((Object) array, indexesOf(array, element));
+    }
+
+```
+
+### RedundantCast
+Casting `array` to `Object` is redundant
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
+#### Snippet
+```java
+     */
+    public static short[] removeAllOccurrences(final short[] array, final short element) {
+        return (short[]) removeAll((Object) array, indexesOf(array, element));
+    }
+
+```
+
+### RedundantCast
+Casting `array` to `Object` is redundant
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
+#### Snippet
+```java
+     */
+    public static double[] removeAllOccurrences(final double[] array, final double element) {
+        return (double[]) removeAll((Object) array, indexesOf(array, element));
+    }
+
+```
+
+### RedundantCast
+Casting `array` to `Object` is redundant
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
+#### Snippet
+```java
+     */
+    public static float[] removeAllOccurrences(final float[] array, final float element) {
+        return (float[]) removeAll((Object) array, indexesOf(array, element));
+    }
+
+```
+
+### RedundantCast
+Casting `array` to `Object` is redundant
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
+#### Snippet
+```java
+     */
+    public static char[] removeAllOccurrences(final char[] array, final char element) {
+        return (char[]) removeAll((Object) array, indexesOf(array, element));
     }
 
 ```
@@ -2792,8 +2840,8 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
     @Deprecated
-    public static int[] removeAllOccurences(final int[] array, final int element) {
-        return (int[]) removeAll((Object) array, indexesOf(array, element));
+    public static <T> T[] removeAllOccurences(final T[] array, final T element) {
+        return (T[]) removeAll((Object) array, indexesOf(array, element));
     }
 
 ```
@@ -2828,20 +2876,8 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
      */
-    public static float[] removeAllOccurrences(final float[] array, final float element) {
-        return (float[]) removeAll((Object) array, indexesOf(array, element));
-    }
-
-```
-
-### RedundantCast
-Casting `array` to `Object` is redundant
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    @Deprecated
-    public static byte[] removeAllOccurences(final byte[] array, final byte element) {
-        return (byte[]) removeAll((Object) array, indexesOf(array, element));
+    public static long[] removeAllOccurrences(final long[] array, final long element) {
+        return (long[]) removeAll((Object) array, indexesOf(array, element));
     }
 
 ```
@@ -2863,21 +2899,9 @@ Casting `array` to `Object` is redundant
 in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
-     */
-    public static <T> T[] removeAllOccurrences(final T[] array, final T element) {
-        return (T[]) removeAll((Object) array, indexesOf(array, element));
-    }
-
-```
-
-### RedundantCast
-Casting `array` to `Object` is redundant
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-     */
-    public static char[] removeAllOccurrences(final char[] array, final char element) {
-        return (char[]) removeAll((Object) array, indexesOf(array, element));
+    @Deprecated
+    public static long[] removeAllOccurences(final long[] array, final long element) {
+        return (long[]) removeAll((Object) array, indexesOf(array, element));
     }
 
 ```
@@ -2888,20 +2912,8 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
     @Deprecated
-    public static boolean[] removeAllOccurences(final boolean[] array, final boolean element) {
-        return (boolean[]) removeAll((Object) array, indexesOf(array, element));
-    }
-
-```
-
-### RedundantCast
-Casting `array` to `Object` is redundant
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-     */
-    public static double[] removeAllOccurrences(final double[] array, final double element) {
-        return (double[]) removeAll((Object) array, indexesOf(array, element));
+    public static byte[] removeAllOccurences(final byte[] array, final byte element) {
+        return (byte[]) removeAll((Object) array, indexesOf(array, element));
     }
 
 ```
@@ -2923,33 +2935,9 @@ Casting `array` to `Object` is redundant
 in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
-     */
-    public static long[] removeAllOccurrences(final long[] array, final long element) {
-        return (long[]) removeAll((Object) array, indexesOf(array, element));
-    }
-
-```
-
-### RedundantCast
-Casting `array` to `Object` is redundant
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
     @Deprecated
-    public static char[] removeAllOccurences(final char[] array, final char element) {
-        return (char[]) removeAll((Object) array, indexesOf(array, element));
-    }
-
-```
-
-### RedundantCast
-Casting `array` to `Object` is redundant
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-     */
-    public static short[] removeAllOccurrences(final short[] array, final short element) {
-        return (short[]) removeAll((Object) array, indexesOf(array, element));
+    public static int[] removeAllOccurences(final int[] array, final int element) {
+        return (int[]) removeAll((Object) array, indexesOf(array, element));
     }
 
 ```
@@ -2971,9 +2959,21 @@ Casting `array` to `Object` is redundant
 in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
-    @Deprecated
-    public static <T> T[] removeAllOccurences(final T[] array, final T element) {
+     */
+    public static <T> T[] removeAllOccurrences(final T[] array, final T element) {
         return (T[]) removeAll((Object) array, indexesOf(array, element));
+    }
+
+```
+
+### RedundantCast
+Casting `array` to `Object` is redundant
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
+#### Snippet
+```java
+    @Deprecated
+    public static boolean[] removeAllOccurences(final boolean[] array, final boolean element) {
+        return (boolean[]) removeAll((Object) array, indexesOf(array, element));
     }
 
 ```
@@ -2990,92 +2990,7 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 
 ```
 
-## RuleId[id=PointlessBitwiseExpression]
-### PointlessBitwiseExpression
-`0xffffffff & (src >> shift)` can be replaced with '(src \>\> shift)'
-in `src/main/java/org/apache/commons/lang3/Conversion.java`
-#### Snippet
-```java
-        for (int i = 0; i < nInts; i++) {
-            final int shift = i * 32 + srcPos;
-            dst[dstPos + i] = (int) (0xffffffff & (src >> shift));
-        }
-        return dst;
-```
-
 ## RuleId[id=UnnecessaryUnicodeEscape]
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u0020` can be replaced with ' '
-in `src/main/java/org/apache/commons/lang3/CharUtils.java`
-#### Snippet
-```java
-
-    /**
-     * Converts the string to the Unicode format '\u0020'.
-     *
-     * <p>This format is the Java source code format.</p>
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u0020` can be replaced with ' '
-in `src/main/java/org/apache/commons/lang3/CharUtils.java`
-#### Snippet
-```java
-     *
-     * <pre>
-     *   CharUtils.unicodeEscaped(' ') = "\u0020"
-     *   CharUtils.unicodeEscaped('A') = "\u0041"
-     * </pre>
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u0041` can be replaced with 'A'
-in `src/main/java/org/apache/commons/lang3/CharUtils.java`
-#### Snippet
-```java
-     * <pre>
-     *   CharUtils.unicodeEscaped(' ') = "\u0020"
-     *   CharUtils.unicodeEscaped('A') = "\u0041"
-     * </pre>
-     *
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u0020` can be replaced with ' '
-in `src/main/java/org/apache/commons/lang3/CharUtils.java`
-#### Snippet
-```java
-
-    /**
-     * Converts the string to the Unicode format '\u0020'.
-     *
-     * <p>This format is the Java source code format.</p>
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u0020` can be replaced with ' '
-in `src/main/java/org/apache/commons/lang3/CharUtils.java`
-#### Snippet
-```java
-     * <pre>
-     *   CharUtils.unicodeEscaped(null) = null
-     *   CharUtils.unicodeEscaped(' ')  = "\u0020"
-     *   CharUtils.unicodeEscaped('A')  = "\u0041"
-     * </pre>
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u0041` can be replaced with 'A'
-in `src/main/java/org/apache/commons/lang3/CharUtils.java`
-#### Snippet
-```java
-     *   CharUtils.unicodeEscaped(null) = null
-     *   CharUtils.unicodeEscaped(' ')  = "\u0020"
-     *   CharUtils.unicodeEscaped('A')  = "\u0041"
-     * </pre>
-     *
-```
-
 ### UnnecessaryUnicodeEscape
 Unicode escape sequence `\u00A1` can be replaced with '¡'
 in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
@@ -6004,6 +5919,91 @@ in `src/main/java/org/apache/commons/lang3/StringUtils.java`
      *
 ```
 
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u0020` can be replaced with ' '
+in `src/main/java/org/apache/commons/lang3/CharUtils.java`
+#### Snippet
+```java
+
+    /**
+     * Converts the string to the Unicode format '\u0020'.
+     *
+     * <p>This format is the Java source code format.</p>
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u0020` can be replaced with ' '
+in `src/main/java/org/apache/commons/lang3/CharUtils.java`
+#### Snippet
+```java
+     * <pre>
+     *   CharUtils.unicodeEscaped(null) = null
+     *   CharUtils.unicodeEscaped(' ')  = "\u0020"
+     *   CharUtils.unicodeEscaped('A')  = "\u0041"
+     * </pre>
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u0041` can be replaced with 'A'
+in `src/main/java/org/apache/commons/lang3/CharUtils.java`
+#### Snippet
+```java
+     *   CharUtils.unicodeEscaped(null) = null
+     *   CharUtils.unicodeEscaped(' ')  = "\u0020"
+     *   CharUtils.unicodeEscaped('A')  = "\u0041"
+     * </pre>
+     *
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u0020` can be replaced with ' '
+in `src/main/java/org/apache/commons/lang3/CharUtils.java`
+#### Snippet
+```java
+
+    /**
+     * Converts the string to the Unicode format '\u0020'.
+     *
+     * <p>This format is the Java source code format.</p>
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u0020` can be replaced with ' '
+in `src/main/java/org/apache/commons/lang3/CharUtils.java`
+#### Snippet
+```java
+     *
+     * <pre>
+     *   CharUtils.unicodeEscaped(' ') = "\u0020"
+     *   CharUtils.unicodeEscaped('A') = "\u0041"
+     * </pre>
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u0041` can be replaced with 'A'
+in `src/main/java/org/apache/commons/lang3/CharUtils.java`
+#### Snippet
+```java
+     * <pre>
+     *   CharUtils.unicodeEscaped(' ') = "\u0020"
+     *   CharUtils.unicodeEscaped('A') = "\u0041"
+     * </pre>
+     *
+```
+
+## RuleId[id=PointlessBitwiseExpression]
+### PointlessBitwiseExpression
+`0xffffffff & (src >> shift)` can be replaced with '(src \>\> shift)'
+in `src/main/java/org/apache/commons/lang3/Conversion.java`
+#### Snippet
+```java
+        for (int i = 0; i < nInts; i++) {
+            final int shift = i * 32 + srcPos;
+            dst[dstPos + i] = (int) (0xffffffff & (src >> shift));
+        }
+        return dst;
+```
+
 ## RuleId[id=UnnecessaryContinue]
 ### UnnecessaryContinue
 `continue` is unnecessary as the last statement in a loop
@@ -6037,8 +6037,8 @@ in `src/main/java/org/apache/commons/lang3/text/WordUtils.java`
 #### Snippet
 ```java
      */
-    public static String capitalize(final String str) {
-        return capitalize(str, null);
+    public static String capitalizeFully(final String str) {
+        return capitalizeFully(str, null);
     }
 
 ```
@@ -6049,8 +6049,8 @@ in `src/main/java/org/apache/commons/lang3/text/WordUtils.java`
 #### Snippet
 ```java
      */
-    public static String capitalizeFully(final String str) {
-        return capitalizeFully(str, null);
+    public static String capitalize(final String str) {
+        return capitalize(str, null);
     }
 
 ```
@@ -6106,25 +6106,25 @@ in `src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java`
 ```
 
 ### ConstantValue
-Value `array` is always 'null'
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
+Condition `lastMatch` is always `true` when reached
+in `src/main/java/org/apache/commons/lang3/StringUtils.java`
 #### Snippet
 ```java
-     */
-    public static boolean[] addFirst(final boolean[] array, final boolean element) {
-        return array == null ? add(array, element) : insert(0, array, element);
-    }
-
+            i++;
+        }
+        if (match || preserveAllTokens && lastMatch) {
+            list.add(str.substring(start, i));
+        }
 ```
 
 ### ConstantValue
-Value `array` is always 'null'
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
+Value `repeat` is always 'true'
+in `src/main/java/org/apache/commons/lang3/StringUtils.java`
 #### Snippet
 ```java
-     */
-    public static long[] addFirst(final long[] array, final long element) {
-        return array == null ? add(array, element) : insert(0, array, element);
+        }
+
+        return replaceEach(result, searchList, replacementList, repeat, timeToLive - 1);
     }
 
 ```
@@ -6147,7 +6147,7 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
      */
-    public static <T> T[] addFirst(final T[] array, final T element) {
+    public static short[] addFirst(final short[] array, final short element) {
         return array == null ? add(array, element) : insert(0, array, element);
     }
 
@@ -6159,7 +6159,19 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
      */
-    public static short[] addFirst(final short[] array, final short element) {
+    public static boolean[] addFirst(final boolean[] array, final boolean element) {
+        return array == null ? add(array, element) : insert(0, array, element);
+    }
+
+```
+
+### ConstantValue
+Value `array` is always 'null'
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
+#### Snippet
+```java
+     */
+    public static byte[] addFirst(final byte[] array, final byte element) {
         return array == null ? add(array, element) : insert(0, array, element);
     }
 
@@ -6195,7 +6207,7 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
      */
-    public static float[] addFirst(final float[] array, final float element) {
+    public static <T> T[] addFirst(final T[] array, final T element) {
         return array == null ? add(array, element) : insert(0, array, element);
     }
 
@@ -6207,33 +6219,21 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
      */
-    public static byte[] addFirst(final byte[] array, final byte element) {
+    public static long[] addFirst(final long[] array, final long element) {
         return array == null ? add(array, element) : insert(0, array, element);
     }
 
 ```
 
 ### ConstantValue
-Value `repeat` is always 'true'
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
+Value `array` is always 'null'
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
-        }
-
-        return replaceEach(result, searchList, replacementList, repeat, timeToLive - 1);
+     */
+    public static float[] addFirst(final float[] array, final float element) {
+        return array == null ? add(array, element) : insert(0, array, element);
     }
 
-```
-
-### ConstantValue
-Condition `lastMatch` is always `true` when reached
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-            i++;
-        }
-        if (match || preserveAllTokens && lastMatch) {
-            list.add(str.substring(start, i));
-        }
 ```
 
