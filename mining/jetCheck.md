@@ -36,18 +36,6 @@ in `src/main/java/org/jetbrains/jetCheck/StructureNode.java`
 
 ## RuleId[id=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
-Deprecated member 'withSeed' is still used
-in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public Parameters withSeed(long seed) {
-      if (serializedData != null) {
-        System.err.println("withSeed ignored, because 'rechecking' is used");
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'rechecking' is still used
 in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
 #### Snippet
@@ -57,6 +45,18 @@ in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
     public Parameters rechecking(@NotNull String serializedData) {
       return DataSerializer.deserializeInto(serializedData, this);
     }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'withSeed' is still used
+in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public Parameters withSeed(long seed) {
+      if (serializedData != null) {
+        System.err.println("withSeed ignored, because 'rechecking' is used");
 ```
 
 ### DeprecatedIsStillUsed
@@ -73,13 +73,13 @@ in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
 
 ## RuleId[id=ConstantValue]
 ### ConstantValue
-Value `silent` is always 'false'
+Value `serializedData` is always 'null'
 in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
 #### Snippet
 ```java
-    public Parameters printGeneratedValues() {
-      if (silent) throw new IllegalStateException("'printGeneratedValues' is incompatible with 'silent'");
-      return new Parameters(globalSeed, serializedData, sizeHintFun, iterationCount, silent, true, printData);
+      }
+
+      return new Parameters(globalSeed, serializedData, sizeHintFun, iterationCount, silent, printValues, printData);
     }
 
 ```
@@ -92,6 +92,18 @@ in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
       }
 
       return new Parameters(seed, serializedData, sizeHintFun, iterationCount, silent, printValues, printData);
+    }
+
+```
+
+### ConstantValue
+Value `silent` is always 'false'
+in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
+#### Snippet
+```java
+    public Parameters printRawData() {
+      if (silent) throw new IllegalStateException("'printRawData' is incompatible with 'silent'");
+      return new Parameters(globalSeed, serializedData, sizeHintFun, iterationCount, silent, printValues, true);
     }
 
 ```
@@ -121,25 +133,13 @@ in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
 ```
 
 ### ConstantValue
-Value `serializedData` is always 'null'
-in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
-#### Snippet
-```java
-      }
-
-      return new Parameters(globalSeed, serializedData, sizeHintFun, iterationCount, silent, printValues, printData);
-    }
-
-```
-
-### ConstantValue
 Value `silent` is always 'false'
 in `src/main/java/org/jetbrains/jetCheck/PropertyChecker.java`
 #### Snippet
 ```java
-    public Parameters printRawData() {
-      if (silent) throw new IllegalStateException("'printRawData' is incompatible with 'silent'");
-      return new Parameters(globalSeed, serializedData, sizeHintFun, iterationCount, silent, printValues, true);
+    public Parameters printGeneratedValues() {
+      if (silent) throw new IllegalStateException("'printGeneratedValues' is incompatible with 'silent'");
+      return new Parameters(globalSeed, serializedData, sizeHintFun, iterationCount, silent, true, printData);
     }
 
 ```
