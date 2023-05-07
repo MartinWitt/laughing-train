@@ -56,252 +56,1332 @@ in `curator-examples/src/main/java/cache/PathCacheExample.java`
 ## RuleId[id=UnnecessaryModifier]
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceDiscovery.java`
+in `curator-framework/src/main/java/org/apache/curator/framework/CuratorTempFramework.java`
 #### Snippet
 ```java
-     * @return the builder
+     * @throws Exception errors
      */
-    public ServiceProviderBuilder<T> serviceProviderBuilder();
+    public TempGetDataBuilder getData() throws Exception;
 }
 
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceDiscovery.java`
+in `curator-framework/src/main/java/org/apache/curator/framework/CuratorTempFramework.java`
 #### Snippet
 ```java
-     * @throws Exception errors
+     * Stop the client
      */
-    public void     registerService(ServiceInstance<T> service) throws Exception;
+    public void     close();
 
     /**
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceDiscovery.java`
+in `curator-framework/src/main/java/org/apache/curator/framework/CuratorTempFramework.java`
 #### Snippet
 ```java
      * @throws Exception errors
      */
-    public ServiceInstance<T> queryForInstance(String name, String id) throws Exception;
+    public CuratorTransaction inTransaction() throws Exception;
 
     /**
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceDiscovery.java`
-#### Snippet
-```java
-     * @throws Exception errors
-     */
-    public void     updateService(ServiceInstance<T> service) throws Exception;
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceProvider.java`
+in `curator-x-discovery-server/src/main/java/org/apache/curator/x/discovery/server/rest/DiscoveryContext.java`
 #### Snippet
 ```java
      * @throws Exception any errors
      */
-    public Collection<ServiceInstance<T>> getAllInstances() throws Exception;
+    public T                        unMarshallJson(JsonNode node) throws Exception;
 
     /**
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceDiscovery.java`
+in `curator-x-discovery-server/src/main/java/org/apache/curator/x/discovery/server/rest/DiscoveryContext.java`
 #### Snippet
 ```java
-     * @throws Exception errors
+     * @return service
      */
-    public Collection<String> queryForNames() throws Exception;
+    public ServiceDiscovery<T>      getServiceDiscovery();
 
     /**
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceDiscovery.java`
-#### Snippet
-```java
-     * @throws Exception errors
-     */
-    public void start() throws Exception;
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceProvider.java`
+in `curator-x-discovery-server/src/main/java/org/apache/curator/x/discovery/server/rest/DiscoveryContext.java`
 #### Snippet
 ```java
      * @throws Exception any errors
      */
-    public void start() throws Exception;
+    public void                     marshallJson(ObjectNode node, String fieldName, T payload) throws Exception;
 
     /**
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceProvider.java`
+in `curator-x-discovery-server/src/main/java/org/apache/curator/x/discovery/server/rest/DiscoveryContext.java`
 #### Snippet
 ```java
-     * @param instance instance that had an error
+     * @return number of milliseconds
      */
-    public void noteError(ServiceInstance<T> instance);
+    public int                      getInstanceRefreshMs();
 
     /**
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceDiscovery.java`
+in `curator-x-discovery-server/src/main/java/org/apache/curator/x/discovery/server/rest/DiscoveryContext.java`
 #### Snippet
 ```java
-     * @throws Exception errors
+     * @return strategy
      */
-    public void     unregisterService(ServiceInstance<T> service) throws Exception;
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceDiscovery.java`
-#### Snippet
-```java
-     * @throws Exception errors
-     */
-    public Collection<ServiceInstance<T>>  queryForInstances(String name) throws Exception;
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceProvider.java`
-#### Snippet
-```java
-     * @throws Exception any errors
-     */
-    public ServiceInstance<T> getInstance() throws Exception;
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceDiscovery.java`
-#### Snippet
-```java
-     * @return new cache builder
-     */
-    public ServiceCacheBuilder<T> serviceCacheBuilder();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/details/InstanceProvider.java`
-#### Snippet
-```java
-     * @throws Exception any errors
-     */
-    public List<ServiceInstance<T>>      getInstances() throws Exception;
+    public ProviderStrategy<T>      getProviderStrategy();
 }
 
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/LocalIpFilter.java`
+in `curator-framework/src/main/java/org/apache/curator/framework/api/CompressionProvider.java`
 #### Snippet
 ```java
-public interface LocalIpFilter
+public interface CompressionProvider
 {
-    public boolean      use(NetworkInterface networkInterface, InetAddress address) throws SocketException;
+    public byte[]       compress(String path, byte[] data) throws Exception;
+
+    public byte[]       decompress(String path, byte[] compressedData) throws Exception;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/CompressionProvider.java`
+#### Snippet
+```java
+    public byte[]       compress(String path, byte[] data) throws Exception;
+
+    public byte[]       decompress(String path, byte[] compressedData) throws Exception;
 }
 
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceCache.java`
+in `curator-framework/src/main/java/org/apache/curator/framework/api/BackgroundCallback.java`
 #### Snippet
 ```java
      * @throws Exception errors
      */
-    public void start() throws Exception;
+    public void processResult(CuratorFramework client, CuratorEvent event) throws Exception;
+}
 
-    CountDownLatch startImmediate() throws Exception;
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceCache.java`
+in `curator-framework/src/main/java/org/apache/curator/framework/api/RemoveWatchesLocal.java`
 #### Snippet
 ```java
-     * @return the list
+     * @return
      */
-    public List<ServiceInstance<T>> getInstances();
+    public BackgroundPathableQuietlyable<Void> locally();
+    
+}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/CreateProtectACLCreateModePathAndBytesable.java`
+#### Snippet
+```java
+     * @return this
+     */
+    public ProtectACLCreateModePathAndBytesable<String> creatingParentContainersIfNeeded();
 
     /**
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ProviderStrategy.java`
+in `curator-framework/src/main/java/org/apache/curator/framework/api/CreateProtectACLCreateModePathAndBytesable.java`
 #### Snippet
 ```java
-     * @throws Exception any errors
+     * @return this
      */
-    public ServiceInstance<T>       getInstance(InstanceProvider<T> instanceProvider) throws Exception;
+    public ProtectACLCreateModePathAndBytesable<String> creatingParentsIfNeeded();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/CreateProtectACLCreateModePathAndBytesable.java`
+#### Snippet
+```java
+     * @return this
+     */
+    public ACLCreateModeBackgroundPathAndBytesable<String>    withProtection();
 }
 
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/details/ServiceCacheListener.java`
+in `curator-framework/src/main/java/org/apache/curator/framework/api/Pathable.java`
 #### Snippet
 ```java
-     * Called when the cache has changed (instances added/deleted, etc.)
+     * @throws Exception errors
      */
-    public void cacheChanged();
+    public T       forPath(String path) throws Exception;
 }
 
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/details/InstanceSerializer.java`
+in `curator-framework/src/main/java/org/apache/curator/framework/api/Backgroundable.java`
 #### Snippet
 ```java
-     * @throws Exception any errors
+     * @return this
      */
-    public ServiceInstance<T> deserialize(byte[] bytes) throws Exception;
+    public T inBackground();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/Backgroundable.java`
+#### Snippet
+```java
+     * @return this
+     */
+    public T inBackground(BackgroundCallback callback, Executor executor);
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/Backgroundable.java`
+#### Snippet
+```java
+     * @return this
+     */
+    public T inBackground(BackgroundCallback callback, Object context);
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/Backgroundable.java`
+#### Snippet
+```java
+     * @return this
+     */
+    public T inBackground(Object context);
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/Backgroundable.java`
+#### Snippet
+```java
+     * @return this
+     */
+    public T inBackground(BackgroundCallback callback, Object context, Executor executor);
 }
 
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/details/InstanceSerializer.java`
+in `curator-framework/src/main/java/org/apache/curator/framework/api/Backgroundable.java`
+#### Snippet
+```java
+     * @return this
+     */
+    public T inBackground(BackgroundCallback callback);
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/Compressible.java`
+#### Snippet
+```java
+     * @return this
+     */
+    public T compressed();
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/Guaranteeable.java`
+#### Snippet
+```java
+     * @return this
+     */
+    public T guaranteed();
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/ChildrenDeletable.java`
+#### Snippet
+```java
+     * @return
+     */
+    public BackgroundVersionable deletingChildrenIfNeeded();
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/CreateBackgroundModeACLable.java`
+#### Snippet
+```java
+     * @return this
+     */
+    public ACLCreateModePathAndBytesable<String> creatingParentContainersIfNeeded();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/CreateBackgroundModeACLable.java`
+#### Snippet
+```java
+     * @return this
+     */
+    public ACLPathAndBytesable<String>              withProtectedEphemeralSequential();
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/CreateBackgroundModeACLable.java`
+#### Snippet
+```java
+     * @return this
+     */
+    public ACLCreateModePathAndBytesable<String>    creatingParentsIfNeeded();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/UnhandledErrorListener.java`
+#### Snippet
+```java
+     * @param e exception
+     */
+    public void     unhandledError(String message, Throwable e);
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/ACLProvider.java`
+#### Snippet
+```java
+     * @return ACL list
+     */
+    public List<ACL>        getAclForPath(String path);
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/ACLProvider.java`
+#### Snippet
+```java
+     * @return default ACL list
+     */
+    public List<ACL>        getDefaultAcl();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/Decompressible.java`
+#### Snippet
+```java
+     * @return this
+     */
+    public T        decompressed();
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/CreateBuilderMain.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public ACLPathAndBytesable<String>              withProtectedEphemeralSequential();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/CreateBuilderMain.java`
+#### Snippet
+```java
+     * @return this
+     */
+    public ACLCreateModeStatBackgroundPathAndBytesable<String>    withProtection();
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/CreateBuilderMain.java`
+#### Snippet
+```java
+     * @return this
+     */
+    public ProtectACLCreateModeStatPathAndBytesable<String> creatingParentsIfNeeded();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/CreateBuilderMain.java`
+#### Snippet
+```java
+     * @return this
+     */
+    public ProtectACLCreateModeStatPathAndBytesable<String> creatingParentContainersIfNeeded();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/Idempotentable.java`
+#### Snippet
+```java
+     * @return this:
+     */
+    public T idempotent();
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/RemoveWatchesBuilder.java`
+#### Snippet
+```java
+     * @return
+     */
+    public RemoveWatchesType remove(Watcher watcher);
+    
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/RemoveWatchesBuilder.java`
+#### Snippet
+```java
+     * @return
+     */
+    public RemoveWatchesType removeAll();
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/RemoveWatchesBuilder.java`
+#### Snippet
+```java
+     * @return
+     */
+    public RemoveWatchesType remove(CuratorWatcher watcher);
+    
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/CreateModable.java`
+#### Snippet
+```java
+     * @return this
+     */
+    public T withMode(CreateMode mode);
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/CuratorWatcher.java`
+#### Snippet
+```java
+     * @throws Exception any exceptions to log
+     */
+    public void process(WatchedEvent event) throws Exception;
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/PathAndBytesable.java`
+#### Snippet
+```java
+     * @throws Exception errors
+     */
+    public T        forPath(String path, byte[] data) throws Exception;
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/PathAndBytesable.java`
+#### Snippet
+```java
+     * @throws Exception errors
+     */
+    public T        forPath(String path) throws Exception;
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/Versionable.java`
+#### Snippet
+```java
+     * @return this
+     */
+    public T     withVersion(int version);
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/CuratorListener.java`
 #### Snippet
 ```java
      * @throws Exception any errors
      */
-    public byte[]             serialize(ServiceInstance<T> instance) throws Exception;
+    public void         eventReceived(CuratorFramework client, CuratorEvent event) throws Exception;
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/RemoveWatchesType.java`
+#### Snippet
+```java
+     * @return
+     */
+    public RemoveWatchesLocal ofType(WatcherType watcherType);
+    
+}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/Quietly.java`
+#### Snippet
+```java
+public interface Quietly<T>
+{
+    public T quietly();
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/ProtectACLCreateModePathAndBytesable.java`
+#### Snippet
+```java
+     * @return this
+     */
+    public ACLCreateModeBackgroundPathAndBytesable<String>    withProtection();
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/CuratorEvent.java`
+#### Snippet
+```java
+     * @return event type
+     */
+    public CuratorEventType getType();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/CuratorEvent.java`
+#### Snippet
+```java
+     * @return any stat
+     */
+    public Stat getStat();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/CuratorEvent.java`
+#### Snippet
+```java
+     * @return any children
+     */
+    public List<String> getChildren();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/CuratorEvent.java`
+#### Snippet
+```java
+     * @return any operation results or null
+     */
+    public List<CuratorTransactionResult> getOpResults();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/CuratorEvent.java`
+#### Snippet
+```java
+     * @return "rc" from async callbacks
+     */
+    public int getResultCode();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/CuratorEvent.java`
+#### Snippet
+```java
+     * @return any name
+     */
+    public String getName();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/CuratorEvent.java`
+#### Snippet
+```java
+     * @return any data
+     */
+    public byte[] getData();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/CuratorEvent.java`
+#### Snippet
+```java
+     * @return any WatchedEvent
+     */
+    public WatchedEvent getWatchedEvent();
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/CreateBackgroundModeStatACLable.java`
+#### Snippet
+```java
+     * @return this
+     */
+    public ACLPathAndBytesable<String>              withProtectedEphemeralSequential();
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/CuratorEvent.java`
+#### Snippet
+```java
+     * @return any ACL list or null
+     */
+    public List<ACL> getACLList();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/CreateBackgroundModeStatACLable.java`
+#### Snippet
+```java
+     * @return this
+     */
+    public ACLCreateModePathAndBytesable<String>    creatingParentsIfNeeded();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/CreateBackgroundModeStatACLable.java`
+#### Snippet
+```java
+     * @return this
+     */
+    public ACLCreateModePathAndBytesable<String> creatingParentContainersIfNeeded();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/CuratorEvent.java`
+#### Snippet
+```java
+     * @return the context object passed to {@link Backgroundable#inBackground(Object)}
+     */
+    public Object getContext();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/CuratorEvent.java`
+#### Snippet
+```java
+     * @return the path
+     */
+    public String getPath();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/Statable.java`
+#### Snippet
+```java
+     * @return this
+     */
+    public T storingStatIn(Stat stat);
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/transaction/CuratorTransactionBridge.java`
+#### Snippet
+```java
+     * @return transaction continuation
+     */
+    public CuratorTransactionFinal and();
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/transaction/CuratorTransaction.java`
+#### Snippet
+```java
+     * @return builder object
+     */
+    public TransactionSetDataBuilder<CuratorTransactionBridge> setData();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/transaction/CuratorTransaction.java`
+#### Snippet
+```java
+     * @return builder object
+     */
+    public TransactionCheckBuilder<CuratorTransactionBridge> check();
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/transaction/CuratorTransaction.java`
+#### Snippet
+```java
+     * @return builder object
+     */
+    public TransactionCreateBuilder<CuratorTransactionBridge> create();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/transaction/CuratorTransaction.java`
+#### Snippet
+```java
+     * @return builder object
+     */
+    public TransactionDeleteBuilder<CuratorTransactionBridge> delete();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/api/transaction/CuratorTransactionFinal.java`
+#### Snippet
+```java
+     * @throws Exception errors
+     */
+    public Collection<CuratorTransactionResult> commit() throws Exception;
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
+#### Snippet
+```java
+     * @return operation builder
+     */
+    public TransactionOp transactionOp();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
+#### Snippet
+```java
+     * @return builder object
+     */
+    public SetDataBuilder setData();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
+#### Snippet
+```java
+     * @return listenable
+     */
+    public Listenable<ConnectionStateListener> getConnectionStateListenable();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
+#### Snippet
+```java
+     * @throws InterruptedException If interrupted while waiting
+     */
+    public void blockUntilConnected() throws InterruptedException;
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
+#### Snippet
+```java
+     * @return builder object
+     */
+    public GetACLBuilder getACL();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
+#### Snippet
+```java
+     * @return the current config
+     */
+    public QuorumVerifier getCurrentConfig();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public CuratorFramework nonNamespaceView();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
+#### Snippet
+```java
+     * @return namespace
+     */
+    public String getNamespace();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
+#### Snippet
+```java
+     * @return client
+     */
+    public CuratorZookeeperClient getZookeeperClient();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public void clearWatcherReferences(Watcher watcher);
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public void sync(String path, Object backgroundContextObject);
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
+#### Snippet
+```java
+     * @throws InterruptedException If interrupted while waiting
+     */
+    public boolean blockUntilConnected(int maxWaitTime, TimeUnit units) throws InterruptedException;
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
+#### Snippet
+```java
+     * @return builder object
+     */
+    public DeleteBuilder delete();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
+#### Snippet
+```java
+     * @return facade
+     */
+    public CuratorFramework usingNamespace(String newNamespace);
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
+#### Snippet
+```java
+     * @return builder object
+     */
+    public GetDataBuilder getData();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
+#### Snippet
+```java
+     * @throws Exception errors
+     */
+    public void createContainers(String path) throws Exception;
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
+#### Snippet
+```java
+     * @return builder object
+     */
+    public ExistsBuilder checkExists();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
+#### Snippet
+```java
+     * Start the client. Most mutator methods will not work until the client is started
+     */
+    public void start();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
+#### Snippet
+```java
+     * Stop the client
+     */
+    public void close();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
+#### Snippet
+```java
+     * @return listenable
+     */
+    public Listenable<UnhandledErrorListener> getUnhandledErrorListenable();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
+#### Snippet
+```java
+     * @return builder object
+     */
+    public GetConfigBuilder getConfig();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
+#### Snippet
+```java
+     * @return facade
+     */
+    public WatcherRemoveCuratorFramework newWatcherRemoveCuratorFramework();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
+#### Snippet
+```java
+     * @return builder object
+     */
+    public ReconfigBuilder reconfig();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
+#### Snippet
+```java
+     * @deprecated use {@link #watchers()} in ZooKeeper 3.6+
+     */
+    public RemoveWatchesBuilder watches();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
+#### Snippet
+```java
+     * @deprecated use {@link #transaction()} instead
+     */
+    public CuratorTransaction inTransaction();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
+#### Snippet
+```java
+     * @return builder object
+     */
+    public SetACLBuilder setACL();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
+#### Snippet
+```java
+     * @return builder object
+     */
+    public CreateBuilder create();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
+#### Snippet
+```java
+     * @return builder object
+     */
+    public SyncBuilder sync();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public boolean isStarted();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
+#### Snippet
+```java
+     * @throws IllegalStateException ZooKeeper JAR is 3.5 or below
+     */
+    public WatchesBuilder watchers();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
+#### Snippet
+```java
+     * @return listenable
+     */
+    public Listenable<CuratorListener> getCuratorListenable();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
+#### Snippet
+```java
+     * @return builder object
+     */
+    public CuratorMultiTransaction transaction();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public EnsurePath newNamespaceAwareEnsurePath(String path);
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
+#### Snippet
+```java
+     * @return builder object
+     */
+    public GetChildrenBuilder getChildren();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
+#### Snippet
+```java
+     * @return state
+     */
+    public CuratorFrameworkState getState();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
+#### Snippet
+```java
+     * @return error policy
+     */
+    public ConnectionStateErrorPolicy getConnectionStateErrorPolicy();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/imps/FailedOperationManager.java`
+#### Snippet
+```java
+    interface FailedOperationManagerListener<T>
+    {
+       public void pathAddedForGuaranteedOperation(T detail);
+    }
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/imps/BackgroundOperation.java`
+#### Snippet
+```java
+interface BackgroundOperation<T>
+{
+    public void performBackgroundOperation(OperationAndData<T> data) throws Exception;
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/listen/Listenable.java`
+#### Snippet
+```java
+     * @param listener listener to add
+     */
+    public void     addListener(T listener);
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/listen/Listenable.java`
+#### Snippet
+```java
+     * @param listener listener to remove
+     */
+    public void     removeListener(T listener);
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-framework/src/main/java/org/apache/curator/framework/listen/Listenable.java`
+#### Snippet
+```java
+     * @param executor executor to run listener in
+     */
+    public void     addListener(T listener, Executor executor);
 
     /**
 ```
@@ -371,18 +1451,6 @@ Modifier `public` is redundant for interface members
 in `curator-client/src/main/java/org/apache/curator/drivers/TracerDriver.java`
 #### Snippet
 ```java
-     * @param unit time unit
-     */
-    public void     addTrace(String name, long time, TimeUnit unit);
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-client/src/main/java/org/apache/curator/drivers/TracerDriver.java`
-#### Snippet
-```java
      * @param increment amount to increment
      */
     public void     addCount(String name, int increment);
@@ -392,12 +1460,24 @@ in `curator-client/src/main/java/org/apache/curator/drivers/TracerDriver.java`
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
+in `curator-client/src/main/java/org/apache/curator/drivers/TracerDriver.java`
+#### Snippet
+```java
+     * @param unit time unit
+     */
+    public void     addTrace(String name, long time, TimeUnit unit);
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
 in `curator-client/src/main/java/org/apache/curator/ensemble/EnsembleProvider.java`
 #### Snippet
 ```java
-     * @param connectionString the new connection string
+     * @return connection string (per {@link ZooKeeper#ZooKeeper(String, int, Watcher)} etc.)
      */
-    public void setConnectionString(String connectionString);
+    public String       getConnectionString();
 
     /**
 ```
@@ -419,9 +1499,9 @@ Modifier `public` is redundant for interface members
 in `curator-client/src/main/java/org/apache/curator/ensemble/EnsembleProvider.java`
 #### Snippet
 ```java
-     * @return connection string (per {@link ZooKeeper#ZooKeeper(String, int, Watcher)} etc.)
+     * @param connectionString the new connection string
      */
-    public String       getConnectionString();
+    public void setConnectionString(String connectionString);
 
     /**
 ```
@@ -446,1398 +1526,6 @@ in `curator-client/src/main/java/org/apache/curator/ensemble/EnsembleProvider.ja
      * @throws Exception errors
      */
     public void         start() throws Exception;
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-x-discovery-server/src/main/java/org/apache/curator/x/discovery/server/rest/DiscoveryContext.java`
-#### Snippet
-```java
-     * @return service
-     */
-    public ServiceDiscovery<T>      getServiceDiscovery();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-x-discovery-server/src/main/java/org/apache/curator/x/discovery/server/rest/DiscoveryContext.java`
-#### Snippet
-```java
-     * @return number of milliseconds
-     */
-    public int                      getInstanceRefreshMs();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-x-discovery-server/src/main/java/org/apache/curator/x/discovery/server/rest/DiscoveryContext.java`
-#### Snippet
-```java
-     * @throws Exception any errors
-     */
-    public T                        unMarshallJson(JsonNode node) throws Exception;
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-x-discovery-server/src/main/java/org/apache/curator/x/discovery/server/rest/DiscoveryContext.java`
-#### Snippet
-```java
-     * @throws Exception any errors
-     */
-    public void                     marshallJson(ObjectNode node, String fieldName, T payload) throws Exception;
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-x-discovery-server/src/main/java/org/apache/curator/x/discovery/server/rest/DiscoveryContext.java`
-#### Snippet
-```java
-     * @return strategy
-     */
-    public ProviderStrategy<T>      getProviderStrategy();
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-client/src/main/java/org/apache/curator/utils/EnsurePath.java`
-#### Snippet
-```java
-    interface Helper
-    {
-        public void ensure(CuratorZookeeperClient client, String path, final boolean makeLastNode) throws Exception;
-    }
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceCacheBuilder.java`
-#### Snippet
-```java
-     * @return service cache
-     */
-    public ServiceCache<T> build();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceCacheBuilder.java`
-#### Snippet
-```java
-     * @return this
-     */
-    public ServiceCacheBuilder<T> executorService(ExecutorService executorService);
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceCacheBuilder.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public ServiceCacheBuilder<T> threadFactory(ThreadFactory threadFactory);
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceCacheBuilder.java`
-#### Snippet
-```java
-     * @return this
-     */
-    public ServiceCacheBuilder<T> name(String name);
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/CuratorTempFramework.java`
-#### Snippet
-```java
-     * @throws Exception errors
-     */
-    public CuratorTransaction inTransaction() throws Exception;
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/CuratorTempFramework.java`
-#### Snippet
-```java
-     * @throws Exception errors
-     */
-    public TempGetDataBuilder getData() throws Exception;
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/CuratorTempFramework.java`
-#### Snippet
-```java
-     * Stop the client
-     */
-    public void     close();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/CompressionProvider.java`
-#### Snippet
-```java
-public interface CompressionProvider
-{
-    public byte[]       compress(String path, byte[] data) throws Exception;
-
-    public byte[]       decompress(String path, byte[] compressedData) throws Exception;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/CompressionProvider.java`
-#### Snippet
-```java
-    public byte[]       compress(String path, byte[] data) throws Exception;
-
-    public byte[]       decompress(String path, byte[] compressedData) throws Exception;
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/RemoveWatchesLocal.java`
-#### Snippet
-```java
-     * @return
-     */
-    public BackgroundPathableQuietlyable<Void> locally();
-    
-}
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/BackgroundCallback.java`
-#### Snippet
-```java
-     * @throws Exception errors
-     */
-    public void processResult(CuratorFramework client, CuratorEvent event) throws Exception;
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/CreateProtectACLCreateModePathAndBytesable.java`
-#### Snippet
-```java
-     * @return this
-     */
-    public ProtectACLCreateModePathAndBytesable<String> creatingParentContainersIfNeeded();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/CreateProtectACLCreateModePathAndBytesable.java`
-#### Snippet
-```java
-     * @return this
-     */
-    public ACLCreateModeBackgroundPathAndBytesable<String>    withProtection();
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/CreateProtectACLCreateModePathAndBytesable.java`
-#### Snippet
-```java
-     * @return this
-     */
-    public ProtectACLCreateModePathAndBytesable<String> creatingParentsIfNeeded();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public boolean isStarted();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
-#### Snippet
-```java
-     * @return state
-     */
-    public CuratorFrameworkState getState();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
-#### Snippet
-```java
-     * @throws InterruptedException If interrupted while waiting
-     */
-    public boolean blockUntilConnected(int maxWaitTime, TimeUnit units) throws InterruptedException;
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
-#### Snippet
-```java
-     * @return builder object
-     */
-    public SyncBuilder sync();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
-#### Snippet
-```java
-     * @return error policy
-     */
-    public ConnectionStateErrorPolicy getConnectionStateErrorPolicy();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/Backgroundable.java`
-#### Snippet
-```java
-     * @return this
-     */
-    public T inBackground(BackgroundCallback callback, Executor executor);
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/Backgroundable.java`
-#### Snippet
-```java
-     * @return this
-     */
-    public T inBackground();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/Backgroundable.java`
-#### Snippet
-```java
-     * @return this
-     */
-    public T inBackground(BackgroundCallback callback, Object context);
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/Backgroundable.java`
-#### Snippet
-```java
-     * @return this
-     */
-    public T inBackground(Object context);
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/Backgroundable.java`
-#### Snippet
-```java
-     * @return this
-     */
-    public T inBackground(BackgroundCallback callback, Object context, Executor executor);
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/Backgroundable.java`
-#### Snippet
-```java
-     * @return this
-     */
-    public T inBackground(BackgroundCallback callback);
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
-#### Snippet
-```java
-     * @throws IllegalStateException ZooKeeper JAR is 3.5 or below
-     */
-    public WatchesBuilder watchers();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
-#### Snippet
-```java
-     * @return builder object
-     */
-    public CuratorMultiTransaction transaction();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
-#### Snippet
-```java
-     * @return builder object
-     */
-    public GetACLBuilder getACL();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
-#### Snippet
-```java
-     * @return operation builder
-     */
-    public TransactionOp transactionOp();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
-#### Snippet
-```java
-     * @return builder object
-     */
-    public GetConfigBuilder getConfig();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
-#### Snippet
-```java
-     * Stop the client
-     */
-    public void close();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
-#### Snippet
-```java
-     * @throws InterruptedException If interrupted while waiting
-     */
-    public void blockUntilConnected() throws InterruptedException;
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public void clearWatcherReferences(Watcher watcher);
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
-#### Snippet
-```java
-     * @return namespace
-     */
-    public String getNamespace();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
-#### Snippet
-```java
-     * @return builder object
-     */
-    public SetACLBuilder setACL();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
-#### Snippet
-```java
-     * @return builder object
-     */
-    public GetDataBuilder getData();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
-#### Snippet
-```java
-     * @return builder object
-     */
-    public DeleteBuilder delete();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/Pathable.java`
-#### Snippet
-```java
-     * @throws Exception errors
-     */
-    public T       forPath(String path) throws Exception;
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
-#### Snippet
-```java
-     * @return builder object
-     */
-    public ReconfigBuilder reconfig();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
-#### Snippet
-```java
-     * @return client
-     */
-    public CuratorZookeeperClient getZookeeperClient();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public CuratorFramework nonNamespaceView();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
-#### Snippet
-```java
-     * @return listenable
-     */
-    public Listenable<UnhandledErrorListener> getUnhandledErrorListenable();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
-#### Snippet
-```java
-     * @return builder object
-     */
-    public CreateBuilder create();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
-#### Snippet
-```java
-     * @return builder object
-     */
-    public ExistsBuilder checkExists();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
-#### Snippet
-```java
-     * @return facade
-     */
-    public WatcherRemoveCuratorFramework newWatcherRemoveCuratorFramework();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
-#### Snippet
-```java
-     * @return listenable
-     */
-    public Listenable<CuratorListener> getCuratorListenable();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public void sync(String path, Object backgroundContextObject);
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
-#### Snippet
-```java
-     * @return builder object
-     */
-    public SetDataBuilder setData();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public EnsurePath newNamespaceAwareEnsurePath(String path);
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
-#### Snippet
-```java
-     * @return listenable
-     */
-    public Listenable<ConnectionStateListener> getConnectionStateListenable();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
-#### Snippet
-```java
-     * @throws Exception errors
-     */
-    public void createContainers(String path) throws Exception;
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
-#### Snippet
-```java
-     * @return the current config
-     */
-    public QuorumVerifier getCurrentConfig();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
-#### Snippet
-```java
-     * @deprecated use {@link #transaction()} instead
-     */
-    public CuratorTransaction inTransaction();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
-#### Snippet
-```java
-     * @deprecated use {@link #watchers()} in ZooKeeper 3.6+
-     */
-    public RemoveWatchesBuilder watches();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
-#### Snippet
-```java
-     * Start the client. Most mutator methods will not work until the client is started
-     */
-    public void start();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
-#### Snippet
-```java
-     * @return builder object
-     */
-    public GetChildrenBuilder getChildren();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
-#### Snippet
-```java
-     * @return facade
-     */
-    public CuratorFramework usingNamespace(String newNamespace);
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/Compressible.java`
-#### Snippet
-```java
-     * @return this
-     */
-    public T compressed();
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/Guaranteeable.java`
-#### Snippet
-```java
-     * @return this
-     */
-    public T guaranteed();
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/ChildrenDeletable.java`
-#### Snippet
-```java
-     * @return
-     */
-    public BackgroundVersionable deletingChildrenIfNeeded();
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/UnhandledErrorListener.java`
-#### Snippet
-```java
-     * @param e exception
-     */
-    public void     unhandledError(String message, Throwable e);
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/CreateBackgroundModeACLable.java`
-#### Snippet
-```java
-     * @return this
-     */
-    public ACLCreateModePathAndBytesable<String> creatingParentContainersIfNeeded();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/CreateBackgroundModeACLable.java`
-#### Snippet
-```java
-     * @return this
-     */
-    public ACLPathAndBytesable<String>              withProtectedEphemeralSequential();
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/Decompressible.java`
-#### Snippet
-```java
-     * @return this
-     */
-    public T        decompressed();
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/CreateBackgroundModeACLable.java`
-#### Snippet
-```java
-     * @return this
-     */
-    public ACLCreateModePathAndBytesable<String>    creatingParentsIfNeeded();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/Idempotentable.java`
-#### Snippet
-```java
-     * @return this:
-     */
-    public T idempotent();
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/ACLProvider.java`
-#### Snippet
-```java
-     * @return default ACL list
-     */
-    public List<ACL>        getDefaultAcl();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/ACLProvider.java`
-#### Snippet
-```java
-     * @return ACL list
-     */
-    public List<ACL>        getAclForPath(String path);
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/CreateBuilderMain.java`
-#### Snippet
-```java
-     * @return this
-     */
-    public ACLCreateModeStatBackgroundPathAndBytesable<String>    withProtection();
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/CreateBuilderMain.java`
-#### Snippet
-```java
-     * @return this
-     */
-    public ProtectACLCreateModeStatPathAndBytesable<String> creatingParentsIfNeeded();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/CreateBuilderMain.java`
-#### Snippet
-```java
-     * @return this
-     */
-    public ProtectACLCreateModeStatPathAndBytesable<String> creatingParentContainersIfNeeded();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/CreateBuilderMain.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public ACLPathAndBytesable<String>              withProtectedEphemeralSequential();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/PathAndBytesable.java`
-#### Snippet
-```java
-     * @throws Exception errors
-     */
-    public T        forPath(String path, byte[] data) throws Exception;
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/PathAndBytesable.java`
-#### Snippet
-```java
-     * @throws Exception errors
-     */
-    public T        forPath(String path) throws Exception;
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/CuratorWatcher.java`
-#### Snippet
-```java
-     * @throws Exception any exceptions to log
-     */
-    public void process(WatchedEvent event) throws Exception;
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/CreateModable.java`
-#### Snippet
-```java
-     * @return this
-     */
-    public T withMode(CreateMode mode);
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/RemoveWatchesBuilder.java`
-#### Snippet
-```java
-     * @return
-     */
-    public RemoveWatchesType removeAll();
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/RemoveWatchesBuilder.java`
-#### Snippet
-```java
-     * @return
-     */
-    public RemoveWatchesType remove(CuratorWatcher watcher);
-    
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/RemoveWatchesBuilder.java`
-#### Snippet
-```java
-     * @return
-     */
-    public RemoveWatchesType remove(Watcher watcher);
-    
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/Versionable.java`
-#### Snippet
-```java
-     * @return this
-     */
-    public T     withVersion(int version);
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/CuratorListener.java`
-#### Snippet
-```java
-     * @throws Exception any errors
-     */
-    public void         eventReceived(CuratorFramework client, CuratorEvent event) throws Exception;
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/RemoveWatchesType.java`
-#### Snippet
-```java
-     * @return
-     */
-    public RemoveWatchesLocal ofType(WatcherType watcherType);
-    
-}
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/Quietly.java`
-#### Snippet
-```java
-public interface Quietly<T>
-{
-    public T quietly();
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/ProtectACLCreateModePathAndBytesable.java`
-#### Snippet
-```java
-     * @return this
-     */
-    public ACLCreateModeBackgroundPathAndBytesable<String>    withProtection();
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/Statable.java`
-#### Snippet
-```java
-     * @return this
-     */
-    public T storingStatIn(Stat stat);
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/CreateBackgroundModeStatACLable.java`
-#### Snippet
-```java
-     * @return this
-     */
-    public ACLPathAndBytesable<String>              withProtectedEphemeralSequential();
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/CreateBackgroundModeStatACLable.java`
-#### Snippet
-```java
-     * @return this
-     */
-    public ACLCreateModePathAndBytesable<String> creatingParentContainersIfNeeded();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/transaction/CuratorTransactionBridge.java`
-#### Snippet
-```java
-     * @return transaction continuation
-     */
-    public CuratorTransactionFinal and();
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/CreateBackgroundModeStatACLable.java`
-#### Snippet
-```java
-     * @return this
-     */
-    public ACLCreateModePathAndBytesable<String>    creatingParentsIfNeeded();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/CuratorEvent.java`
-#### Snippet
-```java
-     * @return any operation results or null
-     */
-    public List<CuratorTransactionResult> getOpResults();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/CuratorEvent.java`
-#### Snippet
-```java
-     * @return any WatchedEvent
-     */
-    public WatchedEvent getWatchedEvent();
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/CuratorEvent.java`
-#### Snippet
-```java
-     * @return any children
-     */
-    public List<String> getChildren();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/CuratorEvent.java`
-#### Snippet
-```java
-     * @return any ACL list or null
-     */
-    public List<ACL> getACLList();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/CuratorEvent.java`
-#### Snippet
-```java
-     * @return event type
-     */
-    public CuratorEventType getType();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/CuratorEvent.java`
-#### Snippet
-```java
-     * @return any name
-     */
-    public String getName();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/CuratorEvent.java`
-#### Snippet
-```java
-     * @return the path
-     */
-    public String getPath();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/CuratorEvent.java`
-#### Snippet
-```java
-     * @return "rc" from async callbacks
-     */
-    public int getResultCode();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/CuratorEvent.java`
-#### Snippet
-```java
-     * @return the context object passed to {@link Backgroundable#inBackground(Object)}
-     */
-    public Object getContext();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/CuratorEvent.java`
-#### Snippet
-```java
-     * @return any data
-     */
-    public byte[] getData();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/CuratorEvent.java`
-#### Snippet
-```java
-     * @return any stat
-     */
-    public Stat getStat();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/transaction/CuratorTransaction.java`
-#### Snippet
-```java
-     * @return builder object
-     */
-    public TransactionCreateBuilder<CuratorTransactionBridge> create();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/transaction/CuratorTransaction.java`
-#### Snippet
-```java
-     * @return builder object
-     */
-    public TransactionSetDataBuilder<CuratorTransactionBridge> setData();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/transaction/CuratorTransaction.java`
-#### Snippet
-```java
-     * @return builder object
-     */
-    public TransactionDeleteBuilder<CuratorTransactionBridge> delete();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/transaction/CuratorTransaction.java`
-#### Snippet
-```java
-     * @return builder object
-     */
-    public TransactionCheckBuilder<CuratorTransactionBridge> check();
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/api/transaction/CuratorTransactionFinal.java`
-#### Snippet
-```java
-     * @throws Exception errors
-     */
-    public Collection<CuratorTransactionResult> commit() throws Exception;
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/imps/FailedOperationManager.java`
-#### Snippet
-```java
-    interface FailedOperationManagerListener<T>
-    {
-       public void pathAddedForGuaranteedOperation(T detail);
-    }
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/imps/BackgroundOperation.java`
-#### Snippet
-```java
-interface BackgroundOperation<T>
-{
-    public void performBackgroundOperation(OperationAndData<T> data) throws Exception;
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/listen/Listenable.java`
-#### Snippet
-```java
-     * @param listener listener to remove
-     */
-    public void     removeListener(T listener);
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/listen/Listenable.java`
-#### Snippet
-```java
-     * @param executor executor to run listener in
-     */
-    public void     addListener(T listener, Executor executor);
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-framework/src/main/java/org/apache/curator/framework/listen/Listenable.java`
-#### Snippet
-```java
-     * @param listener listener to add
-     */
-    public void     addListener(T listener);
 
     /**
 ```
@@ -1887,6 +1575,18 @@ in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/cache/Pat
      */
     public void     childEvent(CuratorFramework client, PathChildrenCacheEvent event) throws Exception;
 }
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-client/src/main/java/org/apache/curator/utils/EnsurePath.java`
+#### Snippet
+```java
+    interface Helper
+    {
+        public void ensure(CuratorZookeeperClient client, String path, final boolean makeLastNode) throws Exception;
+    }
 
 ```
 
@@ -1979,6 +1679,18 @@ Modifier `public` is redundant for interface members
 in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/locks/Revocable.java`
 #### Snippet
 ```java
+     * @param executor executor for the listener
+     */
+    public void     makeRevocable(RevocationListener<T> listener, Executor executor);
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/locks/Revocable.java`
+#### Snippet
+```java
      * @param listener the listener
      */
     public void     makeRevocable(RevocationListener<T> listener);
@@ -1988,14 +1700,14 @@ in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/locks/Rev
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/locks/Revocable.java`
+in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/locks/InterProcessLock.java`
 #### Snippet
 ```java
-     * @param executor executor for the listener
+     * @throws Exception ZK errors, connection interruptions
      */
-    public void     makeRevocable(RevocationListener<T> listener, Executor executor);
-}
+    public boolean acquire(long time, TimeUnit unit) throws Exception;
 
+    /**
 ```
 
 ### UnnecessaryModifier
@@ -2018,18 +1730,6 @@ in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/locks/Int
      * @throws Exception ZK errors, interruptions
      */
     public void release() throws Exception;
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/locks/InterProcessLock.java`
-#### Snippet
-```java
-     * @throws Exception ZK errors, connection interruptions
-     */
-    public boolean acquire(long time, TimeUnit unit) throws Exception;
 
     /**
 ```
@@ -2099,11 +1799,11 @@ Modifier `public` is redundant for interface members
 in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/queue/QueuePutListener.java`
 #### Snippet
 ```java
-     * @param items the items
+     * @param item the item
      */
-    public void         putMultiCompleted(MultiItem<T> items);
-}
+    public void         putCompleted(T item);
 
+    /**
 ```
 
 ### UnnecessaryModifier
@@ -2111,11 +1811,11 @@ Modifier `public` is redundant for interface members
 in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/queue/QueuePutListener.java`
 #### Snippet
 ```java
-     * @param item the item
+     * @param items the items
      */
-    public void         putCompleted(T item);
+    public void         putMultiCompleted(MultiItem<T> items);
+}
 
-    /**
 ```
 
 ### UnnecessaryModifier
@@ -2135,9 +1835,9 @@ Modifier `public` is redundant for interface members
 in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/atomic/AtomicValue.java`
 #### Snippet
 ```java
-     * @return pre-operation value
+     * @return post-operation value
      */
-    public T            preValue();
+    public T            postValue();
 
     /**
 ```
@@ -2147,9 +1847,9 @@ Modifier `public` is redundant for interface members
 in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/atomic/AtomicValue.java`
 #### Snippet
 ```java
-     * @return true/false
+     * @return pre-operation value
      */
-    public boolean      succeeded();
+    public T            preValue();
 
     /**
 ```
@@ -2171,45 +1871,9 @@ Modifier `public` is redundant for interface members
 in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/atomic/AtomicValue.java`
 #### Snippet
 ```java
-     * @return post-operation value
+     * @return true/false
      */
-    public T            postValue();
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/atomic/DistributedAtomicNumber.java`
-#### Snippet
-```java
-     * @throws Exception ZooKeeper errors
-     */
-    public AtomicValue<T> subtract(T delta) throws Exception;
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/atomic/DistributedAtomicNumber.java`
-#### Snippet
-```java
-     * @throws Exception ZooKeeper errors
-     */
-    public boolean initialize(T value) throws Exception;
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/atomic/DistributedAtomicNumber.java`
-#### Snippet
-```java
-     * @throws Exception ZooKeeper errors
-     */
-    public AtomicValue<T> increment() throws Exception;
+    public boolean      succeeded();
 
     /**
 ```
@@ -2233,6 +1897,30 @@ in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/atomic/Di
 ```java
      * @throws Exception ZooKeeper errors
      */
+    public void forceSet(T newValue) throws Exception;
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/atomic/DistributedAtomicNumber.java`
+#### Snippet
+```java
+     * @throws Exception ZooKeeper errors
+     */
+    public AtomicValue<T> compareAndSet(T expectedValue, T newValue) throws Exception;
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/atomic/DistributedAtomicNumber.java`
+#### Snippet
+```java
+     * @throws Exception ZooKeeper errors
+     */
     public AtomicValue<T> add(T delta) throws Exception;
 
     /**
@@ -2245,7 +1933,7 @@ in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/atomic/Di
 ```java
      * @throws Exception ZooKeeper errors
      */
-    public AtomicValue<T> decrement() throws Exception;
+    public boolean initialize(T value) throws Exception;
 
     /**
 ```
@@ -2257,7 +1945,19 @@ in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/atomic/Di
 ```java
      * @throws Exception ZooKeeper errors
      */
-    public void forceSet(T newValue) throws Exception;
+    public AtomicValue<T> subtract(T delta) throws Exception;
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/atomic/DistributedAtomicNumber.java`
+#### Snippet
+```java
+     * @throws Exception ZooKeeper errors
+     */
+    public AtomicValue<T> decrement() throws Exception;
 
     /**
 ```
@@ -2281,7 +1981,7 @@ in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/atomic/Di
 ```java
      * @throws Exception ZooKeeper errors
      */
-    public AtomicValue<T> compareAndSet(T expectedValue, T newValue) throws Exception;
+    public AtomicValue<T> increment() throws Exception;
 
     /**
 ```
@@ -2303,11 +2003,11 @@ Modifier `public` is redundant for interface members
 in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/leader/LeaderLatchListener.java`
 #### Snippet
 ```java
-   * this occurs, you can expect {@link #notLeader()} to also be called.
+   * this occurs, you can expect {@link #isLeader()} to also be called.
    */
-  public void isLeader();
+  public void notLeader();
+}
 
-  /**
 ```
 
 ### UnnecessaryModifier
@@ -2315,11 +2015,11 @@ Modifier `public` is redundant for interface members
 in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/leader/LeaderLatchListener.java`
 #### Snippet
 ```java
-   * this occurs, you can expect {@link #isLeader()} to also be called.
+   * this occurs, you can expect {@link #notLeader()} to also be called.
    */
-  public void notLeader();
-}
+  public void isLeader();
 
+  /**
 ```
 
 ### UnnecessaryModifier
@@ -2339,11 +2039,11 @@ Modifier `public` is redundant for interface members
 in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/shared/SharedCountReader.java`
 #### Snippet
 ```java
-     * @return count
+     * @return count and version
      */
-    public int      getCount();
+    public VersionedValue<Integer> getVersionedValue();
+}
 
-    /**
 ```
 
 ### UnnecessaryModifier
@@ -2351,11 +2051,11 @@ Modifier `public` is redundant for interface members
 in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/shared/SharedCountReader.java`
 #### Snippet
 ```java
-     * @return count and version
+     * @return count
      */
-    public VersionedValue<Integer> getVersionedValue();
-}
+    public int      getCount();
 
+    /**
 ```
 
 ### UnnecessaryModifier
@@ -2406,6 +2106,306 @@ in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/shared/Sh
 
 ```
 
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/LocalIpFilter.java`
+#### Snippet
+```java
+public interface LocalIpFilter
+{
+    public boolean      use(NetworkInterface networkInterface, InetAddress address) throws SocketException;
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ProviderStrategy.java`
+#### Snippet
+```java
+     * @throws Exception any errors
+     */
+    public ServiceInstance<T>       getInstance(InstanceProvider<T> instanceProvider) throws Exception;
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceCache.java`
+#### Snippet
+```java
+     * @throws Exception errors
+     */
+    public void start() throws Exception;
+
+    CountDownLatch startImmediate() throws Exception;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceCache.java`
+#### Snippet
+```java
+     * @return the list
+     */
+    public List<ServiceInstance<T>> getInstances();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceProvider.java`
+#### Snippet
+```java
+     * @param instance instance that had an error
+     */
+    public void noteError(ServiceInstance<T> instance);
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceProvider.java`
+#### Snippet
+```java
+     * @throws Exception any errors
+     */
+    public ServiceInstance<T> getInstance() throws Exception;
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceProvider.java`
+#### Snippet
+```java
+     * @throws Exception any errors
+     */
+    public Collection<ServiceInstance<T>> getAllInstances() throws Exception;
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceProvider.java`
+#### Snippet
+```java
+     * @throws Exception any errors
+     */
+    public void start() throws Exception;
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceDiscovery.java`
+#### Snippet
+```java
+     * @throws Exception errors
+     */
+    public void     registerService(ServiceInstance<T> service) throws Exception;
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceDiscovery.java`
+#### Snippet
+```java
+     * @throws Exception errors
+     */
+    public void start() throws Exception;
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceDiscovery.java`
+#### Snippet
+```java
+     * @throws Exception errors
+     */
+    public ServiceInstance<T> queryForInstance(String name, String id) throws Exception;
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceDiscovery.java`
+#### Snippet
+```java
+     * @throws Exception errors
+     */
+    public Collection<ServiceInstance<T>>  queryForInstances(String name) throws Exception;
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceDiscovery.java`
+#### Snippet
+```java
+     * @throws Exception errors
+     */
+    public void     unregisterService(ServiceInstance<T> service) throws Exception;
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceDiscovery.java`
+#### Snippet
+```java
+     * @throws Exception errors
+     */
+    public Collection<String> queryForNames() throws Exception;
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceDiscovery.java`
+#### Snippet
+```java
+     * @return new cache builder
+     */
+    public ServiceCacheBuilder<T> serviceCacheBuilder();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceDiscovery.java`
+#### Snippet
+```java
+     * @return the builder
+     */
+    public ServiceProviderBuilder<T> serviceProviderBuilder();
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceDiscovery.java`
+#### Snippet
+```java
+     * @throws Exception errors
+     */
+    public void     updateService(ServiceInstance<T> service) throws Exception;
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/details/InstanceProvider.java`
+#### Snippet
+```java
+     * @throws Exception any errors
+     */
+    public List<ServiceInstance<T>>      getInstances() throws Exception;
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/details/ServiceCacheListener.java`
+#### Snippet
+```java
+     * Called when the cache has changed (instances added/deleted, etc.)
+     */
+    public void cacheChanged();
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/details/InstanceSerializer.java`
+#### Snippet
+```java
+     * @throws Exception any errors
+     */
+    public ServiceInstance<T> deserialize(byte[] bytes) throws Exception;
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/details/InstanceSerializer.java`
+#### Snippet
+```java
+     * @throws Exception any errors
+     */
+    public byte[]             serialize(ServiceInstance<T> instance) throws Exception;
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceCacheBuilder.java`
+#### Snippet
+```java
+     * @return service cache
+     */
+    public ServiceCache<T> build();
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceCacheBuilder.java`
+#### Snippet
+```java
+     * @return this
+     */
+    public ServiceCacheBuilder<T> name(String name);
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceCacheBuilder.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public ServiceCacheBuilder<T> threadFactory(ThreadFactory threadFactory);
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceCacheBuilder.java`
+#### Snippet
+```java
+     * @return this
+     */
+    public ServiceCacheBuilder<T> executorService(ExecutorService executorService);
+}
+
+```
+
 ## RuleId[id=UNCHECKED_WARNING]
 ### UNCHECKED_WARNING
 Unchecked assignment: 'java.util.concurrent.atomic.AtomicReferenceFieldUpdater' to 'java.util.concurrent.atomic.AtomicReferenceFieldUpdater\>'
@@ -2421,534 +2421,6 @@ in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/cache/Tre
 
 ## RuleId[id=JavadocReference]
 ### JavadocReference
-Cannot resolve symbol `KeeperException.SessionExpiredException`
-in `curator-client/src/main/java/org/apache/curator/SessionFailRetryLoop.java`
-#### Snippet
-```java
-
-        /**
-         * If the session fails, throw {@link KeeperException.SessionExpiredException} when
-         * {@link SessionFailRetryLoop#shouldContinue()} is called
-         */
-```
-
-### JavadocReference
-Cannot resolve symbol `ZooKeeper`
-in `curator-client/src/main/java/org/apache/curator/utils/ZookeeperFactory.java`
-#### Snippet
-```java
-     * @param canBeReadOnly if true, allow ZooKeeper client to enter
-     *                      read only mode in case of a network partition. See
-     *                      {@link ZooKeeper#ZooKeeper(String, int, Watcher, long, byte[], boolean)}
-     *                      for details
-     * @param zkClientConfig ZooKeeper client config
-```
-
-### JavadocReference
-Cannot resolve symbol `ZooKeeper(String, int, Watcher, long, byte[], boolean)`
-in `curator-client/src/main/java/org/apache/curator/utils/ZookeeperFactory.java`
-#### Snippet
-```java
-     * @param canBeReadOnly if true, allow ZooKeeper client to enter
-     *                      read only mode in case of a network partition. See
-     *                      {@link ZooKeeper#ZooKeeper(String, int, Watcher, long, byte[], boolean)}
-     *                      for details
-     * @param zkClientConfig ZooKeeper client config
-```
-
-### JavadocReference
-Cannot resolve symbol `Watcher`
-in `curator-client/src/main/java/org/apache/curator/utils/ZookeeperFactory.java`
-#### Snippet
-```java
-     * @param canBeReadOnly if true, allow ZooKeeper client to enter
-     *                      read only mode in case of a network partition. See
-     *                      {@link ZooKeeper#ZooKeeper(String, int, Watcher, long, byte[], boolean)}
-     *                      for details
-     * @param zkClientConfig ZooKeeper client config
-```
-
-### JavadocReference
-Cannot resolve symbol `ZooKeeper`
-in `curator-client/src/main/java/org/apache/curator/utils/ZookeeperFactory.java`
-#### Snippet
-```java
-     * @param canBeReadOnly if true, allow ZooKeeper client to enter
-     *                      read only mode in case of a network partition. See
-     *                      {@link ZooKeeper#ZooKeeper(String, int, Watcher, long, byte[], boolean)}
-     *                      for details
-     * @return the instance
-```
-
-### JavadocReference
-Cannot resolve symbol `ZooKeeper(String, int, Watcher, long, byte[], boolean)`
-in `curator-client/src/main/java/org/apache/curator/utils/ZookeeperFactory.java`
-#### Snippet
-```java
-     * @param canBeReadOnly if true, allow ZooKeeper client to enter
-     *                      read only mode in case of a network partition. See
-     *                      {@link ZooKeeper#ZooKeeper(String, int, Watcher, long, byte[], boolean)}
-     *                      for details
-     * @return the instance
-```
-
-### JavadocReference
-Cannot resolve symbol `Watcher`
-in `curator-client/src/main/java/org/apache/curator/utils/ZookeeperFactory.java`
-#### Snippet
-```java
-     * @param canBeReadOnly if true, allow ZooKeeper client to enter
-     *                      read only mode in case of a network partition. See
-     *                      {@link ZooKeeper#ZooKeeper(String, int, Watcher, long, byte[], boolean)}
-     *                      for details
-     * @return the instance
-```
-
-### JavadocReference
-Cannot resolve symbol `ZooKeeper`
-in `curator-client/src/main/java/org/apache/curator/CuratorZookeeperClient.java`
-#### Snippet
-```java
-
-    /**
-     * Every time a new {@link ZooKeeper} instance is allocated, the "instance index"
-     * is incremented.
-     *
-```
-
-### JavadocReference
-Cannot resolve symbol `ZooKeeper`
-in `curator-client/src/main/java/org/apache/curator/CuratorZookeeperClient.java`
-#### Snippet
-```java
-
-    /**
-     * @param zookeeperFactory factory for creating {@link ZooKeeper} instances
-     * @param ensembleProvider the ensemble provider
-     * @param sessionTimeoutMs session timeout
-```
-
-### JavadocReference
-Cannot resolve symbol `ZooKeeper`
-in `curator-client/src/main/java/org/apache/curator/CuratorZookeeperClient.java`
-#### Snippet
-```java
-     * @param canBeReadOnly if true, allow ZooKeeper client to enter
-     *                      read only mode in case of a network partition. See
-     *                      {@link ZooKeeper#ZooKeeper(String, int, Watcher, long, byte[], boolean)}
-     *                      for details
-     * @since 4.0.2
-```
-
-### JavadocReference
-Cannot resolve symbol `ZooKeeper(String, int, Watcher, long, byte[], boolean)`
-in `curator-client/src/main/java/org/apache/curator/CuratorZookeeperClient.java`
-#### Snippet
-```java
-     * @param canBeReadOnly if true, allow ZooKeeper client to enter
-     *                      read only mode in case of a network partition. See
-     *                      {@link ZooKeeper#ZooKeeper(String, int, Watcher, long, byte[], boolean)}
-     *                      for details
-     * @since 4.0.2
-```
-
-### JavadocReference
-Cannot resolve symbol `Watcher`
-in `curator-client/src/main/java/org/apache/curator/CuratorZookeeperClient.java`
-#### Snippet
-```java
-     * @param canBeReadOnly if true, allow ZooKeeper client to enter
-     *                      read only mode in case of a network partition. See
-     *                      {@link ZooKeeper#ZooKeeper(String, int, Watcher, long, byte[], boolean)}
-     *                      for details
-     * @since 4.0.2
-```
-
-### JavadocReference
-Cannot resolve symbol `ZooKeeper`
-in `curator-client/src/main/java/org/apache/curator/CuratorZookeeperClient.java`
-#### Snippet
-```java
-
-    /**
-     * @param zookeeperFactory factory for creating {@link ZooKeeper} instances
-     * @param ensembleProvider the ensemble provider
-     * @param sessionTimeoutMs session timeout
-```
-
-### JavadocReference
-Cannot resolve symbol `ZooKeeper`
-in `curator-client/src/main/java/org/apache/curator/CuratorZookeeperClient.java`
-#### Snippet
-```java
-     * @param canBeReadOnly if true, allow ZooKeeper client to enter
-     *                      read only mode in case of a network partition. See
-     *                      {@link ZooKeeper#ZooKeeper(String, int, Watcher, long, byte[], boolean)}
-     *                      for details
-     */
-```
-
-### JavadocReference
-Cannot resolve symbol `ZooKeeper(String, int, Watcher, long, byte[], boolean)`
-in `curator-client/src/main/java/org/apache/curator/CuratorZookeeperClient.java`
-#### Snippet
-```java
-     * @param canBeReadOnly if true, allow ZooKeeper client to enter
-     *                      read only mode in case of a network partition. See
-     *                      {@link ZooKeeper#ZooKeeper(String, int, Watcher, long, byte[], boolean)}
-     *                      for details
-     */
-```
-
-### JavadocReference
-Cannot resolve symbol `Watcher`
-in `curator-client/src/main/java/org/apache/curator/CuratorZookeeperClient.java`
-#### Snippet
-```java
-     * @param canBeReadOnly if true, allow ZooKeeper client to enter
-     *                      read only mode in case of a network partition. See
-     *                      {@link ZooKeeper#ZooKeeper(String, int, Watcher, long, byte[], boolean)}
-     *                      for details
-     */
-```
-
-### JavadocReference
-Cannot resolve symbol `ZooKeeper`
-in `curator-client/src/main/java/org/apache/curator/CuratorZookeeperClient.java`
-#### Snippet
-```java
-
-    /**
-     * Return the most recent value of {@link ZooKeeper#getSessionTimeout()} or 0
-     *
-     * @return session timeout or 0
-```
-
-### JavadocReference
-Cannot resolve symbol `getSessionTimeout()`
-in `curator-client/src/main/java/org/apache/curator/CuratorZookeeperClient.java`
-#### Snippet
-```java
-
-    /**
-     * Return the most recent value of {@link ZooKeeper#getSessionTimeout()} or 0
-     *
-     * @return session timeout or 0
-```
-
-### JavadocReference
-Cannot resolve symbol `ZooDefs.Ids`
-in `curator-client/src/main/java/org/apache/curator/utils/InternalACLProvider.java`
-#### Snippet
-```java
-{
-    /**
-     * Return the ACL list to use by default (usually {@link ZooDefs.Ids#OPEN_ACL_UNSAFE}).
-     *
-     * @return default ACL list
-```
-
-### JavadocReference
-Cannot resolve symbol `OPEN_ACL_UNSAFE`
-in `curator-client/src/main/java/org/apache/curator/utils/InternalACLProvider.java`
-#### Snippet
-```java
-{
-    /**
-     * Return the ACL list to use by default (usually {@link ZooDefs.Ids#OPEN_ACL_UNSAFE}).
-     *
-     * @return default ACL list
-```
-
-### JavadocReference
-Cannot resolve symbol `name`
-in `curator-client/src/main/java/org/apache/curator/drivers/AdvancedTracerDriver.java`
-#### Snippet
-```java
-     * Add to a named counter
-     *
-     * @param name name of the counter
-     * @param increment amount to increment
-     */
-```
-
-### JavadocReference
-Cannot resolve symbol `increment`
-in `curator-client/src/main/java/org/apache/curator/drivers/AdvancedTracerDriver.java`
-#### Snippet
-```java
-     *
-     * @param name name of the counter
-     * @param increment amount to increment
-     */
-    public abstract void     addEvent(EventTrace trace);
-```
-
-### JavadocReference
-Cannot resolve symbol `ZooKeeper`
-in `curator-client/src/main/java/org/apache/curator/ensemble/EnsembleProvider.java`
-#### Snippet
-```java
-
-    /**
-     * Return true if this ensemble provider supports {@link ZooKeeper#updateServerList(String)}
-     *
-     * @return true/false
-```
-
-### JavadocReference
-Cannot resolve symbol `updateServerList(String)`
-in `curator-client/src/main/java/org/apache/curator/ensemble/EnsembleProvider.java`
-#### Snippet
-```java
-
-    /**
-     * Return true if this ensemble provider supports {@link ZooKeeper#updateServerList(String)}
-     *
-     * @return true/false
-```
-
-### JavadocReference
-Cannot resolve symbol `ZooKeeper`
-in `curator-client/src/main/java/org/apache/curator/ensemble/EnsembleProvider.java`
-#### Snippet
-```java
-     * time it needs to create a ZooKeeper instance
-     * 
-     * @return connection string (per {@link ZooKeeper#ZooKeeper(String, int, Watcher)} etc.)
-     */
-    public String       getConnectionString();
-```
-
-### JavadocReference
-Cannot resolve symbol `ZooKeeper(String, int, Watcher)`
-in `curator-client/src/main/java/org/apache/curator/ensemble/EnsembleProvider.java`
-#### Snippet
-```java
-     * time it needs to create a ZooKeeper instance
-     * 
-     * @return connection string (per {@link ZooKeeper#ZooKeeper(String, int, Watcher)} etc.)
-     */
-    public String       getConnectionString();
-```
-
-### JavadocReference
-Cannot resolve symbol `Watcher`
-in `curator-client/src/main/java/org/apache/curator/ensemble/EnsembleProvider.java`
-#### Snippet
-```java
-     * time it needs to create a ZooKeeper instance
-     * 
-     * @return connection string (per {@link ZooKeeper#ZooKeeper(String, int, Watcher)} etc.)
-     */
-    public String       getConnectionString();
-```
-
-### JavadocReference
-Cannot resolve symbol `ZooKeeper`
-in `curator-client/src/main/java/org/apache/curator/ensemble/fixed/FixedEnsembleProvider.java`
-#### Snippet
-```java
-     *
-     * @param connectionString connection string
-     * @param updateServerListEnabled if true, allow Curator to call {@link ZooKeeper#updateServerList(String)}
-     */
-    public FixedEnsembleProvider(String connectionString, boolean updateServerListEnabled)
-```
-
-### JavadocReference
-Cannot resolve symbol `updateServerList(String)`
-in `curator-client/src/main/java/org/apache/curator/ensemble/fixed/FixedEnsembleProvider.java`
-#### Snippet
-```java
-     *
-     * @param connectionString connection string
-     * @param updateServerListEnabled if true, allow Curator to call {@link ZooKeeper#updateServerList(String)}
-     */
-    public FixedEnsembleProvider(String connectionString, boolean updateServerListEnabled)
-```
-
-### JavadocReference
-Cannot resolve symbol `CreateMode`
-in `curator-client/src/main/java/org/apache/curator/utils/ZKPaths.java`
-#### Snippet
-```java
-     * @param makeLastNode if true, all nodes are created. If false, only the parent nodes are created
-     * @param aclProvider  if not null, the ACL provider to use when creating parent nodes
-     * @param asContainers if true, nodes are created as {@link CreateMode#CONTAINER}
-     * @throws InterruptedException                 thread interruption
-     * @throws org.apache.zookeeper.KeeperException Zookeeper errors
-```
-
-### JavadocReference
-Cannot resolve symbol `CONTAINER`
-in `curator-client/src/main/java/org/apache/curator/utils/ZKPaths.java`
-#### Snippet
-```java
-     * @param makeLastNode if true, all nodes are created. If false, only the parent nodes are created
-     * @param aclProvider  if not null, the ACL provider to use when creating parent nodes
-     * @param asContainers if true, nodes are created as {@link CreateMode#CONTAINER}
-     * @throws InterruptedException                 thread interruption
-     * @throws org.apache.zookeeper.KeeperException Zookeeper errors
-```
-
-### JavadocReference
-Cannot resolve symbol `org.apache.zookeeper.KeeperException`
-in `curator-client/src/main/java/org/apache/curator/utils/ZKPaths.java`
-#### Snippet
-```java
-     * @param asContainers if true, nodes are created as {@link CreateMode#CONTAINER}
-     * @throws InterruptedException                 thread interruption
-     * @throws org.apache.zookeeper.KeeperException Zookeeper errors
-     */
-    public static void mkdirs(ZooKeeper zookeeper, String path, boolean makeLastNode, InternalACLProvider aclProvider, boolean asContainers) throws InterruptedException, KeeperException
-```
-
-### JavadocReference
-Cannot resolve symbol `org.apache.zookeeper.KeeperException`
-in `curator-client/src/main/java/org/apache/curator/utils/ZKPaths.java`
-#### Snippet
-```java
-     * @return sorted list of children
-     * @throws InterruptedException                 thread interruption
-     * @throws org.apache.zookeeper.KeeperException zookeeper errors
-     */
-    public static List<String> getSortedChildren(ZooKeeper zookeeper, String path) throws InterruptedException, KeeperException
-```
-
-### JavadocReference
-Cannot resolve symbol `org.apache.zookeeper.KeeperException`
-in `curator-client/src/main/java/org/apache/curator/utils/ZKPaths.java`
-#### Snippet
-```java
-     * @param makeLastNode if true, all nodes are created. If false, only the parent nodes are created
-     * @throws InterruptedException                 thread interruption
-     * @throws org.apache.zookeeper.KeeperException Zookeeper errors
-     */
-    public static void mkdirs(ZooKeeper zookeeper, String path, boolean makeLastNode) throws InterruptedException, KeeperException
-```
-
-### JavadocReference
-Cannot resolve symbol `org.apache.zookeeper.KeeperException`
-in `curator-client/src/main/java/org/apache/curator/utils/ZKPaths.java`
-#### Snippet
-```java
-     * @param path      path to ensure
-     * @throws InterruptedException                 thread interruption
-     * @throws org.apache.zookeeper.KeeperException Zookeeper errors
-     */
-    public static void mkdirs(ZooKeeper zookeeper, String path) throws InterruptedException, KeeperException
-```
-
-### JavadocReference
-Cannot resolve symbol `KeeperException`
-in `curator-client/src/main/java/org/apache/curator/utils/ZKPaths.java`
-#### Snippet
-```java
-     * @param deleteSelf flag that indicates that the node should also get deleted
-     * @throws InterruptedException
-     * @throws KeeperException
-     */
-    public static void deleteChildren(ZooKeeper zookeeper, String path, boolean deleteSelf) throws InterruptedException, KeeperException
-```
-
-### JavadocReference
-Cannot resolve symbol `CreateMode`
-in `curator-client/src/main/java/org/apache/curator/utils/ZKPaths.java`
-#### Snippet
-```java
-
-    /**
-     * @return {@link CreateMode#CONTAINER} if the ZK JAR supports it. Otherwise {@link CreateMode#PERSISTENT}
-     */
-    public static CreateMode getContainerCreateMode()
-```
-
-### JavadocReference
-Cannot resolve symbol `CONTAINER`
-in `curator-client/src/main/java/org/apache/curator/utils/ZKPaths.java`
-#### Snippet
-```java
-
-    /**
-     * @return {@link CreateMode#CONTAINER} if the ZK JAR supports it. Otherwise {@link CreateMode#PERSISTENT}
-     */
-    public static CreateMode getContainerCreateMode()
-```
-
-### JavadocReference
-Cannot resolve symbol `CreateMode`
-in `curator-client/src/main/java/org/apache/curator/utils/ZKPaths.java`
-#### Snippet
-```java
-
-    /**
-     * @return {@link CreateMode#CONTAINER} if the ZK JAR supports it. Otherwise {@link CreateMode#PERSISTENT}
-     */
-    public static CreateMode getContainerCreateMode()
-```
-
-### JavadocReference
-Cannot resolve symbol `PERSISTENT`
-in `curator-client/src/main/java/org/apache/curator/utils/ZKPaths.java`
-#### Snippet
-```java
-
-    /**
-     * @return {@link CreateMode#CONTAINER} if the ZK JAR supports it. Otherwise {@link CreateMode#PERSISTENT}
-     */
-    public static CreateMode getContainerCreateMode()
-```
-
-### JavadocReference
-Cannot resolve symbol `org.apache.zookeeper.KeeperException`
-in `curator-client/src/main/java/org/apache/curator/utils/ZKPaths.java`
-#### Snippet
-```java
-     * @param aclProvider  if not null, the ACL provider to use when creating parent nodes
-     * @throws InterruptedException                 thread interruption
-     * @throws org.apache.zookeeper.KeeperException Zookeeper errors
-     */
-    public static void mkdirs(ZooKeeper zookeeper, String path, boolean makeLastNode, InternalACLProvider aclProvider) throws InterruptedException, KeeperException
-```
-
-### JavadocReference
-Cannot resolve symbol `ZooKeeper`
-in `curator-client/src/main/java/org/apache/curator/utils/EnsurePath.java`
-#### Snippet
-```java
- * </p>
- * <p>
- * The first time it is used, a synchronized call to {@link ZKPaths#mkdirs(ZooKeeper, String)} is made to
- * ensure that the entire path has been created (with an empty byte array if needed). Subsequent
- * calls with the instance are un-synchronized NOPs.
-```
-
-### JavadocReference
-Cannot resolve symbol `ZooKeeper`
-in `curator-test/src/main/java/org/apache/curator/test/KillSession.java`
-#### Snippet
-```java
-     * @param maxMs max time ms to wait for kill
-     * @throws Exception errors
-     * @deprecated use {@link #kill(ZooKeeper)} instead
-     */
-    public static void     kill(ZooKeeper client, String connectString, int maxMs) throws Exception
-```
-
-### JavadocReference
-Cannot resolve symbol `ZooKeeper`
-in `curator-test/src/main/java/org/apache/curator/test/KillSession.java`
-#### Snippet
-```java
-     * @param connectString server connection string
-     * @throws Exception errors
-     * @deprecated use {@link #kill(ZooKeeper)} instead
-     */
-    public static void     kill(ZooKeeper client, String connectString) throws Exception
-```
-
-### JavadocReference
 Cannot resolve symbol `ZooDefs.Ids`
 in `curator-framework/src/main/java/org/apache/curator/framework/api/ACLable.java`
 #### Snippet
@@ -2973,18 +2445,6 @@ in `curator-framework/src/main/java/org/apache/curator/framework/api/ACLable.jav
 ```
 
 ### JavadocReference
-Cannot resolve symbol `notifyAll()`
-in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
-#### Snippet
-```java
-
-    /**
-     * Calls {@link #notifyAll()} on the given object after first synchronizing on it. This is
-     * done from the {@link #runSafe(Runnable)} thread.
-     *
-```
-
-### JavadocReference
 Cannot resolve symbol `CreateMode`
 in `curator-framework/src/main/java/org/apache/curator/framework/api/CreateProtectACLCreateModePathAndBytesable.java`
 #### Snippet
@@ -2999,30 +2459,6 @@ in `curator-framework/src/main/java/org/apache/curator/framework/api/CreateProte
 ### JavadocReference
 Cannot resolve symbol `CONTAINER`
 in `curator-framework/src/main/java/org/apache/curator/framework/api/CreateProtectACLCreateModePathAndBytesable.java`
-#### Snippet
-```java
-
-    /**
-     * Causes any parent nodes to get created using {@link CreateMode#CONTAINER} if they haven't already been.
-     * IMPORTANT NOTE: container creation is a new feature in recent versions of ZooKeeper.
-     * If the ZooKeeper version you're using does not support containers, the parent nodes
-```
-
-### JavadocReference
-Cannot resolve symbol `CreateMode`
-in `curator-framework/src/main/java/org/apache/curator/framework/api/ExistsBuilder.java`
-#### Snippet
-```java
-
-    /**
-     * Causes any parent nodes to get created using {@link CreateMode#CONTAINER} if they haven't already been.
-     * IMPORTANT NOTE: container creation is a new feature in recent versions of ZooKeeper.
-     * If the ZooKeeper version you're using does not support containers, the parent nodes
-```
-
-### JavadocReference
-Cannot resolve symbol `CONTAINER`
-in `curator-framework/src/main/java/org/apache/curator/framework/api/ExistsBuilder.java`
 #### Snippet
 ```java
 
@@ -3078,6 +2514,30 @@ in `curator-framework/src/main/java/org/apache/curator/framework/api/CreateBuild
      * {@link org.apache.zookeeper.CreateMode#PERSISTENT_SEQUENTIAL_WITH_TTL}. If
      * the znode has not been modified within the given TTL, it will be deleted once it has no
      * children. The TTL unit is milliseconds and must be greater than 0 and less than or equal to
+```
+
+### JavadocReference
+Cannot resolve symbol `CreateMode`
+in `curator-framework/src/main/java/org/apache/curator/framework/api/ExistsBuilder.java`
+#### Snippet
+```java
+
+    /**
+     * Causes any parent nodes to get created using {@link CreateMode#CONTAINER} if they haven't already been.
+     * IMPORTANT NOTE: container creation is a new feature in recent versions of ZooKeeper.
+     * If the ZooKeeper version you're using does not support containers, the parent nodes
+```
+
+### JavadocReference
+Cannot resolve symbol `CONTAINER`
+in `curator-framework/src/main/java/org/apache/curator/framework/api/ExistsBuilder.java`
+#### Snippet
+```java
+
+    /**
+     * Causes any parent nodes to get created using {@link CreateMode#CONTAINER} if they haven't already been.
+     * IMPORTANT NOTE: container creation is a new feature in recent versions of ZooKeeper.
+     * If the ZooKeeper version you're using does not support containers, the parent nodes
 ```
 
 ### JavadocReference
@@ -3225,6 +2685,30 @@ in `curator-framework/src/main/java/org/apache/curator/framework/api/CreateBuild
 ```
 
 ### JavadocReference
+Cannot resolve symbol `CreateMode`
+in `curator-framework/src/main/java/org/apache/curator/framework/api/CreateModable.java`
+#### Snippet
+```java
+{
+    /**
+     * Set a create mode - the default is {@link CreateMode#PERSISTENT}
+     *
+     * @param mode new create mode
+```
+
+### JavadocReference
+Cannot resolve symbol `PERSISTENT`
+in `curator-framework/src/main/java/org/apache/curator/framework/api/CreateModable.java`
+#### Snippet
+```java
+{
+    /**
+     * Set a create mode - the default is {@link CreateMode#PERSISTENT}
+     *
+     * @param mode new create mode
+```
+
+### JavadocReference
 Cannot resolve symbol `Watcher`
 in `curator-framework/src/main/java/org/apache/curator/framework/api/CuratorWatcher.java`
 #### Snippet
@@ -3273,27 +2757,27 @@ in `curator-framework/src/main/java/org/apache/curator/framework/api/CuratorWatc
 ```
 
 ### JavadocReference
-Cannot resolve symbol `CreateMode`
-in `curator-framework/src/main/java/org/apache/curator/framework/api/CreateModable.java`
+Cannot resolve symbol `org.apache.zookeeper.AddWatchMode`
+in `curator-framework/src/main/java/org/apache/curator/framework/api/AddWatchBuilder.java`
 #### Snippet
 ```java
 {
     /**
-     * Set a create mode - the default is {@link CreateMode#PERSISTENT}
+     * The mode to use. By default, {@link org.apache.zookeeper.AddWatchMode#PERSISTENT_RECURSIVE} is used
      *
-     * @param mode new create mode
+     * @param mode mode to use
 ```
 
 ### JavadocReference
-Cannot resolve symbol `PERSISTENT`
-in `curator-framework/src/main/java/org/apache/curator/framework/api/CreateModable.java`
+Cannot resolve symbol `PERSISTENT_RECURSIVE`
+in `curator-framework/src/main/java/org/apache/curator/framework/api/AddWatchBuilder.java`
 #### Snippet
 ```java
 {
     /**
-     * Set a create mode - the default is {@link CreateMode#PERSISTENT}
+     * The mode to use. By default, {@link org.apache.zookeeper.AddWatchMode#PERSISTENT_RECURSIVE} is used
      *
-     * @param mode new create mode
+     * @param mode mode to use
 ```
 
 ### JavadocReference
@@ -3321,6 +2805,30 @@ in `curator-framework/src/main/java/org/apache/curator/framework/api/ParentACLab
 ```
 
 ### JavadocReference
+Cannot resolve symbol `CreateMode`
+in `curator-framework/src/main/java/org/apache/curator/framework/api/CreateBackgroundModeStatACLable.java`
+#### Snippet
+```java
+
+    /**
+     * Causes any parent nodes to get created using {@link CreateMode#CONTAINER} if they haven't already been.
+     * IMPORTANT NOTE: container creation is a new feature in recent versions of ZooKeeper.
+     * If the ZooKeeper version you're using does not support containers, the parent nodes
+```
+
+### JavadocReference
+Cannot resolve symbol `CONTAINER`
+in `curator-framework/src/main/java/org/apache/curator/framework/api/CreateBackgroundModeStatACLable.java`
+#### Snippet
+```java
+
+    /**
+     * Causes any parent nodes to get created using {@link CreateMode#CONTAINER} if they haven't already been.
+     * IMPORTANT NOTE: container creation is a new feature in recent versions of ZooKeeper.
+     * If the ZooKeeper version you're using does not support containers, the parent nodes
+```
+
+### JavadocReference
 Cannot resolve symbol `Watcher`
 in `curator-framework/src/main/java/org/apache/curator/framework/api/CuratorEventType.java`
 #### Snippet
@@ -3333,27 +2841,99 @@ in `curator-framework/src/main/java/org/apache/curator/framework/api/CuratorEven
 ```
 
 ### JavadocReference
-Cannot resolve symbol `org.apache.zookeeper.AddWatchMode`
-in `curator-framework/src/main/java/org/apache/curator/framework/api/AddWatchBuilder.java`
+Cannot resolve symbol `org.apache.zookeeper.CreateMode`
+in `curator-framework/src/main/java/org/apache/curator/framework/api/transaction/TransactionCreateBuilder.java`
 #### Snippet
 ```java
 {
     /**
-     * The mode to use. By default, {@link org.apache.zookeeper.AddWatchMode#PERSISTENT_RECURSIVE} is used
-     *
-     * @param mode mode to use
+     * Specify a TTL when mode is {@link org.apache.zookeeper.CreateMode#PERSISTENT_WITH_TTL} or
+     * {@link org.apache.zookeeper.CreateMode#PERSISTENT_SEQUENTIAL_WITH_TTL}. If
+     * the znode has not been modified within the given TTL, it will be deleted once it has no
 ```
 
 ### JavadocReference
-Cannot resolve symbol `PERSISTENT_RECURSIVE`
-in `curator-framework/src/main/java/org/apache/curator/framework/api/AddWatchBuilder.java`
+Cannot resolve symbol `PERSISTENT_WITH_TTL`
+in `curator-framework/src/main/java/org/apache/curator/framework/api/transaction/TransactionCreateBuilder.java`
 #### Snippet
 ```java
 {
     /**
-     * The mode to use. By default, {@link org.apache.zookeeper.AddWatchMode#PERSISTENT_RECURSIVE} is used
+     * Specify a TTL when mode is {@link org.apache.zookeeper.CreateMode#PERSISTENT_WITH_TTL} or
+     * {@link org.apache.zookeeper.CreateMode#PERSISTENT_SEQUENTIAL_WITH_TTL}. If
+     * the znode has not been modified within the given TTL, it will be deleted once it has no
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.zookeeper.CreateMode`
+in `curator-framework/src/main/java/org/apache/curator/framework/api/transaction/TransactionCreateBuilder.java`
+#### Snippet
+```java
+    /**
+     * Specify a TTL when mode is {@link org.apache.zookeeper.CreateMode#PERSISTENT_WITH_TTL} or
+     * {@link org.apache.zookeeper.CreateMode#PERSISTENT_SEQUENTIAL_WITH_TTL}. If
+     * the znode has not been modified within the given TTL, it will be deleted once it has no
+     * children. The TTL unit is milliseconds and must be greater than 0 and less than or equal to
+```
+
+### JavadocReference
+Cannot resolve symbol `PERSISTENT_SEQUENTIAL_WITH_TTL`
+in `curator-framework/src/main/java/org/apache/curator/framework/api/transaction/TransactionCreateBuilder.java`
+#### Snippet
+```java
+    /**
+     * Specify a TTL when mode is {@link org.apache.zookeeper.CreateMode#PERSISTENT_WITH_TTL} or
+     * {@link org.apache.zookeeper.CreateMode#PERSISTENT_SEQUENTIAL_WITH_TTL}. If
+     * the znode has not been modified within the given TTL, it will be deleted once it has no
+     * children. The TTL unit is milliseconds and must be greater than 0 and less than or equal to
+```
+
+### JavadocReference
+Cannot resolve symbol `ZooKeeper`
+in `curator-framework/src/main/java/org/apache/curator/framework/api/transaction/CuratorTransaction.java`
+#### Snippet
+```java
+/**
+ * <p>
+ *     Transactional/atomic operations. See {@link ZooKeeper#multi(Iterable)} for
+ *     details on ZooKeeper transactions.
+ * </p>
+```
+
+### JavadocReference
+Cannot resolve symbol `multi(Iterable)`
+in `curator-framework/src/main/java/org/apache/curator/framework/api/transaction/CuratorTransaction.java`
+#### Snippet
+```java
+/**
+ * <p>
+ *     Transactional/atomic operations. See {@link ZooKeeper#multi(Iterable)} for
+ *     details on ZooKeeper transactions.
+ * </p>
+```
+
+### JavadocReference
+Cannot resolve symbol `OpResult.ErrorResult`
+in `curator-framework/src/main/java/org/apache/curator/framework/api/transaction/CuratorTransactionResult.java`
+#### Snippet
+```java
+
+    /**
+     * Returns the operation generated error or <code>0</code> i.e. {@link OpResult.ErrorResult#getErr()}
      *
-     * @param mode mode to use
+     * @return error or 0
+```
+
+### JavadocReference
+Cannot resolve symbol `getErr()`
+in `curator-framework/src/main/java/org/apache/curator/framework/api/transaction/CuratorTransactionResult.java`
+#### Snippet
+```java
+
+    /**
+     * Returns the operation generated error or <code>0</code> i.e. {@link OpResult.ErrorResult#getErr()}
+     *
+     * @return error or 0
 ```
 
 ### JavadocReference
@@ -3417,123 +2997,15 @@ in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramewor
 ```
 
 ### JavadocReference
-Cannot resolve symbol `org.apache.zookeeper.CreateMode`
-in `curator-framework/src/main/java/org/apache/curator/framework/api/transaction/TransactionCreateBuilder.java`
-#### Snippet
-```java
-{
-    /**
-     * Specify a TTL when mode is {@link org.apache.zookeeper.CreateMode#PERSISTENT_WITH_TTL} or
-     * {@link org.apache.zookeeper.CreateMode#PERSISTENT_SEQUENTIAL_WITH_TTL}. If
-     * the znode has not been modified within the given TTL, it will be deleted once it has no
-```
-
-### JavadocReference
-Cannot resolve symbol `PERSISTENT_WITH_TTL`
-in `curator-framework/src/main/java/org/apache/curator/framework/api/transaction/TransactionCreateBuilder.java`
-#### Snippet
-```java
-{
-    /**
-     * Specify a TTL when mode is {@link org.apache.zookeeper.CreateMode#PERSISTENT_WITH_TTL} or
-     * {@link org.apache.zookeeper.CreateMode#PERSISTENT_SEQUENTIAL_WITH_TTL}. If
-     * the znode has not been modified within the given TTL, it will be deleted once it has no
-```
-
-### JavadocReference
-Cannot resolve symbol `org.apache.zookeeper.CreateMode`
-in `curator-framework/src/main/java/org/apache/curator/framework/api/transaction/TransactionCreateBuilder.java`
-#### Snippet
-```java
-    /**
-     * Specify a TTL when mode is {@link org.apache.zookeeper.CreateMode#PERSISTENT_WITH_TTL} or
-     * {@link org.apache.zookeeper.CreateMode#PERSISTENT_SEQUENTIAL_WITH_TTL}. If
-     * the znode has not been modified within the given TTL, it will be deleted once it has no
-     * children. The TTL unit is milliseconds and must be greater than 0 and less than or equal to
-```
-
-### JavadocReference
-Cannot resolve symbol `PERSISTENT_SEQUENTIAL_WITH_TTL`
-in `curator-framework/src/main/java/org/apache/curator/framework/api/transaction/TransactionCreateBuilder.java`
-#### Snippet
-```java
-    /**
-     * Specify a TTL when mode is {@link org.apache.zookeeper.CreateMode#PERSISTENT_WITH_TTL} or
-     * {@link org.apache.zookeeper.CreateMode#PERSISTENT_SEQUENTIAL_WITH_TTL}. If
-     * the znode has not been modified within the given TTL, it will be deleted once it has no
-     * children. The TTL unit is milliseconds and must be greater than 0 and less than or equal to
-```
-
-### JavadocReference
-Cannot resolve symbol `CreateMode`
-in `curator-framework/src/main/java/org/apache/curator/framework/api/CreateBackgroundModeStatACLable.java`
+Cannot resolve symbol `notifyAll()`
+in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
 #### Snippet
 ```java
 
     /**
-     * Causes any parent nodes to get created using {@link CreateMode#CONTAINER} if they haven't already been.
-     * IMPORTANT NOTE: container creation is a new feature in recent versions of ZooKeeper.
-     * If the ZooKeeper version you're using does not support containers, the parent nodes
-```
-
-### JavadocReference
-Cannot resolve symbol `CONTAINER`
-in `curator-framework/src/main/java/org/apache/curator/framework/api/CreateBackgroundModeStatACLable.java`
-#### Snippet
-```java
-
-    /**
-     * Causes any parent nodes to get created using {@link CreateMode#CONTAINER} if they haven't already been.
-     * IMPORTANT NOTE: container creation is a new feature in recent versions of ZooKeeper.
-     * If the ZooKeeper version you're using does not support containers, the parent nodes
-```
-
-### JavadocReference
-Cannot resolve symbol `ZooKeeper`
-in `curator-framework/src/main/java/org/apache/curator/framework/api/transaction/CuratorTransaction.java`
-#### Snippet
-```java
-/**
- * <p>
- *     Transactional/atomic operations. See {@link ZooKeeper#multi(Iterable)} for
- *     details on ZooKeeper transactions.
- * </p>
-```
-
-### JavadocReference
-Cannot resolve symbol `multi(Iterable)`
-in `curator-framework/src/main/java/org/apache/curator/framework/api/transaction/CuratorTransaction.java`
-#### Snippet
-```java
-/**
- * <p>
- *     Transactional/atomic operations. See {@link ZooKeeper#multi(Iterable)} for
- *     details on ZooKeeper transactions.
- * </p>
-```
-
-### JavadocReference
-Cannot resolve symbol `OpResult.ErrorResult`
-in `curator-framework/src/main/java/org/apache/curator/framework/api/transaction/CuratorTransactionResult.java`
-#### Snippet
-```java
-
-    /**
-     * Returns the operation generated error or <code>0</code> i.e. {@link OpResult.ErrorResult#getErr()}
+     * Calls {@link #notifyAll()} on the given object after first synchronizing on it. This is
+     * done from the {@link #runSafe(Runnable)} thread.
      *
-     * @return error or 0
-```
-
-### JavadocReference
-Cannot resolve symbol `getErr()`
-in `curator-framework/src/main/java/org/apache/curator/framework/api/transaction/CuratorTransactionResult.java`
-#### Snippet
-```java
-
-    /**
-     * Returns the operation generated error or <code>0</code> i.e. {@link OpResult.ErrorResult#getErr()}
-     *
-     * @return error or 0
 ```
 
 ### JavadocReference
@@ -3585,15 +3057,507 @@ in `curator-framework/src/main/java/org/apache/curator/framework/state/Connectio
 ```
 
 ### JavadocReference
-Cannot resolve symbol `org.apache.zookeeper.ZooKeeper`
-in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/cache/TreeCache.java`
+Cannot resolve symbol `KeeperException.SessionExpiredException`
+in `curator-client/src/main/java/org/apache/curator/SessionFailRetryLoop.java`
 #### Snippet
 ```java
 
         /**
-         * By default, TreeCache creates {@link org.apache.zookeeper.ZooKeeper} watches for every created path.
-         * Change this behavior with this method.
-         * @param disableZkWatches true to disable zk watches
+         * If the session fails, throw {@link KeeperException.SessionExpiredException} when
+         * {@link SessionFailRetryLoop#shouldContinue()} is called
+         */
+```
+
+### JavadocReference
+Cannot resolve symbol `ZooKeeper`
+in `curator-client/src/main/java/org/apache/curator/CuratorZookeeperClient.java`
+#### Snippet
+```java
+
+    /**
+     * @param zookeeperFactory factory for creating {@link ZooKeeper} instances
+     * @param ensembleProvider the ensemble provider
+     * @param sessionTimeoutMs session timeout
+```
+
+### JavadocReference
+Cannot resolve symbol `ZooKeeper`
+in `curator-client/src/main/java/org/apache/curator/CuratorZookeeperClient.java`
+#### Snippet
+```java
+     * @param canBeReadOnly if true, allow ZooKeeper client to enter
+     *                      read only mode in case of a network partition. See
+     *                      {@link ZooKeeper#ZooKeeper(String, int, Watcher, long, byte[], boolean)}
+     *                      for details
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `ZooKeeper(String, int, Watcher, long, byte[], boolean)`
+in `curator-client/src/main/java/org/apache/curator/CuratorZookeeperClient.java`
+#### Snippet
+```java
+     * @param canBeReadOnly if true, allow ZooKeeper client to enter
+     *                      read only mode in case of a network partition. See
+     *                      {@link ZooKeeper#ZooKeeper(String, int, Watcher, long, byte[], boolean)}
+     *                      for details
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `Watcher`
+in `curator-client/src/main/java/org/apache/curator/CuratorZookeeperClient.java`
+#### Snippet
+```java
+     * @param canBeReadOnly if true, allow ZooKeeper client to enter
+     *                      read only mode in case of a network partition. See
+     *                      {@link ZooKeeper#ZooKeeper(String, int, Watcher, long, byte[], boolean)}
+     *                      for details
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `ZooKeeper`
+in `curator-client/src/main/java/org/apache/curator/CuratorZookeeperClient.java`
+#### Snippet
+```java
+
+    /**
+     * @param zookeeperFactory factory for creating {@link ZooKeeper} instances
+     * @param ensembleProvider the ensemble provider
+     * @param sessionTimeoutMs session timeout
+```
+
+### JavadocReference
+Cannot resolve symbol `ZooKeeper`
+in `curator-client/src/main/java/org/apache/curator/CuratorZookeeperClient.java`
+#### Snippet
+```java
+     * @param canBeReadOnly if true, allow ZooKeeper client to enter
+     *                      read only mode in case of a network partition. See
+     *                      {@link ZooKeeper#ZooKeeper(String, int, Watcher, long, byte[], boolean)}
+     *                      for details
+     * @since 4.0.2
+```
+
+### JavadocReference
+Cannot resolve symbol `ZooKeeper(String, int, Watcher, long, byte[], boolean)`
+in `curator-client/src/main/java/org/apache/curator/CuratorZookeeperClient.java`
+#### Snippet
+```java
+     * @param canBeReadOnly if true, allow ZooKeeper client to enter
+     *                      read only mode in case of a network partition. See
+     *                      {@link ZooKeeper#ZooKeeper(String, int, Watcher, long, byte[], boolean)}
+     *                      for details
+     * @since 4.0.2
+```
+
+### JavadocReference
+Cannot resolve symbol `Watcher`
+in `curator-client/src/main/java/org/apache/curator/CuratorZookeeperClient.java`
+#### Snippet
+```java
+     * @param canBeReadOnly if true, allow ZooKeeper client to enter
+     *                      read only mode in case of a network partition. See
+     *                      {@link ZooKeeper#ZooKeeper(String, int, Watcher, long, byte[], boolean)}
+     *                      for details
+     * @since 4.0.2
+```
+
+### JavadocReference
+Cannot resolve symbol `ZooKeeper`
+in `curator-client/src/main/java/org/apache/curator/CuratorZookeeperClient.java`
+#### Snippet
+```java
+
+    /**
+     * Return the most recent value of {@link ZooKeeper#getSessionTimeout()} or 0
+     *
+     * @return session timeout or 0
+```
+
+### JavadocReference
+Cannot resolve symbol `getSessionTimeout()`
+in `curator-client/src/main/java/org/apache/curator/CuratorZookeeperClient.java`
+#### Snippet
+```java
+
+    /**
+     * Return the most recent value of {@link ZooKeeper#getSessionTimeout()} or 0
+     *
+     * @return session timeout or 0
+```
+
+### JavadocReference
+Cannot resolve symbol `ZooKeeper`
+in `curator-client/src/main/java/org/apache/curator/CuratorZookeeperClient.java`
+#### Snippet
+```java
+
+    /**
+     * Every time a new {@link ZooKeeper} instance is allocated, the "instance index"
+     * is incremented.
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `ZooKeeper`
+in `curator-client/src/main/java/org/apache/curator/utils/ZookeeperFactory.java`
+#### Snippet
+```java
+     * @param canBeReadOnly if true, allow ZooKeeper client to enter
+     *                      read only mode in case of a network partition. See
+     *                      {@link ZooKeeper#ZooKeeper(String, int, Watcher, long, byte[], boolean)}
+     *                      for details
+     * @param zkClientConfig ZooKeeper client config
+```
+
+### JavadocReference
+Cannot resolve symbol `ZooKeeper(String, int, Watcher, long, byte[], boolean)`
+in `curator-client/src/main/java/org/apache/curator/utils/ZookeeperFactory.java`
+#### Snippet
+```java
+     * @param canBeReadOnly if true, allow ZooKeeper client to enter
+     *                      read only mode in case of a network partition. See
+     *                      {@link ZooKeeper#ZooKeeper(String, int, Watcher, long, byte[], boolean)}
+     *                      for details
+     * @param zkClientConfig ZooKeeper client config
+```
+
+### JavadocReference
+Cannot resolve symbol `Watcher`
+in `curator-client/src/main/java/org/apache/curator/utils/ZookeeperFactory.java`
+#### Snippet
+```java
+     * @param canBeReadOnly if true, allow ZooKeeper client to enter
+     *                      read only mode in case of a network partition. See
+     *                      {@link ZooKeeper#ZooKeeper(String, int, Watcher, long, byte[], boolean)}
+     *                      for details
+     * @param zkClientConfig ZooKeeper client config
+```
+
+### JavadocReference
+Cannot resolve symbol `ZooKeeper`
+in `curator-client/src/main/java/org/apache/curator/utils/ZookeeperFactory.java`
+#### Snippet
+```java
+     * @param canBeReadOnly if true, allow ZooKeeper client to enter
+     *                      read only mode in case of a network partition. See
+     *                      {@link ZooKeeper#ZooKeeper(String, int, Watcher, long, byte[], boolean)}
+     *                      for details
+     * @return the instance
+```
+
+### JavadocReference
+Cannot resolve symbol `ZooKeeper(String, int, Watcher, long, byte[], boolean)`
+in `curator-client/src/main/java/org/apache/curator/utils/ZookeeperFactory.java`
+#### Snippet
+```java
+     * @param canBeReadOnly if true, allow ZooKeeper client to enter
+     *                      read only mode in case of a network partition. See
+     *                      {@link ZooKeeper#ZooKeeper(String, int, Watcher, long, byte[], boolean)}
+     *                      for details
+     * @return the instance
+```
+
+### JavadocReference
+Cannot resolve symbol `Watcher`
+in `curator-client/src/main/java/org/apache/curator/utils/ZookeeperFactory.java`
+#### Snippet
+```java
+     * @param canBeReadOnly if true, allow ZooKeeper client to enter
+     *                      read only mode in case of a network partition. See
+     *                      {@link ZooKeeper#ZooKeeper(String, int, Watcher, long, byte[], boolean)}
+     *                      for details
+     * @return the instance
+```
+
+### JavadocReference
+Cannot resolve symbol `ZooDefs.Ids`
+in `curator-client/src/main/java/org/apache/curator/utils/InternalACLProvider.java`
+#### Snippet
+```java
+{
+    /**
+     * Return the ACL list to use by default (usually {@link ZooDefs.Ids#OPEN_ACL_UNSAFE}).
+     *
+     * @return default ACL list
+```
+
+### JavadocReference
+Cannot resolve symbol `OPEN_ACL_UNSAFE`
+in `curator-client/src/main/java/org/apache/curator/utils/InternalACLProvider.java`
+#### Snippet
+```java
+{
+    /**
+     * Return the ACL list to use by default (usually {@link ZooDefs.Ids#OPEN_ACL_UNSAFE}).
+     *
+     * @return default ACL list
+```
+
+### JavadocReference
+Cannot resolve symbol `name`
+in `curator-client/src/main/java/org/apache/curator/drivers/AdvancedTracerDriver.java`
+#### Snippet
+```java
+     * Add to a named counter
+     *
+     * @param name name of the counter
+     * @param increment amount to increment
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `increment`
+in `curator-client/src/main/java/org/apache/curator/drivers/AdvancedTracerDriver.java`
+#### Snippet
+```java
+     *
+     * @param name name of the counter
+     * @param increment amount to increment
+     */
+    public abstract void     addEvent(EventTrace trace);
+```
+
+### JavadocReference
+Cannot resolve symbol `ZooKeeper`
+in `curator-client/src/main/java/org/apache/curator/ensemble/EnsembleProvider.java`
+#### Snippet
+```java
+     * time it needs to create a ZooKeeper instance
+     * 
+     * @return connection string (per {@link ZooKeeper#ZooKeeper(String, int, Watcher)} etc.)
+     */
+    public String       getConnectionString();
+```
+
+### JavadocReference
+Cannot resolve symbol `ZooKeeper(String, int, Watcher)`
+in `curator-client/src/main/java/org/apache/curator/ensemble/EnsembleProvider.java`
+#### Snippet
+```java
+     * time it needs to create a ZooKeeper instance
+     * 
+     * @return connection string (per {@link ZooKeeper#ZooKeeper(String, int, Watcher)} etc.)
+     */
+    public String       getConnectionString();
+```
+
+### JavadocReference
+Cannot resolve symbol `Watcher`
+in `curator-client/src/main/java/org/apache/curator/ensemble/EnsembleProvider.java`
+#### Snippet
+```java
+     * time it needs to create a ZooKeeper instance
+     * 
+     * @return connection string (per {@link ZooKeeper#ZooKeeper(String, int, Watcher)} etc.)
+     */
+    public String       getConnectionString();
+```
+
+### JavadocReference
+Cannot resolve symbol `ZooKeeper`
+in `curator-client/src/main/java/org/apache/curator/ensemble/EnsembleProvider.java`
+#### Snippet
+```java
+
+    /**
+     * Return true if this ensemble provider supports {@link ZooKeeper#updateServerList(String)}
+     *
+     * @return true/false
+```
+
+### JavadocReference
+Cannot resolve symbol `updateServerList(String)`
+in `curator-client/src/main/java/org/apache/curator/ensemble/EnsembleProvider.java`
+#### Snippet
+```java
+
+    /**
+     * Return true if this ensemble provider supports {@link ZooKeeper#updateServerList(String)}
+     *
+     * @return true/false
+```
+
+### JavadocReference
+Cannot resolve symbol `ZooKeeper`
+in `curator-client/src/main/java/org/apache/curator/ensemble/fixed/FixedEnsembleProvider.java`
+#### Snippet
+```java
+     *
+     * @param connectionString connection string
+     * @param updateServerListEnabled if true, allow Curator to call {@link ZooKeeper#updateServerList(String)}
+     */
+    public FixedEnsembleProvider(String connectionString, boolean updateServerListEnabled)
+```
+
+### JavadocReference
+Cannot resolve symbol `updateServerList(String)`
+in `curator-client/src/main/java/org/apache/curator/ensemble/fixed/FixedEnsembleProvider.java`
+#### Snippet
+```java
+     *
+     * @param connectionString connection string
+     * @param updateServerListEnabled if true, allow Curator to call {@link ZooKeeper#updateServerList(String)}
+     */
+    public FixedEnsembleProvider(String connectionString, boolean updateServerListEnabled)
+```
+
+### JavadocReference
+Cannot resolve symbol `KeeperException`
+in `curator-client/src/main/java/org/apache/curator/utils/ZKPaths.java`
+#### Snippet
+```java
+     * @param deleteSelf flag that indicates that the node should also get deleted
+     * @throws InterruptedException
+     * @throws KeeperException
+     */
+    public static void deleteChildren(ZooKeeper zookeeper, String path, boolean deleteSelf) throws InterruptedException, KeeperException
+```
+
+### JavadocReference
+Cannot resolve symbol `CreateMode`
+in `curator-client/src/main/java/org/apache/curator/utils/ZKPaths.java`
+#### Snippet
+```java
+     * @param makeLastNode if true, all nodes are created. If false, only the parent nodes are created
+     * @param aclProvider  if not null, the ACL provider to use when creating parent nodes
+     * @param asContainers if true, nodes are created as {@link CreateMode#CONTAINER}
+     * @throws InterruptedException                 thread interruption
+     * @throws org.apache.zookeeper.KeeperException Zookeeper errors
+```
+
+### JavadocReference
+Cannot resolve symbol `CONTAINER`
+in `curator-client/src/main/java/org/apache/curator/utils/ZKPaths.java`
+#### Snippet
+```java
+     * @param makeLastNode if true, all nodes are created. If false, only the parent nodes are created
+     * @param aclProvider  if not null, the ACL provider to use when creating parent nodes
+     * @param asContainers if true, nodes are created as {@link CreateMode#CONTAINER}
+     * @throws InterruptedException                 thread interruption
+     * @throws org.apache.zookeeper.KeeperException Zookeeper errors
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.zookeeper.KeeperException`
+in `curator-client/src/main/java/org/apache/curator/utils/ZKPaths.java`
+#### Snippet
+```java
+     * @param asContainers if true, nodes are created as {@link CreateMode#CONTAINER}
+     * @throws InterruptedException                 thread interruption
+     * @throws org.apache.zookeeper.KeeperException Zookeeper errors
+     */
+    public static void mkdirs(ZooKeeper zookeeper, String path, boolean makeLastNode, InternalACLProvider aclProvider, boolean asContainers) throws InterruptedException, KeeperException
+```
+
+### JavadocReference
+Cannot resolve symbol `CreateMode`
+in `curator-client/src/main/java/org/apache/curator/utils/ZKPaths.java`
+#### Snippet
+```java
+
+    /**
+     * @return {@link CreateMode#CONTAINER} if the ZK JAR supports it. Otherwise {@link CreateMode#PERSISTENT}
+     */
+    public static CreateMode getContainerCreateMode()
+```
+
+### JavadocReference
+Cannot resolve symbol `CONTAINER`
+in `curator-client/src/main/java/org/apache/curator/utils/ZKPaths.java`
+#### Snippet
+```java
+
+    /**
+     * @return {@link CreateMode#CONTAINER} if the ZK JAR supports it. Otherwise {@link CreateMode#PERSISTENT}
+     */
+    public static CreateMode getContainerCreateMode()
+```
+
+### JavadocReference
+Cannot resolve symbol `CreateMode`
+in `curator-client/src/main/java/org/apache/curator/utils/ZKPaths.java`
+#### Snippet
+```java
+
+    /**
+     * @return {@link CreateMode#CONTAINER} if the ZK JAR supports it. Otherwise {@link CreateMode#PERSISTENT}
+     */
+    public static CreateMode getContainerCreateMode()
+```
+
+### JavadocReference
+Cannot resolve symbol `PERSISTENT`
+in `curator-client/src/main/java/org/apache/curator/utils/ZKPaths.java`
+#### Snippet
+```java
+
+    /**
+     * @return {@link CreateMode#CONTAINER} if the ZK JAR supports it. Otherwise {@link CreateMode#PERSISTENT}
+     */
+    public static CreateMode getContainerCreateMode()
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.zookeeper.KeeperException`
+in `curator-client/src/main/java/org/apache/curator/utils/ZKPaths.java`
+#### Snippet
+```java
+     * @param path      path to ensure
+     * @throws InterruptedException                 thread interruption
+     * @throws org.apache.zookeeper.KeeperException Zookeeper errors
+     */
+    public static void mkdirs(ZooKeeper zookeeper, String path) throws InterruptedException, KeeperException
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.zookeeper.KeeperException`
+in `curator-client/src/main/java/org/apache/curator/utils/ZKPaths.java`
+#### Snippet
+```java
+     * @param makeLastNode if true, all nodes are created. If false, only the parent nodes are created
+     * @throws InterruptedException                 thread interruption
+     * @throws org.apache.zookeeper.KeeperException Zookeeper errors
+     */
+    public static void mkdirs(ZooKeeper zookeeper, String path, boolean makeLastNode) throws InterruptedException, KeeperException
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.zookeeper.KeeperException`
+in `curator-client/src/main/java/org/apache/curator/utils/ZKPaths.java`
+#### Snippet
+```java
+     * @return sorted list of children
+     * @throws InterruptedException                 thread interruption
+     * @throws org.apache.zookeeper.KeeperException zookeeper errors
+     */
+    public static List<String> getSortedChildren(ZooKeeper zookeeper, String path) throws InterruptedException, KeeperException
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.zookeeper.KeeperException`
+in `curator-client/src/main/java/org/apache/curator/utils/ZKPaths.java`
+#### Snippet
+```java
+     * @param aclProvider  if not null, the ACL provider to use when creating parent nodes
+     * @throws InterruptedException                 thread interruption
+     * @throws org.apache.zookeeper.KeeperException Zookeeper errors
+     */
+    public static void mkdirs(ZooKeeper zookeeper, String path, boolean makeLastNode, InternalACLProvider aclProvider) throws InterruptedException, KeeperException
+```
+
+### JavadocReference
+Cannot resolve symbol `ZooKeeper`
+in `curator-client/src/main/java/org/apache/curator/utils/EnsurePath.java`
+#### Snippet
+```java
+ * </p>
+ * <p>
+ * The first time it is used, a synchronized call to {@link ZKPaths#mkdirs(ZooKeeper, String)} is made to
+ * ensure that the entire path has been created (with an empty byte array if needed). Subsequent
+ * calls with the instance are un-synchronized NOPs.
 ```
 
 ### JavadocReference
@@ -3621,11 +3585,23 @@ in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/nodes/Per
 ```
 
 ### JavadocReference
+Cannot resolve symbol `directExectutor()`
+in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/queue/QueueBuilder.java`
+#### Snippet
+```java
+
+    /**
+     * Change the executor used. The default is {@link MoreExecutors#directExectutor()}
+     *
+     * @param executor new executor to use
+```
+
+### JavadocReference
 Symbol `maxItems` is inaccessible from here
 in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/queue/DistributedPriorityQueue.java`
 #### Snippet
 ```java
-     * Add an item into the queue. Adding is done in the background - thus, this method will
+     * Add a set of items with the same priority into the queue. Adding is done in the background - thus, this method will
      * return quickly.<br><br>
      * NOTE: if an upper bound was set via {@link QueueBuilder#maxItems}, this method will
      * block until there is available space in the queue.
@@ -3649,7 +3625,7 @@ Symbol `maxItems` is inaccessible from here
 in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/queue/DistributedPriorityQueue.java`
 #### Snippet
 ```java
-     * Add a set of items with the same priority into the queue. Adding is done in the background - thus, this method will
+     * Add an item into the queue. Adding is done in the background - thus, this method will
      * return quickly.<br><br>
      * NOTE: if an upper bound was set via {@link QueueBuilder#maxItems}, this method will
      * block until there is available space in the queue.
@@ -3669,15 +3645,15 @@ in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/queue/Dis
 ```
 
 ### JavadocReference
-Cannot resolve symbol `directExectutor()`
-in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/queue/QueueBuilder.java`
+Cannot resolve symbol `org.apache.zookeeper.ZooKeeper`
+in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/cache/TreeCache.java`
 #### Snippet
 ```java
 
-    /**
-     * Change the executor used. The default is {@link MoreExecutors#directExectutor()}
-     *
-     * @param executor new executor to use
+        /**
+         * By default, TreeCache creates {@link org.apache.zookeeper.ZooKeeper} watches for every created path.
+         * Change this behavior with this method.
+         * @param disableZkWatches true to disable zk watches
 ```
 
 ### JavadocReference
@@ -3709,7 +3685,19 @@ Symbol `maxItems` is inaccessible from here
 in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/queue/DistributedDelayQueue.java`
 #### Snippet
 ```java
-     * Add a set of items with the same priority into the queue. Adding is done in the background - thus, this method will
+    /**
+     * Same as {@link #putMulti(MultiItem, long)} but allows a maximum wait time if an upper bound was set
+     * via {@link QueueBuilder#maxItems}.
+     *
+     * @param items items to add
+```
+
+### JavadocReference
+Symbol `maxItems` is inaccessible from here
+in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/queue/DistributedDelayQueue.java`
+#### Snippet
+```java
+     * Add an item into the queue. Adding is done in the background - thus, this method will
      * return quickly.<br><br>
      * NOTE: if an upper bound was set via {@link QueueBuilder#maxItems}, this method will
      * block until there is available space in the queue.
@@ -3733,35 +3721,11 @@ Symbol `maxItems` is inaccessible from here
 in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/queue/DistributedDelayQueue.java`
 #### Snippet
 ```java
-     * Add an item into the queue. Adding is done in the background - thus, this method will
+     * Add a set of items with the same priority into the queue. Adding is done in the background - thus, this method will
      * return quickly.<br><br>
      * NOTE: if an upper bound was set via {@link QueueBuilder#maxItems}, this method will
      * block until there is available space in the queue.
      *
-```
-
-### JavadocReference
-Symbol `maxItems` is inaccessible from here
-in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/queue/DistributedDelayQueue.java`
-#### Snippet
-```java
-    /**
-     * Same as {@link #putMulti(MultiItem, long)} but allows a maximum wait time if an upper bound was set
-     * via {@link QueueBuilder#maxItems}.
-     *
-     * @param items items to add
-```
-
-### JavadocReference
-Symbol `maxItems` is inaccessible from here
-in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/queue/DistributedQueue.java`
-#### Snippet
-```java
-    /**
-     * Same as {@link #putMulti(MultiItem)} but allows a maximum wait time if an upper bound was set
-     * via {@link QueueBuilder#maxItems}.
-     *
-     * @param items items to add
 ```
 
 ### JavadocReference
@@ -3794,6 +3758,18 @@ in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/queue/Dis
 #### Snippet
 ```java
     /**
+     * Same as {@link #putMulti(MultiItem)} but allows a maximum wait time if an upper bound was set
+     * via {@link QueueBuilder#maxItems}.
+     *
+     * @param items items to add
+```
+
+### JavadocReference
+Symbol `maxItems` is inaccessible from here
+in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/queue/DistributedQueue.java`
+#### Snippet
+```java
+    /**
      * Same as {@link #put(Object)} but allows a maximum wait time if an upper bound was set
      * via {@link QueueBuilder#maxItems}.
      *
@@ -3801,63 +3777,99 @@ in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/queue/Dis
 ```
 
 ### JavadocReference
-Cannot resolve symbol `org.apache.zookeeper.data.Stat`
-in `curator-x-async/src/main/java/org/apache/curator/x/async/api/AsyncGetDataBuilder.java`
+Cannot resolve symbol `CreateMode`
+in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/nodes/PersistentEphemeralNode.java`
 #### Snippet
 ```java
-     * @param stat the stat to have filled in
-     * @see #decompressed()
-     * @see #storingStatIn(org.apache.zookeeper.data.Stat)
-     * @return this
-     */
+    {
+        /**
+         * Same as {@link CreateMode#EPHEMERAL}
+         */
+        EPHEMERAL()
 ```
 
 ### JavadocReference
-Cannot resolve symbol `org.apache.zookeeper.KeeperException.Code`
-in `curator-x-async/src/main/java/org/apache/curator/x/async/AsyncResult.java`
+Cannot resolve symbol `EPHEMERAL`
+in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/nodes/PersistentEphemeralNode.java`
 #### Snippet
 ```java
-    /**
-     * Return the ZooKeeper result code. If the method was successful,
-     * {@link org.apache.zookeeper.KeeperException.Code#OK} is returned. If there was a general
-     * exception {@link org.apache.zookeeper.KeeperException.Code#SYSTEMERROR} is returned.
-     *
+    {
+        /**
+         * Same as {@link CreateMode#EPHEMERAL}
+         */
+        EPHEMERAL()
 ```
 
 ### JavadocReference
-Cannot resolve symbol `OK`
-in `curator-x-async/src/main/java/org/apache/curator/x/async/AsyncResult.java`
+Cannot resolve symbol `CreateMode`
+in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/nodes/PersistentEphemeralNode.java`
 #### Snippet
 ```java
-    /**
-     * Return the ZooKeeper result code. If the method was successful,
-     * {@link org.apache.zookeeper.KeeperException.Code#OK} is returned. If there was a general
-     * exception {@link org.apache.zookeeper.KeeperException.Code#SYSTEMERROR} is returned.
-     *
+
+        /**
+         * Same as {@link CreateMode#EPHEMERAL} with protection
+         */
+        PROTECTED_EPHEMERAL()
 ```
 
 ### JavadocReference
-Cannot resolve symbol `org.apache.zookeeper.KeeperException.Code`
-in `curator-x-async/src/main/java/org/apache/curator/x/async/AsyncResult.java`
+Cannot resolve symbol `EPHEMERAL`
+in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/nodes/PersistentEphemeralNode.java`
 #### Snippet
 ```java
-     * Return the ZooKeeper result code. If the method was successful,
-     * {@link org.apache.zookeeper.KeeperException.Code#OK} is returned. If there was a general
-     * exception {@link org.apache.zookeeper.KeeperException.Code#SYSTEMERROR} is returned.
-     *
-     * @return result code
+
+        /**
+         * Same as {@link CreateMode#EPHEMERAL} with protection
+         */
+        PROTECTED_EPHEMERAL()
 ```
 
 ### JavadocReference
-Cannot resolve symbol `SYSTEMERROR`
-in `curator-x-async/src/main/java/org/apache/curator/x/async/AsyncResult.java`
+Cannot resolve symbol `CreateMode`
+in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/nodes/PersistentEphemeralNode.java`
 #### Snippet
 ```java
-     * Return the ZooKeeper result code. If the method was successful,
-     * {@link org.apache.zookeeper.KeeperException.Code#OK} is returned. If there was a general
-     * exception {@link org.apache.zookeeper.KeeperException.Code#SYSTEMERROR} is returned.
-     *
-     * @return result code
+
+        /**
+         * Same as {@link CreateMode#EPHEMERAL_SEQUENTIAL}
+         */
+        EPHEMERAL_SEQUENTIAL()
+```
+
+### JavadocReference
+Cannot resolve symbol `EPHEMERAL_SEQUENTIAL`
+in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/nodes/PersistentEphemeralNode.java`
+#### Snippet
+```java
+
+        /**
+         * Same as {@link CreateMode#EPHEMERAL_SEQUENTIAL}
+         */
+        EPHEMERAL_SEQUENTIAL()
+```
+
+### JavadocReference
+Cannot resolve symbol `CreateMode`
+in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/nodes/PersistentEphemeralNode.java`
+#### Snippet
+```java
+
+        /**
+         * Same as {@link CreateMode#EPHEMERAL_SEQUENTIAL} with protection
+         */
+        PROTECTED_EPHEMERAL_SEQUENTIAL()
+```
+
+### JavadocReference
+Cannot resolve symbol `EPHEMERAL_SEQUENTIAL`
+in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/nodes/PersistentEphemeralNode.java`
+#### Snippet
+```java
+
+        /**
+         * Same as {@link CreateMode#EPHEMERAL_SEQUENTIAL} with protection
+         */
+        PROTECTED_EPHEMERAL_SEQUENTIAL()
 ```
 
 ### JavadocReference
@@ -3933,27 +3945,75 @@ in `curator-x-async/src/main/java/org/apache/curator/x/async/AsyncResult.java`
 ```
 
 ### JavadocReference
+Cannot resolve symbol `org.apache.zookeeper.KeeperException.Code`
+in `curator-x-async/src/main/java/org/apache/curator/x/async/AsyncResult.java`
+#### Snippet
+```java
+    /**
+     * Return the ZooKeeper result code. If the method was successful,
+     * {@link org.apache.zookeeper.KeeperException.Code#OK} is returned. If there was a general
+     * exception {@link org.apache.zookeeper.KeeperException.Code#SYSTEMERROR} is returned.
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `OK`
+in `curator-x-async/src/main/java/org/apache/curator/x/async/AsyncResult.java`
+#### Snippet
+```java
+    /**
+     * Return the ZooKeeper result code. If the method was successful,
+     * {@link org.apache.zookeeper.KeeperException.Code#OK} is returned. If there was a general
+     * exception {@link org.apache.zookeeper.KeeperException.Code#SYSTEMERROR} is returned.
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.zookeeper.KeeperException.Code`
+in `curator-x-async/src/main/java/org/apache/curator/x/async/AsyncResult.java`
+#### Snippet
+```java
+     * Return the ZooKeeper result code. If the method was successful,
+     * {@link org.apache.zookeeper.KeeperException.Code#OK} is returned. If there was a general
+     * exception {@link org.apache.zookeeper.KeeperException.Code#SYSTEMERROR} is returned.
+     *
+     * @return result code
+```
+
+### JavadocReference
+Cannot resolve symbol `SYSTEMERROR`
+in `curator-x-async/src/main/java/org/apache/curator/x/async/AsyncResult.java`
+#### Snippet
+```java
+     * Return the ZooKeeper result code. If the method was successful,
+     * {@link org.apache.zookeeper.KeeperException.Code#OK} is returned. If there was a general
+     * exception {@link org.apache.zookeeper.KeeperException.Code#SYSTEMERROR} is returned.
+     *
+     * @return result code
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.zookeeper.data.Stat`
+in `curator-x-async/src/main/java/org/apache/curator/x/async/api/AsyncGetDataBuilder.java`
+#### Snippet
+```java
+     * @param stat the stat to have filled in
+     * @see #decompressed()
+     * @see #storingStatIn(org.apache.zookeeper.data.Stat)
+     * @return this
+     */
+```
+
+### JavadocReference
 Cannot resolve symbol `org.apache.zookeeper.CreateMode`
 in `curator-x-async/src/main/java/org/apache/curator/x/async/api/AsyncTransactionCreateBuilder.java`
 #### Snippet
 ```java
-{
-    /**
-     * Specify a mode for the create. The default is {@link org.apache.zookeeper.CreateMode#PERSISTENT}
-     *
-     * @param createMode mode
-```
-
-### JavadocReference
-Cannot resolve symbol `PERSISTENT`
-in `curator-x-async/src/main/java/org/apache/curator/x/async/api/AsyncTransactionCreateBuilder.java`
-#### Snippet
-```java
-{
-    /**
-     * Specify a mode for the create. The default is {@link org.apache.zookeeper.CreateMode#PERSISTENT}
-     *
-     * @param createMode mode
+     * @param aclList the ACL list to use
+     * @param compressed true to compress
+     * @see #withMode(org.apache.zookeeper.CreateMode)
+     * @see #withACL(java.util.List)
+     * @see #compressed()
 ```
 
 ### JavadocReference
@@ -4045,11 +4105,23 @@ Cannot resolve symbol `org.apache.zookeeper.CreateMode`
 in `curator-x-async/src/main/java/org/apache/curator/x/async/api/AsyncTransactionCreateBuilder.java`
 #### Snippet
 ```java
-     * @param aclList the ACL list to use
-     * @param compressed true to compress
-     * @see #withMode(org.apache.zookeeper.CreateMode)
-     * @see #withACL(java.util.List)
-     * @see #compressed()
+{
+    /**
+     * Specify a mode for the create. The default is {@link org.apache.zookeeper.CreateMode#PERSISTENT}
+     *
+     * @param createMode mode
+```
+
+### JavadocReference
+Cannot resolve symbol `PERSISTENT`
+in `curator-x-async/src/main/java/org/apache/curator/x/async/api/AsyncTransactionCreateBuilder.java`
+#### Snippet
+```java
+{
+    /**
+     * Specify a mode for the create. The default is {@link org.apache.zookeeper.CreateMode#PERSISTENT}
+     *
+     * @param createMode mode
 ```
 
 ### JavadocReference
@@ -4113,6 +4185,42 @@ in `curator-x-async/src/main/java/org/apache/curator/x/async/api/AsyncSetACLBuil
 ```
 
 ### JavadocReference
+Cannot resolve symbol `org.apache.zookeeper.KeeperException.NoNodeException`
+in `curator-x-async/src/main/java/org/apache/curator/x/async/api/DeleteOption.java`
+#### Snippet
+```java
+{
+    /**
+     * Prevents the reporting of {@link org.apache.zookeeper.KeeperException.NoNodeException}s.
+     * If the ZNode doesn't exist the delete method will appear to succeed.
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.zookeeper.data.Stat`
+in `curator-x-async/src/main/java/org/apache/curator/x/async/api/AsyncReconfigBuilder.java`
+#### Snippet
+```java
+     * @param fromConfig the config version to use
+     * @see #withJoiningAndLeaving(java.util.List, java.util.List, long)
+     * @see #withJoiningAndLeaving(java.util.List, java.util.List, org.apache.zookeeper.data.Stat)
+     * @return this
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.zookeeper.data.Stat`
+in `curator-x-async/src/main/java/org/apache/curator/x/async/api/AsyncReconfigBuilder.java`
+#### Snippet
+```java
+     * @param fromConfig the config version to use
+     * @see #withNewMembers(java.util.List, long)
+     * @see #withNewMembers(java.util.List, org.apache.zookeeper.data.Stat)
+     * @return this
+     */
+```
+
+### JavadocReference
 Cannot resolve symbol `org.apache.zookeeper.CreateMode`
 in `curator-x-async/src/main/java/org/apache/curator/x/async/api/CreateOption.java`
 #### Snippet
@@ -4134,18 +4242,6 @@ in `curator-x-async/src/main/java/org/apache/curator/x/async/api/CreateOption.ja
      * Causes any parent nodes to get created using {@link org.apache.zookeeper.CreateMode#CONTAINER} if they haven't already been.
      * IMPORTANT NOTE: container creation is a new feature in recent versions of ZooKeeper.
      * If the ZooKeeper version you're using does not support containers, the parent nodes
-```
-
-### JavadocReference
-Cannot resolve symbol `org.apache.zookeeper.CreateMode`
-in `curator-x-async/src/main/java/org/apache/curator/x/async/api/AsyncCreateBuilder.java`
-#### Snippet
-```java
-     * @see #withACL(java.util.List)
-     * @see #withOptions(java.util.Set)
-     * @see #withMode(org.apache.zookeeper.CreateMode)
-     * @see #withACL(java.util.List)
-     * @return this
 ```
 
 ### JavadocReference
@@ -4189,6 +4285,42 @@ Cannot resolve symbol `org.apache.zookeeper.CreateMode`
 in `curator-x-async/src/main/java/org/apache/curator/x/async/api/AsyncCreateBuilder.java`
 #### Snippet
 ```java
+     * @see #withACL(java.util.List)
+     * @see #withOptions(java.util.Set)
+     * @see #withMode(org.apache.zookeeper.CreateMode)
+     * @see #withACL(java.util.List)
+     * @return this
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.zookeeper.ZooDefs.Ids`
+in `curator-x-async/src/main/java/org/apache/curator/x/async/api/AsyncCreateBuilder.java`
+#### Snippet
+```java
+
+    /**
+     * Set an ACL list (default is {@link org.apache.zookeeper.ZooDefs.Ids#OPEN_ACL_UNSAFE})
+     *
+     * @param aclList the ACL list to use
+```
+
+### JavadocReference
+Cannot resolve symbol `OPEN_ACL_UNSAFE`
+in `curator-x-async/src/main/java/org/apache/curator/x/async/api/AsyncCreateBuilder.java`
+#### Snippet
+```java
+
+    /**
+     * Set an ACL list (default is {@link org.apache.zookeeper.ZooDefs.Ids#OPEN_ACL_UNSAFE})
+     *
+     * @param aclList the ACL list to use
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.zookeeper.CreateMode`
+in `curator-x-async/src/main/java/org/apache/curator/x/async/api/AsyncCreateBuilder.java`
+#### Snippet
+```java
      * @param stat the stat to have filled in
      * @see #withOptions(java.util.Set)
      * @see #withMode(org.apache.zookeeper.CreateMode)
@@ -4221,27 +4353,51 @@ in `curator-x-async/src/main/java/org/apache/curator/x/async/api/AsyncCreateBuil
 ```
 
 ### JavadocReference
-Cannot resolve symbol `org.apache.zookeeper.ZooDefs.Ids`
+Cannot resolve symbol `org.apache.zookeeper.CreateMode`
 in `curator-x-async/src/main/java/org/apache/curator/x/async/api/AsyncCreateBuilder.java`
 #### Snippet
 ```java
 
     /**
-     * Set an ACL list (default is {@link org.apache.zookeeper.ZooDefs.Ids#OPEN_ACL_UNSAFE})
+     * Use the given create mode. The default is {@link org.apache.zookeeper.CreateMode#PERSISTENT}
      *
-     * @param aclList the ACL list to use
+     * @param createMode mode to use
 ```
 
 ### JavadocReference
-Cannot resolve symbol `OPEN_ACL_UNSAFE`
+Cannot resolve symbol `PERSISTENT`
 in `curator-x-async/src/main/java/org/apache/curator/x/async/api/AsyncCreateBuilder.java`
 #### Snippet
 ```java
 
     /**
-     * Set an ACL list (default is {@link org.apache.zookeeper.ZooDefs.Ids#OPEN_ACL_UNSAFE})
+     * Use the given create mode. The default is {@link org.apache.zookeeper.CreateMode#PERSISTENT}
      *
-     * @param aclList the ACL list to use
+     * @param createMode mode to use
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.zookeeper.CreateMode`
+in `curator-x-async/src/main/java/org/apache/curator/x/async/api/AsyncCreateBuilder.java`
+#### Snippet
+```java
+     * @param ttl the ttl or 0
+     * @see #withOptions(java.util.Set)
+     * @see #withMode(org.apache.zookeeper.CreateMode)
+     * @see #withACL(java.util.List)
+     * @see #storingStatIn(org.apache.zookeeper.data.Stat)
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.zookeeper.data.Stat`
+in `curator-x-async/src/main/java/org/apache/curator/x/async/api/AsyncCreateBuilder.java`
+#### Snippet
+```java
+     * @see #withMode(org.apache.zookeeper.CreateMode)
+     * @see #withACL(java.util.List)
+     * @see #storingStatIn(org.apache.zookeeper.data.Stat)
+     * @see #withTtl(long)
+     * @return this
 ```
 
 ### JavadocReference
@@ -4290,90 +4446,6 @@ in `curator-x-async/src/main/java/org/apache/curator/x/async/api/AsyncCreateBuil
      * {@link org.apache.zookeeper.CreateMode#PERSISTENT_SEQUENTIAL_WITH_TTL}. If
      * the znode has not been modified within the given TTL, it will be deleted once it has no
      * children. The TTL unit is milliseconds and must be greater than 0 and less than or equal to
-```
-
-### JavadocReference
-Cannot resolve symbol `org.apache.zookeeper.CreateMode`
-in `curator-x-async/src/main/java/org/apache/curator/x/async/api/AsyncCreateBuilder.java`
-#### Snippet
-```java
-     * @param ttl the ttl or 0
-     * @see #withOptions(java.util.Set)
-     * @see #withMode(org.apache.zookeeper.CreateMode)
-     * @see #withACL(java.util.List)
-     * @see #storingStatIn(org.apache.zookeeper.data.Stat)
-```
-
-### JavadocReference
-Cannot resolve symbol `org.apache.zookeeper.data.Stat`
-in `curator-x-async/src/main/java/org/apache/curator/x/async/api/AsyncCreateBuilder.java`
-#### Snippet
-```java
-     * @see #withMode(org.apache.zookeeper.CreateMode)
-     * @see #withACL(java.util.List)
-     * @see #storingStatIn(org.apache.zookeeper.data.Stat)
-     * @see #withTtl(long)
-     * @return this
-```
-
-### JavadocReference
-Cannot resolve symbol `org.apache.zookeeper.CreateMode`
-in `curator-x-async/src/main/java/org/apache/curator/x/async/api/AsyncCreateBuilder.java`
-#### Snippet
-```java
-
-    /**
-     * Use the given create mode. The default is {@link org.apache.zookeeper.CreateMode#PERSISTENT}
-     *
-     * @param createMode mode to use
-```
-
-### JavadocReference
-Cannot resolve symbol `PERSISTENT`
-in `curator-x-async/src/main/java/org/apache/curator/x/async/api/AsyncCreateBuilder.java`
-#### Snippet
-```java
-
-    /**
-     * Use the given create mode. The default is {@link org.apache.zookeeper.CreateMode#PERSISTENT}
-     *
-     * @param createMode mode to use
-```
-
-### JavadocReference
-Cannot resolve symbol `org.apache.zookeeper.KeeperException.NoNodeException`
-in `curator-x-async/src/main/java/org/apache/curator/x/async/api/DeleteOption.java`
-#### Snippet
-```java
-{
-    /**
-     * Prevents the reporting of {@link org.apache.zookeeper.KeeperException.NoNodeException}s.
-     * If the ZNode doesn't exist the delete method will appear to succeed.
-     */
-```
-
-### JavadocReference
-Cannot resolve symbol `org.apache.zookeeper.data.Stat`
-in `curator-x-async/src/main/java/org/apache/curator/x/async/api/AsyncReconfigBuilder.java`
-#### Snippet
-```java
-     * @param fromConfig the config version to use
-     * @see #withJoiningAndLeaving(java.util.List, java.util.List, long)
-     * @see #withJoiningAndLeaving(java.util.List, java.util.List, org.apache.zookeeper.data.Stat)
-     * @return this
-     */
-```
-
-### JavadocReference
-Cannot resolve symbol `org.apache.zookeeper.data.Stat`
-in `curator-x-async/src/main/java/org/apache/curator/x/async/api/AsyncReconfigBuilder.java`
-#### Snippet
-```java
-     * @param fromConfig the config version to use
-     * @see #withNewMembers(java.util.List, long)
-     * @see #withNewMembers(java.util.List, org.apache.zookeeper.data.Stat)
-     * @return this
-     */
 ```
 
 ### JavadocReference
@@ -4491,9 +4563,9 @@ in `curator-x-async/src/main/java/org/apache/curator/x/async/modeled/versioned/V
 ```java
 
     /**
-     * @see org.apache.curator.x.async.modeled.ModeledFramework#read(org.apache.zookeeper.data.Stat)
+     * @see org.apache.curator.x.async.modeled.ModeledFramework#set(Object, org.apache.zookeeper.data.Stat)
      */
-    AsyncStage<Versioned<T>> read(Stat storingStatIn);
+    AsyncStage<String> set(Versioned<T> model, Stat storingStatIn);
 ```
 
 ### JavadocReference
@@ -4503,105 +4575,33 @@ in `curator-x-async/src/main/java/org/apache/curator/x/async/modeled/versioned/V
 ```java
 
     /**
-     * @see org.apache.curator.x.async.modeled.ModeledFramework#set(Object, org.apache.zookeeper.data.Stat)
+     * @see org.apache.curator.x.async.modeled.ModeledFramework#read(org.apache.zookeeper.data.Stat)
      */
-    AsyncStage<String> set(Versioned<T> model, Stat storingStatIn);
+    AsyncStage<Versioned<T>> read(Stat storingStatIn);
 ```
 
 ### JavadocReference
-Cannot resolve symbol `CreateMode`
-in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/nodes/PersistentEphemeralNode.java`
+Cannot resolve symbol `ZooKeeper`
+in `curator-test/src/main/java/org/apache/curator/test/KillSession.java`
 #### Snippet
 ```java
-
-        /**
-         * Same as {@link CreateMode#EPHEMERAL_SEQUENTIAL}
-         */
-        EPHEMERAL_SEQUENTIAL()
+     * @param maxMs max time ms to wait for kill
+     * @throws Exception errors
+     * @deprecated use {@link #kill(ZooKeeper)} instead
+     */
+    public static void     kill(ZooKeeper client, String connectString, int maxMs) throws Exception
 ```
 
 ### JavadocReference
-Cannot resolve symbol `EPHEMERAL_SEQUENTIAL`
-in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/nodes/PersistentEphemeralNode.java`
+Cannot resolve symbol `ZooKeeper`
+in `curator-test/src/main/java/org/apache/curator/test/KillSession.java`
 #### Snippet
 ```java
-
-        /**
-         * Same as {@link CreateMode#EPHEMERAL_SEQUENTIAL}
-         */
-        EPHEMERAL_SEQUENTIAL()
-```
-
-### JavadocReference
-Cannot resolve symbol `CreateMode`
-in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/nodes/PersistentEphemeralNode.java`
-#### Snippet
-```java
-
-        /**
-         * Same as {@link CreateMode#EPHEMERAL_SEQUENTIAL} with protection
-         */
-        PROTECTED_EPHEMERAL_SEQUENTIAL()
-```
-
-### JavadocReference
-Cannot resolve symbol `EPHEMERAL_SEQUENTIAL`
-in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/nodes/PersistentEphemeralNode.java`
-#### Snippet
-```java
-
-        /**
-         * Same as {@link CreateMode#EPHEMERAL_SEQUENTIAL} with protection
-         */
-        PROTECTED_EPHEMERAL_SEQUENTIAL()
-```
-
-### JavadocReference
-Cannot resolve symbol `CreateMode`
-in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/nodes/PersistentEphemeralNode.java`
-#### Snippet
-```java
-
-        /**
-         * Same as {@link CreateMode#EPHEMERAL} with protection
-         */
-        PROTECTED_EPHEMERAL()
-```
-
-### JavadocReference
-Cannot resolve symbol `EPHEMERAL`
-in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/nodes/PersistentEphemeralNode.java`
-#### Snippet
-```java
-
-        /**
-         * Same as {@link CreateMode#EPHEMERAL} with protection
-         */
-        PROTECTED_EPHEMERAL()
-```
-
-### JavadocReference
-Cannot resolve symbol `CreateMode`
-in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/nodes/PersistentEphemeralNode.java`
-#### Snippet
-```java
-    {
-        /**
-         * Same as {@link CreateMode#EPHEMERAL}
-         */
-        EPHEMERAL()
-```
-
-### JavadocReference
-Cannot resolve symbol `EPHEMERAL`
-in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/nodes/PersistentEphemeralNode.java`
-#### Snippet
-```java
-    {
-        /**
-         * Same as {@link CreateMode#EPHEMERAL}
-         */
-        EPHEMERAL()
+     * @param connectString server connection string
+     * @throws Exception errors
+     * @deprecated use {@link #kill(ZooKeeper)} instead
+     */
+    public static void     kill(ZooKeeper client, String connectString) throws Exception
 ```
 
 ## RuleId[id=UnnecessarySemicolon]
@@ -4618,66 +4618,6 @@ in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/shared/Sh
 ```
 
 ## RuleId[id=DataFlowIssue]
-### DataFlowIssue
-Method reference invocation `ServiceInstance::isEnabled` may produce `NullPointerException`
-in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/details/ServiceProviderImpl.java`
-#### Snippet
-```java
-        ArrayList<InstanceFilter<T>> localFilters = Lists.newArrayList(filters);
-        localFilters.add(downInstanceManager);
-        localFilters.add(ServiceInstance::isEnabled);
-        instanceProvider = new FilteredInstanceProvider<>(cache, localFilters);
-    }
-```
-
-### DataFlowIssue
-Condition `exception instanceof KeeperException.SessionExpiredException` is redundant and can be replaced with a null check
-in `curator-client/src/main/java/org/apache/curator/SessionFailedRetryPolicy.java`
-#### Snippet
-```java
-    public boolean allowRetry(Throwable exception)
-    {
-        if ( exception instanceof KeeperException.SessionExpiredException )
-        {
-            return false;
-```
-
-### DataFlowIssue
-Condition `exception instanceof KeeperException` is redundant and can be replaced with a null check
-in `curator-client/src/main/java/org/apache/curator/RetryPolicy.java`
-#### Snippet
-```java
-    default boolean allowRetry(Throwable exception)
-    {
-        if ( exception instanceof KeeperException)
-        {
-            final int rc = ((KeeperException) exception).code().intValue();
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `curator-client/src/main/java/org/apache/curator/CuratorZookeeperClient.java`
-#### Snippet
-```java
-        }
-
-        retryPolicy = Preconditions.checkNotNull(retryPolicy, "retryPolicy cannot be null");
-        ensembleProvider = Preconditions.checkNotNull(ensembleProvider, "ensembleProvider cannot be null");
-
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `curator-client/src/main/java/org/apache/curator/CuratorZookeeperClient.java`
-#### Snippet
-```java
-
-        retryPolicy = Preconditions.checkNotNull(retryPolicy, "retryPolicy cannot be null");
-        ensembleProvider = Preconditions.checkNotNull(ensembleProvider, "ensembleProvider cannot be null");
-
-        this.connectionTimeoutMs = connectionTimeoutMs;
-```
-
 ### DataFlowIssue
 Variable is already assigned to this value
 in `curator-framework/src/main/java/org/apache/curator/framework/imps/WatcherRemovalManager.java`
@@ -4751,6 +4691,54 @@ in `curator-framework/src/main/java/org/apache/curator/framework/schema/SchemaSe
 ```
 
 ### DataFlowIssue
+Condition `exception instanceof KeeperException.SessionExpiredException` is redundant and can be replaced with a null check
+in `curator-client/src/main/java/org/apache/curator/SessionFailedRetryPolicy.java`
+#### Snippet
+```java
+    public boolean allowRetry(Throwable exception)
+    {
+        if ( exception instanceof KeeperException.SessionExpiredException )
+        {
+            return false;
+```
+
+### DataFlowIssue
+Condition `exception instanceof KeeperException` is redundant and can be replaced with a null check
+in `curator-client/src/main/java/org/apache/curator/RetryPolicy.java`
+#### Snippet
+```java
+    default boolean allowRetry(Throwable exception)
+    {
+        if ( exception instanceof KeeperException)
+        {
+            final int rc = ((KeeperException) exception).code().intValue();
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `curator-client/src/main/java/org/apache/curator/CuratorZookeeperClient.java`
+#### Snippet
+```java
+        }
+
+        retryPolicy = Preconditions.checkNotNull(retryPolicy, "retryPolicy cannot be null");
+        ensembleProvider = Preconditions.checkNotNull(ensembleProvider, "ensembleProvider cannot be null");
+
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `curator-client/src/main/java/org/apache/curator/CuratorZookeeperClient.java`
+#### Snippet
+```java
+
+        retryPolicy = Preconditions.checkNotNull(retryPolicy, "retryPolicy cannot be null");
+        ensembleProvider = Preconditions.checkNotNull(ensembleProvider, "ensembleProvider cannot be null");
+
+        this.connectionTimeoutMs = connectionTimeoutMs;
+```
+
+### DataFlowIssue
 Variable is already assigned to this value
 in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/cache/PathChildrenCache.java`
 #### Snippet
@@ -4772,6 +4760,18 @@ in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/nodes/Per
         data = Preconditions.checkNotNull(data, "data cannot be null");
         Preconditions.checkState(nodePath.get() != null, "initial create has not been processed. Call waitForInitialCreate() to ensure.");
         Preconditions.checkState(!parentCreationFailure, "Failed to create parent nodes.");
+```
+
+### DataFlowIssue
+Method reference invocation `ServiceInstance::isEnabled` may produce `NullPointerException`
+in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/details/ServiceProviderImpl.java`
+#### Snippet
+```java
+        ArrayList<InstanceFilter<T>> localFilters = Lists.newArrayList(filters);
+        localFilters.add(downInstanceManager);
+        localFilters.add(ServiceInstance::isEnabled);
+        instanceProvider = new FilteredInstanceProvider<>(cache, localFilters);
+    }
 ```
 
 ### DataFlowIssue
@@ -4813,18 +4813,6 @@ in `curator-framework/src/main/java/org/apache/curator/framework/imps/GzipCompre
 
 ## RuleId[id=CStyleArrayDeclaration]
 ### CStyleArrayDeclaration
-C-style array declaration of local variable `chars`
-in `curator-client/src/main/java/org/apache/curator/utils/PathUtils.java`
-#### Snippet
-```java
-        String reason = null;
-        char lastc = '/';
-        char chars[] = path.toCharArray();
-        char c;
-        for (int i = 1; i < chars.length; lastc = chars[i], i++) {
-```
-
-### CStyleArrayDeclaration
 C-style array declaration of local variable `args`
 in `curator-examples/src/main/java/cache/PathCacheExample.java`
 #### Snippet
@@ -4848,65 +4836,29 @@ in `curator-examples/src/main/java/discovery/DiscoveryExample.java`
                 if ( operation.equalsIgnoreCase("help") || operation.equalsIgnoreCase("?") )
 ```
 
+### CStyleArrayDeclaration
+C-style array declaration of local variable `chars`
+in `curator-client/src/main/java/org/apache/curator/utils/PathUtils.java`
+#### Snippet
+```java
+        String reason = null;
+        char lastc = '/';
+        char chars[] = path.toCharArray();
+        char c;
+        for (int i = 1; i < chars.length; lastc = chars[i], i++) {
+```
+
 ## RuleId[id=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
-Deprecated member 'threadFactory' is still used
-in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceProviderBuilder.java`
+Deprecated member 'CuratorTransaction' is still used
+in `curator-framework/src/main/java/org/apache/curator/framework/api/transaction/CuratorTransaction.java`
 #### Snippet
 ```java
-     */
-    @Deprecated
-    ServiceProviderBuilder<T> threadFactory(ThreadFactory threadFactory);
-
-    /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'EnsurePath' is still used
-in `curator-client/src/main/java/org/apache/curator/utils/EnsurePath.java`
-#### Snippet
-```java
+ * @deprecated Use {@link CuratorFramework#transaction()}
  */
-@Deprecated
-public class EnsurePath
+public interface CuratorTransaction
 {
-    private final String path;
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'threadFactory' is still used
-in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceCacheBuilder.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public ServiceCacheBuilder<T> threadFactory(ThreadFactory threadFactory);
-
     /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'newNamespaceAwareEnsurePath' is still used
-in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public EnsurePath newNamespaceAwareEnsurePath(String path);
-
-    /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getAuthValue' is still used
-in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFrameworkFactory.java`
-#### Snippet
-```java
-
-        @Deprecated
-        public byte[] getAuthValue()
-        {
-            int qty = (authInfos != null) ? authInfos.size() : 0;
 ```
 
 ### DeprecatedIsStillUsed
@@ -4922,14 +4874,26 @@ in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramewor
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'CuratorTransaction' is still used
-in `curator-framework/src/main/java/org/apache/curator/framework/api/transaction/CuratorTransaction.java`
+Deprecated member 'getAuthValue' is still used
+in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFrameworkFactory.java`
 #### Snippet
 ```java
- * @deprecated Use {@link CuratorFramework#transaction()}
- */
-public interface CuratorTransaction
-{
+
+        @Deprecated
+        public byte[] getAuthValue()
+        {
+            int qty = (authInfos != null) ? authInfos.size() : 0;
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'newNamespaceAwareEnsurePath' is still used
+in `curator-framework/src/main/java/org/apache/curator/framework/CuratorFramework.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public EnsurePath newNamespaceAwareEnsurePath(String path);
+
     /**
 ```
 
@@ -4958,6 +4922,18 @@ public class NodeCache implements Closeable
 ```
 
 ### DeprecatedIsStillUsed
+Deprecated member 'EnsurePath' is still used
+in `curator-client/src/main/java/org/apache/curator/utils/EnsurePath.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public class EnsurePath
+{
+    private final String path;
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'trySetCount' is still used
 in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/shared/SharedCount.java`
 #### Snippet
@@ -4967,6 +4943,18 @@ in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/shared/Sh
     public boolean  trySetCount(int newCount) throws Exception
     {
         return sharedValue.trySetValue(toBytes(newCount));
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'PersistentEphemeralNode' is still used
+in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/nodes/PersistentEphemeralNode.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public class PersistentEphemeralNode extends PersistentNode
+{
+    /**
 ```
 
 ### DeprecatedIsStillUsed
@@ -4982,14 +4970,26 @@ in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/nodes/Per
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'PersistentEphemeralNode' is still used
-in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/nodes/PersistentEphemeralNode.java`
+Deprecated member 'threadFactory' is still used
+in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceProviderBuilder.java`
 #### Snippet
 ```java
- */
-@Deprecated
-public class PersistentEphemeralNode extends PersistentNode
-{
+     */
+    @Deprecated
+    ServiceProviderBuilder<T> threadFactory(ThreadFactory threadFactory);
+
+    /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'threadFactory' is still used
+in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceCacheBuilder.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public ServiceCacheBuilder<T> threadFactory(ThreadFactory threadFactory);
+
     /**
 ```
 
@@ -5192,150 +5192,6 @@ in `curator-client/src/main/java/org/apache/curator/utils/PathUtils.java`
 
 ## RuleId[id=Deprecation]
 ### Deprecation
-'newSetFromMap(java.util.Map)' is deprecated
-in `curator-client/src/main/java/org/apache/curator/SessionFailRetryLoop.java`
-#### Snippet
-```java
-    };
-
-    private static final Set<Thread>        failedSessionThreads = Sets.newSetFromMap(Maps.<Thread, Boolean>newConcurrentMap());
-
-    public static class SessionFailedException extends Exception
-```
-
-### Deprecation
-'propagate(java.lang.Throwable)' is deprecated
-in `curator-client/src/main/java/org/apache/curator/utils/ExceptionAccumulator.java`
-#### Snippet
-```java
-        if ( mainEx != null )
-        {
-            Throwables.propagate(mainEx);
-        }
-    }
-```
-
-### Deprecation
-'newSetFromMap(java.util.Map)' is deprecated
-in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/details/ServiceDiscoveryImpl.java`
-#### Snippet
-```java
-    private final ConcurrentMap<String, Entry<T>> services = Maps.newConcurrentMap();
-    private final Collection<ServiceCache<T>> caches = Sets.newSetFromMap(Maps.<ServiceCache<T>, Boolean>newConcurrentMap());
-    private final Collection<ServiceProvider<T>> providers = Sets.newSetFromMap(Maps.<ServiceProvider<T>, Boolean>newConcurrentMap());
-    private final boolean watchInstances;
-    private final ConnectionStateListener connectionStateListener = new ConnectionStateListener()
-```
-
-### Deprecation
-'threadFactory(java.util.concurrent.ThreadFactory)' is deprecated
-in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/details/ServiceDiscoveryImpl.java`
-#### Snippet
-```java
-        return new ServiceProviderBuilderImpl<T>(this)
-            .providerStrategy(new RoundRobinStrategy<T>())
-            .threadFactory(ThreadUtils.newThreadFactory("ServiceProvider"));
-    }
-
-```
-
-### Deprecation
-'newSetFromMap(java.util.Map)' is deprecated
-in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/details/ServiceDiscoveryImpl.java`
-#### Snippet
-```java
-    private final InstanceSerializer<T> serializer;
-    private final ConcurrentMap<String, Entry<T>> services = Maps.newConcurrentMap();
-    private final Collection<ServiceCache<T>> caches = Sets.newSetFromMap(Maps.<ServiceCache<T>, Boolean>newConcurrentMap());
-    private final Collection<ServiceProvider<T>> providers = Sets.newSetFromMap(Maps.<ServiceProvider<T>, Boolean>newConcurrentMap());
-    private final boolean watchInstances;
-```
-
-### Deprecation
-'newSetFromMap(java.util.Map)' is deprecated
-in `curator-client/src/main/java/org/apache/curator/utils/CloseableExecutorService.java`
-#### Snippet
-```java
-{
-    private final Logger log = LoggerFactory.getLogger(CloseableExecutorService.class);
-    private final Set<Future<?>> futures = Sets.newSetFromMap(Maps.<Future<?>, Boolean>newConcurrentMap());
-    private final ExecutorService executorService;
-    private final boolean shutdownOnClose;
-```
-
-### Deprecation
-'propagate(java.lang.Throwable)' is deprecated
-in `curator-client/src/main/java/org/apache/curator/utils/ThreadUtils.java`
-#### Snippet
-```java
-            {
-                log.error("Unexpected exception in thread: " + t, e);
-                Throwables.propagate(e);
-            }
-        };
-```
-
-### Deprecation
-'getConnectString()' is deprecated
-in `curator-test/src/main/java/org/apache/curator/test/TestingCluster.java`
-#### Snippet
-```java
-                str.append(",");
-            }
-            str.append(spec.getConnectString());
-        }
-        return str.toString();
-```
-
-### Deprecation
-'propagate(java.lang.Throwable)' is deprecated
-in `curator-test/src/main/java/org/apache/curator/test/QuorumConfigBuilder.java`
-#### Snippet
-```java
-        catch ( IOException e )
-        {
-            Throwables.propagate(e);
-        }
-        this.fakeConfigFile = fakeConfigFile;
-```
-
-### Deprecation
-'org.apache.curator.framework.recipes.cache.TreeCache' is deprecated
-in `curator-examples/src/main/java/cache/TreeCacheExample.java`
-#### Snippet
-```java
-        client.start();
-
-        TreeCache cache = TreeCache.newBuilder(client, "/").setCacheData(false).build();
-        cache.getListenable().addListener((c, event) -> {
-            if ( event.getData() != null )
-```
-
-### Deprecation
-'org.apache.curator.framework.recipes.cache.TreeCache' is deprecated
-in `curator-examples/src/main/java/cache/TreeCacheExample.java`
-#### Snippet
-```java
-        client.start();
-
-        TreeCache cache = TreeCache.newBuilder(client, "/").setCacheData(false).build();
-        cache.getListenable().addListener((c, event) -> {
-            if ( event.getData() != null )
-```
-
-### Deprecation
-'org.apache.curator.utils.EnsurePath' is deprecated
-in `curator-framework/src/main/java/org/apache/curator/framework/EnsureContainers.java`
-#### Snippet
-```java
-
-/**
- * Similar to {@link org.apache.curator.utils.EnsurePath} but creates containers.
- *
- */
-```
-
-### Deprecation
 'org.apache.curator.framework.api.transaction.CuratorTransaction' is deprecated
 in `curator-framework/src/main/java/org/apache/curator/framework/CuratorTempFramework.java`
 #### Snippet
@@ -5348,63 +5204,15 @@ in `curator-framework/src/main/java/org/apache/curator/framework/CuratorTempFram
 ```
 
 ### Deprecation
-'org.apache.curator.framework.recipes.cache.PathChildrenCache' is deprecated
-in `curator-examples/src/main/java/cache/PathCacheExample.java`
-#### Snippet
-```java
-    }
-
-    private static void processCommands(CuratorFramework client, PathChildrenCache cache) throws Exception
-    {
-        // More scaffolding that does a simple command line processor
-```
-
-### Deprecation
-'org.apache.curator.framework.recipes.cache.PathChildrenCache' is deprecated
-in `curator-examples/src/main/java/cache/PathCacheExample.java`
-#### Snippet
-```java
-    }
-
-    private static void list(PathChildrenCache cache)
-    {
-        if ( cache.getCurrentData().size() == 0 )
-```
-
-### Deprecation
-'org.apache.curator.framework.recipes.cache.PathChildrenCache' is deprecated
-in `curator-examples/src/main/java/cache/PathCacheExample.java`
-#### Snippet
-```java
-        TestingServer       server = new TestingServer();
-        CuratorFramework    client = null;
-        PathChildrenCache   cache = null;
-        try
-        {
-```
-
-### Deprecation
-'org.apache.curator.framework.recipes.cache.PathChildrenCache' is deprecated
-in `curator-examples/src/main/java/cache/PathCacheExample.java`
+'org.apache.curator.utils.EnsurePath' is deprecated
+in `curator-framework/src/main/java/org/apache/curator/framework/EnsureContainers.java`
 #### Snippet
 ```java
 
-            // in this example we will cache data. Notice that this is optional.
-            cache = new PathChildrenCache(client, PATH, true);
-            cache.start();
-
-```
-
-### Deprecation
-'org.apache.curator.framework.recipes.cache.PathChildrenCache' is deprecated
-in `curator-examples/src/main/java/cache/PathCacheExample.java`
-#### Snippet
-```java
-    }
-
-    private static void addListener(PathChildrenCache cache)
-    {
-        // a PathChildrenCacheListener is optional. Here, it's used just to log changes
+/**
+ * Similar to {@link org.apache.curator.utils.EnsurePath} but creates containers.
+ *
+ */
 ```
 
 ### Deprecation
@@ -5462,8 +5270,8 @@ in `curator-framework/src/main/java/org/apache/curator/framework/api/transaction
 ```java
 
     /**
-     * Returns the operation generated stat or <code>null</code>. i.e. {@link CuratorTransaction#setData()}
-     * generates a stat object.
+     * Returns the operation generated path or <code>null</code>. i.e. {@link CuratorTransaction#create()}
+     * using an EPHEMERAL mode generates the created path plus its sequence number.
      *
 ```
 
@@ -5474,9 +5282,21 @@ in `curator-framework/src/main/java/org/apache/curator/framework/api/transaction
 ```java
 
     /**
-     * Returns the operation generated path or <code>null</code>. i.e. {@link CuratorTransaction#create()}
-     * using an EPHEMERAL mode generates the created path plus its sequence number.
+     * Returns the operation generated stat or <code>null</code>. i.e. {@link CuratorTransaction#setData()}
+     * generates a stat object.
      *
+```
+
+### Deprecation
+'org.apache.curator.utils.EnsurePath' is deprecated
+in `curator-framework/src/main/java/org/apache/curator/framework/imps/WatcherRemovalFacade.java`
+#### Snippet
+```java
+
+    @Override
+    public EnsurePath newNamespaceAwareEnsurePath(String path)
+    {
+        return client.newNamespaceAwareEnsurePath(path);
 ```
 
 ### Deprecation
@@ -5501,18 +5321,6 @@ in `curator-framework/src/main/java/org/apache/curator/framework/imps/WatcherRem
         return client.nonNamespaceView();
     }
 
-```
-
-### Deprecation
-'org.apache.curator.utils.EnsurePath' is deprecated
-in `curator-framework/src/main/java/org/apache/curator/framework/imps/WatcherRemovalFacade.java`
-#### Snippet
-```java
-
-    @Override
-    public EnsurePath newNamespaceAwareEnsurePath(String path)
-    {
-        return client.newNamespaceAwareEnsurePath(path);
 ```
 
 ### Deprecation
@@ -5612,18 +5420,6 @@ in `curator-framework/src/main/java/org/apache/curator/framework/imps/NamespaceI
 ```
 
 ### Deprecation
-'org.apache.curator.utils.EnsurePath' is deprecated
-in `curator-framework/src/main/java/org/apache/curator/framework/imps/CuratorFrameworkImpl.java`
-#### Snippet
-```java
-
-    @Override
-    public EnsurePath newNamespaceAwareEnsurePath(String path)
-    {
-        return namespace.newNamespaceAwareEnsurePath(path);
-```
-
-### Deprecation
 'org.apache.curator.framework.api.transaction.CuratorTransaction' is deprecated
 in `curator-framework/src/main/java/org/apache/curator/framework/imps/CuratorFrameworkImpl.java`
 #### Snippet
@@ -5636,15 +5432,147 @@ in `curator-framework/src/main/java/org/apache/curator/framework/imps/CuratorFra
 ```
 
 ### Deprecation
-'org.apache.curator.framework.recipes.cache.PathChildrenCache' is deprecated
-in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/cache/EventOperation.java`
+'org.apache.curator.utils.EnsurePath' is deprecated
+in `curator-framework/src/main/java/org/apache/curator/framework/imps/CuratorFrameworkImpl.java`
 #### Snippet
 ```java
-class EventOperation implements Operation
-{
-    private final PathChildrenCache cache;
-    private final PathChildrenCacheEvent event;
 
+    @Override
+    public EnsurePath newNamespaceAwareEnsurePath(String path)
+    {
+        return namespace.newNamespaceAwareEnsurePath(path);
+```
+
+### Deprecation
+'org.apache.curator.framework.recipes.cache.TreeCache' is deprecated
+in `curator-examples/src/main/java/cache/TreeCacheExample.java`
+#### Snippet
+```java
+        client.start();
+
+        TreeCache cache = TreeCache.newBuilder(client, "/").setCacheData(false).build();
+        cache.getListenable().addListener((c, event) -> {
+            if ( event.getData() != null )
+```
+
+### Deprecation
+'org.apache.curator.framework.recipes.cache.TreeCache' is deprecated
+in `curator-examples/src/main/java/cache/TreeCacheExample.java`
+#### Snippet
+```java
+        client.start();
+
+        TreeCache cache = TreeCache.newBuilder(client, "/").setCacheData(false).build();
+        cache.getListenable().addListener((c, event) -> {
+            if ( event.getData() != null )
+```
+
+### Deprecation
+'org.apache.curator.framework.recipes.cache.PathChildrenCache' is deprecated
+in `curator-examples/src/main/java/cache/PathCacheExample.java`
+#### Snippet
+```java
+    }
+
+    private static void processCommands(CuratorFramework client, PathChildrenCache cache) throws Exception
+    {
+        // More scaffolding that does a simple command line processor
+```
+
+### Deprecation
+'org.apache.curator.framework.recipes.cache.PathChildrenCache' is deprecated
+in `curator-examples/src/main/java/cache/PathCacheExample.java`
+#### Snippet
+```java
+        TestingServer       server = new TestingServer();
+        CuratorFramework    client = null;
+        PathChildrenCache   cache = null;
+        try
+        {
+```
+
+### Deprecation
+'org.apache.curator.framework.recipes.cache.PathChildrenCache' is deprecated
+in `curator-examples/src/main/java/cache/PathCacheExample.java`
+#### Snippet
+```java
+
+            // in this example we will cache data. Notice that this is optional.
+            cache = new PathChildrenCache(client, PATH, true);
+            cache.start();
+
+```
+
+### Deprecation
+'org.apache.curator.framework.recipes.cache.PathChildrenCache' is deprecated
+in `curator-examples/src/main/java/cache/PathCacheExample.java`
+#### Snippet
+```java
+    }
+
+    private static void list(PathChildrenCache cache)
+    {
+        if ( cache.getCurrentData().size() == 0 )
+```
+
+### Deprecation
+'org.apache.curator.framework.recipes.cache.PathChildrenCache' is deprecated
+in `curator-examples/src/main/java/cache/PathCacheExample.java`
+#### Snippet
+```java
+    }
+
+    private static void addListener(PathChildrenCache cache)
+    {
+        // a PathChildrenCacheListener is optional. Here, it's used just to log changes
+```
+
+### Deprecation
+'newSetFromMap(java.util.Map)' is deprecated
+in `curator-client/src/main/java/org/apache/curator/SessionFailRetryLoop.java`
+#### Snippet
+```java
+    };
+
+    private static final Set<Thread>        failedSessionThreads = Sets.newSetFromMap(Maps.<Thread, Boolean>newConcurrentMap());
+
+    public static class SessionFailedException extends Exception
+```
+
+### Deprecation
+'propagate(java.lang.Throwable)' is deprecated
+in `curator-client/src/main/java/org/apache/curator/utils/ExceptionAccumulator.java`
+#### Snippet
+```java
+        if ( mainEx != null )
+        {
+            Throwables.propagate(mainEx);
+        }
+    }
+```
+
+### Deprecation
+'newSetFromMap(java.util.Map)' is deprecated
+in `curator-client/src/main/java/org/apache/curator/utils/CloseableExecutorService.java`
+#### Snippet
+```java
+{
+    private final Logger log = LoggerFactory.getLogger(CloseableExecutorService.class);
+    private final Set<Future<?>> futures = Sets.newSetFromMap(Maps.<Future<?>, Boolean>newConcurrentMap());
+    private final ExecutorService executorService;
+    private final boolean shutdownOnClose;
+```
+
+### Deprecation
+'propagate(java.lang.Throwable)' is deprecated
+in `curator-client/src/main/java/org/apache/curator/utils/ThreadUtils.java`
+#### Snippet
+```java
+            {
+                log.error("Unexpected exception in thread: " + t, e);
+                Throwables.propagate(e);
+            }
+        };
 ```
 
 ### Deprecation
@@ -5657,6 +5585,18 @@ in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/cache/Eve
     EventOperation(PathChildrenCache cache, PathChildrenCacheEvent event)
     {
         this.cache = cache;
+```
+
+### Deprecation
+'org.apache.curator.framework.recipes.cache.PathChildrenCache' is deprecated
+in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/cache/EventOperation.java`
+#### Snippet
+```java
+class EventOperation implements Operation
+{
+    private final PathChildrenCache cache;
+    private final PathChildrenCacheEvent event;
+
 ```
 
 ### Deprecation
@@ -5696,18 +5636,6 @@ in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/cache/Cur
 ```
 
 ### Deprecation
-'org.apache.curator.framework.recipes.cache.PathChildrenCache' is deprecated
-in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/cache/CuratorCacheListenerBuilder.java`
-#### Snippet
-```java
-     * with CuratorCache. IMPORTANT: the connection state methods in the listener will never be called as CuratorCache
-     * does not register the listener with the connection state listener container. Also note that CuratorCache
-     * behaves differently than {@link org.apache.curator.framework.recipes.cache.PathChildrenCache} so
-     * things such as event ordering will likely be different.
-     *
-```
-
-### Deprecation
 'org.apache.curator.framework.recipes.cache.TreeCache' is deprecated
 in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/cache/CuratorCache.java`
 #### Snippet
@@ -5720,15 +5648,15 @@ in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/cache/Cur
 ```
 
 ### Deprecation
-'org.apache.curator.framework.recipes.cache.TreeCache' is deprecated
-in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/cache/TreeCacheListener.java`
+'org.apache.curator.framework.recipes.cache.PathChildrenCache' is deprecated
+in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/cache/CuratorCacheListenerBuilder.java`
 #### Snippet
 ```java
-
-/**
- * Listener for {@link TreeCache} changes
- */
-public interface TreeCacheListener
+     * with CuratorCache. IMPORTANT: the connection state methods in the listener will never be called as CuratorCache
+     * does not register the listener with the connection state listener container. Also note that CuratorCache
+     * behaves differently than {@link org.apache.curator.framework.recipes.cache.PathChildrenCache} so
+     * things such as event ordering will likely be different.
+     *
 ```
 
 ### Deprecation
@@ -5768,15 +5696,39 @@ in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/cache/Pat
 ```
 
 ### Deprecation
+'org.apache.curator.framework.recipes.cache.TreeCache' is deprecated
+in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/cache/TreeCacheListener.java`
+#### Snippet
+```java
+
+/**
+ * Listener for {@link TreeCache} changes
+ */
+public interface TreeCacheListener
+```
+
+### Deprecation
 'org.apache.curator.framework.recipes.cache.PathChildrenCache' is deprecated
 in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/cache/RefreshOperation.java`
 #### Snippet
 ```java
-{
-    private final PathChildrenCache cache;
     private final PathChildrenCache.RefreshMode mode;
 
     RefreshOperation(PathChildrenCache cache, PathChildrenCache.RefreshMode mode)
+    {
+        this.cache = cache;
+```
+
+### Deprecation
+'org.apache.curator.framework.recipes.cache.PathChildrenCache' is deprecated
+in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/cache/RefreshOperation.java`
+#### Snippet
+```java
+    private final PathChildrenCache.RefreshMode mode;
+
+    RefreshOperation(PathChildrenCache cache, PathChildrenCache.RefreshMode mode)
+    {
+        this.cache = cache;
 ```
 
 ### Deprecation
@@ -5796,23 +5748,59 @@ class RefreshOperation implements Operation
 in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/cache/RefreshOperation.java`
 #### Snippet
 ```java
+{
+    private final PathChildrenCache cache;
     private final PathChildrenCache.RefreshMode mode;
 
     RefreshOperation(PathChildrenCache cache, PathChildrenCache.RefreshMode mode)
-    {
-        this.cache = cache;
 ```
 
 ### Deprecation
-'org.apache.curator.framework.recipes.cache.PathChildrenCache' is deprecated
-in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/cache/RefreshOperation.java`
+'org.apache.curator.framework.recipes.cache.TreeCache' is deprecated
+in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/cache/TreeCacheIterator.java`
 #### Snippet
 ```java
-    private final PathChildrenCache.RefreshMode mode;
-
-    RefreshOperation(PathChildrenCache cache, PathChildrenCache.RefreshMode mode)
     {
-        this.cache = cache;
+        final Iterator<TreeCache.TreeNode> iterator;
+        TreeCache.TreeNode node;
+
+        Current(Iterator<TreeCache.TreeNode> iterator)
+```
+
+### Deprecation
+'org.apache.curator.framework.recipes.cache.TreeCache' is deprecated
+in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/cache/TreeCacheIterator.java`
+#### Snippet
+```java
+    public boolean hasNext()
+    {
+        return (current != null) && TreeCache.isLive(current.node.childData);
+    }
+
+```
+
+### Deprecation
+'org.apache.curator.framework.recipes.cache.TreeCache' is deprecated
+in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/cache/TreeCacheIterator.java`
+#### Snippet
+```java
+    }
+
+    TreeCacheIterator(TreeCache.TreeNode root)
+    {
+        current = new Current(Iterators.forArray(root));
+```
+
+### Deprecation
+'org.apache.curator.framework.recipes.cache.TreeCache' is deprecated
+in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/cache/TreeCacheIterator.java`
+#### Snippet
+```java
+        {
+            setNext();
+        } while ( (current != null) && !TreeCache.isLive(current.node.childData) );
+
+        return result;
 ```
 
 ### Deprecation
@@ -5837,54 +5825,6 @@ in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/cache/Tre
         final Iterator<TreeCache.TreeNode> iterator;
         TreeCache.TreeNode node;
 
-```
-
-### Deprecation
-'org.apache.curator.framework.recipes.cache.TreeCache' is deprecated
-in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/cache/TreeCacheIterator.java`
-#### Snippet
-```java
-    public boolean hasNext()
-    {
-        return (current != null) && TreeCache.isLive(current.node.childData);
-    }
-
-```
-
-### Deprecation
-'org.apache.curator.framework.recipes.cache.TreeCache' is deprecated
-in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/cache/TreeCacheIterator.java`
-#### Snippet
-```java
-        {
-            setNext();
-        } while ( (current != null) && !TreeCache.isLive(current.node.childData) );
-
-        return result;
-```
-
-### Deprecation
-'org.apache.curator.framework.recipes.cache.TreeCache' is deprecated
-in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/cache/TreeCacheIterator.java`
-#### Snippet
-```java
-    }
-
-    TreeCacheIterator(TreeCache.TreeNode root)
-    {
-        current = new Current(Iterators.forArray(root));
-```
-
-### Deprecation
-'org.apache.curator.framework.recipes.cache.TreeCache' is deprecated
-in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/cache/TreeCacheIterator.java`
-#### Snippet
-```java
-    {
-        final Iterator<TreeCache.TreeNode> iterator;
-        TreeCache.TreeNode node;
-
-        Current(Iterator<TreeCache.TreeNode> iterator)
 ```
 
 ### Deprecation
@@ -5948,6 +5888,42 @@ in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/queue/Dis
 ```
 
 ### Deprecation
+'threadFactory(java.util.concurrent.ThreadFactory)' is deprecated
+in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/details/ServiceDiscoveryImpl.java`
+#### Snippet
+```java
+        return new ServiceProviderBuilderImpl<T>(this)
+            .providerStrategy(new RoundRobinStrategy<T>())
+            .threadFactory(ThreadUtils.newThreadFactory("ServiceProvider"));
+    }
+
+```
+
+### Deprecation
+'newSetFromMap(java.util.Map)' is deprecated
+in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/details/ServiceDiscoveryImpl.java`
+#### Snippet
+```java
+    private final ConcurrentMap<String, Entry<T>> services = Maps.newConcurrentMap();
+    private final Collection<ServiceCache<T>> caches = Sets.newSetFromMap(Maps.<ServiceCache<T>, Boolean>newConcurrentMap());
+    private final Collection<ServiceProvider<T>> providers = Sets.newSetFromMap(Maps.<ServiceProvider<T>, Boolean>newConcurrentMap());
+    private final boolean watchInstances;
+    private final ConnectionStateListener connectionStateListener = new ConnectionStateListener()
+```
+
+### Deprecation
+'newSetFromMap(java.util.Map)' is deprecated
+in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/details/ServiceDiscoveryImpl.java`
+#### Snippet
+```java
+    private final InstanceSerializer<T> serializer;
+    private final ConcurrentMap<String, Entry<T>> services = Maps.newConcurrentMap();
+    private final Collection<ServiceCache<T>> caches = Sets.newSetFromMap(Maps.<ServiceCache<T>, Boolean>newConcurrentMap());
+    private final Collection<ServiceProvider<T>> providers = Sets.newSetFromMap(Maps.<ServiceProvider<T>, Boolean>newConcurrentMap());
+    private final boolean watchInstances;
+```
+
+### Deprecation
 'propagate(java.lang.Throwable)' is deprecated
 in `curator-x-async/src/main/java/org/apache/curator/x/async/migrations/MigrationManager.java`
 #### Snippet
@@ -5957,6 +5933,30 @@ in `curator-x-async/src/main/java/org/apache/curator/x/async/migrations/Migratio
                     Throwables.propagate(e);
                 }
                 return v;
+```
+
+### Deprecation
+'getConnectString()' is deprecated
+in `curator-test/src/main/java/org/apache/curator/test/TestingCluster.java`
+#### Snippet
+```java
+                str.append(",");
+            }
+            str.append(spec.getConnectString());
+        }
+        return str.toString();
+```
+
+### Deprecation
+'propagate(java.lang.Throwable)' is deprecated
+in `curator-test/src/main/java/org/apache/curator/test/QuorumConfigBuilder.java`
+#### Snippet
+```java
+        catch ( IOException e )
+        {
+            Throwables.propagate(e);
+        }
+        this.fakeConfigFile = fakeConfigFile;
 ```
 
 ## RuleId[id=UnnecessaryToStringCall]
@@ -6002,11 +6002,11 @@ Dangling Javadoc comment
 in `curator-examples/src/main/java/framework/CrudExamples.java`
 #### Snippet
 ```java
-    public static List<String> watchedGetChildren(CuratorFramework client, String path) throws Exception
+    public static List<String> watchedGetChildren(CuratorFramework client, String path, Watcher watcher) throws Exception
     {
         /**
-         * Get children and set a watcher on the node. The watcher notification will come through the
-         * CuratorListener (see setDataAsync() above).
+         * Get children and set the given watcher on the node.
+         */
 ```
 
 ### DanglingJavadoc
@@ -6014,11 +6014,11 @@ Dangling Javadoc comment
 in `curator-examples/src/main/java/framework/CrudExamples.java`
 #### Snippet
 ```java
-    public static List<String> watchedGetChildren(CuratorFramework client, String path, Watcher watcher) throws Exception
+    public static List<String> watchedGetChildren(CuratorFramework client, String path) throws Exception
     {
         /**
-         * Get children and set the given watcher on the node.
-         */
+         * Get children and set a watcher on the node. The watcher notification will come through the
+         * CuratorListener (see setDataAsync() above).
 ```
 
 ### DanglingJavadoc
@@ -6048,120 +6048,12 @@ in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/watch/Per
 ## RuleId[id=RedundantTypeArguments]
 ### RedundantTypeArguments
 Explicit type arguments can be inferred
-in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceInstance.java`
-#### Snippet
-```java
-    public String buildUriSpec()
-    {
-        return buildUriSpec(Maps.<String, Object>newHashMap());
-    }
-
-```
-
-### RedundantTypeArguments
-Explicit type arguments can be inferred
-in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/UriSpec.java`
-#### Snippet
-```java
-    public String   build()
-    {
-        return build(null, Maps.<String, Object>newHashMap());
-    }
-
-```
-
-### RedundantTypeArguments
-Explicit type arguments can be inferred
-in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/UriSpec.java`
-#### Snippet
-```java
-    public String   build(ServiceInstance<?> serviceInstance)
-    {
-        return build(serviceInstance, Maps.<String, Object>newHashMap());
-    }
-
-```
-
-### RedundantTypeArguments
-Explicit type arguments can be inferred
-in `curator-client/src/main/java/org/apache/curator/SessionFailRetryLoop.java`
-#### Snippet
-```java
-    };
-
-    private static final Set<Thread>        failedSessionThreads = Sets.newSetFromMap(Maps.<Thread, Boolean>newConcurrentMap());
-
-    public static class SessionFailedException extends Exception
-```
-
-### RedundantTypeArguments
-Explicit type arguments can be inferred
-in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/details/ServiceDiscoveryImpl.java`
-#### Snippet
-```java
-    private final ConcurrentMap<String, Entry<T>> services = Maps.newConcurrentMap();
-    private final Collection<ServiceCache<T>> caches = Sets.newSetFromMap(Maps.<ServiceCache<T>, Boolean>newConcurrentMap());
-    private final Collection<ServiceProvider<T>> providers = Sets.newSetFromMap(Maps.<ServiceProvider<T>, Boolean>newConcurrentMap());
-    private final boolean watchInstances;
-    private final ConnectionStateListener connectionStateListener = new ConnectionStateListener()
-```
-
-### RedundantTypeArguments
-Explicit type arguments can be inferred
-in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/details/ServiceDiscoveryImpl.java`
-#### Snippet
-```java
-    private final InstanceSerializer<T> serializer;
-    private final ConcurrentMap<String, Entry<T>> services = Maps.newConcurrentMap();
-    private final Collection<ServiceCache<T>> caches = Sets.newSetFromMap(Maps.<ServiceCache<T>, Boolean>newConcurrentMap());
-    private final Collection<ServiceProvider<T>> providers = Sets.newSetFromMap(Maps.<ServiceProvider<T>, Boolean>newConcurrentMap());
-    private final boolean watchInstances;
-```
-
-### RedundantTypeArguments
-Explicit type arguments can be inferred
-in `curator-client/src/main/java/org/apache/curator/utils/CloseableExecutorService.java`
-#### Snippet
-```java
-{
-    private final Logger log = LoggerFactory.getLogger(CloseableExecutorService.class);
-    private final Set<Future<?>> futures = Sets.newSetFromMap(Maps.<Future<?>, Boolean>newConcurrentMap());
-    private final ExecutorService executorService;
-    private final boolean shutdownOnClose;
-```
-
-### RedundantTypeArguments
-Explicit type arguments can be inferred
-in `curator-test/src/main/java/org/apache/curator/test/InstanceSpec.java`
-#### Snippet
-```java
-        this.tickTime = (tickTime > 0 ? tickTime : -1); // -1 to set default value
-        this.maxClientCnxns = (maxClientCnxns >= 0 ? maxClientCnxns : -1); // -1 to set default value
-        this.customProperties = customProperties != null ? Collections.<String,Object>unmodifiableMap(customProperties) : Collections.<String,Object>emptyMap();
-        this.hostname = hostname == null ? localhost : hostname;
-    }
-```
-
-### RedundantTypeArguments
-Explicit type arguments can be inferred
-in `curator-test/src/main/java/org/apache/curator/test/InstanceSpec.java`
-#### Snippet
-```java
-        this.tickTime = (tickTime > 0 ? tickTime : -1); // -1 to set default value
-        this.maxClientCnxns = (maxClientCnxns >= 0 ? maxClientCnxns : -1); // -1 to set default value
-        this.customProperties = customProperties != null ? Collections.<String,Object>unmodifiableMap(customProperties) : Collections.<String,Object>emptyMap();
-        this.hostname = hostname == null ? localhost : hostname;
-    }
-```
-
-### RedundantTypeArguments
-Explicit type arguments can be inferred
 in `curator-framework/src/main/java/org/apache/curator/framework/imps/TransactionOpImpl.java`
 #### Snippet
 ```java
     {
         ExtractingCuratorOp op = new ExtractingCuratorOp();
-        return new CreateBuilderImpl(client).<CuratorOp>asTransactionCreateBuilder(op, op.getRecord());
+        return CuratorTransactionImpl.<CuratorOp>makeTransactionCheckBuilder(client, op, op.getRecord());
     }
 
 ```
@@ -6197,7 +6089,7 @@ in `curator-framework/src/main/java/org/apache/curator/framework/imps/Transactio
 ```java
     {
         ExtractingCuratorOp op = new ExtractingCuratorOp();
-        return CuratorTransactionImpl.<CuratorOp>makeTransactionCheckBuilder(client, op, op.getRecord());
+        return new CreateBuilderImpl(client).<CuratorOp>asTransactionCreateBuilder(op, op.getRecord());
     }
 
 ```
@@ -6219,30 +6111,6 @@ Explicit type arguments can be inferred
 in `curator-framework/src/main/java/org/apache/curator/framework/schema/SchemaSet.java`
 #### Snippet
 ```java
-    public static SchemaSet getDefaultSchemaSet()
-    {
-        return new SchemaSet(Collections.<Schema>emptyList(), true)
-        {
-            @Override
-```
-
-### RedundantTypeArguments
-Explicit type arguments can be inferred
-in `curator-framework/src/main/java/org/apache/curator/framework/schema/SchemaSet.java`
-#### Snippet
-```java
-
-    private static final Schema nullSchema = new Schema("__null__", null, "", "Null schema", new DefaultSchemaValidator(), Schema.Allowance.CAN, Schema.Allowance.CAN, Schema.Allowance.CAN, true, ImmutableMap.<String, String>of());
-    private static final Schema defaultSchema = new Schema("__default__", null, "", "Default schema", new DefaultSchemaValidator(), Schema.Allowance.CAN, Schema.Allowance.CAN, Schema.Allowance.CAN, true, ImmutableMap.<String, String>of());
-    private final boolean useDefaultSchema;
-
-```
-
-### RedundantTypeArguments
-Explicit type arguments can be inferred
-in `curator-framework/src/main/java/org/apache/curator/framework/schema/SchemaSet.java`
-#### Snippet
-```java
         .build(cacheLoader);
 
     private static final Schema nullSchema = new Schema("__null__", null, "", "Null schema", new DefaultSchemaValidator(), Schema.Allowance.CAN, Schema.Allowance.CAN, Schema.Allowance.CAN, true, ImmutableMap.<String, String>of());
@@ -6252,14 +6120,50 @@ in `curator-framework/src/main/java/org/apache/curator/framework/schema/SchemaSe
 
 ### RedundantTypeArguments
 Explicit type arguments can be inferred
-in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/cache/PathChildrenCache.java`
+in `curator-framework/src/main/java/org/apache/curator/framework/schema/SchemaSet.java`
 #### Snippet
 ```java
-    private final ConcurrentMap<String, ChildData> currentData = Maps.newConcurrentMap();
-    private final AtomicReference<Map<String, ChildData>> initialSet = new AtomicReference<Map<String, ChildData>>();
-    private final Set<Operation> operationsQuantizer = Sets.newSetFromMap(Maps.<Operation, Boolean>newConcurrentMap());
-    private final AtomicReference<State> state = new AtomicReference<State>(State.LATENT);
-    private final EnsureContainers ensureContainers;
+
+    private static final Schema nullSchema = new Schema("__null__", null, "", "Null schema", new DefaultSchemaValidator(), Schema.Allowance.CAN, Schema.Allowance.CAN, Schema.Allowance.CAN, true, ImmutableMap.<String, String>of());
+    private static final Schema defaultSchema = new Schema("__default__", null, "", "Default schema", new DefaultSchemaValidator(), Schema.Allowance.CAN, Schema.Allowance.CAN, Schema.Allowance.CAN, true, ImmutableMap.<String, String>of());
+    private final boolean useDefaultSchema;
+
+```
+
+### RedundantTypeArguments
+Explicit type arguments can be inferred
+in `curator-framework/src/main/java/org/apache/curator/framework/schema/SchemaSet.java`
+#### Snippet
+```java
+    public static SchemaSet getDefaultSchemaSet()
+    {
+        return new SchemaSet(Collections.<Schema>emptyList(), true)
+        {
+            @Override
+```
+
+### RedundantTypeArguments
+Explicit type arguments can be inferred
+in `curator-client/src/main/java/org/apache/curator/SessionFailRetryLoop.java`
+#### Snippet
+```java
+    };
+
+    private static final Set<Thread>        failedSessionThreads = Sets.newSetFromMap(Maps.<Thread, Boolean>newConcurrentMap());
+
+    public static class SessionFailedException extends Exception
+```
+
+### RedundantTypeArguments
+Explicit type arguments can be inferred
+in `curator-client/src/main/java/org/apache/curator/utils/CloseableExecutorService.java`
+#### Snippet
+```java
+{
+    private final Logger log = LoggerFactory.getLogger(CloseableExecutorService.class);
+    private final Set<Future<?>> futures = Sets.newSetFromMap(Maps.<Future<?>, Boolean>newConcurrentMap());
+    private final ExecutorService executorService;
+    private final boolean shutdownOnClose;
 ```
 
 ### RedundantTypeArguments
@@ -6272,6 +6176,18 @@ in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/cache/Pat
         return ImmutableList.copyOf(Sets.<ChildData>newTreeSet(currentData.values()));
     }
 
+```
+
+### RedundantTypeArguments
+Explicit type arguments can be inferred
+in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/cache/PathChildrenCache.java`
+#### Snippet
+```java
+    private final ConcurrentMap<String, ChildData> currentData = Maps.newConcurrentMap();
+    private final AtomicReference<Map<String, ChildData>> initialSet = new AtomicReference<Map<String, ChildData>>();
+    private final Set<Operation> operationsQuantizer = Sets.newSetFromMap(Maps.<Operation, Boolean>newConcurrentMap());
+    private final AtomicReference<State> state = new AtomicReference<State>(State.LATENT);
+    private final EnsureContainers ensureContainers;
 ```
 
 ### RedundantTypeArguments
@@ -6310,151 +6226,91 @@ in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/queue/Que
     private final LeaderLatch               leaderLatch;
 ```
 
+### RedundantTypeArguments
+Explicit type arguments can be inferred
+in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceInstance.java`
+#### Snippet
+```java
+    public String buildUriSpec()
+    {
+        return buildUriSpec(Maps.<String, Object>newHashMap());
+    }
+
+```
+
+### RedundantTypeArguments
+Explicit type arguments can be inferred
+in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/UriSpec.java`
+#### Snippet
+```java
+    public String   build()
+    {
+        return build(null, Maps.<String, Object>newHashMap());
+    }
+
+```
+
+### RedundantTypeArguments
+Explicit type arguments can be inferred
+in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/UriSpec.java`
+#### Snippet
+```java
+    public String   build(ServiceInstance<?> serviceInstance)
+    {
+        return build(serviceInstance, Maps.<String, Object>newHashMap());
+    }
+
+```
+
+### RedundantTypeArguments
+Explicit type arguments can be inferred
+in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/details/ServiceDiscoveryImpl.java`
+#### Snippet
+```java
+    private final ConcurrentMap<String, Entry<T>> services = Maps.newConcurrentMap();
+    private final Collection<ServiceCache<T>> caches = Sets.newSetFromMap(Maps.<ServiceCache<T>, Boolean>newConcurrentMap());
+    private final Collection<ServiceProvider<T>> providers = Sets.newSetFromMap(Maps.<ServiceProvider<T>, Boolean>newConcurrentMap());
+    private final boolean watchInstances;
+    private final ConnectionStateListener connectionStateListener = new ConnectionStateListener()
+```
+
+### RedundantTypeArguments
+Explicit type arguments can be inferred
+in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/details/ServiceDiscoveryImpl.java`
+#### Snippet
+```java
+    private final InstanceSerializer<T> serializer;
+    private final ConcurrentMap<String, Entry<T>> services = Maps.newConcurrentMap();
+    private final Collection<ServiceCache<T>> caches = Sets.newSetFromMap(Maps.<ServiceCache<T>, Boolean>newConcurrentMap());
+    private final Collection<ServiceProvider<T>> providers = Sets.newSetFromMap(Maps.<ServiceProvider<T>, Boolean>newConcurrentMap());
+    private final boolean watchInstances;
+```
+
+### RedundantTypeArguments
+Explicit type arguments can be inferred
+in `curator-test/src/main/java/org/apache/curator/test/InstanceSpec.java`
+#### Snippet
+```java
+        this.tickTime = (tickTime > 0 ? tickTime : -1); // -1 to set default value
+        this.maxClientCnxns = (maxClientCnxns >= 0 ? maxClientCnxns : -1); // -1 to set default value
+        this.customProperties = customProperties != null ? Collections.<String,Object>unmodifiableMap(customProperties) : Collections.<String,Object>emptyMap();
+        this.hostname = hostname == null ? localhost : hostname;
+    }
+```
+
+### RedundantTypeArguments
+Explicit type arguments can be inferred
+in `curator-test/src/main/java/org/apache/curator/test/InstanceSpec.java`
+#### Snippet
+```java
+        this.tickTime = (tickTime > 0 ? tickTime : -1); // -1 to set default value
+        this.maxClientCnxns = (maxClientCnxns >= 0 ? maxClientCnxns : -1); // -1 to set default value
+        this.customProperties = customProperties != null ? Collections.<String,Object>unmodifiableMap(customProperties) : Collections.<String,Object>emptyMap();
+        this.hostname = hostname == null ? localhost : hostname;
+    }
+```
+
 ## RuleId[id=NullableProblems]
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `curator-client/src/main/java/org/apache/curator/utils/CloseableExecutorService.java`
-#### Snippet
-```java
-
-        @Override
-        public Void get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException
-        {
-            return null;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `curator-test/src/main/java/org/apache/curator/test/DelegatingExecutorService.java`
-#### Snippet
-```java
-
-    @Override
-    public Future<?> submit(Runnable task)
-    {
-        return delegate.submit(task);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `curator-test/src/main/java/org/apache/curator/test/DelegatingExecutorService.java`
-#### Snippet
-```java
-
-    @Override
-    public <T> Future<T> submit(Callable<T> task)
-    {
-        return delegate.submit(task);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `curator-test/src/main/java/org/apache/curator/test/DelegatingExecutorService.java`
-#### Snippet
-```java
-
-    @Override
-    public void execute(Runnable command)
-    {
-        delegate.execute(command);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `curator-test/src/main/java/org/apache/curator/test/DelegatingExecutorService.java`
-#### Snippet
-```java
-
-    @Override
-    public <T> Future<T> submit(Runnable task, T result)
-    {
-        return delegate.submit(task, result);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `curator-test/src/main/java/org/apache/curator/test/DelegatingExecutorService.java`
-#### Snippet
-```java
-
-    @Override
-    public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
-            throws InterruptedException
-    {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `curator-test/src/main/java/org/apache/curator/test/DelegatingExecutorService.java`
-#### Snippet
-```java
-
-    @Override
-    public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
-            throws InterruptedException
-    {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `curator-test/src/main/java/org/apache/curator/test/DelegatingExecutorService.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean awaitTermination(long timeout, TimeUnit unit)
-            throws InterruptedException
-    {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `curator-test/src/main/java/org/apache/curator/test/DelegatingExecutorService.java`
-#### Snippet
-```java
-
-    @Override
-    public <T> T invokeAny(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
-            throws InterruptedException, ExecutionException, TimeoutException
-    {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `curator-test/src/main/java/org/apache/curator/test/DelegatingExecutorService.java`
-#### Snippet
-```java
-
-    @Override
-    public <T> T invokeAny(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
-            throws InterruptedException, ExecutionException, TimeoutException
-    {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `curator-test/src/main/java/org/apache/curator/test/DelegatingExecutorService.java`
-#### Snippet
-```java
-
-    @Override
-    public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks)
-            throws InterruptedException
-    {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `curator-test/src/main/java/org/apache/curator/test/DelegatingExecutorService.java`
-#### Snippet
-```java
-
-    @Override
-    public <T> T invokeAny(Collection<? extends Callable<T>> tasks)
-            throws InterruptedException, ExecutionException
-    {
-```
-
 ### NullableProblems
 Not annotated parameter overrides @NotNull parameter
 in `curator-framework/src/main/java/org/apache/curator/framework/imps/OperationAndData.java`
@@ -6517,6 +6373,18 @@ in `curator-framework/src/main/java/org/apache/curator/framework/schema/SchemaSe
 
 ### NullableProblems
 Not annotated parameter overrides @NotNull parameter
+in `curator-client/src/main/java/org/apache/curator/utils/CloseableExecutorService.java`
+#### Snippet
+```java
+
+        @Override
+        public Void get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException
+        {
+            return null;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
 in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/cache/ChildData.java`
 #### Snippet
 ```java
@@ -6551,43 +6419,139 @@ in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/leader/Le
                 throw new UnsupportedOperationException();
 ```
 
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `curator-test/src/main/java/org/apache/curator/test/DelegatingExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public void execute(Runnable command)
+    {
+        delegate.execute(command);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `curator-test/src/main/java/org/apache/curator/test/DelegatingExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public Future<?> submit(Runnable task)
+    {
+        return delegate.submit(task);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `curator-test/src/main/java/org/apache/curator/test/DelegatingExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean awaitTermination(long timeout, TimeUnit unit)
+            throws InterruptedException
+    {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `curator-test/src/main/java/org/apache/curator/test/DelegatingExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public <T> T invokeAny(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
+            throws InterruptedException, ExecutionException, TimeoutException
+    {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `curator-test/src/main/java/org/apache/curator/test/DelegatingExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public <T> T invokeAny(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
+            throws InterruptedException, ExecutionException, TimeoutException
+    {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `curator-test/src/main/java/org/apache/curator/test/DelegatingExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
+            throws InterruptedException
+    {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `curator-test/src/main/java/org/apache/curator/test/DelegatingExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
+            throws InterruptedException
+    {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `curator-test/src/main/java/org/apache/curator/test/DelegatingExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public <T> Future<T> submit(Callable<T> task)
+    {
+        return delegate.submit(task);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `curator-test/src/main/java/org/apache/curator/test/DelegatingExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public <T> T invokeAny(Collection<? extends Callable<T>> tasks)
+            throws InterruptedException, ExecutionException
+    {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `curator-test/src/main/java/org/apache/curator/test/DelegatingExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks)
+            throws InterruptedException
+    {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `curator-test/src/main/java/org/apache/curator/test/DelegatingExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public <T> Future<T> submit(Runnable task, T result)
+    {
+        return delegate.submit(task, result);
+```
+
 ## RuleId[id=JavadocLinkAsPlainText]
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceInstanceBuilder.java`
-#### Snippet
-```java
-
-    /**
-     * based on http://pastebin.com/5X073pUc
-     * <p>
-     *
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `curator-client/src/main/java/org/apache/curator/connection/ThreadLocalRetryLoop.java`
-#### Snippet
-```java
- * <p>
- *     Retry loops can easily end up getting nested which can cause exponential calls of the retry policy
- *     (see https://issues.apache.org/jira/browse/CURATOR-559). This utility works around that by using
- *     an internal ThreadLocal to hold a retry loop. E.g. if the retry loop fails anywhere in the chain
- *     of nested calls it will fail for the rest of the nested calls instead.
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `curator-client/src/main/java/org/apache/curator/utils/PathUtils.java`
-#### Snippet
-```java
- * This class is copied from Apache ZooKeeper.
- * The original class is not exported by ZooKeeper bundle and thus it can't be used in OSGi.
- * See issue: https://issues.apache.org/jira/browse/ZOOKEEPER-1627
- * A temporary workaround till the issue is resolved is to keep a copy of this class locally.
- */
-```
-
 ### JavadocLinkAsPlainText
 Link specified as plain text
 in `curator-framework/src/main/java/org/apache/curator/framework/api/CreateProtectACLCreateModePathAndBytesable.java`
@@ -6650,6 +6614,30 @@ in `curator-framework/src/main/java/org/apache/curator/framework/api/CreateBackg
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
+in `curator-client/src/main/java/org/apache/curator/connection/ThreadLocalRetryLoop.java`
+#### Snippet
+```java
+ * <p>
+ *     Retry loops can easily end up getting nested which can cause exponential calls of the retry policy
+ *     (see https://issues.apache.org/jira/browse/CURATOR-559). This utility works around that by using
+ *     an internal ThreadLocal to hold a retry loop. E.g. if the retry loop fails anywhere in the chain
+ *     of nested calls it will fail for the rest of the nested calls instead.
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `curator-client/src/main/java/org/apache/curator/utils/PathUtils.java`
+#### Snippet
+```java
+ * This class is copied from Apache ZooKeeper.
+ * The original class is not exported by ZooKeeper bundle and thus it can't be used in OSGi.
+ * See issue: https://issues.apache.org/jira/browse/ZOOKEEPER-1627
+ * A temporary workaround till the issue is resolved is to keep a copy of this class locally.
+ */
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
 in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/nodes/PersistentNode.java`
 #### Snippet
 ```java
@@ -6662,18 +6650,6 @@ in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/nodes/Per
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `curator-x-async/src/main/java/org/apache/curator/x/async/api/CreateOption.java`
-#### Snippet
-```java
-    /**
-     * <p>
-     *     Hat-tip to https://github.com/sbridges for pointing this out
-     * </p>
-     *
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
 in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/nodes/PersistentEphemeralNode.java`
 #### Snippet
 ```java
@@ -6682,6 +6658,30 @@ in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/nodes/Per
  * Thanks to bbeck (https://github.com/bbeck) for the initial coding and design
  * </p>
  *
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceInstanceBuilder.java`
+#### Snippet
+```java
+
+    /**
+     * based on http://pastebin.com/5X073pUc
+     * <p>
+     *
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `curator-x-async/src/main/java/org/apache/curator/x/async/api/CreateOption.java`
+#### Snippet
+```java
+    /**
+     * <p>
+     *     Hat-tip to https://github.com/sbridges for pointing this out
+     * </p>
+     *
 ```
 
 ## RuleId[id=TrivialIf]
@@ -6698,54 +6698,6 @@ in `curator-client/src/main/java/org/apache/curator/utils/ZKPaths.java`
 ```
 
 ## RuleId[id=IgnoreResultOfCall]
-### IgnoreResultOfCall
-Result of `CountDownLatch.await()` is ignored
-in `curator-client/src/main/java/org/apache/curator/CuratorZookeeperClient.java`
-#### Snippet
-```java
-            try
-            {
-                latch.await(timeoutMs, TimeUnit.MILLISECONDS);
-            }
-            finally
-```
-
-### IgnoreResultOfCall
-Result of `ExecutorService.awaitTermination()` is ignored
-in `curator-examples/src/main/java/locking/LockingExample.java`
-#### Snippet
-```java
-
-            service.shutdown();
-            service.awaitTermination(10, TimeUnit.MINUTES);
-        }
-        finally
-```
-
-### IgnoreResultOfCall
-Result of `ExecutorService.awaitTermination()` is ignored
-in `curator-examples/src/main/java/pubsub/SubPubTest.java`
-#### Snippet
-```java
-        try
-        {
-            executorService.awaitTermination(5, TimeUnit.SECONDS);
-        }
-        catch ( InterruptedException ignore )
-```
-
-### IgnoreResultOfCall
-Result of `BlockingQueue.offer()` is ignored
-in `curator-framework/src/main/java/org/apache/curator/framework/imps/CuratorFrameworkImpl.java`
-#### Snippet
-```java
-            if ( backgroundOperations.remove(operation) )   // due to the internals of DelayQueue, operation must be removed/re-added so that re-sorting occurs
-            {
-                backgroundOperations.offer(operation);
-            }
-        }
-```
-
 ### IgnoreResultOfCall
 Result of `BlockingQueue.offer()` is ignored
 in `curator-framework/src/main/java/org/apache/curator/framework/imps/CuratorFrameworkImpl.java`
@@ -6780,6 +6732,54 @@ in `curator-framework/src/main/java/org/apache/curator/framework/imps/CuratorFra
                     executorService.awaitTermination(maxCloseWaitMs, TimeUnit.MILLISECONDS);
                 }
                 catch ( InterruptedException e )
+```
+
+### IgnoreResultOfCall
+Result of `BlockingQueue.offer()` is ignored
+in `curator-framework/src/main/java/org/apache/curator/framework/imps/CuratorFrameworkImpl.java`
+#### Snippet
+```java
+            if ( backgroundOperations.remove(operation) )   // due to the internals of DelayQueue, operation must be removed/re-added so that re-sorting occurs
+            {
+                backgroundOperations.offer(operation);
+            }
+        }
+```
+
+### IgnoreResultOfCall
+Result of `ExecutorService.awaitTermination()` is ignored
+in `curator-examples/src/main/java/locking/LockingExample.java`
+#### Snippet
+```java
+
+            service.shutdown();
+            service.awaitTermination(10, TimeUnit.MINUTES);
+        }
+        finally
+```
+
+### IgnoreResultOfCall
+Result of `ExecutorService.awaitTermination()` is ignored
+in `curator-examples/src/main/java/pubsub/SubPubTest.java`
+#### Snippet
+```java
+        try
+        {
+            executorService.awaitTermination(5, TimeUnit.SECONDS);
+        }
+        catch ( InterruptedException ignore )
+```
+
+### IgnoreResultOfCall
+Result of `CountDownLatch.await()` is ignored
+in `curator-client/src/main/java/org/apache/curator/CuratorZookeeperClient.java`
+#### Snippet
+```java
+            try
+            {
+                latch.await(timeoutMs, TimeUnit.MILLISECONDS);
+            }
+            finally
 ```
 
 ### IgnoreResultOfCall
@@ -6831,6 +6831,19 @@ in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/leader/Le
         }
 ```
 
+## RuleId[id=IntegerMultiplicationImplicitCastToLong]
+### IntegerMultiplicationImplicitCastToLong
+baseSleepTimeMs \* Math.max(1, random.nextInt(1 \<\< (retryCount + 1))): integer multiplication implicitly cast to long
+in `curator-client/src/main/java/org/apache/curator/retry/ExponentialBackoffRetry.java`
+#### Snippet
+```java
+    {
+        // copied from Hadoop's RetryPolicies.java
+        long sleepMs = baseSleepTimeMs * Math.max(1, random.nextInt(1 << (retryCount + 1)));
+        if ( sleepMs > maxSleepMs )
+        {
+```
+
 ## RuleId[id=AutoCloseableResource]
 ### AutoCloseableResource
 'TreeCache' used without 'try'-with-resources statement
@@ -6854,19 +6867,6 @@ in `curator-examples/src/main/java/pubsub/SubPubTest.java`
         client.unwrap().start();
 
         Publisher publisher = new Publisher(client);
-```
-
-## RuleId[id=IntegerMultiplicationImplicitCastToLong]
-### IntegerMultiplicationImplicitCastToLong
-baseSleepTimeMs \* Math.max(1, random.nextInt(1 \<\< (retryCount + 1))): integer multiplication implicitly cast to long
-in `curator-client/src/main/java/org/apache/curator/retry/ExponentialBackoffRetry.java`
-#### Snippet
-```java
-    {
-        // copied from Hadoop's RetryPolicies.java
-        long sleepMs = baseSleepTimeMs * Math.max(1, random.nextInt(1 << (retryCount + 1)));
-        if ( sleepMs > maxSleepMs )
-        {
 ```
 
 ## RuleId[id=IfStatementWithIdenticalBranches]
@@ -7042,54 +7042,6 @@ import org.apache.curator.x.discovery.server.entity.ServiceInstances;
 ## RuleId[id=JavadocDeclaration]
 ### JavadocDeclaration
 `@throws` tag description is missing
-in `curator-client/src/main/java/org/apache/curator/utils/ZKPaths.java`
-#### Snippet
-```java
-     * @param path       path of the node to delete
-     * @param deleteSelf flag that indicates that the node should also get deleted
-     * @throws InterruptedException
-     * @throws KeeperException
-     */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `curator-client/src/main/java/org/apache/curator/utils/ZKPaths.java`
-#### Snippet
-```java
-     * @param deleteSelf flag that indicates that the node should also get deleted
-     * @throws InterruptedException
-     * @throws KeeperException
-     */
-    public static void deleteChildren(ZooKeeper zookeeper, String path, boolean deleteSelf) throws InterruptedException, KeeperException
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `curator-test/src/main/java/org/apache/curator/test/TestingServer.java`
-#### Snippet
-```java
-     * thrown.
-     *
-     * @throws Exception
-     */
-    public void restart() throws Exception
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `curator-test/src/main/java/org/apache/curator/test/TestingServer.java`
-#### Snippet
-```java
-     * Start the server
-     *
-     * @throws Exception
-     */
-    public void start() throws Exception
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
 in `curator-framework/src/main/java/org/apache/curator/framework/api/ConfigureEnsembleable.java`
 #### Snippet
 ```java
@@ -7137,15 +7089,27 @@ in `curator-framework/src/main/java/org/apache/curator/framework/api/AsyncReconf
 ```
 
 ### JavadocDeclaration
-Tag `return` is not allowed here
-in `curator-framework/src/main/java/org/apache/curator/framework/api/GuaranteeableDeletable.java`
+`@param watcher` tag description is missing
+in `curator-framework/src/main/java/org/apache/curator/framework/api/RemoveWatchesBuilder.java`
 #### Snippet
 ```java
- * </p>
- *  
- * @return this
- */
-public interface GuaranteeableDeletable extends Guaranteeable<ChildrenDeletable>, BackgroundVersionable
+    /**
+     * Specify the watcher to be removed
+     * @param watcher
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `curator-framework/src/main/java/org/apache/curator/framework/api/RemoveWatchesBuilder.java`
+#### Snippet
+```java
+     * Specify the watcher to be removed
+     * @param watcher
+     * @return
+     */
+    public RemoveWatchesType remove(Watcher watcher);
 ```
 
 ### JavadocDeclaration
@@ -7185,27 +7149,15 @@ in `curator-framework/src/main/java/org/apache/curator/framework/api/RemoveWatch
 ```
 
 ### JavadocDeclaration
-`@param watcher` tag description is missing
-in `curator-framework/src/main/java/org/apache/curator/framework/api/RemoveWatchesBuilder.java`
+Tag `return` is not allowed here
+in `curator-framework/src/main/java/org/apache/curator/framework/api/GuaranteeableDeletable.java`
 #### Snippet
 ```java
-    /**
-     * Specify the watcher to be removed
-     * @param watcher
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `curator-framework/src/main/java/org/apache/curator/framework/api/RemoveWatchesBuilder.java`
-#### Snippet
-```java
-     * Specify the watcher to be removed
-     * @param watcher
-     * @return
-     */
-    public RemoveWatchesType remove(Watcher watcher);
+ * </p>
+ *  
+ * @return this
+ */
+public interface GuaranteeableDeletable extends Guaranteeable<ChildrenDeletable>, BackgroundVersionable
 ```
 
 ### JavadocDeclaration
@@ -7230,6 +7182,30 @@ in `curator-framework/src/main/java/org/apache/curator/framework/api/RemoveWatch
      * @return
      */
     public RemoveWatchesLocal ofType(WatcherType watcherType);
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `curator-client/src/main/java/org/apache/curator/utils/ZKPaths.java`
+#### Snippet
+```java
+     * @param path       path of the node to delete
+     * @param deleteSelf flag that indicates that the node should also get deleted
+     * @throws InterruptedException
+     * @throws KeeperException
+     */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `curator-client/src/main/java/org/apache/curator/utils/ZKPaths.java`
+#### Snippet
+```java
+     * @param deleteSelf flag that indicates that the node should also get deleted
+     * @throws InterruptedException
+     * @throws KeeperException
+     */
+    public static void deleteChildren(ZooKeeper zookeeper, String path, boolean deleteSelf) throws InterruptedException, KeeperException
 ```
 
 ### JavadocDeclaration
@@ -7301,7 +7277,7 @@ in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/queue/Dis
      * @return true if items was added, false if timed out
      * @throws Exception
      */
-    public boolean      put(T item, long delayUntilEpoch, int maxWait, TimeUnit unit) throws Exception
+    public boolean      putMulti(MultiItem<T> items, long delayUntilEpoch, int maxWait, TimeUnit unit) throws Exception
 ```
 
 ### JavadocDeclaration
@@ -7313,7 +7289,7 @@ in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/queue/Dis
      * @return true if items was added, false if timed out
      * @throws Exception
      */
-    public boolean      putMulti(MultiItem<T> items, long delayUntilEpoch, int maxWait, TimeUnit unit) throws Exception
+    public boolean      put(T item, long delayUntilEpoch, int maxWait, TimeUnit unit) throws Exception
 ```
 
 ### JavadocDeclaration
@@ -7340,7 +7316,79 @@ in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/queue/Dis
     public boolean     put(T item, int maxWait, TimeUnit unit) throws Exception
 ```
 
+### JavadocDeclaration
+`@throws` tag description is missing
+in `curator-test/src/main/java/org/apache/curator/test/TestingServer.java`
+#### Snippet
+```java
+     * Start the server
+     *
+     * @throws Exception
+     */
+    public void start() throws Exception
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `curator-test/src/main/java/org/apache/curator/test/TestingServer.java`
+#### Snippet
+```java
+     * thrown.
+     *
+     * @throws Exception
+     */
+    public void restart() throws Exception
+```
+
 ## RuleId[id=FieldMayBeFinal]
+### FieldMayBeFinal
+Field `client` may be 'final'
+in `curator-framework/src/main/java/org/apache/curator/framework/imps/RemoveWatchesBuilderImpl.java`
+#### Snippet
+```java
+public class RemoveWatchesBuilderImpl implements RemoveWatchesBuilder, RemoveWatchesType, RemoveWatchesLocal, BackgroundOperation<String>, ErrorListenerPathable<Void>
+{
+    private CuratorFrameworkImpl client;
+    private Watcher watcher;
+    private CuratorWatcher curatorWatcher;
+```
+
+### FieldMayBeFinal
+Field `sessionId` may be 'final'
+in `curator-client/src/main/java/org/apache/curator/drivers/OperationTrace.java`
+#### Snippet
+```java
+    private String path;
+    private boolean withWatcher;
+    private long sessionId;
+    private Stat stat;
+
+```
+
+### FieldMayBeFinal
+Field `bytes` may be 'final'
+in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/atomic/DistributedAtomicInteger.java`
+#### Snippet
+```java
+    private class AtomicInteger implements AtomicValue<Integer>
+    {
+        private AtomicValue<byte[]> bytes;
+
+        private AtomicInteger(AtomicValue<byte[]> bytes)
+```
+
+### FieldMayBeFinal
+Field `bytes` may be 'final'
+in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/atomic/DistributedAtomicLong.java`
+#### Snippet
+```java
+    private class AtomicLong implements AtomicValue<Long>
+    {
+        private AtomicValue<byte[]> bytes;
+
+        private AtomicLong(AtomicValue<byte[]> bytes)
+```
+
 ### FieldMayBeFinal
 Field `payloadClass` may be 'final'
 in `curator-x-discovery/src/main/java/org/apache/curator/x/discovery/ServiceDiscoveryBuilder.java`
@@ -7387,54 +7435,6 @@ class ServiceCacheBuilderImpl<T> implements ServiceCacheBuilder<T>
     private ServiceDiscoveryImpl<T> discovery;
     private String name;
     private ThreadFactory threadFactory;
-```
-
-### FieldMayBeFinal
-Field `sessionId` may be 'final'
-in `curator-client/src/main/java/org/apache/curator/drivers/OperationTrace.java`
-#### Snippet
-```java
-    private String path;
-    private boolean withWatcher;
-    private long sessionId;
-    private Stat stat;
-
-```
-
-### FieldMayBeFinal
-Field `client` may be 'final'
-in `curator-framework/src/main/java/org/apache/curator/framework/imps/RemoveWatchesBuilderImpl.java`
-#### Snippet
-```java
-public class RemoveWatchesBuilderImpl implements RemoveWatchesBuilder, RemoveWatchesType, RemoveWatchesLocal, BackgroundOperation<String>, ErrorListenerPathable<Void>
-{
-    private CuratorFrameworkImpl client;
-    private Watcher watcher;
-    private CuratorWatcher curatorWatcher;
-```
-
-### FieldMayBeFinal
-Field `bytes` may be 'final'
-in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/atomic/DistributedAtomicLong.java`
-#### Snippet
-```java
-    private class AtomicLong implements AtomicValue<Long>
-    {
-        private AtomicValue<byte[]> bytes;
-
-        private AtomicLong(AtomicValue<byte[]> bytes)
-```
-
-### FieldMayBeFinal
-Field `bytes` may be 'final'
-in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/atomic/DistributedAtomicInteger.java`
-#### Snippet
-```java
-    private class AtomicInteger implements AtomicValue<Integer>
-    {
-        private AtomicValue<byte[]> bytes;
-
-        private AtomicInteger(AtomicValue<byte[]> bytes)
 ```
 
 ## RuleId[id=MismatchedCollectionQueryUpdate]
@@ -7535,20 +7535,19 @@ in `curator-examples/src/main/java/pubsub/SubPubTest.java`
                 break;
 ```
 
-## RuleId[id=CopyConstructorMissesField]
-### CopyConstructorMissesField
-Copy constructor does not copy 7 fields
-in `curator-framework/src/main/java/org/apache/curator/framework/imps/CuratorFrameworkImpl.java`
+## RuleId[id=BusyWait]
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/queue/QueueSharder.java`
 #### Snippet
 ```java
-    }
-
-    protected CuratorFrameworkImpl(CuratorFrameworkImpl parent)
-    {
-        client = parent.client;
+                        try
+                        {
+                            Thread.sleep(policies.getThresholdCheckMs());
+                            checkThreshold();
+                        }
 ```
 
-## RuleId[id=BusyWait]
 ### BusyWait
 Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `curator-test/src/main/java/org/apache/curator/test/TestingQuorumPeerMain.java`
@@ -7561,16 +7560,17 @@ in `curator-test/src/main/java/org/apache/curator/test/TestingQuorumPeerMain.jav
             catch ( InterruptedException e )
 ```
 
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/queue/QueueSharder.java`
+## RuleId[id=CopyConstructorMissesField]
+### CopyConstructorMissesField
+Copy constructor does not copy 7 fields
+in `curator-framework/src/main/java/org/apache/curator/framework/imps/CuratorFrameworkImpl.java`
 #### Snippet
 ```java
-                        try
-                        {
-                            Thread.sleep(policies.getThresholdCheckMs());
-                            checkThreshold();
-                        }
+    }
+
+    protected CuratorFrameworkImpl(CuratorFrameworkImpl parent)
+    {
+        client = parent.client;
 ```
 
 ## RuleId[id=UnusedAssignment]
@@ -7599,6 +7599,30 @@ in `curator-framework/src/main/java/org/apache/curator/framework/imps/SetDataBui
 ```
 
 ### UnusedAssignment
+Variable `foundNode` initializer `null` is redundant
+in `curator-framework/src/main/java/org/apache/curator/framework/imps/CreateBuilderImpl.java`
+#### Snippet
+```java
+                    public String call() throws Exception
+                    {
+                        String foundNode = null;
+                        try
+                        {
+```
+
+### UnusedAssignment
+Variable `createdPath` initializer `null` is redundant
+in `curator-framework/src/main/java/org/apache/curator/framework/imps/CreateBuilderImpl.java`
+#### Snippet
+```java
+                {
+                    debugForceFindProtectedNode = false;
+                    String createdPath = null;
+                    try
+                    {
+```
+
+### UnusedAssignment
 Variable `lease` initializer `null` is redundant
 in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/locks/InterProcessSemaphoreV2.java`
 #### Snippet
@@ -7622,53 +7646,17 @@ in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/atomic/Mu
 
 ```
 
-### UnusedAssignment
-Variable `createdPath` initializer `null` is redundant
-in `curator-framework/src/main/java/org/apache/curator/framework/imps/CreateBuilderImpl.java`
-#### Snippet
-```java
-                {
-                    debugForceFindProtectedNode = false;
-                    String createdPath = null;
-                    try
-                    {
-```
-
-### UnusedAssignment
-Variable `foundNode` initializer `null` is redundant
-in `curator-framework/src/main/java/org/apache/curator/framework/imps/CreateBuilderImpl.java`
-#### Snippet
-```java
-                    public String call() throws Exception
-                    {
-                        String foundNode = null;
-                        try
-                        {
-```
-
 ## RuleId[id=ConstantValue]
 ### ConstantValue
-Value `exception` is always 'null'
-in `curator-client/src/main/java/org/apache/curator/SessionFailedRetryPolicy.java`
+Condition `e instanceof KeeperException` is always `true`
+in `curator-framework/src/main/java/org/apache/curator/framework/imps/Backgrounding.java`
 #### Snippet
 ```java
-        else
-        {
-            return delegatePolicy.allowRetry(exception);
-        }
-    }
-```
-
-### ConstantValue
-Condition `c > '\u0000'` is always `true`
-in `curator-client/src/main/java/org/apache/curator/utils/PathUtils.java`
-#### Snippet
-```java
-                    break;
-                }
-            } else if (c > '\u0000' && c < '\u001f'
-                    || c > '\u007f' && c < '\u009F'
-                    || c > '\ud800' && c < '\uf8ff'
+                                {
+                                    ThreadUtils.checkInterrupted(e);
+                                    if ( e instanceof KeeperException )
+                                    {
+                                        client.validateConnection(client.codeToState(((KeeperException)e).code()));
 ```
 
 ### ConstantValue
@@ -7684,27 +7672,15 @@ in `curator-framework/src/main/java/org/apache/curator/framework/imps/RemoveWatc
 ```
 
 ### ConstantValue
-Condition `e instanceof KeeperException` is always `true`
-in `curator-framework/src/main/java/org/apache/curator/framework/imps/Backgrounding.java`
-#### Snippet
-```java
-                                {
-                                    ThreadUtils.checkInterrupted(e);
-                                    if ( e instanceof KeeperException )
-                                    {
-                                        client.validateConnection(client.codeToState(((KeeperException)e).code()));
-```
-
-### ConstantValue
 Condition is always false
 in `curator-framework/src/main/java/org/apache/curator/framework/imps/CuratorFrameworkImpl.java`
 #### Snippet
 ```java
-            processEvent(event);
+            logError("Background exception was not retry-able or retry gave up", e);
         }
         while ( false );
+    }
 
-        if ( doQueueOperation )
 ```
 
 ### ConstantValue
@@ -7724,11 +7700,11 @@ Condition is always false
 in `curator-framework/src/main/java/org/apache/curator/framework/imps/CuratorFrameworkImpl.java`
 #### Snippet
 ```java
-            logError("Background exception was not retry-able or retry gave up", e);
+            processEvent(event);
         }
         while ( false );
-    }
 
+        if ( doQueueOperation )
 ```
 
 ### ConstantValue
@@ -7757,15 +7733,27 @@ in `curator-framework/src/main/java/org/apache/curator/framework/imps/CreateBuil
 ```
 
 ### ConstantValue
-Condition `ex instanceof KeeperException` is always `true`
-in `curator-x-async/src/main/java/org/apache/curator/x/async/AsyncResult.java`
+Value `exception` is always 'null'
+in `curator-client/src/main/java/org/apache/curator/SessionFailedRetryPolicy.java`
 #### Snippet
 ```java
-            if ( ex != null )
-            {
-                if ( ex instanceof KeeperException )
-                {
-                    return new AsyncResultImpl<T>(((KeeperException)ex).code());
+        else
+        {
+            return delegatePolicy.allowRetry(exception);
+        }
+    }
+```
+
+### ConstantValue
+Condition `c > '\u0000'` is always `true`
+in `curator-client/src/main/java/org/apache/curator/utils/PathUtils.java`
+#### Snippet
+```java
+                    break;
+                }
+            } else if (c > '\u0000' && c < '\u001f'
+                    || c > '\u007f' && c < '\u009F'
+                    || c > '\ud800' && c < '\uf8ff'
 ```
 
 ### ConstantValue
@@ -7790,6 +7778,18 @@ in `curator-recipes/src/main/java/org/apache/curator/framework/recipes/barriers/
         } while ( false );
 
         return result;
+```
+
+### ConstantValue
+Condition `ex instanceof KeeperException` is always `true`
+in `curator-x-async/src/main/java/org/apache/curator/x/async/AsyncResult.java`
+#### Snippet
+```java
+            if ( ex != null )
+            {
+                if ( ex instanceof KeeperException )
+                {
+                    return new AsyncResultImpl<T>(((KeeperException)ex).code());
 ```
 
 ### ConstantValue
