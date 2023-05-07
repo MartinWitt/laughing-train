@@ -100,18 +100,6 @@ I found 2319 bad smells with 89 repairable:
 | UnstableApiUsage | 1 | false |
 ## RuleId[id=ToArrayCallWithZeroLengthArrayArgument]
 ### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new QueryResult\[answerList.size()\]'
-in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/utils/GenerateAnswerUtils.java`
-#### Snippet
-```java
-            .filter(answer -> answer.getScore() > options.getScoreThreshold())
-            .collect(Collectors.toList());
-        results.setAnswers(answerList.toArray(new QueryResult[answerList.size()]));
-
-        return CompletableFuture.completedFuture(results);
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
 Call to `toArray()` with pre-sized array argument 'new QueryResult\[queryResults.size()\]'
 in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/QnAMaker.java`
 #### Snippet
@@ -136,15 +124,15 @@ in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/QnAMakerRecogniz
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new CompletableFuture\[sends.size()\]'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/inspection/InspectionMiddleware.java`
+Call to `toArray()` with pre-sized array argument 'new QueryResult\[answerList.size()\]'
+in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/utils/GenerateAnswerUtils.java`
 #### Snippet
 ```java
-                }
+            .filter(answer -> answer.getScore() > options.getScoreThreshold())
+            .collect(Collectors.toList());
+        results.setAnswers(answerList.toArray(new QueryResult[answerList.size()]));
 
-                return CompletableFuture.allOf(sends.toArray(new CompletableFuture[sends.size()]));
-            }
-
+        return CompletableFuture.completedFuture(results);
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
@@ -160,6 +148,18 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/DialogS
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new Match\[realMatches.size()\]'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/utilities/RegExpUtility.java`
+#### Snippet
+```java
+        });
+
+        return realMatches.toArray(new Match[realMatches.size()]);
+    }
+
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
 Call to `toArray()` with pre-sized array argument 'new Match\[matches.size()\]'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/utilities/RegExpUtility.java`
 #### Snippet
@@ -172,78 +172,18 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/utilities
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new Match\[realMatches.size()\]'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/utilities/RegExpUtility.java`
+Call to `toArray()` with pre-sized array argument 'new CompletableFuture\[sends.size()\]'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/inspection/InspectionMiddleware.java`
 #### Snippet
 ```java
-        });
+                }
 
-        return realMatches.toArray(new Match[realMatches.size()]);
-    }
+                return CompletableFuture.allOf(sends.toArray(new CompletableFuture[sends.size()]));
+            }
 
 ```
 
 ## RuleId[id=WrapperTypeMayBePrimitive]
-### WrapperTypeMayBePrimitive
-Type may be primitive
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/CosmosDbKeyEscape.java`
-#### Snippet
-```java
-        suffix = suffix == null ? new String() : suffix;
-
-        Integer firstIllegalCharIndex = StringUtils.indexOfAny(key, new String(ILLEGAL_KEYS));
-
-        // If there are no illegal characters, and the key is within length costraints,
-```
-
-### WrapperTypeMayBePrimitive
-Type may be primitive
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/CosmosDbKeyEscape.java`
-#### Snippet
-```java
-
-        // Add all good characters up to the first bad character to the builder first
-        for (Integer index = 0; index < firstIllegalCharIndex; index++) {
-            sanitizedKeyBuilder.append(key.charAt(index));
-        }
-```
-
-### WrapperTypeMayBePrimitive
-Type may be primitive
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/CosmosDbKeyEscape.java`
-#### Snippet
-```java
-        // replacing any bad ones with
-        // their designated replacement value from the
-        for (Integer index = firstIllegalCharIndex; index < key.length(); index++) {
-            Character ch = key.charAt(index);
-
-```
-
-### WrapperTypeMayBePrimitive
-Type may be primitive
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsStorage.java`
-#### Snippet
-```java
-
-    private CompletableFuture<Object> innerReadBlob(BlobClient blobReference) {
-        Integer i = 0;
-        while (true) {
-            try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
-```
-
-### WrapperTypeMayBePrimitive
-Type may be primitive
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsTranscriptStore.java`
-#### Snippet
-```java
-        long secsDiff = Math.subtractExact(end.getEpochSecond(), begin.getEpochSecond());
-        long totalHundredNanos = Math.multiplyExact(secsDiff, multipleProductValue);
-        final Long ticks = Math.addExact(totalHundredNanos, (end.getNano() - begin.getNano()) / 100);
-        return Long.toString(ticks, longRadix);
-    }
-```
-
 ### WrapperTypeMayBePrimitive
 Type may be primitive
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/ObjectPath.java`
@@ -254,6 +194,30 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/ObjectPath.jav
             Boolean wasSet = false;
             Map<String, Object> dict = (Map<String, Object>) obj;
             for (String key : dict.keySet()) {
+```
+
+### WrapperTypeMayBePrimitive
+Type may be primitive
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/DialogStateManager.java`
+#### Snippet
+```java
+     */
+    public Boolean anyPathChanged(int counter, Iterable<String> paths) {
+        Boolean found = false;
+        if (paths != null) {
+            for (String path : paths) {
+```
+
+### WrapperTypeMayBePrimitive
+Type may be primitive
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/DialogStateManager.java`
+#### Snippet
+```java
+
+    private Boolean trackChange(String path, Object value) {
+        Boolean hasPath = false;
+        ArrayList<Object> segments = ObjectPath.tryResolvePath(this, path, false);
+        if (segments != null) {
 ```
 
 ### WrapperTypeMayBePrimitive
@@ -302,30 +266,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/Number
                         Double value = Double.parseDouble(text);
                         result.setSucceeded(true);
                         result.setValue((T) (Object) value);
-```
-
-### WrapperTypeMayBePrimitive
-Type may be primitive
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/DialogStateManager.java`
-#### Snippet
-```java
-
-    private Boolean trackChange(String path, Object value) {
-        Boolean hasPath = false;
-        ArrayList<Object> segments = ObjectPath.tryResolvePath(this, path, false);
-        if (segments != null) {
-```
-
-### WrapperTypeMayBePrimitive
-Type may be primitive
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/DialogStateManager.java`
-#### Snippet
-```java
-     */
-    public Boolean anyPathChanged(int counter, Iterable<String> paths) {
-        Boolean found = false;
-        if (paths != null) {
-            for (String path : paths) {
 ```
 
 ### WrapperTypeMayBePrimitive
@@ -438,6 +378,18 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/
 
 ### WrapperTypeMayBePrimitive
 Type may be primitive
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/parsers/BaseIpParser.java`
+#### Snippet
+```java
+        String number = new String();
+        for (int i = 0; i < text.length(); i++) {
+            Character c = text.charAt(i);
+            if (c == '.' || c == ':') {
+                if (!StringUtils.isBlank(number)) {
+```
+
+### WrapperTypeMayBePrimitive
+Type may be primitive
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
 #### Snippet
 ```java
@@ -458,18 +410,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/
             Boolean anyMatch = Arrays.stream(formatMatches).anyMatch(match -> match.value.length() > 1);
             score -= anyMatch ? CONTINUE_FORMAT_INDICATOR_DEDUCTION_SCORE : 0;
             if (Pattern.matches(SINGLE_BRACKER_REGEX, phoneNumberText) && !Pattern.matches(COMPLETE_BRACKET_REGEX, phoneNumberText)) {
-```
-
-### WrapperTypeMayBePrimitive
-Type may be primitive
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/parsers/BaseIpParser.java`
-#### Snippet
-```java
-        String number = new String();
-        for (int i = 0; i < text.length(); i++) {
-            Character c = text.charAt(i);
-            if (c == '.' || c == ':') {
-                if (!StringUtils.isBlank(number)) {
 ```
 
 ### WrapperTypeMayBePrimitive
@@ -546,14 +486,26 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expressio
 
 ### WrapperTypeMayBePrimitive
 Type may be primitive
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/english/TimexRelativeConvertEnglish.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/TimexHelpers.java`
 #### Snippet
 ```java
 
-    private static String getDateDay(DayOfWeek day) {
-        Integer index = (day.getValue() == 0) ? 6 : day.getValue() - 1;
-        return TimexConstantsEnglish.DAYS[index];
-    }
+    public static String generateCompoundDurationTimex(List<String> timexList) {
+        Boolean isTimeDurationAlreadyExist = false;
+        StringBuilder timexBuilder = new StringBuilder(Constants.GENERAL_PERIOD_PREFIX);
+
+```
+
+### WrapperTypeMayBePrimitive
+Type may be primitive
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/TimexHelpers.java`
+#### Snippet
+```java
+
+        if (result.getHour() != null && result.getHour() > 23) {
+            Double days = Math.floor(result.getHour() / 24d);
+            Integer hour = result.getHour() % 24;
+            result.setHour(hour);
 ```
 
 ### WrapperTypeMayBePrimitive
@@ -582,26 +534,14 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expressio
 
 ### WrapperTypeMayBePrimitive
 Type may be primitive
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/TimexHelpers.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/english/TimexRelativeConvertEnglish.java`
 #### Snippet
 ```java
 
-        if (result.getHour() != null && result.getHour() > 23) {
-            Double days = Math.floor(result.getHour() / 24d);
-            Integer hour = result.getHour() % 24;
-            result.setHour(hour);
-```
-
-### WrapperTypeMayBePrimitive
-Type may be primitive
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/TimexHelpers.java`
-#### Snippet
-```java
-
-    public static String generateCompoundDurationTimex(List<String> timexList) {
-        Boolean isTimeDurationAlreadyExist = false;
-        StringBuilder timexBuilder = new StringBuilder(Constants.GENERAL_PERIOD_PREFIX);
-
+    private static String getDateDay(DayOfWeek day) {
+        Integer index = (day.getValue() == 0) ? 6 : day.getValue() - 1;
+        return TimexConstantsEnglish.DAYS[index];
+    }
 ```
 
 ### WrapperTypeMayBePrimitive
@@ -609,11 +549,11 @@ Type may be primitive
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/TimexResolver.java`
 #### Snippet
 ```java
-
+    private static String lastDateValue(TimexProperty timex, LocalDateTime date) {
+        if (timex.getDayOfMonth() != null) {
+            Integer year = date.getYear();
+            Integer month = date.getMonth().getValue();
             if (timex.getMonth() != null) {
-                Integer y = date.getYear();
-                Pair<String, String> lastYearDateRange = TimexResolver.monthDateRange(y - 1, timex.getMonth());
-                Pair<String, String> thisYearDateRange = TimexResolver.monthDateRange(y, timex.getMonth());
 ```
 
 ### WrapperTypeMayBePrimitive
@@ -633,11 +573,11 @@ Type may be primitive
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/TimexResolver.java`
 #### Snippet
 ```java
-    private static String lastDateValue(TimexProperty timex, LocalDateTime date) {
-        if (timex.getDayOfMonth() != null) {
-            Integer year = date.getYear();
-            Integer month = date.getMonth().getValue();
+
             if (timex.getMonth() != null) {
+                Integer y = date.getYear();
+                Pair<String, String> lastYearDateRange = TimexResolver.monthDateRange(y - 1, timex.getMonth());
+                Pair<String, String> thisYearDateRange = TimexResolver.monthDateRange(y, timex.getMonth());
 ```
 
 ### WrapperTypeMayBePrimitive
@@ -676,6 +616,66 @@ in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/Activity.java`
         }
 ```
 
+### WrapperTypeMayBePrimitive
+Type may be primitive
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/CosmosDbKeyEscape.java`
+#### Snippet
+```java
+        suffix = suffix == null ? new String() : suffix;
+
+        Integer firstIllegalCharIndex = StringUtils.indexOfAny(key, new String(ILLEGAL_KEYS));
+
+        // If there are no illegal characters, and the key is within length costraints,
+```
+
+### WrapperTypeMayBePrimitive
+Type may be primitive
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/CosmosDbKeyEscape.java`
+#### Snippet
+```java
+
+        // Add all good characters up to the first bad character to the builder first
+        for (Integer index = 0; index < firstIllegalCharIndex; index++) {
+            sanitizedKeyBuilder.append(key.charAt(index));
+        }
+```
+
+### WrapperTypeMayBePrimitive
+Type may be primitive
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/CosmosDbKeyEscape.java`
+#### Snippet
+```java
+        // replacing any bad ones with
+        // their designated replacement value from the
+        for (Integer index = firstIllegalCharIndex; index < key.length(); index++) {
+            Character ch = key.charAt(index);
+
+```
+
+### WrapperTypeMayBePrimitive
+Type may be primitive
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsStorage.java`
+#### Snippet
+```java
+
+    private CompletableFuture<Object> innerReadBlob(BlobClient blobReference) {
+        Integer i = 0;
+        while (true) {
+            try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+```
+
+### WrapperTypeMayBePrimitive
+Type may be primitive
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsTranscriptStore.java`
+#### Snippet
+```java
+        long secsDiff = Math.subtractExact(end.getEpochSecond(), begin.getEpochSecond());
+        long totalHundredNanos = Math.multiplyExact(secsDiff, multipleProductValue);
+        final Long ticks = Math.addExact(totalHundredNanos, (end.getNano() - begin.getNano()) / 100);
+        return Long.toString(ticks, longRadix);
+    }
+```
+
 ## RuleId[id=StringEquality]
 ### StringEquality
 String values are compared using `!=`, not 'equals()'
@@ -702,18 +702,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/Dialog.java`
 ```
 
 ### StringEquality
-String values are compared using `!=`, not 'equals()'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/PromptCultureModels.java`
-#### Snippet
-```java
-        final String cCode = cultureCode;
-
-        if (SUPPORTED_LOCALES.stream().allMatch(o -> o != cCode)) {
-            // Handle cases like EnglishOthers with cultureCode "en-*"
-            List<String> fallbackCultureCodes = SUPPORTED_LOCALES.stream()
-```
-
-### StringEquality
 String values are compared using `==`, not 'equals()'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/DialogStateManager.java`
 #### Snippet
@@ -723,6 +711,18 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/DialogS
             return s.getName().toUpperCase() == uCaseName;
         }).findFirst().get();
         if (scope != null) {
+```
+
+### StringEquality
+String values are compared using `!=`, not 'equals()'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/PromptCultureModels.java`
+#### Snippet
+```java
+        final String cCode = cultureCode;
+
+        if (SUPPORTED_LOCALES.stream().allMatch(o -> o != cCode)) {
+            // Handle cases like EnglishOthers with cultureCode "en-*"
+            List<String> fallbackCultureCodes = SUPPORTED_LOCALES.stream()
 ```
 
 ### StringEquality
@@ -922,6 +922,18 @@ String values are compared using `==`, not 'equals()'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDateTimeExtractor.java`
 #### Snippet
 ```java
+        for (ExtractResult er : ers) {
+            // if it is a multiple duration and its type is equal to Date then skip it.
+            if (er.getData() != null && er.getData().toString() == Constants.MultipleDuration_Date) {
+                continue;
+            }
+```
+
+### StringEquality
+String values are compared using `==`, not 'equals()'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDateTimeExtractor.java`
+#### Snippet
+```java
             ExtractResult ersI = ers.get(i);
             ExtractResult ersJ = ers.get(j);
             if (ersI.getType() == Constants.SYS_DATETIME_DATE && ersJ.getType() == Constants.SYS_DATETIME_TIME ||
@@ -1003,30 +1015,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 
 ### StringEquality
 String values are compared using `==`, not 'equals()'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDateTimeExtractor.java`
-#### Snippet
-```java
-        for (ExtractResult er : ers) {
-            // if it is a multiple duration and its type is equal to Date then skip it.
-            if (er.getData() != null && er.getData().toString() == Constants.MultipleDuration_Date) {
-                continue;
-            }
-```
-
-### StringEquality
-String values are compared using `!=`, not 'equals()'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDateExtractor.java`
-#### Snippet
-```java
-            int startSymbolLength = -1;
-
-            if (symbolMatch.value != "" && symbolMatch.index == 0 && symbolMatch.length > startSymbolLength) {
-                startSymbolLength = symbolMatch.length;
-            }
-```
-
-### StringEquality
-String values are compared using `==`, not 'equals()'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/parsers/BaseIpParser.java`
 #### Snippet
 ```java
@@ -1047,6 +1035,18 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/
                     number = number == "0" ? number : StringUtility.trimStart(number, "^[0]+","");
                     number = StringUtils.isBlank(number) ? "0" : number;
                     result += number;
+```
+
+### StringEquality
+String values are compared using `!=`, not 'equals()'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDateExtractor.java`
+#### Snippet
+```java
+            int startSymbolLength = -1;
+
+            if (symbolMatch.value != "" && symbolMatch.index == 0 && symbolMatch.length > startSymbolLength) {
+                startSymbolLength = symbolMatch.length;
+            }
 ```
 
 ### StringEquality
@@ -1163,6 +1163,18 @@ Modifier `public` is redundant for interface members
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/choice/extractors/IChoiceExtractorConfiguration.java`
 #### Snippet
 ```java
+    public Map<Pattern, String> getMapRegexes();
+
+    public Pattern getTokenRegex();
+
+    public boolean getAllowPartialMatch();
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/choice/extractors/IChoiceExtractorConfiguration.java`
+#### Snippet
+```java
 
 public interface IChoiceExtractorConfiguration {
     public Map<Pattern, String> getMapRegexes();
@@ -1184,6 +1196,18 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/choice/ex
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/choice/extractors/IChoiceExtractorConfiguration.java`
+#### Snippet
+```java
+    public Pattern getTokenRegex();
+
+    public boolean getAllowPartialMatch();
+
+    public int getMaxDistance();
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/choice/extractors/IBooleanExtractorConfiguration.java`
 #### Snippet
 ```java
@@ -1192,29 +1216,6 @@ public interface IBooleanExtractorConfiguration extends IChoiceExtractorConfigur
     public Pattern getTrueRegex();
 
     public Pattern getFalseRegex();
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/choice/extractors/IBooleanExtractorConfiguration.java`
-#### Snippet
-```java
-    public Pattern getTrueRegex();
-
-    public Pattern getFalseRegex();
-}
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/choice/extractors/IChoiceExtractorConfiguration.java`
-#### Snippet
-```java
-    public Map<Pattern, String> getMapRegexes();
-
-    public Pattern getTokenRegex();
-
-    public boolean getAllowPartialMatch();
 ```
 
 ### UnnecessaryModifier
@@ -1230,14 +1231,13 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/choice/ex
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/choice/extractors/IChoiceExtractorConfiguration.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/choice/extractors/IBooleanExtractorConfiguration.java`
 #### Snippet
 ```java
-    public Pattern getTokenRegex();
+    public Pattern getTrueRegex();
 
-    public boolean getAllowPartialMatch();
-
-    public int getMaxDistance();
+    public Pattern getFalseRegex();
+}
 ```
 
 ### UnnecessaryModifier
@@ -1328,18 +1328,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/resources
 
 ## RuleId[id=CommentedOutCode]
 ### CommentedOutCode
-Commented out code (25 lines)
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/BotFrameworkClient.java`
-#### Snippet
-```java
-public abstract class BotFrameworkClient {
-
-    // /**
-    //  * Forwards an activity to a skill (bot).
-    //  *
-```
-
-### CommentedOutCode
 Commented out code (5 lines)
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/ObjectPath.java`
 #### Snippet
@@ -1409,6 +1397,18 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
     /*public static final Pattern MorningStartEndRegex = RegExpUtility.getSafeRegExp(SpanishDateTime.MorningStartEndRegex);
     public static final Pattern AfternoonStartEndRegex = RegExpUtility.getSafeRegExp(SpanishDateTime.AfternoonStartEndRegex);
     public static final Pattern EveningStartEndRegex = RegExpUtility.getSafeRegExp(SpanishDateTime.EveningStartEndRegex);
+```
+
+### CommentedOutCode
+Commented out code (25 lines)
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/BotFrameworkClient.java`
+#### Snippet
+```java
+public abstract class BotFrameworkClient {
+
+    // /**
+    //  * Forwards an activity to a skill (bot).
+    //  *
 ```
 
 ## RuleId[id=RefusedBequest]
@@ -1546,44 +1546,7 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
             default:
 ```
 
-## RuleId[id=FinalPrivateMethod]
-### FinalPrivateMethod
-'private' method declared `final`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/choice/extractors/ChoiceExtractor.java`
-#### Snippet
-```java
-    }
-
-    private final double matchValue(List<String> source, List<String> match, int startPosition) {
-
-        double matched = 0;
-```
-
-### FinalPrivateMethod
-'private' method declared `final`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/choice/extractors/ChoiceExtractor.java`
-#### Snippet
-```java
-    }
-
-    private final List<String> tokenize(String text) {
-
-        List<String> tokens = new ArrayList<>();
-```
-
 ## RuleId[id=NonFinalFieldInEnum]
-### NonFinalFieldInEnum
-Non-final field `value` in enum 'Severity'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/Severity.java`
-#### Snippet
-```java
-    CRITICAL(4);
-
-    private int value;
-
-    /**
-```
-
 ### NonFinalFieldInEnum
 Non-final field `value` in enum 'InputHints'
 in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/InputHints.java`
@@ -1621,11 +1584,11 @@ in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/SemanticActionSt
 ```
 
 ### NonFinalFieldInEnum
-Non-final field `value` in enum 'DeliveryModes'
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/DeliveryModes.java`
+Non-final field `value` in enum 'ActivityImportance'
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ActivityImportance.java`
 #### Snippet
 ```java
-     * The actual serialized value for a DeliveryModes instance.
+     * The actual serialized value for a ActivityImportance instance.
      */
     private String value;
 
@@ -1633,11 +1596,11 @@ in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/DeliveryModes.ja
 ```
 
 ### NonFinalFieldInEnum
-Non-final field `value` in enum 'ActivityImportance'
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ActivityImportance.java`
+Non-final field `value` in enum 'DeliveryModes'
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/DeliveryModes.java`
 #### Snippet
 ```java
-     * The actual serialized value for a ActivityImportance instance.
+     * The actual serialized value for a DeliveryModes instance.
      */
     private String value;
 
@@ -1657,11 +1620,11 @@ in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/InstallationUpda
 ```
 
 ### NonFinalFieldInEnum
-Non-final field `value` in enum 'TextFormatTypes'
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/TextFormatTypes.java`
+Non-final field `value` in enum 'ActionTypes'
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ActionTypes.java`
 #### Snippet
 ```java
-     * The actual serialized value for a TextFormatTypes instance.
+     * The actual serialized value for a ActionTypes instance.
      */
     private String value;
 
@@ -1669,11 +1632,11 @@ in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/TextFormatTypes.
 ```
 
 ### NonFinalFieldInEnum
-Non-final field `value` in enum 'ActionTypes'
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ActionTypes.java`
+Non-final field `value` in enum 'TextFormatTypes'
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/TextFormatTypes.java`
 #### Snippet
 ```java
-     * The actual serialized value for a ActionTypes instance.
+     * The actual serialized value for a TextFormatTypes instance.
      */
     private String value;
 
@@ -1714,6 +1677,43 @@ in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/AttachmentLayout
     private String value;
 
     /**
+```
+
+### NonFinalFieldInEnum
+Non-final field `value` in enum 'Severity'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/Severity.java`
+#### Snippet
+```java
+    CRITICAL(4);
+
+    private int value;
+
+    /**
+```
+
+## RuleId[id=FinalPrivateMethod]
+### FinalPrivateMethod
+'private' method declared `final`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/choice/extractors/ChoiceExtractor.java`
+#### Snippet
+```java
+    }
+
+    private final List<String> tokenize(String text) {
+
+        List<String> tokens = new ArrayList<>();
+```
+
+### FinalPrivateMethod
+'private' method declared `final`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/choice/extractors/ChoiceExtractor.java`
+#### Snippet
+```java
+    }
+
+    private final double matchValue(List<String> source, List<String> match, int startPosition) {
+
+        double matched = 0;
 ```
 
 ## RuleId[id=RegExpSimplifiable]
@@ -1780,18 +1780,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 
 ## RuleId[id=StringBufferReplaceableByString]
 ### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsStorage.java`
-#### Snippet
-```java
-            } catch (HttpResponseException e) {
-                if (e.getResponse().getStatusCode() == HttpStatus.SC_BAD_REQUEST) {
-                    StringBuilder sb =
-                        new StringBuilder("An error occurred while trying to write an object. The underlying ");
-                    sb.append(BlobErrorCode.INVALID_BLOCK_LIST);
-```
-
-### StringBufferReplaceableByString
 `StringBuilder` can be replaced with 'String'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/parsers/BaseNumberRangeParser.java`
 #### Snippet
@@ -1815,16 +1803,111 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/pa
                         .append(startValueStr)
 ```
 
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsStorage.java`
+#### Snippet
+```java
+            } catch (HttpResponseException e) {
+                if (e.getResponse().getStatusCode() == HttpStatus.SC_BAD_REQUEST) {
+                    StringBuilder sb =
+                        new StringBuilder("An error occurred while trying to write an object. The underlying ");
+                    sb.append(BlobErrorCode.INVALID_BLOCK_LIST);
+```
+
 ## RuleId[id=Deprecation]
 ### Deprecation
 'com.microsoft.bot.ai.qna' is deprecated
-in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/models/package-info.java`
+in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/package-info.java`
 #### Snippet
 ```java
- * This package contains the classes for com.microsoft.bot.ai.qna.models.
  */
-package com.microsoft.bot.ai.qna.models;
+@Deprecated
+package com.microsoft.bot.ai.qna;
 
+```
+
+### Deprecation
+'com.microsoft.bot.ai.qna' is deprecated
+in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/JoinOperator.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.ai.qna;
+
+/**
+```
+
+### Deprecation
+'com.microsoft.bot.ai.qna' is deprecated
+in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/TelemetryQnAMaker.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.ai.qna;
+
+import com.microsoft.bot.ai.qna.models.QueryResult;
+```
+
+### Deprecation
+'com.microsoft.bot.ai.qna' is deprecated
+in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/QnAMakerClient.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.ai.qna;
+
+import java.io.IOException;
+```
+
+### Deprecation
+'com.microsoft.bot.ai.qna' is deprecated
+in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/utils/package-info.java`
+#### Snippet
+```java
+ * This package contains the classes for com.microsoft.bot.ai.qna.utils.
+ */
+package com.microsoft.bot.ai.qna.utils;
+
+```
+
+### Deprecation
+'com.microsoft.bot.ai.qna' is deprecated
+in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/QnADialogResponseOptions.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.ai.qna;
+
+import com.microsoft.bot.schema.Activity;
+```
+
+### Deprecation
+'com.microsoft.bot.ai.qna' is deprecated
+in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/QnAMakerEndpoint.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.ai.qna;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.ai.qna' is deprecated
+in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/QnAMakerOptions.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.ai.qna;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 ```
 
 ### Deprecation
@@ -1841,7 +1924,30 @@ package com.microsoft.bot.ai.qna.utils;
 
 ### Deprecation
 'com.microsoft.bot.ai.qna' is deprecated
-in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/models/FeedbackRecords.java`
+in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/models/package-info.java`
+#### Snippet
+```java
+ * This package contains the classes for com.microsoft.bot.ai.qna.models.
+ */
+package com.microsoft.bot.ai.qna.models;
+
+```
+
+### Deprecation
+'com.microsoft.bot.ai.qna' is deprecated
+in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/utils/BindToActivity.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.ai.qna.utils;
+
+import com.microsoft.bot.dialogs.DialogContext;
+```
+
+### Deprecation
+'com.microsoft.bot.ai.qna' is deprecated
+in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/models/QueryResult.java`
 #### Snippet
 ```java
 // Licensed under the MIT License.
@@ -1865,119 +1971,26 @@ import java.io.Serializable;
 
 ### Deprecation
 'com.microsoft.bot.ai.qna' is deprecated
-in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/models/QueryResults.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.ai.qna.models;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.ai.qna' is deprecated
-in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/QnAMakerEndpoint.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.ai.qna;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.ai.qna' is deprecated
-in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/JoinOperator.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.ai.qna;
-
-/**
-```
-
-### Deprecation
-'com.microsoft.bot.applicationinsights' is deprecated
-in `libraries/bot-applicationinsights/src/main/java/com/microsoft/bot/applicationinsights/package-info.java`
-#### Snippet
-```java
- */
-@Deprecated
-package com.microsoft.bot.applicationinsights;
-
-```
-
-### Deprecation
-'com.microsoft.bot.applicationinsights' is deprecated
-in `libraries/bot-applicationinsights/src/main/java/com/microsoft/bot/applicationinsights/core/package-info.java`
-#### Snippet
-```java
- * This package contains the classes for com.microsoft.bot.applicationinsights.core.
- */
-package com.microsoft.bot.applicationinsights.core;
-
-```
-
-### Deprecation
-'com.microsoft.bot.ai.qna' is deprecated
-in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/models/QueryResult.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.ai.qna.models;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.ai.qna' is deprecated
-in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/package-info.java`
-#### Snippet
-```java
- */
-@Deprecated
-package com.microsoft.bot.ai.qna;
-
-```
-
-### Deprecation
-'com.microsoft.bot.ai.qna' is deprecated
-in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/TelemetryQnAMaker.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.ai.qna;
-
-import com.microsoft.bot.ai.qna.models.QueryResult;
-```
-
-### Deprecation
-'com.microsoft.bot.applicationinsights' is deprecated
-in `libraries/bot-applicationinsights/src/main/java/com/microsoft/bot/applicationinsights/core/TelemetryInitializerMiddleware.java`
-#### Snippet
-```java
-// license information.
-
-package com.microsoft.bot.applicationinsights.core;
-
-import com.microsoft.applicationinsights.core.dependencies.http.client.protocol.HttpClientContext;
-```
-
-### Deprecation
-'com.microsoft.bot.ai.qna' is deprecated
-in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/utils/BindToActivity.java`
+in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/utils/QnACardBuilder.java`
 #### Snippet
 ```java
 // Licensed under the MIT License.
 
 package com.microsoft.bot.ai.qna.utils;
 
-import com.microsoft.bot.dialogs.DialogContext;
+import java.util.ArrayList;
+```
+
+### Deprecation
+'com.microsoft.bot.ai.qna' is deprecated
+in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/models/FeedbackRecords.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.ai.qna.models;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 ```
 
 ### Deprecation
@@ -2006,77 +2019,6 @@ import com.microsoft.bot.ai.qna.QnAMakerEndpoint;
 
 ### Deprecation
 'com.microsoft.bot.ai.qna' is deprecated
-in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/utils/package-info.java`
-#### Snippet
-```java
- * This package contains the classes for com.microsoft.bot.ai.qna.utils.
- */
-package com.microsoft.bot.ai.qna.utils;
-
-```
-
-### Deprecation
-'com.microsoft.bot.ai.qna' is deprecated
-in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/QnAMakerClient.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.ai.qna;
-
-import java.io.IOException;
-```
-
-### Deprecation
-'com.microsoft.bot.ai.qna' is deprecated
-in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/QnADialogResponseOptions.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.ai.qna;
-
-import com.microsoft.bot.schema.Activity;
-```
-
-### Deprecation
-'com.microsoft.bot.ai.qna' is deprecated
-in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/utils/QnACardBuilder.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.ai.qna.utils;
-
-import java.util.ArrayList;
-```
-
-### Deprecation
-'com.microsoft.bot.applicationinsights' is deprecated
-in `libraries/bot-applicationinsights/src/main/java/com/microsoft/bot/applicationinsights/AvailabilityTelemetry.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.applicationinsights;
-
-import com.microsoft.applicationinsights.internal.schemav2.AvailabilityData;
-```
-
-### Deprecation
-'com.microsoft.bot.ai.qna' is deprecated
-in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/QnAMakerOptions.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.ai.qna;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-```
-
-### Deprecation
-'com.microsoft.bot.ai.qna' is deprecated
 in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/models/RankerTypes.java`
 #### Snippet
 ```java
@@ -2089,7 +2031,7 @@ package com.microsoft.bot.ai.qna.models;
 
 ### Deprecation
 'com.microsoft.bot.ai.qna' is deprecated
-in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/models/FeedbackRecord.java`
+in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/models/QueryResults.java`
 #### Snippet
 ```java
 // Licensed under the MIT License.
@@ -2101,7 +2043,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 ### Deprecation
 'com.microsoft.bot.ai.qna' is deprecated
-in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/models/QnAResponseContext.java`
+in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/models/FeedbackRecord.java`
 #### Snippet
 ```java
 // Licensed under the MIT License.
@@ -2124,14 +2066,14 @@ package com.microsoft.bot.ai.qna.dialogs;
 
 ### Deprecation
 'com.microsoft.bot.ai.qna' is deprecated
-in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/dialogs/QnAMakerDialogOptions.java`
+in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/models/QnAResponseContext.java`
 #### Snippet
 ```java
 // Licensed under the MIT License.
 
-package com.microsoft.bot.ai.qna.dialogs;
+package com.microsoft.bot.ai.qna.models;
 
-import com.microsoft.bot.ai.qna.QnADialogResponseOptions;
+import com.fasterxml.jackson.annotation.JsonProperty;
 ```
 
 ### Deprecation
@@ -2148,25 +2090,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 ### Deprecation
 'com.microsoft.bot.ai.qna' is deprecated
-in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/models/QnAMakerTraceInfo.java`
+in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/dialogs/QnAMakerDialogOptions.java`
 #### Snippet
 ```java
 // Licensed under the MIT License.
 
-package com.microsoft.bot.ai.qna.models;
+package com.microsoft.bot.ai.qna.dialogs;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-```
-
-### Deprecation
-'com.microsoft.bot.azure' is deprecated
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/package-info.java`
-#### Snippet
-```java
- */
-@Deprecated
-package com.microsoft.bot.azure;
-
+import com.microsoft.bot.ai.qna.QnADialogResponseOptions;
 ```
 
 ### Deprecation
@@ -2182,1209 +2113,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 ```
 
 ### Deprecation
-'com.microsoft.bot.ai.qna' is deprecated
-in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/utils/GenerateAnswerUtils.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.ai.qna.utils;
-
-import com.microsoft.bot.connector.Async;
-```
-
-### Deprecation
-'com.microsoft.bot.azure' is deprecated
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/CosmosDbPartitionedStorageOptions.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.azure;
-
-import com.microsoft.azure.documentdb.ConnectionPolicy;
-```
-
-### Deprecation
-'com.microsoft.bot.azure' is deprecated
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/package-info.java`
-#### Snippet
-```java
- * This package contains the classes for com.microsoft.bot.azure.blobs.
- */
-package com.microsoft.bot.azure.blobs;
-
-```
-
-### Deprecation
-'com.microsoft.bot.applicationinsights' is deprecated
-in `libraries/bot-applicationinsights/src/main/java/com/microsoft/bot/applicationinsights/ApplicationInsightsBotTelemetryClient.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.applicationinsights;
-
-import com.microsoft.applicationinsights.TelemetryClient;
-```
-
-### Deprecation
-'com.microsoft.bot.azure' is deprecated
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/queues/package-info.java`
-#### Snippet
-```java
- * This package contains the classes for com.microsoft.bot.azure.queues.
- */
-package com.microsoft.bot.azure.queues;
-
-```
-
-### Deprecation
-'com.microsoft.bot.azure' is deprecated
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/CosmosDbKeyEscape.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.azure;
-
-import org.apache.commons.lang3.ArrayUtils;
-```
-
-### Deprecation
-'com.microsoft.bot.azure' is deprecated
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/queues/AzureQueueStorage.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.azure.queues;
-
-import com.azure.storage.queue.QueueClient;
-```
-
-### Deprecation
-'com.microsoft.bot.ai.qna' is deprecated
-in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/QnAMaker.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.ai.qna;
-
-import com.google.common.collect.LinkedListMultimap;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/DelegatingTurnContext.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import com.microsoft.bot.schema.Activity;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TranscriptStore.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import com.microsoft.bot.schema.Activity;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/package-info.java`
-#### Snippet
-```java
- */
-@Deprecated
-package com.microsoft.bot.builder;
-
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/Bot.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import java.util.concurrent.CompletableFuture;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/Severity.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-/**
-```
-
-### Deprecation
-'create(okhttp3.MediaType, java.lang.String)' is deprecated
-in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/utils/HttpRequestUtils.java`
-#### Snippet
-```java
-
-    private RequestBody buildRequestBody(String payloadBody) throws JsonProcessingException {
-        return RequestBody.create(MediaType.parse("application/json; charset=utf-8"), payloadBody);
-    }
-}
-```
-
-### Deprecation
-'com.microsoft.bot.ai.qna' is deprecated
-in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/utils/HttpRequestUtils.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.ai.qna.utils;
-
-import com.microsoft.bot.connector.Async;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/Recognizer.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import java.util.concurrent.CompletableFuture;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TraceTranscriptLogger.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/RegisterClassMiddleware.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import java.util.concurrent.CompletableFuture;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TypedInvokeResponse.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-/**
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TelemetryConstants.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-/**
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/InvokeResponse.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-/**
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ShowTypingMiddleware.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import com.microsoft.bot.connector.ExecutorFactory;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/StatePropertyInfo.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-/**
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/SendActivitiesHandler.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import com.microsoft.bot.schema.Activity;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TurnContextStateCollection.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import com.microsoft.bot.connector.ConnectorClient;
-```
-
-### Deprecation
-'com.microsoft.bot.ai.qna' is deprecated
-in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/QnAMakerRecognizer.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.ai.qna;
-
-import java.util.ArrayList;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TranscriptLogger.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import com.microsoft.bot.schema.Activity;
-```
-
-### Deprecation
-'com.microsoft.bot.azure' is deprecated
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsStorage.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.azure.blobs;
-
-import com.azure.core.exception.HttpResponseException;
-```
-
-### Deprecation
-'enableDefaultTyping()' is deprecated
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsStorage.java`
-#### Snippet
-```java
-        objectMapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-            .findAndRegisterModules()
-            .enableDefaultTyping();
-
-        containerClient = new BlobContainerClientBuilder().connectionString(dataConnectionString)
-```
-
-### Deprecation
-'uploadWithResponse(java.io.InputStream, long, com.azure.storage.blob.models.ParallelTransferOptions, com.azure.storage.blob.models.BlobHttpHeaders, java.util.Map, com.azure.storage.blob.models.AccessTier, com.azure.storage.blob.models.BlobRequestConditions, ...)' is deprecated
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsStorage.java`
-#### Snippet
-```java
-                InputStream stream = new ByteArrayInputStream(json.getBytes(StandardCharsets.UTF_8));
-                // verify the corresponding length
-                blobReference.uploadWithResponse(
-                    stream,
-                    stream.available(),
-```
-
-### Deprecation
-'download(java.io.OutputStream)' is deprecated
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsStorage.java`
-#### Snippet
-```java
-        while (true) {
-            try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
-                blobReference.download(outputStream);
-                String contentString = outputStream.toString();
-
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/PropertyManager.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-/**
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ComponentRegistration.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import java.util.concurrent.ConcurrentHashMap;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ConversationState.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import org.apache.commons.lang3.StringUtils;
-```
-
-### Deprecation
-'enableDefaultTyping()' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/MemoryStorage.java`
-#### Snippet
-```java
-            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-            .findAndRegisterModules();
-        objectMapper.enableDefaultTyping();
-
-        memory = values != null ? values : new ConcurrentHashMap<>();
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/MemoryStorage.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/RecognizerConvert.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-/**
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/DeleteActivityHandler.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import com.microsoft.bot.schema.ConversationReference;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/UserTokenProvider.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import com.microsoft.bot.connector.authentication.AppCredentials;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/AutoSaveStateMiddleware.java`
-#### Snippet
-```java
-// Licensed under the MIT license.
-
-package com.microsoft.bot.builder;
-
-import java.util.Arrays;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TranscriptInfo.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import java.time.OffsetDateTime;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/PagedResult.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import java.util.ArrayList;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/RecognizerResult.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/Storage.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import java.util.Map;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ConnectorClientBuilder.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import java.util.concurrent.CompletableFuture;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotCallbackHandler.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import java.util.concurrent.CompletableFuture;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/MessageFactory.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import com.microsoft.bot.schema.ActionTypes;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TelemetryLoggerConstants.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-/**
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/IntentScore.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-```
-
-### Deprecation
-'com.microsoft.bot.azure' is deprecated
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/CosmosDbPartitionedStorage.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.azure;
-
-import com.codepoetics.protonpack.collectors.CompletableFutures;
-```
-
-### Deprecation
-'enableDefaultTyping()' is deprecated
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/CosmosDbPartitionedStorage.java`
-#### Snippet
-```java
-        objectMapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-            .findAndRegisterModules()
-            .enableDefaultTyping();
-
-        client = new DocumentClient(
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotState.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-```
-
-### Deprecation
-'com.microsoft.bot.azure' is deprecated
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsTranscriptStore.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.azure.blobs;
-
-import com.azure.core.exception.HttpResponseException;
-```
-
-### Deprecation
-'download(java.io.OutputStream)' is deprecated
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsTranscriptStore.java`
-#### Snippet
-```java
-    private CompletableFuture<Activity> getActivityFromBlobClient(BlobClient blobClient) {
-        ByteArrayOutputStream content = new ByteArrayOutputStream();
-        blobClient.download(content);
-        String contentString = new String(content.toByteArray());
-        try {
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/NextDelegate.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import java.util.concurrent.CompletableFuture;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/QueueStorage.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import com.microsoft.bot.schema.Activity;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotStateSet.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import java.util.ArrayList;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/OnTurnErrorHandler.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import java.util.concurrent.CompletableFuture;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/UserState.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import org.apache.commons.lang3.StringUtils;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ChannelServiceHandler.java`
-#### Snippet
-```java
-package com.microsoft.bot.builder;
-
-import java.util.List;
-```
-
-### Deprecation
-'com.microsoft.bot.ai.qna' is deprecated
-in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/dialogs/QnAMakerDialog.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.ai.qna.dialogs;
-
-import com.microsoft.bot.connector.Async;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/Middleware.java`
-#### Snippet
-```java
-     *         </p>
-     *         <p>
-     *         {@link TurnContext} {@link com.microsoft.bot.schema.Activity}
-     */
-    CompletableFuture<Void> onTurn(TurnContext turnContext, NextDelegate next);
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/Middleware.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import java.util.concurrent.CompletableFuture;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TurnContext.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import com.microsoft.bot.schema.Activity;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/StoreItem.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/PrivateConversationState.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import org.apache.commons.lang3.StringUtils;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TranscriptLoggerMiddleware.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import com.microsoft.bot.schema.Activity;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TurnStateConstants.java`
-#### Snippet
-```java
-// Licensed under the MT License.
-
-package com.microsoft.bot.builder;
-
-import java.time.Duration;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/UpdateActivityHandler.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import com.microsoft.bot.schema.Activity;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotAssert.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import com.microsoft.bot.schema.Activity;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/StatePropertyAccessor.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import java.util.concurrent.CompletableFuture;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/EventFactory.java`
-#### Snippet
-```java
-// Licensed under the MT License.
-
-package com.microsoft.bot.builder;
-
-import java.time.OffsetDateTime;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotAdapter.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import com.microsoft.bot.connector.Async;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/NullBotTelemetryClient.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import java.time.Duration;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/MiddlewareSet.java`
-#### Snippet
-```java
-     *         </p>
-     *         <p>
-     *         {@link TurnContext} {@link com.microsoft.bot.schema.Activity}
-     */
-    @Override
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/MiddlewareSet.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import java.util.ArrayList;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotTelemetryClient.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import java.time.Duration;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/teams/package-info.java`
-#### Snippet
-```java
- * This package contains the classes for com.microsoft.bot.builder.teams.
- */
-package com.microsoft.bot.builder.teams;
-
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/SkypeMentionNormalizeMiddleware.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import com.fasterxml.jackson.databind.JsonNode;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TelemetryLoggerMiddleware.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/SetSpeakMiddleware.java`
-#### Snippet
-```java
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MT License.
-package com.microsoft.bot.builder;
-
-import java.io.IOException;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/MemoryTranscriptStore.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import com.codepoetics.protonpack.StreamUtils;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/package-info.java`
-#### Snippet
-```java
- * This package contains the classes for com.microsoft.bot.builder.skills.
- */
-package com.microsoft.bot.builder.skills;
-
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/BotFrameworkSkill.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder.skills;
-
-import java.net.URI;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/BotFrameworkClient.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder.skills;
-
-import java.net.URI;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationReference.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder.skills;
-
-import com.microsoft.bot.schema.ConversationReference;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactory.java`
-#### Snippet
-```java
-// Licensed under the MT License.
-
-package com.microsoft.bot.builder.skills;
-
-import java.util.HashMap;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryOptions.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder.skills;
-
-import com.microsoft.bot.schema.Activity;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/inspection/package-info.java`
-#### Snippet
-```java
- * This package contains the classes for com.microsoft.bot.builder.inspection.
- */
-package com.microsoft.bot.builder.inspection;
-
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder.skills;
-
-import java.util.concurrent.CompletableFuture;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/teams/TeamsSSOTokenExchangeMiddleware.java`
-#### Snippet
-```java
-     *         </p>
-     *         <p>
-     *         {@link TurnContext} {@link com.microsoft.bot.schema.Activity}
-     */
-    public CompletableFuture<Void> onTurn(TurnContext turnContext, NextDelegate next) {
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/teams/TeamsSSOTokenExchangeMiddleware.java`
-#### Snippet
-```java
-// Licensed under the MT License.
-
-package com.microsoft.bot.builder.teams;
-
-import java.net.HttpURLConnection;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TurnContextImpl.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import com.microsoft.bot.connector.Async;
-```
-
-### Deprecation
-'com.microsoft.bot.connector' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TurnContextImpl.java`
-#### Snippet
-```java
-     * @param withActivity New replacement activity.
-     * @return A task that represents the work queued to execute.
-     * @throws com.microsoft.bot.connector.rest.ErrorResponseException The HTTP
-     *                                                                 operation
-     *                                                                 failed and
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/inspection/InspectionSession.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder.inspection;
-
-import com.microsoft.bot.connector.ConnectorClient;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/inspection/InspectionSessionsByStatus.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder.inspection;
-
-import com.microsoft.bot.schema.ConversationReference;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillHandler.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder.skills;
-
-import java.util.Map;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/inspection/InspectionState.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder.inspection;
-
-import com.microsoft.bot.builder.BotState;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/integration/package-info.java`
-#### Snippet
-```java
- * This package contains the classes for com.microsoft.bot.builder.integration.
- */
-package com.microsoft.bot.builder.integration;
-
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/inspection/InspectionActivityExtensions.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder.inspection;
-
-import com.fasterxml.jackson.databind.JsonNode;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/integration/AdapterIntegration.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder.integration;
-
-import com.microsoft.bot.builder.BotCallbackHandler;
-```
-
-### Deprecation
 'com.microsoft.bot.integration' is deprecated
 in `libraries/bot-integration-spring/src/main/java/com/microsoft/bot/integration/spring/package-info.java`
 #### Snippet
@@ -3407,158 +2135,15 @@ package com.microsoft.bot.integration.spring;
 ```
 
 ### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/teams/TeamsInfo.java`
+'com.microsoft.bot.ai.qna' is deprecated
+in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/models/QnAMakerTraceInfo.java`
 #### Snippet
 ```java
 // Licensed under the MIT License.
 
-package com.microsoft.bot.builder.teams;
+package com.microsoft.bot.ai.qna.models;
 
-import com.microsoft.bot.builder.BotFrameworkAdapter;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/inspection/InterceptionMiddleware.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder.inspection;
-
-import com.microsoft.bot.builder.Middleware;
-```
-
-### Deprecation
-'com.microsoft.bot.integration' is deprecated
-in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/Configuration.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.integration;
-
-import java.util.Properties;
-```
-
-### Deprecation
-'com.microsoft.bot.integration' is deprecated
-in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/ConfigurationCredentialProvider.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.integration;
-
-import com.microsoft.bot.connector.authentication.MicrosoftAppCredentials;
-```
-
-### Deprecation
-'com.microsoft.bot.integration' is deprecated
-in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/package-info.java`
-#### Snippet
-```java
- */
-@Deprecated
-package com.microsoft.bot.integration;
-
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-integration-spring/src/main/java/com/microsoft/bot/integration/spring/BotDependencyConfiguration.java`
-#### Snippet
-```java
-    /**
-     * Creates an InspectionState used by
-     * {@link com.microsoft.bot.builder.inspection.InspectionMiddleware}. Default
-     * scope of Singleton.
-     *
-```
-
-### Deprecation
-'com.microsoft.bot.integration' is deprecated
-in `libraries/bot-integration-spring/src/main/java/com/microsoft/bot/integration/spring/BotDependencyConfiguration.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.integration.spring;
-
-import com.microsoft.bot.builder.ConversationState;
-```
-
-### Deprecation
-'com.microsoft.bot.integration.spring' is deprecated
-in `libraries/bot-integration-spring/src/main/java/com/microsoft/bot/integration/spring/BotDependencyConfiguration.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.integration.spring;
-
-import com.microsoft.bot.builder.ConversationState;
-```
-
-### Deprecation
-'com.microsoft.bot.integration' is deprecated
-in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/SkillHttpClient.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.integration;
-
-import java.net.URI;
-```
-
-### Deprecation
-'com.microsoft.bot.integration' is deprecated
-in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/ClasspathPropertiesConfiguration.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.integration;
-
-import org.slf4j.LoggerFactory;
-```
-
-### Deprecation
-'com.microsoft.bot.integration' is deprecated
-in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/AdapterWithInspection.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.integration;
-
-import com.microsoft.bot.builder.ConversationState;
-```
-
-### Deprecation
-'com.microsoft.bot.integration' is deprecated
-in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/BotFrameworkHttpAdapter.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.integration;
-
-import com.microsoft.bot.builder.Bot;
-```
-
-### Deprecation
-'com.microsoft.bot.integration' is deprecated
-in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/ConfigurationChannelProvider.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.integration;
-
-import com.microsoft.bot.connector.authentication.SimpleChannelProvider;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 ```
 
 ### Deprecation
@@ -3574,87 +2159,39 @@ package com.microsoft.bot.dialogs;
 ```
 
 ### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/teams/TeamsActivityHandler.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder.teams;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-```
-
-### Deprecation
-'com.microsoft.bot.builder.ActivityHandler' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/teams/TeamsActivityHandler.java`
-#### Snippet
-```java
- */
-@SuppressWarnings({"checkstyle:JavadocMethod", "checkstyle:DesignForExtension", "checkstyle:MethodLength"})
-public class TeamsActivityHandler extends ActivityHandler {
-    /**
-     * Invoked when an invoke activity is received from the connector when the base
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/teams/TeamsActivityHandler.java`
-#### Snippet
-```java
-     * <p>
-     * If using an OAuthPrompt, override this method to forward this
-     * {@link com.microsoft.bot.schema.Activity} to the current dialog.
-     * </p>
-     *
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/teams/TeamsActivityHandler.java`
-#### Snippet
-```java
-     * <p>
-     * When the {@link #onEventActivity(TurnContext)} method receives an event with
-     * a {@link com.microsoft.bot.schema.Activity#getName()} of `tokens/response`, it calls this method.
-     *
-     * @param turnContext The context object for this turn.
-```
-
-### Deprecation
 'com.microsoft.bot.integration' is deprecated
-in `libraries/bot-integration-spring/src/main/java/com/microsoft/bot/integration/spring/BotController.java`
+in `libraries/bot-integration-spring/src/main/java/com/microsoft/bot/integration/spring/BotDependencyConfiguration.java`
 #### Snippet
 ```java
 // Licensed under the MIT License.
 
 package com.microsoft.bot.integration.spring;
 
-import com.microsoft.bot.builder.Bot;
+import com.microsoft.bot.builder.ConversationState;
 ```
 
 ### Deprecation
 'com.microsoft.bot.integration.spring' is deprecated
-in `libraries/bot-integration-spring/src/main/java/com/microsoft/bot/integration/spring/BotController.java`
+in `libraries/bot-integration-spring/src/main/java/com/microsoft/bot/integration/spring/BotDependencyConfiguration.java`
 #### Snippet
 ```java
 // Licensed under the MIT License.
 
 package com.microsoft.bot.integration.spring;
 
-import com.microsoft.bot.builder.Bot;
+import com.microsoft.bot.builder.ConversationState;
 ```
 
 ### Deprecation
 'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/inspection/InspectionMiddleware.java`
+in `libraries/bot-integration-spring/src/main/java/com/microsoft/bot/integration/spring/BotDependencyConfiguration.java`
 #### Snippet
 ```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder.inspection;
-
-import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+    /**
+     * Creates an InspectionState used by
+     * {@link com.microsoft.bot.builder.inspection.InspectionMiddleware}. Default
+     * scope of Singleton.
+     *
 ```
 
 ### Deprecation
@@ -3666,54 +2203,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/package-info.j
 @Deprecated
 package com.microsoft.bot.dialogs;
 
-```
-
-### Deprecation
-'com.microsoft.bot.integration' is deprecated
-in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/AdapterWithErrorHandler.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.integration;
-
-import com.microsoft.bot.builder.ConversationState;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/AdapterWithErrorHandler.java`
-#### Snippet
-```java
-    /**
-     * Constructs an error handling BotFrameworkHttpAdapter by providing an
-     * {@link com.microsoft.bot.builder.OnTurnErrorHandler}.
-     *
-     * <p>
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/AdapterWithErrorHandler.java`
-#### Snippet
-```java
-    /**
-     * Constructs an error handling BotFrameworkHttpAdapter by providing an
-     * {@link com.microsoft.bot.builder.OnTurnErrorHandler}.
-     *
-     * <p>
-```
-
-### Deprecation
-'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/DialogReason.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.dialogs;
-
-/**
 ```
 
 ### Deprecation
@@ -3730,6 +2219,30 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 ### Deprecation
 'com.microsoft.bot.dialogs' is deprecated
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/DialogPath.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.dialogs;
+
+/**
+```
+
+### Deprecation
+'com.microsoft.bot.dialogs' is deprecated
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/DialogReason.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.dialogs;
+
+/**
+```
+
+### Deprecation
+'com.microsoft.bot.dialogs' is deprecated
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/DialogTurnStatus.java`
 #### Snippet
 ```java
@@ -3738,6 +2251,42 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/DialogTurnStat
 package com.microsoft.bot.dialogs;
 
 /**
+```
+
+### Deprecation
+'com.microsoft.bot.ai.qna' is deprecated
+in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/QnAMaker.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.ai.qna;
+
+import com.google.common.collect.LinkedListMultimap;
+```
+
+### Deprecation
+'com.microsoft.bot.integration' is deprecated
+in `libraries/bot-integration-spring/src/main/java/com/microsoft/bot/integration/spring/BotController.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.integration.spring;
+
+import com.microsoft.bot.builder.Bot;
+```
+
+### Deprecation
+'com.microsoft.bot.integration.spring' is deprecated
+in `libraries/bot-integration-spring/src/main/java/com/microsoft/bot/integration/spring/BotController.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.integration.spring;
+
+import com.microsoft.bot.builder.Bot;
 ```
 
 ### Deprecation
@@ -3754,18 +2303,6 @@ import java.util.concurrent.CompletableFuture;
 
 ### Deprecation
 'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/DialogPath.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.dialogs;
-
-/**
-```
-
-### Deprecation
-'com.microsoft.bot.dialogs' is deprecated
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/DialogInstance.java`
 #### Snippet
 ```java
@@ -3774,98 +2311,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/DialogInstance
 package com.microsoft.bot.dialogs;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/SkillInvokeException.java`
-#### Snippet
-```java
-package com.microsoft.bot.dialogs;
-
-/**
-```
-
-### Deprecation
-'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/BeginSkillDialogOptions.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.dialogs;
-
-import com.microsoft.bot.schema.Activity;
-```
-
-### Deprecation
-'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/DialogsComponentRegistration.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.dialogs;
-
-import java.util.ArrayList;
-```
-
-### Deprecation
-'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/DialogContainer.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.dialogs;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-```
-
-### Deprecation
-'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/DialogCommon.java`
-#### Snippet
-```java
-package com.microsoft.bot.dialogs;
-
-import com.microsoft.bot.builder.BotAdapter;
-```
-
-### Deprecation
-'com.microsoft.bot.integration' is deprecated
-in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/BotFrameworkHttpClient.java`
-#### Snippet
-```java
-// Licensed under the MT License.
-
-package com.microsoft.bot.integration;
-
-import com.microsoft.bot.connector.ConversationConstants;
-```
-
-### Deprecation
-'create(okhttp3.MediaType, java.lang.String)' is deprecated
-in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/BotFrameworkHttpClient.java`
-#### Snippet
-```java
-
-        try {
-            RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), jsonContent);
-            Request request = buildRequest(activity, toUrl, body, token);
-            Response response = httpClient.newCall(request).execute();
-```
-
-### Deprecation
-'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/Recognizer.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.dialogs;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 ```
 
 ### Deprecation
@@ -3882,23 +2327,21 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/Recognizer.jav
 
 ### Deprecation
 'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/DialogManagerResult.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/Recognizer.java`
 #### Snippet
 ```java
 // Licensed under the MIT License.
 
 package com.microsoft.bot.dialogs;
 
-import com.microsoft.bot.schema.Activity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 ```
 
 ### Deprecation
 'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/DialogEvent.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/SkillInvokeException.java`
 #### Snippet
 ```java
-// Licensed under the MIT License.
-
 package com.microsoft.bot.dialogs;
 
 /**
@@ -3917,8 +2360,126 @@ import com.microsoft.bot.builder.TurnContext;
 ```
 
 ### Deprecation
+'com.microsoft.bot.ai.qna' is deprecated
+in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/QnAMakerRecognizer.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.ai.qna;
+
+import java.util.ArrayList;
+```
+
+### Deprecation
+'com.microsoft.bot.dialogs' is deprecated
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/BeginSkillDialogOptions.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.dialogs;
+
+import com.microsoft.bot.schema.Activity;
+```
+
+### Deprecation
+'com.microsoft.bot.ai.qna' is deprecated
+in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/utils/GenerateAnswerUtils.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.ai.qna.utils;
+
+import com.microsoft.bot.connector.Async;
+```
+
+### Deprecation
+'com.microsoft.bot.dialogs' is deprecated
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/DialogCommon.java`
+#### Snippet
+```java
+package com.microsoft.bot.dialogs;
+
+import com.microsoft.bot.builder.BotAdapter;
+```
+
+### Deprecation
+'com.microsoft.bot.dialogs' is deprecated
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/DialogsComponentRegistration.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.dialogs;
+
+import java.util.ArrayList;
+```
+
+### Deprecation
+'com.microsoft.bot.dialogs' is deprecated
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/DialogManagerResult.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.dialogs;
+
+import com.microsoft.bot.schema.Activity;
+```
+
+### Deprecation
+'com.microsoft.bot.ai.qna' is deprecated
+in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/utils/HttpRequestUtils.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.ai.qna.utils;
+
+import com.microsoft.bot.connector.Async;
+```
+
+### Deprecation
+'create(okhttp3.MediaType, java.lang.String)' is deprecated
+in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/utils/HttpRequestUtils.java`
+#### Snippet
+```java
+
+    private RequestBody buildRequestBody(String payloadBody) throws JsonProcessingException {
+        return RequestBody.create(MediaType.parse("application/json; charset=utf-8"), payloadBody);
+    }
+}
+```
+
+### Deprecation
+'com.microsoft.bot.dialogs' is deprecated
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/DialogContainer.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.dialogs;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+```
+
+### Deprecation
 'com.microsoft.bot.dialogs' is deprecated
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/TurnPath.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.dialogs;
+
+/**
+```
+
+### Deprecation
+'com.microsoft.bot.dialogs' is deprecated
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/DialogEvent.java`
 #### Snippet
 ```java
 // Licensed under the MIT License.
@@ -3942,10 +2503,10 @@ import java.util.List;
 
 ### Deprecation
 'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/DialogTurnResult.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/PersistedStateKeys.java`
 #### Snippet
 ```java
-// Licensed under the MIT License.
+// Copyright (c) Microsoft Corporation. All rights reserved.
 
 package com.microsoft.bot.dialogs;
 
@@ -3954,10 +2515,10 @@ package com.microsoft.bot.dialogs;
 
 ### Deprecation
 'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/PersistedStateKeys.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/DialogTurnResult.java`
 #### Snippet
 ```java
-// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
 
 package com.microsoft.bot.dialogs;
 
@@ -3989,40 +2550,6 @@ import java.net.URI;
 ```
 
 ### Deprecation
-'com.microsoft.bot.integration' is deprecated
-in `libraries/bot-integration-spring/src/main/java/com/microsoft/bot/integration/spring/ChannelServiceController.java`
-#### Snippet
-```java
-// Licensed under the MT License.
-
-package com.microsoft.bot.integration.spring;
-
-import java.util.List;
-```
-
-### Deprecation
-'com.microsoft.bot.integration.spring' is deprecated
-in `libraries/bot-integration-spring/src/main/java/com/microsoft/bot/integration/spring/ChannelServiceController.java`
-#### Snippet
-```java
-// Licensed under the MT License.
-
-package com.microsoft.bot.integration.spring;
-
-import java.util.List;
-```
-
-### Deprecation
-'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/SegmentType.java`
-#### Snippet
-```java
-package com.microsoft.bot.dialogs;
-
-/**
-```
-
-### Deprecation
 'com.microsoft.bot.dialogs' is deprecated
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/DialogContextPath.java`
 #### Snippet
@@ -4036,14 +2563,12 @@ package com.microsoft.bot.dialogs;
 
 ### Deprecation
 'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/DialogSet.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/SegmentType.java`
 #### Snippet
 ```java
-// Licensed under the MIT License.
-
 package com.microsoft.bot.dialogs;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+/**
 ```
 
 ### Deprecation
@@ -4060,6 +2585,18 @@ import java.util.ArrayList;
 
 ### Deprecation
 'com.microsoft.bot.dialogs' is deprecated
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/DialogSet.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.dialogs;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+```
+
+### Deprecation
+'com.microsoft.bot.dialogs' is deprecated
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/WaterfallStepContext.java`
 #### Snippet
 ```java
@@ -4072,16 +2609,6 @@ import java.util.Map;
 
 ### Deprecation
 'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/Segments.java`
-#### Snippet
-```java
-package com.microsoft.bot.dialogs;
-
-import java.util.ArrayList;
-```
-
-### Deprecation
-'com.microsoft.bot.dialogs' is deprecated
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/DialogEvents.java`
 #### Snippet
 ```java
@@ -4090,6 +2617,16 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/DialogEvents.j
 package com.microsoft.bot.dialogs;
 /**
  * Represents the events related to the "lifecycle" of the dialog.
+```
+
+### Deprecation
+'com.microsoft.bot.dialogs' is deprecated
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/Segments.java`
+#### Snippet
+```java
+package com.microsoft.bot.dialogs;
+
+import java.util.ArrayList;
 ```
 
 ### Deprecation
@@ -4128,6 +2665,18 @@ package com.microsoft.bot.dialogs.memory;
 ```
 
 ### Deprecation
+'com.microsoft.bot.integration' is deprecated
+in `libraries/bot-integration-spring/src/main/java/com/microsoft/bot/integration/spring/ChannelServiceController.java`
+#### Snippet
+```java
+// Licensed under the MT License.
+
+package com.microsoft.bot.integration.spring;
+
+import java.util.List;
+```
+
+### Deprecation
 'com.microsoft.bot.dialogs' is deprecated
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/PersistedState.java`
 #### Snippet
@@ -4137,6 +2686,18 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/PersistedState
 package com.microsoft.bot.dialogs;
 
 import java.util.HashMap;
+```
+
+### Deprecation
+'com.microsoft.bot.integration.spring' is deprecated
+in `libraries/bot-integration-spring/src/main/java/com/microsoft/bot/integration/spring/ChannelServiceController.java`
+#### Snippet
+```java
+// Licensed under the MT License.
+
+package com.microsoft.bot.integration.spring;
+
+import java.util.List;
 ```
 
 ### Deprecation
@@ -4153,6 +2714,17 @@ import java.util.ArrayList;
 
 ### Deprecation
 'com.microsoft.bot.dialogs' is deprecated
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/scopes/package-info.java`
+#### Snippet
+```java
+ * This package contains the classes for com.microsoft.bot.dialogs.memory.scopes.
+ */
+package com.microsoft.bot.dialogs.memory.scopes;
+
+```
+
+### Deprecation
+'com.microsoft.bot.dialogs' is deprecated
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/ComponentPathResolvers.java`
 #### Snippet
 ```java
@@ -4165,25 +2737,14 @@ package com.microsoft.bot.dialogs.memory;
 
 ### Deprecation
 'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/scopes/package-info.java`
-#### Snippet
-```java
- * This package contains the classes for com.microsoft.bot.dialogs.memory.scopes.
- */
-package com.microsoft.bot.dialogs.memory.scopes;
-
-```
-
-### Deprecation
-'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/DialogManager.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/scopes/MemoryScope.java`
 #### Snippet
 ```java
 // Licensed under the MIT License.
 
-package com.microsoft.bot.dialogs;
+package com.microsoft.bot.dialogs.memory.scopes;
 
-import java.time.OffsetDateTime;
+import com.microsoft.bot.dialogs.DialogContext;
 ```
 
 ### Deprecation
@@ -4200,26 +2761,26 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/DialogManager.
 
 ### Deprecation
 'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/scopes/MemoryScope.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/DialogManager.java`
 #### Snippet
 ```java
 // Licensed under the MIT License.
 
-package com.microsoft.bot.dialogs.memory.scopes;
+package com.microsoft.bot.dialogs;
 
-import com.microsoft.bot.dialogs.DialogContext;
+import java.time.OffsetDateTime;
 ```
 
 ### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotFrameworkAdapter.java`
+'com.microsoft.bot.ai.qna' is deprecated
+in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/dialogs/QnAMakerDialog.java`
 #### Snippet
 ```java
 // Licensed under the MIT License.
 
-package com.microsoft.bot.builder;
+package com.microsoft.bot.ai.qna.dialogs;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import com.microsoft.bot.connector.Async;
 ```
 
 ### Deprecation
@@ -4248,38 +2809,14 @@ import com.microsoft.bot.builder.ConversationState;
 
 ### Deprecation
 'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/ObjectPath.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.dialogs;
-
-import com.fasterxml.jackson.databind.JsonNode;
-```
-
-### Deprecation
-'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/scopes/ReadOnlyObject.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/scopes/DialogMemoryScope.java`
 #### Snippet
 ```java
 // Licensed under the MIT License.
 
 package com.microsoft.bot.dialogs.memory.scopes;
 
-import java.util.AbstractMap.SimpleEntry;
-```
-
-### Deprecation
-'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/scopes/SettingsMemoryScope.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.dialogs.memory.scopes;
-
-import java.util.Properties;
+import java.util.Map;
 ```
 
 ### Deprecation
@@ -4296,14 +2833,14 @@ import com.microsoft.bot.dialogs.DialogContainer;
 
 ### Deprecation
 'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/scopes/BotStateMemoryScope.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/scopes/ReadOnlyObject.java`
 #### Snippet
 ```java
 // Licensed under the MIT License.
 
 package com.microsoft.bot.dialogs.memory.scopes;
 
-import java.util.concurrent.CompletableFuture;
+import java.util.AbstractMap.SimpleEntry;
 ```
 
 ### Deprecation
@@ -4320,26 +2857,14 @@ import com.microsoft.bot.builder.UserState;
 
 ### Deprecation
 'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/scopes/DialogMemoryScope.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/scopes/BotStateMemoryScope.java`
 #### Snippet
 ```java
 // Licensed under the MIT License.
 
 package com.microsoft.bot.dialogs.memory.scopes;
 
-import java.util.Map;
-```
-
-### Deprecation
-'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/SkillDialog.java`
-#### Snippet
-```java
-// Licensed under the MT License.
-
-package com.microsoft.bot.dialogs;
-
-import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 ```
 
 ### Deprecation
@@ -4356,13 +2881,14 @@ import com.microsoft.bot.dialogs.Dialog;
 
 ### Deprecation
 'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/pathresolvers/package-info.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/pathresolvers/PercentPathResolver.java`
 #### Snippet
 ```java
- * This package contains the classes for com.microsoft.bot.dialogs.memory.pathresolvers.
- */
+// Licensed under the MIT License.
+
 package com.microsoft.bot.dialogs.memory.pathresolvers;
 
+/**
 ```
 
 ### Deprecation
@@ -4379,7 +2905,30 @@ package com.microsoft.bot.dialogs.memory.pathresolvers;
 
 ### Deprecation
 'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/pathresolvers/PercentPathResolver.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/scopes/SettingsMemoryScope.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.dialogs.memory.scopes;
+
+import java.util.Properties;
+```
+
+### Deprecation
+'com.microsoft.bot.dialogs' is deprecated
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/pathresolvers/package-info.java`
+#### Snippet
+```java
+ * This package contains the classes for com.microsoft.bot.dialogs.memory.pathresolvers.
+ */
+package com.microsoft.bot.dialogs.memory.pathresolvers;
+
+```
+
+### Deprecation
+'com.microsoft.bot.dialogs' is deprecated
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/pathresolvers/DollarPathResolver.java`
 #### Snippet
 ```java
 // Licensed under the MIT License.
@@ -4403,18 +2952,6 @@ import java.util.TreeMap;
 
 ### Deprecation
 'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/Dialog.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.dialogs;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-```
-
-### Deprecation
-'com.microsoft.bot.dialogs' is deprecated
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/pathresolvers/HashPathResolver.java`
 #### Snippet
 ```java
@@ -4427,7 +2964,7 @@ package com.microsoft.bot.dialogs.memory.pathresolvers;
 
 ### Deprecation
 'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/pathresolvers/DollarPathResolver.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/pathresolvers/AtPathResolver.java`
 #### Snippet
 ```java
 // Licensed under the MIT License.
@@ -4435,6 +2972,18 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/pathres
 package com.microsoft.bot.dialogs.memory.pathresolvers;
 
 /**
+```
+
+### Deprecation
+'com.microsoft.bot.dialogs' is deprecated
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/pathresolvers/AliasPathResolver.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.dialogs.memory.pathresolvers;
+
+import com.microsoft.bot.dialogs.memory.PathResolver;
 ```
 
 ### Deprecation
@@ -4462,14 +3011,50 @@ package com.microsoft.bot.dialogs.choices;
 
 ### Deprecation
 'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/pathresolvers/AtPathResolver.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/choices/FindChoicesOptions.java`
 #### Snippet
 ```java
 // Licensed under the MIT License.
 
-package com.microsoft.bot.dialogs.memory.pathresolvers;
+package com.microsoft.bot.dialogs.choices;
 
-/**
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.dialogs' is deprecated
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/ObjectPath.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.dialogs;
+
+import com.fasterxml.jackson.databind.JsonNode;
+```
+
+### Deprecation
+'com.microsoft.bot.dialogs' is deprecated
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/SkillDialog.java`
+#### Snippet
+```java
+// Licensed under the MT License.
+
+package com.microsoft.bot.dialogs;
+
+import java.util.Map;
+```
+
+### Deprecation
+'com.microsoft.bot.dialogs' is deprecated
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/Dialog.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.dialogs;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 ```
 
 ### Deprecation
@@ -4486,26 +3071,14 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 
 ### Deprecation
 'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/choices/FindChoicesOptions.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/ComponentDialog.java`
 #### Snippet
 ```java
 // Licensed under the MIT License.
 
-package com.microsoft.bot.dialogs.choices;
+package com.microsoft.bot.dialogs;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.builder' is deprecated
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ActivityHandler.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.builder;
-
-import com.microsoft.bot.connector.Async;
+import java.util.ArrayList;
 ```
 
 ### Deprecation
@@ -4522,14 +3095,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 ### Deprecation
 'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/pathresolvers/AliasPathResolver.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/choices/Token.java`
 #### Snippet
 ```java
 // Licensed under the MIT License.
 
-package com.microsoft.bot.dialogs.memory.pathresolvers;
+package com.microsoft.bot.dialogs.choices;
 
-import com.microsoft.bot.dialogs.memory.PathResolver;
+/**
 ```
 
 ### Deprecation
@@ -4546,18 +3119,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 ### Deprecation
 'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/choices/ModelResult.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.dialogs.choices;
-
-/**
-```
-
-### Deprecation
-'com.microsoft.bot.dialogs' is deprecated
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/choices/TokenizerFunction.java`
 #### Snippet
 ```java
@@ -4570,19 +3131,7 @@ import java.util.List;
 
 ### Deprecation
 'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/choices/Tokenizer.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.dialogs.choices;
-
-import java.util.ArrayList;
-```
-
-### Deprecation
-'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/choices/Token.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/choices/ModelResult.java`
 #### Snippet
 ```java
 // Licensed under the MIT License.
@@ -4606,14 +3155,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 ### Deprecation
 'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/choices/SortedValue.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/choices/Tokenizer.java`
 #### Snippet
 ```java
 // Licensed under the MIT License.
 
 package com.microsoft.bot.dialogs.choices;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.ArrayList;
 ```
 
 ### Deprecation
@@ -4629,19 +3178,7 @@ package com.microsoft.bot.dialogs.prompts;
 
 ### Deprecation
 'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/PromptValidator.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.dialogs.prompts;
-
-import java.util.concurrent.CompletableFuture;
-```
-
-### Deprecation
-'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/choices/Choice.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/choices/SortedValue.java`
 #### Snippet
 ```java
 // Licensed under the MIT License.
@@ -4653,7 +3190,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 ### Deprecation
 'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/choices/FindValuesOptions.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/choices/Choice.java`
 #### Snippet
 ```java
 // Licensed under the MIT License.
@@ -4677,14 +3214,26 @@ import com.microsoft.bot.builder.TurnContext;
 
 ### Deprecation
 'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/ComponentDialog.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/choices/FindValuesOptions.java`
 #### Snippet
 ```java
 // Licensed under the MIT License.
 
-package com.microsoft.bot.dialogs;
+package com.microsoft.bot.dialogs.choices;
 
-import java.util.ArrayList;
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.dialogs' is deprecated
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/PromptValidator.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.dialogs.prompts;
+
+import java.util.concurrent.CompletableFuture;
 ```
 
 ### Deprecation
@@ -4713,18 +3262,6 @@ import com.microsoft.bot.connector.authentication.AppCredentials;
 
 ### Deprecation
 'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/choices/Find.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.dialogs.choices;
-
-import java.util.ArrayList;
-```
-
-### Deprecation
-'com.microsoft.bot.dialogs' is deprecated
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/choices/ChoiceRecognizers.java`
 #### Snippet
 ```java
@@ -4737,6 +3274,18 @@ import com.microsoft.recognizers.text.IModel;
 
 ### Deprecation
 'com.microsoft.bot.dialogs' is deprecated
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/choices/Find.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.dialogs.choices;
+
+import java.util.ArrayList;
+```
+
+### Deprecation
+'com.microsoft.bot.dialogs' is deprecated
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/choices/ChoiceFactory.java`
 #### Snippet
 ```java
@@ -4745,30 +3294,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/choices/Choice
 package com.microsoft.bot.dialogs.choices;
 
 import com.microsoft.bot.builder.MessageFactory;
-```
-
-### Deprecation
-'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/NumberPrompt.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.dialogs.prompts;
-
-import java.util.List;
-```
-
-### Deprecation
-'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/PromptCultureModels.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.dialogs.prompts;
-
-import java.util.Arrays;
 ```
 
 ### Deprecation
@@ -4809,6 +3334,66 @@ package com.microsoft.bot.dialogs.prompts;
 
 ### Deprecation
 'com.microsoft.bot.dialogs' is deprecated
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/DialogStateManager.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.dialogs.memory;
+
+import java.util.AbstractMap;
+```
+
+### Deprecation
+'com.microsoft.bot.dialogs' is deprecated
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/DialogStateManager.java`
+#### Snippet
+```java
+    /**
+     * Initializes a new instance of the
+     * {@link com.microsoft.bot.dialogs.memory.DialogStateManager} class.
+     *
+     * @param dc            The dialog context for the current turn of the
+```
+
+### Deprecation
+'com.microsoft.bot.dialogs' is deprecated
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/DialogStateManager.java`
+#### Snippet
+```java
+    /**
+     * Initializes a new instance of the
+     * {@link com.microsoft.bot.dialogs.memory.DialogStateManager} class.
+     *
+     * @param dc            The dialog context for the current turn of the
+```
+
+### Deprecation
+'com.microsoft.bot.dialogs' is deprecated
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/NumberPrompt.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.dialogs.prompts;
+
+import java.util.List;
+```
+
+### Deprecation
+'com.microsoft.bot.dialogs' is deprecated
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/TextPrompt.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.dialogs.prompts;
+
+import java.util.Map;
+```
+
+### Deprecation
+'com.microsoft.bot.dialogs' is deprecated
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ConfirmPrompt.java`
 #### Snippet
 ```java
@@ -4833,18 +3418,6 @@ package com.microsoft.bot.dialogs.prompts;
 
 ### Deprecation
 'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/TextPrompt.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.dialogs.prompts;
-
-import java.util.Map;
-```
-
-### Deprecation
-'com.microsoft.bot.dialogs' is deprecated
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/DateTimeResolution.java`
 #### Snippet
 ```java
@@ -4857,14 +3430,14 @@ package com.microsoft.bot.dialogs.prompts;
 
 ### Deprecation
 'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ActivityPrompt.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/PromptCultureModels.java`
 #### Snippet
 ```java
 // Licensed under the MIT License.
 
 package com.microsoft.bot.dialogs.prompts;
 
-import java.util.HashMap;
+import java.util.Arrays;
 ```
 
 ### Deprecation
@@ -4881,38 +3454,38 @@ import java.util.List;
 
 ### Deprecation
 'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/DialogStateManager.java`
-#### Snippet
-```java
-    /**
-     * Initializes a new instance of the
-     * {@link com.microsoft.bot.dialogs.memory.DialogStateManager} class.
-     *
-     * @param dc            The dialog context for the current turn of the
-```
-
-### Deprecation
-'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/DialogStateManager.java`
-#### Snippet
-```java
-    /**
-     * Initializes a new instance of the
-     * {@link com.microsoft.bot.dialogs.memory.DialogStateManager} class.
-     *
-     * @param dc            The dialog context for the current turn of the
-```
-
-### Deprecation
-'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/DialogStateManager.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/Prompt.java`
 #### Snippet
 ```java
 // Licensed under the MIT License.
 
-package com.microsoft.bot.dialogs.memory;
+package com.microsoft.bot.dialogs.prompts;
 
-import java.util.AbstractMap;
+import java.util.HashMap;
+```
+
+### Deprecation
+'com.microsoft.bot.dialogs' is deprecated
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/Prompt.java`
+#### Snippet
+```java
+     *
+     *                  The value of dialogId must be unique within the
+     *                  {@link com.microsoft.bot.dialogs.DialogSet} or
+     *                  {@link com.microsoft.bot.dialogs.ComponentDialog} to which
+     *                  the prompt is added.
+```
+
+### Deprecation
+'com.microsoft.bot.dialogs' is deprecated
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/Prompt.java`
+#### Snippet
+```java
+     *                  The value of dialogId must be unique within the
+     *                  {@link com.microsoft.bot.dialogs.DialogSet} or
+     *                  {@link com.microsoft.bot.dialogs.ComponentDialog} to which
+     *                  the prompt is added.
+     */
 ```
 
 ### Deprecation
@@ -4965,31 +3538,7 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/Prompt
 
 ### Deprecation
 'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/Prompt.java`
-#### Snippet
-```java
-     *
-     *                  The value of dialogId must be unique within the
-     *                  {@link com.microsoft.bot.dialogs.DialogSet} or
-     *                  {@link com.microsoft.bot.dialogs.ComponentDialog} to which
-     *                  the prompt is added.
-```
-
-### Deprecation
-'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/Prompt.java`
-#### Snippet
-```java
-     *                  The value of dialogId must be unique within the
-     *                  {@link com.microsoft.bot.dialogs.DialogSet} or
-     *                  {@link com.microsoft.bot.dialogs.ComponentDialog} to which
-     *                  the prompt is added.
-     */
-```
-
-### Deprecation
-'com.microsoft.bot.dialogs' is deprecated
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/Prompt.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ActivityPrompt.java`
 #### Snippet
 ```java
 // Licensed under the MIT License.
@@ -5024,6 +3573,2137 @@ import java.net.HttpURLConnection;
 ```
 
 ### Deprecation
+'com.microsoft.bot.integration' is deprecated
+in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/Configuration.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.integration;
+
+import java.util.Properties;
+```
+
+### Deprecation
+'com.microsoft.bot.integration' is deprecated
+in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/package-info.java`
+#### Snippet
+```java
+ */
+@Deprecated
+package com.microsoft.bot.integration;
+
+```
+
+### Deprecation
+'com.microsoft.bot.integration' is deprecated
+in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/ConfigurationCredentialProvider.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.integration;
+
+import com.microsoft.bot.connector.authentication.MicrosoftAppCredentials;
+```
+
+### Deprecation
+'com.microsoft.bot.integration' is deprecated
+in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/ClasspathPropertiesConfiguration.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.integration;
+
+import org.slf4j.LoggerFactory;
+```
+
+### Deprecation
+'com.microsoft.bot.integration' is deprecated
+in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/AdapterWithInspection.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.integration;
+
+import com.microsoft.bot.builder.ConversationState;
+```
+
+### Deprecation
+'com.microsoft.bot.integration' is deprecated
+in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/ConfigurationChannelProvider.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.integration;
+
+import com.microsoft.bot.connector.authentication.SimpleChannelProvider;
+```
+
+### Deprecation
+'com.microsoft.bot.integration' is deprecated
+in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/SkillHttpClient.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.integration;
+
+import java.net.URI;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/package-info.java`
+#### Snippet
+```java
+ */
+@Deprecated
+package com.microsoft.bot.schema;
+
+```
+
+### Deprecation
+'com.microsoft.bot.integration' is deprecated
+in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/BotFrameworkHttpAdapter.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.integration;
+
+import com.microsoft.bot.builder.Bot;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ResultPair.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+/**
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/SignInResource.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ThumbnailUrl.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/TokenExchangeInvokeResponse.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/InputHints.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+```
+
+### Deprecation
+'com.microsoft.bot.integration' is deprecated
+in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/AdapterWithErrorHandler.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.integration;
+
+import com.microsoft.bot.builder.ConversationState;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/AdapterWithErrorHandler.java`
+#### Snippet
+```java
+    /**
+     * Constructs an error handling BotFrameworkHttpAdapter by providing an
+     * {@link com.microsoft.bot.builder.OnTurnErrorHandler}.
+     *
+     * <p>
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/AdapterWithErrorHandler.java`
+#### Snippet
+```java
+    /**
+     * Constructs an error handling BotFrameworkHttpAdapter by providing an
+     * {@link com.microsoft.bot.builder.OnTurnErrorHandler}.
+     *
+     * <p>
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ConversationsResult.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ErrorResponse.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/EntitySerialization.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+/**
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/Place.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/AdaptiveCardInvokeResponse.java`
+#### Snippet
+```java
+// Licensed under the MT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/TokenExchangeResource.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/OAuthCard.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/EndOfConversationCodes.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/MediaUrl.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ConversationMembers.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/AdaptiveCardAuthentication.java`
+#### Snippet
+```java
+// Licensed under the MT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/HandoffEventNames.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+/**
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/CommandResultValue.java`
+#### Snippet
+```java
+// Licensed under the MT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ConversationResourceResponse.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/CardImage.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/PagedMembersResult.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ReceiptCard.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/Mention.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/SemanticActionStates.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/SemanticAction.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ActivityImportance.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/Transcript.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ActivityTypes.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+/**
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/NanoClockHelper.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import java.time.Clock;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/DeliveryModes.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/InnerHttpError.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/MessageReactionTypes.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+/**
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/InstallationUpdateActionTypes.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/TokenExchangeInvokeRequest.java`
+#### Snippet
+```java
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'create(okhttp3.MediaType, java.lang.String)' is deprecated
+in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/BotFrameworkHttpClient.java`
+#### Snippet
+```java
+
+        try {
+            RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), jsonContent);
+            Request request = buildRequest(activity, toUrl, body, token);
+            Response response = httpClient.newCall(request).execute();
+```
+
+### Deprecation
+'com.microsoft.bot.integration' is deprecated
+in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/BotFrameworkHttpClient.java`
+#### Snippet
+```java
+// Licensed under the MT License.
+
+package com.microsoft.bot.integration;
+
+import com.microsoft.bot.connector.ConversationConstants;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/MessageReaction.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/BasicCard.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ThumbnailCard.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/AdaptiveCardInvokeValue.java`
+#### Snippet
+```java
+
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/TokenExchangeRequest.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/TextHighlight.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/SigninCard.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/AttachmentInfo.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ConversationAccount.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/AttachmentView.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/TokenStatus.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ActionTypes.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/Entity.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/CardAction.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/TextFormatTypes.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/TokenExchangeState.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/SpeechConstants.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+/**
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/Error.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ResourceResponse.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/CommandValue.java`
+#### Snippet
+```java
+// Licensed under the MT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/GeoCoordinates.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ContactRelationUpdateActionTypes.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ActivityEventNames.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+/**
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/TokenRequest.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/MediaCard.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ChannelAccount.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ExpectedReplies.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/RoleTypes.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/TokenResponse.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/AnimationCard.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ConversationParameters.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/MediaEventValue.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/Attachment.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/AadResourceUrls.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import java.util.Arrays;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/AdaptiveCardInvokeAction.java`
+#### Snippet
+```java
+// Licensed under the MT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/CallerIdConstants.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+/**
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/Thing.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/AttachmentData.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ReceiptItem.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/Serialization.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/Pair.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+/**
+```
+
+### Deprecation
+'configure(com.fasterxml.jackson.databind.MapperFeature, boolean)' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/Serialization.java`
+#### Snippet
+```java
+        objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        objectMapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
+        objectMapper.findAndRegisterModules();
+
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/SignInConstants.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+/**
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/AttachmentLayoutTypes.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/HeroCard.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ConversationReference.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import java.util.UUID;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TabResponseCard.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/package-info.java`
+#### Snippet
+```java
+ * This package contains the models classes for com.microsoft.bot.schema.teams.
+ */
+package com.microsoft.bot.schema.teams;
+
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/Fact.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TaskModuleResponse.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MessagingExtensionParameter.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/SuggestedActions.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/VideoCard.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/O365ConnectorCardActionBase.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MeetingDetails.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MessagingExtensionSuggestedAction.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MessagingExtensionActionResponse.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/FileConsentCardResponse.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TabResponseCards.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TeamsChannelData.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/AudioCard.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MessageActionsPayloadApp.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MessageActionsPayloadBody.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MeetingEventDetails.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/O365ConnectorCardOpenUri.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MessageActionsPayloadMention.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/O365ConnectorCardActionCard.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/O365ConnectorCardTextInput.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MessageActionsPayloadUser.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MessageActionsPayload.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TaskModuleRequest.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TaskModuleContinueResponse.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/O365ConnectorCardHttpPOST.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/O365ConnectorCardFact.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TabSuggestedActions.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TaskModuleTaskInfo.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TeamsMeetingInfo.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TabResponsePayload.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MeetingInfo.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MeetingDetailsBase.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TaskModuleRequestContext.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TeamDetails.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TeamInfo.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TabContext.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TabRequest.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MessageActionsPayloadReaction.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MeetingEndEventDetails.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/O365ConnectorCardOpenUriTarget.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TeamsPagedMembersResult.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MessagingExtensionAttachment.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MessageActionsPayloadAttachment.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/CacheInfo.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/O365ConnectorCardSection.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MessagingExtensionAction.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/Activity.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema;
+
+import com.microsoft.bot.schema.teams.NotificationInfo;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/O365ConnectorCardViewAction.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TaskModuleMessageResponse.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TabSubmit.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TaskModuleResponseBase.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/O365ConnectorCard.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/FileInfoCard.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/O365ConnectorCardInputBase.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TaskModuleAction.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/O365ConnectorCardMultichoiceInput.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MessageActionsPayloadConversation.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MessagingExtensionResponse.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/SigninStateVerificationQuery.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MessagingExtensionQueryOptions.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/NotificationInfo.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/AttachmentExtensions.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.microsoft.bot.schema.Attachment;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/ChannelInfo.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MessagingExtensionQuery.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TeamsChannelAccount.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonGetter;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/FileDownloadInfo.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MessageActionsPayloadFrom.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MeetingParticipantInfo.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/O365ConnectorCardDateInput.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/FileConsentCard.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/FileUploadInfo.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MeetingStartEventDetails.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TabEntityContext.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/O365ConnectorCardImage.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/O365ConnectorCardActionQuery.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MessagingExtensionResult.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/ConversationList.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TabResponse.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TenantInfo.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TabSubmitData.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/O365ConnectorCardMultichoiceInputChoice.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TeamsMeetingParticipant.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.schema.teams;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
 'com.microsoft.bot.ai.luis' is deprecated
 in `libraries/bot-ai-luis-v3/src/main/java/com/microsoft/bot/ai/luis/package-info.java`
 #### Snippet
@@ -5035,13 +5715,13 @@ package com.microsoft.bot.ai.luis;
 ```
 
 ### Deprecation
-'com.microsoft.bot.ai.luis' is deprecated
-in `libraries/bot-ai-luis-v3/src/main/java/com/microsoft/bot/ai/luis/DynamicList.java`
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/AppBasedLinkQuery.java`
 #### Snippet
 ```java
 // Licensed under the MIT License.
 
-package com.microsoft.bot.ai.luis;
+package com.microsoft.bot.schema.teams;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 ```
@@ -5072,6 +5752,30 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 ### Deprecation
 'com.microsoft.bot.ai.luis' is deprecated
+in `libraries/bot-ai-luis-v3/src/main/java/com/microsoft/bot/ai/luis/LuisSlot.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.ai.luis;
+
+/**
+```
+
+### Deprecation
+'com.microsoft.bot.ai.luis' is deprecated
+in `libraries/bot-ai-luis-v3/src/main/java/com/microsoft/bot/ai/luis/DynamicList.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.ai.luis;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.ai.luis' is deprecated
 in `libraries/bot-ai-luis-v3/src/main/java/com/microsoft/bot/ai/luis/TelemetryRecognizer.java`
 #### Snippet
 ```java
@@ -5083,15 +5787,14 @@ import com.microsoft.bot.builder.BotTelemetryClient;
 ```
 
 ### Deprecation
-'com.microsoft.bot.ai.luis' is deprecated
-in `libraries/bot-ai-luis-v3/src/main/java/com/microsoft/bot/ai/luis/LuisApplication.java`
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/package-info.java`
 #### Snippet
 ```java
-// Licensed under the MIT License.
+ */
+@Deprecated
+package com.microsoft.bot.builder;
 
-package com.microsoft.bot.ai.luis;
-
-import okhttp3.HttpUrl;
 ```
 
 ### Deprecation
@@ -5107,8 +5810,56 @@ import com.microsoft.bot.builder.BotTelemetryClient;
 ```
 
 ### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/Severity.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+/**
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TranscriptStore.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import com.microsoft.bot.schema.Activity;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/Bot.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import java.util.concurrent.CompletableFuture;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/Recognizer.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import java.util.concurrent.CompletableFuture;
+```
+
+### Deprecation
 'com.microsoft.bot.ai.luis' is deprecated
-in `libraries/bot-ai-luis-v3/src/main/java/com/microsoft/bot/ai/luis/LuisSlot.java`
+in `libraries/bot-ai-luis-v3/src/main/java/com/microsoft/bot/ai/luis/LuisTelemetryConstants.java`
 #### Snippet
 ```java
 // Licensed under the MIT License.
@@ -5116,6 +5867,1123 @@ in `libraries/bot-ai-luis-v3/src/main/java/com/microsoft/bot/ai/luis/LuisSlot.ja
 package com.microsoft.bot.ai.luis;
 
 /**
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TypedInvokeResponse.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+/**
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/RegisterClassMiddleware.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import java.util.concurrent.CompletableFuture;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/DelegatingTurnContext.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import com.microsoft.bot.schema.Activity;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TelemetryConstants.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+/**
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TraceTranscriptLogger.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/StatePropertyInfo.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+/**
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/SendActivitiesHandler.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import com.microsoft.bot.schema.Activity;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/InvokeResponse.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+/**
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ShowTypingMiddleware.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import com.microsoft.bot.connector.ExecutorFactory;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TranscriptLogger.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import com.microsoft.bot.schema.Activity;
+```
+
+### Deprecation
+'com.microsoft.bot.ai.luis' is deprecated
+in `libraries/bot-ai-luis-v3/src/main/java/com/microsoft/bot/ai/luis/LuisApplication.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.ai.luis;
+
+import okhttp3.HttpUrl;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/PropertyManager.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+/**
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ComponentRegistration.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import java.util.concurrent.ConcurrentHashMap;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TurnContextStateCollection.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import com.microsoft.bot.connector.ConnectorClient;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/RecognizerConvert.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+/**
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ConversationState.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import org.apache.commons.lang3.StringUtils;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/DeleteActivityHandler.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import com.microsoft.bot.schema.ConversationReference;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/UserTokenProvider.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import com.microsoft.bot.connector.authentication.AppCredentials;
+```
+
+### Deprecation
+'enableDefaultTyping()' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/MemoryStorage.java`
+#### Snippet
+```java
+            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+            .findAndRegisterModules();
+        objectMapper.enableDefaultTyping();
+
+        memory = values != null ? values : new ConcurrentHashMap<>();
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/MemoryStorage.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TranscriptInfo.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import java.time.OffsetDateTime;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/AutoSaveStateMiddleware.java`
+#### Snippet
+```java
+// Licensed under the MIT license.
+
+package com.microsoft.bot.builder;
+
+import java.util.Arrays;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/PagedResult.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import java.util.ArrayList;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ConnectorClientBuilder.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import java.util.concurrent.CompletableFuture;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/Storage.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import java.util.Map;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotCallbackHandler.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import java.util.concurrent.CompletableFuture;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TelemetryLoggerConstants.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+/**
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/RecognizerResult.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+```
+
+### Deprecation
+'com.microsoft.bot.ai.luis' is deprecated
+in `libraries/bot-ai-luis-v3/src/main/java/com/microsoft/bot/ai/luis/LuisRecognizer.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.ai.luis;
+
+import com.fasterxml.jackson.databind.JsonNode;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/IntentScore.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/NextDelegate.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import java.util.concurrent.CompletableFuture;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotStateSet.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import java.util.ArrayList;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/MessageFactory.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import com.microsoft.bot.schema.ActionTypes;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/QueueStorage.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import com.microsoft.bot.schema.Activity;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/UserState.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import org.apache.commons.lang3.StringUtils;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TranscriptLoggerMiddleware.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import com.microsoft.bot.schema.Activity;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/OnTurnErrorHandler.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import java.util.concurrent.CompletableFuture;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TurnContext.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import com.microsoft.bot.schema.Activity;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/EventFactory.java`
+#### Snippet
+```java
+// Licensed under the MT License.
+
+package com.microsoft.bot.builder;
+
+import java.time.OffsetDateTime;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ChannelServiceHandler.java`
+#### Snippet
+```java
+package com.microsoft.bot.builder;
+
+import java.util.List;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/Middleware.java`
+#### Snippet
+```java
+     *         </p>
+     *         <p>
+     *         {@link TurnContext} {@link com.microsoft.bot.schema.Activity}
+     */
+    CompletableFuture<Void> onTurn(TurnContext turnContext, NextDelegate next);
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/Middleware.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import java.util.concurrent.CompletableFuture;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/PrivateConversationState.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import org.apache.commons.lang3.StringUtils;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotAdapter.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import com.microsoft.bot.connector.Async;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TurnStateConstants.java`
+#### Snippet
+```java
+// Licensed under the MT License.
+
+package com.microsoft.bot.builder;
+
+import java.time.Duration;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/StoreItem.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotState.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TelemetryLoggerMiddleware.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotAssert.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import com.microsoft.bot.schema.Activity;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/UpdateActivityHandler.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import com.microsoft.bot.schema.Activity;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/StatePropertyAccessor.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import java.util.concurrent.CompletableFuture;
+```
+
+### Deprecation
+'put(java.lang.String, com.fasterxml.jackson.databind.JsonNode)' is deprecated
+in `libraries/bot-ai-luis-v3/src/main/java/com/microsoft/bot/ai/luis/LuisRecognizerOptionsV3.java`
+#### Snippet
+```java
+                    externalEntitiesNode.add(mapper.valueToTree(e));
+                }
+                luisOptions.put("externalEntities", externalEntitiesNode);
+            }
+
+```
+
+### Deprecation
+'put(java.lang.String, com.fasterxml.jackson.databind.JsonNode)' is deprecated
+in `libraries/bot-ai-luis-v3/src/main/java/com/microsoft/bot/ai/luis/LuisRecognizerOptionsV3.java`
+#### Snippet
+```java
+                    dynamicListNode.add(mapper.valueToTree(e));
+                }
+                luisOptions.put("dynamicLists", dynamicListNode);
+            }
+
+```
+
+### Deprecation
+'create(okhttp3.MediaType, java.lang.String)' is deprecated
+in `libraries/bot-ai-luis-v3/src/main/java/com/microsoft/bot/ai/luis/LuisRecognizerOptionsV3.java`
+#### Snippet
+```java
+
+        String contentAsText = mapper.writeValueAsString(content);
+        return RequestBody.create(MediaType.parse("application/json; charset=utf-8"), contentAsText);
+    }
+
+```
+
+### Deprecation
+'com.microsoft.bot.ai.luis' is deprecated
+in `libraries/bot-ai-luis-v3/src/main/java/com/microsoft/bot/ai/luis/LuisRecognizerOptionsV3.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.ai.luis;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/SkypeMentionNormalizeMiddleware.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import com.fasterxml.jackson.databind.JsonNode;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/NullBotTelemetryClient.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import java.time.Duration;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotTelemetryClient.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import java.time.Duration;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/MemoryTranscriptStore.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import com.codepoetics.protonpack.StreamUtils;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/MiddlewareSet.java`
+#### Snippet
+```java
+     *         </p>
+     *         <p>
+     *         {@link TurnContext} {@link com.microsoft.bot.schema.Activity}
+     */
+    @Override
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/MiddlewareSet.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import java.util.ArrayList;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/SetSpeakMiddleware.java`
+#### Snippet
+```java
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MT License.
+package com.microsoft.bot.builder;
+
+import java.io.IOException;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/teams/package-info.java`
+#### Snippet
+```java
+ * This package contains the classes for com.microsoft.bot.builder.teams.
+ */
+package com.microsoft.bot.builder.teams;
+
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/package-info.java`
+#### Snippet
+```java
+ * This package contains the classes for com.microsoft.bot.builder.skills.
+ */
+package com.microsoft.bot.builder.skills;
+
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/BotFrameworkSkill.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder.skills;
+
+import java.net.URI;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/BotFrameworkClient.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder.skills;
+
+import java.net.URI;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationReference.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder.skills;
+
+import com.microsoft.bot.schema.ConversationReference;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TurnContextImpl.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import com.microsoft.bot.connector.Async;
+```
+
+### Deprecation
+'com.microsoft.bot.connector' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TurnContextImpl.java`
+#### Snippet
+```java
+     * @param withActivity New replacement activity.
+     * @return A task that represents the work queued to execute.
+     * @throws com.microsoft.bot.connector.rest.ErrorResponseException The HTTP
+     *                                                                 operation
+     *                                                                 failed and
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryOptions.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder.skills;
+
+import com.microsoft.bot.schema.Activity;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/inspection/package-info.java`
+#### Snippet
+```java
+ * This package contains the classes for com.microsoft.bot.builder.inspection.
+ */
+package com.microsoft.bot.builder.inspection;
+
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactory.java`
+#### Snippet
+```java
+// Licensed under the MT License.
+
+package com.microsoft.bot.builder.skills;
+
+import java.util.HashMap;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder.skills;
+
+import java.util.concurrent.CompletableFuture;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/inspection/InspectionSession.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder.inspection;
+
+import com.microsoft.bot.connector.ConnectorClient;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/inspection/InspectionState.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder.inspection;
+
+import com.microsoft.bot.builder.BotState;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/inspection/InspectionSessionsByStatus.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder.inspection;
+
+import com.microsoft.bot.schema.ConversationReference;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/inspection/InspectionActivityExtensions.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder.inspection;
+
+import com.fasterxml.jackson.databind.JsonNode;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/inspection/InterceptionMiddleware.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder.inspection;
+
+import com.microsoft.bot.builder.Middleware;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/integration/package-info.java`
+#### Snippet
+```java
+ * This package contains the classes for com.microsoft.bot.builder.integration.
+ */
+package com.microsoft.bot.builder.integration;
+
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/integration/AdapterIntegration.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder.integration;
+
+import com.microsoft.bot.builder.BotCallbackHandler;
+```
+
+### Deprecation
+'com.microsoft.bot.applicationinsights' is deprecated
+in `libraries/bot-applicationinsights/src/main/java/com/microsoft/bot/applicationinsights/package-info.java`
+#### Snippet
+```java
+ */
+@Deprecated
+package com.microsoft.bot.applicationinsights;
+
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/teams/TeamsSSOTokenExchangeMiddleware.java`
+#### Snippet
+```java
+     *         </p>
+     *         <p>
+     *         {@link TurnContext} {@link com.microsoft.bot.schema.Activity}
+     */
+    public CompletableFuture<Void> onTurn(TurnContext turnContext, NextDelegate next) {
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/teams/TeamsSSOTokenExchangeMiddleware.java`
+#### Snippet
+```java
+// Licensed under the MT License.
+
+package com.microsoft.bot.builder.teams;
+
+import java.net.HttpURLConnection;
+```
+
+### Deprecation
+'com.microsoft.bot.applicationinsights' is deprecated
+in `libraries/bot-applicationinsights/src/main/java/com/microsoft/bot/applicationinsights/core/package-info.java`
+#### Snippet
+```java
+ * This package contains the classes for com.microsoft.bot.applicationinsights.core.
+ */
+package com.microsoft.bot.applicationinsights.core;
+
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillHandler.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder.skills;
+
+import java.util.Map;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/teams/TeamsInfo.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder.teams;
+
+import com.microsoft.bot.builder.BotFrameworkAdapter;
+```
+
+### Deprecation
+'com.microsoft.bot.azure' is deprecated
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/package-info.java`
+#### Snippet
+```java
+ */
+@Deprecated
+package com.microsoft.bot.azure;
+
+```
+
+### Deprecation
+'com.microsoft.bot.applicationinsights' is deprecated
+in `libraries/bot-applicationinsights/src/main/java/com/microsoft/bot/applicationinsights/AvailabilityTelemetry.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.applicationinsights;
+
+import com.microsoft.applicationinsights.internal.schemav2.AvailabilityData;
+```
+
+### Deprecation
+'com.microsoft.bot.applicationinsights' is deprecated
+in `libraries/bot-applicationinsights/src/main/java/com/microsoft/bot/applicationinsights/core/TelemetryInitializerMiddleware.java`
+#### Snippet
+```java
+// license information.
+
+package com.microsoft.bot.applicationinsights.core;
+
+import com.microsoft.applicationinsights.core.dependencies.http.client.protocol.HttpClientContext;
+```
+
+### Deprecation
+'com.microsoft.bot.azure' is deprecated
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/package-info.java`
+#### Snippet
+```java
+ * This package contains the classes for com.microsoft.bot.azure.blobs.
+ */
+package com.microsoft.bot.azure.blobs;
+
+```
+
+### Deprecation
+'com.microsoft.bot.azure' is deprecated
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/CosmosDbPartitionedStorageOptions.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.azure;
+
+import com.microsoft.azure.documentdb.ConnectionPolicy;
+```
+
+### Deprecation
+'com.microsoft.bot.azure' is deprecated
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/CosmosDbKeyEscape.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.azure;
+
+import org.apache.commons.lang3.ArrayUtils;
+```
+
+### Deprecation
+'com.microsoft.bot.azure' is deprecated
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/queues/package-info.java`
+#### Snippet
+```java
+ * This package contains the classes for com.microsoft.bot.azure.queues.
+ */
+package com.microsoft.bot.azure.queues;
+
+```
+
+### Deprecation
+'com.microsoft.bot.applicationinsights' is deprecated
+in `libraries/bot-applicationinsights/src/main/java/com/microsoft/bot/applicationinsights/ApplicationInsightsBotTelemetryClient.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.applicationinsights;
+
+import com.microsoft.applicationinsights.TelemetryClient;
 ```
 
 ### Deprecation
@@ -5131,13 +6999,13 @@ package com.microsoft.bot.connector;
 ```
 
 ### Deprecation
-'com.microsoft.bot.ai.luis' is deprecated
-in `libraries/bot-ai-luis-v3/src/main/java/com/microsoft/bot/ai/luis/LuisTelemetryConstants.java`
+'com.microsoft.bot.connector' is deprecated
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/Channels.java`
 #### Snippet
 ```java
 // Licensed under the MIT License.
 
-package com.microsoft.bot.ai.luis;
+package com.microsoft.bot.connector;
 
 /**
 ```
@@ -5155,18 +7023,6 @@ package com.microsoft.bot.connector;
 
 ### Deprecation
 'com.microsoft.bot.connector' is deprecated
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/Channels.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.connector;
-
-/**
-```
-
-### Deprecation
-'com.microsoft.bot.connector' is deprecated
 in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/BotSignIn.java`
 #### Snippet
 ```java
@@ -5175,6 +7031,18 @@ in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/BotSignIn.
 package com.microsoft.bot.connector;
 
 import java.util.concurrent.CompletableFuture;
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/inspection/InspectionMiddleware.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder.inspection;
+
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 ```
 
 ### Deprecation
@@ -5199,6 +7067,18 @@ in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/ConnectorC
 package com.microsoft.bot.connector;
 
 import com.microsoft.bot.restclient.RestClient;
+```
+
+### Deprecation
+'com.microsoft.bot.azure' is deprecated
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/queues/AzureQueueStorage.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.azure.queues;
+
+import com.azure.storage.queue.QueueClient;
 ```
 
 ### Deprecation
@@ -5239,18 +7119,6 @@ import java.util.concurrent.ExecutorService;
 
 ### Deprecation
 'com.microsoft.bot.connector' is deprecated
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/Conversations.java`
-#### Snippet
-```java
- */
-
-package com.microsoft.bot.connector;
-
-import com.microsoft.bot.schema.Activity;
-```
-
-### Deprecation
-'com.microsoft.bot.connector' is deprecated
 in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/UserToken.java`
 #### Snippet
 ```java
@@ -5275,6 +7143,18 @@ import org.slf4j.LoggerFactory;
 
 ### Deprecation
 'com.microsoft.bot.connector' is deprecated
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/ConnectorConfiguration.java`
+#### Snippet
+```java
+ */
+
+package com.microsoft.bot.connector;
+
+import java.io.InputStream;
+```
+
+### Deprecation
+'com.microsoft.bot.connector' is deprecated
 in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/OAuthClientConfig.java`
 #### Snippet
 ```java
@@ -5287,14 +7167,74 @@ import com.microsoft.bot.connector.authentication.AuthenticationConstants;
 
 ### Deprecation
 'com.microsoft.bot.connector' is deprecated
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/ConnectorConfiguration.java`
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/Async.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.connector;
+
+import java.util.concurrent.CompletableFuture;
+```
+
+### Deprecation
+'com.microsoft.bot.connector' is deprecated
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/Conversations.java`
 #### Snippet
 ```java
  */
 
 package com.microsoft.bot.connector;
 
-import java.io.InputStream;
+import com.microsoft.bot.schema.Activity;
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/teams/TeamsActivityHandler.java`
+#### Snippet
+```java
+     * <p>
+     * If using an OAuthPrompt, override this method to forward this
+     * {@link com.microsoft.bot.schema.Activity} to the current dialog.
+     * </p>
+     *
+```
+
+### Deprecation
+'com.microsoft.bot.schema' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/teams/TeamsActivityHandler.java`
+#### Snippet
+```java
+     * <p>
+     * When the {@link #onEventActivity(TurnContext)} method receives an event with
+     * a {@link com.microsoft.bot.schema.Activity#getName()} of `tokens/response`, it calls this method.
+     *
+     * @param turnContext The context object for this turn.
+```
+
+### Deprecation
+'com.microsoft.bot.builder.ActivityHandler' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/teams/TeamsActivityHandler.java`
+#### Snippet
+```java
+ */
+@SuppressWarnings({"checkstyle:JavadocMethod", "checkstyle:DesignForExtension", "checkstyle:MethodLength"})
+public class TeamsActivityHandler extends ActivityHandler {
+    /**
+     * Invoked when an invoke activity is received from the connector when the base
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/teams/TeamsActivityHandler.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder.teams;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
 ```
 
 ### Deprecation
@@ -5311,30 +7251,6 @@ import com.microsoft.bot.restclient.RestException;
 
 ### Deprecation
 'com.microsoft.bot.connector' is deprecated
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/Async.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.connector;
-
-import java.util.concurrent.CompletableFuture;
-```
-
-### Deprecation
-'com.microsoft.bot.ai.luis' is deprecated
-in `libraries/bot-ai-luis-v3/src/main/java/com/microsoft/bot/ai/luis/LuisRecognizer.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.ai.luis;
-
-import com.fasterxml.jackson.databind.JsonNode;
-```
-
-### Deprecation
-'com.microsoft.bot.connector' is deprecated
 in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/package-info.java`
 #### Snippet
 ```java
@@ -5342,6 +7258,66 @@ in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/packa
  */
 package com.microsoft.bot.connector.rest;
 
+```
+
+### Deprecation
+'download(java.io.OutputStream)' is deprecated
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsStorage.java`
+#### Snippet
+```java
+        while (true) {
+            try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+                blobReference.download(outputStream);
+                String contentString = outputStream.toString();
+
+```
+
+### Deprecation
+'enableDefaultTyping()' is deprecated
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsStorage.java`
+#### Snippet
+```java
+        objectMapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+            .findAndRegisterModules()
+            .enableDefaultTyping();
+
+        containerClient = new BlobContainerClientBuilder().connectionString(dataConnectionString)
+```
+
+### Deprecation
+'com.microsoft.bot.azure' is deprecated
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsStorage.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.azure.blobs;
+
+import com.azure.core.exception.HttpResponseException;
+```
+
+### Deprecation
+'uploadWithResponse(java.io.InputStream, long, com.azure.storage.blob.models.ParallelTransferOptions, com.azure.storage.blob.models.BlobHttpHeaders, java.util.Map, com.azure.storage.blob.models.AccessTier, com.azure.storage.blob.models.BlobRequestConditions, ...)' is deprecated
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsStorage.java`
+#### Snippet
+```java
+                InputStream stream = new ByteArrayInputStream(json.getBytes(StandardCharsets.UTF_8));
+                // verify the corresponding length
+                blobReference.uploadWithResponse(
+                    stream,
+                    stream.available(),
+```
+
+### Deprecation
+'com.microsoft.bot.connector' is deprecated
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestConnectorClient.java`
+#### Snippet
+```java
+ */
+
+package com.microsoft.bot.connector.rest;
+
+import com.microsoft.bot.connector.Attachments;
 ```
 
 ### Deprecation
@@ -5354,6 +7330,113 @@ in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestT
 package com.microsoft.bot.connector.rest;
 
 import com.microsoft.bot.connector.UserAgent;
+```
+
+### Deprecation
+'com.microsoft.bot.connector' is deprecated
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestOAuthClient.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.connector.rest;
+
+import com.microsoft.bot.connector.BotSignIn;
+```
+
+### Deprecation
+'com.microsoft.bot.azure' is deprecated
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsTranscriptStore.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.azure.blobs;
+
+import com.azure.core.exception.HttpResponseException;
+```
+
+### Deprecation
+'download(java.io.OutputStream)' is deprecated
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsTranscriptStore.java`
+#### Snippet
+```java
+    private CompletableFuture<Activity> getActivityFromBlobClient(BlobClient blobClient) {
+        ByteArrayOutputStream content = new ByteArrayOutputStream();
+        blobClient.download(content);
+        String contentString = new String(content.toByteArray());
+        try {
+```
+
+### Deprecation
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotFrameworkAdapter.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.builder;
+
+import com.fasterxml.jackson.databind.JsonNode;
+```
+
+### Deprecation
+'com.microsoft.bot.azure' is deprecated
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/CosmosDbPartitionedStorage.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.azure;
+
+import com.codepoetics.protonpack.collectors.CompletableFutures;
+```
+
+### Deprecation
+'enableDefaultTyping()' is deprecated
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/CosmosDbPartitionedStorage.java`
+#### Snippet
+```java
+        objectMapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+            .findAndRegisterModules()
+            .enableDefaultTyping();
+
+        client = new DocumentClient(
+```
+
+### Deprecation
+'com.microsoft.bot.connector' is deprecated
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/teams/package-info.java`
+#### Snippet
+```java
+ * This package contains the implementation classes for com.microsoft.bot.connector.teams.
+ */
+package com.microsoft.bot.connector.teams;
+
+```
+
+### Deprecation
+'com.microsoft.bot.connector' is deprecated
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/teams/TeamsConnectorClient.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.connector.teams;
+
+import com.microsoft.bot.restclient.RestClient;
+```
+
+### Deprecation
+'com.microsoft.bot.connector' is deprecated
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/teams/TeamsOperations.java`
+#### Snippet
+```java
+ */
+
+package com.microsoft.bot.connector.teams;
+
+import com.microsoft.bot.schema.teams.ConversationList;
 ```
 
 ### Deprecation
@@ -5394,113 +7477,6 @@ in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestA
 
 ### Deprecation
 'com.microsoft.bot.connector' is deprecated
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestOAuthClient.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.connector.rest;
-
-import com.microsoft.bot.connector.BotSignIn;
-```
-
-### Deprecation
-'com.microsoft.bot.connector' is deprecated
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestConnectorClient.java`
-#### Snippet
-```java
- */
-
-package com.microsoft.bot.connector.rest;
-
-import com.microsoft.bot.connector.Attachments;
-```
-
-### Deprecation
-'put(java.lang.String, com.fasterxml.jackson.databind.JsonNode)' is deprecated
-in `libraries/bot-ai-luis-v3/src/main/java/com/microsoft/bot/ai/luis/LuisRecognizerOptionsV3.java`
-#### Snippet
-```java
-                    externalEntitiesNode.add(mapper.valueToTree(e));
-                }
-                luisOptions.put("externalEntities", externalEntitiesNode);
-            }
-
-```
-
-### Deprecation
-'put(java.lang.String, com.fasterxml.jackson.databind.JsonNode)' is deprecated
-in `libraries/bot-ai-luis-v3/src/main/java/com/microsoft/bot/ai/luis/LuisRecognizerOptionsV3.java`
-#### Snippet
-```java
-                    dynamicListNode.add(mapper.valueToTree(e));
-                }
-                luisOptions.put("dynamicLists", dynamicListNode);
-            }
-
-```
-
-### Deprecation
-'com.microsoft.bot.ai.luis' is deprecated
-in `libraries/bot-ai-luis-v3/src/main/java/com/microsoft/bot/ai/luis/LuisRecognizerOptionsV3.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.ai.luis;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-```
-
-### Deprecation
-'create(okhttp3.MediaType, java.lang.String)' is deprecated
-in `libraries/bot-ai-luis-v3/src/main/java/com/microsoft/bot/ai/luis/LuisRecognizerOptionsV3.java`
-#### Snippet
-```java
-
-        String contentAsText = mapper.writeValueAsString(content);
-        return RequestBody.create(MediaType.parse("application/json; charset=utf-8"), contentAsText);
-    }
-
-```
-
-### Deprecation
-'com.microsoft.bot.connector' is deprecated
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/teams/package-info.java`
-#### Snippet
-```java
- * This package contains the implementation classes for com.microsoft.bot.connector.teams.
- */
-package com.microsoft.bot.connector.teams;
-
-```
-
-### Deprecation
-'com.microsoft.bot.connector' is deprecated
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/teams/TeamsConnectorClient.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.connector.teams;
-
-import com.microsoft.bot.restclient.RestClient;
-```
-
-### Deprecation
-'com.microsoft.bot.connector' is deprecated
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/teams/TeamsOperations.java`
-#### Snippet
-```java
- */
-
-package com.microsoft.bot.connector.teams;
-
-import com.microsoft.bot.schema.teams.ConversationList;
-```
-
-### Deprecation
-'com.microsoft.bot.connector' is deprecated
 in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/package-info.java`
 #### Snippet
 ```java
@@ -5512,14 +7488,14 @@ package com.microsoft.bot.connector.authentication;
 
 ### Deprecation
 'com.microsoft.bot.connector' is deprecated
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/OAuthConfiguration.java`
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestBotSignIn.java`
 #### Snippet
 ```java
-// license information.
+ * license information.
+ */
+package com.microsoft.bot.connector.rest;
 
-package com.microsoft.bot.connector.authentication;
-
-/**
+import com.google.common.reflect.TypeToken;
 ```
 
 ### Deprecation
@@ -5536,14 +7512,14 @@ in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestB
 
 ### Deprecation
 'com.microsoft.bot.connector' is deprecated
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestBotSignIn.java`
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/OAuthConfiguration.java`
 #### Snippet
 ```java
- * license information.
- */
-package com.microsoft.bot.connector.rest;
+// license information.
 
-import com.google.common.reflect.TypeToken;
+package com.microsoft.bot.connector.authentication;
+
+/**
 ```
 
 ### Deprecation
@@ -5552,18 +7528,6 @@ in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentica
 #### Snippet
 ```java
 // license information.
-
-package com.microsoft.bot.connector.authentication;
-
-import java.util.ArrayList;
-```
-
-### Deprecation
-'com.microsoft.bot.connector' is deprecated
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/AuthenticationConstants.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
 
 package com.microsoft.bot.connector.authentication;
 
@@ -5594,6 +7558,30 @@ import java.util.Map;
 
 ### Deprecation
 'com.microsoft.bot.connector' is deprecated
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestTeamsOperations.java`
+#### Snippet
+```java
+ */
+
+package com.microsoft.bot.connector.rest;
+
+import com.google.common.reflect.TypeToken;
+```
+
+### Deprecation
+'com.microsoft.bot.connector' is deprecated
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/AuthenticationConstants.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.connector.authentication;
+
+import java.util.ArrayList;
+```
+
+### Deprecation
+'com.microsoft.bot.connector' is deprecated
 in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/RetryParams.java`
 #### Snippet
 ```java
@@ -5618,26 +7606,14 @@ import org.apache.commons.lang3.StringUtils;
 
 ### Deprecation
 'com.microsoft.bot.connector' is deprecated
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestTeamsOperations.java`
-#### Snippet
-```java
- */
-
-package com.microsoft.bot.connector.rest;
-
-import com.google.common.reflect.TypeToken;
-```
-
-### Deprecation
-'com.microsoft.bot.connector' is deprecated
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/GovernmentChannelValidation.java`
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/TokenValidationParameters.java`
 #### Snippet
 ```java
 // Licensed under the MIT License.
 
 package com.microsoft.bot.connector.authentication;
 
-import org.apache.commons.lang3.StringUtils;
+import java.time.Duration;
 ```
 
 ### Deprecation
@@ -5654,6 +7630,18 @@ package com.microsoft.bot.connector.authentication;
 
 ### Deprecation
 'com.microsoft.bot.connector' is deprecated
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/CertificateAppCredentialsOptions.java`
+#### Snippet
+```java
+// license information.
+
+package com.microsoft.bot.connector.authentication;
+
+import java.io.InputStream;
+```
+
+### Deprecation
+'com.microsoft.bot.connector' is deprecated
 in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/ChannelValidation.java`
 #### Snippet
 ```java
@@ -5666,14 +7654,26 @@ import org.apache.commons.lang3.StringUtils;
 
 ### Deprecation
 'com.microsoft.bot.connector' is deprecated
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/CertificateAppCredentialsOptions.java`
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestUserToken.java`
 #### Snippet
 ```java
-// license information.
+ */
+
+package com.microsoft.bot.connector.rest;
+
+import com.microsoft.bot.connector.Async;
+```
+
+### Deprecation
+'com.microsoft.bot.connector' is deprecated
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/GovernmentChannelValidation.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
 
 package com.microsoft.bot.connector.authentication;
 
-import java.io.InputStream;
+import org.apache.commons.lang3.StringUtils;
 ```
 
 ### Deprecation
@@ -5690,36 +7690,12 @@ import com.microsoft.bot.connector.Async;
 
 ### Deprecation
 'com.microsoft.bot.connector' is deprecated
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/TokenValidationParameters.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.connector.authentication;
-
-import java.time.Duration;
-```
-
-### Deprecation
-'com.microsoft.bot.connector' is deprecated
 in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/RetryAfterHelper.java`
 #### Snippet
 ```java
 package com.microsoft.bot.connector.authentication;
 
 import java.time.Duration;
-```
-
-### Deprecation
-'com.microsoft.bot.connector' is deprecated
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/MicrosoftAppCredentials.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.connector.authentication;
-
-import java.net.MalformedURLException;
 ```
 
 ### Deprecation
@@ -5732,6 +7708,18 @@ in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentica
 package com.microsoft.bot.connector.authentication;
 
 import org.apache.commons.lang3.StringUtils;
+```
+
+### Deprecation
+'com.microsoft.bot.connector' is deprecated
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/MicrosoftAppCredentials.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.connector.authentication;
+
+import java.net.MalformedURLException;
 ```
 
 ### Deprecation
@@ -5760,18 +7748,6 @@ import com.microsoft.aad.msal4j.IAuthenticationResult;
 
 ### Deprecation
 'com.microsoft.bot.connector' is deprecated
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestUserToken.java`
-#### Snippet
-```java
- */
-
-package com.microsoft.bot.connector.rest;
-
-import com.microsoft.bot.connector.Async;
-```
-
-### Deprecation
-'com.microsoft.bot.connector' is deprecated
 in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/OpenIdMetadataKey.java`
 #### Snippet
 ```java
@@ -5783,15 +7759,15 @@ import java.security.interfaces.RSAPublicKey;
 ```
 
 ### Deprecation
-'com.microsoft.bot.connector' is deprecated
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/RetryException.java`
+'com.microsoft.bot.builder' is deprecated
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ActivityHandler.java`
 #### Snippet
 ```java
-// license information.
+// Licensed under the MIT License.
 
-package com.microsoft.bot.connector.authentication;
+package com.microsoft.bot.builder;
 
-import java.util.ArrayList;
+import com.microsoft.bot.connector.Async;
 ```
 
 ### Deprecation
@@ -5808,6 +7784,18 @@ import com.microsoft.aad.msal4j.IAuthenticationResult;
 
 ### Deprecation
 'com.microsoft.bot.connector' is deprecated
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/SkillValidation.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.connector.authentication;
+
+import com.auth0.jwt.JWT;
+```
+
+### Deprecation
+'com.microsoft.bot.connector' is deprecated
 in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/AppCredentialsInterceptor.java`
 #### Snippet
 ```java
@@ -5820,10 +7808,10 @@ import okhttp3.Interceptor;
 
 ### Deprecation
 'com.microsoft.bot.connector' is deprecated
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/AllowedCallersClaimsValidator.java`
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/RetryException.java`
 #### Snippet
 ```java
-// Licensed under the MT License.
+// license information.
 
 package com.microsoft.bot.connector.authentication;
 
@@ -5840,6 +7828,30 @@ in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentica
 package com.microsoft.bot.connector.authentication;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
+```
+
+### Deprecation
+'com.microsoft.bot.connector' is deprecated
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/MicrosoftGovernmentAppCredentials.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.connector.authentication;
+
+import org.apache.commons.lang3.StringUtils;
+```
+
+### Deprecation
+'com.microsoft.bot.connector' is deprecated
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/AllowedCallersClaimsValidator.java`
+#### Snippet
+```java
+// Licensed under the MT License.
+
+package com.microsoft.bot.connector.authentication;
+
+import java.util.ArrayList;
 ```
 
 ### Deprecation
@@ -5904,90 +7916,6 @@ package com.microsoft.bot.connector.authentication;
 
 ### Deprecation
 'com.microsoft.bot.connector' is deprecated
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/MicrosoftGovernmentAppCredentials.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.connector.authentication;
-
-import org.apache.commons.lang3.StringUtils;
-```
-
-### Deprecation
-'com.microsoft.bot.connector' is deprecated
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/SkillValidation.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.connector.authentication;
-
-import com.auth0.jwt.JWT;
-```
-
-### Deprecation
-'com.microsoft.bot.connector' is deprecated
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/CredentialProvider.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.connector.authentication;
-
-import java.util.concurrent.CompletableFuture;
-```
-
-### Deprecation
-'com.microsoft.bot.connector' is deprecated
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/AuthenticationConfiguration.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.connector.authentication;
-
-import java.util.ArrayList;
-```
-
-### Deprecation
-'com.microsoft.bot.connector' is deprecated
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/GovernmentAuthenticationConstants.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.connector.authentication;
-
-/**
-```
-
-### Deprecation
-'com.microsoft.bot.connector' is deprecated
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/CachingOpenIdMetadataResolver.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.connector.authentication;
-
-import java.util.concurrent.ConcurrentHashMap;
-```
-
-### Deprecation
-'com.microsoft.bot.connector' is deprecated
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/OpenIdMetadata.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.connector.authentication;
-
-/**
-```
-
-### Deprecation
-'com.microsoft.bot.connector' is deprecated
 in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/CachingOpenIdMetadata.java`
 #### Snippet
 ```java
@@ -6012,6 +7940,66 @@ import com.microsoft.bot.connector.Async;
 
 ### Deprecation
 'com.microsoft.bot.connector' is deprecated
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/CredentialProvider.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.connector.authentication;
+
+import java.util.concurrent.CompletableFuture;
+```
+
+### Deprecation
+'com.microsoft.bot.connector' is deprecated
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/GovernmentAuthenticationConstants.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.connector.authentication;
+
+/**
+```
+
+### Deprecation
+'com.microsoft.bot.connector' is deprecated
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/OpenIdMetadata.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.connector.authentication;
+
+/**
+```
+
+### Deprecation
+'com.microsoft.bot.connector' is deprecated
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/AuthenticationConfiguration.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.connector.authentication;
+
+import java.util.ArrayList;
+```
+
+### Deprecation
+'com.microsoft.bot.connector' is deprecated
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/CachingOpenIdMetadataResolver.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.connector.authentication;
+
+import java.util.concurrent.ConcurrentHashMap;
+```
+
+### Deprecation
+'com.microsoft.bot.connector' is deprecated
 in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/CertificateAppCredentials.java`
 #### Snippet
 ```java
@@ -6020,6 +8008,18 @@ in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentica
 package com.microsoft.bot.connector.authentication;
 
 import java.io.IOException;
+```
+
+### Deprecation
+'com.microsoft.bot.connector' is deprecated
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/JwtTokenExtractor.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.bot.connector.authentication;
+
+import com.auth0.jwt.JWT;
 ```
 
 ### Deprecation
@@ -6047,18 +8047,6 @@ import com.auth0.jwt.JWT;
 ```
 
 ### Deprecation
-'com.microsoft.bot.connector' is deprecated
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/JwtTokenExtractor.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.connector.authentication;
-
-import com.auth0.jwt.JWT;
-```
-
-### Deprecation
 'create(okhttp3.MediaType, byte\[\])' is deprecated
 in `libraries/bot-connector/src/main/java/com/microsoft/bot/restclient/serializer/JacksonConverterFactory.java`
 #### Snippet
@@ -6075,6 +8063,18 @@ in `libraries/bot-connector/src/main/java/com/microsoft/bot/restclient/serialize
 in `libraries/bot-connector/src/main/java/com/microsoft/bot/restclient/ServiceResponseBuilder.java`
 #### Snippet
 ```java
+        // Deserialize
+        else {
+            String responseContent = responseBody.source().buffer().readUtf8();
+            if (responseContent.length() <= 0) {
+                return null;
+```
+
+### Deprecation
+'buffer()' is deprecated
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/restclient/ServiceResponseBuilder.java`
+#### Snippet
+```java
                 String responseContent = "";
                 if (responseBody != null) {
                     responseContent = responseBody.source().buffer().clone().readUtf8();
@@ -6083,15 +8083,15 @@ in `libraries/bot-connector/src/main/java/com/microsoft/bot/restclient/ServiceRe
 ```
 
 ### Deprecation
-'buffer()' is deprecated
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/restclient/ServiceResponseBuilder.java`
+'constructType(java.lang.reflect.Type, com.fasterxml.jackson.databind.type.TypeBindings)' is deprecated
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/restclient/serializer/JacksonAdapter.java`
 #### Snippet
 ```java
-        // Deserialize
-        else {
-            String responseContent = responseBody.source().buffer().readUtf8();
-            if (responseContent.length() <= 0) {
-                return null;
+                javaTypeArgs[i] = constructJavaType(((ParameterizedType) type).getActualTypeArguments()[i]);
+            }
+            return mapper.getTypeFactory().constructType(type,
+                TypeBindings.create((Class<?>) ((ParameterizedType) type).getRawType(), javaTypeArgs));
+        } else {
 ```
 
 ### Deprecation
@@ -6119,18 +8119,6 @@ in `libraries/bot-connector/src/main/java/com/microsoft/bot/restclient/serialize
 ```
 
 ### Deprecation
-'constructType(java.lang.reflect.Type, com.fasterxml.jackson.databind.type.TypeBindings)' is deprecated
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/restclient/serializer/JacksonAdapter.java`
-#### Snippet
-```java
-                javaTypeArgs[i] = constructJavaType(((ParameterizedType) type).getActualTypeArguments()[i]);
-            }
-            return mapper.getTypeFactory().constructType(type,
-                TypeBindings.create((Class<?>) ((ParameterizedType) type).getRawType(), javaTypeArgs));
-        } else {
-```
-
-### Deprecation
 'com.microsoft.bot.connector' is deprecated
 in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestConversations.java`
 #### Snippet
@@ -6143,437 +8131,6 @@ import com.microsoft.bot.connector.Async;
 ```
 
 ### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/package-info.java`
-#### Snippet
-```java
- */
-@Deprecated
-package com.microsoft.bot.schema;
-
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/SignInResource.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ThumbnailUrl.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ResultPair.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-/**
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/InputHints.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/EntitySerialization.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-/**
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ConversationsResult.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/TokenExchangeResource.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/Place.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ErrorResponse.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/TokenExchangeInvokeResponse.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ConversationResourceResponse.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/MediaUrl.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/AdaptiveCardInvokeResponse.java`
-#### Snippet
-```java
-// Licensed under the MT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/EndOfConversationCodes.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ConversationMembers.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/OAuthCard.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/AdaptiveCardAuthentication.java`
-#### Snippet
-```java
-// Licensed under the MT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/HandoffEventNames.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-/**
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/PagedMembersResult.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/CardImage.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/SemanticActionStates.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/CommandResultValue.java`
-#### Snippet
-```java
-// Licensed under the MT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/SemanticAction.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/Transcript.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ActivityTypes.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-/**
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/Mention.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ReceiptCard.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/DeliveryModes.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/BasicCard.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/NanoClockHelper.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import java.time.Clock;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/MessageReactionTypes.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-/**
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/MessageReaction.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ActivityImportance.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/InnerHttpError.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/InstallationUpdateActionTypes.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-```
-
-### Deprecation
 'buffer()' is deprecated
 in `libraries/bot-connector/src/main/java/com/microsoft/bot/restclient/interceptors/LoggingInterceptor.java`
 #### Snippet
@@ -6583,1563 +8140,6 @@ in `libraries/bot-connector/src/main/java/com/microsoft/bot/restclient/intercept
             Buffer buffer = source.buffer();
 
             Charset charset = StandardCharsets.UTF_8;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/AdaptiveCardInvokeValue.java`
-#### Snippet
-```java
-
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/TokenExchangeInvokeRequest.java`
-#### Snippet
-```java
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/AttachmentView.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/SigninCard.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/TokenExchangeRequest.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/TextHighlight.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ThumbnailCard.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/TokenStatus.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ConversationAccount.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/AttachmentInfo.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/TextFormatTypes.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/SpeechConstants.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-/**
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ActionTypes.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ResourceResponse.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/CommandValue.java`
-#### Snippet
-```java
-// Licensed under the MT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/Entity.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/Error.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/CardAction.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/GeoCoordinates.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ContactRelationUpdateActionTypes.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/TokenExchangeState.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ActivityEventNames.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-/**
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ExpectedReplies.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/TokenRequest.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ChannelAccount.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/MediaCard.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/RoleTypes.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/TokenResponse.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/AdaptiveCardInvokeAction.java`
-#### Snippet
-```java
-// Licensed under the MT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/Attachment.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/CallerIdConstants.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-/**
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/AadResourceUrls.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import java.util.Arrays;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/Thing.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ConversationParameters.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'configure(com.fasterxml.jackson.databind.MapperFeature, boolean)' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/Serialization.java`
-#### Snippet
-```java
-        objectMapper = new ObjectMapper();
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        objectMapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
-        objectMapper.findAndRegisterModules();
-
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/Serialization.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/AttachmentData.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/MediaEventValue.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/SignInConstants.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-/**
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/AnimationCard.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/Pair.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-/**
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/AttachmentLayoutTypes.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ConversationReference.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import java.util.UUID;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ReceiptItem.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TabResponseCard.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/package-info.java`
-#### Snippet
-```java
- * This package contains the models classes for com.microsoft.bot.schema.teams.
- */
-package com.microsoft.bot.schema.teams;
-
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/SuggestedActions.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/HeroCard.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MessagingExtensionParameter.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TaskModuleResponse.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MessagingExtensionSuggestedAction.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/Fact.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/O365ConnectorCardActionBase.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MeetingDetails.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MessagingExtensionActionResponse.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/VideoCard.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TabResponseCards.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TeamsChannelData.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MessageActionsPayloadBody.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/O365ConnectorCardOpenUri.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MeetingEventDetails.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MessageActionsPayload.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MessageActionsPayloadMention.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MessageActionsPayloadApp.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/FileConsentCardResponse.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/AudioCard.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/O365ConnectorCardActionCard.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TabSuggestedActions.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/O365ConnectorCardTextInput.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MessageActionsPayloadUser.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TaskModuleContinueResponse.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MeetingInfo.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/O365ConnectorCardHttpPOST.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TaskModuleRequest.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TeamsMeetingInfo.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TaskModuleTaskInfo.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MeetingDetailsBase.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/O365ConnectorCardFact.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TaskModuleRequestContext.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TabResponsePayload.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MessagingExtensionAction.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TabContext.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TabRequest.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TeamDetails.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TeamInfo.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MessageActionsPayloadReaction.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MeetingEndEventDetails.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TeamsPagedMembersResult.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MessagingExtensionAttachment.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/CacheInfo.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MessageActionsPayloadAttachment.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TaskModuleMessageResponse.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/O365ConnectorCardOpenUriTarget.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TaskModuleResponseBase.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TaskModuleAction.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TabSubmit.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/O365ConnectorCardInputBase.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/O365ConnectorCardViewAction.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/O365ConnectorCard.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/FileInfoCard.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/SigninStateVerificationQuery.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TeamsChannelAccount.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonGetter;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MessageActionsPayloadConversation.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MessagingExtensionResponse.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/NotificationInfo.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/O365ConnectorCardMultichoiceInput.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/AttachmentExtensions.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.microsoft.bot.schema.Attachment;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MessagingExtensionQueryOptions.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MessagingExtensionQuery.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/ChannelInfo.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TabEntityContext.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/FileDownloadInfo.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/O365ConnectorCardSection.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MessageActionsPayloadFrom.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/FileUploadInfo.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MeetingStartEventDetails.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/Activity.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema;
-
-import com.microsoft.bot.schema.teams.NotificationInfo;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/O365ConnectorCardImage.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MeetingParticipantInfo.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/O365ConnectorCardDateInput.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TabResponse.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/FileConsentCard.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/ConversationList.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/MessagingExtensionResult.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/AppBasedLinkQuery.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TenantInfo.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TeamsMeetingParticipant.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/O365ConnectorCardActionQuery.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TabSubmitData.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-```
-
-### Deprecation
-'com.microsoft.bot.schema' is deprecated
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/O365ConnectorCardMultichoiceInputChoice.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.bot.schema.teams;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 ```
 
 ## RuleId[id=UnnecessaryReturn]
@@ -8334,30 +8334,6 @@ Not annotated method overrides method annotated with @NotNull
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/scopes/ReadOnlyObject.java`
 #### Snippet
 ```java
-     */
-    @Override
-    public Set<String> keySet() {
-        return new HashSet<String>(ObjectPath.getProperties(obj));
-    }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NotNull
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/scopes/ReadOnlyObject.java`
-#### Snippet
-```java
-
-    @Override
-    public Set<Entry<String, Object>> entrySet() {
-        Set<Entry<String, Object>> items = new HashSet<Entry<String, Object>>();
-        Set<String> keys = this.keySet();
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NotNull
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/scopes/ReadOnlyObject.java`
-#### Snippet
-```java
 
     @Override
     public Collection<Object> values() {
@@ -8375,6 +8351,30 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/scopes/
     public void putAll(Map<? extends String, ? extends Object> m) {
         throw new UnsupportedOperationException(notSupported);
     }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NotNull
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/scopes/ReadOnlyObject.java`
+#### Snippet
+```java
+     */
+    @Override
+    public Set<String> keySet() {
+        return new HashSet<String>(ObjectPath.getProperties(obj));
+    }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NotNull
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/scopes/ReadOnlyObject.java`
+#### Snippet
+```java
+
+    @Override
+    public Set<Entry<String, Object>> entrySet() {
+        Set<Entry<String, Object>> items = new HashSet<Entry<String, Object>>();
+        Set<String> keys = this.keySet();
 ```
 
 ### NullableProblems
@@ -8432,9 +8432,45 @@ in `libraries/bot-connector/src/main/java/com/microsoft/bot/restclient/serialize
 ```java
 
     @Override
-    public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
-        JavaType javaType = mapper.getTypeFactory().constructType(type);
-        ObjectReader reader = mapper.readerFor(javaType);
+    public Converter<?, RequestBody> requestBodyConverter(Type type,
+            Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
+        ObjectWriter writer = mapper.writer();
+```
+
+### NullableProblems
+Not annotated parameter overrides @EverythingIsNonNull parameter
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/restclient/serializer/JacksonConverterFactory.java`
+#### Snippet
+```java
+    @Override
+    public Converter<?, RequestBody> requestBodyConverter(Type type,
+            Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
+        ObjectWriter writer = mapper.writer();
+        return new JacksonRequestBodyConverter<>(writer);
+```
+
+### NullableProblems
+Not annotated parameter overrides @EverythingIsNonNull parameter
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/restclient/serializer/JacksonConverterFactory.java`
+#### Snippet
+```java
+    @Override
+    public Converter<?, RequestBody> requestBodyConverter(Type type,
+            Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
+        ObjectWriter writer = mapper.writer();
+        return new JacksonRequestBodyConverter<>(writer);
+```
+
+### NullableProblems
+Not annotated parameter overrides @EverythingIsNonNull parameter
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/restclient/serializer/JacksonConverterFactory.java`
+#### Snippet
+```java
+    @Override
+    public Converter<?, RequestBody> requestBodyConverter(Type type,
+            Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
+        ObjectWriter writer = mapper.writer();
+        return new JacksonRequestBodyConverter<>(writer);
 ```
 
 ### NullableProblems
@@ -8466,11 +8502,11 @@ Not annotated parameter overrides @EverythingIsNonNull parameter
 in `libraries/bot-connector/src/main/java/com/microsoft/bot/restclient/serializer/JacksonConverterFactory.java`
 #### Snippet
 ```java
-        }
 
-        @Override public T convert(ResponseBody value) throws IOException {
-            try (Reader reader = value.charStream()) {
-                return adapter.readValue(reader);
+    @Override
+    public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
+        JavaType javaType = mapper.getTypeFactory().constructType(type);
+        ObjectReader reader = mapper.readerFor(javaType);
 ```
 
 ### NullableProblems
@@ -8490,47 +8526,11 @@ Not annotated parameter overrides @EverythingIsNonNull parameter
 in `libraries/bot-connector/src/main/java/com/microsoft/bot/restclient/serializer/JacksonConverterFactory.java`
 #### Snippet
 ```java
+        }
 
-    @Override
-    public Converter<?, RequestBody> requestBodyConverter(Type type,
-            Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
-        ObjectWriter writer = mapper.writer();
-```
-
-### NullableProblems
-Not annotated parameter overrides @EverythingIsNonNull parameter
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/restclient/serializer/JacksonConverterFactory.java`
-#### Snippet
-```java
-    @Override
-    public Converter<?, RequestBody> requestBodyConverter(Type type,
-            Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
-        ObjectWriter writer = mapper.writer();
-        return new JacksonRequestBodyConverter<>(writer);
-```
-
-### NullableProblems
-Not annotated parameter overrides @EverythingIsNonNull parameter
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/restclient/serializer/JacksonConverterFactory.java`
-#### Snippet
-```java
-    @Override
-    public Converter<?, RequestBody> requestBodyConverter(Type type,
-            Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
-        ObjectWriter writer = mapper.writer();
-        return new JacksonRequestBodyConverter<>(writer);
-```
-
-### NullableProblems
-Not annotated parameter overrides @EverythingIsNonNull parameter
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/restclient/serializer/JacksonConverterFactory.java`
-#### Snippet
-```java
-    @Override
-    public Converter<?, RequestBody> requestBodyConverter(Type type,
-            Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
-        ObjectWriter writer = mapper.writer();
-        return new JacksonRequestBodyConverter<>(writer);
+        @Override public T convert(ResponseBody value) throws IOException {
+            try (Reader reader = value.charStream()) {
+                return adapter.readValue(reader);
 ```
 
 ### NullableProblems
@@ -8571,18 +8571,6 @@ in `libraries/bot-connector/src/main/java/com/microsoft/bot/restclient/intercept
 
 ### NullableProblems
 Not annotated method overrides method annotated with @NotNull
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/restclient/interceptors/BaseUrlHandler.java`
-#### Snippet
-```java
-public final class BaseUrlHandler implements Interceptor {
-    @Override
-    public Response intercept(Chain chain) throws IOException {
-        Request request = chain.request();
-        String parameters = request.header("x-ms-parameterized-host");
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NotNull
 in `libraries/bot-connector/src/main/java/com/microsoft/bot/restclient/interceptors/RequestIdHeaderInterceptor.java`
 #### Snippet
 ```java
@@ -8591,6 +8579,18 @@ public final class RequestIdHeaderInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
         if (request.header("x-ms-client-request-id") == null) {
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NotNull
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/restclient/interceptors/BaseUrlHandler.java`
+#### Snippet
+```java
+public final class BaseUrlHandler implements Interceptor {
+    @Override
+    public Response intercept(Chain chain) throws IOException {
+        Request request = chain.request();
+        String parameters = request.header("x-ms-parameterized-host");
 ```
 
 ### NullableProblems
@@ -8644,90 +8644,6 @@ in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/QnAMakerEndpoint
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `libraries/bot-applicationinsights/src/main/java/com/microsoft/bot/applicationinsights/AvailabilityTelemetry.java`
-#### Snippet
-```java
-/**
- * We took this class from
- * https://github.com/microsoft/ApplicationInsights-Java/issues/1099 as this is
- * not already migrated in ApplicationInsights-Java library.
- */
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/CosmosDbPartitionedStorageOptions.java`
-#### Snippet
-```java
-     *
-     * @param withCompatibilityMode Currently, max key length for cosmosdb is 1023:
-     *                              https://docs.microsoft.com/en-us/azure/cosmos-db/concepts-limits#per-item-limits
-     *                              The default for backwards compatibility is 255,
-     *                              CosmosDbKeyEscape.MaxKeyLength.
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/CosmosDbKeyEscape.java`
-#### Snippet
-```java
-     * behavior, and use the longer limit set
-     * CosmosDbPartitionedStorageOptions.CompatibilityMode to false.
-     * https://docs.microsoft.com/en-us/azure/cosmos-db/concepts-limits#per-item-limits.
-     */
-    public static final Integer MAX_KEY_LENGTH = 255;
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/CosmosDbKeyEscape.java`
-#### Snippet
-```java
-     * The list of illegal characters for Cosmos DB Keys comes from this list on the
-     * CosmostDB docs:
-     * https://docs.microsoft.com/dotnet/api/microsoft.azure.documents.resource.id?view=azure-dotnet#remarks
-     *
-     * Note: We are also escaping the "*" character, as that what we're using as our
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryOptions.java`
-#### Snippet
-```java
-    /**
-     * Gets the oauth audience scope, used during token retrieval
-     * (either https://api.getbotframework().com or bot app id).
-     * @return the FromBotOAuthScope value as a String.
-     */
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryOptions.java`
-#### Snippet
-```java
-    /**
-     * Sets the oauth audience scope, used during token retrieval
-     * (either https://api.getbotframework().com or bot app id).
-     * @param withFromBotOAuthScope The FromBotOAuthScope value.
-     */
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/SkillHttpClient.java`
-#### Snippet
-```java
-     * @param originatingAudience The oauth audience scope, used during token
-     *                            retrieval. (Either
-     *                            https://api.getbotframework().com or bot app id.)
-     * @param fromBotId           The MicrosoftAppId of the bot sending the
-     *                            activity.
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/PromptCultureModels.java`
 #### Snippet
 ```java
@@ -8740,134 +8656,14 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/Prompt
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `libraries/bot-ai-luis-v3/src/main/java/com/microsoft/bot/ai/luis/LuisApplication.java`
+in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/SkillHttpClient.java`
 #### Snippet
 ```java
-
-    /**
-     * LUIS endpoint like https://westus.api.cognitive.microsoft.com.
-     */
-    private String endpoint;
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `libraries/bot-ai-luis-v3/src/main/java/com/microsoft/bot/ai/luis/LuisApplication.java`
-#### Snippet
-```java
-     * @param endpointKey   LUIS subscription or endpoint key.
-     * @param endpoint      LUIS endpoint to use like
-     *                      https://westus.api.cognitive.microsoft.com
-     */
-    public LuisApplication(String applicationId, String endpointKey, String endpoint) {
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `libraries/bot-ai-luis-v3/src/main/java/com/microsoft/bot/ai/luis/LuisApplication.java`
-#### Snippet
-```java
-
-    /**
-     * Sets LUIS endpoint like https://westus.api.cognitive.microsoft.com.
-     *
-     * @param endpoint LUIS endpoint where application is hosted.
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/UserAgent.java`
-#### Snippet
-```java
- * <p>
- * Conforms to spec:
- * https://github.com/Microsoft/botbuilder-dotnet/blob/d342cd66d159a023ac435aec0fdf791f93118f5f/doc/UserAgents.md
- * 
- */
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestTeamsConnectorClient.java`
-#### Snippet
-```java
- * The Bot Connector REST API allows your bot to send and receive messages to
- * channels configured in the [Bot Framework Developer
- * Portal](https://dev.botframework.com). The Connector service uses
- * industry-standard REST and JSON over HTTPS.
- *
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestConnectorClient.java`
-#### Snippet
-```java
- * The Bot Connector REST API allows your bot to send and receive messages to
- * channels configured in the [Bot Framework Developer
- * Portal](https://dev.botframework.com). The Connector service uses
- * industry-standard REST and JSON over HTTPS.
- *
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/AuthenticationConstants.java`
-#### Snippet
-```java
-     * "azp" Claim. Authorized party - the party to which the ID Token was issued.
-     * This claim follows the general format set forth in the OpenID Spec.
-     * http://openid.net/specs/openid-connect-core-1_0.html#IDToken.
-     */
-    public static final String AUTHORIZED_PARTY = "azp";
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/AuthenticationConstants.java`
-#### Snippet
-```java
-     * which tenant to obtain an access token from. By default, the channels only
-     * accept tokens from "botframework.com". For more details see
-     * https://aka.ms/bots/tenant-restriction.
-     */
-    public static final String TO_CHANNEL_FROM_BOT_LOGIN_URL_TEMPLATE =
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/AuthenticationConstants.java`
-#### Snippet
-```java
-
-    /**
-     * From RFC 7515 https://tools.ietf.org/html/rfc7515#section-4.1.4 The "kid"
-     * (key ID) Header Parameter is a hint indicating which key was used to secure
-     * the JWS. This parameter allows originators to explicitly signal a change of
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/AuthenticationConstants.java`
-#### Snippet
-```java
-    /**
-     * Audience Claim. From RFC 7519.
-     * https://tools.ietf.org/html/rfc7519#section-4.1.3 The "aud" (audience) claim
-     * identifies the recipients that the JWT is intended for. Each principal
-     * intended to process the JWT MUST identify itself with a value in the audience
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/SimpleChannelProvider.java`
-#### Snippet
-```java
-     * @param withChannelService The ChannelService to use. Null or empty strings
-     *                           represent Public Azure, the string
-     *                           'https://botframework.us' represents US Government
-     *                           Azure, and other values are for private channels.
-     */
+     * @param originatingAudience The oauth audience scope, used during token
+     *                            retrieval. (Either
+     *                            https://api.getbotframework().com or bot app id.)
+     * @param fromBotId           The MicrosoftAppId of the bot sending the
+     *                            activity.
 ```
 
 ### JavadocLinkAsPlainText
@@ -8887,11 +8683,11 @@ Link specified as plain text
 in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/GeoCoordinates.java`
 #### Snippet
 ```java
-
-/**
- * GeoCoordinates (entity type: "https://schema.org/GeoCoordinates").
- */
-public class GeoCoordinates implements EntitySerialization {
+    /**
+     * Longitude of the location [WGS
+     * 84](https://en.wikipedia.org/wiki/World_Geodetic_System).
+     */
+    @JsonProperty(value = "longitude")
 ```
 
 ### JavadocLinkAsPlainText
@@ -8923,11 +8719,11 @@ Link specified as plain text
 in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/GeoCoordinates.java`
 #### Snippet
 ```java
-    /**
-     * Longitude of the location [WGS
-     * 84](https://en.wikipedia.org/wiki/World_Geodetic_System).
-     */
-    @JsonProperty(value = "longitude")
+
+/**
+ * GeoCoordinates (entity type: "https://schema.org/GeoCoordinates").
+ */
+public class GeoCoordinates implements EntitySerialization {
 ```
 
 ### JavadocLinkAsPlainText
@@ -8940,6 +8736,210 @@ in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/Thing.java`
  * Thing (entity type: "https://schema.org/Thing").
  */
 public class Thing {
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `libraries/bot-ai-luis-v3/src/main/java/com/microsoft/bot/ai/luis/LuisApplication.java`
+#### Snippet
+```java
+
+    /**
+     * Sets LUIS endpoint like https://westus.api.cognitive.microsoft.com.
+     *
+     * @param endpoint LUIS endpoint where application is hosted.
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `libraries/bot-ai-luis-v3/src/main/java/com/microsoft/bot/ai/luis/LuisApplication.java`
+#### Snippet
+```java
+     * @param endpointKey   LUIS subscription or endpoint key.
+     * @param endpoint      LUIS endpoint to use like
+     *                      https://westus.api.cognitive.microsoft.com
+     */
+    public LuisApplication(String applicationId, String endpointKey, String endpoint) {
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `libraries/bot-ai-luis-v3/src/main/java/com/microsoft/bot/ai/luis/LuisApplication.java`
+#### Snippet
+```java
+
+    /**
+     * LUIS endpoint like https://westus.api.cognitive.microsoft.com.
+     */
+    private String endpoint;
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryOptions.java`
+#### Snippet
+```java
+    /**
+     * Sets the oauth audience scope, used during token retrieval
+     * (either https://api.getbotframework().com or bot app id).
+     * @param withFromBotOAuthScope The FromBotOAuthScope value.
+     */
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryOptions.java`
+#### Snippet
+```java
+    /**
+     * Gets the oauth audience scope, used during token retrieval
+     * (either https://api.getbotframework().com or bot app id).
+     * @return the FromBotOAuthScope value as a String.
+     */
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `libraries/bot-applicationinsights/src/main/java/com/microsoft/bot/applicationinsights/AvailabilityTelemetry.java`
+#### Snippet
+```java
+/**
+ * We took this class from
+ * https://github.com/microsoft/ApplicationInsights-Java/issues/1099 as this is
+ * not already migrated in ApplicationInsights-Java library.
+ */
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/CosmosDbPartitionedStorageOptions.java`
+#### Snippet
+```java
+     *
+     * @param withCompatibilityMode Currently, max key length for cosmosdb is 1023:
+     *                              https://docs.microsoft.com/en-us/azure/cosmos-db/concepts-limits#per-item-limits
+     *                              The default for backwards compatibility is 255,
+     *                              CosmosDbKeyEscape.MaxKeyLength.
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/CosmosDbKeyEscape.java`
+#### Snippet
+```java
+     * The list of illegal characters for Cosmos DB Keys comes from this list on the
+     * CosmostDB docs:
+     * https://docs.microsoft.com/dotnet/api/microsoft.azure.documents.resource.id?view=azure-dotnet#remarks
+     *
+     * Note: We are also escaping the "*" character, as that what we're using as our
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/CosmosDbKeyEscape.java`
+#### Snippet
+```java
+     * behavior, and use the longer limit set
+     * CosmosDbPartitionedStorageOptions.CompatibilityMode to false.
+     * https://docs.microsoft.com/en-us/azure/cosmos-db/concepts-limits#per-item-limits.
+     */
+    public static final Integer MAX_KEY_LENGTH = 255;
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/UserAgent.java`
+#### Snippet
+```java
+ * <p>
+ * Conforms to spec:
+ * https://github.com/Microsoft/botbuilder-dotnet/blob/d342cd66d159a023ac435aec0fdf791f93118f5f/doc/UserAgents.md
+ * 
+ */
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestConnectorClient.java`
+#### Snippet
+```java
+ * The Bot Connector REST API allows your bot to send and receive messages to
+ * channels configured in the [Bot Framework Developer
+ * Portal](https://dev.botframework.com). The Connector service uses
+ * industry-standard REST and JSON over HTTPS.
+ *
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestTeamsConnectorClient.java`
+#### Snippet
+```java
+ * The Bot Connector REST API allows your bot to send and receive messages to
+ * channels configured in the [Bot Framework Developer
+ * Portal](https://dev.botframework.com). The Connector service uses
+ * industry-standard REST and JSON over HTTPS.
+ *
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/AuthenticationConstants.java`
+#### Snippet
+```java
+     * which tenant to obtain an access token from. By default, the channels only
+     * accept tokens from "botframework.com". For more details see
+     * https://aka.ms/bots/tenant-restriction.
+     */
+    public static final String TO_CHANNEL_FROM_BOT_LOGIN_URL_TEMPLATE =
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/AuthenticationConstants.java`
+#### Snippet
+```java
+     * "azp" Claim. Authorized party - the party to which the ID Token was issued.
+     * This claim follows the general format set forth in the OpenID Spec.
+     * http://openid.net/specs/openid-connect-core-1_0.html#IDToken.
+     */
+    public static final String AUTHORIZED_PARTY = "azp";
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/SimpleChannelProvider.java`
+#### Snippet
+```java
+     * @param withChannelService The ChannelService to use. Null or empty strings
+     *                           represent Public Azure, the string
+     *                           'https://botframework.us' represents US Government
+     *                           Azure, and other values are for private channels.
+     */
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/AuthenticationConstants.java`
+#### Snippet
+```java
+
+    /**
+     * From RFC 7515 https://tools.ietf.org/html/rfc7515#section-4.1.4 The "kid"
+     * (key ID) Header Parameter is a hint indicating which key was used to secure
+     * the JWS. This parameter allows originators to explicitly signal a change of
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/AuthenticationConstants.java`
+#### Snippet
+```java
+    /**
+     * Audience Claim. From RFC 7519.
+     * https://tools.ietf.org/html/rfc7519#section-4.1.3 The "aud" (audience) claim
+     * identifies the recipients that the JWT is intended for. Each principal
+     * intended to process the JWT MUST identify itself with a value in the audience
 ```
 
 ## RuleId[id=DuplicateCondition]
@@ -9066,90 +9066,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ## RuleId[id=FieldCanBeLocal]
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `libraries/bot-applicationinsights/src/main/java/com/microsoft/bot/applicationinsights/core/TelemetryInitializerMiddleware.java`
-#### Snippet
-```java
-
-    private HttpContext httpContext;
-    private final String botActivityKey = "BotBuilderActivity";
-    private final TelemetryLoggerMiddleware telemetryLoggerMiddleware;
-    private final Boolean logActivityTelemetry;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsStorage.java`
-#### Snippet
-```java
-    private final BlobContainerClient containerClient;
-
-    private final Integer millisecondsTimeout = 2000;
-    private final Integer retryTimes = 8;
-
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsStorage.java`
-#### Snippet
-```java
-
-    private final Integer millisecondsTimeout = 2000;
-    private final Integer retryTimes = 8;
-
-    /**
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsTranscriptStore.java`
-#### Snippet
-```java
-    private final Integer milisecondsTimeout = 2000;
-    private final Integer retryTimes = 3;
-    private final Integer longRadix = 16;
-    private final Integer multipleProductValue = 10_000_000;
-
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsTranscriptStore.java`
-#### Snippet
-```java
-    private static final HashSet<String> CHECKED_CONTAINERS = new HashSet<String>();
-
-    private final Integer milisecondsTimeout = 2000;
-    private final Integer retryTimes = 3;
-    private final Integer longRadix = 16;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsTranscriptStore.java`
-#### Snippet
-```java
-    private final Integer retryTimes = 3;
-    private final Integer longRadix = 16;
-    private final Integer multipleProductValue = 10_000_000;
-
-    private final ObjectMapper jsonSerializer;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsTranscriptStore.java`
-#### Snippet
-```java
-
-    private final Integer milisecondsTimeout = 2000;
-    private final Integer retryTimes = 3;
-    private final Integer longRadix = 16;
-    private final Integer multipleProductValue = 10_000_000;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/DialogManager.java`
 #### Snippet
 ```java
@@ -9213,18 +9129,6 @@ Field can be converted to a local variable
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/french/parsers/FrenchDatePeriodParserConfiguration.java`
 #### Snippet
 ```java
-    private final Pattern restOfDateRegex;
-    private final Pattern laterEarlyPeriodRegex;
-    private final Pattern weekWithWeekDayRangeRegex;
-    private final Pattern yearPlusNumberRegex;
-    private final Pattern decadeWithCenturyRegex;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/french/parsers/FrenchDatePeriodParserConfiguration.java`
-#### Snippet
-```java
     private final Pattern yearPeriodRegex;
     private final Pattern complexDatePeriodRegex;
     private final Pattern relativeDecadeRegex;
@@ -9234,6 +9138,18 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/french/parsers/FrenchDatePeriodParserConfiguration.java`
+#### Snippet
+```java
+    private final Pattern restOfDateRegex;
+    private final Pattern laterEarlyPeriodRegex;
+    private final Pattern weekWithWeekDayRangeRegex;
+    private final Pattern yearPlusNumberRegex;
+    private final Pattern decadeWithCenturyRegex;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishDatePeriodParserConfiguration.java`
 #### Snippet
 ```java
@@ -9258,18 +9174,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/EmailParser.java`
-#### Snippet
-```java
-
-public class EmailParser extends BaseSequenceParser {
-    private BaseSequenceConfiguration config;
-
-    public EmailParser(BaseSequenceConfiguration config) {
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/GUIDParser.java`
 #### Snippet
 ```java
@@ -9278,30 +9182,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/
     private static Double PURE_DIGIT_PENALTY = 15d;
     private static String PURE_DIGIT_REGEX = "^\\d*$";
     private static String FORMAT_REGEX = "-";
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/GUIDParser.java`
-#### Snippet
-```java
-    private static Double BASE_SCORE = 100d;
-    private static Double NO_BOUNDARY_PENALTY = 10d;
-    private static Double NO_FORMAT_PENALTY = 10d;
-    private static Double PURE_DIGIT_PENALTY = 15d;
-    private static String PURE_DIGIT_REGEX = "^\\d*$";
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/GUIDParser.java`
-#### Snippet
-```java
-public class GUIDParser extends BaseSequenceParser {
-    private static Double SCORE_UPPER_LIMIT = 100d;
-    private static Double SCORE_LOWER_LIMIT = 0d;
-    private static Double BASE_SCORE = 100d;
-    private static Double NO_BOUNDARY_PENALTY = 10d;
 ```
 
 ### FieldCanBeLocal
@@ -9321,11 +9201,11 @@ Field can be converted to a local variable
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/GUIDParser.java`
 #### Snippet
 ```java
+    private static Double SCORE_UPPER_LIMIT = 100d;
     private static Double SCORE_LOWER_LIMIT = 0d;
     private static Double BASE_SCORE = 100d;
     private static Double NO_BOUNDARY_PENALTY = 10d;
     private static Double NO_FORMAT_PENALTY = 10d;
-    private static Double PURE_DIGIT_PENALTY = 15d;
 ```
 
 ### FieldCanBeLocal
@@ -9333,11 +9213,11 @@ Field can be converted to a local variable
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/GUIDParser.java`
 #### Snippet
 ```java
-
-public class GUIDParser extends BaseSequenceParser {
-    private static Double SCORE_UPPER_LIMIT = 100d;
-    private static Double SCORE_LOWER_LIMIT = 0d;
     private static Double BASE_SCORE = 100d;
+    private static Double NO_BOUNDARY_PENALTY = 10d;
+    private static Double NO_FORMAT_PENALTY = 10d;
+    private static Double PURE_DIGIT_PENALTY = 15d;
+    private static String PURE_DIGIT_REGEX = "^\\d*$";
 ```
 
 ### FieldCanBeLocal
@@ -9357,11 +9237,47 @@ Field can be converted to a local variable
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/GUIDParser.java`
 #### Snippet
 ```java
-    private static Double SCORE_UPPER_LIMIT = 100d;
     private static Double SCORE_LOWER_LIMIT = 0d;
     private static Double BASE_SCORE = 100d;
     private static Double NO_BOUNDARY_PENALTY = 10d;
     private static Double NO_FORMAT_PENALTY = 10d;
+    private static Double PURE_DIGIT_PENALTY = 15d;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/GUIDParser.java`
+#### Snippet
+```java
+public class GUIDParser extends BaseSequenceParser {
+    private static Double SCORE_UPPER_LIMIT = 100d;
+    private static Double SCORE_LOWER_LIMIT = 0d;
+    private static Double BASE_SCORE = 100d;
+    private static Double NO_BOUNDARY_PENALTY = 10d;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/GUIDParser.java`
+#### Snippet
+```java
+
+public class GUIDParser extends BaseSequenceParser {
+    private static Double SCORE_UPPER_LIMIT = 100d;
+    private static Double SCORE_LOWER_LIMIT = 0d;
+    private static Double BASE_SCORE = 100d;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/EmailParser.java`
+#### Snippet
+```java
+
+public class EmailParser extends BaseSequenceParser {
+    private BaseSequenceConfiguration config;
+
+    public EmailParser(BaseSequenceConfiguration config) {
 ```
 
 ### FieldCanBeLocal
@@ -9369,11 +9285,11 @@ Field can be converted to a local variable
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
 #### Snippet
 ```java
-    private static Double WRONG_FORMAT_DEDUCTION_SCORE = 20d;
-    private static Integer MAX_FORMAT_INDICATOR_NUM = 3;
-    private static Integer MAX_LENGTH_AWARD_NUM = 3;
-    private static Integer TAIL_SAME_LIMIT = 2;
-    private static Integer PHONE_NUMBER_LENGTH_BASE = 8;
+    // @TODO move regexes to base resource files
+    private static String COMPLETE_BRACKET_REGEX = "\\(.*\\)";
+    private static String SINGLE_BRACKER_REGEX = "\\(|\\)";
+    private static String TAIL_SAME_DIGIT_REGEX = "([\\d])\\1{2,10}$";
+    private static String PURE_DIGIT_REGEX = "^\\d*$";
 ```
 
 ### FieldCanBeLocal
@@ -9381,11 +9297,71 @@ Field can be converted to a local variable
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
 #### Snippet
 ```java
-    private static Integer MAX_FORMAT_INDICATOR_NUM = 3;
     private static Integer MAX_LENGTH_AWARD_NUM = 3;
     private static Integer TAIL_SAME_LIMIT = 2;
     private static Integer PHONE_NUMBER_LENGTH_BASE = 8;
     private static Integer PURE_DIGIT_LENGTH_LIMIT = 11;
+
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
+#### Snippet
+```java
+    private static Double TAIL_SAME_DEDUCTION_SCORE = 10d;
+    private static Double CONTINUE_FORMAT_INDICATOR_DEDUCTION_SCORE = 20d;
+    private static Double WRONG_FORMAT_DEDUCTION_SCORE = 20d;
+    private static Integer MAX_FORMAT_INDICATOR_NUM = 3;
+    private static Integer MAX_LENGTH_AWARD_NUM = 3;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
+#### Snippet
+```java
+    private static Double AREA_CODE_AWARD = 30d;
+    private static Double FORMATTED_AWARD = 20d;
+    private static Double LENGTH_AWARD = 10d;
+    private static Double TYPICAL_FORMAT_DEDUCTION_SCORE = 40d;
+    private static Double CONTINUE_DIGIT_DEDUCTION_SCORE = 10d;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
+#### Snippet
+```java
+    private static String TAIL_SAME_DIGIT_REGEX = "([\\d])\\1{2,10}$";
+    private static String PURE_DIGIT_REGEX = "^\\d*$";
+    private static String CONTINUE_DIGIT_REGEX = "\\d{5}\\d*";
+    private static String DIGIT_REGEX = "\\d";
+
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
+#### Snippet
+```java
+public class PhoneNumberParser extends BaseSequenceParser {
+    private static Double SCORE_UPPER_LIMIT = 100d;
+    private static Double SCORE_LOWER_LIMIT = 0d;
+    private static Double BASE_SCORE = 30d;
+    private static Double COUNTRY_CODE_AWARD = 40d;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
+#### Snippet
+```java
+    private static String COMPLETE_BRACKET_REGEX = "\\(.*\\)";
+    private static String SINGLE_BRACKER_REGEX = "\\(|\\)";
+    private static String TAIL_SAME_DIGIT_REGEX = "([\\d])\\1{2,10}$";
+    private static String PURE_DIGIT_REGEX = "^\\d*$";
+    private static String CONTINUE_DIGIT_REGEX = "\\d{5}\\d*";
 ```
 
 ### FieldCanBeLocal
@@ -9405,47 +9381,11 @@ Field can be converted to a local variable
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
 #### Snippet
 ```java
-    private static Double TAIL_SAME_DEDUCTION_SCORE = 10d;
-    private static Double CONTINUE_FORMAT_INDICATOR_DEDUCTION_SCORE = 20d;
     private static Double WRONG_FORMAT_DEDUCTION_SCORE = 20d;
     private static Integer MAX_FORMAT_INDICATOR_NUM = 3;
     private static Integer MAX_LENGTH_AWARD_NUM = 3;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
-#### Snippet
-```java
-    private static String SINGLE_BRACKER_REGEX = "\\(|\\)";
-    private static String TAIL_SAME_DIGIT_REGEX = "([\\d])\\1{2,10}$";
-    private static String PURE_DIGIT_REGEX = "^\\d*$";
-    private static String CONTINUE_DIGIT_REGEX = "\\d{5}\\d*";
-    private static String DIGIT_REGEX = "\\d";
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
-#### Snippet
-```java
-    private static Double AREA_CODE_AWARD = 30d;
-    private static Double FORMATTED_AWARD = 20d;
-    private static Double LENGTH_AWARD = 10d;
-    private static Double TYPICAL_FORMAT_DEDUCTION_SCORE = 40d;
-    private static Double CONTINUE_DIGIT_DEDUCTION_SCORE = 10d;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
-#### Snippet
-```java
     private static Integer TAIL_SAME_LIMIT = 2;
     private static Integer PHONE_NUMBER_LENGTH_BASE = 8;
-    private static Integer PURE_DIGIT_LENGTH_LIMIT = 11;
-
-    // @TODO move regexes to base resource files
 ```
 
 ### FieldCanBeLocal
@@ -9453,11 +9393,11 @@ Field can be converted to a local variable
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
 #### Snippet
 ```java
-public class PhoneNumberParser extends BaseSequenceParser {
-    private static Double SCORE_UPPER_LIMIT = 100d;
     private static Double SCORE_LOWER_LIMIT = 0d;
     private static Double BASE_SCORE = 30d;
     private static Double COUNTRY_CODE_AWARD = 40d;
+    private static Double AREA_CODE_AWARD = 30d;
+    private static Double FORMATTED_AWARD = 20d;
 ```
 
 ### FieldCanBeLocal
@@ -9477,102 +9417,6 @@ Field can be converted to a local variable
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
 #### Snippet
 ```java
-    private static Double LENGTH_AWARD = 10d;
-    private static Double TYPICAL_FORMAT_DEDUCTION_SCORE = 40d;
-    private static Double CONTINUE_DIGIT_DEDUCTION_SCORE = 10d;
-    private static Double TAIL_SAME_DEDUCTION_SCORE = 10d;
-    private static Double CONTINUE_FORMAT_INDICATOR_DEDUCTION_SCORE = 20d;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
-#### Snippet
-```java
-    private static String COMPLETE_BRACKET_REGEX = "\\(.*\\)";
-    private static String SINGLE_BRACKER_REGEX = "\\(|\\)";
-    private static String TAIL_SAME_DIGIT_REGEX = "([\\d])\\1{2,10}$";
-    private static String PURE_DIGIT_REGEX = "^\\d*$";
-    private static String CONTINUE_DIGIT_REGEX = "\\d{5}\\d*";
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
-#### Snippet
-```java
-    private static Double SCORE_LOWER_LIMIT = 0d;
-    private static Double BASE_SCORE = 30d;
-    private static Double COUNTRY_CODE_AWARD = 40d;
-    private static Double AREA_CODE_AWARD = 30d;
-    private static Double FORMATTED_AWARD = 20d;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
-#### Snippet
-```java
-    private static Double FORMATTED_AWARD = 20d;
-    private static Double LENGTH_AWARD = 10d;
-    private static Double TYPICAL_FORMAT_DEDUCTION_SCORE = 40d;
-    private static Double CONTINUE_DIGIT_DEDUCTION_SCORE = 10d;
-    private static Double TAIL_SAME_DEDUCTION_SCORE = 10d;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
-#### Snippet
-```java
-    private static Double TYPICAL_FORMAT_DEDUCTION_SCORE = 40d;
-    private static Double CONTINUE_DIGIT_DEDUCTION_SCORE = 10d;
-    private static Double TAIL_SAME_DEDUCTION_SCORE = 10d;
-    private static Double CONTINUE_FORMAT_INDICATOR_DEDUCTION_SCORE = 20d;
-    private static Double WRONG_FORMAT_DEDUCTION_SCORE = 20d;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
-#### Snippet
-```java
-    // @TODO move regexes to base resource files
-    private static String COMPLETE_BRACKET_REGEX = "\\(.*\\)";
-    private static String SINGLE_BRACKER_REGEX = "\\(|\\)";
-    private static String TAIL_SAME_DIGIT_REGEX = "([\\d])\\1{2,10}$";
-    private static String PURE_DIGIT_REGEX = "^\\d*$";
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
-#### Snippet
-```java
-
-    // @TODO move regexes to base resource files
-    private static String COMPLETE_BRACKET_REGEX = "\\(.*\\)";
-    private static String SINGLE_BRACKER_REGEX = "\\(|\\)";
-    private static String TAIL_SAME_DIGIT_REGEX = "([\\d])\\1{2,10}$";
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
-#### Snippet
-```java
-    private static Integer MAX_LENGTH_AWARD_NUM = 3;
-    private static Integer TAIL_SAME_LIMIT = 2;
-    private static Integer PHONE_NUMBER_LENGTH_BASE = 8;
-    private static Integer PURE_DIGIT_LENGTH_LIMIT = 11;
-
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
-#### Snippet
-```java
     private static Double CONTINUE_FORMAT_INDICATOR_DEDUCTION_SCORE = 20d;
     private static Double WRONG_FORMAT_DEDUCTION_SCORE = 20d;
     private static Integer MAX_FORMAT_INDICATOR_NUM = 3;
@@ -9585,23 +9429,11 @@ Field can be converted to a local variable
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
 #### Snippet
 ```java
-    private static Double BASE_SCORE = 30d;
-    private static Double COUNTRY_CODE_AWARD = 40d;
-    private static Double AREA_CODE_AWARD = 30d;
-    private static Double FORMATTED_AWARD = 20d;
-    private static Double LENGTH_AWARD = 10d;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
-#### Snippet
-```java
-    private static String TAIL_SAME_DIGIT_REGEX = "([\\d])\\1{2,10}$";
-    private static String PURE_DIGIT_REGEX = "^\\d*$";
-    private static String CONTINUE_DIGIT_REGEX = "\\d{5}\\d*";
-    private static String DIGIT_REGEX = "\\d";
-
+    private static Integer MAX_FORMAT_INDICATOR_NUM = 3;
+    private static Integer MAX_LENGTH_AWARD_NUM = 3;
+    private static Integer TAIL_SAME_LIMIT = 2;
+    private static Integer PHONE_NUMBER_LENGTH_BASE = 8;
+    private static Integer PURE_DIGIT_LENGTH_LIMIT = 11;
 ```
 
 ### FieldCanBeLocal
@@ -9614,6 +9446,78 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/
     private static Double FORMATTED_AWARD = 20d;
     private static Double LENGTH_AWARD = 10d;
     private static Double TYPICAL_FORMAT_DEDUCTION_SCORE = 40d;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
+#### Snippet
+```java
+
+    // @TODO move regexes to base resource files
+    private static String COMPLETE_BRACKET_REGEX = "\\(.*\\)";
+    private static String SINGLE_BRACKER_REGEX = "\\(|\\)";
+    private static String TAIL_SAME_DIGIT_REGEX = "([\\d])\\1{2,10}$";
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
+#### Snippet
+```java
+    private static Double CONTINUE_DIGIT_DEDUCTION_SCORE = 10d;
+    private static Double TAIL_SAME_DEDUCTION_SCORE = 10d;
+    private static Double CONTINUE_FORMAT_INDICATOR_DEDUCTION_SCORE = 20d;
+    private static Double WRONG_FORMAT_DEDUCTION_SCORE = 20d;
+    private static Integer MAX_FORMAT_INDICATOR_NUM = 3;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
+#### Snippet
+```java
+    private static Double FORMATTED_AWARD = 20d;
+    private static Double LENGTH_AWARD = 10d;
+    private static Double TYPICAL_FORMAT_DEDUCTION_SCORE = 40d;
+    private static Double CONTINUE_DIGIT_DEDUCTION_SCORE = 10d;
+    private static Double TAIL_SAME_DEDUCTION_SCORE = 10d;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
+#### Snippet
+```java
+    private static Integer TAIL_SAME_LIMIT = 2;
+    private static Integer PHONE_NUMBER_LENGTH_BASE = 8;
+    private static Integer PURE_DIGIT_LENGTH_LIMIT = 11;
+
+    // @TODO move regexes to base resource files
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
+#### Snippet
+```java
+    private static Double TYPICAL_FORMAT_DEDUCTION_SCORE = 40d;
+    private static Double CONTINUE_DIGIT_DEDUCTION_SCORE = 10d;
+    private static Double TAIL_SAME_DEDUCTION_SCORE = 10d;
+    private static Double CONTINUE_FORMAT_INDICATOR_DEDUCTION_SCORE = 20d;
+    private static Double WRONG_FORMAT_DEDUCTION_SCORE = 20d;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
+#### Snippet
+```java
+    private static Double BASE_SCORE = 30d;
+    private static Double COUNTRY_CODE_AWARD = 40d;
+    private static Double AREA_CODE_AWARD = 30d;
+    private static Double FORMATTED_AWARD = 20d;
+    private static Double LENGTH_AWARD = 10d;
 ```
 
 ### FieldCanBeLocal
@@ -9633,11 +9537,35 @@ Field can be converted to a local variable
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
 #### Snippet
 ```java
+    private static Double LENGTH_AWARD = 10d;
+    private static Double TYPICAL_FORMAT_DEDUCTION_SCORE = 40d;
     private static Double CONTINUE_DIGIT_DEDUCTION_SCORE = 10d;
     private static Double TAIL_SAME_DEDUCTION_SCORE = 10d;
     private static Double CONTINUE_FORMAT_INDICATOR_DEDUCTION_SCORE = 20d;
-    private static Double WRONG_FORMAT_DEDUCTION_SCORE = 20d;
-    private static Integer MAX_FORMAT_INDICATOR_NUM = 3;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
+#### Snippet
+```java
+    private static String SINGLE_BRACKER_REGEX = "\\(|\\)";
+    private static String TAIL_SAME_DIGIT_REGEX = "([\\d])\\1{2,10}$";
+    private static String PURE_DIGIT_REGEX = "^\\d*$";
+    private static String CONTINUE_DIGIT_REGEX = "\\d{5}\\d*";
+    private static String DIGIT_REGEX = "\\d";
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/extractors/BaseURLExtractor.java`
+#### Snippet
+```java
+public class BaseURLExtractor extends BaseSequenceExtractor {
+    private final URLConfiguration config;
+    private StringMatcher tldMatcher;
+    private Pattern ambiguousTimeTerm;
+
 ```
 
 ### FieldCanBeLocal
@@ -9654,14 +9582,14 @@ public class BaseURLExtractor extends BaseSequenceExtractor {
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/extractors/BaseURLExtractor.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/TimexProperty.java`
 #### Snippet
 ```java
-public class BaseURLExtractor extends BaseSequenceExtractor {
-    private final URLConfiguration config;
-    private StringMatcher tldMatcher;
-    private Pattern ambiguousTimeTerm;
+    private Time time;
 
+    private String timexValue;
+
+    private HashSet<String> types;
 ```
 
 ### FieldCanBeLocal
@@ -9678,14 +9606,86 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expressio
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/TimexProperty.java`
+in `libraries/bot-applicationinsights/src/main/java/com/microsoft/bot/applicationinsights/core/TelemetryInitializerMiddleware.java`
 #### Snippet
 ```java
-    private Time time;
 
-    private String timexValue;
+    private HttpContext httpContext;
+    private final String botActivityKey = "BotBuilderActivity";
+    private final TelemetryLoggerMiddleware telemetryLoggerMiddleware;
+    private final Boolean logActivityTelemetry;
+```
 
-    private HashSet<String> types;
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsStorage.java`
+#### Snippet
+```java
+    private final BlobContainerClient containerClient;
+
+    private final Integer millisecondsTimeout = 2000;
+    private final Integer retryTimes = 8;
+
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsStorage.java`
+#### Snippet
+```java
+
+    private final Integer millisecondsTimeout = 2000;
+    private final Integer retryTimes = 8;
+
+    /**
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsTranscriptStore.java`
+#### Snippet
+```java
+    private static final HashSet<String> CHECKED_CONTAINERS = new HashSet<String>();
+
+    private final Integer milisecondsTimeout = 2000;
+    private final Integer retryTimes = 3;
+    private final Integer longRadix = 16;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsTranscriptStore.java`
+#### Snippet
+```java
+    private final Integer milisecondsTimeout = 2000;
+    private final Integer retryTimes = 3;
+    private final Integer longRadix = 16;
+    private final Integer multipleProductValue = 10_000_000;
+
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsTranscriptStore.java`
+#### Snippet
+```java
+
+    private final Integer milisecondsTimeout = 2000;
+    private final Integer retryTimes = 3;
+    private final Integer longRadix = 16;
+    private final Integer multipleProductValue = 10_000_000;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsTranscriptStore.java`
+#### Snippet
+```java
+    private final Integer retryTimes = 3;
+    private final Integer longRadix = 16;
+    private final Integer multipleProductValue = 10_000_000;
+
+    private final ObjectMapper jsonSerializer;
 ```
 
 ### FieldCanBeLocal
@@ -9717,11 +9717,11 @@ Field can be converted to a local variable
 in `libraries/bot-connector/src/main/java/com/microsoft/bot/restclient/retry/ExponentialBackoffRetryStrategy.java`
 #### Snippet
 ```java
-     * The minimum backoff time.
+     * between retries.
      */
-    private final int minBackoff; //NOPMD
+    private final int deltaBackoff; //NOPMD
     /**
-     * The maximum number of retry attempts.
+     * The maximum backoff time.
 ```
 
 ### FieldCanBeLocal
@@ -9729,11 +9729,11 @@ Field can be converted to a local variable
 in `libraries/bot-connector/src/main/java/com/microsoft/bot/restclient/retry/ExponentialBackoffRetryStrategy.java`
 #### Snippet
 ```java
-     * between retries.
+     * The minimum backoff time.
      */
-    private final int deltaBackoff; //NOPMD
+    private final int minBackoff; //NOPMD
     /**
-     * The maximum backoff time.
+     * The maximum number of retry attempts.
 ```
 
 ## RuleId[id=IfStatementMissingBreakInLoop]
@@ -9811,18 +9811,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/numberwit
 
 ## RuleId[id=IgnoreResultOfCall]
 ### IgnoreResultOfCall
-Result of `CompletableFuture.completedFuture()` is ignored
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TraceTranscriptLogger.java`
-#### Snippet
-```java
-        } catch (JsonProcessingException e) {
-            LOGGER.error("logActivity", e);
-            CompletableFuture.completedFuture(null);
-        }
-        LOGGER.info(event);
-```
-
-### IgnoreResultOfCall
 Result of `Throwable.getMessage()` is ignored
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/models/DateTimeModel.java`
 #### Snippet
@@ -9832,6 +9820,18 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
             e.getMessage();
         }
 
+```
+
+### IgnoreResultOfCall
+Result of `CompletableFuture.completedFuture()` is ignored
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TraceTranscriptLogger.java`
+#### Snippet
+```java
+        } catch (JsonProcessingException e) {
+            LOGGER.error("logActivity", e);
+            CompletableFuture.completedFuture(null);
+        }
+        LOGGER.info(event);
 ```
 
 ### IgnoreResultOfCall
@@ -9872,6 +9872,18 @@ in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TurnContextImp
 ```
 
 ## RuleId[id=AccessStaticViaInstance]
+### AccessStaticViaInstance
+Static member 'com.microsoft.recognizers.text.sequence.resources.ChinesePhoneNumbers.WordBoundariesRegex' accessed via instance reference
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/resources/ChineseIp.java`
+#### Snippet
+```java
+
+    public static final String Ipv6Regex = "({PhoneNumbersDefinitions.WordBoundariesRegex}{BaseIp.MergedIpv6Regex}{PhoneNumbersDefinitions.WordBoundariesRegex})|({Ipv6EllipsisRegexOther})"
+            .replace("{PhoneNumbersDefinitions.WordBoundariesRegex}", PhoneNumbersDefinitions.WordBoundariesRegex)
+            .replace("{BaseIp.MergedIpv6Regex}", BaseIp.MergedIpv6Regex)
+            .replace("{Ipv6EllipsisRegexOther}", Ipv6EllipsisRegexOther);
+```
+
 ### AccessStaticViaInstance
 Static member 'com.microsoft.recognizers.text.sequence.resources.ChinesePhoneNumbers.NonWordBoundariesRegex' accessed via instance reference
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/resources/ChineseIp.java`
@@ -9920,18 +9932,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/
     public static final String Ipv6EllipsisRegexOther = "({PhoneNumbersDefinitions.NonWordBoundariesRegex}::{PhoneNumbersDefinitions.NonWordBoundariesRegex}|{PhoneNumbersDefinitions.NonWordBoundariesRegex}:(:{BaseIp.BasicIpv6Element}){1,7}{PhoneNumbersDefinitions.WordBoundariesRegex}|{PhoneNumbersDefinitions.WordBoundariesRegex}({BaseIp.BasicIpv6Element}:){1,7}:{PhoneNumbersDefinitions.NonWordBoundariesRegex})"
 ```
 
-### AccessStaticViaInstance
-Static member 'com.microsoft.recognizers.text.sequence.resources.ChinesePhoneNumbers.WordBoundariesRegex' accessed via instance reference
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/resources/ChineseIp.java`
-#### Snippet
-```java
-
-    public static final String Ipv6Regex = "({PhoneNumbersDefinitions.WordBoundariesRegex}{BaseIp.MergedIpv6Regex}{PhoneNumbersDefinitions.WordBoundariesRegex})|({Ipv6EllipsisRegexOther})"
-            .replace("{PhoneNumbersDefinitions.WordBoundariesRegex}", PhoneNumbersDefinitions.WordBoundariesRegex)
-            .replace("{BaseIp.MergedIpv6Regex}", BaseIp.MergedIpv6Regex)
-            .replace("{Ipv6EllipsisRegexOther}", Ipv6EllipsisRegexOther);
-```
-
 ## RuleId[id=RedundantMethodOverride]
 ### RedundantMethodOverride
 Method `getModelTypeName()` is identical to its super method
@@ -9947,30 +9947,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/choice/mo
 
 ### RedundantMethodOverride
 Method `getOptions()` is identical to its super method
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/english/extractors/OrdinalExtractor.java`
-#### Snippet
-```java
-
-    @Override
-    protected NumberOptions getOptions() {
-        return NumberOptions.None;
-    }
-```
-
-### RedundantMethodOverride
-Method `getNegativeNumberTermsRegex()` is identical to its super method
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/english/extractors/OrdinalExtractor.java`
-#### Snippet
-```java
-
-    @Override
-    protected Optional<Pattern> getNegativeNumberTermsRegex() {
-        return Optional.empty();
-    }
-```
-
-### RedundantMethodOverride
-Method `getOptions()` is identical to its super method
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/english/extractors/CardinalExtractor.java`
 #### Snippet
 ```java
@@ -9995,7 +9971,7 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/en
 
 ### RedundantMethodOverride
 Method `getNegativeNumberTermsRegex()` is identical to its super method
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/english/extractors/DoubleExtractor.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/english/extractors/OrdinalExtractor.java`
 #### Snippet
 ```java
 
@@ -10007,19 +9983,7 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/en
 
 ### RedundantMethodOverride
 Method `getOptions()` is identical to its super method
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/english/extractors/DoubleExtractor.java`
-#### Snippet
-```java
-
-    @Override
-    protected NumberOptions getOptions() {
-        return NumberOptions.None;
-    }
-```
-
-### RedundantMethodOverride
-Method `getOptions()` is identical to its super method
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/english/extractors/IntegerExtractor.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/english/extractors/OrdinalExtractor.java`
 #### Snippet
 ```java
 
@@ -10031,13 +9995,25 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/en
 
 ### RedundantMethodOverride
 Method `getNegativeNumberTermsRegex()` is identical to its super method
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/english/extractors/IntegerExtractor.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/english/extractors/DoubleExtractor.java`
 #### Snippet
 ```java
 
     @Override
     protected Optional<Pattern> getNegativeNumberTermsRegex() {
         return Optional.empty();
+    }
+```
+
+### RedundantMethodOverride
+Method `getOptions()` is identical to its super method
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/english/extractors/DoubleExtractor.java`
+#### Snippet
+```java
+
+    @Override
+    protected NumberOptions getOptions() {
+        return NumberOptions.None;
     }
 ```
 
@@ -10054,14 +10030,26 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/en
 ```
 
 ### RedundantMethodOverride
-Method `getRegexes()` is identical to its super method
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/extractors/BaseURLExtractor.java`
+Method `getNegativeNumberTermsRegex()` is identical to its super method
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/english/extractors/IntegerExtractor.java`
 #### Snippet
 ```java
-    protected final String extractType = Constants.SYS_URL;
 
-    protected Map<Pattern, String> getRegexes() {
-        return regexes;
+    @Override
+    protected Optional<Pattern> getNegativeNumberTermsRegex() {
+        return Optional.empty();
+    }
+```
+
+### RedundantMethodOverride
+Method `getOptions()` is identical to its super method
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/english/extractors/IntegerExtractor.java`
+#### Snippet
+```java
+
+    @Override
+    protected NumberOptions getOptions() {
+        return NumberOptions.None;
     }
 ```
 
@@ -10071,6 +10059,18 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/
 #### Snippet
 ```java
     protected final String extractType = Constants.SYS_EMAIL;
+
+    protected Map<Pattern, String> getRegexes() {
+        return regexes;
+    }
+```
+
+### RedundantMethodOverride
+Method `getRegexes()` is identical to its super method
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/extractors/BaseURLExtractor.java`
+#### Snippet
+```java
+    protected final String extractType = Constants.SYS_URL;
 
     protected Map<Pattern, String> getRegexes() {
         return regexes;
@@ -10142,15 +10142,15 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### IntegerMultiplicationImplicitCastToLong
-Constants.WeekDayCount \* num: integer multiplication implicitly cast to long
+Constants.WeekDayCount \* (cardinal - 1): integer multiplication implicitly cast to long
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
 #### Snippet
 ```java
-            }
+            LocalDateTime firstThursday = getFirstThursday(year, month);
 
-            LocalDateTime value = firstThursday.plusDays(Constants.WeekDayCount * num - 3);
-            ret.setFutureValue(new Pair<>(value, value.plusDays(7)));
-            ret.setPastValue(new Pair<>(value, value.plusDays(7)));
+            result = DateUtil.thisDate(firstThursday, DayOfWeek.MONDAY.getValue()).plusDays(Constants.WeekDayCount * (cardinal - 1));
+        }
+
 ```
 
 ### IntegerMultiplicationImplicitCastToLong
@@ -10166,15 +10166,15 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### IntegerMultiplicationImplicitCastToLong
-Constants.WeekDayCount \* (cardinal - 1): integer multiplication implicitly cast to long
+Constants.WeekDayCount \* num: integer multiplication implicitly cast to long
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
 #### Snippet
 ```java
-            LocalDateTime firstThursday = getFirstThursday(year, month);
+            }
 
-            result = DateUtil.thisDate(firstThursday, DayOfWeek.MONDAY.getValue()).plusDays(Constants.WeekDayCount * (cardinal - 1));
-        }
-
+            LocalDateTime value = firstThursday.plusDays(Constants.WeekDayCount * num - 3);
+            ret.setFutureValue(new Pair<>(value, value.plusDays(7)));
+            ret.setPastValue(new Pair<>(value, value.plusDays(7)));
 ```
 
 ### IntegerMultiplicationImplicitCastToLong
@@ -11203,18 +11203,6 @@ in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/QnAMakerRecogniz
 ## RuleId[id=RedundantStringFormatCall]
 ### RedundantStringFormatCall
 Redundant call to `format()`
-in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/BotFrameworkHttpClient.java`
-#### Snippet
-```java
-            if (appCredentials == null) {
-                return Async.completeExceptionally(
-                        new Exception(String.format("Unable to get appCredentials to connect to the skill")));
-            }
-
-```
-
-### RedundantStringFormatCall
-Redundant call to `format()`
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/resources/ResourcesGenerator.java`
 #### Snippet
 ```java
@@ -11223,6 +11211,18 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/resources
                 System.out.println(String.format("%s => %s", inputPath.toString(), outputPath.toString()));
 
                 String header = String.join(LineBreak, config.header);
+```
+
+### RedundantStringFormatCall
+Redundant call to `format()`
+in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/BotFrameworkHttpClient.java`
+#### Snippet
+```java
+            if (appCredentials == null) {
+                return Async.completeExceptionally(
+                        new Exception(String.format("Unable to get appCredentials to connect to the skill")));
+            }
+
 ```
 
 ## RuleId[id=FuseStreamOperations]
@@ -11301,90 +11301,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/
 
 ## RuleId[id=TypeParameterExtendsObject]
 ### TypeParameterExtendsObject
-Type parameter `T` explicitly extends 'java.lang.Object'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotState.java`
-#### Snippet
-```java
-     * @throws IllegalArgumentException Empty name
-     */
-    public <T extends Object> StatePropertyAccessor<T> createProperty(String name) throws IllegalArgumentException {
-        if (StringUtils.isEmpty(name)) {
-            throw new IllegalArgumentException("name cannot be empty");
-```
-
-### TypeParameterExtendsObject
-Type parameter `T` explicitly extends 'java.lang.Object'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/BotFrameworkClient.java`
-#### Snippet
-```java
-     * @return   task with optional invokeResponse.
-     */
-    public abstract <T extends Object> CompletableFuture<TypedInvokeResponse<T>> postActivity(
-        String fromBotId,
-        String toBotId,
-```
-
-### TypeParameterExtendsObject
-Type parameter `T` explicitly extends 'java.lang.Object'
-in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/SkillHttpClient.java`
-#### Snippet
-```java
-     * @return task with optional invokeResponse of type T.
-     */
-    public <T extends Object> CompletableFuture<TypedInvokeResponse<T>> postActivity(String fromBotId,
-            BotFrameworkSkill toSkill, URI callbackUrl, Activity activity, Class<T> type) {
-        String originatingAudience = getChannelProvider() != null && getChannelProvider().isGovernment()
-```
-
-### TypeParameterExtendsObject
-Type parameter `T` explicitly extends 'java.lang.Object'
-in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/SkillHttpClient.java`
-#### Snippet
-```java
-     * @return task with invokeResponse.
-     */
-    public <T extends Object> CompletableFuture<TypedInvokeResponse<T>> postActivity(String originatingAudience,
-            String fromBotId, BotFrameworkSkill toSkill, URI callbackUrl, Activity activity, Class<T> type) {
-        return getSkillConversationId(originatingAudience, fromBotId, toSkill, activity)
-```
-
-### TypeParameterExtendsObject
-Type parameter `T` explicitly extends 'java.lang.Object'
-in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/BotFrameworkHttpClient.java`
-#### Snippet
-```java
-     * @return InvokeResponse.
-     */
-    public <T extends Object> CompletableFuture<TypedInvokeResponse<T>> postActivity(String botId, URI botEndpoint,
-            Activity activity, Class<T> type) {
-
-```
-
-### TypeParameterExtendsObject
-Type parameter `T` explicitly extends 'java.lang.Object'
-in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/BotFrameworkHttpClient.java`
-#### Snippet
-```java
-    }
-
-    private <T extends Object> CompletableFuture<TypedInvokeResponse<T>> securePostActivity(
-        URI toUrl,
-        Activity activity,
-```
-
-### TypeParameterExtendsObject
-Type parameter `T` explicitly extends 'java.lang.Object'
-in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/BotFrameworkHttpClient.java`
-#### Snippet
-```java
-     */
-    @Override
-    public <T extends Object> CompletableFuture<TypedInvokeResponse<T>> postActivity(String fromBotId, String toBotId,
-            URI toUrl, URI serviceUrl, String conversationId, Activity activity, Class<T> type) {
-
-```
-
-### TypeParameterExtendsObject
 Wildcard type argument `?` explicitly extends 'java.lang.Object'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/scopes/ReadOnlyObject.java`
 #### Snippet
@@ -11408,19 +11324,91 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/DialogS
 
 ```
 
-## RuleId[id=UnusedAssignment]
-### UnusedAssignment
-Variable `jsonRequest` initializer `null` is redundant
-in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/utils/GenerateAnswerUtils.java`
+### TypeParameterExtendsObject
+Type parameter `T` explicitly extends 'java.lang.Object'
+in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/SkillHttpClient.java`
 #### Snippet
 ```java
-        );
-        JacksonAdapter jacksonAdapter = new JacksonAdapter();
-        String jsonRequest = null;
-
-        JSONObject jsonObject = new JSONObject();
+     * @return task with invokeResponse.
+     */
+    public <T extends Object> CompletableFuture<TypedInvokeResponse<T>> postActivity(String originatingAudience,
+            String fromBotId, BotFrameworkSkill toSkill, URI callbackUrl, Activity activity, Class<T> type) {
+        return getSkillConversationId(originatingAudience, fromBotId, toSkill, activity)
 ```
 
+### TypeParameterExtendsObject
+Type parameter `T` explicitly extends 'java.lang.Object'
+in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/SkillHttpClient.java`
+#### Snippet
+```java
+     * @return task with optional invokeResponse of type T.
+     */
+    public <T extends Object> CompletableFuture<TypedInvokeResponse<T>> postActivity(String fromBotId,
+            BotFrameworkSkill toSkill, URI callbackUrl, Activity activity, Class<T> type) {
+        String originatingAudience = getChannelProvider() != null && getChannelProvider().isGovernment()
+```
+
+### TypeParameterExtendsObject
+Type parameter `T` explicitly extends 'java.lang.Object'
+in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/BotFrameworkHttpClient.java`
+#### Snippet
+```java
+    }
+
+    private <T extends Object> CompletableFuture<TypedInvokeResponse<T>> securePostActivity(
+        URI toUrl,
+        Activity activity,
+```
+
+### TypeParameterExtendsObject
+Type parameter `T` explicitly extends 'java.lang.Object'
+in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/BotFrameworkHttpClient.java`
+#### Snippet
+```java
+     * @return InvokeResponse.
+     */
+    public <T extends Object> CompletableFuture<TypedInvokeResponse<T>> postActivity(String botId, URI botEndpoint,
+            Activity activity, Class<T> type) {
+
+```
+
+### TypeParameterExtendsObject
+Type parameter `T` explicitly extends 'java.lang.Object'
+in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/BotFrameworkHttpClient.java`
+#### Snippet
+```java
+     */
+    @Override
+    public <T extends Object> CompletableFuture<TypedInvokeResponse<T>> postActivity(String fromBotId, String toBotId,
+            URI toUrl, URI serviceUrl, String conversationId, Activity activity, Class<T> type) {
+
+```
+
+### TypeParameterExtendsObject
+Type parameter `T` explicitly extends 'java.lang.Object'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotState.java`
+#### Snippet
+```java
+     * @throws IllegalArgumentException Empty name
+     */
+    public <T extends Object> StatePropertyAccessor<T> createProperty(String name) throws IllegalArgumentException {
+        if (StringUtils.isEmpty(name)) {
+            throw new IllegalArgumentException("name cannot be empty");
+```
+
+### TypeParameterExtendsObject
+Type parameter `T` explicitly extends 'java.lang.Object'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/BotFrameworkClient.java`
+#### Snippet
+```java
+     * @return   task with optional invokeResponse.
+     */
+    public abstract <T extends Object> CompletableFuture<TypedInvokeResponse<T>> postActivity(
+        String fromBotId,
+        String toBotId,
+```
+
+## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
 Variable `jsonResponse` initializer `null` is redundant
 in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/utils/GenerateAnswerUtils.java`
@@ -11446,6 +11434,18 @@ in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/utils/GenerateAn
 ```
 
 ### UnusedAssignment
+Variable `jsonRequest` initializer `null` is redundant
+in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/utils/GenerateAnswerUtils.java`
+#### Snippet
+```java
+        );
+        JacksonAdapter jacksonAdapter = new JacksonAdapter();
+        String jsonRequest = null;
+
+        JSONObject jsonObject = new JSONObject();
+```
+
+### UnusedAssignment
 Variable `qnaResponse` initializer `null` is redundant
 in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/utils/HttpRequestUtils.java`
 #### Snippet
@@ -11455,42 +11455,6 @@ in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/utils/HttpReques
         JsonNode qnaResponse = null;
         try {
             Request request = buildRequest(requestUrl, endpointKey, buildRequestBody(payloadBody));
-```
-
-### UnusedAssignment
-Variable `jsonContent` initializer `""` is redundant
-in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/BotFrameworkHttpClient.java`
-#### Snippet
-```java
-        Class<T> type
-    ) {
-        String jsonContent = "";
-        try {
-            ObjectMapper mapper = new JacksonAdapter().serializer();
-```
-
-### UnusedAssignment
-Variable `appCredentials` initializer `null` is redundant
-in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/BotFrameworkHttpClient.java`
-#### Snippet
-```java
-        // If the credentials are in the cache, retrieve them from there
-        String cacheKey = String.format("%s%s", appId, oAuthScope);
-        AppCredentials appCredentials = null;
-        appCredentials = appCredentialMapCache.get(cacheKey);
-        if (appCredentials != null) {
-```
-
-### UnusedAssignment
-The value `i + 1` assigned to `start` is never used
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/ObjectPath.java`
-#### Snippet
-```java
-                soFar.add(segment);
-            }
-            start = i + 1;
-
-            if (eval) {
 ```
 
 ### UnusedAssignment
@@ -11506,15 +11470,15 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/pathres
 ```
 
 ### UnusedAssignment
-Variable `invokeValue` initializer `null` is redundant
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ActivityHandler.java`
+The value `i + 1` assigned to `start` is never used
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/ObjectPath.java`
 #### Snippet
 ```java
-    protected CompletableFuture<InvokeResponse> onInvokeActivity(TurnContext turnContext) {
-        if (StringUtils.equals(turnContext.getActivity().getName(), "adaptiveCard/action")) {
-            AdaptiveCardInvokeValue invokeValue = null;
-            try {
-                invokeValue = getAdaptiveCardInvokeValue(turnContext.getActivity());
+                soFar.add(segment);
+            }
+            start = i + 1;
+
+            if (eval) {
 ```
 
 ### UnusedAssignment
@@ -11578,6 +11542,30 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/pa
 ```
 
 ### UnusedAssignment
+Variable `mulValue` initializer `1` is redundant
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/parsers/BaseNumberParser.java`
+#### Snippet
+```java
+        } else {
+            int lastIndex = 0;
+            double mulValue = 1;
+            double partValue = 1;
+            for (int i = 0; i < isEnd.length; i++) {
+```
+
+### UnusedAssignment
+Variable `partValue` initializer `1` is redundant
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/parsers/BaseNumberParser.java`
+#### Snippet
+```java
+            int lastIndex = 0;
+            double mulValue = 1;
+            double partValue = 1;
+            for (int i = 0; i < isEnd.length; i++) {
+                if (isEnd[i]) {
+```
+
+### UnusedAssignment
 Variable `intPart` initializer `""` is redundant
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/parsers/BaseCJKNumberParser.java`
 #### Snippet
@@ -11611,30 +11599,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/pa
         String numPart = "";
         
         if (splitResult.length == 3) {
-```
-
-### UnusedAssignment
-Variable `mulValue` initializer `1` is redundant
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/parsers/BaseNumberParser.java`
-#### Snippet
-```java
-        } else {
-            int lastIndex = 0;
-            double mulValue = 1;
-            double partValue = 1;
-            for (int i = 0; i < isEnd.length; i++) {
-```
-
-### UnusedAssignment
-Variable `partValue` initializer `1` is redundant
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/parsers/BaseNumberParser.java`
-#### Snippet
-```java
-            int lastIndex = 0;
-            double mulValue = 1;
-            double partValue = 1;
-            for (int i = 0; i < isEnd.length; i++) {
-                if (isEnd[i]) {
 ```
 
 ### UnusedAssignment
@@ -11734,6 +11698,42 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### UnusedAssignment
+Variable `timeOfDay` initializer `""` is redundant
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishTimePeriodParserConfiguration.java`
+#### Snippet
+```java
+        endMin = 0;
+
+        String timeOfDay = "";
+
+        if (SpanishDateTime.EarlyMorningTermList.stream().anyMatch(trimmedText::endsWith)) {
+```
+
+### UnusedAssignment
+Variable `dateStr` initializer `""` is redundant
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateTimePeriodParser.java`
+#### Snippet
+```java
+            ret.setComment(parseTimePeriodResult.comments);
+
+            String dateStr = "";
+
+            // Parse following date
+```
+
+### UnusedAssignment
+Variable `ptTimex` initializer `""` is redundant
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateTimePeriodParser.java`
+#### Snippet
+```java
+            LocalDateTime beginTime = referenceDate;
+            LocalDateTime endTime = referenceDate;
+            String ptTimex = "";
+
+            if (config.getUnitMap().containsKey(srcUnit)) {
+```
+
+### UnusedAssignment
 Variable `pr1` initializer `null` is redundant
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseTimePeriodParser.java`
 #### Snippet
@@ -11755,42 +11755,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
         DateTimeParseResult pr2 = null;
         boolean validTimeNumber = false;
 
-```
-
-### UnusedAssignment
-Variable `ptTimex` initializer `""` is redundant
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateTimePeriodParser.java`
-#### Snippet
-```java
-            LocalDateTime beginTime = referenceDate;
-            LocalDateTime endTime = referenceDate;
-            String ptTimex = "";
-
-            if (config.getUnitMap().containsKey(srcUnit)) {
-```
-
-### UnusedAssignment
-Variable `dateStr` initializer `""` is redundant
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateTimePeriodParser.java`
-#### Snippet
-```java
-            ret.setComment(parseTimePeriodResult.comments);
-
-            String dateStr = "";
-
-            // Parse following date
-```
-
-### UnusedAssignment
-Variable `timeOfDay` initializer `""` is redundant
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishTimePeriodParserConfiguration.java`
-#### Snippet
-```java
-        endMin = 0;
-
-        String timeOfDay = "";
-
-        if (SpanishDateTime.EarlyMorningTermList.stream().anyMatch(trimmedText::endsWith)) {
 ```
 
 ### UnusedAssignment
@@ -11827,6 +11791,54 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
         int index = -1;
         ConditionalMatch match = RegexExtension.matchBegin(pattern, text, true);
 
+```
+
+### UnusedAssignment
+Variable `isDateRelative` initializer `false` is redundant
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
+#### Snippet
+```java
+    private DateContext getYearContext(String startDateStr, String endDateStr, String text) {
+        boolean isEndDatePureYear = false;
+        boolean isDateRelative = false;
+        int contextYear = Constants.InvalidYear;
+
+```
+
+### UnusedAssignment
+The value `getModAndDateResult.beginDate` assigned to `beginDate` is never used
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
+#### Snippet
+```java
+                        !DurationParsingUtil.isMultipleDuration(durationResult.getTimex()) && !isMatch) {
+                    getModAndDateResult = getModAndDate(beginDate, endDate, referenceDate, durationResult.getTimex(), true);
+                    beginDate = getModAndDateResult.beginDate;
+                    endDate = getModAndDateResult.endDate;
+
+```
+
+### UnusedAssignment
+Variable `beginDateResult` initializer `beginDate` is redundant
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
+#### Snippet
+```java
+
+    private GetModAndDateResult getModAndDate(LocalDateTime beginDate, LocalDateTime endDate, LocalDateTime referenceDate, String timex, boolean future) {
+        LocalDateTime beginDateResult = beginDate;
+        LocalDateTime endDateResult = endDate;
+        boolean isBusinessDay = timex.endsWith(Constants.TimexBusinessDay);
+```
+
+### UnusedAssignment
+Variable `swift` initializer `0` is redundant
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
+#### Snippet
+```java
+            }
+
+            int swift = 0;
+            String monthStr = match.getMatch().get().getGroup("month").value;
+            if (!StringUtility.isNullOrEmpty(monthStr)) {
 ```
 
 ### UnusedAssignment
@@ -11878,54 +11890,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### UnusedAssignment
-Variable `isDateRelative` initializer `false` is redundant
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
-#### Snippet
-```java
-    private DateContext getYearContext(String startDateStr, String endDateStr, String text) {
-        boolean isEndDatePureYear = false;
-        boolean isDateRelative = false;
-        int contextYear = Constants.InvalidYear;
-
-```
-
-### UnusedAssignment
-Variable `swift` initializer `0` is redundant
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
-#### Snippet
-```java
-            }
-
-            int swift = 0;
-            String monthStr = match.getMatch().get().getGroup("month").value;
-            if (!StringUtility.isNullOrEmpty(monthStr)) {
-```
-
-### UnusedAssignment
-Variable `beginDateResult` initializer `beginDate` is redundant
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
-#### Snippet
-```java
-
-    private GetModAndDateResult getModAndDate(LocalDateTime beginDate, LocalDateTime endDate, LocalDateTime referenceDate, String timex, boolean future) {
-        LocalDateTime beginDateResult = beginDate;
-        LocalDateTime endDateResult = endDate;
-        boolean isBusinessDay = timex.endsWith(Constants.TimexBusinessDay);
-```
-
-### UnusedAssignment
-The value `getModAndDateResult.beginDate` assigned to `beginDate` is never used
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
-#### Snippet
-```java
-                        !DurationParsingUtil.isMultipleDuration(durationResult.getTimex()) && !isMatch) {
-                    getModAndDateResult = getModAndDate(beginDate, endDate, referenceDate, durationResult.getTimex(), true);
-                    beginDate = getModAndDateResult.beginDate;
-                    endDate = getModAndDateResult.endDate;
-
-```
-
-### UnusedAssignment
 Variable `type` initializer `null` is redundant
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDurationExtractor.java`
 #### Snippet
@@ -11950,27 +11914,27 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/utilities
 ```
 
 ### UnusedAssignment
-Variable `sendX5c` initializer `true` is redundant
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/CertificateAppCredentialsOptions.java`
+Variable `jsonContent` initializer `""` is redundant
+in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/BotFrameworkHttpClient.java`
 #### Snippet
 ```java
-    private InputStream pkcs12Certificate;
-    private String pkcs12Password;
-    private boolean sendX5c = true;
-
-    /**
+        Class<T> type
+    ) {
+        String jsonContent = "";
+        try {
+            ObjectMapper mapper = new JacksonAdapter().serializer();
 ```
 
 ### UnusedAssignment
-Variable `appId` initializer `null` is redundant
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/JwtTokenValidation.java`
+Variable `appCredentials` initializer `null` is redundant
+in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/BotFrameworkHttpClient.java`
 #### Snippet
 ```java
-        }
-
-        String appId = null;
-
-        String tokenVersion = claims.get(AuthenticationConstants.VERSION_CLAIM);
+        // If the credentials are in the cache, retrieve them from there
+        String cacheKey = String.format("%s%s", appId, oAuthScope);
+        AppCredentials appCredentials = null;
+        appCredentials = appCredentialMapCache.get(cacheKey);
+        if (appCredentials != null) {
 ```
 
 ### UnusedAssignment
@@ -11985,55 +11949,776 @@ in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/Entity.java`
             newObj = objectMapper.readValue(tempJson, classType);
 ```
 
+### UnusedAssignment
+Variable `sendX5c` initializer `true` is redundant
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/CertificateAppCredentialsOptions.java`
+#### Snippet
+```java
+    private InputStream pkcs12Certificate;
+    private String pkcs12Password;
+    private boolean sendX5c = true;
+
+    /**
+```
+
+### UnusedAssignment
+Variable `invokeValue` initializer `null` is redundant
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ActivityHandler.java`
+#### Snippet
+```java
+    protected CompletableFuture<InvokeResponse> onInvokeActivity(TurnContext turnContext) {
+        if (StringUtils.equals(turnContext.getActivity().getName(), "adaptiveCard/action")) {
+            AdaptiveCardInvokeValue invokeValue = null;
+            try {
+                invokeValue = getAdaptiveCardInvokeValue(turnContext.getActivity());
+```
+
+### UnusedAssignment
+Variable `appId` initializer `null` is redundant
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/JwtTokenValidation.java`
+#### Snippet
+```java
+        }
+
+        String appId = null;
+
+        String tokenVersion = claims.get(AuthenticationConstants.VERSION_CLAIM);
+```
+
+## RuleId[id=OptionalGetWithoutIsPresent]
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/DialogStateManager.java`
+#### Snippet
+```java
+        MemoryScope scope = configuration.getMemoryScopes().stream().filter((s) -> {
+            return s.getName().toUpperCase() == uCaseName;
+        }).findFirst().get();
+        if (scope != null) {
+            return scope.delete(dialogContext).thenApply(result -> null);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/french/parsers/FrenchTimeParser.java`
+#### Snippet
+```java
+        final ConditionalMatch match = RegexExtension.matchExact(FrenchTimeExtractorConfiguration.IshRegex, text, true);
+        if (match.getSuccess()) {
+            final String hourStr = match.getMatch().get().getGroup(Constants.HourGroupName).value;
+            int hour = Constants.HalfDayHourCount;
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/french/parsers/FrenchTimeParserConfiguration.java`
+#### Snippet
+```java
+
+        if (match.getSuccess()) {
+            final String oclockStr = match.getMatch().get().getGroup("heures").value;
+            if (StringUtility.isNullOrEmpty(oclockStr)) {
+                final String matchAmStr = match.getMatch().get().getGroup(Constants.AmGroupName).value;
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishTimeParserConfiguration.java`
+#### Snippet
+```java
+        if (match.getSuccess()) {
+            
+            String oclockStr = match.getMatch().get().getGroup("oclock").value;
+            if (StringUtility.isNullOrEmpty(oclockStr)) {
+                
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishTimeParserConfiguration.java`
+#### Snippet
+```java
+            
+            Optional<Match> match = Arrays.stream(RegExpUtility.getMatches(EnglishTimeExtractorConfiguration.LessThanOneHour, trimmedPrefix)).findFirst();
+            String minStr = match.get().getGroup("deltamin").value;
+            if (!StringUtility.isNullOrWhiteSpace(minStr)) {
+                deltaMin = Integer.parseInt(minStr);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/TimeParser.java`
+#### Snippet
+```java
+        ConditionalMatch match = RegexExtension.matchExact(EnglishTimeExtractorConfiguration.IshRegex, text, true);
+        if (match.getSuccess()) {
+            String hourStr = match.getMatch().get().getGroup(Constants.HourGroupName).value;
+            int hour = Constants.HalfDayHourCount;
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateTimeParser.java`
+#### Snippet
+```java
+
+        if (wholeMatch.getSuccess()) {
+            String hourStr = wholeMatch.getMatch().get().getGroup(Constants.HourGroupName).value;
+            if (StringUtility.isNullOrEmpty(hourStr)) {
+                hourStr = wholeMatch.getMatch().get().getGroup("hournum").value.toLowerCase();
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseSetParser.java`
+#### Snippet
+```java
+        if (exactMatch.getSuccess()) {
+
+            String sourceUnit = exactMatch.getMatch().get().getGroup("unit").value;
+            if (!StringUtility.isNullOrEmpty(sourceUnit) && this.config.getUnitMap().containsKey(sourceUnit)) {
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseTimeParser.java`
+#### Snippet
+```java
+
+            if (exactMatch.getSuccess()) {
+                return match2Time(exactMatch.getMatch().get(), referenceTime);
+            }
+        }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseHolidayParser.java`
+#### Snippet
+```java
+            if (match.getSuccess()) {
+                // LUIS value string will be set in Match2Date method
+                DateTimeResolutionResult ret = match2Date(match.getMatch().get(), referenceDate);
+
+                return ret;
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateParser.java`
+#### Snippet
+```java
+
+        if (exactMatch.getSuccess()) {
+            int swift = getSwiftDay(exactMatch.getMatch().get().value);
+
+            LocalDateTime value = referenceDate.toLocalDate().atStartOfDay().plusDays(swift);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateParser.java`
+#### Snippet
+```java
+        if (exactMatch.getSuccess()) {
+
+            int swift = getSwiftDay(exactMatch.getMatch().get().getGroup("day").value);
+            List<ExtractResult> numErs = this.config.getIntegerExtractor().extract(trimmedText);
+            Object numberParsed = this.config.getNumberParser().parse(numErs.get(0)).getValue();
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateParser.java`
+#### Snippet
+```java
+            int num = Math.round(((Double)numberParsed).floatValue());
+
+            String weekdayStr = exactMatch.getMatch().get().getGroup("weekday").value.toLowerCase();
+            LocalDateTime value = referenceDate;
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateParser.java`
+#### Snippet
+```java
+
+        if (exactMatch.getSuccess()) {
+            String weekdayStr = exactMatch.getMatch().get().getGroup("weekday").value.toLowerCase();
+            LocalDateTime value = DateUtil.next(referenceDate, this.config.getDayOfWeek().get(weekdayStr));
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateParser.java`
+#### Snippet
+```java
+
+        if (exactMatch.getSuccess()) {
+            String weekdayStr = exactMatch.getMatch().get().getGroup("weekday").value.toLowerCase();
+            LocalDateTime value = DateUtil.thisDate(referenceDate, this.config.getDayOfWeek().get(weekdayStr));
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateParser.java`
+#### Snippet
+```java
+
+        if (exactMatch.getSuccess()) {
+            String weekdayStr = exactMatch.getMatch().get().getGroup("weekday").value.toLowerCase();
+            LocalDateTime value = DateUtil.last(referenceDate, this.config.getDayOfWeek().get(weekdayStr));
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateParser.java`
+#### Snippet
+```java
+
+        if (exactMatch.getSuccess()) {
+            String weekdayStr = exactMatch.getMatch().get().getGroup("weekday").value.toLowerCase();
+            int weekDay = this.config.getDayOfWeek().get(weekdayStr);
+            LocalDateTime value = DateUtil.thisDate(referenceDate, this.config.getDayOfWeek().get(weekdayStr));
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateParser.java`
+#### Snippet
+```java
+                    // Handing cases which contain relative term like "this 5/12"
+                    if (match.get().index != offset) {
+                        relativeStr = relativeRegex.getMatch().get().value;
+                    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateParser.java`
+#### Snippet
+```java
+        int year = 0;
+
+        String monthStr = match.get().getGroup("month").value.toLowerCase();
+        String dayStr = match.get().getGroup("day").value.toLowerCase();
+        String weekdayStr = match.get().getGroup("weekday").value.toLowerCase();
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishTimeParserConfiguration.java`
+#### Snippet
+```java
+        if (match.getSuccess()) {
+
+            String oclockStr = match.getMatch().get().getGroup("oclock").value;
+            if (StringUtility.isNullOrEmpty(oclockStr)) {
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseMergedDateTimeParser.java`
+#### Snippet
+```java
+
+    private String determineResolutionDateTimeType(LinkedHashMap<String, String> pastResolutionStr) {
+        switch (pastResolutionStr.keySet().stream().findFirst().get()) {
+            case TimeTypeConstants.START_DATE:
+                return Constants.SYS_DATETIME_DATEPERIOD;
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseMergedDateTimeParser.java`
+#### Snippet
+```java
+            if (beforeMatch.getSuccess()) {
+                hasBefore = true;
+                er.setStart(er.getStart() + beforeMatch.getMatch().get().length);
+                er.setLength(er.getLength() - beforeMatch.getMatch().get().length);
+                er.setText(er.getText().substring(beforeMatch.getMatch().get().length));
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseMergedDateTimeParser.java`
+#### Snippet
+```java
+            } else if (afterMatch.getSuccess()) {
+                hasAfter = true;
+                er.setStart(er.getStart() + afterMatch.getMatch().get().length);
+                er.setLength(er.getLength() - afterMatch.getMatch().get().length);
+                er.setText(er.getText().substring(afterMatch.getMatch().get().length));
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseMergedDateTimeParser.java`
+#### Snippet
+```java
+            } else if (sinceMatch.getSuccess()) {
+                hasSince = true;
+                er.setStart(er.getStart() + sinceMatch.getMatch().get().length);
+                er.setLength(er.getLength() - sinceMatch.getMatch().get().length);
+                er.setText(er.getText().substring(sinceMatch.getMatch().get().length));
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseMergedDateTimeParser.java`
+#### Snippet
+```java
+            } else if (aroundMatch.getSuccess()) {
+                hasAround = true;
+                er.setStart(er.getStart() + aroundMatch.getMatch().get().length);
+                er.setLength(er.getLength() - aroundMatch.getMatch().get().length);
+                er.setText(er.getText().substring(aroundMatch.getMatch().get().length));
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseMergedDateTimeParser.java`
+#### Snippet
+```java
+                if (match.getSuccess()) {
+                    hasYearAfter = true;
+                    er.setLength(er.getLength() - match.getMatch().get().length);
+                    er.setText(er.getLength() > 0 ? er.getText().substring(0, er.getLength()) : "");
+                    modStr = match.getMatch().get().value;
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseTimePeriodParser.java`
+#### Snippet
+```java
+        if (match.getSuccess()) {
+            // Cases like "half past seven" are not handled here
+            if (!match.getMatch().get().getGroup(Constants.PrefixGroupName).value.equals("")) {
+                return ret;
+            }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseTimePeriodParser.java`
+#### Snippet
+```java
+
+            // get hours
+            MatchGroup hourGroup = match.getMatch().get().getGroup(Constants.HourGroupName);
+            String hourStr = hourGroup.captures[0].value;
+            int afterHourIndex = hourGroup.captures[0].index + hourGroup.captures[0].length;
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/utilities/MatchingUtil.java`
+#### Snippet
+```java
+
+        if (match.getSuccess()) {
+            index = match.getMatch().get().index + match.getMatch().get().length;
+            return new MatchingUtilResult(true, index);
+        }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
+#### Snippet
+```java
+        }
+
+        String cardinalStr = match.getMatch().get().getGroup("cardinal").value.toLowerCase();
+        String orderQuarterStr = match.getMatch().get().getGroup("orderQuarter").value.toLowerCase();
+        String orderStr = StringUtility.isNullOrEmpty(orderQuarterStr) ? match.getMatch().get().getGroup("order").value.toLowerCase() : null;
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
+#### Snippet
+```java
+            ConditionalMatch exactMatch = RegexExtension.matchExact(this.config.getYearRegex(), text, true);
+            if (exactMatch.getSuccess()) {
+                year = this.config.getDateExtractor().getYearFromText(exactMatch.getMatch().get());
+                if (!(year >= Constants.MinYearNum && year <= Constants.MaxYearNum)) {
+                    year = Constants.InvalidYear;
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
+#### Snippet
+```java
+                exactMatch = RegexExtension.matchExact(this.config.getYearPlusNumberRegex(), text, true);
+                if (exactMatch.getSuccess()) {
+                    year = this.config.getDateExtractor().getYearFromText(exactMatch.getMatch().get());
+                    if (!StringUtility.isNullOrEmpty(exactMatch.getMatch().get().getGroup("special").value)) {
+                        String specialYearPrefixes = this.config.getSpecialYearPrefixesMap().get(exactMatch.getMatch().get().getGroup("special").value.toLowerCase());
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
+#### Snippet
+```java
+        if (match.getSuccess()) {
+
+            String decadeStr = match.getMatch().get().getGroup("decade").value.toLowerCase();
+            if (!IntegerUtility.canParse(decadeStr)) {
+                if (this.config.getWrittenDecades().containsKey(decadeStr)) {
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
+#### Snippet
+```java
+                swift = this.config.getSwiftDayOrMonth(trimmedText);
+
+                String numStr = match.getMatch().get().getGroup("number").value.toLowerCase();
+                List<ExtractResult> er = this.config.getIntegerExtractor().extract(numStr);
+                if (er.size() == 1) {
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
+#### Snippet
+```java
+        ConditionalMatch match = RegexExtension.matchExact(this.config.getSeasonRegex(), text, true);
+        if (match.getSuccess()) {
+            String seasonStr = this.config.getSeasonMap().get(match.getMatch().get().getGroup("seas").value.toLowerCase());
+
+            if (!match.getMatch().get().getGroup("EarlyPrefix").value.equals("")) {
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
+#### Snippet
+```java
+        }
+
+        String cardinalStr = match.getMatch().get().getGroup("cardinal").value.toLowerCase();
+        String orderStr = match.getMatch().get().getGroup("order").value.toLowerCase();
+        String numberStr = match.getMatch().get().getGroup("number").value;
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
+#### Snippet
+```java
+
+                if (!combinedDurationEr.isEmpty()) {
+                    durationPr = config.getDurationParser().parse(combinedDurationEr.stream().findFirst().get());
+                    int startIndex = numberEr.getStart() + numberEr.getLength();
+                    beforeStr = beforeStr.substring(startIndex).trim();
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
+#### Snippet
+```java
+
+        if (match.getSuccess()) {
+            String monthStr = match.getMatch().get().getGroup("month").value.toLowerCase();
+            String orderStr = match.getMatch().get().getGroup("order").value.toLowerCase();
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
+#### Snippet
+```java
+        }
+
+        String cardinalStr = match.getMatch().get().getGroup("cardinal").value;
+        String monthStr = match.getMatch().get().getGroup("month").value;
+        boolean noYear = false;
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
+#### Snippet
+```java
+        }
+
+        String cardinalStr = match.getMatch().get().getGroup("cardinal").value;
+        String orderStr = match.getMatch().get().getGroup("order").value.toLowerCase();
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
+#### Snippet
+```java
+        ConditionalMatch match = RegexExtension.matchExact(this.config.getWhichWeekRegex(), text, true);
+        if (match.getSuccess()) {
+            int num = Integer.parseInt(match.getMatch().get().getGroup("number").value);
+            int year = referenceDate.getYear();
+            ret.setTimex(String.format("%04d-W%02d", year, num));
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
+#### Snippet
+```java
+
+        if (match.getSuccess()) {
+            if (!match.getMatch().get().getGroup("EarlyPrefix").value.equals("")) {
+                earlyPrefix = true;
+                trimmedText = match.getMatch().get().getGroup(Constants.SuffixGroupName).value;
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
+#### Snippet
+```java
+
+        if (match.getSuccess()) {
+            MatchGroup days = match.getMatch().get().getGroup("day");
+            beginDay = this.config.getDayOfMonth().get(days.captures[0].value.toLowerCase());
+            endDay = this.config.getDayOfMonth().get(days.captures[1].value.toLowerCase());
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDatePeriodExtractor.java`
+#### Snippet
+```java
+
+            if (match.getSuccess()) {
+                int startToken = match.getMatch().get().index;
+                String tokenString = input.substring(duration.getStart(), duration.getEnd());
+                Match matchDate = Arrays.stream(RegExpUtility.getMatches(config.getDateUnitRegex(), tokenString)).findFirst().orElse(null);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDatePeriodExtractor.java`
+#### Snippet
+```java
+
+            if (match.getSuccess()) {
+                index = match.getMatch().get().index;
+            }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDatePeriodExtractor.java`
+#### Snippet
+```java
+
+                if (match.getSuccess()) {
+                    index = match.getMatch().get().index;
+                }
+            }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDatePeriodExtractor.java`
+#### Snippet
+```java
+            match = RegexExtension.matchBegin(config.getPastRegex(), afterStr, true);
+            if (match.getSuccess()) {
+                int matchLength = match.getMatch().get().index + match.getMatch().get().length;
+                results.add(new Token(duration.getStart(), duration.getEnd() + matchLength));
+                continue;
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDatePeriodExtractor.java`
+#### Snippet
+```java
+            match = RegexExtension.matchBegin(config.getFutureSuffixRegex(), afterStr, true);
+            if (match.getSuccess()) {
+                int matchLength = match.getMatch().get().index + match.getMatch().get().length;
+                results.add(new Token(duration.getStart(), duration.getEnd() + matchLength));
+            }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDateTimePeriodExtractor.java`
+#### Snippet
+```java
+            Optional<Match> match = match(config.getWithinNextPrefixRegex(), beforeStr);
+            if (matchPrefixRegexInSegment(beforeStr, match)) {
+                int startToken = match.get().index;
+                int durationLength = duration.getStart() + duration.getLength();
+                match = match(config.getTimeUnitRegex(), input.substring(duration.getStart(), durationLength));
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDateTimeExtractor.java`
+#### Snippet
+```java
+            ConditionalMatch innerMatch = RegexExtension.matchBegin(this.config.getTimeOfDayRegex(), er.getText(), true);
+            if (innerMatch.getSuccess()) {
+                beforeStr = input.substring(0, ((er != null) ? er.getStart() : 0) + innerMatch.getMatch().get().length);
+            }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDurationExtractor.java`
+#### Snippet
+```java
+            String afterStr = text.substring(token.getStart() + token.getLength());
+            ConditionalMatch match = RegexExtension.matchBegin(this.config.getSuffixAndRegex(), afterStr, true);
+            if (match.getSuccess() && match.getMatch().get().index == 0) {
+                result.add(new Token(token.getStart(), token.getStart() + token.getLength() + match.getMatch().get().length));
+            }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDurationExtractor.java`
+#### Snippet
+```java
+
+            if (isInequalityPrefixMatched) {
+                int length = er.getLength() + er.getStart() - match.getMatch().get().index;
+                int start = match.getMatch().get().index;
+                String text = input.substring(start, start + length);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDurationExtractor.java`
+#### Snippet
+```java
+            String afterStr = text.substring(er.getStart() + er.getLength());
+            ConditionalMatch match = RegexExtension.matchBegin(this.config.getFollowedUnit(), afterStr, true);
+            if (match.getSuccess() && match.getMatch().get().index == 0) {
+                result.add(new Token(er.getStart(), er.getStart() + er.getLength() + match.getMatch().get().length));
+            }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDateExtractor.java`
+#### Snippet
+```java
+                    ConditionalMatch relativeRegex = RegexExtension.matchEnd(config.getStrictRelativeRegex(), preText, true);
+                    if (relativeRegex.getSuccess()) {
+                        result.add(new Token(relativeRegex.getMatch().get().index, match.index + match.length));
+                    } else {
+                        result.add(new Token(match.index, match.index + match.length));
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDateExtractor.java`
+#### Snippet
+```java
+                String suffixStr = text.substring(result.getStart() + result.getLength());
+                ConditionalMatch beginMatch = RegexExtension.matchBegin(config.getRelativeMonthRegex(), suffixStr.trim(), true);
+                if (beginMatch.getSuccess() && beginMatch.getMatch().get().index == 0) {
+                    int spaceLen = suffixStr.length() - suffixStr.trim().length();
+                    int resStart = result.getStart();
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDateExtractor.java`
+#### Snippet
+```java
+                beginMatch = RegexExtension.matchBegin(config.getWeekDayRegex(), suffixStr.trim(), true);
+                if (beginMatch.getSuccess() && num >= 1 && num <= 5 && result.getType().equals("builtin.num.ordinal")) {
+                    String weekDayStr = beginMatch.getMatch().get().getGroup("weekday").value.toLowerCase();
+                    if (config.getDayOfWeek().containsKey(weekDayStr)) {
+                        int spaceLen = suffixStr.length() - suffixStr.trim().length();
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseMergedDateTimeExtractor.java`
+#### Snippet
+```java
+                    boolean isFollowedByOtherEntity = true;
+
+                    if (match.getMatch().get().length == afterStr.trim().length()) {
+                        isFollowedByOtherEntity = false;
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDateTimeAltExtractor.java`
+#### Snippet
+```java
+        // Currently, we support alt entity sequence only when the second alt entity to the last alt entity share the same type
+        if (isSupportedAltEntitySequence(extractResults)) {
+            HashMap<String, Object> metadata = extractMetadata(extractResults.stream().findFirst().get(), parentText, extractResults);
+            HashMap<String, Object> metadataCandidate = null;
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDateTimeAltExtractor.java`
+#### Snippet
+```java
+
+        if (isSupportedAltEntitySequence(extractResults)) {
+            String firstEntityType = extractResults.stream().findFirst().get().getType();
+            String lastEntityType = extractResults.get(extractResults.size() - 1).getType();
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/numberwithunit/parsers/BaseCurrencyParser.java`
+#### Snippet
+```java
+                if (fractionUnitCode != null && !fractionUnitCode.isEmpty() && fractionNumValue.isPresent() && fractionNumValue.get() != 0 &&
+                    checkUnitsStringContains(fractionUnitCode, fractionUnitsString)) {
+                    numberValue += Double.parseDouble(parseResultValue.get().number) * (1.0 / fractionNumValue.get());
+                    result.setLength(parseResult.getStart() + parseResult.getLength() - result.getStart());
+                    result.setResolutionStr(result.getResolutionStr() + " " + parseResult.getResolutionStr());
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsTranscriptStore.java`
+#### Snippet
+```java
+                    String lastName = Arrays.stream(blobItem.getName().split("/"))
+                        .reduce((first, second) -> second.length() > 0 ? second : first)
+                        .get();
+                    try {
+                        conversationId = URLDecoder.decode(lastName, StandardCharsets.UTF_8.name());
+```
+
 ## RuleId[id=ConstantValue]
-### ConstantValue
-Value `token` is always 'null'
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsTranscriptStore.java`
-#### Snippet
-```java
-            Iterable<PagedResponse<BlobItem>> resultSegment = containerClient
-                .listBlobsByHierarchy("/", this.getOptionsWithMetadata(prefix), null)
-                .iterableByPage(token);
-            token = null;
-            for (PagedResponse<BlobItem> blobPage : resultSegment) {
-```
-
-### ConstantValue
-Condition `!StringUtils.isBlank(token)` is always `false`
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsTranscriptStore.java`
-#### Snippet
-```java
-                }
-            }
-        } while (!StringUtils.isBlank(token) && conversations.size() < pageSize);
-
-        PagedResult<TranscriptInfo> pagedResult = new PagedResult<TranscriptInfo>();
-```
-
-### ConstantValue
-Condition `!StringUtils.isBlank(token) && conversations.size() < pageSize` is always `false`
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsTranscriptStore.java`
-#### Snippet
-```java
-                }
-            }
-        } while (!StringUtils.isBlank(token) && conversations.size() < pageSize);
-
-        PagedResult<TranscriptInfo> pagedResult = new PagedResult<TranscriptInfo>();
-```
-
-### ConstantValue
-Value `token` is always 'null'
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsTranscriptStore.java`
-#### Snippet
-```java
-                }
-            }
-        } while (!StringUtils.isBlank(token) && conversations.size() < pageSize);
-
-        PagedResult<TranscriptInfo> pagedResult = new PagedResult<TranscriptInfo>();
-```
-
 ### ConstantValue
 Value `handled` is always 'false'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/DialogContainer.java`
@@ -12095,18 +12780,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/DialogS
 ```
 
 ### ConstantValue
-Condition `counter == null` is always `true`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/DialogStateManager.java`
-#### Snippet
-```java
-                ResultPair<Integer> result = tryGetValue(trackedPath, Integer.class);
-                if (result.result()) {
-                    if (counter == null) {
-                        counter = getValue(DialogPath.EVENTCOUNTER, 0, Integer.class);
-                    }
-```
-
-### ConstantValue
 Condition `scope != null` is always `true`
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/DialogStateManager.java`
 #### Snippet
@@ -12164,6 +12837,18 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/DialogS
             return new ResultPair<>(false, instance);
         }
 
+```
+
+### ConstantValue
+Condition `counter == null` is always `true`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/DialogStateManager.java`
+#### Snippet
+```java
+                ResultPair<Integer> result = tryGetValue(trackedPath, Integer.class);
+                if (result.result()) {
+                    if (counter == null) {
+                        counter = getValue(DialogPath.EVENTCOUNTER, 0, Integer.class);
+                    }
 ```
 
 ### ConstantValue
@@ -12311,27 +12996,15 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### ConstantValue
-Condition `hasLeftPm` is always `true`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseTimePeriodParser.java`
+Value `timex` is always 'null'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishTimePeriodParserConfiguration.java`
 #### Snippet
 ```java
-                        beginDateTime = beginDateTime.minusHours(Constants.HalfDayHourCount);
-                    }
-                } else if (hasLeftPm) {
-                    if (beginHour < Constants.HalfDayHourCount) {
-                        beginDateTime = beginDateTime.plusHours(Constants.HalfDayHourCount);
-```
+        } else {
+            timex = null;
+            return new MatchedTimeRangeResult(false, timex, beginHour, endHour, endMin);
+        }
 
-### ConstantValue
-Condition `hasRightPm` is always `true`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseTimePeriodParser.java`
-#### Snippet
-```java
-                        endDateTime = endDateTime.minusHours(Constants.HalfDayHourCount);
-                    }
-                } else if (hasRightPm) {
-                    if (endHour < Constants.HalfDayHourCount) {
-                        endDateTime = endDateTime.plusHours(Constants.HalfDayHourCount);
 ```
 
 ### ConstantValue
@@ -12467,18 +13140,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### ConstantValue
-Value `timex` is always 'null'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishTimePeriodParserConfiguration.java`
-#### Snippet
-```java
-        } else {
-            timex = null;
-            return new MatchedTimeRangeResult(false, timex, beginHour, endHour, endMin);
-        }
-
-```
-
-### ConstantValue
 Value `ambiguityFiltersDict` is always 'null'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/extractors/SpanishMergedExtractorConfiguration.java`
 #### Snippet
@@ -12488,6 +13149,30 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
         return ambiguityFiltersDict;
     }
 
+```
+
+### ConstantValue
+Condition `hasLeftPm` is always `true`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseTimePeriodParser.java`
+#### Snippet
+```java
+                        beginDateTime = beginDateTime.minusHours(Constants.HalfDayHourCount);
+                    }
+                } else if (hasLeftPm) {
+                    if (beginHour < Constants.HalfDayHourCount) {
+                        beginDateTime = beginDateTime.plusHours(Constants.HalfDayHourCount);
+```
+
+### ConstantValue
+Condition `hasRightPm` is always `true`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseTimePeriodParser.java`
+#### Snippet
+```java
+                        endDateTime = endDateTime.minusHours(Constants.HalfDayHourCount);
+                    }
+                } else if (hasRightPm) {
+                    if (endHour < Constants.HalfDayHourCount) {
+                        endDateTime = endDateTime.plusHours(Constants.HalfDayHourCount);
 ```
 
 ### ConstantValue
@@ -12539,6 +13224,18 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### ConstantValue
+Condition `value == null` is always `false`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
+#### Snippet
+```java
+                retNow,
+                "",
+                value == null ? "" : ((DateTimeResolutionResult)retNow).getTimex());
+        }
+
+```
+
+### ConstantValue
 Condition `dateContext == null` is always `false`
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
 #### Snippet
@@ -12563,27 +13260,15 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### ConstantValue
-Condition `value == null` is always `false`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
-#### Snippet
-```java
-                retNow,
-                "",
-                value == null ? "" : ((DateTimeResolutionResult)retNow).getTimex());
-        }
-
-```
-
-### ConstantValue
-Condition `er != null` is always `true`
+Condition `match != null` is always `true` when reached
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDateTimeExtractor.java`
 #### Snippet
 ```java
-            ConditionalMatch innerMatch = RegexExtension.matchBegin(this.config.getTimeOfDayRegex(), er.getText(), true);
-            if (innerMatch.getSuccess()) {
-                beforeStr = input.substring(0, ((er != null) ? er.getStart() : 0) + innerMatch.getMatch().get().length);
+                    ret.add(new Token(
+                            (er != null) ? er.getStart() : 0,
+                            ((er != null) ? er.getStart() + er.getLength() : 0) + ((match != null) ? match.get().index + match.get().length : 0)));
+                }
             }
-
 ```
 
 ### ConstantValue
@@ -12611,15 +13296,15 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### ConstantValue
-Condition `match != null` is always `true` when reached
+Condition `er != null` is always `true`
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDateTimeExtractor.java`
 #### Snippet
 ```java
-                    ret.add(new Token(
-                            (er != null) ? er.getStart() : 0,
-                            ((er != null) ? er.getStart() + er.getLength() : 0) + ((match != null) ? match.get().index + match.get().length : 0)));
-                }
+            ConditionalMatch innerMatch = RegexExtension.matchBegin(this.config.getTimeOfDayRegex(), er.getText(), true);
+            if (innerMatch.getSuccess()) {
+                beforeStr = input.substring(0, ((er != null) ? er.getStart() : 0) + innerMatch.getMatch().get().length);
             }
+
 ```
 
 ### ConstantValue
@@ -12719,6 +13404,114 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/numberwit
 ```
 
 ### ConstantValue
+Value `instance` is always 'null'
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/Activity.java`
+#### Snippet
+```java
+        TypeT instance = null;
+        if (this.getChannelData() == null) {
+            return new ResultPair<>(false, instance);
+        }
+
+```
+
+### ConstantValue
+Value `instance` is always 'null'
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/Activity.java`
+#### Snippet
+```java
+            instance = this.getChannelData(clsType);
+        } catch (JsonProcessingException e) {
+            return new ResultPair<TypeT>(false, instance);
+        }
+        return new ResultPair<TypeT>(true, instance);
+```
+
+### ConstantValue
+Value `token` is always 'null'
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsTranscriptStore.java`
+#### Snippet
+```java
+            Iterable<PagedResponse<BlobItem>> resultSegment = containerClient
+                .listBlobsByHierarchy("/", this.getOptionsWithMetadata(prefix), null)
+                .iterableByPage(token);
+            token = null;
+            for (PagedResponse<BlobItem> blobPage : resultSegment) {
+```
+
+### ConstantValue
+Condition `!StringUtils.isBlank(token)` is always `false`
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsTranscriptStore.java`
+#### Snippet
+```java
+                }
+            }
+        } while (!StringUtils.isBlank(token) && conversations.size() < pageSize);
+
+        PagedResult<TranscriptInfo> pagedResult = new PagedResult<TranscriptInfo>();
+```
+
+### ConstantValue
+Condition `!StringUtils.isBlank(token) && conversations.size() < pageSize` is always `false`
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsTranscriptStore.java`
+#### Snippet
+```java
+                }
+            }
+        } while (!StringUtils.isBlank(token) && conversations.size() < pageSize);
+
+        PagedResult<TranscriptInfo> pagedResult = new PagedResult<TranscriptInfo>();
+```
+
+### ConstantValue
+Value `token` is always 'null'
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsTranscriptStore.java`
+#### Snippet
+```java
+                }
+            }
+        } while (!StringUtils.isBlank(token) && conversations.size() < pageSize);
+
+        PagedResult<TranscriptInfo> pagedResult = new PagedResult<TranscriptInfo>();
+```
+
+### ConstantValue
+Value `codeChallenge` is always 'null'
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestBotSignIn.java`
+#### Snippet
+```java
+        final String emulatorUrl = null;
+        final String finalRedirect = null;
+        return service.getSignInResource(state, codeChallenge, emulatorUrl, finalRedirect)
+            .thenApply(responseBodyResponse -> {
+                try {
+```
+
+### ConstantValue
+Value `emulatorUrl` is always 'null'
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestBotSignIn.java`
+#### Snippet
+```java
+        final String emulatorUrl = null;
+        final String finalRedirect = null;
+        return service.getSignInResource(state, codeChallenge, emulatorUrl, finalRedirect)
+            .thenApply(responseBodyResponse -> {
+                try {
+```
+
+### ConstantValue
+Value `finalRedirect` is always 'null'
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestBotSignIn.java`
+#### Snippet
+```java
+        final String emulatorUrl = null;
+        final String finalRedirect = null;
+        return service.getSignInResource(state, codeChallenge, emulatorUrl, finalRedirect)
+            .thenApply(responseBodyResponse -> {
+                try {
+```
+
+### ConstantValue
 Value `codeChallenge` is always 'null'
 in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestBotSignIn.java`
 #### Snippet
@@ -12752,54 +13545,6 @@ in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestB
         return service.getSignInUrl(state, codeChallenge, emulatorUrl, finalRedirect)
             .thenApply(responseBodyResponse -> {
                 try {
-```
-
-### ConstantValue
-Value `codeChallenge` is always 'null'
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestBotSignIn.java`
-#### Snippet
-```java
-        final String emulatorUrl = null;
-        final String finalRedirect = null;
-        return service.getSignInResource(state, codeChallenge, emulatorUrl, finalRedirect)
-            .thenApply(responseBodyResponse -> {
-                try {
-```
-
-### ConstantValue
-Value `emulatorUrl` is always 'null'
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestBotSignIn.java`
-#### Snippet
-```java
-        final String emulatorUrl = null;
-        final String finalRedirect = null;
-        return service.getSignInResource(state, codeChallenge, emulatorUrl, finalRedirect)
-            .thenApply(responseBodyResponse -> {
-                try {
-```
-
-### ConstantValue
-Value `finalRedirect` is always 'null'
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestBotSignIn.java`
-#### Snippet
-```java
-        final String emulatorUrl = null;
-        final String finalRedirect = null;
-        return service.getSignInResource(state, codeChallenge, emulatorUrl, finalRedirect)
-            .thenApply(responseBodyResponse -> {
-                try {
-```
-
-### ConstantValue
-Condition `zoned != null` is always `true`
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/RetryAfterHelper.java`
-#### Snippet
-```java
-                    try {
-                        ZonedDateTime zoned = ZonedDateTime.parse(headerString, gmtFormat);
-                        if (zoned != null) {
-                            ZonedDateTime now = ZonedDateTime.now(ZoneOffset.UTC);
-                            long waitMillis = zoned.toInstant().toEpochMilli() - now.toInstant().toEpochMilli();
 ```
 
 ### ConstantValue
@@ -12807,21 +13552,9 @@ Value `channelId` is always 'null'
 in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestUserToken.java`
 #### Snippet
 ```java
+        Validator.validate(aadResourceUrls);
         final String channelId = null;
-        final String include = null;
-        return service.getTokenStatus(userId, channelId, include)
-            .thenApply(responseBodyResponse -> {
-                try {
-```
-
-### ConstantValue
-Value `include` is always 'null'
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestUserToken.java`
-#### Snippet
-```java
-        final String channelId = null;
-        final String include = null;
-        return service.getTokenStatus(userId, channelId, include)
+        return service.getAadTokens(userId, connectionName, aadResourceUrls, channelId)
             .thenApply(responseBodyResponse -> {
                 try {
 ```
@@ -12855,783 +13588,38 @@ Value `channelId` is always 'null'
 in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestUserToken.java`
 #### Snippet
 ```java
-        Validator.validate(aadResourceUrls);
         final String channelId = null;
-        return service.getAadTokens(userId, connectionName, aadResourceUrls, channelId)
+        final String include = null;
+        return service.getTokenStatus(userId, channelId, include)
             .thenApply(responseBodyResponse -> {
                 try {
 ```
 
 ### ConstantValue
-Value `instance` is always 'null'
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/Activity.java`
+Value `include` is always 'null'
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestUserToken.java`
 #### Snippet
 ```java
-        TypeT instance = null;
-        if (this.getChannelData() == null) {
-            return new ResultPair<>(false, instance);
-        }
-
+        final String channelId = null;
+        final String include = null;
+        return service.getTokenStatus(userId, channelId, include)
+            .thenApply(responseBodyResponse -> {
+                try {
 ```
 
 ### ConstantValue
-Value `instance` is always 'null'
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/Activity.java`
+Condition `zoned != null` is always `true`
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/RetryAfterHelper.java`
 #### Snippet
 ```java
-            instance = this.getChannelData(clsType);
-        } catch (JsonProcessingException e) {
-            return new ResultPair<TypeT>(false, instance);
-        }
-        return new ResultPair<TypeT>(true, instance);
-```
-
-## RuleId[id=OptionalGetWithoutIsPresent]
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsTranscriptStore.java`
-#### Snippet
-```java
-                    String lastName = Arrays.stream(blobItem.getName().split("/"))
-                        .reduce((first, second) -> second.length() > 0 ? second : first)
-                        .get();
                     try {
-                        conversationId = URLDecoder.decode(lastName, StandardCharsets.UTF_8.name());
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/DialogStateManager.java`
-#### Snippet
-```java
-        MemoryScope scope = configuration.getMemoryScopes().stream().filter((s) -> {
-            return s.getName().toUpperCase() == uCaseName;
-        }).findFirst().get();
-        if (scope != null) {
-            return scope.delete(dialogContext).thenApply(result -> null);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/french/parsers/FrenchTimeParser.java`
-#### Snippet
-```java
-        final ConditionalMatch match = RegexExtension.matchExact(FrenchTimeExtractorConfiguration.IshRegex, text, true);
-        if (match.getSuccess()) {
-            final String hourStr = match.getMatch().get().getGroup(Constants.HourGroupName).value;
-            int hour = Constants.HalfDayHourCount;
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/french/parsers/FrenchTimeParserConfiguration.java`
-#### Snippet
-```java
-
-        if (match.getSuccess()) {
-            final String oclockStr = match.getMatch().get().getGroup("heures").value;
-            if (StringUtility.isNullOrEmpty(oclockStr)) {
-                final String matchAmStr = match.getMatch().get().getGroup(Constants.AmGroupName).value;
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishTimeParserConfiguration.java`
-#### Snippet
-```java
-        if (match.getSuccess()) {
-            
-            String oclockStr = match.getMatch().get().getGroup("oclock").value;
-            if (StringUtility.isNullOrEmpty(oclockStr)) {
-                
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishTimeParserConfiguration.java`
-#### Snippet
-```java
-            
-            Optional<Match> match = Arrays.stream(RegExpUtility.getMatches(EnglishTimeExtractorConfiguration.LessThanOneHour, trimmedPrefix)).findFirst();
-            String minStr = match.get().getGroup("deltamin").value;
-            if (!StringUtility.isNullOrWhiteSpace(minStr)) {
-                deltaMin = Integer.parseInt(minStr);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/TimeParser.java`
-#### Snippet
-```java
-        ConditionalMatch match = RegexExtension.matchExact(EnglishTimeExtractorConfiguration.IshRegex, text, true);
-        if (match.getSuccess()) {
-            String hourStr = match.getMatch().get().getGroup(Constants.HourGroupName).value;
-            int hour = Constants.HalfDayHourCount;
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateTimeParser.java`
-#### Snippet
-```java
-
-        if (wholeMatch.getSuccess()) {
-            String hourStr = wholeMatch.getMatch().get().getGroup(Constants.HourGroupName).value;
-            if (StringUtility.isNullOrEmpty(hourStr)) {
-                hourStr = wholeMatch.getMatch().get().getGroup("hournum").value.toLowerCase();
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseSetParser.java`
-#### Snippet
-```java
-        if (exactMatch.getSuccess()) {
-
-            String sourceUnit = exactMatch.getMatch().get().getGroup("unit").value;
-            if (!StringUtility.isNullOrEmpty(sourceUnit) && this.config.getUnitMap().containsKey(sourceUnit)) {
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseTimeParser.java`
-#### Snippet
-```java
-
-            if (exactMatch.getSuccess()) {
-                return match2Time(exactMatch.getMatch().get(), referenceTime);
-            }
-        }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseHolidayParser.java`
-#### Snippet
-```java
-            if (match.getSuccess()) {
-                // LUIS value string will be set in Match2Date method
-                DateTimeResolutionResult ret = match2Date(match.getMatch().get(), referenceDate);
-
-                return ret;
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateParser.java`
-#### Snippet
-```java
-        int year = 0;
-
-        String monthStr = match.get().getGroup("month").value.toLowerCase();
-        String dayStr = match.get().getGroup("day").value.toLowerCase();
-        String weekdayStr = match.get().getGroup("weekday").value.toLowerCase();
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateParser.java`
-#### Snippet
-```java
-
-        if (exactMatch.getSuccess()) {
-            int swift = getSwiftDay(exactMatch.getMatch().get().value);
-
-            LocalDateTime value = referenceDate.toLocalDate().atStartOfDay().plusDays(swift);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateParser.java`
-#### Snippet
-```java
-        if (exactMatch.getSuccess()) {
-
-            int swift = getSwiftDay(exactMatch.getMatch().get().getGroup("day").value);
-            List<ExtractResult> numErs = this.config.getIntegerExtractor().extract(trimmedText);
-            Object numberParsed = this.config.getNumberParser().parse(numErs.get(0)).getValue();
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateParser.java`
-#### Snippet
-```java
-            int num = Math.round(((Double)numberParsed).floatValue());
-
-            String weekdayStr = exactMatch.getMatch().get().getGroup("weekday").value.toLowerCase();
-            LocalDateTime value = referenceDate;
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateParser.java`
-#### Snippet
-```java
-
-        if (exactMatch.getSuccess()) {
-            String weekdayStr = exactMatch.getMatch().get().getGroup("weekday").value.toLowerCase();
-            LocalDateTime value = DateUtil.next(referenceDate, this.config.getDayOfWeek().get(weekdayStr));
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateParser.java`
-#### Snippet
-```java
-
-        if (exactMatch.getSuccess()) {
-            String weekdayStr = exactMatch.getMatch().get().getGroup("weekday").value.toLowerCase();
-            LocalDateTime value = DateUtil.thisDate(referenceDate, this.config.getDayOfWeek().get(weekdayStr));
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateParser.java`
-#### Snippet
-```java
-
-        if (exactMatch.getSuccess()) {
-            String weekdayStr = exactMatch.getMatch().get().getGroup("weekday").value.toLowerCase();
-            LocalDateTime value = DateUtil.last(referenceDate, this.config.getDayOfWeek().get(weekdayStr));
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateParser.java`
-#### Snippet
-```java
-
-        if (exactMatch.getSuccess()) {
-            String weekdayStr = exactMatch.getMatch().get().getGroup("weekday").value.toLowerCase();
-            int weekDay = this.config.getDayOfWeek().get(weekdayStr);
-            LocalDateTime value = DateUtil.thisDate(referenceDate, this.config.getDayOfWeek().get(weekdayStr));
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateParser.java`
-#### Snippet
-```java
-                    // Handing cases which contain relative term like "this 5/12"
-                    if (match.get().index != offset) {
-                        relativeStr = relativeRegex.getMatch().get().value;
-                    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseTimePeriodParser.java`
-#### Snippet
-```java
-
-            // get hours
-            MatchGroup hourGroup = match.getMatch().get().getGroup(Constants.HourGroupName);
-            String hourStr = hourGroup.captures[0].value;
-            int afterHourIndex = hourGroup.captures[0].index + hourGroup.captures[0].length;
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseTimePeriodParser.java`
-#### Snippet
-```java
-        if (match.getSuccess()) {
-            // Cases like "half past seven" are not handled here
-            if (!match.getMatch().get().getGroup(Constants.PrefixGroupName).value.equals("")) {
-                return ret;
-            }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishTimeParserConfiguration.java`
-#### Snippet
-```java
-        if (match.getSuccess()) {
-
-            String oclockStr = match.getMatch().get().getGroup("oclock").value;
-            if (StringUtility.isNullOrEmpty(oclockStr)) {
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseMergedDateTimeParser.java`
-#### Snippet
-```java
-            if (beforeMatch.getSuccess()) {
-                hasBefore = true;
-                er.setStart(er.getStart() + beforeMatch.getMatch().get().length);
-                er.setLength(er.getLength() - beforeMatch.getMatch().get().length);
-                er.setText(er.getText().substring(beforeMatch.getMatch().get().length));
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseMergedDateTimeParser.java`
-#### Snippet
-```java
-            } else if (afterMatch.getSuccess()) {
-                hasAfter = true;
-                er.setStart(er.getStart() + afterMatch.getMatch().get().length);
-                er.setLength(er.getLength() - afterMatch.getMatch().get().length);
-                er.setText(er.getText().substring(afterMatch.getMatch().get().length));
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseMergedDateTimeParser.java`
-#### Snippet
-```java
-            } else if (sinceMatch.getSuccess()) {
-                hasSince = true;
-                er.setStart(er.getStart() + sinceMatch.getMatch().get().length);
-                er.setLength(er.getLength() - sinceMatch.getMatch().get().length);
-                er.setText(er.getText().substring(sinceMatch.getMatch().get().length));
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseMergedDateTimeParser.java`
-#### Snippet
-```java
-            } else if (aroundMatch.getSuccess()) {
-                hasAround = true;
-                er.setStart(er.getStart() + aroundMatch.getMatch().get().length);
-                er.setLength(er.getLength() - aroundMatch.getMatch().get().length);
-                er.setText(er.getText().substring(aroundMatch.getMatch().get().length));
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseMergedDateTimeParser.java`
-#### Snippet
-```java
-                if (match.getSuccess()) {
-                    hasYearAfter = true;
-                    er.setLength(er.getLength() - match.getMatch().get().length);
-                    er.setText(er.getLength() > 0 ? er.getText().substring(0, er.getLength()) : "");
-                    modStr = match.getMatch().get().value;
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseMergedDateTimeParser.java`
-#### Snippet
-```java
-
-    private String determineResolutionDateTimeType(LinkedHashMap<String, String> pastResolutionStr) {
-        switch (pastResolutionStr.keySet().stream().findFirst().get()) {
-            case TimeTypeConstants.START_DATE:
-                return Constants.SYS_DATETIME_DATEPERIOD;
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/utilities/MatchingUtil.java`
-#### Snippet
-```java
-
-        if (match.getSuccess()) {
-            index = match.getMatch().get().index + match.getMatch().get().length;
-            return new MatchingUtilResult(true, index);
-        }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
-#### Snippet
-```java
-        ConditionalMatch match = RegexExtension.matchExact(this.config.getSeasonRegex(), text, true);
-        if (match.getSuccess()) {
-            String seasonStr = this.config.getSeasonMap().get(match.getMatch().get().getGroup("seas").value.toLowerCase());
-
-            if (!match.getMatch().get().getGroup("EarlyPrefix").value.equals("")) {
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
-#### Snippet
-```java
-
-        if (match.getSuccess()) {
-            MatchGroup days = match.getMatch().get().getGroup("day");
-            beginDay = this.config.getDayOfMonth().get(days.captures[0].value.toLowerCase());
-            endDay = this.config.getDayOfMonth().get(days.captures[1].value.toLowerCase());
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
-#### Snippet
-```java
-        ConditionalMatch match = RegexExtension.matchExact(this.config.getWhichWeekRegex(), text, true);
-        if (match.getSuccess()) {
-            int num = Integer.parseInt(match.getMatch().get().getGroup("number").value);
-            int year = referenceDate.getYear();
-            ret.setTimex(String.format("%04d-W%02d", year, num));
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
-#### Snippet
-```java
-        }
-
-        String cardinalStr = match.getMatch().get().getGroup("cardinal").value.toLowerCase();
-        String orderStr = match.getMatch().get().getGroup("order").value.toLowerCase();
-        String numberStr = match.getMatch().get().getGroup("number").value;
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
-#### Snippet
-```java
-        if (match.getSuccess()) {
-
-            String decadeStr = match.getMatch().get().getGroup("decade").value.toLowerCase();
-            if (!IntegerUtility.canParse(decadeStr)) {
-                if (this.config.getWrittenDecades().containsKey(decadeStr)) {
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
-#### Snippet
-```java
-                swift = this.config.getSwiftDayOrMonth(trimmedText);
-
-                String numStr = match.getMatch().get().getGroup("number").value.toLowerCase();
-                List<ExtractResult> er = this.config.getIntegerExtractor().extract(numStr);
-                if (er.size() == 1) {
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
-#### Snippet
-```java
-        }
-
-        String cardinalStr = match.getMatch().get().getGroup("cardinal").value;
-        String orderStr = match.getMatch().get().getGroup("order").value.toLowerCase();
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
-#### Snippet
-```java
-        }
-
-        String cardinalStr = match.getMatch().get().getGroup("cardinal").value.toLowerCase();
-        String orderQuarterStr = match.getMatch().get().getGroup("orderQuarter").value.toLowerCase();
-        String orderStr = StringUtility.isNullOrEmpty(orderQuarterStr) ? match.getMatch().get().getGroup("order").value.toLowerCase() : null;
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
-#### Snippet
-```java
-            ConditionalMatch exactMatch = RegexExtension.matchExact(this.config.getYearRegex(), text, true);
-            if (exactMatch.getSuccess()) {
-                year = this.config.getDateExtractor().getYearFromText(exactMatch.getMatch().get());
-                if (!(year >= Constants.MinYearNum && year <= Constants.MaxYearNum)) {
-                    year = Constants.InvalidYear;
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
-#### Snippet
-```java
-                exactMatch = RegexExtension.matchExact(this.config.getYearPlusNumberRegex(), text, true);
-                if (exactMatch.getSuccess()) {
-                    year = this.config.getDateExtractor().getYearFromText(exactMatch.getMatch().get());
-                    if (!StringUtility.isNullOrEmpty(exactMatch.getMatch().get().getGroup("special").value)) {
-                        String specialYearPrefixes = this.config.getSpecialYearPrefixesMap().get(exactMatch.getMatch().get().getGroup("special").value.toLowerCase());
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
-#### Snippet
-```java
-
-        if (match.getSuccess()) {
-            if (!match.getMatch().get().getGroup("EarlyPrefix").value.equals("")) {
-                earlyPrefix = true;
-                trimmedText = match.getMatch().get().getGroup(Constants.SuffixGroupName).value;
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
-#### Snippet
-```java
-        }
-
-        String cardinalStr = match.getMatch().get().getGroup("cardinal").value;
-        String monthStr = match.getMatch().get().getGroup("month").value;
-        boolean noYear = false;
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
-#### Snippet
-```java
-
-        if (match.getSuccess()) {
-            String monthStr = match.getMatch().get().getGroup("month").value.toLowerCase();
-            String orderStr = match.getMatch().get().getGroup("order").value.toLowerCase();
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
-#### Snippet
-```java
-
-                if (!combinedDurationEr.isEmpty()) {
-                    durationPr = config.getDurationParser().parse(combinedDurationEr.stream().findFirst().get());
-                    int startIndex = numberEr.getStart() + numberEr.getLength();
-                    beforeStr = beforeStr.substring(startIndex).trim();
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDatePeriodExtractor.java`
-#### Snippet
-```java
-
-            if (match.getSuccess()) {
-                int startToken = match.getMatch().get().index;
-                String tokenString = input.substring(duration.getStart(), duration.getEnd());
-                Match matchDate = Arrays.stream(RegExpUtility.getMatches(config.getDateUnitRegex(), tokenString)).findFirst().orElse(null);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDatePeriodExtractor.java`
-#### Snippet
-```java
-
-            if (match.getSuccess()) {
-                index = match.getMatch().get().index;
-            }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDatePeriodExtractor.java`
-#### Snippet
-```java
-
-                if (match.getSuccess()) {
-                    index = match.getMatch().get().index;
-                }
-            }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDatePeriodExtractor.java`
-#### Snippet
-```java
-            match = RegexExtension.matchBegin(config.getPastRegex(), afterStr, true);
-            if (match.getSuccess()) {
-                int matchLength = match.getMatch().get().index + match.getMatch().get().length;
-                results.add(new Token(duration.getStart(), duration.getEnd() + matchLength));
-                continue;
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDatePeriodExtractor.java`
-#### Snippet
-```java
-            match = RegexExtension.matchBegin(config.getFutureSuffixRegex(), afterStr, true);
-            if (match.getSuccess()) {
-                int matchLength = match.getMatch().get().index + match.getMatch().get().length;
-                results.add(new Token(duration.getStart(), duration.getEnd() + matchLength));
-            }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDurationExtractor.java`
-#### Snippet
-```java
-
-            if (isInequalityPrefixMatched) {
-                int length = er.getLength() + er.getStart() - match.getMatch().get().index;
-                int start = match.getMatch().get().index;
-                String text = input.substring(start, start + length);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDurationExtractor.java`
-#### Snippet
-```java
-            String afterStr = text.substring(token.getStart() + token.getLength());
-            ConditionalMatch match = RegexExtension.matchBegin(this.config.getSuffixAndRegex(), afterStr, true);
-            if (match.getSuccess() && match.getMatch().get().index == 0) {
-                result.add(new Token(token.getStart(), token.getStart() + token.getLength() + match.getMatch().get().length));
-            }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDurationExtractor.java`
-#### Snippet
-```java
-            String afterStr = text.substring(er.getStart() + er.getLength());
-            ConditionalMatch match = RegexExtension.matchBegin(this.config.getFollowedUnit(), afterStr, true);
-            if (match.getSuccess() && match.getMatch().get().index == 0) {
-                result.add(new Token(er.getStart(), er.getStart() + er.getLength() + match.getMatch().get().length));
-            }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDateTimeExtractor.java`
-#### Snippet
-```java
-            ConditionalMatch innerMatch = RegexExtension.matchBegin(this.config.getTimeOfDayRegex(), er.getText(), true);
-            if (innerMatch.getSuccess()) {
-                beforeStr = input.substring(0, ((er != null) ? er.getStart() : 0) + innerMatch.getMatch().get().length);
-            }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDateTimePeriodExtractor.java`
-#### Snippet
-```java
-            Optional<Match> match = match(config.getWithinNextPrefixRegex(), beforeStr);
-            if (matchPrefixRegexInSegment(beforeStr, match)) {
-                int startToken = match.get().index;
-                int durationLength = duration.getStart() + duration.getLength();
-                match = match(config.getTimeUnitRegex(), input.substring(duration.getStart(), durationLength));
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseMergedDateTimeExtractor.java`
-#### Snippet
-```java
-                    boolean isFollowedByOtherEntity = true;
-
-                    if (match.getMatch().get().length == afterStr.trim().length()) {
-                        isFollowedByOtherEntity = false;
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDateExtractor.java`
-#### Snippet
-```java
-                String suffixStr = text.substring(result.getStart() + result.getLength());
-                ConditionalMatch beginMatch = RegexExtension.matchBegin(config.getRelativeMonthRegex(), suffixStr.trim(), true);
-                if (beginMatch.getSuccess() && beginMatch.getMatch().get().index == 0) {
-                    int spaceLen = suffixStr.length() - suffixStr.trim().length();
-                    int resStart = result.getStart();
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDateExtractor.java`
-#### Snippet
-```java
-                beginMatch = RegexExtension.matchBegin(config.getWeekDayRegex(), suffixStr.trim(), true);
-                if (beginMatch.getSuccess() && num >= 1 && num <= 5 && result.getType().equals("builtin.num.ordinal")) {
-                    String weekDayStr = beginMatch.getMatch().get().getGroup("weekday").value.toLowerCase();
-                    if (config.getDayOfWeek().containsKey(weekDayStr)) {
-                        int spaceLen = suffixStr.length() - suffixStr.trim().length();
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDateExtractor.java`
-#### Snippet
-```java
-                    ConditionalMatch relativeRegex = RegexExtension.matchEnd(config.getStrictRelativeRegex(), preText, true);
-                    if (relativeRegex.getSuccess()) {
-                        result.add(new Token(relativeRegex.getMatch().get().index, match.index + match.length));
-                    } else {
-                        result.add(new Token(match.index, match.index + match.length));
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDateTimeAltExtractor.java`
-#### Snippet
-```java
-
-        if (isSupportedAltEntitySequence(extractResults)) {
-            String firstEntityType = extractResults.stream().findFirst().get().getType();
-            String lastEntityType = extractResults.get(extractResults.size() - 1).getType();
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDateTimeAltExtractor.java`
-#### Snippet
-```java
-        // Currently, we support alt entity sequence only when the second alt entity to the last alt entity share the same type
-        if (isSupportedAltEntitySequence(extractResults)) {
-            HashMap<String, Object> metadata = extractMetadata(extractResults.stream().findFirst().get(), parentText, extractResults);
-            HashMap<String, Object> metadataCandidate = null;
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/numberwithunit/parsers/BaseCurrencyParser.java`
-#### Snippet
-```java
-                if (fractionUnitCode != null && !fractionUnitCode.isEmpty() && fractionNumValue.isPresent() && fractionNumValue.get() != 0 &&
-                    checkUnitsStringContains(fractionUnitCode, fractionUnitsString)) {
-                    numberValue += Double.parseDouble(parseResultValue.get().number) * (1.0 / fractionNumValue.get());
-                    result.setLength(parseResult.getStart() + parseResult.getLength() - result.getStart());
-                    result.setResolutionStr(result.getResolutionStr() + " " + parseResult.getResolutionStr());
+                        ZonedDateTime zoned = ZonedDateTime.parse(headerString, gmtFormat);
+                        if (zoned != null) {
+                            ZonedDateTime now = ZonedDateTime.now(ZoneOffset.UTC);
+                            long waitMillis = zoned.toInstant().toEpochMilli() - now.toInstant().toEpochMilli();
 ```
 
 ## RuleId[id=RedundantCompareToJavaTime]
-### RedundantCompareToJavaTime
-Expression with 'java.time' `compareTo()` call can be simplified
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/MemoryTranscriptStore.java`
-#### Snippet
-```java
-                    Stream<Activity> stream = transcript.stream()
-                        .sorted(Comparator.comparing(Activity::getTimestamp))
-                        .filter(a -> a.getTimestamp().compareTo(effectiveStartDate) >= 0);
-
-                    if (continuationToken != null) {
-```
-
 ### RedundantCompareToJavaTime
 Expression with 'java.time' `compareTo()` call can be simplified
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/OAuthPrompt.java`
@@ -13721,18 +13709,6 @@ Expression with 'java.time' `compareTo()` call can be simplified
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
 #### Snippet
 ```java
-        }
-
-        if (!inputCentury && startDate.compareTo(referenceDate) >= 0) {
-            pastYear -= 100;
-        }
-```
-
-### RedundantCompareToJavaTime
-Expression with 'java.time' `compareTo()` call can be simplified
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
-#### Snippet
-```java
 
         if (noSpecificYear) {
             if (endDate.compareTo(referenceDate) < 0) {
@@ -13754,6 +13730,18 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 
 ### RedundantCompareToJavaTime
 Expression with 'java.time' `compareTo()` call can be simplified
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
+#### Snippet
+```java
+        }
+
+        if (!inputCentury && startDate.compareTo(referenceDate) >= 0) {
+            pastYear -= 100;
+        }
+```
+
+### RedundantCompareToJavaTime
+Expression with 'java.time' `compareTo()` call can be simplified
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/TimexDateHelpers.java`
 #### Snippet
 ```java
@@ -13762,6 +13750,18 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expressio
         while (ds.compareTo(de) < 0) {
             Integer dayOfWeek = TimexDateHelpers.getUSDayOfWeek(ds.getDayOfWeek());
 
+```
+
+### RedundantCompareToJavaTime
+Expression with 'java.time' `compareTo()` call can be simplified
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/MemoryTranscriptStore.java`
+#### Snippet
+```java
+                    Stream<Activity> stream = transcript.stream()
+                        .sorted(Comparator.comparing(Activity::getTimestamp))
+                        .filter(a -> a.getTimestamp().compareTo(effectiveStartDate) >= 0);
+
+                    if (continuationToken != null) {
 ```
 
 ## RuleId[id=OptionalIsPresent]
@@ -13775,18 +13775,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/DialogS
         return result.isPresent() ? result.get() : null;
     }
 
-```
-
-### OptionalIsPresent
-Can be replaced with single expression in functional style
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseSetExtractor.java`
-#### Snippet
-```java
-            Pattern eachPrefixRegex = this.config.getEachPrefixRegex();
-            Optional<Match> match = Arrays.stream(RegExpUtility.getMatches(eachPrefixRegex, beforeStr)).findFirst();
-            if (match.isPresent()) {
-                ret.add(new Token(match.get().index, er.getStart() + er.getLength()));
-            }
 ```
 
 ### OptionalIsPresent
@@ -13811,6 +13799,18 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
                 if (match.isPresent()) {
                     ret.add(new Token(er.getStart(), er.getStart() + er.getLength() + match.get().length));
                 }
+```
+
+### OptionalIsPresent
+Can be replaced with single expression in functional style
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseSetExtractor.java`
+#### Snippet
+```java
+            Pattern eachPrefixRegex = this.config.getEachPrefixRegex();
+            Optional<Match> match = Arrays.stream(RegExpUtility.getMatches(eachPrefixRegex, beforeStr)).findFirst();
+            if (match.isPresent()) {
+                ret.add(new Token(match.get().index, er.getStart() + er.getLength()));
+            }
 ```
 
 ### OptionalIsPresent
@@ -13843,11 +13843,11 @@ Redundant array length check
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseTimeExtractor.java`
 #### Snippet
 ```java
-            Pattern beforeAfterRegex = this.config.getTimeBeforeAfterRegex();
-            Match[] matches = RegExpUtility.getMatches(beforeAfterRegex, text);
-            if (matches.length > 0) {
-                for (Match match : matches) {
-                    ret.add(new Token(match.index, match.index + match.length));
+        Pattern pattern = this.config.getAtRegex();
+        Match[] matches = RegExpUtility.getMatches(pattern, text);
+        if (matches.length > 0) {
+            for (Match match : matches) {
+                if (match.index + match.length < text.length() && text.charAt(match.index + match.length) == '%') {
 ```
 
 ### RedundantLengthCheck
@@ -13855,11 +13855,11 @@ Redundant array length check
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseTimeExtractor.java`
 #### Snippet
 ```java
-        Pattern pattern = this.config.getAtRegex();
-        Match[] matches = RegExpUtility.getMatches(pattern, text);
-        if (matches.length > 0) {
-            for (Match match : matches) {
-                if (match.index + match.length < text.length() && text.charAt(match.index + match.length) == '%') {
+            Pattern beforeAfterRegex = this.config.getTimeBeforeAfterRegex();
+            Match[] matches = RegExpUtility.getMatches(beforeAfterRegex, text);
+            if (matches.length > 0) {
+                for (Match match : matches) {
+                    ret.add(new Token(match.index, match.index + match.length));
 ```
 
 ### RedundantLengthCheck
@@ -13876,88 +13876,15 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 
 ## RuleId[id=UNCHECKED_WARNING]
 ### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'T'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TypedInvokeResponse.java`
-#### Snippet
-```java
-     */
-    public T getTypedBody() {
-        return (T) super.getBody();
-    }
-}
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'T'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TurnContextStateCollection.java`
-#### Snippet
-```java
-        Object service = state.get(key);
-        try {
-            return (T) service;
-        } catch (ClassCastException e) {
-            return null;
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'T'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotState.java`
-#### Snippet
-```java
-                .thenCombine(botState.getPropertyValue(turnContext, name), (loadResult, value) -> {
-                    if (value != null) {
-                        return (T) value;
-                    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'T'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotState.java`
-#### Snippet
-```java
-
-                    value = defaultValueFactory.get();
-                    set(turnContext, (T) value).join();
-                    return (T) value;
-                });
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'T'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotState.java`
-#### Snippet
-```java
-                    value = defaultValueFactory.get();
-                    set(turnContext, (T) value).join();
-                    return (T) value;
-                });
-        }
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.util.concurrent.CompletableFuture' to 'java.util.concurrent.CompletableFuture'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotState.java`
-#### Snippet
-```java
-        return Async.tryCompletable(() -> {
-            CachedBotState cachedState = turnContext.getTurnState().get(contextServiceKey);
-            return (CompletableFuture<T>) CompletableFuture
-                .completedFuture(cachedState.getState().get(propertyName));
-        });
-    }
-```
-
-### UNCHECKED_WARNING
 Unchecked cast: 'java.lang.Object' to 'java.util.Map'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotState.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/WaterfallDialog.java`
 #### Snippet
 ```java
-                        .replace(
-                            contextServiceKey,
-                            new CachedBotState((Map<String, Object>) val.get(storageKey))
-                        );
-                    return null;
+            // Create step context
+            Object options = state.get(PERSISTED_OPTIONS);
+            Map<String, Object> values = (Map<String, Object>) state.get(PERSISTED_VALUES);
+            WaterfallStepContext stepContext =
+                new WaterfallStepContext(this, dc, options, values, index, reason, result);
 ```
 
 ### UNCHECKED_WARNING
@@ -13991,9 +13918,21 @@ in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/dialogs/QnAMaker
 ```java
         QnAMakerDialogOptions dialogOptions =
             ObjectPath.getPathValue(stepContext.getActiveDialog().getState(), OPTIONS, QnAMakerDialogOptions.class);
-        List<QueryResult> trainResponses = (List<QueryResult>) stepContext.getValues().get(ValueProperty.QNA_DATA);
-        String currentQuery = (String) stepContext.getValues().get(ValueProperty.CURRENT_QUERY);
+        List<QueryResult> response = (List<QueryResult>) stepContext.getResult();
+        if (response != null && response.size() > 0) {
+            // -Check if context is present and prompt exists
+```
 
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Map' to 'java.util.Map'
+in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/dialogs/QnAMakerDialog.java`
+#### Snippet
+```java
+            if (answer.getContext() != null && answer.getContext().getPrompts().length > 0) {
+                Map<String, Integer> previousContextData =
+                    ObjectPath.getPathValue(
+                        stepContext.getActiveDialog().getState(),
+                        QNA_CONTEXT_DATA,
 ```
 
 ### UNCHECKED_WARNING
@@ -14015,45 +13954,57 @@ in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/dialogs/QnAMaker
 ```java
         QnAMakerDialogOptions dialogOptions =
             ObjectPath.getPathValue(stepContext.getActiveDialog().getState(), OPTIONS, QnAMakerDialogOptions.class);
-        List<QueryResult> response = (List<QueryResult>) stepContext.getResult();
-        if (response != null && response.size() > 0) {
-            // -Check if context is present and prompt exists
-```
+        List<QueryResult> trainResponses = (List<QueryResult>) stepContext.getValues().get(ValueProperty.QNA_DATA);
+        String currentQuery = (String) stepContext.getValues().get(ValueProperty.CURRENT_QUERY);
 
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Map' to 'java.util.Map'
-in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/dialogs/QnAMakerDialog.java`
-#### Snippet
-```java
-            if (answer.getContext() != null && answer.getContext().getPrompts().length > 0) {
-                Map<String, Integer> previousContextData =
-                    ObjectPath.getPathValue(
-                        stepContext.getActiveDialog().getState(),
-                        QNA_CONTEXT_DATA,
 ```
 
 ### UNCHECKED_WARNING
 Unchecked cast: 'java.lang.Object' to 'java.util.Map'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/WaterfallDialog.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/scopes/DialogMemoryScope.java`
 #### Snippet
 ```java
-            // Create step context
-            Object options = state.get(PERSISTED_OPTIONS);
-            Map<String, Object> values = (Map<String, Object>) state.get(PERSISTED_VALUES);
-            WaterfallStepContext stepContext =
-                new WaterfallStepContext(this, dc, options, values, index, reason, result);
+            Dialog dialog = dialogContext.findDialog(dialogContext.getActiveDialog().getId());
+            if (dialog instanceof DialogContainer && memory instanceof Map<?, ?>) {
+                dialogContext.getActiveDialog().getState().putAll((Map<String, Object>) memory);
+                return;
+            }
 ```
 
 ### UNCHECKED_WARNING
 Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/scopes/DialogMemoryScope.java`
+#### Snippet
+```java
+            }
+        } else if (dialogContext.getParent().getActiveDialog() != null) {
+            dialogContext.getParent().getActiveDialog().getState().putAll((Map<String, Object>) memory);
+            return;
+        }
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'T'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/ObjectPath.java`
 #### Snippet
 ```java
-        if (obj instanceof Map) {
-            Boolean wasSet = false;
-            Map<String, Object> dict = (Map<String, Object>) obj;
-            for (String key : dict.keySet()) {
-                if (key.equalsIgnoreCase(property)) {
+    public static <T> T mapValueTo(Object val, Class<T> valueType) {
+        if (val.getClass().equals(valueType)) {
+            return (T) val;
+        }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'T'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/ObjectPath.java`
+#### Snippet
+```java
+     */
+    public static <T> T merge(Object startObject, Object overlayObject) {
+        return (T) assign(startObject, overlayObject);
+    }
+
 ```
 
 ### UNCHECKED_WARNING
@@ -14085,6 +14036,18 @@ Unchecked cast: 'java.lang.Object' to 'java.util.Map'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/ObjectPath.java`
 #### Snippet
 ```java
+
+        if (obj instanceof Map) {
+            return ((Map<String, Object>) obj).containsKey(name);
+        }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/ObjectPath.java`
+#### Snippet
+```java
     public static void forEachProperty(Object obj, BiConsumer<String, Object> action) {
         if (obj instanceof Map) {
             ((Map<String, Object>) obj).forEach(action);
@@ -14093,27 +14056,15 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/ObjectPath.jav
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'capture' to 'T'
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/ObjectPath.java`
 #### Snippet
 ```java
-     */
-    public static <T> T clone(T obj) {
-        return (T) Serialization.getAs(obj, obj.getClass());
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'T'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/ObjectPath.java`
-#### Snippet
-```java
-     */
-    public static <T> T merge(Object startObject, Object overlayObject) {
-        return (T) assign(startObject, overlayObject);
-    }
-
+        if (obj instanceof Map) {
+            Boolean wasSet = false;
+            Map<String, Object> dict = (Map<String, Object>) obj;
+            for (String key : dict.keySet()) {
+                if (key.equalsIgnoreCase(property)) {
 ```
 
 ### UNCHECKED_WARNING
@@ -14129,39 +14080,27 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/ObjectPath.jav
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'T'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/ObjectPath.java`
-#### Snippet
-```java
-    public static <T> T mapValueTo(Object val, Class<T> valueType) {
-        if (val.getClass().equals(valueType)) {
-            return (T) val;
-        }
-
-```
-
-### UNCHECKED_WARNING
 Unchecked cast: 'java.lang.Object' to 'java.util.Map'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/ObjectPath.java`
 #### Snippet
 ```java
 
         if (obj instanceof Map) {
-            return ((Map<String, Object>) obj).containsKey(name);
-        }
-
+            Map<String, Object> dict = (Map<String, Object>) obj;
+            List<Entry<String, Object>> matches = dict.entrySet().stream()
+                .filter(key -> key.getKey().equalsIgnoreCase(property))
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+Unchecked cast: 'capture' to 'T'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/ObjectPath.java`
 #### Snippet
 ```java
-            return new ArrayList<>();
-        } else if (obj instanceof Map) {
-            return ((Map<String, Object>) obj).keySet();
-        } else if (obj instanceof JsonNode) {
-            List<String> fields = new ArrayList<>();
+     */
+    public static <T> T clone(T obj) {
+        return (T) Serialization.getAs(obj, obj.getClass());
+    }
+
 ```
 
 ### UNCHECKED_WARNING
@@ -14181,35 +14120,23 @@ Unchecked cast: 'java.lang.Object' to 'java.util.Map'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/ObjectPath.java`
 #### Snippet
 ```java
-
-        if (obj instanceof Map) {
-            Map<String, Object> dict = (Map<String, Object>) obj;
-            List<Entry<String, Object>> matches = dict.entrySet().stream()
-                .filter(key -> key.getKey().equalsIgnoreCase(property))
+            return new ArrayList<>();
+        } else if (obj instanceof Map) {
+            return ((Map<String, Object>) obj).keySet();
+        } else if (obj instanceof JsonNode) {
+            List<String> fields = new ArrayList<>();
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'java.util.Map'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/scopes/DialogMemoryScope.java`
+Unchecked cast: 'java.lang.Object' to 'java.util.List\>'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/DateTimePrompt.java`
 #### Snippet
 ```java
-            Dialog dialog = dialogContext.findDialog(dialogContext.getActiveDialog().getId());
-            if (dialog instanceof DialogContainer && memory instanceof Map<?, ?>) {
-                dialogContext.getActiveDialog().getState().putAll((Map<String, Object>) memory);
-                return;
-            }
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'java.util.Map'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/scopes/DialogMemoryScope.java`
-#### Snippet
-```java
-            }
-        } else if (dialogContext.getParent().getActiveDialog() != null) {
-            dialogContext.getParent().getActiveDialog().getState().putAll((Map<String, Object>) memory);
-            return;
-        }
+                result.setSucceeded(true);
+                result.setValue(new ArrayList<DateTimeResolution>());
+                List<Map<String, String>> values = (List<Map<String, String>>) results.get(0).resolution.get("values");
+                for (Map<String, String> mapEntry : values) {
+                    result.getValue().add(readResolution(mapEntry));
 ```
 
 ### UNCHECKED_WARNING
@@ -14261,66 +14188,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/Number
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'java.util.List\>'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/DateTimePrompt.java`
-#### Snippet
-```java
-                result.setSucceeded(true);
-                result.setValue(new ArrayList<DateTimeResolution>());
-                List<Map<String, String>> values = (List<Map<String, String>>) results.get(0).resolution.get("values");
-                for (Map<String, String> mapEntry : values) {
-                    result.getValue().add(readResolution(mapEntry));
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'java.util.Map'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ActivityPrompt.java`
-#### Snippet
-```java
-    @Override
-    public CompletableFuture<Void> repromptDialog(TurnContext turnContext, DialogInstance instance) {
-        Map<String, Object> state = (Map<String, Object>) instance.getState().get(persistedState);
-        PromptOptions options = (PromptOptions) instance.getState().get(persistedOptions);
-        onPrompt(turnContext, state, options, false);
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'java.util.Map'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ActivityPrompt.java`
-#### Snippet
-```java
-        // Perform base recognition
-        DialogInstance instance = dc.getActiveDialog();
-        Map<String, Object> state = (Map<String, Object>) instance.getState().get(persistedState);
-        PromptOptions options = (PromptOptions) instance.getState().get(persistedOptions);
-        return onRecognize(dc.getContext(), state, options).thenCompose(recognized -> {
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'java.util.Map'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ActivityPrompt.java`
-#### Snippet
-```java
-
-        // Send initial prompt
-        onPrompt(dc.getContext(), (Map<String, Object>) state.get(persistedState),
-                (PromptOptions) state.get(persistedOptions), false);
-
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'java.util.Map'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/DialogStateManager.java`
-#### Snippet
-```java
-                if (value instanceof Map) {
-                    final int count = counter;
-                    ((Map<String, Object>) value).forEach((key, val) -> {
-                        checkChildren(key, val, trackedPath, count);
-                    });
-```
-
-### UNCHECKED_WARNING
 Unchecked cast: 'java.lang.Object' to 'java.util.Map'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/DialogStateManager.java`
 #### Snippet
@@ -14334,14 +14201,14 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/DialogS
 
 ### UNCHECKED_WARNING
 Unchecked cast: 'java.lang.Object' to 'java.util.Map'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/Prompt.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/DialogStateManager.java`
 #### Snippet
 ```java
-            // Perform base recognition
-            Map<String, Object> state = dc.getActiveDialog().getState();
-            return onRecognize(dc.getContext(), (Map<String, Object>) state.get(PERSISTED_STATE),
-                    (PromptOptions) state.get(PERSISTED_OPTIONS))
-                            .thenCompose(recognized -> CompletableFuture.completedFuture(recognized.getSucceeded()));
+                if (value instanceof Map) {
+                    final int count = counter;
+                    ((Map<String, Object>) value).forEach((key, val) -> {
+                        checkChildren(key, val, trackedPath, count);
+                    });
 ```
 
 ### UNCHECKED_WARNING
@@ -14381,6 +14248,54 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/Prompt
 ```
 
 ### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/Prompt.java`
+#### Snippet
+```java
+            // Perform base recognition
+            Map<String, Object> state = dc.getActiveDialog().getState();
+            return onRecognize(dc.getContext(), (Map<String, Object>) state.get(PERSISTED_STATE),
+                    (PromptOptions) state.get(PERSISTED_OPTIONS))
+                            .thenCompose(recognized -> CompletableFuture.completedFuture(recognized.getSucceeded()));
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ActivityPrompt.java`
+#### Snippet
+```java
+        // Perform base recognition
+        DialogInstance instance = dc.getActiveDialog();
+        Map<String, Object> state = (Map<String, Object>) instance.getState().get(persistedState);
+        PromptOptions options = (PromptOptions) instance.getState().get(persistedOptions);
+        return onRecognize(dc.getContext(), state, options).thenCompose(recognized -> {
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ActivityPrompt.java`
+#### Snippet
+```java
+
+        // Send initial prompt
+        onPrompt(dc.getContext(), (Map<String, Object>) state.get(persistedState),
+                (PromptOptions) state.get(persistedOptions), false);
+
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ActivityPrompt.java`
+#### Snippet
+```java
+    @Override
+    public CompletableFuture<Void> repromptDialog(TurnContext turnContext, DialogInstance instance) {
+        Map<String, Object> state = (Map<String, Object>) instance.getState().get(persistedState);
+        PromptOptions options = (PromptOptions) instance.getState().get(persistedOptions);
+        onPrompt(turnContext, state, options, false);
+```
+
+### UNCHECKED_WARNING
 Unchecked cast: 'com.microsoft.recognizers.text.IModel' to 'T'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/ModelFactory.java`
 #### Snippet
@@ -14405,18 +14320,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/ModelFact
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'java.util.HashMap'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/OAuthPrompt.java`
-#### Snippet
-```java
-            }
-        } else if (isTeamsVerificationInvoke(turnContext)) {
-            HashMap<String, String> values = (HashMap<String, String>) turnContext.getActivity().getValue();
-            String magicCode = "";
-            if (values != null && values instanceof HashMap) {
-```
-
-### UNCHECKED_WARNING
 Unchecked cast: 'java.lang.Object' to 'java.util.Map'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/OAuthPrompt.java`
 #### Snippet
@@ -14426,6 +14329,18 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/OAuthP
         Map<String, Object> promptState = (Map<String, Object>) state.get(PERSISTED_STATE);
         PromptOptions promptOptions = (PromptOptions) state.get(PERSISTED_OPTIONS);
 
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.HashMap'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/OAuthPrompt.java`
+#### Snippet
+```java
+            }
+        } else if (isTeamsVerificationInvoke(turnContext)) {
+            HashMap<String, String> values = (HashMap<String, String>) turnContext.getActivity().getValue();
+            String magicCode = "";
+            if (values != null && values instanceof HashMap) {
 ```
 
 ### UNCHECKED_WARNING
@@ -14441,15 +14356,15 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/matcher/A
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'java.util.SortedMap'
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/models/DateTimeModel.java`
 #### Snippet
 ```java
-        int end = parsedDateTime.getStart() + parsedDateTime.getLength() - 1;
-        String typeName = parsedDateTime.getType();
-        SortedMap<String, Object> resolution = (SortedMap<String, Object>)parsedDateTime.getValue();
-        String text = parsedDateTime.getText();
 
+    private String getParentText(DateTimeParseResult parsedDateTime) {
+        Map<String, Object> map = (Map<String, Object>)parsedDateTime.getData();
+        Object result = map.get(ExtendedModelResult.ParentTextKey);
+        return String.valueOf(result);
 ```
 
 ### UNCHECKED_WARNING
@@ -14465,15 +14380,15 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+Unchecked cast: 'java.lang.Object' to 'java.util.SortedMap'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/models/DateTimeModel.java`
 #### Snippet
 ```java
+        int end = parsedDateTime.getStart() + parsedDateTime.getLength() - 1;
+        String typeName = parsedDateTime.getType();
+        SortedMap<String, Object> resolution = (SortedMap<String, Object>)parsedDateTime.getValue();
+        String text = parsedDateTime.getText();
 
-    private String getParentText(DateTimeParseResult parsedDateTime) {
-        Map<String, Object> map = (Map<String, Object>)parsedDateTime.getData();
-        Object result = map.get(ExtendedModelResult.ParentTextKey);
-        return String.valueOf(result);
 ```
 
 ### UNCHECKED_WARNING
@@ -14486,6 +14401,42 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
     public static final StringMatcher TimeZoneMatcher = buildMatcherFromLists(AbbreviationsList, FullNameList);
 
     public static final List<String> AmbiguousTimezoneList = EnglishTimeZone.AmbiguousTimezoneList;
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateTimeAltParser.java`
+#### Snippet
+```java
+
+        // Original type of the extracted entity
+        String subType = ((Map<String, Object>)(er.getData())).get(Constants.SubType).toString();
+        ExtractResult dateTimeEr = new ExtractResult();
+
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateTimeAltParser.java`
+#### Snippet
+```java
+        boolean hasContext = false;
+        ExtractResult contextEr = null;
+        if (((Map<String, Object>)er.getData()).containsKey(Constants.Context)) {
+            contextEr = (ExtractResult)((Map<String, Object>)er.getData()).get(Constants.Context);
+            if (contextEr.getType().equals(Constants.ContextType_RelativeSuffix)) {
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateTimeAltParser.java`
+#### Snippet
+```java
+        ExtractResult contextEr = null;
+        if (((Map<String, Object>)er.getData()).containsKey(Constants.Context)) {
+            contextEr = (ExtractResult)((Map<String, Object>)er.getData()).get(Constants.Context);
+            if (contextEr.getType().equals(Constants.ContextType_RelativeSuffix)) {
+                dateTimeEr.setText(String.format("%s %s", er.getText(), contextEr.getText()));
 ```
 
 ### UNCHECKED_WARNING
@@ -14645,42 +14596,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'java.util.Map'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateTimeAltParser.java`
-#### Snippet
-```java
-
-        // Original type of the extracted entity
-        String subType = ((Map<String, Object>)(er.getData())).get(Constants.SubType).toString();
-        ExtractResult dateTimeEr = new ExtractResult();
-
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'java.util.Map'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateTimeAltParser.java`
-#### Snippet
-```java
-        boolean hasContext = false;
-        ExtractResult contextEr = null;
-        if (((Map<String, Object>)er.getData()).containsKey(Constants.Context)) {
-            contextEr = (ExtractResult)((Map<String, Object>)er.getData()).get(Constants.Context);
-            if (contextEr.getType().equals(Constants.ContextType_RelativeSuffix)) {
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'java.util.Map'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateTimeAltParser.java`
-#### Snippet
-```java
-        ExtractResult contextEr = null;
-        if (((Map<String, Object>)er.getData()).containsKey(Constants.Context)) {
-            contextEr = (ExtractResult)((Map<String, Object>)er.getData()).get(Constants.Context);
-            if (contextEr.getType().equals(Constants.ContextType_RelativeSuffix)) {
-                dateTimeEr.setText(String.format("%s %s", er.getText(), contextEr.getText()));
-```
-
-### UNCHECKED_WARNING
 Unchecked assignment: 'java.util.Map' to 'java.util.Map'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseTimeParser.java`
 #### Snippet
@@ -14693,63 +14608,15 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'java.util.HashMap'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseTimePeriodParser.java`
-#### Snippet
-```java
-
-            if (TimeZoneUtility.shouldResolveTimeZone(er, config.getOptions())) {
-                Map<String, Object> metadata = (HashMap<String, Object>)er.getData();
-
-                ExtractResult timezoneEr = (ExtractResult)metadata.get(Constants.SYS_DATETIME_TIMEZONE);
-```
-
-### UNCHECKED_WARNING
 Unchecked cast: 'java.lang.Object' to 'org.javatuples.Pair'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseTimePeriodParser.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateTimePeriodParser.java`
 #### Snippet
 ```java
-                futureResolution.put(
-                        TimeTypeConstants.START_TIME,
-                        DateTimeFormatUtil.formatTime(((Pair<LocalDateTime, LocalDateTime>)innerResult.getFutureValue()).getValue0()));
-                futureResolution.put(
-                        TimeTypeConstants.END_TIME,
-```
+                        ret.setTimex(TimexUtility.generateDateTimePeriodTimex(beginTimex, endTimex, rangeTimexComponents.durationTimex));
 
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'org.javatuples.Pair'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseTimePeriodParser.java`
-#### Snippet
-```java
-                futureResolution.put(
-                        TimeTypeConstants.END_TIME,
-                        DateTimeFormatUtil.formatTime(((Pair<LocalDateTime, LocalDateTime>)innerResult.getFutureValue()).getValue1()));
-
-                innerResult.setFutureResolution(futureResolution.build());
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'org.javatuples.Pair'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseTimePeriodParser.java`
-#### Snippet
-```java
-                pastResolution.put(
-                        TimeTypeConstants.START_TIME,
-                        DateTimeFormatUtil.formatTime(((Pair<LocalDateTime, LocalDateTime>)innerResult.getPastValue()).getValue0()));
-                pastResolution.put(
-                        TimeTypeConstants.END_TIME,
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'org.javatuples.Pair'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseTimePeriodParser.java`
-#### Snippet
-```java
-                pastResolution.put(
-                        TimeTypeConstants.END_TIME,
-                        DateTimeFormatUtil.formatTime(((Pair<LocalDateTime, LocalDateTime>)innerResult.getPastValue()).getValue1()));
-
-                innerResult.setPastResolution(pastResolution.build());
+                        Pair<LocalDateTime, LocalDateTime> timePeriodFutureValue = (Pair<LocalDateTime, LocalDateTime>)timePeriodResolutionResult.getFutureValue();
+                        LocalDateTime beginTime = timePeriodFutureValue.getValue0();
+                        LocalDateTime endTime = timePeriodFutureValue.getValue1();
 ```
 
 ### UNCHECKED_WARNING
@@ -14774,18 +14641,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
                     Pair<LocalDateTime, LocalDateTime> periodPast = (Pair<LocalDateTime, LocalDateTime>)((DateTimeResolutionResult)timePr.getValue()).getPastValue();
 
                     if (periodFuture == periodPast) {
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'org.javatuples.Pair'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateTimePeriodParser.java`
-#### Snippet
-```java
-                        ret.setTimex(TimexUtility.generateDateTimePeriodTimex(beginTimex, endTimex, rangeTimexComponents.durationTimex));
-
-                        Pair<LocalDateTime, LocalDateTime> timePeriodFutureValue = (Pair<LocalDateTime, LocalDateTime>)timePeriodResolutionResult.getFutureValue();
-                        LocalDateTime beginTime = timePeriodFutureValue.getValue0();
-                        LocalDateTime endTime = timePeriodFutureValue.getValue1();
 ```
 
 ### UNCHECKED_WARNING
@@ -14849,6 +14704,30 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseMergedDateTimeParser.java`
+#### Snippet
+```java
+                }
+
+                for (Map.Entry<String, String> q : ((Map<String, String>)p.getValue()).entrySet()) {
+                    value.put(q.getKey(), q.getValue());
+                }
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseMergedDateTimeParser.java`
+#### Snippet
+```java
+    private void resolveAmPm(Map<String, Object> resolutionDic, String keyName) {
+        if (resolutionDic.containsKey(keyName)) {
+            Map<String, String> resolution = (Map<String, String>)resolutionDic.get(keyName);
+
+            Map<String, String> resolutionPm = new LinkedHashMap<>();
+```
+
+### UNCHECKED_WARNING
 Unchecked cast: 'java.lang.Object' to 'java.util.TreeMap'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseMergedDateTimeParser.java`
 #### Snippet
@@ -14877,18 +14756,6 @@ Unchecked cast: 'java.lang.Object' to 'java.util.Map'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseMergedDateTimeParser.java`
 #### Snippet
 ```java
-                }
-
-                for (Map.Entry<String, String> q : ((Map<String, String>)p.getValue()).entrySet()) {
-                    value.put(q.getKey(), q.getValue());
-                }
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'java.util.Map'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseMergedDateTimeParser.java`
-#### Snippet
-```java
     private void resolveWeekOf(Map<String, Object> resolutionDic, String keyName) {
         if (resolutionDic.containsKey(keyName)) {
             Map<String, String> resolution = (Map<String, String>)resolutionDic.get(keyName);
@@ -14897,15 +14764,63 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'java.util.Map'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseMergedDateTimeParser.java`
+Unchecked cast: 'java.lang.Object' to 'java.util.HashMap'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseTimePeriodParser.java`
 #### Snippet
 ```java
-    private void resolveAmPm(Map<String, Object> resolutionDic, String keyName) {
-        if (resolutionDic.containsKey(keyName)) {
-            Map<String, String> resolution = (Map<String, String>)resolutionDic.get(keyName);
 
-            Map<String, String> resolutionPm = new LinkedHashMap<>();
+            if (TimeZoneUtility.shouldResolveTimeZone(er, config.getOptions())) {
+                Map<String, Object> metadata = (HashMap<String, Object>)er.getData();
+
+                ExtractResult timezoneEr = (ExtractResult)metadata.get(Constants.SYS_DATETIME_TIMEZONE);
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'org.javatuples.Pair'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseTimePeriodParser.java`
+#### Snippet
+```java
+                futureResolution.put(
+                        TimeTypeConstants.START_TIME,
+                        DateTimeFormatUtil.formatTime(((Pair<LocalDateTime, LocalDateTime>)innerResult.getFutureValue()).getValue0()));
+                futureResolution.put(
+                        TimeTypeConstants.END_TIME,
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'org.javatuples.Pair'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseTimePeriodParser.java`
+#### Snippet
+```java
+                futureResolution.put(
+                        TimeTypeConstants.END_TIME,
+                        DateTimeFormatUtil.formatTime(((Pair<LocalDateTime, LocalDateTime>)innerResult.getFutureValue()).getValue1()));
+
+                innerResult.setFutureResolution(futureResolution.build());
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'org.javatuples.Pair'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseTimePeriodParser.java`
+#### Snippet
+```java
+                pastResolution.put(
+                        TimeTypeConstants.START_TIME,
+                        DateTimeFormatUtil.formatTime(((Pair<LocalDateTime, LocalDateTime>)innerResult.getPastValue()).getValue0()));
+                pastResolution.put(
+                        TimeTypeConstants.END_TIME,
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'org.javatuples.Pair'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseTimePeriodParser.java`
+#### Snippet
+```java
+                pastResolution.put(
+                        TimeTypeConstants.END_TIME,
+                        DateTimeFormatUtil.formatTime(((Pair<LocalDateTime, LocalDateTime>)innerResult.getPastValue()).getValue1()));
+
+                innerResult.setPastResolution(pastResolution.build());
 ```
 
 ### UNCHECKED_WARNING
@@ -15184,334 +15099,92 @@ in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/Activity.java`
         JsonNode node = MAPPER.valueToTree(this.getChannelData());
 ```
 
-## RuleId[id=JavadocReference]
-### JavadocReference
-Cannot resolve symbol `CosmosDbPartitionedStorage.compatibilityMode`
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/CosmosDbKeyEscape.java`
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'T'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TypedInvokeResponse.java`
 #### Snippet
 ```java
-     *                          CosmosDb max key length of 255. This behavior can be
-     *                          overridden by setting
-     *                          {@link CosmosDbPartitionedStorage.compatibilityMode}
-     *                          to false. *
-     * @return An escaped key that can be used safely with CosmosDB.
-```
-
-### JavadocReference
-Cannot resolve symbol `authenticateRequest(Activity, String,
-* CredentialProvider, ChannelProvider, AuthenticationConfiguration,
-* HttpClient)`
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ChannelServiceHandler.java`
-#### Snippet
-```java
-     *
-     * This code is very similar to the code in
-     * {@link JwtTokenValidation#authenticateRequest(Activity, String,
-     * CredentialProvider, ChannelProvider, AuthenticationConfiguration,
-     * HttpClient)} , we should move this code somewhere in that library when
-```
-
-### JavadocReference
-Cannot resolve symbol `HttpClient`
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ChannelServiceHandler.java`
-#### Snippet
-```java
-     * {@link JwtTokenValidation#authenticateRequest(Activity, String,
-     * CredentialProvider, ChannelProvider, AuthenticationConfiguration,
-     * HttpClient)} , we should move this code somewhere in that library when
-     * we refactor auth, for now we keep it private to avoid adding more public
-     * static functions that we will need to deprecate later.
-```
-
-### JavadocReference
-Cannot resolve symbol `CreateSkillConversationId`
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactory.java`
-#### Snippet
-```java
-     *
-     * @param skillConversationId  A skill conversationId created using {@link
-     *                             CreateSkillConversationId(SkillConversationIdFactoryOptions,System#getT
-     *                             reading()#getCancellationToken())} .
-     *
-```
-
-### JavadocReference
-Cannot resolve symbol `getT`
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactory.java`
-#### Snippet
-```java
-     *
-     * @param skillConversationId  A skill conversationId created using {@link
-     *                             CreateSkillConversationId(SkillConversationIdFactoryOptions,System#getT
-     *                             reading()#getCancellationToken())} .
-     *
-```
-
-### JavadocReference
-Cannot resolve symbol `reading`
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactory.java`
-#### Snippet
-```java
-     * @param skillConversationId  A skill conversationId created using {@link
-     *                             CreateSkillConversationId(SkillConversationIdFactoryOptions,System#getT
-     *                             reading()#getCancellationToken())} .
-     *
-     * @return   A {@link CompletableFuture} representing the asynchronous operation.
-```
-
-### JavadocReference
-Cannot resolve symbol `createSkillConversationId(SkillConversationI
-* FactoryOptions,System`
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryOptions.java`
-#### Snippet
-```java
-/**
- * A class defining the parameters used in
- * {@link SkillConversationIdFactoryBase#createSkillConversationId(SkillConversationI
- * FactoryOptions,System#getThreading()#getCancellationToken())} .
- */
-```
-
-### JavadocReference
-Cannot resolve symbol `SkillConversationI`
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryOptions.java`
-#### Snippet
-```java
-/**
- * A class defining the parameters used in
- * {@link SkillConversationIdFactoryBase#createSkillConversationId(SkillConversationI
- * FactoryOptions,System#getThreading()#getCancellationToken())} .
- */
-```
-
-### JavadocReference
-Cannot resolve symbol `getThreading`
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryOptions.java`
-#### Snippet
-```java
- * A class defining the parameters used in
- * {@link SkillConversationIdFactoryBase#createSkillConversationId(SkillConversationI
- * FactoryOptions,System#getThreading()#getCancellationToken())} .
- */
-public class SkillConversationIdFactoryOptions {
-```
-
-### JavadocReference
-Cannot resolve symbol `CreateSkillConversationId`
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
-#### Snippet
-```java
-    /**
-     * Gets the {@link SkillConversationReference} used during {@link
-     * CreateSkillConversationId(SkillConversationIdFactoryOptions,System#getT
-     * reading()#getCancellationToken())} for a skillConversationId.
-     *
-```
-
-### JavadocReference
-Cannot resolve symbol `getT`
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
-#### Snippet
-```java
-    /**
-     * Gets the {@link SkillConversationReference} used during {@link
-     * CreateSkillConversationId(SkillConversationIdFactoryOptions,System#getT
-     * reading()#getCancellationToken())} for a skillConversationId.
-     *
-```
-
-### JavadocReference
-Cannot resolve symbol `reading`
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
-#### Snippet
-```java
-     * Gets the {@link SkillConversationReference} used during {@link
-     * CreateSkillConversationId(SkillConversationIdFactoryOptions,System#getT
-     * reading()#getCancellationToken())} for a skillConversationId.
-     *
-     * @param skillConversationId  A skill conversationId created using {@link
-```
-
-### JavadocReference
-Cannot resolve symbol `CreateSkillConversationId`
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
-#### Snippet
-```java
-     *
-     * @param skillConversationId  A skill conversationId created using {@link
-     *                             CreateSkillConversationId(SkillConversationIdFactoryOptions,System#getT
-     *                             reading()#getCancellationToken())} .
-     *
-```
-
-### JavadocReference
-Cannot resolve symbol `getT`
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
-#### Snippet
-```java
-     *
-     * @param skillConversationId  A skill conversationId created using {@link
-     *                             CreateSkillConversationId(SkillConversationIdFactoryOptions,System#getT
-     *                             reading()#getCancellationToken())} .
-     *
-```
-
-### JavadocReference
-Cannot resolve symbol `reading`
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
-#### Snippet
-```java
-     * @param skillConversationId  A skill conversationId created using {@link
-     *                             CreateSkillConversationId(SkillConversationIdFactoryOptions,System#getT
-     *                             reading()#getCancellationToken())} .
-     *
-     * @return   The caller's {@link ConversationReference} for a skillConversationId, with originatingAudience.
-```
-
-### JavadocReference
-Cannot resolve symbol `CreateSkillConversationId`
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
-#### Snippet
-```java
-     * Gets the {@link ConversationReference} created using
-     * {@link
-     * CreateSkillConversationId(Microsoft#getBot()#getSchema()#getConversatio
-     * Reference(),System#getThreading()#getCancellationToken())} for a
-     * skillConversationId.
-```
-
-### JavadocReference
-Cannot resolve symbol `Microsoft`
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
-#### Snippet
-```java
-     * Gets the {@link ConversationReference} created using
-     * {@link
-     * CreateSkillConversationId(Microsoft#getBot()#getSchema()#getConversatio
-     * Reference(),System#getThreading()#getCancellationToken())} for a
-     * skillConversationId.
-```
-
-### JavadocReference
-Cannot resolve symbol `getBot`
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
-#### Snippet
-```java
-     * Gets the {@link ConversationReference} created using
-     * {@link
-     * CreateSkillConversationId(Microsoft#getBot()#getSchema()#getConversatio
-     * Reference(),System#getThreading()#getCancellationToken())} for a
-     * skillConversationId.
-```
-
-### JavadocReference
-Cannot resolve symbol `CreateSkillConversationId`
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
-#### Snippet
-```java
-     *
-     * @param skillConversationId  A skill conversationId created using {@link
-     *                             CreateSkillConversationId(Microsoft#getBot()#getSchema()#getConversatio
-     *                             Reference(),System#getThreading()#getCancellationToken())} .
-     *
-```
-
-### JavadocReference
-Cannot resolve symbol `Microsoft`
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
-#### Snippet
-```java
-     *
-     * @param skillConversationId  A skill conversationId created using {@link
-     *                             CreateSkillConversationId(Microsoft#getBot()#getSchema()#getConversatio
-     *                             Reference(),System#getThreading()#getCancellationToken())} .
-     *
-```
-
-### JavadocReference
-Cannot resolve symbol `getBot`
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
-#### Snippet
-```java
-     *
-     * @param skillConversationId  A skill conversationId created using {@link
-     *                             CreateSkillConversationId(Microsoft#getBot()#getSchema()#getConversatio
-     *                             Reference(),System#getThreading()#getCancellationToken())} .
-     *
-```
-
-### JavadocReference
-Cannot resolve symbol `CreateSkillConversationId`
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
-#### Snippet
-```java
-     *
-     * @param skillConversationId  A skill conversationId created using {@link
-     *                             CreateSkillConversationId(SkillConversationIdFactoryOptions,System#getT
-     *                             reading()#getCancellationToken())} .
-     *
-```
-
-### JavadocReference
-Cannot resolve symbol `getT`
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
-#### Snippet
-```java
-     *
-     * @param skillConversationId  A skill conversationId created using {@link
-     *                             CreateSkillConversationId(SkillConversationIdFactoryOptions,System#getT
-     *                             reading()#getCancellationToken())} .
-     *
-```
-
-### JavadocReference
-Cannot resolve symbol `reading`
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
-#### Snippet
-```java
-     * @param skillConversationId  A skill conversationId created using {@link
-     *                             CreateSkillConversationId(SkillConversationIdFactoryOptions,System#getT
-     *                             reading()#getCancellationToken())} .
-     *
-     * @return   A {@link CompletableFuture} representing the asynchronous operation.
-```
-
-### JavadocReference
-Cannot resolve symbol `IBot`
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillHandler.java`
-#### Snippet
-```java
-     *
-     * @param adapter                An instance of the {@link BotAdapter} that will handle the request.
-     * @param bot                    The {@link IBot} instance.
-     * @param conversationIdFactory  A {@link SkillConversationIdFactoryBase} to unpack the conversation ID and
-     *                               map it to the calling bot.
-```
-
-### JavadocReference
-Cannot resolve symbol `MiddlewareSet`
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillHandler.java`
-#### Snippet
-```java
-     * @param channelProvider        The channel provider.
-     *
-     * Use a {@link MiddlewareSet} Object to add multiple middleware components
-     * in the constructor. Use the Use({@link Middleware} ) method to add
-     * additional middleware to the adapter after construction.
-```
-
-### JavadocReference
-Cannot resolve symbol `Middleware`
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillHandler.java`
-#### Snippet
-```java
-     *
-     * Use a {@link MiddlewareSet} Object to add multiple middleware components
-     * in the constructor. Use the Use({@link Middleware} ) method to add
-     * additional middleware to the adapter after construction.
      */
+    public T getTypedBody() {
+        return (T) super.getBody();
+    }
+}
 ```
 
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'T'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TurnContextStateCollection.java`
+#### Snippet
+```java
+        Object service = state.get(key);
+        try {
+            return (T) service;
+        } catch (ClassCastException e) {
+            return null;
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotState.java`
+#### Snippet
+```java
+                        .replace(
+                            contextServiceKey,
+                            new CachedBotState((Map<String, Object>) val.get(storageKey))
+                        );
+                    return null;
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.util.concurrent.CompletableFuture' to 'java.util.concurrent.CompletableFuture'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotState.java`
+#### Snippet
+```java
+        return Async.tryCompletable(() -> {
+            CachedBotState cachedState = turnContext.getTurnState().get(contextServiceKey);
+            return (CompletableFuture<T>) CompletableFuture
+                .completedFuture(cachedState.getState().get(propertyName));
+        });
+    }
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'T'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotState.java`
+#### Snippet
+```java
+                .thenCombine(botState.getPropertyValue(turnContext, name), (loadResult, value) -> {
+                    if (value != null) {
+                        return (T) value;
+                    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'T'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotState.java`
+#### Snippet
+```java
+
+                    value = defaultValueFactory.get();
+                    set(turnContext, (T) value).join();
+                    return (T) value;
+                });
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'T'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotState.java`
+#### Snippet
+```java
+                    value = defaultValueFactory.get();
+                    set(turnContext, (T) value).join();
+                    return (T) value;
+                });
+        }
+```
+
+## RuleId[id=JavadocReference]
 ### JavadocReference
 Cannot resolve symbol `result`
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/WaterfallStepContext.java`
@@ -15537,39 +15210,15 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/WaterfallStepC
 ```
 
 ### JavadocReference
-Cannot resolve symbol `OnInvokeActivity`
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ActivityHandler.java`
+Symbol `result` is inaccessible from here
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/ComponentDialog.java`
 #### Snippet
 ```java
-     * @return   A task that represents the work queued to execute.
-     *
-     * When the {@link OnInvokeActivity(TurnContext(InvokeActivity))} method
-     * receives an Invoke with a {@link InvokeActivity.name} of
-     * `adaptiveCard/action`, it calls this method.
-```
-
-### JavadocReference
-Cannot resolve symbol `InvokeActivity`
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ActivityHandler.java`
-#### Snippet
-```java
-     * @return   A task that represents the work queued to execute.
-     *
-     * When the {@link OnInvokeActivity(TurnContext(InvokeActivity))} method
-     * receives an Invoke with a {@link InvokeActivity.name} of
-     * `adaptiveCard/action`, it calls this method.
-```
-
-### JavadocReference
-Cannot resolve symbol `InvokeActivity.name`
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ActivityHandler.java`
-#### Snippet
-```java
-     *
-     * When the {@link OnInvokeActivity(TurnContext(InvokeActivity))} method
-     * receives an Invoke with a {@link InvokeActivity.name} of
-     * `adaptiveCard/action`, it calls this method.
+     *         the result is passed to the next parent context, if one exists. The
+     *         returned {@link DialogTurnResult} contains the return value in its
+     *         {@link DialogTurnResult#result} property.
      */
+    protected CompletableFuture<DialogTurnResult> endComponent(DialogContext outerDc, Object result) {
 ```
 
 ### JavadocReference
@@ -15594,18 +15243,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/ComponentDialo
      *         {@link DialogContainer#telemetryClient} of the component dialog.
      */
     public ComponentDialog addDialog(Dialog dialog) {
-```
-
-### JavadocReference
-Symbol `result` is inaccessible from here
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/ComponentDialog.java`
-#### Snippet
-```java
-     *         the result is passed to the next parent context, if one exists. The
-     *         returned {@link DialogTurnResult} contains the return value in its
-     *         {@link DialogTurnResult#result} property.
-     */
-    protected CompletableFuture<DialogTurnResult> endComponent(DialogContext outerDc, Object result) {
 ```
 
 ### JavadocReference
@@ -15642,162 +15279,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/ComponentDialo
      *         component dialog ends, and if a {@link DialogTurnResult#result} is
      *         available, the component dialog uses that as its return value.
      */
-```
-
-### JavadocReference
-Cannot resolve symbol `DialogSet`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/NumberPrompt.java`
-#### Snippet
-```java
-     *
-     * @param dialogId      Unique ID of the dialog within its parent
-     *                      {@link DialogSet} or {@link ComponentDialog} .
-     * @param validator     Validator that will be called each time the user
-     *                      responds to the prompt.
-```
-
-### JavadocReference
-Cannot resolve symbol `ComponentDialog`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/NumberPrompt.java`
-#### Snippet
-```java
-     *
-     * @param dialogId      Unique ID of the dialog within its parent
-     *                      {@link DialogSet} or {@link ComponentDialog} .
-     * @param validator     Validator that will be called each time the user
-     *                      responds to the prompt.
-```
-
-### JavadocReference
-Cannot resolve symbol `decimal`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/NumberPrompt.java`
-#### Snippet
-```java
- *
- * The number prompt currently supports these types: {@link float} , {@link int}
- * , {@link long} , {@link double} , and {@link decimal} .
- * @param <T> numeric type for this prompt, which can be int, long, double, or float.
- */
-```
-
-### JavadocReference
-Cannot resolve symbol `DialogSet`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/NumberPrompt.java`
-#### Snippet
-```java
-     *
-     * @param dialogId      Unique ID of the dialog within its parent
-     *                      {@link DialogSet} or {@link ComponentDialog} .
-     * @param classOfNumber Type of <T> used to determine within the class what type was created for. This is required
-     *                      due to type erasure in Java not allowing checking the type of <T> during runtime.
-```
-
-### JavadocReference
-Cannot resolve symbol `ComponentDialog`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/NumberPrompt.java`
-#### Snippet
-```java
-     *
-     * @param dialogId      Unique ID of the dialog within its parent
-     *                      {@link DialogSet} or {@link ComponentDialog} .
-     * @param classOfNumber Type of <T> used to determine within the class what type was created for. This is required
-     *                      due to type erasure in Java not allowing checking the type of <T> during runtime.
-```
-
-### JavadocReference
-Cannot resolve symbol `DialogSet`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/NumberPrompt.java`
-#### Snippet
-```java
-     *
-     * @param dialogId      Unique ID of the dialog within its parent
-     *                      {@link DialogSet} or {@link ComponentDialog} .
-     * @param validator     Validator that will be called each time the user
-     *                      responds to the prompt.
-```
-
-### JavadocReference
-Cannot resolve symbol `ComponentDialog`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/NumberPrompt.java`
-#### Snippet
-```java
-     *
-     * @param dialogId      Unique ID of the dialog within its parent
-     *                      {@link DialogSet} or {@link ComponentDialog} .
-     * @param validator     Validator that will be called each time the user
-     *                      responds to the prompt.
-```
-
-### JavadocReference
-Cannot resolve symbol `DialogContext`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/NumberPrompt.java`
-#### Snippet
-```java
-     * @param options     A prompt options Object constructed from the options
-     *                    initially provided in the call to
-     *                    {@link DialogContext#prompt(String, PromptOptions)} .
-     *
-     * @return A {@link CompletableFuture} representing the asynchronous operation.
-```
-
-### JavadocReference
-Cannot resolve symbol `prompt(String, PromptOptions)`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/NumberPrompt.java`
-#### Snippet
-```java
-     * @param options     A prompt options Object constructed from the options
-     *                    initially provided in the call to
-     *                    {@link DialogContext#prompt(String, PromptOptions)} .
-     *
-     * @return A {@link CompletableFuture} representing the asynchronous operation.
-```
-
-### JavadocReference
-Cannot resolve symbol `DialogContext`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/NumberPrompt.java`
-#### Snippet
-```java
-     * @param options     A prompt options Object constructed from the options
-     *                    initially provided in the call to
-     *                    {@link DialogContext#prompt(String, PromptOptions)} .
-     * @param isRetry     true if this is the first time this prompt dialog instance
-     *                    on the stack is prompting the user for input; otherwise,
-```
-
-### JavadocReference
-Cannot resolve symbol `prompt(String, PromptOptions)`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/NumberPrompt.java`
-#### Snippet
-```java
-     * @param options     A prompt options Object constructed from the options
-     *                    initially provided in the call to
-     *                    {@link DialogContext#prompt(String, PromptOptions)} .
-     * @param isRetry     true if this is the first time this prompt dialog instance
-     *                    on the stack is prompting the user for input; otherwise,
-```
-
-### JavadocReference
-Cannot resolve symbol `DialogContext`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/DateTimePrompt.java`
-#### Snippet
-```java
-     *                     dialog stack.
-     * @param options      A prompt options Object constructed from the options initially
-     *                     provided in the call to {@link DialogContext#prompt(String, PromptOptions)} .
-     * @param isRetry      true if this is the first time this prompt dialog instance on the
-     *                     stack is prompting the user for input; otherwise, false.
-```
-
-### JavadocReference
-Cannot resolve symbol `prompt(String, PromptOptions)`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/DateTimePrompt.java`
-#### Snippet
-```java
-     *                     dialog stack.
-     * @param options      A prompt options Object constructed from the options initially
-     *                     provided in the call to {@link DialogContext#prompt(String, PromptOptions)} .
-     * @param isRetry      true if this is the first time this prompt dialog instance on the
-     *                     stack is prompting the user for input; otherwise, false.
 ```
 
 ### JavadocReference
@@ -15970,26 +15451,194 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/DateTi
 
 ### JavadocReference
 Cannot resolve symbol `DialogContext`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ConfirmPrompt.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/DateTimePrompt.java`
 #### Snippet
 ```java
      *                     dialog stack.
      * @param options      A prompt options Object constructed from the options initially
      *                     provided in the call to {@link DialogContext#prompt(String, PromptOptions)} .
-     *
-     * @return   A {@link CompletableFuture} representing the asynchronous operation.
+     * @param isRetry      true if this is the first time this prompt dialog instance on the
+     *                     stack is prompting the user for input; otherwise, false.
 ```
 
 ### JavadocReference
 Cannot resolve symbol `prompt(String, PromptOptions)`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ConfirmPrompt.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/DateTimePrompt.java`
 #### Snippet
 ```java
      *                     dialog stack.
      * @param options      A prompt options Object constructed from the options initially
      *                     provided in the call to {@link DialogContext#prompt(String, PromptOptions)} .
+     * @param isRetry      true if this is the first time this prompt dialog instance on the
+     *                     stack is prompting the user for input; otherwise, false.
+```
+
+### JavadocReference
+Cannot resolve symbol `DialogSet`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/NumberPrompt.java`
+#### Snippet
+```java
      *
-     * @return   A {@link CompletableFuture} representing the asynchronous operation.
+     * @param dialogId      Unique ID of the dialog within its parent
+     *                      {@link DialogSet} or {@link ComponentDialog} .
+     * @param validator     Validator that will be called each time the user
+     *                      responds to the prompt.
+```
+
+### JavadocReference
+Cannot resolve symbol `ComponentDialog`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/NumberPrompt.java`
+#### Snippet
+```java
+     *
+     * @param dialogId      Unique ID of the dialog within its parent
+     *                      {@link DialogSet} or {@link ComponentDialog} .
+     * @param validator     Validator that will be called each time the user
+     *                      responds to the prompt.
+```
+
+### JavadocReference
+Cannot resolve symbol `DialogContext`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/NumberPrompt.java`
+#### Snippet
+```java
+     * @param options     A prompt options Object constructed from the options
+     *                    initially provided in the call to
+     *                    {@link DialogContext#prompt(String, PromptOptions)} .
+     * @param isRetry     true if this is the first time this prompt dialog instance
+     *                    on the stack is prompting the user for input; otherwise,
+```
+
+### JavadocReference
+Cannot resolve symbol `prompt(String, PromptOptions)`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/NumberPrompt.java`
+#### Snippet
+```java
+     * @param options     A prompt options Object constructed from the options
+     *                    initially provided in the call to
+     *                    {@link DialogContext#prompt(String, PromptOptions)} .
+     * @param isRetry     true if this is the first time this prompt dialog instance
+     *                    on the stack is prompting the user for input; otherwise,
+```
+
+### JavadocReference
+Cannot resolve symbol `decimal`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/NumberPrompt.java`
+#### Snippet
+```java
+ *
+ * The number prompt currently supports these types: {@link float} , {@link int}
+ * , {@link long} , {@link double} , and {@link decimal} .
+ * @param <T> numeric type for this prompt, which can be int, long, double, or float.
+ */
+```
+
+### JavadocReference
+Cannot resolve symbol `DialogContext`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/NumberPrompt.java`
+#### Snippet
+```java
+     * @param options     A prompt options Object constructed from the options
+     *                    initially provided in the call to
+     *                    {@link DialogContext#prompt(String, PromptOptions)} .
+     *
+     * @return A {@link CompletableFuture} representing the asynchronous operation.
+```
+
+### JavadocReference
+Cannot resolve symbol `prompt(String, PromptOptions)`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/NumberPrompt.java`
+#### Snippet
+```java
+     * @param options     A prompt options Object constructed from the options
+     *                    initially provided in the call to
+     *                    {@link DialogContext#prompt(String, PromptOptions)} .
+     *
+     * @return A {@link CompletableFuture} representing the asynchronous operation.
+```
+
+### JavadocReference
+Cannot resolve symbol `DialogSet`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/NumberPrompt.java`
+#### Snippet
+```java
+     *
+     * @param dialogId      Unique ID of the dialog within its parent
+     *                      {@link DialogSet} or {@link ComponentDialog} .
+     * @param classOfNumber Type of <T> used to determine within the class what type was created for. This is required
+     *                      due to type erasure in Java not allowing checking the type of <T> during runtime.
+```
+
+### JavadocReference
+Cannot resolve symbol `ComponentDialog`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/NumberPrompt.java`
+#### Snippet
+```java
+     *
+     * @param dialogId      Unique ID of the dialog within its parent
+     *                      {@link DialogSet} or {@link ComponentDialog} .
+     * @param classOfNumber Type of <T> used to determine within the class what type was created for. This is required
+     *                      due to type erasure in Java not allowing checking the type of <T> during runtime.
+```
+
+### JavadocReference
+Cannot resolve symbol `DialogSet`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/NumberPrompt.java`
+#### Snippet
+```java
+     *
+     * @param dialogId      Unique ID of the dialog within its parent
+     *                      {@link DialogSet} or {@link ComponentDialog} .
+     * @param validator     Validator that will be called each time the user
+     *                      responds to the prompt.
+```
+
+### JavadocReference
+Cannot resolve symbol `ComponentDialog`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/NumberPrompt.java`
+#### Snippet
+```java
+     *
+     * @param dialogId      Unique ID of the dialog within its parent
+     *                      {@link DialogSet} or {@link ComponentDialog} .
+     * @param validator     Validator that will be called each time the user
+     *                      responds to the prompt.
+```
+
+### JavadocReference
+Cannot resolve symbol `dialogId`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/TextPrompt.java`
+#### Snippet
+```java
+     * @param dialogId   The ID to assign to this prompt.
+     *
+     * The value of {@link dialogId} must be unique within the {@link DialogSet} or
+     * {@link ComponentDialog} to which the prompt is added.
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `DialogSet`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/TextPrompt.java`
+#### Snippet
+```java
+     * @param dialogId   The ID to assign to this prompt.
+     *
+     * The value of {@link dialogId} must be unique within the {@link DialogSet} or
+     * {@link ComponentDialog} to which the prompt is added.
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `ComponentDialog`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/TextPrompt.java`
+#### Snippet
+```java
+     *
+     * The value of {@link dialogId} must be unique within the {@link DialogSet} or
+     * {@link ComponentDialog} to which the prompt is added.
+     */
+    public TextPrompt(String dialogId) {
 ```
 
 ### JavadocReference
@@ -16000,8 +15649,32 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/Confir
      *                     dialog stack.
      * @param options      A prompt options Object constructed from the options initially
      *                     provided in the call to {@link DialogContext#prompt(String, PromptOptions)} .
-     * @param isRetry      true if this is the first time this prompt dialog instance on the
-     *                     stack is prompting the user for input; otherwise, false.
+     *
+     * @return   A {@link CompletableFuture} representing the asynchronous operation.
+```
+
+### JavadocReference
+Cannot resolve symbol `dialogId`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/TextPrompt.java`
+#### Snippet
+```java
+     *                   additional, custom validation for this prompt.
+     *
+     * The value of {@link dialogId} must be unique within the {@link DialogSet} or
+     * {@link ComponentDialog} to which the prompt is added.
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `DialogSet`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/TextPrompt.java`
+#### Snippet
+```java
+     *                   additional, custom validation for this prompt.
+     *
+     * The value of {@link dialogId} must be unique within the {@link DialogSet} or
+     * {@link ComponentDialog} to which the prompt is added.
+     */
 ```
 
 ### JavadocReference
@@ -16012,20 +15685,32 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/Confir
      *                     dialog stack.
      * @param options      A prompt options Object constructed from the options initially
      *                     provided in the call to {@link DialogContext#prompt(String, PromptOptions)} .
-     * @param isRetry      true if this is the first time this prompt dialog instance on the
-     *                     stack is prompting the user for input; otherwise, false.
+     *
+     * @return   A {@link CompletableFuture} representing the asynchronous operation.
 ```
 
 ### JavadocReference
-Cannot resolve symbol `ChoiceFactory`
+Cannot resolve symbol `ComponentDialog`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/TextPrompt.java`
+#### Snippet
+```java
+     *
+     * The value of {@link dialogId} must be unique within the {@link DialogSet} or
+     * {@link ComponentDialog} to which the prompt is added.
+     */
+    public TextPrompt(String dialogId, PromptValidator<String> validator) {
+```
+
+### JavadocReference
+Cannot resolve symbol `GetSupportedCultures`
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ConfirmPrompt.java`
 #### Snippet
 ```java
 
     /**
-     * Gets additional options passed to the {@link ChoiceFactory} and used to tweak the
-     * style of choices rendered to the user.
-     * @return Additional options for presenting the set of choices.
+     * A map of Default Choices based on {@link GetSupportedCultures} . Can
+     * be replaced by user using the constructor that contains choiceDefaults.
+     */
 ```
 
 ### JavadocReference
@@ -16149,6 +15834,18 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/Confir
 ```
 
 ### JavadocReference
+Cannot resolve symbol `ChoiceFactory`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ConfirmPrompt.java`
+#### Snippet
+```java
+
+    /**
+     * Gets additional options passed to the {@link ChoiceFactory} and used to tweak the
+     * style of choices rendered to the user.
+     * @return Additional options for presenting the set of choices.
+```
+
+### JavadocReference
 Cannot resolve symbol `dialogId`
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ConfirmPrompt.java`
 #### Snippet
@@ -16269,15 +15966,27 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/Confir
 ```
 
 ### JavadocReference
-Cannot resolve symbol `GetSupportedCultures`
+Cannot resolve symbol `DialogContext`
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ConfirmPrompt.java`
 #### Snippet
 ```java
+     *                     dialog stack.
+     * @param options      A prompt options Object constructed from the options initially
+     *                     provided in the call to {@link DialogContext#prompt(String, PromptOptions)} .
+     * @param isRetry      true if this is the first time this prompt dialog instance on the
+     *                     stack is prompting the user for input; otherwise, false.
+```
 
-    /**
-     * A map of Default Choices based on {@link GetSupportedCultures} . Can
-     * be replaced by user using the constructor that contains choiceDefaults.
-     */
+### JavadocReference
+Cannot resolve symbol `prompt(String, PromptOptions)`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ConfirmPrompt.java`
+#### Snippet
+```java
+     *                     dialog stack.
+     * @param options      A prompt options Object constructed from the options initially
+     *                     provided in the call to {@link DialogContext#prompt(String, PromptOptions)} .
+     * @param isRetry      true if this is the first time this prompt dialog instance on the
+     *                     stack is prompting the user for input; otherwise, false.
 ```
 
 ### JavadocReference
@@ -16293,99 +16002,27 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/Confir
 ```
 
 ### JavadocReference
-Cannot resolve symbol `dialogId`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/TextPrompt.java`
+Cannot resolve symbol `DialogContext`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/AttachmentPrompt.java`
 #### Snippet
 ```java
-     * @param dialogId   The ID to assign to this prompt.
-     *
-     * The value of {@link dialogId} must be unique within the {@link DialogSet} or
-     * {@link ComponentDialog} to which the prompt is added.
-     */
+     *                     dialog stack.
+     * @param options      A prompt options Object constructed from the options initially
+     *                     provided in the call to {@link DialogContext(String, PromptOptions)} .
+     * @param isRetry      true if this is the first time this prompt dialog instance on the
+     *                     stack is prompting the user for input; otherwise, false.
 ```
 
 ### JavadocReference
-Cannot resolve symbol `DialogSet`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/TextPrompt.java`
+Cannot resolve symbol `DialogContext`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/AttachmentPrompt.java`
 #### Snippet
 ```java
-     * @param dialogId   The ID to assign to this prompt.
+     *                     dialog stack.
+     * @param options      A prompt options Object constructed from the options initially
+     *                     provided in the call to {@link DialogContext(String, PromptOptions)} .
      *
-     * The value of {@link dialogId} must be unique within the {@link DialogSet} or
-     * {@link ComponentDialog} to which the prompt is added.
-     */
-```
-
-### JavadocReference
-Cannot resolve symbol `ComponentDialog`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/TextPrompt.java`
-#### Snippet
-```java
-     *
-     * The value of {@link dialogId} must be unique within the {@link DialogSet} or
-     * {@link ComponentDialog} to which the prompt is added.
-     */
-    public TextPrompt(String dialogId) {
-```
-
-### JavadocReference
-Cannot resolve symbol `dialogId`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/TextPrompt.java`
-#### Snippet
-```java
-     *                   additional, custom validation for this prompt.
-     *
-     * The value of {@link dialogId} must be unique within the {@link DialogSet} or
-     * {@link ComponentDialog} to which the prompt is added.
-     */
-```
-
-### JavadocReference
-Cannot resolve symbol `DialogSet`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/TextPrompt.java`
-#### Snippet
-```java
-     *                   additional, custom validation for this prompt.
-     *
-     * The value of {@link dialogId} must be unique within the {@link DialogSet} or
-     * {@link ComponentDialog} to which the prompt is added.
-     */
-```
-
-### JavadocReference
-Cannot resolve symbol `ComponentDialog`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/TextPrompt.java`
-#### Snippet
-```java
-     *
-     * The value of {@link dialogId} must be unique within the {@link DialogSet} or
-     * {@link ComponentDialog} to which the prompt is added.
-     */
-    public TextPrompt(String dialogId, PromptValidator<String> validator) {
-```
-
-### JavadocReference
-Cannot resolve symbol `DialogSet`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ActivityPrompt.java`
-#### Snippet
-```java
-     *
-     *                  The value of dialogId must be unique within the
-     *                  {@link DialogSet} or {@link ComponentDialog} to which the
-     *                  prompt is added.
-     */
-```
-
-### JavadocReference
-Cannot resolve symbol `ComponentDialog`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ActivityPrompt.java`
-#### Snippet
-```java
-     *
-     *                  The value of dialogId must be unique within the
-     *                  {@link DialogSet} or {@link ComponentDialog} to which the
-     *                  prompt is added.
-     */
+     * @return   A {@link CompletableFuture} representing the asynchronous operation.
 ```
 
 ### JavadocReference
@@ -16413,18 +16050,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/Attach
 ```
 
 ### JavadocReference
-Cannot resolve symbol `DialogContext`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/AttachmentPrompt.java`
-#### Snippet
-```java
-     *                     dialog stack.
-     * @param options      A prompt options Object constructed from the options initially
-     *                     provided in the call to {@link DialogContext(String, PromptOptions)} .
-     *
-     * @return   A {@link CompletableFuture} representing the asynchronous operation.
-```
-
-### JavadocReference
 Cannot resolve symbol `DialogSet`
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/AttachmentPrompt.java`
 #### Snippet
@@ -16449,15 +16074,27 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/Attach
 ```
 
 ### JavadocReference
-Cannot resolve symbol `DialogContext`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/AttachmentPrompt.java`
+Cannot resolve symbol `DialogSet`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ActivityPrompt.java`
 #### Snippet
 ```java
-     *                     dialog stack.
-     * @param options      A prompt options Object constructed from the options initially
-     *                     provided in the call to {@link DialogContext(String, PromptOptions)} .
-     * @param isRetry      true if this is the first time this prompt dialog instance on the
-     *                     stack is prompting the user for input; otherwise, false.
+     *
+     *                  The value of dialogId must be unique within the
+     *                  {@link DialogSet} or {@link ComponentDialog} to which the
+     *                  prompt is added.
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `ComponentDialog`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ActivityPrompt.java`
+#### Snippet
+```java
+     *
+     *                  The value of dialogId must be unique within the
+     *                  {@link DialogSet} or {@link ComponentDialog} to which the
+     *                  prompt is added.
+     */
 ```
 
 ### JavadocReference
@@ -16467,9 +16104,153 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/Choice
 ```java
 
     /**
-     * Sets additional options passed to the {@link ChoiceFactory} and used to tweak the
+     * Gets additional options passed to the {@link ChoiceFactory} and used to tweak the
      * style of choices rendered to the user.
-     * @param choiceOptions Additional options for presenting the set of choices.
+     * @return Additional options for presenting the set of choices.
+```
+
+### JavadocReference
+Cannot resolve symbol `dialogId`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ChoicePrompt.java`
+#### Snippet
+```java
+     *                      language or language family.
+     *
+     *                      The value of {@link dialogId} must be unique within the
+     *                      {@link DialogSet} or {@link ComponentDialog} to which
+     *                      the prompt is added. If the {@link Activity#locale} of
+```
+
+### JavadocReference
+Cannot resolve symbol `DialogSet`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ChoicePrompt.java`
+#### Snippet
+```java
+     *
+     *                      The value of {@link dialogId} must be unique within the
+     *                      {@link DialogSet} or {@link ComponentDialog} to which
+     *                      the prompt is added. If the {@link Activity#locale} of
+     *                      the {@link DialogContext} .{@link DialogContext#context}
+```
+
+### JavadocReference
+Cannot resolve symbol `ComponentDialog`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ChoicePrompt.java`
+#### Snippet
+```java
+     *
+     *                      The value of {@link dialogId} must be unique within the
+     *                      {@link DialogSet} or {@link ComponentDialog} to which
+     *                      the prompt is added. If the {@link Activity#locale} of
+     *                      the {@link DialogContext} .{@link DialogContext#context}
+```
+
+### JavadocReference
+Symbol `locale` is inaccessible from here
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ChoicePrompt.java`
+#### Snippet
+```java
+     *                      The value of {@link dialogId} must be unique within the
+     *                      {@link DialogSet} or {@link ComponentDialog} to which
+     *                      the prompt is added. If the {@link Activity#locale} of
+     *                      the {@link DialogContext} .{@link DialogContext#context}
+     *                      .{@link ITurnContext#activity} is specified, then that
+```
+
+### JavadocReference
+Cannot resolve symbol `DialogContext`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ChoicePrompt.java`
+#### Snippet
+```java
+     *                      {@link DialogSet} or {@link ComponentDialog} to which
+     *                      the prompt is added. If the {@link Activity#locale} of
+     *                      the {@link DialogContext} .{@link DialogContext#context}
+     *                      .{@link ITurnContext#activity} is specified, then that
+     *                      local is used to determine language specific behavior;
+```
+
+### JavadocReference
+Cannot resolve symbol `DialogContext`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ChoicePrompt.java`
+#### Snippet
+```java
+     *                      {@link DialogSet} or {@link ComponentDialog} to which
+     *                      the prompt is added. If the {@link Activity#locale} of
+     *                      the {@link DialogContext} .{@link DialogContext#context}
+     *                      .{@link ITurnContext#activity} is specified, then that
+     *                      local is used to determine language specific behavior;
+```
+
+### JavadocReference
+Cannot resolve symbol `context`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ChoicePrompt.java`
+#### Snippet
+```java
+     *                      {@link DialogSet} or {@link ComponentDialog} to which
+     *                      the prompt is added. If the {@link Activity#locale} of
+     *                      the {@link DialogContext} .{@link DialogContext#context}
+     *                      .{@link ITurnContext#activity} is specified, then that
+     *                      local is used to determine language specific behavior;
+```
+
+### JavadocReference
+Cannot resolve symbol `ITurnContext`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ChoicePrompt.java`
+#### Snippet
+```java
+     *                      the prompt is added. If the {@link Activity#locale} of
+     *                      the {@link DialogContext} .{@link DialogContext#context}
+     *                      .{@link ITurnContext#activity} is specified, then that
+     *                      local is used to determine language specific behavior;
+     *                      otherwise the {@link defaultLocale} is used. US-English
+```
+
+### JavadocReference
+Cannot resolve symbol `activity`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ChoicePrompt.java`
+#### Snippet
+```java
+     *                      the prompt is added. If the {@link Activity#locale} of
+     *                      the {@link DialogContext} .{@link DialogContext#context}
+     *                      .{@link ITurnContext#activity} is specified, then that
+     *                      local is used to determine language specific behavior;
+     *                      otherwise the {@link defaultLocale} is used. US-English
+```
+
+### JavadocReference
+Cannot resolve symbol `defaultLocale`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ChoicePrompt.java`
+#### Snippet
+```java
+     *                      .{@link ITurnContext#activity} is specified, then that
+     *                      local is used to determine language specific behavior;
+     *                      otherwise the {@link defaultLocale} is used. US-English
+     *                      is the used if no language or default locale is
+     *                      available, or if the language or locale is not otherwise
+```
+
+### JavadocReference
+Cannot resolve symbol `DialogContext`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ChoicePrompt.java`
+#### Snippet
+```java
+     *                     dialog stack.
+     * @param options      A prompt options Object constructed from the options initially
+     *                     provided in the call to {@link DialogContext#prompt(String, PromptOptions)} .
+     * @param isRetry      true if this is the first time this prompt dialog instance on the
+     *                     stack is prompting the user for input; otherwise, false.
+```
+
+### JavadocReference
+Cannot resolve symbol `prompt(String, PromptOptions)`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ChoicePrompt.java`
+#### Snippet
+```java
+     *                     dialog stack.
+     * @param options      A prompt options Object constructed from the options initially
+     *                     provided in the call to {@link DialogContext#prompt(String, PromptOptions)} .
+     * @param isRetry      true if this is the first time this prompt dialog instance on the
+     *                     stack is prompting the user for input; otherwise, false.
 ```
 
 ### JavadocReference
@@ -16494,6 +16275,18 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/Choice
      *                     provided in the call to {@link DialogContext#prompt(String, PromptOptions)} .
      *
      * @return   A {@link CompletableFuture} representing the asynchronous operation.
+```
+
+### JavadocReference
+Cannot resolve symbol `GetSupportedCultures`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ChoicePrompt.java`
+#### Snippet
+```java
+
+    /**
+     * A dictionary of Default Choices based on {@link GetSupportedCultures} . Can
+     * be replaced by user using the constructor that contains choiceDefaults.
+     */
 ```
 
 ### JavadocReference
@@ -16617,30 +16410,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/Choice
 ```
 
 ### JavadocReference
-Cannot resolve symbol `DialogContext`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ChoicePrompt.java`
-#### Snippet
-```java
-     *                     dialog stack.
-     * @param options      A prompt options Object constructed from the options initially
-     *                     provided in the call to {@link DialogContext#prompt(String, PromptOptions)} .
-     * @param isRetry      true if this is the first time this prompt dialog instance on the
-     *                     stack is prompting the user for input; otherwise, false.
-```
-
-### JavadocReference
-Cannot resolve symbol `prompt(String, PromptOptions)`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ChoicePrompt.java`
-#### Snippet
-```java
-     *                     dialog stack.
-     * @param options      A prompt options Object constructed from the options initially
-     *                     provided in the call to {@link DialogContext#prompt(String, PromptOptions)} .
-     * @param isRetry      true if this is the first time this prompt dialog instance on the
-     *                     stack is prompting the user for input; otherwise, false.
-```
-
-### JavadocReference
 Cannot resolve symbol `recognizeChoices(String, IList`
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ChoicePrompt.java`
 #### Snippet
@@ -16662,150 +16431,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/Choice
      * {@link ChoiceRecognizers#recognizeChoices(String, IList{Choice}, FindChoicesOptions)} method.
      *
      * @return Options to control the recognition strategy.
-```
-
-### JavadocReference
-Cannot resolve symbol `recognizeChoices(String, IList`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ChoicePrompt.java`
-#### Snippet
-```java
-    /**
-     * Gets or sets additional options passed to the underlying
-     * {@link ChoiceRecognizers#recognizeChoices(String, IList{Choice}, FindChoicesOptions)} method.
-     *
-     * @param recognizerOptions Options to control the recognition strategy.
-```
-
-### JavadocReference
-Cannot resolve symbol `IList`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ChoicePrompt.java`
-#### Snippet
-```java
-    /**
-     * Gets or sets additional options passed to the underlying
-     * {@link ChoiceRecognizers#recognizeChoices(String, IList{Choice}, FindChoicesOptions)} method.
-     *
-     * @param recognizerOptions Options to control the recognition strategy.
-```
-
-### JavadocReference
-Cannot resolve symbol `dialogId`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ChoicePrompt.java`
-#### Snippet
-```java
-     *                      language or language family.
-     *
-     *                      The value of {@link dialogId} must be unique within the
-     *                      {@link DialogSet} or {@link ComponentDialog} to which
-     *                      the prompt is added. If the {@link Activity#locale} of
-```
-
-### JavadocReference
-Cannot resolve symbol `DialogSet`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ChoicePrompt.java`
-#### Snippet
-```java
-     *
-     *                      The value of {@link dialogId} must be unique within the
-     *                      {@link DialogSet} or {@link ComponentDialog} to which
-     *                      the prompt is added. If the {@link Activity#locale} of
-     *                      the {@link DialogContext} .{@link DialogContext#context}
-```
-
-### JavadocReference
-Cannot resolve symbol `ComponentDialog`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ChoicePrompt.java`
-#### Snippet
-```java
-     *
-     *                      The value of {@link dialogId} must be unique within the
-     *                      {@link DialogSet} or {@link ComponentDialog} to which
-     *                      the prompt is added. If the {@link Activity#locale} of
-     *                      the {@link DialogContext} .{@link DialogContext#context}
-```
-
-### JavadocReference
-Symbol `locale` is inaccessible from here
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ChoicePrompt.java`
-#### Snippet
-```java
-     *                      The value of {@link dialogId} must be unique within the
-     *                      {@link DialogSet} or {@link ComponentDialog} to which
-     *                      the prompt is added. If the {@link Activity#locale} of
-     *                      the {@link DialogContext} .{@link DialogContext#context}
-     *                      .{@link ITurnContext#activity} is specified, then that
-```
-
-### JavadocReference
-Cannot resolve symbol `DialogContext`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ChoicePrompt.java`
-#### Snippet
-```java
-     *                      {@link DialogSet} or {@link ComponentDialog} to which
-     *                      the prompt is added. If the {@link Activity#locale} of
-     *                      the {@link DialogContext} .{@link DialogContext#context}
-     *                      .{@link ITurnContext#activity} is specified, then that
-     *                      local is used to determine language specific behavior;
-```
-
-### JavadocReference
-Cannot resolve symbol `DialogContext`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ChoicePrompt.java`
-#### Snippet
-```java
-     *                      {@link DialogSet} or {@link ComponentDialog} to which
-     *                      the prompt is added. If the {@link Activity#locale} of
-     *                      the {@link DialogContext} .{@link DialogContext#context}
-     *                      .{@link ITurnContext#activity} is specified, then that
-     *                      local is used to determine language specific behavior;
-```
-
-### JavadocReference
-Cannot resolve symbol `context`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ChoicePrompt.java`
-#### Snippet
-```java
-     *                      {@link DialogSet} or {@link ComponentDialog} to which
-     *                      the prompt is added. If the {@link Activity#locale} of
-     *                      the {@link DialogContext} .{@link DialogContext#context}
-     *                      .{@link ITurnContext#activity} is specified, then that
-     *                      local is used to determine language specific behavior;
-```
-
-### JavadocReference
-Cannot resolve symbol `ITurnContext`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ChoicePrompt.java`
-#### Snippet
-```java
-     *                      the prompt is added. If the {@link Activity#locale} of
-     *                      the {@link DialogContext} .{@link DialogContext#context}
-     *                      .{@link ITurnContext#activity} is specified, then that
-     *                      local is used to determine language specific behavior;
-     *                      otherwise the {@link defaultLocale} is used. US-English
-```
-
-### JavadocReference
-Cannot resolve symbol `activity`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ChoicePrompt.java`
-#### Snippet
-```java
-     *                      the prompt is added. If the {@link Activity#locale} of
-     *                      the {@link DialogContext} .{@link DialogContext#context}
-     *                      .{@link ITurnContext#activity} is specified, then that
-     *                      local is used to determine language specific behavior;
-     *                      otherwise the {@link defaultLocale} is used. US-English
-```
-
-### JavadocReference
-Cannot resolve symbol `defaultLocale`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ChoicePrompt.java`
-#### Snippet
-```java
-     *                      .{@link ITurnContext#activity} is specified, then that
-     *                      local is used to determine language specific behavior;
-     *                      otherwise the {@link defaultLocale} is used. US-English
-     *                      is the used if no language or default locale is
-     *                      available, or if the language or locale is not otherwise
 ```
 
 ### JavadocReference
@@ -16815,21 +16440,33 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/Choice
 ```java
 
     /**
-     * Gets additional options passed to the {@link ChoiceFactory} and used to tweak the
+     * Sets additional options passed to the {@link ChoiceFactory} and used to tweak the
      * style of choices rendered to the user.
-     * @return Additional options for presenting the set of choices.
+     * @param choiceOptions Additional options for presenting the set of choices.
 ```
 
 ### JavadocReference
-Cannot resolve symbol `GetSupportedCultures`
+Cannot resolve symbol `recognizeChoices(String, IList`
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ChoicePrompt.java`
 #### Snippet
 ```java
-
     /**
-     * A dictionary of Default Choices based on {@link GetSupportedCultures} . Can
-     * be replaced by user using the constructor that contains choiceDefaults.
-     */
+     * Gets or sets additional options passed to the underlying
+     * {@link ChoiceRecognizers#recognizeChoices(String, IList{Choice}, FindChoicesOptions)} method.
+     *
+     * @param recognizerOptions Options to control the recognition strategy.
+```
+
+### JavadocReference
+Cannot resolve symbol `IList`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ChoicePrompt.java`
+#### Snippet
+```java
+    /**
+     * Gets or sets additional options passed to the underlying
+     * {@link ChoiceRecognizers#recognizeChoices(String, IList{Choice}, FindChoicesOptions)} method.
+     *
+     * @param recognizerOptions Options to control the recognition strategy.
 ```
 
 ### JavadocReference
@@ -16901,6 +16538,369 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/OAuthP
      *                  The value of {@link dialogId} must be unique within the
      *                  {@link DialogSet} or {@link ComponentDialog} to which the
      *                  prompt is added.
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `authenticateRequest(Activity, String,
+* CredentialProvider, ChannelProvider, AuthenticationConfiguration,
+* HttpClient)`
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ChannelServiceHandler.java`
+#### Snippet
+```java
+     *
+     * This code is very similar to the code in
+     * {@link JwtTokenValidation#authenticateRequest(Activity, String,
+     * CredentialProvider, ChannelProvider, AuthenticationConfiguration,
+     * HttpClient)} , we should move this code somewhere in that library when
+```
+
+### JavadocReference
+Cannot resolve symbol `HttpClient`
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ChannelServiceHandler.java`
+#### Snippet
+```java
+     * {@link JwtTokenValidation#authenticateRequest(Activity, String,
+     * CredentialProvider, ChannelProvider, AuthenticationConfiguration,
+     * HttpClient)} , we should move this code somewhere in that library when
+     * we refactor auth, for now we keep it private to avoid adding more public
+     * static functions that we will need to deprecate later.
+```
+
+### JavadocReference
+Cannot resolve symbol `createSkillConversationId(SkillConversationI
+* FactoryOptions,System`
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryOptions.java`
+#### Snippet
+```java
+/**
+ * A class defining the parameters used in
+ * {@link SkillConversationIdFactoryBase#createSkillConversationId(SkillConversationI
+ * FactoryOptions,System#getThreading()#getCancellationToken())} .
+ */
+```
+
+### JavadocReference
+Cannot resolve symbol `SkillConversationI`
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryOptions.java`
+#### Snippet
+```java
+/**
+ * A class defining the parameters used in
+ * {@link SkillConversationIdFactoryBase#createSkillConversationId(SkillConversationI
+ * FactoryOptions,System#getThreading()#getCancellationToken())} .
+ */
+```
+
+### JavadocReference
+Cannot resolve symbol `getThreading`
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryOptions.java`
+#### Snippet
+```java
+ * A class defining the parameters used in
+ * {@link SkillConversationIdFactoryBase#createSkillConversationId(SkillConversationI
+ * FactoryOptions,System#getThreading()#getCancellationToken())} .
+ */
+public class SkillConversationIdFactoryOptions {
+```
+
+### JavadocReference
+Cannot resolve symbol `CreateSkillConversationId`
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactory.java`
+#### Snippet
+```java
+     *
+     * @param skillConversationId  A skill conversationId created using {@link
+     *                             CreateSkillConversationId(SkillConversationIdFactoryOptions,System#getT
+     *                             reading()#getCancellationToken())} .
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `getT`
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactory.java`
+#### Snippet
+```java
+     *
+     * @param skillConversationId  A skill conversationId created using {@link
+     *                             CreateSkillConversationId(SkillConversationIdFactoryOptions,System#getT
+     *                             reading()#getCancellationToken())} .
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `reading`
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactory.java`
+#### Snippet
+```java
+     * @param skillConversationId  A skill conversationId created using {@link
+     *                             CreateSkillConversationId(SkillConversationIdFactoryOptions,System#getT
+     *                             reading()#getCancellationToken())} .
+     *
+     * @return   A {@link CompletableFuture} representing the asynchronous operation.
+```
+
+### JavadocReference
+Cannot resolve symbol `CreateSkillConversationId`
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
+#### Snippet
+```java
+    /**
+     * Gets the {@link SkillConversationReference} used during {@link
+     * CreateSkillConversationId(SkillConversationIdFactoryOptions,System#getT
+     * reading()#getCancellationToken())} for a skillConversationId.
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `getT`
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
+#### Snippet
+```java
+    /**
+     * Gets the {@link SkillConversationReference} used during {@link
+     * CreateSkillConversationId(SkillConversationIdFactoryOptions,System#getT
+     * reading()#getCancellationToken())} for a skillConversationId.
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `reading`
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
+#### Snippet
+```java
+     * Gets the {@link SkillConversationReference} used during {@link
+     * CreateSkillConversationId(SkillConversationIdFactoryOptions,System#getT
+     * reading()#getCancellationToken())} for a skillConversationId.
+     *
+     * @param skillConversationId  A skill conversationId created using {@link
+```
+
+### JavadocReference
+Cannot resolve symbol `CreateSkillConversationId`
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
+#### Snippet
+```java
+     *
+     * @param skillConversationId  A skill conversationId created using {@link
+     *                             CreateSkillConversationId(SkillConversationIdFactoryOptions,System#getT
+     *                             reading()#getCancellationToken())} .
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `getT`
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
+#### Snippet
+```java
+     *
+     * @param skillConversationId  A skill conversationId created using {@link
+     *                             CreateSkillConversationId(SkillConversationIdFactoryOptions,System#getT
+     *                             reading()#getCancellationToken())} .
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `reading`
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
+#### Snippet
+```java
+     * @param skillConversationId  A skill conversationId created using {@link
+     *                             CreateSkillConversationId(SkillConversationIdFactoryOptions,System#getT
+     *                             reading()#getCancellationToken())} .
+     *
+     * @return   The caller's {@link ConversationReference} for a skillConversationId, with originatingAudience.
+```
+
+### JavadocReference
+Cannot resolve symbol `CreateSkillConversationId`
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
+#### Snippet
+```java
+     *
+     * @param skillConversationId  A skill conversationId created using {@link
+     *                             CreateSkillConversationId(SkillConversationIdFactoryOptions,System#getT
+     *                             reading()#getCancellationToken())} .
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `getT`
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
+#### Snippet
+```java
+     *
+     * @param skillConversationId  A skill conversationId created using {@link
+     *                             CreateSkillConversationId(SkillConversationIdFactoryOptions,System#getT
+     *                             reading()#getCancellationToken())} .
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `reading`
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
+#### Snippet
+```java
+     * @param skillConversationId  A skill conversationId created using {@link
+     *                             CreateSkillConversationId(SkillConversationIdFactoryOptions,System#getT
+     *                             reading()#getCancellationToken())} .
+     *
+     * @return   A {@link CompletableFuture} representing the asynchronous operation.
+```
+
+### JavadocReference
+Cannot resolve symbol `CreateSkillConversationId`
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
+#### Snippet
+```java
+     * Gets the {@link ConversationReference} created using
+     * {@link
+     * CreateSkillConversationId(Microsoft#getBot()#getSchema()#getConversatio
+     * Reference(),System#getThreading()#getCancellationToken())} for a
+     * skillConversationId.
+```
+
+### JavadocReference
+Cannot resolve symbol `Microsoft`
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
+#### Snippet
+```java
+     * Gets the {@link ConversationReference} created using
+     * {@link
+     * CreateSkillConversationId(Microsoft#getBot()#getSchema()#getConversatio
+     * Reference(),System#getThreading()#getCancellationToken())} for a
+     * skillConversationId.
+```
+
+### JavadocReference
+Cannot resolve symbol `getBot`
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
+#### Snippet
+```java
+     * Gets the {@link ConversationReference} created using
+     * {@link
+     * CreateSkillConversationId(Microsoft#getBot()#getSchema()#getConversatio
+     * Reference(),System#getThreading()#getCancellationToken())} for a
+     * skillConversationId.
+```
+
+### JavadocReference
+Cannot resolve symbol `CreateSkillConversationId`
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
+#### Snippet
+```java
+     *
+     * @param skillConversationId  A skill conversationId created using {@link
+     *                             CreateSkillConversationId(Microsoft#getBot()#getSchema()#getConversatio
+     *                             Reference(),System#getThreading()#getCancellationToken())} .
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `Microsoft`
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
+#### Snippet
+```java
+     *
+     * @param skillConversationId  A skill conversationId created using {@link
+     *                             CreateSkillConversationId(Microsoft#getBot()#getSchema()#getConversatio
+     *                             Reference(),System#getThreading()#getCancellationToken())} .
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `getBot`
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
+#### Snippet
+```java
+     *
+     * @param skillConversationId  A skill conversationId created using {@link
+     *                             CreateSkillConversationId(Microsoft#getBot()#getSchema()#getConversatio
+     *                             Reference(),System#getThreading()#getCancellationToken())} .
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `IBot`
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillHandler.java`
+#### Snippet
+```java
+     *
+     * @param adapter                An instance of the {@link BotAdapter} that will handle the request.
+     * @param bot                    The {@link IBot} instance.
+     * @param conversationIdFactory  A {@link SkillConversationIdFactoryBase} to unpack the conversation ID and
+     *                               map it to the calling bot.
+```
+
+### JavadocReference
+Cannot resolve symbol `MiddlewareSet`
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillHandler.java`
+#### Snippet
+```java
+     * @param channelProvider        The channel provider.
+     *
+     * Use a {@link MiddlewareSet} Object to add multiple middleware components
+     * in the constructor. Use the Use({@link Middleware} ) method to add
+     * additional middleware to the adapter after construction.
+```
+
+### JavadocReference
+Cannot resolve symbol `Middleware`
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillHandler.java`
+#### Snippet
+```java
+     *
+     * Use a {@link MiddlewareSet} Object to add multiple middleware components
+     * in the constructor. Use the Use({@link Middleware} ) method to add
+     * additional middleware to the adapter after construction.
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `CosmosDbPartitionedStorage.compatibilityMode`
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/CosmosDbKeyEscape.java`
+#### Snippet
+```java
+     *                          CosmosDb max key length of 255. This behavior can be
+     *                          overridden by setting
+     *                          {@link CosmosDbPartitionedStorage.compatibilityMode}
+     *                          to false. *
+     * @return An escaped key that can be used safely with CosmosDB.
+```
+
+### JavadocReference
+Cannot resolve symbol `OnInvokeActivity`
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ActivityHandler.java`
+#### Snippet
+```java
+     * @return   A task that represents the work queued to execute.
+     *
+     * When the {@link OnInvokeActivity(TurnContext(InvokeActivity))} method
+     * receives an Invoke with a {@link InvokeActivity.name} of
+     * `adaptiveCard/action`, it calls this method.
+```
+
+### JavadocReference
+Cannot resolve symbol `InvokeActivity`
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ActivityHandler.java`
+#### Snippet
+```java
+     * @return   A task that represents the work queued to execute.
+     *
+     * When the {@link OnInvokeActivity(TurnContext(InvokeActivity))} method
+     * receives an Invoke with a {@link InvokeActivity.name} of
+     * `adaptiveCard/action`, it calls this method.
+```
+
+### JavadocReference
+Cannot resolve symbol `InvokeActivity.name`
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ActivityHandler.java`
+#### Snippet
+```java
+     *
+     * When the {@link OnInvokeActivity(TurnContext(InvokeActivity))} method
+     * receives an Invoke with a {@link InvokeActivity.name} of
+     * `adaptiveCard/action`, it calls this method.
      */
 ```
 
@@ -17003,18 +17003,6 @@ in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentica
 ## RuleId[id=UnnecessarySemicolon]
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
-in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/BotFrameworkHttpClient.java`
-#### Snippet
-```java
-public class BotFrameworkHttpClient extends BotFrameworkClient {
-
-    private static Map<String, AppCredentials> appCredentialMapCache = new HashMap<String, AppCredentials>();;
-
-    private ChannelProvider channelProvider;
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
 #### Snippet
 ```java
@@ -17049,6 +17037,18 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/numberwit
                 Pattern.compile(PortugueseNumericWithUnit.CompoundUnitConnectorRegex, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CHARACTER_CLASS);
 ```
 
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/BotFrameworkHttpClient.java`
+#### Snippet
+```java
+public class BotFrameworkHttpClient extends BotFrameworkClient {
+
+    private static Map<String, AppCredentials> appCredentialMapCache = new HashMap<String, AppCredentials>();;
+
+    private ChannelProvider channelProvider;
+```
+
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
 Method invocation `getScoreThreshold` may produce `NullPointerException`
@@ -17060,18 +17060,6 @@ in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/utils/GenerateAn
                 queryOptions.getScoreThreshold() != hydratedOptions.getScoreThreshold()
                     && queryOptions.getScoreThreshold() != 0
             ) {
-```
-
-### DataFlowIssue
-Method invocation `string` may produce `NullPointerException`
-in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/utils/HttpRequestUtils.java`
-#### Snippet
-```java
-            Request request = buildRequest(requestUrl, endpointKey, buildRequestBody(payloadBody));
-            response = this.httpClient.newCall(request).execute();
-            qnaResponse = mapper.readTree(response.body().string());
-            if (!response.isSuccessful()) {
-                String message = "Unexpected code " + response.code();
 ```
 
 ### DataFlowIssue
@@ -17087,87 +17075,15 @@ in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/utils/HttpReques
 ```
 
 ### DataFlowIssue
-Method invocation `getBytes` may produce `NullPointerException`
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsTranscriptStore.java`
-#### Snippet
-```java
-            ex.printStackTrace();
-        }
-        InputStream data = new ByteArrayInputStream(activityJson.getBytes(StandardCharsets.UTF_8));
-
-        try {
-```
-
-### DataFlowIssue
-Method invocation `setType` may produce `NullPointerException`
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsTranscriptStore.java`
-#### Snippet
-```java
-                    ex.printStackTrace();
-                }
-                updatedActivity.setType(ActivityTypes.MESSAGE); // fixup original type (should be Message)
-                Activity finalUpdatedActivity = updatedActivity;
-                innerReadBlob(activity).thenAccept(activityAndBlob -> {
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsTranscriptStore.java`
-#### Snippet
-```java
-                .listBlobsByHierarchy("/", this.getOptionsWithMetadata(prefix), null)
-                .iterableByPage(token);
-            token = null;
-            for (PagedResponse<BlobItem> blobPage : resultSegment) {
-                for (BlobItem blobItem : blobPage.getValue()) {
-```
-
-### DataFlowIssue
-Method invocation `getActivity` may produce `NullPointerException`
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactory.java`
-#### Snippet
-```java
-            Async.completeExceptionally(new IllegalArgumentException("options cannot be null."));
-        }
-        ConversationReference conversationReference = options.getActivity().getConversationReference();
-        String skillConversationId = UUID.randomUUID().toString();
-
-```
-
-### DataFlowIssue
-Method invocation `getToken` may produce `NullPointerException`
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/teams/TeamsSSOTokenExchangeMiddleware.java`
-#### Snippet
-```java
-            RestOAuthClient userTokenClient = turnContext.getTurnState().get(RestOAuthClient.class);
-            TokenExchangeRequest exchangeRequest = new TokenExchangeRequest();
-            exchangeRequest.setToken(tokenExchangeRequest.getToken());
-            if (userTokenClient != null) {
-                tokenExchangeResponse = userTokenClient.getUserToken()
-```
-
-### DataFlowIssue
 Method invocation `string` may produce `NullPointerException`
-in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/BotFrameworkHttpClient.java`
+in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/utils/HttpRequestUtils.java`
 #### Snippet
 ```java
-            Response response = httpClient.newCall(request).execute();
-
-            T result = Serialization.getAs(response.body().string(), type);
-            TypedInvokeResponse<T> returnValue = new TypedInvokeResponse<T>(response.code(), result);
-            return CompletableFuture.completedFuture(returnValue);
-```
-
-### DataFlowIssue
-Method invocation `newBuilder` may produce `NullPointerException`
-in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/BotFrameworkHttpClient.java`
-#### Snippet
-```java
-
-    private Request buildRequest(Activity activity, URI url, RequestBody body, String token) {
-        HttpUrl.Builder httpBuilder = HttpUrl.parse(url.toString()).newBuilder();
-
-        Request.Builder requestBuilder = new Request.Builder().url(httpBuilder.build());
+            Request request = buildRequest(requestUrl, endpointKey, buildRequestBody(payloadBody));
+            response = this.httpClient.newCall(request).execute();
+            qnaResponse = mapper.readTree(response.body().string());
+            if (!response.isSuccessful()) {
+                String message = "Unexpected code " + response.code();
 ```
 
 ### DataFlowIssue
@@ -17291,18 +17207,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### DataFlowIssue
-Condition `entry.getValue() instanceof String[]` is redundant and can be replaced with a null check
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishHolidayParserConfiguration.java`
-#### Snippet
-```java
-        HashMap<String, Iterable<String>> newMap = new HashMap<>();
-        for (Map.Entry<String, String[]> entry : EnglishDateTime.HolidayNames.entrySet()) {
-            if (entry.getValue() instanceof String[]) {
-                newMap.put(entry.getKey(), Arrays.asList(entry.getValue()));
-            }
-```
-
-### DataFlowIssue
 Unboxing of `numbers.getOrDefault(minStr, 0)` may produce `NullPointerException`
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishTimeParserConfiguration.java`
 #### Snippet
@@ -17327,6 +17231,18 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### DataFlowIssue
+Condition `entry.getValue() instanceof String[]` is redundant and can be replaced with a null check
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishHolidayParserConfiguration.java`
+#### Snippet
+```java
+        HashMap<String, Iterable<String>> newMap = new HashMap<>();
+        for (Map.Entry<String, String[]> entry : EnglishDateTime.HolidayNames.entrySet()) {
+            if (entry.getValue() instanceof String[]) {
+                newMap.put(entry.getKey(), Arrays.asList(entry.getValue()));
+            }
+```
+
+### DataFlowIssue
 Unboxing of `config.getNumbers().get(hourStr)` may produce `NullPointerException`
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateTimeParser.java`
 #### Snippet
@@ -17336,126 +17252,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
                 hour = config.getNumbers().get(hourStr);
             } else {
                 hour = Integer.parseInt(hourStr);
-```
-
-### DataFlowIssue
-Unboxing of `EnglishTimeZone.FullToMinMapping.get(text)` may produce `NullPointerException`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseTimeZoneParser.java`
-#### Snippet
-```java
-    private boolean checkFullToMin(String text) {
-        if (EnglishTimeZone.FullToMinMapping.containsKey(text)) {
-            return EnglishTimeZone.FullToMinMapping.get(text) != Constants.InvalidOffsetValue;
-        }
-        return false;
-```
-
-### DataFlowIssue
-Unboxing of `EnglishTimeZone.AbbrToMinMapping.get(text)` may produce `NullPointerException`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseTimeZoneParser.java`
-#### Snippet
-```java
-    private boolean checkAbbrToMin(String text) {
-        if (EnglishTimeZone.AbbrToMinMapping.containsKey(text)) {
-            return EnglishTimeZone.AbbrToMinMapping.get(text) != Constants.InvalidOffsetValue;
-        }
-        return false;
-```
-
-### DataFlowIssue
-Unboxing of `EnglishTimeZone.AbbrToMinMapping.getOrDefault(normalizedText, 0)` may produce `NullPointerException`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseTimeZoneParser.java`
-#### Snippet
-```java
-            result.setResolutionStr(resolutionStr);
-        } else if (checkAbbrToMin(normalizedText)) {
-            int utcMinuteShift = EnglishTimeZone.AbbrToMinMapping.getOrDefault(normalizedText, 0);
-
-            DateTimeResolutionResult value = getDateTimeResolutionResult(utcMinuteShift, text);
-```
-
-### DataFlowIssue
-Unboxing of `EnglishTimeZone.FullToMinMapping.getOrDefault(normalizedText, 0)` may produce `NullPointerException`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseTimeZoneParser.java`
-#### Snippet
-```java
-            result.setResolutionStr(resolutionStr);
-        } else if (checkFullToMin(normalizedText)) {
-            int utcMinuteShift = EnglishTimeZone.FullToMinMapping.getOrDefault(normalizedText, 0);
-
-            DateTimeResolutionResult value = getDateTimeResolutionResult(utcMinuteShift, text);
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseTimeZoneParser.java`
-#### Snippet
-```java
-                hours = Integer.parseInt(utcOffset);
-            } catch (Exception e) {
-                hours = 0;
-            }
-        }
-```
-
-### DataFlowIssue
-Argument `unitStr` might be null
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDurationParser.java`
-#### Snippet
-```java
-                String unitStr = config.getUnitMap().get(srcUnit);
-
-                String timex = String.format("P%s%s%c", isLessThanDay(unitStr) ? "T" : "", numStr, unitStr.charAt(0));
-                double timeValue = Double.parseDouble(numStr) * config.getUnitValueMap().get(srcUnit);
-
-```
-
-### DataFlowIssue
-Unboxing of `config.getUnitValueMap().get(srcUnit)` may produce `NullPointerException`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDurationParser.java`
-#### Snippet
-```java
-
-                String timex = String.format("P%s%s%c", isLessThanDay(unitStr) ? "T" : "", numStr, unitStr.charAt(0));
-                double timeValue = Double.parseDouble(numStr) * config.getUnitValueMap().get(srcUnit);
-
-                result.setTimex(timex);
-```
-
-### DataFlowIssue
-Argument `unitStr` might be null
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDurationParser.java`
-#### Snippet
-```java
-                String unitStr = config.getUnitMap().get(srcUnit);
-
-                String timex = String.format("P%s%s%c", isLessThanDay(unitStr) ? "T" : "", numStr, unitStr.charAt(0));
-                double timeValue = numVal * config.getUnitValueMap().get(srcUnit);
-
-```
-
-### DataFlowIssue
-Unboxing of `config.getUnitValueMap().get(srcUnit)` may produce `NullPointerException`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDurationParser.java`
-#### Snippet
-```java
-
-                String timex = String.format("P%s%s%c", isLessThanDay(unitStr) ? "T" : "", numStr, unitStr.charAt(0));
-                double timeValue = numVal * config.getUnitValueMap().get(srcUnit);
-
-                result.setTimex(timex);
-```
-
-### DataFlowIssue
-Unboxing of `config.getDoubleNumbers().get(numStr)` may produce `NullPointerException`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDurationParser.java`
-#### Snippet
-```java
-
-            if (config.getDoubleNumbers().containsKey(numStr)) {
-                numVal = config.getDoubleNumbers().get(numStr);
-            }
-        }
 ```
 
 ### DataFlowIssue
@@ -17490,6 +17286,102 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 
                 String timex = String.format("P%s%s%c", isLessThanDay(unitStr) ? "T" : "", numStr, unitStr.charAt(0));
                 double timeValue = numVal * config.getUnitValueMap().get(srcUnit);
+
+                result.setTimex(timex);
+```
+
+### DataFlowIssue
+Argument `unitStr` might be null
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDurationParser.java`
+#### Snippet
+```java
+                String unitStr = config.getUnitMap().get(srcUnit);
+
+                String timex = String.format("P%s%s%c", isLessThanDay(unitStr) ? "T" : "", numStr, unitStr.charAt(0));
+                double timeValue = numVal * config.getUnitValueMap().get(srcUnit);
+
+```
+
+### DataFlowIssue
+Unboxing of `config.getUnitValueMap().get(srcUnit)` may produce `NullPointerException`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDurationParser.java`
+#### Snippet
+```java
+
+                String timex = String.format("P%s%s%c", isLessThanDay(unitStr) ? "T" : "", numStr, unitStr.charAt(0));
+                double timeValue = numVal * config.getUnitValueMap().get(srcUnit);
+
+                result.setTimex(timex);
+```
+
+### DataFlowIssue
+Unboxing of `config.getUnitValueMap().get(srcUnit.split(" ")[1])` may produce `NullPointerException`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDurationParser.java`
+#### Snippet
+```java
+
+                String timex = TimexUtility.generateDurationTimex(numVal, Constants.TimexBusinessDay, false);
+                double timeValue = numVal * config.getUnitValueMap().get(srcUnit.split(" ")[1]);
+
+                result.setTimex(timex);
+```
+
+### DataFlowIssue
+Argument `unitStr` might be null
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDurationParser.java`
+#### Snippet
+```java
+                String unitStr = config.getUnitMap().get(srcUnit);
+
+                String timex = TimexUtility.generateDurationTimex(numVal, unitStr, isLessThanDay(unitStr));
+                double timeValue = numVal * config.getUnitValueMap().get(srcUnit);
+
+```
+
+### DataFlowIssue
+Unboxing of `config.getUnitValueMap().get(srcUnit)` may produce `NullPointerException`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDurationParser.java`
+#### Snippet
+```java
+
+                String timex = TimexUtility.generateDurationTimex(numVal, unitStr, isLessThanDay(unitStr));
+                double timeValue = numVal * config.getUnitValueMap().get(srcUnit);
+
+                result.setTimex(timex);
+```
+
+### DataFlowIssue
+Unboxing of `config.getDoubleNumbers().get(numStr)` may produce `NullPointerException`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDurationParser.java`
+#### Snippet
+```java
+
+            if (config.getDoubleNumbers().containsKey(numStr)) {
+                numVal = config.getDoubleNumbers().get(numStr);
+            }
+        }
+```
+
+### DataFlowIssue
+Argument `unitStr` might be null
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDurationParser.java`
+#### Snippet
+```java
+                String unitStr = config.getUnitMap().get(srcUnit);
+
+                String timex = String.format("P%s%s%c", isLessThanDay(unitStr) ? "T" : "", numStr, unitStr.charAt(0));
+                double timeValue = Double.parseDouble(numStr) * config.getUnitValueMap().get(srcUnit);
+
+```
+
+### DataFlowIssue
+Unboxing of `config.getUnitValueMap().get(srcUnit)` may produce `NullPointerException`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDurationParser.java`
+#### Snippet
+```java
+
+                String timex = String.format("P%s%s%c", isLessThanDay(unitStr) ? "T" : "", numStr, unitStr.charAt(0));
+                double timeValue = Double.parseDouble(numStr) * config.getUnitValueMap().get(srcUnit);
 
                 result.setTimex(timex);
 ```
@@ -17531,39 +17423,63 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### DataFlowIssue
-Unboxing of `config.getUnitValueMap().get(srcUnit.split(" ")[1])` may produce `NullPointerException`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDurationParser.java`
+Unboxing of `EnglishTimeZone.AbbrToMinMapping.get(text)` may produce `NullPointerException`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseTimeZoneParser.java`
 #### Snippet
 ```java
-
-                String timex = TimexUtility.generateDurationTimex(numVal, Constants.TimexBusinessDay, false);
-                double timeValue = numVal * config.getUnitValueMap().get(srcUnit.split(" ")[1]);
-
-                result.setTimex(timex);
+    private boolean checkAbbrToMin(String text) {
+        if (EnglishTimeZone.AbbrToMinMapping.containsKey(text)) {
+            return EnglishTimeZone.AbbrToMinMapping.get(text) != Constants.InvalidOffsetValue;
+        }
+        return false;
 ```
 
 ### DataFlowIssue
-Argument `unitStr` might be null
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDurationParser.java`
+Variable is already assigned to this value
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseTimeZoneParser.java`
 #### Snippet
 ```java
-                String unitStr = config.getUnitMap().get(srcUnit);
-
-                String timex = TimexUtility.generateDurationTimex(numVal, unitStr, isLessThanDay(unitStr));
-                double timeValue = numVal * config.getUnitValueMap().get(srcUnit);
-
+                hours = Integer.parseInt(utcOffset);
+            } catch (Exception e) {
+                hours = 0;
+            }
+        }
 ```
 
 ### DataFlowIssue
-Unboxing of `config.getUnitValueMap().get(srcUnit)` may produce `NullPointerException`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDurationParser.java`
+Unboxing of `EnglishTimeZone.FullToMinMapping.get(text)` may produce `NullPointerException`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseTimeZoneParser.java`
 #### Snippet
 ```java
+    private boolean checkFullToMin(String text) {
+        if (EnglishTimeZone.FullToMinMapping.containsKey(text)) {
+            return EnglishTimeZone.FullToMinMapping.get(text) != Constants.InvalidOffsetValue;
+        }
+        return false;
+```
 
-                String timex = TimexUtility.generateDurationTimex(numVal, unitStr, isLessThanDay(unitStr));
-                double timeValue = numVal * config.getUnitValueMap().get(srcUnit);
+### DataFlowIssue
+Unboxing of `EnglishTimeZone.AbbrToMinMapping.getOrDefault(normalizedText, 0)` may produce `NullPointerException`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseTimeZoneParser.java`
+#### Snippet
+```java
+            result.setResolutionStr(resolutionStr);
+        } else if (checkAbbrToMin(normalizedText)) {
+            int utcMinuteShift = EnglishTimeZone.AbbrToMinMapping.getOrDefault(normalizedText, 0);
 
-                result.setTimex(timex);
+            DateTimeResolutionResult value = getDateTimeResolutionResult(utcMinuteShift, text);
+```
+
+### DataFlowIssue
+Unboxing of `EnglishTimeZone.FullToMinMapping.getOrDefault(normalizedText, 0)` may produce `NullPointerException`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseTimeZoneParser.java`
+#### Snippet
+```java
+            result.setResolutionStr(resolutionStr);
+        } else if (checkFullToMin(normalizedText)) {
+            int utcMinuteShift = EnglishTimeZone.FullToMinMapping.getOrDefault(normalizedText, 0);
+
+            DateTimeResolutionResult value = getDateTimeResolutionResult(utcMinuteShift, text);
 ```
 
 ### DataFlowIssue
@@ -17771,90 +17687,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### DataFlowIssue
-Unboxing of `this.config.getCardinalMap().get(cardinalStr)` may produce `NullPointerException`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateParser.java`
-#### Snippet
-```java
-        int year;
-
-        int cardinal = this.config.isCardinalLast(cardinalStr) ? 5 : this.config.getCardinalMap().get(cardinalStr);
-
-        int weekday = this.config.getDayOfWeek().get(weekdayStr);
-```
-
-### DataFlowIssue
-Unboxing of `this.config.getDayOfWeek().get(weekdayStr)` may produce `NullPointerException`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateParser.java`
-#### Snippet
-```java
-        int cardinal = this.config.isCardinalLast(cardinalStr) ? 5 : this.config.getCardinalMap().get(cardinalStr);
-
-        int weekday = this.config.getDayOfWeek().get(weekdayStr);
-        int month;
-        if (StringUtility.isNullOrEmpty(monthStr)) {
-```
-
-### DataFlowIssue
-Unboxing of `this.config.getMonthOfYear().get(monthStr)` may produce `NullPointerException`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateParser.java`
-#### Snippet
-```java
-            year = referenceDate.plusMonths(swift).getYear();
-        } else {
-            month = this.config.getMonthOfYear().get(monthStr);
-            year = referenceDate.getYear();
-            noYear = true;
-```
-
-### DataFlowIssue
-Unboxing of `this.config.getMonthOfYear().get(monthStr)` may produce `NullPointerException`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateParser.java`
-#### Snippet
-```java
-        if (this.config.getMonthOfYear().containsKey(monthStr) && this.config.getDayOfMonth().containsKey(dayStr)) {
-
-            month = this.config.getMonthOfYear().get(monthStr);
-            day = this.config.getDayOfMonth().get(dayStr);
-
-```
-
-### DataFlowIssue
-Unboxing of `this.config.getDayOfMonth().get(dayStr)` may produce `NullPointerException`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateParser.java`
-#### Snippet
-```java
-
-            month = this.config.getMonthOfYear().get(monthStr);
-            day = this.config.getDayOfMonth().get(dayStr);
-
-            if (!StringUtility.isNullOrEmpty(yearStr)) {
-```
-
-### DataFlowIssue
-Unboxing of `this.config.getMonthOfYear().get(match.get().value.trim())` may produce `NullPointerException`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateParser.java`
-#### Snippet
-```java
-        Optional<Match> match = Arrays.stream(RegExpUtility.getMatches(this.config.getMonthRegex(), trimmedText)).findFirst();
-        if (match.isPresent()) {
-            month = this.config.getMonthOfYear().get(match.get().value.trim());
-            day = num;
-
-```
-
-### DataFlowIssue
-Unboxing of `this.config.getDayOfWeek().get(match.get().getGroup("weekday").value)` may produce `NullPointerException`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateParser.java`
-#### Snippet
-```java
-                month = referenceDate.getMonthValue();
-                // resolve the date of wanted week day
-                int wantedWeekDay = this.config.getDayOfWeek().get(match.get().getGroup("weekday").value);
-                LocalDateTime firstDate = DateUtil.safeCreateFromMinValue(referenceDate.getYear(), referenceDate.getMonthValue(), 1);
-                int firstWeekDay = firstDate.getDayOfWeek().getValue();
-```
-
-### DataFlowIssue
 Unboxing of `this.config.getDayOfMonth().get(dayStr)` may produce `NullPointerException`
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateParser.java`
 #### Snippet
@@ -17951,6 +17783,42 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### DataFlowIssue
+Unboxing of `this.config.getCardinalMap().get(cardinalStr)` may produce `NullPointerException`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateParser.java`
+#### Snippet
+```java
+        int year;
+
+        int cardinal = this.config.isCardinalLast(cardinalStr) ? 5 : this.config.getCardinalMap().get(cardinalStr);
+
+        int weekday = this.config.getDayOfWeek().get(weekdayStr);
+```
+
+### DataFlowIssue
+Unboxing of `this.config.getDayOfWeek().get(weekdayStr)` may produce `NullPointerException`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateParser.java`
+#### Snippet
+```java
+        int cardinal = this.config.isCardinalLast(cardinalStr) ? 5 : this.config.getCardinalMap().get(cardinalStr);
+
+        int weekday = this.config.getDayOfWeek().get(weekdayStr);
+        int month;
+        if (StringUtility.isNullOrEmpty(monthStr)) {
+```
+
+### DataFlowIssue
+Unboxing of `this.config.getMonthOfYear().get(monthStr)` may produce `NullPointerException`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateParser.java`
+#### Snippet
+```java
+            year = referenceDate.plusMonths(swift).getYear();
+        } else {
+            month = this.config.getMonthOfYear().get(monthStr);
+            year = referenceDate.getYear();
+            noYear = true;
+```
+
+### DataFlowIssue
 Variable is already assigned to this value
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateParser.java`
 #### Snippet
@@ -17963,51 +17831,51 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### DataFlowIssue
-Unboxing of `this.config.getNumbers().get(hourStr)` may produce `NullPointerException`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseTimePeriodParser.java`
+Unboxing of `this.config.getMonthOfYear().get(monthStr)` may produce `NullPointerException`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateParser.java`
 #### Snippet
 ```java
-                    beginHour = Integer.parseInt(hourStr);
-                } else {
-                    beginHour = this.config.getNumbers().get(hourStr);
-                }
+        if (this.config.getMonthOfYear().containsKey(monthStr) && this.config.getDayOfMonth().containsKey(dayStr)) {
+
+            month = this.config.getMonthOfYear().get(monthStr);
+            day = this.config.getDayOfMonth().get(dayStr);
 
 ```
 
 ### DataFlowIssue
-Unboxing of `this.config.getNumbers().get(hourStr)` may produce `NullPointerException`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseTimePeriodParser.java`
+Unboxing of `this.config.getDayOfMonth().get(dayStr)` may produce `NullPointerException`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateParser.java`
 #### Snippet
 ```java
-                        endHour = Integer.parseInt(hourStr);
-                    } else {
-                        endHour = this.config.getNumbers().get(hourStr);
-                    }
+
+            month = this.config.getMonthOfYear().get(monthStr);
+            day = this.config.getDayOfMonth().get(dayStr);
+
+            if (!StringUtility.isNullOrEmpty(yearStr)) {
+```
+
+### DataFlowIssue
+Unboxing of `this.config.getMonthOfYear().get(match.get().value.trim())` may produce `NullPointerException`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateParser.java`
+#### Snippet
+```java
+        Optional<Match> match = Arrays.stream(RegExpUtility.getMatches(this.config.getMonthRegex(), trimmedText)).findFirst();
+        if (match.isPresent()) {
+            month = this.config.getMonthOfYear().get(match.get().value.trim());
+            day = num;
 
 ```
 
 ### DataFlowIssue
-Unboxing of `config.getNumbers().get(hourStr)` may produce `NullPointerException`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseTimePeriodParser.java`
+Unboxing of `this.config.getDayOfWeek().get(match.get().getGroup("weekday").value)` may produce `NullPointerException`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateParser.java`
 #### Snippet
 ```java
-
-            if (config.getNumbers().containsKey(hourStr)) {
-                beginHour = config.getNumbers().get(hourStr);
-            } else {
-                beginHour = Integer.parseInt(hourStr);
-```
-
-### DataFlowIssue
-Unboxing of `config.getNumbers().get(hourStr)` may produce `NullPointerException`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseTimePeriodParser.java`
-#### Snippet
-```java
-
-            if (config.getNumbers().containsKey(hourStr)) {
-                endHour = config.getNumbers().get(hourStr);
-            } else {
-                endHour = Integer.parseInt(hourStr);
+                month = referenceDate.getMonthValue();
+                // resolve the date of wanted week day
+                int wantedWeekDay = this.config.getDayOfWeek().get(match.get().getGroup("weekday").value);
+                LocalDateTime firstDate = DateUtil.safeCreateFromMinValue(referenceDate.getYear(), referenceDate.getMonthValue(), 1);
+                int firstWeekDay = firstDate.getDayOfWeek().getValue();
 ```
 
 ### DataFlowIssue
@@ -18095,6 +17963,54 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### DataFlowIssue
+Unboxing of `config.getNumbers().get(hourStr)` may produce `NullPointerException`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseTimePeriodParser.java`
+#### Snippet
+```java
+
+            if (config.getNumbers().containsKey(hourStr)) {
+                beginHour = config.getNumbers().get(hourStr);
+            } else {
+                beginHour = Integer.parseInt(hourStr);
+```
+
+### DataFlowIssue
+Unboxing of `config.getNumbers().get(hourStr)` may produce `NullPointerException`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseTimePeriodParser.java`
+#### Snippet
+```java
+
+            if (config.getNumbers().containsKey(hourStr)) {
+                endHour = config.getNumbers().get(hourStr);
+            } else {
+                endHour = Integer.parseInt(hourStr);
+```
+
+### DataFlowIssue
+Unboxing of `this.config.getNumbers().get(hourStr)` may produce `NullPointerException`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseTimePeriodParser.java`
+#### Snippet
+```java
+                    beginHour = Integer.parseInt(hourStr);
+                } else {
+                    beginHour = this.config.getNumbers().get(hourStr);
+                }
+
+```
+
+### DataFlowIssue
+Unboxing of `this.config.getNumbers().get(hourStr)` may produce `NullPointerException`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseTimePeriodParser.java`
+#### Snippet
+```java
+                        endHour = Integer.parseInt(hourStr);
+                    } else {
+                        endHour = this.config.getNumbers().get(hourStr);
+                    }
+
+```
+
+### DataFlowIssue
 Unboxing of `unitValueMap.get(x)` may produce `NullPointerException`
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/utilities/TimexUtility.java`
 #### Snippet
@@ -18131,49 +18047,13 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### DataFlowIssue
-Unboxing of `this.config.getDayOfMonth().get(days.captures[0].value.toLowerCase())` may produce `NullPointerException`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
-#### Snippet
-```java
-        if (match.getSuccess()) {
-            MatchGroup days = match.getMatch().get().getGroup("day");
-            beginDay = this.config.getDayOfMonth().get(days.captures[0].value.toLowerCase());
-            endDay = this.config.getDayOfMonth().get(days.captures[1].value.toLowerCase());
-
-```
-
-### DataFlowIssue
-Unboxing of `this.config.getDayOfMonth().get(days.captures[1].value.toLowerCase())` may produce `NullPointerException`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
-#### Snippet
-```java
-            MatchGroup days = match.getMatch().get().getGroup("day");
-            beginDay = this.config.getDayOfMonth().get(days.captures[0].value.toLowerCase());
-            endDay = this.config.getDayOfMonth().get(days.captures[1].value.toLowerCase());
-
-            // parse year
-```
-
-### DataFlowIssue
-Unboxing of `this.config.getMonthOfYear().get(monthStr.toLowerCase())` may produce `NullPointerException`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
-#### Snippet
-```java
-            String monthStr = match.getMatch().get().getGroup("month").value;
-            if (!StringUtility.isNullOrEmpty(monthStr)) {
-                month = this.config.getMonthOfYear().get(monthStr.toLowerCase());
-            } else {
-                monthStr = match.getMatch().get().getGroup("relmonth").value.trim().toLowerCase();
-```
-
-### DataFlowIssue
 Unboxing of `this.config.getCardinalMap().get(cardinalStr)` may produce `NullPointerException`
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
 #### Snippet
 ```java
-            halfNum = Integer.parseInt(numberStr);
+            }
         } else {
-            halfNum = this.config.getCardinalMap().get(cardinalStr);
+            quarterNum = this.config.getCardinalMap().get(cardinalStr);
         }
 
 ```
@@ -18231,47 +18111,23 @@ Unboxing of `this.config.getCardinalMap().get(cardinalStr)` may produce `NullPoi
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
 #### Snippet
 ```java
-            ret.setTimex(TimexUtility.generateWeekTimex(targetWeekMonday));
+            halfNum = Integer.parseInt(numberStr);
         } else {
-            int weekNum = this.config.getCardinalMap().get(cardinalStr);
-            targetWeekMonday = DateUtil.thisDate(getFirstThursday(year), DayOfWeek.MONDAY.getValue())
-                    .plusDays(Constants.WeekDayCount * (weekNum - 1));
-```
-
-### DataFlowIssue
-Unboxing of `this.config.getCardinalMap().get(cardinalStr)` may produce `NullPointerException`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
-#### Snippet
-```java
-            }
-        } else {
-            quarterNum = this.config.getCardinalMap().get(cardinalStr);
+            halfNum = this.config.getCardinalMap().get(cardinalStr);
         }
 
 ```
 
 ### DataFlowIssue
-Unboxing of `this.config.getMonthOfYear().get(monthStr.toLowerCase())` may produce `NullPointerException`
+Dereference of `durationUnit` may produce `NullPointerException`
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
 #### Snippet
 ```java
-                swift = this.config.getSwiftYear(trimmedText);
-
-                month = this.config.getMonthOfYear().get(monthStr.toLowerCase());
-
-                if (swift >= -1) {
-```
-
-### DataFlowIssue
-Unboxing of `this.config.getMonthOfYear().get(monthStr)` may produce `NullPointerException`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
-#### Snippet
-```java
-            year = referenceDate.plusMonths(swift).getYear();
-        } else {
-            month = this.config.getMonthOfYear().get(monthStr);
-            year = config.getDateExtractor().getYearFromText(match.getMatch().get());
-
+            String durationStr = match.get().getGroup("duration").value;
+            String durationUnit = this.config.getUnitMap().get(durationStr);
+            switch (durationUnit) {
+                case "W":
+                    int diff = Constants.WeekDayCount - ((beginDate.getDayOfWeek().getValue()) == 0 ? Constants.WeekDayCount : beginDate.getDayOfWeek().getValue());
 ```
 
 ### DataFlowIssue
@@ -18287,15 +18143,75 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### DataFlowIssue
-Dereference of `durationUnit` may produce `NullPointerException`
+Unboxing of `this.config.getMonthOfYear().get(monthStr)` may produce `NullPointerException`
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
 #### Snippet
 ```java
-            String durationStr = match.get().getGroup("duration").value;
-            String durationUnit = this.config.getUnitMap().get(durationStr);
-            switch (durationUnit) {
-                case "W":
-                    int diff = Constants.WeekDayCount - ((beginDate.getDayOfWeek().getValue()) == 0 ? Constants.WeekDayCount : beginDate.getDayOfWeek().getValue());
+            year = referenceDate.plusMonths(swift).getYear();
+        } else {
+            month = this.config.getMonthOfYear().get(monthStr);
+            year = config.getDateExtractor().getYearFromText(match.getMatch().get());
+
+```
+
+### DataFlowIssue
+Unboxing of `this.config.getCardinalMap().get(cardinalStr)` may produce `NullPointerException`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
+#### Snippet
+```java
+            ret.setTimex(TimexUtility.generateWeekTimex(targetWeekMonday));
+        } else {
+            int weekNum = this.config.getCardinalMap().get(cardinalStr);
+            targetWeekMonday = DateUtil.thisDate(getFirstThursday(year), DayOfWeek.MONDAY.getValue())
+                    .plusDays(Constants.WeekDayCount * (weekNum - 1));
+```
+
+### DataFlowIssue
+Unboxing of `this.config.getMonthOfYear().get(monthStr.toLowerCase())` may produce `NullPointerException`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
+#### Snippet
+```java
+                swift = this.config.getSwiftYear(trimmedText);
+
+                month = this.config.getMonthOfYear().get(monthStr.toLowerCase());
+
+                if (swift >= -1) {
+```
+
+### DataFlowIssue
+Unboxing of `this.config.getDayOfMonth().get(days.captures[0].value.toLowerCase())` may produce `NullPointerException`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
+#### Snippet
+```java
+        if (match.getSuccess()) {
+            MatchGroup days = match.getMatch().get().getGroup("day");
+            beginDay = this.config.getDayOfMonth().get(days.captures[0].value.toLowerCase());
+            endDay = this.config.getDayOfMonth().get(days.captures[1].value.toLowerCase());
+
+```
+
+### DataFlowIssue
+Unboxing of `this.config.getDayOfMonth().get(days.captures[1].value.toLowerCase())` may produce `NullPointerException`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
+#### Snippet
+```java
+            MatchGroup days = match.getMatch().get().getGroup("day");
+            beginDay = this.config.getDayOfMonth().get(days.captures[0].value.toLowerCase());
+            endDay = this.config.getDayOfMonth().get(days.captures[1].value.toLowerCase());
+
+            // parse year
+```
+
+### DataFlowIssue
+Unboxing of `this.config.getMonthOfYear().get(monthStr.toLowerCase())` may produce `NullPointerException`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
+#### Snippet
+```java
+            String monthStr = match.getMatch().get().getGroup("month").value;
+            if (!StringUtility.isNullOrEmpty(monthStr)) {
+                month = this.config.getMonthOfYear().get(monthStr.toLowerCase());
+            } else {
+                monthStr = match.getMatch().get().getGroup("relmonth").value.trim().toLowerCase();
 ```
 
 ### DataFlowIssue
@@ -18332,6 +18248,42 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
             timePeriodErs = TimeZoneUtility.mergeTimeZones(timePeriodErs, config.getTimeZoneExtractor().extract(input, reference), input);
         }
 
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDateTimePeriodExtractor.java`
+#### Snippet
+```java
+
+        if (config.getOptions().match(DateTimeOptions.EnablePreview)) {
+            ers = TimeZoneUtility.mergeTimeZones(ers, config.getTimeZoneExtractor().extract(input, reference), input);
+        }
+
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDateTimeExtractor.java`
+#### Snippet
+```java
+            }
+
+            ret = AgoLaterUtil.extractorDurationWithBeforeAndAfter(input, er, ret, this.config.getUtilityConfiguration());
+        }
+
+```
+
+### DataFlowIssue
+Method invocation `getText` may produce `NullPointerException`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDateTimeExtractor.java`
+#### Snippet
+```java
+
+            // handle "this morningh at 7am"
+            ConditionalMatch innerMatch = RegexExtension.matchBegin(this.config.getTimeOfDayRegex(), er.getText(), true);
+            if (innerMatch.getSuccess()) {
+                beforeStr = input.substring(0, ((er != null) ? er.getStart() : 0) + innerMatch.getMatch().get().length);
 ```
 
 ### DataFlowIssue
@@ -18380,90 +18332,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
                         if (DurationParsingUtil.isTimeDurationUnit(unitMap.get(nextUnitStr))) {
                             timeUnit++;
                         }
-```
-
-### DataFlowIssue
-Method invocation `getText` may produce `NullPointerException`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDateTimeExtractor.java`
-#### Snippet
-```java
-
-            // handle "this morningh at 7am"
-            ConditionalMatch innerMatch = RegexExtension.matchBegin(this.config.getTimeOfDayRegex(), er.getText(), true);
-            if (innerMatch.getSuccess()) {
-                beforeStr = input.substring(0, ((er != null) ? er.getStart() : 0) + innerMatch.getMatch().get().length);
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDateTimeExtractor.java`
-#### Snippet
-```java
-            }
-
-            ret = AgoLaterUtil.extractorDurationWithBeforeAndAfter(input, er, ret, this.config.getUtilityConfiguration());
-        }
-
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDateTimePeriodExtractor.java`
-#### Snippet
-```java
-
-        if (config.getOptions().match(DateTimeOptions.EnablePreview)) {
-            ers = TimeZoneUtility.mergeTimeZones(ers, config.getTimeZoneExtractor().extract(input, reference), input);
-        }
-
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseMergedDateTimeExtractor.java`
-#### Snippet
-```java
-        }
-
-        ret = filterUnspecificDatePeriod(ret, input);
-
-        // Remove common ambiguous cases
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseMergedDateTimeExtractor.java`
-#### Snippet
-```java
-        ret = filterAmbiguity(ret, input);
-
-        ret = addMod(ret, input);
-
-        // filtering
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseMergedDateTimeExtractor.java`
-#### Snippet
-```java
-
-        if (this.config.getOptions().match(DateTimeOptions.EnablePreview)) {
-            ret = MatchingUtil.posProcessExtractionRecoverSuperfluousWords(ret, superfluousWordMatches, originInput);
-        }
-
-```
-
-### DataFlowIssue
-Argument `superfluousWordMatches` might be null
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseMergedDateTimeExtractor.java`
-#### Snippet
-```java
-
-        if (this.config.getOptions().match(DateTimeOptions.EnablePreview)) {
-            ret = MatchingUtil.posProcessExtractionRecoverSuperfluousWords(ret, superfluousWordMatches, originInput);
-        }
-
 ```
 
 ### DataFlowIssue
@@ -18563,15 +18431,51 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### DataFlowIssue
-Method invocation `getData` may produce `NullPointerException`
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDateTimeAltExtractor.java`
+Variable is already assigned to this value
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseMergedDateTimeExtractor.java`
+#### Snippet
+```java
+        }
+
+        ret = filterUnspecificDatePeriod(ret, input);
+
+        // Remove common ambiguous cases
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseMergedDateTimeExtractor.java`
+#### Snippet
+```java
+        ret = filterAmbiguity(ret, input);
+
+        ret = addMod(ret, input);
+
+        // filtering
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseMergedDateTimeExtractor.java`
 #### Snippet
 ```java
 
-        // Share the timeZone info
-        Map<String, Object> metaDataOrigin = (HashMap<String, Object>)first.getData();
-        if (metaDataOrigin != null && metaDataOrigin.containsKey(Constants.SYS_DATETIME_TIMEZONE)) {
-            metadata.put(Constants.SYS_DATETIME_TIMEZONE, metaDataOrigin.get(Constants.SYS_DATETIME_TIMEZONE));
+        if (this.config.getOptions().match(DateTimeOptions.EnablePreview)) {
+            ret = MatchingUtil.posProcessExtractionRecoverSuperfluousWords(ret, superfluousWordMatches, originInput);
+        }
+
+```
+
+### DataFlowIssue
+Argument `superfluousWordMatches` might be null
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseMergedDateTimeExtractor.java`
+#### Snippet
+```java
+
+        if (this.config.getOptions().match(DateTimeOptions.EnablePreview)) {
+            ret = MatchingUtil.posProcessExtractionRecoverSuperfluousWords(ret, superfluousWordMatches, originInput);
+        }
+
 ```
 
 ### DataFlowIssue
@@ -18584,6 +18488,18 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
         ers = pruneInvalidImplicitDate(ers);
 
         return ers;
+```
+
+### DataFlowIssue
+Method invocation `getData` may produce `NullPointerException`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDateTimeAltExtractor.java`
+#### Snippet
+```java
+
+        // Share the timeZone info
+        Map<String, Object> metaDataOrigin = (HashMap<String, Object>)first.getData();
+        if (metaDataOrigin != null && metaDataOrigin.containsKey(Constants.SYS_DATETIME_TIMEZONE)) {
+            metadata.put(Constants.SYS_DATETIME_TIMEZONE, metaDataOrigin.get(Constants.SYS_DATETIME_TIMEZONE));
 ```
 
 ### DataFlowIssue
@@ -18743,6 +18659,42 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/numberwit
 ```
 
 ### DataFlowIssue
+Method invocation `newBuilder` may produce `NullPointerException`
+in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/BotFrameworkHttpClient.java`
+#### Snippet
+```java
+
+    private Request buildRequest(Activity activity, URI url, RequestBody body, String token) {
+        HttpUrl.Builder httpBuilder = HttpUrl.parse(url.toString()).newBuilder();
+
+        Request.Builder requestBuilder = new Request.Builder().url(httpBuilder.build());
+```
+
+### DataFlowIssue
+Method invocation `string` may produce `NullPointerException`
+in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/BotFrameworkHttpClient.java`
+#### Snippet
+```java
+            Response response = httpClient.newCall(request).execute();
+
+            T result = Serialization.getAs(response.body().string(), type);
+            TypedInvokeResponse<T> returnValue = new TypedInvokeResponse<T>(response.code(), result);
+            return CompletableFuture.completedFuture(returnValue);
+```
+
+### DataFlowIssue
+Method invocation `put` may produce `NullPointerException`
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TaskModuleAction.java`
+#### Snippet
+```java
+        }
+
+        data.put("type", "task/fetch");
+
+        try {
+```
+
+### DataFlowIssue
 Method invocation `queryParameterValues` may produce `NullPointerException`
 in `libraries/bot-ai-luis-v3/src/main/java/com/microsoft/bot/ai/luis/LuisApplication.java`
 #### Snippet
@@ -18752,6 +18704,18 @@ in `libraries/bot-ai-luis-v3/src/main/java/com/microsoft/bot/ai/luis/LuisApplica
             String endpointKeyParsed = HttpUrl.parse(applicationEndpoint).queryParameterValues("subscription-key")
                     .stream().findFirst().orElse("");
 
+```
+
+### DataFlowIssue
+Method invocation `newBuilder` may produce `NullPointerException`
+in `libraries/bot-ai-luis-v3/src/main/java/com/microsoft/bot/ai/luis/LuisRecognizerOptionsV3.java`
+#### Snippet
+```java
+        }
+
+        HttpUrl.Builder httpBuilder = HttpUrl.parse(path.toString()).newBuilder();
+
+        httpBuilder.addQueryParameter("verbose", Boolean.toString(includeInstanceData));
 ```
 
 ### DataFlowIssue
@@ -18767,15 +18731,63 @@ in `libraries/bot-ai-luis-v3/src/main/java/com/microsoft/bot/ai/luis/LuisRecogni
 ```
 
 ### DataFlowIssue
-Method invocation `newBuilder` may produce `NullPointerException`
-in `libraries/bot-ai-luis-v3/src/main/java/com/microsoft/bot/ai/luis/LuisRecognizerOptionsV3.java`
+Method invocation `getActivity` may produce `NullPointerException`
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactory.java`
 #### Snippet
 ```java
+            Async.completeExceptionally(new IllegalArgumentException("options cannot be null."));
         }
+        ConversationReference conversationReference = options.getActivity().getConversationReference();
+        String skillConversationId = UUID.randomUUID().toString();
 
-        HttpUrl.Builder httpBuilder = HttpUrl.parse(path.toString()).newBuilder();
+```
 
-        httpBuilder.addQueryParameter("verbose", Boolean.toString(includeInstanceData));
+### DataFlowIssue
+Method invocation `getToken` may produce `NullPointerException`
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/teams/TeamsSSOTokenExchangeMiddleware.java`
+#### Snippet
+```java
+            RestOAuthClient userTokenClient = turnContext.getTurnState().get(RestOAuthClient.class);
+            TokenExchangeRequest exchangeRequest = new TokenExchangeRequest();
+            exchangeRequest.setToken(tokenExchangeRequest.getToken());
+            if (userTokenClient != null) {
+                tokenExchangeResponse = userTokenClient.getUserToken()
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsTranscriptStore.java`
+#### Snippet
+```java
+                .listBlobsByHierarchy("/", this.getOptionsWithMetadata(prefix), null)
+                .iterableByPage(token);
+            token = null;
+            for (PagedResponse<BlobItem> blobPage : resultSegment) {
+                for (BlobItem blobItem : blobPage.getValue()) {
+```
+
+### DataFlowIssue
+Method invocation `getBytes` may produce `NullPointerException`
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsTranscriptStore.java`
+#### Snippet
+```java
+            ex.printStackTrace();
+        }
+        InputStream data = new ByteArrayInputStream(activityJson.getBytes(StandardCharsets.UTF_8));
+
+        try {
+```
+
+### DataFlowIssue
+Method invocation `setType` may produce `NullPointerException`
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsTranscriptStore.java`
+#### Snippet
+```java
+                    ex.printStackTrace();
+                }
+                updatedActivity.setType(ActivityTypes.MESSAGE); // fixup original type (should be Message)
+                Activity finalUpdatedActivity = updatedActivity;
+                innerReadBlob(activity).thenAccept(activityAndBlob -> {
 ```
 
 ### DataFlowIssue
@@ -18815,18 +18827,6 @@ in `libraries/bot-connector/src/main/java/com/microsoft/bot/restclient/RestClien
 ```
 
 ### DataFlowIssue
-Argument `baseHttpUrl` might be null
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/restclient/interceptors/BaseUrlHandler.java`
-#### Snippet
-```java
-            HttpUrl baseHttpUrl = HttpUrl.parse(baseUrl);
-            request = request.newBuilder()
-                    .url(baseHttpUrl)
-                    .removeHeader("x-ms-parameterized-host")
-                    .build();
-```
-
-### DataFlowIssue
 Method invocation `get` may produce `NullPointerException`
 in `libraries/bot-connector/src/main/java/com/microsoft/bot/restclient/serializer/FlatteningSerializer.java`
 #### Snippet
@@ -18836,6 +18836,18 @@ in `libraries/bot-connector/src/main/java/com/microsoft/bot/restclient/serialize
                 JsonNode outNode = resCurrent.get(key);
                 if (key.matches(".+[^\\\\]\\..+")) {
                     // Handle flattening properties
+```
+
+### DataFlowIssue
+Argument `baseHttpUrl` might be null
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/restclient/interceptors/BaseUrlHandler.java`
+#### Snippet
+```java
+            HttpUrl baseHttpUrl = HttpUrl.parse(baseUrl);
+            request = request.newBuilder()
+                    .url(baseHttpUrl)
+                    .removeHeader("x-ms-parameterized-host")
+                    .build();
 ```
 
 ### DataFlowIssue
@@ -18872,18 +18884,6 @@ in `libraries/bot-connector/src/main/java/com/microsoft/bot/restclient/intercept
                 content = buffer.clone().readString(charset);
             }
             if (logLevel.isPrettyJson()) {
-```
-
-### DataFlowIssue
-Method invocation `put` may produce `NullPointerException`
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TaskModuleAction.java`
-#### Snippet
-```java
-        }
-
-        data.put("type", "task/fetch");
-
-        try {
 ```
 
 ## RuleId[id=SimplifyStreamApiCallChains]
@@ -18960,14 +18960,14 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### SimplifyStreamApiCallChains
-'Arrays.asList().stream()' can be replaced with 'Arrays.stream()'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseMergedDateTimeParser.java`
+'!Stream.anyMatch(...)' can be replaced with 'noneMatch()'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishDatePeriodParserConfiguration.java`
 #### Snippet
 ```java
-        String currentType =  parserName + "." + Constants.SYS_DATETIME_DATEPERIOD;
-        if (slot.getType().equals(currentType)) {
-            Stream<String> timexStream = Arrays.asList(slot.getTimexStr().split(",|\\(|\\)")).stream();
-            String[] timexComponents = timexStream.filter(str -> !str.isEmpty()).collect(Collectors.toList()).toArray(new String[0]);
+        return (SpanishDateTime.WeekTerms.stream().anyMatch(o -> trimmedText.endsWith(o)) ||
+                SpanishDateTime.WeekTerms.stream().anyMatch(o -> trimmedText.contains(o)) && matchRelative.isPresent()) &&
+                !SpanishDateTime.WeekendTerms.stream().anyMatch(o -> trimmedText.endsWith(o));
+    }
 
 ```
 
@@ -18984,14 +18984,14 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### SimplifyStreamApiCallChains
-'!Stream.anyMatch(...)' can be replaced with 'noneMatch()'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishDatePeriodParserConfiguration.java`
+'Arrays.asList().stream()' can be replaced with 'Arrays.stream()'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseMergedDateTimeParser.java`
 #### Snippet
 ```java
-        return (SpanishDateTime.WeekTerms.stream().anyMatch(o -> trimmedText.endsWith(o)) ||
-                SpanishDateTime.WeekTerms.stream().anyMatch(o -> trimmedText.contains(o)) && matchRelative.isPresent()) &&
-                !SpanishDateTime.WeekendTerms.stream().anyMatch(o -> trimmedText.endsWith(o));
-    }
+        String currentType =  parserName + "." + Constants.SYS_DATETIME_DATEPERIOD;
+        if (slot.getType().equals(currentType)) {
+            Stream<String> timexStream = Arrays.asList(slot.getTimexStr().split(",|\\(|\\)")).stream();
+            String[] timexComponents = timexStream.filter(str -> !str.isEmpty()).collect(Collectors.toList()).toArray(new String[0]);
 
 ```
 
@@ -19045,7 +19045,7 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 
 ### SimplifyStreamApiCallChains
 Can be replaced with 'Collectors.joining'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/utilities/QueryProcessor.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/utilities/FormatUtility.java`
 #### Snippet
 ```java
                 delimiters.stream()
@@ -19057,7 +19057,7 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/utilities
 
 ### SimplifyStreamApiCallChains
 Can be replaced with 'Collectors.joining'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/utilities/FormatUtility.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/utilities/QueryProcessor.java`
 #### Snippet
 ```java
                 delimiters.stream()
@@ -19090,54 +19090,6 @@ in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/dialogs/QnAMaker
     private String displayText = new String();
 
     @JsonProperty("qna")
-```
-
-### StringOperationCanBeSimplified
-`new String()` is redundant
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/CosmosDbKeyEscape.java`
-#### Snippet
-```java
-        }
-
-        suffix = suffix == null ? new String() : suffix;
-
-        Integer firstIllegalCharIndex = StringUtils.indexOfAny(key, new String(ILLEGAL_KEYS));
-```
-
-### StringOperationCanBeSimplified
-`new String()` is redundant
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/CosmosDbKeyEscape.java`
-#### Snippet
-```java
-     */
-    public static String escapeKey(String key) {
-        return escapeKey(key, new String(), true);
-    }
-
-```
-
-### StringOperationCanBeSimplified
-Inefficient conversion from ByteArrayOutputStream
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsTranscriptStore.java`
-#### Snippet
-```java
-        ByteArrayOutputStream content = new ByteArrayOutputStream();
-        blobClient.download(content);
-        String contentString = new String(content.toByteArray());
-        try {
-            return CompletableFuture.completedFuture(jsonSerializer.readValue(contentString, Activity.class));
-```
-
-### StringOperationCanBeSimplified
-`new String()` is redundant
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsTranscriptStore.java`
-#### Snippet
-```java
-                for (BlobItem blobItem : blobPage.getValue()) {
-                    // Unescape the Id we escaped when we saved it
-                    String conversationId = new String();
-                    String lastName = Arrays.stream(blobItem.getName().split("/"))
-                        .reduce((first, second) -> second.length() > 0 ? second : first)
 ```
 
 ### StringOperationCanBeSimplified
@@ -19261,6 +19213,18 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expressio
 ```
 
 ### StringOperationCanBeSimplified
+`new String()` is redundant
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/TimexHelpers.java`
+#### Snippet
+```java
+    public static String generateDurationTimex(TimexUnit unit, BigDecimal value) {
+        if (value.intValue() == Constants.INVALID_VALUE) {
+            return new String();
+        }
+
+```
+
+### StringOperationCanBeSimplified
 Unnecessary zero argument
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/utilities/RegExpUtility.java`
 #### Snippet
@@ -19274,50 +19238,38 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/utilities
 
 ### StringOperationCanBeSimplified
 `new String()` is redundant
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/english/TimexConvertEnglish.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/english/TimexRelativeConvertEnglish.java`
 #### Snippet
 ```java
-    private static String convertDateRange(TimexProperty timex) {
-        String season = (timex.getSeason() != null) ? TimexConstantsEnglish.SEASONS.get(timex.getSeason())
-                : new String();
+        }
 
-        String year = (timex.getYear() != null) ? timex.getYear().toString() : new String();
+        return new String();
+    }
+
 ```
 
 ### StringOperationCanBeSimplified
 `new String()` is redundant
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/english/TimexConvertEnglish.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/english/TimexRelativeConvertEnglish.java`
 #### Snippet
 ```java
-                : new String();
+        }
 
-        String year = (timex.getYear() != null) ? timex.getYear().toString() : new String();
-
-        if (timex.getWeekOfYear() != null) {
-```
-
-### StringOperationCanBeSimplified
-`new String()` is redundant
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/english/TimexConvertEnglish.java`
-#### Snippet
-```java
-
-    private static String convertTimexDurationToString(TimexProperty timex, Boolean includeSingleCount) {
-        String result = new String();
-        if (timex.getYears() != null) {
-            result += TimexConvertEnglish.convertDurationPropertyToString(timex.getYears(), Constants.YEAR_UNIT,
-```
-
-### StringOperationCanBeSimplified
-`new String()` is redundant
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/english/TimexConvertEnglish.java`
-#### Snippet
-```java
-        // - OR -
-        // date + duration
         return new String();
     }
 }
+```
+
+### StringOperationCanBeSimplified
+`new String()` is redundant
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/english/TimexConvertEnglish.java`
+#### Snippet
+```java
+        }
+
+        return new String();
+    }
+
 ```
 
 ### StringOperationCanBeSimplified
@@ -19349,32 +19301,8 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expressio
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/english/TimexConvertEnglish.java`
 #### Snippet
 ```java
-        }
-
-        return new String();
-    }
-
-```
-
-### StringOperationCanBeSimplified
-`new String()` is redundant
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/english/TimexRelativeConvertEnglish.java`
-#### Snippet
-```java
-        }
-
-        return new String();
-    }
-
-```
-
-### StringOperationCanBeSimplified
-`new String()` is redundant
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/english/TimexRelativeConvertEnglish.java`
-#### Snippet
-```java
-        }
-
+        // - OR -
+        // date + duration
         return new String();
     }
 }
@@ -19382,14 +19310,38 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expressio
 
 ### StringOperationCanBeSimplified
 `new String()` is redundant
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/TimexHelpers.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/english/TimexConvertEnglish.java`
 #### Snippet
 ```java
-    public static String generateDurationTimex(TimexUnit unit, BigDecimal value) {
-        if (value.intValue() == Constants.INVALID_VALUE) {
-            return new String();
-        }
 
+    private static String convertTimexDurationToString(TimexProperty timex, Boolean includeSingleCount) {
+        String result = new String();
+        if (timex.getYears() != null) {
+            result += TimexConvertEnglish.convertDurationPropertyToString(timex.getYears(), Constants.YEAR_UNIT,
+```
+
+### StringOperationCanBeSimplified
+`new String()` is redundant
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/english/TimexConvertEnglish.java`
+#### Snippet
+```java
+    private static String convertDateRange(TimexProperty timex) {
+        String season = (timex.getSeason() != null) ? TimexConstantsEnglish.SEASONS.get(timex.getSeason())
+                : new String();
+
+        String year = (timex.getYear() != null) ? timex.getYear().toString() : new String();
+```
+
+### StringOperationCanBeSimplified
+`new String()` is redundant
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/english/TimexConvertEnglish.java`
+#### Snippet
+```java
+                : new String();
+
+        String year = (timex.getYear() != null) ? timex.getYear().toString() : new String();
+
+        if (timex.getWeekOfYear() != null) {
 ```
 
 ### StringOperationCanBeSimplified
@@ -19426,6 +19378,54 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/numberwit
                         resolutionStr += tmp.substring(1, tmp.length());
                     }
                 }
+```
+
+### StringOperationCanBeSimplified
+`new String()` is redundant
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/CosmosDbKeyEscape.java`
+#### Snippet
+```java
+        }
+
+        suffix = suffix == null ? new String() : suffix;
+
+        Integer firstIllegalCharIndex = StringUtils.indexOfAny(key, new String(ILLEGAL_KEYS));
+```
+
+### StringOperationCanBeSimplified
+`new String()` is redundant
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/CosmosDbKeyEscape.java`
+#### Snippet
+```java
+     */
+    public static String escapeKey(String key) {
+        return escapeKey(key, new String(), true);
+    }
+
+```
+
+### StringOperationCanBeSimplified
+`new String()` is redundant
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsTranscriptStore.java`
+#### Snippet
+```java
+                for (BlobItem blobItem : blobPage.getValue()) {
+                    // Unescape the Id we escaped when we saved it
+                    String conversationId = new String();
+                    String lastName = Arrays.stream(blobItem.getName().split("/"))
+                        .reduce((first, second) -> second.length() > 0 ? second : first)
+```
+
+### StringOperationCanBeSimplified
+Inefficient conversion from ByteArrayOutputStream
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsTranscriptStore.java`
+#### Snippet
+```java
+        ByteArrayOutputStream content = new ByteArrayOutputStream();
+        blobClient.download(content);
+        String contentString = new String(content.toByteArray());
+        try {
+            return CompletableFuture.completedFuture(jsonSerializer.readValue(contentString, Activity.class));
 ```
 
 ## RuleId[id=DeprecatedIsStillUsed]
@@ -19509,10 +19509,10 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 #### Snippet
 ```java
 
-    public static final String HalfYearFrontRegex = "(?<year>((1[5-9]|20)\\d{2})|2100)(\\s*-\\s*|\\s+(the\\s+)?)?h(?<number>[1-2])"
-            .replace("{YearRegex}", YearRegex);
-
-    public static final String HalfYearBackRegex = "(the\\s+)?(h(?<number>[1-2])|({HalfYearTermRegex}))(\\s+of|\\s*,\\s*)?\\s+({YearRegex})"
+    public static final String TimeRegex8 = ".^"
+            .replace("{TimeSuffixFull}", TimeSuffixFull)
+            .replace("{BasicTime}", BasicTime)
+            .replace("{DescRegex}", DescRegex);
 ```
 
 ### ReplaceOnLiteralHasNoEffect
@@ -19521,10 +19521,10 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 #### Snippet
 ```java
 
-    public static final String TimeRegex8 = ".^"
-            .replace("{TimeSuffixFull}", TimeSuffixFull)
-            .replace("{BasicTime}", BasicTime)
-            .replace("{DescRegex}", DescRegex);
+    public static final String HalfYearFrontRegex = "(?<year>((1[5-9]|20)\\d{2})|2100)(\\s*-\\s*|\\s+(the\\s+)?)?h(?<number>[1-2])"
+            .replace("{YearRegex}", YearRegex);
+
+    public static final String HalfYearBackRegex = "(the\\s+)?(h(?<number>[1-2])|({HalfYearTermRegex}))(\\s+of|\\s*,\\s*)?\\s+({YearRegex})"
 ```
 
 ## RuleId[id=RedundantCollectionOperation]
@@ -20686,18 +20686,6 @@ in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/Activity.java`
 ## RuleId[id=CatchMayIgnoreException]
 ### CatchMayIgnoreException
 Empty `catch` block
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TelemetryLoggerMiddleware.java`
-#### Snippet
-```java
-                    properties.put(TelemetryConstants.ATTACHMENTSPROPERTY,
-                                   Serialization.toString(activity.getAttachments()));
-                } catch (JsonProcessingException e) {
-                }
-            }
-```
-
-### CatchMayIgnoreException
-Empty `catch` block
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/NumberPrompt.java`
 #### Snippet
 ```java
@@ -20756,6 +20744,18 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
             // No result.
 ```
 
+### CatchMayIgnoreException
+Empty `catch` block
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TelemetryLoggerMiddleware.java`
+#### Snippet
+```java
+                    properties.put(TelemetryConstants.ATTACHMENTSPROPERTY,
+                                   Serialization.toString(activity.getAttachments()));
+                } catch (JsonProcessingException e) {
+                }
+            }
+```
+
 ## RuleId[id=MismatchedJavadocCode]
 ### MismatchedJavadocCode
 Method is specified to return list but the return type is array
@@ -20767,30 +20767,6 @@ in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/models/FeedbackR
      * @return List of {@link FeedbackRecord}.
      */
     public FeedbackRecord[] getRecords() {
-```
-
-### MismatchedJavadocCode
-Method is specified to return 'true' but its return type is not boolean
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/teams/TeamsActivityHandler.java`
-#### Snippet
-```java
-     *
-     * @param body The body for the InvokeResponseException.
-     * @return true if this invocation caused this CompletableFuture to transition
-     *         to a completed state, else false
-     */
-```
-
-### MismatchedJavadocCode
-Method is specified to return 'true' but its return type is not boolean
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/teams/TeamsActivityHandler.java`
-#### Snippet
-```java
-     * Invoke a new InvokeResponseException with a HTTP 501 code status.
-     *
-     * @return true if this invocation caused this CompletableFuture to transition
-     *         to a completed state, else false
-     */
 ```
 
 ### MismatchedJavadocCode
@@ -20814,6 +20790,30 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/DialogS
      *              for the type of the value parameter.
      * @return true if the dialog state manager contains an element with the
      *         specified key;
+     */
+```
+
+### MismatchedJavadocCode
+Method is specified to return 'true' but its return type is not boolean
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/teams/TeamsActivityHandler.java`
+#### Snippet
+```java
+     *
+     * @param body The body for the InvokeResponseException.
+     * @return true if this invocation caused this CompletableFuture to transition
+     *         to a completed state, else false
+     */
+```
+
+### MismatchedJavadocCode
+Method is specified to return 'true' but its return type is not boolean
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/teams/TeamsActivityHandler.java`
+#### Snippet
+```java
+     * Invoke a new InvokeResponseException with a HTTP 501 code status.
+     *
+     * @return true if this invocation caused this CompletableFuture to transition
+     *         to a completed state, else false
      */
 ```
 
@@ -20868,24 +20868,24 @@ in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentica
 ## RuleId[id=ProtectedMemberInFinalClass]
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/restclient/serializer/FlatteningDeserializer.java`
-#### Snippet
-```java
-     * @param mapper the object mapper for default deserializations
-     */
-    protected FlatteningDeserializer(Class<?> vc, JsonDeserializer<?> defaultDeserializer, ObjectMapper mapper) {
-        super(vc);
-        this.defaultDeserializer = defaultDeserializer;
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
 in `libraries/bot-connector/src/main/java/com/microsoft/bot/restclient/serializer/AdditionalPropertiesDeserializer.java`
 #### Snippet
 ```java
      * @param mapper the object mapper for default deserializations
      */
     protected AdditionalPropertiesDeserializer(Class<?> vc, JsonDeserializer<?> defaultDeserializer, ObjectMapper mapper) {
+        super(vc);
+        this.defaultDeserializer = defaultDeserializer;
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/restclient/serializer/FlatteningDeserializer.java`
+#### Snippet
+```java
+     * @param mapper the object mapper for default deserializations
+     */
+    protected FlatteningDeserializer(Class<?> vc, JsonDeserializer<?> defaultDeserializer, ObjectMapper mapper) {
         super(vc);
         this.defaultDeserializer = defaultDeserializer;
 ```
@@ -21027,18 +21027,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/MemoryStorage.java`
-#### Snippet
-```java
-                            logger.error("Read failed: {}", e.toString());
-                            return Async.completeExceptionally(new RuntimeException(
-                                String.format("Read failed: %s", e.toString())
-                            ));
-                        }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/DialogManager.java`
 #### Snippet
 ```java
@@ -21097,6 +21085,18 @@ in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/Activity.java`
 
 ```
 
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/MemoryStorage.java`
+#### Snippet
+```java
+                            logger.error("Read failed: {}", e.toString());
+                            return Async.completeExceptionally(new RuntimeException(
+                                String.format("Read failed: %s", e.toString())
+                            ));
+                        }
+```
+
 ## RuleId[id=InnerClassMayBeStatic]
 ### InnerClassMayBeStatic
 Inner class `ValueProperty` may be 'static'
@@ -21108,30 +21108,6 @@ in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/dialogs/QnAMaker
     final class ValueProperty {
         public static final String CURRENT_QUERY = "currentQuery";
         public static final String QNA_DATA = "qnaData";
-```
-
-### InnerClassMayBeStatic
-Inner class `TokenStoreItem` may be 'static'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/teams/TeamsSSOTokenExchangeMiddleware.java`
-#### Snippet
-```java
-     * Class to store the etag for token exchange.
-     */
-    private class TokenStoreItem implements StoreItem {
-
-        private String etag;
-```
-
-### InnerClassMayBeStatic
-Inner class `InvokeResponseException` may be 'static'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ActivityHandler.java`
-#### Snippet
-```java
-     * InvokeResponse Exception.
-     */
-    protected class InvokeResponseException extends Exception {
-
-        private int statusCode;
 ```
 
 ### InnerClassMayBeStatic
@@ -21158,19 +21134,31 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
         public final ExtractResult er;
 ```
 
-## RuleId[id=DanglingJavadoc]
-### DanglingJavadoc
-Dangling Javadoc comment
-in `libraries/bot-applicationinsights/src/main/java/com/microsoft/bot/applicationinsights/ApplicationInsightsBotTelemetryClient.java`
+### InnerClassMayBeStatic
+Inner class `TokenStoreItem` may be 'static'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/teams/TeamsSSOTokenExchangeMiddleware.java`
 #### Snippet
 ```java
-        }
+     * Class to store the etag for token exchange.
+     */
+    private class TokenStoreItem implements StoreItem {
 
-        /**
-         * This should be telemetryClient.trackAvailability(telemetry). However, it is
-         * not present in TelemetryClient class
+        private String etag;
 ```
 
+### InnerClassMayBeStatic
+Inner class `InvokeResponseException` may be 'static'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ActivityHandler.java`
+#### Snippet
+```java
+     * InvokeResponse Exception.
+     */
+    protected class InvokeResponseException extends Exception {
+
+        private int statusCode;
+```
+
+## RuleId[id=DanglingJavadoc]
 ### DanglingJavadoc
 Dangling Javadoc comment
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/DialogStateManager.java`
@@ -21181,6 +21169,18 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/DialogS
                 /**
                  *
                  */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `libraries/bot-applicationinsights/src/main/java/com/microsoft/bot/applicationinsights/ApplicationInsightsBotTelemetryClient.java`
+#### Snippet
+```java
+        }
+
+        /**
+         * This should be telemetryClient.trackAvailability(telemetry). However, it is
+         * not present in TelemetryClient class
 ```
 
 ### DanglingJavadoc
@@ -21222,30 +21222,6 @@ import com.microsoft.recognizers.datatypes.timex.expression.english.TimexRelativ
 
 ### WrongPackageStatement
 Package name 'com.microsoft.recognizers.datatypes.timex.expression' does not correspond to the file path 'com.microsoft.recognizers.text.expression'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/Time.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.recognizers.datatypes.timex.expression;
-
-public class Time {
-```
-
-### WrongPackageStatement
-Package name 'com.microsoft.recognizers.datatypes.timex.expression' does not correspond to the file path 'com.microsoft.recognizers.text.expression'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/TimexConstraintsHelper.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.recognizers.datatypes.timex.expression;
-
-import java.util.List;
-```
-
-### WrongPackageStatement
-Package name 'com.microsoft.recognizers.datatypes.timex.expression' does not correspond to the file path 'com.microsoft.recognizers.text.expression'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/TimexParsing.java`
 #### Snippet
 ```java
@@ -21254,6 +21230,18 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expressio
 package com.microsoft.recognizers.datatypes.timex.expression;
 
 import java.util.HashMap;
+```
+
+### WrongPackageStatement
+Package name 'com.microsoft.recognizers.datatypes.timex.expression' does not correspond to the file path 'com.microsoft.recognizers.text.expression'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/Time.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.recognizers.datatypes.timex.expression;
+
+public class Time {
 ```
 
 ### WrongPackageStatement
@@ -21294,6 +21282,18 @@ public class TimeRange {
 
 ### WrongPackageStatement
 Package name 'com.microsoft.recognizers.datatypes.timex.expression' does not correspond to the file path 'com.microsoft.recognizers.text.expression'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/TimexConstraintsHelper.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.recognizers.datatypes.timex.expression;
+
+import java.util.List;
+```
+
+### WrongPackageStatement
+Package name 'com.microsoft.recognizers.datatypes.timex.expression' does not correspond to the file path 'com.microsoft.recognizers.text.expression'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/TimexRegex.java`
 #### Snippet
 ```java
@@ -21330,18 +21330,6 @@ public class TimexSet {
 
 ### WrongPackageStatement
 Package name 'com.microsoft.recognizers.datatypes.timex.expression' does not correspond to the file path 'com.microsoft.recognizers.text.expression'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/DateRange.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.recognizers.datatypes.timex.expression;
-
-import java.time.LocalDateTime;
-```
-
-### WrongPackageStatement
-Package name 'com.microsoft.recognizers.datatypes.timex.expression' does not correspond to the file path 'com.microsoft.recognizers.text.expression'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/TimexCreator.java`
 #### Snippet
 ```java
@@ -21374,6 +21362,18 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expressio
 package com.microsoft.recognizers.datatypes.timex.expression;
 
 import java.util.ArrayList;
+```
+
+### WrongPackageStatement
+Package name 'com.microsoft.recognizers.datatypes.timex.expression' does not correspond to the file path 'com.microsoft.recognizers.text.expression'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/DateRange.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.recognizers.datatypes.timex.expression;
+
+import java.time.LocalDateTime;
 ```
 
 ### WrongPackageStatement
@@ -21438,6 +21438,30 @@ import java.util.HashMap;
 
 ### WrongPackageStatement
 Package name 'com.microsoft.recognizers.datatypes.timex.expression' does not correspond to the file path 'com.microsoft.recognizers.text.expression'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/TimexHelpers.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.recognizers.datatypes.timex.expression;
+
+import java.math.BigDecimal;
+```
+
+### WrongPackageStatement
+Package name 'com.microsoft.recognizers.datatypes.timex.expression.english' does not correspond to the file path 'com.microsoft.recognizers.text.expression.english'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/english/TimexRelativeConvertEnglish.java`
+#### Snippet
+```java
+// Licensed under the MIT License.
+
+package com.microsoft.recognizers.datatypes.timex.expression.english;
+
+import com.microsoft.recognizers.datatypes.timex.expression.Constants;
+```
+
+### WrongPackageStatement
+Package name 'com.microsoft.recognizers.datatypes.timex.expression' does not correspond to the file path 'com.microsoft.recognizers.text.expression'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/TimexRangeResolver.java`
 #### Snippet
 ```java
@@ -21458,30 +21482,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expressio
 package com.microsoft.recognizers.datatypes.timex.expression.english;
 
 import com.microsoft.recognizers.datatypes.timex.expression.Constants;
-```
-
-### WrongPackageStatement
-Package name 'com.microsoft.recognizers.datatypes.timex.expression.english' does not correspond to the file path 'com.microsoft.recognizers.text.expression.english'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/english/TimexRelativeConvertEnglish.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.recognizers.datatypes.timex.expression.english;
-
-import com.microsoft.recognizers.datatypes.timex.expression.Constants;
-```
-
-### WrongPackageStatement
-Package name 'com.microsoft.recognizers.datatypes.timex.expression' does not correspond to the file path 'com.microsoft.recognizers.text.expression'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/TimexHelpers.java`
-#### Snippet
-```java
-// Licensed under the MIT License.
-
-package com.microsoft.recognizers.datatypes.timex.expression;
-
-import java.math.BigDecimal;
 ```
 
 ### WrongPackageStatement
@@ -21537,18 +21537,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/pa
 ## RuleId[id=TrivialIf]
 ### TrivialIf
 `if` statement can be simplified
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/SetSpeakMiddleware.java`
-#### Snippet
-```java
-            Document doc = dBuilder.parse(speakText);
-
-            if (doc.getElementsByTagName(tagName).getLength() > 0) {
-                return true;
-            }
-```
-
-### TrivialIf
-`if` statement can be simplified
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/matcher/NumberWithUnitTokenizer.java`
 #### Snippet
 ```java
@@ -21597,6 +21585,30 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 
 ### TrivialIf
 `if` statement can be simplified
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/Activity.java`
+#### Snippet
+```java
+        }
+
+        if (this.getChannelData() != null) {
+            return true;
+        }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/SetSpeakMiddleware.java`
+#### Snippet
+```java
+            Document doc = dBuilder.parse(speakText);
+
+            if (doc.getElementsByTagName(tagName).getLength() > 0) {
+                return true;
+            }
+```
+
+### TrivialIf
+`if` statement can be simplified
 in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/AppCredentials.java`
 #### Snippet
 ```java
@@ -21617,18 +21629,6 @@ in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentica
         if (!StringUtils.equals(authScheme, "Bearer")) {
             // The scheme MUST be "Bearer"
             return false;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/Activity.java`
-#### Snippet
-```java
-        }
-
-        if (this.getChannelData() != null) {
-            return true;
-        }
 ```
 
 ## RuleId[id=NonStrictComparisonCanBeEquality]
@@ -21720,18 +21720,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/resources
 
 ## RuleId[id=NewObjectEquality]
 ### NewObjectEquality
-New object is compared using '=='
-in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/BotFrameworkHttpClient.java`
-#### Snippet
-```java
-    private CompletableFuture<String> getToken(AppCredentials appCredentials) {
-        // Get token for the skill call
-        if (appCredentials == MicrosoftAppCredentials.empty()) {
-            return CompletableFuture.completedFuture(null);
-        } else {
-```
-
-### NewObjectEquality
 New object is compared using '!='
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDateExtractor.java`
 #### Snippet
@@ -21753,6 +21741,18 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
                             if (date != DateUtil.minValue() && numWeekDay == extractedWeekDay) {
                                 tokens.add(new Token(matchCase.index, result.getStart() + result.getLength()));
                                 isFound = true;
+```
+
+### NewObjectEquality
+New object is compared using '=='
+in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/BotFrameworkHttpClient.java`
+#### Snippet
+```java
+    private CompletableFuture<String> getToken(AppCredentials appCredentials) {
+        // Get token for the skill call
+        if (appCredentials == MicrosoftAppCredentials.empty()) {
+            return CompletableFuture.completedFuture(null);
+        } else {
 ```
 
 ## RuleId[id=AutoCloseableResource]
@@ -21940,512 +21940,7 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/DialogS
                 String npath = String.join("_", segments);
 ```
 
-## RuleId[id=JavadocDeclaration]
-### JavadocDeclaration
-`@return` tag description is missing
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/SkypeMentionNormalizeMiddleware.java`
-#### Snippet
-```java
-     * @param context The context object for this turn.
-     * @param next    The delegate to call to continue the bot middleware pipeline.
-     * @return
-     */
-    @Override
-```
-
-### JavadocDeclaration
-Illegal character
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactory.java`
-#### Snippet
-```java
-     *
-     * @param skillConversationId  A skill conversationId created using {@link
-     *                             CreateSkillConversationId(SkillConversationIdFactoryOptions,System#getT
-     *                             reading()#getCancellationToken())} .
-     *
-```
-
-### JavadocDeclaration
-Illegal character
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactory.java`
-#### Snippet
-```java
-     * @param skillConversationId  A skill conversationId created using {@link
-     *                             CreateSkillConversationId(SkillConversationIdFactoryOptions,System#getT
-     *                             reading()#getCancellationToken())} .
-     *
-     * @return   A {@link CompletableFuture} representing the asynchronous operation.
-```
-
-### JavadocDeclaration
-Illegal character
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryOptions.java`
-#### Snippet
-```java
- * A class defining the parameters used in
- * {@link SkillConversationIdFactoryBase#createSkillConversationId(SkillConversationI
- * FactoryOptions,System#getThreading()#getCancellationToken())} .
- */
-public class SkillConversationIdFactoryOptions {
-```
-
-### JavadocDeclaration
-Illegal character
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryOptions.java`
-#### Snippet
-```java
- * A class defining the parameters used in
- * {@link SkillConversationIdFactoryBase#createSkillConversationId(SkillConversationI
- * FactoryOptions,System#getThreading()#getCancellationToken())} .
- */
-public class SkillConversationIdFactoryOptions {
-```
-
-### JavadocDeclaration
-Illegal character
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
-#### Snippet
-```java
-    /**
-     * Gets the {@link SkillConversationReference} used during {@link
-     * CreateSkillConversationId(SkillConversationIdFactoryOptions,System#getT
-     * reading()#getCancellationToken())} for a skillConversationId.
-     *
-```
-
-### JavadocDeclaration
-Illegal character
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
-#### Snippet
-```java
-     * Gets the {@link SkillConversationReference} used during {@link
-     * CreateSkillConversationId(SkillConversationIdFactoryOptions,System#getT
-     * reading()#getCancellationToken())} for a skillConversationId.
-     *
-     * @param skillConversationId  A skill conversationId created using {@link
-```
-
-### JavadocDeclaration
-Illegal character
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
-#### Snippet
-```java
-     *
-     * @param skillConversationId  A skill conversationId created using {@link
-     *                             CreateSkillConversationId(SkillConversationIdFactoryOptions,System#getT
-     *                             reading()#getCancellationToken())} .
-     *
-```
-
-### JavadocDeclaration
-Illegal character
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
-#### Snippet
-```java
-     * @param skillConversationId  A skill conversationId created using {@link
-     *                             CreateSkillConversationId(SkillConversationIdFactoryOptions,System#getT
-     *                             reading()#getCancellationToken())} .
-     *
-     * @return   The caller's {@link ConversationReference} for a skillConversationId, with originatingAudience.
-```
-
-### JavadocDeclaration
-Illegal character
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
-#### Snippet
-```java
-     * Gets the {@link ConversationReference} created using
-     * {@link
-     * CreateSkillConversationId(Microsoft#getBot()#getSchema()#getConversatio
-     * Reference(),System#getThreading()#getCancellationToken())} for a
-     * skillConversationId.
-```
-
-### JavadocDeclaration
-Illegal character
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
-#### Snippet
-```java
-     * Gets the {@link ConversationReference} created using
-     * {@link
-     * CreateSkillConversationId(Microsoft#getBot()#getSchema()#getConversatio
-     * Reference(),System#getThreading()#getCancellationToken())} for a
-     * skillConversationId.
-```
-
-### JavadocDeclaration
-Illegal character
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
-#### Snippet
-```java
-     *
-     * @param skillConversationId  A skill conversationId created using {@link
-     *                             CreateSkillConversationId(Microsoft#getBot()#getSchema()#getConversatio
-     *                             Reference(),System#getThreading()#getCancellationToken())} .
-     *
-```
-
-### JavadocDeclaration
-Illegal character
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
-#### Snippet
-```java
-     *
-     * @param skillConversationId  A skill conversationId created using {@link
-     *                             CreateSkillConversationId(Microsoft#getBot()#getSchema()#getConversatio
-     *                             Reference(),System#getThreading()#getCancellationToken())} .
-     *
-```
-
-### JavadocDeclaration
-Illegal character
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
-#### Snippet
-```java
-     *
-     * @param skillConversationId  A skill conversationId created using {@link
-     *                             CreateSkillConversationId(SkillConversationIdFactoryOptions,System#getT
-     *                             reading()#getCancellationToken())} .
-     *
-```
-
-### JavadocDeclaration
-Illegal character
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
-#### Snippet
-```java
-     * @param skillConversationId  A skill conversationId created using {@link
-     *                             CreateSkillConversationId(SkillConversationIdFactoryOptions,System#getT
-     *                             reading()#getCancellationToken())} .
-     *
-     * @return   A {@link CompletableFuture} representing the asynchronous operation.
-```
-
-### JavadocDeclaration
-Javadoc pointing to itself
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/teams/TeamsActivityHandler.java`
-#### Snippet
-```java
-    /**
-     * Invoked when a "tokens/response" event is received when the base behavior of
-     * {@link #onEventActivity(TurnContext)} is used.
-     *
-     * <p>
-```
-
-### JavadocDeclaration
-Javadoc pointing to itself
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/teams/TeamsActivityHandler.java`
-#### Snippet
-```java
-     * </p>
-     * <p>
-     * When the {@link #onEventActivity(TurnContext)} method receives an event with
-     * a {@link com.microsoft.bot.schema.Activity#getName()} of `tokens/response`, it calls this method.
-     *
-```
-
-### JavadocDeclaration
-`@param withDialogs` tag description is missing
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/DialogContext.java`
-#### Snippet
-```java
-
-    /**
-     * @param withDialogs
-     * @param withTurnContext
-     * @param withState
-```
-
-### JavadocDeclaration
-`@param withTurnContext` tag description is missing
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/DialogContext.java`
-#### Snippet
-```java
-    /**
-     * @param withDialogs
-     * @param withTurnContext
-     * @param withState
-     */
-```
-
-### JavadocDeclaration
-`@param withState` tag description is missing
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/DialogContext.java`
-#### Snippet
-```java
-     * @param withDialogs
-     * @param withTurnContext
-     * @param withState
-     */
-    private void init(DialogSet withDialogs, TurnContext withTurnContext, DialogState withState) {
-```
-
-### JavadocDeclaration
-`@param reason` tag description is missing
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/DialogContext.java`
-#### Snippet
-```java
-
-    /**
-     * @param reason
-     * @param result
-     * @return CompletableFuture<Void>
-```
-
-### JavadocDeclaration
-`@param result` tag description is missing
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/DialogContext.java`
-#### Snippet
-```java
-    /**
-     * @param reason
-     * @param result
-     * @return CompletableFuture<Void>
-     */
-```
-
-### JavadocDeclaration
-`@param reason` tag description is missing
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/DialogContext.java`
-#### Snippet
-```java
-
-    /**
-     * @param reason
-     * @return CompletableFuture<Void>
-     */
-```
-
-### JavadocDeclaration
-`@param dialogContext` tag description is missing
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/scopes/BotStateMemoryScope.java`
-#### Snippet
-```java
-
-    /**
-     * @param dialogContext
-     * @param force
-     * @return A future that represents the
-```
-
-### JavadocDeclaration
-`@param force` tag description is missing
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/scopes/BotStateMemoryScope.java`
-#### Snippet
-```java
-    /**
-     * @param dialogContext
-     * @param force
-     * @return A future that represents the
-     */
-```
-
-### JavadocDeclaration
-`@param turnContext` tag description is missing
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/Dialog.java`
-#### Snippet
-```java
-     * Helper to determine if we should send an EoC to the parent or not.
-     *
-     * @param turnContext
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/Dialog.java`
-#### Snippet
-```java
-     *
-     * @param turnContext
-     * @return
-     */
-    private static boolean sendEoCToParent(TurnContext turnContext) {
-```
-
-### JavadocDeclaration
-Javadoc pointing to itself
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ActivityHandler.java`
-#### Snippet
-```java
-     * logic that applies to all comand activities. Add logic to apply before
-     * the specific command-handling logic before the call to the base class
-     * {@link ActivityHandler#onCommandActivity(TurnContext)} method. Add
-     * logic to apply after the specific command-handling logic after the call
-     * to the base class
-```
-
-### JavadocDeclaration
-Javadoc pointing to itself
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ActivityHandler.java`
-#### Snippet
-```java
-     * logic to apply after the specific command-handling logic after the call
-     * to the base class
-     * {@link ActivityHandler#onCommandActivity(TurnContext)} method. Command
-     * activities communicate programmatic information from a client or channel
-     * to a bot. The meaning of an command activity is defined by the
-```
-
-### JavadocDeclaration
-Illegal character
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ActivityHandler.java`
-#### Snippet
-```java
-     * @return   A task that represents the work queued to execute.
-     *
-     * When the {@link OnInvokeActivity(TurnContext(InvokeActivity))} method
-     * receives an Invoke with a {@link InvokeActivity.name} of
-     * `adaptiveCard/action`, it calls this method.
-```
-
-### JavadocDeclaration
-Javadoc pointing to itself
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ActivityHandler.java`
-#### Snippet
-```java
-     * before the specific CommandResult-handling logic before the call to the
-     * base class
-     * {@link ActivityHandler#onCommandResultActivity(TurnContext)}
-     * method. Add logic to apply after the specific CommandResult-handling
-     * logic after the call to the base class
-```
-
-### JavadocDeclaration
-Javadoc pointing to itself
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ActivityHandler.java`
-#### Snippet
-```java
-     * method. Add logic to apply after the specific CommandResult-handling
-     * logic after the call to the base class
-     * {@link ActivityHandler#onCommandResultActivity(TurnContext)}
-     * method. CommandResult activities communicate programmatic information
-     * from a client or channel to a bot. The meaning of an CommandResult
-```
-
-### JavadocDeclaration
-Illegal character
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ChoicePrompt.java`
-#### Snippet
-```java
-    /**
-     * Gets or sets additional options passed to the underlying
-     * {@link ChoiceRecognizers#recognizeChoices(String, IList{Choice}, FindChoicesOptions)} method.
-     *
-     * @return Options to control the recognition strategy.
-```
-
-### JavadocDeclaration
-Illegal character
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ChoicePrompt.java`
-#### Snippet
-```java
-    /**
-     * Gets or sets additional options passed to the underlying
-     * {@link ChoiceRecognizers#recognizeChoices(String, IList{Choice}, FindChoicesOptions)} method.
-     *
-     * @return Options to control the recognition strategy.
-```
-
-### JavadocDeclaration
-Illegal character
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ChoicePrompt.java`
-#### Snippet
-```java
-    /**
-     * Gets or sets additional options passed to the underlying
-     * {@link ChoiceRecognizers#recognizeChoices(String, IList{Choice}, FindChoicesOptions)} method.
-     *
-     * @param recognizerOptions Options to control the recognition strategy.
-```
-
-### JavadocDeclaration
-Illegal character
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ChoicePrompt.java`
-#### Snippet
-```java
-    /**
-     * Gets or sets additional options passed to the underlying
-     * {@link ChoiceRecognizers#recognizeChoices(String, IList{Choice}, FindChoicesOptions)} method.
-     *
-     * @param recognizerOptions Options to control the recognition strategy.
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/parsers/BaseNumberParser.java`
-#### Snippet
-```java
-     *
-     * @param extractResult input arabic number
-     * @return
-     */
-    protected ParseResult digitNumberParse(ExtractResult extractResult) {
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `libraries/bot-ai-luis-v3/src/main/java/com/microsoft/bot/ai/luis/LuisRecognizer.java`
-#### Snippet
-```java
-     * @param turnContext Context object containing information for a single turn of conversation with a user.
-     * @param telemetryProperties Additional properties to be logged to telemetry with the LuisResult event.
-     * @return
-     */
-    private Map<String, String> fillLuisEventProperties(RecognizerResult recognizerResult, TurnContext turnContext,
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/restclient/serializer/FlatteningDeserializer.java`
-#### Snippet
-```java
-     * @param jsonNode the json node
-     * @return the json parser
-     * @throws IOException
-     */
-    private static JsonParser newJsonParserForNode(JsonNode jsonNode) throws IOException {
-```
-
 ## RuleId[id=RedundantCast]
-### RedundantCast
-Casting `ObjectPath.getPathValue(...)` to `QnAMakerDialogOptions` is redundant
-in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/dialogs/QnAMakerDialog.java`
-#### Snippet
-```java
-
-            String reply = dc.getContext().getActivity().getText();
-            QnAMakerDialogOptions dialogOptions = (QnAMakerDialogOptions) ObjectPath
-                .getPathValue(dc.getActiveDialog().getState(), OPTIONS, QnAMakerDialogOptions.class);
-
-```
-
-### RedundantCast
-Casting `result` to `InspectionSessionsByStatus` is redundant
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/inspection/InspectionMiddleware.java`
-#### Snippet
-```java
-
-        return accessor.get(turnContext, InspectionSessionsByStatus::new).thenCompose(result -> {
-            InspectionSessionsByStatus sessions = (InspectionSessionsByStatus) result;
-            String sessionId = openCommand(
-                sessions,
-```
-
-### RedundantCast
-Casting `result` to `InspectionSessionsByStatus` is redundant
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/inspection/InspectionMiddleware.java`
-#### Snippet
-```java
-
-        return accessor.get(turnContext, InspectionSessionsByStatus::new).thenCompose(result -> {
-            InspectionSessionsByStatus openSessions = (InspectionSessionsByStatus) result;
-            openSessions.getAttachedSessions().remove(
-                turnContext.getActivity().getConversation().getId()
-```
-
 ### RedundantCast
 Casting `new DollarPathResolver()` to `PathResolver` is redundant
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/DialogsComponentRegistration.java`
@@ -22543,6 +22038,18 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/WaterfallDialo
 ```
 
 ### RedundantCast
+Casting `ObjectPath.getPathValue(...)` to `QnAMakerDialogOptions` is redundant
+in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/dialogs/QnAMakerDialog.java`
+#### Snippet
+```java
+
+            String reply = dc.getContext().getActivity().getText();
+            QnAMakerDialogOptions dialogOptions = (QnAMakerDialogOptions) ObjectPath
+                .getPathValue(dc.getActiveDialog().getState(), OPTIONS, QnAMakerDialogOptions.class);
+
+```
+
+### RedundantCast
 Casting `assign(...)` to `T` is redundant
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/ObjectPath.java`
 #### Snippet
@@ -22564,54 +22071,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/SkillDialog.ja
         return sendToSkill(turnContext, (Activity) repromptEvent, skillConversationId).thenApply(result -> null);
     }
 
-```
-
-### RedundantCast
-Casting `value` to `Object` is redundant
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/NumberPrompt.java`
-#### Snippet
-```java
-                        Float value = Float.parseFloat(text);
-                        result.setSucceeded(true);
-                        result.setValue((T) (Object) value);
-
-                    } catch (NumberFormatException numberFormatException) {
-```
-
-### RedundantCast
-Casting `value` to `Object` is redundant
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/NumberPrompt.java`
-#### Snippet
-```java
-                        Integer value = Integer.parseInt(text);
-                        result.setSucceeded(true);
-                        result.setValue((T) (Object) value);
-
-                    } catch (NumberFormatException numberFormatException) {
-```
-
-### RedundantCast
-Casting `value` to `Object` is redundant
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/NumberPrompt.java`
-#### Snippet
-```java
-                        Long value = Long.parseLong(text);
-                        result.setSucceeded(true);
-                        result.setValue((T) (Object) value);
-
-                    } catch (NumberFormatException numberFormatException) {
-```
-
-### RedundantCast
-Casting `value` to `Object` is redundant
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/NumberPrompt.java`
-#### Snippet
-```java
-                        Double value = Double.parseDouble(text);
-                        result.setSucceeded(true);
-                        result.setValue((T) (Object) value);
-
-                    } catch (NumberFormatException numberFormatException) {
 ```
 
 ### RedundantCast
@@ -22639,6 +22098,30 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/DialogS
 ```
 
 ### RedundantCast
+Casting `value` to `Object` is redundant
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/NumberPrompt.java`
+#### Snippet
+```java
+                        Float value = Float.parseFloat(text);
+                        result.setSucceeded(true);
+                        result.setValue((T) (Object) value);
+
+                    } catch (NumberFormatException numberFormatException) {
+```
+
+### RedundantCast
+Casting `value` to `Object` is redundant
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/NumberPrompt.java`
+#### Snippet
+```java
+                        Integer value = Integer.parseInt(text);
+                        result.setSucceeded(true);
+                        result.setValue((T) (Object) value);
+
+                    } catch (NumberFormatException numberFormatException) {
+```
+
+### RedundantCast
 Casting `ObjectPath.tryGetPathValue(...)` to `TypeT` is redundant
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/DialogStateManager.java`
 #### Snippet
@@ -22651,6 +22134,18 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/DialogS
 ```
 
 ### RedundantCast
+Casting `value` to `Object` is redundant
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/NumberPrompt.java`
+#### Snippet
+```java
+                        Long value = Long.parseLong(text);
+                        result.setSucceeded(true);
+                        result.setValue((T) (Object) value);
+
+                    } catch (NumberFormatException numberFormatException) {
+```
+
+### RedundantCast
 Casting `ObjectPath.tryGetPathValue(...)` to `TypeT` is redundant
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/DialogStateManager.java`
 #### Snippet
@@ -22660,6 +22155,18 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/DialogS
         instance = (TypeT) ObjectPath.tryGetPathValue(this, path, clsType);
 
         return new ResultPair<>(instance != null, instance);
+```
+
+### RedundantCast
+Casting `value` to `Object` is redundant
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/NumberPrompt.java`
+#### Snippet
+```java
+                        Double value = Double.parseDouble(text);
+                        result.setSucceeded(true);
+                        result.setValue((T) (Object) value);
+
+                    } catch (NumberFormatException numberFormatException) {
 ```
 
 ### RedundantCast
@@ -22732,54 +22239,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/ex
             x2 = ((ExtractResult)o2).getStart();
             return x2.compareTo(x1);
         });
-```
-
-### RedundantCast
-Casting `c` to `int` is redundant
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/matcher/SimpleTokenizer.java`
-#### Snippet
-```java
-
-    protected boolean isJapanese(char c) {
-        int uc = (int)c;
-
-        return (uc >= 0x3040 && uc <= 0x309F) ||
-```
-
-### RedundantCast
-Casting `0x30FF` to `int` is redundant
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/matcher/SimpleTokenizer.java`
-#### Snippet
-```java
-
-        return (uc >= 0x3040 && uc <= 0x309F) ||
-            (uc >= 0x30A0 && uc <= (int)0x30FF) ||
-            (uc >= (int)0xFF66 && uc <= (int)0xFF9D);
-    }
-```
-
-### RedundantCast
-Casting `0xFF66` to `int` is redundant
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/matcher/SimpleTokenizer.java`
-#### Snippet
-```java
-        return (uc >= 0x3040 && uc <= 0x309F) ||
-            (uc >= 0x30A0 && uc <= (int)0x30FF) ||
-            (uc >= (int)0xFF66 && uc <= (int)0xFF9D);
-    }
-
-```
-
-### RedundantCast
-Casting `0xFF9D` to `int` is redundant
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/matcher/SimpleTokenizer.java`
-#### Snippet
-```java
-        return (uc >= 0x3040 && uc <= 0x309F) ||
-            (uc >= 0x30A0 && uc <= (int)0x30FF) ||
-            (uc >= (int)0xFF66 && uc <= (int)0xFF9D);
-    }
-
 ```
 
 ### RedundantCast
@@ -22951,6 +22410,54 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/matcher/S
 ```
 
 ### RedundantCast
+Casting `c` to `int` is redundant
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/matcher/SimpleTokenizer.java`
+#### Snippet
+```java
+
+    protected boolean isJapanese(char c) {
+        int uc = (int)c;
+
+        return (uc >= 0x3040 && uc <= 0x309F) ||
+```
+
+### RedundantCast
+Casting `0x30FF` to `int` is redundant
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/matcher/SimpleTokenizer.java`
+#### Snippet
+```java
+
+        return (uc >= 0x3040 && uc <= 0x309F) ||
+            (uc >= 0x30A0 && uc <= (int)0x30FF) ||
+            (uc >= (int)0xFF66 && uc <= (int)0xFF9D);
+    }
+```
+
+### RedundantCast
+Casting `0xFF66` to `int` is redundant
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/matcher/SimpleTokenizer.java`
+#### Snippet
+```java
+        return (uc >= 0x3040 && uc <= 0x309F) ||
+            (uc >= 0x30A0 && uc <= (int)0x30FF) ||
+            (uc >= (int)0xFF66 && uc <= (int)0xFF9D);
+    }
+
+```
+
+### RedundantCast
+Casting `0xFF9D` to `int` is redundant
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/matcher/SimpleTokenizer.java`
+#### Snippet
+```java
+        return (uc >= 0x3040 && uc <= 0x309F) ||
+            (uc >= 0x30A0 && uc <= (int)0x30FF) ||
+            (uc >= (int)0xFF66 && uc <= (int)0xFF9D);
+    }
+
+```
+
+### RedundantCast
 Casting `this.config.getDateExtractor()` to `BaseDateExtractor` is redundant
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateParser.java`
 #### Snippet
@@ -23059,39 +22566,15 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### RedundantCast
-Casting `this.config.getDateExtractor()` to `BaseDateExtractor` is redundant
+Casting `retNow` to `DateTimeResolutionResult` is redundant
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
 #### Snippet
 ```java
-            }
+                retNow,
+                "",
+                value == null ? "" : ((DateTimeResolutionResult)retNow).getTimex());
+        }
 
-            int year = ((BaseDateExtractor)this.config.getDateExtractor()).getYearFromText(match.getMatch().get());
-            if (year == Constants.InvalidYear) {
-                int swift = this.config.getSwiftYear(text);
-```
-
-### RedundantCast
-Casting `this.config.getDateExtractor()` to `BaseDateExtractor` is redundant
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
-#### Snippet
-```java
-
-            // parse year
-            year = ((BaseDateExtractor)this.config.getDateExtractor()).getYearFromText(match.getMatch().get());
-            if (year != Constants.InvalidYear) {
-                noYear = false;
-```
-
-### RedundantCast
-Casting `this.config.getDateExtractor()` to `BaseDateExtractor` is redundant
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
-#### Snippet
-```java
-        String numberStr = match.getMatch().get().getGroup("number").value;
-
-        int year = ((BaseDateExtractor)this.config.getDateExtractor()).getYearFromText(match.getMatch().get());
-
-        if (year == Constants.InvalidYear) {
 ```
 
 ### RedundantCast
@@ -23123,6 +22606,30 @@ Casting `this.config.getDateExtractor()` to `BaseDateExtractor` is redundant
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
 #### Snippet
 ```java
+            }
+
+            int year = ((BaseDateExtractor)this.config.getDateExtractor()).getYearFromText(match.getMatch().get());
+            if (year == Constants.InvalidYear) {
+                int swift = this.config.getSwiftYear(text);
+```
+
+### RedundantCast
+Casting `this.config.getDateExtractor()` to `BaseDateExtractor` is redundant
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
+#### Snippet
+```java
+        String numberStr = match.getMatch().get().getGroup("number").value;
+
+        int year = ((BaseDateExtractor)this.config.getDateExtractor()).getYearFromText(match.getMatch().get());
+
+        if (year == Constants.InvalidYear) {
+```
+
+### RedundantCast
+Casting `this.config.getDateExtractor()` to `BaseDateExtractor` is redundant
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
+#### Snippet
+```java
             int month = this.config.getMonthOfYear().get(monthStr.toLowerCase());
 
             int year = ((BaseDateExtractor)this.config.getDateExtractor()).getYearFromText(match.getMatch().get());
@@ -23131,15 +22638,15 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### RedundantCast
-Casting `retNow` to `DateTimeResolutionResult` is redundant
+Casting `this.config.getDateExtractor()` to `BaseDateExtractor` is redundant
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDatePeriodParser.java`
 #### Snippet
 ```java
-                retNow,
-                "",
-                value == null ? "" : ((DateTimeResolutionResult)retNow).getTimex());
-        }
 
+            // parse year
+            year = ((BaseDateExtractor)this.config.getDateExtractor()).getYearFromText(match.getMatch().get());
+            if (year != Constants.InvalidYear) {
+                noYear = false;
 ```
 
 ### RedundantCast
@@ -23226,6 +22733,499 @@ in `libraries/bot-ai-luis-v3/src/main/java/com/microsoft/bot/ai/luis/LuisRecogni
                         if (tokenProp.getKey().contains("value")) {
 ```
 
+### RedundantCast
+Casting `result` to `InspectionSessionsByStatus` is redundant
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/inspection/InspectionMiddleware.java`
+#### Snippet
+```java
+
+        return accessor.get(turnContext, InspectionSessionsByStatus::new).thenCompose(result -> {
+            InspectionSessionsByStatus sessions = (InspectionSessionsByStatus) result;
+            String sessionId = openCommand(
+                sessions,
+```
+
+### RedundantCast
+Casting `result` to `InspectionSessionsByStatus` is redundant
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/inspection/InspectionMiddleware.java`
+#### Snippet
+```java
+
+        return accessor.get(turnContext, InspectionSessionsByStatus::new).thenCompose(result -> {
+            InspectionSessionsByStatus openSessions = (InspectionSessionsByStatus) result;
+            openSessions.getAttachedSessions().remove(
+                turnContext.getActivity().getConversation().getId()
+```
+
+## RuleId[id=JavadocDeclaration]
+### JavadocDeclaration
+`@param reason` tag description is missing
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/DialogContext.java`
+#### Snippet
+```java
+
+    /**
+     * @param reason
+     * @param result
+     * @return CompletableFuture<Void>
+```
+
+### JavadocDeclaration
+`@param result` tag description is missing
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/DialogContext.java`
+#### Snippet
+```java
+    /**
+     * @param reason
+     * @param result
+     * @return CompletableFuture<Void>
+     */
+```
+
+### JavadocDeclaration
+`@param withDialogs` tag description is missing
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/DialogContext.java`
+#### Snippet
+```java
+
+    /**
+     * @param withDialogs
+     * @param withTurnContext
+     * @param withState
+```
+
+### JavadocDeclaration
+`@param withTurnContext` tag description is missing
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/DialogContext.java`
+#### Snippet
+```java
+    /**
+     * @param withDialogs
+     * @param withTurnContext
+     * @param withState
+     */
+```
+
+### JavadocDeclaration
+`@param withState` tag description is missing
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/DialogContext.java`
+#### Snippet
+```java
+     * @param withDialogs
+     * @param withTurnContext
+     * @param withState
+     */
+    private void init(DialogSet withDialogs, TurnContext withTurnContext, DialogState withState) {
+```
+
+### JavadocDeclaration
+`@param reason` tag description is missing
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/DialogContext.java`
+#### Snippet
+```java
+
+    /**
+     * @param reason
+     * @return CompletableFuture<Void>
+     */
+```
+
+### JavadocDeclaration
+`@param dialogContext` tag description is missing
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/scopes/BotStateMemoryScope.java`
+#### Snippet
+```java
+
+    /**
+     * @param dialogContext
+     * @param force
+     * @return A future that represents the
+```
+
+### JavadocDeclaration
+`@param force` tag description is missing
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/scopes/BotStateMemoryScope.java`
+#### Snippet
+```java
+    /**
+     * @param dialogContext
+     * @param force
+     * @return A future that represents the
+     */
+```
+
+### JavadocDeclaration
+`@param turnContext` tag description is missing
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/Dialog.java`
+#### Snippet
+```java
+     * Helper to determine if we should send an EoC to the parent or not.
+     *
+     * @param turnContext
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/Dialog.java`
+#### Snippet
+```java
+     *
+     * @param turnContext
+     * @return
+     */
+    private static boolean sendEoCToParent(TurnContext turnContext) {
+```
+
+### JavadocDeclaration
+Illegal character
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ChoicePrompt.java`
+#### Snippet
+```java
+    /**
+     * Gets or sets additional options passed to the underlying
+     * {@link ChoiceRecognizers#recognizeChoices(String, IList{Choice}, FindChoicesOptions)} method.
+     *
+     * @return Options to control the recognition strategy.
+```
+
+### JavadocDeclaration
+Illegal character
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ChoicePrompt.java`
+#### Snippet
+```java
+    /**
+     * Gets or sets additional options passed to the underlying
+     * {@link ChoiceRecognizers#recognizeChoices(String, IList{Choice}, FindChoicesOptions)} method.
+     *
+     * @return Options to control the recognition strategy.
+```
+
+### JavadocDeclaration
+Illegal character
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ChoicePrompt.java`
+#### Snippet
+```java
+    /**
+     * Gets or sets additional options passed to the underlying
+     * {@link ChoiceRecognizers#recognizeChoices(String, IList{Choice}, FindChoicesOptions)} method.
+     *
+     * @param recognizerOptions Options to control the recognition strategy.
+```
+
+### JavadocDeclaration
+Illegal character
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/ChoicePrompt.java`
+#### Snippet
+```java
+    /**
+     * Gets or sets additional options passed to the underlying
+     * {@link ChoiceRecognizers#recognizeChoices(String, IList{Choice}, FindChoicesOptions)} method.
+     *
+     * @param recognizerOptions Options to control the recognition strategy.
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/parsers/BaseNumberParser.java`
+#### Snippet
+```java
+     *
+     * @param extractResult input arabic number
+     * @return
+     */
+    protected ParseResult digitNumberParse(ExtractResult extractResult) {
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `libraries/bot-ai-luis-v3/src/main/java/com/microsoft/bot/ai/luis/LuisRecognizer.java`
+#### Snippet
+```java
+     * @param turnContext Context object containing information for a single turn of conversation with a user.
+     * @param telemetryProperties Additional properties to be logged to telemetry with the LuisResult event.
+     * @return
+     */
+    private Map<String, String> fillLuisEventProperties(RecognizerResult recognizerResult, TurnContext turnContext,
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/SkypeMentionNormalizeMiddleware.java`
+#### Snippet
+```java
+     * @param context The context object for this turn.
+     * @param next    The delegate to call to continue the bot middleware pipeline.
+     * @return
+     */
+    @Override
+```
+
+### JavadocDeclaration
+Illegal character
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryOptions.java`
+#### Snippet
+```java
+ * A class defining the parameters used in
+ * {@link SkillConversationIdFactoryBase#createSkillConversationId(SkillConversationI
+ * FactoryOptions,System#getThreading()#getCancellationToken())} .
+ */
+public class SkillConversationIdFactoryOptions {
+```
+
+### JavadocDeclaration
+Illegal character
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryOptions.java`
+#### Snippet
+```java
+ * A class defining the parameters used in
+ * {@link SkillConversationIdFactoryBase#createSkillConversationId(SkillConversationI
+ * FactoryOptions,System#getThreading()#getCancellationToken())} .
+ */
+public class SkillConversationIdFactoryOptions {
+```
+
+### JavadocDeclaration
+Illegal character
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactory.java`
+#### Snippet
+```java
+     *
+     * @param skillConversationId  A skill conversationId created using {@link
+     *                             CreateSkillConversationId(SkillConversationIdFactoryOptions,System#getT
+     *                             reading()#getCancellationToken())} .
+     *
+```
+
+### JavadocDeclaration
+Illegal character
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactory.java`
+#### Snippet
+```java
+     * @param skillConversationId  A skill conversationId created using {@link
+     *                             CreateSkillConversationId(SkillConversationIdFactoryOptions,System#getT
+     *                             reading()#getCancellationToken())} .
+     *
+     * @return   A {@link CompletableFuture} representing the asynchronous operation.
+```
+
+### JavadocDeclaration
+Illegal character
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
+#### Snippet
+```java
+    /**
+     * Gets the {@link SkillConversationReference} used during {@link
+     * CreateSkillConversationId(SkillConversationIdFactoryOptions,System#getT
+     * reading()#getCancellationToken())} for a skillConversationId.
+     *
+```
+
+### JavadocDeclaration
+Illegal character
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
+#### Snippet
+```java
+     * Gets the {@link SkillConversationReference} used during {@link
+     * CreateSkillConversationId(SkillConversationIdFactoryOptions,System#getT
+     * reading()#getCancellationToken())} for a skillConversationId.
+     *
+     * @param skillConversationId  A skill conversationId created using {@link
+```
+
+### JavadocDeclaration
+Illegal character
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
+#### Snippet
+```java
+     *
+     * @param skillConversationId  A skill conversationId created using {@link
+     *                             CreateSkillConversationId(SkillConversationIdFactoryOptions,System#getT
+     *                             reading()#getCancellationToken())} .
+     *
+```
+
+### JavadocDeclaration
+Illegal character
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
+#### Snippet
+```java
+     * @param skillConversationId  A skill conversationId created using {@link
+     *                             CreateSkillConversationId(SkillConversationIdFactoryOptions,System#getT
+     *                             reading()#getCancellationToken())} .
+     *
+     * @return   The caller's {@link ConversationReference} for a skillConversationId, with originatingAudience.
+```
+
+### JavadocDeclaration
+Illegal character
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
+#### Snippet
+```java
+     *
+     * @param skillConversationId  A skill conversationId created using {@link
+     *                             CreateSkillConversationId(SkillConversationIdFactoryOptions,System#getT
+     *                             reading()#getCancellationToken())} .
+     *
+```
+
+### JavadocDeclaration
+Illegal character
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
+#### Snippet
+```java
+     * @param skillConversationId  A skill conversationId created using {@link
+     *                             CreateSkillConversationId(SkillConversationIdFactoryOptions,System#getT
+     *                             reading()#getCancellationToken())} .
+     *
+     * @return   A {@link CompletableFuture} representing the asynchronous operation.
+```
+
+### JavadocDeclaration
+Illegal character
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
+#### Snippet
+```java
+     * Gets the {@link ConversationReference} created using
+     * {@link
+     * CreateSkillConversationId(Microsoft#getBot()#getSchema()#getConversatio
+     * Reference(),System#getThreading()#getCancellationToken())} for a
+     * skillConversationId.
+```
+
+### JavadocDeclaration
+Illegal character
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
+#### Snippet
+```java
+     * Gets the {@link ConversationReference} created using
+     * {@link
+     * CreateSkillConversationId(Microsoft#getBot()#getSchema()#getConversatio
+     * Reference(),System#getThreading()#getCancellationToken())} for a
+     * skillConversationId.
+```
+
+### JavadocDeclaration
+Illegal character
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
+#### Snippet
+```java
+     *
+     * @param skillConversationId  A skill conversationId created using {@link
+     *                             CreateSkillConversationId(Microsoft#getBot()#getSchema()#getConversatio
+     *                             Reference(),System#getThreading()#getCancellationToken())} .
+     *
+```
+
+### JavadocDeclaration
+Illegal character
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactoryBase.java`
+#### Snippet
+```java
+     *
+     * @param skillConversationId  A skill conversationId created using {@link
+     *                             CreateSkillConversationId(Microsoft#getBot()#getSchema()#getConversatio
+     *                             Reference(),System#getThreading()#getCancellationToken())} .
+     *
+```
+
+### JavadocDeclaration
+Javadoc pointing to itself
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/teams/TeamsActivityHandler.java`
+#### Snippet
+```java
+    /**
+     * Invoked when a "tokens/response" event is received when the base behavior of
+     * {@link #onEventActivity(TurnContext)} is used.
+     *
+     * <p>
+```
+
+### JavadocDeclaration
+Javadoc pointing to itself
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/teams/TeamsActivityHandler.java`
+#### Snippet
+```java
+     * </p>
+     * <p>
+     * When the {@link #onEventActivity(TurnContext)} method receives an event with
+     * a {@link com.microsoft.bot.schema.Activity#getName()} of `tokens/response`, it calls this method.
+     *
+```
+
+### JavadocDeclaration
+Javadoc pointing to itself
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ActivityHandler.java`
+#### Snippet
+```java
+     * before the specific CommandResult-handling logic before the call to the
+     * base class
+     * {@link ActivityHandler#onCommandResultActivity(TurnContext)}
+     * method. Add logic to apply after the specific CommandResult-handling
+     * logic after the call to the base class
+```
+
+### JavadocDeclaration
+Javadoc pointing to itself
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ActivityHandler.java`
+#### Snippet
+```java
+     * method. Add logic to apply after the specific CommandResult-handling
+     * logic after the call to the base class
+     * {@link ActivityHandler#onCommandResultActivity(TurnContext)}
+     * method. CommandResult activities communicate programmatic information
+     * from a client or channel to a bot. The meaning of an CommandResult
+```
+
+### JavadocDeclaration
+Illegal character
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ActivityHandler.java`
+#### Snippet
+```java
+     * @return   A task that represents the work queued to execute.
+     *
+     * When the {@link OnInvokeActivity(TurnContext(InvokeActivity))} method
+     * receives an Invoke with a {@link InvokeActivity.name} of
+     * `adaptiveCard/action`, it calls this method.
+```
+
+### JavadocDeclaration
+Javadoc pointing to itself
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ActivityHandler.java`
+#### Snippet
+```java
+     * logic that applies to all comand activities. Add logic to apply before
+     * the specific command-handling logic before the call to the base class
+     * {@link ActivityHandler#onCommandActivity(TurnContext)} method. Add
+     * logic to apply after the specific command-handling logic after the call
+     * to the base class
+```
+
+### JavadocDeclaration
+Javadoc pointing to itself
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ActivityHandler.java`
+#### Snippet
+```java
+     * logic to apply after the specific command-handling logic after the call
+     * to the base class
+     * {@link ActivityHandler#onCommandActivity(TurnContext)} method. Command
+     * activities communicate programmatic information from a client or channel
+     * to a bot. The meaning of an command activity is defined by the
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/restclient/serializer/FlatteningDeserializer.java`
+#### Snippet
+```java
+     * @param jsonNode the json node
+     * @return the json parser
+     * @throws IOException
+     */
+    private static JsonParser newJsonParserForNode(JsonNode jsonNode) throws IOException {
+```
+
 ## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
 Field `endpoint` may be 'final'
@@ -23237,30 +23237,6 @@ public class TrainUtils {
     private QnAMakerEndpoint endpoint;
 
     /**
-```
-
-### FieldMayBeFinal
-Field `endpoint` may be 'final'
-in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/utils/GenerateAnswerUtils.java`
-#### Snippet
-```java
- */
-public class GenerateAnswerUtils {
-    private QnAMakerEndpoint endpoint;
-    private QnAMakerOptions options;
-
-```
-
-### FieldMayBeFinal
-Field `activeLearningTrainHelper` may be 'final'
-in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/QnAMaker.java`
-#### Snippet
-```java
-
-    private GenerateAnswerUtils generateAnswerHelper;
-    private TrainUtils activeLearningTrainHelper;
-    private Boolean logPersonalInformation;
-    @JsonIgnore
 ```
 
 ### FieldMayBeFinal
@@ -23288,6 +23264,18 @@ in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/QnAMaker.java`
 ```
 
 ### FieldMayBeFinal
+Field `activeLearningTrainHelper` may be 'final'
+in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/QnAMaker.java`
+#### Snippet
+```java
+
+    private GenerateAnswerUtils generateAnswerHelper;
+    private TrainUtils activeLearningTrainHelper;
+    private Boolean logPersonalInformation;
+    @JsonIgnore
+```
+
+### FieldMayBeFinal
 Field `telemetryClient` may be 'final'
 in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/QnAMaker.java`
 #### Snippet
@@ -23312,414 +23300,6 @@ in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/QnAMaker.java`
 ```
 
 ### FieldMayBeFinal
-Field `innerTurnContext` may be 'final'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/DelegatingTurnContext.java`
-#### Snippet
-```java
-     * The TurnContext being wrapped.
-     */
-    private TurnContext innerTurnContext;
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `value` may be 'final'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/Severity.java`
-#### Snippet
-```java
-    CRITICAL(4);
-
-    private int value;
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `mapper` may be 'final'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TraceTranscriptLogger.java`
-#### Snippet
-```java
-     */
-    // https://github.com/FasterXML/jackson-databind/wiki/Serialization-Features
-    private static ObjectMapper mapper = new ObjectMapper()
-        .enable(SerializationFeature.INDENT_OUTPUT)
-        .findAndRegisterModules();
-```
-
-### FieldMayBeFinal
-Field `period` may be 'final'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ShowTypingMiddleware.java`
-#### Snippet
-```java
-     * 2000ms.
-     */
-    private long period;
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `delay` may be 'final'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ShowTypingMiddleware.java`
-#### Snippet
-```java
-     * Initial delay before sending first typing indicator. Defaults to 500ms.
-     */
-    private long delay;
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `state` may be 'final'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TurnContextStateCollection.java`
-#### Snippet
-```java
-     * Map of objects managed by this class.
-     */
-    private Map<String, Object> state = new HashMap<>();
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `objectMapper` may be 'final'
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsStorage.java`
-#### Snippet
-```java
-public class BlobsStorage implements Storage {
-
-    private ObjectMapper objectMapper;
-    private final BlobContainerClient containerClient;
-
-```
-
-### FieldMayBeFinal
-Field `memory` may be 'final'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/MemoryStorage.java`
-#### Snippet
-```java
-     * The internal map for storage.
-     */
-    private Map<String, JsonNode> memory;
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `objectMapper` may be 'final'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/MemoryStorage.java`
-#### Snippet
-```java
-     * To/From JSON.
-     */
-    private ObjectMapper objectMapper;
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `logger` may be 'final'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/MemoryStorage.java`
-#### Snippet
-```java
-     * The... ummm... logger.
-     */
-    private Logger logger = LoggerFactory.getLogger(MemoryStorage.class);
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `properties` may be 'final'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/RecognizerResult.java`
-#### Snippet
-```java
-     * Additional properties.
-     */
-    private HashMap<String, JsonNode> properties = new HashMap<>();
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `properties` may be 'final'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/IntentScore.java`
-#### Snippet
-```java
-     * Extra properties to include in the results.
-     */
-    private HashMap<String, JsonNode> properties = new HashMap<>();
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `client` may be 'final'
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/CosmosDbPartitionedStorage.java`
-#### Snippet
-```java
-    private ObjectMapper objectMapper;
-    private final Object cacheSync = new Object();
-    private DocumentClient client;
-    private Database databaseCache;
-    private DocumentCollection collectionCache;
-```
-
-### FieldMayBeFinal
-Field `objectMapper` may be 'final'
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/CosmosDbPartitionedStorage.java`
-#### Snippet
-```java
-    private Logger logger = LoggerFactory.getLogger(CosmosDbPartitionedStorage.class);
-    private CosmosDbPartitionedStorageOptions cosmosDbStorageOptions;
-    private ObjectMapper objectMapper;
-    private final Object cacheSync = new Object();
-    private DocumentClient client;
-```
-
-### FieldMayBeFinal
-Field `logger` may be 'final'
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/CosmosDbPartitionedStorage.java`
-#### Snippet
-```java
- */
-public class CosmosDbPartitionedStorage implements Storage {
-    private Logger logger = LoggerFactory.getLogger(CosmosDbPartitionedStorage.class);
-    private CosmosDbPartitionedStorageOptions cosmosDbStorageOptions;
-    private ObjectMapper objectMapper;
-```
-
-### FieldMayBeFinal
-Field `cosmosDbStorageOptions` may be 'final'
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/CosmosDbPartitionedStorage.java`
-#### Snippet
-```java
-public class CosmosDbPartitionedStorage implements Storage {
-    private Logger logger = LoggerFactory.getLogger(CosmosDbPartitionedStorage.class);
-    private CosmosDbPartitionedStorageOptions cosmosDbStorageOptions;
-    private ObjectMapper objectMapper;
-    private final Object cacheSync = new Object();
-```
-
-### FieldMayBeFinal
-Field `contextServiceKey` may be 'final'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotState.java`
-#### Snippet
-```java
-     * The key for the state cache.
-     */
-    private String contextServiceKey;
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `mapper` may be 'final'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotState.java`
-#### Snippet
-```java
-    private Storage storage;
-
-    private ObjectMapper mapper = new ObjectMapper().findAndRegisterModules();
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `mapper` may be 'final'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotState.java`
-#### Snippet
-```java
-         * Object-JsonNode converter.
-         */
-        private ObjectMapper mapper = new ObjectMapper().findAndRegisterModules();
-
-        /**
-```
-
-### FieldMayBeFinal
-Field `storage` may be 'final'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotState.java`
-#### Snippet
-```java
-     * The storage layer this state management object will use.
-     */
-    private Storage storage;
-
-    private ObjectMapper mapper = new ObjectMapper().findAndRegisterModules();
-```
-
-### FieldMayBeFinal
-Field `botState` may be 'final'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotState.java`
-#### Snippet
-```java
-         * The parent BotState.
-         */
-        private BotState botState;
-
-        /**
-```
-
-### FieldMayBeFinal
-Field `channelProvider` may be 'final'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ChannelServiceHandler.java`
-#### Snippet
-```java
-public class ChannelServiceHandler {
-
-    private ChannelProvider channelProvider;
-
-    private final AuthenticationConfiguration authConfiguration;
-```
-
-### FieldMayBeFinal
-Field `transcript` may be 'final'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TranscriptLoggerMiddleware.java`
-#### Snippet
-```java
-     * Activity queue.
-     */
-    private Queue<Activity> transcript = new ConcurrentLinkedQueue<Activity>();
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `transcriptLogger` may be 'final'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TranscriptLoggerMiddleware.java`
-#### Snippet
-```java
-     * The TranscriptLogger to log to.
-     */
-    private TranscriptLogger transcriptLogger;
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `logPersonalInformation` may be 'final'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TelemetryLoggerMiddleware.java`
-#### Snippet
-```java
-     * from the user.
-     */
-    private boolean logPersonalInformation;
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `telemetryClient` may be 'final'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TelemetryLoggerMiddleware.java`
-#### Snippet
-```java
-     * event.
-     */
-    private BotTelemetryClient telemetryClient;
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `channels` may be 'final'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/MemoryTranscriptStore.java`
-#### Snippet
-```java
-     * Map of channel transcripts.
-     */
-    private HashMap<String, HashMap<String, ArrayList<Activity>>> channels = new HashMap<>();
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `storage` may be 'final'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactory.java`
-#### Snippet
-```java
-public class SkillConversationIdFactory extends SkillConversationIdFactoryBase {
-
-    private Storage storage;
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `bufferedReplyActivities` may be 'final'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TurnContextImpl.java`
-#### Snippet
-```java
-    private final Activity activity;
-
-    private List<Activity> bufferedReplyActivities = new ArrayList<>();
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `connectorClient` may be 'final'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/inspection/InspectionSession.java`
-#### Snippet
-```java
-    private ConversationReference conversationReference;
-    private Logger logger;
-    private ConnectorClient connectorClient;
-
-    public InspectionSession(
-```
-
-### FieldMayBeFinal
-Field `logger` may be 'final'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/inspection/InspectionSession.java`
-#### Snippet
-```java
-public class InspectionSession {
-    private ConversationReference conversationReference;
-    private Logger logger;
-    private ConnectorClient connectorClient;
-
-```
-
-### FieldMayBeFinal
-Field `conversationReference` may be 'final'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/inspection/InspectionSession.java`
-#### Snippet
-```java
-
-public class InspectionSession {
-    private ConversationReference conversationReference;
-    private Logger logger;
-    private ConnectorClient connectorClient;
-```
-
-### FieldMayBeFinal
-Field `logger` may be 'final'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillHandler.java`
-#### Snippet
-```java
-     * 'resources' folder.
-     */
-    private Logger logger = LoggerFactory.getLogger(SkillHandler.class);
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `logger` may be 'final'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/inspection/InterceptionMiddleware.java`
-#### Snippet
-```java
-
-public abstract class InterceptionMiddleware implements Middleware {
-    private Logger logger;
-
-    static class Intercept {
-```
-
-### FieldMayBeFinal
 Field `logger` may be 'final'
 in `libraries/bot-integration-spring/src/main/java/com/microsoft/bot/integration/spring/BotController.java`
 #### Snippet
@@ -23732,50 +23312,14 @@ in `libraries/bot-integration-spring/src/main/java/com/microsoft/bot/integration
 ```
 
 ### FieldMayBeFinal
-Field `userState` may be 'final'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/inspection/InspectionMiddleware.java`
+Field `endpoint` may be 'final'
+in `libraries/bot-ai-qna/src/main/java/com/microsoft/bot/ai/qna/utils/GenerateAnswerUtils.java`
 #### Snippet
 ```java
-
-    private InspectionState inspectionState;
-    private UserState userState;
-    private ConversationState conversationState;
-    private MicrosoftAppCredentials credentials;
-```
-
-### FieldMayBeFinal
-Field `inspectionState` may be 'final'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/inspection/InspectionMiddleware.java`
-#### Snippet
-```java
-    private static final String COMMAND = "/INSPECT";
-
-    private InspectionState inspectionState;
-    private UserState userState;
-    private ConversationState conversationState;
-```
-
-### FieldMayBeFinal
-Field `credentials` may be 'final'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/inspection/InspectionMiddleware.java`
-#### Snippet
-```java
-    private UserState userState;
-    private ConversationState conversationState;
-    private MicrosoftAppCredentials credentials;
-
-    public InspectionMiddleware(InspectionState withInspectionState) {
-```
-
-### FieldMayBeFinal
-Field `conversationState` may be 'final'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/inspection/InspectionMiddleware.java`
-#### Snippet
-```java
-    private InspectionState inspectionState;
-    private UserState userState;
-    private ConversationState conversationState;
-    private MicrosoftAppCredentials credentials;
+ */
+public class GenerateAnswerUtils {
+    private QnAMakerEndpoint endpoint;
+    private QnAMakerOptions options;
 
 ```
 
@@ -23789,66 +23333,6 @@ public abstract class DialogContainer extends Dialog {
     private DialogSet dialogs = new DialogSet();
 
     /**
-```
-
-### FieldMayBeFinal
-Field `channelProvider` may be 'final'
-in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/BotFrameworkHttpClient.java`
-#### Snippet
-```java
-    private static Map<String, AppCredentials> appCredentialMapCache = new HashMap<String, AppCredentials>();;
-
-    private ChannelProvider channelProvider;
-
-    private CredentialProvider credentialProvider;
-```
-
-### FieldMayBeFinal
-Field `appCredentialMapCache` may be 'final'
-in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/BotFrameworkHttpClient.java`
-#### Snippet
-```java
-public class BotFrameworkHttpClient extends BotFrameworkClient {
-
-    private static Map<String, AppCredentials> appCredentialMapCache = new HashMap<String, AppCredentials>();;
-
-    private ChannelProvider channelProvider;
-```
-
-### FieldMayBeFinal
-Field `credentialProvider` may be 'final'
-in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/BotFrameworkHttpClient.java`
-#### Snippet
-```java
-    private ChannelProvider channelProvider;
-
-    private CredentialProvider credentialProvider;
-
-    private OkHttpClient httpClient;
-```
-
-### FieldMayBeFinal
-Field `httpClient` may be 'final'
-in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/BotFrameworkHttpClient.java`
-#### Snippet
-```java
-    private CredentialProvider credentialProvider;
-
-    private OkHttpClient httpClient;
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `logger` may be 'final'
-in `libraries/bot-integration-spring/src/main/java/com/microsoft/bot/integration/spring/ChannelServiceController.java`
-#### Snippet
-```java
-     * 'resources' folder.
-     */
-    private Logger logger = LoggerFactory.getLogger(BotController.class);
-
-    private final ChannelServiceHandler handler;
 ```
 
 ### FieldMayBeFinal
@@ -23876,6 +23360,18 @@ public class DialogSet {
 ```
 
 ### FieldMayBeFinal
+Field `index` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/WaterfallStepContext.java`
+#### Snippet
+```java
+    }
+
+    private int index;
+
+    private Object options;
+```
+
+### FieldMayBeFinal
 Field `result` may be 'final'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/WaterfallStepContext.java`
 #### Snippet
@@ -23900,15 +23396,15 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/WaterfallStepC
 ```
 
 ### FieldMayBeFinal
-Field `index` may be 'final'
+Field `options` may be 'final'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/WaterfallStepContext.java`
 #### Snippet
 ```java
-    }
-
     private int index;
 
     private Object options;
+
+    private DialogReason reason;
 ```
 
 ### FieldMayBeFinal
@@ -23924,15 +23420,15 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/WaterfallStepC
 ```
 
 ### FieldMayBeFinal
-Field `options` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/WaterfallStepContext.java`
+Field `logger` may be 'final'
+in `libraries/bot-integration-spring/src/main/java/com/microsoft/bot/integration/spring/ChannelServiceController.java`
 #### Snippet
 ```java
-    private int index;
+     * 'resources' folder.
+     */
+    private Logger logger = LoggerFactory.getLogger(BotController.class);
 
-    private Object options;
-
-    private DialogReason reason;
+    private final ChannelServiceHandler handler;
 ```
 
 ### FieldMayBeFinal
@@ -23943,66 +23439,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/DialogManager.
     }
 
     private TurnContextStateCollection initialTurnState = new TurnContextStateCollection();
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `oAuthClients` may be 'final'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotFrameworkAdapter.java`
-#### Snippet
-```java
-     * OAuthClient cache.
-     */
-    private Map<String, OAuthClient> oAuthClients = new ConcurrentHashMap<>();
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `authConfiguration` may be 'final'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotFrameworkAdapter.java`
-#### Snippet
-```java
-     * The authentication configuration.
-     */
-    private AuthenticationConfiguration authConfiguration;
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `appCredentialMap` may be 'final'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotFrameworkAdapter.java`
-#### Snippet
-```java
-     * AppCredentials dictionary.
-     */
-    private Map<String, AppCredentials> appCredentialMap = new ConcurrentHashMap<>();
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `channelProvider` may be 'final'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotFrameworkAdapter.java`
-#### Snippet
-```java
-     * The channel provider.
-     */
-    private ChannelProvider channelProvider;
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `connectorClients` may be 'final'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotFrameworkAdapter.java`
-#### Snippet
-```java
-     * ConnectorClient cache.
-     */
-    private Map<String, ConnectorClient> connectorClients = new ConcurrentHashMap<>();
 
     /**
 ```
@@ -24044,27 +23480,27 @@ public class SkillDialog extends Dialog {
 ```
 
 ### FieldMayBeFinal
-Field `statusCode` may be 'final'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ActivityHandler.java`
+Field `context` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/PromptValidatorContext.java`
 #### Snippet
 ```java
-    protected class InvokeResponseException extends Exception {
-
-        private int statusCode;
-        private Object body;
+    private Map<String, Object> state;
+    private PromptOptions options;
+    private TurnContext context;
+    private PromptRecognizerResult<T> recognized;
 
 ```
 
 ### FieldMayBeFinal
-Field `body` may be 'final'
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ActivityHandler.java`
+Field `options` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/PromptValidatorContext.java`
 #### Snippet
 ```java
 
-        private int statusCode;
-        private Object body;
-
-        /**
+    private Map<String, Object> state;
+    private PromptOptions options;
+    private TurnContext context;
+    private PromptRecognizerResult<T> recognized;
 ```
 
 ### FieldMayBeFinal
@@ -24092,27 +23528,15 @@ public class PromptValidatorContext<T> {
 ```
 
 ### FieldMayBeFinal
-Field `context` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/PromptValidatorContext.java`
+Field `mapper` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/DialogStateManager.java`
 #### Snippet
 ```java
-    private Map<String, Object> state;
-    private PromptOptions options;
-    private TurnContext context;
-    private PromptRecognizerResult<T> recognized;
+    private int version;
 
-```
+    private ObjectMapper mapper = new ObjectMapper().findAndRegisterModules();
 
-### FieldMayBeFinal
-Field `options` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/PromptValidatorContext.java`
-#### Snippet
-```java
-
-    private Map<String, Object> state;
-    private PromptOptions options;
-    private TurnContext context;
-    private PromptRecognizerResult<T> recognized;
+    /**
 ```
 
 ### FieldMayBeFinal
@@ -24128,15 +23552,15 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/prompts/Prompt
 ```
 
 ### FieldMayBeFinal
-Field `mapper` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/bot/dialogs/memory/DialogStateManager.java`
+Field `config` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/choice/parsers/ChoiceParser.java`
 #### Snippet
 ```java
-    private int version;
+public class ChoiceParser<T> implements IParser {
 
-    private ObjectMapper mapper = new ObjectMapper().findAndRegisterModules();
+    private IChoiceParserConfiguration<T> config;
 
-    /**
+    public ChoiceParser(IChoiceParserConfiguration<T> config) {
 ```
 
 ### FieldMayBeFinal
@@ -24153,18 +23577,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/ModelFact
 
 ### FieldMayBeFinal
 Field `config` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/choice/parsers/ChoiceParser.java`
-#### Snippet
-```java
-public class ChoiceParser<T> implements IParser {
-
-    private IChoiceParserConfiguration<T> config;
-
-    public ChoiceParser(IChoiceParserConfiguration<T> config) {
-```
-
-### FieldMayBeFinal
-Field `config` may be 'final'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/choice/extractors/ChoiceExtractor.java`
 #### Snippet
 ```java
@@ -24173,138 +23585,6 @@ public class ChoiceExtractor implements IExtractor {
     private IChoiceExtractorConfiguration config;
 
     public ChoiceExtractor(IChoiceExtractorConfiguration config) {
-```
-
-### FieldMayBeFinal
-Field `dateParser` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
-#### Snippet
-```java
-    }
-
-    private IDateTimeParser dateParser;
-
-    public final IDateTimeParser getDateParser() {
-```
-
-### FieldMayBeFinal
-Field `yearTypeRegex` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
-#### Snippet
-```java
-            RegExpUtility.getSafeRegExp(EnglishDateTime.QuarterTypeRegex);
-
-    private static Pattern yearTypeRegex =
-            RegExpUtility.getSafeRegExp(EnglishDateTime.YearTypeRegex);
-
-```
-
-### FieldMayBeFinal
-Field `quarterTypeRegex` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
-#### Snippet
-```java
-            RegExpUtility.getSafeRegExp(EnglishDateTime.MonthTypeRegex);
-
-    private static Pattern quarterTypeRegex =
-            RegExpUtility.getSafeRegExp(EnglishDateTime.QuarterTypeRegex);
-
-```
-
-### FieldMayBeFinal
-Field `timePeriodParser` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
-#### Snippet
-```java
-    }
-
-    private IDateTimeParser timePeriodParser;
-
-    public final IDateTimeParser getTimePeriodParser() {
-```
-
-### FieldMayBeFinal
-Field `eachUnitRegex` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
-#### Snippet
-```java
-    }
-
-    private Pattern eachUnitRegex;
-
-    public final Pattern getEachUnitRegex() {
-```
-
-### FieldMayBeFinal
-Field `weekendTypeRegex` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
-#### Snippet
-```java
-            RegExpUtility.getSafeRegExp(EnglishDateTime.WeekTypeRegex);
-
-    private static Pattern weekendTypeRegex =
-            RegExpUtility.getSafeRegExp(EnglishDateTime.WeekendTypeRegex);
-
-```
-
-### FieldMayBeFinal
-Field `datePeriodExtractor` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
-#### Snippet
-```java
-    }
-
-    private IDateTimeExtractor datePeriodExtractor;
-
-    public final IDateTimeExtractor getDatePeriodExtractor() {
-```
-
-### FieldMayBeFinal
-Field `setWeekDayRegex` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
-#### Snippet
-```java
-    }
-
-    private Pattern setWeekDayRegex;
-
-    public final Pattern getSetWeekDayRegex() {
-```
-
-### FieldMayBeFinal
-Field `datePeriodParser` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
-#### Snippet
-```java
-    }
-
-    private IDateTimeParser datePeriodParser;
-
-    public final IDateTimeParser getDatePeriodParser() {
-```
-
-### FieldMayBeFinal
-Field `setEachRegex` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
-#### Snippet
-```java
-    }
-
-    private Pattern setEachRegex;
-
-    public final Pattern getSetEachRegex() {
-```
-
-### FieldMayBeFinal
-Field `dateExtractor` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
-#### Snippet
-```java
-    }
-
-    private IDateExtractor dateExtractor;
-
-    public final IDateExtractor getDateExtractor() {
 ```
 
 ### FieldMayBeFinal
@@ -24320,14 +23600,266 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### FieldMayBeFinal
-Field `weekTypeRegex` may be 'final'
+Field `durationExtractor` may be 'final'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
 #### Snippet
 ```java
+    }
+
+    private IDateTimeExtractor durationExtractor;
+
+    public final IDateTimeExtractor getDurationExtractor() {
+```
+
+### FieldMayBeFinal
+Field `periodicRegex` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private Pattern periodicRegex;
+
+    public final Pattern getPeriodicRegex() {
+```
+
+### FieldMayBeFinal
+Field `datePeriodExtractor` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private IDateTimeExtractor datePeriodExtractor;
+
+    public final IDateTimeExtractor getDatePeriodExtractor() {
+```
+
+### FieldMayBeFinal
+Field `datePeriodParser` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private IDateTimeParser datePeriodParser;
+
+    public final IDateTimeParser getDatePeriodParser() {
+```
+
+### FieldMayBeFinal
+Field `yearTypeRegex` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
+#### Snippet
+```java
+            RegExpUtility.getSafeRegExp(EnglishDateTime.QuarterTypeRegex);
+
+    private static Pattern yearTypeRegex =
+            RegExpUtility.getSafeRegExp(EnglishDateTime.YearTypeRegex);
+
+```
+
+### FieldMayBeFinal
+Field `setWeekDayRegex` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private Pattern setWeekDayRegex;
+
+    public final Pattern getSetWeekDayRegex() {
+```
+
+### FieldMayBeFinal
+Field `timePeriodParser` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private IDateTimeParser timePeriodParser;
+
+    public final IDateTimeParser getTimePeriodParser() {
+```
+
+### FieldMayBeFinal
+Field `timeParser` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
+#### Snippet
+```java
+public class EnglishSetParserConfiguration extends BaseOptionsConfiguration implements ISetParserConfiguration {
+
+    private IDateTimeParser timeParser;
+
+    public final IDateTimeParser getTimeParser() {
+```
+
+### FieldMayBeFinal
+Field `unitMap` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private ImmutableMap<String, String> unitMap;
+
+    public final ImmutableMap<String, String> getUnitMap() {
+```
+
+### FieldMayBeFinal
+Field `dateTimePeriodExtractor` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private IDateTimeExtractor dateTimePeriodExtractor;
+
+    public final IDateTimeExtractor getDateTimePeriodExtractor() {
+```
+
+### FieldMayBeFinal
+Field `eachPrefixRegex` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private Pattern eachPrefixRegex;
+
+    public final Pattern getEachPrefixRegex() {
+```
+
+### FieldMayBeFinal
+Field `dateTimeExtractor` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private IDateTimeExtractor dateTimeExtractor;
+
+    public final IDateTimeExtractor getDateTimeExtractor() {
+```
+
+### FieldMayBeFinal
+Field `eachUnitRegex` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private Pattern eachUnitRegex;
+
+    public final Pattern getEachUnitRegex() {
+```
+
+### FieldMayBeFinal
+Field `doubleMultiplierRegex` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private static Pattern doubleMultiplierRegex =
+            RegExpUtility.getSafeRegExp(EnglishDateTime.DoubleMultiplierRegex);
+
+```
+
+### FieldMayBeFinal
+Field `dateTimePeriodParser` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private IDateTimeParser dateTimePeriodParser;
+
+    public final IDateTimeParser getDateTimePeriodParser() {
+```
+
+### FieldMayBeFinal
+Field `dateParser` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private IDateTimeParser dateParser;
+
+    public final IDateTimeParser getDateParser() {
+```
+
+### FieldMayBeFinal
+Field `monthTypeRegex` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
+#### Snippet
+```java
+            RegExpUtility.getSafeRegExp(EnglishDateTime.WeekendTypeRegex);
+
+    private static Pattern monthTypeRegex =
+            RegExpUtility.getSafeRegExp(EnglishDateTime.MonthTypeRegex);
+
+```
+
+### FieldMayBeFinal
+Field `timePeriodExtractor` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private IDateTimeExtractor timePeriodExtractor;
+
+    public final IDateTimeExtractor getTimePeriodExtractor() {
+```
+
+### FieldMayBeFinal
+Field `dateExtractor` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private IDateExtractor dateExtractor;
+
+    public final IDateExtractor getDateExtractor() {
+```
+
+### FieldMayBeFinal
+Field `dayTypeRegex` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
+#### Snippet
+```java
+            RegExpUtility.getSafeRegExp(EnglishDateTime.HalfMultiplierRegex);
+
+    private static Pattern dayTypeRegex =
             RegExpUtility.getSafeRegExp(EnglishDateTime.DayTypeRegex);
 
-    private static Pattern weekTypeRegex =
+```
+
+### FieldMayBeFinal
+Field `halfMultiplierRegex` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
+#### Snippet
+```java
+            RegExpUtility.getSafeRegExp(EnglishDateTime.DoubleMultiplierRegex);
+
+    private static Pattern halfMultiplierRegex =
+            RegExpUtility.getSafeRegExp(EnglishDateTime.HalfMultiplierRegex);
+
+```
+
+### FieldMayBeFinal
+Field `weekendTypeRegex` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
+#### Snippet
+```java
             RegExpUtility.getSafeRegExp(EnglishDateTime.WeekTypeRegex);
+
+    private static Pattern weekendTypeRegex =
+            RegExpUtility.getSafeRegExp(EnglishDateTime.WeekendTypeRegex);
 
 ```
 
@@ -24344,38 +23876,14 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### FieldMayBeFinal
-Field `timeExtractor` may be 'final'
+Field `quarterTypeRegex` may be 'final'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
 #### Snippet
 ```java
-    }
-
-    private IDateTimeExtractor timeExtractor;
-
-    public final IDateTimeExtractor getTimeExtractor() {
-```
-
-### FieldMayBeFinal
-Field `monthTypeRegex` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
-#### Snippet
-```java
-            RegExpUtility.getSafeRegExp(EnglishDateTime.WeekendTypeRegex);
-
-    private static Pattern monthTypeRegex =
             RegExpUtility.getSafeRegExp(EnglishDateTime.MonthTypeRegex);
 
-```
-
-### FieldMayBeFinal
-Field `doubleMultiplierRegex` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
-#### Snippet
-```java
-    }
-
-    private static Pattern doubleMultiplierRegex =
-            RegExpUtility.getSafeRegExp(EnglishDateTime.DoubleMultiplierRegex);
+    private static Pattern quarterTypeRegex =
+            RegExpUtility.getSafeRegExp(EnglishDateTime.QuarterTypeRegex);
 
 ```
 
@@ -24392,135 +23900,39 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### FieldMayBeFinal
-Field `durationExtractor` may be 'final'
+Field `weekTypeRegex` may be 'final'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
 #### Snippet
 ```java
-    }
-
-    private IDateTimeExtractor durationExtractor;
-
-    public final IDateTimeExtractor getDurationExtractor() {
-```
-
-### FieldMayBeFinal
-Field `halfMultiplierRegex` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
-#### Snippet
-```java
-            RegExpUtility.getSafeRegExp(EnglishDateTime.DoubleMultiplierRegex);
-
-    private static Pattern halfMultiplierRegex =
-            RegExpUtility.getSafeRegExp(EnglishDateTime.HalfMultiplierRegex);
-
-```
-
-### FieldMayBeFinal
-Field `timeParser` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
-#### Snippet
-```java
-public class EnglishSetParserConfiguration extends BaseOptionsConfiguration implements ISetParserConfiguration {
-
-    private IDateTimeParser timeParser;
-
-    public final IDateTimeParser getTimeParser() {
-```
-
-### FieldMayBeFinal
-Field `dateTimePeriodExtractor` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
-#### Snippet
-```java
-    }
-
-    private IDateTimeExtractor dateTimePeriodExtractor;
-
-    public final IDateTimeExtractor getDateTimePeriodExtractor() {
-```
-
-### FieldMayBeFinal
-Field `dateTimeExtractor` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
-#### Snippet
-```java
-    }
-
-    private IDateTimeExtractor dateTimeExtractor;
-
-    public final IDateTimeExtractor getDateTimeExtractor() {
-```
-
-### FieldMayBeFinal
-Field `dateTimePeriodParser` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
-#### Snippet
-```java
-    }
-
-    private IDateTimeParser dateTimePeriodParser;
-
-    public final IDateTimeParser getDateTimePeriodParser() {
-```
-
-### FieldMayBeFinal
-Field `dayTypeRegex` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
-#### Snippet
-```java
-            RegExpUtility.getSafeRegExp(EnglishDateTime.HalfMultiplierRegex);
-
-    private static Pattern dayTypeRegex =
             RegExpUtility.getSafeRegExp(EnglishDateTime.DayTypeRegex);
 
+    private static Pattern weekTypeRegex =
+            RegExpUtility.getSafeRegExp(EnglishDateTime.WeekTypeRegex);
+
 ```
 
 ### FieldMayBeFinal
-Field `periodicRegex` may be 'final'
+Field `setEachRegex` may be 'final'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
 #### Snippet
 ```java
     }
 
-    private Pattern periodicRegex;
+    private Pattern setEachRegex;
 
-    public final Pattern getPeriodicRegex() {
+    public final Pattern getSetEachRegex() {
 ```
 
 ### FieldMayBeFinal
-Field `eachPrefixRegex` may be 'final'
+Field `timeExtractor` may be 'final'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
 #### Snippet
 ```java
     }
 
-    private Pattern eachPrefixRegex;
+    private IDateTimeExtractor timeExtractor;
 
-    public final Pattern getEachPrefixRegex() {
-```
-
-### FieldMayBeFinal
-Field `timePeriodExtractor` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
-#### Snippet
-```java
-    }
-
-    private IDateTimeExtractor timePeriodExtractor;
-
-    public final IDateTimeExtractor getTimePeriodExtractor() {
-```
-
-### FieldMayBeFinal
-Field `unitMap` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/parsers/EnglishSetParserConfiguration.java`
-#### Snippet
-```java
-    }
-
-    private ImmutableMap<String, String> unitMap;
-
-    public final ImmutableMap<String, String> getUnitMap() {
+    public final IDateTimeExtractor getTimeExtractor() {
 ```
 
 ### FieldMayBeFinal
@@ -24548,15 +23960,15 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### FieldMayBeFinal
-Field `timePeriodExtractor` may be 'final'
+Field `dateTimePeriodExtractor` may be 'final'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/extractors/EnglishSetExtractorConfiguration.java`
 #### Snippet
 ```java
     }
 
-    private IDateTimeExtractor timePeriodExtractor;
+    private IDateTimeExtractor dateTimePeriodExtractor;
 
-    public final IDateTimeExtractor getTimePeriodExtractor() {
+    public final IDateTimeExtractor getDateTimePeriodExtractor() {
 ```
 
 ### FieldMayBeFinal
@@ -24572,15 +23984,15 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### FieldMayBeFinal
-Field `datePeriodExtractor` may be 'final'
+Field `timePeriodExtractor` may be 'final'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/extractors/EnglishSetExtractorConfiguration.java`
 #### Snippet
 ```java
     }
 
-    private IDateTimeExtractor datePeriodExtractor;
+    private IDateTimeExtractor timePeriodExtractor;
 
-    public final IDateTimeExtractor getDatePeriodExtractor() {
+    public final IDateTimeExtractor getTimePeriodExtractor() {
 ```
 
 ### FieldMayBeFinal
@@ -24596,15 +24008,15 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### FieldMayBeFinal
-Field `dateTimePeriodExtractor` may be 'final'
+Field `datePeriodExtractor` may be 'final'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/extractors/EnglishSetExtractorConfiguration.java`
 #### Snippet
 ```java
     }
 
-    private IDateTimeExtractor dateTimePeriodExtractor;
+    private IDateTimeExtractor datePeriodExtractor;
 
-    public final IDateTimeExtractor getDateTimePeriodExtractor() {
+    public final IDateTimeExtractor getDatePeriodExtractor() {
 ```
 
 ### FieldMayBeFinal
@@ -24629,18 +24041,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
     private IDateTimeExtractor durationExtractor;
 
     public final IDateTimeExtractor getDurationExtractor() {
-```
-
-### FieldMayBeFinal
-Field `singleTimeExtractor` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/extractors/EnglishTimePeriodExtractorConfiguration.java`
-#### Snippet
-```java
-    }
-
-    private IDateTimeExtractor singleTimeExtractor;
-
-    public final IDateTimeExtractor getSingleTimeExtractor() {
 ```
 
 ### FieldMayBeFinal
@@ -24668,6 +24068,18 @@ public class EnglishTimePeriodExtractorConfiguration extends BaseOptionsConfigur
 ```
 
 ### FieldMayBeFinal
+Field `singleTimeExtractor` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/extractors/EnglishTimePeriodExtractorConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private IDateTimeExtractor singleTimeExtractor;
+
+    public final IDateTimeExtractor getSingleTimeExtractor() {
+```
+
+### FieldMayBeFinal
 Field `utilityConfiguration` may be 'final'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/extractors/EnglishTimePeriodExtractorConfiguration.java`
 #### Snippet
@@ -24677,6 +24089,18 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
     private IDateTimeUtilityConfiguration utilityConfiguration;
 
     public final IDateTimeUtilityConfiguration getUtilityConfiguration() {
+```
+
+### FieldMayBeFinal
+Field `dateTimeExtractor` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/extractors/EnglishMergedExtractorConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private IDateTimeExtractor dateTimeExtractor;
+
+    public final IDateTimeExtractor getDateTimeExtractor() {
 ```
 
 ### FieldMayBeFinal
@@ -24704,27 +24128,39 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### FieldMayBeFinal
-Field `integerExtractor` may be 'final'
+Field `datePeriodExtractor` may be 'final'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/extractors/EnglishMergedExtractorConfiguration.java`
 #### Snippet
 ```java
     }
 
-    private IExtractor integerExtractor;
+    private IDateTimeExtractor datePeriodExtractor;
 
-    public final IExtractor getIntegerExtractor() {
+    public final IDateTimeExtractor getDatePeriodExtractor() {
 ```
 
 ### FieldMayBeFinal
-Field `durationExtractor` may be 'final'
+Field `timeExtractor` may be 'final'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/extractors/EnglishMergedExtractorConfiguration.java`
 #### Snippet
 ```java
     }
 
-    private IDateTimeExtractor durationExtractor;
+    private IDateTimeExtractor timeExtractor;
 
-    public final IDateTimeExtractor getDurationExtractor() {
+    public final IDateTimeExtractor getTimeExtractor() {
+```
+
+### FieldMayBeFinal
+Field `timePeriodExtractor` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/extractors/EnglishMergedExtractorConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private IDateTimeExtractor timePeriodExtractor;
+
+    public final IDateTimeExtractor getTimePeriodExtractor() {
 ```
 
 ### FieldMayBeFinal
@@ -24740,39 +24176,27 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### FieldMayBeFinal
-Field `datePeriodExtractor` may be 'final'
+Field `dateExtractor` may be 'final'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/extractors/EnglishMergedExtractorConfiguration.java`
 #### Snippet
 ```java
     }
 
-    private IDateTimeExtractor datePeriodExtractor;
+    private IDateExtractor dateExtractor;
 
-    public final IDateTimeExtractor getDatePeriodExtractor() {
+    public final IDateExtractor getDateExtractor() {
 ```
 
 ### FieldMayBeFinal
-Field `timeExtractor` may be 'final'
+Field `integerExtractor` may be 'final'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/extractors/EnglishMergedExtractorConfiguration.java`
 #### Snippet
 ```java
     }
 
-    private IDateTimeExtractor timeExtractor;
+    private IExtractor integerExtractor;
 
-    public final IDateTimeExtractor getTimeExtractor() {
-```
-
-### FieldMayBeFinal
-Field `dateTimeAltExtractor` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/extractors/EnglishMergedExtractorConfiguration.java`
-#### Snippet
-```java
-    }
-
-    private IDateTimeListExtractor dateTimeAltExtractor;
-
-    public final IDateTimeListExtractor getDateTimeAltExtractor() {
+    public final IExtractor getIntegerExtractor() {
 ```
 
 ### FieldMayBeFinal
@@ -24788,39 +24212,27 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### FieldMayBeFinal
-Field `dateTimeExtractor` may be 'final'
+Field `dateTimeAltExtractor` may be 'final'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/extractors/EnglishMergedExtractorConfiguration.java`
 #### Snippet
 ```java
     }
 
-    private IDateTimeExtractor dateTimeExtractor;
+    private IDateTimeListExtractor dateTimeAltExtractor;
 
-    public final IDateTimeExtractor getDateTimeExtractor() {
+    public final IDateTimeListExtractor getDateTimeAltExtractor() {
 ```
 
 ### FieldMayBeFinal
-Field `timePeriodExtractor` may be 'final'
+Field `durationExtractor` may be 'final'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/extractors/EnglishMergedExtractorConfiguration.java`
 #### Snippet
 ```java
     }
 
-    private IDateTimeExtractor timePeriodExtractor;
+    private IDateTimeExtractor durationExtractor;
 
-    public final IDateTimeExtractor getTimePeriodExtractor() {
-```
-
-### FieldMayBeFinal
-Field `dateExtractor` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/english/extractors/EnglishMergedExtractorConfiguration.java`
-#### Snippet
-```java
-    }
-
-    private IDateExtractor dateExtractor;
-
-    public final IDateExtractor getDateExtractor() {
+    public final IDateTimeExtractor getDurationExtractor() {
 ```
 
 ### FieldMayBeFinal
@@ -24836,219 +24248,15 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### FieldMayBeFinal
-Field `timePeriodParser` may be 'final'
+Field `timePeriodExtractor` may be 'final'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishSetParserConfiguration.java`
 #### Snippet
 ```java
     }
 
-    private IDateTimeParser timePeriodParser;
+    private IDateTimeExtractor timePeriodExtractor;
 
-    public final IDateTimeParser getTimePeriodParser() {
-```
-
-### FieldMayBeFinal
-Field `dateTimePeriodExtractor` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishSetParserConfiguration.java`
-#### Snippet
-```java
-    }
-
-    private IDateTimeExtractor dateTimePeriodExtractor;
-
-    public final IDateTimeExtractor getDateTimePeriodExtractor() {
-```
-
-### FieldMayBeFinal
-Field `timeParser` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishSetParserConfiguration.java`
-#### Snippet
-```java
-    }
-
-    private IDateTimeParser timeParser;
-
-    public final IDateTimeParser getTimeParser() {
-```
-
-### FieldMayBeFinal
-Field `eachPrefixRegex` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishSetParserConfiguration.java`
-#### Snippet
-```java
-    }
-
-    private Pattern eachPrefixRegex;
-
-    public final Pattern getEachPrefixRegex() {
-```
-
-### FieldMayBeFinal
-Field `dateTimeParser` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishSetParserConfiguration.java`
-#### Snippet
-```java
-    }
-
-    private IDateTimeParser dateTimeParser;
-
-    public final IDateTimeParser getDateTimeParser() {
-```
-
-### FieldMayBeFinal
-Field `periodicRegex` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishSetParserConfiguration.java`
-#### Snippet
-```java
-    }
-
-    private Pattern periodicRegex;
-
-    public final Pattern getPeriodicRegex() {
-```
-
-### FieldMayBeFinal
-Field `setWeekDayRegex` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishSetParserConfiguration.java`
-#### Snippet
-```java
-    }
-
-    private Pattern setWeekDayRegex;
-
-    public final Pattern getSetWeekDayRegex() {
-```
-
-### FieldMayBeFinal
-Field `dateTimeExtractor` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishSetParserConfiguration.java`
-#### Snippet
-```java
-    }
-
-    private IDateTimeExtractor dateTimeExtractor;
-
-    public final IDateTimeExtractor getDateTimeExtractor() {
-```
-
-### FieldMayBeFinal
-Field `eachDayRegex` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishSetParserConfiguration.java`
-#### Snippet
-```java
-    }
-
-    private Pattern eachDayRegex;
-
-    public final Pattern getEachDayRegex() {
-```
-
-### FieldMayBeFinal
-Field `dateParser` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishSetParserConfiguration.java`
-#### Snippet
-```java
-    }
-
-    private IDateTimeParser dateParser;
-
-    public final IDateTimeParser getDateParser() {
-```
-
-### FieldMayBeFinal
-Field `durationParser` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishSetParserConfiguration.java`
-#### Snippet
-```java
-    }
-
-    private IDateTimeParser durationParser;
-
-    public final IDateTimeParser getDurationParser() {
-```
-
-### FieldMayBeFinal
-Field `datePeriodExtractor` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishSetParserConfiguration.java`
-#### Snippet
-```java
-    }
-
-    private IDateTimeExtractor datePeriodExtractor;
-
-    public final IDateTimeExtractor getDatePeriodExtractor() {
-```
-
-### FieldMayBeFinal
-Field `timeExtractor` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishSetParserConfiguration.java`
-#### Snippet
-```java
-    }
-
-    private IDateTimeExtractor timeExtractor;
-
-    public final IDateTimeExtractor getTimeExtractor() {
-```
-
-### FieldMayBeFinal
-Field `eachUnitRegex` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishSetParserConfiguration.java`
-#### Snippet
-```java
-    }
-
-    private Pattern eachUnitRegex;
-
-    public final Pattern getEachUnitRegex() {
-```
-
-### FieldMayBeFinal
-Field `durationExtractor` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishSetParserConfiguration.java`
-#### Snippet
-```java
-public class SpanishSetParserConfiguration extends BaseOptionsConfiguration implements ISetParserConfiguration {
-
-    private IDateTimeExtractor durationExtractor;
-
-    public final IDateTimeExtractor getDurationExtractor() {
-```
-
-### FieldMayBeFinal
-Field `unitMap` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishSetParserConfiguration.java`
-#### Snippet
-```java
-    }
-
-    private ImmutableMap<String, String> unitMap;
-
-    public final ImmutableMap<String, String> getUnitMap() {
-```
-
-### FieldMayBeFinal
-Field `dateExtractor` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishSetParserConfiguration.java`
-#### Snippet
-```java
-    }
-
-    private IDateExtractor dateExtractor;
-
-    public final IDateExtractor getDateExtractor() {
-```
-
-### FieldMayBeFinal
-Field `datePeriodParser` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishSetParserConfiguration.java`
-#### Snippet
-```java
-    }
-
-    private IDateTimeParser datePeriodParser;
-
-    public final IDateTimeParser getDatePeriodParser() {
+    public final IDateTimeExtractor getTimePeriodExtractor() {
 ```
 
 ### FieldMayBeFinal
@@ -25064,6 +24272,42 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### FieldMayBeFinal
+Field `timeExtractor` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishSetParserConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private IDateTimeExtractor timeExtractor;
+
+    public final IDateTimeExtractor getTimeExtractor() {
+```
+
+### FieldMayBeFinal
+Field `durationExtractor` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishSetParserConfiguration.java`
+#### Snippet
+```java
+public class SpanishSetParserConfiguration extends BaseOptionsConfiguration implements ISetParserConfiguration {
+
+    private IDateTimeExtractor durationExtractor;
+
+    public final IDateTimeExtractor getDurationExtractor() {
+```
+
+### FieldMayBeFinal
+Field `periodicRegex` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishSetParserConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private Pattern periodicRegex;
+
+    public final Pattern getPeriodicRegex() {
+```
+
+### FieldMayBeFinal
 Field `dateTimePeriodParser` may be 'final'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishSetParserConfiguration.java`
 #### Snippet
@@ -25076,27 +24320,183 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### FieldMayBeFinal
-Field `timePeriodExtractor` may be 'final'
+Field `timePeriodParser` may be 'final'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishSetParserConfiguration.java`
 #### Snippet
 ```java
     }
 
-    private IDateTimeExtractor timePeriodExtractor;
+    private IDateTimeParser timePeriodParser;
 
-    public final IDateTimeExtractor getTimePeriodExtractor() {
+    public final IDateTimeParser getTimePeriodParser() {
 ```
 
 ### FieldMayBeFinal
-Field `timeExtractor` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/extractors/SpanishSetExtractorConfiguration.java`
+Field `datePeriodExtractor` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishSetParserConfiguration.java`
 #### Snippet
 ```java
     }
 
-    private IDateTimeExtractor timeExtractor;
+    private IDateTimeExtractor datePeriodExtractor;
 
-    public final IDateTimeExtractor getTimeExtractor() {
+    public final IDateTimeExtractor getDatePeriodExtractor() {
+```
+
+### FieldMayBeFinal
+Field `eachUnitRegex` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishSetParserConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private Pattern eachUnitRegex;
+
+    public final Pattern getEachUnitRegex() {
+```
+
+### FieldMayBeFinal
+Field `durationParser` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishSetParserConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private IDateTimeParser durationParser;
+
+    public final IDateTimeParser getDurationParser() {
+```
+
+### FieldMayBeFinal
+Field `eachDayRegex` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishSetParserConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private Pattern eachDayRegex;
+
+    public final Pattern getEachDayRegex() {
+```
+
+### FieldMayBeFinal
+Field `unitMap` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishSetParserConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private ImmutableMap<String, String> unitMap;
+
+    public final ImmutableMap<String, String> getUnitMap() {
+```
+
+### FieldMayBeFinal
+Field `datePeriodParser` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishSetParserConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private IDateTimeParser datePeriodParser;
+
+    public final IDateTimeParser getDatePeriodParser() {
+```
+
+### FieldMayBeFinal
+Field `dateTimeParser` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishSetParserConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private IDateTimeParser dateTimeParser;
+
+    public final IDateTimeParser getDateTimeParser() {
+```
+
+### FieldMayBeFinal
+Field `timeParser` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishSetParserConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private IDateTimeParser timeParser;
+
+    public final IDateTimeParser getTimeParser() {
+```
+
+### FieldMayBeFinal
+Field `dateTimePeriodExtractor` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishSetParserConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private IDateTimeExtractor dateTimePeriodExtractor;
+
+    public final IDateTimeExtractor getDateTimePeriodExtractor() {
+```
+
+### FieldMayBeFinal
+Field `dateParser` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishSetParserConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private IDateTimeParser dateParser;
+
+    public final IDateTimeParser getDateParser() {
+```
+
+### FieldMayBeFinal
+Field `dateTimeExtractor` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishSetParserConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private IDateTimeExtractor dateTimeExtractor;
+
+    public final IDateTimeExtractor getDateTimeExtractor() {
+```
+
+### FieldMayBeFinal
+Field `setWeekDayRegex` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishSetParserConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private Pattern setWeekDayRegex;
+
+    public final Pattern getSetWeekDayRegex() {
+```
+
+### FieldMayBeFinal
+Field `eachPrefixRegex` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishSetParserConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private Pattern eachPrefixRegex;
+
+    public final Pattern getEachPrefixRegex() {
+```
+
+### FieldMayBeFinal
+Field `dateExtractor` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/parsers/SpanishSetParserConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private IDateExtractor dateExtractor;
+
+    public final IDateExtractor getDateExtractor() {
 ```
 
 ### FieldMayBeFinal
@@ -25112,15 +24512,15 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### FieldMayBeFinal
-Field `dateTimePeriodExtractor` may be 'final'
+Field `dateTimeExtractor` may be 'final'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/extractors/SpanishSetExtractorConfiguration.java`
 #### Snippet
 ```java
     }
 
-    private IDateTimeExtractor dateTimePeriodExtractor;
+    private IDateTimeExtractor dateTimeExtractor;
 
-    public final IDateTimeExtractor getDateTimePeriodExtractor() {
+    public final IDateTimeExtractor getDateTimeExtractor() {
 ```
 
 ### FieldMayBeFinal
@@ -25148,18 +24548,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### FieldMayBeFinal
-Field `dateTimeExtractor` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/extractors/SpanishSetExtractorConfiguration.java`
-#### Snippet
-```java
-    }
-
-    private IDateTimeExtractor dateTimeExtractor;
-
-    public final IDateTimeExtractor getDateTimeExtractor() {
-```
-
-### FieldMayBeFinal
 Field `durationExtractor` may be 'final'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/extractors/SpanishSetExtractorConfiguration.java`
 #### Snippet
@@ -25172,32 +24560,8 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### FieldMayBeFinal
-Field `timeZoneExtractor` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/extractors/SpanishMergedExtractorConfiguration.java`
-#### Snippet
-```java
-    }
-
-    private IDateTimeZoneExtractor timeZoneExtractor;
-
-    public final IDateTimeZoneExtractor getTimeZoneExtractor() {
-```
-
-### FieldMayBeFinal
-Field `setExtractor` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/extractors/SpanishMergedExtractorConfiguration.java`
-#### Snippet
-```java
-    }
-
-    private IDateTimeExtractor setExtractor;
-
-    public final IDateTimeExtractor getSetExtractor() {
-```
-
-### FieldMayBeFinal
 Field `timeExtractor` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/extractors/SpanishMergedExtractorConfiguration.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/extractors/SpanishSetExtractorConfiguration.java`
 #### Snippet
 ```java
     }
@@ -25208,15 +24572,63 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### FieldMayBeFinal
-Field `dateExtractor` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/extractors/SpanishMergedExtractorConfiguration.java`
+Field `dateTimePeriodExtractor` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/extractors/SpanishSetExtractorConfiguration.java`
 #### Snippet
 ```java
     }
 
-    private IDateExtractor dateExtractor;
+    private IDateTimeExtractor dateTimePeriodExtractor;
 
-    public final IDateExtractor getDateExtractor() {
+    public final IDateTimeExtractor getDateTimePeriodExtractor() {
+```
+
+### FieldMayBeFinal
+Field `singleTimeExtractor` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/extractors/SpanishTimePeriodExtractorConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private IDateTimeExtractor singleTimeExtractor;
+
+    public final IDateTimeExtractor getSingleTimeExtractor() {
+```
+
+### FieldMayBeFinal
+Field `utilityConfiguration` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/extractors/SpanishTimePeriodExtractorConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private IDateTimeUtilityConfiguration utilityConfiguration;
+
+    public final IDateTimeUtilityConfiguration getUtilityConfiguration() {
+```
+
+### FieldMayBeFinal
+Field `tokenBeforeDate` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/extractors/SpanishTimePeriodExtractorConfiguration.java`
+#### Snippet
+```java
+public class SpanishTimePeriodExtractorConfiguration extends BaseOptionsConfiguration implements ITimePeriodExtractorConfiguration {
+
+    private String tokenBeforeDate;
+
+    public final String getTokenBeforeDate() {
+```
+
+### FieldMayBeFinal
+Field `integerExtractor` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/extractors/SpanishTimePeriodExtractorConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private IExtractor integerExtractor;
+
+    public final IExtractor getIntegerExtractor() {
 ```
 
 ### FieldMayBeFinal
@@ -25232,63 +24644,15 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### FieldMayBeFinal
-Field `dateTimeAltExtractor` may be 'final'
+Field `timeExtractor` may be 'final'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/extractors/SpanishMergedExtractorConfiguration.java`
 #### Snippet
 ```java
     }
 
-    private IDateTimeListExtractor dateTimeAltExtractor;
+    private IDateTimeExtractor timeExtractor;
 
-    public final IDateTimeListExtractor getDateTimeAltExtractor() {
-```
-
-### FieldMayBeFinal
-Field `datePeriodExtractor` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/extractors/SpanishMergedExtractorConfiguration.java`
-#### Snippet
-```java
-    }
-
-    private IDateTimeExtractor datePeriodExtractor;
-
-    public final IDateTimeExtractor getDatePeriodExtractor() {
-```
-
-### FieldMayBeFinal
-Field `dateTimeExtractor` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/extractors/SpanishMergedExtractorConfiguration.java`
-#### Snippet
-```java
-    }
-
-    private IDateTimeExtractor dateTimeExtractor;
-
-    public final IDateTimeExtractor getDateTimeExtractor() {
-```
-
-### FieldMayBeFinal
-Field `dateTimePeriodExtractor` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/extractors/SpanishMergedExtractorConfiguration.java`
-#### Snippet
-```java
-    }
-
-    private IDateTimeExtractor dateTimePeriodExtractor;
-
-    public final IDateTimeExtractor getDateTimePeriodExtractor() {
-```
-
-### FieldMayBeFinal
-Field `holidayExtractor` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/extractors/SpanishMergedExtractorConfiguration.java`
-#### Snippet
-```java
-    }
-
-    private IDateTimeExtractor holidayExtractor;
-
-    public final IDateTimeExtractor getHolidayExtractor() {
+    public final IDateTimeExtractor getTimeExtractor() {
 ```
 
 ### FieldMayBeFinal
@@ -25304,6 +24668,90 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### FieldMayBeFinal
+Field `dateTimeExtractor` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/extractors/SpanishMergedExtractorConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private IDateTimeExtractor dateTimeExtractor;
+
+    public final IDateTimeExtractor getDateTimeExtractor() {
+```
+
+### FieldMayBeFinal
+Field `timeZoneExtractor` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/extractors/SpanishMergedExtractorConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private IDateTimeZoneExtractor timeZoneExtractor;
+
+    public final IDateTimeZoneExtractor getTimeZoneExtractor() {
+```
+
+### FieldMayBeFinal
+Field `holidayExtractor` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/extractors/SpanishMergedExtractorConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private IDateTimeExtractor holidayExtractor;
+
+    public final IDateTimeExtractor getHolidayExtractor() {
+```
+
+### FieldMayBeFinal
+Field `dateTimeAltExtractor` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/extractors/SpanishMergedExtractorConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private IDateTimeListExtractor dateTimeAltExtractor;
+
+    public final IDateTimeListExtractor getDateTimeAltExtractor() {
+```
+
+### FieldMayBeFinal
+Field `dateTimePeriodExtractor` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/extractors/SpanishMergedExtractorConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private IDateTimeExtractor dateTimePeriodExtractor;
+
+    public final IDateTimeExtractor getDateTimePeriodExtractor() {
+```
+
+### FieldMayBeFinal
+Field `datePeriodExtractor` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/extractors/SpanishMergedExtractorConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private IDateTimeExtractor datePeriodExtractor;
+
+    public final IDateTimeExtractor getDatePeriodExtractor() {
+```
+
+### FieldMayBeFinal
+Field `setExtractor` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/extractors/SpanishMergedExtractorConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private IDateTimeExtractor setExtractor;
+
+    public final IDateTimeExtractor getSetExtractor() {
+```
+
+### FieldMayBeFinal
 Field `timePeriodExtractor` may be 'final'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/extractors/SpanishMergedExtractorConfiguration.java`
 #### Snippet
@@ -25313,6 +24761,18 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
     private IDateTimeExtractor timePeriodExtractor;
 
     public final IDateTimeExtractor getTimePeriodExtractor() {
+```
+
+### FieldMayBeFinal
+Field `dateExtractor` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/extractors/SpanishMergedExtractorConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private IDateExtractor dateExtractor;
+
+    public final IDateExtractor getDateExtractor() {
 ```
 
 ### FieldMayBeFinal
@@ -25340,54 +24800,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### FieldMayBeFinal
-Field `utilityConfiguration` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/extractors/SpanishTimePeriodExtractorConfiguration.java`
-#### Snippet
-```java
-    }
-
-    private IDateTimeUtilityConfiguration utilityConfiguration;
-
-    public final IDateTimeUtilityConfiguration getUtilityConfiguration() {
-```
-
-### FieldMayBeFinal
-Field `singleTimeExtractor` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/extractors/SpanishTimePeriodExtractorConfiguration.java`
-#### Snippet
-```java
-    }
-
-    private IDateTimeExtractor singleTimeExtractor;
-
-    public final IDateTimeExtractor getSingleTimeExtractor() {
-```
-
-### FieldMayBeFinal
-Field `integerExtractor` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/extractors/SpanishTimePeriodExtractorConfiguration.java`
-#### Snippet
-```java
-    }
-
-    private IExtractor integerExtractor;
-
-    public final IExtractor getIntegerExtractor() {
-```
-
-### FieldMayBeFinal
-Field `tokenBeforeDate` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/extractors/SpanishTimePeriodExtractorConfiguration.java`
-#### Snippet
-```java
-public class SpanishTimePeriodExtractorConfiguration extends BaseOptionsConfiguration implements ITimePeriodExtractorConfiguration {
-
-    private String tokenBeforeDate;
-
-    public final String getTokenBeforeDate() {
-```
-
-### FieldMayBeFinal
 Field `durationExtractor` may be 'final'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/extractors/SpanishDateTimeExtractorConfiguration.java`
 #### Snippet
@@ -25412,18 +24824,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### FieldMayBeFinal
-Field `datePointExtractor` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/extractors/SpanishDateTimeExtractorConfiguration.java`
-#### Snippet
-```java
-    }
-
-    private IDateExtractor datePointExtractor;
-
-    @Override
-```
-
-### FieldMayBeFinal
 Field `utilityConfiguration` may be 'final'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/extractors/SpanishDateTimeExtractorConfiguration.java`
 #### Snippet
@@ -25443,6 +24843,18 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
     }
 
     private IExtractor integerExtractor;
+
+    @Override
+```
+
+### FieldMayBeFinal
+Field `datePointExtractor` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/spanish/extractors/SpanishDateTimeExtractorConfiguration.java`
+#### Snippet
+```java
+    }
+
+    private IDateExtractor datePointExtractor;
 
     @Override
 ```
@@ -25485,18 +24897,6 @@ public class ProcessedSuperfluousWords {
 
 ### FieldMayBeFinal
 Field `options` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/config/IpConfiguration.java`
-#### Snippet
-```java
-
-public class IpConfiguration implements ISequenceConfiguration {
-    private SequenceOptions options;
-    private Pattern ipv4Regex;
-    private Pattern ipv6Regex;
-```
-
-### FieldMayBeFinal
-Field `options` may be 'final'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/config/BaseSequenceConfiguration.java`
 #### Snippet
 ```java
@@ -25505,6 +24905,18 @@ public class BaseSequenceConfiguration implements ISequenceConfiguration {
     private SequenceOptions options;
 
     public BaseSequenceConfiguration(SequenceOptions options) {
+```
+
+### FieldMayBeFinal
+Field `options` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/config/IpConfiguration.java`
+#### Snippet
+```java
+
+public class IpConfiguration implements ISequenceConfiguration {
+    private SequenceOptions options;
+    private Pattern ipv4Regex;
+    private Pattern ipv6Regex;
 ```
 
 ### FieldMayBeFinal
@@ -25532,18 +24944,6 @@ public class PhoneNumberConfiguration implements ISequenceConfiguration {
 ```
 
 ### FieldMayBeFinal
-Field `config` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/EmailParser.java`
-#### Snippet
-```java
-
-public class EmailParser extends BaseSequenceParser {
-    private BaseSequenceConfiguration config;
-
-    public EmailParser(BaseSequenceConfiguration config) {
-```
-
-### FieldMayBeFinal
 Field `PURE_DIGIT_PENALTY` may be 'final'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/GUIDParser.java`
 #### Snippet
@@ -25553,6 +24953,30 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/
     private static Double PURE_DIGIT_PENALTY = 15d;
     private static String PURE_DIGIT_REGEX = "^\\d*$";
     private static String FORMAT_REGEX = "-";
+```
+
+### FieldMayBeFinal
+Field `PURE_DIGIT_REGEX` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/GUIDParser.java`
+#### Snippet
+```java
+    private static Double NO_FORMAT_PENALTY = 10d;
+    private static Double PURE_DIGIT_PENALTY = 15d;
+    private static String PURE_DIGIT_REGEX = "^\\d*$";
+    private static String FORMAT_REGEX = "-";
+
+```
+
+### FieldMayBeFinal
+Field `BASE_SCORE` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/GUIDParser.java`
+#### Snippet
+```java
+    private static Double SCORE_UPPER_LIMIT = 100d;
+    private static Double SCORE_LOWER_LIMIT = 0d;
+    private static Double BASE_SCORE = 100d;
+    private static Double NO_BOUNDARY_PENALTY = 10d;
+    private static Double NO_FORMAT_PENALTY = 10d;
 ```
 
 ### FieldMayBeFinal
@@ -25568,147 +24992,15 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/
 ```
 
 ### FieldMayBeFinal
-Field `MAX_LENGTH_AWARD_NUM` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
-#### Snippet
-```java
-    private static Double WRONG_FORMAT_DEDUCTION_SCORE = 20d;
-    private static Integer MAX_FORMAT_INDICATOR_NUM = 3;
-    private static Integer MAX_LENGTH_AWARD_NUM = 3;
-    private static Integer TAIL_SAME_LIMIT = 2;
-    private static Integer PHONE_NUMBER_LENGTH_BASE = 8;
-```
-
-### FieldMayBeFinal
-Field `SCORE_LOWER_LIMIT` may be 'final'
+Field `FORMAT_REGEX` may be 'final'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/GUIDParser.java`
 #### Snippet
 ```java
-public class GUIDParser extends BaseSequenceParser {
-    private static Double SCORE_UPPER_LIMIT = 100d;
-    private static Double SCORE_LOWER_LIMIT = 0d;
-    private static Double BASE_SCORE = 100d;
-    private static Double NO_BOUNDARY_PENALTY = 10d;
-```
-
-### FieldMayBeFinal
-Field `TAIL_SAME_LIMIT` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
-#### Snippet
-```java
-    private static Integer MAX_FORMAT_INDICATOR_NUM = 3;
-    private static Integer MAX_LENGTH_AWARD_NUM = 3;
-    private static Integer TAIL_SAME_LIMIT = 2;
-    private static Integer PHONE_NUMBER_LENGTH_BASE = 8;
-    private static Integer PURE_DIGIT_LENGTH_LIMIT = 11;
-```
-
-### FieldMayBeFinal
-Field `PURE_DIGIT_REGEX` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/GUIDParser.java`
-#### Snippet
-```java
-    private static Double NO_FORMAT_PENALTY = 10d;
     private static Double PURE_DIGIT_PENALTY = 15d;
     private static String PURE_DIGIT_REGEX = "^\\d*$";
     private static String FORMAT_REGEX = "-";
 
-```
-
-### FieldMayBeFinal
-Field `DIGIT_REGEX` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
-#### Snippet
-```java
-    private static String PURE_DIGIT_REGEX = "^\\d*$";
-    private static String CONTINUE_DIGIT_REGEX = "\\d{5}\\d*";
-    private static String DIGIT_REGEX = "\\d";
-
-    private static final Pattern COUNTRY_CODE_REGEX = Pattern.compile(BasePhoneNumbers.CountryCodeRegex);
-```
-
-### FieldMayBeFinal
-Field `WRONG_FORMAT_DEDUCTION_SCORE` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
-#### Snippet
-```java
-    private static Double TAIL_SAME_DEDUCTION_SCORE = 10d;
-    private static Double CONTINUE_FORMAT_INDICATOR_DEDUCTION_SCORE = 20d;
-    private static Double WRONG_FORMAT_DEDUCTION_SCORE = 20d;
-    private static Integer MAX_FORMAT_INDICATOR_NUM = 3;
-    private static Integer MAX_LENGTH_AWARD_NUM = 3;
-```
-
-### FieldMayBeFinal
-Field `PURE_DIGIT_REGEX` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
-#### Snippet
-```java
-    private static String SINGLE_BRACKER_REGEX = "\\(|\\)";
-    private static String TAIL_SAME_DIGIT_REGEX = "([\\d])\\1{2,10}$";
-    private static String PURE_DIGIT_REGEX = "^\\d*$";
-    private static String CONTINUE_DIGIT_REGEX = "\\d{5}\\d*";
-    private static String DIGIT_REGEX = "\\d";
-```
-
-### FieldMayBeFinal
-Field `LENGTH_AWARD` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
-#### Snippet
-```java
-    private static Double AREA_CODE_AWARD = 30d;
-    private static Double FORMATTED_AWARD = 20d;
-    private static Double LENGTH_AWARD = 10d;
-    private static Double TYPICAL_FORMAT_DEDUCTION_SCORE = 40d;
-    private static Double CONTINUE_DIGIT_DEDUCTION_SCORE = 10d;
-```
-
-### FieldMayBeFinal
-Field `PURE_DIGIT_LENGTH_LIMIT` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
-#### Snippet
-```java
-    private static Integer TAIL_SAME_LIMIT = 2;
-    private static Integer PHONE_NUMBER_LENGTH_BASE = 8;
-    private static Integer PURE_DIGIT_LENGTH_LIMIT = 11;
-
-    // @TODO move regexes to base resource files
-```
-
-### FieldMayBeFinal
-Field `SCORE_LOWER_LIMIT` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
-#### Snippet
-```java
-public class PhoneNumberParser extends BaseSequenceParser {
-    private static Double SCORE_UPPER_LIMIT = 100d;
-    private static Double SCORE_LOWER_LIMIT = 0d;
-    private static Double BASE_SCORE = 30d;
-    private static Double COUNTRY_CODE_AWARD = 40d;
-```
-
-### FieldMayBeFinal
-Field `SCORE_UPPER_LIMIT` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
-#### Snippet
-```java
-
-public class PhoneNumberParser extends BaseSequenceParser {
-    private static Double SCORE_UPPER_LIMIT = 100d;
-    private static Double SCORE_LOWER_LIMIT = 0d;
-    private static Double BASE_SCORE = 30d;
-```
-
-### FieldMayBeFinal
-Field `CONTINUE_DIGIT_DEDUCTION_SCORE` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
-#### Snippet
-```java
-    private static Double LENGTH_AWARD = 10d;
-    private static Double TYPICAL_FORMAT_DEDUCTION_SCORE = 40d;
-    private static Double CONTINUE_DIGIT_DEDUCTION_SCORE = 10d;
-    private static Double TAIL_SAME_DEDUCTION_SCORE = 10d;
-    private static Double CONTINUE_FORMAT_INDICATOR_DEDUCTION_SCORE = 20d;
+    private static final Pattern GUID_ELEMENT_REGEX = Pattern.compile(BaseGUID.GUIDRegexElement);
 ```
 
 ### FieldMayBeFinal
@@ -25724,15 +25016,15 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/
 ```
 
 ### FieldMayBeFinal
-Field `TAIL_SAME_DIGIT_REGEX` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
+Field `SCORE_LOWER_LIMIT` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/GUIDParser.java`
 #### Snippet
 ```java
-    private static String COMPLETE_BRACKET_REGEX = "\\(.*\\)";
-    private static String SINGLE_BRACKER_REGEX = "\\(|\\)";
-    private static String TAIL_SAME_DIGIT_REGEX = "([\\d])\\1{2,10}$";
-    private static String PURE_DIGIT_REGEX = "^\\d*$";
-    private static String CONTINUE_DIGIT_REGEX = "\\d{5}\\d*";
+public class GUIDParser extends BaseSequenceParser {
+    private static Double SCORE_UPPER_LIMIT = 100d;
+    private static Double SCORE_LOWER_LIMIT = 0d;
+    private static Double BASE_SCORE = 100d;
+    private static Double NO_BOUNDARY_PENALTY = 10d;
 ```
 
 ### FieldMayBeFinal
@@ -25748,63 +25040,15 @@ public class GUIDParser extends BaseSequenceParser {
 ```
 
 ### FieldMayBeFinal
-Field `COUNTRY_CODE_AWARD` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
+Field `config` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/EmailParser.java`
 #### Snippet
 ```java
-    private static Double SCORE_LOWER_LIMIT = 0d;
-    private static Double BASE_SCORE = 30d;
-    private static Double COUNTRY_CODE_AWARD = 40d;
-    private static Double AREA_CODE_AWARD = 30d;
-    private static Double FORMATTED_AWARD = 20d;
-```
 
-### FieldMayBeFinal
-Field `FORMAT_REGEX` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/GUIDParser.java`
-#### Snippet
-```java
-    private static Double PURE_DIGIT_PENALTY = 15d;
-    private static String PURE_DIGIT_REGEX = "^\\d*$";
-    private static String FORMAT_REGEX = "-";
+public class EmailParser extends BaseSequenceParser {
+    private BaseSequenceConfiguration config;
 
-    private static final Pattern GUID_ELEMENT_REGEX = Pattern.compile(BaseGUID.GUIDRegexElement);
-```
-
-### FieldMayBeFinal
-Field `TYPICAL_FORMAT_DEDUCTION_SCORE` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
-#### Snippet
-```java
-    private static Double FORMATTED_AWARD = 20d;
-    private static Double LENGTH_AWARD = 10d;
-    private static Double TYPICAL_FORMAT_DEDUCTION_SCORE = 40d;
-    private static Double CONTINUE_DIGIT_DEDUCTION_SCORE = 10d;
-    private static Double TAIL_SAME_DEDUCTION_SCORE = 10d;
-```
-
-### FieldMayBeFinal
-Field `TAIL_SAME_DEDUCTION_SCORE` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
-#### Snippet
-```java
-    private static Double TYPICAL_FORMAT_DEDUCTION_SCORE = 40d;
-    private static Double CONTINUE_DIGIT_DEDUCTION_SCORE = 10d;
-    private static Double TAIL_SAME_DEDUCTION_SCORE = 10d;
-    private static Double CONTINUE_FORMAT_INDICATOR_DEDUCTION_SCORE = 20d;
-    private static Double WRONG_FORMAT_DEDUCTION_SCORE = 20d;
-```
-
-### FieldMayBeFinal
-Field `BASE_SCORE` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/GUIDParser.java`
-#### Snippet
-```java
-    private static Double SCORE_UPPER_LIMIT = 100d;
-    private static Double SCORE_LOWER_LIMIT = 0d;
-    private static Double BASE_SCORE = 100d;
-    private static Double NO_BOUNDARY_PENALTY = 10d;
-    private static Double NO_FORMAT_PENALTY = 10d;
+    public EmailParser(BaseSequenceConfiguration config) {
 ```
 
 ### FieldMayBeFinal
@@ -25820,18 +25064,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/
 ```
 
 ### FieldMayBeFinal
-Field `COMPLETE_BRACKET_REGEX` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
-#### Snippet
-```java
-
-    // @TODO move regexes to base resource files
-    private static String COMPLETE_BRACKET_REGEX = "\\(.*\\)";
-    private static String SINGLE_BRACKER_REGEX = "\\(|\\)";
-    private static String TAIL_SAME_DIGIT_REGEX = "([\\d])\\1{2,10}$";
-```
-
-### FieldMayBeFinal
 Field `PHONE_NUMBER_LENGTH_BASE` may be 'final'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
 #### Snippet
@@ -25844,27 +25076,27 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/
 ```
 
 ### FieldMayBeFinal
-Field `MAX_FORMAT_INDICATOR_NUM` may be 'final'
+Field `WRONG_FORMAT_DEDUCTION_SCORE` may be 'final'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
 #### Snippet
 ```java
+    private static Double TAIL_SAME_DEDUCTION_SCORE = 10d;
     private static Double CONTINUE_FORMAT_INDICATOR_DEDUCTION_SCORE = 20d;
     private static Double WRONG_FORMAT_DEDUCTION_SCORE = 20d;
     private static Integer MAX_FORMAT_INDICATOR_NUM = 3;
     private static Integer MAX_LENGTH_AWARD_NUM = 3;
-    private static Integer TAIL_SAME_LIMIT = 2;
 ```
 
 ### FieldMayBeFinal
-Field `AREA_CODE_AWARD` may be 'final'
+Field `LENGTH_AWARD` may be 'final'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
 #### Snippet
 ```java
-    private static Double BASE_SCORE = 30d;
-    private static Double COUNTRY_CODE_AWARD = 40d;
     private static Double AREA_CODE_AWARD = 30d;
     private static Double FORMATTED_AWARD = 20d;
     private static Double LENGTH_AWARD = 10d;
+    private static Double TYPICAL_FORMAT_DEDUCTION_SCORE = 40d;
+    private static Double CONTINUE_DIGIT_DEDUCTION_SCORE = 10d;
 ```
 
 ### FieldMayBeFinal
@@ -25880,6 +25112,102 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/
 ```
 
 ### FieldMayBeFinal
+Field `SCORE_LOWER_LIMIT` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
+#### Snippet
+```java
+public class PhoneNumberParser extends BaseSequenceParser {
+    private static Double SCORE_UPPER_LIMIT = 100d;
+    private static Double SCORE_LOWER_LIMIT = 0d;
+    private static Double BASE_SCORE = 30d;
+    private static Double COUNTRY_CODE_AWARD = 40d;
+```
+
+### FieldMayBeFinal
+Field `TAIL_SAME_DIGIT_REGEX` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
+#### Snippet
+```java
+    private static String COMPLETE_BRACKET_REGEX = "\\(.*\\)";
+    private static String SINGLE_BRACKER_REGEX = "\\(|\\)";
+    private static String TAIL_SAME_DIGIT_REGEX = "([\\d])\\1{2,10}$";
+    private static String PURE_DIGIT_REGEX = "^\\d*$";
+    private static String CONTINUE_DIGIT_REGEX = "\\d{5}\\d*";
+```
+
+### FieldMayBeFinal
+Field `DIGIT_REGEX` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
+#### Snippet
+```java
+    private static String PURE_DIGIT_REGEX = "^\\d*$";
+    private static String CONTINUE_DIGIT_REGEX = "\\d{5}\\d*";
+    private static String DIGIT_REGEX = "\\d";
+
+    private static final Pattern COUNTRY_CODE_REGEX = Pattern.compile(BasePhoneNumbers.CountryCodeRegex);
+```
+
+### FieldMayBeFinal
+Field `MAX_LENGTH_AWARD_NUM` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
+#### Snippet
+```java
+    private static Double WRONG_FORMAT_DEDUCTION_SCORE = 20d;
+    private static Integer MAX_FORMAT_INDICATOR_NUM = 3;
+    private static Integer MAX_LENGTH_AWARD_NUM = 3;
+    private static Integer TAIL_SAME_LIMIT = 2;
+    private static Integer PHONE_NUMBER_LENGTH_BASE = 8;
+```
+
+### FieldMayBeFinal
+Field `COUNTRY_CODE_AWARD` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
+#### Snippet
+```java
+    private static Double SCORE_LOWER_LIMIT = 0d;
+    private static Double BASE_SCORE = 30d;
+    private static Double COUNTRY_CODE_AWARD = 40d;
+    private static Double AREA_CODE_AWARD = 30d;
+    private static Double FORMATTED_AWARD = 20d;
+```
+
+### FieldMayBeFinal
+Field `SCORE_UPPER_LIMIT` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
+#### Snippet
+```java
+
+public class PhoneNumberParser extends BaseSequenceParser {
+    private static Double SCORE_UPPER_LIMIT = 100d;
+    private static Double SCORE_LOWER_LIMIT = 0d;
+    private static Double BASE_SCORE = 30d;
+```
+
+### FieldMayBeFinal
+Field `MAX_FORMAT_INDICATOR_NUM` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
+#### Snippet
+```java
+    private static Double CONTINUE_FORMAT_INDICATOR_DEDUCTION_SCORE = 20d;
+    private static Double WRONG_FORMAT_DEDUCTION_SCORE = 20d;
+    private static Integer MAX_FORMAT_INDICATOR_NUM = 3;
+    private static Integer MAX_LENGTH_AWARD_NUM = 3;
+    private static Integer TAIL_SAME_LIMIT = 2;
+```
+
+### FieldMayBeFinal
+Field `TAIL_SAME_LIMIT` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
+#### Snippet
+```java
+    private static Integer MAX_FORMAT_INDICATOR_NUM = 3;
+    private static Integer MAX_LENGTH_AWARD_NUM = 3;
+    private static Integer TAIL_SAME_LIMIT = 2;
+    private static Integer PHONE_NUMBER_LENGTH_BASE = 8;
+    private static Integer PURE_DIGIT_LENGTH_LIMIT = 11;
+```
+
+### FieldMayBeFinal
 Field `FORMATTED_AWARD` may be 'final'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
 #### Snippet
@@ -25889,6 +25217,78 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/
     private static Double FORMATTED_AWARD = 20d;
     private static Double LENGTH_AWARD = 10d;
     private static Double TYPICAL_FORMAT_DEDUCTION_SCORE = 40d;
+```
+
+### FieldMayBeFinal
+Field `COMPLETE_BRACKET_REGEX` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
+#### Snippet
+```java
+
+    // @TODO move regexes to base resource files
+    private static String COMPLETE_BRACKET_REGEX = "\\(.*\\)";
+    private static String SINGLE_BRACKER_REGEX = "\\(|\\)";
+    private static String TAIL_SAME_DIGIT_REGEX = "([\\d])\\1{2,10}$";
+```
+
+### FieldMayBeFinal
+Field `CONTINUE_FORMAT_INDICATOR_DEDUCTION_SCORE` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
+#### Snippet
+```java
+    private static Double CONTINUE_DIGIT_DEDUCTION_SCORE = 10d;
+    private static Double TAIL_SAME_DEDUCTION_SCORE = 10d;
+    private static Double CONTINUE_FORMAT_INDICATOR_DEDUCTION_SCORE = 20d;
+    private static Double WRONG_FORMAT_DEDUCTION_SCORE = 20d;
+    private static Integer MAX_FORMAT_INDICATOR_NUM = 3;
+```
+
+### FieldMayBeFinal
+Field `TYPICAL_FORMAT_DEDUCTION_SCORE` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
+#### Snippet
+```java
+    private static Double FORMATTED_AWARD = 20d;
+    private static Double LENGTH_AWARD = 10d;
+    private static Double TYPICAL_FORMAT_DEDUCTION_SCORE = 40d;
+    private static Double CONTINUE_DIGIT_DEDUCTION_SCORE = 10d;
+    private static Double TAIL_SAME_DEDUCTION_SCORE = 10d;
+```
+
+### FieldMayBeFinal
+Field `PURE_DIGIT_LENGTH_LIMIT` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
+#### Snippet
+```java
+    private static Integer TAIL_SAME_LIMIT = 2;
+    private static Integer PHONE_NUMBER_LENGTH_BASE = 8;
+    private static Integer PURE_DIGIT_LENGTH_LIMIT = 11;
+
+    // @TODO move regexes to base resource files
+```
+
+### FieldMayBeFinal
+Field `TAIL_SAME_DEDUCTION_SCORE` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
+#### Snippet
+```java
+    private static Double TYPICAL_FORMAT_DEDUCTION_SCORE = 40d;
+    private static Double CONTINUE_DIGIT_DEDUCTION_SCORE = 10d;
+    private static Double TAIL_SAME_DEDUCTION_SCORE = 10d;
+    private static Double CONTINUE_FORMAT_INDICATOR_DEDUCTION_SCORE = 20d;
+    private static Double WRONG_FORMAT_DEDUCTION_SCORE = 20d;
+```
+
+### FieldMayBeFinal
+Field `AREA_CODE_AWARD` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
+#### Snippet
+```java
+    private static Double BASE_SCORE = 30d;
+    private static Double COUNTRY_CODE_AWARD = 40d;
+    private static Double AREA_CODE_AWARD = 30d;
+    private static Double FORMATTED_AWARD = 20d;
+    private static Double LENGTH_AWARD = 10d;
 ```
 
 ### FieldMayBeFinal
@@ -25904,15 +25304,27 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/
 ```
 
 ### FieldMayBeFinal
-Field `CONTINUE_FORMAT_INDICATOR_DEDUCTION_SCORE` may be 'final'
+Field `CONTINUE_DIGIT_DEDUCTION_SCORE` may be 'final'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
 #### Snippet
 ```java
+    private static Double LENGTH_AWARD = 10d;
+    private static Double TYPICAL_FORMAT_DEDUCTION_SCORE = 40d;
     private static Double CONTINUE_DIGIT_DEDUCTION_SCORE = 10d;
     private static Double TAIL_SAME_DEDUCTION_SCORE = 10d;
     private static Double CONTINUE_FORMAT_INDICATOR_DEDUCTION_SCORE = 20d;
-    private static Double WRONG_FORMAT_DEDUCTION_SCORE = 20d;
-    private static Integer MAX_FORMAT_INDICATOR_NUM = 3;
+```
+
+### FieldMayBeFinal
+Field `PURE_DIGIT_REGEX` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/english/parsers/PhoneNumberParser.java`
+#### Snippet
+```java
+    private static String SINGLE_BRACKER_REGEX = "\\(|\\)";
+    private static String TAIL_SAME_DIGIT_REGEX = "([\\d])\\1{2,10}$";
+    private static String PURE_DIGIT_REGEX = "^\\d*$";
+    private static String CONTINUE_DIGIT_REGEX = "\\d{5}\\d*";
+    private static String DIGIT_REGEX = "\\d";
 ```
 
 ### FieldMayBeFinal
@@ -25940,18 +25352,6 @@ public class BaseURLExtractor extends BaseSequenceExtractor {
 ```
 
 ### FieldMayBeFinal
-Field `name` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/resources/writters/SimpleRegexWriter.java`
-#### Snippet
-```java
-public class SimpleRegexWriter implements ICodeWriter {
-
-    private String name;
-    private SimpleRegex def;
-
-```
-
-### FieldMayBeFinal
 Field `def` may be 'final'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/resources/writters/SimpleRegexWriter.java`
 #### Snippet
@@ -25961,6 +25361,18 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/resources
     private SimpleRegex def;
 
     public SimpleRegexWriter(String name, SimpleRegex def) {
+```
+
+### FieldMayBeFinal
+Field `name` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/resources/writters/SimpleRegexWriter.java`
+#### Snippet
+```java
+public class SimpleRegexWriter implements ICodeWriter {
+
+    private String name;
+    private SimpleRegex def;
+
 ```
 
 ### FieldMayBeFinal
@@ -26000,18 +25412,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/
 ```
 
 ### FieldMayBeFinal
-Field `TIMEX_REGEX` may be 'final'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/TimexRegex.java`
-#### Snippet
-```java
-            Pattern.compile("^PT(\\d*\\.?\\d+(H|M)){0,2}(?<secondAmount>\\d*\\.?\\d+)S$"), };
-
-    private static Map<String, Pattern[]> TIMEX_REGEX = new HashMap<String, Pattern[]>() {
-        {
-            put(DATE_COLLECTION_NAME, DATE_COLLECTION_NAME_PATTERNS);
-```
-
-### FieldMayBeFinal
 Field `TIME_COLLECTION_NAME_PATTERNS` may be 'final'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/TimexRegex.java`
 #### Snippet
@@ -26024,15 +25424,15 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expressio
 ```
 
 ### FieldMayBeFinal
-Field `DATE_COLLECTION_NAME_PATTERNS` may be 'final'
+Field `TIMEX_REGEX` may be 'final'
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/TimexRegex.java`
 #### Snippet
 ```java
-    private static final String PERIOD_COLLECTION_NAME = "period";
+            Pattern.compile("^PT(\\d*\\.?\\d+(H|M)){0,2}(?<secondAmount>\\d*\\.?\\d+)S$"), };
 
-    private static Pattern[] DATE_COLLECTION_NAME_PATTERNS = {
-            // date
-            Pattern.compile("^(XXXX|(?<year>\\d\\d\\d\\d))-(?<month>\\d\\d)(-(?<dayOfMonth>\\d\\d))?"),
+    private static Map<String, Pattern[]> TIMEX_REGEX = new HashMap<String, Pattern[]>() {
+        {
+            put(DATE_COLLECTION_NAME, DATE_COLLECTION_NAME_PATTERNS);
 ```
 
 ### FieldMayBeFinal
@@ -26045,6 +25445,18 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expressio
     private static Pattern[] PERIOD_COLLECTION_NAME_PATTERNS = {
             Pattern.compile("^P(?<amount>\\d*\\.?\\d+)(?<dateUnit>Y|M|W|D)$"),
             Pattern.compile("^PT(?<hourAmount>\\d*\\.?\\d+)H(\\d*\\.?\\d+(M|S)){0,2}$"),
+```
+
+### FieldMayBeFinal
+Field `DATE_COLLECTION_NAME_PATTERNS` may be 'final'
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/TimexRegex.java`
+#### Snippet
+```java
+    private static final String PERIOD_COLLECTION_NAME = "period";
+
+    private static Pattern[] DATE_COLLECTION_NAME_PATTERNS = {
+            // date
+            Pattern.compile("^(XXXX|(?<year>\\d\\d\\d\\d))-(?<month>\\d\\d)(-(?<dayOfMonth>\\d\\d))?"),
 ```
 
 ### FieldMayBeFinal
@@ -26132,330 +25544,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/numberwit
 ```
 
 ### FieldMayBeFinal
-Field `application` may be 'final'
-in `libraries/bot-ai-luis-v3/src/main/java/com/microsoft/bot/ai/luis/LuisRecognizerOptions.java`
-#### Snippet
-```java
-     * Luis Application instance.
-     */
-    private LuisApplication application;
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `factory` may be 'final'
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/ExecutorFactory.java`
-#### Snippet
-```java
-    }
-
-    private static ForkJoinWorkerThreadFactory factory = new ForkJoinWorkerThreadFactory() {
-        @Override
-        public ForkJoinWorkerThread newThread(ForkJoinPool pool) {
-```
-
-### FieldMayBeFinal
-Field `executor` may be 'final'
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/ExecutorFactory.java`
-#### Snippet
-```java
-    };
-
-    private static ExecutorService executor =
-        new ForkJoinPool(Runtime.getRuntime().availableProcessors() * 2, factory, null, false);
-
-```
-
-### FieldMayBeFinal
-Field `luisRecognizerOptions` may be 'final'
-in `libraries/bot-ai-luis-v3/src/main/java/com/microsoft/bot/ai/luis/LuisRecognizer.java`
-#### Snippet
-```java
-     * Luis Recognizer options to query the Luis Service.
-     */
-    private LuisRecognizerOptions luisRecognizerOptions;
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `client` may be 'final'
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestAttachments.java`
-#### Snippet
-```java
-    private AttachmentsService service;
-    /** The service client containing this operation class. */
-    private RestConnectorClient client;
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `service` may be 'final'
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestAttachments.java`
-#### Snippet
-```java
-public class RestAttachments implements Attachments {
-    /** The Retrofit service to perform REST calls. */
-    private AttachmentsService service;
-    /** The service client containing this operation class. */
-    private RestConnectorClient client;
-```
-
-### FieldMayBeFinal
-Field `service` may be 'final'
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestBotSignIn.java`
-#### Snippet
-```java
-public class RestBotSignIn implements BotSignIn {
-    /** The Retrofit service to perform REST calls. */
-    private BotSignInsService service;
-    /** The service client containing this operation class. */
-    private RestOAuthClient client;
-```
-
-### FieldMayBeFinal
-Field `client` may be 'final'
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestBotSignIn.java`
-#### Snippet
-```java
-    private BotSignInsService service;
-    /** The service client containing this operation class. */
-    private RestOAuthClient client;
-    /**
-     * Initializes an instance of BotSignInsImpl.
-```
-
-### FieldMayBeFinal
-Field `client` may be 'final'
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestTeamsOperations.java`
-#### Snippet
-```java
-
-    /** The service client containing this operation class. */
-    private RestTeamsConnectorClient client;
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `service` may be 'final'
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestTeamsOperations.java`
-#### Snippet
-```java
-public class RestTeamsOperations implements TeamsOperations {
-    /** The Retrofit service to perform REST calls. */
-    private TeamsService service;
-
-    /** The service client containing this operation class. */
-```
-
-### FieldMayBeFinal
-Field `service` may be 'final'
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestUserToken.java`
-#### Snippet
-```java
-public class RestUserToken implements UserToken {
-    /** The Retrofit service to perform REST calls. */
-    private UserTokensService service;
-    /** The service client containing this operation class. */
-    private RestOAuthClient client;
-```
-
-### FieldMayBeFinal
-Field `client` may be 'final'
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestUserToken.java`
-#### Snippet
-```java
-    private UserTokensService service;
-    /** The service client containing this operation class. */
-    private RestOAuthClient client;
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `authScope` may be 'final'
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/AppCredentials.java`
-#### Snippet
-```java
-    private String appId;
-    private String authTenant;
-    private String authScope;
-    private Authenticator authenticator;
-
-```
-
-### FieldMayBeFinal
-Field `credentials` may be 'final'
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/AppCredentialsInterceptor.java`
-#### Snippet
-```java
-     * The credentials instance to apply to the HTTP client pipeline.
-     */
-    private AppCredentials credentials;
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `allowedCallers` may be 'final'
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/AllowedCallersClaimsValidator.java`
-#### Snippet
-```java
-public class AllowedCallersClaimsValidator extends ClaimsValidator {
-
-    private List<String> allowedCallers;
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `issuer` may be 'final'
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/ClaimsIdentity.java`
-#### Snippet
-```java
- */
-public class ClaimsIdentity {
-    private String issuer;
-    private String type;
-    private Map<String, String> claims;
-```
-
-### FieldMayBeFinal
-Field `claims` may be 'final'
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/ClaimsIdentity.java`
-#### Snippet
-```java
-    private String issuer;
-    private String type;
-    private Map<String, String> claims;
-
-    private ClaimsIdentity() {
-```
-
-### FieldMayBeFinal
-Field `type` may be 'final'
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/ClaimsIdentity.java`
-#### Snippet
-```java
-public class ClaimsIdentity {
-    private String issuer;
-    private String type;
-    private Map<String, String> claims;
-
-```
-
-### FieldMayBeFinal
-Field `mapper` may be 'final'
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/CachingOpenIdMetadata.java`
-#### Snippet
-```java
-    private String url;
-    private long lastUpdated;
-    private ObjectMapper mapper;
-    private Map<String, Jwk> keyCache = new HashMap<>();
-    private final Object sync = new Object();
-```
-
-### FieldMayBeFinal
-Field `url` may be 'final'
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/CachingOpenIdMetadata.java`
-#### Snippet
-```java
-    private static final int CACHE_HOURS = 1;
-
-    private String url;
-    private long lastUpdated;
-    private ObjectMapper mapper;
-```
-
-### FieldMayBeFinal
-Field `authenticator` may be 'final'
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/CertificateAppCredentials.java`
-#### Snippet
-```java
- */
-public class CertificateAppCredentials extends AppCredentials {
-    private Authenticator authenticator;
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `allowedSigningAlgorithms` may be 'final'
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/JwtTokenExtractor.java`
-#### Snippet
-```java
-
-    private TokenValidationParameters tokenValidationParameters;
-    private List<String> allowedSigningAlgorithms;
-    private OpenIdMetadataResolver openIdMetadataResolver;
-    private OpenIdMetadata openIdMetadata;
-```
-
-### FieldMayBeFinal
-Field `tokenValidationParameters` may be 'final'
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/JwtTokenExtractor.java`
-#### Snippet
-```java
-    private static final Logger LOGGER = LoggerFactory.getLogger(CachingOpenIdMetadata.class);
-
-    private TokenValidationParameters tokenValidationParameters;
-    private List<String> allowedSigningAlgorithms;
-    private OpenIdMetadataResolver openIdMetadataResolver;
-```
-
-### FieldMayBeFinal
-Field `openIdMetadataResolver` may be 'final'
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/JwtTokenExtractor.java`
-#### Snippet
-```java
-    private TokenValidationParameters tokenValidationParameters;
-    private List<String> allowedSigningAlgorithms;
-    private OpenIdMetadataResolver openIdMetadataResolver;
-    private OpenIdMetadata openIdMetadata;
-
-```
-
-### FieldMayBeFinal
-Field `openIdMetadata` may be 'final'
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/JwtTokenExtractor.java`
-#### Snippet
-```java
-    private List<String> allowedSigningAlgorithms;
-    private OpenIdMetadataResolver openIdMetadataResolver;
-    private OpenIdMetadata openIdMetadata;
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `client` may be 'final'
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestConversations.java`
-#### Snippet
-```java
-     * The service client containing this operation class.
-     */
-    private RestConnectorClient client;
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `service` may be 'final'
-in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestConversations.java`
-#### Snippet
-```java
-     * The Retrofit service to perform REST calls.
-     */
-    private ConversationsService service;
-    /**
-     * The service client containing this operation class.
-```
-
-### FieldMayBeFinal
 Field `value` may be 'final'
 in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/InputHints.java`
 #### Snippet
@@ -26493,10 +25581,10 @@ in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/SemanticActionSt
 
 ### FieldMayBeFinal
 Field `value` may be 'final'
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/DeliveryModes.java`
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ActivityImportance.java`
 #### Snippet
 ```java
-     * The actual serialized value for a DeliveryModes instance.
+     * The actual serialized value for a ActivityImportance instance.
      */
     private String value;
 
@@ -26505,10 +25593,10 @@ in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/DeliveryModes.ja
 
 ### FieldMayBeFinal
 Field `value` may be 'final'
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ActivityImportance.java`
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/DeliveryModes.java`
 #### Snippet
 ```java
-     * The actual serialized value for a ActivityImportance instance.
+     * The actual serialized value for a DeliveryModes instance.
      */
     private String value;
 
@@ -26528,6 +25616,54 @@ in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/InstallationUpda
 ```
 
 ### FieldMayBeFinal
+Field `appCredentialMapCache` may be 'final'
+in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/BotFrameworkHttpClient.java`
+#### Snippet
+```java
+public class BotFrameworkHttpClient extends BotFrameworkClient {
+
+    private static Map<String, AppCredentials> appCredentialMapCache = new HashMap<String, AppCredentials>();;
+
+    private ChannelProvider channelProvider;
+```
+
+### FieldMayBeFinal
+Field `httpClient` may be 'final'
+in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/BotFrameworkHttpClient.java`
+#### Snippet
+```java
+    private CredentialProvider credentialProvider;
+
+    private OkHttpClient httpClient;
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `credentialProvider` may be 'final'
+in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/BotFrameworkHttpClient.java`
+#### Snippet
+```java
+    private ChannelProvider channelProvider;
+
+    private CredentialProvider credentialProvider;
+
+    private OkHttpClient httpClient;
+```
+
+### FieldMayBeFinal
+Field `channelProvider` may be 'final'
+in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/BotFrameworkHttpClient.java`
+#### Snippet
+```java
+    private static Map<String, AppCredentials> appCredentialMapCache = new HashMap<String, AppCredentials>();;
+
+    private ChannelProvider channelProvider;
+
+    private CredentialProvider credentialProvider;
+```
+
+### FieldMayBeFinal
 Field `properties` may be 'final'
 in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ConversationAccount.java`
 #### Snippet
@@ -26535,18 +25671,6 @@ in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/ConversationAcco
      * object. This allows extensibility while maintaining the object.
      */
     private HashMap<String, JsonNode> properties = new HashMap<>();
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `value` may be 'final'
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/TextFormatTypes.java`
-#### Snippet
-```java
-     * The actual serialized value for a TextFormatTypes instance.
-     */
-    private String value;
 
     /**
 ```
@@ -26585,6 +25709,18 @@ in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/Entity.java`
     private HashMap<String, JsonNode> properties = new HashMap<String, JsonNode>();
 
     @JsonProperty(value = "type")
+```
+
+### FieldMayBeFinal
+Field `value` may be 'final'
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/TextFormatTypes.java`
+#### Snippet
+```java
+     * The actual serialized value for a TextFormatTypes instance.
+     */
+    private String value;
+
+    /**
 ```
 
 ### FieldMayBeFinal
@@ -26648,18 +25784,6 @@ in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/Serialization.ja
 ```
 
 ### FieldMayBeFinal
-Field `left` may be 'final'
-in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/Pair.java`
-#### Snippet
-```java
- */
-public class Pair<L, R> {
-    private L left;
-    private R right;
-
-```
-
-### FieldMayBeFinal
 Field `right` may be 'final'
 in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/Pair.java`
 #### Snippet
@@ -26669,6 +25793,18 @@ public class Pair<L, R> {
     private R right;
 
     /**
+```
+
+### FieldMayBeFinal
+Field `left` may be 'final'
+in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/Pair.java`
+#### Snippet
+```java
+ */
+public class Pair<L, R> {
+    private L left;
+    private R right;
+
 ```
 
 ### FieldMayBeFinal
@@ -26719,6 +25855,870 @@ in `libraries/bot-schema/src/main/java/com/microsoft/bot/schema/teams/TabSubmitD
     /**
 ```
 
+### FieldMayBeFinal
+Field `application` may be 'final'
+in `libraries/bot-ai-luis-v3/src/main/java/com/microsoft/bot/ai/luis/LuisRecognizerOptions.java`
+#### Snippet
+```java
+     * Luis Application instance.
+     */
+    private LuisApplication application;
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `value` may be 'final'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/Severity.java`
+#### Snippet
+```java
+    CRITICAL(4);
+
+    private int value;
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `innerTurnContext` may be 'final'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/DelegatingTurnContext.java`
+#### Snippet
+```java
+     * The TurnContext being wrapped.
+     */
+    private TurnContext innerTurnContext;
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `mapper` may be 'final'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TraceTranscriptLogger.java`
+#### Snippet
+```java
+     */
+    // https://github.com/FasterXML/jackson-databind/wiki/Serialization-Features
+    private static ObjectMapper mapper = new ObjectMapper()
+        .enable(SerializationFeature.INDENT_OUTPUT)
+        .findAndRegisterModules();
+```
+
+### FieldMayBeFinal
+Field `period` may be 'final'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ShowTypingMiddleware.java`
+#### Snippet
+```java
+     * 2000ms.
+     */
+    private long period;
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `delay` may be 'final'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ShowTypingMiddleware.java`
+#### Snippet
+```java
+     * Initial delay before sending first typing indicator. Defaults to 500ms.
+     */
+    private long delay;
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `state` may be 'final'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TurnContextStateCollection.java`
+#### Snippet
+```java
+     * Map of objects managed by this class.
+     */
+    private Map<String, Object> state = new HashMap<>();
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `logger` may be 'final'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/MemoryStorage.java`
+#### Snippet
+```java
+     * The... ummm... logger.
+     */
+    private Logger logger = LoggerFactory.getLogger(MemoryStorage.class);
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `objectMapper` may be 'final'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/MemoryStorage.java`
+#### Snippet
+```java
+     * To/From JSON.
+     */
+    private ObjectMapper objectMapper;
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `memory` may be 'final'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/MemoryStorage.java`
+#### Snippet
+```java
+     * The internal map for storage.
+     */
+    private Map<String, JsonNode> memory;
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `properties` may be 'final'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/RecognizerResult.java`
+#### Snippet
+```java
+     * Additional properties.
+     */
+    private HashMap<String, JsonNode> properties = new HashMap<>();
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `luisRecognizerOptions` may be 'final'
+in `libraries/bot-ai-luis-v3/src/main/java/com/microsoft/bot/ai/luis/LuisRecognizer.java`
+#### Snippet
+```java
+     * Luis Recognizer options to query the Luis Service.
+     */
+    private LuisRecognizerOptions luisRecognizerOptions;
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `properties` may be 'final'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/IntentScore.java`
+#### Snippet
+```java
+     * Extra properties to include in the results.
+     */
+    private HashMap<String, JsonNode> properties = new HashMap<>();
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `transcriptLogger` may be 'final'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TranscriptLoggerMiddleware.java`
+#### Snippet
+```java
+     * The TranscriptLogger to log to.
+     */
+    private TranscriptLogger transcriptLogger;
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `transcript` may be 'final'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TranscriptLoggerMiddleware.java`
+#### Snippet
+```java
+     * Activity queue.
+     */
+    private Queue<Activity> transcript = new ConcurrentLinkedQueue<Activity>();
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `channelProvider` may be 'final'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ChannelServiceHandler.java`
+#### Snippet
+```java
+public class ChannelServiceHandler {
+
+    private ChannelProvider channelProvider;
+
+    private final AuthenticationConfiguration authConfiguration;
+```
+
+### FieldMayBeFinal
+Field `mapper` may be 'final'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotState.java`
+#### Snippet
+```java
+    private Storage storage;
+
+    private ObjectMapper mapper = new ObjectMapper().findAndRegisterModules();
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `contextServiceKey` may be 'final'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotState.java`
+#### Snippet
+```java
+     * The key for the state cache.
+     */
+    private String contextServiceKey;
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `mapper` may be 'final'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotState.java`
+#### Snippet
+```java
+         * Object-JsonNode converter.
+         */
+        private ObjectMapper mapper = new ObjectMapper().findAndRegisterModules();
+
+        /**
+```
+
+### FieldMayBeFinal
+Field `storage` may be 'final'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotState.java`
+#### Snippet
+```java
+     * The storage layer this state management object will use.
+     */
+    private Storage storage;
+
+    private ObjectMapper mapper = new ObjectMapper().findAndRegisterModules();
+```
+
+### FieldMayBeFinal
+Field `botState` may be 'final'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotState.java`
+#### Snippet
+```java
+         * The parent BotState.
+         */
+        private BotState botState;
+
+        /**
+```
+
+### FieldMayBeFinal
+Field `logPersonalInformation` may be 'final'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TelemetryLoggerMiddleware.java`
+#### Snippet
+```java
+     * from the user.
+     */
+    private boolean logPersonalInformation;
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `telemetryClient` may be 'final'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TelemetryLoggerMiddleware.java`
+#### Snippet
+```java
+     * event.
+     */
+    private BotTelemetryClient telemetryClient;
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `channels` may be 'final'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/MemoryTranscriptStore.java`
+#### Snippet
+```java
+     * Map of channel transcripts.
+     */
+    private HashMap<String, HashMap<String, ArrayList<Activity>>> channels = new HashMap<>();
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `bufferedReplyActivities` may be 'final'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/TurnContextImpl.java`
+#### Snippet
+```java
+    private final Activity activity;
+
+    private List<Activity> bufferedReplyActivities = new ArrayList<>();
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `storage` may be 'final'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillConversationIdFactory.java`
+#### Snippet
+```java
+public class SkillConversationIdFactory extends SkillConversationIdFactoryBase {
+
+    private Storage storage;
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `logger` may be 'final'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/inspection/InspectionSession.java`
+#### Snippet
+```java
+public class InspectionSession {
+    private ConversationReference conversationReference;
+    private Logger logger;
+    private ConnectorClient connectorClient;
+
+```
+
+### FieldMayBeFinal
+Field `connectorClient` may be 'final'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/inspection/InspectionSession.java`
+#### Snippet
+```java
+    private ConversationReference conversationReference;
+    private Logger logger;
+    private ConnectorClient connectorClient;
+
+    public InspectionSession(
+```
+
+### FieldMayBeFinal
+Field `conversationReference` may be 'final'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/inspection/InspectionSession.java`
+#### Snippet
+```java
+
+public class InspectionSession {
+    private ConversationReference conversationReference;
+    private Logger logger;
+    private ConnectorClient connectorClient;
+```
+
+### FieldMayBeFinal
+Field `logger` may be 'final'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/inspection/InterceptionMiddleware.java`
+#### Snippet
+```java
+
+public abstract class InterceptionMiddleware implements Middleware {
+    private Logger logger;
+
+    static class Intercept {
+```
+
+### FieldMayBeFinal
+Field `logger` may be 'final'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/skills/SkillHandler.java`
+#### Snippet
+```java
+     * 'resources' folder.
+     */
+    private Logger logger = LoggerFactory.getLogger(SkillHandler.class);
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `userState` may be 'final'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/inspection/InspectionMiddleware.java`
+#### Snippet
+```java
+
+    private InspectionState inspectionState;
+    private UserState userState;
+    private ConversationState conversationState;
+    private MicrosoftAppCredentials credentials;
+```
+
+### FieldMayBeFinal
+Field `inspectionState` may be 'final'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/inspection/InspectionMiddleware.java`
+#### Snippet
+```java
+    private static final String COMMAND = "/INSPECT";
+
+    private InspectionState inspectionState;
+    private UserState userState;
+    private ConversationState conversationState;
+```
+
+### FieldMayBeFinal
+Field `credentials` may be 'final'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/inspection/InspectionMiddleware.java`
+#### Snippet
+```java
+    private UserState userState;
+    private ConversationState conversationState;
+    private MicrosoftAppCredentials credentials;
+
+    public InspectionMiddleware(InspectionState withInspectionState) {
+```
+
+### FieldMayBeFinal
+Field `conversationState` may be 'final'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/inspection/InspectionMiddleware.java`
+#### Snippet
+```java
+    private InspectionState inspectionState;
+    private UserState userState;
+    private ConversationState conversationState;
+    private MicrosoftAppCredentials credentials;
+
+```
+
+### FieldMayBeFinal
+Field `executor` may be 'final'
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/ExecutorFactory.java`
+#### Snippet
+```java
+    };
+
+    private static ExecutorService executor =
+        new ForkJoinPool(Runtime.getRuntime().availableProcessors() * 2, factory, null, false);
+
+```
+
+### FieldMayBeFinal
+Field `factory` may be 'final'
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/ExecutorFactory.java`
+#### Snippet
+```java
+    }
+
+    private static ForkJoinWorkerThreadFactory factory = new ForkJoinWorkerThreadFactory() {
+        @Override
+        public ForkJoinWorkerThread newThread(ForkJoinPool pool) {
+```
+
+### FieldMayBeFinal
+Field `objectMapper` may be 'final'
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsStorage.java`
+#### Snippet
+```java
+public class BlobsStorage implements Storage {
+
+    private ObjectMapper objectMapper;
+    private final BlobContainerClient containerClient;
+
+```
+
+### FieldMayBeFinal
+Field `authConfiguration` may be 'final'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotFrameworkAdapter.java`
+#### Snippet
+```java
+     * The authentication configuration.
+     */
+    private AuthenticationConfiguration authConfiguration;
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `channelProvider` may be 'final'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotFrameworkAdapter.java`
+#### Snippet
+```java
+     * The channel provider.
+     */
+    private ChannelProvider channelProvider;
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `appCredentialMap` may be 'final'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotFrameworkAdapter.java`
+#### Snippet
+```java
+     * AppCredentials dictionary.
+     */
+    private Map<String, AppCredentials> appCredentialMap = new ConcurrentHashMap<>();
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `connectorClients` may be 'final'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotFrameworkAdapter.java`
+#### Snippet
+```java
+     * ConnectorClient cache.
+     */
+    private Map<String, ConnectorClient> connectorClients = new ConcurrentHashMap<>();
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `oAuthClients` may be 'final'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotFrameworkAdapter.java`
+#### Snippet
+```java
+     * OAuthClient cache.
+     */
+    private Map<String, OAuthClient> oAuthClients = new ConcurrentHashMap<>();
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `client` may be 'final'
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/CosmosDbPartitionedStorage.java`
+#### Snippet
+```java
+    private ObjectMapper objectMapper;
+    private final Object cacheSync = new Object();
+    private DocumentClient client;
+    private Database databaseCache;
+    private DocumentCollection collectionCache;
+```
+
+### FieldMayBeFinal
+Field `logger` may be 'final'
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/CosmosDbPartitionedStorage.java`
+#### Snippet
+```java
+ */
+public class CosmosDbPartitionedStorage implements Storage {
+    private Logger logger = LoggerFactory.getLogger(CosmosDbPartitionedStorage.class);
+    private CosmosDbPartitionedStorageOptions cosmosDbStorageOptions;
+    private ObjectMapper objectMapper;
+```
+
+### FieldMayBeFinal
+Field `objectMapper` may be 'final'
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/CosmosDbPartitionedStorage.java`
+#### Snippet
+```java
+    private Logger logger = LoggerFactory.getLogger(CosmosDbPartitionedStorage.class);
+    private CosmosDbPartitionedStorageOptions cosmosDbStorageOptions;
+    private ObjectMapper objectMapper;
+    private final Object cacheSync = new Object();
+    private DocumentClient client;
+```
+
+### FieldMayBeFinal
+Field `cosmosDbStorageOptions` may be 'final'
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/CosmosDbPartitionedStorage.java`
+#### Snippet
+```java
+public class CosmosDbPartitionedStorage implements Storage {
+    private Logger logger = LoggerFactory.getLogger(CosmosDbPartitionedStorage.class);
+    private CosmosDbPartitionedStorageOptions cosmosDbStorageOptions;
+    private ObjectMapper objectMapper;
+    private final Object cacheSync = new Object();
+```
+
+### FieldMayBeFinal
+Field `service` may be 'final'
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestAttachments.java`
+#### Snippet
+```java
+public class RestAttachments implements Attachments {
+    /** The Retrofit service to perform REST calls. */
+    private AttachmentsService service;
+    /** The service client containing this operation class. */
+    private RestConnectorClient client;
+```
+
+### FieldMayBeFinal
+Field `client` may be 'final'
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestAttachments.java`
+#### Snippet
+```java
+    private AttachmentsService service;
+    /** The service client containing this operation class. */
+    private RestConnectorClient client;
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `client` may be 'final'
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestBotSignIn.java`
+#### Snippet
+```java
+    private BotSignInsService service;
+    /** The service client containing this operation class. */
+    private RestOAuthClient client;
+    /**
+     * Initializes an instance of BotSignInsImpl.
+```
+
+### FieldMayBeFinal
+Field `service` may be 'final'
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestBotSignIn.java`
+#### Snippet
+```java
+public class RestBotSignIn implements BotSignIn {
+    /** The Retrofit service to perform REST calls. */
+    private BotSignInsService service;
+    /** The service client containing this operation class. */
+    private RestOAuthClient client;
+```
+
+### FieldMayBeFinal
+Field `service` may be 'final'
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestTeamsOperations.java`
+#### Snippet
+```java
+public class RestTeamsOperations implements TeamsOperations {
+    /** The Retrofit service to perform REST calls. */
+    private TeamsService service;
+
+    /** The service client containing this operation class. */
+```
+
+### FieldMayBeFinal
+Field `client` may be 'final'
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestTeamsOperations.java`
+#### Snippet
+```java
+
+    /** The service client containing this operation class. */
+    private RestTeamsConnectorClient client;
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `client` may be 'final'
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestUserToken.java`
+#### Snippet
+```java
+    private UserTokensService service;
+    /** The service client containing this operation class. */
+    private RestOAuthClient client;
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `service` may be 'final'
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestUserToken.java`
+#### Snippet
+```java
+public class RestUserToken implements UserToken {
+    /** The Retrofit service to perform REST calls. */
+    private UserTokensService service;
+    /** The service client containing this operation class. */
+    private RestOAuthClient client;
+```
+
+### FieldMayBeFinal
+Field `statusCode` may be 'final'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ActivityHandler.java`
+#### Snippet
+```java
+    protected class InvokeResponseException extends Exception {
+
+        private int statusCode;
+        private Object body;
+
+```
+
+### FieldMayBeFinal
+Field `body` may be 'final'
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/ActivityHandler.java`
+#### Snippet
+```java
+
+        private int statusCode;
+        private Object body;
+
+        /**
+```
+
+### FieldMayBeFinal
+Field `authScope` may be 'final'
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/AppCredentials.java`
+#### Snippet
+```java
+    private String appId;
+    private String authTenant;
+    private String authScope;
+    private Authenticator authenticator;
+
+```
+
+### FieldMayBeFinal
+Field `credentials` may be 'final'
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/AppCredentialsInterceptor.java`
+#### Snippet
+```java
+     * The credentials instance to apply to the HTTP client pipeline.
+     */
+    private AppCredentials credentials;
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `issuer` may be 'final'
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/ClaimsIdentity.java`
+#### Snippet
+```java
+ */
+public class ClaimsIdentity {
+    private String issuer;
+    private String type;
+    private Map<String, String> claims;
+```
+
+### FieldMayBeFinal
+Field `claims` may be 'final'
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/ClaimsIdentity.java`
+#### Snippet
+```java
+    private String issuer;
+    private String type;
+    private Map<String, String> claims;
+
+    private ClaimsIdentity() {
+```
+
+### FieldMayBeFinal
+Field `type` may be 'final'
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/ClaimsIdentity.java`
+#### Snippet
+```java
+public class ClaimsIdentity {
+    private String issuer;
+    private String type;
+    private Map<String, String> claims;
+
+```
+
+### FieldMayBeFinal
+Field `allowedCallers` may be 'final'
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/AllowedCallersClaimsValidator.java`
+#### Snippet
+```java
+public class AllowedCallersClaimsValidator extends ClaimsValidator {
+
+    private List<String> allowedCallers;
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `url` may be 'final'
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/CachingOpenIdMetadata.java`
+#### Snippet
+```java
+    private static final int CACHE_HOURS = 1;
+
+    private String url;
+    private long lastUpdated;
+    private ObjectMapper mapper;
+```
+
+### FieldMayBeFinal
+Field `mapper` may be 'final'
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/CachingOpenIdMetadata.java`
+#### Snippet
+```java
+    private String url;
+    private long lastUpdated;
+    private ObjectMapper mapper;
+    private Map<String, Jwk> keyCache = new HashMap<>();
+    private final Object sync = new Object();
+```
+
+### FieldMayBeFinal
+Field `authenticator` may be 'final'
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/CertificateAppCredentials.java`
+#### Snippet
+```java
+ */
+public class CertificateAppCredentials extends AppCredentials {
+    private Authenticator authenticator;
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `openIdMetadataResolver` may be 'final'
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/JwtTokenExtractor.java`
+#### Snippet
+```java
+    private TokenValidationParameters tokenValidationParameters;
+    private List<String> allowedSigningAlgorithms;
+    private OpenIdMetadataResolver openIdMetadataResolver;
+    private OpenIdMetadata openIdMetadata;
+
+```
+
+### FieldMayBeFinal
+Field `allowedSigningAlgorithms` may be 'final'
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/JwtTokenExtractor.java`
+#### Snippet
+```java
+
+    private TokenValidationParameters tokenValidationParameters;
+    private List<String> allowedSigningAlgorithms;
+    private OpenIdMetadataResolver openIdMetadataResolver;
+    private OpenIdMetadata openIdMetadata;
+```
+
+### FieldMayBeFinal
+Field `openIdMetadata` may be 'final'
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/JwtTokenExtractor.java`
+#### Snippet
+```java
+    private List<String> allowedSigningAlgorithms;
+    private OpenIdMetadataResolver openIdMetadataResolver;
+    private OpenIdMetadata openIdMetadata;
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `tokenValidationParameters` may be 'final'
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/authentication/JwtTokenExtractor.java`
+#### Snippet
+```java
+    private static final Logger LOGGER = LoggerFactory.getLogger(CachingOpenIdMetadata.class);
+
+    private TokenValidationParameters tokenValidationParameters;
+    private List<String> allowedSigningAlgorithms;
+    private OpenIdMetadataResolver openIdMetadataResolver;
+```
+
+### FieldMayBeFinal
+Field `client` may be 'final'
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestConversations.java`
+#### Snippet
+```java
+     * The service client containing this operation class.
+     */
+    private RestConnectorClient client;
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `service` may be 'final'
+in `libraries/bot-connector/src/main/java/com/microsoft/bot/connector/rest/RestConversations.java`
+#### Snippet
+```java
+     * The Retrofit service to perform REST calls.
+     */
+    private ConversationsService service;
+    /**
+     * The service client containing this operation class.
+```
+
 ## RuleId[id=CaughtExceptionImmediatelyRethrown]
 ### CaughtExceptionImmediatelyRethrown
 Caught exception `e` is immediately rethrown
@@ -26745,78 +26745,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/resources
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
-### UnnecessaryLocalVariable
-Local variable `blobName` is redundant
-in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsTranscriptStore.java`
-#### Snippet
-```java
-
-    private String getBlobName(Activity activity) {
-        String blobName = String.format(
-            "%s/%s/%s-%s.json",
-            sanitizeKey(activity.getChannelId()),
-```
-
-### UnnecessaryLocalVariable
-Local variable `handoffEvent` is redundant
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/EventFactory.java`
-#### Snippet
-```java
-        }
-
-        Activity handoffEvent = createHandoffEvent(HandoffEventNames.HANDOFFSTATUS, handoffContext, conversation);
-        return handoffEvent;
-    }
-```
-
-### UnnecessaryLocalVariable
-Local variable `splitProperties` is redundant
-in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/ClasspathPropertiesConfiguration.java`
-#### Snippet
-```java
-        String baseProperty = properties.getProperty(key);
-        if (baseProperty != null) {
-            String[] splitProperties = baseProperty.split(",");
-            return splitProperties;
-        } else {
-```
-
-### UnnecessaryLocalVariable
-Local variable `sessions` is redundant
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/inspection/InspectionMiddleware.java`
-#### Snippet
-```java
-
-        return accessor.get(turnContext, InspectionSessionsByStatus::new).thenCompose(result -> {
-            InspectionSessionsByStatus sessions = (InspectionSessionsByStatus) result;
-            String sessionId = openCommand(
-                sessions,
-```
-
-### UnnecessaryLocalVariable
-Local variable `openSessions` is redundant
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/inspection/InspectionMiddleware.java`
-#### Snippet
-```java
-
-        return accessor.get(turnContext, InspectionSessionsByStatus::new).thenCompose(result -> {
-            InspectionSessionsByStatus openSessions = (InspectionSessionsByStatus) result;
-            openSessions.getAttachedSessions().remove(
-                turnContext.getActivity().getConversation().getId()
-```
-
-### UnnecessaryLocalVariable
-Local variable `credentials` is redundant
-in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotFrameworkAdapter.java`
-#### Snippet
-```java
-    protected CompletableFuture<AppCredentials> buildAppCredentials(String appId, String scope) {
-        return credentialProvider.getAppPassword(appId).thenApply(appPassword -> {
-            AppCredentials credentials = channelProvider != null && channelProvider.isGovernment()
-                ? new MicrosoftGovernmentAppCredentials(appId, appPassword, null, scope)
-                : new MicrosoftAppCredentials(appId, appPassword, null, scope);
-```
-
 ### UnnecessaryLocalVariable
 Local variable `modelResults` is redundant
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/choice/models/ChoiceModel.java`
@@ -26859,18 +26787,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/matcher/S
 #### Snippet
 ```java
 
-    protected boolean isJapanese(char c) {
-        int uc = (int)c;
-
-        return (uc >= 0x3040 && uc <= 0x309F) ||
-```
-
-### UnnecessaryLocalVariable
-Local variable `uc` is redundant
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/matcher/SimpleTokenizer.java`
-#### Snippet
-```java
-
     protected boolean isKorean(char c) {
         int uc = (int)c;
 
@@ -26887,6 +26803,18 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/matcher/S
         int uc = (int)c;
 
         return (uc >= (int)0x4E00 && uc <= (int)0x9FBF) || (uc >= (int)0x3400 && uc <= (int)0x4DBF);
+```
+
+### UnnecessaryLocalVariable
+Local variable `uc` is redundant
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/matcher/SimpleTokenizer.java`
+#### Snippet
+```java
+
+    protected boolean isJapanese(char c) {
+        int uc = (int)c;
+
+        return (uc >= 0x3040 && uc <= 0x309F) ||
 ```
 
 ### UnnecessaryLocalVariable
@@ -26915,18 +26843,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 
 ### UnnecessaryLocalVariable
 Local variable `ret` is redundant
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateTimeAltParser.java`
-#### Snippet
-```java
-        }
-
-        DateTimeParseResult ret = new DateTimeParseResult(
-                er.getStart(),
-                er.getLength(),
-```
-
-### UnnecessaryLocalVariable
-Local variable `ret` is redundant
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseSetParser.java`
 #### Snippet
 ```java
@@ -26938,15 +26854,15 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `suffixStr` is redundant
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDurationParser.java`
+Local variable `ret` is redundant
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateTimeAltParser.java`
 #### Snippet
 ```java
-        DateTimeResolutionResult result = new DateTimeResolutionResult();
+        }
 
-        String suffixStr = text;
-
-        // if there are NO spaces between number and unit
+        DateTimeParseResult ret = new DateTimeParseResult(
+                er.getStart(),
+                er.getLength(),
 ```
 
 ### UnnecessaryLocalVariable
@@ -26971,6 +26887,18 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
         DateTimeParseResult result = new DateTimeParseResult(
                 er.getStart(),
                 er.getLength(),
+```
+
+### UnnecessaryLocalVariable
+Local variable `suffixStr` is redundant
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDurationParser.java`
+#### Snippet
+```java
+        DateTimeResolutionResult result = new DateTimeResolutionResult();
+
+        String suffixStr = text;
+
+        // if there are NO spaces between number and unit
 ```
 
 ### UnnecessaryLocalVariable
@@ -27010,6 +26938,18 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### UnnecessaryLocalVariable
+Local variable `ret` is redundant
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseHolidayParser.java`
+#### Snippet
+```java
+            if (match.getSuccess()) {
+                // LUIS value string will be set in Match2Date method
+                DateTimeResolutionResult ret = match2Date(match.getMatch().get(), referenceDate);
+
+                return ret;
+```
+
+### UnnecessaryLocalVariable
 Local variable `referenceDate` is redundant
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseHolidayParser.java`
 #### Snippet
@@ -27031,30 +26971,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
         DateTimeParseResult ret = new DateTimeParseResult(
                 er.getStart(),
                 er.getLength(),
-```
-
-### UnnecessaryLocalVariable
-Local variable `ret` is redundant
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseHolidayParser.java`
-#### Snippet
-```java
-            if (match.getSuccess()) {
-                // LUIS value string will be set in Match2Date method
-                DateTimeResolutionResult ret = match2Date(match.getMatch().get(), referenceDate);
-
-                return ret;
-```
-
-### UnnecessaryLocalVariable
-Local variable `answerDay` is redundant
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateParser.java`
-#### Snippet
-```java
-                int firstWeekDay = firstDate.getDayOfWeek().getValue();
-                LocalDateTime firstWantedWeekDay = firstDate.plusDays(wantedWeekDay > firstWeekDay ? wantedWeekDay - firstWeekDay : wantedWeekDay - firstWeekDay + 7);
-                int answerDay = firstWantedWeekDay.getDayOfMonth() + (num - 1) * 7;
-                day = answerDay;
-                ambiguous = false;
 ```
 
 ### UnnecessaryLocalVariable
@@ -27094,15 +27010,15 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `ret` is redundant
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseTimePeriodParser.java`
+Local variable `answerDay` is redundant
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateParser.java`
 #### Snippet
 ```java
-        }
-
-        DateTimeParseResult ret = new DateTimeParseResult(
-                er.getStart(),
-                er.getLength(),
+                int firstWeekDay = firstDate.getDayOfWeek().getValue();
+                LocalDateTime firstWantedWeekDay = firstDate.plusDays(wantedWeekDay > firstWeekDay ? wantedWeekDay - firstWeekDay : wantedWeekDay - firstWeekDay + 7);
+                int answerDay = firstWantedWeekDay.getDayOfMonth() + (num - 1) * 7;
+                day = answerDay;
+                ambiguous = false;
 ```
 
 ### UnnecessaryLocalVariable
@@ -27130,6 +27046,18 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 ```
 
 ### UnnecessaryLocalVariable
+Local variable `ret` is redundant
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseTimePeriodParser.java`
+#### Snippet
+```java
+        }
+
+        DateTimeParseResult ret = new DateTimeParseResult(
+                er.getStart(),
+                er.getLength(),
+```
+
+### UnnecessaryLocalVariable
 Local variable `ers` is redundant
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDateTimeExtractor.java`
 #### Snippet
@@ -27138,18 +27066,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 
         List<ExtractResult> ers = dateErs;
         ers.addAll(timeErs);
-
-```
-
-### UnnecessaryLocalVariable
-Local variable `result` is redundant
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDateExtractor.java`
-#### Snippet
-```java
-
-    private ExtractResult stripInequalityPrefix(ExtractResult er, Pattern regex) {
-        ExtractResult result = er;
-        Optional<Match> match = Arrays.stream(RegExpUtility.getMatches(regex, er.getText())).findFirst();
 
 ```
 
@@ -27178,15 +27094,15 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `regexes` is redundant
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/extractors/BaseHashTagExtractor.java`
+Local variable `result` is redundant
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/extractors/BaseDateExtractor.java`
 #### Snippet
 ```java
-    
-    public BaseHashTagExtractor() {
-        Map<Pattern, String> regexes = new HashMap<Pattern, String>() {
-            {
-                put(Pattern.compile(BaseHashtag.HashtagRegex), Constants.HASHTAG_REGEX);
+
+    private ExtractResult stripInequalityPrefix(ExtractResult er, Pattern regex) {
+        ExtractResult result = er;
+        Optional<Match> match = Arrays.stream(RegExpUtility.getMatches(regex, er.getText())).findFirst();
+
 ```
 
 ### UnnecessaryLocalVariable
@@ -27199,6 +27115,18 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/
         Map<Pattern, String> regexes = new HashMap<Pattern, String>() {
             {
                 put(Pattern.compile(BaseMention.MentionRegex), Constants.MENTION_REGEX);
+```
+
+### UnnecessaryLocalVariable
+Local variable `regexes` is redundant
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/sequence/extractors/BaseHashTagExtractor.java`
+#### Snippet
+```java
+    
+    public BaseHashTagExtractor() {
+        Map<Pattern, String> regexes = new HashMap<Pattern, String>() {
+            {
+                put(Pattern.compile(BaseHashtag.HashtagRegex), Constants.HASHTAG_REGEX);
 ```
 
 ### UnnecessaryLocalVariable
@@ -27298,18 +27226,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/utilities
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `timexResults` is redundant
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/TimexRangeResolver.java`
-#### Snippet
-```java
-                timexConstraints);
-
-        List<TimexProperty> timexResults = candidatesFilteredByTime.stream().map(x -> {
-            return new TimexProperty(x);
-        }).collect(Collectors.toList());
-```
-
-### UnnecessaryLocalVariable
 Local variable `date` is redundant
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/TimexHelpers.java`
 #### Snippet
@@ -27319,6 +27235,18 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expressio
         LocalDateTime date = LocalDateTime.of(year, month, day, hour, minute, second);
 
         return date;
+```
+
+### UnnecessaryLocalVariable
+Local variable `timexResults` is redundant
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/expression/TimexRangeResolver.java`
+#### Snippet
+```java
+                timexConstraints);
+
+        List<TimexProperty> timexResults = candidatesFilteredByTime.stream().map(x -> {
+            return new TimexProperty(x);
+        }).collect(Collectors.toList());
 ```
 
 ### UnnecessaryLocalVariable
@@ -27358,6 +27286,30 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/numberwit
 ```
 
 ### UnnecessaryLocalVariable
+Local variable `splitProperties` is redundant
+in `libraries/bot-integration-core/src/main/java/com/microsoft/bot/integration/ClasspathPropertiesConfiguration.java`
+#### Snippet
+```java
+        String baseProperty = properties.getProperty(key);
+        if (baseProperty != null) {
+            String[] splitProperties = baseProperty.split(",");
+            return splitProperties;
+        } else {
+```
+
+### UnnecessaryLocalVariable
+Local variable `handoffEvent` is redundant
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/EventFactory.java`
+#### Snippet
+```java
+        }
+
+        Activity handoffEvent = createHandoffEvent(HandoffEventNames.HANDOFFSTATUS, handoffContext, conversation);
+        return handoffEvent;
+    }
+```
+
+### UnnecessaryLocalVariable
 Local variable `obj` is redundant
 in `libraries/bot-ai-luis-v3/src/main/java/com/microsoft/bot/ai/luis/LuisRecognizerOptionsV3.java`
 #### Snippet
@@ -27379,6 +27331,54 @@ in `libraries/bot-ai-luis-v3/src/main/java/com/microsoft/bot/ai/luis/LuisRecogni
             JsonNode arr = source;
             ArrayNode narr = JsonNodeFactory.instance.arrayNode();
             for (JsonNode elt : arr) {
+```
+
+### UnnecessaryLocalVariable
+Local variable `sessions` is redundant
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/inspection/InspectionMiddleware.java`
+#### Snippet
+```java
+
+        return accessor.get(turnContext, InspectionSessionsByStatus::new).thenCompose(result -> {
+            InspectionSessionsByStatus sessions = (InspectionSessionsByStatus) result;
+            String sessionId = openCommand(
+                sessions,
+```
+
+### UnnecessaryLocalVariable
+Local variable `openSessions` is redundant
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/inspection/InspectionMiddleware.java`
+#### Snippet
+```java
+
+        return accessor.get(turnContext, InspectionSessionsByStatus::new).thenCompose(result -> {
+            InspectionSessionsByStatus openSessions = (InspectionSessionsByStatus) result;
+            openSessions.getAttachedSessions().remove(
+                turnContext.getActivity().getConversation().getId()
+```
+
+### UnnecessaryLocalVariable
+Local variable `blobName` is redundant
+in `libraries/bot-azure/src/main/java/com/microsoft/bot/azure/blobs/BlobsTranscriptStore.java`
+#### Snippet
+```java
+
+    private String getBlobName(Activity activity) {
+        String blobName = String.format(
+            "%s/%s/%s-%s.json",
+            sanitizeKey(activity.getChannelId()),
+```
+
+### UnnecessaryLocalVariable
+Local variable `credentials` is redundant
+in `libraries/bot-builder/src/main/java/com/microsoft/bot/builder/BotFrameworkAdapter.java`
+#### Snippet
+```java
+    protected CompletableFuture<AppCredentials> buildAppCredentials(String appId, String scope) {
+        return credentialProvider.getAppPassword(appId).thenApply(appPassword -> {
+            AppCredentials credentials = channelProvider != null && channelProvider.isGovernment()
+                ? new MicrosoftGovernmentAppCredentials(appId, appPassword, null, scope)
+                : new MicrosoftAppCredentials(appId, appPassword, null, scope);
 ```
 
 ### UnnecessaryLocalVariable
@@ -27497,18 +27497,6 @@ Call to `asList()` with only one argument
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/resources/EnglishNumeric.java`
 #### Snippet
 ```java
-    public static final List<String> WrittenDecimalSeparatorTexts = Arrays.asList("point");
-
-    public static final List<String> WrittenGroupSeparatorTexts = Arrays.asList("punto");
-
-    public static final List<String> WrittenIntegerSeparatorTexts = Arrays.asList("and");
-```
-
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/resources/EnglishNumeric.java`
-#### Snippet
-```java
     public static final List<String> WrittenGroupSeparatorTexts = Arrays.asList("punto");
 
     public static final List<String> WrittenIntegerSeparatorTexts = Arrays.asList("and");
@@ -27530,14 +27518,14 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/re
 
 ### ArraysAsListWithZeroOrOneArgument
 Call to `asList()` with only one argument
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/resources/FrenchNumeric.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/resources/EnglishNumeric.java`
 #### Snippet
 ```java
-    public static final String WordSeparatorToken = "et";
+    public static final List<String> WrittenDecimalSeparatorTexts = Arrays.asList("point");
 
-    public static final List<String> WrittenDecimalSeparatorTexts = Arrays.asList("virgule");
+    public static final List<String> WrittenGroupSeparatorTexts = Arrays.asList("punto");
 
-    public static final List<String> WrittenGroupSeparatorTexts = Arrays.asList("point", "points");
+    public static final List<String> WrittenIntegerSeparatorTexts = Arrays.asList("and");
 ```
 
 ### ArraysAsListWithZeroOrOneArgument
@@ -27578,78 +27566,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/re
 
 ### ArraysAsListWithZeroOrOneArgument
 Call to `asList()` with only one argument
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/resources/GermanNumeric.java`
-#### Snippet
-```java
-    public static final List<String> WrittenDecimalSeparatorTexts = Arrays.asList("komma");
-
-    public static final List<String> WrittenGroupSeparatorTexts = Arrays.asList("punkt");
-
-    public static final List<String> WrittenIntegerSeparatorTexts = Arrays.asList("und");
-```
-
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/resources/GermanNumeric.java`
-#### Snippet
-```java
-    public static final String WordSeparatorToken = "und";
-
-    public static final List<String> WrittenDecimalSeparatorTexts = Arrays.asList("komma");
-
-    public static final List<String> WrittenGroupSeparatorTexts = Arrays.asList("punkt");
-```
-
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/resources/GermanNumeric.java`
-#### Snippet
-```java
-    public static final List<String> WrittenGroupSeparatorTexts = Arrays.asList("punkt");
-
-    public static final List<String> WrittenIntegerSeparatorTexts = Arrays.asList("und");
-
-    public static final List<String> WrittenFractionSeparatorTexts = Arrays.asList("durch");
-```
-
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/resources/GermanNumeric.java`
-#### Snippet
-```java
-    public static final List<String> WrittenIntegerSeparatorTexts = Arrays.asList("und");
-
-    public static final List<String> WrittenFractionSeparatorTexts = Arrays.asList("durch");
-
-    public static final String HalfADozenRegex = "ein\\s+halbes\\s+dutzend";
-```
-
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/matcher/NumberWithUnitTokenizer.java`
-#### Snippet
-```java
-
-public class NumberWithUnitTokenizer extends SimpleTokenizer {
-    private static final HashSet<Character> specialTokenCharacters = new HashSet<Character>(Arrays.asList('$')); 
-
-    /* The main difference between this strategy and SimpleTokenizer is for cases like
-```
-
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/resources/SpanishNumeric.java`
-#### Snippet
-```java
-    public static final List<String> WrittenIntegerSeparatorTexts = Arrays.asList("y");
-
-    public static final List<String> WrittenFractionSeparatorTexts = Arrays.asList("con");
-
-    public static final String HalfADozenRegex = "media\\s+docena";
-```
-
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/resources/SpanishNumeric.java`
 #### Snippet
 ```java
@@ -27674,146 +27590,86 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/re
 
 ### ArraysAsListWithZeroOrOneArgument
 Call to `asList()` with only one argument
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/ChineseDateTime.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/resources/SpanishNumeric.java`
 #### Snippet
 ```java
-    public static final List<String> DaytimeTermList = Arrays.asList("白天", "日间");
+    public static final List<String> WrittenIntegerSeparatorTexts = Arrays.asList("y");
 
-    public static final List<String> NightTermList = Arrays.asList("深夜");
+    public static final List<String> WrittenFractionSeparatorTexts = Arrays.asList("con");
 
-    public static final ImmutableMap<String, Integer> DynastyYearMap = ImmutableMap.<String, Integer>builder()
+    public static final String HalfADozenRegex = "media\\s+docena";
 ```
 
 ### ArraysAsListWithZeroOrOneArgument
 Call to `asList()` with only one argument
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/ChineseDateTime.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/resources/FrenchNumeric.java`
 #### Snippet
 ```java
-    public static final List<String> ThisYearTerms = Arrays.asList("今年");
+    public static final String WordSeparatorToken = "et";
 
-    public static final List<String> LastYearTerms = Arrays.asList("去年");
+    public static final List<String> WrittenDecimalSeparatorTexts = Arrays.asList("virgule");
 
-    public static final List<String> NextYearTerms = Arrays.asList("明年");
+    public static final List<String> WrittenGroupSeparatorTexts = Arrays.asList("point", "points");
 ```
 
 ### ArraysAsListWithZeroOrOneArgument
 Call to `asList()` with only one argument
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/ChineseDateTime.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/matcher/NumberWithUnitTokenizer.java`
 #### Snippet
 ```java
-    public static final List<String> WeekTerms = Arrays.asList("周", "星期");
 
-    public static final List<String> YearTerms = Arrays.asList("年");
+public class NumberWithUnitTokenizer extends SimpleTokenizer {
+    private static final HashSet<Character> specialTokenCharacters = new HashSet<Character>(Arrays.asList('$')); 
 
-    public static final List<String> ThisYearTerms = Arrays.asList("今年");
+    /* The main difference between this strategy and SimpleTokenizer is for cases like
 ```
 
 ### ArraysAsListWithZeroOrOneArgument
 Call to `asList()` with only one argument
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/ChineseDateTime.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/resources/GermanNumeric.java`
 #### Snippet
 ```java
-    public static final List<String> LastYearTerms = Arrays.asList("去年");
+    public static final List<String> WrittenIntegerSeparatorTexts = Arrays.asList("und");
 
-    public static final List<String> NextYearTerms = Arrays.asList("明年");
+    public static final List<String> WrittenFractionSeparatorTexts = Arrays.asList("durch");
 
-    public static final List<String> YearAfterNextTerms = Arrays.asList("后年");
+    public static final String HalfADozenRegex = "ein\\s+halbes\\s+dutzend";
 ```
 
 ### ArraysAsListWithZeroOrOneArgument
 Call to `asList()` with only one argument
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/ChineseDateTime.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/resources/GermanNumeric.java`
 #### Snippet
 ```java
-    public static final List<String> MonthTerms = Arrays.asList("月");
+    public static final List<String> WrittenGroupSeparatorTexts = Arrays.asList("punkt");
 
-    public static final List<String> WeekendTerms = Arrays.asList("周末");
+    public static final List<String> WrittenIntegerSeparatorTexts = Arrays.asList("und");
 
-    public static final List<String> WeekTerms = Arrays.asList("周", "星期");
+    public static final List<String> WrittenFractionSeparatorTexts = Arrays.asList("durch");
 ```
 
 ### ArraysAsListWithZeroOrOneArgument
 Call to `asList()` with only one argument
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/ChineseDateTime.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/resources/GermanNumeric.java`
 #### Snippet
 ```java
-        .build();
+    public static final List<String> WrittenDecimalSeparatorTexts = Arrays.asList("komma");
 
-    public static final List<String> MonthTerms = Arrays.asList("月");
+    public static final List<String> WrittenGroupSeparatorTexts = Arrays.asList("punkt");
 
-    public static final List<String> WeekendTerms = Arrays.asList("周末");
+    public static final List<String> WrittenIntegerSeparatorTexts = Arrays.asList("und");
 ```
 
 ### ArraysAsListWithZeroOrOneArgument
 Call to `asList()` with only one argument
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/ChineseDateTime.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/number/resources/GermanNumeric.java`
 #### Snippet
 ```java
-    public static final List<String> NextYearTerms = Arrays.asList("明年");
+    public static final String WordSeparatorToken = "und";
 
-    public static final List<String> YearAfterNextTerms = Arrays.asList("后年");
+    public static final List<String> WrittenDecimalSeparatorTexts = Arrays.asList("komma");
 
-    public static final List<String> YearBeforeLastTerms = Arrays.asList("前年");
-```
-
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/ChineseDateTime.java`
-#### Snippet
-```java
-    public static final List<String> YearTerms = Arrays.asList("年");
-
-    public static final List<String> ThisYearTerms = Arrays.asList("今年");
-
-    public static final List<String> LastYearTerms = Arrays.asList("去年");
-```
-
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/ChineseDateTime.java`
-#### Snippet
-```java
-    public static final List<String> YearAfterNextTerms = Arrays.asList("后年");
-
-    public static final List<String> YearBeforeLastTerms = Arrays.asList("前年");
-
-    public static final ImmutableMap<String, String> ParserConfigurationSeasonMap = ImmutableMap.<String, String>builder()
-```
-
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/PortugueseDateTime.java`
-#### Snippet
-```java
-    public static final List<String> WeekendTerms = Arrays.asList("fim de semana");
-
-    public static final List<String> WeekTerms = Arrays.asList("semana");
-
-    public static final List<String> YearTerms = Arrays.asList("ano", "anos");
-```
-
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` to create an empty List
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/PortugueseDateTime.java`
-#### Snippet
-```java
-    public static final String DefaultLanguageFallback = "DMY";
-
-    public static final List<String> DurationDateRestrictions = Arrays.asList();
-
-    public static final ImmutableMap<String, String> AmbiguityFiltersDict = ImmutableMap.<String, String>builder()
-```
-
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/PortugueseDateTime.java`
-#### Snippet
-```java
-    public static final List<String> MonthToDateTerms = Arrays.asList("mes ate agora", "mes ate hoje", "mes ate a data");
-
-    public static final List<String> WeekendTerms = Arrays.asList("fim de semana");
-
-    public static final List<String> WeekTerms = Arrays.asList("semana");
+    public static final List<String> WrittenGroupSeparatorTexts = Arrays.asList("punkt");
 ```
 
 ### ArraysAsListWithZeroOrOneArgument
@@ -27845,11 +27701,155 @@ Call to `asList()` with only one argument
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/PortugueseDateTime.java`
 #### Snippet
 ```java
+    public static final List<String> MonthToDateTerms = Arrays.asList("mes ate agora", "mes ate hoje", "mes ate a data");
+
+    public static final List<String> WeekendTerms = Arrays.asList("fim de semana");
+
+    public static final List<String> WeekTerms = Arrays.asList("semana");
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/PortugueseDateTime.java`
+#### Snippet
+```java
     public static final List<String> AfternoonTermList = Arrays.asList("passado o meio dia", "depois do meio dia");
 
     public static final List<String> EveningTermList = Arrays.asList("tarde");
 
     public static final List<String> NightTermList = Arrays.asList("noite");
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` to create an empty List
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/PortugueseDateTime.java`
+#### Snippet
+```java
+    public static final String DefaultLanguageFallback = "DMY";
+
+    public static final List<String> DurationDateRestrictions = Arrays.asList();
+
+    public static final ImmutableMap<String, String> AmbiguityFiltersDict = ImmutableMap.<String, String>builder()
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/PortugueseDateTime.java`
+#### Snippet
+```java
+    public static final List<String> WeekendTerms = Arrays.asList("fim de semana");
+
+    public static final List<String> WeekTerms = Arrays.asList("semana");
+
+    public static final List<String> YearTerms = Arrays.asList("ano", "anos");
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/ChineseDateTime.java`
+#### Snippet
+```java
+    public static final List<String> WeekTerms = Arrays.asList("周", "星期");
+
+    public static final List<String> YearTerms = Arrays.asList("年");
+
+    public static final List<String> ThisYearTerms = Arrays.asList("今年");
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/ChineseDateTime.java`
+#### Snippet
+```java
+    public static final List<String> YearAfterNextTerms = Arrays.asList("后年");
+
+    public static final List<String> YearBeforeLastTerms = Arrays.asList("前年");
+
+    public static final ImmutableMap<String, String> ParserConfigurationSeasonMap = ImmutableMap.<String, String>builder()
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/ChineseDateTime.java`
+#### Snippet
+```java
+    public static final List<String> NextYearTerms = Arrays.asList("明年");
+
+    public static final List<String> YearAfterNextTerms = Arrays.asList("后年");
+
+    public static final List<String> YearBeforeLastTerms = Arrays.asList("前年");
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/ChineseDateTime.java`
+#### Snippet
+```java
+    public static final List<String> YearTerms = Arrays.asList("年");
+
+    public static final List<String> ThisYearTerms = Arrays.asList("今年");
+
+    public static final List<String> LastYearTerms = Arrays.asList("去年");
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/ChineseDateTime.java`
+#### Snippet
+```java
+    public static final List<String> MonthTerms = Arrays.asList("月");
+
+    public static final List<String> WeekendTerms = Arrays.asList("周末");
+
+    public static final List<String> WeekTerms = Arrays.asList("周", "星期");
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/ChineseDateTime.java`
+#### Snippet
+```java
+    public static final List<String> DaytimeTermList = Arrays.asList("白天", "日间");
+
+    public static final List<String> NightTermList = Arrays.asList("深夜");
+
+    public static final ImmutableMap<String, Integer> DynastyYearMap = ImmutableMap.<String, Integer>builder()
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/ChineseDateTime.java`
+#### Snippet
+```java
+        .build();
+
+    public static final List<String> MonthTerms = Arrays.asList("月");
+
+    public static final List<String> WeekendTerms = Arrays.asList("周末");
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/ChineseDateTime.java`
+#### Snippet
+```java
+    public static final List<String> LastYearTerms = Arrays.asList("去年");
+
+    public static final List<String> NextYearTerms = Arrays.asList("明年");
+
+    public static final List<String> YearAfterNextTerms = Arrays.asList("后年");
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/ChineseDateTime.java`
+#### Snippet
+```java
+    public static final List<String> ThisYearTerms = Arrays.asList("今年");
+
+    public static final List<String> LastYearTerms = Arrays.asList("去年");
+
+    public static final List<String> NextYearTerms = Arrays.asList("明年");
 ```
 
 ### ArraysAsListWithZeroOrOneArgument
@@ -27862,30 +27862,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
     public static final List<String> EarlyMorningTermList = Arrays.asList("madrugada");
 
     public static final List<String> MorningTermList = Arrays.asList("mañana", "la mañana");
-```
-
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/SpanishDateTime.java`
-#### Snippet
-```java
-    public static final List<String> EveningTermList = Arrays.asList("tarde");
-
-    public static final List<String> NightTermList = Arrays.asList("noche");
-
-    public static final List<String> SameDayTerms = Arrays.asList("hoy", "el dia");
-```
-
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/SpanishDateTime.java`
-#### Snippet
-```java
-    public static final List<String> WeekendTerms = Arrays.asList("finde", "fin de semana", "fines de semana");
-
-    public static final List<String> WeekTerms = Arrays.asList("semana");
-
-    public static final List<String> YearTerms = Arrays.asList("año", "años");
 ```
 
 ### ArraysAsListWithZeroOrOneArgument
@@ -27914,14 +27890,50 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 
 ### ArraysAsListWithZeroOrOneArgument
 Call to `asList()` with only one argument
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/SpanishDateTime.java`
+#### Snippet
+```java
+    public static final List<String> WeekendTerms = Arrays.asList("finde", "fin de semana", "fines de semana");
+
+    public static final List<String> WeekTerms = Arrays.asList("semana");
+
+    public static final List<String> YearTerms = Arrays.asList("año", "años");
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/SpanishDateTime.java`
+#### Snippet
+```java
+    public static final List<String> EveningTermList = Arrays.asList("tarde");
+
+    public static final List<String> NightTermList = Arrays.asList("noche");
+
+    public static final List<String> SameDayTerms = Arrays.asList("hoy", "el dia");
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/FrenchDateTime.java`
 #### Snippet
 ```java
-    public static final List<String> DaytimeTermList = Arrays.asList("jour", "journee", "journée");
+    public static final List<String> MonthTerms = Arrays.asList("mois");
 
-    public static final List<String> NightTermList = Arrays.asList("nuit");
+    public static final List<String> MonthToDateTerms = Arrays.asList("mois à ce jour");
 
-    public static final List<String> SameDayTerms = Arrays.asList("aujourd'hui", "auj");
+    public static final List<String> WeekendTerms = Arrays.asList("fin de semaine", "le weekend");
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/FrenchDateTime.java`
+#### Snippet
+```java
+    public static final List<String> LastCardinalTerms = Arrays.asList("dernières", "dernière", "dernieres", "derniere", "dernier");
+
+    public static final List<String> MonthTerms = Arrays.asList("mois");
+
+    public static final List<String> MonthToDateTerms = Arrays.asList("mois à ce jour");
 ```
 
 ### ArraysAsListWithZeroOrOneArgument
@@ -27941,30 +27953,6 @@ Call to `asList()` with only one argument
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/FrenchDateTime.java`
 #### Snippet
 ```java
-    public static final List<String> MonthTerms = Arrays.asList("mois");
-
-    public static final List<String> MonthToDateTerms = Arrays.asList("mois à ce jour");
-
-    public static final List<String> WeekendTerms = Arrays.asList("fin de semaine", "le weekend");
-```
-
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` to create an empty List
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/FrenchDateTime.java`
-#### Snippet
-```java
-    public static final String DefaultLanguageFallback = "DMY";
-
-    public static final List<String> DurationDateRestrictions = Arrays.asList();
-
-    public static final ImmutableMap<String, String> AmbiguityFiltersDict = ImmutableMap.<String, String>builder()
-```
-
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/FrenchDateTime.java`
-#### Snippet
-```java
     public static final List<String> WeekendTerms = Arrays.asList("fin de semaine", "le weekend");
 
     public static final List<String> WeekTerms = Arrays.asList("semaine");
@@ -27977,11 +27965,23 @@ Call to `asList()` with only one argument
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/FrenchDateTime.java`
 #### Snippet
 ```java
-    public static final List<String> LastCardinalTerms = Arrays.asList("dernières", "dernière", "dernieres", "derniere", "dernier");
+    public static final List<String> DaytimeTermList = Arrays.asList("jour", "journee", "journée");
 
-    public static final List<String> MonthTerms = Arrays.asList("mois");
+    public static final List<String> NightTermList = Arrays.asList("nuit");
 
-    public static final List<String> MonthToDateTerms = Arrays.asList("mois à ce jour");
+    public static final List<String> SameDayTerms = Arrays.asList("aujourd'hui", "auj");
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` to create an empty List
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/FrenchDateTime.java`
+#### Snippet
+```java
+    public static final String DefaultLanguageFallback = "DMY";
+
+    public static final List<String> DurationDateRestrictions = Arrays.asList();
+
+    public static final ImmutableMap<String, String> AmbiguityFiltersDict = ImmutableMap.<String, String>builder()
 ```
 
 ### ArraysAsListWithZeroOrOneArgument
@@ -28001,107 +28001,11 @@ Call to `asList()` with only one argument
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/EnglishDateTime.java`
 #### Snippet
 ```java
-    public static final List<String> GenericYearTerms = Arrays.asList("y");
-
-    public static final List<String> YearToDateTerms = Arrays.asList("year to date");
-
-    public static final String DoubleMultiplierRegex = "^(bi)(-|\\s)?";
-```
-
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/EnglishDateTime.java`
-#### Snippet
-```java
-    public static final List<String> MealtimeBreakfastTermList = Arrays.asList("breakfast");
-
-    public static final List<String> MealtimeBrunchTermList = Arrays.asList("brunch");
-
-    public static final List<String> MealtimeLunchTermList = Arrays.asList("lunch", "lunchtime");
-```
-
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/EnglishDateTime.java`
-#### Snippet
-```java
-    public static final List<String> EveningTermList = Arrays.asList("evening");
-
-    public static final List<String> MealtimeBreakfastTermList = Arrays.asList("breakfast");
-
-    public static final List<String> MealtimeBrunchTermList = Arrays.asList("brunch");
-```
-
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/EnglishDateTime.java`
-#### Snippet
-```java
     public static final List<String> MorningTermList = Arrays.asList("morning");
 
     public static final List<String> AfternoonTermList = Arrays.asList("afternoon");
 
     public static final List<String> EveningTermList = Arrays.asList("evening");
-```
-
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/EnglishDateTime.java`
-#### Snippet
-```java
-    public static final List<String> WeekTerms = Arrays.asList("week");
-
-    public static final List<String> YearTerms = Arrays.asList("year");
-
-    public static final List<String> GenericYearTerms = Arrays.asList("y");
-```
-
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/EnglishDateTime.java`
-#### Snippet
-```java
-    public static final List<String> AfternoonTermList = Arrays.asList("afternoon");
-
-    public static final List<String> EveningTermList = Arrays.asList("evening");
-
-    public static final List<String> MealtimeBreakfastTermList = Arrays.asList("breakfast");
-```
-
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/EnglishDateTime.java`
-#### Snippet
-```java
-        .build();
-
-    public static final List<String> MorningTermList = Arrays.asList("morning");
-
-    public static final List<String> AfternoonTermList = Arrays.asList("afternoon");
-```
-
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/EnglishDateTime.java`
-#### Snippet
-```java
-    public static final List<String> MealtimeDinnerTermList = Arrays.asList("dinner", "dinnertime", "supper");
-
-    public static final List<String> DaytimeTermList = Arrays.asList("daytime");
-
-    public static final List<String> NightTermList = Arrays.asList("night");
-```
-
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/EnglishDateTime.java`
-#### Snippet
-```java
-    public static final List<String> MonthToDateTerms = Arrays.asList("month to date");
-
-    public static final List<String> WeekendTerms = Arrays.asList("weekend");
-
-    public static final List<String> WeekTerms = Arrays.asList("week");
 ```
 
 ### ArraysAsListWithZeroOrOneArgument
@@ -28121,11 +28025,11 @@ Call to `asList()` with only one argument
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/EnglishDateTime.java`
 #### Snippet
 ```java
-    public static final List<String> YearTerms = Arrays.asList("year");
+        .build();
 
-    public static final List<String> GenericYearTerms = Arrays.asList("y");
+    public static final List<String> MorningTermList = Arrays.asList("morning");
 
-    public static final List<String> YearToDateTerms = Arrays.asList("year to date");
+    public static final List<String> AfternoonTermList = Arrays.asList("afternoon");
 ```
 
 ### ArraysAsListWithZeroOrOneArgument
@@ -28145,11 +28049,83 @@ Call to `asList()` with only one argument
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/EnglishDateTime.java`
 #### Snippet
 ```java
+    public static final List<String> YearTerms = Arrays.asList("year");
+
+    public static final List<String> GenericYearTerms = Arrays.asList("y");
+
+    public static final List<String> YearToDateTerms = Arrays.asList("year to date");
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/EnglishDateTime.java`
+#### Snippet
+```java
     public static final List<String> DaytimeTermList = Arrays.asList("daytime");
 
     public static final List<String> NightTermList = Arrays.asList("night");
 
     public static final List<String> SameDayTerms = Arrays.asList("today", "otd");
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/EnglishDateTime.java`
+#### Snippet
+```java
+    public static final List<String> EveningTermList = Arrays.asList("evening");
+
+    public static final List<String> MealtimeBreakfastTermList = Arrays.asList("breakfast");
+
+    public static final List<String> MealtimeBrunchTermList = Arrays.asList("brunch");
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/EnglishDateTime.java`
+#### Snippet
+```java
+    public static final List<String> AfternoonTermList = Arrays.asList("afternoon");
+
+    public static final List<String> EveningTermList = Arrays.asList("evening");
+
+    public static final List<String> MealtimeBreakfastTermList = Arrays.asList("breakfast");
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/EnglishDateTime.java`
+#### Snippet
+```java
+    public static final List<String> FutureTerms = Arrays.asList("this", "next");
+
+    public static final List<String> LastCardinalTerms = Arrays.asList("last");
+
+    public static final List<String> MonthTerms = Arrays.asList("month");
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/EnglishDateTime.java`
+#### Snippet
+```java
+    public static final List<String> MonthToDateTerms = Arrays.asList("month to date");
+
+    public static final List<String> WeekendTerms = Arrays.asList("weekend");
+
+    public static final List<String> WeekTerms = Arrays.asList("week");
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/EnglishDateTime.java`
+#### Snippet
+```java
+    public static final List<String> MealtimeBreakfastTermList = Arrays.asList("breakfast");
+
+    public static final List<String> MealtimeBrunchTermList = Arrays.asList("brunch");
+
+    public static final List<String> MealtimeLunchTermList = Arrays.asList("lunch", "lunchtime");
 ```
 
 ### ArraysAsListWithZeroOrOneArgument
@@ -28181,11 +28157,47 @@ Call to `asList()` with only one argument
 in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/EnglishDateTime.java`
 #### Snippet
 ```java
-    public static final List<String> FutureTerms = Arrays.asList("this", "next");
+    public static final List<String> MealtimeDinnerTermList = Arrays.asList("dinner", "dinnertime", "supper");
 
-    public static final List<String> LastCardinalTerms = Arrays.asList("last");
+    public static final List<String> DaytimeTermList = Arrays.asList("daytime");
 
-    public static final List<String> MonthTerms = Arrays.asList("month");
+    public static final List<String> NightTermList = Arrays.asList("night");
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/EnglishDateTime.java`
+#### Snippet
+```java
+    public static final List<String> GenericYearTerms = Arrays.asList("y");
+
+    public static final List<String> YearToDateTerms = Arrays.asList("year to date");
+
+    public static final String DoubleMultiplierRegex = "^(bi)(-|\\s)?";
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/resources/EnglishDateTime.java`
+#### Snippet
+```java
+    public static final List<String> WeekTerms = Arrays.asList("week");
+
+    public static final List<String> YearTerms = Arrays.asList("year");
+
+    public static final List<String> GenericYearTerms = Arrays.asList("y");
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/numberwithunit/resources/EnglishNumericWithUnit.java`
+#### Snippet
+```java
+        .build();
+
+    public static final List<String> AmbiguousAreaUnitList = Arrays.asList("n/a");
+
+    public static final ImmutableMap<String, String> CurrencySuffixList = ImmutableMap.<String, String>builder()
 ```
 
 ### ArraysAsListWithZeroOrOneArgument
@@ -28214,14 +28226,14 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/numberwit
 
 ### ArraysAsListWithZeroOrOneArgument
 Call to `asList()` with only one argument
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/numberwithunit/resources/EnglishNumericWithUnit.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/numberwithunit/resources/JapaneseNumericWithUnit.java`
 #### Snippet
 ```java
-        .build();
+public class JapaneseNumericWithUnit {
 
-    public static final List<String> AmbiguousAreaUnitList = Arrays.asList("n/a");
+    public static final List<String> AgeAmbiguousValues = Arrays.asList("歳");
 
-    public static final ImmutableMap<String, String> CurrencySuffixList = ImmutableMap.<String, String>builder()
+    public static final ImmutableMap<String, String> AgeSuffixList = ImmutableMap.<String, String>builder()
 ```
 
 ### ArraysAsListWithZeroOrOneArgument
@@ -28232,18 +28244,6 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/numberwit
 public class ChineseNumericWithUnit {
 
     public static final List<String> AgeAmbiguousValues = Arrays.asList("岁");
-
-    public static final ImmutableMap<String, String> AgeSuffixList = ImmutableMap.<String, String>builder()
-```
-
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/numberwithunit/resources/JapaneseNumericWithUnit.java`
-#### Snippet
-```java
-public class JapaneseNumericWithUnit {
-
-    public static final List<String> AgeAmbiguousValues = Arrays.asList("歳");
 
     public static final ImmutableMap<String, String> AgeSuffixList = ImmutableMap.<String, String>builder()
 ```
@@ -28386,7 +28386,7 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 
 ### CastCanBeRemovedNarrowingVariableType
 Cast may be removed by changing the type of 'value' to 'DateTimeResolutionResult'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseTimePeriodParser.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateTimePeriodParser.java`
 #### Snippet
 ```java
                 value,
@@ -28398,7 +28398,7 @@ in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/
 
 ### CastCanBeRemovedNarrowingVariableType
 Cast may be removed by changing the type of 'value' to 'DateTimeResolutionResult'
-in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseDateTimePeriodParser.java`
+in `libraries/bot-dialogs/src/main/java/com/microsoft/recognizers/text/datetime/parsers/BaseTimePeriodParser.java`
 #### Snippet
 ```java
                 value,
