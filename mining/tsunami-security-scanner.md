@@ -17,8 +17,8 @@ I found 155 bad smells with 0 repairable:
 | OptionalIsPresent | 1 | false |
 | RedundantMethodOverride | 1 | false |
 | DataFlowIssue | 1 | false |
-| JavadocDeclaration | 1 | false |
 | RedundantCast | 1 | false |
+| JavadocDeclaration | 1 | false |
 | MismatchedCollectionQueryUpdate | 1 | false |
 | SwitchStatementWithTooFewBranches | 1 | false |
 | StringBufferReplaceableByString | 1 | false |
@@ -36,18 +36,6 @@ in `common/src/main/java/com/google/tsunami/common/net/FuzzingUtils.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'url'
-in `common/src/main/java/com/google/tsunami/common/net/http/HttpResponse.java`
-#### Snippet
-```java
-    public abstract Builder setBodyBytes(Optional<ByteString> bodyBytes);
-    public abstract Builder setResponseUrl(HttpUrl url);
-    public abstract Builder setResponseUrl(Optional<HttpUrl> url);
-
-    public abstract HttpResponse build();
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'bodyBytes'
 in `common/src/main/java/com/google/tsunami/common/net/http/HttpResponse.java`
 #### Snippet
@@ -60,15 +48,27 @@ in `common/src/main/java/com/google/tsunami/common/net/http/HttpResponse.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'serviceName'
-in `common/src/main/java/com/google/tsunami/common/data/NetworkServiceUtils.java`
+`Optional` used as type for parameter 'url'
+in `common/src/main/java/com/google/tsunami/common/net/http/HttpResponse.java`
 #### Snippet
 ```java
-  private NetworkServiceUtils() {}
+    public abstract Builder setBodyBytes(Optional<ByteString> bodyBytes);
+    public abstract Builder setResponseUrl(HttpUrl url);
+    public abstract Builder setResponseUrl(Optional<HttpUrl> url);
 
-  public static boolean isWebService(Optional<String> serviceName) {
-    return serviceName.isPresent()
-        && IS_PLAIN_HTTP_BY_KNOWN_WEB_SERVICE_NAME.containsKey(
+    public abstract HttpResponse build();
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'input'
+in `plugin/src/main/java/com/google/tsunami/plugin/payload/Validator.java`
+#### Snippet
+```java
+   * @return whether a payload is executed on the scan target.
+   */
+  boolean isExecuted(Optional<ByteString> input);
+}
+
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -96,15 +96,15 @@ in `plugin/src/main/java/com/google/tsunami/plugin/payload/testing/FakePayloadGe
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'input'
-in `plugin/src/main/java/com/google/tsunami/plugin/payload/Validator.java`
+`Optional` used as type for parameter 'serviceName'
+in `common/src/main/java/com/google/tsunami/common/data/NetworkServiceUtils.java`
 #### Snippet
 ```java
-   * @return whether a payload is executed on the scan target.
-   */
-  boolean isExecuted(Optional<ByteString> input);
-}
+  private NetworkServiceUtils() {}
 
+  public static boolean isWebService(Optional<String> serviceName) {
+    return serviceName.isPresent()
+        && IS_PLAIN_HTTP_BY_KNOWN_WEB_SERVICE_NAME.containsKey(
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -233,18 +233,6 @@ in `plugin/src/main/java/com/google/tsunami/plugin/PluginManager.java`
 ```
 
 ### JavadocReference
-Cannot resolve symbol `PayloadGeneratorConfig`
-in `plugin/src/main/java/com/google/tsunami/plugin/payload/PayloadGenerator.java`
-#### Snippet
-```java
-
-  /**
-   * Returns a {@link Payload} for a given {@link PayloadGeneratorConfig}.
-   *
-   * <p>The framework prioritizes finding a callback server payload if callback server is enabled
-```
-
-### JavadocReference
 Cannot resolve symbol `com.google.tsunami.proto.PayloadGeneratorConfig`
 in `plugin/src/main/java/com/google/tsunami/plugin/payload/NotImplementedException.java`
 #### Snippet
@@ -257,111 +245,15 @@ in `plugin/src/main/java/com/google/tsunami/plugin/payload/NotImplementedExcepti
 ```
 
 ### JavadocReference
-Cannot resolve symbol `NetworkService`
-in `common/src/main/java/com/google/tsunami/common/data/NetworkServiceUtils.java`
-#### Snippet
-```java
-import java.util.Optional;
-
-/** Static utility methods pertaining to {@link NetworkService} proto buffer. */
-public final class NetworkServiceUtils {
-  // Service names are those described in [RFC6335].
-```
-
-### JavadocReference
-Cannot resolve symbol `NetworkEndpoint`
-in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
+Cannot resolve symbol `PayloadGeneratorConfig`
+in `plugin/src/main/java/com/google/tsunami/plugin/payload/PayloadGenerator.java`
 #### Snippet
 ```java
 
   /**
-   * Creates a {@link NetworkEndpoint} proto buffer object from the given hostname and port.
+   * Returns a {@link Payload} for a given {@link PayloadGeneratorConfig}.
    *
-   * @param hostname the hostname of the network endpoint
-```
-
-### JavadocReference
-Cannot resolve symbol `NetworkEndpoint`
-in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
-#### Snippet
-```java
-   * @param hostname the hostname of the network endpoint
-   * @param port the port number of the network endpoint.
-   * @return the created {@link NetworkEndpoint} instance from the hostname and port.
-   */
-  public static NetworkEndpoint forHostnameAndPort(String hostname, int port) {
-```
-
-### JavadocReference
-Cannot resolve symbol `NetworkEndpoint`
-in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
-#### Snippet
-```java
-
-  /**
-   * Returns a {@link NetworkEndpoint} proto buffer object from the given {@code networkEndpoint}
-   * and port. The {@code networkEndpoint} parameter cannot contain any port information, otherwise
-   * {@link IllegalArgumentException} is thrown.
-```
-
-### JavadocReference
-Cannot resolve symbol `NetworkEndpoint`
-in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
-#### Snippet
-```java
-   * {@link IllegalArgumentException} is thrown.
-   *
-   * @param networkEndpoint the source {@link NetworkEndpoint} instance without the port number
-   * @param port the port number of the network endpoint.
-   * @return the {@link NetworkEndpoint} instance from the parameters.
-```
-
-### JavadocReference
-Cannot resolve symbol `NetworkEndpoint`
-in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
-#### Snippet
-```java
-   * @param networkEndpoint the source {@link NetworkEndpoint} instance without the port number
-   * @param port the port number of the network endpoint.
-   * @return the {@link NetworkEndpoint} instance from the parameters.
-   */
-  public static NetworkEndpoint forNetworkEndpointAndPort(
-```
-
-### JavadocReference
-Cannot resolve symbol `NetworkEndpoint`
-in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
-#### Snippet
-```java
-
-  /**
-   * Converts the given {@link NetworkEndpoint} to its uri authority representation.
-   *
-   * <p>For example:
-```
-
-### JavadocReference
-Cannot resolve symbol `NetworkEndpoint`
-in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
-#### Snippet
-```java
-   * </ul>
-   *
-   * @param networkEndpoint the {@link NetworkEndpoint} instance to be converted.
-   * @return the URI authority converted from the {@link NetworkEndpoint} instance.
-   */
-```
-
-### JavadocReference
-Cannot resolve symbol `NetworkEndpoint`
-in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
-#### Snippet
-```java
-   *
-   * @param networkEndpoint the {@link NetworkEndpoint} instance to be converted.
-   * @return the URI authority converted from the {@link NetworkEndpoint} instance.
-   */
-  public static String toUriAuthority(NetworkEndpoint networkEndpoint) {
+   * <p>The framework prioritizes finding a callback server payload if callback server is enabled
 ```
 
 ### JavadocReference
@@ -386,18 +278,6 @@ in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.jav
    * @return the created {@link NetworkEndpoint} instance from the IP address and hostname.
    */
   public static NetworkEndpoint forIpAndHostname(String ipAddress, String hostname) {
-```
-
-### JavadocReference
-Cannot resolve symbol `NetworkEndpoint`
-in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
-#### Snippet
-```java
-import java.net.InetAddress;
-
-/** Static utility methods pertaining to {@link NetworkEndpoint} proto buffer. */
-public final class NetworkEndpointUtils {
-  public static final int MAX_PORT_NUMBER = 65535;
 ```
 
 ### JavadocReference
@@ -497,15 +377,123 @@ in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.jav
 ```
 
 ### JavadocReference
-Cannot resolve symbol `NetworkService`
-in `common/src/main/java/com/google/tsunami/common/net/http/HttpClient.java`
+Cannot resolve symbol `NetworkEndpoint`
+in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
+#### Snippet
+```java
+
+  /**
+   * Converts the given {@link NetworkEndpoint} to its uri authority representation.
+   *
+   * <p>For example:
+```
+
+### JavadocReference
+Cannot resolve symbol `NetworkEndpoint`
+in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
+#### Snippet
+```java
+   * </ul>
+   *
+   * @param networkEndpoint the {@link NetworkEndpoint} instance to be converted.
+   * @return the URI authority converted from the {@link NetworkEndpoint} instance.
+   */
+```
+
+### JavadocReference
+Cannot resolve symbol `NetworkEndpoint`
+in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
 #### Snippet
 ```java
    *
-   * @param httpRequest the HTTP request to be sent by this client.
-   * @param networkService the {@link NetworkService} proto to be used for the HOST header.
-   * @return the future for the response to be returned from the HTTP server.
+   * @param networkEndpoint the {@link NetworkEndpoint} instance to be converted.
+   * @return the URI authority converted from the {@link NetworkEndpoint} instance.
    */
+  public static String toUriAuthority(NetworkEndpoint networkEndpoint) {
+```
+
+### JavadocReference
+Cannot resolve symbol `NetworkEndpoint`
+in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
+#### Snippet
+```java
+
+  /**
+   * Returns a {@link NetworkEndpoint} proto buffer object from the given {@code networkEndpoint}
+   * and port. The {@code networkEndpoint} parameter cannot contain any port information, otherwise
+   * {@link IllegalArgumentException} is thrown.
+```
+
+### JavadocReference
+Cannot resolve symbol `NetworkEndpoint`
+in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
+#### Snippet
+```java
+   * {@link IllegalArgumentException} is thrown.
+   *
+   * @param networkEndpoint the source {@link NetworkEndpoint} instance without the port number
+   * @param port the port number of the network endpoint.
+   * @return the {@link NetworkEndpoint} instance from the parameters.
+```
+
+### JavadocReference
+Cannot resolve symbol `NetworkEndpoint`
+in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
+#### Snippet
+```java
+   * @param networkEndpoint the source {@link NetworkEndpoint} instance without the port number
+   * @param port the port number of the network endpoint.
+   * @return the {@link NetworkEndpoint} instance from the parameters.
+   */
+  public static NetworkEndpoint forNetworkEndpointAndPort(
+```
+
+### JavadocReference
+Cannot resolve symbol `NetworkEndpoint`
+in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a {@link NetworkEndpoint} proto buffer object from the given hostname and port.
+   *
+   * @param hostname the hostname of the network endpoint
+```
+
+### JavadocReference
+Cannot resolve symbol `NetworkEndpoint`
+in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
+#### Snippet
+```java
+   * @param hostname the hostname of the network endpoint
+   * @param port the port number of the network endpoint.
+   * @return the created {@link NetworkEndpoint} instance from the hostname and port.
+   */
+  public static NetworkEndpoint forHostnameAndPort(String hostname, int port) {
+```
+
+### JavadocReference
+Cannot resolve symbol `NetworkEndpoint`
+in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
+#### Snippet
+```java
+import java.net.InetAddress;
+
+/** Static utility methods pertaining to {@link NetworkEndpoint} proto buffer. */
+public final class NetworkEndpointUtils {
+  public static final int MAX_PORT_NUMBER = 65535;
+```
+
+### JavadocReference
+Cannot resolve symbol `NetworkService`
+in `common/src/main/java/com/google/tsunami/common/data/NetworkServiceUtils.java`
+#### Snippet
+```java
+import java.util.Optional;
+
+/** Static utility methods pertaining to {@link NetworkService} proto buffer. */
+public final class NetworkServiceUtils {
+  // Service names are those described in [RFC6335].
 ```
 
 ### JavadocReference
@@ -518,6 +506,18 @@ in `common/src/main/java/com/google/tsunami/common/net/http/HttpClient.java`
    * @param networkService the {@link NetworkService} proto to be used for the HOST header.
    * @return the response returned from the HTTP server.
    * @throws IOException if an I/O error occurs during the HTTP request.
+```
+
+### JavadocReference
+Cannot resolve symbol `NetworkService`
+in `common/src/main/java/com/google/tsunami/common/net/http/HttpClient.java`
+#### Snippet
+```java
+   *
+   * @param httpRequest the HTTP request to be sent by this client.
+   * @param networkService the {@link NetworkService} proto to be used for the HOST header.
+   * @return the future for the response to be returned from the HTTP server.
+   */
 ```
 
 ### JavadocReference
@@ -576,8 +576,8 @@ in `common/src/main/java/com/google/tsunami/common/net/http/OkHttpHttpClient.jav
    *
    * @param httpRequest the HTTP request to be sent by this client.
    * @param networkService the {@link NetworkService} proto to be used for the HOST header.
-   * @return the response returned from the HTTP server.
-   * @throws IOException if an I/O error occurs during the HTTP request.
+   * @return the future for the response to be returned from the HTTP server.
+   */
 ```
 
 ### JavadocReference
@@ -588,8 +588,8 @@ in `common/src/main/java/com/google/tsunami/common/net/http/OkHttpHttpClient.jav
    *
    * @param httpRequest the HTTP request to be sent by this client.
    * @param networkService the {@link NetworkService} proto to be used for the HOST header.
-   * @return the future for the response to be returned from the HTTP server.
-   */
+   * @return the response returned from the HTTP server.
+   * @throws IOException if an I/O error occurs during the HTTP request.
 ```
 
 ### JavadocReference
@@ -691,19 +691,6 @@ in `common/src/main/java/com/google/tsunami/common/net/FuzzingUtils.java`
 
 ```
 
-## RuleId[id=JavadocDeclaration]
-### JavadocDeclaration
-Javadoc pointing to itself
-in `common/src/main/java/com/google/tsunami/common/version/Version.java`
-#### Snippet
-```java
-   * Version#equals(Object)} method, i.e. this.compareTo(that) == 0 does not imply
-   * this.equals(that). The reason is that the raw version string is tokenized and certain tokens
-   * are ignored. Tokenized strings are used for {@link #compareTo} comparison while raw version
-   * string is used for {@link #equals} comparison. Be careful when using {@link Version} object in
-   * collections like {@code HashMap} or {@code TreeMap}.
-```
-
 ## RuleId[id=RedundantCast]
 ### RedundantCast
 Casting `(Optional` input) -> {...} to `Validator` is redundant
@@ -715,6 +702,19 @@ in `plugin/src/main/java/com/google/tsunami/plugin/payload/PayloadGenerator.java
               (Validator)
                   (Optional<ByteString> input) ->
                       input.map(i -> i.toStringUtf8().matches(processedRegex)).orElse(false);
+```
+
+## RuleId[id=JavadocDeclaration]
+### JavadocDeclaration
+Javadoc pointing to itself
+in `common/src/main/java/com/google/tsunami/common/version/Version.java`
+#### Snippet
+```java
+   * Version#equals(Object)} method, i.e. this.compareTo(that) == 0 does not imply
+   * this.equals(that). The reason is that the raw version string is tokenized and certain tokens
+   * are ignored. Tokenized strings are used for {@link #compareTo} comparison while raw version
+   * string is used for {@link #equals} comparison. Be careful when using {@link Version} object in
+   * collections like {@code HashMap} or {@code TreeMap}.
 ```
 
 ## RuleId[id=MismatchedCollectionQueryUpdate]
@@ -810,18 +810,6 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@j
 in `common/src/main/java/com/google/tsunami/common/command/CommandExecutor.java`
 #### Snippet
 ```java
-  private final String[] args;
-  private Process process;
-  @Nullable private String output;
-  @Nullable private String error;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `common/src/main/java/com/google/tsunami/common/command/CommandExecutor.java`
-#### Snippet
-```java
   private Process process;
   @Nullable private String output;
   @Nullable private String error;
@@ -830,27 +818,15 @@ in `common/src/main/java/com/google/tsunami/common/command/CommandExecutor.java`
 ```
 
 ### NullableProblems
-Not annotated parameter overrides @EverythingIsNonNull parameter
-in `common/src/main/java/com/google/tsunami/common/net/http/OkHttpHttpClient.java`
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `common/src/main/java/com/google/tsunami/common/command/CommandExecutor.java`
 #### Snippet
 ```java
+  private final String[] args;
+  private Process process;
+  @Nullable private String output;
+  @Nullable private String error;
 
-            @Override
-            public void onResponse(Call call, Response response) {
-              try (ResponseBody unused = response.body()) {
-                responseFuture.set(parseResponse(response));
-```
-
-### NullableProblems
-Not annotated parameter overrides @EverythingIsNonNull parameter
-in `common/src/main/java/com/google/tsunami/common/net/http/OkHttpHttpClient.java`
-#### Snippet
-```java
-
-            @Override
-            public void onResponse(Call call, Response response) {
-              try (ResponseBody unused = response.body()) {
-                responseFuture.set(parseResponse(response));
 ```
 
 ### NullableProblems
@@ -875,6 +851,30 @@ in `common/src/main/java/com/google/tsunami/common/net/http/OkHttpHttpClient.jav
             public void onFailure(Call call, IOException e) {
               responseFuture.setException(e);
             }
+```
+
+### NullableProblems
+Not annotated parameter overrides @EverythingIsNonNull parameter
+in `common/src/main/java/com/google/tsunami/common/net/http/OkHttpHttpClient.java`
+#### Snippet
+```java
+
+            @Override
+            public void onResponse(Call call, Response response) {
+              try (ResponseBody unused = response.body()) {
+                responseFuture.set(parseResponse(response));
+```
+
+### NullableProblems
+Not annotated parameter overrides @EverythingIsNonNull parameter
+in `common/src/main/java/com/google/tsunami/common/net/http/OkHttpHttpClient.java`
+#### Snippet
+```java
+
+            @Override
+            public void onResponse(Call call, Response response) {
+              try (ResponseBody unused = response.body()) {
+                responseFuture.set(parseResponse(response));
 ```
 
 ## RuleId[id=JavadocLinkAsPlainText]
@@ -1028,18 +1028,6 @@ in `common/src/main/java/com/google/tsunami/common/net/http/HttpClientConfigProp
 #### Snippet
 ```java
   /**
-   * The timeout in seconds for the read operations for HTTP connections. See
-   * https://square.github.io/okhttp/4.x/okhttp/okhttp3/-ok-http-client/-builder/read-timeout/ for
-   * more details.
-   */
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `common/src/main/java/com/google/tsunami/common/net/http/HttpClientConfigProperties.java`
-#### Snippet
-```java
-  /**
    * The timeout in seconds for new HTTP connections. See
    * https://square.github.io/okhttp/4.x/okhttp/okhttp3/-ok-http-client/-builder/connect-timeout/
    * for more details.
@@ -1052,8 +1040,8 @@ in `common/src/main/java/com/google/tsunami/common/net/http/HttpClientConfigProp
 #### Snippet
 ```java
   /**
-   * The timeout in seconds for complete HTTP calls. See
-   * https://square.github.io/okhttp/4.x/okhttp/okhttp3/-ok-http-client/-builder/call-timeout/ for
+   * The timeout in seconds for the write operations for HTTP connections. See
+   * https://square.github.io/okhttp/4.x/okhttp/okhttp3/-ok-http-client/-builder/write-timeout/ for
    * more details.
    */
 ```
@@ -1064,8 +1052,20 @@ in `common/src/main/java/com/google/tsunami/common/net/http/HttpClientConfigProp
 #### Snippet
 ```java
   /**
-   * The timeout in seconds for the write operations for HTTP connections. See
-   * https://square.github.io/okhttp/4.x/okhttp/okhttp3/-ok-http-client/-builder/write-timeout/ for
+   * The timeout in seconds for the read operations for HTTP connections. See
+   * https://square.github.io/okhttp/4.x/okhttp/okhttp3/-ok-http-client/-builder/read-timeout/ for
+   * more details.
+   */
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `common/src/main/java/com/google/tsunami/common/net/http/HttpClientConfigProperties.java`
+#### Snippet
+```java
+  /**
+   * The timeout in seconds for complete HTTP calls. See
+   * https://square.github.io/okhttp/4.x/okhttp/okhttp3/-ok-http-client/-builder/call-timeout/ for
    * more details.
    */
 ```
@@ -1265,18 +1265,6 @@ in `plugin/src/main/java/com/google/tsunami/plugin/PluginManager.java`
 ```
 
 ### UnstableApiUsage
-'addDelayedShutdownHook(java.util.concurrent.ExecutorService, long, java.util.concurrent.TimeUnit)' is marked unstable with @Beta
-in `common/src/main/java/com/google/tsunami/common/concurrent/BaseThreadPoolModule.java`
-#### Snippet
-```java
-
-      if (shutdownDelay != null) {
-        MoreExecutors.addDelayedShutdownHook(
-            service, shutdownDelay.toMillis(), TimeUnit.MILLISECONDS);
-      }
-```
-
-### UnstableApiUsage
 'com.google.common.net.InetAddresses' is marked unstable with @Beta
 in `main/src/main/java/com/google/tsunami/main/cli/option/validator/IpValidator.java`
 #### Snippet
@@ -1322,6 +1310,18 @@ in `main/src/main/java/com/google/tsunami/main/cli/option/validator/IpValidator.
         || !shouldAccept(InetAddresses.forString(value))) {
       throw new ParameterException(
           String.format(
+```
+
+### UnstableApiUsage
+'addDelayedShutdownHook(java.util.concurrent.ExecutorService, long, java.util.concurrent.TimeUnit)' is marked unstable with @Beta
+in `common/src/main/java/com/google/tsunami/common/concurrent/BaseThreadPoolModule.java`
+#### Snippet
+```java
+
+      if (shutdownDelay != null) {
+        MoreExecutors.addDelayedShutdownHook(
+            service, shutdownDelay.toMillis(), TimeUnit.MILLISECONDS);
+      }
 ```
 
 ### UnstableApiUsage
@@ -1529,6 +1529,102 @@ in `workflow/src/main/java/com/google/tsunami/workflow/DefaultScanningWorkflow.j
 ```
 
 ### UnstableApiUsage
+'com.google.common.net.InetAddresses' is marked unstable with @Beta
+in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
+#### Snippet
+```java
+  public static NetworkEndpoint forHostname(String hostname) {
+    checkArgument(
+        !InetAddresses.isInetAddress(hostname), "Expected hostname, got IP address '%s'", hostname);
+
+    return NetworkEndpoint.newBuilder()
+```
+
+### UnstableApiUsage
+'isInetAddress(java.lang.String)' is declared in unstable class 'com.google.common.net.InetAddresses' marked with @Beta
+in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
+#### Snippet
+```java
+  public static NetworkEndpoint forHostname(String hostname) {
+    checkArgument(
+        !InetAddresses.isInetAddress(hostname), "Expected hostname, got IP address '%s'", hostname);
+
+    return NetworkEndpoint.newBuilder()
+```
+
+### UnstableApiUsage
+'com.google.common.net.InetAddresses' is marked unstable with @Beta
+in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
+#### Snippet
+```java
+   */
+  public static NetworkEndpoint forIpAndPort(String ipAddress, int port) {
+    checkArgument(InetAddresses.isInetAddress(ipAddress), "'%s' is not an IP address.", ipAddress);
+    checkArgument(
+        0 <= port && port <= MAX_PORT_NUMBER,
+```
+
+### UnstableApiUsage
+'isInetAddress(java.lang.String)' is declared in unstable class 'com.google.common.net.InetAddresses' marked with @Beta
+in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
+#### Snippet
+```java
+   */
+  public static NetworkEndpoint forIpAndPort(String ipAddress, int port) {
+    checkArgument(InetAddresses.isInetAddress(ipAddress), "'%s' is not an IP address.", ipAddress);
+    checkArgument(
+        0 <= port && port <= MAX_PORT_NUMBER,
+```
+
+### UnstableApiUsage
+'com.google.common.net.InetAddresses' is marked unstable with @Beta
+in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
+#### Snippet
+```java
+
+  public static AddressFamily ipAddressFamily(String ipAddress) {
+    InetAddress inetAddress = InetAddresses.forString(ipAddress);
+
+    if (inetAddress instanceof Inet4Address) {
+```
+
+### UnstableApiUsage
+'forString(java.lang.String)' is declared in unstable class 'com.google.common.net.InetAddresses' marked with @Beta
+in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
+#### Snippet
+```java
+
+  public static AddressFamily ipAddressFamily(String ipAddress) {
+    InetAddress inetAddress = InetAddresses.forString(ipAddress);
+
+    if (inetAddress instanceof Inet4Address) {
+```
+
+### UnstableApiUsage
+'com.google.common.net.InetAddresses' is marked unstable with @Beta
+in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
+#### Snippet
+```java
+   */
+  public static NetworkEndpoint forIp(String ipAddress) {
+    checkArgument(InetAddresses.isInetAddress(ipAddress), "'%s' is not an IP address.", ipAddress);
+
+    return NetworkEndpoint.newBuilder()
+```
+
+### UnstableApiUsage
+'isInetAddress(java.lang.String)' is declared in unstable class 'com.google.common.net.InetAddresses' marked with @Beta
+in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
+#### Snippet
+```java
+   */
+  public static NetworkEndpoint forIp(String ipAddress) {
+    checkArgument(InetAddresses.isInetAddress(ipAddress), "'%s' is not an IP address.", ipAddress);
+
+    return NetworkEndpoint.newBuilder()
+```
+
+### UnstableApiUsage
 'toString()' is declared in unstable class 'com.google.common.net.HostAndPort' marked with @Beta
 in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
 #### Snippet
@@ -1646,102 +1742,6 @@ in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.jav
         return HostAndPort.fromParts(
             networkEndpoint.getHostname().getName(), networkEndpoint.getPort().getPortNumber());
       case UNRECOGNIZED:
-```
-
-### UnstableApiUsage
-'com.google.common.net.InetAddresses' is marked unstable with @Beta
-in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
-#### Snippet
-```java
-
-  public static AddressFamily ipAddressFamily(String ipAddress) {
-    InetAddress inetAddress = InetAddresses.forString(ipAddress);
-
-    if (inetAddress instanceof Inet4Address) {
-```
-
-### UnstableApiUsage
-'forString(java.lang.String)' is declared in unstable class 'com.google.common.net.InetAddresses' marked with @Beta
-in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
-#### Snippet
-```java
-
-  public static AddressFamily ipAddressFamily(String ipAddress) {
-    InetAddress inetAddress = InetAddresses.forString(ipAddress);
-
-    if (inetAddress instanceof Inet4Address) {
-```
-
-### UnstableApiUsage
-'com.google.common.net.InetAddresses' is marked unstable with @Beta
-in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
-#### Snippet
-```java
-  public static NetworkEndpoint forHostname(String hostname) {
-    checkArgument(
-        !InetAddresses.isInetAddress(hostname), "Expected hostname, got IP address '%s'", hostname);
-
-    return NetworkEndpoint.newBuilder()
-```
-
-### UnstableApiUsage
-'isInetAddress(java.lang.String)' is declared in unstable class 'com.google.common.net.InetAddresses' marked with @Beta
-in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
-#### Snippet
-```java
-  public static NetworkEndpoint forHostname(String hostname) {
-    checkArgument(
-        !InetAddresses.isInetAddress(hostname), "Expected hostname, got IP address '%s'", hostname);
-
-    return NetworkEndpoint.newBuilder()
-```
-
-### UnstableApiUsage
-'com.google.common.net.InetAddresses' is marked unstable with @Beta
-in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
-#### Snippet
-```java
-   */
-  public static NetworkEndpoint forIpAndPort(String ipAddress, int port) {
-    checkArgument(InetAddresses.isInetAddress(ipAddress), "'%s' is not an IP address.", ipAddress);
-    checkArgument(
-        0 <= port && port <= MAX_PORT_NUMBER,
-```
-
-### UnstableApiUsage
-'isInetAddress(java.lang.String)' is declared in unstable class 'com.google.common.net.InetAddresses' marked with @Beta
-in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
-#### Snippet
-```java
-   */
-  public static NetworkEndpoint forIpAndPort(String ipAddress, int port) {
-    checkArgument(InetAddresses.isInetAddress(ipAddress), "'%s' is not an IP address.", ipAddress);
-    checkArgument(
-        0 <= port && port <= MAX_PORT_NUMBER,
-```
-
-### UnstableApiUsage
-'com.google.common.net.InetAddresses' is marked unstable with @Beta
-in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
-#### Snippet
-```java
-   */
-  public static NetworkEndpoint forIp(String ipAddress) {
-    checkArgument(InetAddresses.isInetAddress(ipAddress), "'%s' is not an IP address.", ipAddress);
-
-    return NetworkEndpoint.newBuilder()
-```
-
-### UnstableApiUsage
-'isInetAddress(java.lang.String)' is declared in unstable class 'com.google.common.net.InetAddresses' marked with @Beta
-in `common/src/main/java/com/google/tsunami/common/data/NetworkEndpointUtils.java`
-#### Snippet
-```java
-   */
-  public static NetworkEndpoint forIp(String ipAddress) {
-    checkArgument(InetAddresses.isInetAddress(ipAddress), "'%s' is not an IP address.", ipAddress);
-
-    return NetworkEndpoint.newBuilder()
 ```
 
 ### UnstableApiUsage
