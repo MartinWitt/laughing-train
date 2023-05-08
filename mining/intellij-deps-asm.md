@@ -33,8 +33,8 @@ I found 287 bad smells with 5 repairable:
 | DoubleNegation | 1 | false |
 | UnaryPlus | 1 | false |
 | EmptyStatementBody | 1 | false |
-| UnnecessaryToStringCall | 1 | true |
 | ManualMinMaxCalculation | 1 | false |
+| UnnecessaryToStringCall | 1 | true |
 | TrivialIf | 1 | false |
 | ListRemoveInLoop | 1 | false |
 | UseBulkOperation | 1 | false |
@@ -71,30 +71,6 @@ in `asm/src/main/java/org/objectweb/asm/FieldWriter.java`
 #### Snippet
 ```java
   /**
-   * The last runtime invisible type annotation of this field. The previous ones can be accessed
-   * with the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
-   */
-  private AnnotationWriter lastRuntimeInvisibleTypeAnnotation;
-```
-
-### JavadocReference
-Symbol `previousAnnotation` is inaccessible from here
-in `asm/src/main/java/org/objectweb/asm/FieldWriter.java`
-#### Snippet
-```java
-  /**
-   * The last runtime visible annotation of this field. The previous ones can be accessed with the
-   * {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
-   */
-  private AnnotationWriter lastRuntimeVisibleAnnotation;
-```
-
-### JavadocReference
-Symbol `previousAnnotation` is inaccessible from here
-in `asm/src/main/java/org/objectweb/asm/FieldWriter.java`
-#### Snippet
-```java
-  /**
    * The last runtime invisible annotation of this field. The previous ones can be accessed with the
    * {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
    */
@@ -115,14 +91,26 @@ in `asm/src/main/java/org/objectweb/asm/FieldWriter.java`
 
 ### JavadocReference
 Symbol `previousAnnotation` is inaccessible from here
-in `asm/src/main/java/org/objectweb/asm/RecordComponentWriter.java`
+in `asm/src/main/java/org/objectweb/asm/FieldWriter.java`
 #### Snippet
 ```java
   /**
-   * The last runtime visible type annotation of this record component. The previous ones can be
-   * accessed with the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
+   * The last runtime visible annotation of this field. The previous ones can be accessed with the
+   * {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
    */
-  private AnnotationWriter lastRuntimeVisibleTypeAnnotation;
+  private AnnotationWriter lastRuntimeVisibleAnnotation;
+```
+
+### JavadocReference
+Symbol `previousAnnotation` is inaccessible from here
+in `asm/src/main/java/org/objectweb/asm/FieldWriter.java`
+#### Snippet
+```java
+  /**
+   * The last runtime invisible type annotation of this field. The previous ones can be accessed
+   * with the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
+   */
+  private AnnotationWriter lastRuntimeInvisibleTypeAnnotation;
 ```
 
 ### JavadocReference
@@ -143,10 +131,10 @@ in `asm/src/main/java/org/objectweb/asm/RecordComponentWriter.java`
 #### Snippet
 ```java
   /**
-   * The last runtime visible annotation of this record component. The previous ones can be accessed
-   * with the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
+   * The last runtime visible type annotation of this record component. The previous ones can be
+   * accessed with the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
    */
-  private AnnotationWriter lastRuntimeVisibleAnnotation;
+  private AnnotationWriter lastRuntimeVisibleTypeAnnotation;
 ```
 
 ### JavadocReference
@@ -159,6 +147,18 @@ in `asm/src/main/java/org/objectweb/asm/RecordComponentWriter.java`
    * accessed with the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
    */
   private AnnotationWriter lastRuntimeInvisibleTypeAnnotation;
+```
+
+### JavadocReference
+Symbol `previousAnnotation` is inaccessible from here
+in `asm/src/main/java/org/objectweb/asm/RecordComponentWriter.java`
+#### Snippet
+```java
+  /**
+   * The last runtime visible annotation of this record component. The previous ones can be accessed
+   * with the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
+   */
+  private AnnotationWriter lastRuntimeVisibleAnnotation;
 ```
 
 ### JavadocReference
@@ -190,18 +190,6 @@ Symbol `computeMaxStackAndLocal` is inaccessible from here
 in `asm/src/main/java/org/objectweb/asm/Label.java`
 #### Snippet
 ```java
-  /**
-   * The number of elements in the input stack of the basic block corresponding to this label. This
-   * field is computed in {@link MethodWriter#computeMaxStackAndLocal}.
-   */
-  short inputStackSize;
-```
-
-### JavadocReference
-Symbol `computeMaxStackAndLocal` is inaccessible from here
-in `asm/src/main/java/org/objectweb/asm/Label.java`
-#### Snippet
-```java
    * several subroutines, this is the id of the "oldest" subroutine that contains it (with the
    * convention that a subroutine calling another one is "older" than the callee). This field is
    * computed in {@link MethodWriter#computeMaxStackAndLocal}, if the method contains JSR
@@ -210,27 +198,15 @@ in `asm/src/main/java/org/objectweb/asm/Label.java`
 ```
 
 ### JavadocReference
-Symbol `previousAnnotation` is inaccessible from here
-in `asm/src/main/java/org/objectweb/asm/ClassWriter.java`
+Symbol `computeMaxStackAndLocal` is inaccessible from here
+in `asm/src/main/java/org/objectweb/asm/Label.java`
 #### Snippet
 ```java
   /**
-   * The last runtime visible annotation of this class. The previous ones can be accessed with the
-   * {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
+   * The number of elements in the input stack of the basic block corresponding to this label. This
+   * field is computed in {@link MethodWriter#computeMaxStackAndLocal}.
    */
-  private AnnotationWriter lastRuntimeVisibleAnnotation;
-```
-
-### JavadocReference
-Symbol `previousAnnotation` is inaccessible from here
-in `asm/src/main/java/org/objectweb/asm/ClassWriter.java`
-#### Snippet
-```java
-  /**
-   * The last runtime invisible annotation of this class. The previous ones can be accessed with the
-   * {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
-   */
-  private AnnotationWriter lastRuntimeInvisibleAnnotation;
+  short inputStackSize;
 ```
 
 ### JavadocReference
@@ -251,10 +227,70 @@ in `asm/src/main/java/org/objectweb/asm/ClassWriter.java`
 #### Snippet
 ```java
   /**
+   * The last runtime invisible annotation of this class. The previous ones can be accessed with the
+   * {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
+   */
+  private AnnotationWriter lastRuntimeInvisibleAnnotation;
+```
+
+### JavadocReference
+Symbol `previousAnnotation` is inaccessible from here
+in `asm/src/main/java/org/objectweb/asm/ClassWriter.java`
+#### Snippet
+```java
+  /**
+   * The last runtime visible annotation of this class. The previous ones can be accessed with the
+   * {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
+   */
+  private AnnotationWriter lastRuntimeVisibleAnnotation;
+```
+
+### JavadocReference
+Symbol `previousAnnotation` is inaccessible from here
+in `asm/src/main/java/org/objectweb/asm/ClassWriter.java`
+#### Snippet
+```java
+  /**
    * The last runtime visible type annotation of this class. The previous ones can be accessed with
    * the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
    */
   private AnnotationWriter lastRuntimeVisibleTypeAnnotation;
+```
+
+### JavadocReference
+Symbol `computeAllFrames` is inaccessible from here
+in `asm/src/main/java/org/objectweb/asm/Frame.java`
+#### Snippet
+```java
+ *   <li>After all instructions have been visited, a fix point algorithm is used in MethodWriter to
+ *       compute the "input frame" of each basic block (i.e. the stack map frame at the beginning of
+ *       the basic block). See {@link MethodWriter#computeAllFrames}.
+ * </ul>
+ *
+```
+
+### JavadocReference
+Symbol `previousAnnotation` is inaccessible from here
+in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
+#### Snippet
+```java
+  /**
+   * The last runtime visible type annotation of the Code attribute. The previous ones can be
+   * accessed with the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
+   */
+  private AnnotationWriter lastCodeRuntimeVisibleTypeAnnotation;
+```
+
+### JavadocReference
+Symbol `previousAnnotation` is inaccessible from here
+in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
+#### Snippet
+```java
+  /**
+   * The last runtime invisible annotation of this method. The previous ones can be accessed with
+   * the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
+   */
+  private AnnotationWriter lastRuntimeInvisibleAnnotation;
 ```
 
 ### JavadocReference
@@ -267,30 +303,6 @@ in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
    * {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
    */
   private AnnotationWriter lastRuntimeVisibleAnnotation;
-```
-
-### JavadocReference
-Symbol `previousAnnotation` is inaccessible from here
-in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
-#### Snippet
-```java
-  /**
-   * The last runtime invisible type annotation of the Code attribute. The previous ones can be
-   * accessed with the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
-   */
-  private AnnotationWriter lastCodeRuntimeInvisibleTypeAnnotation;
-```
-
-### JavadocReference
-Symbol `previousAnnotation` is inaccessible from here
-in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
-#### Snippet
-```java
-  /**
-   * The last runtime visible type annotation of this method. The previous ones can be accessed with
-   * the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
-   */
-  private AnnotationWriter lastRuntimeVisibleTypeAnnotation;
 ```
 
 ### JavadocReference
@@ -330,39 +342,15 @@ in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
 ```
 
 ### JavadocReference
-Symbol `computeAllFrames` is inaccessible from here
-in `asm/src/main/java/org/objectweb/asm/Frame.java`
-#### Snippet
-```java
- *   <li>After all instructions have been visited, a fix point algorithm is used in MethodWriter to
- *       compute the "input frame" of each basic block (i.e. the stack map frame at the beginning of
- *       the basic block). See {@link MethodWriter#computeAllFrames}.
- * </ul>
- *
-```
-
-### JavadocReference
 Symbol `previousAnnotation` is inaccessible from here
 in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
 #### Snippet
 ```java
-  /**
-   * The last runtime invisible type annotation of this method. The previous ones can be accessed
-   * with the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
+   * The runtime visible parameter annotations of this method. Each array element contains the last
+   * annotation of a parameter (which can be {@literal null} - the previous ones can be accessed
+   * with the {@link AnnotationWriter#previousAnnotation} field). May be {@literal null}.
    */
-  private AnnotationWriter lastRuntimeInvisibleTypeAnnotation;
-```
-
-### JavadocReference
-Symbol `previousAnnotation` is inaccessible from here
-in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
-#### Snippet
-```java
-  /**
-   * The last runtime invisible annotation of this method. The previous ones can be accessed with
-   * the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
-   */
-  private AnnotationWriter lastRuntimeInvisibleAnnotation;
+  private AnnotationWriter[] lastRuntimeVisibleParameterAnnotations;
 ```
 
 ### JavadocReference
@@ -382,35 +370,59 @@ Symbol `previousAnnotation` is inaccessible from here
 in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
 #### Snippet
 ```java
-  /**
-   * The last runtime visible type annotation of the Code attribute. The previous ones can be
-   * accessed with the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
-   */
-  private AnnotationWriter lastCodeRuntimeVisibleTypeAnnotation;
-```
-
-### JavadocReference
-Symbol `previousAnnotation` is inaccessible from here
-in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
-#### Snippet
-```java
-   * The runtime visible parameter annotations of this method. Each array element contains the last
-   * annotation of a parameter (which can be {@literal null} - the previous ones can be accessed
-   * with the {@link AnnotationWriter#previousAnnotation} field). May be {@literal null}.
-   */
-  private AnnotationWriter[] lastRuntimeVisibleParameterAnnotations;
-```
-
-### JavadocReference
-Symbol `previousAnnotation` is inaccessible from here
-in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
-#### Snippet
-```java
    * The runtime invisible parameter annotations of this method. Each array element contains the
    * last annotation of a parameter (which can be {@literal null} - the previous ones can be
    * accessed with the {@link AnnotationWriter#previousAnnotation} field). May be {@literal null}.
    */
   private AnnotationWriter[] lastRuntimeInvisibleParameterAnnotations;
+```
+
+### JavadocReference
+Symbol `previousAnnotation` is inaccessible from here
+in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
+#### Snippet
+```java
+  /**
+   * The last runtime visible type annotation of this method. The previous ones can be accessed with
+   * the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
+   */
+  private AnnotationWriter lastRuntimeVisibleTypeAnnotation;
+```
+
+### JavadocReference
+Symbol `previousAnnotation` is inaccessible from here
+in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
+#### Snippet
+```java
+  /**
+   * The last runtime invisible type annotation of the Code attribute. The previous ones can be
+   * accessed with the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
+   */
+  private AnnotationWriter lastCodeRuntimeInvisibleTypeAnnotation;
+```
+
+### JavadocReference
+Symbol `previousAnnotation` is inaccessible from here
+in `asm/src/main/java/org/objectweb/asm/MethodWriter.java`
+#### Snippet
+```java
+  /**
+   * The last runtime invisible type annotation of this method. The previous ones can be accessed
+   * with the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
+   */
+  private AnnotationWriter lastRuntimeInvisibleTypeAnnotation;
+```
+
+### JavadocReference
+Symbol `frames` is inaccessible from here
+in `asm-util/src/main/java/org/objectweb/asm/util/CheckFrameAnalyzer.java`
+#### Snippet
+```java
+  /**
+   * Expands the {@link FrameNode} "instructions" of the given method into {@link Frame} objects and
+   * stores them at the corresponding indices of the {@link #frames} array. The expanded frames are
+   * also associated with the label and line number nodes immediately preceding each frame node.
+   *
 ```
 
 ### JavadocReference
@@ -437,31 +449,7 @@ in `asm-util/src/main/java/org/objectweb/asm/util/CheckFrameAnalyzer.java`
    * @throws AnalyzerException if the frames have incompatible sizes or if the frame at 'insnIndex'
 ```
 
-### JavadocReference
-Symbol `frames` is inaccessible from here
-in `asm-util/src/main/java/org/objectweb/asm/util/CheckFrameAnalyzer.java`
-#### Snippet
-```java
-  /**
-   * Expands the {@link FrameNode} "instructions" of the given method into {@link Frame} objects and
-   * stores them at the corresponding indices of the {@link #frames} array. The expanded frames are
-   * also associated with the label and line number nodes immediately preceding each frame node.
-   *
-```
-
 ## RuleId[id=ManualArrayToCollectionCopy]
-### ManualArrayToCollectionCopy
-Manual array to collection copy
-in `asm-tree/src/main/java/org/objectweb/asm/tree/Util.java`
-#### Snippet
-```java
-  static <T> List<T> asArrayList(final int length, final T[] array) {
-    List<T> list = new ArrayList<>(length);
-    for (int i = 0; i < length; ++i) {
-      list.add(array[i]); // NOPMD(UseArraysAsList): we convert a part of the array.
-    }
-```
-
 ### ManualArrayToCollectionCopy
 Manual array to collection copy
 in `asm-tree/src/main/java/org/objectweb/asm/tree/Util.java`
@@ -471,6 +459,18 @@ in `asm-tree/src/main/java/org/objectweb/asm/tree/Util.java`
     ArrayList<T> list = new ArrayList<>(array.length);
     for (T t : array) {
       list.add(t); // NOPMD(UseArraysAsList): we want a modifiable list.
+    }
+```
+
+### ManualArrayToCollectionCopy
+Manual array to collection copy
+in `asm-tree/src/main/java/org/objectweb/asm/tree/Util.java`
+#### Snippet
+```java
+  static <T> List<T> asArrayList(final int length, final T[] array) {
+    List<T> list = new ArrayList<>(length);
+    for (int i = 0; i < length; ++i) {
+      list.add(array[i]); // NOPMD(UseArraysAsList): we convert a part of the array.
     }
 ```
 
@@ -501,6 +501,18 @@ in `asm-commons/src/main/java/org/objectweb/asm/commons/JSRInlinerAdapter.java`
 ```
 
 ### DataFlowIssue
+Argument `getResourceAsStream(name.replace('.', '/') + ".class")` might be null
+in `benchmarks/src/jmh/java/org/objectweb/asm/benchmarks/AbstractBenchmark.java`
+#### Snippet
+```java
+        byte[] classFile;
+        try {
+          classFile = readInputStream(getResourceAsStream(name.replace('.', '/') + ".class"));
+        } catch (IOException e) {
+          throw new ClassNotFoundException(name, e);
+```
+
+### DataFlowIssue
 Dereference of `directory.listFiles()` may produce `NullPointerException`
 in `benchmarks/src/jmh/java/org/objectweb/asm/benchmarks/AbstractBenchmark.java`
 #### Snippet
@@ -513,15 +525,15 @@ in `benchmarks/src/jmh/java/org/objectweb/asm/benchmarks/AbstractBenchmark.java`
 ```
 
 ### DataFlowIssue
-Argument `getResourceAsStream(name.replace('.', '/') + ".class")` might be null
-in `benchmarks/src/jmh/java/org/objectweb/asm/benchmarks/AbstractBenchmark.java`
+Method `readCode` is too complex to analyze by data flow algorithm
+in `asm/src/main/java/org/objectweb/asm/ClassReader.java`
 #### Snippet
 ```java
-        byte[] classFile;
-        try {
-          classFile = readInputStream(getResourceAsStream(name.replace('.', '/') + ".class"));
-        } catch (IOException e) {
-          throw new ClassNotFoundException(name, e);
+   *     its attribute_name_index and attribute_length fields.
+   */
+  private void readCode(
+      final MethodVisitor methodVisitor, final Context context, final int codeOffset) {
+    int currentOffset = codeOffset;
 ```
 
 ### DataFlowIssue
@@ -546,18 +558,6 @@ in `asm-test/src/main/java/org/objectweb/asm/test/ClassFile.java`
       return classContext.getCpInfo(cpIndex, cpInfoType);
     }
 
-```
-
-### DataFlowIssue
-Method `readCode` is too complex to analyze by data flow algorithm
-in `asm/src/main/java/org/objectweb/asm/ClassReader.java`
-#### Snippet
-```java
-   *     its attribute_name_index and attribute_length fields.
-   */
-  private void readCode(
-      final MethodVisitor methodVisitor, final Context context, final int codeOffset) {
-    int currentOffset = codeOffset;
 ```
 
 ## RuleId[id=UnnecessarySemicolon]
@@ -859,6 +859,18 @@ Duplicate branch in 'switch'
 in `asm-analysis/src/main/java/org/objectweb/asm/tree/analysis/BasicInterpreter.java`
 #### Snippet
 ```java
+      case BIPUSH:
+      case SIPUSH:
+        return BasicValue.INT_VALUE;
+      case LDC:
+        Object value = ((LdcInsnNode) insn).cst;
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `asm-analysis/src/main/java/org/objectweb/asm/tree/analysis/BasicInterpreter.java`
+#### Snippet
+```java
         return newValue(Type.getType("[" + Type.getObjectType(((TypeInsnNode) insn).desc)));
       case ARRAYLENGTH:
         return BasicValue.INT_VALUE;
@@ -916,14 +928,27 @@ in `asm-analysis/src/main/java/org/objectweb/asm/tree/analysis/BasicInterpreter.
 
 ### DuplicateBranchesInSwitch
 Duplicate branch in 'switch'
-in `asm-analysis/src/main/java/org/objectweb/asm/tree/analysis/BasicInterpreter.java`
+in `asm-commons/src/main/java/org/objectweb/asm/commons/InstructionAdapter.java`
 #### Snippet
 ```java
-      case BIPUSH:
-      case SIPUSH:
-        return BasicValue.INT_VALUE;
-      case LDC:
-        Object value = ((LdcInsnNode) insn).cst;
+        break;
+      case Opcodes.SIPUSH:
+        iconst(operand);
+        break;
+      case Opcodes.NEWARRAY:
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `asm-test/src/main/java/org/objectweb/asm/test/ClassFile.java`
+#### Snippet
+```java
+        return;
+      case 'c':
+        builder.addCpInfo(((char) tag) + ": ", parser.u2());
+        return;
+      case '@':
+        builder.add("@: ", "");
 ```
 
 ### DuplicateBranchesInSwitch
@@ -1426,31 +1451,6 @@ in `asm-test/src/main/java/org/objectweb/asm/test/ClassFile.java`
           builder.addInsn(insnIndex, opcode);
           break;
         case 0xAA: // tableswitch
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `asm-test/src/main/java/org/objectweb/asm/test/ClassFile.java`
-#### Snippet
-```java
-        return;
-      case 'c':
-        builder.addCpInfo(((char) tag) + ": ", parser.u2());
-        return;
-      case '@':
-        builder.add("@: ", "");
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `asm-commons/src/main/java/org/objectweb/asm/commons/InstructionAdapter.java`
-#### Snippet
-```java
-        break;
-      case Opcodes.SIPUSH:
-        iconst(operand);
-        break;
-      case Opcodes.NEWARRAY:
 ```
 
 ## RuleId[id=DuplicatedCode]
@@ -2270,19 +2270,6 @@ in `benchmarks/src/jmh/java/org/objectweb/asm/benchmarks/AbstractBenchmark.java`
 
 ```
 
-## RuleId[id=UnnecessaryToStringCall]
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `asm-util/src/main/java/org/objectweb/asm/util/CheckMethodAdapter.java`
-#### Snippet
-```java
-            CheckClassAdapter.printAnalyzerResult(this, analyzer, printWriter);
-            printWriter.close();
-            throw new IllegalArgumentException(e.getMessage() + ' ' + stringWriter.toString(), e);
-          }
-        },
-```
-
 ## RuleId[id=ManualMinMaxCalculation]
 ### ManualMinMaxCalculation
 Can be replaced with 'Math.max()' call
@@ -2296,29 +2283,30 @@ in `asm/src/main/java/org/objectweb/asm/ByteVector.java`
     data = newData;
 ```
 
+## RuleId[id=UnnecessaryToStringCall]
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `asm-util/src/main/java/org/objectweb/asm/util/CheckMethodAdapter.java`
+#### Snippet
+```java
+            CheckClassAdapter.printAnalyzerResult(this, analyzer, printWriter);
+            printWriter.close();
+            throw new IllegalArgumentException(e.getMessage() + ' ' + stringWriter.toString(), e);
+          }
+        },
+```
+
 ## RuleId[id=JavadocLinkAsPlainText]
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `asm-tree/src/main/java/org/objectweb/asm/tree/MethodNode.java`
+in `asm/src/main/java/org/objectweb/asm/MethodVisitor.java`
 #### Snippet
 ```java
-   * can be strictly less when a method has synthetic parameters and when these parameters are
-   * ignored when computing parameter indices for the purpose of parameter annotations (see
-   * https://docs.oracle.com/javase/specs/jvms/se9/html/jvms-4.html#jvms-4.7.18).
-   */
-  public int visibleAnnotableParameterCount;
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `asm-tree/src/main/java/org/objectweb/asm/tree/MethodNode.java`
-#### Snippet
-```java
-   * It can be strictly less when a method has synthetic parameters and when these parameters are
-   * ignored when computing parameter indices for the purpose of parameter annotations (see
-   * https://docs.oracle.com/javase/specs/jvms/se9/html/jvms-4.html#jvms-4.7.18).
-   */
-  public int invisibleAnnotableParameterCount;
+   *     be strictly less when a method has synthetic parameters and when these parameters are
+   *     ignored when computing parameter indices for the purpose of parameter annotations (see
+   *     https://docs.oracle.com/javase/specs/jvms/se9/html/jvms-4.html#jvms-4.7.18).
+   * @param visible {@literal true} to define the number of method parameters that can have
+   *     annotations visible at runtime, {@literal false} to define the number of method parameters
 ```
 
 ### JavadocLinkAsPlainText
@@ -2335,14 +2323,26 @@ in `asm/src/main/java/org/objectweb/asm/MethodVisitor.java`
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `asm/src/main/java/org/objectweb/asm/MethodVisitor.java`
+in `asm-tree/src/main/java/org/objectweb/asm/tree/MethodNode.java`
 #### Snippet
 ```java
-   *     be strictly less when a method has synthetic parameters and when these parameters are
-   *     ignored when computing parameter indices for the purpose of parameter annotations (see
-   *     https://docs.oracle.com/javase/specs/jvms/se9/html/jvms-4.html#jvms-4.7.18).
-   * @param visible {@literal true} to define the number of method parameters that can have
-   *     annotations visible at runtime, {@literal false} to define the number of method parameters
+   * It can be strictly less when a method has synthetic parameters and when these parameters are
+   * ignored when computing parameter indices for the purpose of parameter annotations (see
+   * https://docs.oracle.com/javase/specs/jvms/se9/html/jvms-4.html#jvms-4.7.18).
+   */
+  public int invisibleAnnotableParameterCount;
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `asm-tree/src/main/java/org/objectweb/asm/tree/MethodNode.java`
+#### Snippet
+```java
+   * can be strictly less when a method has synthetic parameters and when these parameters are
+   * ignored when computing parameter indices for the purpose of parameter annotations (see
+   * https://docs.oracle.com/javase/specs/jvms/se9/html/jvms-4.html#jvms-4.7.18).
+   */
+  public int visibleAnnotableParameterCount;
 ```
 
 ### JavadocLinkAsPlainText
@@ -2422,6 +2422,18 @@ in `benchmarks/src/jmh/java/org/objectweb/asm/benchmarks/GeneratorBenchmark.java
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
+in `benchmarks/src/jmh/java/org/objectweb/asm/benchmarks/GeneratorBenchmark.java`
+#### Snippet
+```java
+@Fork(1)
+@Warmup(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
+@Measurement(iterations = 30, time = 1, timeUnit = TimeUnit.SECONDS)
+@State(Scope.Thread)
+public class GeneratorBenchmark extends AbstractBenchmark {
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
 in `benchmarks/src/jmh/java/org/objectweb/asm/benchmarks/AdapterBenchmarkJava8.java`
 #### Snippet
 ```java
@@ -2442,18 +2454,6 @@ in `benchmarks/src/jmh/java/org/objectweb/asm/benchmarks/AdapterBenchmarkJava8.j
 @Measurement(iterations = 30, time = 1, timeUnit = TimeUnit.SECONDS)
 @State(Scope.Thread)
 public class AdapterBenchmarkJava8 extends AbstractBenchmark {
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `benchmarks/src/jmh/java/org/objectweb/asm/benchmarks/GeneratorBenchmark.java`
-#### Snippet
-```java
-@Fork(1)
-@Warmup(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
-@Measurement(iterations = 30, time = 1, timeUnit = TimeUnit.SECONDS)
-@State(Scope.Thread)
-public class GeneratorBenchmark extends AbstractBenchmark {
 ```
 
 ### DefaultAnnotationParam
@@ -2531,78 +2531,6 @@ public class AdapterBenchmark extends AbstractBenchmark {
 ## RuleId[id=AutoCloseableResource]
 ### AutoCloseableResource
 'AsmBenchmarkFactory' used without 'try'-with-resources statement
-in `benchmarks/src/jmh/java/org/objectweb/asm/benchmarks/AdapterBenchmarkJava8.java`
-#### Snippet
-```java
-  @Setup
-  public void prepare() throws Exception {
-    asm5dot0 = (Adapter) new AsmBenchmarkFactory(AsmVersion.V5_0).newAsmBenchmark();
-    asm6dot0 = (Adapter) new AsmBenchmarkFactory(AsmVersion.V6_0).newAsmBenchmark();
-    asm7dot0 = (Adapter) new AsmBenchmarkFactory(AsmVersion.V7_0).newAsmBenchmark();
-```
-
-### AutoCloseableResource
-'AsmBenchmarkFactory' used without 'try'-with-resources statement
-in `benchmarks/src/jmh/java/org/objectweb/asm/benchmarks/AdapterBenchmarkJava8.java`
-#### Snippet
-```java
-  public void prepare() throws Exception {
-    asm5dot0 = (Adapter) new AsmBenchmarkFactory(AsmVersion.V5_0).newAsmBenchmark();
-    asm6dot0 = (Adapter) new AsmBenchmarkFactory(AsmVersion.V6_0).newAsmBenchmark();
-    asm7dot0 = (Adapter) new AsmBenchmarkFactory(AsmVersion.V7_0).newAsmBenchmark();
-    asm8dot0 = (Adapter) new AsmBenchmarkFactory(AsmVersion.V8_0).newAsmBenchmark();
-```
-
-### AutoCloseableResource
-'AsmBenchmarkFactory' used without 'try'-with-resources statement
-in `benchmarks/src/jmh/java/org/objectweb/asm/benchmarks/AdapterBenchmarkJava8.java`
-#### Snippet
-```java
-    asm5dot0 = (Adapter) new AsmBenchmarkFactory(AsmVersion.V5_0).newAsmBenchmark();
-    asm6dot0 = (Adapter) new AsmBenchmarkFactory(AsmVersion.V6_0).newAsmBenchmark();
-    asm7dot0 = (Adapter) new AsmBenchmarkFactory(AsmVersion.V7_0).newAsmBenchmark();
-    asm8dot0 = (Adapter) new AsmBenchmarkFactory(AsmVersion.V8_0).newAsmBenchmark();
-    asm9dot0 = (Adapter) new AsmBenchmarkFactory(AsmVersion.V9_0).newAsmBenchmark();
-```
-
-### AutoCloseableResource
-'AsmBenchmarkFactory' used without 'try'-with-resources statement
-in `benchmarks/src/jmh/java/org/objectweb/asm/benchmarks/AdapterBenchmarkJava8.java`
-#### Snippet
-```java
-    asm6dot0 = (Adapter) new AsmBenchmarkFactory(AsmVersion.V6_0).newAsmBenchmark();
-    asm7dot0 = (Adapter) new AsmBenchmarkFactory(AsmVersion.V7_0).newAsmBenchmark();
-    asm8dot0 = (Adapter) new AsmBenchmarkFactory(AsmVersion.V8_0).newAsmBenchmark();
-    asm9dot0 = (Adapter) new AsmBenchmarkFactory(AsmVersion.V9_0).newAsmBenchmark();
-    asmCurrent = (Adapter) new AsmBenchmarkFactory(AsmVersion.V_CURRENT).newAsmBenchmark();
-```
-
-### AutoCloseableResource
-'AsmBenchmarkFactory' used without 'try'-with-resources statement
-in `benchmarks/src/jmh/java/org/objectweb/asm/benchmarks/AdapterBenchmarkJava8.java`
-#### Snippet
-```java
-    asm7dot0 = (Adapter) new AsmBenchmarkFactory(AsmVersion.V7_0).newAsmBenchmark();
-    asm8dot0 = (Adapter) new AsmBenchmarkFactory(AsmVersion.V8_0).newAsmBenchmark();
-    asm9dot0 = (Adapter) new AsmBenchmarkFactory(AsmVersion.V9_0).newAsmBenchmark();
-    asmCurrent = (Adapter) new AsmBenchmarkFactory(AsmVersion.V_CURRENT).newAsmBenchmark();
-
-```
-
-### AutoCloseableResource
-'AsmBenchmarkFactory' used without 'try'-with-resources statement
-in `benchmarks/src/jmh/java/org/objectweb/asm/benchmarks/AdapterBenchmarkJava8.java`
-#### Snippet
-```java
-    asm8dot0 = (Adapter) new AsmBenchmarkFactory(AsmVersion.V8_0).newAsmBenchmark();
-    asm9dot0 = (Adapter) new AsmBenchmarkFactory(AsmVersion.V9_0).newAsmBenchmark();
-    asmCurrent = (Adapter) new AsmBenchmarkFactory(AsmVersion.V_CURRENT).newAsmBenchmark();
-
-    // Check that the correct versions of ASM have been loaded.
-```
-
-### AutoCloseableResource
-'AsmBenchmarkFactory' used without 'try'-with-resources statement
 in `benchmarks/src/jmh/java/org/objectweb/asm/benchmarks/GeneratorBenchmark.java`
 #### Snippet
 ```java
@@ -2671,6 +2599,78 @@ in `benchmarks/src/jmh/java/org/objectweb/asm/benchmarks/GeneratorBenchmark.java
     asmCurrent = (Generator) new AsmBenchmarkFactory(AsmVersion.V_CURRENT).newAsmBenchmark();
     aspectJBcel = new AspectjBcelGenerator();
     bcel = new BcelGenerator();
+```
+
+### AutoCloseableResource
+'AsmBenchmarkFactory' used without 'try'-with-resources statement
+in `benchmarks/src/jmh/java/org/objectweb/asm/benchmarks/AdapterBenchmarkJava8.java`
+#### Snippet
+```java
+  @Setup
+  public void prepare() throws Exception {
+    asm5dot0 = (Adapter) new AsmBenchmarkFactory(AsmVersion.V5_0).newAsmBenchmark();
+    asm6dot0 = (Adapter) new AsmBenchmarkFactory(AsmVersion.V6_0).newAsmBenchmark();
+    asm7dot0 = (Adapter) new AsmBenchmarkFactory(AsmVersion.V7_0).newAsmBenchmark();
+```
+
+### AutoCloseableResource
+'AsmBenchmarkFactory' used without 'try'-with-resources statement
+in `benchmarks/src/jmh/java/org/objectweb/asm/benchmarks/AdapterBenchmarkJava8.java`
+#### Snippet
+```java
+  public void prepare() throws Exception {
+    asm5dot0 = (Adapter) new AsmBenchmarkFactory(AsmVersion.V5_0).newAsmBenchmark();
+    asm6dot0 = (Adapter) new AsmBenchmarkFactory(AsmVersion.V6_0).newAsmBenchmark();
+    asm7dot0 = (Adapter) new AsmBenchmarkFactory(AsmVersion.V7_0).newAsmBenchmark();
+    asm8dot0 = (Adapter) new AsmBenchmarkFactory(AsmVersion.V8_0).newAsmBenchmark();
+```
+
+### AutoCloseableResource
+'AsmBenchmarkFactory' used without 'try'-with-resources statement
+in `benchmarks/src/jmh/java/org/objectweb/asm/benchmarks/AdapterBenchmarkJava8.java`
+#### Snippet
+```java
+    asm5dot0 = (Adapter) new AsmBenchmarkFactory(AsmVersion.V5_0).newAsmBenchmark();
+    asm6dot0 = (Adapter) new AsmBenchmarkFactory(AsmVersion.V6_0).newAsmBenchmark();
+    asm7dot0 = (Adapter) new AsmBenchmarkFactory(AsmVersion.V7_0).newAsmBenchmark();
+    asm8dot0 = (Adapter) new AsmBenchmarkFactory(AsmVersion.V8_0).newAsmBenchmark();
+    asm9dot0 = (Adapter) new AsmBenchmarkFactory(AsmVersion.V9_0).newAsmBenchmark();
+```
+
+### AutoCloseableResource
+'AsmBenchmarkFactory' used without 'try'-with-resources statement
+in `benchmarks/src/jmh/java/org/objectweb/asm/benchmarks/AdapterBenchmarkJava8.java`
+#### Snippet
+```java
+    asm6dot0 = (Adapter) new AsmBenchmarkFactory(AsmVersion.V6_0).newAsmBenchmark();
+    asm7dot0 = (Adapter) new AsmBenchmarkFactory(AsmVersion.V7_0).newAsmBenchmark();
+    asm8dot0 = (Adapter) new AsmBenchmarkFactory(AsmVersion.V8_0).newAsmBenchmark();
+    asm9dot0 = (Adapter) new AsmBenchmarkFactory(AsmVersion.V9_0).newAsmBenchmark();
+    asmCurrent = (Adapter) new AsmBenchmarkFactory(AsmVersion.V_CURRENT).newAsmBenchmark();
+```
+
+### AutoCloseableResource
+'AsmBenchmarkFactory' used without 'try'-with-resources statement
+in `benchmarks/src/jmh/java/org/objectweb/asm/benchmarks/AdapterBenchmarkJava8.java`
+#### Snippet
+```java
+    asm7dot0 = (Adapter) new AsmBenchmarkFactory(AsmVersion.V7_0).newAsmBenchmark();
+    asm8dot0 = (Adapter) new AsmBenchmarkFactory(AsmVersion.V8_0).newAsmBenchmark();
+    asm9dot0 = (Adapter) new AsmBenchmarkFactory(AsmVersion.V9_0).newAsmBenchmark();
+    asmCurrent = (Adapter) new AsmBenchmarkFactory(AsmVersion.V_CURRENT).newAsmBenchmark();
+
+```
+
+### AutoCloseableResource
+'AsmBenchmarkFactory' used without 'try'-with-resources statement
+in `benchmarks/src/jmh/java/org/objectweb/asm/benchmarks/AdapterBenchmarkJava8.java`
+#### Snippet
+```java
+    asm8dot0 = (Adapter) new AsmBenchmarkFactory(AsmVersion.V8_0).newAsmBenchmark();
+    asm9dot0 = (Adapter) new AsmBenchmarkFactory(AsmVersion.V9_0).newAsmBenchmark();
+    asmCurrent = (Adapter) new AsmBenchmarkFactory(AsmVersion.V_CURRENT).newAsmBenchmark();
+
+    // Check that the correct versions of ASM have been loaded.
 ```
 
 ### AutoCloseableResource
@@ -2979,30 +2979,6 @@ in `asm-commons/src/main/java/org/objectweb/asm/commons/SignatureRemapper.java`
 ```
 
 ### FieldMayBeFinal
-Field `labelInsnIndices` may be 'final'
-in `asm-util/src/main/java/org/objectweb/asm/util/CheckClassAdapter.java`
-#### Snippet
-```java
-
-  /** The index of the instruction designated by each visited label so far. */
-  private Map<Label, Integer> labelInsnIndices;
-
-  // -----------------------------------------------------------------------------------------------
-```
-
-### FieldMayBeFinal
-Field `checkDataFlow` may be 'final'
-in `asm-util/src/main/java/org/objectweb/asm/util/CheckClassAdapter.java`
-#### Snippet
-```java
-
-  /** Whether the bytecode must be checked with a BasicVerifier. */
-  private boolean checkDataFlow;
-
-  /** The class version number. */
-```
-
-### FieldMayBeFinal
 Field `referencedLabels` may be 'final'
 in `asm-util/src/main/java/org/objectweb/asm/util/CheckMethodAdapter.java`
 #### Snippet
@@ -3024,6 +3000,30 @@ in `asm-util/src/main/java/org/objectweb/asm/util/CheckMethodAdapter.java`
   private List<Label> handlers;
 
   /**
+```
+
+### FieldMayBeFinal
+Field `checkDataFlow` may be 'final'
+in `asm-util/src/main/java/org/objectweb/asm/util/CheckClassAdapter.java`
+#### Snippet
+```java
+
+  /** Whether the bytecode must be checked with a BasicVerifier. */
+  private boolean checkDataFlow;
+
+  /** The class version number. */
+```
+
+### FieldMayBeFinal
+Field `labelInsnIndices` may be 'final'
+in `asm-util/src/main/java/org/objectweb/asm/util/CheckClassAdapter.java`
+#### Snippet
+```java
+
+  /** The index of the instruction designated by each visited label so far. */
+  private Map<Label, Integer> labelInsnIndices;
+
+  // -----------------------------------------------------------------------------------------------
 ```
 
 ### FieldMayBeFinal
@@ -3056,11 +3056,11 @@ in `asm-commons/src/main/java/org/objectweb/asm/commons/AnalyzerAdapter.java`
 in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 #### Snippet
 ```java
+  int V1_4 = 0 << 16 | 48;
+  int V1_5 = 0 << 16 | 49;
+  int V1_6 = 0 << 16 | 50;
   int V1_7 = 0 << 16 | 51;
   int V1_8 = 0 << 16 | 52;
-  int V9 = 0 << 16 | 53;
-  int V10 = 0 << 16 | 54;
-  int V11 = 0 << 16 | 55;
 ```
 
 ### PointlessBitwiseExpression
@@ -3068,11 +3068,23 @@ in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 #### Snippet
 ```java
-  int V1_4 = 0 << 16 | 48;
-  int V1_5 = 0 << 16 | 49;
-  int V1_6 = 0 << 16 | 50;
-  int V1_7 = 0 << 16 | 51;
-  int V1_8 = 0 << 16 | 52;
+  int V14 = 0 << 16 | 58;
+  int V15 = 0 << 16 | 59;
+  int V16 = 0 << 16 | 60;
+  int V17 = 0 << 16 | 61;
+  int V18 = 0 << 16 | 62;
+```
+
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
+#### Snippet
+```java
+  int V18 = 0 << 16 | 62;
+  int V19 = 0 << 16 | 63;
+  int V20 = 0 << 16 | 64;
+  int V21 = 0 << 16 | 65;
+
 ```
 
 ### PointlessBitwiseExpression
@@ -3092,6 +3104,54 @@ in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 #### Snippet
 ```java
+  int V1_1 = 3 << 16 | 45;
+  int V1_2 = 0 << 16 | 46;
+  int V1_3 = 0 << 16 | 47;
+  int V1_4 = 0 << 16 | 48;
+  int V1_5 = 0 << 16 | 49;
+```
+
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
+#### Snippet
+```java
+
+  int V1_1 = 3 << 16 | 45;
+  int V1_2 = 0 << 16 | 46;
+  int V1_3 = 0 << 16 | 47;
+  int V1_4 = 0 << 16 | 48;
+```
+
+### PointlessBitwiseExpression
+`0 << 8` can be replaced with '0'
+in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
+#### Snippet
+```java
+   * @deprecated This API is experimental.
+   */
+  @Deprecated int ASM10_EXPERIMENTAL = 1 << 24 | 10 << 16 | 0 << 8;
+
+  int API_VERSION = ASM9; //[JB: convenience constant]
+```
+
+### PointlessBitwiseExpression
+`0 << 8` can be replaced with '0'
+in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
+#### Snippet
+```java
+  int ASM4 = 4 << 16 | 0 << 8;
+  int ASM5 = 5 << 16 | 0 << 8;
+  int ASM6 = 6 << 16 | 0 << 8;
+  int ASM7 = 7 << 16 | 0 << 8;
+  int ASM8 = 8 << 16 | 0 << 8;
+```
+
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
+#### Snippet
+```java
   int V1_3 = 0 << 16 | 47;
   int V1_4 = 0 << 16 | 48;
   int V1_5 = 0 << 16 | 49;
@@ -3100,15 +3160,15 @@ in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 ```
 
 ### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
+`0 << 8` can be replaced with '0'
 in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 #### Snippet
 ```java
-  int V1_8 = 0 << 16 | 52;
-  int V9 = 0 << 16 | 53;
-  int V10 = 0 << 16 | 54;
-  int V11 = 0 << 16 | 55;
-  int V12 = 0 << 16 | 56;
+  int ASM7 = 7 << 16 | 0 << 8;
+  int ASM8 = 8 << 16 | 0 << 8;
+  int ASM9 = 9 << 16 | 0 << 8;
+
+  /**
 ```
 
 ### PointlessBitwiseExpression
@@ -3116,11 +3176,47 @@ in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 #### Snippet
 ```java
-  int V1_5 = 0 << 16 | 49;
-  int V1_6 = 0 << 16 | 50;
-  int V1_7 = 0 << 16 | 51;
-  int V1_8 = 0 << 16 | 52;
-  int V9 = 0 << 16 | 53;
+  int V17 = 0 << 16 | 61;
+  int V18 = 0 << 16 | 62;
+  int V19 = 0 << 16 | 63;
+  int V20 = 0 << 16 | 64;
+  int V21 = 0 << 16 | 65;
+```
+
+### PointlessBitwiseExpression
+`0 << 8` can be replaced with '0'
+in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
+#### Snippet
+```java
+  int ASM5 = 5 << 16 | 0 << 8;
+  int ASM6 = 6 << 16 | 0 << 8;
+  int ASM7 = 7 << 16 | 0 << 8;
+  int ASM8 = 8 << 16 | 0 << 8;
+  int ASM9 = 9 << 16 | 0 << 8;
+```
+
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
+#### Snippet
+```java
+  int V15 = 0 << 16 | 59;
+  int V16 = 0 << 16 | 60;
+  int V17 = 0 << 16 | 61;
+  int V18 = 0 << 16 | 62;
+  int V19 = 0 << 16 | 63;
+```
+
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
+#### Snippet
+```java
+  int V13 = 0 << 16 | 57;
+  int V14 = 0 << 16 | 58;
+  int V15 = 0 << 16 | 59;
+  int V16 = 0 << 16 | 60;
+  int V17 = 0 << 16 | 61;
 ```
 
 ### PointlessBitwiseExpression
@@ -3140,42 +3236,6 @@ in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 #### Snippet
 ```java
-  int V1_6 = 0 << 16 | 50;
-  int V1_7 = 0 << 16 | 51;
-  int V1_8 = 0 << 16 | 52;
-  int V9 = 0 << 16 | 53;
-  int V10 = 0 << 16 | 54;
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
-#### Snippet
-```java
-  int V19 = 0 << 16 | 63;
-  int V20 = 0 << 16 | 64;
-  int V21 = 0 << 16 | 65;
-
-  /**
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
-#### Snippet
-```java
-  int V14 = 0 << 16 | 58;
-  int V15 = 0 << 16 | 59;
-  int V16 = 0 << 16 | 60;
-  int V17 = 0 << 16 | 61;
-  int V18 = 0 << 16 | 62;
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
-#### Snippet
-```java
   int V11 = 0 << 16 | 55;
   int V12 = 0 << 16 | 56;
   int V13 = 0 << 16 | 57;
@@ -3188,11 +3248,11 @@ in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 #### Snippet
 ```java
-  int V18 = 0 << 16 | 62;
-  int V19 = 0 << 16 | 63;
-  int V20 = 0 << 16 | 64;
-  int V21 = 0 << 16 | 65;
-
+  int V1_8 = 0 << 16 | 52;
+  int V9 = 0 << 16 | 53;
+  int V10 = 0 << 16 | 54;
+  int V11 = 0 << 16 | 55;
+  int V12 = 0 << 16 | 56;
 ```
 
 ### PointlessBitwiseExpression
@@ -3200,11 +3260,47 @@ in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 #### Snippet
 ```java
+  int V9 = 0 << 16 | 53;
+  int V10 = 0 << 16 | 54;
+  int V11 = 0 << 16 | 55;
+  int V12 = 0 << 16 | 56;
   int V13 = 0 << 16 | 57;
-  int V14 = 0 << 16 | 58;
-  int V15 = 0 << 16 | 59;
-  int V16 = 0 << 16 | 60;
-  int V17 = 0 << 16 | 61;
+```
+
+### PointlessBitwiseExpression
+`0 << 8` can be replaced with '0'
+in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
+#### Snippet
+```java
+  int ASM6 = 6 << 16 | 0 << 8;
+  int ASM7 = 7 << 16 | 0 << 8;
+  int ASM8 = 8 << 16 | 0 << 8;
+  int ASM9 = 9 << 16 | 0 << 8;
+
+```
+
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
+#### Snippet
+```java
+  int V1_6 = 0 << 16 | 50;
+  int V1_7 = 0 << 16 | 51;
+  int V1_8 = 0 << 16 | 52;
+  int V9 = 0 << 16 | 53;
+  int V10 = 0 << 16 | 54;
+```
+
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
+#### Snippet
+```java
+  int V1_5 = 0 << 16 | 49;
+  int V1_6 = 0 << 16 | 50;
+  int V1_7 = 0 << 16 | 51;
+  int V1_8 = 0 << 16 | 52;
+  int V9 = 0 << 16 | 53;
 ```
 
 ### PointlessBitwiseExpression
@@ -3224,11 +3320,23 @@ in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 #### Snippet
 ```java
-  int V15 = 0 << 16 | 59;
-  int V16 = 0 << 16 | 60;
-  int V17 = 0 << 16 | 61;
-  int V18 = 0 << 16 | 62;
-  int V19 = 0 << 16 | 63;
+  int V1_2 = 0 << 16 | 46;
+  int V1_3 = 0 << 16 | 47;
+  int V1_4 = 0 << 16 | 48;
+  int V1_5 = 0 << 16 | 49;
+  int V1_6 = 0 << 16 | 50;
+```
+
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
+#### Snippet
+```java
+  int V1_7 = 0 << 16 | 51;
+  int V1_8 = 0 << 16 | 52;
+  int V9 = 0 << 16 | 53;
+  int V10 = 0 << 16 | 54;
+  int V11 = 0 << 16 | 55;
 ```
 
 ### PointlessBitwiseExpression
@@ -3244,15 +3352,15 @@ in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 ```
 
 ### PointlessBitwiseExpression
-`0 << 8` can be replaced with '0'
+`0 << 16` can be replaced with '0'
 in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
 #### Snippet
 ```java
-  int ASM5 = 5 << 16 | 0 << 8;
-  int ASM6 = 6 << 16 | 0 << 8;
-  int ASM7 = 7 << 16 | 0 << 8;
-  int ASM8 = 8 << 16 | 0 << 8;
-  int ASM9 = 9 << 16 | 0 << 8;
+  int V19 = 0 << 16 | 63;
+  int V20 = 0 << 16 | 64;
+  int V21 = 0 << 16 | 65;
+
+  /**
 ```
 
 ### PointlessBitwiseExpression
@@ -3265,114 +3373,6 @@ in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
   int V14 = 0 << 16 | 58;
   int V15 = 0 << 16 | 59;
   int V16 = 0 << 16 | 60;
-```
-
-### PointlessBitwiseExpression
-`0 << 8` can be replaced with '0'
-in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
-#### Snippet
-```java
-  int ASM7 = 7 << 16 | 0 << 8;
-  int ASM8 = 8 << 16 | 0 << 8;
-  int ASM9 = 9 << 16 | 0 << 8;
-
-  /**
-```
-
-### PointlessBitwiseExpression
-`0 << 8` can be replaced with '0'
-in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
-#### Snippet
-```java
-  int ASM6 = 6 << 16 | 0 << 8;
-  int ASM7 = 7 << 16 | 0 << 8;
-  int ASM8 = 8 << 16 | 0 << 8;
-  int ASM9 = 9 << 16 | 0 << 8;
-
-```
-
-### PointlessBitwiseExpression
-`0 << 8` can be replaced with '0'
-in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
-#### Snippet
-```java
-  int ASM4 = 4 << 16 | 0 << 8;
-  int ASM5 = 5 << 16 | 0 << 8;
-  int ASM6 = 6 << 16 | 0 << 8;
-  int ASM7 = 7 << 16 | 0 << 8;
-  int ASM8 = 8 << 16 | 0 << 8;
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
-#### Snippet
-```java
-  int V1_1 = 3 << 16 | 45;
-  int V1_2 = 0 << 16 | 46;
-  int V1_3 = 0 << 16 | 47;
-  int V1_4 = 0 << 16 | 48;
-  int V1_5 = 0 << 16 | 49;
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
-#### Snippet
-```java
-  int V1_2 = 0 << 16 | 46;
-  int V1_3 = 0 << 16 | 47;
-  int V1_4 = 0 << 16 | 48;
-  int V1_5 = 0 << 16 | 49;
-  int V1_6 = 0 << 16 | 50;
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
-#### Snippet
-```java
-  int V17 = 0 << 16 | 61;
-  int V18 = 0 << 16 | 62;
-  int V19 = 0 << 16 | 63;
-  int V20 = 0 << 16 | 64;
-  int V21 = 0 << 16 | 65;
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
-#### Snippet
-```java
-
-  int V1_1 = 3 << 16 | 45;
-  int V1_2 = 0 << 16 | 46;
-  int V1_3 = 0 << 16 | 47;
-  int V1_4 = 0 << 16 | 48;
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
-#### Snippet
-```java
-  int V9 = 0 << 16 | 53;
-  int V10 = 0 << 16 | 54;
-  int V11 = 0 << 16 | 55;
-  int V12 = 0 << 16 | 56;
-  int V13 = 0 << 16 | 57;
-```
-
-### PointlessBitwiseExpression
-`0 << 8` can be replaced with '0'
-in `asm/src/main/java/org/objectweb/asm/Opcodes.java`
-#### Snippet
-```java
-   * @deprecated This API is experimental.
-   */
-  @Deprecated int ASM10_EXPERIMENTAL = 1 << 24 | 10 << 16 | 0 << 8;
-
-  int API_VERSION = ASM9; //[JB: convenience constant]
 ```
 
 ## RuleId[id=UnnecessaryContinue]
@@ -3476,18 +3476,6 @@ in `asm-util/src/main/java/org/objectweb/asm/util/Printer.java`
 
 ### ConfusingMainMethod
 Method `main()` does not have signature 'public static void main(String\[\])'
-in `asm-util/src/main/java/org/objectweb/asm/util/ASMifier.java`
-#### Snippet
-```java
-   * @throws IOException if the class cannot be found, or if an IOException occurs.
-   */
-  static void main(final String[] args, final PrintWriter output, final PrintWriter logger)
-      throws IOException {
-    main(args, USAGE, new ASMifier(), output, logger);
-```
-
-### ConfusingMainMethod
-Method `main()` does not have signature 'public static void main(String\[\])'
 in `asm-util/src/main/java/org/objectweb/asm/util/CheckClassAdapter.java`
 #### Snippet
 ```java
@@ -3510,19 +3498,19 @@ in `asm-util/src/main/java/org/objectweb/asm/util/Textifier.java`
     main(args, USAGE, new Textifier(), output, logger);
 ```
 
-## RuleId[id=UnusedAssignment]
-### UnusedAssignment
-The value `insnNode` assigned to `firstInsn` is never used
-in `asm-tree/src/main/java/org/objectweb/asm/tree/InsnList.java`
+### ConfusingMainMethod
+Method `main()` does not have signature 'public static void main(String\[\])'
+in `asm-util/src/main/java/org/objectweb/asm/util/ASMifier.java`
 #### Snippet
 ```java
-    ++size;
-    if (firstInsn == null) {
-      firstInsn = insnNode;
-      lastInsn = insnNode;
-    } else {
+   * @throws IOException if the class cannot be found, or if an IOException occurs.
+   */
+  static void main(final String[] args, final PrintWriter output, final PrintWriter logger)
+      throws IOException {
+    main(args, USAGE, new ASMifier(), output, logger);
 ```
 
+## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
 The value `insnNode` assigned to `lastInsn` is never used
 in `asm-tree/src/main/java/org/objectweb/asm/tree/InsnList.java`
@@ -3533,6 +3521,18 @@ in `asm-tree/src/main/java/org/objectweb/asm/tree/InsnList.java`
       lastInsn = insnNode;
     } else {
       lastInsn.nextInsn = insnNode;
+```
+
+### UnusedAssignment
+The value `insnNode` assigned to `firstInsn` is never used
+in `asm-tree/src/main/java/org/objectweb/asm/tree/InsnList.java`
+#### Snippet
+```java
+    ++size;
+    if (firstInsn == null) {
+      firstInsn = insnNode;
+      lastInsn = insnNode;
+    } else {
 ```
 
 ### UnusedAssignment
@@ -3586,18 +3586,6 @@ in `asm/src/main/java/org/objectweb/asm/Attribute.java`
 ```
 
 ### ConstantValue
-Condition `Opcodes.class.getField(version) != null` is always `true`
-in `benchmarks/src/jmh/java/org/objectweb/asm/benchmarks/AsmAdapter.java`
-#### Snippet
-```java
-      try {
-        String version = "ASM" + i;
-        if (Opcodes.class.getField(version) != null) {
-          asmApi = Opcodes.class.getField(version).getInt(null);
-          return version;
-```
-
-### ConstantValue
 Condition `startPos == -1` is always `false`
 in `asm-util/src/main/java/org/objectweb/asm/util/CheckMethodAdapter.java`
 #### Snippet
@@ -3607,6 +3595,18 @@ in `asm-util/src/main/java/org/objectweb/asm/util/CheckMethodAdapter.java`
         if (startPos == -1 || endPos - startPos < 2) {
           throw new IllegalArgumentException(INVALID_DESCRIPTOR + descriptor);
         }
+```
+
+### ConstantValue
+Condition `Opcodes.class.getField(version) != null` is always `true`
+in `benchmarks/src/jmh/java/org/objectweb/asm/benchmarks/AsmAdapter.java`
+#### Snippet
+```java
+      try {
+        String version = "ASM" + i;
+        if (Opcodes.class.getField(version) != null) {
+          asmApi = Opcodes.class.getField(version).getInt(null);
+          return version;
 ```
 
 ### ConstantValue
@@ -3626,10 +3626,10 @@ Value `annotationVisitor` is always 'null'
 in `asm-commons/src/main/java/org/objectweb/asm/commons/MethodRemapper.java`
 #### Snippet
 ```java
-        super.visitInsnAnnotation(typeRef, typePath, remapper.mapDesc(descriptor), visible);
+    AnnotationVisitor annotationVisitor = super.visitAnnotationDefault();
     return annotationVisitor == null
         ? annotationVisitor
-        : createAnnotationRemapper(descriptor, annotationVisitor);
+        : createAnnotationRemapper(/* descriptor = */ null, annotationVisitor);
   }
 ```
 
@@ -3638,19 +3638,7 @@ Value `annotationVisitor` is always 'null'
 in `asm-commons/src/main/java/org/objectweb/asm/commons/MethodRemapper.java`
 #### Snippet
 ```java
-        super.visitParameterAnnotation(parameter, remapper.mapDesc(descriptor), visible);
-    return annotationVisitor == null
-        ? annotationVisitor
-        : createAnnotationRemapper(descriptor, annotationVisitor);
-  }
-```
-
-### ConstantValue
-Value `annotationVisitor` is always 'null'
-in `asm-commons/src/main/java/org/objectweb/asm/commons/MethodRemapper.java`
-#### Snippet
-```java
-        super.visitTypeAnnotation(typeRef, typePath, remapper.mapDesc(descriptor), visible);
+            typeRef, typePath, start, end, index, remapper.mapDesc(descriptor), visible);
     return annotationVisitor == null
         ? annotationVisitor
         : createAnnotationRemapper(descriptor, annotationVisitor);
@@ -3674,7 +3662,19 @@ Value `annotationVisitor` is always 'null'
 in `asm-commons/src/main/java/org/objectweb/asm/commons/MethodRemapper.java`
 #### Snippet
 ```java
-            typeRef, typePath, start, end, index, remapper.mapDesc(descriptor), visible);
+        super.visitTypeAnnotation(typeRef, typePath, remapper.mapDesc(descriptor), visible);
+    return annotationVisitor == null
+        ? annotationVisitor
+        : createAnnotationRemapper(descriptor, annotationVisitor);
+  }
+```
+
+### ConstantValue
+Value `annotationVisitor` is always 'null'
+in `asm-commons/src/main/java/org/objectweb/asm/commons/MethodRemapper.java`
+#### Snippet
+```java
+        super.visitInsnAnnotation(typeRef, typePath, remapper.mapDesc(descriptor), visible);
     return annotationVisitor == null
         ? annotationVisitor
         : createAnnotationRemapper(descriptor, annotationVisitor);
@@ -3698,10 +3698,10 @@ Value `annotationVisitor` is always 'null'
 in `asm-commons/src/main/java/org/objectweb/asm/commons/MethodRemapper.java`
 #### Snippet
 ```java
-    AnnotationVisitor annotationVisitor = super.visitAnnotationDefault();
+        super.visitParameterAnnotation(parameter, remapper.mapDesc(descriptor), visible);
     return annotationVisitor == null
         ? annotationVisitor
-        : createAnnotationRemapper(/* descriptor = */ null, annotationVisitor);
+        : createAnnotationRemapper(descriptor, annotationVisitor);
   }
 ```
 
@@ -3730,18 +3730,6 @@ in `benchmarks/src/jmh/java/org/objectweb/asm/benchmarks/AsmFactory.java`
 ```
 
 ### ConstantValue
-Value `isInstanceMethod` is always 'true'
-in `asm-analysis/src/main/java/org/objectweb/asm/tree/analysis/Analyzer.java`
-#### Snippet
-```java
-      Type ownerType = Type.getObjectType(owner);
-      frame.setLocal(
-          currentLocal, interpreter.newParameterValue(isInstanceMethod, currentLocal, ownerType));
-      currentLocal++;
-    }
-```
-
-### ConstantValue
 Condition `frameType >= Frame.CHOP_FRAME` is always `true`
 in `asm/src/main/java/org/objectweb/asm/ClassReader.java`
 #### Snippet
@@ -3751,5 +3739,17 @@ in `asm/src/main/java/org/objectweb/asm/ClassReader.java`
       } else if (frameType >= Frame.CHOP_FRAME && frameType < Frame.SAME_FRAME_EXTENDED) {
         context.currentFrameType = Opcodes.F_CHOP;
         context.currentFrameLocalCountDelta = Frame.SAME_FRAME_EXTENDED - frameType;
+```
+
+### ConstantValue
+Value `isInstanceMethod` is always 'true'
+in `asm-analysis/src/main/java/org/objectweb/asm/tree/analysis/Analyzer.java`
+#### Snippet
+```java
+      Type ownerType = Type.getObjectType(owner);
+      frame.setLocal(
+          currentLocal, interpreter.newParameterValue(isInstanceMethod, currentLocal, ownerType));
+      currentLocal++;
+    }
 ```
 
