@@ -74,6 +74,30 @@ in `tooling/common/src/main/java/org/apache/karaf/minho/tooling/common/maven/Par
 
 ## RuleId[id=AutoCloseableResource]
 ### AutoCloseableResource
+'Stream' used without 'try'-with-resources statement
+in `services/minho-extractor/src/main/java/org/apache/karaf/minho/extractor/ExtractorService.java`
+#### Snippet
+```java
+                try (FileSystem fs = FileSystems.newFileSystem(resource.toURI(), Collections.emptyMap())) {
+                    String finalTarget = target;
+                    Files.walk(fs.getPath(".")).filter(Files::isRegularFile)
+                            .forEach(path -> {
+                                try {
+```
+
+### AutoCloseableResource
+'InputStream' used without 'try'-with-resources statement
+in `services/minho-banner/src/main/java/org/apache/karaf/minho/banner/WelcomeBannerService.java`
+#### Snippet
+```java
+        }
+
+        if (WelcomeBannerService.class.getResourceAsStream("/banner.txt") != null) {
+            try {
+                log.info("\n" + readBanner(new InputStreamReader(WelcomeBannerService.class.getResourceAsStream("/banner.txt"))));
+```
+
+### AutoCloseableResource
 'InputStream' used without 'try'-with-resources statement
 in `services/minho-config-json/src/main/java/org/apache/karaf/minho/config/json/JsonConfigLoaderService.java`
 #### Snippet
@@ -95,18 +119,6 @@ in `services/minho-config-json/src/main/java/org/apache/karaf/minho/config/json/
         } else if (JsonConfigLoaderService.class.getResourceAsStream("/minho.json") != null) {
             log.info("Loading JSON configuration from classpath minho.json");
             config = loadJson(JsonConfigLoaderService.class.getResourceAsStream("/minho.json"));
-```
-
-### AutoCloseableResource
-'InputStream' used without 'try'-with-resources statement
-in `services/minho-banner/src/main/java/org/apache/karaf/minho/banner/WelcomeBannerService.java`
-#### Snippet
-```java
-        }
-
-        if (WelcomeBannerService.class.getResourceAsStream("/banner.txt") != null) {
-            try {
-                log.info("\n" + readBanner(new InputStreamReader(WelcomeBannerService.class.getResourceAsStream("/banner.txt"))));
 ```
 
 ### AutoCloseableResource
@@ -135,18 +147,6 @@ in `services/minho-config-properties/src/main/java/org/apache/karaf/minho/config
 
 ### AutoCloseableResource
 'Stream' used without 'try'-with-resources statement
-in `services/minho-extractor/src/main/java/org/apache/karaf/minho/extractor/ExtractorService.java`
-#### Snippet
-```java
-                try (FileSystem fs = FileSystems.newFileSystem(resource.toURI(), Collections.emptyMap())) {
-                    String finalTarget = target;
-                    Files.walk(fs.getPath(".")).filter(Files::isRegularFile)
-                            .forEach(path -> {
-                                try {
-```
-
-### AutoCloseableResource
-'Stream' used without 'try'-with-resources statement
 in `tooling/common/src/main/java/org/apache/karaf/minho/tooling/common/Runtime.java`
 #### Snippet
 ```java
@@ -154,7 +154,7 @@ in `tooling/common/src/main/java/org/apache/karaf/minho/tooling/common/Runtime.j
             target.closeEntry();
             Files.list(source).forEach(child -> {
                 try {
-                    addZipContent(child, base, target);
+                    addJarContent(child, base, target);
 ```
 
 ### AutoCloseableResource
@@ -167,6 +167,18 @@ in `tooling/common/src/main/java/org/apache/karaf/minho/tooling/common/Runtime.j
             Files.list(baseFolder).forEach(file -> {
                 try {
                     if (!file.equals(zipArchive)) {
+```
+
+### AutoCloseableResource
+'Stream' used without 'try'-with-resources statement
+in `tooling/common/src/main/java/org/apache/karaf/minho/tooling/common/Runtime.java`
+#### Snippet
+```java
+            target.putNextEntry(entry);
+            target.closeEntry();
+            Files.list(source).forEach(child -> {
+                try {
+                    addZipContent(child, base, target);
 ```
 
 ### AutoCloseableResource
@@ -203,18 +215,6 @@ in `tooling/common/src/main/java/org/apache/karaf/minho/tooling/common/Runtime.j
             Files.walk(libFolder).map(Path::toFile).forEach(File::delete);
             Files.delete(libFolder);
         }
-```
-
-### AutoCloseableResource
-'Stream' used without 'try'-with-resources statement
-in `tooling/common/src/main/java/org/apache/karaf/minho/tooling/common/Runtime.java`
-#### Snippet
-```java
-            target.putNextEntry(entry);
-            target.closeEntry();
-            Files.list(source).forEach(child -> {
-                try {
-                    addJarContent(child, base, target);
 ```
 
 ## RuleId[id=ClassGetClass]
@@ -332,18 +332,6 @@ in `services/minho-extractor/src/main/java/org/apache/karaf/minho/extractor/Extr
 
 ## RuleId[id=JavadocDeclaration]
 ### JavadocDeclaration
-`@param m_version` tag description is missing
-in `tooling/common/src/main/java/org/apache/karaf/minho/tooling/common/maven/Parser.java`
-#### Snippet
-```java
-    /**
-     * Changes parsed version - to allow printing mvn: URI with changed version
-     * @param m_version
-     */
-    public void setVersion(String m_version)
-```
-
-### JavadocDeclaration
 `@return` tag description is missing
 in `tooling/common/src/main/java/org/apache/karaf/minho/tooling/common/maven/Parser.java`
 #### Snippet
@@ -356,27 +344,27 @@ in `tooling/common/src/main/java/org/apache/karaf/minho/tooling/common/maven/Par
 ```
 
 ### JavadocDeclaration
-`@param m_artifact` tag description is missing
+`@param m_classifier` tag description is missing
 in `tooling/common/src/main/java/org/apache/karaf/minho/tooling/common/maven/Parser.java`
 #### Snippet
 ```java
     /**
-     * Changes parsed artifact - to allow printing mvn: URI with changed artifactId
-     * @param m_artifact
+     * Changes parsed classifier - to allow printing mvn: URI with changed classifier
+     * @param m_classifier
      */
-    public void setArtifact(String m_artifact)
+    public void setClassifier(String m_classifier)
 ```
 
 ### JavadocDeclaration
-`@param m_type` tag description is missing
+`@param m_version` tag description is missing
 in `tooling/common/src/main/java/org/apache/karaf/minho/tooling/common/maven/Parser.java`
 #### Snippet
 ```java
     /**
-     * Changes parsed type - to allow printing mvn: URI with changed type
-     * @param m_type
+     * Changes parsed version - to allow printing mvn: URI with changed version
+     * @param m_version
      */
-    public void setType(String m_type)
+    public void setVersion(String m_version)
 ```
 
 ### JavadocDeclaration
@@ -392,15 +380,27 @@ in `tooling/common/src/main/java/org/apache/karaf/minho/tooling/common/maven/Par
 ```
 
 ### JavadocDeclaration
-`@param m_classifier` tag description is missing
+`@param m_type` tag description is missing
 in `tooling/common/src/main/java/org/apache/karaf/minho/tooling/common/maven/Parser.java`
 #### Snippet
 ```java
     /**
-     * Changes parsed classifier - to allow printing mvn: URI with changed classifier
-     * @param m_classifier
+     * Changes parsed type - to allow printing mvn: URI with changed type
+     * @param m_type
      */
-    public void setClassifier(String m_classifier)
+    public void setType(String m_type)
+```
+
+### JavadocDeclaration
+`@param m_artifact` tag description is missing
+in `tooling/common/src/main/java/org/apache/karaf/minho/tooling/common/maven/Parser.java`
+#### Snippet
+```java
+    /**
+     * Changes parsed artifact - to allow printing mvn: URI with changed artifactId
+     * @param m_artifact
+     */
+    public void setArtifact(String m_artifact)
 ```
 
 ## RuleId[id=RedundantCast]
@@ -418,27 +418,63 @@ in `services/minho-spring-boot/src/main/java/org/apache/karaf/minho/springboot/S
 
 ## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
-Field `registerWithFactory` may be 'final'
-in `services/minho-jmx/src/main/java/org/apache/karaf/minho/jmx/MBeanServerFactory.java`
+Field `profiles` may be 'final'
+in `boot/src/main/java/org/apache/karaf/minho/boot/service/ClassLoaderService.java`
 #### Snippet
 ```java
-    private String defaultDomain;
-    private String agentId;
-    private boolean registerWithFactory = true;
-    private boolean newlyRegistered = false;
-    private MBeanServer server;
+public class ClassLoaderService implements Service, AutoCloseable {
+
+    private Map<String, URLClassLoader> profiles = new HashMap<>();
+
+    @Override
 ```
 
 ### FieldMayBeFinal
-Field `locateExistingServerIfPossible` may be 'final'
-in `services/minho-jmx/src/main/java/org/apache/karaf/minho/jmx/MBeanServerFactory.java`
+Field `properties` may be 'final'
+in `boot/src/main/java/org/apache/karaf/minho/boot/config/Config.java`
 #### Snippet
 ```java
-public class MBeanServerFactory {
+    private static Pattern envKeyPattern = Pattern.compile("\\.");
 
-    private boolean locateExistingServerIfPossible = false;
-    private String defaultDomain;
-    private String agentId;
+    private Map<String, String> properties = new HashMap<>();
+    private List<Profile> profiles = new ArrayList<>();
+    private List<Application> applications = new ArrayList<>();
+```
+
+### FieldMayBeFinal
+Field `profiles` may be 'final'
+in `boot/src/main/java/org/apache/karaf/minho/boot/config/Config.java`
+#### Snippet
+```java
+
+    private Map<String, String> properties = new HashMap<>();
+    private List<Profile> profiles = new ArrayList<>();
+    private List<Application> applications = new ArrayList<>();
+
+```
+
+### FieldMayBeFinal
+Field `envKeyPattern` may be 'final'
+in `boot/src/main/java/org/apache/karaf/minho/boot/config/Config.java`
+#### Snippet
+```java
+public class Config {
+
+    private static Pattern envKeyPattern = Pattern.compile("\\.");
+
+    private Map<String, String> properties = new HashMap<>();
+```
+
+### FieldMayBeFinal
+Field `applications` may be 'final'
+in `boot/src/main/java/org/apache/karaf/minho/boot/config/Config.java`
+#### Snippet
+```java
+    private Map<String, String> properties = new HashMap<>();
+    private List<Profile> profiles = new ArrayList<>();
+    private List<Application> applications = new ArrayList<>();
+
+    public void merge(final Config config) {
 ```
 
 ### FieldMayBeFinal
@@ -478,15 +514,27 @@ in `boot/src/main/java/org/apache/karaf/minho/boot/config/Profile.java`
 ```
 
 ### FieldMayBeFinal
-Field `startCallbacks` may be 'final'
-in `boot/src/main/java/org/apache/karaf/minho/boot/service/LifeCycleService.java`
+Field `locateExistingServerIfPossible` may be 'final'
+in `services/minho-jmx/src/main/java/org/apache/karaf/minho/jmx/MBeanServerFactory.java`
 #### Snippet
 ```java
-public class LifeCycleService implements Service, AutoCloseable {
+public class MBeanServerFactory {
 
-    private List<Runnable> startCallbacks = new ArrayList<>();
-    private List<Runnable> shutdownCallbacks = new ArrayList<>();
+    private boolean locateExistingServerIfPossible = false;
+    private String defaultDomain;
+    private String agentId;
+```
 
+### FieldMayBeFinal
+Field `registerWithFactory` may be 'final'
+in `services/minho-jmx/src/main/java/org/apache/karaf/minho/jmx/MBeanServerFactory.java`
+#### Snippet
+```java
+    private String defaultDomain;
+    private String agentId;
+    private boolean registerWithFactory = true;
+    private boolean newlyRegistered = false;
+    private MBeanServer server;
 ```
 
 ### FieldMayBeFinal
@@ -502,123 +550,15 @@ in `boot/src/main/java/org/apache/karaf/minho/boot/service/LifeCycleService.java
 ```
 
 ### FieldMayBeFinal
-Field `envKeyPattern` may be 'final'
-in `boot/src/main/java/org/apache/karaf/minho/boot/config/Config.java`
+Field `startCallbacks` may be 'final'
+in `boot/src/main/java/org/apache/karaf/minho/boot/service/LifeCycleService.java`
 #### Snippet
 ```java
-public class Config {
+public class LifeCycleService implements Service, AutoCloseable {
 
-    private static Pattern envKeyPattern = Pattern.compile("\\.");
+    private List<Runnable> startCallbacks = new ArrayList<>();
+    private List<Runnable> shutdownCallbacks = new ArrayList<>();
 
-    private Map<String, String> properties = new HashMap<>();
-```
-
-### FieldMayBeFinal
-Field `applications` may be 'final'
-in `boot/src/main/java/org/apache/karaf/minho/boot/config/Config.java`
-#### Snippet
-```java
-    private Map<String, String> properties = new HashMap<>();
-    private List<Profile> profiles = new ArrayList<>();
-    private List<Application> applications = new ArrayList<>();
-
-    public void merge(final Config config) {
-```
-
-### FieldMayBeFinal
-Field `profiles` may be 'final'
-in `boot/src/main/java/org/apache/karaf/minho/boot/config/Config.java`
-#### Snippet
-```java
-
-    private Map<String, String> properties = new HashMap<>();
-    private List<Profile> profiles = new ArrayList<>();
-    private List<Application> applications = new ArrayList<>();
-
-```
-
-### FieldMayBeFinal
-Field `properties` may be 'final'
-in `boot/src/main/java/org/apache/karaf/minho/boot/config/Config.java`
-#### Snippet
-```java
-    private static Pattern envKeyPattern = Pattern.compile("\\.");
-
-    private Map<String, String> properties = new HashMap<>();
-    private List<Profile> profiles = new ArrayList<>();
-    private List<Application> applications = new ArrayList<>();
-```
-
-### FieldMayBeFinal
-Field `profiles` may be 'final'
-in `boot/src/main/java/org/apache/karaf/minho/boot/service/ClassLoaderService.java`
-#### Snippet
-```java
-public class ClassLoaderService implements Service, AutoCloseable {
-
-    private Map<String, URLClassLoader> profiles = new HashMap<>();
-
-    @Override
-```
-
-### FieldMayBeFinal
-Field `threaded` may be 'final'
-in `services/minho-jmx/src/main/java/org/apache/karaf/minho/jmx/ConnectorServerFactory.java`
-#### Snippet
-```java
-    private RMIJRMPServerImpl rmiServer;
-    private ObjectName objectName;
-    private boolean threaded = false;
-    private boolean daemon = false;
-
-```
-
-### FieldMayBeFinal
-Field `daemon` may be 'final'
-in `services/minho-jmx/src/main/java/org/apache/karaf/minho/jmx/ConnectorServerFactory.java`
-#### Snippet
-```java
-    private ObjectName objectName;
-    private boolean threaded = false;
-    private boolean daemon = false;
-
-    public void init() throws Exception {
-```
-
-### FieldMayBeFinal
-Field `port` may be 'final'
-in `services/minho-jmx/src/main/java/org/apache/karaf/minho/jmx/ConnectorServerFactory.java`
-#### Snippet
-```java
-    private boolean create = true;
-    private boolean locallyCreated;
-    private int port = Registry.REGISTRY_PORT;
-    private String host;
-    private Remote remoteServerStub;
-```
-
-### FieldMayBeFinal
-Field `create` may be 'final'
-in `services/minho-jmx/src/main/java/org/apache/karaf/minho/jmx/ConnectorServerFactory.java`
-#### Snippet
-```java
-    private String rmiServerHost;
-    private boolean locate;
-    private boolean create = true;
-    private boolean locallyCreated;
-    private int port = Registry.REGISTRY_PORT;
-```
-
-### FieldMayBeFinal
-Field `rmiServerHost` may be 'final'
-in `services/minho-jmx/src/main/java/org/apache/karaf/minho/jmx/ConnectorServerFactory.java`
-#### Snippet
-```java
-
-    private static class MinhoRMIServerSocketFactory implements RMIServerSocketFactory {
-        private String rmiServerHost;
-
-        public MinhoRMIServerSocketFactory(String rmiServerHost) {
 ```
 
 ### FieldMayBeFinal
@@ -646,18 +586,6 @@ in `tooling/common/src/main/java/org/apache/karaf/minho/tooling/common/Runtime.j
 ```
 
 ### FieldMayBeFinal
-Field `dependencies` may be 'final'
-in `tooling/common/src/main/java/org/apache/karaf/minho/tooling/common/Runtime.java`
-#### Snippet
-```java
-    private String version;
-    private Map<String, Object> properties = new HashMap<>();
-    private List<String> dependencies = new LinkedList<>();
-    private Config config;
-
-```
-
-### FieldMayBeFinal
 Field `version` may be 'final'
 in `tooling/common/src/main/java/org/apache/karaf/minho/tooling/common/Runtime.java`
 #### Snippet
@@ -667,6 +595,18 @@ in `tooling/common/src/main/java/org/apache/karaf/minho/tooling/common/Runtime.j
     private String version;
     private Map<String, Object> properties = new HashMap<>();
     private List<String> dependencies = new LinkedList<>();
+```
+
+### FieldMayBeFinal
+Field `dependencies` may be 'final'
+in `tooling/common/src/main/java/org/apache/karaf/minho/tooling/common/Runtime.java`
+#### Snippet
+```java
+    private String version;
+    private Map<String, Object> properties = new HashMap<>();
+    private List<String> dependencies = new LinkedList<>();
+    private Config config;
+
 ```
 
 ### FieldMayBeFinal
@@ -681,19 +621,67 @@ in `tooling/common/src/main/java/org/apache/karaf/minho/tooling/common/Runtime.j
     public Runtime(String name, String version, Map<String, Object> properties) throws Exception {
 ```
 
-## RuleId[id=MismatchedCollectionQueryUpdate]
-### MismatchedCollectionQueryUpdate
-Contents of collection `applications` are updated, but never queried
-in `boot/src/main/java/org/apache/karaf/minho/boot/config/Config.java`
+### FieldMayBeFinal
+Field `threaded` may be 'final'
+in `services/minho-jmx/src/main/java/org/apache/karaf/minho/jmx/ConnectorServerFactory.java`
 #### Snippet
 ```java
-    private Map<String, String> properties = new HashMap<>();
-    private List<Profile> profiles = new ArrayList<>();
-    private List<Application> applications = new ArrayList<>();
+    private RMIJRMPServerImpl rmiServer;
+    private ObjectName objectName;
+    private boolean threaded = false;
+    private boolean daemon = false;
 
-    public void merge(final Config config) {
 ```
 
+### FieldMayBeFinal
+Field `daemon` may be 'final'
+in `services/minho-jmx/src/main/java/org/apache/karaf/minho/jmx/ConnectorServerFactory.java`
+#### Snippet
+```java
+    private ObjectName objectName;
+    private boolean threaded = false;
+    private boolean daemon = false;
+
+    public void init() throws Exception {
+```
+
+### FieldMayBeFinal
+Field `rmiServerHost` may be 'final'
+in `services/minho-jmx/src/main/java/org/apache/karaf/minho/jmx/ConnectorServerFactory.java`
+#### Snippet
+```java
+
+    private static class MinhoRMIServerSocketFactory implements RMIServerSocketFactory {
+        private String rmiServerHost;
+
+        public MinhoRMIServerSocketFactory(String rmiServerHost) {
+```
+
+### FieldMayBeFinal
+Field `port` may be 'final'
+in `services/minho-jmx/src/main/java/org/apache/karaf/minho/jmx/ConnectorServerFactory.java`
+#### Snippet
+```java
+    private boolean create = true;
+    private boolean locallyCreated;
+    private int port = Registry.REGISTRY_PORT;
+    private String host;
+    private Remote remoteServerStub;
+```
+
+### FieldMayBeFinal
+Field `create` may be 'final'
+in `services/minho-jmx/src/main/java/org/apache/karaf/minho/jmx/ConnectorServerFactory.java`
+#### Snippet
+```java
+    private String rmiServerHost;
+    private boolean locate;
+    private boolean create = true;
+    private boolean locallyCreated;
+    private int port = Registry.REGISTRY_PORT;
+```
+
+## RuleId[id=MismatchedCollectionQueryUpdate]
 ### MismatchedCollectionQueryUpdate
 Contents of collection `profiles` are updated, but never queried
 in `boot/src/main/java/org/apache/karaf/minho/boot/config/Config.java`
@@ -704,6 +692,18 @@ in `boot/src/main/java/org/apache/karaf/minho/boot/config/Config.java`
     private List<Profile> profiles = new ArrayList<>();
     private List<Application> applications = new ArrayList<>();
 
+```
+
+### MismatchedCollectionQueryUpdate
+Contents of collection `applications` are updated, but never queried
+in `boot/src/main/java/org/apache/karaf/minho/boot/config/Config.java`
+#### Snippet
+```java
+    private Map<String, String> properties = new HashMap<>();
+    private List<Profile> profiles = new ArrayList<>();
+    private List<Application> applications = new ArrayList<>();
+
+    public void merge(final Config config) {
 ```
 
 ### MismatchedCollectionQueryUpdate
@@ -798,6 +798,18 @@ in `services/minho-jmx/src/main/java/org/apache/karaf/minho/jmx/ConnectorServerF
 ```java
 
         @Override
+        public void unbind(String s) throws RemoteException, NotBoundException, AccessException {
+        }
+
+```
+
+### DuplicateThrows
+There is a more general exception, 'java.rmi.RemoteException', in the throws list already.
+in `services/minho-jmx/src/main/java/org/apache/karaf/minho/jmx/ConnectorServerFactory.java`
+#### Snippet
+```java
+
+        @Override
         public void rebind(String s, Remote remote) throws RemoteException, AccessException {
         }
 
@@ -811,18 +823,6 @@ in `services/minho-jmx/src/main/java/org/apache/karaf/minho/jmx/ConnectorServerF
 
         @Override
         public void bind(String s, Remote remote) throws RemoteException, AlreadyBoundException, AccessException {
-        }
-
-```
-
-### DuplicateThrows
-There is a more general exception, 'java.rmi.RemoteException', in the throws list already.
-in `services/minho-jmx/src/main/java/org/apache/karaf/minho/jmx/ConnectorServerFactory.java`
-#### Snippet
-```java
-
-        @Override
-        public void unbind(String s) throws RemoteException, NotBoundException, AccessException {
         }
 
 ```
@@ -903,6 +903,18 @@ in `tooling/common/src/main/java/org/apache/karaf/minho/tooling/common/Runtime.j
 
 ## RuleId[id=ConstantValue]
 ### ConstantValue
+Value `minhoJar` is always 'false'
+in `boot/src/main/java/org/apache/karaf/minho/boot/Main.java`
+#### Snippet
+```java
+    public static final void main(String[] args) throws Exception {
+        boolean minhoJar = false;
+        minhoJar = (System.getenv("MINHO_JAR") != null) ? System.getenv("MINHO_JAR").equalsIgnoreCase("true") : minhoJar;
+        minhoJar = (System.getProperty("minho.jar") != null) ? System.getProperty("minho.jar").equalsIgnoreCase("true") : minhoJar;
+
+```
+
+### ConstantValue
 Condition `connectorServerFactory != null` is always `true`
 in `services/minho-jmx/src/main/java/org/apache/karaf/minho/jmx/JmxService.java`
 #### Snippet
@@ -927,18 +939,6 @@ in `services/minho-jmx/src/main/java/org/apache/karaf/minho/jmx/JmxService.java`
 ```
 
 ### ConstantValue
-Value `minhoJar` is always 'false'
-in `boot/src/main/java/org/apache/karaf/minho/boot/Main.java`
-#### Snippet
-```java
-    public static final void main(String[] args) throws Exception {
-        boolean minhoJar = false;
-        minhoJar = (System.getenv("MINHO_JAR") != null) ? System.getenv("MINHO_JAR").equalsIgnoreCase("true") : minhoJar;
-        minhoJar = (System.getProperty("minho.jar") != null) ? System.getProperty("minho.jar").equalsIgnoreCase("true") : minhoJar;
-
-```
-
-### ConstantValue
 Value `includeTransitive` is always 'true'
 in `tooling/common/src/main/java/org/apache/karaf/minho/tooling/common/maven/Parser.java`
 #### Snippet
@@ -956,11 +956,11 @@ Field can be converted to a local variable
 in `services/minho-jmx/src/main/java/org/apache/karaf/minho/jmx/MBeanServerFactory.java`
 #### Snippet
 ```java
+public class MBeanServerFactory {
+
+    private boolean locateExistingServerIfPossible = false;
     private String defaultDomain;
     private String agentId;
-    private boolean registerWithFactory = true;
-    private boolean newlyRegistered = false;
-    private MBeanServer server;
 ```
 
 ### FieldCanBeLocal
@@ -968,11 +968,11 @@ Field can be converted to a local variable
 in `services/minho-jmx/src/main/java/org/apache/karaf/minho/jmx/MBeanServerFactory.java`
 #### Snippet
 ```java
-public class MBeanServerFactory {
-
-    private boolean locateExistingServerIfPossible = false;
     private String defaultDomain;
     private String agentId;
+    private boolean registerWithFactory = true;
+    private boolean newlyRegistered = false;
+    private MBeanServer server;
 ```
 
 ### FieldCanBeLocal
@@ -1025,18 +1025,6 @@ in `services/minho-jmx/src/main/java/org/apache/karaf/minho/jmx/ConnectorServerF
 
 ## RuleId[id=IgnoreResultOfCall]
 ### IgnoreResultOfCall
-Result of `File.delete()` is ignored
-in `tooling/common/src/main/java/org/apache/karaf/minho/tooling/common/Runtime.java`
-#### Snippet
-```java
-        // cleanup
-        if (properties != null && properties.get("minho.cleanup") != null && properties.get("minho.cleanup").toString().equalsIgnoreCase("true")) {
-            Files.walk(libFolder).map(Path::toFile).forEach(File::delete);
-            Files.delete(libFolder);
-        }
-```
-
-### IgnoreResultOfCall
 Result of `File.setExecutable()` is ignored
 in `tooling/common/src/main/java/org/apache/karaf/minho/tooling/common/Runtime.java`
 #### Snippet
@@ -1046,5 +1034,17 @@ in `tooling/common/src/main/java/org/apache/karaf/minho/tooling/common/Runtime.j
         minhoSh.setExecutable(true);
     }
 
+```
+
+### IgnoreResultOfCall
+Result of `File.delete()` is ignored
+in `tooling/common/src/main/java/org/apache/karaf/minho/tooling/common/Runtime.java`
+#### Snippet
+```java
+        // cleanup
+        if (properties != null && properties.get("minho.cleanup") != null && properties.get("minho.cleanup").toString().equalsIgnoreCase("true")) {
+            Files.walk(libFolder).map(Path::toFile).forEach(File::delete);
+            Files.delete(libFolder);
+        }
 ```
 
