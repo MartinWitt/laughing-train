@@ -62,6 +62,18 @@ in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/DistinguishedN
 
 ## RuleId[id=UNCHECKED_WARNING]
 ### UNCHECKED_WARNING
+Unchecked call to 'adapt(Call)' as a member of raw type 'retrofit2.CallAdapter'
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesCallAdapterFactory.java`
+#### Snippet
+```java
+        public Object adapt(Call<R> call) {
+            DefaultingCall<R> defaultingCall = new DefaultingCall<>(call, defaultValue);
+            return delegate.adapt(defaultingCall);
+        }
+    }
+```
+
+### UNCHECKED_WARNING
 Unchecked assignment: 'com.palantir.conjure.java.client.retrofit2.QosExceptionThrowingCallAdapterFactory.QosExceptionThrowingCall' to 'com.palantir.conjure.java.client.retrofit2.QosExceptionThrowingCallAdapterFactory.QosExceptionThrowingCall'
 in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/QosExceptionThrowingCallAdapterFactory.java`
 #### Snippet
@@ -85,41 +97,53 @@ in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client
         }
 ```
 
-### UNCHECKED_WARNING
-Unchecked call to 'adapt(Call)' as a member of raw type 'retrofit2.CallAdapter'
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesCallAdapterFactory.java`
-#### Snippet
-```java
-        public Object adapt(Call<R> call) {
-            DefaultingCall<R> defaultingCall = new DefaultingCall<>(call, defaultValue);
-            return delegate.adapt(defaultingCall);
-        }
-    }
-```
-
 ## RuleId[id=JavadocReference]
 ### JavadocReference
-Symbol `url` is inaccessible from here
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/UrlSelector.java`
+Symbol `jakarta.ws.rs.QueryParam` is inaccessible from here
+in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jaxrs/feignimpl/GuavaOptionalAwareContract.java`
 #### Snippet
 ```java
-     * Returns the base URLs that this UrlSelector matches against. Note that implementations should parse web socket
-     * (ws:// and ws:///) URLs as http (http:// and https:// respectively), in a similar to how
-     * {@link okhttp3.Request#url} does.
-     */
-    List<HttpUrl> getBaseUrls();
+/**
+ * Decorates a {@link Contract} and uses {@link GuavaNullOptionalExpander} for
+ * any {@link jakarta.ws.rs.QueryParam} parameters,
+ * {@link GuavaEmptyOptionalExpander} for any {@link jakarta.ws.rs.HeaderParam} parameters,
+ * and throws a {@link RuntimeException} at
 ```
 
 ### JavadocReference
-Symbol `url` is inaccessible from here
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/MeshProxyInterceptor.java`
+Symbol `jakarta.ws.rs.HeaderParam` is inaccessible from here
+in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jaxrs/feignimpl/GuavaOptionalAwareContract.java`
 #### Snippet
 ```java
+ * Decorates a {@link Contract} and uses {@link GuavaNullOptionalExpander} for
+ * any {@link jakarta.ws.rs.QueryParam} parameters,
+ * {@link GuavaEmptyOptionalExpander} for any {@link jakarta.ws.rs.HeaderParam} parameters,
+ * and throws a {@link RuntimeException} at
+ * first encounter of an {@link com.google.common.base.Optional} typed {@link jakarta.ws.rs.PathParam}.
+```
 
-/**
- * An {@link Interceptor} that changes the {@link okhttp3.Request#url Request URL's} authority to a given
- * {@link HostAndPort}, and adds an explicit "Host" header that is set to the original Request's authority. This allows
- * the use of a L4 service mesh proxy over SSL.
+### JavadocReference
+Symbol `jakarta.ws.rs.PathParam` is inaccessible from here
+in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jaxrs/feignimpl/GuavaOptionalAwareContract.java`
+#### Snippet
+```java
+ * {@link GuavaEmptyOptionalExpander} for any {@link jakarta.ws.rs.HeaderParam} parameters,
+ * and throws a {@link RuntimeException} at
+ * first encounter of an {@link com.google.common.base.Optional} typed {@link jakarta.ws.rs.PathParam}.
+ *
+ * <p>{@link jakarta.ws.rs.PathParam}s require a value, and so we explicitly disallow use with
+```
+
+### JavadocReference
+Symbol `jakarta.ws.rs.PathParam` is inaccessible from here
+in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jaxrs/feignimpl/GuavaOptionalAwareContract.java`
+#### Snippet
+```java
+ * first encounter of an {@link com.google.common.base.Optional} typed {@link jakarta.ws.rs.PathParam}.
+ *
+ * <p>{@link jakarta.ws.rs.PathParam}s require a value, and so we explicitly disallow use with
+ * {@link com.google.common.base.Optional}.
+ */
 ```
 
 ### JavadocReference
@@ -171,15 +195,63 @@ public final class Java8OptionalAwareContract extends AbstractDelegatingContract
 ```
 
 ### JavadocReference
-Cannot resolve symbol `com.netflix.concurrency.limits.limit.ImmutableSampleWindow`
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ImmutableSampleWindow.java`
+Symbol `url` is inaccessible from here
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/MeshProxyInterceptor.java`
 #### Snippet
 ```java
- * Class used to track immutable samples in an AtomicReference.
- *
- * <p>Changes made to {@link com.netflix.concurrency.limits.limit.ImmutableSampleWindow}
- *
- * <p>1. Package was changed. 2. Fields made private. 3. Fixed a typo (getAverateRttNanos -> getAverageRttNanos)
+
+/**
+ * An {@link Interceptor} that changes the {@link okhttp3.Request#url Request URL's} authority to a given
+ * {@link HostAndPort}, and adds an explicit "Host" header that is set to the original Request's authority. This allows
+ * the use of a L4 service mesh proxy over SSL.
+```
+
+### JavadocReference
+Symbol `retrofit2.DefaultCallAdapterFactory` is inaccessible from here
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesCallAdapterFactory.java`
+#### Snippet
+```java
+    }
+
+    /** This is essentially {@link retrofit2.DefaultCallAdapterFactory} but we can't access it. */
+    private static final class IdentityCallAdapter implements CallAdapter<Object, Object> {
+        private Type responseType;
+```
+
+### JavadocReference
+Symbol `retrofit2.OkHttpCall` is inaccessible from here
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesCallAdapterFactory.java`
+#### Snippet
+```java
+ * <p>This class is the counterpart of {@link CoerceNullValuesConverterFactory} and handles coercion of 204/205
+ * responses to the default values for collections (without this, the {@link Response} body would be null, according to
+ * {@link retrofit2.OkHttpCall#parseResponse(okhttp3.Response)}).
+ */
+// TODO(dsanduleac): link to spec
+```
+
+### JavadocReference
+Symbol `parseResponse(okhttp3.Response)` is inaccessible from here
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesCallAdapterFactory.java`
+#### Snippet
+```java
+ * <p>This class is the counterpart of {@link CoerceNullValuesConverterFactory} and handles coercion of 204/205
+ * responses to the default values for collections (without this, the {@link Response} body would be null, according to
+ * {@link retrofit2.OkHttpCall#parseResponse(okhttp3.Response)}).
+ */
+// TODO(dsanduleac): link to spec
+```
+
+### JavadocReference
+Symbol `retrofit2.OkHttpCall` is inaccessible from here
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesCallAdapterFactory.java`
+#### Snippet
+```java
+    /**
+     * A {@link retrofit2.Call} that returns a default if the result coming out of the delegate call (probably
+     * {@link retrofit2.OkHttpCall}) is null.
+     */
+    private static final class DefaultingCall<R> implements Call<R> {
 ```
 
 ### JavadocReference
@@ -219,99 +291,15 @@ in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client
 ```
 
 ### JavadocReference
-Symbol `retrofit2.OkHttpCall` is inaccessible from here
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesCallAdapterFactory.java`
+Cannot resolve symbol `com.netflix.concurrency.limits.limit.ImmutableSampleWindow`
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ImmutableSampleWindow.java`
 #### Snippet
 ```java
-    /**
-     * A {@link retrofit2.Call} that returns a default if the result coming out of the delegate call (probably
-     * {@link retrofit2.OkHttpCall}) is null.
-     */
-    private static final class DefaultingCall<R> implements Call<R> {
-```
-
-### JavadocReference
-Symbol `retrofit2.OkHttpCall` is inaccessible from here
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesCallAdapterFactory.java`
-#### Snippet
-```java
- * <p>This class is the counterpart of {@link CoerceNullValuesConverterFactory} and handles coercion of 204/205
- * responses to the default values for collections (without this, the {@link Response} body would be null, according to
- * {@link retrofit2.OkHttpCall#parseResponse(okhttp3.Response)}).
- */
-// TODO(dsanduleac): link to spec
-```
-
-### JavadocReference
-Symbol `parseResponse(okhttp3.Response)` is inaccessible from here
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesCallAdapterFactory.java`
-#### Snippet
-```java
- * <p>This class is the counterpart of {@link CoerceNullValuesConverterFactory} and handles coercion of 204/205
- * responses to the default values for collections (without this, the {@link Response} body would be null, according to
- * {@link retrofit2.OkHttpCall#parseResponse(okhttp3.Response)}).
- */
-// TODO(dsanduleac): link to spec
-```
-
-### JavadocReference
-Symbol `retrofit2.DefaultCallAdapterFactory` is inaccessible from here
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesCallAdapterFactory.java`
-#### Snippet
-```java
-    }
-
-    /** This is essentially {@link retrofit2.DefaultCallAdapterFactory} but we can't access it. */
-    private static final class IdentityCallAdapter implements CallAdapter<Object, Object> {
-        private Type responseType;
-```
-
-### JavadocReference
-Symbol `jakarta.ws.rs.QueryParam` is inaccessible from here
-in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jaxrs/feignimpl/GuavaOptionalAwareContract.java`
-#### Snippet
-```java
-/**
- * Decorates a {@link Contract} and uses {@link GuavaNullOptionalExpander} for
- * any {@link jakarta.ws.rs.QueryParam} parameters,
- * {@link GuavaEmptyOptionalExpander} for any {@link jakarta.ws.rs.HeaderParam} parameters,
- * and throws a {@link RuntimeException} at
-```
-
-### JavadocReference
-Symbol `jakarta.ws.rs.HeaderParam` is inaccessible from here
-in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jaxrs/feignimpl/GuavaOptionalAwareContract.java`
-#### Snippet
-```java
- * Decorates a {@link Contract} and uses {@link GuavaNullOptionalExpander} for
- * any {@link jakarta.ws.rs.QueryParam} parameters,
- * {@link GuavaEmptyOptionalExpander} for any {@link jakarta.ws.rs.HeaderParam} parameters,
- * and throws a {@link RuntimeException} at
- * first encounter of an {@link com.google.common.base.Optional} typed {@link jakarta.ws.rs.PathParam}.
-```
-
-### JavadocReference
-Symbol `jakarta.ws.rs.PathParam` is inaccessible from here
-in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jaxrs/feignimpl/GuavaOptionalAwareContract.java`
-#### Snippet
-```java
- * {@link GuavaEmptyOptionalExpander} for any {@link jakarta.ws.rs.HeaderParam} parameters,
- * and throws a {@link RuntimeException} at
- * first encounter of an {@link com.google.common.base.Optional} typed {@link jakarta.ws.rs.PathParam}.
+ * Class used to track immutable samples in an AtomicReference.
  *
- * <p>{@link jakarta.ws.rs.PathParam}s require a value, and so we explicitly disallow use with
-```
-
-### JavadocReference
-Symbol `jakarta.ws.rs.PathParam` is inaccessible from here
-in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jaxrs/feignimpl/GuavaOptionalAwareContract.java`
-#### Snippet
-```java
- * first encounter of an {@link com.google.common.base.Optional} typed {@link jakarta.ws.rs.PathParam}.
+ * <p>Changes made to {@link com.netflix.concurrency.limits.limit.ImmutableSampleWindow}
  *
- * <p>{@link jakarta.ws.rs.PathParam}s require a value, and so we explicitly disallow use with
- * {@link com.google.common.base.Optional}.
- */
+ * <p>1. Package was changed. 2. Fields made private. 3. Fixed a typo (getAverateRttNanos -> getAverageRttNanos)
 ```
 
 ### JavadocReference
@@ -326,19 +314,19 @@ in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/CatchThrowable
  *
 ```
 
-## RuleId[id=DataFlowIssue]
-### DataFlowIssue
-Method invocation `setWaitForBodySpan` may produce `NullPointerException`
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/OkhttpTraceInterceptor.java`
+### JavadocReference
+Symbol `url` is inaccessible from here
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/UrlSelector.java`
 #### Snippet
 ```java
-                    attemptSpanTag.attemptSpan().childDetachedSpan("OkHttp: wait-for-body", SpanType.CLIENT_OUTGOING);
-
-            chain.request().tag(Tags.SettableWaitForBodySpan.class).setWaitForBodySpan(waitForBody);
-        }
-    }
+     * Returns the base URLs that this UrlSelector matches against. Note that implementations should parse web socket
+     * (ws:// and ws:///) URLs as http (http:// and https:// respectively), in a similar to how
+     * {@link okhttp3.Request#url} does.
+     */
+    List<HttpUrl> getBaseUrls();
 ```
 
+## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
 Method invocation `attemptSpan` may produce `NullPointerException`
 in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/OkhttpTraceInterceptor.java`
@@ -352,32 +340,32 @@ in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/OkhttpTraceInt
 ```
 
 ### DataFlowIssue
-Method invocation `dispatcherSpan` may produce `NullPointerException`
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/SpanTerminatingInterceptor.java`
+Method invocation `setWaitForBodySpan` may produce `NullPointerException`
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/OkhttpTraceInterceptor.java`
 #### Snippet
 ```java
-        DetachedSpan attemptSpan = attemptSpanTag.attemptSpan();
-        DetachedSpan dispatcherSpan =
-                chain.request().tag(Tags.SettableDispatcherSpan.class).dispatcherSpan();
+                    attemptSpanTag.attemptSpan().childDetachedSpan("OkHttp: wait-for-body", SpanType.CLIENT_OUTGOING);
 
-        if (attemptSpan == null || dispatcherSpan == null) {
+            chain.request().tag(Tags.SettableWaitForBodySpan.class).setWaitForBodySpan(waitForBody);
+        }
+    }
 ```
 
 ### DataFlowIssue
-Method invocation `waitForBodySpan` may produce `NullPointerException`
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/SpanTerminatingInterceptor.java`
+Dereference of `args` may produce `NullPointerException`
+in `conjure-java-jersey-server/src/main/java/com/palantir/conjure/java/server/jersey/WebPreconditions.java`
 #### Snippet
 ```java
-            chain.request()
-                    .tag(Tags.SettableWaitForBodySpan.class)
-                    .waitForBodySpan()
-                    .complete();
-        }
+
+        // start substituting the arguments into the '%s' placeholders
+        StringBuilder builder = new StringBuilder(nonNullTemplate.length() + 16 * args.length);
+        int templateStart = 0;
+        int index = 0;
 ```
 
 ### DataFlowIssue
 @Nullable method 'get' always returns a non-null value
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/QosExceptionThrowingCallAdapterFactory.java`
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesCallAdapterFactory.java`
 #### Snippet
 ```java
     }
@@ -388,39 +376,15 @@ in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client
 ```
 
 ### DataFlowIssue
-Method invocation `attemptSpan` may produce `NullPointerException`
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
+Dereference of `args` may produce `NullPointerException`
+in `conjure-java-jersey-jakarta-server/src/main/java/com/palantir/conjure/java/server/jersey/WebPreconditions.java`
 #### Snippet
 ```java
-    @Override
-    public void enqueue(Callback callback) {
-        DetachedSpan attemptSpan = request().tag(Tags.AttemptSpan.class).attemptSpan();
-        DetachedSpan concurrencyLimiterSpan = attemptSpan.childDetachedSpan(limiter.spanName());
-        ListenableFuture<Limiter.Listener> limiterListener = limiter.acquire();
-```
 
-### DataFlowIssue
-Method invocation `setLimiterListener` may produce `NullPointerException`
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
-#### Snippet
-```java
-        DetachedSpan concurrencyLimiterSpan = attemptSpan.childDetachedSpan(limiter.spanName());
-        ListenableFuture<Limiter.Listener> limiterListener = limiter.acquire();
-        request().tag(ConcurrencyLimiterListener.class).setLimiterListener(limiterListener);
-        Futures.addCallback(
-                limiterListener,
-```
-
-### DataFlowIssue
-Method invocation `get` may produce `NullPointerException`
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
-#### Snippet
-```java
-            public void onFailure(Call call, IOException exception) {
-                try {
-                    call.request().tag(Tags.EntireSpan.class).get().complete();
-                } finally {
-                    callback.onFailure(call, exception);
+        // start substituting the arguments into the '%s' placeholders
+        StringBuilder builder = new StringBuilder(nonNullTemplate.length() + 16 * args.length);
+        int templateStart = 0;
+        int index = 0;
 ```
 
 ### DataFlowIssue
@@ -472,6 +436,78 @@ in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttp
 ```
 
 ### DataFlowIssue
+Method invocation `get` may produce `NullPointerException`
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
+#### Snippet
+```java
+            public void onFailure(Call call, IOException exception) {
+                try {
+                    call.request().tag(Tags.EntireSpan.class).get().complete();
+                } finally {
+                    callback.onFailure(call, exception);
+```
+
+### DataFlowIssue
+Method invocation `attemptSpan` may produce `NullPointerException`
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
+#### Snippet
+```java
+    @Override
+    public void enqueue(Callback callback) {
+        DetachedSpan attemptSpan = request().tag(Tags.AttemptSpan.class).attemptSpan();
+        DetachedSpan concurrencyLimiterSpan = attemptSpan.childDetachedSpan(limiter.spanName());
+        ListenableFuture<Limiter.Listener> limiterListener = limiter.acquire();
+```
+
+### DataFlowIssue
+Method invocation `setLimiterListener` may produce `NullPointerException`
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
+#### Snippet
+```java
+        DetachedSpan concurrencyLimiterSpan = attemptSpan.childDetachedSpan(limiter.spanName());
+        ListenableFuture<Limiter.Listener> limiterListener = limiter.acquire();
+        request().tag(ConcurrencyLimiterListener.class).setLimiterListener(limiterListener);
+        Futures.addCallback(
+                limiterListener,
+```
+
+### DataFlowIssue
+@Nullable method 'get' always returns a non-null value
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/QosExceptionThrowingCallAdapterFactory.java`
+#### Snippet
+```java
+    }
+
+    @Nullable
+    @Override
+    public CallAdapter<?, ?> get(Type returnType, Annotation[] annotations, Retrofit retrofit) {
+```
+
+### DataFlowIssue
+Method invocation `dispatcherSpan` may produce `NullPointerException`
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/SpanTerminatingInterceptor.java`
+#### Snippet
+```java
+        DetachedSpan attemptSpan = attemptSpanTag.attemptSpan();
+        DetachedSpan dispatcherSpan =
+                chain.request().tag(Tags.SettableDispatcherSpan.class).dispatcherSpan();
+
+        if (attemptSpan == null || dispatcherSpan == null) {
+```
+
+### DataFlowIssue
+Method invocation `waitForBodySpan` may produce `NullPointerException`
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/SpanTerminatingInterceptor.java`
+#### Snippet
+```java
+            chain.request()
+                    .tag(Tags.SettableWaitForBodySpan.class)
+                    .waitForBodySpan()
+                    .complete();
+        }
+```
+
+### DataFlowIssue
 Method invocation `equals` may produce `NullPointerException`
 in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CborConverterFactory.java`
 #### Snippet
@@ -484,30 +520,6 @@ in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client
 ```
 
 ### DataFlowIssue
-@Nullable method 'get' always returns a non-null value
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesCallAdapterFactory.java`
-#### Snippet
-```java
-    }
-
-    @Nullable
-    @Override
-    public CallAdapter<?, ?> get(Type returnType, Annotation[] annotations, Retrofit retrofit) {
-```
-
-### DataFlowIssue
-Dereference of `args` may produce `NullPointerException`
-in `conjure-java-jersey-server/src/main/java/com/palantir/conjure/java/server/jersey/WebPreconditions.java`
-#### Snippet
-```java
-
-        // start substituting the arguments into the '%s' placeholders
-        StringBuilder builder = new StringBuilder(nonNullTemplate.length() + 16 * args.length);
-        int templateStart = 0;
-        int index = 0;
-```
-
-### DataFlowIssue
 Method invocation `convert` may produce `NullPointerException`
 in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/NeverReturnNullConverterFactory.java`
 #### Snippet
@@ -517,18 +529,6 @@ in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client
                 Object object = responseBodyConverter.convert(value);
                 Preconditions.checkNotNull(object, "Unexpected null body");
                 return object;
-```
-
-### DataFlowIssue
-Dereference of `args` may produce `NullPointerException`
-in `conjure-java-jersey-jakarta-server/src/main/java/com/palantir/conjure/java/server/jersey/WebPreconditions.java`
-#### Snippet
-```java
-
-        // start substituting the arguments into the '%s' placeholders
-        StringBuilder builder = new StringBuilder(nonNullTemplate.length() + 16 * args.length);
-        int templateStart = 0;
-        int index = 0;
 ```
 
 ## RuleId[id=EmptyStatementBody]
@@ -554,6 +554,18 @@ in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/DistinguishedN
                 for (; pos < length && chars[pos] == ' '; pos++) {}
                 break;
             } else if (chars[pos] >= 'A' && chars[pos] <= 'F') {
+```
+
+### EmptyStatementBody
+`for` statement has empty body
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/DistinguishedNameParser.java`
+#### Snippet
+```java
+        // skip trailing space chars before comma or semicolon.
+        // (compatibility with RFC 1779)
+        for (; pos < length && chars[pos] == ' '; pos++) {}
+
+        return new String(chars, beg, end - beg);
 ```
 
 ### EmptyStatementBody
@@ -604,18 +616,6 @@ in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/DistinguishedN
         // in case of oid attribute type skip its prefix: "oid." or "OID."
 ```
 
-### EmptyStatementBody
-`for` statement has empty body
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/DistinguishedNameParser.java`
-#### Snippet
-```java
-        // skip trailing space chars before comma or semicolon.
-        // (compatibility with RFC 1779)
-        for (; pos < length && chars[pos] == ' '; pos++) {}
-
-        return new String(chars, beg, end - beg);
-```
-
 ## RuleId[id=StringOperationCanBeSimplified]
 ### StringOperationCanBeSimplified
 Call to `substring()` is redundant
@@ -643,18 +643,6 @@ in `conjure-java-jersey-jakarta-server/src/main/java/com/palantir/conjure/java/s
 
 ## RuleId[id=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
-Deprecated member 'Refreshable' is still used
-in `extras/refresh-utils/src/main/java/com/palantir/conjure/java/ext/refresh/Refreshable.java`
-#### Snippet
-```java
-@Deprecated
-@ThreadSafe
-public final class Refreshable<T> {
-
-    private final AtomicReference<T> value;
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'HostEventCallback' is still used
 in `conjure-java-legacy-clients/src/main/java/com/palantir/conjure/java/okhttp/HostEventsSink.java`
 #### Snippet
@@ -664,6 +652,18 @@ in `conjure-java-legacy-clients/src/main/java/com/palantir/conjure/java/okhttp/H
     interface HostEventCallback extends com.palantir.conjure.java.client.config.HostEventsSink.HostEventCallback {
 
         @Override
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'WebPreconditions' is still used
+in `conjure-java-jersey-jakarta-server/src/main/java/com/palantir/conjure/java/server/jersey/WebPreconditions.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public final class WebPreconditions {
+
+    private WebPreconditions() {}
 ```
 
 ### DeprecatedIsStillUsed
@@ -679,15 +679,15 @@ public final class RefreshableProxyInvocationHandler<R, T> extends AbstractInvoc
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'WebPreconditions' is still used
-in `conjure-java-jersey-jakarta-server/src/main/java/com/palantir/conjure/java/server/jersey/WebPreconditions.java`
+Deprecated member 'Refreshable' is still used
+in `extras/refresh-utils/src/main/java/com/palantir/conjure/java/ext/refresh/Refreshable.java`
 #### Snippet
 ```java
- */
 @Deprecated
-public final class WebPreconditions {
+@ThreadSafe
+public final class Refreshable<T> {
 
-    private WebPreconditions() {}
+    private final AtomicReference<T> value;
 ```
 
 ## RuleId[id=RegExpRedundantEscape]
@@ -706,14 +706,14 @@ in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jax
 ## RuleId[id=RefusedBequest]
 ### RefusedBequest
 Method `clone()` does not call 'super.clone()'
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingCall.java`
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesCallAdapterFactory.java`
 #### Snippet
 ```java
-
-    @Override
-    public Call clone() {
-        return doClone();
-    }
+        @SuppressWarnings({"checkstyle:NoClone", "checkstyle:SuperClone"})
+        @Override
+        public Call<R> clone() {
+            return new DefaultingCall<>(delegate.clone(), defaultValue);
+        }
 ```
 
 ### RefusedBequest
@@ -730,14 +730,14 @@ in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client
 
 ### RefusedBequest
 Method `clone()` does not call 'super.clone()'
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesCallAdapterFactory.java`
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingCall.java`
 #### Snippet
 ```java
-        @SuppressWarnings({"checkstyle:NoClone", "checkstyle:SuperClone"})
-        @Override
-        public Call<R> clone() {
-            return new DefaultingCall<>(delegate.clone(), defaultValue);
-        }
+
+    @Override
+    public Call clone() {
+        return doClone();
+    }
 ```
 
 ## RuleId[id=DuplicatedCode]
@@ -1114,15 +1114,39 @@ in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/DistinguishedN
 
 ## RuleId[id=Deprecation]
 ### Deprecation
-'com.palantir.conjure.java.okhttp.HostEventsSink.HostEventCallback' is deprecated
-in `conjure-java-legacy-clients/src/main/java/com/palantir/conjure/java/okhttp/HostMetricsRegistry.java`
+'com.palantir.conjure.java.okhttp.HostEventsSink' is deprecated
+in `conjure-java-legacy-clients/src/main/java/com/palantir/conjure/java/okhttp/NoOpHostEventsSink.java`
+#### Snippet
+```java
+package com.palantir.conjure.java.okhttp;
+
+/** A no-op implementation of {@link HostEventsSink} - i.e. it discards all events. */
+public enum NoOpHostEventsSink implements HostEventsSink {
+    INSTANCE;
+```
+
+### Deprecation
+'com.palantir.conjure.java.okhttp.HostEventsSink' is deprecated
+in `conjure-java-legacy-clients/src/main/java/com/palantir/conjure/java/okhttp/NoOpHostEventsSink.java`
 #### Snippet
 ```java
 
-    @Override
-    public HostEventCallback callback(String serviceName, String hostname, int port) {
-        return new HostEventRegistryCallback(serviceName, hostname, port);
-    }
+/** A no-op implementation of {@link HostEventsSink} - i.e. it discards all events. */
+public enum NoOpHostEventsSink implements HostEventsSink {
+    INSTANCE;
+
+```
+
+### Deprecation
+'fallbackToCommonNameVerification()' is deprecated
+in `client-config/src/main/java/com/palantir/conjure/java/client/config/ClientConfiguration.java`
+#### Snippet
+```java
+    Optional<Boolean> enableHttp2();
+
+    /** See {@link PartialServiceConfiguration#fallbackToCommonNameVerification}. */
+    boolean fallbackToCommonNameVerification();
+
 ```
 
 ### Deprecation
@@ -1142,6 +1166,18 @@ public final class HostMetricsRegistry implements HostEventsSink {
 in `conjure-java-legacy-clients/src/main/java/com/palantir/conjure/java/okhttp/HostMetricsRegistry.java`
 #### Snippet
 ```java
+
+    @Override
+    public HostEventCallback callback(String serviceName, String hostname, int port) {
+        return new HostEventRegistryCallback(serviceName, hostname, port);
+    }
+```
+
+### Deprecation
+'com.palantir.conjure.java.okhttp.HostEventsSink.HostEventCallback' is deprecated
+in `conjure-java-legacy-clients/src/main/java/com/palantir/conjure/java/okhttp/HostMetricsRegistry.java`
+#### Snippet
+```java
     }
 
     private final class HostEventRegistryCallback implements HostEventCallback {
@@ -1150,47 +1186,11 @@ in `conjure-java-legacy-clients/src/main/java/com/palantir/conjure/java/okhttp/H
 ```
 
 ### Deprecation
-'com.palantir.conjure.java.okhttp.HostEventsSink' is deprecated
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/Retrofit2Client.java`
-#### Snippet
-```java
-     */
-    public static <T> T create(
-            Class<T> serviceClass, UserAgent userAgent, HostEventsSink hostEventsSink, ClientConfiguration config) {
-        return new Retrofit2ClientBuilder(config).hostEventsSink(hostEventsSink).build(serviceClass, userAgent);
-    }
-```
-
-### Deprecation
-'fallbackToCommonNameVerification()' is deprecated
-in `client-config/src/main/java/com/palantir/conjure/java/client/config/ClientConfiguration.java`
-#### Snippet
-```java
-    Optional<Boolean> enableHttp2();
-
-    /** See {@link PartialServiceConfiguration#fallbackToCommonNameVerification}. */
-    boolean fallbackToCommonNameVerification();
-
-```
-
-### Deprecation
-'com.palantir.conjure.java.okhttp.HostEventsSink' is deprecated
-in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jaxrs/JaxRsClient.java`
-#### Snippet
-```java
-     */
-    public static <T> T create(
-            Class<T> serviceClass, UserAgent userAgent, HostEventsSink hostEventsSink, ClientConfiguration config) {
-        return new FeignJaxRsClientBuilder(config)
-                .hostEventsSink(hostEventsSink)
-```
-
-### Deprecation
 'propagate(java.lang.Throwable)' is deprecated
 in `keystores/src/main/java/com/palantir/conjure/java/config/ssl/SslSocketFactories.java`
 #### Snippet
 ```java
-            return keyManagerFactory;
+            return sslContext;
         } catch (GeneralSecurityException e) {
             throw Throwables.propagate(e);
         }
@@ -1226,7 +1226,7 @@ in `keystores/src/main/java/com/palantir/conjure/java/config/ssl/SslSocketFactor
 in `keystores/src/main/java/com/palantir/conjure/java/config/ssl/SslSocketFactories.java`
 #### Snippet
 ```java
-            return sslContext;
+            return keyManagerFactory;
         } catch (GeneralSecurityException e) {
             throw Throwables.propagate(e);
         }
@@ -1246,63 +1246,27 @@ in `keystores/src/main/java/com/palantir/conjure/java/config/ssl/SslSocketFactor
 ```
 
 ### Deprecation
-'mappingException(java.lang.Class, com.fasterxml.jackson.core.JsonToken)' is deprecated
-in `conjure-java-jackson-serialization/src/main/java/com/palantir/conjure/java/serialization/PathDeserializer.java`
+'getSingleton()' is deprecated
+in `client-config/src/main/java/com/palantir/conjure/java/client/config/ClientConfigurations.java`
 #### Snippet
 ```java
-            // 16-Oct-2015: should we perhaps allow JSON Arrays (of Strings) as well?
-        }
-        throw ctxt.mappingException(Path.class, token);
+                .retryOnTimeout(RETRY_ON_TIMEOUT_DEFAULT)
+                .retryOnSocketException(RETRY_ON_SOCKET_EXCEPTION_DEFAULT)
+                .taggedMetricRegistry(SharedTaggedMetricRegistries.getSingleton())
+                .build();
     }
-}
 ```
 
 ### Deprecation
-'execute(org.apache.hc.core5.http.HttpHost, org.apache.hc.core5.http.ClassicHttpRequest)' is deprecated
-in `undertow-jakarta-testing/src/main/java/com/palantir/undertest/UndertowServerExtension.java`
+'getSingleton()' is deprecated
+in `client-config/src/main/java/com/palantir/conjure/java/client/config/ClientConfigurations.java`
 #### Snippet
 ```java
-    @CheckReturnValue
-    public CloseableHttpResponse makeRequest(ClassicHttpRequest request) throws IOException {
-        return httpClient.execute(HttpHost.create(URI.create("http://localhost:" + getLocalPort())), request);
-    }
-
-```
-
-### Deprecation
-'configureAbsentsAsNulls(boolean)' is deprecated
-in `conjure-java-jackson-serialization/src/main/java/com/palantir/conjure/java/serialization/ObjectMappers.java`
-#### Snippet
-```java
-                .addModule(new GuavaModule())
-                .addModule(new ShimJdk7Module())
-                .addModule(new Jdk8Module().configureAbsentsAsNulls(true))
-                .addModules(ObjectMapperOptimizations.createModules())
-                .addModule(new JavaTimeModule())
-```
-
-### Deprecation
-'configureAbsentsAsNulls(boolean)' is deprecated
-in `conjure-java-jackson-serialization/src/main/java/com/palantir/conjure/java/serialization/ObjectMappers.java`
-#### Snippet
-```java
-                .registerModule(new GuavaModule())
-                .registerModule(new ShimJdk7Module())
-                .registerModule(new Jdk8Module().configureAbsentsAsNulls(true))
-                .registerModules(ObjectMapperOptimizations.createModules())
-                .registerModule(new JavaTimeModule())
-```
-
-### Deprecation
-'disable(com.fasterxml.jackson.databind.MapperFeature...)' is deprecated
-in `conjure-java-jackson-serialization/src/main/java/com/palantir/conjure/java/serialization/ObjectMappers.java`
-#### Snippet
-```java
-                .disable(SerializationFeature.FAIL_ON_EMPTY_BEANS)
-                .enable(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES)
-                .disable(MapperFeature.ALLOW_COERCION_OF_SCALARS)
-                .disable(DeserializationFeature.ACCEPT_FLOAT_AS_INT);
-    }
+                .retryOnTimeout(RETRY_ON_TIMEOUT_DEFAULT)
+                .retryOnSocketException(RETRY_ON_SOCKET_EXCEPTION_DEFAULT)
+                .taggedMetricRegistry(SharedTaggedMetricRegistries.getSingleton())
+                .userAgent(userAgent)
+                .build();
 ```
 
 ### Deprecation
@@ -1343,6 +1307,222 @@ in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jax
 
 ### Deprecation
 'com.palantir.conjure.java.okhttp.HostEventsSink' is deprecated
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/Retrofit2Client.java`
+#### Snippet
+```java
+     */
+    public static <T> T create(
+            Class<T> serviceClass, UserAgent userAgent, HostEventsSink hostEventsSink, ClientConfiguration config) {
+        return new Retrofit2ClientBuilder(config).hostEventsSink(hostEventsSink).build(serviceClass, userAgent);
+    }
+```
+
+### Deprecation
+Overrides deprecated method in 'com.fasterxml.jackson.databind.type.TypeFactory'
+in `conjure-java-jackson-serialization/src/main/java/com/palantir/conjure/java/serialization/NonCachingTypeFactory.java`
+#### Snippet
+```java
+
+    @Override
+    public NonCachingTypeFactory withCache(LRUMap<Object, JavaType> _cache) {
+        // Changes to the cache are ignored
+        return this;
+```
+
+### Deprecation
+'mappingException(java.lang.Class, com.fasterxml.jackson.core.JsonToken)' is deprecated
+in `conjure-java-jackson-serialization/src/main/java/com/palantir/conjure/java/serialization/PathDeserializer.java`
+#### Snippet
+```java
+            // 16-Oct-2015: should we perhaps allow JSON Arrays (of Strings) as well?
+        }
+        throw ctxt.mappingException(Path.class, token);
+    }
+}
+```
+
+### Deprecation
+'execute(org.apache.hc.core5.http.HttpHost, org.apache.hc.core5.http.ClassicHttpRequest)' is deprecated
+in `undertow-jakarta-testing/src/main/java/com/palantir/undertest/UndertowServerExtension.java`
+#### Snippet
+```java
+    @CheckReturnValue
+    public CloseableHttpResponse makeRequest(ClassicHttpRequest request) throws IOException {
+        return httpClient.execute(HttpHost.create(URI.create("http://localhost:" + getLocalPort())), request);
+    }
+
+```
+
+### Deprecation
+'propagate(java.lang.Throwable)' is deprecated
+in `keystores/src/main/java/com/palantir/conjure/java/config/ssl/KeyStores.java`
+#### Snippet
+```java
+            keyStore.load(null, null);
+        } catch (GeneralSecurityException | IOException e) {
+            throw Throwables.propagate(e);
+        }
+        return keyStore;
+```
+
+### Deprecation
+'propagate(java.lang.Throwable)' is deprecated
+in `keystores/src/main/java/com/palantir/conjure/java/config/ssl/KeyStores.java`
+#### Snippet
+```java
+            return keyStore;
+        } catch (GeneralSecurityException | IOException e) {
+            throw Throwables.propagate(e);
+        }
+    }
+```
+
+### Deprecation
+'propagate(java.lang.Throwable)' is deprecated
+in `keystores/src/main/java/com/palantir/conjure/java/config/ssl/KeyStores.java`
+#### Snippet
+```java
+            return keyStore;
+        } catch (GeneralSecurityException | IOException e) {
+            throw Throwables.propagate(e);
+        }
+    }
+```
+
+### Deprecation
+'propagate(java.lang.Throwable)' is deprecated
+in `keystores/src/main/java/com/palantir/conjure/java/config/ssl/KeyStores.java`
+#### Snippet
+```java
+                addCertificatesToKeystore(keyStore, entry.getKey(), readX509Certificates(certIn));
+            } catch (IOException e) {
+                throw Throwables.propagate(e);
+            } catch (KeyStoreException | CertificateException e) {
+                throw new RuntimeException(
+```
+
+### Deprecation
+'propagate(java.lang.Throwable)' is deprecated
+in `keystores/src/main/java/com/palantir/conjure/java/config/ssl/KeyStores.java`
+#### Snippet
+```java
+            return newKeyStore;
+        } catch (GeneralSecurityException | IOException e) {
+            throw Throwables.propagate(e);
+        }
+    }
+```
+
+### Deprecation
+'configureAbsentsAsNulls(boolean)' is deprecated
+in `conjure-java-jackson-serialization/src/main/java/com/palantir/conjure/java/serialization/ObjectMappers.java`
+#### Snippet
+```java
+                .registerModule(new GuavaModule())
+                .registerModule(new ShimJdk7Module())
+                .registerModule(new Jdk8Module().configureAbsentsAsNulls(true))
+                .registerModules(ObjectMapperOptimizations.createModules())
+                .registerModule(new JavaTimeModule())
+```
+
+### Deprecation
+'disable(com.fasterxml.jackson.databind.MapperFeature...)' is deprecated
+in `conjure-java-jackson-serialization/src/main/java/com/palantir/conjure/java/serialization/ObjectMappers.java`
+#### Snippet
+```java
+                .disable(SerializationFeature.FAIL_ON_EMPTY_BEANS)
+                .enable(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES)
+                .disable(MapperFeature.ALLOW_COERCION_OF_SCALARS)
+                .disable(DeserializationFeature.ACCEPT_FLOAT_AS_INT);
+    }
+```
+
+### Deprecation
+'configureAbsentsAsNulls(boolean)' is deprecated
+in `conjure-java-jackson-serialization/src/main/java/com/palantir/conjure/java/serialization/ObjectMappers.java`
+#### Snippet
+```java
+                .addModule(new GuavaModule())
+                .addModule(new ShimJdk7Module())
+                .addModule(new Jdk8Module().configureAbsentsAsNulls(true))
+                .addModules(ObjectMapperOptimizations.createModules())
+                .addModule(new JavaTimeModule())
+```
+
+### Deprecation
+Overrides deprecated method in 'com.fasterxml.jackson.core.JsonParser'
+in `conjure-java-jackson-serialization/src/main/java/com/palantir/conjure/java/serialization/InstrumentedJsonFactory.java`
+#### Snippet
+```java
+        @Override
+        @Deprecated
+        public JsonParser setFeatureMask(int mask) {
+            delegate.setFeatureMask(mask);
+            return this;
+```
+
+### Deprecation
+'com.palantir.conjure.java.okhttp.HostEventsSink' is deprecated
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/OkHttpClients.java`
+#### Snippet
+```java
+    @VisibleForTesting
+    static RemotingOkHttpClient withStableUris(
+            ClientConfiguration config, HostEventsSink hostEventsSink, Class<?> serviceClass) {
+        return createInternal(
+                new OkHttpClient.Builder(),
+```
+
+### Deprecation
+'com.palantir.conjure.java.okhttp.HostEventsSink' is deprecated
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/OkHttpClients.java`
+#### Snippet
+```java
+            ClientConfiguration config,
+            UserAgent userAgent,
+            HostEventsSink hostEventsSink,
+            Class<?> serviceClass) {
+        boolean reshuffle =
+```
+
+### Deprecation
+'com.palantir.conjure.java.okhttp.HostEventsSink' is deprecated
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/OkHttpClients.java`
+#### Snippet
+```java
+     */
+    public static OkHttpClient create(
+            ClientConfiguration config, UserAgent userAgent, HostEventsSink hostEventsSink, Class<?> serviceClass) {
+        return create(new OkHttpClient.Builder(), config, userAgent, hostEventsSink, serviceClass);
+    }
+```
+
+### Deprecation
+'com.palantir.conjure.java.okhttp.HostEventsSink' is deprecated
+in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jaxrs/JaxRsClient.java`
+#### Snippet
+```java
+     */
+    public static <T> T create(
+            Class<T> serviceClass, UserAgent userAgent, HostEventsSink hostEventsSink, ClientConfiguration config) {
+        return new FeignJaxRsClientBuilder(config)
+                .hostEventsSink(hostEventsSink)
+```
+
+### Deprecation
+'com.palantir.conjure.java.okhttp.HostEventsSink' is deprecated
+in `conjure-scala-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jaxrs/JaxRsScalaClient.java`
+#### Snippet
+```java
+    /** See {@link JaxRsClient}. */
+    public static <T> T create(
+            Class<T> serviceClass, UserAgent userAgent, HostEventsSink hostEventsSink, ClientConfiguration config) {
+        return new FeignJaxRsScalaClientBuilder(config)
+                .hostEventsSink(hostEventsSink)
+```
+
+### Deprecation
+'com.palantir.conjure.java.okhttp.HostEventsSink' is deprecated
 in `conjure-scala-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jaxrs/JaxRsScalaClient.java`
 #### Snippet
 ```java
@@ -1379,18 +1559,6 @@ in `conjure-scala-jaxrs-client/src/main/java/com/palantir/conjure/java/client/ja
 
 ### Deprecation
 'com.palantir.conjure.java.okhttp.HostEventsSink' is deprecated
-in `conjure-scala-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jaxrs/JaxRsScalaClient.java`
-#### Snippet
-```java
-    /** See {@link JaxRsClient}. */
-    public static <T> T create(
-            Class<T> serviceClass, UserAgent userAgent, HostEventsSink hostEventsSink, ClientConfiguration config) {
-        return new FeignJaxRsScalaClientBuilder(config)
-                .hostEventsSink(hostEventsSink)
-```
-
-### Deprecation
-'com.palantir.conjure.java.okhttp.HostEventsSink' is deprecated
 in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/Retrofit2ClientBuilder.java`
 #### Snippet
 ```java
@@ -1411,174 +1579,6 @@ in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client
     public Retrofit2ClientBuilder hostEventsSink(HostEventsSink newHostEventsSink) {
         Preconditions.checkNotNull(newHostEventsSink, "hostEventsSink can't be null");
         config = ClientConfiguration.builder()
-```
-
-### Deprecation
-'propagate(java.lang.Throwable)' is deprecated
-in `keystores/src/main/java/com/palantir/conjure/java/config/ssl/KeyStores.java`
-#### Snippet
-```java
-                addCertificatesToKeystore(keyStore, entry.getKey(), readX509Certificates(certIn));
-            } catch (IOException e) {
-                throw Throwables.propagate(e);
-            } catch (KeyStoreException | CertificateException e) {
-                throw new RuntimeException(
-```
-
-### Deprecation
-'propagate(java.lang.Throwable)' is deprecated
-in `keystores/src/main/java/com/palantir/conjure/java/config/ssl/KeyStores.java`
-#### Snippet
-```java
-            keyStore.load(null, null);
-        } catch (GeneralSecurityException | IOException e) {
-            throw Throwables.propagate(e);
-        }
-        return keyStore;
-```
-
-### Deprecation
-'propagate(java.lang.Throwable)' is deprecated
-in `keystores/src/main/java/com/palantir/conjure/java/config/ssl/KeyStores.java`
-#### Snippet
-```java
-            return newKeyStore;
-        } catch (GeneralSecurityException | IOException e) {
-            throw Throwables.propagate(e);
-        }
-    }
-```
-
-### Deprecation
-'propagate(java.lang.Throwable)' is deprecated
-in `keystores/src/main/java/com/palantir/conjure/java/config/ssl/KeyStores.java`
-#### Snippet
-```java
-            return keyStore;
-        } catch (GeneralSecurityException | IOException e) {
-            throw Throwables.propagate(e);
-        }
-    }
-```
-
-### Deprecation
-'propagate(java.lang.Throwable)' is deprecated
-in `keystores/src/main/java/com/palantir/conjure/java/config/ssl/KeyStores.java`
-#### Snippet
-```java
-            return keyStore;
-        } catch (GeneralSecurityException | IOException e) {
-            throw Throwables.propagate(e);
-        }
-    }
-```
-
-### Deprecation
-Overrides deprecated method in 'com.fasterxml.jackson.core.JsonParser'
-in `conjure-java-jackson-serialization/src/main/java/com/palantir/conjure/java/serialization/InstrumentedJsonFactory.java`
-#### Snippet
-```java
-        @Override
-        @Deprecated
-        public JsonParser setFeatureMask(int mask) {
-            delegate.setFeatureMask(mask);
-            return this;
-```
-
-### Deprecation
-'getSingleton()' is deprecated
-in `client-config/src/main/java/com/palantir/conjure/java/client/config/ClientConfigurations.java`
-#### Snippet
-```java
-                .retryOnTimeout(RETRY_ON_TIMEOUT_DEFAULT)
-                .retryOnSocketException(RETRY_ON_SOCKET_EXCEPTION_DEFAULT)
-                .taggedMetricRegistry(SharedTaggedMetricRegistries.getSingleton())
-                .userAgent(userAgent)
-                .build();
-```
-
-### Deprecation
-'getSingleton()' is deprecated
-in `client-config/src/main/java/com/palantir/conjure/java/client/config/ClientConfigurations.java`
-#### Snippet
-```java
-                .retryOnTimeout(RETRY_ON_TIMEOUT_DEFAULT)
-                .retryOnSocketException(RETRY_ON_SOCKET_EXCEPTION_DEFAULT)
-                .taggedMetricRegistry(SharedTaggedMetricRegistries.getSingleton())
-                .build();
-    }
-```
-
-### Deprecation
-'com.palantir.conjure.java.okhttp.HostEventsSink' is deprecated
-in `conjure-java-legacy-clients/src/main/java/com/palantir/conjure/java/okhttp/NoOpHostEventsSink.java`
-#### Snippet
-```java
-package com.palantir.conjure.java.okhttp;
-
-/** A no-op implementation of {@link HostEventsSink} - i.e. it discards all events. */
-public enum NoOpHostEventsSink implements HostEventsSink {
-    INSTANCE;
-```
-
-### Deprecation
-'com.palantir.conjure.java.okhttp.HostEventsSink' is deprecated
-in `conjure-java-legacy-clients/src/main/java/com/palantir/conjure/java/okhttp/NoOpHostEventsSink.java`
-#### Snippet
-```java
-
-/** A no-op implementation of {@link HostEventsSink} - i.e. it discards all events. */
-public enum NoOpHostEventsSink implements HostEventsSink {
-    INSTANCE;
-
-```
-
-### Deprecation
-Overrides deprecated method in 'com.fasterxml.jackson.databind.type.TypeFactory'
-in `conjure-java-jackson-serialization/src/main/java/com/palantir/conjure/java/serialization/NonCachingTypeFactory.java`
-#### Snippet
-```java
-
-    @Override
-    public NonCachingTypeFactory withCache(LRUMap<Object, JavaType> _cache) {
-        // Changes to the cache are ignored
-        return this;
-```
-
-### Deprecation
-'com.palantir.conjure.java.okhttp.HostEventsSink' is deprecated
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/OkHttpClients.java`
-#### Snippet
-```java
-     */
-    public static OkHttpClient create(
-            ClientConfiguration config, UserAgent userAgent, HostEventsSink hostEventsSink, Class<?> serviceClass) {
-        return create(new OkHttpClient.Builder(), config, userAgent, hostEventsSink, serviceClass);
-    }
-```
-
-### Deprecation
-'com.palantir.conjure.java.okhttp.HostEventsSink' is deprecated
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/OkHttpClients.java`
-#### Snippet
-```java
-    @VisibleForTesting
-    static RemotingOkHttpClient withStableUris(
-            ClientConfiguration config, HostEventsSink hostEventsSink, Class<?> serviceClass) {
-        return createInternal(
-                new OkHttpClient.Builder(),
-```
-
-### Deprecation
-'com.palantir.conjure.java.okhttp.HostEventsSink' is deprecated
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/OkHttpClients.java`
-#### Snippet
-```java
-            ClientConfiguration config,
-            UserAgent userAgent,
-            HostEventsSink hostEventsSink,
-            Class<?> serviceClass) {
-        boolean reshuffle =
 ```
 
 ## RuleId[id=RedundantEscapeInRegexReplacement]
@@ -1670,6 +1670,18 @@ in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ConcurrencyLim
 ## RuleId[id=NullableProblems]
 ### NullableProblems
 Not annotated method overrides method annotated with @EverythingIsNonNull
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/OkhttpTraceInterceptor.java`
+#### Snippet
+```java
+
+    @Override
+    public Response intercept(Chain chain) throws IOException {
+        Tags.AttemptSpan attemptSpanTag = chain.request().tag(Tags.AttemptSpan.class);
+        if (attemptSpanTag == null) {
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @EverythingIsNonNull
 in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/UserAgentInterceptor.java`
 #### Snippet
 ```java
@@ -1694,14 +1706,14 @@ in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/DeprecationWar
 
 ### NullableProblems
 Not annotated method overrides method annotated with @EverythingIsNonNull
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/OkhttpTraceInterceptor.java`
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ConcurrencyLimitingInterceptor.java`
 #### Snippet
 ```java
 
     @Override
     public Response intercept(Chain chain) throws IOException {
-        Tags.AttemptSpan attemptSpanTag = chain.request().tag(Tags.AttemptSpan.class);
-        if (attemptSpanTag == null) {
+        ConcurrencyLimiterListener limiterListenerTag = chain.request().tag(ConcurrencyLimiterListener.class);
+        if (limiterListenerTag == null) {
 ```
 
 ### NullableProblems
@@ -1718,86 +1730,818 @@ in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/MeshProxyInter
 
 ### NullableProblems
 Not annotated method overrides method annotated with @EverythingIsNonNull
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/SpanTerminatingInterceptor.java`
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingOkHttpClient.java`
 #### Snippet
 ```java
 
     @Override
-    public Response intercept(Chain chain) throws IOException {
-        Tags.AttemptSpan attemptSpanTag = chain.request().tag(Tags.AttemptSpan.class);
-        if (attemptSpanTag == null) {
+    public HostnameVerifier hostnameVerifier() {
+        return delegate.hostnameVerifier();
+    }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @EverythingIsNonNull
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingOkHttpClient.java`
+#### Snippet
+```java
+
+    @Override
+    public Authenticator authenticator() {
+        return delegate.authenticator();
+    }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @EverythingIsNonNull
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingOkHttpClient.java`
+#### Snippet
+```java
+
+    @Override
+    public CertificatePinner certificatePinner() {
+        return delegate.certificatePinner();
+    }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @EverythingIsNonNull
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingOkHttpClient.java`
+#### Snippet
+```java
+
+    @Override
+    public Authenticator proxyAuthenticator() {
+        return delegate.proxyAuthenticator();
+    }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @EverythingIsNonNull
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingOkHttpClient.java`
+#### Snippet
+```java
+
+    @Override
+    public SSLSocketFactory sslSocketFactory() {
+        return delegate.sslSocketFactory();
+    }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @EverythingIsNonNull
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingOkHttpClient.java`
+#### Snippet
+```java
+
+    @Override
+    public WebSocket newWebSocket(Request request, WebSocketListener listener) {
+        return delegate.newWebSocket(request, listener);
+    }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @EverythingIsNonNull parameter
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingCall.java`
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingOkHttpClient.java`
 #### Snippet
 ```java
 
     @Override
-    public void enqueue(Callback responseCallback) {
-        delegate.enqueue(responseCallback);
+    public WebSocket newWebSocket(Request request, WebSocketListener listener) {
+        return delegate.newWebSocket(request, listener);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @EverythingIsNonNull parameter
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingOkHttpClient.java`
+#### Snippet
+```java
+
+    @Override
+    public WebSocket newWebSocket(Request request, WebSocketListener listener) {
+        return delegate.newWebSocket(request, listener);
     }
 ```
 
 ### NullableProblems
 Not annotated method overrides method annotated with @EverythingIsNonNull
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingCall.java`
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingOkHttpClient.java`
 #### Snippet
 ```java
 
     @Override
-    public Timeout timeout() {
-        return delegate.timeout();
+    public List<Interceptor> networkInterceptors() {
+        return delegate.networkInterceptors();
     }
 ```
 
 ### NullableProblems
 Not annotated method overrides method annotated with @EverythingIsNonNull
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingCall.java`
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingOkHttpClient.java`
 #### Snippet
 ```java
 
     @Override
-    public Response execute() throws IOException {
-        return delegate.execute();
+    public Dispatcher dispatcher() {
+        return delegate.dispatcher();
     }
 ```
 
 ### NullableProblems
 Not annotated method overrides method annotated with @EverythingIsNonNull
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingCall.java`
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingOkHttpClient.java`
 #### Snippet
 ```java
 
     @Override
-    public Request request() {
-        return delegate.request();
+    public Dns dns() {
+        return delegate.dns();
     }
 ```
 
 ### NullableProblems
 Not annotated method overrides method annotated with @EverythingIsNonNull
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingCall.java`
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingOkHttpClient.java`
 #### Snippet
 ```java
 
     @Override
-    public Call clone() {
-        return doClone();
+    public CookieJar cookieJar() {
+        return delegate.cookieJar();
     }
 ```
 
 ### NullableProblems
 Not annotated method overrides method annotated with @EverythingIsNonNull
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ConcurrencyLimitingInterceptor.java`
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingOkHttpClient.java`
+#### Snippet
+```java
+
+    @Override
+    public SocketFactory socketFactory() {
+        return delegate.socketFactory();
+    }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @EverythingIsNonNull
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingOkHttpClient.java`
+#### Snippet
+```java
+
+    @Override
+    public ProxySelector proxySelector() {
+        return delegate.proxySelector();
+    }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @EverythingIsNonNull
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingOkHttpClient.java`
+#### Snippet
+```java
+
+    @Override
+    public Builder newBuilder() {
+        return delegate.newBuilder();
+    }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @EverythingIsNonNull
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingOkHttpClient.java`
+#### Snippet
+```java
+
+    @Override
+    public ConnectionPool connectionPool() {
+        return delegate.connectionPool();
+    }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @EverythingIsNonNull
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingOkHttpClient.java`
+#### Snippet
+```java
+
+    @Override
+    public Call newCall(Request request) {
+        return delegate.newCall(request);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @EverythingIsNonNull parameter
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingOkHttpClient.java`
+#### Snippet
+```java
+
+    @Override
+    public Call newCall(Request request) {
+        return delegate.newCall(request);
+    }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @EverythingIsNonNull
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingOkHttpClient.java`
+#### Snippet
+```java
+
+    @Override
+    public List<ConnectionSpec> connectionSpecs() {
+        return delegate.connectionSpecs();
+    }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @EverythingIsNonNull
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingOkHttpClient.java`
+#### Snippet
+```java
+
+    @Override
+    public List<Interceptor> interceptors() {
+        return delegate.interceptors();
+    }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @EverythingIsNonNull
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingOkHttpClient.java`
+#### Snippet
+```java
+
+    @Override
+    public List<Protocol> protocols() {
+        return delegate.protocols();
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesCallAdapterFactory.java`
+#### Snippet
+```java
+    @Nullable
+    @Override
+    public CallAdapter<?, ?> get(Type returnType, Annotation[] annotations, Retrofit retrofit) {
+        // we only support Call<T> and CompletableFuture<T>
+        Preconditions.checkState(
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesCallAdapterFactory.java`
+#### Snippet
+```java
+    @Nullable
+    @Override
+    public CallAdapter<?, ?> get(Type returnType, Annotation[] annotations, Retrofit retrofit) {
+        // we only support Call<T> and CompletableFuture<T>
+        Preconditions.checkState(
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesCallAdapterFactory.java`
+#### Snippet
+```java
+    @Nullable
+    @Override
+    public CallAdapter<?, ?> get(Type returnType, Annotation[] annotations, Retrofit retrofit) {
+        // we only support Call<T> and CompletableFuture<T>
+        Preconditions.checkState(
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesCallAdapterFactory.java`
+#### Snippet
+```java
+
+        @Override
+        public void enqueue(Callback<R> callback) {
+            delegate.enqueue(new Callback<R>() {
+                @Override
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesCallAdapterFactory.java`
+#### Snippet
+```java
+            delegate.enqueue(new Callback<R>() {
+                @Override
+                public void onResponse(Call<R> call, Response<R> response) {
+                    callback.onResponse(call, adaptResponse(response));
+                }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesCallAdapterFactory.java`
+#### Snippet
+```java
+            delegate.enqueue(new Callback<R>() {
+                @Override
+                public void onResponse(Call<R> call, Response<R> response) {
+                    callback.onResponse(call, adaptResponse(response));
+                }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesCallAdapterFactory.java`
+#### Snippet
+```java
+
+                @Override
+                public void onFailure(Call<R> call, Throwable throwable) {
+                    callback.onFailure(call, throwable);
+                }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesCallAdapterFactory.java`
+#### Snippet
+```java
+
+                @Override
+                public void onFailure(Call<R> call, Throwable throwable) {
+                    callback.onFailure(call, throwable);
+                }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesCallAdapterFactory.java`
+#### Snippet
+```java
+
+        @Override
+        public Object adapt(Call<R> call) {
+            DefaultingCall<R> defaultingCall = new DefaultingCall<>(call, defaultValue);
+            return delegate.adapt(defaultingCall);
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesCallAdapterFactory.java`
+#### Snippet
+```java
+
+        @Override
+        public Object adapt(Call<Object> call) {
+            return call;
+        }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @EverythingIsNonNull
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ResponseCapturingInterceptor.java`
 #### Snippet
 ```java
 
     @Override
     public Response intercept(Chain chain) throws IOException {
-        ConcurrencyLimiterListener limiterListenerTag = chain.request().tag(ConcurrencyLimiterListener.class);
-        if (limiterListenerTag == null) {
+        Response response = chain.proceed(chain.request());
+        currentResponse.set(response);
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesConverterFactory.java`
+#### Snippet
+```java
+
+    @Override
+    public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
+        Converter<ResponseBody, ?> responseBodyConverter = delegate.responseBodyConverter(type, annotations, retrofit);
+        return new CoerceNullCollectionsConverter(responseBodyConverter, type);
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesConverterFactory.java`
+#### Snippet
+```java
+
+    @Override
+    public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
+        Converter<ResponseBody, ?> responseBodyConverter = delegate.responseBodyConverter(type, annotations, retrofit);
+        return new CoerceNullCollectionsConverter(responseBodyConverter, type);
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesConverterFactory.java`
+#### Snippet
+```java
+
+    @Override
+    public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
+        Converter<ResponseBody, ?> responseBodyConverter = delegate.responseBodyConverter(type, annotations, retrofit);
+        return new CoerceNullCollectionsConverter(responseBodyConverter, type);
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesConverterFactory.java`
+#### Snippet
+```java
+    @Override
+    public Converter<?, RequestBody> requestBodyConverter(
+            Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
+        return delegate.requestBodyConverter(type, parameterAnnotations, methodAnnotations, retrofit);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesConverterFactory.java`
+#### Snippet
+```java
+    @Override
+    public Converter<?, RequestBody> requestBodyConverter(
+            Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
+        return delegate.requestBodyConverter(type, parameterAnnotations, methodAnnotations, retrofit);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesConverterFactory.java`
+#### Snippet
+```java
+    @Override
+    public Converter<?, RequestBody> requestBodyConverter(
+            Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
+        return delegate.requestBodyConverter(type, parameterAnnotations, methodAnnotations, retrofit);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesConverterFactory.java`
+#### Snippet
+```java
+    @Override
+    public Converter<?, RequestBody> requestBodyConverter(
+            Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
+        return delegate.requestBodyConverter(type, parameterAnnotations, methodAnnotations, retrofit);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
+#### Snippet
+```java
+
+        @Override
+        public void onFailure(Throwable _throwable) {
+            // do nothing
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @EverythingIsNonNull parameter
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
+#### Snippet
+```java
+
+            @Override
+            public void onResponse(Call call, Response response) {
+                if (!future.set(response)) {
+                    close(response);
+```
+
+### NullableProblems
+Not annotated parameter overrides @EverythingIsNonNull parameter
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
+#### Snippet
+```java
+
+            @Override
+            public void onResponse(Call call, Response response) {
+                if (!future.set(response)) {
+                    close(response);
+```
+
+### NullableProblems
+Not annotated parameter overrides @EverythingIsNonNull parameter
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
+#### Snippet
+```java
+
+        @Override
+        public void onFailure(Call call, IOException exception) {
+            ResponseCapturingInterceptor.getResponse().ifPresent(RemotingOkHttpCall::close);
+            ResponseCapturingInterceptor.clearThreadState();
+```
+
+### NullableProblems
+Not annotated parameter overrides @EverythingIsNonNull parameter
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
+#### Snippet
+```java
+
+        @Override
+        public void onFailure(Call call, IOException exception) {
+            ResponseCapturingInterceptor.getResponse().ifPresent(RemotingOkHttpCall::close);
+            ResponseCapturingInterceptor.clearThreadState();
+```
+
+### NullableProblems
+Not annotated parameter overrides @EverythingIsNonNull parameter
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
+#### Snippet
+```java
+
+        @Override
+        public void onResponse(Call call, Response response) throws IOException {
+            ResponseCapturingInterceptor.clearThreadState();
+            delegate.onResponse(call, response);
+```
+
+### NullableProblems
+Not annotated parameter overrides @EverythingIsNonNull parameter
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
+#### Snippet
+```java
+
+        @Override
+        public void onResponse(Call call, Response response) throws IOException {
+            ResponseCapturingInterceptor.clearThreadState();
+            delegate.onResponse(call, response);
+```
+
+### NullableProblems
+Not annotated parameter overrides @EverythingIsNonNull parameter
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
+#### Snippet
+```java
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                try {
+                    call.request().tag(Tags.EntireSpan.class).get().complete();
+```
+
+### NullableProblems
+Not annotated parameter overrides @EverythingIsNonNull parameter
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
+#### Snippet
+```java
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                try {
+                    call.request().tag(Tags.EntireSpan.class).get().complete();
+```
+
+### NullableProblems
+Not annotated parameter overrides @EverythingIsNonNull parameter
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
+#### Snippet
+```java
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                urls.markAsSucceeded(request().url());
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @EverythingIsNonNull parameter
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
+#### Snippet
+```java
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                urls.markAsSucceeded(request().url());
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @EverythingIsNonNull parameter
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
+#### Snippet
+```java
+        super.enqueue(new LeakedResponseClosingCallback(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException exception) {
+                if (isCanceled()) {
+                    callback.onFailure(call, exception);
+```
+
+### NullableProblems
+Not annotated parameter overrides @EverythingIsNonNull parameter
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
+#### Snippet
+```java
+        super.enqueue(new LeakedResponseClosingCallback(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException exception) {
+                if (isCanceled()) {
+                    callback.onFailure(call, exception);
+```
+
+### NullableProblems
+Not annotated parameter overrides @EverythingIsNonNull parameter
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
+#### Snippet
+```java
+        enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException exception) {
+                if (!future.setException(exception)) {
+                    log.warn(
+```
+
+### NullableProblems
+Not annotated parameter overrides @EverythingIsNonNull parameter
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
+#### Snippet
+```java
+        enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException exception) {
+                if (!future.setException(exception)) {
+                    log.warn(
+```
+
+### NullableProblems
+Not annotated parameter overrides @EverythingIsNonNull parameter
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
+#### Snippet
+```java
+        enqueueInternal(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException exception) {
+                try {
+                    call.request().tag(Tags.EntireSpan.class).get().complete();
+```
+
+### NullableProblems
+Not annotated parameter overrides @EverythingIsNonNull parameter
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
+#### Snippet
+```java
+        enqueueInternal(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException exception) {
+                try {
+                    call.request().tag(Tags.EntireSpan.class).get().complete();
+```
+
+### NullableProblems
+Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
+#### Snippet
+```java
+
+                    @Override
+                    public void onFailure(Throwable throwable) {
+                        callback.onFailure(
+                                RemotingOkHttpCall.this,
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @EverythingIsNonNull
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/InstrumentedInterceptor.java`
+#### Snippet
+```java
+
+    @Override
+    public Response intercept(Chain chain) throws IOException {
+        HttpUrl url = chain.request().url();
+        String hostname = url.host();
+```
+
+### NullableProblems
+Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ConcurrencyLimiters.java`
+#### Snippet
+```java
+
+                        @Override
+                        public void onFailure(Throwable _error) {}
+                    },
+                    MoreExecutors.directExecutor());
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/QosExceptionThrowingCallAdapterFactory.java`
+#### Snippet
+```java
+
+        @Override
+        public T adapt(Call<R> call) {
+            QosExceptionThrowingCall<R> throwingCall = new QosExceptionThrowingCall(call);
+            return delegate.adapt(throwingCall);
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/QosExceptionThrowingCallAdapterFactory.java`
+#### Snippet
+```java
+            delegate.enqueue(new Callback<R>() {
+                @Override
+                public void onResponse(Call<R> call, Response<R> response) {
+                    Optional<QosException> exception = handlePotentialQosException(response);
+                    if (exception.isPresent()) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/QosExceptionThrowingCallAdapterFactory.java`
+#### Snippet
+```java
+            delegate.enqueue(new Callback<R>() {
+                @Override
+                public void onResponse(Call<R> call, Response<R> response) {
+                    Optional<QosException> exception = handlePotentialQosException(response);
+                    if (exception.isPresent()) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/QosExceptionThrowingCallAdapterFactory.java`
+#### Snippet
+```java
+
+        @Override
+        public void enqueue(Callback<R> callback) {
+            delegate.enqueue(new Callback<R>() {
+                @Override
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/QosExceptionThrowingCallAdapterFactory.java`
+#### Snippet
+```java
+
+                @Override
+                public void onFailure(Call<R> call, Throwable throwable) {
+                    callback.onFailure(call, throwable);
+                }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/QosExceptionThrowingCallAdapterFactory.java`
+#### Snippet
+```java
+
+                @Override
+                public void onFailure(Call<R> call, Throwable throwable) {
+                    callback.onFailure(call, throwable);
+                }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/QosExceptionThrowingCallAdapterFactory.java`
+#### Snippet
+```java
+    @Nullable
+    @Override
+    public CallAdapter<?, ?> get(Type returnType, Annotation[] annotations, Retrofit retrofit) {
+        CallAdapter<?, ?> adapter = delegate.get(returnType, annotations, retrofit);
+        return new QosExceptionThrowingCallAdapter<>(adapter);
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/QosExceptionThrowingCallAdapterFactory.java`
+#### Snippet
+```java
+    @Nullable
+    @Override
+    public CallAdapter<?, ?> get(Type returnType, Annotation[] annotations, Retrofit retrofit) {
+        CallAdapter<?, ?> adapter = delegate.get(returnType, annotations, retrofit);
+        return new QosExceptionThrowingCallAdapter<>(adapter);
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/QosExceptionThrowingCallAdapterFactory.java`
+#### Snippet
+```java
+    @Nullable
+    @Override
+    public CallAdapter<?, ?> get(Type returnType, Annotation[] annotations, Retrofit retrofit) {
+        CallAdapter<?, ?> adapter = delegate.get(returnType, annotations, retrofit);
+        return new QosExceptionThrowingCallAdapter<>(adapter);
 ```
 
 ### NullableProblems
@@ -1805,11 +2549,23 @@ Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
 in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/AsyncSerializableErrorCallAdapterFactory.java`
 #### Snippet
 ```java
+            call.enqueue(new Callback<R>() {
+                @Override
+                public void onResponse(Call<R> _call, Response<R> response) {
+                    boolean futureWasCancelled = !future.complete(response.body());
+                    if (futureWasCancelled) {
+```
 
-        @Override
-        public ListenableFuture<R> adapt(final Call<R> call) {
-            ListenableFutureCallback<R> callback = new ListenableFutureCallback<>(call);
-            call.enqueue(callback);
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/AsyncSerializableErrorCallAdapterFactory.java`
+#### Snippet
+```java
+            call.enqueue(new Callback<R>() {
+                @Override
+                public void onResponse(Call<R> _call, Response<R> response) {
+                    boolean futureWasCancelled = !future.complete(response.body());
+                    if (futureWasCancelled) {
 ```
 
 ### NullableProblems
@@ -1891,9 +2647,9 @@ in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client
 ```java
 
         @Override
-        public void onFailure(Call<R> _call, Throwable throwable) {
-            // TODO(rfink): Would be good to not leak okhttp internals here
-            if (throwable instanceof IoRemoteException) {
+        public ListenableFuture<R> adapt(final Call<R> call) {
+            ListenableFutureCallback<R> callback = new ListenableFutureCallback<>(call);
+            call.enqueue(callback);
 ```
 
 ### NullableProblems
@@ -1913,431 +2669,251 @@ Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
 in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/AsyncSerializableErrorCallAdapterFactory.java`
 #### Snippet
 ```java
-            call.enqueue(new Callback<R>() {
-                @Override
-                public void onResponse(Call<R> _call, Response<R> response) {
-                    boolean futureWasCancelled = !future.complete(response.body());
-                    if (futureWasCancelled) {
+
+        @Override
+        public void onFailure(Call<R> _call, Throwable throwable) {
+            // TODO(rfink): Would be good to not leak okhttp internals here
+            if (throwable instanceof IoRemoteException) {
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/AsyncSerializableErrorCallAdapterFactory.java`
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/OptionalObjectToStringConverterFactory.java`
 #### Snippet
 ```java
-            call.enqueue(new Callback<R>() {
-                @Override
-                public void onResponse(Call<R> _call, Response<R> response) {
-                    boolean futureWasCancelled = !future.complete(response.body());
-                    if (futureWasCancelled) {
+
+    @Override
+    public Converter<?, String> stringConverter(Type type, Annotation[] annotations, Retrofit _retrofit) {
+        Optional<?> pathQueryAnnotation = ImmutableList.copyOf(annotations).stream()
+                .map(Annotation::annotationType)
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/QosExceptionThrowingCallAdapterFactory.java`
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/OptionalObjectToStringConverterFactory.java`
+#### Snippet
+```java
+
+    @Override
+    public Converter<?, String> stringConverter(Type type, Annotation[] annotations, Retrofit _retrofit) {
+        Optional<?> pathQueryAnnotation = ImmutableList.copyOf(annotations).stream()
+                .map(Annotation::annotationType)
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/OptionalObjectToStringConverterFactory.java`
+#### Snippet
+```java
+
+    @Override
+    public Converter<?, String> stringConverter(Type type, Annotation[] annotations, Retrofit _retrofit) {
+        Optional<?> pathQueryAnnotation = ImmutableList.copyOf(annotations).stream()
+                .map(Annotation::annotationType)
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @EverythingIsNonNull
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/SpanTerminatingInterceptor.java`
+#### Snippet
+```java
+
+    @Override
+    public Response intercept(Chain chain) throws IOException {
+        Tags.AttemptSpan attemptSpanTag = chain.request().tag(Tags.AttemptSpan.class);
+        if (attemptSpanTag == null) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/OptionalResponseBodyConverterFactory.java`
 #### Snippet
 ```java
 
         @Override
-        public T adapt(Call<R> call) {
-            QosExceptionThrowingCall<R> throwingCall = new QosExceptionThrowingCall(call);
-            return delegate.adapt(throwingCall);
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/QosExceptionThrowingCallAdapterFactory.java`
-#### Snippet
-```java
-
-        @Override
-        public void enqueue(Callback<R> callback) {
-            delegate.enqueue(new Callback<R>() {
-                @Override
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/QosExceptionThrowingCallAdapterFactory.java`
-#### Snippet
-```java
-
-                @Override
-                public void onFailure(Call<R> call, Throwable throwable) {
-                    callback.onFailure(call, throwable);
-                }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/QosExceptionThrowingCallAdapterFactory.java`
-#### Snippet
-```java
-
-                @Override
-                public void onFailure(Call<R> call, Throwable throwable) {
-                    callback.onFailure(call, throwable);
-                }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/QosExceptionThrowingCallAdapterFactory.java`
-#### Snippet
-```java
-    @Nullable
-    @Override
-    public CallAdapter<?, ?> get(Type returnType, Annotation[] annotations, Retrofit retrofit) {
-        CallAdapter<?, ?> adapter = delegate.get(returnType, annotations, retrofit);
-        return new QosExceptionThrowingCallAdapter<>(adapter);
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/QosExceptionThrowingCallAdapterFactory.java`
-#### Snippet
-```java
-    @Nullable
-    @Override
-    public CallAdapter<?, ?> get(Type returnType, Annotation[] annotations, Retrofit retrofit) {
-        CallAdapter<?, ?> adapter = delegate.get(returnType, annotations, retrofit);
-        return new QosExceptionThrowingCallAdapter<>(adapter);
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/QosExceptionThrowingCallAdapterFactory.java`
-#### Snippet
-```java
-    @Nullable
-    @Override
-    public CallAdapter<?, ?> get(Type returnType, Annotation[] annotations, Retrofit retrofit) {
-        CallAdapter<?, ?> adapter = delegate.get(returnType, annotations, retrofit);
-        return new QosExceptionThrowingCallAdapter<>(adapter);
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/QosExceptionThrowingCallAdapterFactory.java`
-#### Snippet
-```java
-            delegate.enqueue(new Callback<R>() {
-                @Override
-                public void onResponse(Call<R> call, Response<R> response) {
-                    Optional<QosException> exception = handlePotentialQosException(response);
-                    if (exception.isPresent()) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/QosExceptionThrowingCallAdapterFactory.java`
-#### Snippet
-```java
-            delegate.enqueue(new Callback<R>() {
-                @Override
-                public void onResponse(Call<R> call, Response<R> response) {
-                    Optional<QosException> exception = handlePotentialQosException(response);
-                    if (exception.isPresent()) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
-#### Snippet
-```java
-
-        @Override
-        public void onFailure(Throwable _throwable) {
-            // do nothing
+        public Optional<ResponseBody> convert(ResponseBody value) {
+            return Optional.of(value);
         }
 ```
 
 ### NullableProblems
-Not annotated parameter overrides @EverythingIsNonNull parameter
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/OptionalResponseBodyConverterFactory.java`
 #### Snippet
 ```java
-        enqueueInternal(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException exception) {
-                try {
-                    call.request().tag(Tags.EntireSpan.class).get().complete();
-```
-
-### NullableProblems
-Not annotated parameter overrides @EverythingIsNonNull parameter
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
-#### Snippet
-```java
-        enqueueInternal(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException exception) {
-                try {
-                    call.request().tag(Tags.EntireSpan.class).get().complete();
-```
-
-### NullableProblems
-Not annotated parameter overrides @EverythingIsNonNull parameter
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
-#### Snippet
-```java
-
-        @Override
-        public void onResponse(Call call, Response response) throws IOException {
-            ResponseCapturingInterceptor.clearThreadState();
-            delegate.onResponse(call, response);
-```
-
-### NullableProblems
-Not annotated parameter overrides @EverythingIsNonNull parameter
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
-#### Snippet
-```java
-
-        @Override
-        public void onResponse(Call call, Response response) throws IOException {
-            ResponseCapturingInterceptor.clearThreadState();
-            delegate.onResponse(call, response);
-```
-
-### NullableProblems
-Not annotated parameter overrides @EverythingIsNonNull parameter
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
-#### Snippet
-```java
-        super.enqueue(new LeakedResponseClosingCallback(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException exception) {
-                if (isCanceled()) {
-                    callback.onFailure(call, exception);
-```
-
-### NullableProblems
-Not annotated parameter overrides @EverythingIsNonNull parameter
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
-#### Snippet
-```java
-        super.enqueue(new LeakedResponseClosingCallback(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException exception) {
-                if (isCanceled()) {
-                    callback.onFailure(call, exception);
-```
-
-### NullableProblems
-Not annotated parameter overrides @EverythingIsNonNull parameter
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
-#### Snippet
-```java
-
-        @Override
-        public void onFailure(Call call, IOException exception) {
-            ResponseCapturingInterceptor.getResponse().ifPresent(RemotingOkHttpCall::close);
-            ResponseCapturingInterceptor.clearThreadState();
-```
-
-### NullableProblems
-Not annotated parameter overrides @EverythingIsNonNull parameter
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
-#### Snippet
-```java
-
-        @Override
-        public void onFailure(Call call, IOException exception) {
-            ResponseCapturingInterceptor.getResponse().ifPresent(RemotingOkHttpCall::close);
-            ResponseCapturingInterceptor.clearThreadState();
-```
-
-### NullableProblems
-Not annotated parameter overrides @EverythingIsNonNull parameter
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
-#### Snippet
-```java
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                urls.markAsSucceeded(request().url());
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @EverythingIsNonNull parameter
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
-#### Snippet
-```java
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                urls.markAsSucceeded(request().url());
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @EverythingIsNonNull parameter
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
-#### Snippet
-```java
-
-            @Override
-            public void onResponse(Call call, Response response) {
-                if (!future.set(response)) {
-                    close(response);
-```
-
-### NullableProblems
-Not annotated parameter overrides @EverythingIsNonNull parameter
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
-#### Snippet
-```java
-
-            @Override
-            public void onResponse(Call call, Response response) {
-                if (!future.set(response)) {
-                    close(response);
-```
-
-### NullableProblems
-Not annotated parameter overrides @EverythingIsNonNull parameter
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
-#### Snippet
-```java
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                try {
-                    call.request().tag(Tags.EntireSpan.class).get().complete();
-```
-
-### NullableProblems
-Not annotated parameter overrides @EverythingIsNonNull parameter
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
-#### Snippet
-```java
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                try {
-                    call.request().tag(Tags.EntireSpan.class).get().complete();
-```
-
-### NullableProblems
-Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
-#### Snippet
-```java
-
-                    @Override
-                    public void onFailure(Throwable throwable) {
-                        callback.onFailure(
-                                RemotingOkHttpCall.this,
-```
-
-### NullableProblems
-Not annotated parameter overrides @EverythingIsNonNull parameter
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
-#### Snippet
-```java
-        enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException exception) {
-                if (!future.setException(exception)) {
-                    log.warn(
-```
-
-### NullableProblems
-Not annotated parameter overrides @EverythingIsNonNull parameter
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
-#### Snippet
-```java
-        enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException exception) {
-                if (!future.setException(exception)) {
-                    log.warn(
+    @Nullable
+    @Override
+    public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] _annotations, Retrofit _retrofit) {
+        if (type instanceof ParameterizedType) {
+            Type innerType = getParameterUpperBound(0, (ParameterizedType) type);
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesConverterFactory.java`
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/OptionalResponseBodyConverterFactory.java`
+#### Snippet
+```java
+    @Nullable
+    @Override
+    public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] _annotations, Retrofit _retrofit) {
+        if (type instanceof ParameterizedType) {
+            Type innerType = getParameterUpperBound(0, (ParameterizedType) type);
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/OptionalResponseBodyConverterFactory.java`
+#### Snippet
+```java
+    @Nullable
+    @Override
+    public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] _annotations, Retrofit _retrofit) {
+        if (type instanceof ParameterizedType) {
+            Type innerType = getParameterUpperBound(0, (ParameterizedType) type);
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @EverythingIsNonNull
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingCall.java`
+#### Snippet
+```java
+
+    @Override
+    public Timeout timeout() {
+        return delegate.timeout();
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @EverythingIsNonNull parameter
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingCall.java`
+#### Snippet
+```java
+
+    @Override
+    public void enqueue(Callback responseCallback) {
+        delegate.enqueue(responseCallback);
+    }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @EverythingIsNonNull
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingCall.java`
+#### Snippet
+```java
+
+    @Override
+    public Call clone() {
+        return doClone();
+    }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @EverythingIsNonNull
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingCall.java`
+#### Snippet
+```java
+
+    @Override
+    public Response execute() throws IOException {
+        return delegate.execute();
+    }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @EverythingIsNonNull
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingCall.java`
+#### Snippet
+```java
+
+    @Override
+    public Request request() {
+        return delegate.request();
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CborConverterFactory.java`
 #### Snippet
 ```java
 
     @Override
     public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
-        Converter<ResponseBody, ?> responseBodyConverter = delegate.responseBodyConverter(type, annotations, retrofit);
-        return new CoerceNullCollectionsConverter(responseBodyConverter, type);
+        // given we don't know how to convert the response until we check the Content-Type, we construct a delegate
+        // converter for when the response is not application/cbor.
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesConverterFactory.java`
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CborConverterFactory.java`
 #### Snippet
 ```java
 
     @Override
     public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
-        Converter<ResponseBody, ?> responseBodyConverter = delegate.responseBodyConverter(type, annotations, retrofit);
-        return new CoerceNullCollectionsConverter(responseBodyConverter, type);
+        // given we don't know how to convert the response until we check the Content-Type, we construct a delegate
+        // converter for when the response is not application/cbor.
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesConverterFactory.java`
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CborConverterFactory.java`
 #### Snippet
 ```java
 
     @Override
     public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
-        Converter<ResponseBody, ?> responseBodyConverter = delegate.responseBodyConverter(type, annotations, retrofit);
-        return new CoerceNullCollectionsConverter(responseBodyConverter, type);
+        // given we don't know how to convert the response until we check the Content-Type, we construct a delegate
+        // converter for when the response is not application/cbor.
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesConverterFactory.java`
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CborConverterFactory.java`
 #### Snippet
 ```java
     @Override
     public Converter<?, RequestBody> requestBodyConverter(
             Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
-        return delegate.requestBodyConverter(type, parameterAnnotations, methodAnnotations, retrofit);
-    }
+        if (contentTypeIsCbor(methodAnnotations)) {
+            return new CborRequestBodyConverter<>(cborMapper.writer());
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesConverterFactory.java`
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CborConverterFactory.java`
 #### Snippet
 ```java
     @Override
     public Converter<?, RequestBody> requestBodyConverter(
             Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
-        return delegate.requestBodyConverter(type, parameterAnnotations, methodAnnotations, retrofit);
-    }
+        if (contentTypeIsCbor(methodAnnotations)) {
+            return new CborRequestBodyConverter<>(cborMapper.writer());
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesConverterFactory.java`
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CborConverterFactory.java`
 #### Snippet
 ```java
     @Override
     public Converter<?, RequestBody> requestBodyConverter(
             Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
-        return delegate.requestBodyConverter(type, parameterAnnotations, methodAnnotations, retrofit);
-    }
+        if (contentTypeIsCbor(methodAnnotations)) {
+            return new CborRequestBodyConverter<>(cborMapper.writer());
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesConverterFactory.java`
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CborConverterFactory.java`
 #### Snippet
 ```java
     @Override
     public Converter<?, RequestBody> requestBodyConverter(
             Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
-        return delegate.requestBodyConverter(type, parameterAnnotations, methodAnnotations, retrofit);
-    }
+        if (contentTypeIsCbor(methodAnnotations)) {
+            return new CborRequestBodyConverter<>(cborMapper.writer());
 ```
 
 ### NullableProblems
@@ -2350,486 +2926,6 @@ in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client
         public RequestBody convert(T value) throws IOException {
             byte[] bytes = cborObjectWriter.writeValueAsBytes(value);
             return RequestBody.create(CBOR_MIME_TYPE, bytes);
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CborConverterFactory.java`
-#### Snippet
-```java
-    @Override
-    public Converter<?, RequestBody> requestBodyConverter(
-            Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
-        if (contentTypeIsCbor(methodAnnotations)) {
-            return new CborRequestBodyConverter<>(cborMapper.writer());
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CborConverterFactory.java`
-#### Snippet
-```java
-    @Override
-    public Converter<?, RequestBody> requestBodyConverter(
-            Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
-        if (contentTypeIsCbor(methodAnnotations)) {
-            return new CborRequestBodyConverter<>(cborMapper.writer());
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CborConverterFactory.java`
-#### Snippet
-```java
-    @Override
-    public Converter<?, RequestBody> requestBodyConverter(
-            Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
-        if (contentTypeIsCbor(methodAnnotations)) {
-            return new CborRequestBodyConverter<>(cborMapper.writer());
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CborConverterFactory.java`
-#### Snippet
-```java
-    @Override
-    public Converter<?, RequestBody> requestBodyConverter(
-            Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
-        if (contentTypeIsCbor(methodAnnotations)) {
-            return new CborRequestBodyConverter<>(cborMapper.writer());
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CborConverterFactory.java`
-#### Snippet
-```java
-
-    @Override
-    public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
-        // given we don't know how to convert the response until we check the Content-Type, we construct a delegate
-        // converter for when the response is not application/cbor.
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CborConverterFactory.java`
-#### Snippet
-```java
-
-    @Override
-    public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
-        // given we don't know how to convert the response until we check the Content-Type, we construct a delegate
-        // converter for when the response is not application/cbor.
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CborConverterFactory.java`
-#### Snippet
-```java
-
-    @Override
-    public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
-        // given we don't know how to convert the response until we check the Content-Type, we construct a delegate
-        // converter for when the response is not application/cbor.
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @EverythingIsNonNull
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ResponseCapturingInterceptor.java`
-#### Snippet
-```java
-
-    @Override
-    public Response intercept(Chain chain) throws IOException {
-        Response response = chain.proceed(chain.request());
-        currentResponse.set(response);
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @EverythingIsNonNull
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingOkHttpClient.java`
-#### Snippet
-```java
-
-    @Override
-    public WebSocket newWebSocket(Request request, WebSocketListener listener) {
-        return delegate.newWebSocket(request, listener);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @EverythingIsNonNull parameter
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingOkHttpClient.java`
-#### Snippet
-```java
-
-    @Override
-    public WebSocket newWebSocket(Request request, WebSocketListener listener) {
-        return delegate.newWebSocket(request, listener);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @EverythingIsNonNull parameter
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingOkHttpClient.java`
-#### Snippet
-```java
-
-    @Override
-    public WebSocket newWebSocket(Request request, WebSocketListener listener) {
-        return delegate.newWebSocket(request, listener);
-    }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @EverythingIsNonNull
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingOkHttpClient.java`
-#### Snippet
-```java
-
-    @Override
-    public ConnectionPool connectionPool() {
-        return delegate.connectionPool();
-    }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @EverythingIsNonNull
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingOkHttpClient.java`
-#### Snippet
-```java
-
-    @Override
-    public SSLSocketFactory sslSocketFactory() {
-        return delegate.sslSocketFactory();
-    }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @EverythingIsNonNull
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingOkHttpClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Call newCall(Request request) {
-        return delegate.newCall(request);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @EverythingIsNonNull parameter
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingOkHttpClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Call newCall(Request request) {
-        return delegate.newCall(request);
-    }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @EverythingIsNonNull
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingOkHttpClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Dispatcher dispatcher() {
-        return delegate.dispatcher();
-    }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @EverythingIsNonNull
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingOkHttpClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Dns dns() {
-        return delegate.dns();
-    }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @EverythingIsNonNull
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingOkHttpClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Authenticator proxyAuthenticator() {
-        return delegate.proxyAuthenticator();
-    }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @EverythingIsNonNull
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingOkHttpClient.java`
-#### Snippet
-```java
-
-    @Override
-    public SocketFactory socketFactory() {
-        return delegate.socketFactory();
-    }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @EverythingIsNonNull
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingOkHttpClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Builder newBuilder() {
-        return delegate.newBuilder();
-    }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @EverythingIsNonNull
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingOkHttpClient.java`
-#### Snippet
-```java
-
-    @Override
-    public HostnameVerifier hostnameVerifier() {
-        return delegate.hostnameVerifier();
-    }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @EverythingIsNonNull
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingOkHttpClient.java`
-#### Snippet
-```java
-
-    @Override
-    public List<ConnectionSpec> connectionSpecs() {
-        return delegate.connectionSpecs();
-    }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @EverythingIsNonNull
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingOkHttpClient.java`
-#### Snippet
-```java
-
-    @Override
-    public List<Protocol> protocols() {
-        return delegate.protocols();
-    }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @EverythingIsNonNull
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingOkHttpClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Authenticator authenticator() {
-        return delegate.authenticator();
-    }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @EverythingIsNonNull
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingOkHttpClient.java`
-#### Snippet
-```java
-
-    @Override
-    public CookieJar cookieJar() {
-        return delegate.cookieJar();
-    }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @EverythingIsNonNull
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingOkHttpClient.java`
-#### Snippet
-```java
-
-    @Override
-    public ProxySelector proxySelector() {
-        return delegate.proxySelector();
-    }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @EverythingIsNonNull
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingOkHttpClient.java`
-#### Snippet
-```java
-
-    @Override
-    public List<Interceptor> networkInterceptors() {
-        return delegate.networkInterceptors();
-    }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @EverythingIsNonNull
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingOkHttpClient.java`
-#### Snippet
-```java
-
-    @Override
-    public CertificatePinner certificatePinner() {
-        return delegate.certificatePinner();
-    }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @EverythingIsNonNull
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ForwardingOkHttpClient.java`
-#### Snippet
-```java
-
-    @Override
-    public List<Interceptor> interceptors() {
-        return delegate.interceptors();
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ConcurrencyLimiters.java`
-#### Snippet
-```java
-
-                        @Override
-                        public void onFailure(Throwable _error) {}
-                    },
-                    MoreExecutors.directExecutor());
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesCallAdapterFactory.java`
-#### Snippet
-```java
-
-        @Override
-        public Object adapt(Call<R> call) {
-            DefaultingCall<R> defaultingCall = new DefaultingCall<>(call, defaultValue);
-            return delegate.adapt(defaultingCall);
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesCallAdapterFactory.java`
-#### Snippet
-```java
-
-                @Override
-                public void onFailure(Call<R> call, Throwable throwable) {
-                    callback.onFailure(call, throwable);
-                }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesCallAdapterFactory.java`
-#### Snippet
-```java
-
-                @Override
-                public void onFailure(Call<R> call, Throwable throwable) {
-                    callback.onFailure(call, throwable);
-                }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesCallAdapterFactory.java`
-#### Snippet
-```java
-
-        @Override
-        public void enqueue(Callback<R> callback) {
-            delegate.enqueue(new Callback<R>() {
-                @Override
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesCallAdapterFactory.java`
-#### Snippet
-```java
-
-        @Override
-        public Object adapt(Call<Object> call) {
-            return call;
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesCallAdapterFactory.java`
-#### Snippet
-```java
-    @Nullable
-    @Override
-    public CallAdapter<?, ?> get(Type returnType, Annotation[] annotations, Retrofit retrofit) {
-        // we only support Call<T> and CompletableFuture<T>
-        Preconditions.checkState(
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesCallAdapterFactory.java`
-#### Snippet
-```java
-    @Nullable
-    @Override
-    public CallAdapter<?, ?> get(Type returnType, Annotation[] annotations, Retrofit retrofit) {
-        // we only support Call<T> and CompletableFuture<T>
-        Preconditions.checkState(
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesCallAdapterFactory.java`
-#### Snippet
-```java
-    @Nullable
-    @Override
-    public CallAdapter<?, ?> get(Type returnType, Annotation[] annotations, Retrofit retrofit) {
-        // we only support Call<T> and CompletableFuture<T>
-        Preconditions.checkState(
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesCallAdapterFactory.java`
-#### Snippet
-```java
-            delegate.enqueue(new Callback<R>() {
-                @Override
-                public void onResponse(Call<R> call, Response<R> response) {
-                    callback.onResponse(call, adaptResponse(response));
-                }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/CoerceNullValuesCallAdapterFactory.java`
-#### Snippet
-```java
-            delegate.enqueue(new Callback<R>() {
-                @Override
-                public void onResponse(Call<R> call, Response<R> response) {
-                    callback.onResponse(call, adaptResponse(response));
-                }
 ```
 
 ### NullableProblems
@@ -2849,54 +2945,6 @@ Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
 in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/NeverReturnNullConverterFactory.java`
 #### Snippet
 ```java
-    @Override
-    public Converter<?, RequestBody> requestBodyConverter(
-            Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
-        return delegate.requestBodyConverter(type, parameterAnnotations, methodAnnotations, retrofit);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/NeverReturnNullConverterFactory.java`
-#### Snippet
-```java
-    @Override
-    public Converter<?, RequestBody> requestBodyConverter(
-            Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
-        return delegate.requestBodyConverter(type, parameterAnnotations, methodAnnotations, retrofit);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/NeverReturnNullConverterFactory.java`
-#### Snippet
-```java
-    @Override
-    public Converter<?, RequestBody> requestBodyConverter(
-            Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
-        return delegate.requestBodyConverter(type, parameterAnnotations, methodAnnotations, retrofit);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/NeverReturnNullConverterFactory.java`
-#### Snippet
-```java
-    @Override
-    public Converter<?, RequestBody> requestBodyConverter(
-            Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
-        return delegate.requestBodyConverter(type, parameterAnnotations, methodAnnotations, retrofit);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/NeverReturnNullConverterFactory.java`
-#### Snippet
-```java
 
     @Override
     public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
@@ -2930,98 +2978,50 @@ in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client
 
 ### NullableProblems
 Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/OptionalResponseBodyConverterFactory.java`
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/NeverReturnNullConverterFactory.java`
 #### Snippet
 ```java
-    @Nullable
     @Override
-    public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] _annotations, Retrofit _retrofit) {
-        if (type instanceof ParameterizedType) {
-            Type innerType = getParameterUpperBound(0, (ParameterizedType) type);
+    public Converter<?, RequestBody> requestBodyConverter(
+            Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
+        return delegate.requestBodyConverter(type, parameterAnnotations, methodAnnotations, retrofit);
+    }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/OptionalResponseBodyConverterFactory.java`
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/NeverReturnNullConverterFactory.java`
 #### Snippet
 ```java
-    @Nullable
     @Override
-    public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] _annotations, Retrofit _retrofit) {
-        if (type instanceof ParameterizedType) {
-            Type innerType = getParameterUpperBound(0, (ParameterizedType) type);
+    public Converter<?, RequestBody> requestBodyConverter(
+            Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
+        return delegate.requestBodyConverter(type, parameterAnnotations, methodAnnotations, retrofit);
+    }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/OptionalResponseBodyConverterFactory.java`
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/NeverReturnNullConverterFactory.java`
 #### Snippet
 ```java
-    @Nullable
     @Override
-    public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] _annotations, Retrofit _retrofit) {
-        if (type instanceof ParameterizedType) {
-            Type innerType = getParameterUpperBound(0, (ParameterizedType) type);
+    public Converter<?, RequestBody> requestBodyConverter(
+            Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
+        return delegate.requestBodyConverter(type, parameterAnnotations, methodAnnotations, retrofit);
+    }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/OptionalResponseBodyConverterFactory.java`
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/NeverReturnNullConverterFactory.java`
 #### Snippet
 ```java
-
-        @Override
-        public Optional<ResponseBody> convert(ResponseBody value) {
-            return Optional.of(value);
-        }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @EverythingIsNonNull
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/InstrumentedInterceptor.java`
-#### Snippet
-```java
-
     @Override
-    public Response intercept(Chain chain) throws IOException {
-        HttpUrl url = chain.request().url();
-        String hostname = url.host();
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/OptionalObjectToStringConverterFactory.java`
-#### Snippet
-```java
-
-    @Override
-    public Converter<?, String> stringConverter(Type type, Annotation[] annotations, Retrofit _retrofit) {
-        Optional<?> pathQueryAnnotation = ImmutableList.copyOf(annotations).stream()
-                .map(Annotation::annotationType)
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/OptionalObjectToStringConverterFactory.java`
-#### Snippet
-```java
-
-    @Override
-    public Converter<?, String> stringConverter(Type type, Annotation[] annotations, Retrofit _retrofit) {
-        Optional<?> pathQueryAnnotation = ImmutableList.copyOf(annotations).stream()
-                .map(Annotation::annotationType)
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/OptionalObjectToStringConverterFactory.java`
-#### Snippet
-```java
-
-    @Override
-    public Converter<?, String> stringConverter(Type type, Annotation[] annotations, Retrofit _retrofit) {
-        Optional<?> pathQueryAnnotation = ImmutableList.copyOf(annotations).stream()
-                .map(Annotation::annotationType)
+    public Converter<?, RequestBody> requestBodyConverter(
+            Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
+        return delegate.requestBodyConverter(type, parameterAnnotations, methodAnnotations, retrofit);
+    }
 ```
 
 ### NullableProblems
@@ -3051,42 +3051,6 @@ in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/CatchThrowable
 ## RuleId[id=JavadocLinkAsPlainText]
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `conjure-java-jersey-jakarta-server/src/main/java/com/palantir/conjure/java/server/jersey/DeprecationReportingResponseFeature.java`
-#### Snippet
-```java
- * Adds HTTP response headers to indicate endpoint deprecation.
- *
- * <p>https://tools.ietf.org/id/draft-dalal-deprecation-header-01.html#rfc.section.2.1
- */
-enum DeprecationReportingResponseFeature implements DynamicFeature {
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `extras/refresh-utils/src/main/java/com/palantir/conjure/java/ext/refresh/Refreshable.java`
-#### Snippet
-```java
- * A layman's Observable: Stores a reference to a value until it is {@link #getAndClear retrieved} once.
- *
- * @deprecated Prefer com.palantir.refreshable:refreshable from https://github.com/palantir/refreshable as it has
- * much better protection against memory leaks.
- */
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `extras/refresh-utils/src/main/java/com/palantir/conjure/java/ext/refresh/RefreshableProxyInvocationHandler.java`
-#### Snippet
-```java
- * Useful for constructing dynamic proxies based on live-reloadable configuration.
- *
- * @deprecated Prefer com.palantir.refreshable:refreshable from https://github.com/palantir/refreshable as it has
- * much better protection against memory leaks.
- */
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
 in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jaxrs/feignimpl/HeaderAccessUtils.java`
 #### Snippet
 ```java
@@ -3095,18 +3059,6 @@ in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jax
  * {@link feign.Response} headers due to https://github.com/Netflix/feign/pull/418.
  */
 public final class HeaderAccessUtils {
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/Retrofit2Client.java`
-#### Snippet
-```java
-     * {@link ClientConfiguration} changes.
-     *
-     * @deprecated Prefer com.palantir.refreshable:refreshable from https://github.com/palantir/refreshable as it has
-     * much better protection against memory leaks.
-     */
 ```
 
 ### JavadocLinkAsPlainText
@@ -3123,14 +3075,14 @@ enum DeprecationReportingResponseFeature implements DynamicFeature {
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jaxrs/JaxRsClient.java`
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ResponseCapturingInterceptor.java`
 #### Snippet
 ```java
-     * {@link ClientConfiguration} changes.
-     *
-     * @deprecated Prefer com.palantir.refreshable:refreshable from https://github.com/palantir/refreshable as it has
-     * much better protection against memory leaks.
-     */
+/**
+ * Workaround a bug in okhttp where cancellation in flight results in leaked responses.
+ * https://github.com/square/okhttp/blob/d28d2cec21641b61f3d34e05dd52f43a717c2d32/okhttp/src/main/java/okhttp3/RealCall.java#L210-L213
+ */
+enum ResponseCapturingInterceptor implements Interceptor {
 ```
 
 ### JavadocLinkAsPlainText
@@ -3147,14 +3099,86 @@ in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/DistinguishedN
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ResponseCapturingInterceptor.java`
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/Retrofit2Client.java`
 #### Snippet
 ```java
-/**
- * Workaround a bug in okhttp where cancellation in flight results in leaked responses.
- * https://github.com/square/okhttp/blob/d28d2cec21641b61f3d34e05dd52f43a717c2d32/okhttp/src/main/java/okhttp3/RealCall.java#L210-L213
+     * {@link ClientConfiguration} changes.
+     *
+     * @deprecated Prefer com.palantir.refreshable:refreshable from https://github.com/palantir/refreshable as it has
+     * much better protection against memory leaks.
+     */
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `extras/refresh-utils/src/main/java/com/palantir/conjure/java/ext/refresh/RefreshableProxyInvocationHandler.java`
+#### Snippet
+```java
+ * Useful for constructing dynamic proxies based on live-reloadable configuration.
+ *
+ * @deprecated Prefer com.palantir.refreshable:refreshable from https://github.com/palantir/refreshable as it has
+ * much better protection against memory leaks.
  */
-enum ResponseCapturingInterceptor implements Interceptor {
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `conjure-java-jackson-optimizations/src/main/java/com/palantir/conjure/java/jackson/optimizations/ObjectMapperOptimizations.java`
+#### Snippet
+```java
+    /**
+     * We disable afterburner optimizations by default on java 16+ where internal access is
+     * restricted by https://openjdk.java.net/jeps/396 and https://openjdk.java.net/jeps/403.
+     */
+    private static boolean shouldDisableByDefault() {
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `conjure-java-jackson-optimizations/src/main/java/com/palantir/conjure/java/jackson/optimizations/ObjectMapperOptimizations.java`
+#### Snippet
+```java
+    /**
+     * We disable afterburner optimizations by default on java 16+ where internal access is
+     * restricted by https://openjdk.java.net/jeps/396 and https://openjdk.java.net/jeps/403.
+     */
+    private static boolean shouldDisableByDefault() {
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `conjure-java-jersey-jakarta-server/src/main/java/com/palantir/conjure/java/server/jersey/DeprecationReportingResponseFeature.java`
+#### Snippet
+```java
+ * Adds HTTP response headers to indicate endpoint deprecation.
+ *
+ * <p>https://tools.ietf.org/id/draft-dalal-deprecation-header-01.html#rfc.section.2.1
+ */
+enum DeprecationReportingResponseFeature implements DynamicFeature {
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/CatchThrowableInterceptor.java`
+#### Snippet
+```java
+ * the {@link okhttp3.Dispatcher} runs out of threads and can't make *any* outgoing requests.
+ *
+ * <p>https://github.com/square/okhttp/issues/5151
+ */
+enum CatchThrowableInterceptor implements Interceptor {
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jaxrs/JaxRsClient.java`
+#### Snippet
+```java
+     * {@link ClientConfiguration} changes.
+     *
+     * @deprecated Prefer com.palantir.refreshable:refreshable from https://github.com/palantir/refreshable as it has
+     * much better protection against memory leaks.
+     */
 ```
 
 ### JavadocLinkAsPlainText
@@ -3171,53 +3195,17 @@ final class ConjureFeignJacksonEncoder implements Encoder {
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `conjure-java-jackson-optimizations/src/main/java/com/palantir/conjure/java/jackson/optimizations/ObjectMapperOptimizations.java`
+in `extras/refresh-utils/src/main/java/com/palantir/conjure/java/ext/refresh/Refreshable.java`
 #### Snippet
 ```java
-    /**
-     * We disable afterburner optimizations by default on java 16+ where internal access is
-     * restricted by https://openjdk.java.net/jeps/396 and https://openjdk.java.net/jeps/403.
-     */
-    private static boolean shouldDisableByDefault() {
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `conjure-java-jackson-optimizations/src/main/java/com/palantir/conjure/java/jackson/optimizations/ObjectMapperOptimizations.java`
-#### Snippet
-```java
-    /**
-     * We disable afterburner optimizations by default on java 16+ where internal access is
-     * restricted by https://openjdk.java.net/jeps/396 and https://openjdk.java.net/jeps/403.
-     */
-    private static boolean shouldDisableByDefault() {
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/CatchThrowableInterceptor.java`
-#### Snippet
-```java
- * the {@link okhttp3.Dispatcher} runs out of threads and can't make *any* outgoing requests.
+ * A layman's Observable: Stores a reference to a value until it is {@link #getAndClear retrieved} once.
  *
- * <p>https://github.com/square/okhttp/issues/5151
+ * @deprecated Prefer com.palantir.refreshable:refreshable from https://github.com/palantir/refreshable as it has
+ * much better protection against memory leaks.
  */
-enum CatchThrowableInterceptor implements Interceptor {
 ```
 
 ## RuleId[id=TrivialIf]
-### TrivialIf
-`if` statement can be simplified
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/Okhttp39HostnameVerifier.java`
-#### Snippet
-```java
-        // Check that asterisk did not match across domain name labels.
-        int suffixStartIndexInHostname = hostname.length() - suffix.length();
-        if ((suffixStartIndexInHostname > 0) && (hostname.lastIndexOf('.', suffixStartIndexInHostname - 1) != -1)) {
-            // Asterisk is matching across domain name labels -- not permitted.
-            return false;
-```
-
 ### TrivialIf
 `if` statement can be simplified
 in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jaxrs/DialogueFeignClient.java`
@@ -3230,91 +3218,19 @@ in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jax
         }
 ```
 
-## RuleId[id=OptionalUsedAsFieldOrParameterType]
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'previousCall'
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpClient.java`
+### TrivialIf
+`if` statement can be simplified
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/Okhttp39HostnameVerifier.java`
 #### Snippet
 ```java
-
-    RemotingOkHttpCall newCallWithMutableState(
-            Request request, BackoffStrategy backoffStrategy, int maxNumRelocations, Optional<Call> previousCall) {
-        return new RemotingOkHttpCall(
-                getDelegate().newCall(request),
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'previous'
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
-#### Snippet
-```java
-    private final ClientConfiguration.RetryOnSocketException retryOnSocketException;
-    // Previous call in the chain if this is a retry request
-    private final Optional<Call> previous;
-
-    private final int maxNumRelocations;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'previous'
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
-#### Snippet
-```java
-    RemotingOkHttpCall(
-            Call delegate,
-            Optional<Call> previous,
-            BackoffStrategy backoffStrategy,
-            UrlSelector urls,
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'backoff'
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
-#### Snippet
-```java
-    }
-
-    private boolean shouldRetry(IOException exception, Optional<Duration> backoff) {
-        if (retryOnSocketException == ClientConfiguration.RetryOnSocketException.DANGEROUS_DISABLED) {
+        // Check that asterisk did not match across domain name labels.
+        int suffixStartIndexInHostname = hostname.length() - suffix.length();
+        if ((suffixStartIndexInHostname > 0) && (hostname.lastIndexOf('.', suffixStartIndexInHostname - 1) != -1)) {
+            // Asterisk is matching across domain name labels -- not permitted.
             return false;
 ```
 
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'allocationStackTrace'
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ConcurrencyLimiters.java`
-#### Snippet
-```java
-        }
-
-        private Limiter.Listener wrap(Limiter.Listener listener, Optional<RuntimeException> allocationStackTrace) {
-            Limiter.Listener result = new Limiter.Listener() {
-                @Override
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'allocationStackTrace'
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ConcurrencyLimiters.java`
-#### Snippet
-```java
-    private static final class QueuedRequest {
-        private final SettableFuture<Limiter.Listener> future;
-        private final Optional<RuntimeException> allocationStackTrace;
-
-        private QueuedRequest(
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'allocationStackTrace'
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ConcurrencyLimiters.java`
-#### Snippet
-```java
-
-        private QueuedRequest(
-                SettableFuture<Limiter.Listener> future, Optional<RuntimeException> allocationStackTrace) {
-            this.future = future;
-            this.allocationStackTrace = allocationStackTrace;
-```
-
+## RuleId[id=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'keyStorePassword'
 in `keystores/src/main/java/com/palantir/conjure/java/config/ssl/SslSocketFactories.java`
@@ -3337,30 +3253,6 @@ in `keystores/src/main/java/com/palantir/conjure/java/config/ssl/SslSocketFactor
             Optional<String> keyStoreKeyAlias) {
         KeyStore keyStore;
         switch (keyStoreType) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'password'
-in `keystores/src/main/java/com/palantir/conjure/java/config/ssl/KeyStores.java`
-#### Snippet
-```java
-     *     given alias
-     */
-    static KeyStore newKeyStoreWithEntry(KeyStore original, Optional<String> password, String alias) {
-        try {
-            KeyStore newKeyStore = KeyStore.getInstance(original.getType());
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'password'
-in `keystores/src/main/java/com/palantir/conjure/java/config/ssl/KeyStores.java`
-#### Snippet
-```java
-     *     the provided password.
-     */
-    static KeyStore loadKeyStore(String storeType, Path path, Optional<String> password) {
-        try {
-            KeyStore keyStore = KeyStore.getInstance(storeType);
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -3388,6 +3280,114 @@ in `client-config/src/main/java/com/palantir/conjure/java/client/config/ClientCo
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'previous'
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
+#### Snippet
+```java
+    RemotingOkHttpCall(
+            Call delegate,
+            Optional<Call> previous,
+            BackoffStrategy backoffStrategy,
+            UrlSelector urls,
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'backoff'
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
+#### Snippet
+```java
+    }
+
+    private boolean shouldRetry(IOException exception, Optional<Duration> backoff) {
+        if (retryOnSocketException == ClientConfiguration.RetryOnSocketException.DANGEROUS_DISABLED) {
+            return false;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'previous'
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
+#### Snippet
+```java
+    private final ClientConfiguration.RetryOnSocketException retryOnSocketException;
+    // Previous call in the chain if this is a retry request
+    private final Optional<Call> previous;
+
+    private final int maxNumRelocations;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'password'
+in `keystores/src/main/java/com/palantir/conjure/java/config/ssl/KeyStores.java`
+#### Snippet
+```java
+     *     the provided password.
+     */
+    static KeyStore loadKeyStore(String storeType, Path path, Optional<String> password) {
+        try {
+            KeyStore keyStore = KeyStore.getInstance(storeType);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'password'
+in `keystores/src/main/java/com/palantir/conjure/java/config/ssl/KeyStores.java`
+#### Snippet
+```java
+     *     given alias
+     */
+    static KeyStore newKeyStoreWithEntry(KeyStore original, Optional<String> password, String alias) {
+        try {
+            KeyStore newKeyStore = KeyStore.getInstance(original.getType());
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'allocationStackTrace'
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ConcurrencyLimiters.java`
+#### Snippet
+```java
+    private static final class QueuedRequest {
+        private final SettableFuture<Limiter.Listener> future;
+        private final Optional<RuntimeException> allocationStackTrace;
+
+        private QueuedRequest(
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'allocationStackTrace'
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ConcurrencyLimiters.java`
+#### Snippet
+```java
+
+        private QueuedRequest(
+                SettableFuture<Limiter.Listener> future, Optional<RuntimeException> allocationStackTrace) {
+            this.future = future;
+            this.allocationStackTrace = allocationStackTrace;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'allocationStackTrace'
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ConcurrencyLimiters.java`
+#### Snippet
+```java
+        }
+
+        private Limiter.Listener wrap(Limiter.Listener listener, Optional<RuntimeException> allocationStackTrace) {
+            Limiter.Listener result = new Limiter.Listener() {
+                @Override
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'previousCall'
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpClient.java`
+#### Snippet
+```java
+
+    RemotingOkHttpCall newCallWithMutableState(
+            Request request, BackoffStrategy backoffStrategy, int maxNumRelocations, Optional<Call> previousCall) {
+        return new RemotingOkHttpCall(
+                getDelegate().newCall(request),
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'stackTrace'
 in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/LeakDetector.java`
 #### Snippet
@@ -3397,6 +3397,18 @@ in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/LeakDetector.j
         LeakDetectingReference(T referent, Optional<RuntimeException> stackTrace) {
             super(referent);
             this.stackTrace = stackTrace;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'stackTrace'
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/LeakDetector.java`
+#### Snippet
+```java
+    }
+
+    synchronized void register(T objectToMonitor, Optional<RuntimeException> stackTrace) {
+        references.add(new LeakDetectingReference<>(objectToMonitor, stackTrace));
+        pruneAndLog();
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -3421,18 +3433,6 @@ in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/LeakDetector.j
         private final Optional<RuntimeException> stackTrace;
 
         LeakDetectingReference(T referent, Optional<RuntimeException> stackTrace) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'stackTrace'
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/LeakDetector.java`
-#### Snippet
-```java
-    }
-
-    synchronized void register(T objectToMonitor, Optional<RuntimeException> stackTrace) {
-        references.add(new LeakDetectingReference<>(objectToMonitor, stackTrace));
-        pruneAndLog();
 ```
 
 ## RuleId[id=CharsetObjectCanBeUsed]
@@ -3461,31 +3461,20 @@ in `conjure-java-jackson-serialization/src/main/java/com/palantir/conjure/java/s
     }
 ```
 
+## RuleId[id=AutoCloseableResource]
+### AutoCloseableResource
+'Response' used without 'try'-with-resources statement
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/AsyncSerializableErrorCallAdapterFactory.java`
+#### Snippet
+```java
+
+    private static void close(Response<?> response) {
+        ResponseBody body = response.raw().body();
+        if (body != null) {
+            body.close();
+```
+
 ## RuleId[id=OptionalAssignedToNull]
-### OptionalAssignedToNull
-Optional value is compared with null
-in `conjure-java-jersey-jakarta-server/src/main/java/com/palantir/conjure/java/server/jersey/Java8OptionalDoubleParamConverterProvider.java`
-#### Snippet
-```java
-        @Override
-        public String toString(final OptionalDouble value) {
-            Preconditions.checkArgument(value != null);
-            return value.isPresent() ? Double.toString(value.getAsDouble()) : "";
-        }
-```
-
-### OptionalAssignedToNull
-Optional value is compared with null
-in `conjure-java-jersey-server/src/main/java/com/palantir/conjure/java/server/jersey/Java8OptionalLongParamConverterProvider.java`
-#### Snippet
-```java
-        @Override
-        public String toString(final OptionalLong value) {
-            Preconditions.checkArgument(value != null);
-            return value.isPresent() ? Long.toString(value.getAsLong()) : "";
-        }
-```
-
 ### OptionalAssignedToNull
 Optional value is compared with null
 in `conjure-java-jersey-server/src/main/java/com/palantir/conjure/java/server/jersey/Java8OptionalDoubleParamConverterProvider.java`
@@ -3524,6 +3513,18 @@ in `conjure-java-jersey-server/src/main/java/com/palantir/conjure/java/server/je
 
 ### OptionalAssignedToNull
 Optional value is compared with null
+in `conjure-java-jersey-server/src/main/java/com/palantir/conjure/java/server/jersey/Java8OptionalLongParamConverterProvider.java`
+#### Snippet
+```java
+        @Override
+        public String toString(final OptionalLong value) {
+            Preconditions.checkArgument(value != null);
+            return value.isPresent() ? Long.toString(value.getAsLong()) : "";
+        }
+```
+
+### OptionalAssignedToNull
+Optional value is compared with null
 in `conjure-java-jersey-jakarta-server/src/main/java/com/palantir/conjure/java/server/jersey/Java8OptionalLongParamConverterProvider.java`
 #### Snippet
 ```java
@@ -3534,23 +3535,22 @@ in `conjure-java-jersey-jakarta-server/src/main/java/com/palantir/conjure/java/s
         }
 ```
 
-## RuleId[id=AutoCloseableResource]
-### AutoCloseableResource
-'Response' used without 'try'-with-resources statement
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/AsyncSerializableErrorCallAdapterFactory.java`
+### OptionalAssignedToNull
+Optional value is compared with null
+in `conjure-java-jersey-jakarta-server/src/main/java/com/palantir/conjure/java/server/jersey/Java8OptionalDoubleParamConverterProvider.java`
 #### Snippet
 ```java
-
-    private static void close(Response<?> response) {
-        ResponseBody body = response.raw().body();
-        if (body != null) {
-            body.close();
+        @Override
+        public String toString(final OptionalDouble value) {
+            Preconditions.checkArgument(value != null);
+            return value.isPresent() ? Double.toString(value.getAsDouble()) : "";
+        }
 ```
 
 ## RuleId[id=SimplifyOptionalCallChains]
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
-in `conjure-java-jersey-jakarta-server/src/main/java/com/palantir/conjure/java/server/jersey/Java8OptionalLongMessageBodyWriter.java`
+in `conjure-java-jersey-server/src/main/java/com/palantir/conjure/java/server/jersey/Java8OptionalLongMessageBodyWriter.java`
 #### Snippet
 ```java
             OutputStream entityStream)
@@ -3562,7 +3562,7 @@ in `conjure-java-jersey-jakarta-server/src/main/java/com/palantir/conjure/java/s
 
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
-in `conjure-java-jersey-jakarta-server/src/main/java/com/palantir/conjure/java/server/jersey/Java8OptionalDoubleMessageBodyWriter.java`
+in `conjure-java-jersey-server/src/main/java/com/palantir/conjure/java/server/jersey/Java8OptionalDoubleMessageBodyWriter.java`
 #### Snippet
 ```java
             OutputStream entityStream)
@@ -3586,7 +3586,7 @@ in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jax
 
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
-in `conjure-java-jersey-jakarta-server/src/main/java/com/palantir/conjure/java/server/jersey/Java8OptionalIntMessageBodyWriter.java`
+in `conjure-java-jersey-server/src/main/java/com/palantir/conjure/java/server/jersey/Java8OptionalMessageBodyWriter.java`
 #### Snippet
 ```java
             OutputStream entityStream)
@@ -3597,39 +3597,27 @@ in `conjure-java-jersey-jakarta-server/src/main/java/com/palantir/conjure/java/s
 ```
 
 ### SimplifyOptionalCallChains
-Optional chain can be simplified
-in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/QosExceptionThrowingCallAdapterFactory.java`
+Can be replaced with 'isEmpty()'
+in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jaxrs/DialogueFeignClient.java`
 #### Snippet
 ```java
-                    response.code(), header -> Optional.ofNullable(headers.get(header))
-                            .map(List::stream)
-                            .orElseGet(Stream::empty));
         }
-
+        Optional<String> maybeContentType = getFirstHeader(request, HttpHeaders.CONTENT_TYPE);
+        if (!maybeContentType.isPresent()) {
+            if (requestBodyContent.length == 0) {
+                return Optional.empty();
 ```
 
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
+in `conjure-java-jersey-jakarta-server/src/main/java/com/palantir/conjure/java/server/jersey/Java8OptionalIntMessageBodyWriter.java`
 #### Snippet
 ```java
-                Optional<HttpUrl> redirectTo = urls.redirectTo(
-                        request().url(), exception.getRedirectTo().toString());
-                if (!redirectTo.isPresent()) {
-                    callback.onFailure(
-                            call,
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
-#### Snippet
-```java
-
-                Optional<HttpUrl> redirectTo = urls.redirectToNext(request().url());
-                if (!redirectTo.isPresent()) {
-                    callback.onFailure(
-                            call,
+            OutputStream entityStream)
+            throws IOException {
+        if (!entity.isPresent()) {
+            throw new NoContentException("Absent value for type: " + genericType);
+        }
 ```
 
 ### SimplifyOptionalCallChains
@@ -3670,7 +3658,31 @@ in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttp
 
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
-in `conjure-java-jersey-server/src/main/java/com/palantir/conjure/java/server/jersey/Java8OptionalLongMessageBodyWriter.java`
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
+#### Snippet
+```java
+
+                Optional<HttpUrl> redirectTo = urls.redirectToNext(request().url());
+                if (!redirectTo.isPresent()) {
+                    callback.onFailure(
+                            call,
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
+#### Snippet
+```java
+                Optional<HttpUrl> redirectTo = urls.redirectTo(
+                        request().url(), exception.getRedirectTo().toString());
+                if (!redirectTo.isPresent()) {
+                    callback.onFailure(
+                            call,
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `conjure-java-jersey-jakarta-server/src/main/java/com/palantir/conjure/java/server/jersey/Java8OptionalMessageBodyWriter.java`
 #### Snippet
 ```java
             OutputStream entityStream)
@@ -3693,8 +3705,20 @@ in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/ConcurrencyLim
 ```
 
 ### SimplifyOptionalCallChains
+Optional chain can be simplified
+in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client/retrofit2/QosExceptionThrowingCallAdapterFactory.java`
+#### Snippet
+```java
+                    response.code(), header -> Optional.ofNullable(headers.get(header))
+                            .map(List::stream)
+                            .orElseGet(Stream::empty));
+        }
+
+```
+
+### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
-in `conjure-java-jersey-server/src/main/java/com/palantir/conjure/java/server/jersey/Java8OptionalDoubleMessageBodyWriter.java`
+in `conjure-java-jersey-jakarta-server/src/main/java/com/palantir/conjure/java/server/jersey/Java8OptionalDoubleMessageBodyWriter.java`
 #### Snippet
 ```java
             OutputStream entityStream)
@@ -3718,7 +3742,7 @@ in `conjure-java-jersey-server/src/main/java/com/palantir/conjure/java/server/je
 
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
-in `conjure-java-jersey-jakarta-server/src/main/java/com/palantir/conjure/java/server/jersey/Java8OptionalMessageBodyWriter.java`
+in `conjure-java-jersey-jakarta-server/src/main/java/com/palantir/conjure/java/server/jersey/Java8OptionalLongMessageBodyWriter.java`
 #### Snippet
 ```java
             OutputStream entityStream)
@@ -3726,30 +3750,6 @@ in `conjure-java-jersey-jakarta-server/src/main/java/com/palantir/conjure/java/s
         if (!entity.isPresent()) {
             throw new NoContentException("Absent value for type: " + genericType);
         }
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `conjure-java-jersey-server/src/main/java/com/palantir/conjure/java/server/jersey/Java8OptionalMessageBodyWriter.java`
-#### Snippet
-```java
-            OutputStream entityStream)
-            throws IOException {
-        if (!entity.isPresent()) {
-            throw new NoContentException("Absent value for type: " + genericType);
-        }
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jaxrs/DialogueFeignClient.java`
-#### Snippet
-```java
-        }
-        Optional<String> maybeContentType = getFirstHeader(request, HttpHeaders.CONTENT_TYPE);
-        if (!maybeContentType.isPresent()) {
-            if (requestBodyContent.length == 0) {
-                return Optional.empty();
 ```
 
 ## RuleId[id=JavadocDeclaration]
@@ -3779,18 +3779,6 @@ in `conjure-java-retrofit2-client/src/main/java/com/palantir/conjure/java/client
 ```
 
 ### FieldMayBeFinal
-Field `servlets` may be 'final'
-in `undertow-jakarta-testing/src/main/java/com/palantir/undertest/UndertowServerExtension.java`
-#### Snippet
-```java
-    private CloseableHttpClient httpClient;
-
-    private List<ServletInfo> servlets = new ArrayList<>();
-    private List<FilterInfo> filters = new ArrayList<>();
-
-```
-
-### FieldMayBeFinal
 Field `filterUrlMapping` may be 'final'
 in `undertow-jakarta-testing/src/main/java/com/palantir/undertest/UndertowServerExtension.java`
 #### Snippet
@@ -3800,6 +3788,18 @@ in `undertow-jakarta-testing/src/main/java/com/palantir/undertest/UndertowServer
     private Map<String, String> filterUrlMapping = new LinkedHashMap<>();
 
     private List<Object> jerseyObjects = new ArrayList<>();
+```
+
+### FieldMayBeFinal
+Field `jerseyObjects` may be 'final'
+in `undertow-jakarta-testing/src/main/java/com/palantir/undertest/UndertowServerExtension.java`
+#### Snippet
+```java
+    private Map<String, String> filterUrlMapping = new LinkedHashMap<>();
+
+    private List<Object> jerseyObjects = new ArrayList<>();
+
+    public static UndertowServerExtension create() {
 ```
 
 ### FieldMayBeFinal
@@ -3815,15 +3815,15 @@ in `undertow-jakarta-testing/src/main/java/com/palantir/undertest/UndertowServer
 ```
 
 ### FieldMayBeFinal
-Field `jerseyObjects` may be 'final'
+Field `servlets` may be 'final'
 in `undertow-jakarta-testing/src/main/java/com/palantir/undertest/UndertowServerExtension.java`
 #### Snippet
 ```java
-    private Map<String, String> filterUrlMapping = new LinkedHashMap<>();
+    private CloseableHttpClient httpClient;
 
-    private List<Object> jerseyObjects = new ArrayList<>();
+    private List<ServletInfo> servlets = new ArrayList<>();
+    private List<FilterInfo> filters = new ArrayList<>();
 
-    public static UndertowServerExtension create() {
 ```
 
 ### FieldMayBeFinal
@@ -3864,7 +3864,32 @@ in `conjure-java-jackson-serialization/src/main/java/com/palantir/conjure/java/s
             //    placeholder, depending on settings
 ```
 
+## RuleId[id=ConstantValue]
+### ConstantValue
+Condition `response.body().byteStream() == null` is always `false`
+in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemoteExceptionResponseHandler.java`
+#### Snippet
+```java
+    public Optional<RemoteException> handle(Response response) {
+        if (response.body() == null
+                || response.body().byteStream() == null
+                || response.isSuccessful()
+                || response.code() == MoreHttpCodes.SWITCHING_PROTOCOLS) {
+```
+
 ## RuleId[id=OptionalGetWithoutIsPresent]
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `client-config/src/main/java/com/palantir/conjure/java/client/config/ClientConfigurations.java`
+#### Snippet
+```java
+    private static Optional<HostAndPort> meshProxy(Optional<ProxyConfiguration> proxy) {
+        if (proxy.isPresent() && proxy.get().type() == ProxyConfiguration.Type.MESH) {
+            return Optional.of(HostAndPort.fromString(proxy.get().hostAndPort().get()));
+        } else {
+            return Optional.empty();
+```
+
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
 in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttpCall.java`
@@ -3887,31 +3912,6 @@ in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemotingOkHttp
                     scheduleExecution(backoff.get(), nextAttempt, retryCall, callback);
                 });
             }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `client-config/src/main/java/com/palantir/conjure/java/client/config/ClientConfigurations.java`
-#### Snippet
-```java
-    private static Optional<HostAndPort> meshProxy(Optional<ProxyConfiguration> proxy) {
-        if (proxy.isPresent() && proxy.get().type() == ProxyConfiguration.Type.MESH) {
-            return Optional.of(HostAndPort.fromString(proxy.get().hostAndPort().get()));
-        } else {
-            return Optional.empty();
-```
-
-## RuleId[id=ConstantValue]
-### ConstantValue
-Condition `response.body().byteStream() == null` is always `false`
-in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/RemoteExceptionResponseHandler.java`
-#### Snippet
-```java
-    public Optional<RemoteException> handle(Response response) {
-        if (response.body() == null
-                || response.body().byteStream() == null
-                || response.isSuccessful()
-                || response.code() == MoreHttpCodes.SWITCHING_PROTOCOLS) {
 ```
 
 ## RuleId[id=UnstableApiUsage]
@@ -3964,6 +3964,30 @@ in `okhttp-clients/src/main/java/com/palantir/conjure/java/okhttp/DeprecationWar
 ```
 
 ### UnstableApiUsage
+'asMap(com.google.common.collect.Multimap)' is marked unstable with @Beta
+in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jaxrs/DialogueFeignClient.java`
+#### Snippet
+```java
+                    response.code(),
+                    null,
+                    Multimaps.asMap((Multimap<String, String>) response.headers()),
+                    new DialogueResponseBody(response));
+        }
+```
+
+### UnstableApiUsage
+'tryParse(java.lang.String)' is marked unstable with @Beta
+in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jaxrs/DialogueFeignClient.java`
+#### Snippet
+```java
+        public Integer length() {
+            return response.getFirstHeader(HttpHeaders.CONTENT_LENGTH)
+                    .map(Ints::tryParse)
+                    .orElse(null);
+        }
+```
+
+### UnstableApiUsage
 'tryAcquire()' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
 in `conjure-java-jackson-serialization/src/main/java/com/palantir/conjure/java/serialization/ParserInstrumentation.java`
 #### Snippet
@@ -4009,29 +4033,5 @@ final class ParserInstrumentation {
     private static final RateLimiter LOGGING_RATE_LIMITER = RateLimiter.create(1);
     private static final SafeLogger log = SafeLoggerFactory.get(ParserInstrumentation.class);
 
-```
-
-### UnstableApiUsage
-'tryParse(java.lang.String)' is marked unstable with @Beta
-in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jaxrs/DialogueFeignClient.java`
-#### Snippet
-```java
-        public Integer length() {
-            return response.getFirstHeader(HttpHeaders.CONTENT_LENGTH)
-                    .map(Ints::tryParse)
-                    .orElse(null);
-        }
-```
-
-### UnstableApiUsage
-'asMap(com.google.common.collect.Multimap)' is marked unstable with @Beta
-in `conjure-java-jaxrs-client/src/main/java/com/palantir/conjure/java/client/jaxrs/DialogueFeignClient.java`
-#### Snippet
-```java
-                    response.code(),
-                    null,
-                    Multimaps.asMap((Multimap<String, String>) response.headers()),
-                    new DialogueResponseBody(response));
-        }
 ```
 
