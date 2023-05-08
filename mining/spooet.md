@@ -1,19 +1,27 @@
 # spooet 
  
 # Bad smells
-I found 16 bad smells with 3 repairable:
+I found 23 bad smells with 3 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| ReturnNull | 4 | false |
+| UNCHECKED_WARNING | 16 | false |
 | ToArrayCallWithZeroLengthArrayArgument | 3 | true |
-| DynamicRegexReplaceableByCompiledPattern | 2 | false |
-| ObsoleteCollection | 2 | false |
-| RedundantImplements | 1 | false |
+| FieldMayBeFinal | 2 | false |
 | UNUSED_IMPORT | 1 | false |
-| ThrowablePrintStackTrace | 1 | false |
 | ConstantValue | 1 | false |
-| MethodOverridesStaticMethod | 1 | false |
 ## RuleId[id=ToArrayCallWithZeroLengthArrayArgument]
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new Modifier\[result.size()\]'
+in `src/main/java/spoon/reflect/visitor/internal/ModifiersUtils.java`
+#### Snippet
+```java
+		}
+
+		return result.toArray(new Modifier[result.size()]);
+	}
+
+```
+
 ### ToArrayCallWithZeroLengthArrayArgument
 Call to `toArray()` with pre-sized array argument 'new TypeName\[bounds.size()\]'
 in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
@@ -38,103 +46,197 @@ in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 		throw new UnsupportedOperationException();
 ```
 
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new Modifier\[result.size()\]'
-in `src/main/java/spoon/reflect/visitor/internal/ModifiersUtils.java`
+## RuleId[id=UNCHECKED_WARNING]
+### UNCHECKED_WARNING
+Unchecked cast: 'com.squareup.javapoet.TypeName' to 'T'
+in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 #### Snippet
 ```java
+		if (ref.isPrimitive()) {
+			if ("void".equals(ref.getSimpleName())) {
+				return (T) TypeName.VOID;
+			}
+			if ("boolean".equals(ref.getSimpleName())) {
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'com.squareup.javapoet.TypeName' to 'T'
+in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
+#### Snippet
+```java
+			}
+			if ("boolean".equals(ref.getSimpleName())) {
+				return (T) TypeName.BOOLEAN;
+			}
+			if ("byte".equals(ref.getSimpleName())) {
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'com.squareup.javapoet.TypeName' to 'T'
+in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
+#### Snippet
+```java
+			}
+			if ("byte".equals(ref.getSimpleName())) {
+				return (T) TypeName.BYTE;
+			}
+			if ("short".equals(ref.getSimpleName())) {
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'com.squareup.javapoet.TypeName' to 'T'
+in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
+#### Snippet
+```java
+			}
+			if ("short".equals(ref.getSimpleName())) {
+				return (T) TypeName.SHORT;
+			}
+			if ("int".equals(ref.getSimpleName())) {
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'com.squareup.javapoet.TypeName' to 'T'
+in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
+#### Snippet
+```java
+			}
+			if ("int".equals(ref.getSimpleName())) {
+				return (T) TypeName.INT;
+			}
+			if ("long".equals(ref.getSimpleName())) {
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'com.squareup.javapoet.TypeName' to 'T'
+in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
+#### Snippet
+```java
+			}
+			if ("long".equals(ref.getSimpleName())) {
+				return (T) TypeName.LONG;
+			}
+			if ("char".equals(ref.getSimpleName())) {
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'com.squareup.javapoet.TypeName' to 'T'
+in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
+#### Snippet
+```java
+			}
+			if ("char".equals(ref.getSimpleName())) {
+				return (T) TypeName.CHAR;
+			}
+			if ("float".equals(ref.getSimpleName())) {
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'com.squareup.javapoet.TypeName' to 'T'
+in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
+#### Snippet
+```java
+			}
+			if ("float".equals(ref.getSimpleName())) {
+				return (T) TypeName.FLOAT;
+			}
+			if ("double".equals(ref.getSimpleName())) {
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'com.squareup.javapoet.TypeName' to 'T'
+in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
+#### Snippet
+```java
+			}
+			if ("double".equals(ref.getSimpleName())) {
+				return (T) TypeName.DOUBLE;
+			}
+		} else if (ref instanceof CtArrayTypeReference) {
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'com.squareup.javapoet.ArrayTypeName' to 'T'
+in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
+#### Snippet
+```java
+			}
+		} else if (ref instanceof CtArrayTypeReference) {
+			return (T) ArrayTypeName.of(getTypeName(((CtArrayTypeReference) ref).getComponentType()));
+		} else if (ref instanceof CtTypeParameterReference) {
+			List<TypeName> bounds = new ArrayList<>();
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'com.squareup.javapoet.WildcardTypeName' to 'T'
+in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
+#### Snippet
+```java
+				// TODO add multiple bounds
+				if (reference.isUpper()) {
+					return (T) WildcardTypeName.subtypeOf(bounds.get(0));
+				} else {
+					return (T) WildcardTypeName.supertypeOf(bounds.get(0));
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'com.squareup.javapoet.WildcardTypeName' to 'T'
+in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
+#### Snippet
+```java
+					return (T) WildcardTypeName.subtypeOf(bounds.get(0));
+				} else {
+					return (T) WildcardTypeName.supertypeOf(bounds.get(0));
+				}
+			}
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'com.squareup.javapoet.TypeVariableName' to 'T'
+in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
+#### Snippet
+```java
+				}
+			}
+			return (T) TypeVariableName.get(reference.getSimpleName(), bounds.toArray(new TypeName[bounds.size()]));
+		} else if (ref.getActualTypeArguments().isEmpty()) {
+			return (T) ClassName.get(ref.getActualClass());
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'com.squareup.javapoet.ClassName' to 'T'
+in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
+#### Snippet
+```java
+			return (T) TypeVariableName.get(reference.getSimpleName(), bounds.toArray(new TypeName[bounds.size()]));
+		} else if (ref.getActualTypeArguments().isEmpty()) {
+			return (T) ClassName.get(ref.getActualClass());
+		} else {
+			Collection<TypeName> parameters = new ArrayList<>();
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'com.squareup.javapoet.ParameterizedTypeName' to 'T'
+in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
+#### Snippet
+```java
+				parameters.add(getTypeName(ctTypeReference));
+			}
+			return (T) ParameterizedTypeName.get(ClassName.get(ref.getActualClass()), parameters.toArray(new TypeName[parameters.size()]));
 		}
-
-		return result.toArray(new Modifier[result.size()]);
-	}
-
+		throw new UnsupportedOperationException();
 ```
 
-## RuleId[id=RedundantImplements]
-### RedundantImplements
-Redundant interface declaration `CtVisitor`
+### UNCHECKED_WARNING
+Unchecked cast: 'spoon.reflect.visitor.internal.Context' to 'T'
 in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 #### Snippet
 ```java
-import java.util.Stack;
 
-public class JavaPoetPrettyPrinter extends CtScanner implements CtVisitor, PrettyPrinter {
-
-	private Stack<Context> contexts = new Stack<>();
-```
-
-## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
-in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
-#### Snippet
-```java
-	@Override
-	public Map<Integer, Integer> getLineNumberMapping() {
-		return null;
+	private <T extends Context> T exit() {
+		return (T) contexts.pop();
 	}
 
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
-#### Snippet
-```java
-	@Override
-	public String printPackageInfo(CtPackage ctPackage) {
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
-#### Snippet
-```java
-	@Override
-	public String printModuleInfo(CtModule ctModule) {
-		return null;
-	}
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/spoon/reflect/visitor/internal/PackageContext.java`
-#### Snippet
-```java
-	public String toString() {
-		if (type == null) {
-			return null;
-		}
-
-```
-
-## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/spoon/reflect/visitor/internal/CodePrinter.java`
-#### Snippet
-```java
-		defaultJavaPrettyPrinter.scan(element);
-		//	defaultJavaPrettyPrinter.getContext().currentThis.pop();
-		return defaultJavaPrettyPrinter.getResult().replaceAll("\\$", "\\$\\$");
-	}
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
-#### Snippet
-```java
-		String result = "null";
-		if (defaultExpression !=null) {
-			result = defaultExpression.toString().replaceAll("\\$", "\\$\\$");
-		}
-		field.initializer(result);
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
@@ -150,17 +252,29 @@ import spoon.reflect.visitor.JavaPoetPrettyPrinter;
 import spoon.reflect.visitor.PrettyPrinter;
 ```
 
-## RuleId[id=ThrowablePrintStackTrace]
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/spoon/reflect/visitor/internal/PackageContext.java`
+## RuleId[id=FieldMayBeFinal]
+### FieldMayBeFinal
+Field `builder` may be 'final'
+in `src/main/java/spoon/reflect/visitor/internal/TypeContext.java`
 #### Snippet
 ```java
-			javaFile.writeTo(writer);
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
-		return writer.toString();
+ */
+public class TypeContext extends AbstractContext {
+	private TypeSpec.Builder builder;
+
+	public TypeContext(TypeSpec.Builder builder) {
+```
+
+### FieldMayBeFinal
+Field `contexts` may be 'final'
+in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
+#### Snippet
+```java
+public class JavaPoetPrettyPrinter extends CtScanner implements CtVisitor, PrettyPrinter {
+
+	private Stack<Context> contexts = new Stack<>();
+
+	Environment env;
 ```
 
 ## RuleId[id=ConstantValue]
@@ -174,43 +288,5 @@ in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 				if (bounds.isEmpty()) {
 					bounds.add(TypeName.get(Object.class));
 				}
-```
-
-## RuleId[id=MethodOverridesStaticMethod]
-### MethodOverridesStaticMethod
-Method `main()` tries to override a static method of a superclass
-in `src/main/java/spoon/PoetLauncher.java`
-#### Snippet
-```java
- */
-public class PoetLauncher extends Launcher {
-	public static void main(String[] args) throws Exception {
-		Launcher launcher = new PoetLauncher();
-		launcher.setArgs(args);
-```
-
-## RuleId[id=ObsoleteCollection]
-### ObsoleteCollection
-Obsolete collection type `Stack` used
-in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
-#### Snippet
-```java
-public class JavaPoetPrettyPrinter extends CtScanner implements CtVisitor, PrettyPrinter {
-
-	private Stack<Context> contexts = new Stack<>();
-
-	Environment env;
-```
-
-### ObsoleteCollection
-Obsolete collection type `Stack<>` used
-in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
-#### Snippet
-```java
-public class JavaPoetPrettyPrinter extends CtScanner implements CtVisitor, PrettyPrinter {
-
-	private Stack<Context> contexts = new Stack<>();
-
-	Environment env;
 ```
 
