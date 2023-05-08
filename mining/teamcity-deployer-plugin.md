@@ -32,18 +32,6 @@ I found 77 bad smells with 5 repairable:
 ## RuleId[id=CharsetObjectCanBeUsed]
 ### CharsetObjectCanBeUsed
 StandardCharsets.UTF_8 can be used instead
-in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/scp/ScpExecUtil.java`
-#### Snippet
-```java
-      content[0] = (byte) b;
-      final int read = in.read(content, 1, available);
-      final String message = new String(content, 0, read + 1, "UTF-8");
-      throw new IOException("Unexpected response from remote system: " + message);
-    }
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
 in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/SSHExecProcessAdapter.java`
 #### Snippet
 ```java
@@ -76,6 +64,18 @@ in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/S
             outputStream.write("\n".getBytes(Charset.forName("UTF-8")));
           }
         } catch (InterruptedException e) {
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/scp/ScpExecUtil.java`
+#### Snippet
+```java
+      content[0] = (byte) b;
+      final int read = in.read(content, 1, available);
+      final String message = new String(content, 0, read + 1, "UTF-8");
+      throw new IOException("Unexpected response from remote system: " + message);
+    }
 ```
 
 ### CharsetObjectCanBeUsed
@@ -265,18 +265,6 @@ in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/s
 ```
 
 ### FieldMayBeFinal
-Field `myEnableSshAgentForwarding` may be 'final'
-in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/SSHProcessAdapterOptions.java`
-#### Snippet
-```java
-class SSHProcessAdapterOptions {
-  private boolean myFailBuildOnExitCode;
-  private boolean myEnableSshAgentForwarding;
-
-  SSHProcessAdapterOptions(boolean myFailBuildOnExitCode, boolean myEnableSshAgentForwarding) {
-```
-
-### FieldMayBeFinal
 Field `myFailBuildOnExitCode` may be 'final'
 in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/SSHProcessAdapterOptions.java`
 #### Snippet
@@ -286,6 +274,18 @@ class SSHProcessAdapterOptions {
   private boolean myFailBuildOnExitCode;
   private boolean myEnableSshAgentForwarding;
 
+```
+
+### FieldMayBeFinal
+Field `myEnableSshAgentForwarding` may be 'final'
+in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/SSHProcessAdapterOptions.java`
+#### Snippet
+```java
+class SSHProcessAdapterOptions {
+  private boolean myFailBuildOnExitCode;
+  private boolean myEnableSshAgentForwarding;
+
+  SSHProcessAdapterOptions(boolean myFailBuildOnExitCode, boolean myEnableSshAgentForwarding) {
 ```
 
 ### FieldMayBeFinal
@@ -646,19 +646,6 @@ in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ftp/I
           } finally {
 ```
 
-## RuleId[id=StringBufferReplaceableByString]
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `deploy-runner-server/src/main/java/jetbrains/buildServer/deployer/server/FtpDeployerRunType.java`
-#### Snippet
-```java
-  @Override
-  public String describeParameters(@NotNull Map<String, String> parameters) {
-    StringBuilder sb = new StringBuilder();
-    sb.append("Target FTP server: ").append(parameters.get(DeployerRunnerConstants.PARAM_TARGET_URL));
-    return sb.toString();
-```
-
 ## RuleId[id=Deprecation]
 ### Deprecation
 'PARAM_PLAIN_PASSWORD' is deprecated
@@ -790,6 +777,19 @@ in `deploy-runner-server/src/main/resources/buildServerResources/viewSmbDeployer
     Domain: <strong><props:displayValue name="<%=DeployerRunnerConstants.PARAM_DOMAIN%>" emptyValue="empty"/></strong>
 </div>
 
+```
+
+## RuleId[id=StringBufferReplaceableByString]
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `deploy-runner-server/src/main/java/jetbrains/buildServer/deployer/server/FtpDeployerRunType.java`
+#### Snippet
+```java
+  @Override
+  public String describeParameters(@NotNull Map<String, String> parameters) {
+    StringBuilder sb = new StringBuilder();
+    sb.append("Target FTP server: ").append(parameters.get(DeployerRunnerConstants.PARAM_TARGET_URL));
+    return sb.toString();
 ```
 
 ## RuleId[id=RegExpUnnecessaryNonCapturingGroup]
@@ -925,8 +925,8 @@ in `deploy-runner-server/src/main/java/jetbrains/buildServer/deployer/server/car
 ```java
 
   @Override
-  public String getDescription() {
-    return "Runner able to deploy WAR apps to different containers";
+  public String getDisplayName() {
+    return "Container Deployer";
   }
 ```
 
@@ -937,20 +937,8 @@ in `deploy-runner-server/src/main/java/jetbrains/buildServer/deployer/server/car
 ```java
 
   @Override
-  public String getDisplayName() {
-    return "Container Deployer";
-  }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NotNull
-in `deploy-runner-server/src/main/java/jetbrains/buildServer/deployer/server/FtpDeployerRunType.java`
-#### Snippet
-```java
-
-  @Override
   public String getDescription() {
-    return "Deploys files/directories via FTP";
+    return "Runner able to deploy WAR apps to different containers";
   }
 ```
 
@@ -968,13 +956,13 @@ in `deploy-runner-server/src/main/java/jetbrains/buildServer/deployer/server/Ftp
 
 ### NullableProblems
 Not annotated method overrides method annotated with @NotNull
-in `deploy-runner-server/src/main/java/jetbrains/buildServer/deployer/server/SSHDeployerRunType.java`
+in `deploy-runner-server/src/main/java/jetbrains/buildServer/deployer/server/FtpDeployerRunType.java`
 #### Snippet
 ```java
 
   @Override
   public String getDescription() {
-    return "Deploys files/directories via SSH";
+    return "Deploys files/directories via FTP";
   }
 ```
 
@@ -987,6 +975,18 @@ in `deploy-runner-server/src/main/java/jetbrains/buildServer/deployer/server/SSH
   @Override
   public String getDisplayName() {
     return "SSH Upload";
+  }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NotNull
+in `deploy-runner-server/src/main/java/jetbrains/buildServer/deployer/server/SSHDeployerRunType.java`
+#### Snippet
+```java
+
+  @Override
+  public String getDescription() {
+    return "Deploys files/directories via SSH";
   }
 ```
 
