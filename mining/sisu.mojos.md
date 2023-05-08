@@ -9,6 +9,19 @@ I found 16 bad smells with 2 repairable:
 | CastCanBeRemovedNarrowingVariableType | 2 | false |
 | SynchronizeOnNonFinalField | 1 | false |
 | Deprecation | 1 | false |
+## RuleId[id=SynchronizeOnNonFinalField]
+### SynchronizeOnNonFinalField
+Synchronization on a non-final field `project`
+in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
+#### Snippet
+```java
+    public void execute()
+    {
+        synchronized ( project )
+        {
+            new SisuIndex( outputDirectory )
+```
+
 ## RuleId[id=ToArrayCallWithZeroLengthArrayArgument]
 ### ToArrayCallWithZeroLengthArrayArgument
 Call to `toArray()` with pre-sized array argument 'new URL\[indexPath.size()\]'
@@ -34,29 +47,76 @@ in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
 
 ```
 
-## RuleId[id=SynchronizeOnNonFinalField]
-### SynchronizeOnNonFinalField
-Synchronization on a non-final field `project`
-in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
-#### Snippet
-```java
-    public void execute()
-    {
-        synchronized ( project )
-        {
-            new SisuIndex( outputDirectory )
-```
-
 ## RuleId[id=DefaultAnnotationParam]
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
 in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
 #### Snippet
 ```java
-     * Scope to include. Empty string indicates all scopes (default).
+     * Comma Separated list of Types to exclude when indexing.
      */
-    @Parameter( property = "includeScope", defaultValue = "" )
-    protected String includeScope;
+    @Parameter( property = "excludeTypes", defaultValue = "" )
+    protected String excludeTypes;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
+#### Snippet
+```java
+     * Comma separated list of GroupIds to exclude when indexing.
+     */
+    @Parameter( property = "excludeGroupIds", defaultValue = "" )
+    protected String excludeGroupIds;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
+#### Snippet
+```java
+     * Comma separated list of ArtifactIds to exclude when indexing.
+     */
+    @Parameter( property = "excludeArtifactIds", defaultValue = "" )
+    protected String excludeArtifactIds;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
+#### Snippet
+```java
+     * Comma separated list of GroupIds to include when indexing.
+     */
+    @Parameter( property = "includeGroupIds", defaultValue = "" )
+    protected String includeGroupIds;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
+#### Snippet
+```java
+     * Scope to exclude. Empty string indicates no scopes (default).
+     */
+    @Parameter( property = "excludeScope", defaultValue = "" )
+    protected String excludeScope;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
+#### Snippet
+```java
+     * Comma Separated list of Classifiers to exclude when indexing.
+     */
+    @Parameter( property = "excludeClassifiers", defaultValue = "" )
+    protected String excludeClassifiers;
 
 ```
 
@@ -89,82 +149,22 @@ Redundant default parameter value assignment
 in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
 #### Snippet
 ```java
-     * Comma Separated list of Types to exclude when indexing.
-     */
-    @Parameter( property = "excludeTypes", defaultValue = "" )
-    protected String excludeTypes;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
-#### Snippet
-```java
-     * Comma separated list of ArtifactIds to exclude when indexing.
-     */
-    @Parameter( property = "excludeArtifactIds", defaultValue = "" )
-    protected String excludeArtifactIds;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
-#### Snippet
-```java
-     * Scope to exclude. Empty string indicates no scopes (default).
-     */
-    @Parameter( property = "excludeScope", defaultValue = "" )
-    protected String excludeScope;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
-#### Snippet
-```java
-     * Comma separated list of GroupIds to exclude when indexing.
-     */
-    @Parameter( property = "excludeGroupIds", defaultValue = "" )
-    protected String excludeGroupIds;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
-#### Snippet
-```java
-     * Comma Separated list of Classifiers to exclude when indexing.
-     */
-    @Parameter( property = "excludeClassifiers", defaultValue = "" )
-    protected String excludeClassifiers;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
-#### Snippet
-```java
-     * Comma separated list of GroupIds to include when indexing.
-     */
-    @Parameter( property = "includeGroupIds", defaultValue = "" )
-    protected String includeGroupIds;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
-#### Snippet
-```java
      * Comma separated list of ArtifactIds to include when indexing.
      */
     @Parameter( property = "includeArtifactIds", defaultValue = "" )
     protected String includeArtifactIds;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
+#### Snippet
+```java
+     * Scope to include. Empty string indicates all scopes (default).
+     */
+    @Parameter( property = "includeScope", defaultValue = "" )
+    protected String includeScope;
 
 ```
 
