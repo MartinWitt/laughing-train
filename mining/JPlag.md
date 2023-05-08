@@ -1,68 +1,41 @@
 # JPlag 
  
 # Bad smells
-I found 269 bad smells with 11 repairable:
+I found 147 bad smells with 4 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| EmptyMethod | 46 | false |
-| BoundedWildcard | 40 | false |
+| UnnecessaryUnicodeEscape | 34 | false |
 | OptionalUsedAsFieldOrParameterType | 22 | false |
 | ConstantValue | 21 | false |
-| ReturnNull | 15 | false |
-| ClassNameSameAsAncestorName | 13 | false |
-| RedundantFieldInitialization | 11 | false |
+| FieldMayBeFinal | 11 | false |
 | DataFlowIssue | 10 | false |
-| NonSerializableFieldInSerializableClass | 9 | false |
 | CommentedOutCode | 8 | false |
-| AssignmentToMethodParameter | 7 | false |
-| ObsoleteCollection | 6 | false |
-| AbstractClassNeverImplemented | 6 | false |
-| CallToStringConcatCanBeReplacedByOperator | 6 | false |
-| UtilityClassWithoutPrivateConstructor | 5 | true |
-| DynamicRegexReplaceableByCompiledPattern | 5 | false |
+| FinalMethodInFinalClass | 7 | false |
+| JavadocReference | 2 | false |
+| EmptyStatementBody | 2 | false |
 | SimplifyStreamApiCallChains | 2 | false |
-| OptionalContainsCollection | 2 | false |
 | FinalPrivateMethod | 2 | false |
-| SizeReplaceableByIsEmpty | 2 | true |
+| JavadocLinkAsPlainText | 2 | false |
+| FieldCanBeLocal | 2 | false |
 | IgnoreResultOfCall | 2 | false |
-| UnnecessaryFullyQualifiedName | 2 | false |
-| NestedAssignment | 2 | false |
+| JavadocDeclaration | 2 | false |
 | UnnecessaryLocalVariable | 2 | true |
-| ZeroLengthArrayInitialization | 2 | false |
-| FieldMayBeStatic | 1 | false |
 | MarkedForRemoval | 1 | false |
 | UnnecessarySemicolon | 1 | false |
+| PlaceholderCountMatchesArgumentCount | 1 | false |
 | DeprecatedIsStillUsed | 1 | false |
-| ComparatorCombinators | 1 | false |
-| PatternVariableCanBeUsed | 1 | false |
-| EnhancedSwitchMigration | 1 | false |
+| DuplicatedCode | 1 | false |
+| Deprecation | 1 | false |
 | UnnecessaryToStringCall | 1 | true |
+| UnnecessaryDefault | 1 | false |
 | ManualMinMaxCalculation | 1 | false |
-| AssignmentToForLoopParameter | 1 | false |
-| ConstantMathCall | 1 | false |
+| DanglingJavadoc | 1 | false |
 | InnerClassMayBeStatic | 1 | true |
-| StringEqualsEmptyString | 1 | false |
 | SynchronizeOnNonFinalField | 1 | false |
-| SystemOutErr | 1 | false |
 | ConditionCoveredByFurtherCondition | 1 | false |
-| FieldAccessedSynchronizedAndUnsynchronized | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | RedundantUnmodifiable | 1 | false |
 | OptionalGetWithoutIsPresent | 1 | false |
 | StringConcatenationInsideStringBufferAppend | 1 | false |
-## RuleId[id=FieldMayBeStatic]
-### FieldMayBeStatic
-Field `SIMILARITY_DISTRIBUTION_SIZE` may be 'static'
-in `core/src/main/java/de/jplag/JPlagResult.java`
-#### Snippet
-```java
-
-    private List<ClusteringResult<Submission>> clusteringResult;
-    private final int SIMILARITY_DISTRIBUTION_SIZE = 10;
-
-    public JPlagResult(List<JPlagComparison> comparisons, SubmissionSet submissions, long durationInMillis, JPlagOptions options) {
-```
-
 ## RuleId[id=MarkedForRemoval]
 ### MarkedForRemoval
 'withBaseCodeSubmissionName(java.lang.String)' is deprecated and marked for removal
@@ -76,103 +49,42 @@ in `cli/src/main/java/de/jplag/cli/CLI.java`
     }
 ```
 
-## RuleId[id=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `SubmissionNameToIdMapper` has only 'static' members, and lacks a 'private' constructor
-in `core/src/main/java/de/jplag/reporting/reportobject/mapper/SubmissionNameToIdMapper.java`
+## RuleId[id=JavadocReference]
+### JavadocReference
+Cannot resolve symbol `RListener`
+in `languages/rlang/src/main/java/de/jplag/rlang/RCombinedBaseListener.java`
 #### Snippet
 ```java
- * the sanitized version of the {@link Submission#getName()} serves as report viewer id.
+
+/**
+ * Empty base implementation for {@link RListener} and {@link RFilterListener}.
  */
-public class SubmissionNameToIdMapper {
-
-    private static final String FILE_SEPARATOR_REPLACEMENT = "_";
+public abstract class RCombinedBaseListener implements RListener, RFilterListener {
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `SwiftSupport` has only 'static' members, and lacks a 'private' constructor
-in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
+### JavadocReference
+Cannot resolve symbol `RFilterListener`
+in `languages/rlang/src/main/java/de/jplag/rlang/RCombinedBaseListener.java`
 #### Snippet
 ```java
-// Taken from https://github.com/antlr/grammars-v4/tree/master/swift/swift5 Commit
-// 2f6c19cc742c60541227b19c45ac2acc844d9b1a
-public class SwiftSupport {
-    /*
-     * TODO There is one caveat to the rules above. If the ! or ? predefined operator has no whitespace on the left, it is
-```
 
-### UtilityClassWithoutPrivateConstructor
-Class `ClusteringFactory` has only 'static' members, and lacks a 'private' constructor
-in `core/src/main/java/de/jplag/clustering/ClusteringFactory.java`
-#### Snippet
-```java
- * Runs the clustering according to an options object.
+/**
+ * Empty base implementation for {@link RListener} and {@link RFilterListener}.
  */
-public class ClusteringFactory {
-    private static final int MAX_LOGGED_MEMBERS = 5;
-    private static final String STRENGTH_FORMAT = "%,.5f";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `BFGS` has only 'static' members, and lacks a 'private' constructor
-in `core/src/main/java/de/jplag/clustering/algorithm/BFGS.java`
-#### Snippet
-```java
- * @author Haifeng Li
- */
-public class BFGS {
-    // private static org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(BFGS.class);
-    /** A number close to zero, between machine epsilon and its square root. */
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `DirectoryManager` has only 'static' members, and lacks a 'private' constructor
-in `core/src/main/java/de/jplag/reporting/jsonfactory/DirectoryManager.java`
-#### Snippet
-```java
- * Provides Methods for creating directories.
- */
-public class DirectoryManager {
-    private static final Logger logger = LoggerFactory.getLogger(DirectoryManager.class);
-
-```
-
-## RuleId[id=UnnecessarySemicolon]
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `languages/emf-metamodel/src/main/java/de/jplag/emf/util/AbstractModelView.java`
-#### Snippet
-```java
-    public void writeToFile(String suffix) {
-        File treeViewFile = new File(file + suffix);
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(treeViewFile));) {
-            if (!treeViewFile.createNewFile()) {
-                logger.warn("Overwriting tree view file: {}", treeViewFile);
+public abstract class RCombinedBaseListener implements RListener, RFilterListener {
 ```
 
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
-Passing a non-null argument to `Optional`
-in `core/src/main/java/de/jplag/SubmissionSetBuilder.java`
+Dereference of `best` may produce `NullPointerException`
+in `core/src/main/java/de/jplag/clustering/algorithm/BayesianOptimization.java`
 #### Snippet
 ```java
-        Submission baseCodeSubmission = processSubmission(baseCodeSubmissionDirectory.getName(), baseCodeSubmissionDirectory, false);
-        logger.info("Basecode directory \"{}\" will be used.", baseCodeSubmission.getName());
-        return Optional.ofNullable(baseCodeSubmission);
-    }
-
-```
-
-### DataFlowIssue
-Dereference of `ParsingException.wrappingExceptions(parsingExceptions)` may produce `NullPointerException`
-in `languages/java/src/main/java/de/jplag/java/JavacAdapter.java`
-#### Snippet
-```java
-        parsingExceptions.addAll(processErrors(parser.logger, listener));
-        if (!parsingExceptions.isEmpty()) {
-            throw ParsingException.wrappingExceptions(parsingExceptions);
-        }
-    }
+                    logger.debug(gpr.toString(minima, maxima, 100, 25, 0));
+                }
+                coordinates = maxAcq(gpr, best.score, poiSampler, zeroAcquisitionsCounter);
+                testedCoordinates.add(coordinates);
+            }
 ```
 
 ### DataFlowIssue
@@ -185,6 +97,30 @@ in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
             if (context.parent instanceof RustParser.ArrayElementsContext) {
                 transformToken(ARRAY_ELEMENT, expression.getStart());
             } else if (context.parent instanceof RustParser.CallParamsContext) {
+```
+
+### DataFlowIssue
+Condition `context instanceof RustParser.ExpressionContext` is redundant and can be replaced with a null check
+in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
+#### Snippet
+```java
+    @Override
+    public void exitEveryRule(ParserRuleContext context) {
+        if (context instanceof RustParser.ExpressionContext && context.parent instanceof RustParser.ClosureExpressionContext) {
+            transformToken(CLOSURE_BODY_END, context.getStop());
+
+```
+
+### DataFlowIssue
+Condition `context.parent instanceof RustParser.ClosureExpressionContext` is redundant and can be replaced with a null check
+in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
+#### Snippet
+```java
+    @Override
+    public void exitEveryRule(ParserRuleContext context) {
+        if (context instanceof RustParser.ExpressionContext && context.parent instanceof RustParser.ClosureExpressionContext) {
+            transformToken(CLOSURE_BODY_END, context.getStop());
+
 ```
 
 ### DataFlowIssue
@@ -224,26 +160,14 @@ in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
 ```
 
 ### DataFlowIssue
-Condition `context instanceof RustParser.ExpressionContext` is redundant and can be replaced with a null check
-in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
+Passing a non-null argument to `Optional`
+in `core/src/main/java/de/jplag/SubmissionSetBuilder.java`
 #### Snippet
 ```java
-    @Override
-    public void exitEveryRule(ParserRuleContext context) {
-        if (context instanceof RustParser.ExpressionContext && context.parent instanceof RustParser.ClosureExpressionContext) {
-            transformToken(CLOSURE_BODY_END, context.getStop());
-
-```
-
-### DataFlowIssue
-Condition `context.parent instanceof RustParser.ClosureExpressionContext` is redundant and can be replaced with a null check
-in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
-#### Snippet
-```java
-    @Override
-    public void exitEveryRule(ParserRuleContext context) {
-        if (context instanceof RustParser.ExpressionContext && context.parent instanceof RustParser.ClosureExpressionContext) {
-            transformToken(CLOSURE_BODY_END, context.getStop());
+        Submission baseCodeSubmission = processSubmission(baseCodeSubmissionDirectory.getName(), baseCodeSubmissionDirectory, false);
+        logger.info("Basecode directory \"{}\" will be used.", baseCodeSubmission.getName());
+        return Optional.ofNullable(baseCodeSubmission);
+    }
 
 ```
 
@@ -260,14 +184,52 @@ in `core/src/main/java/de/jplag/clustering/algorithm/AgglomerativeClustering.jav
 ```
 
 ### DataFlowIssue
-Dereference of `best` may produce `NullPointerException`
-in `core/src/main/java/de/jplag/clustering/algorithm/BayesianOptimization.java`
+Dereference of `ParsingException.wrappingExceptions(parsingExceptions)` may produce `NullPointerException`
+in `languages/java/src/main/java/de/jplag/java/JavacAdapter.java`
 #### Snippet
 ```java
-                    logger.debug(gpr.toString(minima, maxima, 100, 25, 0));
-                }
-                coordinates = maxAcq(gpr, best.score, poiSampler, zeroAcquisitionsCounter);
-                testedCoordinates.add(coordinates);
+        parsingExceptions.addAll(processErrors(parser.logger, listener));
+        if (!parsingExceptions.isEmpty()) {
+            throw ParsingException.wrappingExceptions(parsingExceptions);
+        }
+    }
+```
+
+## RuleId[id=UnnecessarySemicolon]
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `languages/emf-metamodel/src/main/java/de/jplag/emf/util/AbstractModelView.java`
+#### Snippet
+```java
+    public void writeToFile(String suffix) {
+        File treeViewFile = new File(file + suffix);
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(treeViewFile));) {
+            if (!treeViewFile.createNewFile()) {
+                logger.warn("Overwriting tree view file: {}", treeViewFile);
+```
+
+## RuleId[id=EmptyStatementBody]
+### EmptyStatementBody
+`if` statement has empty body
+in `core/src/main/java/de/jplag/clustering/algorithm/BFGS.java`
+#### Snippet
+```java
+        }
+
+        if (slope >= 0) {
+            // throw new IllegalArgumentException("Line Search: the search direction is not a descent direction, which may be caused
+            // by roundoff problem.");
+```
+
+### EmptyStatementBody
+`if` statement has empty body
+in `core/src/main/java/de/jplag/clustering/algorithm/BFGS.java`
+#### Snippet
+```java
+            }
+
+            if (iter % 100 == 0) {
+                // logger.info(String.format("L-BFGS-B: the function value after %3d iterations: %.5f", iter, f));
             }
 ```
 
@@ -296,81 +258,20 @@ in `core/src/main/java/de/jplag/clustering/algorithm/BFGS.java`
         int[] sortedIndices = sortedPairs.stream().mapToInt(Pair::getKey).toArray();
 ```
 
-## RuleId[id=DeprecatedIsStillUsed]
-### DeprecatedIsStillUsed
-Deprecated member 'withBaseCodeSubmissionName' is still used
-in `core/src/main/java/de/jplag/options/JPlagOptions.java`
+## RuleId[id=PlaceholderCountMatchesArgumentCount]
+### PlaceholderCountMatchesArgumentCount
+Fewer arguments provided (1) than placeholders specified (2)
+in `core/src/main/java/de/jplag/Submission.java`
 #### Snippet
 ```java
-     */
-    @Deprecated(since = "4.0.0", forRemoval = true)
-    public JPlagOptions withBaseCodeSubmissionName(String baseCodeSubmissionName) {
-        File baseCodeDirectory = new File(baseCodeSubmissionName);
-        if (baseCodeDirectory.exists()) {
-```
-
-## RuleId[id=OptionalContainsCollection]
-### OptionalContainsCollection
-'Optional' contains collection `Collection`
-in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
-#### Snippet
-```java
-    private final String description;
-    private final Optional<Object> defaultValue;
-    private final Optional<Collection<String>> choices;
-    private final Optional<String> argumentGroup;
-    private final Optional<String> mutuallyExclusiveGroup;
-```
-
-### OptionalContainsCollection
-'Optional' contains collection `Collection`
-in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
-#### Snippet
-```java
-        private final Class<?> type;
-        private Optional<Object> defaultValue = Optional.empty();
-        private Optional<Collection<String>> choices = Optional.empty();
-        private Optional<String> argumentGroup = Optional.empty();
-        private Optional<String> mutuallyExclusiveGroup = Optional.empty();
+            tokenList = language.parse(new HashSet<>(files));
+        } catch (ParsingException e) {
+            logger.warn("Failed to parse submission {} with error {}", this, e);
+            tokenList = null;
+            hasErrors = true;
 ```
 
 ## RuleId[id=CommentedOutCode]
-### CommentedOutCode
-Commented out code (2 lines)
-in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
-#### Snippet
-```java
-        boolean prevIsWS = isLeftOperatorWS(prevToken);
-        boolean nextIsWS = isRightOperatorWS(nextToken);
-        // String text = tokens.getText(Interval.of(start, stop));
-        // System.out.println("isPostfixOp: '"+prevToken+"','"+text+"','"+nextToken+"' is "+result);
-        return !prevIsWS && nextIsWS || !prevIsWS && nextToken.getType() == Swift5Parser.DOT;
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
-#### Snippet
-```java
-        int stop = getLastOpTokenIndex(tokens);
-        return stop != -1;
-        // System.out.printf("isOpNext: i=%d t='%s'", start, lt.getText());
-        // System.out.printf(", op='%s'\n", tokens.getText(Interval.of(start,stop)));
-    }
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
-#### Snippet
-```java
-        boolean prevIsWS = isLeftOperatorWS(prevToken);
-        boolean nextIsWS = isRightOperatorWS(nextToken);
-        // String text = tokens.getText(Interval.of(start, stop));
-        // System.out.println("isPrefixOp: '"+prevToken+"','"+text+"','"+nextToken+"' is "+result);
-        return prevIsWS && !nextIsWS;
-```
-
 ### CommentedOutCode
 Commented out code (4 lines)
 in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
@@ -415,6 +316,42 @@ in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
         boolean prevIsWS = isLeftOperatorWS(prevToken);
         boolean nextIsWS = isRightOperatorWS(nextToken);
         // String text = tokens.getText(Interval.of(start, stop));
+        // System.out.println("isPostfixOp: '"+prevToken+"','"+text+"','"+nextToken+"' is "+result);
+        return !prevIsWS && nextIsWS || !prevIsWS && nextToken.getType() == Swift5Parser.DOT;
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
+#### Snippet
+```java
+        int stop = getLastOpTokenIndex(tokens);
+        return stop != -1;
+        // System.out.printf("isOpNext: i=%d t='%s'", start, lt.getText());
+        // System.out.printf(", op='%s'\n", tokens.getText(Interval.of(start,stop)));
+    }
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
+#### Snippet
+```java
+        boolean prevIsWS = isLeftOperatorWS(prevToken);
+        boolean nextIsWS = isRightOperatorWS(nextToken);
+        // String text = tokens.getText(Interval.of(start, stop));
+        // System.out.println("isPrefixOp: '"+prevToken+"','"+text+"','"+nextToken+"' is "+result);
+        return prevIsWS && !nextIsWS;
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
+#### Snippet
+```java
+        boolean prevIsWS = isLeftOperatorWS(prevToken);
+        boolean nextIsWS = isRightOperatorWS(nextToken);
+        // String text = tokens.getText(Interval.of(start, stop));
         // System.out.println("isBinaryOp: '"+prevToken+"','"+text+"','"+nextToken+"' is "+result);
         if (prevIsWS) {
 ```
@@ -431,217 +368,94 @@ in `core/src/main/java/de/jplag/clustering/algorithm/BFGS.java`
 
 ```
 
-## RuleId[id=ComparatorCombinators]
-### ComparatorCombinators
-Can be replaced with 'Comparator.comparing'
-in `languages/emf-metamodel/src/main/java/de/jplag/emf/util/AbstractMetamodelVisitor.java`
+## RuleId[id=DeprecatedIsStillUsed]
+### DeprecatedIsStillUsed
+Deprecated member 'withBaseCodeSubmissionName' is still used
+in `core/src/main/java/de/jplag/options/JPlagOptions.java`
 #### Snippet
 ```java
-        var children = new ArrayList<>(eObject.eContents());
-        if (sortContainmentsByType) {
-            children.sort((first, second) -> first.eClass().getName().compareTo(second.eClass().getName()));
-        }
-
+     */
+    @Deprecated(since = "4.0.0", forRemoval = true)
+    public JPlagOptions withBaseCodeSubmissionName(String baseCodeSubmissionName) {
+        File baseCodeDirectory = new File(baseCodeSubmissionName);
+        if (baseCodeDirectory.exists()) {
 ```
 
-## RuleId[id=ObsoleteCollection]
-### ObsoleteCollection
-Obsolete collection type `Stack` used
-in `languages/csharp/src/main/java/de/jplag/csharp/grammar/CSharpLexerBase.java`
+## RuleId[id=FinalMethodInFinalClass]
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `core/src/main/java/de/jplag/JPlagComparison.java`
 #### Snippet
 ```java
-    protected int interpolatedStringLevel;
-    protected Stack<Boolean> interpolatedVerbatiums = new Stack<>();
-    protected Stack<Integer> curlyLevels = new Stack<>();
-    protected boolean verbatium;
-
+     * @return Average similarity in interval [0, 1]. O means no similarity, 1 means maximum similarity.
+     */
+    public final double similarity() {
+        boolean subtractBaseCode = firstSubmission.hasBaseCodeMatches() && secondSubmission.hasBaseCodeMatches();
+        int divisorA = firstSubmission.getSimilarityDivisor(subtractBaseCode);
 ```
 
-### ObsoleteCollection
-Obsolete collection type `Stack<>` used
-in `languages/csharp/src/main/java/de/jplag/csharp/grammar/CSharpLexerBase.java`
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `core/src/main/java/de/jplag/JPlagComparison.java`
 #### Snippet
 ```java
-    protected int interpolatedStringLevel;
-    protected Stack<Boolean> interpolatedVerbatiums = new Stack<>();
-    protected Stack<Integer> curlyLevels = new Stack<>();
-    protected boolean verbatium;
-
+     * @return Similarity of the first submission in interval [0, 1]. O means no similarity, 1 means maximum similarity.
+     */
+    public final double similarityOfFirst() {
+        int divisor = firstSubmission.getSimilarityDivisor(true);
+        return similarity(divisor);
 ```
 
-### ObsoleteCollection
-Obsolete collection type `Stack` used
-in `languages/csharp/src/main/java/de/jplag/csharp/grammar/CSharpLexerBase.java`
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `core/src/main/java/de/jplag/JPlagComparison.java`
 #### Snippet
 ```java
-
-    protected int interpolatedStringLevel;
-    protected Stack<Boolean> interpolatedVerbatiums = new Stack<>();
-    protected Stack<Integer> curlyLevels = new Stack<>();
-    protected boolean verbatium;
+     * @return Similarity of the second submission in interval [0, 1]. O means no similarity, 1 means maximum similarity.
+     */
+    public final double similarityOfSecond() {
+        int divisor = secondSubmission.getSimilarityDivisor(true);
+        return similarity(divisor);
 ```
 
-### ObsoleteCollection
-Obsolete collection type `Stack<>` used
-in `languages/csharp/src/main/java/de/jplag/csharp/grammar/CSharpLexerBase.java`
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `core/src/main/java/de/jplag/JPlagComparison.java`
 #### Snippet
 ```java
-
-    protected int interpolatedStringLevel;
-    protected Stack<Boolean> interpolatedVerbatiums = new Stack<>();
-    protected Stack<Integer> curlyLevels = new Stack<>();
-    protected boolean verbatium;
+     * @return Minimum similarity in interval [0, 1]. O means no similarity, 1 means maximum similarity.
+     */
+    public final double minimalSimilarity() {
+        return Math.min(similarityOfFirst(), similarityOfSecond());
+    }
 ```
 
-### ObsoleteCollection
-Obsolete collection type `Stack` used
-in `languages/csharp/src/main/java/de/jplag/csharp/grammar/CSharpPreprocessorParserBase.java`
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `core/src/main/java/de/jplag/JPlagComparison.java`
 #### Snippet
 ```java
-    private static final String DEBUG = "DEBUG";
-
-    private final Stack<Boolean> conditions = new Stack<>();
-    private final HashSet<String> conditionalSymbols = new HashSet<>();
-
+     * @return Maximum similarity in interval [0, 1]. O means no similarity, 1 means maximum similarity.
+     */
+    public final double maximalSimilarity() {
+        return Math.max(similarityOfFirst(), similarityOfSecond());
+    }
 ```
 
-### ObsoleteCollection
-Obsolete collection type `Stack<>` used
-in `languages/csharp/src/main/java/de/jplag/csharp/grammar/CSharpPreprocessorParserBase.java`
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `languages/emf-metamodel/src/main/java/de/jplag/emf/util/EmfaticModelView.java`
 #### Snippet
 ```java
-    private static final String DEBUG = "DEBUG";
-
-    private final Stack<Boolean> conditions = new Stack<>();
-    private final HashSet<String> conditionalSymbols = new HashSet<>();
-
+     * Generates Emfatic code from a model resource and splits it into lines with a string builder.
+     */
+    private final List<String> generateEmfaticCode(StringBuilder builder, Resource modelResource) {
+        Writer writer = new Writer();
+        String code = writer.write(modelResource, null, null);
 ```
 
-## RuleId[id=PatternVariableCanBeUsed]
-### PatternVariableCanBeUsed
-Variable 'fileObject' can be replaced with pattern variable
-in `languages/java/src/main/java/de/jplag/java/JavacAdapter.java`
-#### Snippet
-```java
-            File file = null;
-            if (diagnosticItem.getSource() instanceof JavaFileObject) {
-                JavaFileObject fileObject = (JavaFileObject) diagnosticItem.getSource();
-                file = new File(fileObject.toUri());
-            }
-```
-
-## RuleId[id=NonSerializableFieldInSerializableClass]
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'elementTokenType' in a Serializable class
-in `languages/golang/src/main/java/de/jplag/golang/JPlagGoListener.java`
-#### Snippet
-```java
-        private final GoTokenType beginTokenType;
-        private final GoTokenType endTokenType;
-        private final Optional<GoTokenType> elementTokenType;
-
-        GoBlockContext(GoTokenType beginTokenType, GoTokenType endTokenType, Optional<GoTokenType> elementTokenType) {
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'endType' in a Serializable class
-in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
-#### Snippet
-```java
-
-        private final Optional<RustTokenType> startType;
-        private final Optional<RustTokenType> endType;
-
-        RustContext() {
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'startType' in a Serializable class
-in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
-#### Snippet
-```java
-        STRUCT_INITIALISATION();
-
-        private final Optional<RustTokenType> startType;
-        private final Optional<RustTokenType> endType;
-
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'action' in a Serializable class
-in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
-#### Snippet
-```java
-    private final Optional<String> argumentGroup;
-    private final Optional<String> mutuallyExclusiveGroup;
-    private final Optional<ArgumentAction> action;
-    private final Optional<String> metaVar;
-    private final Class<?> type;
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'choices' in a Serializable class
-in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
-#### Snippet
-```java
-    private final String description;
-    private final Optional<Object> defaultValue;
-    private final Optional<Collection<String>> choices;
-    private final Optional<String> argumentGroup;
-    private final Optional<String> mutuallyExclusiveGroup;
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'metaVar' in a Serializable class
-in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
-#### Snippet
-```java
-    private final Optional<String> mutuallyExclusiveGroup;
-    private final Optional<ArgumentAction> action;
-    private final Optional<String> metaVar;
-    private final Class<?> type;
-    private final boolean hidden;
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'mutuallyExclusiveGroup' in a Serializable class
-in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
-#### Snippet
-```java
-    private final Optional<Collection<String>> choices;
-    private final Optional<String> argumentGroup;
-    private final Optional<String> mutuallyExclusiveGroup;
-    private final Optional<ArgumentAction> action;
-    private final Optional<String> metaVar;
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'defaultValue' in a Serializable class
-in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
-#### Snippet
-```java
-    private final NumberOfArgumentValues numberOfValues;
-    private final String description;
-    private final Optional<Object> defaultValue;
-    private final Optional<Collection<String>> choices;
-    private final Optional<String> argumentGroup;
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'argumentGroup' in a Serializable class
-in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
-#### Snippet
-```java
-    private final Optional<Object> defaultValue;
-    private final Optional<Collection<String>> choices;
-    private final Optional<String> argumentGroup;
-    private final Optional<String> mutuallyExclusiveGroup;
-    private final Optional<ArgumentAction> action;
-```
-
-## RuleId[id=FinalPrivateMethod]
-### FinalPrivateMethod
-'private' method declared `final`
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
 in `languages/emf-metamodel/src/main/java/de/jplag/emf/util/EmfaticModelView.java`
 #### Snippet
 ```java
@@ -652,6 +466,7 @@ in `languages/emf-metamodel/src/main/java/de/jplag/emf/util/EmfaticModelView.jav
             @Override
 ```
 
+## RuleId[id=FinalPrivateMethod]
 ### FinalPrivateMethod
 'private' method declared `final`
 in `languages/emf-metamodel/src/main/java/de/jplag/emf/util/EmfaticModelView.java`
@@ -664,42 +479,47 @@ in `languages/emf-metamodel/src/main/java/de/jplag/emf/util/EmfaticModelView.jav
         String code = writer.write(modelResource, null, null);
 ```
 
-## RuleId[id=SizeReplaceableByIsEmpty]
-### SizeReplaceableByIsEmpty
-`interpolatedVerbatiums.size() > 0` can be replaced with '!interpolatedVerbatiums.isEmpty()'
-in `languages/csharp/src/main/java/de/jplag/csharp/grammar/CSharpLexerBase.java`
+### FinalPrivateMethod
+'private' method declared `final`
+in `languages/emf-metamodel/src/main/java/de/jplag/emf/util/EmfaticModelView.java`
 #### Snippet
 ```java
-        interpolatedStringLevel--;
-        interpolatedVerbatiums.pop();
-        verbatium = (interpolatedVerbatiums.size() > 0 ? interpolatedVerbatiums.peek() : false);
-    }
-
-```
-
-### SizeReplaceableByIsEmpty
-`node.getTypeArguments().size() > 0` can be replaced with '!node.getTypeArguments().isEmpty()'
-in `languages/java/src/main/java/de/jplag/java/TokenGeneratingTreeScanner.java`
-#### Snippet
-```java
-    public Object visitNewClass(NewClassTree node, Object p) {
-        long start = positions.getStartPosition(ast, node);
-        if (node.getTypeArguments().size() > 0) {
-            addToken(JavaTokenType.J_GENERIC, start, 3 + node.getIdentifier().toString().length());
-        }
-```
-
-## RuleId[id=EnhancedSwitchMigration]
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `language-api/src/main/java/de/jplag/ParsingException.java`
-#### Snippet
-```java
+     * elements in subsequently generated Emfatic code while avoiding name collisions.
      */
-    public static ParsingException wrappingExceptions(Collection<ParsingException> exceptions) {
-        switch (exceptions.size()) {
-            case 0:
-                return null;
+    private final void replaceElementNamesWithHashes(Resource copiedResource) {
+        AbstractMetamodelVisitor renamer = new AbstractMetamodelVisitor(false) {
+            @Override
+```
+
+## RuleId[id=DuplicatedCode]
+### DuplicatedCode
+Duplicated code
+in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
+#### Snippet
+```java
+        SwiftSupport.fillUp(tokens);
+        int stop = getLastOpTokenIndex(tokens);
+        if (stop == -1)
+            return false;
+
+        int start = tokens.index();
+        Token prevToken = tokens.get(start - 1); // includes hidden-channel tokens
+        Token nextToken = tokens.get(stop + 1);
+        boolean prevIsWS = isLeftOperatorWS(prevToken);
+        boolean nextIsWS = isRightOperatorWS(nextToken);
+```
+
+## RuleId[id=Deprecation]
+### Deprecation
+'org.slf4j.helpers.MarkerIgnoringBase' is deprecated
+in `cli/src/main/java/de/jplag/cli/logger/CollectedLogger.java`
+#### Snippet
+```java
+ * @author Dominik Fuchss
+ */
+public final class CollectedLogger extends MarkerIgnoringBase {
+
+    @Serial
 ```
 
 ## RuleId[id=UnnecessaryToStringCall]
@@ -715,6 +535,19 @@ in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
 
 ```
 
+## RuleId[id=UnnecessaryDefault]
+### UnnecessaryDefault
+`default` branch is unnecessary
+in `endtoend-testing/src/main/java/de/jplag/endtoend/model/ExpectedResult.java`
+#### Snippet
+```java
+            case MAX -> resultSimilarityMaximum();
+            case INTERSECTION -> resultMatchedTokenNumber();
+            default -> throw new IllegalArgumentException("Metric not supported!");
+        };
+    }
+```
+
 ## RuleId[id=ManualMinMaxCalculation]
 ### ManualMinMaxCalculation
 Can be replaced with 'Math.min()' call
@@ -728,30 +561,17 @@ in `core/src/main/java/de/jplag/reporting/reportobject/ReportObjectFactory.java`
         logger.info("Total Comparisons: {}. Shown Comparisons: {}. Missing Comparisons: {}.", totalComparisons, shownComparisons, missingComparisons);
 ```
 
-## RuleId[id=AssignmentToForLoopParameter]
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `i`
-in `languages/text/src/main/java/de/jplag/text/ParserAdapter.java`
+## RuleId[id=DanglingJavadoc]
+### DanglingJavadoc
+Dangling Javadoc comment
+in `core/src/main/java/de/jplag/clustering/algorithm/BFGS.java`
 #### Snippet
 ```java
-            } else if (content.charAt(i) == CR) {
-                if (i + 1 < content.length() && content.charAt(i + 1) == LF) { // CRLF
-                    i++; // skip following LF
-                }
-                currentLine++;
-```
+ */
 
-## RuleId[id=ConstantMathCall]
-### ConstantMathCall
-Constant call to `sqrt()` can be simplified
-in `core/src/main/java/de/jplag/clustering/algorithm/GaussianProcess.java`
-#### Snippet
-```java
-    }
-
-    private static final double SQRT_5 = Math.sqrt(5);
-
-    /**
+/*******************************************************************************
+ * Copyright (c) 2010-2020 Haifeng Li. All rights reserved. Smile is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation,
 ```
 
 ## RuleId[id=InnerClassMayBeStatic]
@@ -767,571 +587,54 @@ in `endtoend-testing/src/main/java/de/jplag/endtoend/helper/DeltaSummaryStatisti
         public String toString() {
 ```
 
-## RuleId[id=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? super JPlagComparison`
-in `core/src/main/java/de/jplag/options/SimilarityMetric.java`
+## RuleId[id=JavadocLinkAsPlainText]
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `endtoend-testing/src/main/java/de/jplag/endtoend/model/ExpectedResult.java`
 #### Snippet
 ```java
-    private final String description;
-
-    SimilarityMetric(String description, ToDoubleFunction<JPlagComparison> similarityFunction) {
-        this.description = description;
-        this.similarityFunction = similarityFunction;
+/**
+ * contains the current comparative values for the endToEnd tests. The comparative values were determined by discussion
+ * which can be found at https://github.com/jplag/JPlag/issues/548 Here this object is used for serialization and
+ * deserialization of the information from json to object or object to json.
+ */
 ```
 
-### BoundedWildcard
-Can generalize to `? extends File`
-in `languages/csharp/src/main/java/de/jplag/csharp/CSharpParserAdapter.java`
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `endtoend-testing/src/main/java/de/jplag/endtoend/model/Options.java`
 #### Snippet
 ```java
-     * @return the list of parsed tokens.
-     */
-    public List<Token> parse(Set<File> files) throws ParsingException {
-        tokens = new ArrayList<>();
-        for (File file : files) {
+/**
+ * The object contains required options for the endToEndt tests which are important for the test suite. The options were
+ * determined by discussion which can be found at https://github.com/jplag/JPlag/issues/590.
+ */
+public record Options(@JsonProperty("minimum_token_match") Integer minimumTokenMatch) {
 ```
 
-### BoundedWildcard
-Can generalize to `? super JPlagComparison`
+## RuleId[id=FieldCanBeLocal]
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `language-api/src/main/java/de/jplag/Token.java`
+#### Snippet
+```java
+ */
+public class Token {
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    /** Indicates that the requested field has no value. */
+    public static final int NO_VALUE = -1;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
 in `core/src/main/java/de/jplag/JPlagResult.java`
 #### Snippet
 ```java
-    }
 
-    private int[] calculateDistributionFor(List<JPlagComparison> comparisons, ToDoubleFunction<JPlagComparison> similarityExtractor) {
-        int[] similarityDistribution = new int[SIMILARITY_DISTRIBUTION_SIZE];
-        for (JPlagComparison comparison : comparisons) {
-```
+    private List<ClusteringResult<Submission>> clusteringResult;
+    private final int SIMILARITY_DISTRIBUTION_SIZE = 10;
 
-### BoundedWildcard
-Can generalize to `? extends File`
-in `languages/rlang/src/main/java/de/jplag/rlang/RParserAdapter.java`
-#### Snippet
-```java
-     * @return a list containing all tokens of all files.
-     */
-    public List<Token> parse(Set<File> files) throws ParsingException {
-        tokens = new ArrayList<>();
-        for (File file : files) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends EPackage`
-in `languages/emf-metamodel/src/main/java/de/jplag/emf/util/EMFUtil.java`
-#### Snippet
-```java
-     * @param ePackages are the EPackages to register.
-     */
-    public static void registerEPackageURIs(Collection<EPackage> ePackages) {
-        ePackages.forEach(it -> EPackage.Registry.INSTANCE.put(it.getNsURI(), it));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends File`
-in `languages/cpp/src/main/java/de/jplag/cpp/experimental/GCCSourceAnalysis.java`
-#### Snippet
-```java
-    }
-
-    public void findUnusedVariableLines(Set<File> files) throws InterruptedException {
-        linesToDelete = new HashMap<>();
-
-```
-
-### BoundedWildcard
-Can generalize to `? super Submission`
-in `core/src/main/java/de/jplag/reporting/jsonfactory/ComparisonReportWriter.java`
-#### Snippet
-```java
-    private final Map<String, AtomicInteger> fileNameCollisions = new ConcurrentHashMap<>();
-
-    public ComparisonReportWriter(Function<Submission, String> submissionToIdFunction, FileWriter fileWriter) {
-        this.submissionToIdFunction = submissionToIdFunction;
-        this.fileWriter = fileWriter;
-```
-
-### BoundedWildcard
-Can generalize to `? super ClusteringOptions`
-in `core/src/main/java/de/jplag/clustering/Preprocessing.java`
-#### Snippet
-```java
-    private final Function<ClusteringOptions, ClusteringPreprocessor> constructor;
-
-    Preprocessing(Function<ClusteringOptions, ClusteringPreprocessor> constructor) {
-        this.constructor = constructor;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends ClusteringPreprocessor`
-in `core/src/main/java/de/jplag/clustering/Preprocessing.java`
-#### Snippet
-```java
-    private final Function<ClusteringOptions, ClusteringPreprocessor> constructor;
-
-    Preprocessing(Function<ClusteringOptions, ClusteringPreprocessor> constructor) {
-        this.constructor = constructor;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends RealVector`
-in `core/src/main/java/de/jplag/clustering/algorithm/GaussianProcess.java`
-#### Snippet
-```java
-     * Matern kernel for nu=2.5 (we get a twice differentiable gp)
-     */
-    private static RealMatrix maternKernel(List<RealVector> observedCoordinates, RealVector lengthScale) {
-        RealMatrix k = new Array2DRowRealMatrix(observedCoordinates.size(), observedCoordinates.size());
-        for (int i = 0; i < observedCoordinates.size(); i++) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends RealVector`
-in `core/src/main/java/de/jplag/clustering/algorithm/GaussianProcess.java`
-#### Snippet
-```java
-    }
-
-    private static RealVector maternKernel(List<RealVector> observedCoordinates, RealVector vector, RealVector lengthScale) {
-        RealVector out = new ArrayRealVector(observedCoordinates.size());
-        for (int i = 0; i < observedCoordinates.size(); i++) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends File`
-in `core/src/main/java/de/jplag/SubmissionSetBuilder.java`
-#### Snippet
-```java
-     * Verify that the new and old directory sets are disjunct and modify the old submissions set if necessary.
-     */
-    private void checkForNonOverlappingRootDirectories(Set<File> submissionDirectories, Set<File> oldSubmissionDirectories) {
-
-        Set<File> commonRootdirectories = new HashSet<>(submissionDirectories);
-```
-
-### BoundedWildcard
-Can generalize to `? extends File`
-in `core/src/main/java/de/jplag/SubmissionSetBuilder.java`
-#### Snippet
-```java
-     * Verify that the given root directories exist and have no duplicate entries.
-     */
-    private Set<File> verifyRootDirectories(Set<File> rootDirectoryNames, boolean areNewDirectories) throws ExitException {
-        if (areNewDirectories && rootDirectoryNames.isEmpty()) {
-            throw new RootDirectoryException("No root directories specified with submissions to check for plagiarism!");
-```
-
-### BoundedWildcard
-Can generalize to `? super Exception`
-in `core/src/main/java/de/jplag/SubmissionSetBuilder.java`
-#### Snippet
-```java
-     * Computes the canonical file of a file, if an exception is thrown it is wrapped accordingly and re-thrown.
-     */
-    private File makeCanonical(File file, Function<Exception, ExitException> exceptionWrapper) throws ExitException {
-        try {
-            return file.getCanonicalFile();
-```
-
-### BoundedWildcard
-Can generalize to `? extends ExitException`
-in `core/src/main/java/de/jplag/SubmissionSetBuilder.java`
-#### Snippet
-```java
-     * Computes the canonical file of a file, if an exception is thrown it is wrapped accordingly and re-thrown.
-     */
-    private File makeCanonical(File file, Function<Exception, ExitException> exceptionWrapper) throws ExitException {
-        try {
-            return file.getCanonicalFile();
-```
-
-### BoundedWildcard
-Can generalize to `? super File`
-in `core/src/main/java/de/jplag/SubmissionSetBuilder.java`
-#### Snippet
-```java
-     * @param isNew states whether submissions found in the root directory must be checked for plagiarism.
-     */
-    private void processRootDirectoryEntries(File rootDirectory, boolean multipleRoots, Map<File, Submission> foundSubmissions, boolean isNew)
-            throws ExitException {
-        for (String fileName : listSubmissionFiles(rootDirectory)) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Submission`
-in `core/src/main/java/de/jplag/SubmissionSetBuilder.java`
-#### Snippet
-```java
-     * @param isNew states whether submissions found in the root directory must be checked for plagiarism.
-     */
-    private void processRootDirectoryEntries(File rootDirectory, boolean multipleRoots, Map<File, Submission> foundSubmissions, boolean isNew)
-            throws ExitException {
-        for (String fileName : listSubmissionFiles(rootDirectory)) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends File`
-in `languages/swift/src/main/java/de/jplag/swift/SwiftParserAdapter.java`
-#### Snippet
-```java
-     * @return a list containing all tokens of all files.
-     */
-    public List<Token> parse(Set<File> files) throws ParsingException {
-        tokens = new ArrayList<>();
-        for (File file : files) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends File`
-in `languages/python-3/src/main/java/de/jplag/python3/Parser.java`
-#### Snippet
-```java
-    }
-
-    public List<Token> parse(Set<File> files) throws ParsingException {
-        tokens = new ArrayList<>();
-        for (File file : files) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends File`
-in `languages/golang/src/main/java/de/jplag/golang/GoParserAdapter.java`
-#### Snippet
-```java
-    private List<Token> tokens;
-
-    public List<Token> parse(Set<File> files) throws ParsingException {
-        tokens = new ArrayList<>();
-        for (File file : files) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends File`
-in `languages/text/src/main/java/de/jplag/text/ParserAdapter.java`
-#### Snippet
-```java
-    }
-
-    public List<Token> parse(Set<File> files) throws ParsingException {
-        tokens = new ArrayList<>();
-        for (File file : files) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends File`
-in `languages/rust/src/main/java/de/jplag/rust/RustParserAdapter.java`
-#### Snippet
-```java
-     * @return a list containing all tokens of all files.
-     */
-    public List<Token> parse(Set<File> files) throws ParsingException {
-        tokens = new ArrayList<>();
-        for (File file : files) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ParsingException`
-in `language-api/src/main/java/de/jplag/ParsingException.java`
-#### Snippet
-```java
-     * the provided exception if only one was provided.
-     */
-    public static ParsingException wrappingExceptions(Collection<ParsingException> exceptions) {
-        switch (exceptions.size()) {
-            case 0:
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `core/src/main/java/de/jplag/clustering/Cluster.java`
-#### Snippet
-```java
-     * @return average similarity
-     */
-    private double averageSimilarity(BiFunction<T, T, Double> similarity) {
-        List<T> members = new ArrayList<>(this.members);
-        if (members.size() < 2) {
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `core/src/main/java/de/jplag/clustering/Cluster.java`
-#### Snippet
-```java
-     * @return average similarity
-     */
-    private double averageSimilarity(BiFunction<T, T, Double> similarity) {
-        List<T> members = new ArrayList<>(this.members);
-        if (members.size() < 2) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends File`
-in `languages/java/src/main/java/de/jplag/java/JavacAdapter.java`
-#### Snippet
-```java
-    private static final JavaCompiler javac = ToolProvider.getSystemJavaCompiler();
-
-    public void parseFiles(Set<File> files, final Parser parser) throws ParsingException {
-        var listener = new DiagnosticCollector<>();
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends Collection`
-in `core/src/main/java/de/jplag/clustering/ClusteringResult.java`
-#### Snippet
-```java
-     * it's clusters.
-     */
-    public static ClusteringResult<Integer> fromIntegerCollections(List<Collection<Integer>> clustering, RealMatrix similarity) {
-        int numberOfSubmissions = similarity.getRowDimension();
-        Map<Integer, Integer> clusterIndicesOfSubmissionIndices = new HashMap<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends File`
-in `languages/emf-metamodel/src/main/java/de/jplag/emf/parser/EcoreParser.java`
-#### Snippet
-```java
-     * @return the list of parsed tokens.
-     */
-    public List<Token> parse(Set<File> files) throws ParsingException {
-        tokens = new ArrayList<>();
-        for (File file : files) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Token`
-in `language-api/src/main/java/de/jplag/TokenPrinter.java`
-#### Snippet
-```java
-    }
-
-    private static List<LineData> getLineData(List<Token> fileTokens, Optional<String> suffix) {
-        // We expect that all fileTokens share the same Token.file!
-        File file = fileTokens.get(0).getFile();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Token`
-in `language-api/src/main/java/de/jplag/TokenPrinter.java`
-#### Snippet
-```java
-    }
-
-    private static Map<File, List<Token>> groupTokensByFile(List<Token> tokens) {
-        return tokens.stream().collect(Collectors.groupingBy(Token::getFile));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `core/src/main/java/de/jplag/clustering/algorithm/BayesianOptimization.java`
-#### Snippet
-```java
-    }
-
-    private static <T> Optional<T> getNext(Spliterator<T> spliterator) {
-        final List<T> result = new ArrayList<>(1);
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends RealVector`
-in `core/src/main/java/de/jplag/clustering/algorithm/BayesianOptimization.java`
-#### Snippet
-```java
-     * Numerically optimize acquisition function
-     */
-    private RealVector maxAcq(GaussianProcess gaussianProcess, double yMax, Spliterator<RealVector> samples, double[] randomPicks) {
-        double bestScore = Double.NEGATIVE_INFINITY;
-        double[] bestSolution = getNext(samples).orElseThrow().toArray();
-```
-
-### BoundedWildcard
-Can generalize to `? super RealVector`
-in `core/src/main/java/de/jplag/clustering/algorithm/BayesianOptimization.java`
-#### Snippet
-```java
-     * @return result
-     */
-    public <T> OptimizationResult<T> maximize(Function<RealVector, OptimizationResult<T>> objectiveFunction) {
-        List<Double> observations = new ArrayList<>(maxEvaluations);
-        List<RealVector> testedCoordinates = new ArrayList<>(maxEvaluations);
-```
-
-### BoundedWildcard
-Can generalize to `? extends File`
-in `languages/kotlin/src/main/java/de/jplag/kotlin/KotlinParserAdapter.java`
-#### Snippet
-```java
-     * @return a list containing all tokens of all files.
-     */
-    public List<Token> parse(Set<File> files) throws ParsingException {
-        tokens = new ArrayList<>();
-        for (File file : files) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Submission`
-in `core/src/main/java/de/jplag/reporting/reportobject/mapper/ClusteringResultMapper.java`
-#### Snippet
-```java
-    }
-
-    private Cluster convertCluster(de.jplag.clustering.Cluster<Submission> from) {
-        var strength = from.getCommunityStrength();
-        var avgSimilarity = from.getAverageSimilarity();
-```
-
-### BoundedWildcard
-Can generalize to `? super Submission`
-in `core/src/main/java/de/jplag/reporting/reportobject/mapper/ClusteringResultMapper.java`
-#### Snippet
-```java
-    private final Function<Submission, String> submissionToIdFunction;
-
-    public ClusteringResultMapper(Function<Submission, String> submissionToIdFunction) {
-        this.submissionToIdFunction = submissionToIdFunction;
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `cli/src/main/java/de/jplag/cli/CLI.java`
-#### Snippet
-```java
-    }
-
-    private void addAllMultiValueArgument(List<List<String>> argumentValues, List<String> destinationRootDirectories) {
-        if (argumentValues == null) {
-            return;
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `cli/src/main/java/de/jplag/cli/CLI.java`
-#### Snippet
-```java
-    }
-
-    private void addAllMultiValueArgument(List<List<String>> argumentValues, List<String> destinationRootDirectories) {
-        if (argumentValues == null) {
-            return;
-```
-
-### BoundedWildcard
-Can generalize to `? super JPlagComparison`
-in `core/src/main/java/de/jplag/reporting/reportobject/mapper/MetricMapper.java`
-#### Snippet
-```java
-    }
-
-    private List<TopComparison> getTopComparisons(List<JPlagComparison> comparisons, Function<JPlagComparison, Double> similarityExtractor) {
-        return comparisons.stream().sorted(Comparator.comparing(similarityExtractor).reversed())
-                .map(comparison -> new TopComparison(submissionToIdFunction.apply(comparison.firstSubmission()),
-```
-
-### BoundedWildcard
-Can generalize to `? super Submission`
-in `core/src/main/java/de/jplag/reporting/reportobject/mapper/MetricMapper.java`
-#### Snippet
-```java
-    private final Function<Submission, String> submissionToIdFunction;
-
-    public MetricMapper(Function<Submission, String> submissionToIdFunction) {
-        this.submissionToIdFunction = submissionToIdFunction;
-    }
-```
-
-## RuleId[id=AbstractClassNeverImplemented]
-### AbstractClassNeverImplemented
-Abstract class `CSharpParserBase` has no concrete subclass
-in `languages/csharp/src/main/java/de/jplag/csharp/grammar/CSharpParserBase.java`
-#### Snippet
-```java
- * was originally written by Ken Domino. Note that this class is licensed under Eclipse Public License - v 1.0.
- */
-public abstract class CSharpParserBase extends Parser {
-    protected CSharpParserBase(TokenStream input) {
-        super(input);
-```
-
-### AbstractClassNeverImplemented
-Abstract class `CSharpLexerBase` has no concrete subclass
-in `languages/csharp/src/main/java/de/jplag/csharp/grammar/CSharpLexerBase.java`
-#### Snippet
-```java
- * was originally written by Ken Domino. Note that this class is licensed under Eclipse Public License - v 1.0.
- */
-abstract class CSharpLexerBase extends Lexer {
-    protected CSharpLexerBase(CharStream input) {
-        super(input);
-```
-
-### AbstractClassNeverImplemented
-Abstract class `CSharpPreprocessorParserBase` has no concrete subclass
-in `languages/csharp/src/main/java/de/jplag/csharp/grammar/CSharpPreprocessorParserBase.java`
-#### Snippet
-```java
- * was originally written by Ken Domino. Note that this class is licensed under Eclipse Public License - v 1.0.
- */
-abstract class CSharpPreprocessorParserBase extends Parser {
-    private static final String FALSE = Boolean.toString(false);
-    private static final String TRUE = Boolean.toString(true);
-```
-
-### AbstractClassNeverImplemented
-Abstract class `GoParserBase` has no concrete subclass
-in `languages/golang/src/main/java/de/jplag/golang/grammar/GoParserBase.java`
-#### Snippet
-```java
- * grammars repository</a>. Licenced under BSD-3.
- */
-public abstract class GoParserBase extends Parser {
-    protected GoParserBase(TokenStream input) {
-        super(input);
-```
-
-### AbstractClassNeverImplemented
-Abstract class `RustParserBase` has no concrete subclass
-in `languages/rust/src/main/java/de/jplag/rust/grammar/RustParserBase.java`
-#### Snippet
-```java
-import org.antlr.v4.runtime.TokenStream;
-
-public abstract class RustParserBase extends Parser {
-    protected RustParserBase(TokenStream input) {
-        super(input);
-```
-
-### AbstractClassNeverImplemented
-Abstract class `RustLexerBase` has no concrete subclass
-in `languages/rust/src/main/java/de/jplag/rust/grammar/RustLexerBase.java`
-#### Snippet
-```java
-import org.antlr.v4.runtime.Token;
-
-public abstract class RustLexerBase extends Lexer {
-    private Token currentToken;
-    private Token previousToken;
-```
-
-## RuleId[id=StringEqualsEmptyString]
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `core/src/main/java/de/jplag/reporting/jsonfactory/DirectoryManager.java`
-#### Snippet
-```java
-        String filePathWithoutRootName = fileFullPath.substring(submissionRootPath.length());
-        String outputRootDirectory = Path.of(path, name).toString();
-        if ("".equals(filePathWithoutRootName)) {
-            directory = new File(Path.of(outputRootDirectory, name).toString());
-        } else {
+    public JPlagResult(List<JPlagComparison> comparisons, SubmissionSet submissions, long durationInMillis, JPlagOptions options) {
 ```
 
 ## RuleId[id=IgnoreResultOfCall]
@@ -1374,18 +677,6 @@ in `core/src/main/java/de/jplag/GreedyStringTiling.java`
 
 ## RuleId[id=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'eObject'
-in `languages/emf-metamodel/src/main/java/de/jplag/emf/MetamodelToken.java`
-#### Snippet
-```java
-     * @param eObject is the corresponding eObject in the model from which this token was extracted
-     */
-    public MetamodelToken(TokenType type, File file, int line, int column, int length, Optional<EObject> eObject) {
-        super(type, file, line, column, length);
-        this.eObject = eObject;
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'eObject'
 in `languages/emf-metamodel/src/main/java/de/jplag/emf/MetamodelToken.java`
 #### Snippet
@@ -1395,6 +686,18 @@ public class MetamodelToken extends Token {
     private final Optional<EObject> eObject;
 
     /**
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'eObject'
+in `languages/emf-metamodel/src/main/java/de/jplag/emf/MetamodelToken.java`
+#### Snippet
+```java
+     * @param eObject is the corresponding eObject in the model from which this token was extracted
+     */
+    public MetamodelToken(TokenType type, File file, int line, int column, int length, Optional<EObject> eObject) {
+        super(type, file, line, column, length);
+        this.eObject = eObject;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -1419,30 +722,6 @@ in `languages/golang/src/main/java/de/jplag/golang/JPlagGoListener.java`
         private final Optional<GoTokenType> elementTokenType;
 
         GoBlockContext(GoTokenType beginTokenType, GoTokenType endTokenType, Optional<GoTokenType> elementTokenType) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'suffix'
-in `language-api/src/main/java/de/jplag/TokenPrinter.java`
-#### Snippet
-```java
-    }
-
-    private static List<LineData> getLineData(List<Token> fileTokens, Optional<String> suffix) {
-        // We expect that all fileTokens share the same Token.file!
-        File file = fileTokens.get(0).getFile();
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'suffix'
-in `language-api/src/main/java/de/jplag/TokenPrinter.java`
-#### Snippet
-```java
-     * @return the string representation.
-     */
-    public static String printTokens(List<Token> tokenList, File rootDirectory, Optional<String> suffix) {
-        PrinterOutputBuilder builder = new PrinterOutputBuilder();
-        Map<File, List<Token>> fileToTokens = groupTokensByFile(tokenList);
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -1482,39 +761,27 @@ in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'metaVar'
-in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
+`Optional` used as type for parameter 'suffix'
+in `language-api/src/main/java/de/jplag/TokenPrinter.java`
 #### Snippet
 ```java
-        private Optional<String> mutuallyExclusiveGroup = Optional.empty();
-        private Optional<ArgumentAction> action = Optional.empty();
-        private Optional<String> metaVar = Optional.empty();
-        private Optional<NumberOfArgumentValues> nargs = Optional.empty();
-        private boolean hidden;
+    }
+
+    private static List<LineData> getLineData(List<Token> fileTokens, Optional<String> suffix) {
+        // We expect that all fileTokens share the same Token.file!
+        File file = fileTokens.get(0).getFile();
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'mutuallyExclusiveGroup'
-in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
+`Optional` used as type for parameter 'suffix'
+in `language-api/src/main/java/de/jplag/TokenPrinter.java`
 #### Snippet
 ```java
-        private Optional<Collection<String>> choices = Optional.empty();
-        private Optional<String> argumentGroup = Optional.empty();
-        private Optional<String> mutuallyExclusiveGroup = Optional.empty();
-        private Optional<ArgumentAction> action = Optional.empty();
-        private Optional<String> metaVar = Optional.empty();
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'action'
-in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
-#### Snippet
-```java
-    private final Optional<String> argumentGroup;
-    private final Optional<String> mutuallyExclusiveGroup;
-    private final Optional<ArgumentAction> action;
-    private final Optional<String> metaVar;
-    private final Class<?> type;
+     * @return the string representation.
+     */
+    public static String printTokens(List<Token> tokenList, File rootDirectory, Optional<String> suffix) {
+        PrinterOutputBuilder builder = new PrinterOutputBuilder();
+        Map<File, List<Token>> fileToTokens = groupTokensByFile(tokenList);
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -1542,6 +809,18 @@ in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'action'
+in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
+#### Snippet
+```java
+    private final Optional<String> argumentGroup;
+    private final Optional<String> mutuallyExclusiveGroup;
+    private final Optional<ArgumentAction> action;
+    private final Optional<String> metaVar;
+    private final Class<?> type;
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'metaVar'
 in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
 #### Snippet
@@ -1551,42 +830,6 @@ in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
     private final Optional<String> metaVar;
     private final Class<?> type;
     private final boolean hidden;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'mutuallyExclusiveGroup'
-in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
-#### Snippet
-```java
-    private final Optional<Collection<String>> choices;
-    private final Optional<String> argumentGroup;
-    private final Optional<String> mutuallyExclusiveGroup;
-    private final Optional<ArgumentAction> action;
-    private final Optional<String> metaVar;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'action'
-in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
-#### Snippet
-```java
-        private Optional<String> argumentGroup = Optional.empty();
-        private Optional<String> mutuallyExclusiveGroup = Optional.empty();
-        private Optional<ArgumentAction> action = Optional.empty();
-        private Optional<String> metaVar = Optional.empty();
-        private Optional<NumberOfArgumentValues> nargs = Optional.empty();
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'defaultValue'
-in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
-#### Snippet
-```java
-    private final NumberOfArgumentValues numberOfValues;
-    private final String description;
-    private final Optional<Object> defaultValue;
-    private final Optional<Collection<String>> choices;
-    private final Optional<String> argumentGroup;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -1602,6 +845,18 @@ in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'metaVar'
+in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
+#### Snippet
+```java
+        private Optional<String> mutuallyExclusiveGroup = Optional.empty();
+        private Optional<ArgumentAction> action = Optional.empty();
+        private Optional<String> metaVar = Optional.empty();
+        private Optional<NumberOfArgumentValues> nargs = Optional.empty();
+        private boolean hidden;
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'argumentGroup'
 in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
 #### Snippet
@@ -1614,15 +869,39 @@ in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'argumentGroup'
+`Optional` used as type for field 'action'
 in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
 #### Snippet
 ```java
-        private Optional<Object> defaultValue = Optional.empty();
-        private Optional<Collection<String>> choices = Optional.empty();
         private Optional<String> argumentGroup = Optional.empty();
         private Optional<String> mutuallyExclusiveGroup = Optional.empty();
         private Optional<ArgumentAction> action = Optional.empty();
+        private Optional<String> metaVar = Optional.empty();
+        private Optional<NumberOfArgumentValues> nargs = Optional.empty();
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'mutuallyExclusiveGroup'
+in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
+#### Snippet
+```java
+    private final Optional<Collection<String>> choices;
+    private final Optional<String> argumentGroup;
+    private final Optional<String> mutuallyExclusiveGroup;
+    private final Optional<ArgumentAction> action;
+    private final Optional<String> metaVar;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'defaultValue'
+in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
+#### Snippet
+```java
+    private final NumberOfArgumentValues numberOfValues;
+    private final String description;
+    private final Optional<Object> defaultValue;
+    private final Optional<Collection<String>> choices;
+    private final Optional<String> argumentGroup;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -1637,174 +916,28 @@ in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
         private Optional<String> mutuallyExclusiveGroup = Optional.empty();
 ```
 
-## RuleId[id=SystemOutErr]
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `cli/src/main/java/de/jplag/cli/logger/CollectedLogger.java`
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'mutuallyExclusiveGroup'
+in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
 #### Snippet
 ```java
-    @SuppressWarnings("java:S106")
-    void write(StringBuilder buf, Throwable throwable) {
-        PrintStream targetStream = System.out;
-
-        targetStream.println(buf.toString());
+        private Optional<Collection<String>> choices = Optional.empty();
+        private Optional<String> argumentGroup = Optional.empty();
+        private Optional<String> mutuallyExclusiveGroup = Optional.empty();
+        private Optional<ArgumentAction> action = Optional.empty();
+        private Optional<String> metaVar = Optional.empty();
 ```
 
-## RuleId[id=ClassNameSameAsAncestorName]
-### ClassNameSameAsAncestorName
-Class name `Language` is the same as one of its superclass' names
-in `languages/cpp/src/main/java/de/jplag/cpp/Language.java`
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'argumentGroup'
+in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
 #### Snippet
 ```java
-
-@MetaInfServices(de.jplag.Language.class)
-public class Language implements de.jplag.Language {
-    private static final String IDENTIFIER = "cpp";
-
-```
-
-### ClassNameSameAsAncestorName
-Class name `Language` is the same as one of its superclass' names
-in `languages/csharp/src/main/java/de/jplag/csharp/Language.java`
-#### Snippet
-```java
- */
-@MetaInfServices(de.jplag.Language.class)
-public class Language implements de.jplag.Language {
-    private static final String NAME = "C# 6 Parser";
-    private static final String IDENTIFIER = "csharp";
-```
-
-### ClassNameSameAsAncestorName
-Class name `Language` is the same as one of its superclass' names
-in `languages/python-3/src/main/java/de/jplag/python3/Language.java`
-#### Snippet
-```java
-
-@MetaInfServices(de.jplag.Language.class)
-public class Language implements de.jplag.Language {
-
-    private static final String IDENTIFIER = "python3";
-```
-
-### ClassNameSameAsAncestorName
-Class name `Language` is the same as one of its superclass' names
-in `languages/golang/src/main/java/de/jplag/golang/Language.java`
-#### Snippet
-```java
-
-@MetaInfServices(de.jplag.Language.class)
-public class Language implements de.jplag.Language {
-
-    private static final String NAME = "Go Parser";
-```
-
-### ClassNameSameAsAncestorName
-Class name `Language` is the same as one of its superclass' names
-in `languages/emf-metamodel/src/main/java/de/jplag/emf/Language.java`
-#### Snippet
-```java
- */
-@MetaInfServices(de.jplag.Language.class)
-public class Language implements de.jplag.Language {
-    public static final String VIEW_FILE_SUFFIX = ".emfatic";
-    public static final String FILE_ENDING = "." + EcorePackage.eNAME;
-```
-
-### ClassNameSameAsAncestorName
-Class name `Language` is the same as one of its superclass' names
-in `languages/java/src/main/java/de/jplag/java/Language.java`
-#### Snippet
-```java
- */
-@MetaInfServices(de.jplag.Language.class)
-public class Language implements de.jplag.Language {
-    private static final String IDENTIFIER = "java";
-
-```
-
-### ClassNameSameAsAncestorName
-Class name `Language` is the same as one of its superclass' names
-in `languages/emf-metamodel-dynamic/src/main/java/de/jplag/emf/dynamic/Language.java`
-#### Snippet
-```java
- */
-@MetaInfServices(de.jplag.Language.class)
-public class Language extends de.jplag.emf.Language {
-    private static final String NAME = "EMF metamodels (dynamically created token set)";
-    private static final String IDENTIFIER = "emf-dynamic";
-```
-
-### ClassNameSameAsAncestorName
-Class name `Language` is the same as one of its superclass' names
-in `languages/scheme/src/main/java/de/jplag/scheme/Language.java`
-#### Snippet
-```java
-
-@MetaInfServices(de.jplag.Language.class)
-public class Language implements de.jplag.Language {
-
-    private static final String IDENTIFIER = "scheme";
-```
-
-### ClassNameSameAsAncestorName
-Class name `Language` is the same as one of its superclass' names
-in `languages/rust/src/main/java/de/jplag/rust/Language.java`
-#### Snippet
-```java
- */
-@MetaInfServices(de.jplag.Language.class)
-public class Language implements de.jplag.Language {
-
-    protected static final String[] FILE_EXTENSIONS = {".rs"};
-```
-
-### ClassNameSameAsAncestorName
-Class name `Language` is the same as one of its superclass' names
-in `languages/kotlin/src/main/java/de/jplag/kotlin/Language.java`
-#### Snippet
-```java
- */
-@MetaInfServices(de.jplag.Language.class)
-public class Language implements de.jplag.Language {
-
-    private static final String NAME = "Kotlin Parser";
-```
-
-### ClassNameSameAsAncestorName
-Class name `Language` is the same as one of its superclass' names
-in `languages/rlang/src/main/java/de/jplag/rlang/Language.java`
-#### Snippet
-```java
- */
-@MetaInfServices(de.jplag.Language.class)
-public class Language implements de.jplag.Language {
-
-    private static final String NAME = "R Parser";
-```
-
-### ClassNameSameAsAncestorName
-Class name `Language` is the same as one of its superclass' names
-in `languages/swift/src/main/java/de/jplag/swift/Language.java`
-#### Snippet
-```java
- */
-@MetaInfServices(de.jplag.Language.class)
-public class Language implements de.jplag.Language {
-
-    private static final String IDENTIFIER = "swift";
-```
-
-### ClassNameSameAsAncestorName
-Class name `Language` is the same as one of its superclass' names
-in `languages/text/src/main/java/de/jplag/text/Language.java`
-#### Snippet
-```java
- */
-@MetaInfServices(de.jplag.Language.class)
-public class Language implements de.jplag.Language {
-
-    private static final String IDENTIFIER = "text";
+        private Optional<Object> defaultValue = Optional.empty();
+        private Optional<Collection<String>> choices = Optional.empty();
+        private Optional<String> argumentGroup = Optional.empty();
+        private Optional<String> mutuallyExclusiveGroup = Optional.empty();
+        private Optional<ArgumentAction> action = Optional.empty();
 ```
 
 ## RuleId[id=ConditionCoveredByFurtherCondition]
@@ -1820,120 +953,106 @@ in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
                         && stateContext != RustContext.MACRO_INNER) {
 ```
 
-## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `language-api/src/main/java/de/jplag/TokenPrinter.java`
+## RuleId[id=JavadocDeclaration]
+### JavadocDeclaration
+`@param context` tag description is missing
+in `languages/swift/src/main/java/de/jplag/swift/JPlagSwiftListener.java`
 #### Snippet
 ```java
-            // Code line
-            if (REPLACE_TABS) {
-                currentLine = currentLine.replaceAll(TAB, TAB_REPLACEMENT);
-            }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `language-api/src/main/java/de/jplag/TokenPrinter.java`
-#### Snippet
-```java
-                    .replace(TAB, REPLACE_TABS ? TAB_REPLACEMENT : TAB)
-                    // NON_WHITESPACE is a pattern, so use replaceAll
-                    .replaceAll(NON_WHITESPACE, SPACE);
-            append(padding);
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `core/src/main/java/de/jplag/reporting/reportobject/model/Version.java`
-#### Snippet
-```java
-        plainVersion = plainVersion.replace("-SNAPSHOT", "");
-
-        if (!plainVersion.matches("\\d+\\.\\d+\\.\\d+")) {
-            logger.debug("Version {} could not be parsed. Defaulting to null.", version);
-            return null;
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
-#### Snippet
-```java
+     * Indicates whether the given context encodes a computed read-only variable getter. An example of this is
+     * <code>var example: Int { return 1 }</code>.
+     * @param context
+     * @return
      */
-    public String flagWithoutDash() {
-        return flag.replaceAll("^-+", "").replace("-", "_");
-    }
-
 ```
 
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `cli/src/main/java/de/jplag/cli/CLI.java`
+### JavadocDeclaration
+`@return` tag description is missing
+in `languages/swift/src/main/java/de/jplag/swift/JPlagSwiftListener.java`
 #### Snippet
 ```java
-        String[] fileSuffixes = new String[] {};
-        if (fileSuffixString != null) {
-            fileSuffixes = fileSuffixString.replaceAll("\\s+", "").split(",");
-        }
+     * <code>var example: Int { return 1 }</code>.
+     * @param context
+     * @return
+     */
+    private boolean isComputedReadOnlyVariableGetterContext(Getter_setter_blockContext context) {
+```
+
+## RuleId[id=FieldMayBeFinal]
+### FieldMayBeFinal
+Field `length` may be 'final'
+in `language-api/src/main/java/de/jplag/Token.java`
+#### Snippet
+```java
+    private int line;
+    private int column;
+    private int length;
+    private File file;
+    private TokenType type;
+```
+
+### FieldMayBeFinal
+Field `type` may be 'final'
+in `language-api/src/main/java/de/jplag/Token.java`
+#### Snippet
+```java
+    private int length;
+    private File file;
+    private TokenType type;
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `file` may be 'final'
+in `language-api/src/main/java/de/jplag/Token.java`
+#### Snippet
+```java
+    private int column;
+    private int length;
+    private File file;
+    private TokenType type;
 
 ```
 
-## RuleId[id=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `de.jplag.scheme` is unnecessary and can be removed
-in `languages/scheme/src/main/java/de/jplag/scheme/Language.java`
+### FieldMayBeFinal
+Field `logger` may be 'final'
+in `language-api/src/main/java/de/jplag/Token.java`
+#### Snippet
+```java
+ */
+public class Token {
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    /** Indicates that the requested field has no value. */
+    public static final int NO_VALUE = -1;
+```
+
+### FieldMayBeFinal
+Field `column` may be 'final'
+in `language-api/src/main/java/de/jplag/Token.java`
 #### Snippet
 ```java
 
-    private static final String IDENTIFIER = "scheme";
-    private final de.jplag.scheme.Parser parser;
-
-    public Language() {
+    private int line;
+    private int column;
+    private int length;
+    private File file;
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.tools` is unnecessary, and can be replaced with an import
-in `languages/java/src/main/java/de/jplag/java/JavacAdapter.java`
+### FieldMayBeFinal
+Field `line` may be 'final'
+in `language-api/src/main/java/de/jplag/Token.java`
 #### Snippet
 ```java
+    public static final int NO_VALUE = -1;
 
-    private List<ParsingException> processErrors(Logger logger, DiagnosticCollector<Object> listener) {
-        return listener.getDiagnostics().stream().filter(it -> it.getKind() == javax.tools.Diagnostic.Kind.ERROR).map(diagnosticItem -> {
-            File file = null;
-            if (diagnosticItem.getSource() instanceof JavaFileObject) {
+    private int line;
+    private int column;
+    private int length;
 ```
 
-## RuleId[id=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
-in `languages/cpp/src/main/java/de/jplag/cpp/experimental/GCCSourceAnalysis.java`
-#### Snippet
-```java
-
-                String line;
-                while ((line = stdError.readLine()) != null) {
-                    processOutputLine(line);
-                }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `core/src/main/java/de/jplag/SubmissionSet.java`
-#### Snippet
-```java
-            currentSubmissionName = submission.getName();
-
-            if (!(ok = submission.parse(options.debugParser()))) {
-                errors++;
-            }
-```
-
-## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `tokenTypeValues` is accessed in both synchronized and unsynchronized contexts
+### FieldMayBeFinal
+Field `tokenTypeValues` may be 'final'
 in `core/src/main/java/de/jplag/GreedyStringTiling.java`
 #### Snippet
 ```java
@@ -1944,1042 +1063,461 @@ in `core/src/main/java/de/jplag/GreedyStringTiling.java`
 
 ```
 
-## RuleId[id=EmptyMethod]
-### EmptyMethod
-The method is empty
-in `languages/emf-metamodel/src/main/java/de/jplag/emf/util/AbstractMetamodelVisitor.java`
+### FieldMayBeFinal
+Field `mutuallyExclusiveGroup` may be 'final'
+in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
 #### Snippet
 ```java
-    }
-
-    protected void visitEClassifier(EClassifier eClassifier) {
-    }
-
+        private Optional<Collection<String>> choices = Optional.empty();
+        private Optional<String> argumentGroup = Optional.empty();
+        private Optional<String> mutuallyExclusiveGroup = Optional.empty();
+        private Optional<ArgumentAction> action = Optional.empty();
+        private Optional<String> metaVar = Optional.empty();
 ```
 
-### EmptyMethod
-The method is empty
-in `languages/emf-metamodel/src/main/java/de/jplag/emf/util/AbstractMetamodelVisitor.java`
+### FieldMayBeFinal
+Field `parsingExceptions` may be 'final'
+in `languages/java/src/main/java/de/jplag/java/TokenGeneratingTreeScanner.java`
 #### Snippet
 ```java
-    }
+    private final CompilationUnitTree ast;
 
-    protected void visitEFactory(EFactory eFactory) {
-    }
+    private List<ParsingException> parsingExceptions = new ArrayList<>();
 
+    public TokenGeneratingTreeScanner(File file, Parser parser, LineMap map, SourcePositions positions, CompilationUnitTree ast) {
 ```
 
-### EmptyMethod
-The method is empty
-in `languages/emf-metamodel/src/main/java/de/jplag/emf/util/AbstractMetamodelVisitor.java`
-#### Snippet
-```java
-    }
-
-    protected void visitEGenericType(EGenericType eGenericType) {
-    }
-
-```
-
-### EmptyMethod
-The method is empty
-in `languages/emf-metamodel/src/main/java/de/jplag/emf/util/AbstractMetamodelVisitor.java`
-#### Snippet
-```java
-    }
-
-    protected void visitEStructuralFeature(EStructuralFeature eStructuralFeature) {
-    }
-
-```
-
-### EmptyMethod
-The method is empty
-in `languages/rlang/src/main/java/de/jplag/rlang/RCombinedBaseListener.java`
-#### Snippet
-```java
-public abstract class RCombinedBaseListener implements RListener, RFilterListener {
-    @Override
-    public void enterStream(RFilter.StreamContext context) {
-
-    }
-```
-
-### EmptyMethod
-The method is empty
-in `languages/rlang/src/main/java/de/jplag/rlang/RCombinedBaseListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void exitStream(RFilter.StreamContext context) {
-
-    }
-```
-
-### EmptyMethod
-The method is empty
-in `languages/rlang/src/main/java/de/jplag/rlang/RCombinedBaseListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void enterEat(RFilter.EatContext context) {
-
-    }
-```
-
-### EmptyMethod
-The method is empty
-in `languages/rlang/src/main/java/de/jplag/rlang/RCombinedBaseListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void exitEat(RFilter.EatContext context) {
-
-    }
-```
-
-### EmptyMethod
-The method is empty
-in `languages/rlang/src/main/java/de/jplag/rlang/RCombinedBaseListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void enterElement(RFilter.ElementContext context) {
-
-    }
-```
-
-### EmptyMethod
-The method is empty
-in `languages/rlang/src/main/java/de/jplag/rlang/RCombinedBaseListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void exitElement(RFilter.ElementContext context) {
-
-    }
-```
-
-### EmptyMethod
-The method is empty
-in `languages/rlang/src/main/java/de/jplag/rlang/RCombinedBaseListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void enterAtom(RFilter.AtomContext context) {
-
-    }
-```
-
-### EmptyMethod
-The method is empty
-in `languages/rlang/src/main/java/de/jplag/rlang/RCombinedBaseListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void exitAtom(RFilter.AtomContext context) {
-
-    }
-```
-
-### EmptyMethod
-The method is empty
-in `languages/rlang/src/main/java/de/jplag/rlang/RCombinedBaseListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void enterOp(RFilter.OpContext context) {
-
-    }
-```
-
-### EmptyMethod
-The method is empty
-in `languages/rlang/src/main/java/de/jplag/rlang/RCombinedBaseListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void exitOp(RFilter.OpContext context) {
-
-    }
-```
-
-### EmptyMethod
-The method is empty
-in `languages/rlang/src/main/java/de/jplag/rlang/RCombinedBaseListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void enterProg(RParser.ProgContext context) {
-
-    }
-```
-
-### EmptyMethod
-The method is empty
-in `languages/rlang/src/main/java/de/jplag/rlang/RCombinedBaseListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void exitProg(RParser.ProgContext context) {
-
-    }
-```
-
-### EmptyMethod
-The method is empty
-in `languages/rlang/src/main/java/de/jplag/rlang/RCombinedBaseListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void enterExpr(RParser.ExprContext context) {
-
-    }
-```
-
-### EmptyMethod
-The method is empty
-in `languages/rlang/src/main/java/de/jplag/rlang/RCombinedBaseListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void exitExpr(RParser.ExprContext context) {
-
-    }
-```
-
-### EmptyMethod
-The method is empty
-in `languages/rlang/src/main/java/de/jplag/rlang/RCombinedBaseListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void exitIndex_statement(RParser.Index_statementContext context) {
-
-    }
-```
-
-### EmptyMethod
-The method is empty
-in `languages/rlang/src/main/java/de/jplag/rlang/RCombinedBaseListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void exitAccess_package(RParser.Access_packageContext context) {
-
-    }
-```
-
-### EmptyMethod
-The method is empty
-in `languages/rlang/src/main/java/de/jplag/rlang/RCombinedBaseListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void exitFunction_call(RParser.Function_callContext context) {
-
-    }
-```
-
-### EmptyMethod
-The method is empty
-in `languages/rlang/src/main/java/de/jplag/rlang/RCombinedBaseListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void enterConstant(RParser.ConstantContext context) {
-
-    }
-```
-
-### EmptyMethod
-The method is empty
-in `languages/rlang/src/main/java/de/jplag/rlang/RCombinedBaseListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void exitConstant(RParser.ConstantContext context) {
-
-    }
-```
-
-### EmptyMethod
-The method is empty
-in `languages/rlang/src/main/java/de/jplag/rlang/RCombinedBaseListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void exitConstant_number(RParser.Constant_numberContext context) {
-
-    }
-```
-
-### EmptyMethod
-The method is empty
-in `languages/rlang/src/main/java/de/jplag/rlang/RCombinedBaseListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void exitConstant_string(RParser.Constant_stringContext context) {
-
-    }
-```
-
-### EmptyMethod
-The method is empty
-in `languages/rlang/src/main/java/de/jplag/rlang/RCombinedBaseListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void exitConstant_bool(RParser.Constant_boolContext context) {
-
-    }
-```
-
-### EmptyMethod
-The method is empty
-in `languages/rlang/src/main/java/de/jplag/rlang/RCombinedBaseListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void exitHelp(RParser.HelpContext context) {
-
-    }
-```
-
-### EmptyMethod
-The method is empty
-in `languages/rlang/src/main/java/de/jplag/rlang/RCombinedBaseListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void exitNext_statement(RParser.Next_statementContext context) {
-
-    }
-```
-
-### EmptyMethod
-The method is empty
-in `languages/rlang/src/main/java/de/jplag/rlang/RCombinedBaseListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void exitBreak_statement(RParser.Break_statementContext context) {
-
-    }
-```
-
-### EmptyMethod
-The method is empty
-in `languages/rlang/src/main/java/de/jplag/rlang/RCombinedBaseListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void enterExprlist(RParser.ExprlistContext context) {
-
-    }
-```
-
-### EmptyMethod
-The method is empty
-in `languages/rlang/src/main/java/de/jplag/rlang/RCombinedBaseListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void exitExprlist(RParser.ExprlistContext context) {
-
-    }
-```
-
-### EmptyMethod
-The method is empty
-in `languages/rlang/src/main/java/de/jplag/rlang/RCombinedBaseListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void enterFormlist(RParser.FormlistContext context) {
-
-    }
-```
-
-### EmptyMethod
-The method is empty
-in `languages/rlang/src/main/java/de/jplag/rlang/RCombinedBaseListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void exitFormlist(RParser.FormlistContext context) {
-
-    }
-```
-
-### EmptyMethod
-The method is empty
-in `languages/rlang/src/main/java/de/jplag/rlang/RCombinedBaseListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void enterForm(RParser.FormContext context) {
-
-    }
-```
-
-### EmptyMethod
-The method is empty
-in `languages/rlang/src/main/java/de/jplag/rlang/RCombinedBaseListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void exitForm(RParser.FormContext context) {
-
-    }
-```
-
-### EmptyMethod
-The method is empty
-in `languages/rlang/src/main/java/de/jplag/rlang/RCombinedBaseListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void enterSublist(RParser.SublistContext context) {
-
-    }
-```
-
-### EmptyMethod
-The method is empty
-in `languages/rlang/src/main/java/de/jplag/rlang/RCombinedBaseListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void exitSublist(RParser.SublistContext context) {
-
-    }
-```
-
-### EmptyMethod
-The method is empty
-in `languages/rlang/src/main/java/de/jplag/rlang/RCombinedBaseListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void enterSub(RParser.SubContext context) {
-
-    }
-```
-
-### EmptyMethod
-The method is empty
-in `languages/rlang/src/main/java/de/jplag/rlang/RCombinedBaseListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void exitSub(RParser.SubContext context) {
-
-    }
-```
-
-### EmptyMethod
-The method is empty
-in `languages/rlang/src/main/java/de/jplag/rlang/RCombinedBaseListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void exitAssign_value(RParser.Assign_valueContext context) {
-
-    }
-```
-
-### EmptyMethod
-The method is empty
-in `languages/rlang/src/main/java/de/jplag/rlang/RCombinedBaseListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void exitAssign_func_declaration(RParser.Assign_func_declarationContext context) {
-
-    }
-```
-
-### EmptyMethod
-The method is empty
-in `languages/rlang/src/main/java/de/jplag/rlang/RCombinedBaseListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void exitAssign_value_list(RParser.Assign_value_listContext context) {
-
-    }
-```
-
-### EmptyMethod
-The method is empty
-in `languages/rlang/src/main/java/de/jplag/rlang/RCombinedBaseListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void visitTerminal(TerminalNode node) {
-
-    }
-```
-
-### EmptyMethod
-The method is empty
-in `languages/rlang/src/main/java/de/jplag/rlang/RCombinedBaseListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void visitErrorNode(ErrorNode node) {
-
-    }
-```
-
-### EmptyMethod
-The method is empty
-in `languages/rlang/src/main/java/de/jplag/rlang/RCombinedBaseListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void enterEveryRule(ParserRuleContext context) {
-
-    }
-```
-
-### EmptyMethod
-The method is empty
-in `languages/rlang/src/main/java/de/jplag/rlang/RCombinedBaseListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void exitEveryRule(ParserRuleContext context) {
-
-    }
-```
-
-## RuleId[id=RedundantFieldInitialization]
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `languages/cpp/src/main/java/de/jplag/cpp/NewlineStream.java`
+### FieldMayBeFinal
+Field `parser` may be 'final'
+in `languages/emf-metamodel/src/main/java/de/jplag/emf/parser/MetamodelTokenGenerator.java`
 #### Snippet
 ```java
  */
-public class NewlineStream extends InputStream {
-    private int endOfFile = 0;
-    private final InputStream stream;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `cli/src/main/java/de/jplag/cli/LanguageLoader.java`
-#### Snippet
-```java
-    private static final Logger logger = LoggerFactory.getLogger(LanguageLoader.class);
-
-    private static Map<String, Language> cachedLanguageInstances = null;
-
-    private LanguageLoader() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `cli/src/main/java/de/jplag/cli/logger/CollectedLogger.java`
-#### Snippet
-```java
-     * The short name of this simple log instance
-     */
-    private transient String shortLogName = null;
+public class MetamodelTokenGenerator extends AbstractMetamodelVisitor {
+    private EcoreParser parser;
 
     /**
 ```
 
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `cli/src/main/java/de/jplag/cli/logger/CollectedLogger.java`
+### FieldMayBeFinal
+Field `modelCopier` may be 'final'
+in `languages/emf-metamodel/src/main/java/de/jplag/emf/util/EmfaticModelView.java`
 #### Snippet
 ```java
-     * @see #printAllErrorsForLogger()
+    private final Map<ENamedElement, Integer> elementToLine; // maps model elements to Emfatic code line numbers
+
+    private Copier modelCopier; // Allows to trace between original and copied elements
+    private int lastLineIndex; // last line given to a token
+
+```
+
+## RuleId[id=UnnecessaryUnicodeEscape]
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00A1` can be replaced with '¡'
+in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
+#### Snippet
+```java
+
+    /*
+     * operator-head : / = - + ! * % < > & | ^ ~ ? | [\u00A1-\u00A7] | [\u00A9\u00AB] | [\u00AC\u00AE] |
+     * [\u00B0-\u00B1\u00B6\u00BB\u00BF\u00D7\u00F7] | [\u2016-\u2017\u2020-\u2027] | [\u2030-\u203E] | [\u2041-\u2053] |
+     * [\u2055-\u205E] | [\u2190-\u23FF] | [\u2500-\u2775] | [\u2794-\u2BFF] | [\u2E00-\u2E7F] | [\u3001-\u3003] |
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00A7` can be replaced with '§'
+in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
+#### Snippet
+```java
+
+    /*
+     * operator-head : / = - + ! * % < > & | ^ ~ ? | [\u00A1-\u00A7] | [\u00A9\u00AB] | [\u00AC\u00AE] |
+     * [\u00B0-\u00B1\u00B6\u00BB\u00BF\u00D7\u00F7] | [\u2016-\u2017\u2020-\u2027] | [\u2030-\u203E] | [\u2041-\u2053] |
+     * [\u2055-\u205E] | [\u2190-\u23FF] | [\u2500-\u2775] | [\u2794-\u2BFF] | [\u2E00-\u2E7F] | [\u3001-\u3003] |
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00A9` can be replaced with '©'
+in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
+#### Snippet
+```java
+
+    /*
+     * operator-head : / = - + ! * % < > & | ^ ~ ? | [\u00A1-\u00A7] | [\u00A9\u00AB] | [\u00AC\u00AE] |
+     * [\u00B0-\u00B1\u00B6\u00BB\u00BF\u00D7\u00F7] | [\u2016-\u2017\u2020-\u2027] | [\u2030-\u203E] | [\u2041-\u2053] |
+     * [\u2055-\u205E] | [\u2190-\u23FF] | [\u2500-\u2775] | [\u2794-\u2BFF] | [\u2E00-\u2E7F] | [\u3001-\u3003] |
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00AB` can be replaced with '\<\<'
+in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
+#### Snippet
+```java
+
+    /*
+     * operator-head : / = - + ! * % < > & | ^ ~ ? | [\u00A1-\u00A7] | [\u00A9\u00AB] | [\u00AC\u00AE] |
+     * [\u00B0-\u00B1\u00B6\u00BB\u00BF\u00D7\u00F7] | [\u2016-\u2017\u2020-\u2027] | [\u2030-\u203E] | [\u2041-\u2053] |
+     * [\u2055-\u205E] | [\u2190-\u23FF] | [\u2500-\u2775] | [\u2794-\u2BFF] | [\u2E00-\u2E7F] | [\u3001-\u3003] |
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00AC` can be replaced with '¬'
+in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
+#### Snippet
+```java
+
+    /*
+     * operator-head : / = - + ! * % < > & | ^ ~ ? | [\u00A1-\u00A7] | [\u00A9\u00AB] | [\u00AC\u00AE] |
+     * [\u00B0-\u00B1\u00B6\u00BB\u00BF\u00D7\u00F7] | [\u2016-\u2017\u2020-\u2027] | [\u2030-\u203E] | [\u2041-\u2053] |
+     * [\u2055-\u205E] | [\u2190-\u23FF] | [\u2500-\u2775] | [\u2794-\u2BFF] | [\u2E00-\u2E7F] | [\u3001-\u3003] |
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00AE` can be replaced with '®'
+in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
+#### Snippet
+```java
+
+    /*
+     * operator-head : / = - + ! * % < > & | ^ ~ ? | [\u00A1-\u00A7] | [\u00A9\u00AB] | [\u00AC\u00AE] |
+     * [\u00B0-\u00B1\u00B6\u00BB\u00BF\u00D7\u00F7] | [\u2016-\u2017\u2020-\u2027] | [\u2030-\u203E] | [\u2041-\u2053] |
+     * [\u2055-\u205E] | [\u2190-\u23FF] | [\u2500-\u2775] | [\u2794-\u2BFF] | [\u2E00-\u2E7F] | [\u3001-\u3003] |
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00B0` can be replaced with '°'
+in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
+#### Snippet
+```java
+    /*
+     * operator-head : / = - + ! * % < > & | ^ ~ ? | [\u00A1-\u00A7] | [\u00A9\u00AB] | [\u00AC\u00AE] |
+     * [\u00B0-\u00B1\u00B6\u00BB\u00BF\u00D7\u00F7] | [\u2016-\u2017\u2020-\u2027] | [\u2030-\u203E] | [\u2041-\u2053] |
+     * [\u2055-\u205E] | [\u2190-\u23FF] | [\u2500-\u2775] | [\u2794-\u2BFF] | [\u2E00-\u2E7F] | [\u3001-\u3003] |
+     * [\u3008-\u3030] ;
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00B1` can be replaced with '±'
+in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
+#### Snippet
+```java
+    /*
+     * operator-head : / = - + ! * % < > & | ^ ~ ? | [\u00A1-\u00A7] | [\u00A9\u00AB] | [\u00AC\u00AE] |
+     * [\u00B0-\u00B1\u00B6\u00BB\u00BF\u00D7\u00F7] | [\u2016-\u2017\u2020-\u2027] | [\u2030-\u203E] | [\u2041-\u2053] |
+     * [\u2055-\u205E] | [\u2190-\u23FF] | [\u2500-\u2775] | [\u2794-\u2BFF] | [\u2E00-\u2E7F] | [\u3001-\u3003] |
+     * [\u3008-\u3030] ;
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00B6` can be replaced with '¶'
+in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
+#### Snippet
+```java
+    /*
+     * operator-head : / = - + ! * % < > & | ^ ~ ? | [\u00A1-\u00A7] | [\u00A9\u00AB] | [\u00AC\u00AE] |
+     * [\u00B0-\u00B1\u00B6\u00BB\u00BF\u00D7\u00F7] | [\u2016-\u2017\u2020-\u2027] | [\u2030-\u203E] | [\u2041-\u2053] |
+     * [\u2055-\u205E] | [\u2190-\u23FF] | [\u2500-\u2775] | [\u2794-\u2BFF] | [\u2E00-\u2E7F] | [\u3001-\u3003] |
+     * [\u3008-\u3030] ;
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00BB` can be replaced with '\>\>'
+in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
+#### Snippet
+```java
+    /*
+     * operator-head : / = - + ! * % < > & | ^ ~ ? | [\u00A1-\u00A7] | [\u00A9\u00AB] | [\u00AC\u00AE] |
+     * [\u00B0-\u00B1\u00B6\u00BB\u00BF\u00D7\u00F7] | [\u2016-\u2017\u2020-\u2027] | [\u2030-\u203E] | [\u2041-\u2053] |
+     * [\u2055-\u205E] | [\u2190-\u23FF] | [\u2500-\u2775] | [\u2794-\u2BFF] | [\u2E00-\u2E7F] | [\u3001-\u3003] |
+     * [\u3008-\u3030] ;
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00BF` can be replaced with '¿'
+in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
+#### Snippet
+```java
+    /*
+     * operator-head : / = - + ! * % < > & | ^ ~ ? | [\u00A1-\u00A7] | [\u00A9\u00AB] | [\u00AC\u00AE] |
+     * [\u00B0-\u00B1\u00B6\u00BB\u00BF\u00D7\u00F7] | [\u2016-\u2017\u2020-\u2027] | [\u2030-\u203E] | [\u2041-\u2053] |
+     * [\u2055-\u205E] | [\u2190-\u23FF] | [\u2500-\u2775] | [\u2794-\u2BFF] | [\u2E00-\u2E7F] | [\u3001-\u3003] |
+     * [\u3008-\u3030] ;
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00D7` can be replaced with '×'
+in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
+#### Snippet
+```java
+    /*
+     * operator-head : / = - + ! * % < > & | ^ ~ ? | [\u00A1-\u00A7] | [\u00A9\u00AB] | [\u00AC\u00AE] |
+     * [\u00B0-\u00B1\u00B6\u00BB\u00BF\u00D7\u00F7] | [\u2016-\u2017\u2020-\u2027] | [\u2030-\u203E] | [\u2041-\u2053] |
+     * [\u2055-\u205E] | [\u2190-\u23FF] | [\u2500-\u2775] | [\u2794-\u2BFF] | [\u2E00-\u2E7F] | [\u3001-\u3003] |
+     * [\u3008-\u3030] ;
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00F7` can be replaced with '÷'
+in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
+#### Snippet
+```java
+    /*
+     * operator-head : / = - + ! * % < > & | ^ ~ ? | [\u00A1-\u00A7] | [\u00A9\u00AB] | [\u00AC\u00AE] |
+     * [\u00B0-\u00B1\u00B6\u00BB\u00BF\u00D7\u00F7] | [\u2016-\u2017\u2020-\u2027] | [\u2030-\u203E] | [\u2041-\u2053] |
+     * [\u2055-\u205E] | [\u2190-\u23FF] | [\u2500-\u2775] | [\u2794-\u2BFF] | [\u2E00-\u2E7F] | [\u3001-\u3003] |
+     * [\u3008-\u3030] ;
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2016` can be replaced with '‖'
+in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
+#### Snippet
+```java
+    /*
+     * operator-head : / = - + ! * % < > & | ^ ~ ? | [\u00A1-\u00A7] | [\u00A9\u00AB] | [\u00AC\u00AE] |
+     * [\u00B0-\u00B1\u00B6\u00BB\u00BF\u00D7\u00F7] | [\u2016-\u2017\u2020-\u2027] | [\u2030-\u203E] | [\u2041-\u2053] |
+     * [\u2055-\u205E] | [\u2190-\u23FF] | [\u2500-\u2775] | [\u2794-\u2BFF] | [\u2E00-\u2E7F] | [\u3001-\u3003] |
+     * [\u3008-\u3030] ;
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2017` can be replaced with '‗'
+in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
+#### Snippet
+```java
+    /*
+     * operator-head : / = - + ! * % < > & | ^ ~ ? | [\u00A1-\u00A7] | [\u00A9\u00AB] | [\u00AC\u00AE] |
+     * [\u00B0-\u00B1\u00B6\u00BB\u00BF\u00D7\u00F7] | [\u2016-\u2017\u2020-\u2027] | [\u2030-\u203E] | [\u2041-\u2053] |
+     * [\u2055-\u205E] | [\u2190-\u23FF] | [\u2500-\u2775] | [\u2794-\u2BFF] | [\u2E00-\u2E7F] | [\u3001-\u3003] |
+     * [\u3008-\u3030] ;
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2020` can be replaced with '†'
+in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
+#### Snippet
+```java
+    /*
+     * operator-head : / = - + ! * % < > & | ^ ~ ? | [\u00A1-\u00A7] | [\u00A9\u00AB] | [\u00AC\u00AE] |
+     * [\u00B0-\u00B1\u00B6\u00BB\u00BF\u00D7\u00F7] | [\u2016-\u2017\u2020-\u2027] | [\u2030-\u203E] | [\u2041-\u2053] |
+     * [\u2055-\u205E] | [\u2190-\u23FF] | [\u2500-\u2775] | [\u2794-\u2BFF] | [\u2E00-\u2E7F] | [\u3001-\u3003] |
+     * [\u3008-\u3030] ;
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2027` can be replaced with '‧'
+in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
+#### Snippet
+```java
+    /*
+     * operator-head : / = - + ! * % < > & | ^ ~ ? | [\u00A1-\u00A7] | [\u00A9\u00AB] | [\u00AC\u00AE] |
+     * [\u00B0-\u00B1\u00B6\u00BB\u00BF\u00D7\u00F7] | [\u2016-\u2017\u2020-\u2027] | [\u2030-\u203E] | [\u2041-\u2053] |
+     * [\u2055-\u205E] | [\u2190-\u23FF] | [\u2500-\u2775] | [\u2794-\u2BFF] | [\u2E00-\u2E7F] | [\u3001-\u3003] |
+     * [\u3008-\u3030] ;
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2030` can be replaced with '‰'
+in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
+#### Snippet
+```java
+    /*
+     * operator-head : / = - + ! * % < > & | ^ ~ ? | [\u00A1-\u00A7] | [\u00A9\u00AB] | [\u00AC\u00AE] |
+     * [\u00B0-\u00B1\u00B6\u00BB\u00BF\u00D7\u00F7] | [\u2016-\u2017\u2020-\u2027] | [\u2030-\u203E] | [\u2041-\u2053] |
+     * [\u2055-\u205E] | [\u2190-\u23FF] | [\u2500-\u2775] | [\u2794-\u2BFF] | [\u2E00-\u2E7F] | [\u3001-\u3003] |
+     * [\u3008-\u3030] ;
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u203E` can be replaced with '‾'
+in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
+#### Snippet
+```java
+    /*
+     * operator-head : / = - + ! * % < > & | ^ ~ ? | [\u00A1-\u00A7] | [\u00A9\u00AB] | [\u00AC\u00AE] |
+     * [\u00B0-\u00B1\u00B6\u00BB\u00BF\u00D7\u00F7] | [\u2016-\u2017\u2020-\u2027] | [\u2030-\u203E] | [\u2041-\u2053] |
+     * [\u2055-\u205E] | [\u2190-\u23FF] | [\u2500-\u2775] | [\u2794-\u2BFF] | [\u2E00-\u2E7F] | [\u3001-\u3003] |
+     * [\u3008-\u3030] ;
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2041` can be replaced with '⁁'
+in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
+#### Snippet
+```java
+    /*
+     * operator-head : / = - + ! * % < > & | ^ ~ ? | [\u00A1-\u00A7] | [\u00A9\u00AB] | [\u00AC\u00AE] |
+     * [\u00B0-\u00B1\u00B6\u00BB\u00BF\u00D7\u00F7] | [\u2016-\u2017\u2020-\u2027] | [\u2030-\u203E] | [\u2041-\u2053] |
+     * [\u2055-\u205E] | [\u2190-\u23FF] | [\u2500-\u2775] | [\u2794-\u2BFF] | [\u2E00-\u2E7F] | [\u3001-\u3003] |
+     * [\u3008-\u3030] ;
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2053` can be replaced with '⁓'
+in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
+#### Snippet
+```java
+    /*
+     * operator-head : / = - + ! * % < > & | ^ ~ ? | [\u00A1-\u00A7] | [\u00A9\u00AB] | [\u00AC\u00AE] |
+     * [\u00B0-\u00B1\u00B6\u00BB\u00BF\u00D7\u00F7] | [\u2016-\u2017\u2020-\u2027] | [\u2030-\u203E] | [\u2041-\u2053] |
+     * [\u2055-\u205E] | [\u2190-\u23FF] | [\u2500-\u2775] | [\u2794-\u2BFF] | [\u2E00-\u2E7F] | [\u3001-\u3003] |
+     * [\u3008-\u3030] ;
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2055` can be replaced with '⁕'
+in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
+#### Snippet
+```java
+     * operator-head : / = - + ! * % < > & | ^ ~ ? | [\u00A1-\u00A7] | [\u00A9\u00AB] | [\u00AC\u00AE] |
+     * [\u00B0-\u00B1\u00B6\u00BB\u00BF\u00D7\u00F7] | [\u2016-\u2017\u2020-\u2027] | [\u2030-\u203E] | [\u2041-\u2053] |
+     * [\u2055-\u205E] | [\u2190-\u23FF] | [\u2500-\u2775] | [\u2794-\u2BFF] | [\u2E00-\u2E7F] | [\u3001-\u3003] |
+     * [\u3008-\u3030] ;
      */
-    private transient boolean isFinalizing = false;
-
-    private final transient SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-hh:mm:ss_SSS");
 ```
 
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `core/src/main/java/de/jplag/clustering/preprocessors/PercentileThresholdProcessor.java`
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u205E` can be replaced with '⁞'
+in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
 #### Snippet
 ```java
-        similarity.walkInOptimizedOrder(new DefaultRealMatrixPreservingVisitor() {
-
-            int index = 0;
-
-            @Override
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `core/src/main/java/de/jplag/clustering/Cluster.java`
-#### Snippet
-```java
-    private final double communityStrength;
-    private final Collection<T> members;
-    private ClusteringResult<T> clusteringResult = null;
-    private final double averageSimilarity;
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `core/src/main/java/de/jplag/clustering/IntegerMapping.java`
-#### Snippet
-```java
-    private final Map<T, Integer> mapping;
-    private final List<T> backMapping;
-    private int size = 0;
-
-    public IntegerMapping(int initialCapacity) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `language-api/src/main/java/de/jplag/TokenPrinter.java`
-#### Snippet
-```java
-        private int columnIndex = 1;
-        private int lineNumber;
-        private int trailingLineSeparators = 0;
-
-        /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `core/src/main/java/de/jplag/clustering/preprocessors/CumulativeDistributionFunctionPreprocessor.java`
-#### Snippet
-```java
-        similarity.walkInOptimizedOrder(new DefaultRealMatrixPreservingVisitor() {
-
-            int index = 0;
-
-            @Override
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `core/src/main/java/de/jplag/clustering/algorithm/BayesianOptimization.java`
-#### Snippet
-```java
-    private final double noise;
-    private final RealVector lengthScale;
-    private boolean debug = false;
-
-    /**
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `core/src/main/java/de/jplag/SubmissionSet.java`
-#### Snippet
-```java
-
-    private final JPlagOptions options;
-    private int errors = 0;
-    private String currentSubmissionName;
-
-```
-
-## RuleId[id=AssignmentToMethodParameter]
-### AssignmentToMethodParameter
-Assignment to method parameter `submissionFile`
-in `core/src/main/java/de/jplag/SubmissionSetBuilder.java`
-#### Snippet
-```java
-        if (submissionFile.isDirectory() && options.subdirectoryName() != null) {
-            // Use subdirectory instead
-            submissionFile = new File(submissionFile, options.subdirectoryName());
-
-            if (!submissionFile.exists()) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `submissionFile`
-in `core/src/main/java/de/jplag/SubmissionSetBuilder.java`
-#### Snippet
-```java
-        }
-
-        submissionFile = makeCanonical(submissionFile, it -> new SubmissionException("Cannot create submission: " + submissionName, it));
-        return new Submission(submissionName, submissionFile, isNew, parseFilesRecursively(submissionFile), language);
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `i`
-in `core/src/main/java/de/jplag/clustering/algorithm/BFGS.java`
-#### Snippet
-```java
-         */
-        public double[] row(int i) {
-            i = i < 0 ? m + i : i;
-            return d.getRow(i);
-        }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `currentLine`
-in `language-api/src/main/java/de/jplag/TokenPrinter.java`
-#### Snippet
-```java
-            // Code line
-            if (REPLACE_TABS) {
-                currentLine = currentLine.replaceAll(TAB, TAB_REPLACEMENT);
-            }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `targetPosition`
-in `language-api/src/main/java/de/jplag/TokenPrinter.java`
-#### Snippet
-```java
-         */
-        PrinterOutputBuilder advanceToTokenPosition(String currentLine, int targetPosition, boolean breakLine) {
-            targetPosition = Math.min(targetPosition, currentLine.length());
-            if (!positionBeforeOrEqualTo(targetPosition)) {
-                if (!breakLine) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `windowSize`
-in `core/src/main/java/de/jplag/SubsequenceHashLookupTable.java`
-#### Snippet
-```java
+     * operator-head : / = - + ! * % < > & | ^ ~ ? | [\u00A1-\u00A7] | [\u00A9\u00AB] | [\u00AC\u00AE] |
+     * [\u00B0-\u00B1\u00B6\u00BB\u00BF\u00D7\u00F7] | [\u2016-\u2017\u2020-\u2027] | [\u2030-\u203E] | [\u2041-\u2053] |
+     * [\u2055-\u205E] | [\u2190-\u23FF] | [\u2500-\u2775] | [\u2794-\u2BFF] | [\u2E00-\u2E7F] | [\u3001-\u3003] |
+     * [\u3008-\u3030] ;
      */
-    SubsequenceHashLookupTable(int windowSize, int[] values, Set<Integer> markedIndexes) {
-        windowSize = Math.max(1, windowSize);
-        windowSize = Math.min(MAX_HASH_LENGTH, windowSize);
-        this.windowSize = windowSize;
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `windowSize`
-in `core/src/main/java/de/jplag/SubsequenceHashLookupTable.java`
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2190` can be replaced with '←'
+in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
 #### Snippet
 ```java
-    SubsequenceHashLookupTable(int windowSize, int[] values, Set<Integer> markedIndexes) {
-        windowSize = Math.max(1, windowSize);
-        windowSize = Math.min(MAX_HASH_LENGTH, windowSize);
-        this.windowSize = windowSize;
-        this.values = values;
-```
-
-## RuleId[id=CallToStringConcatCanBeReplacedByOperator]
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `core/src/main/java/de/jplag/reporting/jsonfactory/ComparisonReportWriter.java`
-#### Snippet
-```java
-
-    private String concatenate(String firstSubmissionId, String secondSubmissionId, long index) {
-        return firstSubmissionId.concat("-").concat(secondSubmissionId).concat(index > 0 ? "-" + index : "").concat(".json");
-    }
-
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `core/src/main/java/de/jplag/reporting/jsonfactory/ComparisonReportWriter.java`
-#### Snippet
-```java
-
-    private String concatenate(String firstSubmissionId, String secondSubmissionId, long index) {
-        return firstSubmissionId.concat("-").concat(secondSubmissionId).concat(index > 0 ? "-" + index : "").concat(".json");
-    }
-
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `core/src/main/java/de/jplag/reporting/jsonfactory/ComparisonReportWriter.java`
-#### Snippet
-```java
-
-    private String concatenate(String firstSubmissionId, String secondSubmissionId, long index) {
-        return firstSubmissionId.concat("-").concat(secondSubmissionId).concat(index > 0 ? "-" + index : "").concat(".json");
-    }
-
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `core/src/main/java/de/jplag/reporting/jsonfactory/ComparisonReportWriter.java`
-#### Snippet
-```java
-
-    private String concatenate(String firstSubmissionId, String secondSubmissionId, long index) {
-        return firstSubmissionId.concat("-").concat(secondSubmissionId).concat(index > 0 ? "-" + index : "").concat(".json");
-    }
-
-```
-
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `core/src/main/java/de/jplag/reporting/jsonfactory/DirectoryManager.java`
-#### Snippet
-```java
+     * operator-head : / = - + ! * % < > & | ^ ~ ? | [\u00A1-\u00A7] | [\u00A9\u00AB] | [\u00AC\u00AE] |
+     * [\u00B0-\u00B1\u00B6\u00BB\u00BF\u00D7\u00F7] | [\u2016-\u2017\u2020-\u2027] | [\u2030-\u203E] | [\u2041-\u2053] |
+     * [\u2055-\u205E] | [\u2190-\u23FF] | [\u2500-\u2775] | [\u2794-\u2BFF] | [\u2E00-\u2E7F] | [\u3001-\u3003] |
+     * [\u3008-\u3030] ;
      */
-    public static File createDirectory(String path, String name) throws IOException {
-        File directory = new File(path.concat(File.separator).concat(name));
-        if (!directory.exists() && !directory.mkdirs()) {
-            throw new IOException("Failed to create dir.");
 ```
 
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `core/src/main/java/de/jplag/reporting/jsonfactory/DirectoryManager.java`
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u23FF` can be replaced with '⏿'
+in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
 #### Snippet
 ```java
+     * operator-head : / = - + ! * % < > & | ^ ~ ? | [\u00A1-\u00A7] | [\u00A9\u00AB] | [\u00AC\u00AE] |
+     * [\u00B0-\u00B1\u00B6\u00BB\u00BF\u00D7\u00F7] | [\u2016-\u2017\u2020-\u2027] | [\u2030-\u203E] | [\u2041-\u2053] |
+     * [\u2055-\u205E] | [\u2190-\u23FF] | [\u2500-\u2775] | [\u2794-\u2BFF] | [\u2E00-\u2E7F] | [\u3001-\u3003] |
+     * [\u3008-\u3030] ;
      */
-    public static File createDirectory(String path, String name) throws IOException {
-        File directory = new File(path.concat(File.separator).concat(name));
-        if (!directory.exists() && !directory.mkdirs()) {
-            throw new IOException("Failed to create dir.");
 ```
 
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-19-11-50-59.890.html`
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2500` can be replaced with '─'
+in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
 #### Snippet
 ```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
-```
-
-## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
-in `languages/emf-metamodel/src/main/java/de/jplag/emf/util/EMFUtil.java`
-#### Snippet
-```java
-            logger.error("Could not load {}: {}", file, exception.getCause().getMessage());
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/de/jplag/clustering/Preprocessing.java`
-#### Snippet
-```java
- */
-public enum Preprocessing {
-    NONE(options -> null),
-    /** {@link CumulativeDistributionFunctionPreprocessor} */
-    CUMULATIVE_DISTRIBUTION_FUNCTION(options -> new CumulativeDistributionFunctionPreprocessor()),
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/de/jplag/Submission.java`
-#### Snippet
-```java
+     * operator-head : / = - + ! * % < > & | ^ ~ ? | [\u00A1-\u00A7] | [\u00A9\u00AB] | [\u00AC\u00AE] |
+     * [\u00B0-\u00B1\u00B6\u00BB\u00BF\u00D7\u00F7] | [\u2016-\u2017\u2020-\u2027] | [\u2030-\u203E] | [\u2041-\u2053] |
+     * [\u2055-\u205E] | [\u2190-\u23FF] | [\u2500-\u2775] | [\u2794-\u2BFF] | [\u2E00-\u2E7F] | [\u3001-\u3003] |
+     * [\u3008-\u3030] ;
      */
-    public List<Token> getTokenList() {
-        return tokenList == null ? null : Collections.unmodifiableList(tokenList);
-    }
-
 ```
 
-### ReturnNull
-Return of `null`
-in `core/src/main/java/de/jplag/SubmissionSetBuilder.java`
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2775` can be replaced with '❵'
+in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
 #### Snippet
 ```java
-            return "Ignore submission with invalid suffix: " + submissionEntry.getName();
-        }
-        return null;
-    }
-
+     * operator-head : / = - + ! * % < > & | ^ ~ ? | [\u00A1-\u00A7] | [\u00A9\u00AB] | [\u00AC\u00AE] |
+     * [\u00B0-\u00B1\u00B6\u00BB\u00BF\u00D7\u00F7] | [\u2016-\u2017\u2020-\u2027] | [\u2030-\u203E] | [\u2041-\u2053] |
+     * [\u2055-\u205E] | [\u2190-\u23FF] | [\u2500-\u2775] | [\u2794-\u2BFF] | [\u2E00-\u2E7F] | [\u3001-\u3003] |
+     * [\u3008-\u3030] ;
+     */
 ```
 
-### ReturnNull
-Return of `null`
-in `core/src/main/java/de/jplag/reporting/reportobject/ReportObjectFactory.java`
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2794` can be replaced with '➔'
+in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
 #### Snippet
 ```java
-        } catch (IOException e) {
-            logger.error("Could not create directory " + path + " for report viewer generation", e);
-            return null;
-        }
-    }
+     * operator-head : / = - + ! * % < > & | ^ ~ ? | [\u00A1-\u00A7] | [\u00A9\u00AB] | [\u00AC\u00AE] |
+     * [\u00B0-\u00B1\u00B6\u00BB\u00BF\u00D7\u00F7] | [\u2016-\u2017\u2020-\u2027] | [\u2030-\u203E] | [\u2041-\u2053] |
+     * [\u2055-\u205E] | [\u2190-\u23FF] | [\u2500-\u2775] | [\u2794-\u2BFF] | [\u2E00-\u2E7F] | [\u3001-\u3003] |
+     * [\u3008-\u3030] ;
+     */
 ```
 
-### ReturnNull
-Return of `null`
-in `core/src/main/java/de/jplag/reporting/reportobject/ReportObjectFactory.java`
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2BFF` can be replaced with '⯿'
+in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
 #### Snippet
 ```java
-        } catch (IOException e) {
-            logger.error("Could not create directory " + path + " for report viewer generation", e);
-            return null;
-        }
-    }
+     * operator-head : / = - + ! * % < > & | ^ ~ ? | [\u00A1-\u00A7] | [\u00A9\u00AB] | [\u00AC\u00AE] |
+     * [\u00B0-\u00B1\u00B6\u00BB\u00BF\u00D7\u00F7] | [\u2016-\u2017\u2020-\u2027] | [\u2030-\u203E] | [\u2041-\u2053] |
+     * [\u2055-\u205E] | [\u2190-\u23FF] | [\u2500-\u2775] | [\u2794-\u2BFF] | [\u2E00-\u2E7F] | [\u3001-\u3003] |
+     * [\u3008-\u3030] ;
+     */
 ```
 
-### ReturnNull
-Return of `null`
-in `core/src/main/java/de/jplag/reporting/reportobject/ReportObjectFactory.java`
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2E00` can be replaced with '⸀'
+in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
 #### Snippet
 ```java
-        } catch (IOException e) {
-            logger.error("Could not create directory " + path + " for report viewer generation", e);
-            return null;
-        }
-    }
+     * operator-head : / = - + ! * % < > & | ^ ~ ? | [\u00A1-\u00A7] | [\u00A9\u00AB] | [\u00AC\u00AE] |
+     * [\u00B0-\u00B1\u00B6\u00BB\u00BF\u00D7\u00F7] | [\u2016-\u2017\u2020-\u2027] | [\u2030-\u203E] | [\u2041-\u2053] |
+     * [\u2055-\u205E] | [\u2190-\u23FF] | [\u2500-\u2775] | [\u2794-\u2BFF] | [\u2E00-\u2E7F] | [\u3001-\u3003] |
+     * [\u3008-\u3030] ;
+     */
 ```
 
-### ReturnNull
-Return of `null`
-in `language-api/src/main/java/de/jplag/ParsingException.java`
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u3001` can be replaced with '、'
+in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
 #### Snippet
 ```java
-        switch (exceptions.size()) {
-            case 0:
-                return null;
-            case 1:
-                return exceptions.iterator().next();
+     * operator-head : / = - + ! * % < > & | ^ ~ ? | [\u00A1-\u00A7] | [\u00A9\u00AB] | [\u00AC\u00AE] |
+     * [\u00B0-\u00B1\u00B6\u00BB\u00BF\u00D7\u00F7] | [\u2016-\u2017\u2020-\u2027] | [\u2030-\u203E] | [\u2041-\u2053] |
+     * [\u2055-\u205E] | [\u2190-\u23FF] | [\u2500-\u2775] | [\u2794-\u2BFF] | [\u2E00-\u2E7F] | [\u3001-\u3003] |
+     * [\u3008-\u3030] ;
+     */
 ```
 
-### ReturnNull
-Return of `null`
-in `languages/java/src/main/java/de/jplag/java/TokenGeneratingTreeScanner.java`
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u3003` can be replaced with '〃'
+in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
 #### Snippet
 ```java
-        scan(node.getElseStatement(), p);
-        addToken(JavaTokenType.J_IF_END, end, 1);
-        return null;
-    }
-
+     * operator-head : / = - + ! * % < > & | ^ ~ ? | [\u00A1-\u00A7] | [\u00A9\u00AB] | [\u00AC\u00AE] |
+     * [\u00B0-\u00B1\u00B6\u00BB\u00BF\u00D7\u00F7] | [\u2016-\u2017\u2020-\u2027] | [\u2030-\u203E] | [\u2041-\u2053] |
+     * [\u2055-\u205E] | [\u2190-\u23FF] | [\u2500-\u2775] | [\u2794-\u2BFF] | [\u2E00-\u2E7F] | [\u3001-\u3003] |
+     * [\u3008-\u3030] ;
+     */
 ```
 
-### ReturnNull
-Return of `null`
-in `languages/java/src/main/java/de/jplag/java/TokenGeneratingTreeScanner.java`
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u3008` can be replaced with '〈'
+in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
 #### Snippet
 ```java
-        }
-        scan(node.getFinallyBlock(), p);
-        return null; // return value isn't used
-    }
-
+     * [\u00B0-\u00B1\u00B6\u00BB\u00BF\u00D7\u00F7] | [\u2016-\u2017\u2020-\u2027] | [\u2030-\u203E] | [\u2041-\u2053] |
+     * [\u2055-\u205E] | [\u2190-\u23FF] | [\u2500-\u2775] | [\u2794-\u2BFF] | [\u2E00-\u2E7F] | [\u3001-\u3003] |
+     * [\u3008-\u3030] ;
+     */
+    public static final BitSet operatorHead = new BitSet(0x10000);
 ```
 
-### ReturnNull
-Return of `null`
-in `languages/java/src/main/java/de/jplag/java/TokenGeneratingTreeScanner.java`
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u3030` can be replaced with '〰'
+in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
 #### Snippet
 ```java
-            addToken(JavaTokenType.J_ARRAY_INIT_END, end, 1);
-        }
-        return null; // return value isn't used
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/de/jplag/reporting/reportobject/model/Version.java`
-#### Snippet
-```java
-        if (!plainVersion.matches("\\d+\\.\\d+\\.\\d+")) {
-            logger.debug("Version {} could not be parsed. Defaulting to null.", version);
-            return null;
-        }
-        String[] versionParts = plainVersion.split("\\.");
-```
-
-### ReturnNull
-Return of `null`
-in `cli/src/main/java/de/jplag/cli/CLI.java`
-#### Snippet
-```java
-            System.exit(1);
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/de/jplag/options/JPlagOptions.java`
-#### Snippet
-```java
-        if ((fileSuffixes == null || fileSuffixes.isEmpty()) && language != null)
-            return Arrays.stream(language.suffixes()).toList();
-        return fileSuffixes == null ? null : Collections.unmodifiableList(fileSuffixes);
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/de/jplag/options/JPlagOptions.java`
-#### Snippet
-```java
-    private static File convertLegacyBaseCodeToFile(String baseCodeSubmissionName, File submissionDirectory) throws BasecodeException {
-        if (baseCodeSubmissionName == null) {
-            return null;
-        }
-        File baseCodeAsAbsolutePath = new File(baseCodeSubmissionName);
+     * [\u00B0-\u00B1\u00B6\u00BB\u00BF\u00D7\u00F7] | [\u2016-\u2017\u2020-\u2027] | [\u2030-\u203E] | [\u2041-\u2053] |
+     * [\u2055-\u205E] | [\u2190-\u23FF] | [\u2500-\u2775] | [\u2794-\u2BFF] | [\u2E00-\u2E7F] | [\u3001-\u3003] |
+     * [\u3008-\u3030] ;
+     */
+    public static final BitSet operatorHead = new BitSet(0x10000);
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
@@ -3007,31 +1545,6 @@ in `core/src/main/java/de/jplag/clustering/algorithm/BFGS.java`
             // c.uplo(LOWER);
 ```
 
-## RuleId[id=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `core/src/main/java/de/jplag/clustering/PreprocessorHelper.java`
-#### Snippet
-```java
-        int[] preservedRows = rowList.stream().mapToInt(Integer::intValue).toArray();
-        if (preservedRows.length == 0) {
-            return new double[0][];
-        }
-        similarity = similarity.getSubMatrix(preservedRows, preservedRows);
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `cli/src/main/java/de/jplag/cli/CLI.java`
-#### Snippet
-```java
-    public JPlagOptions buildOptionsFromArguments(Namespace namespace) {
-        String fileSuffixString = SUFFIXES.getFrom(namespace);
-        String[] fileSuffixes = new String[] {};
-        if (fileSuffixString != null) {
-            fileSuffixes = fileSuffixString.replaceAll("\\s+", "").split(",");
-```
-
 ## RuleId[id=RedundantUnmodifiable]
 ### RedundantUnmodifiable
 Redundant usage of the 'unmodifiableList' wrapper
@@ -3041,6 +1554,19 @@ in `core/src/main/java/de/jplag/clustering/ClusteringResult.java`
 
     public Collection<Cluster<T>> getClusters() {
         return Collections.unmodifiableList(clusters);
+    }
+
+```
+
+## RuleId[id=OptionalGetWithoutIsPresent]
+### OptionalGetWithoutIsPresent
+`OptionalDouble.getAsDouble()` without 'isPresent()' check
+in `core/src/main/java/de/jplag/clustering/ClusteringResult.java`
+#### Snippet
+```java
+    public double getWorth(BiFunction<T, T, Double> similarity) {
+        return getClusters().stream().mapToDouble(c -> c.getWorth(similarity)).map(worth -> Double.isFinite(worth) ? worth : 0).average()
+                .getAsDouble();
     }
 
 ```
@@ -3191,42 +1717,6 @@ in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
 ```
 
 ### ConstantValue
-Condition `Objects.nonNull(elements)` is always `false`
-in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
-#### Snippet
-```java
-        var elements = context.getChild(RustParser.TupleElementsContext.class, 0);
-        // one child = exactly one subtree and no trailing comma
-        if (Objects.nonNull(elements) && elements.getChildCount() == 1) {
-            state.enter(RustContext.REDUNDANT_TUPLE);
-        }
-```
-
-### ConstantValue
-Condition `Objects.nonNull(elements) && elements.getChildCount() == 1` is always `false`
-in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
-#### Snippet
-```java
-        var elements = context.getChild(RustParser.TupleElementsContext.class, 0);
-        // one child = exactly one subtree and no trailing comma
-        if (Objects.nonNull(elements) && elements.getChildCount() == 1) {
-            state.enter(RustContext.REDUNDANT_TUPLE);
-        }
-```
-
-### ConstantValue
-Value `elements` is always 'null'
-in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
-#### Snippet
-```java
-        var elements = context.getChild(RustParser.TupleElementsContext.class, 0);
-        // one child = exactly one subtree and no trailing comma
-        if (Objects.nonNull(elements) && elements.getChildCount() == 1) {
-            state.enter(RustContext.REDUNDANT_TUPLE);
-        }
-```
-
-### ConstantValue
 Condition `parentNode instanceof RustParser.MacroPunctuationTokenContext` is always `false`
 in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
 #### Snippet
@@ -3298,17 +1788,40 @@ in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
                     transformToken(ASSIGNMENT, token);
 ```
 
-## RuleId[id=OptionalGetWithoutIsPresent]
-### OptionalGetWithoutIsPresent
-`OptionalDouble.getAsDouble()` without 'isPresent()' check
-in `core/src/main/java/de/jplag/clustering/ClusteringResult.java`
+### ConstantValue
+Condition `Objects.nonNull(elements)` is always `false`
+in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
 #### Snippet
 ```java
-    public double getWorth(BiFunction<T, T, Double> similarity) {
-        return getClusters().stream().mapToDouble(c -> c.getWorth(similarity)).map(worth -> Double.isFinite(worth) ? worth : 0).average()
-                .getAsDouble();
-    }
+        var elements = context.getChild(RustParser.TupleElementsContext.class, 0);
+        // one child = exactly one subtree and no trailing comma
+        if (Objects.nonNull(elements) && elements.getChildCount() == 1) {
+            state.enter(RustContext.REDUNDANT_TUPLE);
+        }
+```
 
+### ConstantValue
+Condition `Objects.nonNull(elements) && elements.getChildCount() == 1` is always `false`
+in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
+#### Snippet
+```java
+        var elements = context.getChild(RustParser.TupleElementsContext.class, 0);
+        // one child = exactly one subtree and no trailing comma
+        if (Objects.nonNull(elements) && elements.getChildCount() == 1) {
+            state.enter(RustContext.REDUNDANT_TUPLE);
+        }
+```
+
+### ConstantValue
+Value `elements` is always 'null'
+in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
+#### Snippet
+```java
+        var elements = context.getChild(RustParser.TupleElementsContext.class, 0);
+        // one child = exactly one subtree and no trailing comma
+        if (Objects.nonNull(elements) && elements.getChildCount() == 1) {
+            state.enter(RustContext.REDUNDANT_TUPLE);
+        }
 ```
 
 ## RuleId[id=StringConcatenationInsideStringBufferAppend]
