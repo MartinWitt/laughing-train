@@ -1,20 +1,55 @@
 # teamcity-local-cloud 
  
 # Bad smells
-I found 26 bad smells with 3 repairable:
+I found 14 bad smells with 1 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| UseOfPropertiesAsHashtable | 9 | false |
-| ReturnNull | 6 | false |
+| SpringXmlModelInspection | 5 | false |
+| SpringBeanConstructorArgInspection | 2 | false |
+| SpringXmlAutowireExplicitlyInspection | 2 | false |
 | UNUSED_IMPORT | 2 | false |
-| DoubleBraceInitialization | 2 | false |
 | WrapperTypeMayBePrimitive | 1 | false |
-| SizeReplaceableByIsEmpty | 1 | true |
 | ProtectedMemberInFinalClass | 1 | true |
-| UnnecessaryFullyQualifiedName | 1 | false |
-| NonProtectedConstructorInAbstractClass | 1 | true |
 | MismatchedCollectionQueryUpdate | 1 | false |
-| Convert2Lambda | 1 | false |
+## RuleId[id=SpringBeanConstructorArgInspection]
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'LocalCloudClientFactory'#treeend
+
+*** ** * ** ***
+
+|-----------------------------------|---|-----------|
+| **LocalCloudClientFactory(...):** |   | **Bean:** |
+| CloudRegistrar cloudRegistrar     |   | **???**   |
+| PluginDescriptor pluginDescriptor |   | **???**   |
+in `src/META-INF/build-server-plugin-local-cloud.xml`
+#### Snippet
+```java
+       default-autowire="constructor">
+
+  <bean class="jetbrains.buildServer.clouds.local.LocalCloudClientFactory"/>
+  <bean class="jetbrains.buildServer.clouds.local.LocalCloudImageDetailsExtension"/>
+
+```
+
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'LocalCloudImageDetailsExtension'#treeend
+
+*** ** * ** ***
+
+|-------------------------------------------|---|-----------|
+| **LocalCloudImageDetailsExtension(...):** |   | **Bean:** |
+| PagePlaces pagePlaces                     |   | **???**   |
+| PluginDescriptor pluginDescriptor         |   | **???**   |
+in `src/META-INF/build-server-plugin-local-cloud.xml`
+#### Snippet
+```java
+
+  <bean class="jetbrains.buildServer.clouds.local.LocalCloudClientFactory"/>
+  <bean class="jetbrains.buildServer.clouds.local.LocalCloudImageDetailsExtension"/>
+
+</beans>
+```
+
 ## RuleId[id=WrapperTypeMayBePrimitive]
 ### WrapperTypeMayBePrimitive
 Type may be primitive
@@ -28,90 +63,29 @@ in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
           } catch (NumberFormatException e) {
 ```
 
-## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
+## RuleId[id=SpringXmlAutowireExplicitlyInspection]
+### SpringXmlAutowireExplicitlyInspection
+Make autowired dependency explicit
+in `fake-teamcity-server-plugin-context.xml`
 #### Snippet
 ```java
-  private LocalCloudImage findImage(@NotNull final AgentDescription agentDescription) {
-    final String imageId = agentDescription.getConfigurationParameters().get(LocalCloudConstants.IMAGE_ID_PARAM_NAME);
-    return imageId == null ? null : findImageById(imageId);
-  }
-
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"
+       default-autowire="constructor">
+  <!-- this is a fake spring context xml to make IDEA know all implicit beans that are available for plugin -->
+  <bean class="jetbrains.buildServer.web.openapi.PluginDescriptor"/>
 ```
 
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
+### SpringXmlAutowireExplicitlyInspection
+Make autowired dependency explicit
+in `src/META-INF/build-server-plugin-local-cloud.xml`
 #### Snippet
 ```java
-  public LocalCloudInstance findInstanceByAgent(@NotNull final AgentDescription agentDescription) {
-    final LocalCloudImage image = findImage(agentDescription);
-    if (image == null) return null;
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"
+       default-autowire="constructor">
 
-    final String instanceId = findInstanceId(agentDescription);
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
-#### Snippet
-```java
-
-    final String instanceId = findInstanceId(agentDescription);
-    if (instanceId == null) return null;
-
-    return image.findInstanceById(instanceId);
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
-#### Snippet
-```java
-  public String generateAgentName(@NotNull final AgentDescription agentDescription) {
-    final LocalCloudImage image = findImage(agentDescription);
-    if (image == null) return null;
-
-    final String instanceId = findInstanceId(agentDescription);
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
-#### Snippet
-```java
-
-    final String instanceId = findInstanceId(agentDescription);
-    if (instanceId == null) return null;
-
-    return generateAgentName(image, instanceId);
-```
-
-### ReturnNull
-Return of `null`
-in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
-```
-
-## RuleId[id=SizeReplaceableByIsEmpty]
-### SizeReplaceableByIsEmpty
-`images.trim().length() == 0` can be replaced with 'images.trim().isEmpty()'
-in `src/jetbrains/buildServer/clouds/local/LocalCloudClient.java`
-#### Snippet
-```java
-  public LocalCloudClient(@NotNull final CloudClientParameters params) {
-    final String images = params.getParameter(LocalCloudConstants.IMAGES_PROFILE_SETTING);
-    if (images == null || images.trim().length() == 0) {
-      myErrorInfo = new CloudErrorInfo("No images specified");
-      return;
+  <bean class="jetbrains.buildServer.clouds.local.LocalCloudClientFactory"/>
 ```
 
 ## RuleId[id=ProtectedMemberInFinalClass]
@@ -125,19 +99,6 @@ in `src/jetbrains/buildServer/clouds/local/LocalCloudInstance.java`
       protected boolean condition() {
         return myStatus == status;
       }
-```
-
-## RuleId[id=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `jetbrains.buildServer.clouds.local` is unnecessary and can be removed
-in `src/jetbrains/buildServer/clouds/local/LocalCloudImage.java`
-#### Snippet
-```java
-  @NotNull private final String myName;
-  @NotNull private final File myAgentHomeDir;
-  @NotNull private final Map<String, LocalCloudInstance> myInstances = new ConcurrentHashMap<String, jetbrains.buildServer.clouds.local.LocalCloudInstance>();
-  @NotNull private final IdGenerator myInstanceIdGenerator = new IdGenerator();
-  @Nullable private final CloudErrorInfo myErrorInfo;
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
@@ -165,44 +126,6 @@ import jetbrains.buildServer.serverSide.agentPools.AgentPool;
 import org.jetbrains.annotations.NotNull;
 ```
 
-## RuleId[id=DoubleBraceInitialization]
-### DoubleBraceInitialization
-Double brace initialization
-in `src/jetbrains/buildServer/clouds/local/LocalCloudInstance.java`
-#### Snippet
-```java
-        ZipUtil.extract(agentHomeDir, myBaseDir, new FilenameFilter() {
-
-          private final Set<String> ourDirsToNotToCopy = new HashSet<String>() {{
-            Collections.addAll(this, "work", "temp", "system", "contrib");
-          }};
-```
-
-### DoubleBraceInitialization
-Double brace initialization
-in `src/jetbrains/buildServer/clouds/local/LocalCloudInstance.java`
-#### Snippet
-```java
-      if (agentHomeDir.isDirectory()) {
-        FileUtil.copyDir(agentHomeDir, myBaseDir, new FileFilter() {
-          private final Set<String> ourDirsToNotToCopy = new HashSet<String>() {{
-            Collections.addAll(this, "work", "temp", "system", "contrib");
-          }};
-```
-
-## RuleId[id=NonProtectedConstructorInAbstractClass]
-### NonProtectedConstructorInAbstractClass
-Constructor `LocalCloudInstance()` of an abstract class should not be declared 'public'
-in `src/jetbrains/buildServer/clouds/local/LocalCloudInstance.java`
-#### Snippet
-```java
-  private final ScheduledExecutorService myAsync;
-
-  public LocalCloudInstance(@NotNull final LocalCloudImage image, @NotNull final String instanceId, @NotNull ScheduledExecutorService executor) {
-    myImage = image;
-    myBaseDir = createBaseDir(); // can set status to ERROR, so must be after "myStatus = ..." line
-```
-
 ## RuleId[id=MismatchedCollectionQueryUpdate]
 ### MismatchedCollectionQueryUpdate
 Contents of collection `env` are updated, but never queried
@@ -216,125 +139,64 @@ in `src/jetbrains/buildServer/clouds/local/LocalCloudInstance.java`
     env.put("JAVA_HOME", System.getProperty("java.home"));
 ```
 
-## RuleId[id=Convert2Lambda]
-### Convert2Lambda
-Anonymous new FilenameFilter() can be replaced with lambda
-in `src/jetbrains/buildServer/clouds/local/LocalCloudInstance.java`
+## RuleId[id=SpringXmlModelInspection]
+### SpringXmlModelInspection
+Cannot resolve class or package 'web'
+in `fake-teamcity-server-plugin-context.xml`
 #### Snippet
 ```java
-      for (String dir : new String[]{"bin", "launcher/bin"}) {
-        final File basePath = new File(myImage.getAgentHomeDir(), dir);
-        final File[] files = basePath.listFiles(new FilenameFilter() {
-          @Override
-          public boolean accept(File dir, String name) {
+       default-autowire="constructor">
+  <!-- this is a fake spring context xml to make IDEA know all implicit beans that are available for plugin -->
+  <bean class="jetbrains.buildServer.web.openapi.PluginDescriptor"/>
+  <bean class="jetbrains.buildServer.serverSide.ServerPaths"/>
+</beans>
 ```
 
-## RuleId[id=UseOfPropertiesAsHashtable]
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `src/jetbrains/buildServer/clouds/local/LocalCloudInstance.java`
+### SpringXmlModelInspection
+Cannot resolve class or package 'openapi'
+in `fake-teamcity-server-plugin-context.xml`
 #### Snippet
 ```java
-      final Properties config = PropertiesUtil.loadProperties(inConfigFile);
-
-      config.put("serverUrl", data.getServerAddress());
-      config.put("workDir", "../work");
-      config.put("tempDir", "../temp");
+       default-autowire="constructor">
+  <!-- this is a fake spring context xml to make IDEA know all implicit beans that are available for plugin -->
+  <bean class="jetbrains.buildServer.web.openapi.PluginDescriptor"/>
+  <bean class="jetbrains.buildServer.serverSide.ServerPaths"/>
+</beans>
 ```
 
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `src/jetbrains/buildServer/clouds/local/LocalCloudInstance.java`
+### SpringXmlModelInspection
+Cannot resolve class 'PluginDescriptor'
+in `fake-teamcity-server-plugin-context.xml`
 #### Snippet
 ```java
-
-      config.put("serverUrl", data.getServerAddress());
-      config.put("workDir", "../work");
-      config.put("tempDir", "../temp");
-      config.put("systemDir", "../system");
+       default-autowire="constructor">
+  <!-- this is a fake spring context xml to make IDEA know all implicit beans that are available for plugin -->
+  <bean class="jetbrains.buildServer.web.openapi.PluginDescriptor"/>
+  <bean class="jetbrains.buildServer.serverSide.ServerPaths"/>
+</beans>
 ```
 
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `src/jetbrains/buildServer/clouds/local/LocalCloudInstance.java`
+### SpringXmlModelInspection
+Cannot resolve class or package 'serverSide'
+in `fake-teamcity-server-plugin-context.xml`
 #### Snippet
 ```java
-      config.put("serverUrl", data.getServerAddress());
-      config.put("workDir", "../work");
-      config.put("tempDir", "../temp");
-      config.put("systemDir", "../system");
+  <!-- this is a fake spring context xml to make IDEA know all implicit beans that are available for plugin -->
+  <bean class="jetbrains.buildServer.web.openapi.PluginDescriptor"/>
+  <bean class="jetbrains.buildServer.serverSide.ServerPaths"/>
+</beans>
 
 ```
 
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `src/jetbrains/buildServer/clouds/local/LocalCloudInstance.java`
+### SpringXmlModelInspection
+Cannot resolve class 'ServerPaths'
+in `fake-teamcity-server-plugin-context.xml`
 #### Snippet
 ```java
-      config.put("workDir", "../work");
-      config.put("tempDir", "../temp");
-      config.put("systemDir", "../system");
+  <!-- this is a fake spring context xml to make IDEA know all implicit beans that are available for plugin -->
+  <bean class="jetbrains.buildServer.web.openapi.PluginDescriptor"/>
+  <bean class="jetbrains.buildServer.serverSide.ServerPaths"/>
+</beans>
 
-      //agent name and auth-token must be patched only once
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `src/jetbrains/buildServer/clouds/local/LocalCloudInstance.java`
-#### Snippet
-```java
-      //agent name and auth-token must be patched only once
-      if (!myIsConfigPatched.getAndSet(true)) {
-        config.put("name", data.getAgentName());
-        config.put("authorizationToken", data.getAuthToken());
-      }
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `src/jetbrains/buildServer/clouds/local/LocalCloudInstance.java`
-#### Snippet
-```java
-      if (!myIsConfigPatched.getAndSet(true)) {
-        config.put("name", data.getAgentName());
-        config.put("authorizationToken", data.getAuthToken());
-      }
-      for (final Map.Entry<String, String> param : data.getCustomAgentConfigurationParameters().entrySet()) {
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `src/jetbrains/buildServer/clouds/local/LocalCloudInstance.java`
-#### Snippet
-```java
-      }
-      for (final Map.Entry<String, String> param : data.getCustomAgentConfigurationParameters().entrySet()) {
-        config.put(param.getKey(), param.getValue());
-      }
-      config.put(IMAGE_ID_PARAM_NAME, getImageId());
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `src/jetbrains/buildServer/clouds/local/LocalCloudInstance.java`
-#### Snippet
-```java
-        config.put(param.getKey(), param.getValue());
-      }
-      config.put(IMAGE_ID_PARAM_NAME, getImageId());
-      config.put(INSTANCE_ID_PARAM_NAME, myId);
-      PropertiesUtil.storeProperties(config, outConfigFile, null);
-```
-
-### UseOfPropertiesAsHashtable
-Call to `Hashtable.put()` on properties object
-in `src/jetbrains/buildServer/clouds/local/LocalCloudInstance.java`
-#### Snippet
-```java
-      }
-      config.put(IMAGE_ID_PARAM_NAME, getImageId());
-      config.put(INSTANCE_ID_PARAM_NAME, myId);
-      PropertiesUtil.storeProperties(config, outConfigFile, null);
-    }
 ```
 
