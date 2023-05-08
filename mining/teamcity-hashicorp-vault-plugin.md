@@ -60,14 +60,14 @@ public class Jackson2ObjectMapperBuilder {
 ## RuleId[id=KotlinDeprecation]
 ### KotlinDeprecation
 Unnecessary non-null assertion (!!) on a non-null receiver of type VaultEndpoint!
-in `common/src/main/kotlin/org/jetbrains/teamcity/vault/util.kt`
+in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultConnector.kt`
 #### Snippet
 ```java
 
-fun createRestTemplate(settings: VaultFeatureSettings, trustStoreProvider: SSLTrustStoreProvider): RestTemplate {
-    val endpoint = VaultEndpoint.from(URI.create(settings.url))!!
-    val factory = createClientHttpRequestFactory(trustStoreProvider)
-    // HttpComponents.usingHttpComponents(options, sslConfiguration)
+        @JvmStatic fun doRequestWrappedToken(settings: VaultFeatureSettings, trustStoreProvider: SSLTrustStoreProvider): Pair<String, String> {
+            val endpoint = VaultEndpoint.from(URI.create(settings.url))!!
+            val factory = createClientHttpRequestFactory(trustStoreProvider)
+
 ```
 
 ### KotlinDeprecation
@@ -84,14 +84,14 @@ in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultConnector.kt
 
 ### KotlinDeprecation
 Unnecessary non-null assertion (!!) on a non-null receiver of type VaultEndpoint!
-in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultConnector.kt`
+in `common/src/main/kotlin/org/jetbrains/teamcity/vault/util.kt`
 #### Snippet
 ```java
 
-        @JvmStatic fun doRequestWrappedToken(settings: VaultFeatureSettings, trustStoreProvider: SSLTrustStoreProvider): Pair<String, String> {
-            val endpoint = VaultEndpoint.from(URI.create(settings.url))!!
-            val factory = createClientHttpRequestFactory(trustStoreProvider)
-
+fun createRestTemplate(settings: VaultFeatureSettings, trustStoreProvider: SSLTrustStoreProvider): RestTemplate {
+    val endpoint = VaultEndpoint.from(URI.create(settings.url))!!
+    val factory = createClientHttpRequestFactory(trustStoreProvider)
+    // HttpComponents.usingHttpComponents(options, sslConfiguration)
 ```
 
 ## RuleId[id=DataFlowIssue]
@@ -201,18 +201,6 @@ in `common/src/main/java/org/jetbrains/teamcity/vault/support/VaultTemplate.java
 in `common/src/main/java/org/springframework/vault/authentication/LdapAuthenticationOptions.java`
 #### Snippet
 ```java
-    public static class LdapAuthenticationOptionsBuilder {
-
-        private String username;
-
-        private CharSequence password;
-```
-
-### NotNullFieldNotInitialized
-@NonNullFields fields must be initialized
-in `common/src/main/java/org/springframework/vault/authentication/LdapAuthenticationOptions.java`
-#### Snippet
-```java
         private CharSequence password;
 
         private String path;
@@ -230,6 +218,18 @@ in `common/src/main/java/org/springframework/vault/authentication/LdapAuthentica
         private CharSequence password;
 
         private String path;
+```
+
+### NotNullFieldNotInitialized
+@NonNullFields fields must be initialized
+in `common/src/main/java/org/springframework/vault/authentication/LdapAuthenticationOptions.java`
+#### Snippet
+```java
+    public static class LdapAuthenticationOptionsBuilder {
+
+        private String username;
+
+        private CharSequence password;
 ```
 
 ## RuleId[id=MoveLambdaOutsideParentheses]
@@ -343,18 +343,6 @@ in `common/src/main/java/org/jetbrains/teamcity/vault/support/LifecycleAwareSess
 ```
 
 ### Deprecation
-'APPLICATION_JSON_UTF8' is deprecated
-in `common/src/main/java/org/jetbrains/teamcity/vault/support/MappingJackson2HttpMessageConverter.java`
-#### Snippet
-```java
-	 */
-	public MappingJackson2HttpMessageConverter(ObjectMapper objectMapper) {
-		super(objectMapper, MediaType.APPLICATION_JSON_UTF8,
-				new MediaType("application", "*+json", DEFAULT_CHARSET));
-	}
-```
-
-### Deprecation
 'of(java.lang.String, long)' is deprecated
 in `common/src/main/java/org/jetbrains/teamcity/vault/support/LifecycleAwareSessionManager.java`
 #### Snippet
@@ -364,6 +352,18 @@ in `common/src/main/java/org/jetbrains/teamcity/vault/support/LifecycleAwareSess
             return LoginToken.of(token, leaseDuration.longValue());
         }
 
+```
+
+### Deprecation
+'APPLICATION_JSON_UTF8' is deprecated
+in `common/src/main/java/org/jetbrains/teamcity/vault/support/MappingJackson2HttpMessageConverter.java`
+#### Snippet
+```java
+	 */
+	public MappingJackson2HttpMessageConverter(ObjectMapper objectMapper) {
+		super(objectMapper, MediaType.APPLICATION_JSON_UTF8,
+				new MediaType("application", "*+json", DEFAULT_CHARSET));
+	}
 ```
 
 ## RuleId[id=LeakingThis]
@@ -431,18 +431,6 @@ public abstract class AbstractJackson2HttpMessageConverter extends AbstractGener
 
 ## RuleId[id=RedundantNullableReturnType]
 ### RedundantNullableReturnType
-'getEditParametersUrl' always returns non-null type
-in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultProjectConnectionProvider.kt`
-#### Snippet
-```java
-    }
-
-    override fun getEditParametersUrl(): String? {
-        return descriptor.getPluginResourcesPath("editProjectConnectionVault.jsp")
-    }
-```
-
-### RedundantNullableReturnType
 'getPropertiesProcessor' always returns non-null type
 in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultProjectConnectionProvider.kt`
 #### Snippet
@@ -451,6 +439,18 @@ in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultProjectConne
 
     override fun getPropertiesProcessor(): PropertiesProcessor? {
         return getParametersProcessor()
+    }
+```
+
+### RedundantNullableReturnType
+'getEditParametersUrl' always returns non-null type
+in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultProjectConnectionProvider.kt`
+#### Snippet
+```java
+    }
+
+    override fun getEditParametersUrl(): String? {
+        return descriptor.getPluginResourcesPath("editProjectConnectionVault.jsp")
     }
 ```
 
