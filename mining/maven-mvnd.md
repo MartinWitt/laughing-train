@@ -72,54 +72,6 @@ in `common/src/main/java/org/mvndaemon/mvnd/common/Environment.java`
 
 ## RuleId[id=UNCHECKED_WARNING]
 ### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.HashSet' to 'java.util.Set'
-in `daemon-m39/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
-#### Snippet
-```java
-                .setName("maven");
-
-        Set<String> exportedArtifacts = new HashSet<>(coreEntry.getExportedArtifacts());
-        Set<String> exportedPackages = new HashSet<>(coreEntry.getExportedPackages());
-        for (CoreExtensionEntry extension : extensionsEntries) {
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.HashSet' to 'java.util.Set'
-in `daemon-m39/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
-#### Snippet
-```java
-
-        Set<String> exportedArtifacts = new HashSet<>(coreEntry.getExportedArtifacts());
-        Set<String> exportedPackages = new HashSet<>(coreEntry.getExportedPackages());
-        for (CoreExtensionEntry extension : extensionsEntries) {
-            exportedArtifacts.addAll(extension.getExportedArtifacts());
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.HashSet' to 'java.util.Set'
-in `daemon-m40/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
-#### Snippet
-```java
-                .setName("maven");
-
-        Set<String> exportedArtifacts = new HashSet<>(coreEntry.getExportedArtifacts());
-        Set<String> exportedPackages = new HashSet<>(coreEntry.getExportedPackages());
-        for (CoreExtensionEntry extension : extensionsEntries) {
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.HashSet' to 'java.util.Set'
-in `daemon-m40/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
-#### Snippet
-```java
-
-        Set<String> exportedArtifacts = new HashSet<>(coreEntry.getExportedArtifacts());
-        Set<String> exportedPackages = new HashSet<>(coreEntry.getExportedPackages());
-        for (CoreExtensionEntry extension : extensionsEntries) {
-            exportedArtifacts.addAll(extension.getExportedArtifacts());
-```
-
-### UNCHECKED_WARNING
 Unchecked assignment: 'java.util.Comparator' to 'java.util.Comparator\>'
 in `build-plugin/src/main/java/org/mvndaemon/mvnd/plugin/doc/DocMojo.java`
 #### Snippet
@@ -143,6 +95,54 @@ in `build-plugin/src/main/java/org/mvndaemon/mvnd/plugin/doc/DocMojo.java`
             result.addAll(super.entrySet());
 ```
 
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.HashSet' to 'java.util.Set'
+in `daemon-m39/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
+#### Snippet
+```java
+                .setName("maven");
+
+        Set<String> exportedArtifacts = new HashSet<>(coreEntry.getExportedArtifacts());
+        Set<String> exportedPackages = new HashSet<>(coreEntry.getExportedPackages());
+        for (CoreExtensionEntry extension : extensionsEntries) {
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.HashSet' to 'java.util.Set'
+in `daemon-m39/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
+#### Snippet
+```java
+
+        Set<String> exportedArtifacts = new HashSet<>(coreEntry.getExportedArtifacts());
+        Set<String> exportedPackages = new HashSet<>(coreEntry.getExportedPackages());
+        for (CoreExtensionEntry extension : extensionsEntries) {
+            exportedArtifacts.addAll(extension.getExportedArtifacts());
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.HashSet' to 'java.util.Set'
+in `daemon-m40/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
+#### Snippet
+```java
+                .setName("maven");
+
+        Set<String> exportedArtifacts = new HashSet<>(coreEntry.getExportedArtifacts());
+        Set<String> exportedPackages = new HashSet<>(coreEntry.getExportedPackages());
+        for (CoreExtensionEntry extension : extensionsEntries) {
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.HashSet' to 'java.util.Set'
+in `daemon-m40/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
+#### Snippet
+```java
+
+        Set<String> exportedArtifacts = new HashSet<>(coreEntry.getExportedArtifacts());
+        Set<String> exportedPackages = new HashSet<>(coreEntry.getExportedPackages());
+        for (CoreExtensionEntry extension : extensionsEntries) {
+            exportedArtifacts.addAll(extension.getExportedArtifacts());
+```
+
 ## RuleId[id=LoopConditionNotUpdatedInsideLoop]
 ### LoopConditionNotUpdatedInsideLoop
 Variable 'stopDelim' is not updated inside loop
@@ -157,6 +157,18 @@ in `common/src/main/java/org/mvndaemon/mvnd/common/InterpolationHelper.java`
 ```
 
 ## RuleId[id=JavadocReference]
+### JavadocReference
+Cannot resolve symbol `waitFor(long, TimeUnit, String[])`
+in `common/src/main/java/org/mvndaemon/mvnd/common/OsUtils.java`
+#### Snippet
+```java
+    /**
+     * A simple wrapper over {@link Process} that manages its destroying and offers Java 8-like
+     * {@link #waitFor(long, TimeUnit, String[])} with timeout.
+     */
+    public static class CommandProcess implements AutoCloseable {
+```
+
 ### JavadocReference
 Cannot resolve symbol `ILoggerFactory`
 in `logging/src/main/java/org/mvndaemon/mvnd/logging/internal/Slf4jLoggerManager.java`
@@ -179,18 +191,6 @@ in `logging/src/main/java/org/mvndaemon/mvnd/logging/internal/Slf4jLoggerManager
  * {@link LoggerManager},
  * ignoring Plexus logger API parts that are not classical and probably not really used.
  *
-```
-
-### JavadocReference
-Cannot resolve symbol `waitFor(long, TimeUnit, String[])`
-in `common/src/main/java/org/mvndaemon/mvnd/common/OsUtils.java`
-#### Snippet
-```java
-    /**
-     * A simple wrapper over {@link Process} that manages its destroying and offers Java 8-like
-     * {@link #waitFor(long, TimeUnit, String[])} with timeout.
-     */
-    public static class CommandProcess implements AutoCloseable {
 ```
 
 ### JavadocReference
@@ -279,6 +279,78 @@ in `daemon-m39/src/main/java/org/mvndaemon/mvnd/cache/invalidating/InvalidatingP
 ```
 
 ### DataFlowIssue
+Argument `in` might be null
+in `native/src/main/java/org/mvndaemon/mvnd/nativ/MvndNativeLoader.java`
+#### Snippet
+```java
+                }
+                try (OutputStream out = new FileOutputStream(extractedLibFile)) {
+                    copy(in, out);
+                }
+            } finally {
+```
+
+### DataFlowIssue
+Method invocation `toExternalForm` may produce `NullPointerException`
+in `native/src/main/java/org/mvndaemon/mvnd/nativ/MvndNativeLoader.java`
+#### Snippet
+```java
+                nativeLibrarySourceUrl = MvndNativeLoader.class
+                        .getResource(nativeLibraryFilePath)
+                        .toExternalForm();
+                return true;
+            }
+```
+
+### DataFlowIssue
+Argument `cl.getResourceAsStream(resourcePath)` might be null
+in `common/src/main/java/org/mvndaemon/mvnd/common/IoUtils.java`
+#### Snippet
+```java
+        final int bufSize = 1024;
+        try (Reader in = new BufferedReader(
+                new InputStreamReader(cl.getResourceAsStream(resourcePath), StandardCharsets.UTF_8), bufSize)) {
+            int len = 0;
+            char[] buf = new char[bufSize];
+```
+
+### DataFlowIssue
+Condition `exception instanceof LifecycleExecutionException` is redundant and can be replaced with a null check
+in `daemon-m39/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
+#### Snippet
+```java
+                logSummary(summary, references, "", cliRequest.showErrors);
+
+                if (exception instanceof LifecycleExecutionException) {
+                    MavenProject project = ((LifecycleExecutionException) exception).getProject();
+                    if (project != null) {
+```
+
+### DataFlowIssue
+Dereference of `last` may produce `NullPointerException`
+in `daemon/src/main/java/org/mvndaemon/mvnd/daemon/DaemonMemoryStatus.java`
+#### Snippet
+```java
+        GcEvent last = events.peekLast();
+        // Total number of garbage collection events observed in the window
+        double gcCountDelta = last.count - first.count;
+        // Time interval between the first event in the window and the last
+        double timeDelta = Duration.between(first.timestamp, last.timestamp).toMillis();
+```
+
+### DataFlowIssue
+Dereference of `first` may produce `NullPointerException`
+in `daemon/src/main/java/org/mvndaemon/mvnd/daemon/DaemonMemoryStatus.java`
+#### Snippet
+```java
+        GcEvent last = events.peekLast();
+        // Total number of garbage collection events observed in the window
+        double gcCountDelta = last.count - first.count;
+        // Time interval between the first event in the window and the last
+        double timeDelta = Duration.between(first.timestamp, last.timestamp).toMillis();
+```
+
+### DataFlowIssue
 Condition `e.getCause() instanceof PluginResolutionException` is redundant and can be replaced with a null check
 in `daemon-m40/src/main/java/org/mvndaemon/mvnd/cache/invalidating/InvalidatingPluginRealmCache.java`
 #### Snippet
@@ -339,54 +411,6 @@ in `daemon-m40/src/main/java/org/mvndaemon/mvnd/cache/invalidating/InvalidatingP
 ```
 
 ### DataFlowIssue
-Argument `cl.getResourceAsStream(resourcePath)` might be null
-in `common/src/main/java/org/mvndaemon/mvnd/common/IoUtils.java`
-#### Snippet
-```java
-        final int bufSize = 1024;
-        try (Reader in = new BufferedReader(
-                new InputStreamReader(cl.getResourceAsStream(resourcePath), StandardCharsets.UTF_8), bufSize)) {
-            int len = 0;
-            char[] buf = new char[bufSize];
-```
-
-### DataFlowIssue
-Condition `exception instanceof LifecycleExecutionException` is redundant and can be replaced with a null check
-in `daemon-m39/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
-#### Snippet
-```java
-                logSummary(summary, references, "", cliRequest.showErrors);
-
-                if (exception instanceof LifecycleExecutionException) {
-                    MavenProject project = ((LifecycleExecutionException) exception).getProject();
-                    if (project != null) {
-```
-
-### DataFlowIssue
-Argument `in` might be null
-in `native/src/main/java/org/mvndaemon/mvnd/nativ/MvndNativeLoader.java`
-#### Snippet
-```java
-                }
-                try (OutputStream out = new FileOutputStream(extractedLibFile)) {
-                    copy(in, out);
-                }
-            } finally {
-```
-
-### DataFlowIssue
-Method invocation `toExternalForm` may produce `NullPointerException`
-in `native/src/main/java/org/mvndaemon/mvnd/nativ/MvndNativeLoader.java`
-#### Snippet
-```java
-                nativeLibrarySourceUrl = MvndNativeLoader.class
-                        .getResource(nativeLibraryFilePath)
-                        .toExternalForm();
-                return true;
-            }
-```
-
-### DataFlowIssue
 Condition `exception instanceof LifecycleExecutionException` is redundant and can be replaced with a null check
 in `daemon-m40/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
 #### Snippet
@@ -396,30 +420,6 @@ in `daemon-m40/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
                 if (exception instanceof LifecycleExecutionException) {
                     MavenProject project = ((LifecycleExecutionException) exception).getProject();
                     if (project != null) {
-```
-
-### DataFlowIssue
-Dereference of `last` may produce `NullPointerException`
-in `daemon/src/main/java/org/mvndaemon/mvnd/daemon/DaemonMemoryStatus.java`
-#### Snippet
-```java
-        GcEvent last = events.peekLast();
-        // Total number of garbage collection events observed in the window
-        double gcCountDelta = last.count - first.count;
-        // Time interval between the first event in the window and the last
-        double timeDelta = Duration.between(first.timestamp, last.timestamp).toMillis();
-```
-
-### DataFlowIssue
-Dereference of `first` may produce `NullPointerException`
-in `daemon/src/main/java/org/mvndaemon/mvnd/daemon/DaemonMemoryStatus.java`
-#### Snippet
-```java
-        GcEvent last = events.peekLast();
-        // Total number of garbage collection events observed in the window
-        double gcCountDelta = last.count - first.count;
-        // Time interval between the first event in the window and the last
-        double timeDelta = Duration.between(first.timestamp, last.timestamp).toMillis();
 ```
 
 ## RuleId[id=UnnecessarySemicolon]
@@ -523,6 +523,19 @@ in `common/src/main/java/org/mvndaemon/mvnd/common/Message.java`
                 return StringMessage.read(type, input);
             case REQUEST_INPUT:
                 return RequestInput.read(input);
+```
+
+## RuleId[id=SwitchStatementWithTooFewBranches]
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `common/src/main/java/org/mvndaemon/mvnd/common/Message.java`
+#### Snippet
+```java
+
+        private String mnemonic() {
+            switch (type) {
+                case PROJECT_LOG_MESSAGE:
+                    return "ProjectLogMessage";
 ```
 
 ## RuleId[id=DuplicatedCode]
@@ -1522,19 +1535,6 @@ in `daemon-m40/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
                     selector = selector.substring(optional ? 1 : 0);
 ```
 
-## RuleId[id=SwitchStatementWithTooFewBranches]
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `common/src/main/java/org/mvndaemon/mvnd/common/Message.java`
-#### Snippet
-```java
-
-        private String mnemonic() {
-            switch (type) {
-                case PROJECT_LOG_MESSAGE:
-                    return "ProjectLogMessage";
-```
-
 ## RuleId[id=CatchMayIgnoreException]
 ### CatchMayIgnoreException
 'catch' parameter named `ignored` is used
@@ -1677,18 +1677,6 @@ public class DaemonDiagnostics {
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `logging/src/main/java/org/mvndaemon/mvnd/logging/internal/Slf4jLogger.java`
-#### Snippet
-```java
- * <p>
- * Adapted from
- * https://github.com/apache/maven/blob/maven-3.6.3/maven-embedder/src/main/java/org/apache/maven/cli/logging/Slf4jLogger.java
- * The main change is that the MDC property for redirecting the log to the correct maven project is set
- * when the logger is instantiated (usually when injected into a mojo).
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
 in `client/src/main/java/org/mvndaemon/mvnd/client/DaemonClientConnection.java`
 #### Snippet
 ```java
@@ -1697,18 +1685,6 @@ in `client/src/main/java/org/mvndaemon/mvnd/client/DaemonClientConnection.java`
  * https://github.com/gradle/gradle/blob/v5.6.2/subprojects/launcher/src/main/java/org/gradle/launcher/daemon/client/DaemonClientConnection.java
  */
 public class DaemonClientConnection implements Closeable {
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `logging/src/main/java/org/mvndaemon/mvnd/logging/internal/Slf4jLoggerManager.java`
-#### Snippet
-```java
- * <p>
- * Adapted from
- * https://github.com/apache/maven/blob/maven-3.6.3/maven-embedder/src/main/java/org/apache/maven/cli/logging/Slf4jLoggerManager.java
- * This class has no differences with the above beyond formatting. Its purpose is simply to be able to call the
- * Slf4Logger.
 ```
 
 ### JavadocLinkAsPlainText
@@ -1749,18 +1725,6 @@ public class DaemonInfo {
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `client/src/main/java/org/mvndaemon/mvnd/client/DaemonConnector.java`
-#### Snippet
-```java
-/**
- * File origin:
- * https://github.com/gradle/gradle/blob/v5.6.2/subprojects/launcher/src/main/java/org/gradle/launcher/daemon/client/DefaultDaemonConnector.java
- */
-public class DaemonConnector {
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
 in `common/src/main/java/org/mvndaemon/mvnd/common/DaemonExpirationStatus.java`
 #### Snippet
 ```java
@@ -1797,6 +1761,18 @@ public class BufferHelper {
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
+in `client/src/main/java/org/mvndaemon/mvnd/client/DaemonConnector.java`
+#### Snippet
+```java
+/**
+ * File origin:
+ * https://github.com/gradle/gradle/blob/v5.6.2/subprojects/launcher/src/main/java/org/gradle/launcher/daemon/client/DefaultDaemonConnector.java
+ */
+public class DaemonConnector {
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
 in `common/src/main/java/org/mvndaemon/mvnd/common/BufferCaster.java`
 #### Snippet
 ```java
@@ -1821,19 +1797,31 @@ in `common/src/main/java/org/mvndaemon/mvnd/common/DaemonConnection.java`
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `daemon-m39/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
+in `logging/src/main/java/org/mvndaemon/mvnd/logging/internal/Slf4jLoggerManager.java`
 #### Snippet
 ```java
-/**
- * File origin:
- * https://github.com/apache/maven/blob/maven-3.6.2/maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java
- *
- * @author Jason van Zyl
+ * <p>
+ * Adapted from
+ * https://github.com/apache/maven/blob/maven-3.6.3/maven-embedder/src/main/java/org/apache/maven/cli/logging/Slf4jLoggerManager.java
+ * This class has no differences with the above beyond formatting. Its purpose is simply to be able to call the
+ * Slf4Logger.
 ```
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `daemon-m40/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
+in `logging/src/main/java/org/mvndaemon/mvnd/logging/internal/Slf4jLogger.java`
+#### Snippet
+```java
+ * <p>
+ * Adapted from
+ * https://github.com/apache/maven/blob/maven-3.6.3/maven-embedder/src/main/java/org/apache/maven/cli/logging/Slf4jLogger.java
+ * The main change is that the MDC property for redirecting the log to the correct maven project is set
+ * when the logger is instantiated (usually when injected into a mojo).
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `daemon-m39/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
 #### Snippet
 ```java
 /**
@@ -1879,6 +1867,18 @@ in `daemon/src/main/java/org/mvndaemon/mvnd/daemon/DaemonExpiration.java`
 public class DaemonExpiration {
 ```
 
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `daemon-m40/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
+#### Snippet
+```java
+/**
+ * File origin:
+ * https://github.com/apache/maven/blob/maven-3.6.2/maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java
+ *
+ * @author Jason van Zyl
+```
+
 ## RuleId[id=FieldCanBeLocal]
 ### FieldCanBeLocal
 Field can be converted to a local variable
@@ -1902,79 +1902,6 @@ in `daemon-m40/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
     private final DefaultSecDispatcher dispatcher;
 
     private final Map<String, ConfigurationProcessor> configurationProcessors;
-```
-
-## RuleId[id=IgnoreResultOfCall]
-### IgnoreResultOfCall
-Result of `File.delete()` is ignored
-in `native/src/main/java/org/mvndaemon/mvnd/nativ/MvndNativeLoader.java`
-#### Snippet
-```java
-                if (!lckFile.exists()) {
-                    try {
-                        nativeLibFile.delete();
-                    } catch (SecurityException e) {
-                        System.err.println("Failed to delete old native lib" + e.getMessage());
-```
-
-### IgnoreResultOfCall
-Result of `File.setReadable()` is ignored
-in `native/src/main/java/org/mvndaemon/mvnd/nativ/MvndNativeLoader.java`
-#### Snippet
-```java
-
-            // Set executable (x) flag to enable Java to load the native library
-            extractedLibFile.setReadable(true);
-            extractedLibFile.setWritable(true);
-            extractedLibFile.setExecutable(true);
-```
-
-### IgnoreResultOfCall
-Result of `File.setWritable()` is ignored
-in `native/src/main/java/org/mvndaemon/mvnd/nativ/MvndNativeLoader.java`
-#### Snippet
-```java
-            // Set executable (x) flag to enable Java to load the native library
-            extractedLibFile.setReadable(true);
-            extractedLibFile.setWritable(true);
-            extractedLibFile.setExecutable(true);
-
-```
-
-### IgnoreResultOfCall
-Result of `File.setExecutable()` is ignored
-in `native/src/main/java/org/mvndaemon/mvnd/nativ/MvndNativeLoader.java`
-#### Snippet
-```java
-            extractedLibFile.setReadable(true);
-            extractedLibFile.setWritable(true);
-            extractedLibFile.setExecutable(true);
-
-            // Check whether the contents are properly copied from the resource folder
-```
-
-### IgnoreResultOfCall
-Result of `Condition.await()` is ignored
-in `daemon/src/main/java/org/mvndaemon/mvnd/daemon/Server.java`
-#### Snippet
-```java
-                        case StopRequested:
-                            LOGGER.debug("Cancel: daemon is busy, sleeping until state changes.");
-                            condition.await(rem, TimeUnit.MILLISECONDS);
-                            break;
-                        case Broken:
-```
-
-### IgnoreResultOfCall
-Result of `BlockingQueue.remove()` is ignored
-in `daemon/src/main/java/org/mvndaemon/mvnd/daemon/Server.java`
-#### Snippet
-```java
-                                            .orElse(null);
-                                    if (t != null) {
-                                        recvQueue.remove(t);
-                                        LOGGER.info("Received response: {}", t);
-                                        return t;
 ```
 
 ## RuleId[id=TrivialIf]
@@ -2014,17 +1941,90 @@ in `daemon-m39/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
         }
 ```
 
+## RuleId[id=IgnoreResultOfCall]
+### IgnoreResultOfCall
+Result of `File.setReadable()` is ignored
+in `native/src/main/java/org/mvndaemon/mvnd/nativ/MvndNativeLoader.java`
+#### Snippet
+```java
+
+            // Set executable (x) flag to enable Java to load the native library
+            extractedLibFile.setReadable(true);
+            extractedLibFile.setWritable(true);
+            extractedLibFile.setExecutable(true);
+```
+
+### IgnoreResultOfCall
+Result of `File.setWritable()` is ignored
+in `native/src/main/java/org/mvndaemon/mvnd/nativ/MvndNativeLoader.java`
+#### Snippet
+```java
+            // Set executable (x) flag to enable Java to load the native library
+            extractedLibFile.setReadable(true);
+            extractedLibFile.setWritable(true);
+            extractedLibFile.setExecutable(true);
+
+```
+
+### IgnoreResultOfCall
+Result of `File.setExecutable()` is ignored
+in `native/src/main/java/org/mvndaemon/mvnd/nativ/MvndNativeLoader.java`
+#### Snippet
+```java
+            extractedLibFile.setReadable(true);
+            extractedLibFile.setWritable(true);
+            extractedLibFile.setExecutable(true);
+
+            // Check whether the contents are properly copied from the resource folder
+```
+
+### IgnoreResultOfCall
+Result of `File.delete()` is ignored
+in `native/src/main/java/org/mvndaemon/mvnd/nativ/MvndNativeLoader.java`
+#### Snippet
+```java
+                if (!lckFile.exists()) {
+                    try {
+                        nativeLibFile.delete();
+                    } catch (SecurityException e) {
+                        System.err.println("Failed to delete old native lib" + e.getMessage());
+```
+
+### IgnoreResultOfCall
+Result of `BlockingQueue.remove()` is ignored
+in `daemon/src/main/java/org/mvndaemon/mvnd/daemon/Server.java`
+#### Snippet
+```java
+                                            .orElse(null);
+                                    if (t != null) {
+                                        recvQueue.remove(t);
+                                        LOGGER.info("Received response: {}", t);
+                                        return t;
+```
+
+### IgnoreResultOfCall
+Result of `Condition.await()` is ignored
+in `daemon/src/main/java/org/mvndaemon/mvnd/daemon/Server.java`
+#### Snippet
+```java
+                        case StopRequested:
+                            LOGGER.debug("Cancel: daemon is busy, sleeping until state changes.");
+                            condition.await(rem, TimeUnit.MILLISECONDS);
+                            break;
+                        case Broken:
+```
+
 ## RuleId[id=ThrowablePrintedToSystemOut]
 ### ThrowablePrintedToSystemOut
 'Throwable' argument `e` to 'System.err.println()' call
-in `agent/src/main/java/org/mvndaemon/mvnd/agent/Agent.java`
+in `native/src/main/java/org/mvndaemon/mvnd/nativ/MvndNativeLoader.java`
 #### Snippet
 ```java
-                        return data;
-                    } catch (Throwable e) {
-                        System.err.println(e);
-                        throw new IllegalClassFormatException(e.toString());
-                    }
+                System.err.println("Failed to load native library:" + libPath.getName() + ". osinfo: "
+                        + OSInfo.getNativeLibFolderPathForCurrentOS());
+                System.err.println(e);
+                return false;
+            }
 ```
 
 ### ThrowablePrintedToSystemOut
@@ -2041,14 +2041,14 @@ in `native/src/main/java/org/mvndaemon/mvnd/nativ/MvndNativeLoader.java`
 
 ### ThrowablePrintedToSystemOut
 'Throwable' argument `e` to 'System.err.println()' call
-in `native/src/main/java/org/mvndaemon/mvnd/nativ/MvndNativeLoader.java`
+in `agent/src/main/java/org/mvndaemon/mvnd/agent/Agent.java`
 #### Snippet
 ```java
-                System.err.println("Failed to load native library:" + libPath.getName() + ". osinfo: "
-                        + OSInfo.getNativeLibFolderPathForCurrentOS());
-                System.err.println(e);
-                return false;
-            }
+                        return data;
+                    } catch (Throwable e) {
+                        System.err.println(e);
+                        throw new IllegalClassFormatException(e.toString());
+                    }
 ```
 
 ## RuleId[id=CharsetObjectCanBeUsed]
@@ -2103,30 +2103,6 @@ in `daemon-m39/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
 
 ### AutoCloseableResource
 'LoggingOutputStream' used without 'try'-with-resources statement
-in `daemon-m40/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
-#### Snippet
-```java
-            stdout.setLevel(ch.qos.logback.classic.Level.INFO);
-            stderr.setLevel(ch.qos.logback.classic.Level.INFO);
-            System.setOut(new LoggingOutputStream(s -> stdout.info("[stdout] " + s)).printStream());
-            System.setErr(new LoggingOutputStream(s -> stderr.warn("[stderr] " + s)).printStream());
-        }
-```
-
-### AutoCloseableResource
-'LoggingOutputStream' used without 'try'-with-resources statement
-in `daemon-m40/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
-#### Snippet
-```java
-            stderr.setLevel(ch.qos.logback.classic.Level.INFO);
-            System.setOut(new LoggingOutputStream(s -> stdout.info("[stdout] " + s)).printStream());
-            System.setErr(new LoggingOutputStream(s -> stderr.warn("[stderr] " + s)).printStream());
-        }
-    }
-```
-
-### AutoCloseableResource
-'LoggingOutputStream' used without 'try'-with-resources statement
 in `daemon/src/main/java/org/mvndaemon/mvnd/daemon/Server.java`
 #### Snippet
 ```java
@@ -2147,6 +2123,30 @@ in `daemon/src/main/java/org/mvndaemon/mvnd/daemon/Server.java`
                 System.setErr(new LoggingOutputStream(s -> sendQueue.add(Message.err(s))).printStream());
                 int exitCode = cli.main(
                         buildRequest.getArgs(),
+```
+
+### AutoCloseableResource
+'LoggingOutputStream' used without 'try'-with-resources statement
+in `daemon-m40/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
+#### Snippet
+```java
+            stdout.setLevel(ch.qos.logback.classic.Level.INFO);
+            stderr.setLevel(ch.qos.logback.classic.Level.INFO);
+            System.setOut(new LoggingOutputStream(s -> stdout.info("[stdout] " + s)).printStream());
+            System.setErr(new LoggingOutputStream(s -> stderr.warn("[stderr] " + s)).printStream());
+        }
+```
+
+### AutoCloseableResource
+'LoggingOutputStream' used without 'try'-with-resources statement
+in `daemon-m40/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
+#### Snippet
+```java
+            stderr.setLevel(ch.qos.logback.classic.Level.INFO);
+            System.setOut(new LoggingOutputStream(s -> stdout.info("[stdout] " + s)).printStream());
+            System.setErr(new LoggingOutputStream(s -> stderr.warn("[stderr] " + s)).printStream());
+        }
+    }
 ```
 
 ## RuleId[id=SlowListContainsAll]
@@ -2189,102 +2189,6 @@ in `common/src/main/java/org/mvndaemon/mvnd/common/DaemonRegistry.java`
 ```
 
 ## RuleId[id=JavadocDeclaration]
-### JavadocDeclaration
-`@param modelProfile` tag description is missing
-in `daemon-m40/src/main/java/org/apache/maven/settings/SettingsUtilsV4.java`
-#### Snippet
-```java
-
-    /**
-     * @param modelProfile
-     * @return a profile
-     */
-```
-
-### JavadocDeclaration
-`@param modelRepo` tag description is missing
-in `daemon-m40/src/main/java/org/apache/maven/settings/SettingsUtilsV4.java`
-#### Snippet
-```java
-
-    /**
-     * @param modelRepo
-     * @return a repository
-     */
-```
-
-### JavadocDeclaration
-`@param settingsPolicy` tag description is missing
-in `daemon-m40/src/main/java/org/apache/maven/settings/SettingsUtilsV4.java`
-#### Snippet
-```java
-
-    /**
-     * @param settingsPolicy
-     * @return a RepositoryPolicy
-     */
-```
-
-### JavadocDeclaration
-`@param settingsRepo` tag description is missing
-in `daemon-m40/src/main/java/org/apache/maven/settings/SettingsUtilsV4.java`
-#### Snippet
-```java
-
-    /**
-     * @param settingsRepo
-     * @return a repository
-     */
-```
-
-### JavadocDeclaration
-`@param dominant` tag description is missing
-in `daemon-m40/src/main/java/org/apache/maven/settings/SettingsUtilsV4.java`
-#### Snippet
-```java
-
-    /**
-     * @param dominant
-     * @param recessive
-     */
-```
-
-### JavadocDeclaration
-`@param recessive` tag description is missing
-in `daemon-m40/src/main/java/org/apache/maven/settings/SettingsUtilsV4.java`
-#### Snippet
-```java
-    /**
-     * @param dominant
-     * @param recessive
-     */
-    public static Settings merge(Settings dominant, Settings recessive) {
-```
-
-### JavadocDeclaration
-`@param modelPolicy` tag description is missing
-in `daemon-m40/src/main/java/org/apache/maven/settings/SettingsUtilsV4.java`
-#### Snippet
-```java
-
-    /**
-     * @param modelPolicy
-     * @return a RepositoryPolicy
-     */
-```
-
-### JavadocDeclaration
-`@param settingsProfile` tag description is missing
-in `daemon-m40/src/main/java/org/apache/maven/settings/SettingsUtilsV4.java`
-#### Snippet
-```java
-
-    /**
-     * @param settingsProfile
-     * @return a profile
-     */
-```
-
 ### JavadocDeclaration
 `@return` tag description is missing
 in `native/src/main/java/org/mvndaemon/mvnd/nativ/MvndNativeLoader.java`
@@ -2333,43 +2237,103 @@ in `daemon/src/main/java/org/apache/maven/cli/MvndHelpFormatter.java`
      */
 ```
 
+### JavadocDeclaration
+`@param dominant` tag description is missing
+in `daemon-m40/src/main/java/org/apache/maven/settings/SettingsUtilsV4.java`
+#### Snippet
+```java
+
+    /**
+     * @param dominant
+     * @param recessive
+     */
+```
+
+### JavadocDeclaration
+`@param recessive` tag description is missing
+in `daemon-m40/src/main/java/org/apache/maven/settings/SettingsUtilsV4.java`
+#### Snippet
+```java
+    /**
+     * @param dominant
+     * @param recessive
+     */
+    public static Settings merge(Settings dominant, Settings recessive) {
+```
+
+### JavadocDeclaration
+`@param settingsProfile` tag description is missing
+in `daemon-m40/src/main/java/org/apache/maven/settings/SettingsUtilsV4.java`
+#### Snippet
+```java
+
+    /**
+     * @param settingsProfile
+     * @return a profile
+     */
+```
+
+### JavadocDeclaration
+`@param settingsRepo` tag description is missing
+in `daemon-m40/src/main/java/org/apache/maven/settings/SettingsUtilsV4.java`
+#### Snippet
+```java
+
+    /**
+     * @param settingsRepo
+     * @return a repository
+     */
+```
+
+### JavadocDeclaration
+`@param modelRepo` tag description is missing
+in `daemon-m40/src/main/java/org/apache/maven/settings/SettingsUtilsV4.java`
+#### Snippet
+```java
+
+    /**
+     * @param modelRepo
+     * @return a repository
+     */
+```
+
+### JavadocDeclaration
+`@param settingsPolicy` tag description is missing
+in `daemon-m40/src/main/java/org/apache/maven/settings/SettingsUtilsV4.java`
+#### Snippet
+```java
+
+    /**
+     * @param settingsPolicy
+     * @return a RepositoryPolicy
+     */
+```
+
+### JavadocDeclaration
+`@param modelProfile` tag description is missing
+in `daemon-m40/src/main/java/org/apache/maven/settings/SettingsUtilsV4.java`
+#### Snippet
+```java
+
+    /**
+     * @param modelProfile
+     * @return a profile
+     */
+```
+
+### JavadocDeclaration
+`@param modelPolicy` tag description is missing
+in `daemon-m40/src/main/java/org/apache/maven/settings/SettingsUtilsV4.java`
+#### Snippet
+```java
+
+    /**
+     * @param modelPolicy
+     * @return a RepositoryPolicy
+     */
+```
+
 ## RuleId[id=FieldMayBeFinal]
-### FieldMayBeFinal
-Field `projectId` may be 'final'
-in `logging/src/main/java/org/mvndaemon/mvnd/logging/internal/Slf4jLogger.java`
-#### Snippet
-```java
-
-    private org.slf4j.Logger logger;
-    private String projectId;
-
-    public Slf4jLogger(org.slf4j.Logger logger) {
-```
-
-### FieldMayBeFinal
-Field `logger` may be 'final'
-in `logging/src/main/java/org/mvndaemon/mvnd/logging/internal/Slf4jLogger.java`
-#### Snippet
-```java
-public class Slf4jLogger implements Logger {
-
-    private org.slf4j.Logger logger;
-    private String projectId;
-
-```
-
-### FieldMayBeFinal
-Field `loggerFactory` may be 'final'
-in `logging/src/main/java/org/mvndaemon/mvnd/logging/internal/Slf4jLoggerManager.java`
-#### Snippet
-```java
-public class Slf4jLoggerManager implements LoggerManager {
-
-    private ILoggerFactory loggerFactory;
-
-    public Slf4jLoggerManager() {
-```
-
 ### FieldMayBeFinal
 Field `cygwin` may be 'final'
 in `common/src/main/java/org/mvndaemon/mvnd/common/Os.java`
@@ -2391,6 +2355,42 @@ public class BufferHelper {
 
     private static boolean PRE_JAVA_9 =
             System.getProperty("java.specification.version", "9").startsWith("1.");
+
+```
+
+### FieldMayBeFinal
+Field `loggerFactory` may be 'final'
+in `logging/src/main/java/org/mvndaemon/mvnd/logging/internal/Slf4jLoggerManager.java`
+#### Snippet
+```java
+public class Slf4jLoggerManager implements LoggerManager {
+
+    private ILoggerFactory loggerFactory;
+
+    public Slf4jLoggerManager() {
+```
+
+### FieldMayBeFinal
+Field `projectId` may be 'final'
+in `logging/src/main/java/org/mvndaemon/mvnd/logging/internal/Slf4jLogger.java`
+#### Snippet
+```java
+
+    private org.slf4j.Logger logger;
+    private String projectId;
+
+    public Slf4jLogger(org.slf4j.Logger logger) {
+```
+
+### FieldMayBeFinal
+Field `logger` may be 'final'
+in `logging/src/main/java/org/mvndaemon/mvnd/logging/internal/Slf4jLogger.java`
+#### Snippet
+```java
+public class Slf4jLogger implements Logger {
+
+    private org.slf4j.Logger logger;
+    private String projectId;
 
 ```
 
@@ -2482,6 +2482,30 @@ in `daemon/src/main/java/org/mvndaemon/mvnd/cache/impl/WatchServiceCacheFactory.
 
 ## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
+Local variable `exitCode` is redundant
+in `common/src/main/java/org/mvndaemon/mvnd/common/OsUtils.java`
+#### Snippet
+```java
+            } catch (Exception ignored) {
+            }
+            final int exitCode = timeouted ? TIMEOUT_EXIT_CODE : process.exitValue();
+            return exitCode;
+        }
+```
+
+### UnnecessaryLocalVariable
+Local variable `process` is redundant
+in `client/src/main/java/org/mvndaemon/mvnd/client/DaemonConnector.java`
+#### Snippet
+```java
+                    .environment()
+                    .put(Environment.JDK_JAVA_OPTIONS.getEnvironmentVariable(), parameters.jdkJavaOpts());
+            Process process = processBuilder
+                    .directory(workingDir.toFile())
+                    .command(args)
+```
+
+### UnnecessaryLocalVariable
 Local variable `repo` is redundant
 in `daemon-m40/src/main/java/org/apache/maven/settings/SettingsUtilsV4.java`
 #### Snippet
@@ -2517,30 +2541,6 @@ in `daemon-m40/src/main/java/org/apache/maven/settings/SettingsUtilsV4.java`
                 .updatePolicy(modelPolicy.getUpdatePolicy())
 ```
 
-### UnnecessaryLocalVariable
-Local variable `process` is redundant
-in `client/src/main/java/org/mvndaemon/mvnd/client/DaemonConnector.java`
-#### Snippet
-```java
-                    .environment()
-                    .put(Environment.JDK_JAVA_OPTIONS.getEnvironmentVariable(), parameters.jdkJavaOpts());
-            Process process = processBuilder
-                    .directory(workingDir.toFile())
-                    .command(args)
-```
-
-### UnnecessaryLocalVariable
-Local variable `exitCode` is redundant
-in `common/src/main/java/org/mvndaemon/mvnd/common/OsUtils.java`
-#### Snippet
-```java
-            } catch (Exception ignored) {
-            }
-            final int exitCode = timeouted ? TIMEOUT_EXIT_CODE : process.exitValue();
-            return exitCode;
-        }
-```
-
 ## RuleId[id=BusyWait]
 ### BusyWait
 Call to `Thread.sleep()` in a loop, probably busy-waiting
@@ -2559,18 +2559,6 @@ Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `client/src/main/java/org/mvndaemon/mvnd/client/DaemonConnector.java`
 #### Snippet
 ```java
-            while (connection == null && System.currentTimeMillis() < stop) {
-                try {
-                    sleep(200);
-                    connection = connectToIdleDaemon(registry.getIdle(), constraint);
-                } catch (InterruptedException e) {
-```
-
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `client/src/main/java/org/mvndaemon/mvnd/client/DaemonConnector.java`
-#### Snippet
-```java
             }
             try {
                 sleep(50L);
@@ -2578,19 +2566,19 @@ in `client/src/main/java/org/mvndaemon/mvnd/client/DaemonConnector.java`
                 throw new DaemonException.InterruptedException(e);
 ```
 
-## RuleId[id=UnusedAssignment]
-### UnusedAssignment
-Variable `len` initializer `0` is redundant
-in `common/src/main/java/org/mvndaemon/mvnd/common/IoUtils.java`
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `client/src/main/java/org/mvndaemon/mvnd/client/DaemonConnector.java`
 #### Snippet
 ```java
-        try (Reader in = new BufferedReader(
-                new InputStreamReader(cl.getResourceAsStream(resourcePath), StandardCharsets.UTF_8), bufSize)) {
-            int len = 0;
-            char[] buf = new char[bufSize];
-            while ((len = in.read(buf)) >= 0) {
+            while (connection == null && System.currentTimeMillis() < stop) {
+                try {
+                    sleep(200);
+                    connection = connectToIdleDaemon(registry.getIdle(), constraint);
+                } catch (InterruptedException e) {
 ```
 
+## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
 Variable `readLen` initializer `0` is redundant
 in `native/src/main/java/org/mvndaemon/mvnd/nativ/OSInfo.java`
@@ -2604,27 +2592,15 @@ in `native/src/main/java/org/mvndaemon/mvnd/nativ/OSInfo.java`
 ```
 
 ### UnusedAssignment
-Variable `executionRequestPopulator` initializer `null` is redundant
-in `daemon-m39/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
+Variable `len` initializer `0` is redundant
+in `common/src/main/java/org/mvndaemon/mvnd/common/IoUtils.java`
 #### Snippet
 ```java
-                }
-            });
-            MavenExecutionRequestPopulator executionRequestPopulator = null;
-            try {
-                CliRequest cliRequest = new CliRequest(new String[0], classWorld);
-```
-
-### UnusedAssignment
-The value `null` assigned to `executionRequestPopulator` is never used
-in `daemon-m39/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
-#### Snippet
-```java
-                        resolver.loadCoreExtensions(cliRequest.request, providedArtifacts, extensions));
-            } finally {
-                executionRequestPopulator = null;
-                container.dispose();
-            }
+        try (Reader in = new BufferedReader(
+                new InputStreamReader(cl.getResourceAsStream(resourcePath), StandardCharsets.UTF_8), bufSize)) {
+            int len = 0;
+            char[] buf = new char[bufSize];
+            while ((len = in.read(buf)) >= 0) {
 ```
 
 ### UnusedAssignment
@@ -2653,7 +2629,7 @@ in `daemon/src/main/java/org/mvndaemon/mvnd/cli/EnvHelper.java`
 
 ### UnusedAssignment
 Variable `executionRequestPopulator` initializer `null` is redundant
-in `daemon-m40/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
+in `daemon-m39/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
 #### Snippet
 ```java
                 }
@@ -2665,7 +2641,7 @@ in `daemon-m40/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
 
 ### UnusedAssignment
 The value `null` assigned to `executionRequestPopulator` is never used
-in `daemon-m40/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
+in `daemon-m39/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
 #### Snippet
 ```java
                         resolver.loadCoreExtensions(cliRequest.request, providedArtifacts, extensions));
@@ -2697,6 +2673,30 @@ in `common/src/main/java/org/mvndaemon/mvnd/common/logging/TerminalOutput.java`
     private int linesPerProject = 0;
     private int doneProjects = 0;
     private String buildStatus;
+```
+
+### UnusedAssignment
+Variable `executionRequestPopulator` initializer `null` is redundant
+in `daemon-m40/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
+#### Snippet
+```java
+                }
+            });
+            MavenExecutionRequestPopulator executionRequestPopulator = null;
+            try {
+                CliRequest cliRequest = new CliRequest(new String[0], classWorld);
+```
+
+### UnusedAssignment
+The value `null` assigned to `executionRequestPopulator` is never used
+in `daemon-m40/src/main/java/org/apache/maven/cli/DaemonMavenCli.java`
+#### Snippet
+```java
+                        resolver.loadCoreExtensions(cliRequest.request, providedArtifacts, extensions));
+            } finally {
+                executionRequestPopulator = null;
+                container.dispose();
+            }
 ```
 
 ## RuleId[id=OptionalGetWithoutIsPresent]
@@ -2750,18 +2750,6 @@ in `daemon-m39/src/main/java/org/mvndaemon/mvnd/cache/invalidating/InvalidatingR
 ```
 
 ### ConstantValue
-Condition `event instanceof MavenExecutionResult` is always `false`
-in `daemon-m40/src/main/java/org/mvndaemon/mvnd/cache/invalidating/InvalidatingRealmCacheEventSpy.java`
-#### Snippet
-```java
-                    }
-                }
-            } else if (event instanceof MavenExecutionResult) {
-                /* Evict the entries referring to jars under multiModuleProjectDirectory */
-                pluginCache.cache.removeIf(this::shouldEvict);
-```
-
-### ConstantValue
 Condition `idx < variable.length()` is always `true` when reached
 in `common/src/main/java/org/mvndaemon/mvnd/common/InterpolationHelper.java`
 #### Snippet
@@ -2783,6 +2771,18 @@ in `daemon/src/main/java/org/mvndaemon/mvnd/cache/impl/TimestampCacheFactory.jav
                 return v;
             });
             return record != null ? record.record : null;
+```
+
+### ConstantValue
+Condition `event instanceof MavenExecutionResult` is always `false`
+in `daemon-m40/src/main/java/org/mvndaemon/mvnd/cache/invalidating/InvalidatingRealmCacheEventSpy.java`
+#### Snippet
+```java
+                    }
+                }
+            } else if (event instanceof MavenExecutionResult) {
+                /* Evict the entries referring to jars under multiModuleProjectDirectory */
+                pluginCache.cache.removeIf(this::shouldEvict);
 ```
 
 ## RuleId[id=NonAtomicOperationOnVolatileField]
