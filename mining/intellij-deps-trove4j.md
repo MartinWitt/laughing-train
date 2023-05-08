@@ -693,39 +693,15 @@ in `core/src/main/java/gnu/trove/TObjectLongHashMap.java`
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object\[\]' to 'K\[\]'
+Unchecked assignment: 'gnu.trove.TObjectLongHashMap' to 'gnu.trove.TObjectLongHashMap'
 in `core/src/main/java/gnu/trove/TObjectLongHashMap.java`
 #### Snippet
 ```java
-  public boolean retainEntries(TObjectLongProcedure<K> procedure) {
-    boolean modified = false;
-    K[] keys = (K[])_set;
-    long[] values = _values;
-    stopCompactingOnRemove();
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'K'
-in `core/src/main/java/gnu/trove/TObjectLongHashMap.java`
-#### Snippet
-```java
-    setUp(size);
-    while (size-- > 0) {
-      K key = (K)stream.readObject();
-      long val = stream.readLong();
-      put(key, val);
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'gnu.trove.SerializationProcedure' to 'gnu.trove.TObjectLongProcedure'
-in `core/src/main/java/gnu/trove/TObjectLongHashMap.java`
-#### Snippet
-```java
-
-    SerializationProcedure writeProcedure = new SerializationProcedure(stream);
-    if (!forEachEntry(writeProcedure)) {
-      throw writeProcedure.exception;
+      return false;
     }
+    return forEachEntry(new EqProcedure<K>(that));
+  }
+
 ```
 
 ### UNCHECKED_WARNING
@@ -741,15 +717,27 @@ in `core/src/main/java/gnu/trove/TObjectLongHashMap.java`
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'gnu.trove.TObjectLongHashMap' to 'gnu.trove.TObjectLongHashMap'
+Unchecked cast: 'java.lang.Object\[\]' to 'K\[\]'
 in `core/src/main/java/gnu/trove/TObjectLongHashMap.java`
 #### Snippet
 ```java
-      return false;
-    }
-    return forEachEntry(new EqProcedure<K>(that));
-  }
+  public boolean retainEntries(TObjectLongProcedure<K> procedure) {
+    boolean modified = false;
+    K[] keys = (K[])_set;
+    long[] values = _values;
+    stopCompactingOnRemove();
+```
 
+### UNCHECKED_WARNING
+Unchecked assignment: 'gnu.trove.SerializationProcedure' to 'gnu.trove.TObjectLongProcedure'
+in `core/src/main/java/gnu/trove/TObjectLongHashMap.java`
+#### Snippet
+```java
+
+    SerializationProcedure writeProcedure = new SerializationProcedure(stream);
+    if (!forEachEntry(writeProcedure)) {
+      throw writeProcedure.exception;
+    }
 ```
 
 ### UNCHECKED_WARNING
@@ -765,6 +753,18 @@ in `core/src/main/java/gnu/trove/TObjectLongHashMap.java`
 ```
 
 ### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'K'
+in `core/src/main/java/gnu/trove/TObjectLongHashMap.java`
+#### Snippet
+```java
+    setUp(size);
+    while (size-- > 0) {
+      K key = (K)stream.readObject();
+      long val = stream.readLong();
+      put(key, val);
+```
+
+### UNCHECKED_WARNING
 Unchecked cast: 'java.lang.Object\[\]' to 'K\[\]'
 in `core/src/main/java/gnu/trove/TObjectLongHashMap.java`
 #### Snippet
@@ -777,15 +777,39 @@ in `core/src/main/java/gnu/trove/TObjectLongHashMap.java`
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'gnu.trove.SerializationProcedure' to 'gnu.trove.TLongObjectProcedure'
+Unchecked cast: 'java.lang.Object' to 'E'
+in `core/src/main/java/gnu/trove/TObjectHashIterator.java`
+#### Snippet
+```java
+  @Override
+  protected E objectAtIndex(int index) {
+    return (E)_objectHash._set[index];
+  }
+} // TObjectHashIterator
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object\[\]' to 'V\[\]'
+in `core/src/main/java/gnu/trove/TIntObjectHashMap.java`
+#### Snippet
+```java
+  protected int setUp(int initialCapacity) {
+    int capacity = super.setUp(initialCapacity);
+    _values = (V[])(initialCapacity == JUST_CREATED_CAPACITY ? EMPTY_OBJECT_ARRAY : new Object[capacity]);
+    _set = initialCapacity == JUST_CREATED_CAPACITY ? null : new int[capacity];
+
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'gnu.trove.TObjectHash.NULL' to 'V'
 in `core/src/main/java/gnu/trove/TLongObjectHashMap.java`
 #### Snippet
 ```java
 
-    SerializationProcedure writeProcedure = new SerializationProcedure(stream);
-    if (!forEachEntry(writeProcedure)) {
-      throw writeProcedure.exception;
-    }
+  private static <V> V wrapNull(V value) {
+    return value == null ? (V)TObjectHash.NULL : value;
+  }
+
 ```
 
 ### UNCHECKED_WARNING
@@ -813,26 +837,14 @@ in `core/src/main/java/gnu/trove/TLongObjectHashMap.java`
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'V'
+Unchecked assignment: 'gnu.trove.SerializationProcedure' to 'gnu.trove.TLongObjectProcedure'
 in `core/src/main/java/gnu/trove/TLongObjectHashMap.java`
 #### Snippet
 ```java
-  @Override
-  protected void removeAt(int index) {
-    _values[index] = (V)TObjectHash.REMOVED;
-    super.removeAt(index);  // clear key, set; adjust size
-  }
-```
 
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'V'
-in `core/src/main/java/gnu/trove/TLongObjectHashMap.java`
-#### Snippet
-```java
-    while (size-- > 0) {
-      long key = stream.readLong();
-      V val = (V)stream.readObject();
-      put(key, val);
+    SerializationProcedure writeProcedure = new SerializationProcedure(stream);
+    if (!forEachEntry(writeProcedure)) {
+      throw writeProcedure.exception;
     }
 ```
 
@@ -861,6 +873,30 @@ in `core/src/main/java/gnu/trove/TLongObjectHashMap.java`
 ```
 
 ### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'V'
+in `core/src/main/java/gnu/trove/TLongObjectHashMap.java`
+#### Snippet
+```java
+  @Override
+  protected void removeAt(int index) {
+    _values[index] = (V)TObjectHash.REMOVED;
+    super.removeAt(index);  // clear key, set; adjust size
+  }
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'V'
+in `core/src/main/java/gnu/trove/TLongObjectHashMap.java`
+#### Snippet
+```java
+    while (size-- > 0) {
+      long key = stream.readLong();
+      V val = (V)stream.readObject();
+      put(key, val);
+    }
+```
+
+### UNCHECKED_WARNING
 Unchecked cast: 'java.lang.Object\[\]' to 'V\[\]'
 in `core/src/main/java/gnu/trove/TLongObjectHashMap.java`
 #### Snippet
@@ -874,7 +910,7 @@ in `core/src/main/java/gnu/trove/TLongObjectHashMap.java`
 
 ### UNCHECKED_WARNING
 Unchecked cast: 'gnu.trove.TObjectHash.NULL' to 'V'
-in `core/src/main/java/gnu/trove/TLongObjectHashMap.java`
+in `core/src/main/java/gnu/trove/TIntObjectHashMap.java`
 #### Snippet
 ```java
 
@@ -885,51 +921,15 @@ in `core/src/main/java/gnu/trove/TLongObjectHashMap.java`
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'E'
-in `core/src/main/java/gnu/trove/TObjectHashIterator.java`
-#### Snippet
-```java
-  @Override
-  protected E objectAtIndex(int index) {
-    return (E)_objectHash._set[index];
-  }
-} // TObjectHashIterator
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'V'
-in `core/src/main/java/gnu/trove/TIntObjectHashMap.java`
-#### Snippet
-```java
-  @Override
-  protected void removeAt(int index) {
-    _values[index] = (V)TObjectHash.REMOVED;
-    super.removeAt(index);  // clear key, set; adjust size
-  }
-```
-
-### UNCHECKED_WARNING
 Unchecked cast: 'java.lang.Object\[\]' to 'V\[\]'
 in `core/src/main/java/gnu/trove/TIntObjectHashMap.java`
 #### Snippet
 ```java
-  protected int setUp(int initialCapacity) {
-    int capacity = super.setUp(initialCapacity);
-    _values = (V[])(initialCapacity == JUST_CREATED_CAPACITY ? EMPTY_OBJECT_ARRAY : new Object[capacity]);
-    _set = initialCapacity == JUST_CREATED_CAPACITY ? null : new int[capacity];
 
-```
+    _set = new int[newCapacity];
+    _values = (V[])new Object[newCapacity];
 
-### UNCHECKED_WARNING
-Unchecked assignment: 'gnu.trove.SerializationProcedure' to 'gnu.trove.TIntObjectProcedure'
-in `core/src/main/java/gnu/trove/TIntObjectHashMap.java`
-#### Snippet
-```java
-
-    SerializationProcedure writeProcedure = new SerializationProcedure(stream);
-    if (!forEachEntry(writeProcedure)) {
-      throw writeProcedure.exception;
-    }
+    for (int i = oldCapacity; i-- > 0; ) {
 ```
 
 ### UNCHECKED_WARNING
@@ -957,18 +957,6 @@ in `core/src/main/java/gnu/trove/TIntObjectHashMap.java`
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'V'
-in `core/src/main/java/gnu/trove/TIntObjectHashMap.java`
-#### Snippet
-```java
-    while (size-- > 0) {
-      int key = stream.readInt();
-      V val = (V)stream.readObject();
-      put(key, val);
-    }
-```
-
-### UNCHECKED_WARNING
 Unchecked assignment: 'gnu.trove.TIntObjectHashMap' to 'gnu.trove.TIntObjectHashMap'
 in `core/src/main/java/gnu/trove/TIntObjectHashMap.java`
 #### Snippet
@@ -981,27 +969,63 @@ in `core/src/main/java/gnu/trove/TIntObjectHashMap.java`
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object\[\]' to 'V\[\]'
+Unchecked cast: 'java.lang.Object' to 'V'
 in `core/src/main/java/gnu/trove/TIntObjectHashMap.java`
 #### Snippet
 ```java
-
-    _set = new int[newCapacity];
-    _values = (V[])new Object[newCapacity];
-
-    for (int i = oldCapacity; i-- > 0; ) {
+    while (size-- > 0) {
+      int key = stream.readInt();
+      V val = (V)stream.readObject();
+      put(key, val);
+    }
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'gnu.trove.TObjectHash.NULL' to 'V'
+Unchecked assignment: 'gnu.trove.SerializationProcedure' to 'gnu.trove.TIntObjectProcedure'
 in `core/src/main/java/gnu/trove/TIntObjectHashMap.java`
 #### Snippet
 ```java
 
-  private static <V> V wrapNull(V value) {
-    return value == null ? (V)TObjectHash.NULL : value;
-  }
+    SerializationProcedure writeProcedure = new SerializationProcedure(stream);
+    if (!forEachEntry(writeProcedure)) {
+      throw writeProcedure.exception;
+    }
+```
 
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'V'
+in `core/src/main/java/gnu/trove/TIntObjectHashMap.java`
+#### Snippet
+```java
+  @Override
+  protected void removeAt(int index) {
+    _values[index] = (V)TObjectHash.REMOVED;
+    super.removeAt(index);  // clear key, set; adjust size
+  }
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'T'
+in `core/src/main/java/gnu/trove/TObjectHash.java`
+#### Snippet
+```java
+                                       + "in that method's documentation. "
+                                       + "object #1 =" + o1 + (o1 == null ? "" : " (" + o1.getClass() + ")")
+                                       + ", hashCode=" + _hashingStrategy.computeHashCode((T)o1)
+                                       + "; object #2 =" + o2 + (o2 == null ? "" : " (" + o2.getClass() + ")")
+                                       + ", hashCode=" + _hashingStrategy.computeHashCode((T)o2)
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'T'
+in `core/src/main/java/gnu/trove/TObjectHash.java`
+#### Snippet
+```java
+                                       + ", hashCode=" + _hashingStrategy.computeHashCode((T)o1)
+                                       + "; object #2 =" + o2 + (o2 == null ? "" : " (" + o2.getClass() + ")")
+                                       + ", hashCode=" + _hashingStrategy.computeHashCode((T)o2)
+    );
+  }
 ```
 
 ### UNCHECKED_WARNING
@@ -1014,6 +1038,30 @@ in `core/src/main/java/gnu/trove/TObjectHash.java`
     return index((T)obj) >= 0;
   }
 
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'T'
+in `core/src/main/java/gnu/trove/TObjectHash.java`
+#### Snippet
+```java
+      if (set[i] != null
+          && set[i] != REMOVED
+          && !procedure.execute((T)set[i])) {
+        return false;
+      }
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'gnu.trove.TObjectHash'
+in `core/src/main/java/gnu/trove/TObjectHash.java`
+#### Snippet
+```java
+  @Override
+  public TObjectHash<T> clone() {
+    TObjectHash<T> h = (TObjectHash<T>)super.clone();
+    h._set = _set == EMPTY_OBJECT_ARRAY ? EMPTY_OBJECT_ARRAY : _set.clone();
+    return h;
 ```
 
 ### UNCHECKED_WARNING
@@ -1053,18 +1101,6 @@ in `core/src/main/java/gnu/trove/TObjectHash.java`
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'gnu.trove.TObjectHash'
-in `core/src/main/java/gnu/trove/TObjectHash.java`
-#### Snippet
-```java
-  @Override
-  public TObjectHash<T> clone() {
-    TObjectHash<T> h = (TObjectHash<T>)super.clone();
-    h._set = _set == EMPTY_OBJECT_ARRAY ? EMPTY_OBJECT_ARRAY : _set.clone();
-    return h;
-```
-
-### UNCHECKED_WARNING
 Unchecked cast: 'java.lang.Object' to 'T'
 in `core/src/main/java/gnu/trove/TObjectHash.java`
 #### Snippet
@@ -1089,39 +1125,99 @@ in `core/src/main/java/gnu/trove/TObjectHash.java`
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'T'
-in `core/src/main/java/gnu/trove/TObjectHash.java`
+Unchecked cast: 'java.lang.Object\[\]' to 'K\[\]'
+in `core/src/main/java/gnu/trove/TObjectIntHashMap.java`
 #### Snippet
 ```java
-      if (set[i] != null
-          && set[i] != REMOVED
-          && !procedure.execute((T)set[i])) {
-        return false;
-      }
+  public boolean retainEntries(TObjectIntProcedure<K> procedure) {
+    boolean modified = false;
+    K[] keys = (K[])_set;
+    int[] values = _values;
+    stopCompactingOnRemove();
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'T'
-in `core/src/main/java/gnu/trove/TObjectHash.java`
+Unchecked assignment: 'gnu.trove.SerializationProcedure' to 'gnu.trove.TObjectIntProcedure'
+in `core/src/main/java/gnu/trove/TObjectIntHashMap.java`
 #### Snippet
 ```java
-                                       + "in that method's documentation. "
-                                       + "object #1 =" + o1 + (o1 == null ? "" : " (" + o1.getClass() + ")")
-                                       + ", hashCode=" + _hashingStrategy.computeHashCode((T)o1)
-                                       + "; object #2 =" + o2 + (o2 == null ? "" : " (" + o2.getClass() + ")")
-                                       + ", hashCode=" + _hashingStrategy.computeHashCode((T)o2)
+
+    SerializationProcedure writeProcedure = new SerializationProcedure(stream);
+    if (!forEachEntry(writeProcedure)) {
+      throw writeProcedure.exception;
+    }
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'T'
-in `core/src/main/java/gnu/trove/TObjectHash.java`
+Unchecked assignment: 'gnu.trove.TObjectIntHashMap' to 'gnu.trove.TObjectIntHashMap'
+in `core/src/main/java/gnu/trove/TObjectIntHashMap.java`
 #### Snippet
 ```java
-                                       + ", hashCode=" + _hashingStrategy.computeHashCode((T)o1)
-                                       + "; object #2 =" + o2 + (o2 == null ? "" : " (" + o2.getClass() + ")")
-                                       + ", hashCode=" + _hashingStrategy.computeHashCode((T)o2)
-    );
+      return false;
+    }
+    return forEachEntry(new EqProcedure<K>(that));
   }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object\[\]' to 'K\[\]'
+in `core/src/main/java/gnu/trove/TObjectIntHashMap.java`
+#### Snippet
+```java
+   */
+  public boolean forEachEntry(TObjectIntProcedure<K> procedure) {
+    K[] keys = (K[])_set;
+    int[] values = _values;
+    for (int i = keys.length; i-- > 0; ) {
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object\[\]' to 'K\[\]'
+in `core/src/main/java/gnu/trove/TObjectIntHashMap.java`
+#### Snippet
+```java
+  protected void rehash(int newCapacity) {
+    int oldCapacity = capacity();
+    K[] oldKeys = (K[])_set;
+    int[] oldVals = _values;
+
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'K'
+in `core/src/main/java/gnu/trove/TObjectIntHashMap.java`
+#### Snippet
+```java
+      isNewMapping = false;
+    }
+    K oldKey = (K)_set[index];
+    _set[index] = key;
+    _values[index] = value;
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object\[\]' to 'K\[\]'
+in `core/src/main/java/gnu/trove/TObjectIntHashMap.java`
+#### Snippet
+```java
+  public Object[] keys() {
+    Object[] keys = new Object[size()];
+    K[] k = (K[])_set;
+    for (int i = k.length, j = 0; i-- > 0; ) {
+      if (k[i] != null && k[i] != REMOVED) {
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'K'
+in `core/src/main/java/gnu/trove/TObjectIntHashMap.java`
+#### Snippet
+```java
+    setUp(size);
+    while (size-- > 0) {
+      K key = (K)stream.readObject();
+      int val = stream.readInt();
+      put(key, val);
 ```
 
 ### UNCHECKED_WARNING
@@ -1133,18 +1229,6 @@ in `core/src/main/java/gnu/trove/THashSet.java`
     while (size-- > 0) {
       E val = (E)stream.readObject();
       add(val);
-    }
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'gnu.trove.SerializationProcedure' to 'gnu.trove.TObjectProcedure'
-in `core/src/main/java/gnu/trove/THashSet.java`
-#### Snippet
-```java
-
-    SerializationProcedure writeProcedure = new SerializationProcedure(stream);
-    if (!forEach(writeProcedure)) {
-      throw writeProcedure.exception;
     }
 ```
 
@@ -1165,11 +1249,23 @@ Unchecked cast: 'java.lang.Object' to 'E'
 in `core/src/main/java/gnu/trove/THashSet.java`
 #### Snippet
 ```java
-    for (int i = oldCapacity; i-- > 0; ) {
-      if (oldSet[i] != null && oldSet[i] != REMOVED) {
-        E o = (E)oldSet[i];
-        int index = insertionIndex(o);
-        if (index < 0) { // everyone pays for this because some people can't RTFM
+  @Override
+  public boolean remove(Object obj) {
+    int index = index((E)obj);
+    if (index >= 0) {
+      removeAt(index);
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'gnu.trove.SerializationProcedure' to 'gnu.trove.TObjectProcedure'
+in `core/src/main/java/gnu/trove/THashSet.java`
+#### Snippet
+```java
+
+    SerializationProcedure writeProcedure = new SerializationProcedure(stream);
+    if (!forEach(writeProcedure)) {
+      throw writeProcedure.exception;
+    }
 ```
 
 ### UNCHECKED_WARNING
@@ -1189,131 +1285,23 @@ Unchecked cast: 'java.lang.Object' to 'E'
 in `core/src/main/java/gnu/trove/THashSet.java`
 #### Snippet
 ```java
-  @Override
-  public boolean remove(Object obj) {
-    int index = index((E)obj);
-    if (index >= 0) {
-      removeAt(index);
+    for (int i = oldCapacity; i-- > 0; ) {
+      if (oldSet[i] != null && oldSet[i] != REMOVED) {
+        E o = (E)oldSet[i];
+        int index = insertionIndex(o);
+        if (index < 0) { // everyone pays for this because some people can't RTFM
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object\[\]' to 'K\[\]'
-in `core/src/main/java/gnu/trove/TObjectIntHashMap.java`
+Unchecked cast: 'java.lang.Object\[\]' to 'V\[\]'
+in `core/src/main/java/gnu/trove/THashMap.java`
 #### Snippet
 ```java
-  public boolean retainEntries(TObjectIntProcedure<K> procedure) {
-    boolean modified = false;
-    K[] keys = (K[])_set;
-    int[] values = _values;
-    stopCompactingOnRemove();
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object\[\]' to 'K\[\]'
-in `core/src/main/java/gnu/trove/TObjectIntHashMap.java`
-#### Snippet
-```java
-  protected void rehash(int newCapacity) {
-    int oldCapacity = capacity();
-    K[] oldKeys = (K[])_set;
-    int[] oldVals = _values;
-
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object\[\]' to 'K\[\]'
-in `core/src/main/java/gnu/trove/TObjectIntHashMap.java`
-#### Snippet
-```java
-   */
-  public boolean forEachEntry(TObjectIntProcedure<K> procedure) {
-    K[] keys = (K[])_set;
-    int[] values = _values;
-    for (int i = keys.length; i-- > 0; ) {
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'gnu.trove.TObjectIntHashMap' to 'gnu.trove.TObjectIntHashMap'
-in `core/src/main/java/gnu/trove/TObjectIntHashMap.java`
-#### Snippet
-```java
-      return false;
-    }
-    return forEachEntry(new EqProcedure<K>(that));
+  protected int setUp(int initialCapacity) {
+    int capacity = super.setUp(initialCapacity);
+    _values = (V[])(initialCapacity == JUST_CREATED_CAPACITY ? EMPTY_OBJECT_ARRAY : new Object[capacity]);
+    return capacity;
   }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'gnu.trove.SerializationProcedure' to 'gnu.trove.TObjectIntProcedure'
-in `core/src/main/java/gnu/trove/TObjectIntHashMap.java`
-#### Snippet
-```java
-
-    SerializationProcedure writeProcedure = new SerializationProcedure(stream);
-    if (!forEachEntry(writeProcedure)) {
-      throw writeProcedure.exception;
-    }
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'K'
-in `core/src/main/java/gnu/trove/TObjectIntHashMap.java`
-#### Snippet
-```java
-    setUp(size);
-    while (size-- > 0) {
-      K key = (K)stream.readObject();
-      int val = stream.readInt();
-      put(key, val);
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object\[\]' to 'K\[\]'
-in `core/src/main/java/gnu/trove/TObjectIntHashMap.java`
-#### Snippet
-```java
-  public Object[] keys() {
-    Object[] keys = new Object[size()];
-    K[] k = (K[])_set;
-    for (int i = k.length, j = 0; i-- > 0; ) {
-      if (k[i] != null && k[i] != REMOVED) {
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'K'
-in `core/src/main/java/gnu/trove/TObjectIntHashMap.java`
-#### Snippet
-```java
-      isNewMapping = false;
-    }
-    K oldKey = (K)_set[index];
-    _set[index] = key;
-    _values[index] = value;
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'K'
-in `core/src/main/java/gnu/trove/THashMap.java`
-#### Snippet
-```java
-      @Override
-      public Entry objectAtIndex(final int index) {
-        return new Entry((K)_set[index], _values[index], index);
-      }
-    }
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'E'
-in `core/src/main/java/gnu/trove/THashMap.java`
-#### Snippet
-```java
-    @Override
-    public boolean remove(Object o) {
-      return removeElement((E)o);
-    }
-
 ```
 
 ### UNCHECKED_WARNING
@@ -1333,11 +1321,23 @@ Unchecked cast: 'java.lang.Object' to 'K'
 in `core/src/main/java/gnu/trove/THashMap.java`
 #### Snippet
 ```java
-  public V remove(Object key) {
-    V prev = null;
-    int index = index((K)key);
-    if (index >= 0) {
-      prev = _values[index];
+      if (keys[i] != null
+          && keys[i] != REMOVED
+          && !procedure.execute((K)keys[i], values[i])) {
+        return false;
+      }
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'E'
+in `core/src/main/java/gnu/trove/THashMap.java`
+#### Snippet
+```java
+    @Override
+    public boolean remove(Object o) {
+      return removeElement((E)o);
+    }
+
 ```
 
 ### UNCHECKED_WARNING
@@ -1353,6 +1353,18 @@ in `core/src/main/java/gnu/trove/THashMap.java`
 ```
 
 ### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'K'
+in `core/src/main/java/gnu/trove/THashMap.java`
+#### Snippet
+```java
+  public V remove(Object key) {
+    V prev = null;
+    int index = index((K)key);
+    if (index >= 0) {
+      prev = _values[index];
+```
+
+### UNCHECKED_WARNING
 Unchecked assignment: 'gnu.trove.SerializationProcedure' to 'gnu.trove.TObjectObjectProcedure'
 in `core/src/main/java/gnu/trove/THashMap.java`
 #### Snippet
@@ -1362,6 +1374,42 @@ in `core/src/main/java/gnu/trove/THashMap.java`
     if (!forEachEntry(writeProcedure)) {
       throw writeProcedure.exception;
     }
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'K'
+in `core/src/main/java/gnu/trove/THashMap.java`
+#### Snippet
+```java
+        if (keys[i] != null
+            && keys[i] != REMOVED
+            && !procedure.execute((K)keys[i], values[i])) {
+          removeAt(i);
+          modified = true;
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object\[\]' to 'V\[\]'
+in `core/src/main/java/gnu/trove/THashMap.java`
+#### Snippet
+```java
+
+    _set = new Object[newCapacity];
+    _values = (V[])new Object[newCapacity];
+
+    for (int i = oldCapacity; i-- > 0; ) {
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'K'
+in `core/src/main/java/gnu/trove/THashMap.java`
+#### Snippet
+```java
+      if (oldKeys[i] != null && oldKeys[i] != REMOVED) {
+        Object o = oldKeys[i];
+        int index = insertionIndex((K)o);
+        if (index < 0) {
+          throwObjectContractViolation(_set[-index - 1], o);
 ```
 
 ### UNCHECKED_WARNING
@@ -1389,18 +1437,6 @@ in `core/src/main/java/gnu/trove/THashMap.java`
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'T\[\]'
-in `core/src/main/java/gnu/trove/THashMap.java`
-#### Snippet
-```java
-      int size = size();
-      if (a.length < size) {
-        a = (T[])Array.newInstance(a.getClass().getComponentType(), size);
-      }
-
-```
-
-### UNCHECKED_WARNING
 Unchecked cast: 'java.lang.Object' to 'E'
 in `core/src/main/java/gnu/trove/THashMap.java`
 #### Snippet
@@ -1413,51 +1449,15 @@ in `core/src/main/java/gnu/trove/THashMap.java`
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'K'
+Unchecked cast: 'java.lang.Object' to 'T\[\]'
 in `core/src/main/java/gnu/trove/THashMap.java`
 #### Snippet
 ```java
-        if (keys[i] != null
-            && keys[i] != REMOVED
-            && !procedure.execute((K)keys[i], values[i])) {
-          removeAt(i);
-          modified = true;
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object\[\]' to 'V\[\]'
-in `core/src/main/java/gnu/trove/THashMap.java`
-#### Snippet
-```java
-  protected int setUp(int initialCapacity) {
-    int capacity = super.setUp(initialCapacity);
-    _values = (V[])(initialCapacity == JUST_CREATED_CAPACITY ? EMPTY_OBJECT_ARRAY : new Object[capacity]);
-    return capacity;
-  }
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'K'
-in `core/src/main/java/gnu/trove/THashMap.java`
-#### Snippet
-```java
-      if (keys[i] != null
-          && keys[i] != REMOVED
-          && !procedure.execute((K)keys[i], values[i])) {
-        return false;
+      int size = size();
+      if (a.length < size) {
+        a = (T[])Array.newInstance(a.getClass().getComponentType(), size);
       }
-```
 
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object\[\]' to 'V\[\]'
-in `core/src/main/java/gnu/trove/THashMap.java`
-#### Snippet
-```java
-
-    _set = new Object[newCapacity];
-    _values = (V[])new Object[newCapacity];
-
-    for (int i = oldCapacity; i-- > 0; ) {
 ```
 
 ### UNCHECKED_WARNING
@@ -1465,11 +1465,11 @@ Unchecked cast: 'java.lang.Object' to 'K'
 in `core/src/main/java/gnu/trove/THashMap.java`
 #### Snippet
 ```java
-      if (oldKeys[i] != null && oldKeys[i] != REMOVED) {
-        Object o = oldKeys[i];
-        int index = insertionIndex((K)o);
-        if (index < 0) {
-          throwObjectContractViolation(_set[-index - 1], o);
+      @Override
+      public Entry objectAtIndex(final int index) {
+        return new Entry((K)_set[index], _values[index], index);
+      }
+    }
 ```
 
 ## RuleId[id=JavadocReference]
@@ -1488,18 +1488,6 @@ in `core/src/main/java/gnu/trove/TIntStack.java`
 ## RuleId[id=Deprecation]
 ### Deprecation
 'gnu.trove.TPrimitiveHash' is deprecated
-in `core/src/main/java/gnu/trove/TLongHash.java`
-#### Snippet
-```java
- */
-
-public abstract class TLongHash extends TPrimitiveHash
-  implements TLongHashingStrategy {
-
-```
-
-### Deprecation
-'gnu.trove.TPrimitiveHash' is deprecated
 in `core/src/main/java/gnu/trove/TIntHash.java`
 #### Snippet
 ```java
@@ -1512,14 +1500,14 @@ public abstract class TIntHash extends TPrimitiveHash
 
 ### Deprecation
 'gnu.trove.TPrimitiveHash' is deprecated
-in `core/src/main/java/gnu/trove/TPrimitiveIterator.java`
+in `core/src/main/java/gnu/trove/TLongHash.java`
 #### Snippet
 ```java
-   * Creates a TPrimitiveIterator for the specified collection.
-   */
-  TPrimitiveIterator(TPrimitiveHash hash) {
-    super(hash);
-    _hash = hash;
+ */
+
+public abstract class TLongHash extends TPrimitiveHash
+  implements TLongHashingStrategy {
+
 ```
 
 ### Deprecation
@@ -1547,15 +1535,15 @@ in `core/src/main/java/gnu/trove/TPrimitiveIterator.java`
 ```
 
 ### Deprecation
-'gnu.trove.TIntObjectHashMap' is deprecated
-in `core/src/main/java/gnu/trove/TIntObjectIterator.java`
+'gnu.trove.TPrimitiveHash' is deprecated
+in `core/src/main/java/gnu/trove/TPrimitiveIterator.java`
 #### Snippet
 ```java
-    Object[] values = _map._values;
-    int i = _index;
-    while (i-- > 0 && !TIntObjectHashMap.isFull(values, i)) ;
-    return i;
-  }
+   * Creates a TPrimitiveIterator for the specified collection.
+   */
+  TPrimitiveIterator(TPrimitiveHash hash) {
+    super(hash);
+    _hash = hash;
 ```
 
 ### Deprecation
@@ -1583,15 +1571,15 @@ in `core/src/main/java/gnu/trove/TIntObjectIterator.java`
 ```
 
 ### Deprecation
-'gnu.trove.TObjectLongHashMap' is deprecated
-in `core/src/main/java/gnu/trove/TObjectLongIterator.java`
+'gnu.trove.TIntObjectHashMap' is deprecated
+in `core/src/main/java/gnu/trove/TIntObjectIterator.java`
 #### Snippet
 ```java
-  private final TObjectLongHashMap<K> _map;
-
-  public TObjectLongIterator(TObjectLongHashMap<K> map) {
-    super(map);
-    _map = map;
+    Object[] values = _map._values;
+    int i = _index;
+    while (i-- > 0 && !TIntObjectHashMap.isFull(values, i)) ;
+    return i;
+  }
 ```
 
 ### Deprecation
@@ -1604,6 +1592,18 @@ public final class TObjectLongIterator<K> extends TIterator {
   private final TObjectLongHashMap<K> _map;
 
   public TObjectLongIterator(TObjectLongHashMap<K> map) {
+```
+
+### Deprecation
+'gnu.trove.TObjectLongHashMap' is deprecated
+in `core/src/main/java/gnu/trove/TObjectLongIterator.java`
+#### Snippet
+```java
+  private final TObjectLongHashMap<K> _map;
+
+  public TObjectLongIterator(TObjectLongHashMap<K> map) {
+    super(map);
+    _map = map;
 ```
 
 ### Deprecation
@@ -1668,15 +1668,15 @@ in `core/src/main/java/gnu/trove/TIntArrayList.java`
 ```
 
 ### EmptyStatementBody
-`if` statement has empty body
-in `core/src/main/java/gnu/trove/TByteArrayList.java`
+`while` statement has empty body
+in `core/src/main/java/gnu/trove/THashIterator.java`
 #### Snippet
 ```java
-      System.arraycopy(_data, length, _data, 0, _pos - length);
-    }
-    else if (_pos - length == offset) {
-      // no copy to make, decrementing pos "deletes" values at
-      // the end
+    Object[] set = _hash._set;
+    int i = _index;
+    while (i-- > 0 && (set[i] == null || set[i] == TObjectHash.REMOVED)) ;
+    return i;
+  }
 ```
 
 ### EmptyStatementBody
@@ -1692,15 +1692,15 @@ in `core/src/main/java/gnu/trove/TObjectLongIterator.java`
 ```
 
 ### EmptyStatementBody
-`while` statement has empty body
-in `core/src/main/java/gnu/trove/THashIterator.java`
+`if` statement has empty body
+in `core/src/main/java/gnu/trove/TByteArrayList.java`
 #### Snippet
 ```java
-    Object[] set = _hash._set;
-    int i = _index;
-    while (i-- > 0 && (set[i] == null || set[i] == TObjectHash.REMOVED)) ;
-    return i;
-  }
+      System.arraycopy(_data, length, _data, 0, _pos - length);
+    }
+    else if (_pos - length == offset) {
+      // no copy to make, decrementing pos "deletes" values at
+      // the end
 ```
 
 ### EmptyStatementBody
@@ -1765,18 +1765,6 @@ public class TObjectIntHashMap<K> extends TObjectHash<K> {
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'THashMap' is still used
-in `core/src/main/java/gnu/trove/THashMap.java`
-#### Snippet
-```java
- */
-@Deprecated
-public class THashMap<K, V> extends TObjectHash<K> implements Map<K, V> {
-
-  /**
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'TPrimitiveHash' is still used
 in `core/src/main/java/gnu/trove/TPrimitiveHash.java`
 #### Snippet
@@ -1786,6 +1774,18 @@ in `core/src/main/java/gnu/trove/TPrimitiveHash.java`
 public abstract class TPrimitiveHash extends THash {
   /**
    * flags indicating whether each position in the hash is
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'THashMap' is still used
+in `core/src/main/java/gnu/trove/THashMap.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public class THashMap<K, V> extends TObjectHash<K> implements Map<K, V> {
+
+  /**
 ```
 
 ## RuleId[id=CommentedOutCode]
