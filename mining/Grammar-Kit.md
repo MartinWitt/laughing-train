@@ -1,7 +1,7 @@
 # Grammar-Kit 
  
 # Bad smells
-I found 99 bad smells with 0 repairable:
+I found 98 bad smells with 0 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | UnstableApiUsage | 15 | false |
@@ -28,7 +28,6 @@ I found 99 bad smells with 0 repairable:
 | SwitchStatementDensity | 1 | false |
 | CollectionAddAllCanBeReplacedWithConstructor | 1 | false |
 | Deprecation | 1 | false |
-| NullableProblems | 1 | false |
 | ThrowablePrintStackTrace | 1 | false |
 | MismatchedCollectionQueryUpdate | 1 | false |
 ## RuleId[id=MagicConstant]
@@ -204,18 +203,6 @@ in `src/org/intellij/grammar/refactor/BnfInlineRuleProcessor.java`
 ```
 
 ### DataFlowIssue
-The call to 'rethrowAllAsUnchecked' always fails, according to its method contracts
-in `src/org/intellij/grammar/refactor/BnfIntroduceTokenHandler.java`
-#### Snippet
-```java
-            }
-            catch (StartMarkAction.AlreadyStartedException e) {
-              ExceptionUtil.rethrowAllAsUnchecked(e);
-            }
-          });
-```
-
-### DataFlowIssue
 Argument `context.getEditor()` might be null
 in `src/org/intellij/grammar/refactor/BnfIntroduceTokenHandler.java`
 #### Snippet
@@ -228,15 +215,15 @@ in `src/org/intellij/grammar/refactor/BnfIntroduceTokenHandler.java`
 ```
 
 ### DataFlowIssue
-Argument `child` might be null
-in `src/org/intellij/grammar/refactor/BnfExpressionOptimizer.java`
+The call to 'rethrowAllAsUnchecked' always fails, according to its method contracts
+in `src/org/intellij/grammar/refactor/BnfIntroduceTokenHandler.java`
 #### Snippet
 ```java
-        IElementType type2 = ParserGeneratorUtil.getEffectiveType(child);
-        if (type1 == type2) {
-          list.add(cur.replace(child));
-        }
-        else if (type1 == BnfTypes.BNF_OP_OPT && type2 == BnfTypes.BNF_OP_ONEMORE ||
+            }
+            catch (StartMarkAction.AlreadyStartedException e) {
+              ExceptionUtil.rethrowAllAsUnchecked(e);
+            }
+          });
 ```
 
 ### DataFlowIssue
@@ -249,6 +236,18 @@ in `src/org/intellij/grammar/analysis/BnfFirstNextAnalyzer.java`
               BnfRule metaRule = (BnfRule)ruleRef.getReference().resolve();
               if (metaRule == null) {
                 LOG.error("ruleRef:" + ruleRef.getText() +", metaResult:" + metaResults);
+```
+
+### DataFlowIssue
+Argument `child` might be null
+in `src/org/intellij/grammar/refactor/BnfExpressionOptimizer.java`
+#### Snippet
+```java
+        IElementType type2 = ParserGeneratorUtil.getEffectiveType(child);
+        if (type1 == type2) {
+          list.add(cur.replace(child));
+        }
+        else if (type1 == BnfTypes.BNF_OP_OPT && type2 == BnfTypes.BNF_OP_ONEMORE ||
 ```
 
 ### DataFlowIssue
@@ -523,19 +522,6 @@ in `src/org/intellij/grammar/actions/BnfGenerateLexerAction.java`
     return s;
 ```
 
-## RuleId[id=NullableProblems]
-### NullableProblems
-Not annotated method overrides method annotated with @NotNull
-in `src/org/intellij/jflex/editor/JFlexBraceMatcher.java`
-#### Snippet
-```java
-
-  @Override
-  public BracePair @NotNull [] getPairs() {
-    return PAIRS;
-  }
-```
-
 ## RuleId[id=TrivialIf]
 ### TrivialIf
 `if` statement can be simplified
@@ -579,30 +565,6 @@ Possibly blocking call in non-blocking context could lead to thread starvation
 in `src/org/intellij/grammar/LightPsi.java`
 #### Snippet
 ```java
-    }
-    else {
-      jarFile.putNextEntry(new JarEntry(resourceName));
-      FileUtil.copy(stream, jarFile);
-      jarFile.closeEntry();
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `src/org/intellij/grammar/LightPsi.java`
-#### Snippet
-```java
-      jarFile.putNextEntry(new JarEntry(resourceName));
-      FileUtil.copy(stream, jarFile);
-      jarFile.closeEntry();
-    }
-  }
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `src/org/intellij/grammar/LightPsi.java`
-#### Snippet
-```java
     String s;
     addJarEntry(jar, "misc/registry.properties");
     while ((s = reader.readLine()) != null) {
@@ -619,6 +581,30 @@ in `src/org/intellij/grammar/LightPsi.java`
     }
     jar.close();
     return count;
+  }
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `src/org/intellij/grammar/LightPsi.java`
+#### Snippet
+```java
+    }
+    else {
+      jarFile.putNextEntry(new JarEntry(resourceName));
+      FileUtil.copy(stream, jarFile);
+      jarFile.closeEntry();
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `src/org/intellij/grammar/LightPsi.java`
+#### Snippet
+```java
+      jarFile.putNextEntry(new JarEntry(resourceName));
+      FileUtil.copy(stream, jarFile);
+      jarFile.closeEntry();
+    }
   }
 ```
 
@@ -672,25 +658,13 @@ in `src/org/intellij/grammar/BnfStructureViewFactory.java`
 ```
 
 ### RedundantMethodOverride
-Method `shouldEnterElement()` is identical to its super method
-in `src/org/intellij/jflex/editor/JFlexStructureViewFactory.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean shouldEnterElement(Object element) {
-      return false;
-    }
-```
-
-### RedundantMethodOverride
-Method `getDocumentationElementForLink()` is identical to its super method
+Method `getUrlFor()` is identical to its super method
 in `src/org/intellij/grammar/BnfDocumentationProvider.java`
 #### Snippet
 ```java
 
   @Override
-  public @Nullable PsiElement getDocumentationElementForLink(PsiManager psiManager, String link, PsiElement context) {
+  public @Nullable List<String> getUrlFor(PsiElement element, PsiElement originalElement) {
     return null;
   }
 ```
@@ -708,28 +682,27 @@ in `src/org/intellij/grammar/BnfDocumentationProvider.java`
 ```
 
 ### RedundantMethodOverride
-Method `getUrlFor()` is identical to its super method
+Method `getDocumentationElementForLink()` is identical to its super method
 in `src/org/intellij/grammar/BnfDocumentationProvider.java`
 #### Snippet
 ```java
 
   @Override
-  public @Nullable List<String> getUrlFor(PsiElement element, PsiElement originalElement) {
+  public @Nullable PsiElement getDocumentationElementForLink(PsiManager psiManager, String link, PsiElement context) {
     return null;
   }
 ```
 
-## RuleId[id=ThrowablePrintStackTrace]
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/org/intellij/grammar/Main.java`
+### RedundantMethodOverride
+Method `shouldEnterElement()` is identical to its super method
+in `src/org/intellij/jflex/editor/JFlexStructureViewFactory.java`
 #### Snippet
 ```java
+
+    @Override
+    public boolean shouldEnterElement(Object element) {
+      return false;
     }
-    catch (Throwable throwable) {
-      throwable.printStackTrace();
-    }
-    finally {
 ```
 
 ## RuleId[id=DialogTitleCapitalization]
@@ -755,6 +728,19 @@ in `src/org/intellij/grammar/parser/GeneratedParserUtilBase.java`
         message = "unmatched input";
       }
       else {
+```
+
+## RuleId[id=ThrowablePrintStackTrace]
+### ThrowablePrintStackTrace
+Call to `printStackTrace()` should probably be replaced with more robust logging
+in `src/org/intellij/grammar/Main.java`
+#### Snippet
+```java
+    }
+    catch (Throwable throwable) {
+      throwable.printStackTrace();
+    }
+    finally {
 ```
 
 ## RuleId[id=MismatchedCollectionQueryUpdate]
@@ -882,18 +868,6 @@ in `src/org/intellij/grammar/psi/impl/BnfStringRefContributor.java`
 ```
 
 ### StaticCollection
-Static collection `EMPTY_LIST`
-in `src/org/intellij/grammar/KnownAttribute.java`
-#### Snippet
-```java
-  public static @Nullable KnownAttribute<?> getAttribute(@Nullable String name) { return name == null ? null : ourAttributes.get(name); }
-
-  private static final ListValue EMPTY_LIST = new ListValue();
-
-  public static final KnownAttribute<String>       CLASS_HEADER              = create(true, String.class, "classHeader", BnfConstants.CLASS_HEADER_DEF);
-```
-
-### StaticCollection
 Static collection `ourAttributes`
 in `src/org/intellij/grammar/KnownAttribute.java`
 #### Snippet
@@ -903,6 +877,18 @@ public class KnownAttribute<T> {
   private static final Map<String, KnownAttribute<?>> ourAttributes = new TreeMap<>();
 
   public static @NotNull Collection<KnownAttribute<?>> getAttributes() { return Collections.unmodifiableCollection(ourAttributes.values()); }
+```
+
+### StaticCollection
+Static collection `EMPTY_LIST`
+in `src/org/intellij/grammar/KnownAttribute.java`
+#### Snippet
+```java
+  public static @Nullable KnownAttribute<?> getAttribute(@Nullable String name) { return name == null ? null : ourAttributes.get(name); }
+
+  private static final ListValue EMPTY_LIST = new ListValue();
+
+  public static final KnownAttribute<String>       CLASS_HEADER              = create(true, String.class, "classHeader", BnfConstants.CLASS_HEADER_DEF);
 ```
 
 ### StaticCollection
@@ -930,18 +916,6 @@ in `src/org/intellij/grammar/livePreview/LiveHooksHelper.java`
 ```
 
 ### StaticCollection
-Static collection `JAVA_RESERVED`
-in `src/org/intellij/grammar/generator/ParserGeneratorUtil.java`
-#### Snippet
-```java
-public class ParserGeneratorUtil {
-  private static final String RESERVED_SUFFIX = "_$";
-  private static final Set<String> JAVA_RESERVED =
-    ContainerUtil.set("abstract", "assert", "boolean", "break", "byte", "case", "catch", "char", "class",
-                      "const", "default", "do", "double", "else", "enum", "extends", "false", "final", "finally",
-```
-
-### StaticCollection
 Static collection `ourProviders`
 in `src/org/intellij/grammar/psi/impl/BnfStringImpl.java`
 #### Snippet
@@ -951,6 +925,18 @@ in `src/org/intellij/grammar/psi/impl/BnfStringImpl.java`
   private static final Map<ElementPattern<? extends PsiElement>, PsiReferenceProvider> ourProviders;
 
   static {
+```
+
+### StaticCollection
+Static collection `JAVA_RESERVED`
+in `src/org/intellij/grammar/generator/ParserGeneratorUtil.java`
+#### Snippet
+```java
+public class ParserGeneratorUtil {
+  private static final String RESERVED_SUFFIX = "_$";
+  private static final Set<String> JAVA_RESERVED =
+    ContainerUtil.set("abstract", "assert", "boolean", "break", "byte", "case", "catch", "char", "class",
+                      "const", "default", "do", "double", "else", "enum", "extends", "false", "final", "finally",
 ```
 
 ## RuleId[id=ConstantValue]
