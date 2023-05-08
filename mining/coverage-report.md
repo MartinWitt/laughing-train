@@ -170,26 +170,14 @@ in `report-builder/src/jetbrains/coverage/report/impl/html/fs/ZipFileSystem.java
 
 ## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
-Field `myClassInfo` may be 'final'
-in `report-builder/src/jetbrains/coverage/report/impl/ClassDataBean.java`
+Field `myStats` may be 'final'
+in `report-builder/src/jetbrains/coverage/report/impl/StatisticsCalculatorImpl.java`
 #### Snippet
 ```java
  */
-public class ClassDataBean {
-  private ClassInfo myClassInfo;
-  @Nullable
-  private final CoverageSourceData mySourceData;
-```
-
-### FieldMayBeFinal
-Field `mySourceCode` may be 'final'
-in `report-builder/src/jetbrains/coverage/report/impl/ClassDataBean.java`
-#### Snippet
-```java
-  public final static class LineDataBean {
-    private int myLineNum;
-    private CharSequence mySourceCode;
-    private CoverageStatus myCoverageStatus;
+public class StatisticsCalculatorImpl implements StatisticsCalculator {
+  private Map<String, CoverageStatisticsBean> myStats = new HashMap<String, CoverageStatisticsBean>();
+  private StatisticsCalculatorImpl myPrevStatsHolder;
 
 ```
 
@@ -218,15 +206,27 @@ in `report-builder/src/jetbrains/coverage/report/impl/ClassDataBean.java`
 ```
 
 ### FieldMayBeFinal
-Field `myStats` may be 'final'
-in `report-builder/src/jetbrains/coverage/report/impl/StatisticsCalculatorImpl.java`
+Field `mySourceCode` may be 'final'
+in `report-builder/src/jetbrains/coverage/report/impl/ClassDataBean.java`
+#### Snippet
+```java
+  public final static class LineDataBean {
+    private int myLineNum;
+    private CharSequence mySourceCode;
+    private CoverageStatus myCoverageStatus;
+
+```
+
+### FieldMayBeFinal
+Field `myClassInfo` may be 'final'
+in `report-builder/src/jetbrains/coverage/report/impl/ClassDataBean.java`
 #### Snippet
 ```java
  */
-public class StatisticsCalculatorImpl implements StatisticsCalculator {
-  private Map<String, CoverageStatisticsBean> myStats = new HashMap<String, CoverageStatisticsBean>();
-  private StatisticsCalculatorImpl myPrevStatsHolder;
-
+public class ClassDataBean {
+  private ClassInfo myClassInfo;
+  @Nullable
+  private final CoverageSourceData mySourceData;
 ```
 
 ### FieldMayBeFinal
@@ -242,39 +242,15 @@ public class ClassBlock {
 ```
 
 ### FieldMayBeFinal
-Field `myClassTemplate` may be 'final'
-in `report-builder/src/jetbrains/coverage/report/impl/html/TemplateFactory.java`
+Field `myPrevValue` may be 'final'
+in `report-builder/src/jetbrains/coverage/report/StatEntry.java`
 #### Snippet
 ```java
-  private Template myModulesTemplate;
-  private Template myNamespaceIndexTemplate;
-  private Template myClassTemplate;
-  private Template myEmpty;
+ */
+public class StatEntry extends Entry {
+  private Entry myPrevValue;
 
-```
-
-### FieldMayBeFinal
-Field `myModulesTemplate` may be 'final'
-in `report-builder/src/jetbrains/coverage/report/impl/html/TemplateFactory.java`
-#### Snippet
-```java
-
-  private Template myNamespacesTeamplate;
-  private Template myModulesTemplate;
-  private Template myNamespaceIndexTemplate;
-  private Template myClassTemplate;
-```
-
-### FieldMayBeFinal
-Field `myNamespaceIndexTemplate` may be 'final'
-in `report-builder/src/jetbrains/coverage/report/impl/html/TemplateFactory.java`
-#### Snippet
-```java
-  private Template myNamespacesTeamplate;
-  private Template myModulesTemplate;
-  private Template myNamespaceIndexTemplate;
-  private Template myClassTemplate;
-  private Template myEmpty;
+  public StatEntry(int total, int covered) {
 ```
 
 ### FieldMayBeFinal
@@ -302,27 +278,39 @@ public class TemplateFactory {
 ```
 
 ### FieldMayBeFinal
-Field `myPrevValue` may be 'final'
-in `report-builder/src/jetbrains/coverage/report/StatEntry.java`
+Field `myModulesTemplate` may be 'final'
+in `report-builder/src/jetbrains/coverage/report/impl/html/TemplateFactory.java`
 #### Snippet
 ```java
- */
-public class StatEntry extends Entry {
-  private Entry myPrevValue;
 
-  public StatEntry(int total, int covered) {
+  private Template myNamespacesTeamplate;
+  private Template myModulesTemplate;
+  private Template myNamespaceIndexTemplate;
+  private Template myClassTemplate;
 ```
 
 ### FieldMayBeFinal
-Field `myName` may be 'final'
-in `report-builder/src/jetbrains/coverage/report/JavaClassInfo.java`
+Field `myClassTemplate` may be 'final'
+in `report-builder/src/jetbrains/coverage/report/impl/html/TemplateFactory.java`
 #### Snippet
 ```java
- */
-public abstract class JavaClassInfo implements ClassInfo {
-  private CharSequence myName;
-  private CharSequence myNamespace;
-  private String myFQClassName;
+  private Template myModulesTemplate;
+  private Template myNamespaceIndexTemplate;
+  private Template myClassTemplate;
+  private Template myEmpty;
+
+```
+
+### FieldMayBeFinal
+Field `myNamespaceIndexTemplate` may be 'final'
+in `report-builder/src/jetbrains/coverage/report/impl/html/TemplateFactory.java`
+#### Snippet
+```java
+  private Template myNamespacesTeamplate;
+  private Template myModulesTemplate;
+  private Template myNamespaceIndexTemplate;
+  private Template myClassTemplate;
+  private Template myEmpty;
 ```
 
 ### FieldMayBeFinal
@@ -338,6 +326,18 @@ public abstract class JavaClassInfo implements ClassInfo {
 ```
 
 ### FieldMayBeFinal
+Field `myName` may be 'final'
+in `report-builder/src/jetbrains/coverage/report/JavaClassInfo.java`
+#### Snippet
+```java
+ */
+public abstract class JavaClassInfo implements ClassInfo {
+  private CharSequence myName;
+  private CharSequence myNamespace;
+  private String myFQClassName;
+```
+
+### FieldMayBeFinal
 Field `myFQClassName` may be 'final'
 in `report-builder/src/jetbrains/coverage/report/JavaClassInfo.java`
 #### Snippet
@@ -350,18 +350,6 @@ in `report-builder/src/jetbrains/coverage/report/JavaClassInfo.java`
 ```
 
 ### FieldMayBeFinal
-Field `myPrevStats` may be 'final'
-in `report-builder/src/jetbrains/coverage/report/impl/CoverageStatisticsBean.java`
-#### Snippet
-```java
-public class CoverageStatisticsBean implements CoverageStatistics {
-  private Map<String, Counter> myValues = new TreeMap<String, Counter>();
-  private CoverageStatistics myPrevStats;
-
-  private static final String TOTAL_CLASSES = "classes-total";
-```
-
-### FieldMayBeFinal
 Field `myValues` may be 'final'
 in `report-builder/src/jetbrains/coverage/report/impl/CoverageStatisticsBean.java`
 #### Snippet
@@ -371,6 +359,18 @@ public class CoverageStatisticsBean implements CoverageStatistics {
   private Map<String, Counter> myValues = new TreeMap<String, Counter>();
   private CoverageStatistics myPrevStats;
 
+```
+
+### FieldMayBeFinal
+Field `myPrevStats` may be 'final'
+in `report-builder/src/jetbrains/coverage/report/impl/CoverageStatisticsBean.java`
+#### Snippet
+```java
+public class CoverageStatisticsBean implements CoverageStatistics {
+  private Map<String, Counter> myValues = new TreeMap<String, Counter>();
+  private CoverageStatistics myPrevStats;
+
+  private static final String TOTAL_CLASSES = "classes-total";
 ```
 
 ## RuleId[id=ConstantValue]
