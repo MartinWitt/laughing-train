@@ -1,82 +1,132 @@
 # maven-site-plugin 
  
 # Bad smells
-I found 56 bad smells with 6 repairable:
+I found 66 bad smells with 2 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| ReturnNull | 17 | false |
-| UnnecessaryFullyQualifiedName | 9 | false |
-| BoundedWildcard | 7 | false |
+| JavadocReference | 23 | false |
+| FieldMayBeFinal | 15 | false |
+| ConstantValue | 6 | false |
 | IgnoreResultOfCall | 6 | false |
+| DuplicatedCode | 4 | false |
+| JavadocDeclaration | 4 | false |
+| UNCHECKED_WARNING | 2 | false |
 | UnnecessaryStringEscape | 2 | true |
-| Java8MapApi | 2 | false |
-| SizeReplaceableByIsEmpty | 2 | true |
-| ToArrayCallWithZeroLengthArrayArgument | 1 | true |
-| MissingDeprecatedAnnotation | 1 | false |
-| IfStatementWithIdenticalBranches | 1 | false |
+| ConditionCoveredByFurtherCondition | 1 | false |
 | DataFlowIssue | 1 | false |
-| NestedAssignment | 1 | false |
-| CodeBlock2Expr | 1 | true |
-| DeprecatedIsStillUsed | 1 | false |
-| GroovyUnusedAssignment | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
-| ConstantValue | 1 | false |
-| StringEqualsEmptyString | 1 | false |
-## RuleId[id=ToArrayCallWithZeroLengthArrayArgument]
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new ReportPlugin\[reportingPlugins.size()\]'
+| RedundantCast | 1 | false |
+| UnusedAssignment | 1 | false |
+## RuleId[id=DuplicatedCode]
+### DuplicatedCode
+Duplicated code
+in `src/it/projects/MSITE-484/parent-usage-test/src/main/javadoc/stylesheet.css`
+#### Snippet
+```java
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+```
+
+### DuplicatedCode
+Duplicated code
 in `src/main/java/org/apache/maven/plugins/site/render/AbstractSiteRenderingMojo.java`
 #### Snippet
 ```java
-            reportingPlugins.add(mpir);
-        }
-        return reportingPlugins.toArray(new ReportPlugin[reportingPlugins.size()]);
+            DocumentRenderer docRenderer = new CategorySummaryDocumentRenderer(
+                    subMojoExecution, docRenderingContext, title, desc1, desc2, i18n, categoryReports, getLog());
+
+            String filename = docRenderer.getOutputName();
+            if (!documents.containsKey(filename)) {
+                documents.put(filename, docRenderer);
+            } else {
+                getLog().info("Skipped \"" + title + "\" report; file \"" + filename + "\" already exists.");
+            }
+```
+
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/maven/plugins/site/render/CategorySummaryDocumentRenderer.java`
+#### Snippet
+```java
+        String msg = "Generating \"" + buffer().strong(title) + "\" report";
+        // CHECKSTYLE_OFF: MagicNumber
+        log.info((StringUtils.rightPad(msg, 40) + buffer().strong(" --- ").mojo(reportMojoInfo)));
+        // CHECKSTYLE_ON: MagicNumber
+
+        SiteRendererSink sink = new SiteRendererSink(docRenderingContext);
+
+        sink.head();
+
+        sink.title();
+
+        sink.text(title);
+
+        sink.title_();
+
+        sink.head_();
+
+        sink.body();
+
+        sink.section1();
+        sink.sectionTitle1();
+```
+
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/maven/plugins/site/run/DoxiaFilter.java`
+#### Snippet
+```java
+                DocumentRenderer docRenderer = documents.get(path);
+                logDocumentRenderer(path, localeWanted, docRenderer);
+                String outputName = docRenderer.getOutputName();
+                String contentType = MimeTypes.getDefaultMimeByExtension(outputName);
+                if (contentType != null) {
+                    servletResponse.setContentType(contentType);
+                }
+                docRenderer.renderDocument(servletResponse.getWriter(), siteRenderer, context);
+```
+
+## RuleId[id=UNCHECKED_WARNING]
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `src/main/java/org/apache/maven/plugins/site/run/DoxiaFilter.java`
+#### Snippet
+```java
+        siteRenderer = (SiteRenderer) servletContext.getAttribute(SITE_RENDERER_KEY);
+
+        i18nDoxiaContexts = (Map<String, DoxiaBean>) servletContext.getAttribute(I18N_DOXIA_CONTEXTS_KEY);
+
+        localesList = (List<Locale>) servletContext.getAttribute(LOCALES_LIST_KEY);
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.List'
+in `src/main/java/org/apache/maven/plugins/site/run/DoxiaFilter.java`
+#### Snippet
+```java
+        i18nDoxiaContexts = (Map<String, DoxiaBean>) servletContext.getAttribute(I18N_DOXIA_CONTEXTS_KEY);
+
+        localesList = (List<Locale>) servletContext.getAttribute(LOCALES_LIST_KEY);
     }
 
 ```
 
-## RuleId[id=MissingDeprecatedAnnotation]
-### MissingDeprecatedAnnotation
-Missing '@Deprecated' annotation
-in `src/main/java/org/apache/maven/plugins/site/render/AbstractSiteRenderingMojo.java`
+## RuleId[id=ConditionCoveredByFurtherCondition]
+### ConditionCoveredByFurtherCondition
+Condition 'doc instanceof ReportDocumentRenderer' covered by subsequent condition 'doc instanceof SitePluginReportDocumentRenderer'
+in `src/main/java/org/apache/maven/plugins/site/render/SiteMojo.java`
 #### Snippet
 ```java
-     */
-    @Parameter(defaultValue = "${basedir}/xdocs")
-    private File xdocDirectory;
-
-    /**
+        for (DocumentRenderer doc : documents) {
+            String type;
+            if (doc instanceof ReportDocumentRenderer || doc instanceof SitePluginReportDocumentRenderer) {
+                type = "report";
+            } else {
 ```
 
-## RuleId[id=IfStatementWithIdenticalBranches]
-### IfStatementWithIdenticalBranches
-Common part can be extracted from 'if'
-in `src/main/java/org/apache/maven/plugins/site/run/SiteRunMojo.java`
-#### Snippet
-```java
-                Map<String, DocumentRenderer> i18nDocuments = locateDocuments(i18nContext, reports, locale);
-                DoxiaBean doxiaBean;
-                if (defaultLocale.equals(locale)) {
-                    i18nGeneratedSiteContext.addSiteDirectory(generatedSiteDirectory);
-                    doxiaBean = new DoxiaBean(i18nContext, i18nDocuments, i18nGeneratedSiteContext);
-```
-
-## RuleId[id=DataFlowIssue]
-### DataFlowIssue
-Argument `inStream` might be null
-in `src/main/java/org/apache/maven/plugins/site/run/SiteRunMojo.java`
-#### Snippet
-```java
-        try (InputStream inStream = getClass().getResourceAsStream("/run/web.xml"); //
-                FileOutputStream outStream = new FileOutputStream(webXml)) {
-            IOUtil.copy(inStream, outStream);
-        } catch (IOException e) {
-            throw new MojoExecutionException("Unable to construct temporary webapp for running site", e);
-```
-
-## RuleId[id=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.project` is unnecessary and can be removed
+## RuleId[id=JavadocReference]
+### JavadocReference
+Cannot resolve symbol `org.apache.maven.project.MavenProject`
 in `src/main/java/org/apache/maven/plugins/site/deploy/SiteStageDeployMojo.java`
 #### Snippet
 ```java
@@ -87,92 +137,128 @@ in `src/main/java/org/apache/maven/plugins/site/deploy/SiteStageDeployMojo.java`
      *
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/site/run/DoxiaFilter.java`
+### JavadocReference
+Cannot resolve symbol `org.apache.maven.plugin.Mojo`
+in `src/main/java/org/apache/maven/plugins/site/render/SiteJarMojo.java`
 #### Snippet
 ```java
 
     /**
-     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
+     * @see org.apache.maven.plugin.Mojo#execute()
      */
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
+    public void execute() throws MojoExecutionException, MojoFailureException {
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/site/run/DoxiaFilter.java`
+### JavadocReference
+Cannot resolve symbol `execute()`
+in `src/main/java/org/apache/maven/plugins/site/render/SiteJarMojo.java`
 #### Snippet
 ```java
 
     /**
-     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
+     * @see org.apache.maven.plugin.Mojo#execute()
      */
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
+    public void execute() throws MojoExecutionException, MojoFailureException {
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/site/run/DoxiaFilter.java`
+### JavadocReference
+Cannot resolve symbol `ArchiverException`
+in `src/main/java/org/apache/maven/plugins/site/render/SiteJarMojo.java`
+#### Snippet
+```java
+     * @param jarFilename   the filename of the created jar file
+     * @return a File object that contains the created jar file
+     * @throws ArchiverException
+     * @throws IOException
+     * @throws ManifestException
+```
+
+### JavadocReference
+Cannot resolve symbol `ManifestException`
+in `src/main/java/org/apache/maven/plugins/site/render/SiteJarMojo.java`
+#### Snippet
+```java
+     * @throws ArchiverException
+     * @throws IOException
+     * @throws ManifestException
+     * @throws DependencyResolutionRequiredException
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `DependencyResolutionRequiredException`
+in `src/main/java/org/apache/maven/plugins/site/render/SiteJarMojo.java`
+#### Snippet
+```java
+     * @throws IOException
+     * @throws ManifestException
+     * @throws DependencyResolutionRequiredException
+     */
+    private File createArchive(File siteDirectory, String jarFilename)
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.maven.plugin.AbstractMojo`
+in `src/main/java/org/apache/maven/plugins/site/run/SiteRunMojo.java`
 #### Snippet
 ```java
 
     /**
-     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
+     * @see org.apache.maven.plugin.AbstractMojo#execute()
      */
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
+    public void execute() throws MojoExecutionException, MojoFailureException {
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/site/run/DoxiaFilter.java`
+### JavadocReference
+Cannot resolve symbol `execute()`
+in `src/main/java/org/apache/maven/plugins/site/run/SiteRunMojo.java`
 #### Snippet
 ```java
 
     /**
-     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
+     * @see org.apache.maven.plugin.AbstractMojo#execute()
      */
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
+    public void execute() throws MojoExecutionException, MojoFailureException {
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/site/run/DoxiaFilter.java`
+### JavadocReference
+Cannot resolve symbol `org.apache.maven.doxia.siterenderer.DoxiaDocumentRenderer`
+in `src/main/java/org/apache/maven/plugins/site/render/ReportDocumentRenderer.java`
 #### Snippet
 ```java
-
-    /**
-     * @see javax.servlet.Filter#destroy()
-     */
-    public void destroy() {}
+ *
+ * @author <a href="mailto:brett@apache.org">Brett Porter</a>
+ * @see org.apache.maven.doxia.siterenderer.DoxiaDocumentRenderer
+ */
+public class ReportDocumentRenderer implements DocumentRenderer {
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/site/run/DoxiaFilter.java`
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
 #### Snippet
 ```java
-
-    /**
-     * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
+     *
+     * @return the relative path or "./" if the two URLs are the same.
+     * @throws MojoExecutionException in case of issue
      */
-    public void init(FilterConfig filterConfig) throws ServletException {
+    protected String getDeployModuleDirectory() throws MojoExecutionException {
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.servlet` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/site/run/DoxiaFilter.java`
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
 #### Snippet
 ```java
-
-    /**
-     * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
+     *
+     * @return the site for deployment
+     * @throws MojoExecutionException in case of issue
+     * @see #determineTopDistributionManagementSiteUrl()
      */
-    public void init(FilterConfig filterConfig) throws ServletException {
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.project` is unnecessary and can be removed
+### JavadocReference
+Cannot resolve symbol `org.apache.maven.project.MavenProject`
 in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
 #### Snippet
 ```java
@@ -183,17 +269,149 @@ in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
      *
 ```
 
-## RuleId[id=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/apache/maven/plugins/site/deploy/SiteStageDeployMojo.java`
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
 #### Snippet
 ```java
-        // CHECKSTYLE_OFF: InnerAssignment
-        while ( // MSITE-585, MNG-1943
-        (parent = siteTool.getParentProject(current, reactorProjects, localRepository)) != null
-                && stagingSiteURL.equals(getStagingSiteURL(parent))) {
-            current = parent;
+     * @return the top level site. Not <code>null</code>.
+     *         Also site.getUrl() and site.getId() are guaranteed to be not <code>null</code>.
+     * @throws MojoExecutionException if no site info is found in the tree.
+     * @see URIPathDescriptor#sameSite(java.net.URI)
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `URIPathDescriptor`
+in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
+#### Snippet
+```java
+     *         Also site.getUrl() and site.getId() are guaranteed to be not <code>null</code>.
+     * @throws MojoExecutionException if no site info is found in the tree.
+     * @see URIPathDescriptor#sameSite(java.net.URI)
+     */
+    protected MavenProject getTopLevelProject(MavenProject project) throws MojoExecutionException {
+```
+
+### JavadocReference
+Cannot resolve symbol `sameSite(java.net.URI)`
+in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
+#### Snippet
+```java
+     *         Also site.getUrl() and site.getId() are guaranteed to be not <code>null</code>.
+     * @throws MojoExecutionException if no site info is found in the tree.
+     * @see URIPathDescriptor#sameSite(java.net.URI)
+     */
+    protected MavenProject getTopLevelProject(MavenProject project) throws MojoExecutionException {
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
+#### Snippet
+```java
+     *
+     * @return the site for deployment
+     * @throws MojoExecutionException in case of issue
+     * @see #determineDeploySite()
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `Repository`
+in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
+#### Snippet
+```java
+     *
+     * @param repository the repository to deploy to.
+     *                   This needs to contain a valid, non-null {@link Repository#getId() id}
+     *                   to look up credentials for the deploy, and a valid, non-null
+     *                   {@link Repository#getUrl() scm url} to deploy to.
+```
+
+### JavadocReference
+Cannot resolve symbol `getId()`
+in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
+#### Snippet
+```java
+     *
+     * @param repository the repository to deploy to.
+     *                   This needs to contain a valid, non-null {@link Repository#getId() id}
+     *                   to look up credentials for the deploy, and a valid, non-null
+     *                   {@link Repository#getUrl() scm url} to deploy to.
+```
+
+### JavadocReference
+Cannot resolve symbol `Repository`
+in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
+#### Snippet
+```java
+     *                   This needs to contain a valid, non-null {@link Repository#getId() id}
+     *                   to look up credentials for the deploy, and a valid, non-null
+     *                   {@link Repository#getUrl() scm url} to deploy to.
+     * @throws MojoExecutionException if the deploy fails.
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `getUrl()`
+in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
+#### Snippet
+```java
+     *                   This needs to contain a valid, non-null {@link Repository#getId() id}
+     *                   to look up credentials for the deploy, and a valid, non-null
+     *                   {@link Repository#getUrl() scm url} to deploy to.
+     * @throws MojoExecutionException if the deploy fails.
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
+#### Snippet
+```java
+     *                   to look up credentials for the deploy, and a valid, non-null
+     *                   {@link Repository#getUrl() scm url} to deploy to.
+     * @throws MojoExecutionException if the deploy fails.
+     */
+    private void deployTo(final Repository repository) throws MojoExecutionException {
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
+#### Snippet
+```java
+     * @return the project site. Not null.
+     *         Also site.getUrl() and site.getId() are guaranteed to be not null.
+     * @throws MojoExecutionException if any of the site info is missing.
+     */
+    protected static Site getSite(final MavenProject project) throws MojoExecutionException {
+```
+
+### JavadocReference
+Cannot resolve symbol `RendererException`
+in `src/main/java/org/apache/maven/plugins/site/render/AbstractSiteRenderingMojo.java`
+#### Snippet
+```java
+     * @return the documents and their renderers
+     * @throws IOException in case of file reading issue
+     * @throws RendererException in case of Doxia rendering issue
+     * @see CategorySummaryDocumentRenderer
+     */
+```
+
+## RuleId[id=DataFlowIssue]
+### DataFlowIssue
+Method invocation `getRenderingContext` will produce `NullPointerException`
+in `src/main/java/org/apache/maven/plugins/site/run/DoxiaFilter.java`
+#### Snippet
+```java
+            source = ((SitePluginReportDocumentRenderer) docRenderer).getReportMojoInfo();
+        } else {
+            source = docRenderer.getRenderingContext().getGenerator() != null
+                    ? docRenderer.getRenderingContext().getGenerator()
+                    : docRenderer.getClass().getName();
 ```
 
 ## RuleId[id=UnnecessaryStringEscape]
@@ -221,399 +439,299 @@ in `src/main/java/org/apache/maven/plugins/site/descriptor/EffectiveSiteMojo.jav
         writer.writeMarkup(effectiveSite);
 ```
 
-## RuleId[id=CodeBlock2Expr]
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/org/apache/maven/plugins/site/render/AbstractSiteRenderingMojo.java`
+## RuleId[id=RedundantCast]
+### RedundantCast
+Casting `c` to `int` is redundant
+in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
 #### Snippet
 ```java
-        MavenProject p = attributes.get("project") != null ? (MavenProject) attributes.get("project") : project;
-        String outputTimestamp = p.getProperties().getProperty("project.build.outputTimestamp");
-        MavenArchiver.parseBuildOutputTimestamp(outputTimestamp).ifPresent(v -> {
-            context.setPublishDate(Date.from(v));
-        });
+                } else {
+                    uri.append('%');
+                    uri.append(Integer.toHexString((int) c));
+                }
+            }
 ```
 
-## RuleId[id=DeprecatedIsStillUsed]
-### DeprecatedIsStillUsed
-Deprecated member 'xdocDirectory' is still used
-in `src/main/java/org/apache/maven/plugins/site/render/AbstractSiteRenderingMojo.java`
+## RuleId[id=JavadocDeclaration]
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/org/apache/maven/plugins/site/render/SiteJarMojo.java`
+#### Snippet
+```java
+     * @param jarFilename   the filename of the created jar file
+     * @return a File object that contains the created jar file
+     * @throws ArchiverException
+     * @throws IOException
+     * @throws ManifestException
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/org/apache/maven/plugins/site/render/SiteJarMojo.java`
+#### Snippet
+```java
+     * @return a File object that contains the created jar file
+     * @throws ArchiverException
+     * @throws IOException
+     * @throws ManifestException
+     * @throws DependencyResolutionRequiredException
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/org/apache/maven/plugins/site/render/SiteJarMojo.java`
+#### Snippet
+```java
+     * @throws ArchiverException
+     * @throws IOException
+     * @throws ManifestException
+     * @throws DependencyResolutionRequiredException
+     */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/org/apache/maven/plugins/site/render/SiteJarMojo.java`
+#### Snippet
+```java
+     * @throws IOException
+     * @throws ManifestException
+     * @throws DependencyResolutionRequiredException
+     */
+    private File createArchive(File siteDirectory, String jarFilename)
+```
+
+## RuleId[id=UnusedAssignment]
+### UnusedAssignment
+Variable `outputName` initializer `""` is redundant
+in `src/main/java/org/apache/maven/plugins/site/render/ReportDocumentRenderer.java`
+#### Snippet
+```java
+
+        // render sub-sinks, eventually created by multi-page reports
+        String outputName = "";
+        List<MultiPageSubSink> sinks = multiPageSinkFactory.sinks();
+
+```
+
+## RuleId[id=FieldMayBeFinal]
+### FieldMayBeFinal
+Field `categoryReports` may be 'final'
+in `src/main/java/org/apache/maven/plugins/site/render/CategorySummaryDocumentRenderer.java`
+#### Snippet
+```java
+    private I18N i18n;
+
+    private List<MavenReport> categoryReports;
+
+    private final Log log;
+```
+
+### FieldMayBeFinal
+Field `desc2` may be 'final'
+in `src/main/java/org/apache/maven/plugins/site/render/CategorySummaryDocumentRenderer.java`
+#### Snippet
+```java
+    private String desc1;
+
+    private String desc2;
+
+    private I18N i18n;
+```
+
+### FieldMayBeFinal
+Field `title` may be 'final'
+in `src/main/java/org/apache/maven/plugins/site/render/CategorySummaryDocumentRenderer.java`
+#### Snippet
+```java
+    private final String reportMojoInfo;
+
+    private String title;
+
+    private String desc1;
+```
+
+### FieldMayBeFinal
+Field `i18n` may be 'final'
+in `src/main/java/org/apache/maven/plugins/site/render/CategorySummaryDocumentRenderer.java`
+#### Snippet
+```java
+    private String desc2;
+
+    private I18N i18n;
+
+    private List<MavenReport> categoryReports;
+```
+
+### FieldMayBeFinal
+Field `desc1` may be 'final'
+in `src/main/java/org/apache/maven/plugins/site/render/CategorySummaryDocumentRenderer.java`
+#### Snippet
+```java
+    private String title;
+
+    private String desc1;
+
+    private String desc2;
+```
+
+### FieldMayBeFinal
+Field `docRenderingContext` may be 'final'
+in `src/main/java/org/apache/maven/plugins/site/render/CategorySummaryDocumentRenderer.java`
+#### Snippet
+```java
+ */
+public class CategorySummaryDocumentRenderer implements SitePluginReportDocumentRenderer {
+    private DocumentRenderingContext docRenderingContext;
+
+    private final String reportMojoInfo;
+```
+
+### FieldMayBeFinal
+Field `archive` may be 'final'
+in `src/main/java/org/apache/maven/plugins/site/render/SiteJarMojo.java`
 #### Snippet
 ```java
      */
-    @Parameter(defaultValue = "${basedir}/xdocs")
-    private File xdocDirectory;
+    @Parameter
+    private MavenArchiveConfiguration archive = new MavenArchiveConfiguration();
 
     /**
 ```
 
-## RuleId[id=Java8MapApi]
-### Java8MapApi
-Can be replaced with single 'Map.computeIfAbsent' method call
-in `src/main/java/org/apache/maven/plugins/site/render/AbstractSiteRenderingMojo.java`
-#### Snippet
-```java
-        for (MavenReport report : reports) {
-            List<MavenReport> categoryReports = categories.get(report.getCategoryName());
-            if (categoryReports == null) {
-                categoryReports = new ArrayList<>();
-                categories.put(report.getCategoryName(), categoryReports);
-```
-
-### Java8MapApi
-Can be replaced with single 'Map.computeIfAbsent' method call
-in `src/main/java/org/apache/maven/plugins/site/render/AbstractSiteRenderingMojo.java`
-#### Snippet
-```java
-        }
-
-        if (attributes.get("project") == null) {
-            attributes.put("project", project);
-        }
-```
-
-## RuleId[id=GroovyUnusedAssignment]
-### GroovyUnusedAssignment
-Assignment is not used
-in `src/it/projects/full-reporting/verify.groovy`
-#### Snippet
-```java
-    index1 = i1;
-    index2 = i2;
-    previousReportLink = link;
-}
-
-```
-
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-03-12-18-23-19.305.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
-```
-
-## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/site/deploy/SiteStageMojo.java`
-#### Snippet
-```java
-    private static MavenProject getExecutionRootProject(List<MavenProject> reactorProjects) {
-        if (reactorProjects == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/site/deploy/SiteStageMojo.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/site/deploy/SiteStageDeployMojo.java`
-#### Snippet
-```java
-
-        if (project == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/site/deploy/SiteStageDeployMojo.java`
-#### Snippet
-```java
-        final Build build = project.getBuild();
-        if (build == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/site/deploy/SiteStageDeployMojo.java`
-#### Snippet
-```java
-            final PluginManagement buildPluginManagement = build.getPluginManagement();
-            if (buildPluginManagement == null) {
-                return null;
-            }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/site/deploy/SiteStageDeployMojo.java`
-#### Snippet
-```java
-
-        if (sitePlugin == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/site/deploy/SiteStageDeployMojo.java`
-#### Snippet
-```java
-        final Xpp3Dom sitePluginConfiguration = (Xpp3Dom) sitePlugin.getConfiguration();
-        if (sitePluginConfiguration == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/site/deploy/SiteStageDeployMojo.java`
-#### Snippet
-```java
-        final Xpp3Dom child = sitePluginConfiguration.getChild("stagingSiteURL");
-        if (child == null) {
-            return null;
-        } else {
-            return child.getValue();
-```
-
-### ReturnNull
-Return of `null`
+### FieldMayBeFinal
+Field `docRenderingContext` may be 'final'
 in `src/main/java/org/apache/maven/plugins/site/render/ReportDocumentRenderer.java`
 #### Snippet
 ```java
-        public Sink createSink(OutputStream arg0) throws IOException {
-            // Not used
-            return null;
-        }
+         * The main DocumentRenderingContext, which is the base for the DocumentRenderingContext of subpages
+         */
+        private DocumentRenderingContext docRenderingContext;
 
+        /**
 ```
 
-### ReturnNull
-Return of `null`
+### FieldMayBeFinal
+Field `sinks` may be 'final'
 in `src/main/java/org/apache/maven/plugins/site/render/ReportDocumentRenderer.java`
 #### Snippet
 ```java
-        public Sink createSink(File arg0, String arg1, String arg2) throws IOException {
-            // Not used
-            return null;
-        }
+         * List of sinks (subpages) associated to this report
+         */
+        private List<MultiPageSubSink> sinks = new ArrayList<MultiPageSubSink>();
 
+        MultiPageSinkFactory(MavenReport report, DocumentRenderingContext docRenderingContext) {
 ```
 
-### ReturnNull
-Return of `null`
+### FieldMayBeFinal
+Field `outputName` may be 'final'
 in `src/main/java/org/apache/maven/plugins/site/render/ReportDocumentRenderer.java`
 #### Snippet
 ```java
-        public Sink createSink(OutputStream arg0, String arg1) throws IOException {
-            // Not used
-            return null;
-        }
+        private File outputDir;
 
+        private String outputName;
+
+        MultiPageSubSink(File outputDir, String outputName, DocumentRenderingContext docRenderingContext) {
 ```
 
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
+### FieldMayBeFinal
+Field `report` may be 'final'
+in `src/main/java/org/apache/maven/plugins/site/render/ReportDocumentRenderer.java`
 #### Snippet
 ```java
-        }
-        getLog().debug("getProxy 'protocol': " + protocol + " no ProxyInfo found");
-        return null;
-    }
+         * The report that is (maybe) generating multiple pages
+         */
+        private MavenReport report;
 
+        /**
 ```
 
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
+### FieldMayBeFinal
+Field `outputDir` may be 'final'
+in `src/main/java/org/apache/maven/plugins/site/render/ReportDocumentRenderer.java`
 #### Snippet
 ```java
 
-        if (proxyInfo == null) {
-            return null;
-        }
+    private static class MultiPageSubSink extends SiteRendererSink {
+        private File outputDir;
 
+        private String outputName;
 ```
 
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
+### FieldMayBeFinal
+Field `i18n` may be 'final'
+in `src/main/java/org/apache/maven/plugins/site/render/SitemapDocumentRenderer.java`
 #### Snippet
 ```java
-                        && host.startsWith(nonProxyHostPrefix)
-                        && StringUtils.isEmpty(nonProxyHostSuffix)) {
-                    return null;
-                }
-                // *suffix
+    private SiteModel siteModel;
+
+    private I18N i18n;
+
+    private final Log log;
 ```
 
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
+### FieldMayBeFinal
+Field `siteModel` may be 'final'
+in `src/main/java/org/apache/maven/plugins/site/render/SitemapDocumentRenderer.java`
 #### Snippet
 ```java
-                        && StringUtils.isNotEmpty(nonProxyHostSuffix)
-                        && host.endsWith(nonProxyHostSuffix)) {
-                    return null;
-                }
-                // prefix*suffix
+    String title;
+
+    private SiteModel siteModel;
+
+    private I18N i18n;
 ```
 
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
+### FieldMayBeFinal
+Field `docRenderingContext` may be 'final'
+in `src/main/java/org/apache/maven/plugins/site/render/SitemapDocumentRenderer.java`
 #### Snippet
 ```java
-                        && StringUtils.isNotEmpty(nonProxyHostSuffix)
-                        && host.endsWith(nonProxyHostSuffix)) {
-                    return null;
-                }
-            } else if (host.equals(nonProxyHost)) {
-```
+ */
+public class SitemapDocumentRenderer implements SitePluginReportDocumentRenderer {
+    private DocumentRenderingContext docRenderingContext;
 
-### ReturnNull
-Return of `null`
-in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
-#### Snippet
-```java
-                }
-            } else if (host.equals(nonProxyHost)) {
-                return null;
-            }
-        }
-```
-
-## RuleId[id=SizeReplaceableByIsEmpty]
-### SizeReplaceableByIsEmpty
-`doxiaDocuments.size() > 0` can be replaced with '!doxiaDocuments.isEmpty()'
-in `src/main/java/org/apache/maven/plugins/site/render/SiteMojo.java`
-#### Snippet
-```java
-        }
-
-        if (doxiaDocuments.size() > 0) {
-            MessageBuilder mb = buffer();
-            mb.a("Rendering ");
-```
-
-### SizeReplaceableByIsEmpty
-`item.getHref().length() == 0` can be replaced with 'item.getHref().isEmpty()'
-in `src/main/java/org/apache/maven/plugins/site/render/AbstractSiteRenderingMojo.java`
-#### Snippet
-```java
-                    }
-
-                    if (item.getHref() == null || item.getHref().length() == 0) {
-                        item.setHref(report.getOutputName() + ".html");
-                    }
-```
-
-## RuleId[id=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends MavenProject`
-in `src/main/java/org/apache/maven/plugins/site/deploy/SiteStageMojo.java`
-#### Snippet
-```java
-     * @return The execution root project in the reactor, or <code>null</code> if none can be found
-     */
-    private static MavenProject getExecutionRootProject(List<MavenProject> reactorProjects) {
-        if (reactorProjects == null) {
-            return null;
-```
-
-### BoundedWildcard
-Can generalize to `? extends MenuItem`
-in `src/main/java/org/apache/maven/plugins/site/render/SiteMap.java`
-#### Snippet
-```java
-    }
-
-    private static void extractItems(List<MenuItem> items, Sink sink) {
-        if (items == null || items.isEmpty()) {
-            return;
-```
-
-### BoundedWildcard
-Can generalize to `? extends MavenReportExecution`
-in `src/main/java/org/apache/maven/plugins/site/render/AbstractSiteRenderingMojo.java`
-#### Snippet
-```java
-     */
-    protected Map<String, MavenReport> locateReports(
-            List<MavenReportExecution> reports, Map<String, DocumentRenderer> documents, Locale locale) {
-        Map<String, MavenReport> reportsByOutputName = new LinkedHashMap<>();
-        for (MavenReportExecution mavenReportExecution : reports) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/org/apache/maven/plugins/site/render/AbstractSiteRenderingMojo.java`
-#### Snippet
-```java
-     */
-    protected Map<String, MavenReport> locateReports(
-            List<MavenReportExecution> reports, Map<String, DocumentRenderer> documents, Locale locale) {
-        Map<String, MavenReport> reportsByOutputName = new LinkedHashMap<>();
-        for (MavenReportExecution mavenReportExecution : reports) {
-```
-
-### BoundedWildcard
-Can generalize to `? super DocumentRenderer`
-in `src/main/java/org/apache/maven/plugins/site/render/AbstractSiteRenderingMojo.java`
-#### Snippet
-```java
-     */
-    protected Map<String, MavenReport> locateReports(
-            List<MavenReportExecution> reports, Map<String, DocumentRenderer> documents, Locale locale) {
-        Map<String, MavenReport> reportsByOutputName = new LinkedHashMap<>();
-        for (MavenReportExecution mavenReportExecution : reports) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends MavenReport`
-in `src/main/java/org/apache/maven/plugins/site/render/AbstractSiteRenderingMojo.java`
-#### Snippet
-```java
-     * @return A map keyed category having the report itself as value
-     */
-    protected Map<String, List<MavenReport>> categoriseReports(Collection<MavenReport> reports) {
-        Map<String, List<MavenReport>> categories = new LinkedHashMap<>();
-        for (MavenReport report : reports) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends MavenReport`
-in `src/main/java/org/apache/maven/plugins/site/render/AbstractSiteRenderingMojo.java`
-#### Snippet
-```java
-    }
-
-    private void populateItemRefs(List<MenuItem> items, Locale locale, Map<String, MavenReport> reportsByOutputName) {
-        for (Iterator<MenuItem> i = items.iterator(); i.hasNext(); ) {
-            MenuItem item = i.next();
+    private final String reportMojoInfo;
 ```
 
 ## RuleId[id=ConstantValue]
+### ConstantValue
+Value `docRenderer` is always 'null'
+in `src/main/java/org/apache/maven/plugins/site/run/DoxiaFilter.java`
+#### Snippet
+```java
+        if (docRenderer instanceof DoxiaDocumentRenderer) {
+            source = docRenderer.getRenderingContext().getDoxiaSourcePath();
+        } else if (docRenderer instanceof ReportDocumentRenderer) {
+            source = ((ReportDocumentRenderer) docRenderer).getReportMojoInfo();
+            if (source == null) {
+```
+
+### ConstantValue
+Value `docRenderer` is always 'null'
+in `src/main/java/org/apache/maven/plugins/site/run/DoxiaFilter.java`
+#### Snippet
+```java
+                source = "(unknown)";
+            }
+        } else if (docRenderer instanceof SitePluginReportDocumentRenderer) {
+            source = ((SitePluginReportDocumentRenderer) docRenderer).getReportMojoInfo();
+        } else {
+```
+
+### ConstantValue
+Condition `classLoader != null` is always `true`
+in `src/main/java/org/apache/maven/plugins/site/render/ReportDocumentRenderer.java`
+#### Snippet
+```java
+                    e);
+        } finally {
+            if (classLoader != null) {
+                Thread.currentThread().setContextClassLoader(originalClassLoader);
+            }
+```
+
 ### ConstantValue
 Condition `proxyInfo == null` is always `true`
 in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
@@ -626,17 +744,28 @@ in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
                 wagon.connect(repository, authenticationInfo);
 ```
 
-## RuleId[id=StringEqualsEmptyString]
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
+### ConstantValue
+Value `doc` is always 'null'
+in `src/main/java/org/apache/maven/plugins/site/render/SiteMojo.java`
 #### Snippet
 ```java
-        relative = relative.replace('\\', '/');
+                counts.put(parserId, count);
+            } else {
+                nonDoxiaDocuments.add(doc);
+            }
+        }
+```
 
-        return ("".equals(relative)) ? "./" : relative;
-    }
-
+### ConstantValue
+Value `doc` is always 'null'
+in `src/main/java/org/apache/maven/plugins/site/render/SiteMojo.java`
+#### Snippet
+```java
+        for (DocumentRenderer doc : documents) {
+            String type;
+            if (doc instanceof ReportDocumentRenderer || doc instanceof SitePluginReportDocumentRenderer) {
+                type = "report";
+            } else {
 ```
 
 ## RuleId[id=IgnoreResultOfCall]
@@ -650,18 +779,6 @@ in `src/main/java/org/apache/maven/plugins/site/deploy/SiteStageMojo.java`
             outputDirectory.mkdirs();
         }
 
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `src/main/java/org/apache/maven/plugins/site/run/SiteRunMojo.java`
-#### Snippet
-```java
-    private WebAppContext createWebApplication() throws MojoExecutionException {
-        File webXml = new File(tempWebappDirectory, "WEB-INF/web.xml");
-        webXml.getParentFile().mkdirs();
-
-        try (InputStream inStream = getClass().getResourceAsStream("/run/web.xml"); //
 ```
 
 ### IgnoreResultOfCall
@@ -690,13 +807,25 @@ in `src/main/java/org/apache/maven/plugins/site/descriptor/EffectiveSiteMojo.jav
 
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
+in `src/main/java/org/apache/maven/plugins/site/run/SiteRunMojo.java`
+#### Snippet
+```java
+    private WebAppContext createWebApplication() throws MojoExecutionException {
+        File webXml = new File(tempWebappDirectory, "WEB-INF/web.xml");
+        webXml.getParentFile().mkdirs();
+
+        try (InputStream inStream = getClass().getResourceAsStream("/run/web.xml"); //
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
 in `src/main/java/org/apache/maven/plugins/site/render/ReportDocumentRenderer.java`
 #### Snippet
 ```java
-                // Create directories if necessary
-                if (!mySink.getOutputDir().exists()) {
-                    mySink.getOutputDir().mkdirs();
-                }
+            // Create directories if necessary
+            if (!mySink.getOutputDir().exists()) {
+                mySink.getOutputDir().mkdirs();
+            }
 
 ```
 
