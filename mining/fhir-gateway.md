@@ -1,110 +1,57 @@
 # fhir-gateway 
  
 # Bad smells
-I found 43 bad smells with 6 repairable:
+I found 27 bad smells with 1 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| ReturnNull | 9 | false |
-| UtilityClassWithoutPrivateConstructor | 5 | true |
+| FieldCanBeLocal | 6 | false |
 | DataFlowIssue | 5 | false |
-| RedundantFieldInitialization | 4 | false |
-| BoundedWildcard | 4 | false |
+| JavadocLinkAsPlainText | 4 | false |
 | UnstableApiUsage | 4 | false |
-| DynamicRegexReplaceableByCompiledPattern | 2 | false |
-| NestedAssignment | 1 | false |
-| ReplaceNullCheck | 1 | false |
-| MismatchedCollectionQueryUpdate | 1 | false |
-| RegExpRedundantEscape | 1 | false |
+| MismatchedCollectionQueryUpdate | 2 | false |
+| UNCHECKED_WARNING | 1 | false |
 | MismatchedJavadocCode | 1 | false |
 | UnnecessaryLocalVariable | 1 | true |
-| ZeroLengthArrayInitialization | 1 | false |
-| SetReplaceableByEnumSet | 1 | false |
 | ConstantValue | 1 | false |
+| RegExpRedundantEscape | 1 | false |
 | IgnoreResultOfCall | 1 | false |
-## RuleId[id=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `ProxyConstants` has only 'static' members, and lacks a 'private' constructor
-in `server/src/main/java/com/google/fhir/gateway/ProxyConstants.java`
+## RuleId[id=UNCHECKED_WARNING]
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Map' to 'java.util.Map\>'
+in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
 #### Snippet
 ```java
-import org.apache.http.entity.ContentType;
-
-public class ProxyConstants {
-
-  // Note we should not set charset here; otherwise GCP FHIR store complains about Content-Type.
+    String pathsJson = readResource("patient_paths.json");
+    Gson gson = new Gson();
+    final Map<String, List<String>> patientFhirPaths = gson.fromJson(pathsJson, Map.class);
+    instance = new PatientFinderImp(fhirContext, patientFhirPaths, patientSearchParams, true);
+    return instance;
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `FhirUtil` has only 'static' members, and lacks a 'private' constructor
-in `server/src/main/java/com/google/fhir/gateway/FhirUtil.java`
+## RuleId[id=MismatchedJavadocCode]
+### MismatchedJavadocCode
+Method is specified to return 'true' but its return type is not boolean
+in `plugins/src/main/java/com/google/fhir/gateway/plugin/ListAccessChecker.java`
 #### Snippet
 ```java
-import org.slf4j.LoggerFactory;
-
-public class FhirUtil {
-
-  private static final Logger logger = LoggerFactory.getLogger(FhirUtil.class);
+   *
+   * @param requestDetails the original request sent to the proxy.
+   * @return true iff patient is in the patient-list associated to the current user.
+   */
+  @Override
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `MainApp` has only 'static' members, and lacks a 'private' constructor
-in `exec/src/main/java/com/google/fhir/gateway/MainApp.java`
+## RuleId[id=UnnecessaryLocalVariable]
+### UnnecessaryLocalVariable
+Local variable `builder` is redundant
+in `server/src/main/java/com/google/fhir/gateway/AllowedQueriesConfig.java`
 #### Snippet
 ```java
-@SpringBootApplication(scanBasePackages = {"com.google.fhir.gateway.plugin"})
-@ServletComponentScan(basePackages = "com.google.fhir.gateway")
-public class MainApp {
-
-  public static void main(String[] args) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ExceptionUtil` has only 'static' members, and lacks a 'private' constructor
-in `server/src/main/java/com/google/fhir/gateway/ExceptionUtil.java`
-#### Snippet
-```java
-import org.slf4j.Logger;
-
-public class ExceptionUtil {
-
-  static <T extends RuntimeException> void throwRuntimeExceptionAndLog(
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `JwtUtil` has only 'static' members, and lacks a 'private' constructor
-in `server/src/main/java/com/google/fhir/gateway/JwtUtil.java`
-#### Snippet
-```java
-import com.auth0.jwt.interfaces.DecodedJWT;
-
-public class JwtUtil {
-  public static String getClaimOrDie(DecodedJWT jwt, String claimName) {
-    Claim claim = jwt.getClaim(claimName);
-```
-
-## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `server/src/main/java/com/google/fhir/gateway/GcpFhirClient.java`
-#### Snippet
-```java
-  public GcpFhirClient(String gcpFhirStore, GoogleCredentials credentials) throws IOException {
-    // Remove trailing '/'s since proxy's base URL has no trailing '/'.
-    this.gcpFhirStore = gcpFhirStore.replaceAll("/+$", "");
-    this.credentials = credentials;
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `plugins/src/main/java/com/google/fhir/gateway/plugin/PatientAccessChecker.java`
-#### Snippet
-```java
-    private SmartScopeChecker getSmartFhirPermissionChecker(DecodedJWT jwt) {
-      String scopesClaim = JwtUtil.getClaimOrDie(jwt, SCOPES_CLAIM);
-      String[] scopes = scopesClaim.strip().split("\\s+");
-      return new SmartScopeChecker(
-          SmartFhirScope.extractSmartFhirScopesFromTokens(Arrays.asList(scopes)),
+    @Override
+    public String toString() {
+      String builder =
+          "path="
+              + path
 ```
 
 ## RuleId[id=DataFlowIssue]
@@ -168,33 +115,81 @@ in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.
       ExceptionUtil.throwRuntimeExceptionAndLog(
 ```
 
-## RuleId[id=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
+## RuleId[id=ConstantValue]
+### ConstantValue
+Result of `SIGN_ALGORITHM.equals("RS256")` is always 'true'
 in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
 #### Snippet
 ```java
-    int numMatched = 0;
-    int n;
-    while ((n = entityContentReader.read()) >= 0) {
-      char c = (char) n;
-      if (fhirStoreUrl.charAt(numMatched) == c) {
+  private RSAPublicKey fetchAndDecodePublicKey() throws IOException {
+    // Preconditions.checkState(SIGN_ALGORITHM.equals("ES512"));
+    Preconditions.checkState(SIGN_ALGORITHM.equals("RS256"));
+    // final String keyAlgorithm = "EC";
+    final String keyAlgorithm = "RSA";
 ```
 
-## RuleId[id=ReplaceNullCheck]
-### ReplaceNullCheck
-'if' statement can be replaced with call to 'Objects.requireNonNullElseGet()'
-in `server/src/main/java/com/google/fhir/gateway/ExceptionUtil.java`
+## RuleId[id=JavadocLinkAsPlainText]
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `plugins/src/main/java/com/google/fhir/gateway/plugin/SmartFhirScope.java`
 #### Snippet
 ```java
-    Preconditions.checkNotNull(runTimeExceptionClass);
-    // logging the error message followed by the stack trace.
-    if (origException == null) {
-      logger.error(errorMessage, new Exception("stack-trace"));
-    } else {
+   * SMART Permission to specify the kind of permission that is allowed on a Resource. The order of
+   * the Permission is important to us in the way it has been listed here. Please see:
+   * https://build.fhir.org/ig/HL7/smart-app-launch/scopes-and-launch-context.html#scopes-for-requesting-clinical-data
+   * The given order of Permissions is how it is expected that permissions will be specified in the
+   * token claim
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `plugins/src/main/java/com/google/fhir/gateway/plugin/SmartFhirScope.java`
+#### Snippet
+```java
+ * This class models the SMART-on-FHIR permission scopes that are meant ot be used for accessing
+ * clinical data. The constraints in this class are according to the official guidelines here:
+ * https://build.fhir.org/ig/HL7/smart-app-launch/scopes-and-launch-context.html#scopes-for-requesting-clinical-data
+ */
+@Getter
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `server/src/main/java/com/google/fhir/gateway/FhirProxyServer.java`
+#### Snippet
+```java
+  /**
+   * This is to add a CORS interceptor for adding "Cross-Origin Resource Sharing" headers:
+   * https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS. We need this for example for Javascript
+   * SMART apps that need to fetch FHIR resources. Enabling CORS on all paths should be fine because
+   * we don't rely on cookies for access-tokens and access to any sensitive resource is protected by
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `server/src/main/java/com/google/fhir/gateway/FhirProxyServer.java`
+#### Snippet
+```java
+   *
+   * <p>We could have used servlet filters but this is the "cleaner" native HAPI solution:
+   * https://hapifhir.io/hapi-fhir/docs/security/cors.html. The drawback of this is the extra Spring
+   * dependency. It is probably okay as it increased the size of the war file from 35 MB to 38 MB
+   * (and opens the door to other Spring goodies too).
 ```
 
 ## RuleId[id=MismatchedCollectionQueryUpdate]
+### MismatchedCollectionQueryUpdate
+Contents of collection `queryParams` are queried, but never updated
+in `server/src/main/java/com/google/fhir/gateway/AllowedQueriesConfig.java`
+#### Snippet
+```java
+    // Case in-sensitive Http request type allowed by the config.
+    private String requestType;
+    private Map<String, String> queryParams;
+    // If true, this means other parameters not listed in `queryParams` are allowed too.
+    private boolean allowExtraParams;
+```
+
 ### MismatchedCollectionQueryUpdate
 Contents of collection `accessCheckerFactories` are queried, but never updated
 in `server/src/main/java/com/google/fhir/gateway/FhirProxyServer.java`
@@ -220,276 +215,77 @@ in `plugins/src/main/java/com/google/fhir/gateway/plugin/SmartFhirScope.java`
   private static final String ALL_RESOURCE_PERMISSIONS_WILDCARD = "*";
 ```
 
-## RuleId[id=RedundantFieldInitialization]
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `server/src/main/java/com/google/fhir/gateway/AllowedQueriesChecker.java`
-#### Snippet
-```java
-  private static final Logger logger = LoggerFactory.getLogger(AllowedQueriesChecker.class);
-
-  private AllowedQueriesConfig config = null;
-
-  AllowedQueriesChecker(String configFile) throws IOException {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
+## RuleId[id=FieldCanBeLocal]
+### FieldCanBeLocal
+Field can be converted to a local variable
 in `server/src/main/java/com/google/fhir/gateway/BundlePatients.java`
 #### Snippet
 ```java
-    private final Set<String> deletedPatients = Sets.newHashSet();
-    private final List<ImmutableSet<String>> referencedPatients = Lists.newArrayList();
-    private boolean patientsToCreate = false;
+  private final boolean patientsToCreate;
 
-    public BundlePatientsBuilder addUpdatePatients(Set<String> patientsToUpdate) {
+  private final ImmutableSet<String> deletedPatients;
+
+  private BundlePatients(
 ```
 
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `server/src/main/java/com/google/fhir/gateway/CapabilityPostProcessor.java`
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `server/src/main/java/com/google/fhir/gateway/BundlePatients.java`
 #### Snippet
 ```java
-          + "header containing a JWT access token. This token must have been issued by the "
-          + "authorization server defined by the configured TOKEN_ISSUER.";
-  private static CapabilityPostProcessor instance = null;
+public class BundlePatients {
 
-  private final FhirContext fhirContext;
+  private final ImmutableList<ImmutableSet<String>> referencedPatients;
+  private final ImmutableSet<String> updatedPatients;
+  private final boolean patientsToCreate;
 ```
 
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `server/src/main/java/com/google/fhir/gateway/BundlePatients.java`
 #### Snippet
 ```java
-public final class PatientFinderImp implements PatientFinder {
-  private static final Logger logger = LoggerFactory.getLogger(PatientFinderImp.class);
-  private static PatientFinderImp instance = null;
-  private static final String PATCH_OPERATION = "op";
-  private static final String PATCH_OP_REPLACE = "replace";
+
+  private final ImmutableList<ImmutableSet<String>> referencedPatients;
+  private final ImmutableSet<String> updatedPatients;
+  private final boolean patientsToCreate;
+
 ```
 
-## RuleId[id=MismatchedJavadocCode]
-### MismatchedJavadocCode
-Method is specified to return 'true' but its return type is not boolean
-in `plugins/src/main/java/com/google/fhir/gateway/plugin/ListAccessChecker.java`
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `plugins/src/main/java/com/google/fhir/gateway/plugin/SmartFhirScope.java`
 #### Snippet
 ```java
-   *
-   * @param requestDetails the original request sent to the proxy.
-   * @return true iff patient is in the patient-list associated to the current user.
-   */
-  @Override
+  private static final String SMART_V1_WRITE_RESOURCE_PERMISSIONS = "write";
+
+  private final Principal principal;
+  private final String resourceType;
+  private final Set<Permission> permissions;
 ```
 
-## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
-in `server/src/main/java/com/google/fhir/gateway/HttpUtil.java`
-#### Snippet
-```java
-          logger, "Error in building URI for resource " + uriString);
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/main/java/com/google/fhir/gateway/FhirUtil.java`
-#### Snippet
-```java
-  public static String getIdOrNull(RequestDetailsReader requestDetails) {
-    if (requestDetails.getId() == null) {
-      return null;
-    }
-    return requestDetails.getId().getIdPart();
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/main/java/com/google/fhir/gateway/interfaces/NoOpAccessDecision.java`
-#### Snippet
-```java
-  @Override
-  public String postProcess(HttpResponse response) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/main/java/com/google/fhir/gateway/interfaces/NoOpAccessDecision.java`
-#### Snippet
-```java
-  @Override
-  public RequestMutation getRequestMutation(RequestDetailsReader requestDetailsReader) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
-#### Snippet
-```java
-          String.format("The token issuer %s does not match the expected token issuer", issuer),
-          AuthenticationException.class);
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
-#### Snippet
-```java
-    }
-    // We should never get here, this is to keep the IDE happy!
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
-#### Snippet
-```java
-          e,
-          ForbiddenOperationException.class);
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
-#### Snippet
-```java
-    }
-    // It should never reach here!
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
-#### Snippet
-```java
-          "Direct resource fetch is only supported for Patient; use search for " + resourceName,
-          InvalidRequestException.class);
-      return null;
-    }
-    Map<String, String[]> queryParams = requestDetails.getParameters();
-```
-
-## RuleId[id=UnnecessaryLocalVariable]
-### UnnecessaryLocalVariable
-Local variable `builder` is redundant
-in `server/src/main/java/com/google/fhir/gateway/AllowedQueriesConfig.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-      String builder =
-          "path="
-              + path
-```
-
-## RuleId[id=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
-#### Snippet
-```java
-    mutation
-        .getQueryParams()
-        .forEach((key, value) -> requestDetails.addParameter(key, value.toArray(new String[0])));
-  }
-}
-```
-
-## RuleId[id=SetReplaceableByEnumSet]
-### SetReplaceableByEnumSet
-`HashSet<>` can be replaced with 'EnumSet'
+### FieldCanBeLocal
+Field can be converted to a local variable
 in `plugins/src/main/java/com/google/fhir/gateway/plugin/SmartFhirScope.java`
 #### Snippet
 ```java
 
-  private static Set<Permission> extractPermissions(String permissionString) {
-    Set<Permission> permissions = new HashSet<>();
-    if (ALL_RESOURCE_PERMISSIONS_WILDCARD.equals(permissionString)) {
-      permissions.addAll(List.of(Permission.values()));
+  private final Principal principal;
+  private final String resourceType;
+  private final Set<Permission> permissions;
+
 ```
 
-## RuleId[id=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends List`
-in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `plugins/src/main/java/com/google/fhir/gateway/plugin/SmartFhirScope.java`
 #### Snippet
 ```java
-  private PatientFinderImp(
-      FhirContext fhirContext,
-      Map<String, List<String>> patientFhirPaths,
-      Map<String, List<String>> patientSearchParams,
-      boolean blockJoins) {
-```
+  private final Principal principal;
+  private final String resourceType;
+  private final Set<Permission> permissions;
 
-### BoundedWildcard
-Can generalize to `? extends List`
-in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
-#### Snippet
-```java
-      FhirContext fhirContext,
-      Map<String, List<String>> patientFhirPaths,
-      Map<String, List<String>> patientSearchParams,
-      boolean blockJoins) {
-    this.fhirContext = fhirContext;
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
-#### Snippet
-```java
-  private static void makeSearchParamMap(
-      CompartmentDefinition patientCompartment,
-      final Map<String, List<String>> patientSearchParams) {
-    for (CompartmentDefinitionResourceComponent resource : patientCompartment.getResource()) {
-      String resourceType = resource.getCode();
-```
-
-### BoundedWildcard
-Can generalize to `? super List`
-in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
-#### Snippet
-```java
-  private static void makeSearchParamMap(
-      CompartmentDefinition patientCompartment,
-      final Map<String, List<String>> patientSearchParams) {
-    for (CompartmentDefinitionResourceComponent resource : patientCompartment.getResource()) {
-      String resourceType = resource.getCode();
-```
-
-## RuleId[id=ConstantValue]
-### ConstantValue
-Result of `SIGN_ALGORITHM.equals("RS256")` is always 'true'
-in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
-#### Snippet
-```java
-  private RSAPublicKey fetchAndDecodePublicKey() throws IOException {
-    // Preconditions.checkState(SIGN_ALGORITHM.equals("ES512"));
-    Preconditions.checkState(SIGN_ALGORITHM.equals("RS256"));
-    // final String keyAlgorithm = "EC";
-    final String keyAlgorithm = "RSA";
+  private SmartFhirScope(
 ```
 
 ## RuleId[id=UnstableApiUsage]
