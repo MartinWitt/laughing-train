@@ -109,42 +109,6 @@ in `src/main/java/com/uber/rss/tools/FsyncPerfTest.java`
 
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
-Dereference of `rootDirFile.listFiles()` may produce `NullPointerException`
-in `src/main/java/com/uber/rss/util/FileUtils.java`
-#### Snippet
-```java
-
-        // delete empty directories
-        for (File childFile: rootDirFile.listFiles()) {
-            if (childFile.isDirectory()) {
-                deleteDirRecursively(childFile);
-```
-
-### DataFlowIssue
-Dereference of `childFiles` may produce `NullPointerException`
-in `src/main/java/com/uber/rss/util/FileUtils.java`
-#### Snippet
-```java
-    private static void deleteDirRecursively(File rootDir) {
-        File[] childFiles = rootDir.listFiles();
-        if (childFiles.length == 0) {
-            try {
-                logger.info("Deleting dir: " + rootDir);
-```
-
-### DataFlowIssue
-Dereference of `list.peek()` may produce `NullPointerException`
-in `src/main/java/com/uber/rss/clients/StreamDecoderBase.java`
-#### Snippet
-```java
-        int countIntValue = (int)count;
-        while (countIntValue > 0) {
-            int batchSize = Math.min(countIntValue, list.peek().length - currentReadCursor);
-            byteBuffer.put(list.peek(), currentReadCursor, batchSize);
-            countIntValue -= batchSize;
-```
-
-### DataFlowIssue
 Dereference of `list.peek()` may produce `NullPointerException`
 in `src/main/java/com/uber/rss/clients/StreamDecoderBase.java`
 #### Snippet
@@ -185,6 +149,18 @@ Dereference of `list.peek()` may produce `NullPointerException`
 in `src/main/java/com/uber/rss/clients/StreamDecoderBase.java`
 #### Snippet
 ```java
+        int countIntValue = (int)count;
+        while (countIntValue > 0) {
+            int batchSize = Math.min(countIntValue, list.peek().length - currentReadCursor);
+            byteBuffer.put(list.peek(), currentReadCursor, batchSize);
+            countIntValue -= batchSize;
+```
+
+### DataFlowIssue
+Dereference of `list.peek()` may produce `NullPointerException`
+in `src/main/java/com/uber/rss/clients/StreamDecoderBase.java`
+#### Snippet
+```java
 
     private void checkAndAdjustReadCursor() {
         if (currentReadCursor == list.peek().length) {
@@ -217,15 +193,27 @@ in `src/main/java/com/uber/rss/clients/StreamDecoderBase.java`
 ```
 
 ### DataFlowIssue
-Argument `bytes` might be null
-in `src/main/java/com/uber/rss/tools/TestUtils.java`
+Dereference of `rootDirFile.listFiles()` may produce `NullPointerException`
+in `src/main/java/com/uber/rss/util/FileUtils.java`
 #### Snippet
 ```java
 
-        bytes = StreamUtils.readBytes(stream, len);
-        return new String(bytes, StandardCharsets.UTF_8);
-    }
+        // delete empty directories
+        for (File childFile: rootDirFile.listFiles()) {
+            if (childFile.isDirectory()) {
+                deleteDirRecursively(childFile);
+```
 
+### DataFlowIssue
+Dereference of `childFiles` may produce `NullPointerException`
+in `src/main/java/com/uber/rss/util/FileUtils.java`
+#### Snippet
+```java
+    private static void deleteDirRecursively(File rootDir) {
+        File[] childFiles = rootDir.listFiles();
+        if (childFiles.length == 0) {
+            try {
+                logger.info("Deleting dir: " + rootDir);
 ```
 
 ### DataFlowIssue
@@ -240,17 +228,29 @@ in `src/main/java/com/uber/rss/tools/PartitionFileChecker.java`
         dataBlockStreamData.writeBytes(dataBlockBytes);
 ```
 
-## RuleId[id=SimplifyStreamApiCallChains]
-### SimplifyStreamApiCallChains
-''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
-in `src/main/java/com/uber/rss/metadata/ZooKeeperFaultTolerantServiceRegistry.java`
+### DataFlowIssue
+Argument `bytes` might be null
+in `src/main/java/com/uber/rss/tools/TestUtils.java`
 #### Snippet
 ```java
-    @Override
-    public void registerServer(String dataCenter, String cluster, String serverId, String runningVersion, String hostAndPort) {
-        zooKeeperServiceRegistries.stream().forEach(t->t.registerServer(dataCenter, cluster, serverId, runningVersion, hostAndPort));
+
+        bytes = StreamUtils.readBytes(stream, len);
+        return new String(bytes, StandardCharsets.UTF_8);
     }
 
+```
+
+## RuleId[id=SimplifyStreamApiCallChains]
+### SimplifyStreamApiCallChains
+Can be replaced with 'String.join'
+in `src/main/java/com/uber/rss/metadata/ServiceRegistryUtils.java`
+#### Snippet
+```java
+                        logger.info(String.format(
+                            "Trying to look up RSS servers (data center: %s, cluster: %s) for %s",
+                            dataCenter, cluster, serverIds.stream().collect(Collectors.joining(","))));
+                        return serviceRegistry.lookupServers(dataCenter, cluster, serverIds);
+                    } catch (Throwable ex) {
 ```
 
 ### SimplifyStreamApiCallChains
@@ -266,15 +266,15 @@ in `src/main/java/com/uber/rss/execution/ShuffleExecutor.java`
 ```
 
 ### SimplifyStreamApiCallChains
-'Arrays.asList().stream()' can be replaced with 'Arrays.stream()'
-in `src/main/java/com/uber/rss/tools/StreamReadClientVerify.java`
+''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
+in `src/main/java/com/uber/rss/clients/PooledWriteClientFactory.java`
 #### Snippet
 ```java
-                String str = args[i++];
-                String[] strArray = str.split(":");
-                List<ServerDetail> serverDetails = Arrays.asList(strArray).stream().map(t->{
-                    ServerHostAndPort hostAndPort = ServerHostAndPort.fromString(t);
-                    return TestUtils.getServerDetail(hostAndPort.getHost(), hostAndPort.getPort());
+
+    synchronized (this) {
+      pools.values().stream().forEach(pool -> pool.idleClients.forEach(clientAndState -> {
+        try {
+          clientAndState.closeClient();
 ```
 
 ### SimplifyStreamApiCallChains
@@ -290,27 +290,15 @@ in `src/main/java/com/uber/rss/clients/DataBlockSocketReadClient.java`
 ```
 
 ### SimplifyStreamApiCallChains
-Can be replaced with 'String.join'
-in `src/main/java/com/uber/rss/metadata/ServiceRegistryUtils.java`
+'Arrays.asList().stream()' can be replaced with 'Arrays.stream()'
+in `src/main/java/com/uber/rss/tools/StreamReadClientVerify.java`
 #### Snippet
 ```java
-                        logger.info(String.format(
-                            "Trying to look up RSS servers (data center: %s, cluster: %s) for %s",
-                            dataCenter, cluster, serverIds.stream().collect(Collectors.joining(","))));
-                        return serviceRegistry.lookupServers(dataCenter, cluster, serverIds);
-                    } catch (Throwable ex) {
-```
-
-### SimplifyStreamApiCallChains
-''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
-in `src/main/java/com/uber/rss/clients/PooledWriteClientFactory.java`
-#### Snippet
-```java
-
-    synchronized (this) {
-      pools.values().stream().forEach(pool -> pool.idleClients.forEach(clientAndState -> {
-        try {
-          clientAndState.closeClient();
+                String str = args[i++];
+                String[] strArray = str.split(":");
+                List<ServerDetail> serverDetails = Arrays.asList(strArray).stream().map(t->{
+                    ServerHostAndPort hostAndPort = ServerHostAndPort.fromString(t);
+                    return TestUtils.getServerDetail(hostAndPort.getHost(), hostAndPort.getPort());
 ```
 
 ### SimplifyStreamApiCallChains
@@ -335,6 +323,18 @@ in `src/main/java/com/uber/rss/tools/StreamServerStressTool.java`
                 numPartitionRecords.entrySet().stream().forEach(t -> expectedTotalRecordsForEachPartition.put(t.getKey(), t.getValue().get()));
 
                 StreamReadClientVerify streamReadClientVerify = new StreamReadClientVerify();
+```
+
+### SimplifyStreamApiCallChains
+''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
+in `src/main/java/com/uber/rss/metadata/ZooKeeperFaultTolerantServiceRegistry.java`
+#### Snippet
+```java
+    @Override
+    public void registerServer(String dataCenter, String cluster, String serverId, String runningVersion, String hostAndPort) {
+        zooKeeperServiceRegistries.stream().forEach(t->t.registerServer(dataCenter, cluster, serverId, runningVersion, hostAndPort));
+    }
+
 ```
 
 ## RuleId[id=StringOperationCanBeSimplified]
@@ -630,30 +630,6 @@ in `src/main/java/com/uber/rss/util/ByteBufUtils.java`
 ```java
     }
 
-    public static final void readBytesToStream(ByteBuf buf, OutputStream stream) throws IOException {
-        final int maxNumBytes = 64000;
-        byte[] bytes = new byte[maxNumBytes];
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/com/uber/rss/util/ByteBufUtils.java`
-#### Snippet
-```java
-    }
-
-    public static final int readInt(byte[] bytes, int index) {
-        return (bytes[index] & 0xff) << 24 |
-            (bytes[index + 1] & 0xff) << 16 |
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/com/uber/rss/util/ByteBufUtils.java`
-#### Snippet
-```java
-    }
-
     public static final void writeInt(byte[] bytes, int index, int value) {
         bytes[index] = (byte) (value >>> 24);
         bytes[index + 1] = (byte) (value >>> 16);
@@ -666,9 +642,9 @@ in `src/main/java/com/uber/rss/util/ByteBufUtils.java`
 ```java
     }
 
-    public static final void writeLengthAndString(ByteBuf buf, String str) {
-        if (str == null) {
-            buf.writeInt(-1);
+    public static final void readBytesToStream(ByteBuf buf, OutputStream stream) throws IOException {
+        final int maxNumBytes = 64000;
+        byte[] bytes = new byte[maxNumBytes];
 ```
 
 ### FinalStaticMethod
@@ -688,11 +664,11 @@ in `src/main/java/com/uber/rss/util/ByteBufUtils.java`
 in `src/main/java/com/uber/rss/util/ByteBufUtils.java`
 #### Snippet
 ```java
-    }
 
-    public static final byte[] readBytes(ByteBuf buf) {
-        // TODO a better implementation?
-        byte[] bytes = new byte[buf.readableBytes()];
+public class ByteBufUtils {
+    public static final byte[] convertIntToBytes(int value) {
+        byte[] bytes = new byte[Integer.BYTES];
+        writeInt(bytes, 0, value);
 ```
 
 ### FinalStaticMethod
@@ -714,6 +690,18 @@ in `src/main/java/com/uber/rss/util/ByteBufUtils.java`
 ```java
     }
 
+    public static final void writeLengthAndString(ByteBuf buf, String str) {
+        if (str == null) {
+            buf.writeInt(-1);
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/com/uber/rss/util/ByteBufUtils.java`
+#### Snippet
+```java
+    }
+
     public static final long readLong(byte[] bytes, int index) {
         return ((long) bytes[index] & 0xff) << 56 |
             ((long) bytes[index + 1] & 0xff) << 48 |
@@ -724,11 +712,23 @@ in `src/main/java/com/uber/rss/util/ByteBufUtils.java`
 in `src/main/java/com/uber/rss/util/ByteBufUtils.java`
 #### Snippet
 ```java
+    }
 
-public class ByteBufUtils {
-    public static final byte[] convertIntToBytes(int value) {
-        byte[] bytes = new byte[Integer.BYTES];
-        writeInt(bytes, 0, value);
+    public static final byte[] readBytes(ByteBuf buf) {
+        // TODO a better implementation?
+        byte[] bytes = new byte[buf.readableBytes()];
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/com/uber/rss/util/ByteBufUtils.java`
+#### Snippet
+```java
+    }
+
+    public static final int readInt(byte[] bytes, int index) {
+        return (bytes[index] & 0xff) << 24 |
+            (bytes[index + 1] & 0xff) << 16 |
 ```
 
 ## RuleId[id=SillyAssignment]
@@ -746,18 +746,6 @@ in `src/main/java/com/uber/rss/StreamServerConfig.java`
 
 ## RuleId[id=InnerClassMayBeStatic]
 ### InnerClassMayBeStatic
-Inner class `DataCenterAndCluster` may be 'static'
-in `src/main/java/com/uber/rss/common/ServerDetailCollection.java`
-#### Snippet
-```java
-    }
-
-    private class DataCenterAndCluster {
-        private String dataCenter;
-        private String cluster;
-```
-
-### InnerClassMayBeStatic
 Inner class `ClientAndState` may be 'static'
 in `src/main/java/com/uber/rss/clients/PooledWriteClientFactory.java`
 #### Snippet
@@ -767,6 +755,18 @@ in `src/main/java/com/uber/rss/clients/PooledWriteClientFactory.java`
   private class ClientAndState {
     final PooledShuffleDataSyncWriteClient client;
     long lastActiveTime = 0;
+```
+
+### InnerClassMayBeStatic
+Inner class `DataCenterAndCluster` may be 'static'
+in `src/main/java/com/uber/rss/common/ServerDetailCollection.java`
+#### Snippet
+```java
+    }
+
+    private class DataCenterAndCluster {
+        private String dataCenter;
+        private String cluster;
 ```
 
 ## RuleId[id=RedundantTypeArguments]
@@ -785,14 +785,14 @@ in `src/main/java/com/uber/rss/util/ExceptionUtils.java`
 ## RuleId[id=NullableProblems]
 ### NullableProblems
 Not annotated parameter overrides @NotNull parameter
-in `src/main/java/com/uber/rss/util/CountedOutputStream.java`
+in `src/main/java/com/uber/rss/common/FixedLengthInputStream.java`
 #### Snippet
 ```java
 
-    @Override
-    public synchronized void write(byte[] b, int off, int len) throws IOException {
-        underlyingStream.write(b, off, len);
-        writtenBytes += len;
+  @Override
+  public int read(byte[] b) throws IOException {
+    return read(b, 0, b.length);
+  }
 ```
 
 ### NullableProblems
@@ -809,14 +809,14 @@ in `src/main/java/com/uber/rss/common/FixedLengthInputStream.java`
 
 ### NullableProblems
 Not annotated parameter overrides @NotNull parameter
-in `src/main/java/com/uber/rss/common/FixedLengthInputStream.java`
+in `src/main/java/com/uber/rss/util/CountedOutputStream.java`
 #### Snippet
 ```java
 
-  @Override
-  public int read(byte[] b) throws IOException {
-    return read(b, 0, b.length);
-  }
+    @Override
+    public synchronized void write(byte[] b, int off, int len) throws IOException {
+        underlyingStream.write(b, off, len);
+        writtenBytes += len;
 ```
 
 ## RuleId[id=ExplicitArrayFilling]
@@ -847,6 +847,42 @@ in `src/main/java/com/uber/rss/metrics/ScheduledMetricCollector.java`
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
+in `src/main/java/com/uber/rss/handlers/UploadChannelInboundHandler.java`
+#### Snippet
+```java
+    private String appAttempt = null;
+
+    private StartUploadMessage startUploadMessage = null;
+
+    private ChannelIdleCheck idleCheck;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `src/main/java/com/uber/rss/tools/PartitionFileChecker.java`
+#### Snippet
+```java
+public class PartitionFileChecker {
+  private String filePath;
+  private String fileCompressCodec = Compression.COMPRESSION_CODEC_LZ4;
+  private String blockCompressCodec = Compression.COMPRESSION_CODEC_LZ4;
+
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `src/main/java/com/uber/rss/tools/PartitionFileChecker.java`
+#### Snippet
+```java
+  private String filePath;
+  private String fileCompressCodec = Compression.COMPRESSION_CODEC_LZ4;
+  private String blockCompressCodec = Compression.COMPRESSION_CODEC_LZ4;
+
+  public void run() {
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
 in `src/main/java/com/uber/rss/clients/MultiServerAsyncWriteClient.java`
 #### Snippet
 ```java
@@ -859,14 +895,14 @@ in `src/main/java/com/uber/rss/clients/MultiServerAsyncWriteClient.java`
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `src/main/java/com/uber/rss/clients/MultiServerSyncWriteClient.java`
+in `src/main/java/com/uber/rss/clients/DataBlockSocketReadClient.java`
 #### Snippet
 ```java
-    private final String appId;
-    private final String appAttempt;
-    private final long maxTryingMillis;
-    private final ShuffleWriteConfig shuffleWriteConfig;
 
+  private boolean downloadStarted = false;
+  private long dataLength = -1;
+
+  private int totalReadDataBlocks = 0;
 ```
 
 ### FieldCanBeLocal
@@ -879,6 +915,30 @@ in `src/main/java/com/uber/rss/tools/StreamReadClientVerify.java`
     private int maxValueLen = 10000;
 
     private Runnable actionToSimulateBadServer = null;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `src/main/java/com/uber/rss/tools/StreamServerStressTool.java`
+#### Snippet
+```java
+    private List<Thread> allMapThreads = new ArrayList<>();
+    
+    private AppShuffleId appShuffleId;
+    
+    private AtomicLong mapThreadErrors = new AtomicLong();
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `src/main/java/com/uber/rss/clients/MultiServerSyncWriteClient.java`
+#### Snippet
+```java
+    private final String appId;
+    private final String appAttempt;
+    private final long maxTryingMillis;
+    private final ShuffleWriteConfig shuffleWriteConfig;
+
 ```
 
 ### FieldCanBeLocal
@@ -907,62 +967,38 @@ in `src/main/java/com/uber/rss/tools/SerializerBenchmark.java`
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `src/main/java/com/uber/rss/clients/DataBlockSocketReadClient.java`
+in `src/main/java/com/uber/rss/clients/ServerBusyRetriableWriteClient.java`
 #### Snippet
 ```java
-
-  private boolean downloadStarted = false;
-  private long dataLength = -1;
-
-  private int totalReadDataBlocks = 0;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `src/main/java/com/uber/rss/clients/ReplicatedWriteClient.java`
-#### Snippet
-```java
-  private static class ExceptionLogInfo {
-    private String logMsg;
-    private Throwable exception;
-
-    public ExceptionLogInfo(String logMsg, Throwable exception) {
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `src/main/java/com/uber/rss/clients/ReplicatedWriteClient.java`
-#### Snippet
-```java
-
-  private static class ExceptionLogInfo {
-    private String logMsg;
-    private Throwable exception;
+    private final String user;
+    private final String appId;
+    private final String appAttempt;
+    private SingleServerWriteClient delegate;
 
 ```
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `src/main/java/com/uber/rss/tools/PartitionFileChecker.java`
+in `src/main/java/com/uber/rss/clients/ServerBusyRetriableWriteClient.java`
 #### Snippet
 ```java
-  private String filePath;
-  private String fileCompressCodec = Compression.COMPRESSION_CODEC_LZ4;
-  private String blockCompressCodec = Compression.COMPRESSION_CODEC_LZ4;
-
-  public void run() {
+    private final long maxTryingMillis;
+    private final String user;
+    private final String appId;
+    private final String appAttempt;
+    private SingleServerWriteClient delegate;
 ```
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `src/main/java/com/uber/rss/tools/PartitionFileChecker.java`
+in `src/main/java/com/uber/rss/StreamServerConfig.java`
 #### Snippet
 ```java
-public class PartitionFileChecker {
-  private String filePath;
-  private String fileCompressCodec = Compression.COMPRESSION_CODEC_LZ4;
-  private String blockCompressCodec = Compression.COMPRESSION_CODEC_LZ4;
+  private Configuration hadoopConfig = null;
 
+  private long stateCommitIntervalMillis = 60000;
+
+  public static StreamServerConfig buildFromArgs(String[] args) throws IOException {
 ```
 
 ### FieldCanBeLocal
@@ -991,62 +1027,26 @@ in `src/main/java/com/uber/rss/tools/FsyncPerfTest.java`
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `src/main/java/com/uber/rss/clients/ServerBusyRetriableWriteClient.java`
+in `src/main/java/com/uber/rss/clients/ReplicatedWriteClient.java`
 #### Snippet
 ```java
-    private final long maxTryingMillis;
-    private final String user;
-    private final String appId;
-    private final String appAttempt;
-    private SingleServerWriteClient delegate;
+  private static class ExceptionLogInfo {
+    private String logMsg;
+    private Throwable exception;
+
+    public ExceptionLogInfo(String logMsg, Throwable exception) {
 ```
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `src/main/java/com/uber/rss/clients/ServerBusyRetriableWriteClient.java`
+in `src/main/java/com/uber/rss/clients/ReplicatedWriteClient.java`
 #### Snippet
 ```java
-    private final String user;
-    private final String appId;
-    private final String appAttempt;
-    private SingleServerWriteClient delegate;
 
-```
+  private static class ExceptionLogInfo {
+    private String logMsg;
+    private Throwable exception;
 
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `src/main/java/com/uber/rss/handlers/UploadChannelInboundHandler.java`
-#### Snippet
-```java
-    private String appAttempt = null;
-
-    private StartUploadMessage startUploadMessage = null;
-
-    private ChannelIdleCheck idleCheck;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `src/main/java/com/uber/rss/StreamServerConfig.java`
-#### Snippet
-```java
-  private Configuration hadoopConfig = null;
-
-  private long stateCommitIntervalMillis = 60000;
-
-  public static StreamServerConfig buildFromArgs(String[] args) throws IOException {
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `src/main/java/com/uber/rss/tools/StreamServerStressTool.java`
-#### Snippet
-```java
-    private List<Thread> allMapThreads = new ArrayList<>();
-    
-    private AppShuffleId appShuffleId;
-    
-    private AtomicLong mapThreadErrors = new AtomicLong();
 ```
 
 ## RuleId[id=IgnoreResultOfCall]
@@ -1075,18 +1075,6 @@ in `src/main/java/com/uber/rss/execution/LocalFileStateStore.java`
 ```
 
 ### IgnoreResultOfCall
-Result of `ExecutorService.awaitTermination()` is ignored
-in `src/main/java/com/uber/rss/execution/ShuffleExecutor.java`
-#### Snippet
-```java
-          lowPriorityExecutorService.shutdown();
-          try {
-            lowPriorityExecutorService.awaitTermination(3, TimeUnit.MINUTES);
-          } catch (InterruptedException e) {
-            e.printStackTrace();
-```
-
-### IgnoreResultOfCall
 Result of `File.delete()` is ignored
 in `src/main/java/com/uber/rss/util/FileUtils.java`
 #### Snippet
@@ -1111,15 +1099,15 @@ in `src/main/java/com/uber/rss/util/FileUtils.java`
 ```
 
 ### IgnoreResultOfCall
-Result of `ByteArrayInputStream.read()` is ignored
-in `src/main/java/com/uber/rss/tools/SerializerBenchmark.java`
+Result of `ExecutorService.awaitTermination()` is ignored
+in `src/main/java/com/uber/rss/execution/ShuffleExecutor.java`
 #### Snippet
 ```java
-                }
-
-                byteArrayInputStream.read(bytesBuffer, 0, objectSize);
-
-                HashMap<String, String> object = serializer.deserialize(ByteBuffer.wrap(bytesBuffer), classTag);
+          lowPriorityExecutorService.shutdown();
+          try {
+            lowPriorityExecutorService.awaitTermination(3, TimeUnit.MINUTES);
+          } catch (InterruptedException e) {
+            e.printStackTrace();
 ```
 
 ### IgnoreResultOfCall
@@ -1134,17 +1122,29 @@ in `src/main/java/com/uber/rss/tools/FileDescriptorStressTest.java`
         System.out.println(String.format("Creating files under %s, current file descriptors: %s", dirPath.toAbsolutePath(), SystemUtils.getFileDescriptorCount()));
 ```
 
-## RuleId[id=SynchronizeOnNonFinalField]
-### SynchronizeOnNonFinalField
-Synchronization on a non-final field `defaultScopeClosedLock`
-in `src/main/java/com/uber/rss/metrics/M3Stats.java`
+### IgnoreResultOfCall
+Result of `ByteArrayInputStream.read()` is ignored
+in `src/main/java/com/uber/rss/tools/SerializerBenchmark.java`
 #### Snippet
 ```java
-    
-    public static void closeDefaultScope() {
-        synchronized (defaultScopeClosedLock) {
-            if (defaultScopeClosed) {
-                logger.info("M3 scope already closed, do not close again");
+                }
+
+                byteArrayInputStream.read(bytesBuffer, 0, objectSize);
+
+                HashMap<String, String> object = serializer.deserialize(ByteBuffer.wrap(bytesBuffer), classTag);
+```
+
+## RuleId[id=SynchronizeOnNonFinalField]
+### SynchronizeOnNonFinalField
+Synchronization on a non-final field `servers`
+in `src/main/java/com/uber/rss/tools/StreamServerStressTool.java`
+#### Snippet
+```java
+                long hitPointToShutdownServers = numBytes/2;
+                if (totalShuffleWrittenBytesOldValue < hitPointToShutdownServers && totalShuffleWrittenBytes.get() >= hitPointToShutdownServers) {
+                    synchronized (servers) {
+                        synchronized (serverIdsToShutdownDuringShuffleWrite) {
+                            for (String serverId : serverIdsToShutdownDuringShuffleWrite) {
 ```
 
 ### SynchronizeOnNonFinalField
@@ -1172,15 +1172,15 @@ in `src/main/java/com/uber/rss/tools/StreamServerStressTool.java`
 ```
 
 ### SynchronizeOnNonFinalField
-Synchronization on a non-final field `servers`
-in `src/main/java/com/uber/rss/tools/StreamServerStressTool.java`
+Synchronization on a non-final field `defaultScopeClosedLock`
+in `src/main/java/com/uber/rss/metrics/M3Stats.java`
 #### Snippet
 ```java
-                long hitPointToShutdownServers = numBytes/2;
-                if (totalShuffleWrittenBytesOldValue < hitPointToShutdownServers && totalShuffleWrittenBytes.get() >= hitPointToShutdownServers) {
-                    synchronized (servers) {
-                        synchronized (serverIdsToShutdownDuringShuffleWrite) {
-                            for (String serverId : serverIdsToShutdownDuringShuffleWrite) {
+    
+    public static void closeDefaultScope() {
+        synchronized (defaultScopeClosedLock) {
+            if (defaultScopeClosed) {
+                logger.info("M3 scope already closed, do not close again");
 ```
 
 ## RuleId[id=RedundantMethodOverride]
@@ -1236,6 +1236,18 @@ in `src/main/java/com/uber/rss/clients/ReplicatedReadClient.java`
 ```
 
 ### IntegerMultiplicationImplicitCastToLong
+pollInterval \* 10: integer multiplication implicitly cast to long
+in `src/main/java/com/uber/rss/clients/LazyWriteClient.java`
+#### Snippet
+```java
+     */
+    private void lazyConnect() {
+        RetryUtils.retry(pollInterval, pollInterval * 10, maxWaitMillis, "create write client", () -> {
+            writeClient.connect();
+            return 0;
+```
+
+### IntegerMultiplicationImplicitCastToLong
 networkTimeoutMillis \* 4: integer multiplication implicitly cast to long
 in `src/main/java/com/uber/rss/clients/MultiServerAsyncWriteClient.java`
 #### Snippet
@@ -1257,18 +1269,6 @@ in `src/main/java/com/uber/rss/tools/StreamServerStressToolLongRun.java`
         while (System.currentTimeMillis() - startTime < runMinutes * 60 * 1000) {
             int writeClientQueueSize = 0;
             int writeClientThreads = 0;
-```
-
-### IntegerMultiplicationImplicitCastToLong
-pollInterval \* 10: integer multiplication implicitly cast to long
-in `src/main/java/com/uber/rss/clients/LazyWriteClient.java`
-#### Snippet
-```java
-     */
-    private void lazyConnect() {
-        RetryUtils.retry(pollInterval, pollInterval * 10, maxWaitMillis, "create write client", () -> {
-            writeClient.connect();
-            return 0;
 ```
 
 ## RuleId[id=AutoCloseableResource]
@@ -1297,15 +1297,15 @@ in `src/main/java/com/uber/rss/clients/ReplicatedReadClient.java`
 ```
 
 ### AutoCloseableResource
-'ShuffleOutputStream' used without 'try'-with-resources statement
-in `src/main/java/com/uber/rss/execution/ShufflePartitionWriter.java`
+'Scope' used without 'try'-with-resources statement
+in `src/main/java/com/uber/rss/metadata/ServiceRegistryUtils.java`
 #### Snippet
 ```java
-            String actualFile = filePathBase + "." + fileIndex;
-            logger.info("Opening shuffle file: {}", actualFile);
-            outputStreams[i] = storage.createWriterStream(actualFile, "");
+          Map<String, String> tags = new HashMap<>();
+          tags.put("remote", unreachableHost);
+          Scope scope = M3Stats.createSubScope(tags);
+          scope.counter("unreachableHosts").inc(1);
         }
-        closed = false;
 ```
 
 ### AutoCloseableResource
@@ -1333,18 +1333,6 @@ in `src/main/java/com/uber/rss/clients/MultiServerSyncWriteClient.java`
 ```
 
 ### AutoCloseableResource
-'ServerIdAwareSyncWriteClient' used without 'try'-with-resources statement
-in `src/main/java/com/uber/rss/clients/ReplicatedWriteClient.java`
-#### Snippet
-```java
-    for (int i = 0; i < servers.size(); i++) {
-      ServerDetail serverDetail = servers.get(i);
-      ServerIdAwareSyncWriteClient client = new ServerIdAwareSyncWriteClient(serverDetail, timeoutMillis, finishUploadAck, usePooledConnection, user, appId, appAttempt, shuffleWriteConfig, serverConnectionRefresher);
-      clients[i] = client;
-    }
-```
-
-### AutoCloseableResource
 'FileOutputStream' used without 'try'-with-resources statement
 in `src/main/java/com/uber/rss/tools/FsyncPerfTest.java`
 #### Snippet
@@ -1357,15 +1345,27 @@ in `src/main/java/com/uber/rss/tools/FsyncPerfTest.java`
 ```
 
 ### AutoCloseableResource
-'Scope' used without 'try'-with-resources statement
-in `src/main/java/com/uber/rss/metadata/ServiceRegistryUtils.java`
+'ShuffleOutputStream' used without 'try'-with-resources statement
+in `src/main/java/com/uber/rss/execution/ShufflePartitionWriter.java`
 #### Snippet
 ```java
-          Map<String, String> tags = new HashMap<>();
-          tags.put("remote", unreachableHost);
-          Scope scope = M3Stats.createSubScope(tags);
-          scope.counter("unreachableHosts").inc(1);
+            String actualFile = filePathBase + "." + fileIndex;
+            logger.info("Opening shuffle file: {}", actualFile);
+            outputStreams[i] = storage.createWriterStream(actualFile, "");
         }
+        closed = false;
+```
+
+### AutoCloseableResource
+'ServerIdAwareSyncWriteClient' used without 'try'-with-resources statement
+in `src/main/java/com/uber/rss/clients/ReplicatedWriteClient.java`
+#### Snippet
+```java
+    for (int i = 0; i < servers.size(); i++) {
+      ServerDetail serverDetail = servers.get(i);
+      ServerIdAwareSyncWriteClient client = new ServerIdAwareSyncWriteClient(serverDetail, timeoutMillis, finishUploadAck, usePooledConnection, user, appId, appAttempt, shuffleWriteConfig, serverConnectionRefresher);
+      clients[i] = client;
+    }
 ```
 
 ## RuleId[id=IfStatementWithIdenticalBranches]
@@ -1948,63 +1948,183 @@ import org.slf4j.LoggerFactory;
 
 ## RuleId[id=JavadocDeclaration]
 ### JavadocDeclaration
-`@return` tag description is missing
-in `src/main/java/com/uber/rss/storage/ShuffleOutputStream.java`
+`@param path` tag description is missing
+in `src/main/java/com/uber/rss/storage/ShuffleStorage.java`
 #### Snippet
 ```java
     /***
-     * Get file location for this stream.
+     * Delete file.
+     * @param path
+     */
+    void deleteFile(String path);
+```
+
+### JavadocDeclaration
+`@param dir` tag description is missing
+in `src/main/java/com/uber/rss/storage/ShuffleStorage.java`
+#### Snippet
+```java
+    /***
+     * Delete directory and its children.
+     * @param dir
+     */
+    void deleteDirectory(String dir);
+```
+
+### JavadocDeclaration
+`@param dir` tag description is missing
+in `src/main/java/com/uber/rss/storage/ShuffleStorage.java`
+#### Snippet
+```java
+    /***
+     * Create directory and its parents.
+     * @param dir
+     */
+    void createDirectories(String dir);
+```
+
+### JavadocDeclaration
+`@param path` tag description is missing
+in `src/main/java/com/uber/rss/storage/ShuffleStorage.java`
+#### Snippet
+```java
+    /***
+     * Create a stream for a given file path to write shuffle data.
+     * @param path
+     * @param compressionCodec
+     * @return
+```
+
+### JavadocDeclaration
+`@param compressionCodec` tag description is missing
+in `src/main/java/com/uber/rss/storage/ShuffleStorage.java`
+#### Snippet
+```java
+     * Create a stream for a given file path to write shuffle data.
+     * @param path
+     * @param compressionCodec
      * @return
      */
-    String getLocation();
 ```
 
 ### JavadocDeclaration
-`@param bytes` tag description is missing
-in `src/main/java/com/uber/rss/storage/ShuffleOutputStream.java`
+`@return` tag description is missing
+in `src/main/java/com/uber/rss/storage/ShuffleStorage.java`
+#### Snippet
+```java
+     * @param path
+     * @param compressionCodec
+     * @return
+     */
+    ShuffleOutputStream createWriterStream(String path, String compressionCodec);
+```
+
+### JavadocDeclaration
+`@param path` tag description is missing
+in `src/main/java/com/uber/rss/storage/ShuffleStorage.java`
 #### Snippet
 ```java
     /***
-     * Write data to the stream.
-     * @param bytes
+     * Create a stream for a given file path to read shuffle data.
+     * @param path
+     * @return
      */
-    void write(byte[] bytes);
 ```
 
 ### JavadocDeclaration
 `@return` tag description is missing
-in `src/main/java/com/uber/rss/execution/ExecutorShuffleStageState.java`
+in `src/main/java/com/uber/rss/storage/ShuffleStorage.java`
 #### Snippet
 ```java
-  /***
-   * Get stage status, which contains map task commit status (last successful map task attempt id)
-   * @return
-   */
-  public synchronized ShuffleStageStatus getShuffleStageStatus() {
-```
-
-### JavadocDeclaration
-`@param taskId` tag description is missing
-in `src/main/java/com/uber/rss/execution/ExecutorShuffleStageState.java`
-#### Snippet
-```java
-  /***
-   * Set last successful task attempt id for a given map id
-   * @param taskId
-   */
-  public synchronized void commitMapTask(long taskId) {
+     * Create a stream for a given file path to read shuffle data.
+     * @param path
+     * @return
+     */
+    InputStream createReaderStream(String path);
 ```
 
 ### JavadocDeclaration
 `@return` tag description is missing
-in `src/main/java/com/uber/rss/execution/ExecutorShuffleStageState.java`
+in `src/main/java/com/uber/rss/storage/ShuffleStorage.java`
 #### Snippet
 ```java
-  /***
-   * Get total persisted bytes for all partitions.
-   * @return
-   */
-  public synchronized long getPersistedBytes() {
+     * Check whether this is local storage on Remote Shuffle Service, or
+     * external storage like HDFS.
+     * @return
+     */
+    boolean isLocalStorage();
+```
+
+### JavadocDeclaration
+`@param path` tag description is missing
+in `src/main/java/com/uber/rss/storage/ShuffleStorage.java`
+#### Snippet
+```java
+    /***
+     * Get the size of the file.
+     * @param path
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `src/main/java/com/uber/rss/storage/ShuffleStorage.java`
+#### Snippet
+```java
+     * Get the size of the file.
+     * @param path
+     * @return
+     */
+    long size(String path);
+```
+
+### JavadocDeclaration
+`@param path` tag description is missing
+in `src/main/java/com/uber/rss/storage/ShuffleStorage.java`
+#### Snippet
+```java
+    /***
+     * Check whether the file exists.
+     * @param path
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `src/main/java/com/uber/rss/storage/ShuffleStorage.java`
+#### Snippet
+```java
+     * Check whether the file exists.
+     * @param path
+     * @return
+     */
+    boolean exists(String path);
+```
+
+### JavadocDeclaration
+`@param dir` tag description is missing
+in `src/main/java/com/uber/rss/storage/ShuffleStorage.java`
+#### Snippet
+```java
+    /***
+     * List all files under a directory.
+     * @param dir
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `src/main/java/com/uber/rss/storage/ShuffleStorage.java`
+#### Snippet
+```java
+     * List all files under a directory.
+     * @param dir
+     * @return
+     */
+    List<String> listAllFiles(String dir);
 ```
 
 ### JavadocDeclaration
@@ -2032,195 +2152,39 @@ in `src/main/java/com/uber/rss/util/StreamUtils.java`
 ```
 
 ### JavadocDeclaration
-`@return` tag description is missing
-in `src/main/java/com/uber/rss/execution/ShufflePartitionWriter.java`
+`@param taskId` tag description is missing
+in `src/main/java/com/uber/rss/execution/ExecutorShuffleStageState.java`
 #### Snippet
 ```java
-    /***
-     * Get all file locations.
-     * @return
-     */
-    public List<String> getFileLocations() {
-```
-
-### JavadocDeclaration
-`@param bytes` tag description is missing
-in `src/main/java/com/uber/rss/execution/ShufflePartitionWriter.java`
-#### Snippet
-```java
-     * Writes data to storage. This method will release the ByteBuf object in the argument.
-     * @param taskAttemptId task attempt id, used to route the data to proper split.
-     * @param bytes
-     * @return
-     */
+  /***
+   * Set last successful task attempt id for a given map id
+   * @param taskId
+   */
+  public synchronized void commitMapTask(long taskId) {
 ```
 
 ### JavadocDeclaration
 `@return` tag description is missing
-in `src/main/java/com/uber/rss/execution/ShufflePartitionWriter.java`
+in `src/main/java/com/uber/rss/execution/ExecutorShuffleStageState.java`
 #### Snippet
 ```java
-     * @param taskAttemptId task attempt id, used to route the data to proper split.
-     * @param bytes
-     * @return
-     */
-    public synchronized int writeData(long taskAttemptId, ByteBuf bytes) {
-```
-
-### JavadocDeclaration
-`@param appTaskAttemptId` tag description is missing
-in `src/main/java/com/uber/rss/execution/ShuffleExecutor.java`
-#### Snippet
-```java
-     * It prints out internal state. So make sure not use it in production 
-     * code.
-     * @param appTaskAttemptId
-     * @param maxWaitMillis
-     */
-```
-
-### JavadocDeclaration
-`@param maxWaitMillis` tag description is missing
-in `src/main/java/com/uber/rss/execution/ShuffleExecutor.java`
-#### Snippet
-```java
-     * code.
-     * @param appTaskAttemptId
-     * @param maxWaitMillis
-     */
-    public void pollAndWaitMapAttemptCommitted(AppTaskAttemptId appTaskAttemptId,
-```
-
-### JavadocDeclaration
-`@param rootDir` tag description is missing
-in `src/main/java/com/uber/rss/execution/ShuffleExecutor.java`
-#### Snippet
-```java
-    /***
-     * Create an instance.
-     * @param rootDir
-     */
-    public ShuffleExecutor(String rootDir,
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `src/main/java/com/uber/rss/execution/ShuffleExecutor.java`
-#### Snippet
-```java
-    /**
-     * Get background executor service.
-     * @return
-     */
-    public ScheduledExecutorService getLowPriorityExecutorService() {
-```
-
-### JavadocDeclaration
-`@param writeOp` tag description is missing
-in `src/main/java/com/uber/rss/execution/ShuffleExecutor.java`
-#### Snippet
-```java
-     * Add an operation to write shuffle record data.
-     * This method will make sure the ByteBuf inside writeOp gets released.
-     * @param writeOp
-     */
-    public void writeData(ShuffleDataWrapper writeOp) {
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `src/main/java/com/uber/rss/execution/ShuffleExecutor.java`
-#### Snippet
-```java
-    /**
-     * Get root directory.
-     * @return
-     */
-    public String getRootDir() {
-```
-
-### JavadocDeclaration
-`@param appId` tag description is missing
-in `src/main/java/com/uber/rss/execution/ShuffleExecutor.java`
-#### Snippet
-```java
-  /**
-     * Update liveness indicator for the given application.
-     * @param appId
-     */
-    public ExecutorAppState updateLiveness(String appId) {
-```
-
-### JavadocDeclaration
-`@param appTaskAttemptId` tag description is missing
-in `src/main/java/com/uber/rss/execution/ShuffleExecutor.java`
-#### Snippet
-```java
-     * It prints out internal state. So make sure not use it in production
-     * code.
-     * @param appTaskAttemptId
-     * @param maxWaitMillis
-     */
-```
-
-### JavadocDeclaration
-`@param maxWaitMillis` tag description is missing
-in `src/main/java/com/uber/rss/execution/ShuffleExecutor.java`
-#### Snippet
-```java
-     * code.
-     * @param appTaskAttemptId
-     * @param maxWaitMillis
-     */
-    public void pollAndWaitMapAttemptFinishedUpload(AppTaskAttemptId appTaskAttemptId,
-```
-
-### JavadocDeclaration
-`@param appShuffleId` tag description is missing
-in `src/main/java/com/uber/rss/execution/ShuffleExecutor.java`
-#### Snippet
-```java
-    /***
-     * Get config for the given shuffle stage.
-     * @param appShuffleId
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `src/main/java/com/uber/rss/execution/ShuffleExecutor.java`
-#### Snippet
-```java
-     * Get config for the given shuffle stage.
-     * @param appShuffleId
-     * @return
-     */
-    public ShuffleWriteConfig getShuffleWriteConfig(AppShuffleId appShuffleId) {
-```
-
-### JavadocDeclaration
-Tag `return` is not allowed here
-in `src/main/java/com/uber/rss/execution/ShuffleExecutor.java`
-#### Snippet
-```java
-    /***
-     * Add an operation to indicate a map task finishing upload data.
-     * @return true when things are good, false when hitting stale task attempt (old task attempt tries
-     * to finish upload, but there is a new task attempt uploading data, which may happen when there is
-     * task retry);
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `src/main/java/com/uber/rss/clients/ShuffleDataWriter.java`
-#### Snippet
-```java
-  /**
-   * Get write bytes since last start upload.
+  /***
+   * Get stage status, which contains map task commit status (last successful map task attempt id)
    * @return
    */
-  long getShuffleWriteBytes();
+  public synchronized ShuffleStageStatus getShuffleStageStatus() {
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `src/main/java/com/uber/rss/execution/ExecutorShuffleStageState.java`
+#### Snippet
+```java
+  /***
+   * Get total persisted bytes for all partitions.
+   * @return
+   */
+  public synchronized long getPersistedBytes() {
 ```
 
 ### JavadocDeclaration
@@ -2233,6 +2197,54 @@ in `src/main/java/com/uber/rss/util/RetryUtils.java`
      * @return
      */
     public static <T> T retry(long minIntervalMillis, long maxIntervalMillis, long retryMaxMillis, String logInfo, Supplier<T> callable) {
+```
+
+### JavadocDeclaration
+`@param intervalMillis` tag description is missing
+in `src/main/java/com/uber/rss/util/RetryUtils.java`
+#### Snippet
+```java
+    /***
+     * Retry the callable until it returns not null.
+     * @param intervalMillis
+     * @param maxTryMillis
+     * @param callable
+```
+
+### JavadocDeclaration
+`@param maxTryMillis` tag description is missing
+in `src/main/java/com/uber/rss/util/RetryUtils.java`
+#### Snippet
+```java
+     * Retry the callable until it returns not null.
+     * @param intervalMillis
+     * @param maxTryMillis
+     * @param callable
+     * @return
+```
+
+### JavadocDeclaration
+`@param callable` tag description is missing
+in `src/main/java/com/uber/rss/util/RetryUtils.java`
+#### Snippet
+```java
+     * @param intervalMillis
+     * @param maxTryMillis
+     * @param callable
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `src/main/java/com/uber/rss/util/RetryUtils.java`
+#### Snippet
+```java
+     * @param maxTryMillis
+     * @param callable
+     * @return
+     */
+    public static <T> T retryUntilNotNull(long intervalMillis, long maxTryMillis, Supplier<T> callable) {
 ```
 
 ### JavadocDeclaration
@@ -2301,54 +2313,6 @@ in `src/main/java/com/uber/rss/util/RetryUtils.java`
 #### Snippet
 ```java
     /***
-     * Retry the callable until it returns not null.
-     * @param intervalMillis
-     * @param maxTryMillis
-     * @param callable
-```
-
-### JavadocDeclaration
-`@param maxTryMillis` tag description is missing
-in `src/main/java/com/uber/rss/util/RetryUtils.java`
-#### Snippet
-```java
-     * Retry the callable until it returns not null.
-     * @param intervalMillis
-     * @param maxTryMillis
-     * @param callable
-     * @return
-```
-
-### JavadocDeclaration
-`@param callable` tag description is missing
-in `src/main/java/com/uber/rss/util/RetryUtils.java`
-#### Snippet
-```java
-     * @param intervalMillis
-     * @param maxTryMillis
-     * @param callable
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `src/main/java/com/uber/rss/util/RetryUtils.java`
-#### Snippet
-```java
-     * @param maxTryMillis
-     * @param callable
-     * @return
-     */
-    public static <T> T retryUntilNotNull(long intervalMillis, long maxTryMillis, Supplier<T> callable) {
-```
-
-### JavadocDeclaration
-`@param intervalMillis` tag description is missing
-in `src/main/java/com/uber/rss/util/RetryUtils.java`
-#### Snippet
-```java
-    /***
      * Retry the callable until it returns true.
      * @param intervalMillis
      * @param maxTryMillis
@@ -2392,6 +2356,174 @@ in `src/main/java/com/uber/rss/util/RetryUtils.java`
 ```
 
 ### JavadocDeclaration
+`@param list` tag description is missing
+in `src/main/java/com/uber/rss/util/StringUtils.java`
+#### Snippet
+```java
+   * Make a string for a sorted integer list. e.g. for 1,2,3,5,6,7, this method will
+   * return string like "1-3,5-7".
+   * @param list
+   * @return
+   */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `src/main/java/com/uber/rss/util/StringUtils.java`
+#### Snippet
+```java
+   * return string like "1-3,5-7".
+   * @param list
+   * @return
+   */
+    public static <T extends Number> String toString4SortedIntList(List<T> list) {
+```
+
+### JavadocDeclaration
+`@param appTaskAttemptId` tag description is missing
+in `src/main/java/com/uber/rss/execution/ShuffleExecutor.java`
+#### Snippet
+```java
+     * It prints out internal state. So make sure not use it in production
+     * code.
+     * @param appTaskAttemptId
+     * @param maxWaitMillis
+     */
+```
+
+### JavadocDeclaration
+`@param maxWaitMillis` tag description is missing
+in `src/main/java/com/uber/rss/execution/ShuffleExecutor.java`
+#### Snippet
+```java
+     * code.
+     * @param appTaskAttemptId
+     * @param maxWaitMillis
+     */
+    public void pollAndWaitMapAttemptFinishedUpload(AppTaskAttemptId appTaskAttemptId,
+```
+
+### JavadocDeclaration
+`@param writeOp` tag description is missing
+in `src/main/java/com/uber/rss/execution/ShuffleExecutor.java`
+#### Snippet
+```java
+     * Add an operation to write shuffle record data.
+     * This method will make sure the ByteBuf inside writeOp gets released.
+     * @param writeOp
+     */
+    public void writeData(ShuffleDataWrapper writeOp) {
+```
+
+### JavadocDeclaration
+`@param rootDir` tag description is missing
+in `src/main/java/com/uber/rss/execution/ShuffleExecutor.java`
+#### Snippet
+```java
+    /***
+     * Create an instance.
+     * @param rootDir
+     */
+    public ShuffleExecutor(String rootDir,
+```
+
+### JavadocDeclaration
+`@param appTaskAttemptId` tag description is missing
+in `src/main/java/com/uber/rss/execution/ShuffleExecutor.java`
+#### Snippet
+```java
+     * It prints out internal state. So make sure not use it in production 
+     * code.
+     * @param appTaskAttemptId
+     * @param maxWaitMillis
+     */
+```
+
+### JavadocDeclaration
+`@param maxWaitMillis` tag description is missing
+in `src/main/java/com/uber/rss/execution/ShuffleExecutor.java`
+#### Snippet
+```java
+     * code.
+     * @param appTaskAttemptId
+     * @param maxWaitMillis
+     */
+    public void pollAndWaitMapAttemptCommitted(AppTaskAttemptId appTaskAttemptId,
+```
+
+### JavadocDeclaration
+`@param appShuffleId` tag description is missing
+in `src/main/java/com/uber/rss/execution/ShuffleExecutor.java`
+#### Snippet
+```java
+    /***
+     * Get config for the given shuffle stage.
+     * @param appShuffleId
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `src/main/java/com/uber/rss/execution/ShuffleExecutor.java`
+#### Snippet
+```java
+     * Get config for the given shuffle stage.
+     * @param appShuffleId
+     * @return
+     */
+    public ShuffleWriteConfig getShuffleWriteConfig(AppShuffleId appShuffleId) {
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `src/main/java/com/uber/rss/execution/ShuffleExecutor.java`
+#### Snippet
+```java
+    /**
+     * Get root directory.
+     * @return
+     */
+    public String getRootDir() {
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `src/main/java/com/uber/rss/execution/ShuffleExecutor.java`
+#### Snippet
+```java
+    /**
+     * Get background executor service.
+     * @return
+     */
+    public ScheduledExecutorService getLowPriorityExecutorService() {
+```
+
+### JavadocDeclaration
+`@param appId` tag description is missing
+in `src/main/java/com/uber/rss/execution/ShuffleExecutor.java`
+#### Snippet
+```java
+  /**
+     * Update liveness indicator for the given application.
+     * @param appId
+     */
+    public ExecutorAppState updateLiveness(String appId) {
+```
+
+### JavadocDeclaration
+Tag `return` is not allowed here
+in `src/main/java/com/uber/rss/execution/ShuffleExecutor.java`
+#### Snippet
+```java
+    /***
+     * Add an operation to indicate a map task finishing upload data.
+     * @return true when things are good, false when hitting stale task attempt (old task attempt tries
+     * to finish upload, but there is a new task attempt uploading data, which may happen when there is
+     * task retry);
+```
+
+### JavadocDeclaration
 `@return` tag description is missing
 in `src/main/java/com/uber/rss/common/MapTaskRssInfo.java`
 #### Snippet
@@ -2404,51 +2536,39 @@ in `src/main/java/com/uber/rss/common/MapTaskRssInfo.java`
 ```
 
 ### JavadocDeclaration
-`@return` tag description is missing
-in `src/main/java/com/uber/rss/util/RateCounter.java`
+`@param client` tag description is missing
+in `src/main/java/com/uber/rss/clients/PooledWriteClientFactory.java`
 #### Snippet
 ```java
-    /***
-     * Get overall change rate since this instance is created.
-     * @return
-     */
-    public double getOverallRate() {
+  /***
+   * Return the client to connection pool for later reuse.
+   * @param client
+   */
+  public void returnClientToPool(PooledShuffleDataSyncWriteClient client) {
 ```
 
 ### JavadocDeclaration
 `@return` tag description is missing
-in `src/main/java/com/uber/rss/util/RateCounter.java`
+in `src/main/java/com/uber/rss/storage/ShuffleOutputStream.java`
 #### Snippet
 ```java
     /***
-     * Get overall value.
+     * Get file location for this stream.
      * @return
      */
-    public long getOverallValue() {
+    String getLocation();
 ```
 
 ### JavadocDeclaration
-`@param delta` tag description is missing
-in `src/main/java/com/uber/rss/util/RateCounter.java`
+`@param bytes` tag description is missing
+in `src/main/java/com/uber/rss/storage/ShuffleOutputStream.java`
 #### Snippet
 ```java
     /***
-     * Add value, and return the rate if time has elapsed longer than checkpoint interval.
-     * @param delta
-     * @return
+     * Write data to the stream.
+     * @param bytes
      */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `src/main/java/com/uber/rss/util/RateCounter.java`
-#### Snippet
-```java
-     * Add value, and return the rate if time has elapsed longer than checkpoint interval.
-     * @param delta
-     * @return
-     */
-    public Double addValueAndGetRate(long delta) {
+    void write(byte[] bytes);
 ```
 
 ### JavadocDeclaration
@@ -2548,219 +2668,15 @@ in `src/main/java/com/uber/rss/clients/ServerReplicationGroupUtil.java`
 ```
 
 ### JavadocDeclaration
-`@param dir` tag description is missing
-in `src/main/java/com/uber/rss/storage/ShuffleStorage.java`
+`@param numMaps` tag description is missing
+in `src/main/java/com/uber/rss/tools/StreamServerStressTool.java`
 #### Snippet
 ```java
     /***
-     * List all files under a directory.
-     * @param dir
-     * @return
+     * This method will reset endMapId value as well.
+     * @param numMaps
      */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `src/main/java/com/uber/rss/storage/ShuffleStorage.java`
-#### Snippet
-```java
-     * List all files under a directory.
-     * @param dir
-     * @return
-     */
-    List<String> listAllFiles(String dir);
-```
-
-### JavadocDeclaration
-`@param path` tag description is missing
-in `src/main/java/com/uber/rss/storage/ShuffleStorage.java`
-#### Snippet
-```java
-    /***
-     * Check whether the file exists.
-     * @param path
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `src/main/java/com/uber/rss/storage/ShuffleStorage.java`
-#### Snippet
-```java
-     * Check whether the file exists.
-     * @param path
-     * @return
-     */
-    boolean exists(String path);
-```
-
-### JavadocDeclaration
-`@param path` tag description is missing
-in `src/main/java/com/uber/rss/storage/ShuffleStorage.java`
-#### Snippet
-```java
-    /***
-     * Create a stream for a given file path to read shuffle data.
-     * @param path
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `src/main/java/com/uber/rss/storage/ShuffleStorage.java`
-#### Snippet
-```java
-     * Create a stream for a given file path to read shuffle data.
-     * @param path
-     * @return
-     */
-    InputStream createReaderStream(String path);
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `src/main/java/com/uber/rss/storage/ShuffleStorage.java`
-#### Snippet
-```java
-     * Check whether this is local storage on Remote Shuffle Service, or
-     * external storage like HDFS.
-     * @return
-     */
-    boolean isLocalStorage();
-```
-
-### JavadocDeclaration
-`@param dir` tag description is missing
-in `src/main/java/com/uber/rss/storage/ShuffleStorage.java`
-#### Snippet
-```java
-    /***
-     * Delete directory and its children.
-     * @param dir
-     */
-    void deleteDirectory(String dir);
-```
-
-### JavadocDeclaration
-`@param dir` tag description is missing
-in `src/main/java/com/uber/rss/storage/ShuffleStorage.java`
-#### Snippet
-```java
-    /***
-     * Create directory and its parents.
-     * @param dir
-     */
-    void createDirectories(String dir);
-```
-
-### JavadocDeclaration
-`@param path` tag description is missing
-in `src/main/java/com/uber/rss/storage/ShuffleStorage.java`
-#### Snippet
-```java
-    /***
-     * Get the size of the file.
-     * @param path
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `src/main/java/com/uber/rss/storage/ShuffleStorage.java`
-#### Snippet
-```java
-     * Get the size of the file.
-     * @param path
-     * @return
-     */
-    long size(String path);
-```
-
-### JavadocDeclaration
-`@param path` tag description is missing
-in `src/main/java/com/uber/rss/storage/ShuffleStorage.java`
-#### Snippet
-```java
-    /***
-     * Create a stream for a given file path to write shuffle data.
-     * @param path
-     * @param compressionCodec
-     * @return
-```
-
-### JavadocDeclaration
-`@param compressionCodec` tag description is missing
-in `src/main/java/com/uber/rss/storage/ShuffleStorage.java`
-#### Snippet
-```java
-     * Create a stream for a given file path to write shuffle data.
-     * @param path
-     * @param compressionCodec
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `src/main/java/com/uber/rss/storage/ShuffleStorage.java`
-#### Snippet
-```java
-     * @param path
-     * @param compressionCodec
-     * @return
-     */
-    ShuffleOutputStream createWriterStream(String path, String compressionCodec);
-```
-
-### JavadocDeclaration
-`@param path` tag description is missing
-in `src/main/java/com/uber/rss/storage/ShuffleStorage.java`
-#### Snippet
-```java
-    /***
-     * Delete file.
-     * @param path
-     */
-    void deleteFile(String path);
-```
-
-### JavadocDeclaration
-`@param list` tag description is missing
-in `src/main/java/com/uber/rss/util/StringUtils.java`
-#### Snippet
-```java
-   * Make a string for a sorted integer list. e.g. for 1,2,3,5,6,7, this method will
-   * return string like "1-3,5-7".
-   * @param list
-   * @return
-   */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `src/main/java/com/uber/rss/util/StringUtils.java`
-#### Snippet
-```java
-   * return string like "1-3,5-7".
-   * @param list
-   * @return
-   */
-    public static <T extends Number> String toString4SortedIntList(List<T> list) {
-```
-
-### JavadocDeclaration
-`@param client` tag description is missing
-in `src/main/java/com/uber/rss/clients/PooledWriteClientFactory.java`
-#### Snippet
-```java
-  /***
-   * Return the client to connection pool for later reuse.
-   * @param client
-   */
-  public void returnClientToPool(PooledShuffleDataSyncWriteClient client) {
+    public void setNumMaps(int numMaps) {
 ```
 
 ### JavadocDeclaration
@@ -2776,15 +2692,99 @@ in `src/main/java/com/uber/rss/tools/StreamServerStressTool.java`
 ```
 
 ### JavadocDeclaration
-`@param numMaps` tag description is missing
-in `src/main/java/com/uber/rss/tools/StreamServerStressTool.java`
+`@return` tag description is missing
+in `src/main/java/com/uber/rss/clients/ShuffleDataWriter.java`
+#### Snippet
+```java
+  /**
+   * Get write bytes since last start upload.
+   * @return
+   */
+  long getShuffleWriteBytes();
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `src/main/java/com/uber/rss/util/RateCounter.java`
 #### Snippet
 ```java
     /***
-     * This method will reset endMapId value as well.
-     * @param numMaps
+     * Get overall change rate since this instance is created.
+     * @return
      */
-    public void setNumMaps(int numMaps) {
+    public double getOverallRate() {
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `src/main/java/com/uber/rss/util/RateCounter.java`
+#### Snippet
+```java
+    /***
+     * Get overall value.
+     * @return
+     */
+    public long getOverallValue() {
+```
+
+### JavadocDeclaration
+`@param delta` tag description is missing
+in `src/main/java/com/uber/rss/util/RateCounter.java`
+#### Snippet
+```java
+    /***
+     * Add value, and return the rate if time has elapsed longer than checkpoint interval.
+     * @param delta
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `src/main/java/com/uber/rss/util/RateCounter.java`
+#### Snippet
+```java
+     * Add value, and return the rate if time has elapsed longer than checkpoint interval.
+     * @param delta
+     * @return
+     */
+    public Double addValueAndGetRate(long delta) {
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `src/main/java/com/uber/rss/execution/ShufflePartitionWriter.java`
+#### Snippet
+```java
+    /***
+     * Get all file locations.
+     * @return
+     */
+    public List<String> getFileLocations() {
+```
+
+### JavadocDeclaration
+`@param bytes` tag description is missing
+in `src/main/java/com/uber/rss/execution/ShufflePartitionWriter.java`
+#### Snippet
+```java
+     * Writes data to storage. This method will release the ByteBuf object in the argument.
+     * @param taskAttemptId task attempt id, used to route the data to proper split.
+     * @param bytes
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `src/main/java/com/uber/rss/execution/ShufflePartitionWriter.java`
+#### Snippet
+```java
+     * @param taskAttemptId task attempt id, used to route the data to proper split.
+     * @param bytes
+     * @return
+     */
+    public synchronized int writeData(long taskAttemptId, ByteBuf bytes) {
 ```
 
 ## RuleId[id=FieldMayBeFinal]
@@ -2797,114 +2797,6 @@ public class MovingAverageCalculator {
     private final AtomicLongArray values;
     private AtomicInteger index = new AtomicInteger(0);
     private volatile boolean fullyFilled = false;
-
-```
-
-### FieldMayBeFinal
-Field `exceptionCallback` may be 'final'
-in `src/main/java/com/uber/rss/util/AsyncSocketCompletionHandler.java`
-#### Snippet
-```java
-
-public class AsyncSocketCompletionHandler implements CompletionHandler<Integer, AsyncSocketState> {
-    private Consumer<Throwable> exceptionCallback;
-    
-    public AsyncSocketCompletionHandler(Consumer<Throwable> exceptionCallback) {
-```
-
-### FieldMayBeFinal
-Field `internalCountedOutputStream` may be 'final'
-in `src/main/java/com/uber/rss/storage/ShuffleFileOutputStream.java`
-#### Snippet
-```java
-    private OutputStream outputStream;
-    private long initialFileSize = 0L;
-    private CountedOutputStream internalCountedOutputStream;
-
-    public ShuffleFileOutputStream(File file) {
-```
-
-### FieldMayBeFinal
-Field `underlyingStream` may be 'final'
-in `src/main/java/com/uber/rss/util/CountedOutputStream.java`
-#### Snippet
-```java
-    private long writtenBytes = 0;
-
-    private OutputStream underlyingStream;
-
-    public CountedOutputStream(OutputStream underlyingStream) {
-```
-
-### FieldMayBeFinal
-Field `numConnections` may be 'final'
-in `src/main/java/com/uber/rss/handlers/UploadChannelManager.java`
-#### Snippet
-```java
-    private static final Logger logger = LoggerFactory.getLogger(UploadChannelManager.class);
-
-    private AtomicInteger numConnections = new AtomicInteger();
-
-    private int maxConnections = DEFAULT_MAX_CONNECTIONS;
-```
-
-### FieldMayBeFinal
-Field `cause` may be 'final'
-in `src/main/java/com/uber/rss/clients/FailedFetchRecordKeyValuePair.java`
-#### Snippet
-```java
- */
-public class FailedFetchRecordKeyValuePair extends TaskByteArrayDataBlock {
-    private Throwable cause;
-
-    public FailedFetchRecordKeyValuePair(Throwable cause) {
-```
-
-### FieldMayBeFinal
-Field `exception` may be 'final'
-in `src/main/java/com/uber/rss/clients/ReplicatedReadClient.java`
-#### Snippet
-```java
-  private static class ExceptionLogInfo {
-    private String logMsg;
-    private Throwable exception;
-
-    public ExceptionLogInfo(String logMsg, Throwable exception) {
-```
-
-### FieldMayBeFinal
-Field `logMsg` may be 'final'
-in `src/main/java/com/uber/rss/clients/ReplicatedReadClient.java`
-#### Snippet
-```java
-
-  private static class ExceptionLogInfo {
-    private String logMsg;
-    private Throwable exception;
-
-```
-
-### FieldMayBeFinal
-Field `startTime` may be 'final'
-in `src/main/java/com/uber/rss/decoders/StreamServerMessageDecoder.java`
-#### Snippet
-```java
-  private final byte[] taskAttemptIdBytes = new byte[Long.BYTES];
-
-  private long startTime = System.currentTimeMillis();
-  private long numIncomingBytes = 0;
-
-```
-
-### FieldMayBeFinal
-Field `metricGroupContainer` may be 'final'
-in `src/main/java/com/uber/rss/decoders/StreamServerMessageDecoder.java`
-#### Snippet
-```java
-  private static final int INVALID_TASK_ATTEMPT_ID = -1;
-
-  private static NettyServerSideMetricGroupContainer<ServerHandlerMetrics> metricGroupContainer =
-      new NettyServerSideMetricGroupContainer<>(ServerHandlerMetrics::new);
 
 ```
 
@@ -2933,27 +2825,159 @@ public class AsyncSocketState {
 ```
 
 ### FieldMayBeFinal
-Field `user` may be 'final'
-in `src/main/java/com/uber/rss/metrics/NotifyClientMetricsKey.java`
+Field `internalCountedOutputStream` may be 'final'
+in `src/main/java/com/uber/rss/storage/ShuffleFileOutputStream.java`
 #### Snippet
 ```java
-public class NotifyClientMetricsKey {
+    private OutputStream outputStream;
+    private long initialFileSize = 0L;
+    private CountedOutputStream internalCountedOutputStream;
+
+    public ShuffleFileOutputStream(File file) {
+```
+
+### FieldMayBeFinal
+Field `startTime` may be 'final'
+in `src/main/java/com/uber/rss/decoders/StreamServerMessageDecoder.java`
+#### Snippet
+```java
+  private final byte[] taskAttemptIdBytes = new byte[Long.BYTES];
+
+  private long startTime = System.currentTimeMillis();
+  private long numIncomingBytes = 0;
+
+```
+
+### FieldMayBeFinal
+Field `metricGroupContainer` may be 'final'
+in `src/main/java/com/uber/rss/decoders/StreamServerMessageDecoder.java`
+#### Snippet
+```java
+  private static final int INVALID_TASK_ATTEMPT_ID = -1;
+
+  private static NettyServerSideMetricGroupContainer<ServerHandlerMetrics> metricGroupContainer =
+      new NettyServerSideMetricGroupContainer<>(ServerHandlerMetrics::new);
+
+```
+
+### FieldMayBeFinal
+Field `taskAttemptId` may be 'final'
+in `src/main/java/com/uber/rss/clients/TaskByteArrayDataBlock.java`
+#### Snippet
+```java
+    private final byte[] payload;
+
+    private long taskAttemptId;
+
+    public TaskByteArrayDataBlock(byte[] payload, long taskAttemptId) {
+```
+
+### FieldMayBeFinal
+Field `logMsg` may be 'final'
+in `src/main/java/com/uber/rss/clients/ReplicatedReadClient.java`
+#### Snippet
+```java
+
+  private static class ExceptionLogInfo {
+    private String logMsg;
+    private Throwable exception;
+
+```
+
+### FieldMayBeFinal
+Field `exception` may be 'final'
+in `src/main/java/com/uber/rss/clients/ReplicatedReadClient.java`
+#### Snippet
+```java
+  private static class ExceptionLogInfo {
+    private String logMsg;
+    private Throwable exception;
+
+    public ExceptionLogInfo(String logMsg, Throwable exception) {
+```
+
+### FieldMayBeFinal
+Field `taskAttemptId` may be 'final'
+in `src/main/java/com/uber/rss/clients/TaskDataBlock.java`
+#### Snippet
+```java
+    private final byte[] payload;
+    
+    private long taskAttemptId;
+
+    public TaskDataBlock(byte[] payload, long taskAttemptId) {
+```
+
+### FieldMayBeFinal
+Field `servers` may be 'final'
+in `src/main/java/com/uber/rss/clients/ServerConnectionStringCache.java`
+#### Snippet
+```java
+  }
+
+  private ConcurrentHashMap<String, ServerDetail> servers = new ConcurrentHashMap<>();
+
+  public ServerConnectionStringCache() {
+```
+
+### FieldMayBeFinal
+Field `exceptionCallback` may be 'final'
+in `src/main/java/com/uber/rss/util/AsyncSocketCompletionHandler.java`
+#### Snippet
+```java
+
+public class AsyncSocketCompletionHandler implements CompletionHandler<Integer, AsyncSocketState> {
+    private Consumer<Throwable> exceptionCallback;
+    
+    public AsyncSocketCompletionHandler(Consumer<Throwable> exceptionCallback) {
+```
+
+### FieldMayBeFinal
+Field `taskAttemptId` may be 'final'
+in `src/main/java/com/uber/rss/execution/TaskAttemptIdAndState.java`
+#### Snippet
+```java
+  }
+
+  private long taskAttemptId;
+  private TaskAttemptState state = TaskAttemptState.NOT_STARTED;
+
+```
+
+### FieldMayBeFinal
+Field `user` may be 'final'
+in `src/main/java/com/uber/rss/metrics/ReadClientMetricsKey.java`
+#### Snippet
+```java
+public class ReadClientMetricsKey {
     private String source;
     private String user;
 
-    public NotifyClientMetricsKey(String source, String user) {
+    public ReadClientMetricsKey(String source, String user) {
 ```
 
 ### FieldMayBeFinal
 Field `source` may be 'final'
-in `src/main/java/com/uber/rss/metrics/NotifyClientMetricsKey.java`
+in `src/main/java/com/uber/rss/metrics/ReadClientMetricsKey.java`
 #### Snippet
 ```java
 
-public class NotifyClientMetricsKey {
+public class ReadClientMetricsKey {
     private String source;
     private String user;
 
+```
+
+### FieldMayBeFinal
+Field `user` may be 'final'
+in `src/main/java/com/uber/rss/metrics/NettyServerSideMetricsKey.java`
+#### Snippet
+```java
+
+public class NettyServerSideMetricsKey {
+    private String user;
+
+    public NettyServerSideMetricsKey(String user) {
 ```
 
 ### FieldMayBeFinal
@@ -2981,15 +3005,15 @@ public class ResponseStatusAndMessage<T> {
 ```
 
 ### FieldMayBeFinal
-Field `tasks` may be 'final'
-in `src/main/java/com/uber/rss/execution/TaskAttemptCollection.java`
+Field `dataCenter` may be 'final'
+in `src/main/java/com/uber/rss/messages/RegisterServerRequestMessage.java`
 #### Snippet
 ```java
- */
-public class TaskAttemptCollection {
-  private Map<Long, TaskAttemptIdAndState> tasks = new HashMap<>();
 
-  public TaskAttemptCollection() {
+public class RegisterServerRequestMessage extends ControlMessage {
+    private String dataCenter;
+    private String cluster;
+    private String serverId;
 ```
 
 ### FieldMayBeFinal
@@ -3017,18 +3041,6 @@ in `src/main/java/com/uber/rss/messages/RegisterServerRequestMessage.java`
 ```
 
 ### FieldMayBeFinal
-Field `cluster` may be 'final'
-in `src/main/java/com/uber/rss/messages/RegisterServerRequestMessage.java`
-#### Snippet
-```java
-public class RegisterServerRequestMessage extends ControlMessage {
-    private String dataCenter;
-    private String cluster;
-    private String serverId;
-    private String runningVersion;
-```
-
-### FieldMayBeFinal
 Field `connectionString` may be 'final'
 in `src/main/java/com/uber/rss/messages/RegisterServerRequestMessage.java`
 #### Snippet
@@ -3041,135 +3053,27 @@ in `src/main/java/com/uber/rss/messages/RegisterServerRequestMessage.java`
 ```
 
 ### FieldMayBeFinal
-Field `dataCenter` may be 'final'
+Field `cluster` may be 'final'
 in `src/main/java/com/uber/rss/messages/RegisterServerRequestMessage.java`
 #### Snippet
 ```java
-
 public class RegisterServerRequestMessage extends ControlMessage {
     private String dataCenter;
     private String cluster;
     private String serverId;
+    private String runningVersion;
 ```
 
 ### FieldMayBeFinal
-Field `dataCenter` may be 'final'
-in `src/main/java/com/uber/rss/messages/GetServersRequestMessage.java`
+Field `user` may be 'final'
+in `src/main/java/com/uber/rss/metrics/ApplicationMetricsKey.java`
 #### Snippet
 ```java
 
-public class GetServersRequestMessage extends ControlMessage {
-    private String dataCenter;
-    private String cluster;
-    private int maxCount;
-```
+public class ApplicationMetricsKey {
+    private String user;
+    private String attemptId;
 
-### FieldMayBeFinal
-Field `maxCount` may be 'final'
-in `src/main/java/com/uber/rss/messages/GetServersRequestMessage.java`
-#### Snippet
-```java
-    private String dataCenter;
-    private String cluster;
-    private int maxCount;
-
-    public GetServersRequestMessage(String dataCenter, String cluster, int maxCount) {
-```
-
-### FieldMayBeFinal
-Field `cluster` may be 'final'
-in `src/main/java/com/uber/rss/messages/GetServersRequestMessage.java`
-#### Snippet
-```java
-public class GetServersRequestMessage extends ControlMessage {
-    private String dataCenter;
-    private String cluster;
-    private int maxCount;
-
-```
-
-### FieldMayBeFinal
-Field `source` may be 'final'
-in `src/main/java/com/uber/rss/metrics/ClientConnectMetricsKey.java`
-#### Snippet
-```java
-
-public class ClientConnectMetricsKey {
-    private String source;
-    private String remote;
-
-```
-
-### FieldMayBeFinal
-Field `remote` may be 'final'
-in `src/main/java/com/uber/rss/metrics/ClientConnectMetricsKey.java`
-#### Snippet
-```java
-public class ClientConnectMetricsKey {
-    private String source;
-    private String remote;
-
-    public ClientConnectMetricsKey(String source, String remote) {
-```
-
-### FieldMayBeFinal
-Field `payload` may be 'final'
-in `src/main/java/com/uber/rss/common/DataBlock.java`
-#### Snippet
-```java
-public class DataBlock {
-  private DataBlockHeader header;
-  private byte[] payload;
-
-  public DataBlock(DataBlockHeader header, byte[] payload) {
-```
-
-### FieldMayBeFinal
-Field `header` may be 'final'
-in `src/main/java/com/uber/rss/common/DataBlock.java`
-#### Snippet
-```java
-
-public class DataBlock {
-  private DataBlockHeader header;
-  private byte[] payload;
-
-```
-
-### FieldMayBeFinal
-Field `metricGroupContainer` may be 'final'
-in `src/main/java/com/uber/rss/metrics/NettyServerSideMetricGroupContainer.java`
-#### Snippet
-```java
-
-public class NettyServerSideMetricGroupContainer <M extends MetricGroup<NettyServerSideMetricsKey>>  {
-    private MetricGroupContainer<NettyServerSideMetricsKey, M> metricGroupContainer;
-    
-    public NettyServerSideMetricGroupContainer(Function<NettyServerSideMetricsKey, ? extends M> createFunction) {
-```
-
-### FieldMayBeFinal
-Field `index` may be 'final'
-in `src/main/java/com/uber/rss/clients/MultiServerAsyncWriteClient.java`
-#### Snippet
-```java
-
-    private static class ServerConnectionInfo {
-        private int index;
-        private ServerReplicationGroup server;
-
-```
-
-### FieldMayBeFinal
-Field `server` may be 'final'
-in `src/main/java/com/uber/rss/clients/MultiServerAsyncWriteClient.java`
-#### Snippet
-```java
-    private static class ServerConnectionInfo {
-        private int index;
-        private ServerReplicationGroup server;
-
-        public ServerConnectionInfo(int index, ServerReplicationGroup server) {
 ```
 
 ### FieldMayBeFinal
@@ -3185,123 +3089,435 @@ public class ApplicationMetricsKey {
 ```
 
 ### FieldMayBeFinal
-Field `user` may be 'final'
-in `src/main/java/com/uber/rss/metrics/ApplicationMetricsKey.java`
+Field `finishUploadRequestLag` may be 'final'
+in `src/main/java/com/uber/rss/handlers/UploadChannelInboundHandler.java`
 #### Snippet
 ```java
-
-public class ApplicationMetricsKey {
-    private String user;
-    private String attemptId;
-
-```
-
-### FieldMayBeFinal
-Field `taskAttemptId` may be 'final'
-in `src/main/java/com/uber/rss/clients/TaskByteArrayDataBlock.java`
-#### Snippet
-```java
-    private final byte[] payload;
-
-    private long taskAttemptId;
-
-    public TaskByteArrayDataBlock(byte[] payload, long taskAttemptId) {
-```
-
-### FieldMayBeFinal
-Field `numConcurrentChannels` may be 'final'
-in `src/main/java/com/uber/rss/handlers/DownloadChannelInboundHandler.java`
-#### Snippet
-```java
-
     private static AtomicInteger concurrentChannelsAtomicInteger = new AtomicInteger();
-    private static Gauge numConcurrentChannels = M3Stats.getDefaultScope().gauge("numConcurrentDownloadChannels");
+    private static Gauge numConcurrentChannels = M3Stats.getDefaultScope().gauge("numConcurrentUploadChannels");
+    private static Gauge finishUploadRequestLag = M3Stats.getDefaultScope().gauge("finishUploadRequestLag");
 
-    private static Counter closedIdleDownloadChannels = M3Stats.getDefaultScope().counter("closedIdleDownloadChannels");
-```
-
-### FieldMayBeFinal
-Field `closedIdleDownloadChannels` may be 'final'
-in `src/main/java/com/uber/rss/handlers/DownloadChannelInboundHandler.java`
-#### Snippet
-```java
-    private static Gauge numConcurrentChannels = M3Stats.getDefaultScope().gauge("numConcurrentDownloadChannels");
-
-    private static Counter closedIdleDownloadChannels = M3Stats.getDefaultScope().counter("closedIdleDownloadChannels");
-
-    private final String serverId;
+    private static Counter closedIdleUploadChannels = M3Stats.getDefaultScope().counter("closedIdleUploadChannels");
 ```
 
 ### FieldMayBeFinal
 Field `concurrentChannelsAtomicInteger` may be 'final'
-in `src/main/java/com/uber/rss/handlers/DownloadChannelInboundHandler.java`
+in `src/main/java/com/uber/rss/handlers/UploadChannelInboundHandler.java`
 #### Snippet
 ```java
-    private static Counter numChannelInactive = M3Stats.getDefaultScope().counter("numDownloadChannelInactive");
+    private static Counter numChannelInactive = M3Stats.getDefaultScope().counter("numUploadChannelInactive");
 
     private static AtomicInteger concurrentChannelsAtomicInteger = new AtomicInteger();
-    private static Gauge numConcurrentChannels = M3Stats.getDefaultScope().gauge("numConcurrentDownloadChannels");
+    private static Gauge numConcurrentChannels = M3Stats.getDefaultScope().gauge("numConcurrentUploadChannels");
+    private static Gauge finishUploadRequestLag = M3Stats.getDefaultScope().gauge("finishUploadRequestLag");
+```
+
+### FieldMayBeFinal
+Field `numConcurrentChannels` may be 'final'
+in `src/main/java/com/uber/rss/handlers/UploadChannelInboundHandler.java`
+#### Snippet
+```java
+
+    private static AtomicInteger concurrentChannelsAtomicInteger = new AtomicInteger();
+    private static Gauge numConcurrentChannels = M3Stats.getDefaultScope().gauge("numConcurrentUploadChannels");
+    private static Gauge finishUploadRequestLag = M3Stats.getDefaultScope().gauge("finishUploadRequestLag");
 
 ```
 
 ### FieldMayBeFinal
 Field `numChannelInactive` may be 'final'
-in `src/main/java/com/uber/rss/handlers/DownloadChannelInboundHandler.java`
+in `src/main/java/com/uber/rss/handlers/UploadChannelInboundHandler.java`
 #### Snippet
 ```java
 
-    private static Counter numChannelActive = M3Stats.getDefaultScope().counter("numDownloadChannelActive");
-    private static Counter numChannelInactive = M3Stats.getDefaultScope().counter("numDownloadChannelInactive");
+    private static Counter numChannelActive = M3Stats.getDefaultScope().counter("numUploadChannelActive");
+    private static Counter numChannelInactive = M3Stats.getDefaultScope().counter("numUploadChannelInactive");
 
     private static AtomicInteger concurrentChannelsAtomicInteger = new AtomicInteger();
 ```
 
 ### FieldMayBeFinal
 Field `numChannelActive` may be 'final'
-in `src/main/java/com/uber/rss/handlers/DownloadChannelInboundHandler.java`
+in `src/main/java/com/uber/rss/handlers/UploadChannelInboundHandler.java`
 #### Snippet
 ```java
-    private static final Logger logger = LoggerFactory.getLogger(DownloadChannelInboundHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(UploadChannelInboundHandler.class);
 
-    private static Counter numChannelActive = M3Stats.getDefaultScope().counter("numDownloadChannelActive");
-    private static Counter numChannelInactive = M3Stats.getDefaultScope().counter("numDownloadChannelInactive");
+    private static Counter numChannelActive = M3Stats.getDefaultScope().counter("numUploadChannelActive");
+    private static Counter numChannelInactive = M3Stats.getDefaultScope().counter("numUploadChannelInactive");
 
 ```
 
 ### FieldMayBeFinal
-Field `index` may be 'final'
-in `src/main/java/com/uber/rss/clients/MultiServerSyncWriteClient.java`
+Field `closedIdleUploadChannels` may be 'final'
+in `src/main/java/com/uber/rss/handlers/UploadChannelInboundHandler.java`
+#### Snippet
+```java
+    private static Gauge finishUploadRequestLag = M3Stats.getDefaultScope().gauge("finishUploadRequestLag");
+
+    private static Counter closedIdleUploadChannels = M3Stats.getDefaultScope().counter("closedIdleUploadChannels");
+
+    private final String serverId;
+```
+
+### FieldMayBeFinal
+Field `concurrentConnections` may be 'final'
+in `src/main/java/com/uber/rss/common/ServerCandidate.java`
+#### Snippet
+```java
+  private ServerDetail serverDetail;
+  private long requestLatency;
+  private long concurrentConnections;
+
+  public ServerCandidate(ServerDetail serverDetail, long requestLatency, long concurrentConnections) {
+```
+
+### FieldMayBeFinal
+Field `serverDetail` may be 'final'
+in `src/main/java/com/uber/rss/common/ServerCandidate.java`
 #### Snippet
 ```java
 
-    private static class ServerConnectionInfo {
-        private int index;
-        private ServerReplicationGroup server;
+public class ServerCandidate {
+  private ServerDetail serverDetail;
+  private long requestLatency;
+  private long concurrentConnections;
+```
+
+### FieldMayBeFinal
+Field `requestLatency` may be 'final'
+in `src/main/java/com/uber/rss/common/ServerCandidate.java`
+#### Snippet
+```java
+public class ServerCandidate {
+  private ServerDetail serverDetail;
+  private long requestLatency;
+  private long concurrentConnections;
 
 ```
 
 ### FieldMayBeFinal
-Field `server` may be 'final'
-in `src/main/java/com/uber/rss/clients/MultiServerSyncWriteClient.java`
+Field `fileCompressCodec` may be 'final'
+in `src/main/java/com/uber/rss/tools/PartitionFileChecker.java`
 #### Snippet
 ```java
-    private static class ServerConnectionInfo {
-        private int index;
-        private ServerReplicationGroup server;
+public class PartitionFileChecker {
+  private String filePath;
+  private String fileCompressCodec = Compression.COMPRESSION_CODEC_LZ4;
+  private String blockCompressCodec = Compression.COMPRESSION_CODEC_LZ4;
 
-        public ServerConnectionInfo(int index, ServerReplicationGroup server) {
+```
+
+### FieldMayBeFinal
+Field `blockCompressCodec` may be 'final'
+in `src/main/java/com/uber/rss/tools/PartitionFileChecker.java`
+#### Snippet
+```java
+  private String filePath;
+  private String fileCompressCodec = Compression.COMPRESSION_CODEC_LZ4;
+  private String blockCompressCodec = Compression.COMPRESSION_CODEC_LZ4;
+
+  public void run() {
+```
+
+### FieldMayBeFinal
+Field `idleCheckExecutor` may be 'final'
+in `src/main/java/com/uber/rss/clients/PooledWriteClientFactory.java`
+#### Snippet
+```java
+  private static final Logger logger = LoggerFactory.getLogger(PooledWriteClientFactory.class);
+
+  private static ScheduledExecutorService idleCheckExecutor = Executors.newSingleThreadScheduledExecutor(
+      new ThreadFactoryBuilder()
+          .setDaemon(true)
+```
+
+### FieldMayBeFinal
+Field `numConnections` may be 'final'
+in `src/main/java/com/uber/rss/handlers/UploadChannelManager.java`
+#### Snippet
+```java
+    private static final Logger logger = LoggerFactory.getLogger(UploadChannelManager.class);
+
+    private AtomicInteger numConnections = new AtomicInteger();
+
+    private int maxConnections = DEFAULT_MAX_CONNECTIONS;
+```
+
+### FieldMayBeFinal
+Field `servers` may be 'final'
+in `src/main/java/com/uber/rss/clients/MultiServerHeartbeatClient.java`
+#### Snippet
+```java
+
+  private final long networkTimeoutMillis;
+  private ConcurrentHashMap<String, ServerDetail> servers = new ConcurrentHashMap<>();
+
+  private volatile boolean keepRunning = true;
 ```
 
 ### FieldMayBeFinal
 Field `user` may be 'final'
-in `src/main/java/com/uber/rss/messages/ConnectRegistryRequest.java`
+in `src/main/java/com/uber/rss/messages/GetBusyStatusRequest.java`
 #### Snippet
 ```java
 
-public class ConnectRegistryRequest extends BaseMessage {
+public class GetBusyStatusRequest extends BaseMessage {
     private String user;
 
-    public ConnectRegistryRequest(String user) {
+    public GetBusyStatusRequest(String user) {
+```
+
+### FieldMayBeFinal
+Field `channels` may be 'final'
+in `src/main/java/com/uber/rss/StreamServer.java`
+#### Snippet
+```java
+
+    private UploadChannelManager channelManager;
+    private List<Channel> channels = new ArrayList<>(2);
+
+    // this is used when the shuffle server could serve as a registry server
+```
+
+### FieldMayBeFinal
+Field `mapTaskCommitStatus` may be 'final'
+in `src/main/java/com/uber/rss/messages/ConnectDownloadResponse.java`
+#### Snippet
+```java
+
+    // this could be null
+    private MapTaskCommitStatus mapTaskCommitStatus;
+
+    // if dataAvailable is true, the server sends shuffle data immediately after this message
+```
+
+### FieldMayBeFinal
+Field `dataAvailable` may be 'final'
+in `src/main/java/com/uber/rss/messages/ConnectDownloadResponse.java`
+#### Snippet
+```java
+
+    // if dataAvailable is true, the server sends shuffle data immediately after this message
+    private boolean dataAvailable;
+
+    public ConnectDownloadResponse(String serverId, String serverVersion, String runningVersion, String compressionCodec, MapTaskCommitStatus mapTaskCommitStatus, boolean dataAvailable) {
+```
+
+### FieldMayBeFinal
+Field `runningVersion` may be 'final'
+in `src/main/java/com/uber/rss/messages/ConnectDownloadResponse.java`
+#### Snippet
+```java
+    private String serverId;
+    private String serverVersion;
+    private String runningVersion;
+    private String compressionCodec;
+
+```
+
+### FieldMayBeFinal
+Field `serverVersion` may be 'final'
+in `src/main/java/com/uber/rss/messages/ConnectDownloadResponse.java`
+#### Snippet
+```java
+public class ConnectDownloadResponse extends ServerResponseMessage {
+    private String serverId;
+    private String serverVersion;
+    private String runningVersion;
+    private String compressionCodec;
+```
+
+### FieldMayBeFinal
+Field `serverId` may be 'final'
+in `src/main/java/com/uber/rss/messages/ConnectDownloadResponse.java`
+#### Snippet
+```java
+ */
+public class ConnectDownloadResponse extends ServerResponseMessage {
+    private String serverId;
+    private String serverVersion;
+    private String runningVersion;
+```
+
+### FieldMayBeFinal
+Field `compressionCodec` may be 'final'
+in `src/main/java/com/uber/rss/messages/ConnectDownloadResponse.java`
+#### Snippet
+```java
+    private String serverVersion;
+    private String runningVersion;
+    private String compressionCodec;
+
+    // this could be null
+```
+
+### FieldMayBeFinal
+Field `message` may be 'final'
+in `src/main/java/com/uber/rss/exceptions/RssMaxConnectionsException.java`
+#### Snippet
+```java
+
+public class RssMaxConnectionsException extends Exception {
+    private String message;
+    private int currentConnections = -1;
+    private int maxConnections = -1;
+```
+
+### FieldMayBeFinal
+Field `tasks` may be 'final'
+in `src/main/java/com/uber/rss/execution/TaskAttemptCollection.java`
+#### Snippet
+```java
+ */
+public class TaskAttemptCollection {
+  private Map<Long, TaskAttemptIdAndState> tasks = new HashMap<>();
+
+  public TaskAttemptCollection() {
+```
+
+### FieldMayBeFinal
+Field `source` may be 'final'
+in `src/main/java/com/uber/rss/metrics/NotifyClientMetricsKey.java`
+#### Snippet
+```java
+
+public class NotifyClientMetricsKey {
+    private String source;
+    private String user;
+
+```
+
+### FieldMayBeFinal
+Field `user` may be 'final'
+in `src/main/java/com/uber/rss/metrics/NotifyClientMetricsKey.java`
+#### Snippet
+```java
+public class NotifyClientMetricsKey {
+    private String source;
+    private String user;
+
+    public NotifyClientMetricsKey(String source, String user) {
+```
+
+### FieldMayBeFinal
+Field `serverId` may be 'final'
+in `src/main/java/com/uber/rss/messages/ConnectNotifyResponse.java`
+#### Snippet
+```java
+
+public class ConnectNotifyResponse extends ServerResponseMessage {
+    private String serverId;
+
+    public ConnectNotifyResponse(String serverId) {
+```
+
+### FieldMayBeFinal
+Field `appAttempt` may be 'final'
+in `src/main/java/com/uber/rss/messages/FinishApplicationAttemptRequestMessage.java`
+#### Snippet
+```java
+public class FinishApplicationAttemptRequestMessage extends ControlMessage {
+    private String appId;
+    private String appAttempt;
+
+    public FinishApplicationAttemptRequestMessage(String appId, String appAttempt) {
+```
+
+### FieldMayBeFinal
+Field `appId` may be 'final'
+in `src/main/java/com/uber/rss/messages/FinishApplicationAttemptRequestMessage.java`
+#### Snippet
+```java
+
+public class FinishApplicationAttemptRequestMessage extends ControlMessage {
+    private String appId;
+    private String appAttempt;
+
+```
+
+### FieldMayBeFinal
+Field `shuffleId` may be 'final'
+in `src/main/java/com/uber/rss/messages/StartUploadMessage.java`
+#### Snippet
+```java
+public class StartUploadMessage extends BaseMessage {
+
+    private int shuffleId;
+    private int mapId;
+    private long attemptId;
+```
+
+### FieldMayBeFinal
+Field `mapId` may be 'final'
+in `src/main/java/com/uber/rss/messages/StartUploadMessage.java`
+#### Snippet
+```java
+
+    private int shuffleId;
+    private int mapId;
+    private long attemptId;
+    private int numMaps;
+```
+
+### FieldMayBeFinal
+Field `fileCompressionCodec` may be 'final'
+in `src/main/java/com/uber/rss/messages/StartUploadMessage.java`
+#### Snippet
+```java
+    private int numMaps;
+    private int numPartitions;
+    private String fileCompressionCodec;
+    private short numSplits;
+
+```
+
+### FieldMayBeFinal
+Field `numMaps` may be 'final'
+in `src/main/java/com/uber/rss/messages/StartUploadMessage.java`
+#### Snippet
+```java
+    private int mapId;
+    private long attemptId;
+    private int numMaps;
+    private int numPartitions;
+    private String fileCompressionCodec;
+```
+
+### FieldMayBeFinal
+Field `numSplits` may be 'final'
+in `src/main/java/com/uber/rss/messages/StartUploadMessage.java`
+#### Snippet
+```java
+    private int numPartitions;
+    private String fileCompressionCodec;
+    private short numSplits;
+
+    public StartUploadMessage(int shuffleId, int mapId, long attemptId, int numMaps, int numPartitions, String fileCompressionCodec, short numSplits) {
+```
+
+### FieldMayBeFinal
+Field `attemptId` may be 'final'
+in `src/main/java/com/uber/rss/messages/StartUploadMessage.java`
+#### Snippet
+```java
+    private int shuffleId;
+    private int mapId;
+    private long attemptId;
+    private int numMaps;
+    private int numPartitions;
+```
+
+### FieldMayBeFinal
+Field `numPartitions` may be 'final'
+in `src/main/java/com/uber/rss/messages/StartUploadMessage.java`
+#### Snippet
+```java
+    private long attemptId;
+    private int numMaps;
+    private int numPartitions;
+    private String fileCompressionCodec;
+    private short numSplits;
 ```
 
 ### FieldMayBeFinal
@@ -3329,146 +3545,74 @@ in `src/main/java/com/uber/rss/messages/GetDataAvailabilityResponse.java`
 ```
 
 ### FieldMayBeFinal
-Field `maxValueLen` may be 'final'
-in `src/main/java/com/uber/rss/tools/StreamReadClientVerify.java`
+Field `metricGroupContainer` may be 'final'
+in `src/main/java/com/uber/rss/metrics/MetadataClientMetricsContainer.java`
 #### Snippet
 ```java
-    private Map<Integer, Long> expectedTotalRecordsForEachPartition;
 
-    private int maxValueLen = 10000;
-
-    private Runnable actionToSimulateBadServer = null;
-```
-
-### FieldMayBeFinal
-Field `taskAttemptId` may be 'final'
-in `src/main/java/com/uber/rss/clients/TaskDataBlock.java`
-#### Snippet
-```java
-    private final byte[] payload;
+public class MetadataClientMetricsContainer {
+    private MetricGroupContainer<MetadataClientMetricsKey, MetadataClientMetrics> metricGroupContainer;
     
-    private long taskAttemptId;
-
-    public TaskDataBlock(byte[] payload, long taskAttemptId) {
+    public MetadataClientMetricsContainer() {
 ```
 
 ### FieldMayBeFinal
-Field `taskAttemptId` may be 'final'
-in `src/main/java/com/uber/rss/execution/TaskAttemptIdAndState.java`
+Field `jobStatus` may be 'final'
+in `src/main/java/com/uber/rss/metrics/ApplicationJobStatusMetricsKey.java`
 #### Snippet
 ```java
-  }
+public class ApplicationJobStatusMetricsKey {
+    private String user;
+    private String jobStatus;
 
-  private long taskAttemptId;
-  private TaskAttemptState state = TaskAttemptState.NOT_STARTED;
+    public ApplicationJobStatusMetricsKey(String user, String jobStatus) {
+```
+
+### FieldMayBeFinal
+Field `user` may be 'final'
+in `src/main/java/com/uber/rss/metrics/ApplicationJobStatusMetricsKey.java`
+#### Snippet
+```java
+
+public class ApplicationJobStatusMetricsKey {
+    private String user;
+    private String jobStatus;
 
 ```
 
 ### FieldMayBeFinal
-Field `testObjects` may be 'final'
-in `src/main/java/com/uber/rss/tools/SerializerBenchmark.java`
-#### Snippet
-```java
-    private int maxStringValueLen = 10000;
-
-    private List<HashMap<String, String>> testObjects = new ArrayList<>();
-
-    private ByteArrayOutputStream byteArrayOutputStream;
-```
-
-### FieldMayBeFinal
-Field `random` may be 'final'
-in `src/main/java/com/uber/rss/tools/SerializerBenchmark.java`
-#### Snippet
-```java
-    private byte[] bytesBuffer;
-
-    private Random random = new Random();
-
-    public void setSerializer(SerializerInstance serializer) {
-```
-
-### FieldMayBeFinal
-Field `numTestObjects` may be 'final'
-in `src/main/java/com/uber/rss/tools/SerializerBenchmark.java`
+Field `metricGroupContainer` may be 'final'
+in `src/main/java/com/uber/rss/metrics/ExceptionMetricGroupContainer.java`
 #### Snippet
 ```java
 
-    // Total number of test objects to serialize
-    private int numTestObjects = 10000;
-
-    // Max length for test string values to uses
-```
-
-### FieldMayBeFinal
-Field `maxStringValueLen` may be 'final'
-in `src/main/java/com/uber/rss/tools/SerializerBenchmark.java`
-#### Snippet
-```java
-
-    // Max length for test string values to uses
-    private int maxStringValueLen = 10000;
-
-    private List<HashMap<String, String>> testObjects = new ArrayList<>();
-```
-
-### FieldMayBeFinal
-Field `applicationMetricsContainer` may be 'final'
-in `src/main/java/com/uber/rss/metrics/NotifyServerMetricsContainer.java`
-#### Snippet
-```java
-    private MetricGroupContainer<ApplicationJobStatusMetricsKey, ApplicationJobStatusMetrics> applicationJobStatusMetricsContainer;
-
-    private MetricGroupContainer<ApplicationMetricsKey, ApplicationMetrics> applicationMetricsContainer;
+public class ExceptionMetricGroupContainer  {
+    private MetricGroupContainer<ExceptionMetricsKey, ExceptionMetrics> metricGroupContainer;
     
-    public NotifyServerMetricsContainer() {
+    public ExceptionMetricGroupContainer() {
 ```
 
 ### FieldMayBeFinal
-Field `applicationJobStatusMetricsContainer` may be 'final'
-in `src/main/java/com/uber/rss/metrics/NotifyServerMetricsContainer.java`
+Field `payload` may be 'final'
+in `src/main/java/com/uber/rss/common/DataBlock.java`
 #### Snippet
 ```java
+public class DataBlock {
+  private DataBlockHeader header;
+  private byte[] payload;
 
-public class NotifyServerMetricsContainer {
-    private MetricGroupContainer<ApplicationJobStatusMetricsKey, ApplicationJobStatusMetrics> applicationJobStatusMetricsContainer;
-
-    private MetricGroupContainer<ApplicationMetricsKey, ApplicationMetrics> applicationMetricsContainer;
+  public DataBlock(DataBlockHeader header, byte[] payload) {
 ```
 
 ### FieldMayBeFinal
-Field `channels` may be 'final'
-in `src/main/java/com/uber/rss/StreamServer.java`
+Field `header` may be 'final'
+in `src/main/java/com/uber/rss/common/DataBlock.java`
 #### Snippet
 ```java
 
-    private UploadChannelManager channelManager;
-    private List<Channel> channels = new ArrayList<>(2);
-
-    // this is used when the shuffle server could serve as a registry server
-```
-
-### FieldMayBeFinal
-Field `appAttempt` may be 'final'
-in `src/main/java/com/uber/rss/messages/FinishApplicationAttemptRequestMessage.java`
-#### Snippet
-```java
-public class FinishApplicationAttemptRequestMessage extends ControlMessage {
-    private String appId;
-    private String appAttempt;
-
-    public FinishApplicationAttemptRequestMessage(String appId, String appAttempt) {
-```
-
-### FieldMayBeFinal
-Field `appId` may be 'final'
-in `src/main/java/com/uber/rss/messages/FinishApplicationAttemptRequestMessage.java`
-#### Snippet
-```java
-
-public class FinishApplicationAttemptRequestMessage extends ControlMessage {
-    private String appId;
-    private String appAttempt;
+public class DataBlock {
+  private DataBlockHeader header;
+  private byte[] payload;
 
 ```
 
@@ -3509,174 +3653,6 @@ in `src/main/java/com/uber/rss/common/PartitionFilePathAndLength.java`
 ```
 
 ### FieldMayBeFinal
-Field `serverId` may be 'final'
-in `src/main/java/com/uber/rss/messages/ConnectNotifyResponse.java`
-#### Snippet
-```java
-
-public class ConnectNotifyResponse extends ServerResponseMessage {
-    private String serverId;
-
-    public ConnectNotifyResponse(String serverId) {
-```
-
-### FieldMayBeFinal
-Field `numSplits` may be 'final'
-in `src/main/java/com/uber/rss/messages/StartUploadMessage.java`
-#### Snippet
-```java
-    private int numPartitions;
-    private String fileCompressionCodec;
-    private short numSplits;
-
-    public StartUploadMessage(int shuffleId, int mapId, long attemptId, int numMaps, int numPartitions, String fileCompressionCodec, short numSplits) {
-```
-
-### FieldMayBeFinal
-Field `numMaps` may be 'final'
-in `src/main/java/com/uber/rss/messages/StartUploadMessage.java`
-#### Snippet
-```java
-    private int mapId;
-    private long attemptId;
-    private int numMaps;
-    private int numPartitions;
-    private String fileCompressionCodec;
-```
-
-### FieldMayBeFinal
-Field `fileCompressionCodec` may be 'final'
-in `src/main/java/com/uber/rss/messages/StartUploadMessage.java`
-#### Snippet
-```java
-    private int numMaps;
-    private int numPartitions;
-    private String fileCompressionCodec;
-    private short numSplits;
-
-```
-
-### FieldMayBeFinal
-Field `numPartitions` may be 'final'
-in `src/main/java/com/uber/rss/messages/StartUploadMessage.java`
-#### Snippet
-```java
-    private long attemptId;
-    private int numMaps;
-    private int numPartitions;
-    private String fileCompressionCodec;
-    private short numSplits;
-```
-
-### FieldMayBeFinal
-Field `shuffleId` may be 'final'
-in `src/main/java/com/uber/rss/messages/StartUploadMessage.java`
-#### Snippet
-```java
-public class StartUploadMessage extends BaseMessage {
-
-    private int shuffleId;
-    private int mapId;
-    private long attemptId;
-```
-
-### FieldMayBeFinal
-Field `attemptId` may be 'final'
-in `src/main/java/com/uber/rss/messages/StartUploadMessage.java`
-#### Snippet
-```java
-    private int shuffleId;
-    private int mapId;
-    private long attemptId;
-    private int numMaps;
-    private int numPartitions;
-```
-
-### FieldMayBeFinal
-Field `mapId` may be 'final'
-in `src/main/java/com/uber/rss/messages/StartUploadMessage.java`
-#### Snippet
-```java
-
-    private int shuffleId;
-    private int mapId;
-    private long attemptId;
-    private int numMaps;
-```
-
-### FieldMayBeFinal
-Field `user` may be 'final'
-in `src/main/java/com/uber/rss/messages/ConnectNotifyRequest.java`
-#### Snippet
-```java
-
-public class ConnectNotifyRequest extends BaseMessage {
-    private String user;
-
-    public ConnectNotifyRequest(String user) {
-```
-
-### FieldMayBeFinal
-Field `metricGroupContainer` may be 'final'
-in `src/main/java/com/uber/rss/metrics/MetadataClientMetricsContainer.java`
-#### Snippet
-```java
-
-public class MetadataClientMetricsContainer {
-    private MetricGroupContainer<MetadataClientMetricsKey, MetadataClientMetrics> metricGroupContainer;
-    
-    public MetadataClientMetricsContainer() {
-```
-
-### FieldMayBeFinal
-Field `metricGroupContainer` may be 'final'
-in `src/main/java/com/uber/rss/metrics/ExceptionMetricGroupContainer.java`
-#### Snippet
-```java
-
-public class ExceptionMetricGroupContainer  {
-    private MetricGroupContainer<ExceptionMetricsKey, ExceptionMetrics> metricGroupContainer;
-    
-    public ExceptionMetricGroupContainer() {
-```
-
-### FieldMayBeFinal
-Field `user` may be 'final'
-in `src/main/java/com/uber/rss/metrics/ApplicationJobStatusMetricsKey.java`
-#### Snippet
-```java
-
-public class ApplicationJobStatusMetricsKey {
-    private String user;
-    private String jobStatus;
-
-```
-
-### FieldMayBeFinal
-Field `jobStatus` may be 'final'
-in `src/main/java/com/uber/rss/metrics/ApplicationJobStatusMetricsKey.java`
-#### Snippet
-```java
-public class ApplicationJobStatusMetricsKey {
-    private String user;
-    private String jobStatus;
-
-    public ApplicationJobStatusMetricsKey(String user, String jobStatus) {
-```
-
-### FieldMayBeFinal
-Field `user` may be 'final'
-in `src/main/java/com/uber/rss/messages/GetBusyStatusRequest.java`
-#### Snippet
-```java
-
-public class GetBusyStatusRequest extends BaseMessage {
-    private String user;
-
-    public GetBusyStatusRequest(String user) {
-```
-
-### FieldMayBeFinal
 Field `dataCenter` may be 'final'
 in `src/main/java/com/uber/rss/common/ServerDetailCollection.java`
 #### Snippet
@@ -3701,87 +3677,531 @@ in `src/main/java/com/uber/rss/common/ServerDetailCollection.java`
 ```
 
 ### FieldMayBeFinal
-Field `message` may be 'final'
-in `src/main/java/com/uber/rss/exceptions/RssMaxConnectionsException.java`
+Field `timestamp` may be 'final'
+in `src/main/java/com/uber/rss/messages/FinishUploadMessage.java`
 #### Snippet
 ```java
 
-public class RssMaxConnectionsException extends Exception {
-    private String message;
-    private int currentConnections = -1;
-    private int maxConnections = -1;
+    private long taskAttemptId;
+    private long timestamp;
+    private byte ackFlag;
+
+```
+
+### FieldMayBeFinal
+Field `ackFlag` may be 'final'
+in `src/main/java/com/uber/rss/messages/FinishUploadMessage.java`
+#### Snippet
+```java
+    private long taskAttemptId;
+    private long timestamp;
+    private byte ackFlag;
+
+    public FinishUploadMessage(long taskAttemptId, long timestamp, byte ackFlag) {
+```
+
+### FieldMayBeFinal
+Field `taskAttemptId` may be 'final'
+in `src/main/java/com/uber/rss/messages/FinishUploadMessage.java`
+#### Snippet
+```java
+    public static final byte ACK_FLAG_HAS_ACK = 1;
+
+    private long taskAttemptId;
+    private long timestamp;
+    private byte ackFlag;
+```
+
+### FieldMayBeFinal
+Field `index` may be 'final'
+in `src/main/java/com/uber/rss/clients/MultiServerAsyncWriteClient.java`
+#### Snippet
+```java
+
+    private static class ServerConnectionInfo {
+        private int index;
+        private ServerReplicationGroup server;
+
+```
+
+### FieldMayBeFinal
+Field `server` may be 'final'
+in `src/main/java/com/uber/rss/clients/MultiServerAsyncWriteClient.java`
+#### Snippet
+```java
+    private static class ServerConnectionInfo {
+        private int index;
+        private ServerReplicationGroup server;
+
+        public ServerConnectionInfo(int index, ServerReplicationGroup server) {
+```
+
+### FieldMayBeFinal
+Field `jobId` may be 'final'
+in `src/main/java/com/uber/rss/messages/FinishApplicationJobRequestMessage.java`
+#### Snippet
+```java
+    private String appId;
+    private String appAttempt;
+    private int jobId;
+    private String jobStatus;
+    private String exceptionName;
+```
+
+### FieldMayBeFinal
+Field `exceptionName` may be 'final'
+in `src/main/java/com/uber/rss/messages/FinishApplicationJobRequestMessage.java`
+#### Snippet
+```java
+    private int jobId;
+    private String jobStatus;
+    private String exceptionName;
+    private String exceptionDetail;
+
+```
+
+### FieldMayBeFinal
+Field `appAttempt` may be 'final'
+in `src/main/java/com/uber/rss/messages/FinishApplicationJobRequestMessage.java`
+#### Snippet
+```java
+public class FinishApplicationJobRequestMessage extends ControlMessage {
+    private String appId;
+    private String appAttempt;
+    private int jobId;
+    private String jobStatus;
+```
+
+### FieldMayBeFinal
+Field `jobStatus` may be 'final'
+in `src/main/java/com/uber/rss/messages/FinishApplicationJobRequestMessage.java`
+#### Snippet
+```java
+    private String appAttempt;
+    private int jobId;
+    private String jobStatus;
+    private String exceptionName;
+    private String exceptionDetail;
+```
+
+### FieldMayBeFinal
+Field `appId` may be 'final'
+in `src/main/java/com/uber/rss/messages/FinishApplicationJobRequestMessage.java`
+#### Snippet
+```java
+
+public class FinishApplicationJobRequestMessage extends ControlMessage {
+    private String appId;
+    private String appAttempt;
+    private int jobId;
+```
+
+### FieldMayBeFinal
+Field `exceptionDetail` may be 'final'
+in `src/main/java/com/uber/rss/messages/FinishApplicationJobRequestMessage.java`
+#### Snippet
+```java
+    private String jobStatus;
+    private String exceptionName;
+    private String exceptionDetail;
+
+    public FinishApplicationJobRequestMessage(String appId, String appAttempt, int jobId, String jobStatus, String exceptionName, String exceptionDetail) {
+```
+
+### FieldMayBeFinal
+Field `user` may be 'final'
+in `src/main/java/com/uber/rss/messages/ConnectRegistryRequest.java`
+#### Snippet
+```java
+
+public class ConnectRegistryRequest extends BaseMessage {
+    private String user;
+
+    public ConnectRegistryRequest(String user) {
+```
+
+### FieldMayBeFinal
+Field `maxValueLen` may be 'final'
+in `src/main/java/com/uber/rss/tools/StreamReadClientVerify.java`
+#### Snippet
+```java
+    private Map<Integer, Long> expectedTotalRecordsForEachPartition;
+
+    private int maxValueLen = 10000;
+
+    private Runnable actionToSimulateBadServer = null;
+```
+
+### FieldMayBeFinal
+Field `path` may be 'final'
+in `src/main/java/com/uber/rss/common/FilePathAndLength.java`
+#### Snippet
+```java
+
+public class FilePathAndLength {
+  private String path;
+  private long length;
+
+```
+
+### FieldMayBeFinal
+Field `length` may be 'final'
+in `src/main/java/com/uber/rss/common/FilePathAndLength.java`
+#### Snippet
+```java
+public class FilePathAndLength {
+  private String path;
+  private long length;
+
+  public FilePathAndLength(String path, long length) {
 ```
 
 ### FieldMayBeFinal
 Field `runningVersion` may be 'final'
-in `src/main/java/com/uber/rss/messages/ConnectDownloadResponse.java`
+in `src/main/java/com/uber/rss/common/ServerDetail.java`
+#### Snippet
+```java
+
+    private String serverId;
+    private String runningVersion;
+    private String connectionString;
+
+```
+
+### FieldMayBeFinal
+Field `connectionString` may be 'final'
+in `src/main/java/com/uber/rss/common/ServerDetail.java`
 #### Snippet
 ```java
     private String serverId;
-    private String serverVersion;
     private String runningVersion;
-    private String compressionCodec;
+    private String connectionString;
 
-```
-
-### FieldMayBeFinal
-Field `mapTaskCommitStatus` may be 'final'
-in `src/main/java/com/uber/rss/messages/ConnectDownloadResponse.java`
-#### Snippet
-```java
-
-    // this could be null
-    private MapTaskCommitStatus mapTaskCommitStatus;
-
-    // if dataAvailable is true, the server sends shuffle data immediately after this message
-```
-
-### FieldMayBeFinal
-Field `serverVersion` may be 'final'
-in `src/main/java/com/uber/rss/messages/ConnectDownloadResponse.java`
-#### Snippet
-```java
-public class ConnectDownloadResponse extends ServerResponseMessage {
-    private String serverId;
-    private String serverVersion;
-    private String runningVersion;
-    private String compressionCodec;
-```
-
-### FieldMayBeFinal
-Field `dataAvailable` may be 'final'
-in `src/main/java/com/uber/rss/messages/ConnectDownloadResponse.java`
-#### Snippet
-```java
-
-    // if dataAvailable is true, the server sends shuffle data immediately after this message
-    private boolean dataAvailable;
-
-    public ConnectDownloadResponse(String serverId, String serverVersion, String runningVersion, String compressionCodec, MapTaskCommitStatus mapTaskCommitStatus, boolean dataAvailable) {
+    public ServerDetail(String serverId, String runningVersion, String connectionString) {
 ```
 
 ### FieldMayBeFinal
 Field `serverId` may be 'final'
-in `src/main/java/com/uber/rss/messages/ConnectDownloadResponse.java`
+in `src/main/java/com/uber/rss/common/ServerDetail.java`
 #### Snippet
 ```java
- */
-public class ConnectDownloadResponse extends ServerResponseMessage {
+    }
+
+    private String serverId;
+    private String runningVersion;
+    private String connectionString;
+```
+
+### FieldMayBeFinal
+Field `totalShuffleWrittenRecords` may be 'final'
+in `src/main/java/com/uber/rss/tools/StreamServerStressTool.java`
+#### Snippet
+```java
+    private AtomicLong totalShuffleWrittenBytes = new AtomicLong();
+    // Total written records in shuffle files
+    private AtomicLong totalShuffleWrittenRecords = new AtomicLong();
+
+    // Successfully written records (by last mapper task attempt) in shuffle files
+```
+
+### FieldMayBeFinal
+Field `totalSocketBytes` may be 'final'
+in `src/main/java/com/uber/rss/tools/StreamServerStressTool.java`
+#### Snippet
+```java
+    
+    // Total bytes sent through socket
+    private AtomicLong totalSocketBytes = new AtomicLong();
+
+    // Threads for all map tasks
+```
+
+### FieldMayBeFinal
+Field `mapThreadErrors` may be 'final'
+in `src/main/java/com/uber/rss/tools/StreamServerStressTool.java`
+#### Snippet
+```java
+    private AppShuffleId appShuffleId;
+    
+    private AtomicLong mapThreadErrors = new AtomicLong();
+
+    private ConcurrentHashMap<Integer, Object> usedPartitionIds = new ConcurrentHashMap<>();
+```
+
+### FieldMayBeFinal
+Field `allMapThreads` may be 'final'
+in `src/main/java/com/uber/rss/tools/StreamServerStressTool.java`
+#### Snippet
+```java
+
+    // Threads for all map tasks
+    private List<Thread> allMapThreads = new ArrayList<>();
+    
+    private AppShuffleId appShuffleId;
+```
+
+### FieldMayBeFinal
+Field `serverDetails` may be 'final'
+in `src/main/java/com/uber/rss/tools/StreamServerStressTool.java`
+#### Snippet
+```java
+    private List<Integer> serverPorts = new ArrayList<>();
+    private List<String> serverRootDirs = new ArrayList<>();
+    private List<ServerDetail> serverDetails = new ArrayList<>();
+
+    private boolean useEpoll = false;
+```
+
+### FieldMayBeFinal
+Field `usedPartitionIds` may be 'final'
+in `src/main/java/com/uber/rss/tools/StreamServerStressTool.java`
+#### Snippet
+```java
+    private AtomicLong mapThreadErrors = new AtomicLong();
+
+    private ConcurrentHashMap<Integer, Object> usedPartitionIds = new ConcurrentHashMap<>();
+
+    public void setServerHosts(List<String> serverHosts) {
+```
+
+### FieldMayBeFinal
+Field `servers` may be 'final'
+in `src/main/java/com/uber/rss/tools/StreamServerStressTool.java`
+#### Snippet
+```java
+    private ScheduledMetricCollector scheduledMetricCollector;
+    
+    private List<StreamServer> servers = new ArrayList<>();
+
+    // store servers to shut down, this is to simulate failed servers during shuffle write/read, when there are shuffle replicas.
+```
+
+### FieldMayBeFinal
+Field `totalShuffleWrittenBytes` may be 'final'
+in `src/main/java/com/uber/rss/tools/StreamServerStressTool.java`
+#### Snippet
+```java
+    
+    // Total written bytes in shuffle files
+    private AtomicLong totalShuffleWrittenBytes = new AtomicLong();
+    // Total written records in shuffle files
+    private AtomicLong totalShuffleWrittenRecords = new AtomicLong();
+```
+
+### FieldMayBeFinal
+Field `random` may be 'final'
+in `src/main/java/com/uber/rss/tools/StreamServerStressTool.java`
+#### Snippet
+```java
+    private ServiceRegistry serviceRegistry = new InMemoryServiceRegistry();
+    
+    private Random random = new Random();
+    
+    // Total written bytes in shuffle files
+```
+
+### FieldMayBeFinal
+Field `successShuffleWrittenRecords` may be 'final'
+in `src/main/java/com/uber/rss/tools/StreamServerStressTool.java`
+#### Snippet
+```java
+
+    // Successfully written records (by last mapper task attempt) in shuffle files
+    private AtomicLong successShuffleWrittenRecords = new AtomicLong();
+    
+    // Total bytes sent through socket
+```
+
+### FieldMayBeFinal
+Field `server` may be 'final'
+in `src/main/java/com/uber/rss/clients/MultiServerSyncWriteClient.java`
+#### Snippet
+```java
+    private static class ServerConnectionInfo {
+        private int index;
+        private ServerReplicationGroup server;
+
+        public ServerConnectionInfo(int index, ServerReplicationGroup server) {
+```
+
+### FieldMayBeFinal
+Field `index` may be 'final'
+in `src/main/java/com/uber/rss/clients/MultiServerSyncWriteClient.java`
+#### Snippet
+```java
+
+    private static class ServerConnectionInfo {
+        private int index;
+        private ServerReplicationGroup server;
+
+```
+
+### FieldMayBeFinal
+Field `applicationMetricsContainer` may be 'final'
+in `src/main/java/com/uber/rss/metrics/NotifyServerMetricsContainer.java`
+#### Snippet
+```java
+    private MetricGroupContainer<ApplicationJobStatusMetricsKey, ApplicationJobStatusMetrics> applicationJobStatusMetricsContainer;
+
+    private MetricGroupContainer<ApplicationMetricsKey, ApplicationMetrics> applicationMetricsContainer;
+    
+    public NotifyServerMetricsContainer() {
+```
+
+### FieldMayBeFinal
+Field `applicationJobStatusMetricsContainer` may be 'final'
+in `src/main/java/com/uber/rss/metrics/NotifyServerMetricsContainer.java`
+#### Snippet
+```java
+
+public class NotifyServerMetricsContainer {
+    private MetricGroupContainer<ApplicationJobStatusMetricsKey, ApplicationJobStatusMetrics> applicationJobStatusMetricsContainer;
+
+    private MetricGroupContainer<ApplicationMetricsKey, ApplicationMetrics> applicationMetricsContainer;
+```
+
+### FieldMayBeFinal
+Field `runningVersion` may be 'final'
+in `src/main/java/com/uber/rss/messages/ConnectUploadResponse.java`
+#### Snippet
+```java
+    private String serverId;
+    private String serverVersion;
+    private String runningVersion;
+
+    public ConnectUploadResponse(String serverId, String serverVersion, String runningVersion) {
+```
+
+### FieldMayBeFinal
+Field `serverVersion` may be 'final'
+in `src/main/java/com/uber/rss/messages/ConnectUploadResponse.java`
+#### Snippet
+```java
+public class ConnectUploadResponse extends ServerResponseMessage {
+    private String serverId;
+    private String serverVersion;
+    private String runningVersion;
+
+```
+
+### FieldMayBeFinal
+Field `serverId` may be 'final'
+in `src/main/java/com/uber/rss/messages/ConnectUploadResponse.java`
+#### Snippet
+```java
+
+public class ConnectUploadResponse extends ServerResponseMessage {
     private String serverId;
     private String serverVersion;
     private String runningVersion;
 ```
 
 ### FieldMayBeFinal
-Field `compressionCodec` may be 'final'
-in `src/main/java/com/uber/rss/messages/ConnectDownloadResponse.java`
+Field `keepLive` may be 'final'
+in `src/main/java/com/uber/rss/messages/HeartbeatMessage.java`
 #### Snippet
 ```java
-    private String serverVersion;
-    private String runningVersion;
-    private String compressionCodec;
+    private String appId;
+    private String appAttempt;
+    private boolean keepLive;
 
-    // this could be null
+    public HeartbeatMessage(String user, String appId, String appAttempt, boolean keepLive) {
+```
+
+### FieldMayBeFinal
+Field `appAttempt` may be 'final'
+in `src/main/java/com/uber/rss/messages/HeartbeatMessage.java`
+#### Snippet
+```java
+    private String user;
+    private String appId;
+    private String appAttempt;
+    private boolean keepLive;
+
+```
+
+### FieldMayBeFinal
+Field `user` may be 'final'
+in `src/main/java/com/uber/rss/messages/HeartbeatMessage.java`
+#### Snippet
+```java
+
+public class HeartbeatMessage extends BaseMessage {
+    private String user;
+    private String appId;
+    private String appAttempt;
+```
+
+### FieldMayBeFinal
+Field `appId` may be 'final'
+in `src/main/java/com/uber/rss/messages/HeartbeatMessage.java`
+#### Snippet
+```java
+public class HeartbeatMessage extends BaseMessage {
+    private String user;
+    private String appId;
+    private String appAttempt;
+    private boolean keepLive;
+```
+
+### FieldMayBeFinal
+Field `metricGroupContainer` may be 'final'
+in `src/main/java/com/uber/rss/metrics/NettyServerSideMetricGroupContainer.java`
+#### Snippet
+```java
+
+public class NettyServerSideMetricGroupContainer <M extends MetricGroup<NettyServerSideMetricsKey>>  {
+    private MetricGroupContainer<NettyServerSideMetricsKey, M> metricGroupContainer;
+    
+    public NettyServerSideMetricGroupContainer(Function<NettyServerSideMetricsKey, ? extends M> createFunction) {
+```
+
+### FieldMayBeFinal
+Field `cause` may be 'final'
+in `src/main/java/com/uber/rss/clients/FailedFetchRecordKeyValuePair.java`
+#### Snippet
+```java
+ */
+public class FailedFetchRecordKeyValuePair extends TaskByteArrayDataBlock {
+    private Throwable cause;
+
+    public FailedFetchRecordKeyValuePair(Throwable cause) {
+```
+
+### FieldMayBeFinal
+Field `maxCount` may be 'final'
+in `src/main/java/com/uber/rss/messages/GetServersRequestMessage.java`
+#### Snippet
+```java
+    private String dataCenter;
+    private String cluster;
+    private int maxCount;
+
+    public GetServersRequestMessage(String dataCenter, String cluster, int maxCount) {
+```
+
+### FieldMayBeFinal
+Field `dataCenter` may be 'final'
+in `src/main/java/com/uber/rss/messages/GetServersRequestMessage.java`
+#### Snippet
+```java
+
+public class GetServersRequestMessage extends ControlMessage {
+    private String dataCenter;
+    private String cluster;
+    private int maxCount;
+```
+
+### FieldMayBeFinal
+Field `cluster` may be 'final'
+in `src/main/java/com/uber/rss/messages/GetServersRequestMessage.java`
+#### Snippet
+```java
+public class GetServersRequestMessage extends ControlMessage {
+    private String dataCenter;
+    private String cluster;
+    private int maxCount;
+
 ```
 
 ### FieldMayBeFinal
@@ -3797,15 +4217,267 @@ public class GetServersResponseMessage extends ServerResponseMessage {
 ```
 
 ### FieldMayBeFinal
-Field `servers` may be 'final'
-in `src/main/java/com/uber/rss/clients/MultiServerHeartbeatClient.java`
+Field `defaultScopeClosedLock` may be 'final'
+in `src/main/java/com/uber/rss/metrics/M3Stats.java`
+#### Snippet
+```java
+    private static final Scope defaultScope;
+    private static boolean defaultScopeClosed = false;
+    private static Object defaultScopeClosedLock = new Object();
+
+    private static final Gauge numM3Scopes;
+```
+
+### FieldMayBeFinal
+Field `random` may be 'final'
+in `src/main/java/com/uber/rss/tools/SerializerBenchmark.java`
+#### Snippet
+```java
+    private byte[] bytesBuffer;
+
+    private Random random = new Random();
+
+    public void setSerializer(SerializerInstance serializer) {
+```
+
+### FieldMayBeFinal
+Field `testObjects` may be 'final'
+in `src/main/java/com/uber/rss/tools/SerializerBenchmark.java`
+#### Snippet
+```java
+    private int maxStringValueLen = 10000;
+
+    private List<HashMap<String, String>> testObjects = new ArrayList<>();
+
+    private ByteArrayOutputStream byteArrayOutputStream;
+```
+
+### FieldMayBeFinal
+Field `numTestObjects` may be 'final'
+in `src/main/java/com/uber/rss/tools/SerializerBenchmark.java`
 #### Snippet
 ```java
 
-  private final long networkTimeoutMillis;
-  private ConcurrentHashMap<String, ServerDetail> servers = new ConcurrentHashMap<>();
+    // Total number of test objects to serialize
+    private int numTestObjects = 10000;
 
-  private volatile boolean keepRunning = true;
+    // Max length for test string values to uses
+```
+
+### FieldMayBeFinal
+Field `maxStringValueLen` may be 'final'
+in `src/main/java/com/uber/rss/tools/SerializerBenchmark.java`
+#### Snippet
+```java
+
+    // Max length for test string values to uses
+    private int maxStringValueLen = 10000;
+
+    private List<HashMap<String, String>> testObjects = new ArrayList<>();
+```
+
+### FieldMayBeFinal
+Field `closedIdleDownloadChannels` may be 'final'
+in `src/main/java/com/uber/rss/handlers/DownloadChannelInboundHandler.java`
+#### Snippet
+```java
+    private static Gauge numConcurrentChannels = M3Stats.getDefaultScope().gauge("numConcurrentDownloadChannels");
+
+    private static Counter closedIdleDownloadChannels = M3Stats.getDefaultScope().counter("closedIdleDownloadChannels");
+
+    private final String serverId;
+```
+
+### FieldMayBeFinal
+Field `concurrentChannelsAtomicInteger` may be 'final'
+in `src/main/java/com/uber/rss/handlers/DownloadChannelInboundHandler.java`
+#### Snippet
+```java
+    private static Counter numChannelInactive = M3Stats.getDefaultScope().counter("numDownloadChannelInactive");
+
+    private static AtomicInteger concurrentChannelsAtomicInteger = new AtomicInteger();
+    private static Gauge numConcurrentChannels = M3Stats.getDefaultScope().gauge("numConcurrentDownloadChannels");
+
+```
+
+### FieldMayBeFinal
+Field `numChannelInactive` may be 'final'
+in `src/main/java/com/uber/rss/handlers/DownloadChannelInboundHandler.java`
+#### Snippet
+```java
+
+    private static Counter numChannelActive = M3Stats.getDefaultScope().counter("numDownloadChannelActive");
+    private static Counter numChannelInactive = M3Stats.getDefaultScope().counter("numDownloadChannelInactive");
+
+    private static AtomicInteger concurrentChannelsAtomicInteger = new AtomicInteger();
+```
+
+### FieldMayBeFinal
+Field `numConcurrentChannels` may be 'final'
+in `src/main/java/com/uber/rss/handlers/DownloadChannelInboundHandler.java`
+#### Snippet
+```java
+
+    private static AtomicInteger concurrentChannelsAtomicInteger = new AtomicInteger();
+    private static Gauge numConcurrentChannels = M3Stats.getDefaultScope().gauge("numConcurrentDownloadChannels");
+
+    private static Counter closedIdleDownloadChannels = M3Stats.getDefaultScope().counter("closedIdleDownloadChannels");
+```
+
+### FieldMayBeFinal
+Field `numChannelActive` may be 'final'
+in `src/main/java/com/uber/rss/handlers/DownloadChannelInboundHandler.java`
+#### Snippet
+```java
+    private static final Logger logger = LoggerFactory.getLogger(DownloadChannelInboundHandler.class);
+
+    private static Counter numChannelActive = M3Stats.getDefaultScope().counter("numDownloadChannelActive");
+    private static Counter numChannelInactive = M3Stats.getDefaultScope().counter("numDownloadChannelInactive");
+
+```
+
+### FieldMayBeFinal
+Field `stateCommitIntervalMillis` may be 'final'
+in `src/main/java/com/uber/rss/StreamServerConfig.java`
+#### Snippet
+```java
+  private Configuration hadoopConfig = null;
+
+  private long stateCommitIntervalMillis = 60000;
+
+  public static StreamServerConfig buildFromArgs(String[] args) throws IOException {
+```
+
+### FieldMayBeFinal
+Field `hadoopConfig` may be 'final'
+in `src/main/java/com/uber/rss/StreamServerConfig.java`
+#### Snippet
+```java
+  private String principal = null;
+
+  private Configuration hadoopConfig = null;
+
+  private long stateCommitIntervalMillis = 60000;
+```
+
+### FieldMayBeFinal
+Field `totalOperationCount` may be 'final'
+in `src/main/java/com/uber/rss/tools/FsyncPerfTest.java`
+#### Snippet
+```java
+    private Random random = new Random();
+
+    private AtomicLong totalOperationCount = new AtomicLong();
+
+    private AtomicLong totalWriteTime = new AtomicLong();
+```
+
+### FieldMayBeFinal
+Field `random` may be 'final'
+in `src/main/java/com/uber/rss/tools/FsyncPerfTest.java`
+#### Snippet
+```java
+    private AtomicInteger fsyncMillisValuesIndex = new AtomicInteger();
+
+    private Random random = new Random();
+
+    private AtomicLong totalOperationCount = new AtomicLong();
+```
+
+### FieldMayBeFinal
+Field `totalFlushTime` may be 'final'
+in `src/main/java/com/uber/rss/tools/FsyncPerfTest.java`
+#### Snippet
+```java
+
+    private AtomicLong totalWriteTime = new AtomicLong();
+    private AtomicLong totalFlushTime = new AtomicLong();
+    private AtomicLong totalFsyncTime = new AtomicLong();
+
+```
+
+### FieldMayBeFinal
+Field `totalWriteTime` may be 'final'
+in `src/main/java/com/uber/rss/tools/FsyncPerfTest.java`
+#### Snippet
+```java
+    private AtomicLong totalOperationCount = new AtomicLong();
+
+    private AtomicLong totalWriteTime = new AtomicLong();
+    private AtomicLong totalFlushTime = new AtomicLong();
+    private AtomicLong totalFsyncTime = new AtomicLong();
+```
+
+### FieldMayBeFinal
+Field `numTestValues` may be 'final'
+in `src/main/java/com/uber/rss/tools/FsyncPerfTest.java`
+#### Snippet
+```java
+    private FileOutputStream[] fileStreams;
+
+    private int numTestValues = 1000;
+    private int maxTestValueSize = 10000;
+    private byte[][] testValues;
+```
+
+### FieldMayBeFinal
+Field `totalFsyncTime` may be 'final'
+in `src/main/java/com/uber/rss/tools/FsyncPerfTest.java`
+#### Snippet
+```java
+    private AtomicLong totalWriteTime = new AtomicLong();
+    private AtomicLong totalFlushTime = new AtomicLong();
+    private AtomicLong totalFsyncTime = new AtomicLong();
+
+    private void prepare() {
+```
+
+### FieldMayBeFinal
+Field `fsyncMillisValuesIndex` may be 'final'
+in `src/main/java/com/uber/rss/tools/FsyncPerfTest.java`
+#### Snippet
+```java
+
+    private double[] fsyncMillisValues;
+    private AtomicInteger fsyncMillisValuesIndex = new AtomicInteger();
+
+    private Random random = new Random();
+```
+
+### FieldMayBeFinal
+Field `source` may be 'final'
+in `src/main/java/com/uber/rss/metrics/ClientConnectMetricsKey.java`
+#### Snippet
+```java
+
+public class ClientConnectMetricsKey {
+    private String source;
+    private String remote;
+
+```
+
+### FieldMayBeFinal
+Field `remote` may be 'final'
+in `src/main/java/com/uber/rss/metrics/ClientConnectMetricsKey.java`
+#### Snippet
+```java
+public class ClientConnectMetricsKey {
+    private String source;
+    private String remote;
+
+    public ClientConnectMetricsKey(String source, String remote) {
+```
+
+### FieldMayBeFinal
+Field `user` may be 'final'
+in `src/main/java/com/uber/rss/messages/ConnectNotifyRequest.java`
+#### Snippet
+```java
+
+public class ConnectNotifyRequest extends BaseMessage {
+    private String user;
+
+    public ConnectNotifyRequest(String user) {
 ```
 
 ### FieldMayBeFinal
@@ -3821,6 +4493,30 @@ public class RegisterServerResponseMessage extends ServerResponseMessage {
 ```
 
 ### FieldMayBeFinal
+Field `serverId` may be 'final'
+in `src/main/java/com/uber/rss/messages/ConnectRegistryResponse.java`
+#### Snippet
+```java
+
+public class ConnectRegistryResponse extends ServerResponseMessage {
+    private String serverId;
+
+    public ConnectRegistryResponse(String serverId) {
+```
+
+### FieldMayBeFinal
+Field `underlyingStream` may be 'final'
+in `src/main/java/com/uber/rss/util/CountedOutputStream.java`
+#### Snippet
+```java
+    private long writtenBytes = 0;
+
+    private OutputStream underlyingStream;
+
+    public CountedOutputStream(OutputStream underlyingStream) {
+```
+
+### FieldMayBeFinal
 Field `appId` may be 'final'
 in `src/main/java/com/uber/rss/messages/ConnectUploadRequest.java`
 #### Snippet
@@ -3833,18 +4529,6 @@ public class ConnectUploadRequest extends BaseMessage {
 ```
 
 ### FieldMayBeFinal
-Field `appAttempt` may be 'final'
-in `src/main/java/com/uber/rss/messages/ConnectUploadRequest.java`
-#### Snippet
-```java
-    private String user;
-    private String appId;
-    private String appAttempt;
-
-    public ConnectUploadRequest(String user, String appId, String appAttempt) {
-```
-
-### FieldMayBeFinal
 Field `user` may be 'final'
 in `src/main/java/com/uber/rss/messages/ConnectUploadRequest.java`
 #### Snippet
@@ -3854,6 +4538,18 @@ public class ConnectUploadRequest extends BaseMessage {
     private String user;
     private String appId;
     private String appAttempt;
+```
+
+### FieldMayBeFinal
+Field `appAttempt` may be 'final'
+in `src/main/java/com/uber/rss/messages/ConnectUploadRequest.java`
+#### Snippet
+```java
+    private String user;
+    private String appId;
+    private String appAttempt;
+
+    public ConnectUploadRequest(String user, String appId, String appAttempt) {
 ```
 
 ### FieldMayBeFinal
@@ -3926,702 +4622,6 @@ in `src/main/java/com/uber/rss/clients/ReplicatedWriteClient.java`
     private String logMsg;
     private Throwable exception;
 
-```
-
-### FieldMayBeFinal
-Field `serverId` may be 'final'
-in `src/main/java/com/uber/rss/messages/ConnectRegistryResponse.java`
-#### Snippet
-```java
-
-public class ConnectRegistryResponse extends ServerResponseMessage {
-    private String serverId;
-
-    public ConnectRegistryResponse(String serverId) {
-```
-
-### FieldMayBeFinal
-Field `concurrentConnections` may be 'final'
-in `src/main/java/com/uber/rss/common/ServerCandidate.java`
-#### Snippet
-```java
-  private ServerDetail serverDetail;
-  private long requestLatency;
-  private long concurrentConnections;
-
-  public ServerCandidate(ServerDetail serverDetail, long requestLatency, long concurrentConnections) {
-```
-
-### FieldMayBeFinal
-Field `serverDetail` may be 'final'
-in `src/main/java/com/uber/rss/common/ServerCandidate.java`
-#### Snippet
-```java
-
-public class ServerCandidate {
-  private ServerDetail serverDetail;
-  private long requestLatency;
-  private long concurrentConnections;
-```
-
-### FieldMayBeFinal
-Field `requestLatency` may be 'final'
-in `src/main/java/com/uber/rss/common/ServerCandidate.java`
-#### Snippet
-```java
-public class ServerCandidate {
-  private ServerDetail serverDetail;
-  private long requestLatency;
-  private long concurrentConnections;
-
-```
-
-### FieldMayBeFinal
-Field `runningVersion` may be 'final'
-in `src/main/java/com/uber/rss/messages/ConnectUploadResponse.java`
-#### Snippet
-```java
-    private String serverId;
-    private String serverVersion;
-    private String runningVersion;
-
-    public ConnectUploadResponse(String serverId, String serverVersion, String runningVersion) {
-```
-
-### FieldMayBeFinal
-Field `serverId` may be 'final'
-in `src/main/java/com/uber/rss/messages/ConnectUploadResponse.java`
-#### Snippet
-```java
-
-public class ConnectUploadResponse extends ServerResponseMessage {
-    private String serverId;
-    private String serverVersion;
-    private String runningVersion;
-```
-
-### FieldMayBeFinal
-Field `serverVersion` may be 'final'
-in `src/main/java/com/uber/rss/messages/ConnectUploadResponse.java`
-#### Snippet
-```java
-public class ConnectUploadResponse extends ServerResponseMessage {
-    private String serverId;
-    private String serverVersion;
-    private String runningVersion;
-
-```
-
-### FieldMayBeFinal
-Field `user` may be 'final'
-in `src/main/java/com/uber/rss/metrics/NettyServerSideMetricsKey.java`
-#### Snippet
-```java
-
-public class NettyServerSideMetricsKey {
-    private String user;
-
-    public NettyServerSideMetricsKey(String user) {
-```
-
-### FieldMayBeFinal
-Field `blockCompressCodec` may be 'final'
-in `src/main/java/com/uber/rss/tools/PartitionFileChecker.java`
-#### Snippet
-```java
-  private String filePath;
-  private String fileCompressCodec = Compression.COMPRESSION_CODEC_LZ4;
-  private String blockCompressCodec = Compression.COMPRESSION_CODEC_LZ4;
-
-  public void run() {
-```
-
-### FieldMayBeFinal
-Field `fileCompressCodec` may be 'final'
-in `src/main/java/com/uber/rss/tools/PartitionFileChecker.java`
-#### Snippet
-```java
-public class PartitionFileChecker {
-  private String filePath;
-  private String fileCompressCodec = Compression.COMPRESSION_CODEC_LZ4;
-  private String blockCompressCodec = Compression.COMPRESSION_CODEC_LZ4;
-
-```
-
-### FieldMayBeFinal
-Field `totalFsyncTime` may be 'final'
-in `src/main/java/com/uber/rss/tools/FsyncPerfTest.java`
-#### Snippet
-```java
-    private AtomicLong totalWriteTime = new AtomicLong();
-    private AtomicLong totalFlushTime = new AtomicLong();
-    private AtomicLong totalFsyncTime = new AtomicLong();
-
-    private void prepare() {
-```
-
-### FieldMayBeFinal
-Field `fsyncMillisValuesIndex` may be 'final'
-in `src/main/java/com/uber/rss/tools/FsyncPerfTest.java`
-#### Snippet
-```java
-
-    private double[] fsyncMillisValues;
-    private AtomicInteger fsyncMillisValuesIndex = new AtomicInteger();
-
-    private Random random = new Random();
-```
-
-### FieldMayBeFinal
-Field `totalFlushTime` may be 'final'
-in `src/main/java/com/uber/rss/tools/FsyncPerfTest.java`
-#### Snippet
-```java
-
-    private AtomicLong totalWriteTime = new AtomicLong();
-    private AtomicLong totalFlushTime = new AtomicLong();
-    private AtomicLong totalFsyncTime = new AtomicLong();
-
-```
-
-### FieldMayBeFinal
-Field `random` may be 'final'
-in `src/main/java/com/uber/rss/tools/FsyncPerfTest.java`
-#### Snippet
-```java
-    private AtomicInteger fsyncMillisValuesIndex = new AtomicInteger();
-
-    private Random random = new Random();
-
-    private AtomicLong totalOperationCount = new AtomicLong();
-```
-
-### FieldMayBeFinal
-Field `totalWriteTime` may be 'final'
-in `src/main/java/com/uber/rss/tools/FsyncPerfTest.java`
-#### Snippet
-```java
-    private AtomicLong totalOperationCount = new AtomicLong();
-
-    private AtomicLong totalWriteTime = new AtomicLong();
-    private AtomicLong totalFlushTime = new AtomicLong();
-    private AtomicLong totalFsyncTime = new AtomicLong();
-```
-
-### FieldMayBeFinal
-Field `totalOperationCount` may be 'final'
-in `src/main/java/com/uber/rss/tools/FsyncPerfTest.java`
-#### Snippet
-```java
-    private Random random = new Random();
-
-    private AtomicLong totalOperationCount = new AtomicLong();
-
-    private AtomicLong totalWriteTime = new AtomicLong();
-```
-
-### FieldMayBeFinal
-Field `numTestValues` may be 'final'
-in `src/main/java/com/uber/rss/tools/FsyncPerfTest.java`
-#### Snippet
-```java
-    private FileOutputStream[] fileStreams;
-
-    private int numTestValues = 1000;
-    private int maxTestValueSize = 10000;
-    private byte[][] testValues;
-```
-
-### FieldMayBeFinal
-Field `servers` may be 'final'
-in `src/main/java/com/uber/rss/clients/ServerConnectionStringCache.java`
-#### Snippet
-```java
-  }
-
-  private ConcurrentHashMap<String, ServerDetail> servers = new ConcurrentHashMap<>();
-
-  public ServerConnectionStringCache() {
-```
-
-### FieldMayBeFinal
-Field `ackFlag` may be 'final'
-in `src/main/java/com/uber/rss/messages/FinishUploadMessage.java`
-#### Snippet
-```java
-    private long taskAttemptId;
-    private long timestamp;
-    private byte ackFlag;
-
-    public FinishUploadMessage(long taskAttemptId, long timestamp, byte ackFlag) {
-```
-
-### FieldMayBeFinal
-Field `taskAttemptId` may be 'final'
-in `src/main/java/com/uber/rss/messages/FinishUploadMessage.java`
-#### Snippet
-```java
-    public static final byte ACK_FLAG_HAS_ACK = 1;
-
-    private long taskAttemptId;
-    private long timestamp;
-    private byte ackFlag;
-```
-
-### FieldMayBeFinal
-Field `timestamp` may be 'final'
-in `src/main/java/com/uber/rss/messages/FinishUploadMessage.java`
-#### Snippet
-```java
-
-    private long taskAttemptId;
-    private long timestamp;
-    private byte ackFlag;
-
-```
-
-### FieldMayBeFinal
-Field `appAttempt` may be 'final'
-in `src/main/java/com/uber/rss/messages/FinishApplicationJobRequestMessage.java`
-#### Snippet
-```java
-public class FinishApplicationJobRequestMessage extends ControlMessage {
-    private String appId;
-    private String appAttempt;
-    private int jobId;
-    private String jobStatus;
-```
-
-### FieldMayBeFinal
-Field `exceptionDetail` may be 'final'
-in `src/main/java/com/uber/rss/messages/FinishApplicationJobRequestMessage.java`
-#### Snippet
-```java
-    private String jobStatus;
-    private String exceptionName;
-    private String exceptionDetail;
-
-    public FinishApplicationJobRequestMessage(String appId, String appAttempt, int jobId, String jobStatus, String exceptionName, String exceptionDetail) {
-```
-
-### FieldMayBeFinal
-Field `jobStatus` may be 'final'
-in `src/main/java/com/uber/rss/messages/FinishApplicationJobRequestMessage.java`
-#### Snippet
-```java
-    private String appAttempt;
-    private int jobId;
-    private String jobStatus;
-    private String exceptionName;
-    private String exceptionDetail;
-```
-
-### FieldMayBeFinal
-Field `appId` may be 'final'
-in `src/main/java/com/uber/rss/messages/FinishApplicationJobRequestMessage.java`
-#### Snippet
-```java
-
-public class FinishApplicationJobRequestMessage extends ControlMessage {
-    private String appId;
-    private String appAttempt;
-    private int jobId;
-```
-
-### FieldMayBeFinal
-Field `jobId` may be 'final'
-in `src/main/java/com/uber/rss/messages/FinishApplicationJobRequestMessage.java`
-#### Snippet
-```java
-    private String appId;
-    private String appAttempt;
-    private int jobId;
-    private String jobStatus;
-    private String exceptionName;
-```
-
-### FieldMayBeFinal
-Field `exceptionName` may be 'final'
-in `src/main/java/com/uber/rss/messages/FinishApplicationJobRequestMessage.java`
-#### Snippet
-```java
-    private int jobId;
-    private String jobStatus;
-    private String exceptionName;
-    private String exceptionDetail;
-
-```
-
-### FieldMayBeFinal
-Field `path` may be 'final'
-in `src/main/java/com/uber/rss/common/FilePathAndLength.java`
-#### Snippet
-```java
-
-public class FilePathAndLength {
-  private String path;
-  private long length;
-
-```
-
-### FieldMayBeFinal
-Field `length` may be 'final'
-in `src/main/java/com/uber/rss/common/FilePathAndLength.java`
-#### Snippet
-```java
-public class FilePathAndLength {
-  private String path;
-  private long length;
-
-  public FilePathAndLength(String path, long length) {
-```
-
-### FieldMayBeFinal
-Field `defaultScopeClosedLock` may be 'final'
-in `src/main/java/com/uber/rss/metrics/M3Stats.java`
-#### Snippet
-```java
-    private static final Scope defaultScope;
-    private static boolean defaultScopeClosed = false;
-    private static Object defaultScopeClosedLock = new Object();
-
-    private static final Gauge numM3Scopes;
-```
-
-### FieldMayBeFinal
-Field `numConcurrentChannels` may be 'final'
-in `src/main/java/com/uber/rss/handlers/UploadChannelInboundHandler.java`
-#### Snippet
-```java
-
-    private static AtomicInteger concurrentChannelsAtomicInteger = new AtomicInteger();
-    private static Gauge numConcurrentChannels = M3Stats.getDefaultScope().gauge("numConcurrentUploadChannels");
-    private static Gauge finishUploadRequestLag = M3Stats.getDefaultScope().gauge("finishUploadRequestLag");
-
-```
-
-### FieldMayBeFinal
-Field `numChannelActive` may be 'final'
-in `src/main/java/com/uber/rss/handlers/UploadChannelInboundHandler.java`
-#### Snippet
-```java
-    private static final Logger logger = LoggerFactory.getLogger(UploadChannelInboundHandler.class);
-
-    private static Counter numChannelActive = M3Stats.getDefaultScope().counter("numUploadChannelActive");
-    private static Counter numChannelInactive = M3Stats.getDefaultScope().counter("numUploadChannelInactive");
-
-```
-
-### FieldMayBeFinal
-Field `closedIdleUploadChannels` may be 'final'
-in `src/main/java/com/uber/rss/handlers/UploadChannelInboundHandler.java`
-#### Snippet
-```java
-    private static Gauge finishUploadRequestLag = M3Stats.getDefaultScope().gauge("finishUploadRequestLag");
-
-    private static Counter closedIdleUploadChannels = M3Stats.getDefaultScope().counter("closedIdleUploadChannels");
-
-    private final String serverId;
-```
-
-### FieldMayBeFinal
-Field `numChannelInactive` may be 'final'
-in `src/main/java/com/uber/rss/handlers/UploadChannelInboundHandler.java`
-#### Snippet
-```java
-
-    private static Counter numChannelActive = M3Stats.getDefaultScope().counter("numUploadChannelActive");
-    private static Counter numChannelInactive = M3Stats.getDefaultScope().counter("numUploadChannelInactive");
-
-    private static AtomicInteger concurrentChannelsAtomicInteger = new AtomicInteger();
-```
-
-### FieldMayBeFinal
-Field `concurrentChannelsAtomicInteger` may be 'final'
-in `src/main/java/com/uber/rss/handlers/UploadChannelInboundHandler.java`
-#### Snippet
-```java
-    private static Counter numChannelInactive = M3Stats.getDefaultScope().counter("numUploadChannelInactive");
-
-    private static AtomicInteger concurrentChannelsAtomicInteger = new AtomicInteger();
-    private static Gauge numConcurrentChannels = M3Stats.getDefaultScope().gauge("numConcurrentUploadChannels");
-    private static Gauge finishUploadRequestLag = M3Stats.getDefaultScope().gauge("finishUploadRequestLag");
-```
-
-### FieldMayBeFinal
-Field `finishUploadRequestLag` may be 'final'
-in `src/main/java/com/uber/rss/handlers/UploadChannelInboundHandler.java`
-#### Snippet
-```java
-    private static AtomicInteger concurrentChannelsAtomicInteger = new AtomicInteger();
-    private static Gauge numConcurrentChannels = M3Stats.getDefaultScope().gauge("numConcurrentUploadChannels");
-    private static Gauge finishUploadRequestLag = M3Stats.getDefaultScope().gauge("finishUploadRequestLag");
-
-    private static Counter closedIdleUploadChannels = M3Stats.getDefaultScope().counter("closedIdleUploadChannels");
-```
-
-### FieldMayBeFinal
-Field `appId` may be 'final'
-in `src/main/java/com/uber/rss/messages/HeartbeatMessage.java`
-#### Snippet
-```java
-public class HeartbeatMessage extends BaseMessage {
-    private String user;
-    private String appId;
-    private String appAttempt;
-    private boolean keepLive;
-```
-
-### FieldMayBeFinal
-Field `appAttempt` may be 'final'
-in `src/main/java/com/uber/rss/messages/HeartbeatMessage.java`
-#### Snippet
-```java
-    private String user;
-    private String appId;
-    private String appAttempt;
-    private boolean keepLive;
-
-```
-
-### FieldMayBeFinal
-Field `user` may be 'final'
-in `src/main/java/com/uber/rss/messages/HeartbeatMessage.java`
-#### Snippet
-```java
-
-public class HeartbeatMessage extends BaseMessage {
-    private String user;
-    private String appId;
-    private String appAttempt;
-```
-
-### FieldMayBeFinal
-Field `keepLive` may be 'final'
-in `src/main/java/com/uber/rss/messages/HeartbeatMessage.java`
-#### Snippet
-```java
-    private String appId;
-    private String appAttempt;
-    private boolean keepLive;
-
-    public HeartbeatMessage(String user, String appId, String appAttempt, boolean keepLive) {
-```
-
-### FieldMayBeFinal
-Field `source` may be 'final'
-in `src/main/java/com/uber/rss/metrics/ReadClientMetricsKey.java`
-#### Snippet
-```java
-
-public class ReadClientMetricsKey {
-    private String source;
-    private String user;
-
-```
-
-### FieldMayBeFinal
-Field `user` may be 'final'
-in `src/main/java/com/uber/rss/metrics/ReadClientMetricsKey.java`
-#### Snippet
-```java
-public class ReadClientMetricsKey {
-    private String source;
-    private String user;
-
-    public ReadClientMetricsKey(String source, String user) {
-```
-
-### FieldMayBeFinal
-Field `runningVersion` may be 'final'
-in `src/main/java/com/uber/rss/common/ServerDetail.java`
-#### Snippet
-```java
-
-    private String serverId;
-    private String runningVersion;
-    private String connectionString;
-
-```
-
-### FieldMayBeFinal
-Field `serverId` may be 'final'
-in `src/main/java/com/uber/rss/common/ServerDetail.java`
-#### Snippet
-```java
-    }
-
-    private String serverId;
-    private String runningVersion;
-    private String connectionString;
-```
-
-### FieldMayBeFinal
-Field `connectionString` may be 'final'
-in `src/main/java/com/uber/rss/common/ServerDetail.java`
-#### Snippet
-```java
-    private String serverId;
-    private String runningVersion;
-    private String connectionString;
-
-    public ServerDetail(String serverId, String runningVersion, String connectionString) {
-```
-
-### FieldMayBeFinal
-Field `idleCheckExecutor` may be 'final'
-in `src/main/java/com/uber/rss/clients/PooledWriteClientFactory.java`
-#### Snippet
-```java
-  private static final Logger logger = LoggerFactory.getLogger(PooledWriteClientFactory.class);
-
-  private static ScheduledExecutorService idleCheckExecutor = Executors.newSingleThreadScheduledExecutor(
-      new ThreadFactoryBuilder()
-          .setDaemon(true)
-```
-
-### FieldMayBeFinal
-Field `hadoopConfig` may be 'final'
-in `src/main/java/com/uber/rss/StreamServerConfig.java`
-#### Snippet
-```java
-  private String principal = null;
-
-  private Configuration hadoopConfig = null;
-
-  private long stateCommitIntervalMillis = 60000;
-```
-
-### FieldMayBeFinal
-Field `stateCommitIntervalMillis` may be 'final'
-in `src/main/java/com/uber/rss/StreamServerConfig.java`
-#### Snippet
-```java
-  private Configuration hadoopConfig = null;
-
-  private long stateCommitIntervalMillis = 60000;
-
-  public static StreamServerConfig buildFromArgs(String[] args) throws IOException {
-```
-
-### FieldMayBeFinal
-Field `random` may be 'final'
-in `src/main/java/com/uber/rss/tools/StreamServerStressTool.java`
-#### Snippet
-```java
-    private ServiceRegistry serviceRegistry = new InMemoryServiceRegistry();
-    
-    private Random random = new Random();
-    
-    // Total written bytes in shuffle files
-```
-
-### FieldMayBeFinal
-Field `servers` may be 'final'
-in `src/main/java/com/uber/rss/tools/StreamServerStressTool.java`
-#### Snippet
-```java
-    private ScheduledMetricCollector scheduledMetricCollector;
-    
-    private List<StreamServer> servers = new ArrayList<>();
-
-    // store servers to shut down, this is to simulate failed servers during shuffle write/read, when there are shuffle replicas.
-```
-
-### FieldMayBeFinal
-Field `usedPartitionIds` may be 'final'
-in `src/main/java/com/uber/rss/tools/StreamServerStressTool.java`
-#### Snippet
-```java
-    private AtomicLong mapThreadErrors = new AtomicLong();
-
-    private ConcurrentHashMap<Integer, Object> usedPartitionIds = new ConcurrentHashMap<>();
-
-    public void setServerHosts(List<String> serverHosts) {
-```
-
-### FieldMayBeFinal
-Field `totalSocketBytes` may be 'final'
-in `src/main/java/com/uber/rss/tools/StreamServerStressTool.java`
-#### Snippet
-```java
-    
-    // Total bytes sent through socket
-    private AtomicLong totalSocketBytes = new AtomicLong();
-
-    // Threads for all map tasks
-```
-
-### FieldMayBeFinal
-Field `successShuffleWrittenRecords` may be 'final'
-in `src/main/java/com/uber/rss/tools/StreamServerStressTool.java`
-#### Snippet
-```java
-
-    // Successfully written records (by last mapper task attempt) in shuffle files
-    private AtomicLong successShuffleWrittenRecords = new AtomicLong();
-    
-    // Total bytes sent through socket
-```
-
-### FieldMayBeFinal
-Field `mapThreadErrors` may be 'final'
-in `src/main/java/com/uber/rss/tools/StreamServerStressTool.java`
-#### Snippet
-```java
-    private AppShuffleId appShuffleId;
-    
-    private AtomicLong mapThreadErrors = new AtomicLong();
-
-    private ConcurrentHashMap<Integer, Object> usedPartitionIds = new ConcurrentHashMap<>();
-```
-
-### FieldMayBeFinal
-Field `allMapThreads` may be 'final'
-in `src/main/java/com/uber/rss/tools/StreamServerStressTool.java`
-#### Snippet
-```java
-
-    // Threads for all map tasks
-    private List<Thread> allMapThreads = new ArrayList<>();
-    
-    private AppShuffleId appShuffleId;
-```
-
-### FieldMayBeFinal
-Field `totalShuffleWrittenRecords` may be 'final'
-in `src/main/java/com/uber/rss/tools/StreamServerStressTool.java`
-#### Snippet
-```java
-    private AtomicLong totalShuffleWrittenBytes = new AtomicLong();
-    // Total written records in shuffle files
-    private AtomicLong totalShuffleWrittenRecords = new AtomicLong();
-
-    // Successfully written records (by last mapper task attempt) in shuffle files
-```
-
-### FieldMayBeFinal
-Field `totalShuffleWrittenBytes` may be 'final'
-in `src/main/java/com/uber/rss/tools/StreamServerStressTool.java`
-#### Snippet
-```java
-    
-    // Total written bytes in shuffle files
-    private AtomicLong totalShuffleWrittenBytes = new AtomicLong();
-    // Total written records in shuffle files
-    private AtomicLong totalShuffleWrittenRecords = new AtomicLong();
-```
-
-### FieldMayBeFinal
-Field `serverDetails` may be 'final'
-in `src/main/java/com/uber/rss/tools/StreamServerStressTool.java`
-#### Snippet
-```java
-    private List<Integer> serverPorts = new ArrayList<>();
-    private List<String> serverRootDirs = new ArrayList<>();
-    private List<ServerDetail> serverDetails = new ArrayList<>();
-
-    private boolean useEpoll = false;
 ```
 
 ## RuleId[id=MismatchedCollectionQueryUpdate]
@@ -4725,18 +4725,6 @@ in `src/main/java/com/uber/rss/execution/ShuffleExecutor.java`
 
 ## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
-Local variable `path` is redundant
-in `src/main/java/com/uber/rss/storage/ShuffleFileUtils.java`
-#### Snippet
-```java
-        String fileName = getShuffleFileName(
-                appShuffleId.getShuffleId(), partitionId);
-        String path = Paths.get(
-                getAppShuffleDir(rootDir, appShuffleId.getAppId()), 
-                appShuffleId.getAppAttempt(),
-```
-
-### UnnecessaryLocalVariable
 Local variable `getBusyStatusResponse` is redundant
 in `src/main/java/com/uber/rss/clients/BusyStatusSocketClient.java`
 #### Snippet
@@ -4746,6 +4734,18 @@ in `src/main/java/com/uber/rss/clients/BusyStatusSocketClient.java`
     GetBusyStatusResponse getBusyStatusResponse = readResponseMessage(MessageConstants.MESSAGE_GetBusyStatusResponse,
                                                                         GetBusyStatusResponse::deserialize);
     return getBusyStatusResponse;
+```
+
+### UnnecessaryLocalVariable
+Local variable `path` is redundant
+in `src/main/java/com/uber/rss/storage/ShuffleFileUtils.java`
+#### Snippet
+```java
+        String fileName = getShuffleFileName(
+                appShuffleId.getShuffleId(), partitionId);
+        String path = Paths.get(
+                getAppShuffleDir(rootDir, appShuffleId.getAppId()), 
+                appShuffleId.getAppAttempt(),
 ```
 
 ### UnnecessaryLocalVariable
@@ -4797,6 +4797,54 @@ in `src/main/java/com/uber/rss/decoders/StreamServerMessageDecoder.java`
 ```
 
 ### UnnecessaryLocalVariable
+Local variable `response` is redundant
+in `src/main/java/com/uber/rss/clients/ClientBase.java`
+#### Snippet
+```java
+        ByteBuf buf = Unpooled.wrappedBuffer(bytes);
+        try {
+            R response = deserializer.apply(buf);
+            return response;
+        } finally {
+```
+
+### UnnecessaryLocalVariable
+Local variable `targetState` is redundant
+in `src/main/java/com/uber/rss/execution/TaskAttemptIdAndState.java`
+#### Snippet
+```java
+
+  public void markCommitted() {
+    TaskAttemptState targetState = TaskAttemptState.COMMITTED;
+    state = targetState;
+  }
+```
+
+### UnnecessaryLocalVariable
+Local variable `persistedBytes` is redundant
+in `src/main/java/com/uber/rss/execution/ShuffleExecutor.java`
+#### Snippet
+```java
+
+        ExecutorShuffleStageState stageState = getStageState(appShuffleId);
+        List<FilePathAndLength>  persistedBytes = stageState.getPersistedBytesSnapshot(partition);
+        return persistedBytes;
+    }
+```
+
+### UnnecessaryLocalVariable
+Local variable `client` is redundant
+in `src/main/java/com/uber/rss/clients/PooledWriteClientFactory.java`
+#### Snippet
+```java
+    ClientKey clientKey = new ClientKey(host, port, user, appId, appAttempt);
+    ClientPool pool = getPool(clientKey);
+    ShuffleDataSyncWriteClient client = pool.getOrCreateClient(timeoutMillis, finishUploadAck, shuffleWriteConfig);
+    return client;
+  }
+```
+
+### UnnecessaryLocalVariable
 Local variable `value` is redundant
 in `src/main/java/com/uber/rss/util/SocketUtils.java`
 #### Snippet
@@ -4818,42 +4866,6 @@ in `src/main/java/com/uber/rss/util/SocketUtils.java`
             int value = buf.readInt();
             return value;
         } finally {
-```
-
-### UnnecessaryLocalVariable
-Local variable `response` is redundant
-in `src/main/java/com/uber/rss/clients/ClientBase.java`
-#### Snippet
-```java
-        ByteBuf buf = Unpooled.wrappedBuffer(bytes);
-        try {
-            R response = deserializer.apply(buf);
-            return response;
-        } finally {
-```
-
-### UnnecessaryLocalVariable
-Local variable `persistedBytes` is redundant
-in `src/main/java/com/uber/rss/execution/ShuffleExecutor.java`
-#### Snippet
-```java
-
-        ExecutorShuffleStageState stageState = getStageState(appShuffleId);
-        List<FilePathAndLength>  persistedBytes = stageState.getPersistedBytesSnapshot(partition);
-        return persistedBytes;
-    }
-```
-
-### UnnecessaryLocalVariable
-Local variable `targetState` is redundant
-in `src/main/java/com/uber/rss/execution/TaskAttemptIdAndState.java`
-#### Snippet
-```java
-
-  public void markCommitted() {
-    TaskAttemptState targetState = TaskAttemptState.COMMITTED;
-    state = targetState;
-  }
 ```
 
 ### UnnecessaryLocalVariable
@@ -4928,18 +4940,6 @@ in `src/main/java/com/uber/rss/metrics/M3Stats.java`
     }
 ```
 
-### UnnecessaryLocalVariable
-Local variable `client` is redundant
-in `src/main/java/com/uber/rss/clients/PooledWriteClientFactory.java`
-#### Snippet
-```java
-    ClientKey clientKey = new ClientKey(host, port, user, appId, appAttempt);
-    ClientPool pool = getPool(clientKey);
-    ShuffleDataSyncWriteClient client = pool.getOrCreateClient(timeoutMillis, finishUploadAck, shuffleWriteConfig);
-    return client;
-  }
-```
-
 ## RuleId[id=FuseStreamOperations]
 ### FuseStreamOperations
 Stream may be extended replacing 'sort'
@@ -4992,6 +4992,18 @@ in `src/main/java/com/uber/rss/execution/ShuffleExecutor.java`
 
 ### RedundantStringFormatCall
 Redundant call to `format()`
+in `src/main/java/com/uber/rss/tools/PartitionFileChecker.java`
+#### Snippet
+```java
+        byte[] dataBlockBytes = StreamUtils.readBytes(inputStream, dataBlockLength);
+        dataBlockStreamData.writeBytes(dataBlockBytes);
+        System.out.println(String.format("Got data block from task attempt %s, %s bytes", taskAttemptId, dataBlockLength));
+      }
+    } catch (Throwable e) {
+```
+
+### RedundantStringFormatCall
+Redundant call to `format()`
 in `src/main/java/com/uber/rss/tools/FileDescriptorStressTest.java`
 #### Snippet
 ```java
@@ -5038,45 +5050,9 @@ in `src/main/java/com/uber/rss/clients/DataBlockSocketReadClient.java`
           List<Long> taskAttemptIds = mapTaskCommitStatus.getTaskAttemptIds().values().stream().collect(Collectors.toList());
 ```
 
-### RedundantStringFormatCall
-Redundant call to `format()`
-in `src/main/java/com/uber/rss/tools/PartitionFileChecker.java`
-#### Snippet
-```java
-        byte[] dataBlockBytes = StreamUtils.readBytes(inputStream, dataBlockLength);
-        dataBlockStreamData.writeBytes(dataBlockBytes);
-        System.out.println(String.format("Got data block from task attempt %s, %s bytes", taskAttemptId, dataBlockLength));
-      }
-    } catch (Throwable e) {
-```
-
 ## RuleId[id=BusyWait]
 ### BusyWait
 Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `src/main/java/com/uber/rss/execution/ShuffleExecutor.java`
-#### Snippet
-```java
-
-            try {
-                Thread.sleep(INTERNAL_WAKEUP_MILLIS);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-```
-
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `src/main/java/com/uber/rss/execution/ShuffleExecutor.java`
-#### Snippet
-```java
-
-            try {
-                Thread.sleep(INTERNAL_WAKEUP_MILLIS);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-```
-
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `src/main/java/com/uber/rss/util/RetryUtils.java`
 #### Snippet
 ```java
@@ -5097,6 +5073,30 @@ in `src/main/java/com/uber/rss/util/RetryUtils.java`
                 Thread.sleep(intervalMillis);
             } catch (InterruptedException e) {
                 logger.warn("Interrupted when waiting in retry", e);
+```
+
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `src/main/java/com/uber/rss/execution/ShuffleExecutor.java`
+#### Snippet
+```java
+
+            try {
+                Thread.sleep(INTERNAL_WAKEUP_MILLIS);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+```
+
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `src/main/java/com/uber/rss/execution/ShuffleExecutor.java`
+#### Snippet
+```java
+
+            try {
+                Thread.sleep(INTERNAL_WAKEUP_MILLIS);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
 ```
 
 ### BusyWait
@@ -5125,6 +5125,18 @@ in `src/main/java/com/uber/rss/tools/StreamServerStressTool.java`
 
 ## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
+Variable `metrics` initializer `null` is redundant
+in `src/main/java/com/uber/rss/clients/RecordSocketReadClient.java`
+#### Snippet
+```java
+    private long shuffleReadBytes;
+
+    private ReadClientMetrics metrics = null;
+
+    protected RecordSocketReadClient(String host, int port, int timeoutMillis, String user, AppShufflePartitionId appShufflePartitionId, Collection<Long> fetchTaskAttemptIds, long dataAvailablePollInterval, long dataAvailableWaitTime) {
+```
+
+### UnusedAssignment
 Variable `initialFileSize` initializer `0L` is redundant
 in `src/main/java/com/uber/rss/storage/ShuffleFileOutputStream.java`
 #### Snippet
@@ -5149,30 +5161,6 @@ in `src/main/java/com/uber/rss/clients/ShuffleDataSocketReadClient.java`
 ```
 
 ### UnusedAssignment
-Variable `metrics` initializer `null` is redundant
-in `src/main/java/com/uber/rss/clients/RecordSocketReadClient.java`
-#### Snippet
-```java
-    private long shuffleReadBytes;
-
-    private ReadClientMetrics metrics = null;
-
-    protected RecordSocketReadClient(String host, int port, int timeoutMillis, String user, AppShufflePartitionId appShufflePartitionId, Collection<Long> fetchTaskAttemptIds, long dataAvailablePollInterval, long dataAvailableWaitTime) {
-```
-
-### UnusedAssignment
-Variable `bytes` initializer `null` is redundant
-in `src/main/java/com/uber/rss/metadata/ZooKeeperServiceRegistry.java`
-#### Snippet
-```java
-    private ServerDetail getServerInfo(String path, String node) {
-        String nodePath = String.format("%s/%s", path, node);
-        byte[] bytes = null;
-        try {
-            bytes = zk.getData().forPath(nodePath);
-```
-
-### UnusedAssignment
 Variable `connectionInfo` initializer `""` is redundant
 in `src/main/java/com/uber/rss/clients/ClientBase.java`
 #### Snippet
@@ -5182,18 +5170,6 @@ in `src/main/java/com/uber/rss/clients/ClientBase.java`
     protected String connectionInfo = "";
 
     private final long internalClientId = internalClientIdSeed.getAndIncrement();
-```
-
-### UnusedAssignment
-Variable `metrics` initializer `null` is redundant
-in `src/main/java/com/uber/rss/clients/NotifyClient.java`
-#### Snippet
-```java
-  private final String user;
-
-  private NotifyClientMetrics metrics = null;
-
-  public NotifyClient(String host, int port, int timeoutMillis, String user) {
 ```
 
 ### UnusedAssignment
@@ -5210,26 +5186,14 @@ in `src/main/java/com/uber/rss/clients/StreamDecoderBase.java`
 
 ### UnusedAssignment
 Variable `metrics` initializer `null` is redundant
-in `src/main/java/com/uber/rss/clients/DataBlockSyncWriteClient.java`
+in `src/main/java/com/uber/rss/clients/NotifyClient.java`
 #### Snippet
 ```java
-  private long startUploadShuffleByteSnapshot = 0;
+  private final String user;
 
-  private WriteClientMetrics metrics = null;
+  private NotifyClientMetrics metrics = null;
 
-  public DataBlockSyncWriteClient(String host, int port, int timeoutMillis, String user, String appId, String appAttempt) {
-```
-
-### UnusedAssignment
-Variable `currentConnections` initializer `-1` is redundant
-in `src/main/java/com/uber/rss/exceptions/RssMaxConnectionsException.java`
-#### Snippet
-```java
-public class RssMaxConnectionsException extends Exception {
-    private String message;
-    private int currentConnections = -1;
-    private int maxConnections = -1;
-
+  public NotifyClient(String host, int port, int timeoutMillis, String user) {
 ```
 
 ### UnusedAssignment
@@ -5245,15 +5209,39 @@ in `src/main/java/com/uber/rss/exceptions/RssMaxConnectionsException.java`
 ```
 
 ### UnusedAssignment
-Variable `elapsedMinutes` initializer `0` is redundant
-in `src/main/java/com/uber/rss/tools/StreamServerStressToolLongRun.java`
+Variable `currentConnections` initializer `-1` is redundant
+in `src/main/java/com/uber/rss/exceptions/RssMaxConnectionsException.java`
 #### Snippet
 ```java
-        long startTime = System.currentTimeMillis();
-        long numIterations = 0;
-        long elapsedMinutes = 0;
-        
-        Random random = new Random();
+public class RssMaxConnectionsException extends Exception {
+    private String message;
+    private int currentConnections = -1;
+    private int maxConnections = -1;
+
+```
+
+### UnusedAssignment
+Variable `metrics` initializer `null` is redundant
+in `src/main/java/com/uber/rss/clients/DataBlockSyncWriteClient.java`
+#### Snippet
+```java
+  private long startUploadShuffleByteSnapshot = 0;
+
+  private WriteClientMetrics metrics = null;
+
+  public DataBlockSyncWriteClient(String host, int port, int timeoutMillis, String user, String appId, String appAttempt) {
+```
+
+### UnusedAssignment
+Variable `bytes` initializer `null` is redundant
+in `src/main/java/com/uber/rss/metadata/ZooKeeperServiceRegistry.java`
+#### Snippet
+```java
+    private ServerDetail getServerInfo(String path, String node) {
+        String nodePath = String.format("%s/%s", path, node);
+        byte[] bytes = null;
+        try {
+            bytes = zk.getData().forPath(nodePath);
 ```
 
 ### UnusedAssignment
@@ -5268,19 +5256,19 @@ in `src/main/java/com/uber/rss/StreamServerConfig.java`
         serverConfig.keytab = args[i++];
 ```
 
-## RuleId[id=OptionalGetWithoutIsPresent]
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `src/main/java/com/uber/rss/tools/StreamServerStressTool.java`
+### UnusedAssignment
+Variable `elapsedMinutes` initializer `0` is redundant
+in `src/main/java/com/uber/rss/tools/StreamServerStressToolLongRun.java`
 #### Snippet
 ```java
-                        synchronized (serverIdsToShutdownDuringShuffleRead) {
-                            for (String serverId : serverIdsToShutdownDuringShuffleRead) {
-                                StreamServer server = servers.stream().filter(t -> t != null).filter(t -> t.getServerId().equals(serverId)).findFirst().get();
-                                logger.info(String.format("Simulate bad server during shuffle read by shutting down server: %s", server));
-                                shutdownServer(server);
+        long startTime = System.currentTimeMillis();
+        long numIterations = 0;
+        long elapsedMinutes = 0;
+        
+        Random random = new Random();
 ```
 
+## RuleId[id=OptionalGetWithoutIsPresent]
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
 in `src/main/java/com/uber/rss/tools/StreamServerStressTool.java`
@@ -5290,6 +5278,18 @@ in `src/main/java/com/uber/rss/tools/StreamServerStressTool.java`
                             for (String serverId : serverIdsToShutdownDuringShuffleWrite) {
                                 StreamServer server = servers.stream().filter(t -> t != null).filter(t -> t.getServerId().equals(serverId)).findFirst().get();
                                 logger.info(String.format("Simulate bad server during shuffle write by shutting down server: %s", server));
+                                shutdownServer(server);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `src/main/java/com/uber/rss/tools/StreamServerStressTool.java`
+#### Snippet
+```java
+                        synchronized (serverIdsToShutdownDuringShuffleRead) {
+                            for (String serverId : serverIdsToShutdownDuringShuffleRead) {
+                                StreamServer server = servers.stream().filter(t -> t != null).filter(t -> t.getServerId().equals(serverId)).findFirst().get();
+                                logger.info(String.format("Simulate bad server during shuffle read by shutting down server: %s", server));
                                 shutdownServer(server);
 ```
 
@@ -5304,6 +5304,18 @@ in `src/main/java/com/uber/rss/execution/LocalFileStateStoreIterator.java`
       if (nextItem != null) {
         messages.add(nextItem);
       }
+```
+
+### ConstantValue
+Condition `decodeResult == null` is always `true`
+in `src/main/java/com/uber/rss/clients/StreamDecoderBase.java`
+#### Snippet
+```java
+                return null;
+            }
+        } while (decodeResult == null);
+
+        return decodeResult;
 ```
 
 ### ConstantValue
@@ -5328,18 +5340,6 @@ in `src/main/java/com/uber/rss/tools/SerializerBenchmark.java`
                     if (ex instanceof EOFException) {
                         break;
                     } else {
-```
-
-### ConstantValue
-Condition `decodeResult == null` is always `true`
-in `src/main/java/com/uber/rss/clients/StreamDecoderBase.java`
-#### Snippet
-```java
-                return null;
-            }
-        } while (decodeResult == null);
-
-        return decodeResult;
 ```
 
 ### ConstantValue
