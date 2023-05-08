@@ -1,25 +1,20 @@
 # maven-help-plugin 
  
 # Bad smells
-I found 51 bad smells with 17 repairable:
+I found 59 bad smells with 15 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| UnnecessaryToStringCall | 15 | true |
-| BoundedWildcard | 7 | false |
-| PublicFieldAccessedInSynchronizedContext | 5 | false |
-| DynamicRegexReplaceableByCompiledPattern | 4 | false |
+| JavadocReference | 30 | false |
+| UnnecessaryToStringCall | 13 | true |
 | MismatchedCollectionQueryUpdate | 4 | false |
-| AssignmentToMethodParameter | 3 | false |
 | NonStrictComparisonCanBeEquality | 2 | true |
-| SystemOutErr | 2 | false |
+| UNCHECKED_WARNING | 2 | false |
+| ConstantValue | 2 | false |
 | IgnoreResultOfCall | 2 | false |
 | SynchronizeOnNonFinalField | 1 | false |
-| UnnecessaryFullyQualifiedName | 1 | false |
+| FieldMayBeFinal | 1 | false |
+| EqualsBetweenInconvertibleTypes | 1 | false |
 | RegExpRedundantEscape | 1 | false |
-| FieldAccessedSynchronizedAndUnsynchronized | 1 | false |
-| RedundantFieldInitialization | 1 | false |
-| ReturnNull | 1 | false |
-| ZeroLengthArrayInitialization | 1 | false |
 ## RuleId[id=SynchronizeOnNonFinalField]
 ### SynchronizeOnNonFinalField
 Synchronization on a non-final field `session`
@@ -58,242 +53,390 @@ in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
             }
 ```
 
-## RuleId[id=SystemOutErr]
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
-#### Snippet
-```java
-            } else {
-                if (forceStdout) {
-                    System.out.print(response.toString());
-                    System.out.flush();
-                }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
-#### Snippet
-```java
-                if (forceStdout) {
-                    System.out.print(response.toString());
-                    System.out.flush();
-                }
-            }
-```
-
-## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/org/apache/maven/plugins/help/EffectivePomMojo.java`
-#### Snippet
-```java
-        if (verbose) {
-            // tweak location tracking comment, that are put on a separate line by pretty print
-            effectivePom = effectivePom.replaceAll("(?m)>\\s+<!--}", ">  <!-- ");
-        }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/org/apache/maven/plugins/help/EffectivePomMojo.java`
-#### Snippet
-```java
-                String commentStart = comment.substring(0, dotIndex);
-                String commentEnd = comment.substring(dotIndex + 1);
-                effectivePom = effectivePom.replace("<!--", commentStart).replace("-->", commentEnd);
-            }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/org/apache/maven/plugins/help/EffectivePomMojo.java`
-#### Snippet
-```java
-                String commentStart = comment.substring(0, dotIndex);
-                String commentEnd = comment.substring(dotIndex + 1);
-                effectivePom = effectivePom.replace("<!--", commentStart).replace("-->", commentEnd);
-            }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replace()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
-#### Snippet
-```java
-                    String name =
-                            jarEntry.getName().substring(0, jarEntry.getName().indexOf("."));
-                    name = name.replace("/", "\\.");
-
-                    if (name.contains(packageFilter) && !name.contains("$")) {
-```
-
-## RuleId[id=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.aether.resolution` is unnecessary, and can be replaced with an import
-in `src/main/java/org/apache/maven/plugins/help/AbstractHelpMojo.java`
-#### Snippet
-```java
-    }
-
-    protected org.eclipse.aether.resolution.ArtifactResult resolveArtifact(
-            org.eclipse.aether.artifact.Artifact artifact) throws RepositoryException {
-        RepositorySystemSession repositorySession = session.getRepositorySession();
-```
-
-## RuleId[id=MismatchedCollectionQueryUpdate]
-### MismatchedCollectionQueryUpdate
-Contents of collection `projects` are queried, but never updated
-in `src/main/java/org/apache/maven/plugins/help/ActiveProfilesMojo.java`
-#### Snippet
-```java
-     */
-    @Parameter(defaultValue = "${reactorProjects}", required = true, readonly = true)
-    private List<MavenProject> projects;
-
-    // ----------------------------------------------------------------------
-```
-
-### MismatchedCollectionQueryUpdate
-Contents of collection `settingsProfiles` are queried, but never updated
-in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
-#### Snippet
-```java
-     */
-    @Parameter(defaultValue = "${settings.profiles}", readonly = true, required = true)
-    private List<org.apache.maven.settings.Profile> settingsProfiles;
-
-    // ----------------------------------------------------------------------
-```
-
-### MismatchedCollectionQueryUpdate
-Contents of collection `projects` are queried, but never updated
-in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
-#### Snippet
-```java
-     */
-    @Parameter(defaultValue = "${reactorProjects}", required = true, readonly = true)
-    private List<MavenProject> projects;
-
-    /**
-```
-
-### MismatchedCollectionQueryUpdate
-Contents of collection `lifecycleMappings` are queried, but never updated
-in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
-#### Snippet
-```java
-     */
-    @Component
-    private Map<String, LifecycleMapping> lifecycleMappings;
-
-    // ----------------------------------------------------------------------
-```
-
-## RuleId[id=RegExpRedundantEscape]
-### RegExpRedundantEscape
-Redundant character escape `\\}` in RegExp
-in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
-#### Snippet
-```java
-    private static final String NO_REASON = "No reason given";
-
-    private static final Pattern EXPRESSION = Pattern.compile("^\\$\\{([^}]+)\\}$");
-
-    // ----------------------------------------------------------------------
-```
-
-## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `evaluator` is accessed in both synchronized and unsynchronized contexts
-in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
-#### Snippet
-```java
-
-    /** lazy loading evaluator variable */
-    private PluginParameterExpressionEvaluator evaluator;
-
-    /** lazy loading xstream variable */
-```
-
-## RuleId[id=RedundantFieldInitialization]
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/org/apache/maven/plugins/help/EffectivePomMojo.java`
-#### Snippet
-```java
-     */
-    @Parameter(property = "verbose", defaultValue = "false")
-    private boolean verbose = false;
-
-    // ----------------------------------------------------------------------
-```
-
-## RuleId[id=AssignmentToMethodParameter]
-### AssignmentToMethodParameter
-Assignment to method parameter `project`
-in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
-#### Snippet
-```java
-                }
-            }
-            project = project.getParent();
-        }
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
-#### Snippet
-```java
-
-        if (StringUtils.isEmpty(value)) {
-            value = UNKNOWN;
-        }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
-#### Snippet
-```java
-            throws MojoFailureException, MojoExecutionException {
-        if (StringUtils.isEmpty(value)) {
-            value = UNKNOWN;
-        }
-
-```
-
-## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
+## RuleId[id=UNCHECKED_WARNING]
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
 in `src/main/java/org/apache/maven/plugins/help/EffectiveSettingsMojo.java`
 #### Snippet
 ```java
-    private static Settings copySettings(Settings settings) {
-        if (settings == null) {
-            return null;
-        }
+        Settings clone = SettingsUtils.copySettings(settings);
 
+        List<Server> clonedServers = new ArrayList<>(settings.getServers().size());
+        for (Server server : settings.getServers()) {
+            Server clonedServer = new Server();
 ```
 
-## RuleId[id=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
+in `src/main/java/org/apache/maven/plugins/help/EffectiveSettingsMojo.java`
+#### Snippet
+```java
+        clone.setServers(clonedServers);
+
+        List<Proxy> clonedProxies = new ArrayList<>(settings.getProxies().size());
+        for (Proxy proxy : settings.getProxies()) {
+            Proxy clonedProxy = new Proxy();
+```
+
+## RuleId[id=JavadocReference]
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/help/EffectiveSettingsMojo.java`
+#### Snippet
+```java
+     * @param settings the settings, not null.
+     * @param writer the XML writer used, not null.
+     * @throws MojoExecutionException if any
+     */
+    private static void writeEffectiveSettings(Settings settings, XMLWriter writer) throws MojoExecutionException {
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/help/EffectivePomMojo.java`
+#### Snippet
+```java
+     * @param project the project of the current build, not null.
+     * @param writer the XML writer , not null, not null.
+     * @throws MojoExecutionException if any
+     */
+    private void writeEffectivePom(MavenProject project, XMLWriter writer) throws MojoExecutionException {
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/help/AbstractHelpMojo.java`
+#### Snippet
+```java
+     * @param artifactString Coordinates of the Maven project to get.
+     * @return New Maven project.
+     * @throws MojoExecutionException If there was an error while getting the Maven project.
+     */
+    protected MavenProject getMavenProject(String artifactString) throws MojoExecutionException {
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/help/AbstractHelpMojo.java`
+#### Snippet
+```java
+     * @param type The extension for the artifact, must not be <code>null</code>.
+     * @return the <code>Artifact</code> object for the <code>artifactString</code> parameter.
+     * @throws MojoExecutionException if the <code>artifactString</code> doesn't respect the format.
+     */
+    protected org.eclipse.aether.artifact.Artifact getAetherArtifact(String artifactString, String type)
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoFailureException`
+in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
+#### Snippet
+```java
+    /**
+     * @return a lazy loading evaluator object.
+     * @throws MojoFailureException if any reflection exceptions occur or missing components.
+     */
+    private PluginParameterExpressionEvaluator getEvaluator() throws MojoFailureException {
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
+#### Snippet
+```java
+    /**
+     * @return the Maven POM for the current help plugin
+     * @throws MojoExecutionException if any
+     */
+    private MavenProject getHelpPluginPom() throws MojoExecutionException {
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
+#### Snippet
+```java
+    /**
+     * @return the <code>org.apache.maven: artifactId </code> artifact jar file for this current HelpPlugin pom.
+     * @throws MojoExecutionException if any
+     */
+    private File getArtifactFile(String artifactId) throws MojoExecutionException, RepositoryException {
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
+#### Snippet
+```java
+     * @param expr the user expression asked.
+     * @param output the file where to write the result, or <code>null</code> to print in standard output.
+     * @throws MojoExecutionException if any
+     * @throws MojoFailureException if any reflection exceptions occur or missing components.
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoFailureException`
+in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
+#### Snippet
+```java
+     * @param output the file where to write the result, or <code>null</code> to print in standard output.
+     * @throws MojoExecutionException if any
+     * @throws MojoFailureException if any reflection exceptions occur or missing components.
+     */
+    private void handleResponse(String expr, File output) throws MojoExecutionException, MojoFailureException {
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
 in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
 #### Snippet
 ```java
-            }
-            try (URLClassLoader classLoader =
-                    new URLClassLoader(urls.toArray(new URL[0]), getClass().getClassLoader())) {
-                return MavenReport.class.isAssignableFrom(Class.forName(md.getImplementation(), false, classLoader));
-            }
+     * @param pi holds information of the plugin whose description is to be retrieved
+     * @return a PluginDescriptor where the plugin description is to be retrieved
+     * @throws MojoExecutionException if the plugin could not be verify
+     * @throws MojoFailureException   if groupId or artifactId is empty
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoFailureException`
+in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
+#### Snippet
+```java
+     * @return a PluginDescriptor where the plugin description is to be retrieved
+     * @throws MojoExecutionException if the plugin could not be verify
+     * @throws MojoFailureException   if groupId or artifactId is empty
+     */
+    private PluginDescriptor lookupPluginDescriptor(PluginInfo pi) throws MojoExecutionException, MojoFailureException {
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
+#### Snippet
+```java
+     * @param descriptionBuffer not null
+     * @return <code>true</code> if it implies to describe a plugin, <code>false</code> otherwise.
+     * @throws MojoExecutionException if any
+     */
+    private boolean describeCommand(StringBuilder descriptionBuffer) throws MojoExecutionException {
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoFailureException`
+in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
+#### Snippet
+```java
+     * @param value  The value associated to the key, could be <code>null</code>.
+     * @param indent The base indentation level of each line, must not be negative.
+     * @throws MojoFailureException   if any reflection exceptions occur.
+     * @throws MojoExecutionException if any
+     * @see #toLines(String, int, int, int)
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
+#### Snippet
+```java
+     * @param indent The base indentation level of each line, must not be negative.
+     * @throws MojoFailureException   if any reflection exceptions occur.
+     * @throws MojoExecutionException if any
+     * @see #toLines(String, int, int, int)
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoFailureException`
+in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
+#### Snippet
+```java
+     * @param description The description, not <code>null</code>.
+     * @param indent      The base indentation level of each line, must not be negative.
+     * @throws MojoFailureException   if any reflection exceptions occur.
+     * @throws MojoExecutionException if any
+     * @see #toLines(String, int, int, int)
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
+#### Snippet
+```java
+     * @param indent      The base indentation level of each line, must not be negative.
+     * @throws MojoFailureException   if any reflection exceptions occur.
+     * @throws MojoExecutionException if any
+     * @see #toLines(String, int, int, int)
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoFailureException`
+in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
+#### Snippet
+```java
+     * @param buffer          contains information to be printed or displayed
+     * @param fullDescription specifies whether all the details about the Plugin Mojo is to  be displayed
+     * @throws MojoFailureException   if any reflection exceptions occur.
+     * @throws MojoExecutionException if any
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
+#### Snippet
+```java
+     * @param fullDescription specifies whether all the details about the Plugin Mojo is to  be displayed
+     * @throws MojoFailureException   if any reflection exceptions occur.
+     * @throws MojoExecutionException if any
+     */
+    private void describeMojoGuts(MojoDescriptor md, StringBuilder buffer, boolean fullDescription)
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoFailureException`
+in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
+#### Snippet
+```java
+     * @param lineLength The length of the line, must not be negative.
+     * @return The sequence of display lines, never <code>null</code>.
+     * @throws MojoFailureException   if any can not invoke the method
+     * @throws MojoExecutionException if no line was found for <code>text</code>
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
+#### Snippet
+```java
+     * @return The sequence of display lines, never <code>null</code>.
+     * @throws MojoFailureException   if any can not invoke the method
+     * @throws MojoExecutionException if no line was found for <code>text</code>
+     */
+    private static List<String> toLines(String text, int indent, int indentSize, int lineLength)
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoFailureException`
+in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
+#### Snippet
+```java
+     *
+     * @return Plugin info containing information about the plugin whose description is to be retrieved
+     * @throws MojoFailureException if <code>plugin<*code> parameter is not conform to
+     *                              <code>groupId:artifactId[:version]</code>
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
+#### Snippet
+```java
+     *
+     * @param descriptionBuffer contains the description to be written to the file
+     * @throws MojoExecutionException if any
+     */
+    private void writeDescription(StringBuilder descriptionBuffer) throws MojoExecutionException {
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoFailureException`
+in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
+#### Snippet
+```java
+     * @param md     contains the description of the Plugin Mojo
+     * @param buffer contains information to be printed or displayed
+     * @throws MojoFailureException   if any reflection exceptions occur.
+     * @throws MojoExecutionException if any
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
+#### Snippet
+```java
+     * @param buffer contains information to be printed or displayed
+     * @throws MojoFailureException   if any reflection exceptions occur.
+     * @throws MojoExecutionException if any
+     */
+    private void describeMojoParameters(MojoDescriptor md, StringBuilder buffer)
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoFailureException`
+in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
+#### Snippet
+```java
+     * @param value  The value, could be <code>null</code>.
+     * @param indent The base indentation level of each line, must not be negative.
+     * @throws MojoFailureException   if any reflection exceptions occur.
+     * @throws MojoExecutionException if any
+     * @see #toLines(String, int, int, int)
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
+#### Snippet
+```java
+     * @param indent The base indentation level of each line, must not be negative.
+     * @throws MojoFailureException   if any reflection exceptions occur.
+     * @throws MojoExecutionException if any
+     * @see #toLines(String, int, int, int)
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoFailureException`
+in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
+#### Snippet
+```java
+     * @param md     contains the description of the Plugin Mojo
+     * @param buffer the displayed output
+     * @throws MojoFailureException   if any reflection exceptions occur.
+     * @throws MojoExecutionException if any
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
+#### Snippet
+```java
+     * @param buffer the displayed output
+     * @throws MojoFailureException   if any reflection exceptions occur.
+     * @throws MojoExecutionException if any
+     */
+    private void describeMojo(MojoDescriptor md, StringBuilder buffer)
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoFailureException`
+in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
+#### Snippet
+```java
+     * @param pd     contains the plugin description
+     * @param buffer contains the information to be displayed or printed
+     * @throws MojoFailureException   if any reflection exceptions occur.
+     * @throws MojoExecutionException if any
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
+#### Snippet
+```java
+     * @param buffer contains the information to be displayed or printed
+     * @throws MojoFailureException   if any reflection exceptions occur.
+     * @throws MojoExecutionException if any
+     */
+    private void describePlugin(PluginDescriptor pd, StringBuilder buffer)
 ```
 
 ## RuleId[id=UnnecessaryToStringCall]
@@ -434,30 +577,6 @@ Unnecessary `toString()` call
 in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
 #### Snippet
 ```java
-            }
-
-            response.append(sWriter.toString());
-        }
-        // handle Maven Settings object
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
-#### Snippet
-```java
-            }
-
-            response.append(sWriter.toString());
-        } else {
-            // others Maven objects
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
-#### Snippet
-```java
         } else {
             if (getLog().isInfoEnabled()) {
                 getLog().info(LS + response.toString());
@@ -477,150 +596,117 @@ in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
                 }
 ```
 
-## RuleId[id=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
-#### Snippet
-```java
-     * @param allProfiles Map to add the profiles to.
-     */
-    private void addSettingsProfiles(Map<String, Profile> allProfiles) {
-        getLog().debug("Attempting to read profiles from settings.xml...");
-        for (org.apache.maven.settings.Profile settingsProfile : settingsProfiles) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Profile`
-in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
-#### Snippet
-```java
-     * @param allProfiles Map to add the profiles to.
-     */
-    private void addSettingsProfiles(Map<String, Profile> allProfiles) {
-        getLog().debug("Attempting to read profiles from settings.xml...");
-        for (org.apache.maven.settings.Profile settingsProfile : settingsProfiles) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
+## RuleId[id=FieldMayBeFinal]
+### FieldMayBeFinal
+Field `verbose` may be 'final'
+in `src/main/java/org/apache/maven/plugins/help/EffectivePomMojo.java`
 #### Snippet
 ```java
      */
-    private void addProjectPomProfiles(
-            MavenProject project, Map<String, Profile> allProfiles, Map<String, Profile> activeProfiles) {
-        if (project == null) {
-            // shouldn't happen as this mojo requires a project
-```
+    @Parameter(property = "verbose", defaultValue = "false")
+    private boolean verbose = false;
 
-### BoundedWildcard
-Can generalize to `? super Profile`
-in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
-#### Snippet
-```java
-     */
-    private void addProjectPomProfiles(
-            MavenProject project, Map<String, Profile> allProfiles, Map<String, Profile> activeProfiles) {
-        if (project == null) {
-            // shouldn't happen as this mojo requires a project
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
-#### Snippet
-```java
-     */
-    private void addProjectPomProfiles(
-            MavenProject project, Map<String, Profile> allProfiles, Map<String, Profile> activeProfiles) {
-        if (project == null) {
-            // shouldn't happen as this mojo requires a project
-```
-
-### BoundedWildcard
-Can generalize to `? super Profile`
-in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
-#### Snippet
-```java
-     */
-    private void addProjectPomProfiles(
-            MavenProject project, Map<String, Profile> allProfiles, Map<String, Profile> activeProfiles) {
-        if (project == null) {
-            // shouldn't happen as this mojo requires a project
-```
-
-### BoundedWildcard
-Can generalize to `? extends Profile`
-in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
-#### Snippet
-```java
     // ----------------------------------------------------------------------
-
-    private void writeProfilesDescription(StringBuilder sb, Map<String, Profile> profilesByIds, boolean active) {
-        for (Profile p : profilesByIds.values()) {
-            sb.append("  Profile Id: ").append(p.getId());
 ```
 
-## RuleId[id=PublicFieldAccessedInSynchronizedContext]
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `session` accessed in synchronized context
+## RuleId[id=ConstantValue]
+### ConstantValue
+Condition `obj instanceof MavenProject` is always `false`
 in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
 #### Snippet
 ```java
-            // Maven 3: PluginParameterExpressionEvaluator gets the current project from the session:
-            // synchronize in case another thread wants to fetch the real current project in between
-            synchronized (session) {
-                session.setCurrentProject(project);
-                evaluator = new PluginParameterExpressionEvaluator(session, mojoExecution);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `session` accessed in synchronized context
-in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
-#### Snippet
-```java
-            // synchronize in case another thread wants to fetch the real current project in between
-            synchronized (session) {
-                session.setCurrentProject(project);
-                evaluator = new PluginParameterExpressionEvaluator(session, mojoExecution);
-                session.setCurrentProject(currentProject);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `project` accessed in synchronized context
-in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
-#### Snippet
-```java
-            // synchronize in case another thread wants to fetch the real current project in between
-            synchronized (session) {
-                session.setCurrentProject(project);
-                evaluator = new PluginParameterExpressionEvaluator(session, mojoExecution);
-                session.setCurrentProject(currentProject);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `session` accessed in synchronized context
-in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
-#### Snippet
-```java
-            synchronized (session) {
-                session.setCurrentProject(project);
-                evaluator = new PluginParameterExpressionEvaluator(session, mojoExecution);
-                session.setCurrentProject(currentProject);
-            }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `session` accessed in synchronized context
-in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
-#### Snippet
-```java
-                session.setCurrentProject(project);
-                evaluator = new PluginParameterExpressionEvaluator(session, mojoExecution);
-                session.setCurrentProject(currentProject);
-            }
         }
+        // handle Maven pom object
+        else if (obj instanceof MavenProject) {
+            MavenProject projectAsked = (MavenProject) obj;
+            StringWriter sWriter = new StringWriter();
+```
+
+### ConstantValue
+Condition `obj instanceof Settings` is always `false`
+in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
+#### Snippet
+```java
+        }
+        // handle Maven Settings object
+        else if (obj instanceof Settings) {
+            Settings settingsAsked = (Settings) obj;
+            StringWriter sWriter = new StringWriter();
+```
+
+## RuleId[id=EqualsBetweenInconvertibleTypes]
+### EqualsBetweenInconvertibleTypes
+`equals` between objects of inconvertible types 'Class' and 'Class'
+in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
+#### Snippet
+```java
+                            String alias = StringUtils.lowercaseFirstLetter(clazz.getSimpleName());
+                            xstreamObject.alias(alias, clazz);
+                            if (!clazz.equals(Model.class)) {
+                                xstreamObject.omitField(clazz, "modelEncoding"); // unnecessary field
+                            }
+```
+
+## RuleId[id=MismatchedCollectionQueryUpdate]
+### MismatchedCollectionQueryUpdate
+Contents of collection `projects` are queried, but never updated
+in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
+#### Snippet
+```java
+     */
+    @Parameter(defaultValue = "${reactorProjects}", required = true, readonly = true)
+    private List<MavenProject> projects;
+
+    /**
+```
+
+### MismatchedCollectionQueryUpdate
+Contents of collection `settingsProfiles` are queried, but never updated
+in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
+#### Snippet
+```java
+     */
+    @Parameter(defaultValue = "${settings.profiles}", readonly = true, required = true)
+    private List<org.apache.maven.settings.Profile> settingsProfiles;
+
+    // ----------------------------------------------------------------------
+```
+
+### MismatchedCollectionQueryUpdate
+Contents of collection `projects` are queried, but never updated
+in `src/main/java/org/apache/maven/plugins/help/ActiveProfilesMojo.java`
+#### Snippet
+```java
+     */
+    @Parameter(defaultValue = "${reactorProjects}", required = true, readonly = true)
+    private List<MavenProject> projects;
+
+    // ----------------------------------------------------------------------
+```
+
+### MismatchedCollectionQueryUpdate
+Contents of collection `lifecycleMappings` are queried, but never updated
+in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
+#### Snippet
+```java
+     */
+    @Component
+    private Map<String, LifecycleMapping> lifecycleMappings;
+
+    // ----------------------------------------------------------------------
+```
+
+## RuleId[id=RegExpRedundantEscape]
+### RegExpRedundantEscape
+Redundant character escape `\\}` in RegExp
+in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
+#### Snippet
+```java
+    private static final String NO_REASON = "No reason given";
+
+    private static final Pattern EXPRESSION = Pattern.compile("^\\$\\{([^}]+)\\}$");
+
+    // ----------------------------------------------------------------------
 ```
 
 ## RuleId[id=IgnoreResultOfCall]
