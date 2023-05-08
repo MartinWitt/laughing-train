@@ -22,6 +22,18 @@ I found 43 bad smells with 0 repairable:
 | ConstantValue | 1 | false |
 ## RuleId[id=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'defaultPackage'
+in `conjure-core/src/main/java/com/palantir/conjure/defs/TypeDefinitionParserVisitor.java`
+#### Snippet
+```java
+    public TypeDefinitionParserVisitor(
+            String typeName,
+            Optional<String> defaultPackage,
+            ConjureTypeParserVisitor.ReferenceTypeResolver typeResolver) {
+        this.name = typeName;
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'defaultPackage'
 in `conjure-core/src/main/java/com/palantir/conjure/defs/TypeDefinitionParserVisitor.java`
 #### Snippet
@@ -34,15 +46,87 @@ in `conjure-core/src/main/java/com/palantir/conjure/defs/TypeDefinitionParserVis
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'defaultPackage'
-in `conjure-core/src/main/java/com/palantir/conjure/defs/TypeDefinitionParserVisitor.java`
+`Optional` used as type for parameter 'importedFrom'
+in `conjure-core/src/main/java/com/palantir/conjure/parser/ConjureParser.java`
 #### Snippet
 ```java
-    public TypeDefinitionParserVisitor(
-            String typeName,
-            Optional<String> defaultPackage,
-            ConjureTypeParserVisitor.ReferenceTypeResolver typeResolver) {
-        this.name = typeName;
+        }
+
+        private ConjureSourceFile parseInternal(File file, Optional<File> importedFrom) {
+            if (!Files.exists(file.toPath())) {
+                throw new ImportNotFoundException(file, importedFrom);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'importedFrom'
+in `conjure-core/src/main/java/com/palantir/conjure/parser/ConjureParser.java`
+#### Snippet
+```java
+        }
+
+        ConjureSourceFile parse(File file, Optional<File> importedFrom) {
+            // HashMap.computeIfAbsent does not work with recursion; the size of the map gets corrupted,
+            // and if the map gets resized during the recursion, some of the new nodes can be put in wrong
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'importedFrom'
+in `conjure-core/src/main/java/com/palantir/conjure/parser/ConjureParser.java`
+#### Snippet
+```java
+    private static final ObjectMapper MAPPER = createConjureParserObjectMapper();
+
+    private static String getErrorMessage(File file, Optional<File> importedFrom) {
+        String message = "Import not found: " + file.getAbsolutePath();
+        return importedFrom
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'importedFrom'
+in `conjure-core/src/main/java/com/palantir/conjure/parser/ConjureParser.java`
+#### Snippet
+```java
+
+    private static AnnotatedConjureSourceFile parseSingleFile(
+            CachingParser parser, File file, Optional<File> importedFrom) {
+        ConjureSourceFile parsed = parser.parse(file, importedFrom);
+
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'importedFrom'
+in `conjure-core/src/main/java/com/palantir/conjure/parser/ConjureParser.java`
+#### Snippet
+```java
+        }
+
+        public ImportNotFoundException(File file, Optional<File> importedFrom) {
+            super(getErrorMessage(file, importedFrom));
+        }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'declaredSafety'
+in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/SafetyValidator.java`
+#### Snippet
+```java
+            EndpointDefinition endpointDefinition,
+            ArgumentName argumentName,
+            Optional<LogSafety> declaredSafety,
+            Type type,
+            SafetyDeclarationRequirements safetyDeclarations) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'declaredSafety'
+in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/SafetyValidator.java`
+#### Snippet
+```java
+
+        private Stream<String> validateType(
+                Type type, Optional<LogSafety> declaredSafety, String qualifiedTypeReference) {
+            if (declaredSafety.isPresent()) {
+                return type.accept(new SafetyTypeVisitor(qualifiedTypeReference));
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -93,90 +177,6 @@ in `conjure-core/src/main/java/com/palantir/conjure/defs/ConjureParserUtils.java
                 .map(ConjurePackage::name)
 ```
 
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'importedFrom'
-in `conjure-core/src/main/java/com/palantir/conjure/parser/ConjureParser.java`
-#### Snippet
-```java
-        }
-
-        public ImportNotFoundException(File file, Optional<File> importedFrom) {
-            super(getErrorMessage(file, importedFrom));
-        }
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'importedFrom'
-in `conjure-core/src/main/java/com/palantir/conjure/parser/ConjureParser.java`
-#### Snippet
-```java
-        }
-
-        private ConjureSourceFile parseInternal(File file, Optional<File> importedFrom) {
-            if (!Files.exists(file.toPath())) {
-                throw new ImportNotFoundException(file, importedFrom);
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'importedFrom'
-in `conjure-core/src/main/java/com/palantir/conjure/parser/ConjureParser.java`
-#### Snippet
-```java
-    private static final ObjectMapper MAPPER = createConjureParserObjectMapper();
-
-    private static String getErrorMessage(File file, Optional<File> importedFrom) {
-        String message = "Import not found: " + file.getAbsolutePath();
-        return importedFrom
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'importedFrom'
-in `conjure-core/src/main/java/com/palantir/conjure/parser/ConjureParser.java`
-#### Snippet
-```java
-
-    private static AnnotatedConjureSourceFile parseSingleFile(
-            CachingParser parser, File file, Optional<File> importedFrom) {
-        ConjureSourceFile parsed = parser.parse(file, importedFrom);
-
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'importedFrom'
-in `conjure-core/src/main/java/com/palantir/conjure/parser/ConjureParser.java`
-#### Snippet
-```java
-        }
-
-        ConjureSourceFile parse(File file, Optional<File> importedFrom) {
-            // HashMap.computeIfAbsent does not work with recursion; the size of the map gets corrupted,
-            // and if the map gets resized during the recursion, some of the new nodes can be put in wrong
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'declaredSafety'
-in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/SafetyValidator.java`
-#### Snippet
-```java
-
-        private Stream<String> validateType(
-                Type type, Optional<LogSafety> declaredSafety, String qualifiedTypeReference) {
-            if (declaredSafety.isPresent()) {
-                return type.accept(new SafetyTypeVisitor(qualifiedTypeReference));
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'declaredSafety'
-in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/SafetyValidator.java`
-#### Snippet
-```java
-            EndpointDefinition endpointDefinition,
-            ArgumentName argumentName,
-            Optional<LogSafety> declaredSafety,
-            Type type,
-            SafetyDeclarationRequirements safetyDeclarations) {
-```
-
 ## RuleId[id=JavadocReference]
 ### JavadocReference
 Cannot resolve symbol `com.palantir.conjure.spec.ErrorCode`
@@ -188,30 +188,6 @@ in `conjure-core/src/main/java/com/palantir/conjure/parser/types/names/ErrorCode
  * the {@link com.palantir.conjure.spec.ErrorCode error codes}.
  */
 @JsonDeserialize(as = ImmutableErrorCode.class)
-```
-
-### JavadocReference
-Cannot resolve symbol `FieldName`
-in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/FieldNameValidator.java`
-#### Snippet
-```java
-    }
-
-    /** Converts this {@link FieldName} to a {@link FieldName} with the given case. */
-    public static FieldName toCase(FieldName fieldName, CaseConverter.Case targetCase) {
-        return FieldName.of(nameCase(fieldName).convertTo(fieldName.get(), targetCase));
-```
-
-### JavadocReference
-Cannot resolve symbol `FieldName`
-in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/FieldNameValidator.java`
-#### Snippet
-```java
-    }
-
-    /** Converts this {@link FieldName} to a {@link FieldName} with the given case. */
-    public static FieldName toCase(FieldName fieldName, CaseConverter.Case targetCase) {
-        return FieldName.of(nameCase(fieldName).convertTo(fieldName.get(), targetCase));
 ```
 
 ### JavadocReference
@@ -236,6 +212,30 @@ in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/FieldNameVali
      * Note that the resultant string is no longer a valid {@link FieldName}.
      */
     public static String capitalize(FieldName fieldName) {
+```
+
+### JavadocReference
+Cannot resolve symbol `FieldName`
+in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/FieldNameValidator.java`
+#### Snippet
+```java
+    }
+
+    /** Converts this {@link FieldName} to a {@link FieldName} with the given case. */
+    public static FieldName toCase(FieldName fieldName, CaseConverter.Case targetCase) {
+        return FieldName.of(nameCase(fieldName).convertTo(fieldName.get(), targetCase));
+```
+
+### JavadocReference
+Cannot resolve symbol `FieldName`
+in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/FieldNameValidator.java`
+#### Snippet
+```java
+    }
+
+    /** Converts this {@link FieldName} to a {@link FieldName} with the given case. */
+    public static FieldName toCase(FieldName fieldName, CaseConverter.Case targetCase) {
+        return FieldName.of(nameCase(fieldName).convertTo(fieldName.get(), targetCase));
 ```
 
 ### JavadocReference
@@ -269,7 +269,7 @@ in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/EndpointDefin
 #### Snippet
 ```java
                     dealiasingTypeVisitor.dealias(input).fold(_typeDefinition -> Optional.empty(), Optional::of);
-            // typeDef isn't binary
+            // typeDef isn't bearertoken
             if (!dealiased.isPresent()) {
                 return true;
             }
@@ -281,7 +281,7 @@ in `conjure-core/src/main/java/com/palantir/conjure/defs/validator/EndpointDefin
 #### Snippet
 ```java
                     dealiasingTypeVisitor.dealias(input).fold(_typeDefinition -> Optional.empty(), Optional::of);
-            // typeDef isn't bearertoken
+            // typeDef isn't binary
             if (!dealiased.isPresent()) {
                 return true;
             }
@@ -334,9 +334,9 @@ in `conjure-core/src/main/java/com/palantir/conjure/defs/ConjureParserUtils.java
 ```java
 
     @Deprecated
-    static ConjureDefinition parseConjureDef(Collection<AnnotatedConjureSourceFile> annotatedParsedDefs) {
-        return parseConjureDef(annotatedParsedDefs.stream()
-                .collect(Collectors.toMap(source -> source.sourceFile().getAbsolutePath(), Function.identity())));
+    static ConjureDefinition parseConjureDef(Map<String, AnnotatedConjureSourceFile> annotatedParsedDefs) {
+        return parseConjureDef(annotatedParsedDefs, SafetyDeclarationRequirements.ALLOWED);
+    }
 ```
 
 ### DeprecatedIsStillUsed
@@ -346,9 +346,9 @@ in `conjure-core/src/main/java/com/palantir/conjure/defs/ConjureParserUtils.java
 ```java
 
     @Deprecated
-    static ConjureDefinition parseConjureDef(Map<String, AnnotatedConjureSourceFile> annotatedParsedDefs) {
-        return parseConjureDef(annotatedParsedDefs, SafetyDeclarationRequirements.ALLOWED);
-    }
+    static ConjureDefinition parseConjureDef(Collection<AnnotatedConjureSourceFile> annotatedParsedDefs) {
+        return parseConjureDef(annotatedParsedDefs.stream()
+                .collect(Collectors.toMap(source -> source.sourceFile().getAbsolutePath(), Function.identity())));
 ```
 
 ## RuleId[id=FieldMayBeFinal]
@@ -365,18 +365,6 @@ in `conjure-core/src/main/java/com/palantir/parsec/parsers/KeyValueParser.java`
 ```
 
 ### FieldMayBeFinal
-Field `valueParser` may be 'final'
-in `conjure-core/src/main/java/com/palantir/parsec/parsers/KeyValueParser.java`
-#### Snippet
-```java
-
-    private Parser<A> keyParser;
-    private Parser<B> valueParser;
-    private Parser<?> separator;
-
-```
-
-### FieldMayBeFinal
 Field `keyParser` may be 'final'
 in `conjure-core/src/main/java/com/palantir/parsec/parsers/KeyValueParser.java`
 #### Snippet
@@ -386,6 +374,18 @@ public final class KeyValueParser<A, B> implements Parser<KeyValue<A, B>> {
     private Parser<A> keyParser;
     private Parser<B> valueParser;
     private Parser<?> separator;
+```
+
+### FieldMayBeFinal
+Field `valueParser` may be 'final'
+in `conjure-core/src/main/java/com/palantir/parsec/parsers/KeyValueParser.java`
+#### Snippet
+```java
+
+    private Parser<A> keyParser;
+    private Parser<B> valueParser;
+    private Parser<?> separator;
+
 ```
 
 ## RuleId[id=CommentedOutCode]
@@ -551,18 +551,6 @@ in `conjure-core/src/main/java/com/palantir/conjure/parser/types/reference/Conju
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
-in `conjure/src/main/java/com/palantir/conjure/cli/CliConfiguration.java`
-#### Snippet
-```java
-        final Collection<File> inputFiles;
-        if (input.isDirectory()) {
-            try (Stream<Path> fileStream = Files.find(input.toPath(), 999, (path, bfa) -> bfa.isRegularFile())) {
-                inputFiles = fileStream.map(Path::toFile).collect(Collectors.toList());
-            }
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
 in `conjure-core/src/main/java/com/palantir/conjure/parser/ConjureParser.java`
 #### Snippet
 ```java
@@ -571,5 +559,17 @@ in `conjure-core/src/main/java/com/palantir/conjure/parser/ConjureParser.java`
                 nextFile = nextFileWithProvenance.file().getCanonicalFile();
             } catch (IOException e) {
                 throw new SafeRuntimeException("Couldn't canonicalize file path", e);
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `conjure/src/main/java/com/palantir/conjure/cli/CliConfiguration.java`
+#### Snippet
+```java
+        final Collection<File> inputFiles;
+        if (input.isDirectory()) {
+            try (Stream<Path> fileStream = Files.find(input.toPath(), 999, (path, bfa) -> bfa.isRegularFile())) {
+                inputFiles = fileStream.map(Path::toFile).collect(Collectors.toList());
+            }
 ```
 
