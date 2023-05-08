@@ -90,18 +90,6 @@ in `src/main/java/org/apache/maven/plugins/assembly/archive/task/AddFileSetsTask
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
-in `src/main/java/org/apache/maven/plugins/assembly/archive/phase/FileItemAssemblyPhase.java`
-#### Snippet
-```java
-                if (!fileItem.getSources().isEmpty()) {
-                    List<InputStream> content =
-                            new ArrayList<>(fileItem.getSources().size());
-                    for (String contentSourcePath : fileItem.getSources()) {
-                        File contentSource = new File(contentSourcePath);
-```
-
-### UNCHECKED_WARNING
 Unchecked assignment: 'java.util.HashSet' to 'java.util.Set'
 in `src/main/java/org/apache/maven/plugins/assembly/archive/task/AddDependencySetsTask.java`
 #### Snippet
@@ -111,6 +99,18 @@ in `src/main/java/org/apache/maven/plugins/assembly/archive/task/AddDependencySe
                         new HashSet<>(unpackOptions.getNonFilteredFileExtensions()),
                         unpackOptions.getLineEnding())
                 : null;
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
+in `src/main/java/org/apache/maven/plugins/assembly/archive/phase/FileItemAssemblyPhase.java`
+#### Snippet
+```java
+                if (!fileItem.getSources().isEmpty()) {
+                    List<InputStream> content =
+                            new ArrayList<>(fileItem.getSources().size());
+                    for (String contentSourcePath : fileItem.getSources()) {
+                        File contentSource = new File(contentSourcePath);
 ```
 
 ### UNCHECKED_WARNING
@@ -249,18 +249,6 @@ in `src/main/java/org/apache/maven/plugins/assembly/archive/DefaultAssemblyArchi
 
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
-Method invocation `get` may produce `NullPointerException`
-in `src/main/java/org/apache/maven/plugins/assembly/archive/DefaultAssemblyArchiver.java`
-#### Snippet
-```java
-            for (final ContainerDescriptorHandlerConfig config : requestedContainerDescriptorHandlers) {
-                final String hint = config.getHandlerName();
-                final ContainerDescriptorHandler handler = containerDescriptorHandlers.get(hint);
-
-                if (handler == null) {
-```
-
-### DataFlowIssue
 Condition `e.getCause() instanceof ComponentConfigurationException` is redundant and can be replaced with a null check
 in `src/main/java/org/apache/maven/plugins/assembly/archive/DefaultAssemblyArchiver.java`
 #### Snippet
@@ -270,6 +258,18 @@ in `src/main/java/org/apache/maven/plugins/assembly/archive/DefaultAssemblyArchi
             if (e.getCause() instanceof ComponentConfigurationException) {
                 throw (ComponentConfigurationException) e.getCause();
             }
+```
+
+### DataFlowIssue
+Method invocation `get` may produce `NullPointerException`
+in `src/main/java/org/apache/maven/plugins/assembly/archive/DefaultAssemblyArchiver.java`
+#### Snippet
+```java
+            for (final ContainerDescriptorHandlerConfig config : requestedContainerDescriptorHandlers) {
+                final String hint = config.getHandlerName();
+                final ContainerDescriptorHandler handler = containerDescriptorHandlers.get(hint);
+
+                if (handler == null) {
 ```
 
 ## RuleId[id=UnnecessaryStringEscape]
@@ -300,18 +300,6 @@ in `src/main/java/org/apache/maven/plugins/assembly/utils/TypeConversionUtils.ja
 ## RuleId[id=JavadocDeclaration]
 ### JavadocDeclaration
 `@throws` tag description is missing
-in `src/main/java/org/apache/maven/plugins/assembly/io/DefaultAssemblyReader.java`
-#### Snippet
-```java
-     * @param assemblyDir the assembly directory
-     * @param transformer the component interpolator
-     * @throws AssemblyReadException
-     */
-    protected void mergeComponentsWithMainAssembly(
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
 in `src/main/java/org/apache/maven/plugins/assembly/utils/LineEndingsUtils.java`
 #### Snippet
 ```java
@@ -320,6 +308,18 @@ in `src/main/java/org/apache/maven/plugins/assembly/utils/LineEndingsUtils.java`
      * @throws AssemblyFormattingException
      */
     public static String getLineEndingCharacters(/* nullable */ String lineEnding) throws AssemblyFormattingException {
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/org/apache/maven/plugins/assembly/io/DefaultAssemblyReader.java`
+#### Snippet
+```java
+     * @param assemblyDir the assembly directory
+     * @param transformer the component interpolator
+     * @throws AssemblyReadException
+     */
+    protected void mergeComponentsWithMainAssembly(
 ```
 
 ### JavadocDeclaration
@@ -348,18 +348,6 @@ in `src/main/java/org/apache/maven/plugins/assembly/archive/DefaultAssemblyArchi
 
 ## RuleId[id=RedundantCast]
 ### RedundantCast
-Casting `LEVEL_NAMES.get(...)` to `String` is redundant
-in `src/main/java/org/apache/maven/plugins/assembly/io/MessageLevels.java`
-#### Snippet
-```java
-    static String getLevelLabel(int messageLevel) {
-        if (messageLevel > -1 && LEVEL_NAMES.size() > messageLevel) {
-            return (String) LEVEL_NAMES.get(messageLevel);
-        }
-
-```
-
-### RedundantCast
 Casting `it.next()` to `LocatorStrategy` is redundant
 in `src/main/java/org/apache/maven/plugins/assembly/io/Locator.java`
 #### Snippet
@@ -369,6 +357,18 @@ in `src/main/java/org/apache/maven/plugins/assembly/io/Locator.java`
             LocatorStrategy strategy = (LocatorStrategy) it.next();
 
             location = strategy.resolve(locationSpecification, messageHolder);
+```
+
+### RedundantCast
+Casting `LEVEL_NAMES.get(...)` to `String` is redundant
+in `src/main/java/org/apache/maven/plugins/assembly/io/MessageLevels.java`
+#### Snippet
+```java
+    static String getLevelLabel(int messageLevel) {
+        if (messageLevel > -1 && LEVEL_NAMES.size() > messageLevel) {
+            return (String) LEVEL_NAMES.get(messageLevel);
+        }
+
 ```
 
 ### RedundantCast
@@ -397,18 +397,6 @@ class ClasspathResourceLocatorStrategy implements LocatorStrategy {
 ```
 
 ### FieldMayBeFinal
-Field `tempFileDeleteOnExit` may be 'final'
-in `src/main/java/org/apache/maven/plugins/assembly/io/ClasspathResourceLocatorStrategy.java`
-#### Snippet
-```java
-    private String tempFileSuffix = ".cpurl";
-
-    private boolean tempFileDeleteOnExit = true;
-
-    /**
-```
-
-### FieldMayBeFinal
 Field `tempFileSuffix` may be 'final'
 in `src/main/java/org/apache/maven/plugins/assembly/io/ClasspathResourceLocatorStrategy.java`
 #### Snippet
@@ -418,6 +406,18 @@ in `src/main/java/org/apache/maven/plugins/assembly/io/ClasspathResourceLocatorS
     private String tempFileSuffix = ".cpurl";
 
     private boolean tempFileDeleteOnExit = true;
+```
+
+### FieldMayBeFinal
+Field `tempFileDeleteOnExit` may be 'final'
+in `src/main/java/org/apache/maven/plugins/assembly/io/ClasspathResourceLocatorStrategy.java`
+#### Snippet
+```java
+    private String tempFileSuffix = ".cpurl";
+
+    private boolean tempFileDeleteOnExit = true;
+
+    /**
 ```
 
 ### FieldMayBeFinal
@@ -433,15 +433,15 @@ final class Locator {
 ```
 
 ### FieldMayBeFinal
-Field `messageLevelStates` may be 'final'
+Field `messages` may be 'final'
 in `src/main/java/org/apache/maven/plugins/assembly/io/DefaultMessageHolder.java`
 #### Snippet
 ```java
-    private int defaultMessageLevel = MessageLevels.LEVEL_INFO;
+class DefaultMessageHolder implements MessageHolder {
 
-    private boolean[] messageLevelStates;
+    private List<Message> messages = new ArrayList<Message>();
 
-    private MessageSink onDemandSink;
+    private Message currentMessage;
 ```
 
 ### FieldMayBeFinal
@@ -457,6 +457,18 @@ in `src/main/java/org/apache/maven/plugins/assembly/io/DefaultMessageHolder.java
 ```
 
 ### FieldMayBeFinal
+Field `messageLevelStates` may be 'final'
+in `src/main/java/org/apache/maven/plugins/assembly/io/DefaultMessageHolder.java`
+#### Snippet
+```java
+    private int defaultMessageLevel = MessageLevels.LEVEL_INFO;
+
+    private boolean[] messageLevelStates;
+
+    private MessageSink onDemandSink;
+```
+
+### FieldMayBeFinal
 Field `defaultMessageLevel` may be 'final'
 in `src/main/java/org/apache/maven/plugins/assembly/io/DefaultMessageHolder.java`
 #### Snippet
@@ -466,18 +478,6 @@ in `src/main/java/org/apache/maven/plugins/assembly/io/DefaultMessageHolder.java
     private int defaultMessageLevel = MessageLevels.LEVEL_INFO;
 
     private boolean[] messageLevelStates;
-```
-
-### FieldMayBeFinal
-Field `messages` may be 'final'
-in `src/main/java/org/apache/maven/plugins/assembly/io/DefaultMessageHolder.java`
-#### Snippet
-```java
-class DefaultMessageHolder implements MessageHolder {
-
-    private List<Message> messages = new ArrayList<Message>();
-
-    private Message currentMessage;
 ```
 
 ## RuleId[id=CommentedOutCode]
@@ -568,51 +568,6 @@ http\://www.springframework.org/schema/context=org.springframework.context.confi
 ```
 
 ### SpringHandlersSchemasHighlighting
-Cannot resolve class or package 'config'
-in `src/it/projects/container-descriptors/metaInf-spring-aggregation/child2/src/main/resources/META-INF/spring.handlers`
-#### Snippet
-```java
-http\://www.springframework.org/schema/context=org.springframework.context.config.ContextNamespaceHandler1
-
-```
-
-### SpringHandlersSchemasHighlighting
-Cannot resolve class 'ContextNamespaceHandler1'
-in `src/it/projects/container-descriptors/metaInf-spring-aggregation/child2/src/main/resources/META-INF/spring.handlers`
-#### Snippet
-```java
-http\://www.springframework.org/schema/context=org.springframework.context.config.ContextNamespaceHandler1
-
-```
-
-### SpringHandlersSchemasHighlighting
-Cannot resolve directory 'org'
-in `src/it/projects/container-descriptors/metaInf-spring-aggregation/child1/src/main/resources/META-INF/spring.schemas`
-#### Snippet
-```java
-http\://www.springframework.org/schema/aop/spring-aop-2.0.xsd=org/springframework/aop/config/spring-aop-3.0.xsd
-
-```
-
-### SpringHandlersSchemasHighlighting
-Cannot resolve directory 'springframework'
-in `src/it/projects/container-descriptors/metaInf-spring-aggregation/child1/src/main/resources/META-INF/spring.schemas`
-#### Snippet
-```java
-http\://www.springframework.org/schema/aop/spring-aop-2.0.xsd=org/springframework/aop/config/spring-aop-3.0.xsd
-
-```
-
-### SpringHandlersSchemasHighlighting
-Cannot resolve directory 'aop'
-in `src/it/projects/container-descriptors/metaInf-spring-aggregation/child1/src/main/resources/META-INF/spring.schemas`
-#### Snippet
-```java
-http\://www.springframework.org/schema/aop/spring-aop-2.0.xsd=org/springframework/aop/config/spring-aop-3.0.xsd
-
-```
-
-### SpringHandlersSchemasHighlighting
 Cannot resolve class or package 'springframework'
 in `src/it/projects/container-descriptors/metaInf-spring-aggregation/child1/src/main/resources/META-INF/spring.handlers`
 #### Snippet
@@ -622,20 +577,29 @@ http\://www.springframework.org/schema/aop=org.springframework.aop.config.AopNam
 ```
 
 ### SpringHandlersSchemasHighlighting
-Cannot resolve directory 'config'
-in `src/it/projects/container-descriptors/metaInf-spring-aggregation/child1/src/main/resources/META-INF/spring.schemas`
+Cannot resolve directory 'org'
+in `src/it/projects/container-descriptors/metaInf-spring-aggregation/child2/src/main/resources/META-INF/spring.schemas`
 #### Snippet
 ```java
-http\://www.springframework.org/schema/aop/spring-aop-2.0.xsd=org/springframework/aop/config/spring-aop-3.0.xsd
+http\://www.springframework.org/schema/aop/spring-aop-2.0.xsd=org/springframework/aop/config/spring-aop-4.0.xsd
 
 ```
 
 ### SpringHandlersSchemasHighlighting
-Cannot resolve file 'spring-aop-3.0.xsd'
-in `src/it/projects/container-descriptors/metaInf-spring-aggregation/child1/src/main/resources/META-INF/spring.schemas`
+Cannot resolve class or package 'config'
+in `src/it/projects/container-descriptors/metaInf-spring-aggregation/child2/src/main/resources/META-INF/spring.handlers`
 #### Snippet
 ```java
-http\://www.springframework.org/schema/aop/spring-aop-2.0.xsd=org/springframework/aop/config/spring-aop-3.0.xsd
+http\://www.springframework.org/schema/context=org.springframework.context.config.ContextNamespaceHandler1
+
+```
+
+### SpringHandlersSchemasHighlighting
+Cannot resolve directory 'springframework'
+in `src/it/projects/container-descriptors/metaInf-spring-aggregation/child2/src/main/resources/META-INF/spring.schemas`
+#### Snippet
+```java
+http\://www.springframework.org/schema/aop/spring-aop-2.0.xsd=org/springframework/aop/config/spring-aop-4.0.xsd
 
 ```
 
@@ -649,38 +613,11 @@ http\://www.springframework.org/schema/aop=org.springframework.aop.config.AopNam
 ```
 
 ### SpringHandlersSchemasHighlighting
-Cannot resolve class or package 'config'
-in `src/it/projects/container-descriptors/metaInf-spring-aggregation/child1/src/main/resources/META-INF/spring.handlers`
+Cannot resolve class 'ContextNamespaceHandler1'
+in `src/it/projects/container-descriptors/metaInf-spring-aggregation/child2/src/main/resources/META-INF/spring.handlers`
 #### Snippet
 ```java
-http\://www.springframework.org/schema/aop=org.springframework.aop.config.AopNamespaceHandler1
-
-```
-
-### SpringHandlersSchemasHighlighting
-Cannot resolve class 'AopNamespaceHandler1'
-in `src/it/projects/container-descriptors/metaInf-spring-aggregation/child1/src/main/resources/META-INF/spring.handlers`
-#### Snippet
-```java
-http\://www.springframework.org/schema/aop=org.springframework.aop.config.AopNamespaceHandler1
-
-```
-
-### SpringHandlersSchemasHighlighting
-Cannot resolve directory 'org'
-in `src/it/projects/container-descriptors/metaInf-spring-aggregation/child2/src/main/resources/META-INF/spring.schemas`
-#### Snippet
-```java
-http\://www.springframework.org/schema/aop/spring-aop-2.0.xsd=org/springframework/aop/config/spring-aop-4.0.xsd
-
-```
-
-### SpringHandlersSchemasHighlighting
-Cannot resolve directory 'springframework'
-in `src/it/projects/container-descriptors/metaInf-spring-aggregation/child2/src/main/resources/META-INF/spring.schemas`
-#### Snippet
-```java
-http\://www.springframework.org/schema/aop/spring-aop-2.0.xsd=org/springframework/aop/config/spring-aop-4.0.xsd
+http\://www.springframework.org/schema/context=org.springframework.context.config.ContextNamespaceHandler1
 
 ```
 
@@ -694,11 +631,38 @@ http\://www.springframework.org/schema/aop/spring-aop-2.0.xsd=org/springframewor
 ```
 
 ### SpringHandlersSchemasHighlighting
+Cannot resolve class or package 'config'
+in `src/it/projects/container-descriptors/metaInf-spring-aggregation/child1/src/main/resources/META-INF/spring.handlers`
+#### Snippet
+```java
+http\://www.springframework.org/schema/aop=org.springframework.aop.config.AopNamespaceHandler1
+
+```
+
+### SpringHandlersSchemasHighlighting
+Cannot resolve directory 'org'
+in `src/it/projects/container-descriptors/metaInf-spring-aggregation/child1/src/main/resources/META-INF/spring.schemas`
+#### Snippet
+```java
+http\://www.springframework.org/schema/aop/spring-aop-2.0.xsd=org/springframework/aop/config/spring-aop-3.0.xsd
+
+```
+
+### SpringHandlersSchemasHighlighting
 Cannot resolve directory 'config'
 in `src/it/projects/container-descriptors/metaInf-spring-aggregation/child2/src/main/resources/META-INF/spring.schemas`
 #### Snippet
 ```java
 http\://www.springframework.org/schema/aop/spring-aop-2.0.xsd=org/springframework/aop/config/spring-aop-4.0.xsd
+
+```
+
+### SpringHandlersSchemasHighlighting
+Cannot resolve directory 'springframework'
+in `src/it/projects/container-descriptors/metaInf-spring-aggregation/child1/src/main/resources/META-INF/spring.schemas`
+#### Snippet
+```java
+http\://www.springframework.org/schema/aop/spring-aop-2.0.xsd=org/springframework/aop/config/spring-aop-3.0.xsd
 
 ```
 
@@ -711,31 +675,43 @@ http\://www.springframework.org/schema/aop/spring-aop-2.0.xsd=org/springframewor
 
 ```
 
+### SpringHandlersSchemasHighlighting
+Cannot resolve directory 'aop'
+in `src/it/projects/container-descriptors/metaInf-spring-aggregation/child1/src/main/resources/META-INF/spring.schemas`
+#### Snippet
+```java
+http\://www.springframework.org/schema/aop/spring-aop-2.0.xsd=org/springframework/aop/config/spring-aop-3.0.xsd
+
+```
+
+### SpringHandlersSchemasHighlighting
+Cannot resolve directory 'config'
+in `src/it/projects/container-descriptors/metaInf-spring-aggregation/child1/src/main/resources/META-INF/spring.schemas`
+#### Snippet
+```java
+http\://www.springframework.org/schema/aop/spring-aop-2.0.xsd=org/springframework/aop/config/spring-aop-3.0.xsd
+
+```
+
+### SpringHandlersSchemasHighlighting
+Cannot resolve class 'AopNamespaceHandler1'
+in `src/it/projects/container-descriptors/metaInf-spring-aggregation/child1/src/main/resources/META-INF/spring.handlers`
+#### Snippet
+```java
+http\://www.springframework.org/schema/aop=org.springframework.aop.config.AopNamespaceHandler1
+
+```
+
+### SpringHandlersSchemasHighlighting
+Cannot resolve file 'spring-aop-3.0.xsd'
+in `src/it/projects/container-descriptors/metaInf-spring-aggregation/child1/src/main/resources/META-INF/spring.schemas`
+#### Snippet
+```java
+http\://www.springframework.org/schema/aop/spring-aop-2.0.xsd=org/springframework/aop/config/spring-aop-3.0.xsd
+
+```
+
 ## RuleId[id=IOStreamConstructor]
-### IOStreamConstructor
-'OutputStream' can be constructed using 'Files.newOutputStream()'
-in `src/main/java/org/apache/maven/plugins/assembly/utils/LineEndingsUtils.java`
-#### Snippet
-```java
-        if (encoding == null) {
-            // platform encoding
-            return new BufferedWriter(new OutputStreamWriter(new FileOutputStream(dest)));
-        } else {
-            // MASSEMBLY-371
-```
-
-### IOStreamConstructor
-'OutputStream' can be constructed using 'Files.newOutputStream()'
-in `src/main/java/org/apache/maven/plugins/assembly/utils/LineEndingsUtils.java`
-#### Snippet
-```java
-        } else {
-            // MASSEMBLY-371
-            return new BufferedWriter(new OutputStreamWriter(new FileOutputStream(dest), encoding));
-        }
-    }
-```
-
 ### IOStreamConstructor
 'InputStream' can be constructed using 'Files.newInputStream()'
 in `src/main/java/org/apache/maven/plugins/assembly/utils/LineEndingsUtils.java`
@@ -762,14 +738,26 @@ in `src/main/java/org/apache/maven/plugins/assembly/utils/LineEndingsUtils.java`
 
 ### IOStreamConstructor
 'OutputStream' can be constructed using 'Files.newOutputStream()'
-in `src/main/java/org/apache/maven/plugins/assembly/filter/AbstractLineAggregatingHandler.java`
+in `src/main/java/org/apache/maven/plugins/assembly/utils/LineEndingsUtils.java`
 #### Snippet
 ```java
+        if (encoding == null) {
+            // platform encoding
+            return new BufferedWriter(new OutputStreamWriter(new FileOutputStream(dest)));
+        } else {
+            // MASSEMBLY-371
+```
 
-                try (PrintWriter writer =
-                        new PrintWriter(new OutputStreamWriter(new FileOutputStream(f), getEncoding()))) {
-                    for (final String line : entry.getValue()) {
-                        writer.println(line);
+### IOStreamConstructor
+'OutputStream' can be constructed using 'Files.newOutputStream()'
+in `src/main/java/org/apache/maven/plugins/assembly/utils/LineEndingsUtils.java`
+#### Snippet
+```java
+        } else {
+            // MASSEMBLY-371
+            return new BufferedWriter(new OutputStreamWriter(new FileOutputStream(dest), encoding));
+        }
+    }
 ```
 
 ### IOStreamConstructor
@@ -794,6 +782,18 @@ in `src/main/java/org/apache/maven/plugins/assembly/filter/SimpleAggregatingDesc
                 : new OutputStreamWriter(new FileOutputStream(f)); // Still platform encoding
         return writer;
     }
+```
+
+### IOStreamConstructor
+'OutputStream' can be constructed using 'Files.newOutputStream()'
+in `src/main/java/org/apache/maven/plugins/assembly/filter/AbstractLineAggregatingHandler.java`
+#### Snippet
+```java
+
+                try (PrintWriter writer =
+                        new PrintWriter(new OutputStreamWriter(new FileOutputStream(f), getEncoding()))) {
+                    for (final String line : entry.getValue()) {
+                        writer.println(line);
 ```
 
 ### IOStreamConstructor
@@ -1087,11 +1087,11 @@ Field can be converted to a local variable
 in `src/main/java/org/apache/maven/plugins/assembly/io/ClasspathResourceLocatorStrategy.java`
 #### Snippet
 ```java
+    private String tempFilePrefix = "location.";
+
     private String tempFileSuffix = ".cpurl";
 
     private boolean tempFileDeleteOnExit = true;
-
-    /**
 ```
 
 ### FieldCanBeLocal
@@ -1099,10 +1099,10 @@ Field can be converted to a local variable
 in `src/main/java/org/apache/maven/plugins/assembly/io/ClasspathResourceLocatorStrategy.java`
 #### Snippet
 ```java
-    private String tempFilePrefix = "location.";
-
     private String tempFileSuffix = ".cpurl";
 
     private boolean tempFileDeleteOnExit = true;
+
+    /**
 ```
 
