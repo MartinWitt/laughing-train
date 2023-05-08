@@ -1,7 +1,7 @@
 # laughing-train 
  
 # Bad smells
-I found 198 bad smells with 10 repairable:
+I found 197 bad smells with 10 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | FieldMayBeFinal | 60 | false |
@@ -21,7 +21,7 @@ I found 198 bad smells with 10 repairable:
 | EmptyStatementBody | 3 | false |
 | UnnecessaryStringEscape | 3 | true |
 | DeprecatedIsStillUsed | 3 | false |
-| RedundantTypeArguments | 3 | false |
+| RedundantTypeArguments | 2 | false |
 | NullableProblems | 2 | false |
 | RedundantStreamOptionalCall | 2 | false |
 | OptionalGetWithoutIsPresent | 2 | false |
@@ -41,14 +41,14 @@ I found 198 bad smells with 10 repairable:
 ## RuleId[id=CdiManagedBeanInconsistencyInspection]
 ### CdiManagedBeanInconsistencyInspection
 Managed bean must have a constructor with no parameters or a constructor annotated with @Inject
-in `github-bot/src/main/java/io/github/martinwitt/laughing_train/mining/SearchProjectService.java`
+in `github-bot/src/main/java/io/github/martinwitt/laughing_train/summary/GetFixableBadSmells.java`
 #### Snippet
 ```java
- */
-@ApplicationScoped
-public class SearchProjectService {
 
-    private static final FluentLogger logger = FluentLogger.forEnclosingClass();
+@ApplicationScoped
+public class GetFixableBadSmells {
+
+    ProjectRepository projectRepository;
 ```
 
 ### CdiManagedBeanInconsistencyInspection
@@ -65,14 +65,14 @@ public class PeriodicMiner {
 
 ### CdiManagedBeanInconsistencyInspection
 Managed bean must have a constructor with no parameters or a constructor annotated with @Inject
-in `github-bot/src/main/java/io/github/martinwitt/laughing_train/summary/GetFixableBadSmells.java`
+in `github-bot/src/main/java/io/github/martinwitt/laughing_train/mining/SearchProjectService.java`
 #### Snippet
 ```java
-
+ */
 @ApplicationScoped
-public class GetFixableBadSmells {
+public class SearchProjectService {
 
-    ProjectRepository projectRepository;
+    private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 ```
 
 ## RuleId[id=UNCHECKED_WARNING]
@@ -101,15 +101,15 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/spoon/NewLi
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'spoon.reflect.code.CtExpression' to 'spoon.reflect.code.CtExpression'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/rules/UnnecessaryLocalVariable.java`
+Unchecked assignment: 'spoon.reflect.reference.CtExecutableReference' to 'spoon.reflect.reference.CtExecutableReference'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/self/LambdaToExecutableReference.java`
 #### Snippet
 ```java
-                        if (ctReturn.getReturnedExpression() instanceof CtVariableRead) {
-                            ctReturn.setReturnedExpression(
-                                    (CtExpression) ((CtLocalVariable<?>) statement).getDefaultExpression());
-                            block.getStatements().remove(index);
-                            listener.setChanged(
+            CtExecutableReferenceExpression<?, CtTypeAccess<?>> exec =
+                    getFactory().Core().createExecutableReferenceExpression();
+            exec.setExecutable((CtExecutableReference) invocation.getExecutable());
+            exec.setType(getType(invocation));
+            exec.setTarget(getFactory().createTypeAccess(invocation.getType()));
 ```
 
 ### UNCHECKED_WARNING
@@ -125,27 +125,15 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformat
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'spoon.reflect.code.CtExpression\>' to 'spoon.reflect.code.CtExpression'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/qodana/BooleanExpression.java`
+Unchecked assignment: 'spoon.reflect.code.CtExpression' to 'spoon.reflect.code.CtExpression'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/rules/UnnecessaryLocalVariable.java`
 #### Snippet
 ```java
-            if (element.getRightHandOperand().toString().equals("false")) {
-                CtUnaryOperator<Boolean> op = getFactory().createUnaryOperator();
-                op.setOperand((CtExpression<Boolean>) element.getLeftHandOperand());
-                op.setKind(UnaryOperatorKind.NOT);
-                element.replace(op);
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'spoon.reflect.declaration.CtElement' to 'spoon.reflect.code.CtInvocation'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/rules/UnnecessaryToStringCall.java`
-#### Snippet
-```java
-        return matches.stream()
-                .filter(CtInvocation.class::isInstance)
-                .map(v -> (CtInvocation<T>) v)
-                .filter(v -> v.getExecutable() != null)
-                .filter(v -> v.getExecutable().getSimpleName().equalsIgnoreCase("toString"))
+                        if (ctReturn.getReturnedExpression() instanceof CtVariableRead) {
+                            ctReturn.setReturnedExpression(
+                                    (CtExpression) ((CtLocalVariable<?>) statement).getDefaultExpression());
+                            block.getStatements().remove(index);
+                            listener.setChanged(
 ```
 
 ### UNCHECKED_WARNING
@@ -161,6 +149,30 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qo
 ```
 
 ### UNCHECKED_WARNING
+Unchecked cast: 'spoon.reflect.declaration.CtElement' to 'spoon.reflect.code.CtInvocation'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/rules/UnnecessaryToStringCall.java`
+#### Snippet
+```java
+        return matches.stream()
+                .filter(CtInvocation.class::isInstance)
+                .map(v -> (CtInvocation<T>) v)
+                .filter(v -> v.getExecutable() != null)
+                .filter(v -> v.getExecutable().getSimpleName().equalsIgnoreCase("toString"))
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'spoon.reflect.code.CtExpression\>' to 'spoon.reflect.code.CtExpression'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/qodana/BooleanExpression.java`
+#### Snippet
+```java
+            if (element.getRightHandOperand().toString().equals("false")) {
+                CtUnaryOperator<Boolean> op = getFactory().createUnaryOperator();
+                op.setOperand((CtExpression<Boolean>) element.getLeftHandOperand());
+                op.setKind(UnaryOperatorKind.NOT);
+                element.replace(op);
+```
+
+### UNCHECKED_WARNING
 Unchecked call to 'setExpression(CtExpression)' as a member of raw type 'spoon.reflect.code.CtLambda'
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/rules/CodeBlock2Expr.java`
 #### Snippet
@@ -170,18 +182,6 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qo
                 lambda.setExpression(statement);
                 String message =
                         "Lambda expression in %s was rewritten as statement".formatted(type.getQualifiedName());
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'spoon.reflect.code.CtStatement' to 'spoon.reflect.code.CtReturn'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/self/ThreadLocalWithInitial.java`
-#### Snippet
-```java
-
-    private <T> CtExpression<T> getReturnStatement(CtStatement statement) {
-        return ((CtReturn<T>) statement).getReturnedExpression();
-    }
-
 ```
 
 ### UNCHECKED_WARNING
@@ -197,15 +197,15 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qo
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'spoon.reflect.reference.CtExecutableReference' to 'spoon.reflect.reference.CtExecutableReference'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/self/LambdaToExecutableReference.java`
+Unchecked cast: 'spoon.reflect.code.CtStatement' to 'spoon.reflect.code.CtReturn'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/self/ThreadLocalWithInitial.java`
 #### Snippet
 ```java
-            CtExecutableReferenceExpression<?, CtTypeAccess<?>> exec =
-                    getFactory().Core().createExecutableReferenceExpression();
-            exec.setExecutable((CtExecutableReference) invocation.getExecutable());
-            exec.setType(getType(invocation));
-            exec.setTarget(getFactory().createTypeAccess(invocation.getType()));
+
+    private <T> CtExpression<T> getReturnStatement(CtStatement statement) {
+        return ((CtReturn<T>) statement).getReturnedExpression();
+    }
+
 ```
 
 ## RuleId[id=JavadocReference]
@@ -234,6 +234,30 @@ public class MarkdownString {
 ```
 
 ### JavadocReference
+Cannot resolve symbol `source`
+in `application/src/main/java/io/github/martinwitt/laughing_train/application/base/converter/Converter.java`
+#### Snippet
+```java
+    /**
+     * Converts the given source object to a target object.
+     * @param source the source object
+     * @return the target object or {@code null} if the source object is {@code null}
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `ImportConflictDetector`
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/spoon/ImportCleaner.java`
+#### Snippet
+```java
+ * Updates list of import statements of compilation unit following {@link CtElement#isImplicit()}.
+ * Can be configured to add or remove imports using {@link #setCanAddImports(boolean)} and {@link #setCanRemoveImports(boolean)}.
+ * This does not force some references to be implicit, and doesn't fix the wrong implicit which causes conflicts: this fixing done by {@link ImportConflictDetector}
+ */
+@Experimental
+```
+
+### JavadocReference
 Cannot resolve symbol
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/util/Nullsafe.java`
 #### Snippet
@@ -255,18 +279,6 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qo
  * Use {@link run(Path, ChangeListener)} to analyse the source code.
  * <b> Note: </b> This requires a running docker host and can take some minutes.
  */
-```
-
-### JavadocReference
-Cannot resolve symbol `source`
-in `application/src/main/java/io/github/martinwitt/laughing_train/application/base/converter/Converter.java`
-#### Snippet
-```java
-    /**
-     * Converts the given source object to a target object.
-     * @param source the source object
-     * @return the target object or {@code null} if the source object is {@code null}
-     */
 ```
 
 ### JavadocReference
@@ -293,19 +305,19 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qo
     public abstract void refactor(ChangeListener listener, CtType<?> type);
 ```
 
-### JavadocReference
-Cannot resolve symbol `ImportConflictDetector`
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/spoon/ImportCleaner.java`
+## RuleId[id=DataFlowIssue]
+### DataFlowIssue
+Method invocation `getPath` may produce `NullPointerException`
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/config/ConfigStore.java`
 #### Snippet
 ```java
- * Updates list of import statements of compilation unit following {@link CtElement#isImplicit()}.
- * Can be configured to add or remove imports using {@link #setCanAddImports(boolean)} and {@link #setCanRemoveImports(boolean)}.
- * This does not force some references to be implicit, and doesn't fix the wrong implicit which causes conflicts: this fixing done by {@link ImportConflictDetector}
- */
-@Experimental
+        property = new Properties();
+        URL rootPath = Thread.currentThread().getContextClassLoader().getResource(CONFIG_FILE_NAME);
+        String appConfigPath = URLDecoder.decode(rootPath.getPath(), StandardCharsets.UTF_8);
+        try (FileInputStream configFile = new FileInputStream(new File(appConfigPath))) {
+            property.load(configFile);
 ```
 
-## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
 Method invocation `equals` may produce `NullPointerException`
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/rules/PointlessBooleanExpression.java`
@@ -330,16 +342,65 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qo
             logger.atSevere().withCause(e).log("Could not write qodana.yaml");
 ```
 
-### DataFlowIssue
-Method invocation `getPath` may produce `NullPointerException`
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/config/ConfigStore.java`
+## RuleId[id=SimplifyStreamApiCallChains]
+### SimplifyStreamApiCallChains
+'collect(toList())' can be replaced with 'toList()'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/CommitBuilder.java`
 #### Snippet
 ```java
-        property = new Properties();
-        URL rootPath = Thread.currentThread().getContextClassLoader().getResource(CONFIG_FILE_NAME);
-        String appConfigPath = URLDecoder.decode(rootPath.getPath(), StandardCharsets.UTF_8);
-        try (FileInputStream configFile = new FileInputStream(new File(appConfigPath))) {
-            property.load(configFile);
+                .distinct()
+                .sorted((o1, o2) -> o1.getName().asText().compareTo(o2.getName().asText()))
+                .collect(Collectors.toList());
+        for (BadSmell badSmell : badSmells) {
+            sb.append("## " + badSmell.getName().asText() + "\n");
+```
+
+### SimplifyStreamApiCallChains
+'collect(toList())' can be replaced with 'toList()'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/self/ProtectedMemberInFinalType.java`
+#### Snippet
+```java
+            List<CtTypeMember> protectedMethods = type.getTypeMembers().stream()
+                    .filter(CtModifiable::isProtected)
+                    .collect(Collectors.toList());
+            for (CtTypeMember ctMethod : protectedMethods) {
+                ctMethod.removeModifier(ModifierKind.PROTECTED);
+```
+
+### SimplifyStreamApiCallChains
+'collect(toList())' can be replaced with 'toList()'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/PullRequest.java`
+#### Snippet
+```java
+                .distinct()
+                .sorted((o1, o2) -> o1.getName().asText().compareTo(o2.getName().asText()))
+                .collect(Collectors.toList());
+        for (BadSmell badSmell : badSmells) {
+            sb.append("## " + badSmell.getName().asText() + "\n");
+```
+
+### SimplifyStreamApiCallChains
+'collect(toList())' can be replaced with 'toList()'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/PullRequest.java`
+#### Snippet
+```java
+                .distinct()
+                .sorted((o1, o2) -> o1.getName().asText().compareTo(o2.getName().asText()))
+                .collect(Collectors.toList());
+        for (BadSmell badSmell : badSmells) {
+            sb.append("## " + badSmell.getName().asText() + "\n");
+```
+
+### SimplifyStreamApiCallChains
+'collect(toList())' can be replaced with 'toList()'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/qodana/CollectionEmptyCheck.java`
+#### Snippet
+```java
+        innvocation.stream()
+                .filter(outer -> innvocation.stream().anyMatch(outer::hasParent))
+                .collect(Collectors.toList())
+                .forEach(innvocation::remove);
+        return innvocation;
 ```
 
 ## RuleId[id=EmptyStatementBody]
@@ -357,18 +418,6 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformat
 
 ### EmptyStatementBody
 `if` statement has empty body
-in `code-transformation/src/main/java/spoon/reflect/visitor/ImportAnalyzer.java`
-#### Snippet
-```java
-                            parent2 = parent.getParent();
-                        }
-                        if (parent2 instanceof CtConstructorCall<?>) {
-                            // new SomeType(); is relevant for import
-                            // continue
-```
-
-### EmptyStatementBody
-`if` statement has empty body
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/spoon/ImportCleaner.java`
 #### Snippet
 ```java
@@ -379,65 +428,16 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/spoon/Impor
                         } else {
 ```
 
-## RuleId[id=SimplifyStreamApiCallChains]
-### SimplifyStreamApiCallChains
-'collect(toList())' can be replaced with 'toList()'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/self/ProtectedMemberInFinalType.java`
+### EmptyStatementBody
+`if` statement has empty body
+in `code-transformation/src/main/java/spoon/reflect/visitor/ImportAnalyzer.java`
 #### Snippet
 ```java
-            List<CtTypeMember> protectedMethods = type.getTypeMembers().stream()
-                    .filter(CtModifiable::isProtected)
-                    .collect(Collectors.toList());
-            for (CtTypeMember ctMethod : protectedMethods) {
-                ctMethod.removeModifier(ModifierKind.PROTECTED);
-```
-
-### SimplifyStreamApiCallChains
-'collect(toList())' can be replaced with 'toList()'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/qodana/CollectionEmptyCheck.java`
-#### Snippet
-```java
-        innvocation.stream()
-                .filter(outer -> innvocation.stream().anyMatch(outer::hasParent))
-                .collect(Collectors.toList())
-                .forEach(innvocation::remove);
-        return innvocation;
-```
-
-### SimplifyStreamApiCallChains
-'collect(toList())' can be replaced with 'toList()'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/CommitBuilder.java`
-#### Snippet
-```java
-                .distinct()
-                .sorted((o1, o2) -> o1.getName().asText().compareTo(o2.getName().asText()))
-                .collect(Collectors.toList());
-        for (BadSmell badSmell : badSmells) {
-            sb.append("## " + badSmell.getName().asText() + "\n");
-```
-
-### SimplifyStreamApiCallChains
-'collect(toList())' can be replaced with 'toList()'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/PullRequest.java`
-#### Snippet
-```java
-                .distinct()
-                .sorted((o1, o2) -> o1.getName().asText().compareTo(o2.getName().asText()))
-                .collect(Collectors.toList());
-        for (BadSmell badSmell : badSmells) {
-            sb.append("## " + badSmell.getName().asText() + "\n");
-```
-
-### SimplifyStreamApiCallChains
-'collect(toList())' can be replaced with 'toList()'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/PullRequest.java`
-#### Snippet
-```java
-                .distinct()
-                .sorted((o1, o2) -> o1.getName().asText().compareTo(o2.getName().asText()))
-                .collect(Collectors.toList());
-        for (BadSmell badSmell : badSmells) {
-            sb.append("## " + badSmell.getName().asText() + "\n");
+                            parent2 = parent.getParent();
+                        }
+                        if (parent2 instanceof CtConstructorCall<?>) {
+                            // new SomeType(); is relevant for import
+                            // continue
 ```
 
 ## RuleId[id=UnnecessaryStringEscape]
@@ -479,18 +479,6 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qo
 
 ## RuleId[id=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
-Deprecated member 'withCacheFolder' is still used
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/QodanaRefactor.java`
-#### Snippet
-```java
-
-        @Deprecated
-        public Builder withCacheFolder(String cacheFolder) {
-            return this;
-        }
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'analyze' is still used
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/QodanaRefactor.java`
 #### Snippet
@@ -500,6 +488,18 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qo
     public void analyze(Path projectRoot) {
         var runnerBuilder = new QodanaAnalyzer.Builder();
         settings.forEach(s -> s.accept(runnerBuilder));
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'withCacheFolder' is still used
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/QodanaRefactor.java`
+#### Snippet
+```java
+
+        @Deprecated
+        public Builder withCacheFolder(String cacheFolder) {
+            return this;
+        }
 ```
 
 ### DeprecatedIsStillUsed
@@ -797,7 +797,200 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/formatting/
         newImports.addAll(staticImports);
 ```
 
+## RuleId[id=StringBufferReplaceableByString]
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/PullRequest.java`
+#### Snippet
+```java
+                git.close();
+                PrintStream foo = new PrintStream(new File(tempRepoFolder, "changelog.md"));
+                StringBuilder sb = new StringBuilder();
+                foo.print(sb);
+            } catch (IOException | GitAPIException e) {
+```
+
 ## RuleId[id=Deprecation]
+### Deprecation
+'xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRefactor.Builder' is deprecated
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/QodanaBuilder.java`
+#### Snippet
+```java
+    public QodanaRefactor build() {
+        @Var var builder = qodanaCreatorSupplier.get();
+        for (UnaryOperator<QodanaRefactor.Builder> function : qodanaCreator) {
+            builder = function.apply(builder);
+        }
+```
+
+### Deprecation
+'xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRefactor.Builder' is deprecated
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/QodanaBuilder.java`
+#### Snippet
+```java
+
+    public QodanaBuilder withNonProtectedConstructorInAbstractClass() {
+        qodanaCreator.add(QodanaRefactor.Builder::withNonProtectedConstructorInAbstractClass);
+        return this;
+    }
+```
+
+### Deprecation
+'xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRefactor.Builder' is deprecated
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/QodanaBuilder.java`
+#### Snippet
+```java
+
+    public QodanaBuilder withParameterNameDiffersFromOverriddenParameter() {
+        qodanaCreator.add(QodanaRefactor.Builder::withParameterNameDiffersFromOverriddenParameter);
+        return this;
+    }
+```
+
+### Deprecation
+'xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRefactor.Builder' is deprecated
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/QodanaBuilder.java`
+#### Snippet
+```java
+
+    public QodanaBuilder(ChangeListener listener) {
+        qodanaCreatorSupplier = () -> new QodanaRefactor.Builder(listener);
+        qodanaCreator = new ArrayList<>();
+    }
+```
+
+### Deprecation
+'xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRefactor.Builder' is deprecated
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/QodanaBuilder.java`
+#### Snippet
+```java
+
+    public QodanaBuilder withUnnecessaryInterfaceModifier() {
+        qodanaCreator.add(QodanaRefactor.Builder::withUnnecessaryInterfaceModifier);
+        return this;
+    }
+```
+
+### Deprecation
+'xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRefactor.Builder' is deprecated
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/QodanaBuilder.java`
+#### Snippet
+```java
+
+    public QodanaBuilder withSizeReplaceableByIsEmpty() {
+        qodanaCreator.add(QodanaRefactor.Builder::withSizeReplaceableByIsEmpty);
+        return this;
+    }
+```
+
+### Deprecation
+'xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRefactor.Builder' is deprecated
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/QodanaBuilder.java`
+#### Snippet
+```java
+public class QodanaBuilder {
+
+    private List<UnaryOperator<QodanaRefactor.Builder>> qodanaCreator;
+    private Supplier<QodanaRefactor.Builder> qodanaCreatorSupplier;
+
+```
+
+### Deprecation
+'xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRefactor.Builder' is deprecated
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/QodanaBuilder.java`
+#### Snippet
+```java
+
+    public QodanaBuilder withUnusedImport() {
+        qodanaCreator.add(QodanaRefactor.Builder::withUnusedImport);
+        return this;
+    }
+```
+
+### Deprecation
+'xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRefactor.Builder' is deprecated
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/QodanaBuilder.java`
+#### Snippet
+```java
+
+    public QodanaBuilder withUnnecessaryLocalVariable() {
+        qodanaCreator.add(QodanaRefactor.Builder::withUnnecessaryLocalVariable);
+        return this;
+    }
+```
+
+### Deprecation
+'xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRefactor.Builder' is deprecated
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/QodanaBuilder.java`
+#### Snippet
+```java
+
+    public QodanaBuilder withMethodMayBeStatic() {
+        qodanaCreator.add(QodanaRefactor.Builder::withMethodMayBeStatic);
+        return this;
+    }
+```
+
+### Deprecation
+'xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRefactor.Builder' is deprecated
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/QodanaBuilder.java`
+#### Snippet
+```java
+
+    public QodanaBuilder withUnnecessaryToStringCall() {
+        qodanaCreator.add(QodanaRefactor.Builder::withUnnecessaryToStringCall);
+        return this;
+    }
+```
+
+### Deprecation
+'xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRefactor.Builder' is deprecated
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/QodanaBuilder.java`
+#### Snippet
+```java
+
+    private List<UnaryOperator<QodanaRefactor.Builder>> qodanaCreator;
+    private Supplier<QodanaRefactor.Builder> qodanaCreatorSupplier;
+
+    public QodanaBuilder(ChangeListener listener) {
+```
+
+### Deprecation
+'xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRefactor.Builder' is deprecated
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/QodanaBuilder.java`
+#### Snippet
+```java
+
+    public QodanaBuilder withUnnecessaryReturn() {
+        qodanaCreator.add(QodanaRefactor.Builder::withUnnecessaryReturn);
+        return this;
+    }
+```
+
+### Deprecation
+'withCacheFolder(java.lang.String)' is deprecated
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/QodanaBuilder.java`
+#### Snippet
+```java
+
+    public QodanaBuilder withCacheFolder(String cacheFolder) {
+        qodanaCreator.add(v -> v.withCacheFolder(cacheFolder));
+        return this;
+    }
+```
+
+### Deprecation
+'xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRefactor.Builder' is deprecated
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/QodanaBuilder.java`
+#### Snippet
+```java
+
+    public QodanaBuilder withNonStrictComparisonCanBeEquality() {
+        qodanaCreator.add(QodanaRefactor.Builder::withNonStrictComparisonCanBeEquality);
+        return this;
+    }
+```
+
 ### Deprecation
 'withRemoveResultDir(boolean)' is deprecated
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/PullRequest.java`
@@ -822,200 +1015,31 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/Refacto
         transformationEngine.setPrinting(printing);
 ```
 
-### Deprecation
-'xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRefactor.Builder' is deprecated
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/QodanaBuilder.java`
-#### Snippet
-```java
-
-    public QodanaBuilder(ChangeListener listener) {
-        qodanaCreatorSupplier = () -> new QodanaRefactor.Builder(listener);
-        qodanaCreator = new ArrayList<>();
-    }
-```
-
-### Deprecation
-'withCacheFolder(java.lang.String)' is deprecated
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/QodanaBuilder.java`
-#### Snippet
-```java
-
-    public QodanaBuilder withCacheFolder(String cacheFolder) {
-        qodanaCreator.add(v -> v.withCacheFolder(cacheFolder));
-        return this;
-    }
-```
-
-### Deprecation
-'xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRefactor.Builder' is deprecated
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/QodanaBuilder.java`
-#### Snippet
-```java
-
-    public QodanaBuilder withNonProtectedConstructorInAbstractClass() {
-        qodanaCreator.add(QodanaRefactor.Builder::withNonProtectedConstructorInAbstractClass);
-        return this;
-    }
-```
-
-### Deprecation
-'xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRefactor.Builder' is deprecated
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/QodanaBuilder.java`
-#### Snippet
-```java
-    public QodanaRefactor build() {
-        @Var var builder = qodanaCreatorSupplier.get();
-        for (UnaryOperator<QodanaRefactor.Builder> function : qodanaCreator) {
-            builder = function.apply(builder);
-        }
-```
-
-### Deprecation
-'xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRefactor.Builder' is deprecated
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/QodanaBuilder.java`
-#### Snippet
-```java
-
-    public QodanaBuilder withSizeReplaceableByIsEmpty() {
-        qodanaCreator.add(QodanaRefactor.Builder::withSizeReplaceableByIsEmpty);
-        return this;
-    }
-```
-
-### Deprecation
-'xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRefactor.Builder' is deprecated
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/QodanaBuilder.java`
-#### Snippet
-```java
-
-    public QodanaBuilder withParameterNameDiffersFromOverriddenParameter() {
-        qodanaCreator.add(QodanaRefactor.Builder::withParameterNameDiffersFromOverriddenParameter);
-        return this;
-    }
-```
-
-### Deprecation
-'xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRefactor.Builder' is deprecated
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/QodanaBuilder.java`
-#### Snippet
-```java
-
-    public QodanaBuilder withUnnecessaryLocalVariable() {
-        qodanaCreator.add(QodanaRefactor.Builder::withUnnecessaryLocalVariable);
-        return this;
-    }
-```
-
-### Deprecation
-'xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRefactor.Builder' is deprecated
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/QodanaBuilder.java`
-#### Snippet
-```java
-
-    private List<UnaryOperator<QodanaRefactor.Builder>> qodanaCreator;
-    private Supplier<QodanaRefactor.Builder> qodanaCreatorSupplier;
-
-    public QodanaBuilder(ChangeListener listener) {
-```
-
-### Deprecation
-'xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRefactor.Builder' is deprecated
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/QodanaBuilder.java`
-#### Snippet
-```java
-
-    public QodanaBuilder withUnusedImport() {
-        qodanaCreator.add(QodanaRefactor.Builder::withUnusedImport);
-        return this;
-    }
-```
-
-### Deprecation
-'xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRefactor.Builder' is deprecated
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/QodanaBuilder.java`
-#### Snippet
-```java
-
-    public QodanaBuilder withMethodMayBeStatic() {
-        qodanaCreator.add(QodanaRefactor.Builder::withMethodMayBeStatic);
-        return this;
-    }
-```
-
-### Deprecation
-'xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRefactor.Builder' is deprecated
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/QodanaBuilder.java`
-#### Snippet
-```java
-
-    public QodanaBuilder withNonStrictComparisonCanBeEquality() {
-        qodanaCreator.add(QodanaRefactor.Builder::withNonStrictComparisonCanBeEquality);
-        return this;
-    }
-```
-
-### Deprecation
-'xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRefactor.Builder' is deprecated
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/QodanaBuilder.java`
-#### Snippet
-```java
-
-    public QodanaBuilder withUnnecessaryInterfaceModifier() {
-        qodanaCreator.add(QodanaRefactor.Builder::withUnnecessaryInterfaceModifier);
-        return this;
-    }
-```
-
-### Deprecation
-'xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRefactor.Builder' is deprecated
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/QodanaBuilder.java`
-#### Snippet
-```java
-
-    public QodanaBuilder withUnnecessaryReturn() {
-        qodanaCreator.add(QodanaRefactor.Builder::withUnnecessaryReturn);
-        return this;
-    }
-```
-
-### Deprecation
-'xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRefactor.Builder' is deprecated
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/QodanaBuilder.java`
-#### Snippet
-```java
-
-    public QodanaBuilder withUnnecessaryToStringCall() {
-        qodanaCreator.add(QodanaRefactor.Builder::withUnnecessaryToStringCall);
-        return this;
-    }
-```
-
-### Deprecation
-'xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRefactor.Builder' is deprecated
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/QodanaBuilder.java`
-#### Snippet
-```java
-public class QodanaBuilder {
-
-    private List<UnaryOperator<QodanaRefactor.Builder>> qodanaCreator;
-    private Supplier<QodanaRefactor.Builder> qodanaCreatorSupplier;
-
-```
-
-## RuleId[id=StringBufferReplaceableByString]
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/PullRequest.java`
-#### Snippet
-```java
-                git.close();
-                PrintStream foo = new PrintStream(new File(tempRepoFolder, "changelog.md"));
-                StringBuilder sb = new StringBuilder();
-                foo.print(sb);
-            } catch (IOException | GitAPIException e) {
-```
-
 ## RuleId[id=CdiInjectionPointsInspection]
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `persistence/src/main/java/io/github/martinwitt/laughing_train/persistence/DataBaseMigration.java`
+#### Snippet
+```java
+
+    @Inject
+    Vertx vertx;
+
+    /**
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `github-bot/src/main/java/io/github/martinwitt/laughing_train/api/graphql/endpoints/ProjectGraphQL.java`
+#### Snippet
+```java
+
+    @Inject
+    Vertx vertx;
+
+    @Inject
+```
+
 ### CdiInjectionPointsInspection
 Unsatisfied dependency: no bean matches the injection point
 in `github-bot/src/main/java/io/github/martinwitt/laughing_train/api/graphql/endpoints/BadSmellGraphQL.java`
@@ -1030,7 +1054,7 @@ in `github-bot/src/main/java/io/github/martinwitt/laughing_train/api/graphql/end
 
 ### CdiInjectionPointsInspection
 Unsatisfied dependency: no bean matches the injection point
-in `github-bot/src/main/java/io/github/martinwitt/laughing_train/api/graphql/endpoints/ProjectGraphQL.java`
+in `github-bot/src/main/java/io/github/martinwitt/laughing_train/services/QodanaService.java`
 #### Snippet
 ```java
 
@@ -1038,6 +1062,30 @@ in `github-bot/src/main/java/io/github/martinwitt/laughing_train/api/graphql/end
     Vertx vertx;
 
     @Inject
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `github-bot/src/main/java/io/github/martinwitt/laughing_train/services/ProjectService.java`
+#### Snippet
+```java
+
+    @Inject
+    Vertx vertx;
+
+    public ProjectResult handleProjectRequest(ProjectRequest request) {
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `github-bot/src/main/java/io/github/martinwitt/laughing_train/MentionCommands.java`
+#### Snippet
+```java
+
+    @Inject
+    Vertx vertx;
+
+    void mentionCommands(@IssueComment GHEventPayload.IssueComment issueComment) throws IOException {
 ```
 
 ### CdiInjectionPointsInspection
@@ -1064,54 +1112,6 @@ in `github-bot/src/main/java/io/github/martinwitt/laughing_train/services/Refact
     @Inject
 ```
 
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `persistence/src/main/java/io/github/martinwitt/laughing_train/persistence/DataBaseMigration.java`
-#### Snippet
-```java
-
-    @Inject
-    Vertx vertx;
-
-    /**
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `github-bot/src/main/java/io/github/martinwitt/laughing_train/services/ProjectService.java`
-#### Snippet
-```java
-
-    @Inject
-    Vertx vertx;
-
-    @ConsumeEvent(value = ServiceAddresses.PROJECT_REQUEST, blocking = true)
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `github-bot/src/main/java/io/github/martinwitt/laughing_train/MentionCommands.java`
-#### Snippet
-```java
-
-    @Inject
-    Vertx vertx;
-
-    void mentionCommands(@IssueComment GHEventPayload.IssueComment issueComment) throws IOException {
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `github-bot/src/main/java/io/github/martinwitt/laughing_train/services/QodanaService.java`
-#### Snippet
-```java
-
-    @Inject
-    Vertx vertx;
-
-    @Inject
-```
-
 ## RuleId[id=InnerClassMayBeStatic]
 ### InnerClassMayBeStatic
 Inner class `ResultCallbackImplementation` may be 'static'
@@ -1128,6 +1128,18 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qo
 ## RuleId[id=RedundantTypeArguments]
 ### RedundantTypeArguments
 Explicit type arguments can be inferred
+in `github-bot/src/main/java/io/github/martinwitt/laughing_train/services/ProjectService.java`
+#### Snippet
+```java
+                        .invoke(e -> FileUtils.deleteQuietly(dir.toFile()))
+                        .onItemOrFailure()
+                        .<ProjectResult>transform((git, error) -> toResult(url, repoName, dir, git, error))
+                        .await()
+                        .indefinitely();
+```
+
+### RedundantTypeArguments
+Explicit type arguments can be inferred
 in `github-bot/src/main/java/io/github/martinwitt/laughing_train/services/RefactorService.java`
 #### Snippet
 ```java
@@ -1136,30 +1148,6 @@ in `github-bot/src/main/java/io/github/martinwitt/laughing_train/services/Refact
                 .<ProjectConfig>flatMap(list -> {
                     if (list.isEmpty()) {
                         logger.atWarning().log("No config found for %s", projectUrl);
-```
-
-### RedundantTypeArguments
-Explicit type arguments can be inferred
-in `github-bot/src/main/java/io/github/martinwitt/laughing_train/services/ProjectService.java`
-#### Snippet
-```java
-                    .invoke(e -> FileUtils.deleteQuietly(dir.toFile()))
-                    .onItemOrFailure()
-                    .<ProjectResult>transform((git, error) -> toResult(url, repoName, dir, git, error))
-                    .await()
-                    .indefinitely();
-```
-
-### RedundantTypeArguments
-Explicit type arguments can be inferred
-in `github-bot/src/main/java/io/github/martinwitt/laughing_train/MentionCommands.java`
-#### Snippet
-```java
-            GHEventPayload.IssueComment issueComment, AsyncResult<? extends Message<ProjectResult>> v) {
-        if (v.succeeded() && v.result().body() instanceof ProjectResult.Success success) {
-            vertx.executeBlocking(project -> eventBus.<QodanaResult>request(
-                    ServiceAddresses.QODANA_ANALYZER_REQUEST,
-                    new AnalyzerRequest.WithProject(success.project()),
 ```
 
 ## RuleId[id=NullableProblems]
@@ -1232,11 +1220,11 @@ Redundant 'distinct()' call: stream contains at most one element
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/PullRequest.java`
 #### Snippet
 ```java
-                .map(Change::getBadSmell)
-                .filter(v -> !v.isEmptyRule())
+                .map(BadSmell::getName)
+                .map(MarkdownString::asText)
                 .distinct()
-                .sorted((o1, o2) -> o1.getName().asText().compareTo(o2.getName().asText()))
-                .collect(Collectors.toList());
+                .collect(Collectors.joining("\n"));
+    }
 ```
 
 ### RedundantStreamOptionalCall
@@ -1244,11 +1232,11 @@ Redundant 'distinct()' call: stream contains at most one element
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/PullRequest.java`
 #### Snippet
 ```java
-                .map(BadSmell::getName)
-                .map(MarkdownString::asText)
+                .map(Change::getBadSmell)
+                .filter(v -> !v.isEmptyRule())
                 .distinct()
-                .collect(Collectors.joining("\n"));
-    }
+                .sorted((o1, o2) -> o1.getName().asText().compareTo(o2.getName().asText()))
+                .collect(Collectors.toList());
 ```
 
 ## RuleId[id=AutoCloseableResource]
@@ -1262,6 +1250,18 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/Comm
         try (Repository repository = Git.open(new File(path)).checkout().getRepository()) {
             Git git = new Git(repository);
             git.checkout().setName(config.getGitDefaultBranchName()).call();
+```
+
+### AutoCloseableResource
+'Stream' used without 'try'-with-resources statement
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/PullRequest.java`
+#### Snippet
+```java
+    private static void addFileToGit(File tempRepoFolder, Git git, Change change) throws IOException, GitAPIException {
+        File changedFile = change.getAffectedType().getPosition().getFile();
+        Path changedFilePath = Files.find(
+                        tempRepoFolder.toPath(),
+                        Integer.MAX_VALUE,
 ```
 
 ### AutoCloseableResource
@@ -1286,18 +1286,6 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/Pull
             try (Repository repository = Git.open(tempRepoFolder).checkout().getRepository()) {
                 Git git = new Git(repository);
                 switchToCleanBranch(config, git);
-```
-
-### AutoCloseableResource
-'Stream' used without 'try'-with-resources statement
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/PullRequest.java`
-#### Snippet
-```java
-    private static void addFileToGit(File tempRepoFolder, Git git, Change change) throws IOException, GitAPIException {
-        File changedFile = change.getAffectedType().getPosition().getFile();
-        Path changedFilePath = Files.find(
-                        tempRepoFolder.toPath(),
-                        Integer.MAX_VALUE,
 ```
 
 ### AutoCloseableResource
@@ -1327,18 +1315,6 @@ in `github-bot/src/main/java/io/github/martinwitt/laughing_train/mining/SearchPr
 
 ## RuleId[id=RedundantCast]
 ### RedundantCast
-Casting `getFactory().Type().voidType()` to `CtTypeReference` is redundant
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/junit/migration/ExpectedExceptionRemoval.java`
-#### Snippet
-```java
-                        typeRef, getFactory().Type().voidType(), "assertThrows", List.of(clazzRef, executableJunit));
-        CtLambda<?> lambda = getFactory().createLambda();
-        lambda.setType((CtTypeReference) getFactory().Type().voidType());
-        lambda.setBody(body);
-        return getFactory().createInvocation(null, assertThrows, List.of(exceptionClass, lambda));
-```
-
-### RedundantCast
 Casting `new NewLineAnnotation<>()` to `NewLineAnnotation` is redundant
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/spoon/NewLineAnnotation.java`
 #### Snippet
@@ -1360,6 +1336,18 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/spoon/NewLi
         return (CtTypeReference) getFactory().Type().createReference("");
     }
 
+```
+
+### RedundantCast
+Casting `getFactory().Type().voidType()` to `CtTypeReference` is redundant
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/junit/migration/ExpectedExceptionRemoval.java`
+#### Snippet
+```java
+                        typeRef, getFactory().Type().voidType(), "assertThrows", List.of(clazzRef, executableJunit));
+        CtLambda<?> lambda = getFactory().createLambda();
+        lambda.setType((CtTypeReference) getFactory().Type().voidType());
+        lambda.setBody(body);
+        return getFactory().createInvocation(null, assertThrows, List.of(exceptionClass, lambda));
 ```
 
 ### RedundantCast
@@ -1388,50 +1376,170 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformat
 
 ## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
-Field `url` may be 'final'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/history/Link.java`
+Field `projectName` may be 'final'
+in `persistence/src/main/java/io/github/martinwitt/laughing_train/persistence/BadSmell.java`
 #### Snippet
 ```java
-public class Link {
-
-    private String url;
-
-    public Link(String url) {
+    private String messageMarkdown;
+    private String snippet;
+    private String projectName;
+    private String projectUrl;
+    private String commitHash;
 ```
 
 ### FieldMayBeFinal
-Field `changes` may be 'final'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/history/Changelog.java`
+Field `projectUrl` may be 'final'
+in `persistence/src/main/java/io/github/martinwitt/laughing_train/persistence/BadSmell.java`
 #### Snippet
 ```java
-public class Changelog {
-
-    private List<Change> changes = new ArrayList<>();
-
-    public void addChange(Change change) {
+    private String snippet;
+    private String projectName;
+    private String projectUrl;
+    private String commitHash;
+    private Position position;
 ```
 
 ### FieldMayBeFinal
-Field `changelog` may be 'final'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/history/ChangeListener.java`
+Field `identifier` may be 'final'
+in `persistence/src/main/java/io/github/martinwitt/laughing_train/persistence/BadSmell.java`
 #### Snippet
 ```java
-    private boolean changed;
-    private Set<CtType<?>> changedTypes = new HashSet<>();
-    private Changelog changelog = new Changelog();
 
-    public boolean isChanged() {
+    private String analyzer;
+    private String identifier;
+    private String ruleID;
+    private String filePath;
 ```
 
 ### FieldMayBeFinal
-Field `changedTypes` may be 'final'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/history/ChangeListener.java`
+Field `analyzer` may be 'final'
+in `persistence/src/main/java/io/github/martinwitt/laughing_train/persistence/BadSmell.java`
 #### Snippet
 ```java
+public class BadSmell implements AnalyzerResult {
+
+    private String analyzer;
+    private String identifier;
+    private String ruleID;
+```
+
+### FieldMayBeFinal
+Field `messageMarkdown` may be 'final'
+in `persistence/src/main/java/io/github/martinwitt/laughing_train/persistence/BadSmell.java`
+#### Snippet
+```java
+    private String filePath;
+    private String message;
+    private String messageMarkdown;
+    private String snippet;
+    private String projectName;
+```
+
+### FieldMayBeFinal
+Field `message` may be 'final'
+in `persistence/src/main/java/io/github/martinwitt/laughing_train/persistence/BadSmell.java`
+#### Snippet
+```java
+    private String ruleID;
+    private String filePath;
+    private String message;
+    private String messageMarkdown;
+    private String snippet;
+```
+
+### FieldMayBeFinal
+Field `ruleID` may be 'final'
+in `persistence/src/main/java/io/github/martinwitt/laughing_train/persistence/BadSmell.java`
+#### Snippet
+```java
+    private String analyzer;
+    private String identifier;
+    private String ruleID;
+    private String filePath;
+    private String message;
+```
+
+### FieldMayBeFinal
+Field `commitHash` may be 'final'
+in `persistence/src/main/java/io/github/martinwitt/laughing_train/persistence/BadSmell.java`
+#### Snippet
+```java
+    private String projectName;
+    private String projectUrl;
+    private String commitHash;
+    private Position position;
+
+```
+
+### FieldMayBeFinal
+Field `filePath` may be 'final'
+in `persistence/src/main/java/io/github/martinwitt/laughing_train/persistence/BadSmell.java`
+#### Snippet
+```java
+    private String identifier;
+    private String ruleID;
+    private String filePath;
+    private String message;
+    private String messageMarkdown;
+```
+
+### FieldMayBeFinal
+Field `snippet` may be 'final'
+in `persistence/src/main/java/io/github/martinwitt/laughing_train/persistence/BadSmell.java`
+#### Snippet
+```java
+    private String message;
+    private String messageMarkdown;
+    private String snippet;
+    private String projectName;
+    private String projectUrl;
+```
+
+### FieldMayBeFinal
+Field `position` may be 'final'
+in `persistence/src/main/java/io/github/martinwitt/laughing_train/persistence/BadSmell.java`
+#### Snippet
+```java
+    private String projectUrl;
+    private String commitHash;
+    private Position position;
+
+    public BadSmell(AnalyzerResult result, String projectName, String projectUrl, String commitHash) {
+```
+
+### FieldMayBeFinal
+Field `property` may be 'final'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/config/ConfigStore.java`
+#### Snippet
+```java
+
+    private static final String CONFIG_FILE_NAME = "app.properties";
+    private Properties property;
+
+    public ConfigStore() {
+```
+
+### FieldMayBeFinal
+Field `projectDaoConverter` may be 'final'
+in `persistence/src/main/java/io/github/martinwitt/laughing_train/persistence/impl/MongoProjectRepository.java`
+#### Snippet
+```java
+
     private static final FluentLogger logger = FluentLogger.forEnclosingClass();
-    private boolean changed;
-    private Set<CtType<?>> changedTypes = new HashSet<>();
-    private Changelog changelog = new Changelog();
+    private ProjectDaoConverter projectDaoConverter = new ProjectDaoConverter();
+
+    public List<Project> findByProjectName(String projectName) {
+```
+
+### FieldMayBeFinal
+Field `text` may be 'final'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/history/MarkdownString.java`
+#### Snippet
+```java
+public class MarkdownString {
+
+    private String text;
+    private String markdownText;
 
 ```
 
@@ -1448,39 +1556,75 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/history/Mar
 ```
 
 ### FieldMayBeFinal
-Field `text` may be 'final'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/history/MarkdownString.java`
+Field `changes` may be 'final'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/history/Changelog.java`
 #### Snippet
 ```java
-public class MarkdownString {
+public class Changelog {
 
-    private String text;
-    private String markdownText;
+    private List<Change> changes = new ArrayList<>();
 
+    public void addChange(Change change) {
 ```
 
 ### FieldMayBeFinal
-Field `importString` may be 'final'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/ImportHelper.java`
+Field `typeRefQNames` may be 'final'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/spoon/ImportCleaner.java`
 #### Snippet
 ```java
-        }
+        private Map<String, CtImport> computedImports;
+        private String packageQName;
+        private Set<String> typeRefQNames;
 
-        private String importString;
-        private CtImport result;
-
+        Context(CtCompilationUnit cu) {
 ```
 
 ### FieldMayBeFinal
-Field `endLine` may be 'final'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/PositionScanner.java`
+Field `computedImports` may be 'final'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/spoon/ImportCleaner.java`
 #### Snippet
 ```java
-    private int startLine;
-    private int startColumn;
-    private int endLine;
-    private int endColumn;
-    private int charOffset;
+    public class Context {
+        private CtCompilationUnit compilationUnit;
+        private Map<String, CtImport> computedImports;
+        private String packageQName;
+        private Set<String> typeRefQNames;
+```
+
+### FieldMayBeFinal
+Field `compilationUnit` may be 'final'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/spoon/ImportCleaner.java`
+#### Snippet
+```java
+    /** a set of imports for a given compilation unit */
+    public class Context {
+        private CtCompilationUnit compilationUnit;
+        private Map<String, CtImport> computedImports;
+        private String packageQName;
+```
+
+### FieldMayBeFinal
+Field `qodanaCreatorSupplier` may be 'final'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/QodanaBuilder.java`
+#### Snippet
+```java
+
+    private List<UnaryOperator<QodanaRefactor.Builder>> qodanaCreator;
+    private Supplier<QodanaRefactor.Builder> qodanaCreatorSupplier;
+
+    public QodanaBuilder(ChangeListener listener) {
+```
+
+### FieldMayBeFinal
+Field `qodanaCreator` may be 'final'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/QodanaBuilder.java`
+#### Snippet
+```java
+public class QodanaBuilder {
+
+    private List<UnaryOperator<QodanaRefactor.Builder>> qodanaCreator;
+    private Supplier<QodanaRefactor.Builder> qodanaCreatorSupplier;
+
 ```
 
 ### FieldMayBeFinal
@@ -1508,219 +1652,39 @@ public class PositionScanner extends EarlyTerminatingScanner<List<CtElement>> {
 ```
 
 ### FieldMayBeFinal
-Field `projectConfigConverter` may be 'final'
-in `persistence/src/main/java/io/github/martinwitt/laughing_train/persistence/impl/MongoProjectConfigRepository.java`
+Field `endLine` may be 'final'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/PositionScanner.java`
 #### Snippet
 ```java
-public class MongoProjectConfigRepository implements ProjectConfigRepository, PanacheMongoRepository<ProjectConfigDao> {
-
-    private static ProjectConfigConverter projectConfigConverter = new ProjectConfigConverter();
-
-    public List<ProjectConfig> findByProjectUrl(String projectUrl) {
+    private int startLine;
+    private int startColumn;
+    private int endLine;
+    private int endColumn;
+    private int charOffset;
 ```
 
 ### FieldMayBeFinal
-Field `badSmell` may be 'final'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/rules/ProtectedMemberInFinalClass.java`
+Field `changelog` may be 'final'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/history/ChangeListener.java`
 #### Snippet
 ```java
-public class ProtectedMemberInFinalClass extends AbstractRefactoring {
+    private boolean changed;
+    private Set<CtType<?>> changedTypes = new HashSet<>();
+    private Changelog changelog = new Changelog();
 
-    private static BadSmell badSmell = new BadSmell() {
-
-        @Override
+    public boolean isChanged() {
 ```
 
 ### FieldMayBeFinal
-Field `afterRefactorStep` may be 'final'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/Refactoring.java`
+Field `changedTypes` may be 'final'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/history/ChangeListener.java`
 #### Snippet
 ```java
-        private RepoCheckout repoCheckout;
-        private QodanaRefactor qodanaRefactor;
-        private List<AfterRefactorStep> afterRefactorStep = new ArrayList<>();
-        private ChangeListener listener = new ChangeListener();
-        private IPrinting printing = null;
-```
+    private static final FluentLogger logger = FluentLogger.forEnclosingClass();
+    private boolean changed;
+    private Set<CtType<?>> changedTypes = new HashSet<>();
+    private Changelog changelog = new Changelog();
 
-### FieldMayBeFinal
-Field `listener` may be 'final'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/Refactoring.java`
-#### Snippet
-```java
-    private QodanaRefactor qodanaRefactor;
-    private List<AfterRefactorStep> afterRefactorSteps;
-    private ChangeListener listener;
-    private IPrinting printing;
-    private String subProjectSuffix;
-```
-
-### FieldMayBeFinal
-Field `repoCheckout` may be 'final'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/Refactoring.java`
-#### Snippet
-```java
-
-    public static class Builder {
-        private RepoCheckout repoCheckout;
-        private QodanaRefactor qodanaRefactor;
-        private List<AfterRefactorStep> afterRefactorStep = new ArrayList<>();
-```
-
-### FieldMayBeFinal
-Field `qodanaRefactor` may be 'final'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/Refactoring.java`
-#### Snippet
-```java
-    public static class Builder {
-        private RepoCheckout repoCheckout;
-        private QodanaRefactor qodanaRefactor;
-        private List<AfterRefactorStep> afterRefactorStep = new ArrayList<>();
-        private ChangeListener listener = new ChangeListener();
-```
-
-### FieldMayBeFinal
-Field `printing` may be 'final'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/Refactoring.java`
-#### Snippet
-```java
-    private List<AfterRefactorStep> afterRefactorSteps;
-    private ChangeListener listener;
-    private IPrinting printing;
-    private String subProjectSuffix;
-
-```
-
-### FieldMayBeFinal
-Field `afterRefactorSteps` may be 'final'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/Refactoring.java`
-#### Snippet
-```java
-    private RepoCheckout repoCheckout;
-    private QodanaRefactor qodanaRefactor;
-    private List<AfterRefactorStep> afterRefactorSteps;
-    private ChangeListener listener;
-    private IPrinting printing;
-```
-
-### FieldMayBeFinal
-Field `subProjectSuffix` may be 'final'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/Refactoring.java`
-#### Snippet
-```java
-    private ChangeListener listener;
-    private IPrinting printing;
-    private String subProjectSuffix;
-
-    private Refactoring(Refactoring.Builder builder) {
-```
-
-### FieldMayBeFinal
-Field `qodanaRefactor` may be 'final'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/Refactoring.java`
-#### Snippet
-```java
-
-    private RepoCheckout repoCheckout;
-    private QodanaRefactor qodanaRefactor;
-    private List<AfterRefactorStep> afterRefactorSteps;
-    private ChangeListener listener;
-```
-
-### FieldMayBeFinal
-Field `repoCheckout` may be 'final'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/Refactoring.java`
-#### Snippet
-```java
-public class Refactoring {
-
-    private RepoCheckout repoCheckout;
-    private QodanaRefactor qodanaRefactor;
-    private List<AfterRefactorStep> afterRefactorSteps;
-```
-
-### FieldMayBeFinal
-Field `queue` may be 'final'
-in `github-bot/src/main/java/io/github/martinwitt/laughing_train/mining/PeriodicMiner.java`
-#### Snippet
-```java
-
-    private final Random random = new Random();
-    private Queue<Project> queue = new ArrayDeque<>();
-
-    public PeriodicMiner(
-```
-
-### FieldMayBeFinal
-Field `style` may be 'final'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/formatting/ImportGrouper.java`
-#### Snippet
-```java
-public class ImportGrouper extends AbstractProcessor<CtElement> {
-
-    private ImportGrouping style;
-
-    public ImportGrouper(ImportGrouping style) {
-```
-
-### FieldMayBeFinal
-Field `qodanaCreator` may be 'final'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/QodanaBuilder.java`
-#### Snippet
-```java
-public class QodanaBuilder {
-
-    private List<UnaryOperator<QodanaRefactor.Builder>> qodanaCreator;
-    private Supplier<QodanaRefactor.Builder> qodanaCreatorSupplier;
-
-```
-
-### FieldMayBeFinal
-Field `qodanaCreatorSupplier` may be 'final'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/QodanaBuilder.java`
-#### Snippet
-```java
-
-    private List<UnaryOperator<QodanaRefactor.Builder>> qodanaCreator;
-    private Supplier<QodanaRefactor.Builder> qodanaCreatorSupplier;
-
-    public QodanaBuilder(ChangeListener listener) {
-```
-
-### FieldMayBeFinal
-Field `projectName` may be 'final'
-in `commons/src/main/java/io/github/martinwitt/laughing_train/domain/entity/Project.java`
-#### Snippet
-```java
-public class Project implements Serializable {
-
-    private String projectName;
-    private String projectUrl;
-    private List<String> commitHashes;
-```
-
-### FieldMayBeFinal
-Field `projectUrl` may be 'final'
-in `commons/src/main/java/io/github/martinwitt/laughing_train/domain/entity/Project.java`
-#### Snippet
-```java
-
-    private String projectName;
-    private String projectUrl;
-    private List<String> commitHashes;
-
-```
-
-### FieldMayBeFinal
-Field `commitHashes` may be 'final'
-in `commons/src/main/java/io/github/martinwitt/laughing_train/domain/entity/Project.java`
-#### Snippet
-```java
-    private String projectName;
-    private String projectUrl;
-    private List<String> commitHashes;
-
-    public Project(String projectName, String projectUrl) {
 ```
 
 ### FieldMayBeFinal
@@ -1760,15 +1724,27 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/history/Cha
 ```
 
 ### FieldMayBeFinal
-Field `projectDaoConverter` may be 'final'
-in `persistence/src/main/java/io/github/martinwitt/laughing_train/persistence/impl/MongoProjectRepository.java`
+Field `projectConfigConverter` may be 'final'
+in `persistence/src/main/java/io/github/martinwitt/laughing_train/persistence/impl/MongoProjectConfigRepository.java`
 #### Snippet
 ```java
+public class MongoProjectConfigRepository implements ProjectConfigRepository, PanacheMongoRepository<ProjectConfigDao> {
 
-    private static final FluentLogger logger = FluentLogger.forEnclosingClass();
-    private ProjectDaoConverter projectDaoConverter = new ProjectDaoConverter();
+    private static ProjectConfigConverter projectConfigConverter = new ProjectConfigConverter();
 
-    public List<Project> findByProjectName(String projectName) {
+    public List<ProjectConfig> findByProjectUrl(String projectUrl) {
+```
+
+### FieldMayBeFinal
+Field `listener` may be 'final'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/QodanaRefactor.java`
+#### Snippet
+```java
+    public static class Builder {
+
+        private ChangeListener listener;
+        private Map<String, Function<AnalyzerResult, AbstractRefactoring>> ruleParser = new HashMap<>();
+        private List<Consumer<QodanaAnalyzer.Builder>> settings = new ArrayList<>();
 ```
 
 ### FieldMayBeFinal
@@ -1808,18 +1784,6 @@ public class QodanaRefactor extends TransformationProcessor<CtType<?>> {
 ```
 
 ### FieldMayBeFinal
-Field `refactorings` may be 'final'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/QodanaRefactor.java`
-#### Snippet
-```java
-
-    private Map<RuleId, Function<AnalyzerResult, AbstractRefactoring>> ruleParser;
-    private List<AbstractRefactoring> refactorings;
-    private List<Consumer<QodanaAnalyzer.Builder>> settings = new ArrayList<>();
-    private List<AnalyzerResult> results;
-```
-
-### FieldMayBeFinal
 Field `settings` may be 'final'
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/QodanaRefactor.java`
 #### Snippet
@@ -1832,171 +1796,15 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qo
 ```
 
 ### FieldMayBeFinal
-Field `listener` may be 'final'
+Field `refactorings` may be 'final'
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/QodanaRefactor.java`
 #### Snippet
 ```java
-    public static class Builder {
 
-        private ChangeListener listener;
-        private Map<String, Function<AnalyzerResult, AbstractRefactoring>> ruleParser = new HashMap<>();
-        private List<Consumer<QodanaAnalyzer.Builder>> settings = new ArrayList<>();
-```
-
-### FieldMayBeFinal
-Field `processors` may be 'final'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/TransformationEngine.java`
-#### Snippet
-```java
-
-    private static final FluentLogger LOGGER = FluentLogger.forEnclosingClass();
-    private List<Function<ChangeListener, TransformationProcessor<?>>> processors;
-    private IPrinting printing;
-    private ChangeListener changeListener;
-```
-
-### FieldMayBeFinal
-Field `position` may be 'final'
-in `persistence/src/main/java/io/github/martinwitt/laughing_train/persistence/BadSmell.java`
-#### Snippet
-```java
-    private String projectUrl;
-    private String commitHash;
-    private Position position;
-
-    public BadSmell(AnalyzerResult result, String projectName, String projectUrl, String commitHash) {
-```
-
-### FieldMayBeFinal
-Field `filePath` may be 'final'
-in `persistence/src/main/java/io/github/martinwitt/laughing_train/persistence/BadSmell.java`
-#### Snippet
-```java
-    private String identifier;
-    private String ruleID;
-    private String filePath;
-    private String message;
-    private String messageMarkdown;
-```
-
-### FieldMayBeFinal
-Field `commitHash` may be 'final'
-in `persistence/src/main/java/io/github/martinwitt/laughing_train/persistence/BadSmell.java`
-#### Snippet
-```java
-    private String projectName;
-    private String projectUrl;
-    private String commitHash;
-    private Position position;
-
-```
-
-### FieldMayBeFinal
-Field `projectUrl` may be 'final'
-in `persistence/src/main/java/io/github/martinwitt/laughing_train/persistence/BadSmell.java`
-#### Snippet
-```java
-    private String snippet;
-    private String projectName;
-    private String projectUrl;
-    private String commitHash;
-    private Position position;
-```
-
-### FieldMayBeFinal
-Field `snippet` may be 'final'
-in `persistence/src/main/java/io/github/martinwitt/laughing_train/persistence/BadSmell.java`
-#### Snippet
-```java
-    private String message;
-    private String messageMarkdown;
-    private String snippet;
-    private String projectName;
-    private String projectUrl;
-```
-
-### FieldMayBeFinal
-Field `ruleID` may be 'final'
-in `persistence/src/main/java/io/github/martinwitt/laughing_train/persistence/BadSmell.java`
-#### Snippet
-```java
-    private String analyzer;
-    private String identifier;
-    private String ruleID;
-    private String filePath;
-    private String message;
-```
-
-### FieldMayBeFinal
-Field `messageMarkdown` may be 'final'
-in `persistence/src/main/java/io/github/martinwitt/laughing_train/persistence/BadSmell.java`
-#### Snippet
-```java
-    private String filePath;
-    private String message;
-    private String messageMarkdown;
-    private String snippet;
-    private String projectName;
-```
-
-### FieldMayBeFinal
-Field `analyzer` may be 'final'
-in `persistence/src/main/java/io/github/martinwitt/laughing_train/persistence/BadSmell.java`
-#### Snippet
-```java
-public class BadSmell implements AnalyzerResult {
-
-    private String analyzer;
-    private String identifier;
-    private String ruleID;
-```
-
-### FieldMayBeFinal
-Field `message` may be 'final'
-in `persistence/src/main/java/io/github/martinwitt/laughing_train/persistence/BadSmell.java`
-#### Snippet
-```java
-    private String ruleID;
-    private String filePath;
-    private String message;
-    private String messageMarkdown;
-    private String snippet;
-```
-
-### FieldMayBeFinal
-Field `projectName` may be 'final'
-in `persistence/src/main/java/io/github/martinwitt/laughing_train/persistence/BadSmell.java`
-#### Snippet
-```java
-    private String messageMarkdown;
-    private String snippet;
-    private String projectName;
-    private String projectUrl;
-    private String commitHash;
-```
-
-### FieldMayBeFinal
-Field `identifier` may be 'final'
-in `persistence/src/main/java/io/github/martinwitt/laughing_train/persistence/BadSmell.java`
-#### Snippet
-```java
-
-    private String analyzer;
-    private String identifier;
-    private String ruleID;
-    private String filePath;
-```
-
-### FieldMayBeFinal
-Field `prettyPrinter` may be 'final'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/printing/ChangedTypePrinting.java`
-#### Snippet
-```java
-public class ChangedTypePrinting implements IPrinting {
-    private static final FluentLogger logger = FluentLogger.forEnclosingClass();
-    private PrettyPrinter prettyPrinter;
-
-    public ChangedTypePrinting(PrettyPrinter prettyPrinter) {
+    private Map<RuleId, Function<AnalyzerResult, AbstractRefactoring>> ruleParser;
+    private List<AbstractRefactoring> refactorings;
+    private List<Consumer<QodanaAnalyzer.Builder>> settings = new ArrayList<>();
+    private List<AnalyzerResult> results;
 ```
 
 ### FieldMayBeFinal
@@ -2012,39 +1820,231 @@ public class ToArrayCallWithZeroLengthArrayArgument extends AbstractRefactoring 
 ```
 
 ### FieldMayBeFinal
-Field `qodanaImageName` may be 'final'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/QodanaAnalyzer.java`
+Field `style` may be 'final'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/formatting/ImportGrouper.java`
 #### Snippet
 ```java
-    private static final FluentLogger logger = FluentLogger.forEnclosingClass();
-    private String resultFolder;
-    private String qodanaImageName;
-    private String resultPathString;
-    private String sourceFileRoot;
+public class ImportGrouper extends AbstractProcessor<CtElement> {
+
+    private ImportGrouping style;
+
+    public ImportGrouper(ImportGrouping style) {
 ```
 
 ### FieldMayBeFinal
-Field `resultPathString` may be 'final'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/QodanaAnalyzer.java`
+Field `importString` may be 'final'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/ImportHelper.java`
 #### Snippet
 ```java
-    private String resultFolder;
-    private String qodanaImageName;
-    private String resultPathString;
-    private String sourceFileRoot;
+        }
+
+        private String importString;
+        private CtImport result;
 
 ```
 
 ### FieldMayBeFinal
-Field `resultFolder` may be 'final'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/QodanaAnalyzer.java`
+Field `printing` may be 'final'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/Refactoring.java`
 #### Snippet
 ```java
-    private static final int QODANA_TIME_LIMIT = 25;
+    private List<AfterRefactorStep> afterRefactorSteps;
+    private ChangeListener listener;
+    private IPrinting printing;
+    private String subProjectSuffix;
+
+```
+
+### FieldMayBeFinal
+Field `subProjectSuffix` may be 'final'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/Refactoring.java`
+#### Snippet
+```java
+    private ChangeListener listener;
+    private IPrinting printing;
+    private String subProjectSuffix;
+
+    private Refactoring(Refactoring.Builder builder) {
+```
+
+### FieldMayBeFinal
+Field `afterRefactorStep` may be 'final'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/Refactoring.java`
+#### Snippet
+```java
+        private RepoCheckout repoCheckout;
+        private QodanaRefactor qodanaRefactor;
+        private List<AfterRefactorStep> afterRefactorStep = new ArrayList<>();
+        private ChangeListener listener = new ChangeListener();
+        private IPrinting printing = null;
+```
+
+### FieldMayBeFinal
+Field `listener` may be 'final'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/Refactoring.java`
+#### Snippet
+```java
+    private QodanaRefactor qodanaRefactor;
+    private List<AfterRefactorStep> afterRefactorSteps;
+    private ChangeListener listener;
+    private IPrinting printing;
+    private String subProjectSuffix;
+```
+
+### FieldMayBeFinal
+Field `qodanaRefactor` may be 'final'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/Refactoring.java`
+#### Snippet
+```java
+    public static class Builder {
+        private RepoCheckout repoCheckout;
+        private QodanaRefactor qodanaRefactor;
+        private List<AfterRefactorStep> afterRefactorStep = new ArrayList<>();
+        private ChangeListener listener = new ChangeListener();
+```
+
+### FieldMayBeFinal
+Field `afterRefactorSteps` may be 'final'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/Refactoring.java`
+#### Snippet
+```java
+    private RepoCheckout repoCheckout;
+    private QodanaRefactor qodanaRefactor;
+    private List<AfterRefactorStep> afterRefactorSteps;
+    private ChangeListener listener;
+    private IPrinting printing;
+```
+
+### FieldMayBeFinal
+Field `qodanaRefactor` may be 'final'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/Refactoring.java`
+#### Snippet
+```java
+
+    private RepoCheckout repoCheckout;
+    private QodanaRefactor qodanaRefactor;
+    private List<AfterRefactorStep> afterRefactorSteps;
+    private ChangeListener listener;
+```
+
+### FieldMayBeFinal
+Field `repoCheckout` may be 'final'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/Refactoring.java`
+#### Snippet
+```java
+
+    public static class Builder {
+        private RepoCheckout repoCheckout;
+        private QodanaRefactor qodanaRefactor;
+        private List<AfterRefactorStep> afterRefactorStep = new ArrayList<>();
+```
+
+### FieldMayBeFinal
+Field `repoCheckout` may be 'final'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/api/Refactoring.java`
+#### Snippet
+```java
+public class Refactoring {
+
+    private RepoCheckout repoCheckout;
+    private QodanaRefactor qodanaRefactor;
+    private List<AfterRefactorStep> afterRefactorSteps;
+```
+
+### FieldMayBeFinal
+Field `badSmell` may be 'final'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/rules/ProtectedMemberInFinalClass.java`
+#### Snippet
+```java
+public class ProtectedMemberInFinalClass extends AbstractRefactoring {
+
+    private static BadSmell badSmell = new BadSmell() {
+
+        @Override
+```
+
+### FieldMayBeFinal
+Field `projectUrl` may be 'final'
+in `commons/src/main/java/io/github/martinwitt/laughing_train/domain/entity/Project.java`
+#### Snippet
+```java
+
+    private String projectName;
+    private String projectUrl;
+    private List<String> commitHashes;
+
+```
+
+### FieldMayBeFinal
+Field `projectName` may be 'final'
+in `commons/src/main/java/io/github/martinwitt/laughing_train/domain/entity/Project.java`
+#### Snippet
+```java
+public class Project implements Serializable {
+
+    private String projectName;
+    private String projectUrl;
+    private List<String> commitHashes;
+```
+
+### FieldMayBeFinal
+Field `commitHashes` may be 'final'
+in `commons/src/main/java/io/github/martinwitt/laughing_train/domain/entity/Project.java`
+#### Snippet
+```java
+    private String projectName;
+    private String projectUrl;
+    private List<String> commitHashes;
+
+    public Project(String projectName, String projectUrl) {
+```
+
+### FieldMayBeFinal
+Field `processors` may be 'final'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/TransformationEngine.java`
+#### Snippet
+```java
+
+    private static final FluentLogger LOGGER = FluentLogger.forEnclosingClass();
+    private List<Function<ChangeListener, TransformationProcessor<?>>> processors;
+    private IPrinting printing;
+    private ChangeListener changeListener;
+```
+
+### FieldMayBeFinal
+Field `url` may be 'final'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/history/Link.java`
+#### Snippet
+```java
+public class Link {
+
+    private String url;
+
+    public Link(String url) {
+```
+
+### FieldMayBeFinal
+Field `queue` may be 'final'
+in `github-bot/src/main/java/io/github/martinwitt/laughing_train/mining/PeriodicMiner.java`
+#### Snippet
+```java
+
+    private final Random random = new Random();
+    private Queue<Project> queue = new ArrayDeque<>();
+
+    public PeriodicMiner(
+```
+
+### FieldMayBeFinal
+Field `prettyPrinter` may be 'final'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/printing/ChangedTypePrinting.java`
+#### Snippet
+```java
+public class ChangedTypePrinting implements IPrinting {
     private static final FluentLogger logger = FluentLogger.forEnclosingClass();
-    private String resultFolder;
-    private String qodanaImageName;
-    private String resultPathString;
+    private PrettyPrinter prettyPrinter;
+
+    public ChangedTypePrinting(PrettyPrinter prettyPrinter) {
 ```
 
 ### FieldMayBeFinal
@@ -2060,51 +2060,39 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qo
 ```
 
 ### FieldMayBeFinal
-Field `property` may be 'final'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/config/ConfigStore.java`
+Field `resultPathString` may be 'final'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/QodanaAnalyzer.java`
 #### Snippet
 ```java
+    private String resultFolder;
+    private String qodanaImageName;
+    private String resultPathString;
+    private String sourceFileRoot;
 
-    private static final String CONFIG_FILE_NAME = "app.properties";
-    private Properties property;
-
-    public ConfigStore() {
 ```
 
 ### FieldMayBeFinal
-Field `computedImports` may be 'final'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/spoon/ImportCleaner.java`
+Field `qodanaImageName` may be 'final'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/QodanaAnalyzer.java`
 #### Snippet
 ```java
-    public class Context {
-        private CtCompilationUnit compilationUnit;
-        private Map<String, CtImport> computedImports;
-        private String packageQName;
-        private Set<String> typeRefQNames;
+    private static final FluentLogger logger = FluentLogger.forEnclosingClass();
+    private String resultFolder;
+    private String qodanaImageName;
+    private String resultPathString;
+    private String sourceFileRoot;
 ```
 
 ### FieldMayBeFinal
-Field `typeRefQNames` may be 'final'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/spoon/ImportCleaner.java`
+Field `resultFolder` may be 'final'
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/QodanaAnalyzer.java`
 #### Snippet
 ```java
-        private Map<String, CtImport> computedImports;
-        private String packageQName;
-        private Set<String> typeRefQNames;
-
-        Context(CtCompilationUnit cu) {
-```
-
-### FieldMayBeFinal
-Field `compilationUnit` may be 'final'
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/spoon/ImportCleaner.java`
-#### Snippet
-```java
-    /** a set of imports for a given compilation unit */
-    public class Context {
-        private CtCompilationUnit compilationUnit;
-        private Map<String, CtImport> computedImports;
-        private String packageQName;
+    private static final int QODANA_TIME_LIMIT = 25;
+    private static final FluentLogger logger = FluentLogger.forEnclosingClass();
+    private String resultFolder;
+    private String qodanaImageName;
+    private String resultPathString;
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
@@ -2134,18 +2122,6 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformat
 
 ### UnnecessaryLocalVariable
 Local variable `junit5AssertTrue` is redundant
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/junit/simplification/AssertTrueEqualsCheck.java`
-#### Snippet
-```java
-    public void process(CtInvocation<?> invocation) {
-        if (invocation.getExecutable() != null && JunitHelper.isJunit5AssertTrue(invocation.getExecutable())) {
-            CtInvocation<?> junit5AssertTrue = invocation;
-            CtExpression<?> expression = invocation.getArguments().iterator().next();
-            if (expression instanceof CtInvocation) {
-```
-
-### UnnecessaryLocalVariable
-Local variable `junit5AssertTrue` is redundant
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/junit/simplification/AssertTrueSameCheck.java`
 #### Snippet
 ```java
@@ -2163,6 +2139,18 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformat
 ```java
     public void process(CtInvocation<?> invocation) {
         if (invocation.getExecutable() != null && JunitHelper.isJunit5AssertFalse(invocation.getExecutable())) {
+            CtInvocation<?> junit5AssertTrue = invocation;
+            CtExpression<?> expression = invocation.getArguments().iterator().next();
+            if (expression instanceof CtInvocation) {
+```
+
+### UnnecessaryLocalVariable
+Local variable `junit5AssertTrue` is redundant
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/junit/simplification/AssertTrueEqualsCheck.java`
+#### Snippet
+```java
+    public void process(CtInvocation<?> invocation) {
+        if (invocation.getExecutable() != null && JunitHelper.isJunit5AssertTrue(invocation.getExecutable())) {
             CtInvocation<?> junit5AssertTrue = invocation;
             CtExpression<?> expression = invocation.getArguments().iterator().next();
             if (expression instanceof CtInvocation) {
@@ -2207,18 +2195,6 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformat
 
 ### RedundantStringFormatCall
 Redundant call to `format()`
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/junit/simplification/AssertTrueEqualsCheck.java`
-#### Snippet
-```java
-                parent,
-                new Change(
-                        String.format("Replaced assertTrue checking equals with assertEquals"),
-                        "AssertTrue with equals instead of AssertEquals",
-                        parent));
-```
-
-### RedundantStringFormatCall
-Redundant call to `format()`
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/junit/simplification/AssertTrueSameCheck.java`
 #### Snippet
 ```java
@@ -2238,6 +2214,18 @@ in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformat
                 new Change(
                         String.format("Replaced assertFalse checking equals with assertNotEquals"),
                         "assertFalse with equals instead of assertNotEquals",
+                        parent));
+```
+
+### RedundantStringFormatCall
+Redundant call to `format()`
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/transformations/junit/simplification/AssertTrueEqualsCheck.java`
+#### Snippet
+```java
+                parent,
+                new Change(
+                        String.format("Replaced assertTrue checking equals with assertEquals"),
+                        "AssertTrue with equals instead of AssertEquals",
                         parent));
 ```
 
@@ -2334,119 +2322,47 @@ String concatenation as argument to `StringBuilder.append()` call
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/CommitBuilder.java`
 #### Snippet
 ```java
+                .collect(Collectors.toList());
+        for (BadSmell badSmell : badSmells) {
+            sb.append("## " + badSmell.getName().asText() + "\n");
+            sb.append(badSmell.getDescription().asMarkdown() + "\n");
+            for (Link link : badSmell.getLinks()) {
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/CommitBuilder.java`
+#### Snippet
+```java
+        for (BadSmell badSmell : badSmells) {
+            sb.append("## " + badSmell.getName().asText() + "\n");
+            sb.append(badSmell.getDescription().asMarkdown() + "\n");
+            for (Link link : badSmell.getLinks()) {
+                sb.append("- " + link + "\n");
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/CommitBuilder.java`
+#### Snippet
+```java
+            sb.append(badSmell.getDescription().asMarkdown() + "\n");
+            for (Link link : badSmell.getLinks()) {
+                sb.append("- " + link + "\n");
+            }
+        }
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/CommitBuilder.java`
+#### Snippet
+```java
     private static void appendChanges(Map<String, List<Change>> changesByType, StringBuilder sb) {
         for (Entry<String, List<Change>> entry : changesByType.entrySet()) {
             sb.append("### " + entry.getKey() + "\n");
             sb.append(entry.getValue().stream()
                     .map(c -> "- " + c.getChangeText().asMarkdown())
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/CommitBuilder.java`
-#### Snippet
-```java
-                .collect(Collectors.toList());
-        for (BadSmell badSmell : badSmells) {
-            sb.append("## " + badSmell.getName().asText() + "\n");
-            sb.append(badSmell.getDescription().asMarkdown() + "\n");
-            for (Link link : badSmell.getLinks()) {
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/CommitBuilder.java`
-#### Snippet
-```java
-        for (BadSmell badSmell : badSmells) {
-            sb.append("## " + badSmell.getName().asText() + "\n");
-            sb.append(badSmell.getDescription().asMarkdown() + "\n");
-            for (Link link : badSmell.getLinks()) {
-                sb.append("- " + link + "\n");
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/CommitBuilder.java`
-#### Snippet
-```java
-            sb.append(badSmell.getDescription().asMarkdown() + "\n");
-            for (Link link : badSmell.getLinks()) {
-                sb.append("- " + link + "\n");
-            }
-        }
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/PullRequest.java`
-#### Snippet
-```java
-                .collect(Collectors.toList());
-        for (BadSmell badSmell : badSmells) {
-            sb.append("## " + badSmell.getName().asText() + "\n");
-            sb.append(badSmell.getDescription().asMarkdown() + "\n");
-            for (Link link : badSmell.getLinks()) {
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/PullRequest.java`
-#### Snippet
-```java
-        for (BadSmell badSmell : badSmells) {
-            sb.append("## " + badSmell.getName().asText() + "\n");
-            sb.append(badSmell.getDescription().asMarkdown() + "\n");
-            for (Link link : badSmell.getLinks()) {
-                sb.append("- " + link + "\n");
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/PullRequest.java`
-#### Snippet
-```java
-            sb.append(badSmell.getDescription().asMarkdown() + "\n");
-            for (Link link : badSmell.getLinks()) {
-                sb.append("- " + link + "\n");
-            }
-        }
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/PullRequest.java`
-#### Snippet
-```java
-                .collect(Collectors.toList());
-        for (BadSmell badSmell : badSmells) {
-            sb.append("## " + badSmell.getName().asText() + "\n");
-            sb.append(badSmell.getDescription().asMarkdown() + "\n");
-            for (Link link : badSmell.getLinks()) {
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/PullRequest.java`
-#### Snippet
-```java
-        for (BadSmell badSmell : badSmells) {
-            sb.append("## " + badSmell.getName().asText() + "\n");
-            sb.append(badSmell.getDescription().asMarkdown() + "\n");
-            for (Link link : badSmell.getLinks()) {
-                sb.append("- " + link + "\n");
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/PullRequest.java`
-#### Snippet
-```java
-            sb.append(badSmell.getDescription().asMarkdown() + "\n");
-            for (Link link : badSmell.getLinks()) {
-                sb.append("- " + link + "\n");
-            }
-        }
 ```
 
 ### StringConcatenationInsideStringBufferAppend
@@ -2466,6 +2382,78 @@ String concatenation as argument to `StringBuilder.append()` call
 in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/PullRequest.java`
 #### Snippet
 ```java
+                .collect(Collectors.toList());
+        for (BadSmell badSmell : badSmells) {
+            sb.append("## " + badSmell.getName().asText() + "\n");
+            sb.append(badSmell.getDescription().asMarkdown() + "\n");
+            for (Link link : badSmell.getLinks()) {
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/PullRequest.java`
+#### Snippet
+```java
+        for (BadSmell badSmell : badSmells) {
+            sb.append("## " + badSmell.getName().asText() + "\n");
+            sb.append(badSmell.getDescription().asMarkdown() + "\n");
+            for (Link link : badSmell.getLinks()) {
+                sb.append("- " + link + "\n");
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/PullRequest.java`
+#### Snippet
+```java
+            sb.append(badSmell.getDescription().asMarkdown() + "\n");
+            for (Link link : badSmell.getLinks()) {
+                sb.append("- " + link + "\n");
+            }
+        }
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/PullRequest.java`
+#### Snippet
+```java
+                .collect(Collectors.toList());
+        for (BadSmell badSmell : badSmells) {
+            sb.append("## " + badSmell.getName().asText() + "\n");
+            sb.append(badSmell.getDescription().asMarkdown() + "\n");
+            for (Link link : badSmell.getLinks()) {
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/PullRequest.java`
+#### Snippet
+```java
+        for (BadSmell badSmell : badSmells) {
+            sb.append("## " + badSmell.getName().asText() + "\n");
+            sb.append(badSmell.getDescription().asMarkdown() + "\n");
+            for (Link link : badSmell.getLinks()) {
+                sb.append("- " + link + "\n");
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/PullRequest.java`
+#### Snippet
+```java
+            sb.append(badSmell.getDescription().asMarkdown() + "\n");
+            for (Link link : badSmell.getLinks()) {
+                sb.append("- " + link + "\n");
+            }
+        }
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/github/PullRequest.java`
+#### Snippet
+```java
     private static void appendChanges(Map<String, List<Change>> changesByType, StringBuilder sb) {
         for (Entry<String, List<Change>> entry : changesByType.entrySet()) {
             sb.append("### " + entry.getKey() + "\n");
@@ -2478,11 +2466,11 @@ String concatenation as argument to `StringBuilder.append()` call
 in `github-bot/src/main/java/io/github/martinwitt/laughing_train/ChangelogPrinter.java`
 #### Snippet
 ```java
-        sb.append("## Changes: \n");
-        for (var fix : changes) {
-            sb.append("* " + fix.getChangeText().asMarkdown()).append("\n");
-            if (fix.getAnalyzerResult() != null) {
-                sb.append("<!-- ").append(toYaml(fix.getAnalyzerResult())).append(" -->\n");
+        var changesByBadSmell = changes.stream().collect(Collectors.groupingBy(Change::getBadSmell));
+        for (var change : changesByBadSmell.entrySet()) {
+            sb.append("* %s".formatted(change.getKey().getName().asMarkdown())
+                    + " (%s)%n".formatted(change.getValue().size()));
+        }
 ```
 
 ### StringConcatenationInsideStringBufferAppend
@@ -2490,11 +2478,11 @@ String concatenation as argument to `StringBuilder.append()` call
 in `github-bot/src/main/java/io/github/martinwitt/laughing_train/ChangelogPrinter.java`
 #### Snippet
 ```java
-        var changesByBadSmell = changes.stream().collect(Collectors.groupingBy(Change::getBadSmell));
-        for (var change : changesByBadSmell.entrySet()) {
-            sb.append("* %s".formatted(change.getKey().getName().asMarkdown())
-                    + " (%s)%n".formatted(change.getValue().size()));
-        }
+        sb.append("## Changes: \n");
+        for (var fix : changes) {
+            sb.append("* " + fix.getChangeText().asMarkdown()).append("\n");
+            if (fix.getAnalyzerResult() != null) {
+                sb.append("<!-- ").append(toYaml(fix.getAnalyzerResult())).append(" -->\n");
 ```
 
 ### StringConcatenationInsideStringBufferAppend
