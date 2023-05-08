@@ -11,18 +11,6 @@ I found 22 bad smells with 0 repairable:
 | ReplaceCallWithBinaryOperator | 1 | false |
 ## RuleId[id=UNCHECKED_WARNING]
 ### UNCHECKED_WARNING
-Unchecked cast: 'org.eclipse.keyple.card.calypso.crypto.legacysam.DtoAdapters.CommonSignatureComputationDataAdapter' to 'T'
-in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/DtoAdapters.java`
-#### Snippet
-```java
-      implements CommonSignatureComputationData<T> {
-
-    private final T currentInstance = (T) this;
-    private byte[] data;
-    private byte kif;
-```
-
-### UNCHECKED_WARNING
 Unchecked cast: 'org.eclipse.keyple.card.calypso.crypto.legacysam.DtoAdapters.CommonSignatureVerificationDataAdapter' to 'T'
 in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/DtoAdapters.java`
 #### Snippet
@@ -32,6 +20,18 @@ in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/DtoAdapters.j
     private final T currentInstance = (T) this;
     private byte[] data;
     private byte[] signature;
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'org.eclipse.keyple.card.calypso.crypto.legacysam.DtoAdapters.CommonSignatureComputationDataAdapter' to 'T'
+in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/DtoAdapters.java`
+#### Snippet
+```java
+      implements CommonSignatureComputationData<T> {
+
+    private final T currentInstance = (T) this;
+    private byte[] data;
+    private byte kif;
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
@@ -103,11 +103,11 @@ Result of `Assert.notNull()` is ignored
 in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/LSTransactionManagerFactoryAdapter.java`
 #### Snippet
 ```java
-    Assert.getInstance()
-        .notNull(targetSamContext, "targetSamContext")
-        .notNull(securitySetting, "securitySetting");
-    return new LSAsyncTransactionCreatorManagerAdapter(targetSamContext, securitySetting);
-  }
+          "The provided 'sam' must be an instance of 'LegacySamAdapter'");
+    }
+    Assert.getInstance().notNull(samCommands, "samCommands");
+    return new LSAsyncTransactionExecutorManagerAdapter(
+        (ProxyReaderApi) samReader, (LegacySamAdapter) sam, samCommands);
 ```
 
 ### IgnoreResultOfCall
@@ -115,11 +115,11 @@ Result of `Assert.notNull()` is ignored
 in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/LSTransactionManagerFactoryAdapter.java`
 #### Snippet
 ```java
-          "The provided 'sam' must be an instance of 'LegacySamAdapter'");
-    }
-    Assert.getInstance().notNull(samCommands, "samCommands");
-    return new LSAsyncTransactionExecutorManagerAdapter(
-        (ProxyReaderApi) samReader, (LegacySamAdapter) sam, samCommands);
+    Assert.getInstance()
+        .notNull(targetSamContext, "targetSamContext")
+        .notNull(securitySetting, "securitySetting");
+    return new LSAsyncTransactionCreatorManagerAdapter(targetSamContext, securitySetting);
+  }
 ```
 
 ### IgnoreResultOfCall
@@ -207,6 +207,18 @@ in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/LSSecuritySet
 ```
 
 ### IgnoreResultOfCall
+Result of `Assert.notNull()` is ignored
+in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/LSFreeTransactionManagerAdapter.java`
+#### Snippet
+```java
+  @Override
+  public LSFreeTransactionManager prepareReadSystemKeyParameters(SystemKeyType systemKeyType) {
+    Assert.getInstance().notNull(systemKeyType, "systemKeyType");
+    addTargetSamCommand(new CommandReadKeyParameters(getContext(), systemKeyType));
+    return this;
+```
+
+### IgnoreResultOfCall
 Result of `Assert.isInRange()` is ignored
 in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/LSFreeTransactionManagerAdapter.java`
 #### Snippet
@@ -223,8 +235,8 @@ Result of `Assert.isTrue()` is ignored
 in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/LSFreeTransactionManagerAdapter.java`
 #### Snippet
 ```java
-              dataAdapter.getData().length % 8 == 0, "length of data to sign is a multiple of 8")
-          .isInRange(dataAdapter.getSignatureSize(), 1, 8, MSG_SIGNATURE_SIZE)
+          .notNull(dataAdapter.getSignature(), "signature")
+          .isInRange(dataAdapter.getSignature().length, 1, 8, MSG_SIGNATURE_SIZE)
           .isTrue(
               dataAdapter.getKeyDiversifier() == null
                   || (dataAdapter.getKeyDiversifier().length >= 1
@@ -243,24 +255,12 @@ in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/LSFreeTransac
 ```
 
 ### IgnoreResultOfCall
-Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/LSFreeTransactionManagerAdapter.java`
-#### Snippet
-```java
-  @Override
-  public LSFreeTransactionManager prepareReadSystemKeyParameters(SystemKeyType systemKeyType) {
-    Assert.getInstance().notNull(systemKeyType, "systemKeyType");
-    addTargetSamCommand(new CommandReadKeyParameters(getContext(), systemKeyType));
-    return this;
-```
-
-### IgnoreResultOfCall
 Result of `Assert.isTrue()` is ignored
 in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/LSFreeTransactionManagerAdapter.java`
 #### Snippet
 ```java
-          .notNull(dataAdapter.getSignature(), "signature")
-          .isInRange(dataAdapter.getSignature().length, 1, 8, MSG_SIGNATURE_SIZE)
+              dataAdapter.getData().length % 8 == 0, "length of data to sign is a multiple of 8")
+          .isInRange(dataAdapter.getSignatureSize(), 1, 8, MSG_SIGNATURE_SIZE)
           .isTrue(
               dataAdapter.getKeyDiversifier() == null
                   || (dataAdapter.getKeyDiversifier().length >= 1
