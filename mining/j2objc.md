@@ -109,18 +109,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/TreeUtil.java`
 ## RuleId[id=EmptyStatementBody]
 ### EmptyStatementBody
 `if` statement has empty body
-in `translator/src/main/java/com/google/devtools/j2objc/util/ProGuardUsageParser.java`
-#### Snippet
-```java
-      @Override
-      public boolean processLine(String line) throws IOException {
-        if (line.startsWith("ProGuard, version")
-            || line.startsWith("Reading ")
-            || line.startsWith("    processed in")) {
-```
-
-### EmptyStatementBody
-`if` statement has empty body
 in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
 #### Snippet
 ```java
@@ -153,6 +141,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
       } else if (obsoleteFlags.contains(arg)) {
         // also ignore
       } else if (arg.startsWith("-")) {
+```
+
+### EmptyStatementBody
+`if` statement has empty body
+in `translator/src/main/java/com/google/devtools/j2objc/util/ProGuardUsageParser.java`
+#### Snippet
+```java
+      @Override
+      public boolean processLine(String line) throws IOException {
+        if (line.startsWith("ProGuard, version")
+            || line.startsWith("Reading ")
+            || line.startsWith("    processed in")) {
 ```
 
 ### EmptyStatementBody
@@ -193,18 +193,6 @@ in `protobuf/tests/MessagesTest.java`
 ```
 
 ### CommentedOutCode
-Commented out code (12 lines)
-in `protobuf/tests/EnumsTest.java`
-#### Snippet
-```java
-  // TODO(kstanger): This fails with native ObjC because it doesn't sign-extend
-  // when writing the negative enum value.
-  /*public void testSerialization() throws Exception {
-    EnumMsg msg = getFilledMessage();
-
-```
-
-### CommentedOutCode
 Commented out code (3 lines)
 in `protobuf/tests/EnumsTest.java`
 #### Snippet
@@ -214,6 +202,18 @@ in `protobuf/tests/EnumsTest.java`
     //assertFalse(msg.hasExtension(EnumFields.enumFe));
     //assertEquals(0, msg.getExtensionCount(EnumFields.enumRe));
     //assertEquals(0, msg.getExtensionCount(EnumFields.enumPe));
+```
+
+### CommentedOutCode
+Commented out code (12 lines)
+in `protobuf/tests/EnumsTest.java`
+#### Snippet
+```java
+  // TODO(kstanger): This fails with native ObjC because it doesn't sign-extend
+  // when writing the negative enum value.
+  /*public void testSerialization() throws Exception {
+    EnumMsg msg = getFilledMessage();
+
 ```
 
 ## RuleId[id=RegExpRedundantEscape]
@@ -242,30 +242,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/javac/JavacParser.java`
 ```
 
 ### RegExpRedundantEscape
-Redundant character escape `\*` in RegExp
-in `translator/src/main/java/com/google/devtools/j2objc/translate/OcniExtractor.java`
-#### Snippet
-```java
-
-  private static final String TYPE_REGEX = "\\([\\w\\s\\*<>\\[\\]]+\\)";
-  private static final String PARAM_REGEX = "\\s*:\\s*" + TYPE_REGEX + "\\s*\\w+";
-  private static final String ADDITIONAL_PARAM_REGEX = "\\s+(\\w+)" + PARAM_REGEX;
-  private static final Pattern OBJC_METHOD_DECL_PATTERN = Pattern.compile(
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\*` in RegExp
-in `translator/src/main/java/com/google/devtools/j2objc/translate/OcniExtractor.java`
-#### Snippet
-```java
-  private static final String TYPE_REGEX = "\\([\\w\\s\\*<>\\[\\]]+\\)";
-  private static final String PARAM_REGEX = "\\s*:\\s*" + TYPE_REGEX + "\\s*\\w+";
-  private static final String ADDITIONAL_PARAM_REGEX = "\\s+(\\w+)" + PARAM_REGEX;
-  private static final Pattern OBJC_METHOD_DECL_PATTERN = Pattern.compile(
-      "^\\+|-\\s*" + TYPE_REGEX + "\\s*(\\w+)(" + PARAM_REGEX + "((?:" + ADDITIONAL_PARAM_REGEX
-```
-
-### RegExpRedundantEscape
 Redundant character escape `\\*` in RegExp
 in `translator/src/main/java/com/google/devtools/j2objc/translate/OcniExtractor.java`
 #### Snippet
@@ -278,42 +254,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/OcniExtractor.
 ```
 
 ### RegExpRedundantEscape
-Redundant character escape `\*` in RegExp
-in `translator/src/main/java/com/google/devtools/j2objc/translate/OcniExtractor.java`
-#### Snippet
-```java
-  private static final String ADDITIONAL_PARAM_REGEX = "\\s+(\\w+)" + PARAM_REGEX;
-  private static final Pattern OBJC_METHOD_DECL_PATTERN = Pattern.compile(
-      "^\\+|-\\s*" + TYPE_REGEX + "\\s*(\\w+)(" + PARAM_REGEX + "((?:" + ADDITIONAL_PARAM_REGEX
-      + ")*))?\\s*\\{");
-  private static final Pattern ADDITIONAL_PARAM_PATTERN = Pattern.compile(ADDITIONAL_PARAM_REGEX);
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\*` in RegExp
-in `translator/src/main/java/com/google/devtools/j2objc/translate/OcniExtractor.java`
-#### Snippet
-```java
-  private static final String ADDITIONAL_PARAM_REGEX = "\\s+(\\w+)" + PARAM_REGEX;
-  private static final Pattern OBJC_METHOD_DECL_PATTERN = Pattern.compile(
-      "^\\+|-\\s*" + TYPE_REGEX + "\\s*(\\w+)(" + PARAM_REGEX + "((?:" + ADDITIONAL_PARAM_REGEX
-      + ")*))?\\s*\\{");
-  private static final Pattern ADDITIONAL_PARAM_PATTERN = Pattern.compile(ADDITIONAL_PARAM_REGEX);
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\*` in RegExp
-in `translator/src/main/java/com/google/devtools/j2objc/translate/OcniExtractor.java`
-#### Snippet
-```java
-  private static final String ADDITIONAL_PARAM_REGEX = "\\s+(\\w+)" + PARAM_REGEX;
-  private static final Pattern OBJC_METHOD_DECL_PATTERN = Pattern.compile(
-      "^\\+|-\\s*" + TYPE_REGEX + "\\s*(\\w+)(" + PARAM_REGEX + "((?:" + ADDITIONAL_PARAM_REGEX
-      + ")*))?\\s*\\{");
-  private static final Pattern ADDITIONAL_PARAM_PATTERN = Pattern.compile(ADDITIONAL_PARAM_REGEX);
-```
-
-### RegExpRedundantEscape
 Redundant character escape `\\]` in RegExp
 in `translator/src/main/java/com/google/devtools/j2objc/translate/OcniExtractor.java`
 #### Snippet
@@ -323,6 +263,66 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/OcniExtractor.
       Pattern.compile("/\\*-(\\w*)\\[(.*)\\]-\\*/", Pattern.DOTALL);
 
   /**
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\*` in RegExp
+in `translator/src/main/java/com/google/devtools/j2objc/translate/OcniExtractor.java`
+#### Snippet
+```java
+  private static final String TYPE_REGEX = "\\([\\w\\s\\*<>\\[\\]]+\\)";
+  private static final String PARAM_REGEX = "\\s*:\\s*" + TYPE_REGEX + "\\s*\\w+";
+  private static final String ADDITIONAL_PARAM_REGEX = "\\s+(\\w+)" + PARAM_REGEX;
+  private static final Pattern OBJC_METHOD_DECL_PATTERN = Pattern.compile(
+      "^\\+|-\\s*" + TYPE_REGEX + "\\s*(\\w+)(" + PARAM_REGEX + "((?:" + ADDITIONAL_PARAM_REGEX
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\*` in RegExp
+in `translator/src/main/java/com/google/devtools/j2objc/translate/OcniExtractor.java`
+#### Snippet
+```java
+  private static final String ADDITIONAL_PARAM_REGEX = "\\s+(\\w+)" + PARAM_REGEX;
+  private static final Pattern OBJC_METHOD_DECL_PATTERN = Pattern.compile(
+      "^\\+|-\\s*" + TYPE_REGEX + "\\s*(\\w+)(" + PARAM_REGEX + "((?:" + ADDITIONAL_PARAM_REGEX
+      + ")*))?\\s*\\{");
+  private static final Pattern ADDITIONAL_PARAM_PATTERN = Pattern.compile(ADDITIONAL_PARAM_REGEX);
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\*` in RegExp
+in `translator/src/main/java/com/google/devtools/j2objc/translate/OcniExtractor.java`
+#### Snippet
+```java
+  private static final String ADDITIONAL_PARAM_REGEX = "\\s+(\\w+)" + PARAM_REGEX;
+  private static final Pattern OBJC_METHOD_DECL_PATTERN = Pattern.compile(
+      "^\\+|-\\s*" + TYPE_REGEX + "\\s*(\\w+)(" + PARAM_REGEX + "((?:" + ADDITIONAL_PARAM_REGEX
+      + ")*))?\\s*\\{");
+  private static final Pattern ADDITIONAL_PARAM_PATTERN = Pattern.compile(ADDITIONAL_PARAM_REGEX);
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\*` in RegExp
+in `translator/src/main/java/com/google/devtools/j2objc/translate/OcniExtractor.java`
+#### Snippet
+```java
+  private static final String ADDITIONAL_PARAM_REGEX = "\\s+(\\w+)" + PARAM_REGEX;
+  private static final Pattern OBJC_METHOD_DECL_PATTERN = Pattern.compile(
+      "^\\+|-\\s*" + TYPE_REGEX + "\\s*(\\w+)(" + PARAM_REGEX + "((?:" + ADDITIONAL_PARAM_REGEX
+      + ")*))?\\s*\\{");
+  private static final Pattern ADDITIONAL_PARAM_PATTERN = Pattern.compile(ADDITIONAL_PARAM_REGEX);
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\*` in RegExp
+in `translator/src/main/java/com/google/devtools/j2objc/translate/OcniExtractor.java`
+#### Snippet
+```java
+
+  private static final String TYPE_REGEX = "\\([\\w\\s\\*<>\\[\\]]+\\)";
+  private static final String PARAM_REGEX = "\\s*:\\s*" + TYPE_REGEX + "\\s*\\w+";
+  private static final String ADDITIONAL_PARAM_REGEX = "\\s+(\\w+)" + PARAM_REGEX;
+  private static final Pattern OBJC_METHOD_DECL_PATTERN = Pattern.compile(
 ```
 
 ## RuleId[id=DuplicateBranchesInSwitch]
@@ -675,18 +675,6 @@ Field can be converted to a local variable
 in `translator/src/main/java/com/google/devtools/j2objc/gen/KytheIndexingMetadata.java`
 #### Snippet
 ```java
-
-  static class AnchorAnchorMetadata {
-    private final String type = "anchor_anchor";
-    private final int sourceBegin;
-    private final int sourceEnd;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `translator/src/main/java/com/google/devtools/j2objc/gen/KytheIndexingMetadata.java`
-#### Snippet
-```java
     private final int targetBegin;
     private final int targetEnd;
     private final String edge = "/kythe/edge/imputes";
@@ -694,19 +682,19 @@ in `translator/src/main/java/com/google/devtools/j2objc/gen/KytheIndexingMetadat
 
 ```
 
-## RuleId[id=IgnoreResultOfCall]
-### IgnoreResultOfCall
-Result of `File.delete()` is ignored
-in `translator/src/main/java/com/google/devtools/j2objc/util/FileUtil.java`
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `translator/src/main/java/com/google/devtools/j2objc/gen/KytheIndexingMetadata.java`
 #### Snippet
 ```java
-  public static File createTempDir(String dirname) throws IOException {
-    File tmpDirectory = File.createTempFile(dirname, ".tmp");
-    tmpDirectory.delete();
-    if (!tmpDirectory.mkdir()) {
-      throw new IOException("Could not create tmp directory: " + tmpDirectory.getPath());
+
+  static class AnchorAnchorMetadata {
+    private final String type = "anchor_anchor";
+    private final int sourceBegin;
+    private final int sourceEnd;
 ```
 
+## RuleId[id=IgnoreResultOfCall]
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
 in `translator/src/main/java/com/google/devtools/j2objc/util/FileUtil.java`
@@ -729,6 +717,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/util/FileUtil.java`
         headerOutputDirectory.mkdirs();
       }
       return headerOutputDirectory;
+```
+
+### IgnoreResultOfCall
+Result of `File.delete()` is ignored
+in `translator/src/main/java/com/google/devtools/j2objc/util/FileUtil.java`
+#### Snippet
+```java
+  public static File createTempDir(String dirname) throws IOException {
+    File tmpDirectory = File.createTempFile(dirname, ".tmp");
+    tmpDirectory.delete();
+    if (!tmpDirectory.mkdir()) {
+      throw new IOException("Could not create tmp directory: " + tmpDirectory.getPath());
 ```
 
 ### IgnoreResultOfCall
@@ -905,6 +905,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/Rewriter.java`
 ```
 
 ### UnusedAssignment
+Variable `typeMirror` initializer `null` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/ast/NativeExpression.java`
+#### Snippet
+```java
+
+  private String code = null;
+  private TypeMirror typeMirror = null;
+  private List<TypeMirror> importTypes = Lists.newArrayList();
+
+```
+
+### UnusedAssignment
 Variable `code` initializer `null` is redundant
 in `translator/src/main/java/com/google/devtools/j2objc/ast/NativeExpression.java`
 #### Snippet
@@ -918,14 +930,14 @@ public class NativeExpression extends Expression {
 
 ### UnusedAssignment
 Variable `typeMirror` initializer `null` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/ast/NativeExpression.java`
+in `translator/src/main/java/com/google/devtools/j2objc/ast/FunctionInvocation.java`
 #### Snippet
 ```java
-
-  private String code = null;
+  private FunctionElement functionElement = null;
+  // The context-specific known type of this expression.
   private TypeMirror typeMirror = null;
-  private List<TypeMirror> importTypes = Lists.newArrayList();
-
+  private boolean hasRetainedResult = false;
+  private final ChildList<Expression> arguments = ChildList.create(Expression.class, this);
 ```
 
 ### UnusedAssignment
@@ -938,18 +950,6 @@ public class FunctionInvocation extends Expression {
   private FunctionElement functionElement = null;
   // The context-specific known type of this expression.
   private TypeMirror typeMirror = null;
-```
-
-### UnusedAssignment
-Variable `typeMirror` initializer `null` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/ast/FunctionInvocation.java`
-#### Snippet
-```java
-  private FunctionElement functionElement = null;
-  // The context-specific known type of this expression.
-  private TypeMirror typeMirror = null;
-  private boolean hasRetainedResult = false;
-  private final ChildList<Expression> arguments = ChildList.create(Expression.class, this);
 ```
 
 ### UnusedAssignment
@@ -989,15 +989,15 @@ in `translator/src/main/java/com/google/devtools/j2objc/util/TranslationUtil.jav
 ```
 
 ### UnusedAssignment
-Variable `isOuter` initializer `false` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/ast/NativeDeclaration.java`
+Variable `pkgName` initializer `null` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/javac/JavacParser.java`
 #### Snippet
 ```java
-  // Whether this declaration should be placed inside or outside the @interface
-  // or @implementation block.
-  private boolean isOuter = false;
-  private String headerCode = null;
-  private String implementationCode = null;
+    String path = fobj.getName();
+    if (path.endsWith("module-info.java")) {
+      String pkgName = null;
+      try {
+        pkgName = moduleName(fobj.getCharContent(true).toString());
 ```
 
 ### UnusedAssignment
@@ -1013,6 +1013,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/NativeDeclaration.ja
 ```
 
 ### UnusedAssignment
+Variable `isOuter` initializer `false` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/ast/NativeDeclaration.java`
+#### Snippet
+```java
+  // Whether this declaration should be placed inside or outside the @interface
+  // or @implementation block.
+  private boolean isOuter = false;
+  private String headerCode = null;
+  private String implementationCode = null;
+```
+
+### UnusedAssignment
 Variable `headerCode` initializer `null` is redundant
 in `translator/src/main/java/com/google/devtools/j2objc/ast/NativeDeclaration.java`
 #### Snippet
@@ -1022,18 +1034,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/NativeDeclaration.ja
   private String headerCode = null;
   private String implementationCode = null;
   private List<TypeMirror> implementationImportTypes = new ArrayList<>();
-```
-
-### UnusedAssignment
-Variable `pkgName` initializer `null` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/javac/JavacParser.java`
-#### Snippet
-```java
-    String path = fobj.getName();
-    if (path.endsWith("module-info.java")) {
-      String pkgName = null;
-      try {
-        pkgName = moduleName(fobj.getCharContent(true).toString());
 ```
 
 ### UnusedAssignment
@@ -1061,18 +1061,6 @@ public class NativeStatement extends Statement {
 ```
 
 ### UnusedAssignment
-Variable `startPos` initializer `0` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/javac/TreeConverter.java`
-#### Snippet
-```java
-    // the first and last closing pattern, resulting in a single comment node.
-    String source = unit.getSource();
-    int startPos = 0;
-    int endPos = 0;
-    while ((startPos = source.indexOf(delim, endPos)) > -1) {
-```
-
-### UnusedAssignment
 Variable `newNode` initializer `null` is redundant
 in `translator/src/main/java/com/google/devtools/j2objc/javac/TreeConverter.java`
 #### Snippet
@@ -1082,6 +1070,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/javac/TreeConverter.java
     PackageDeclaration newNode = null;
     if (pkg == null) {
       // Synthetic package, create from name.
+```
+
+### UnusedAssignment
+Variable `startPos` initializer `0` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/javac/TreeConverter.java`
+#### Snippet
+```java
+    // the first and last closing pattern, resulting in a single comment node.
+    String source = unit.getSource();
+    int startPos = 0;
+    int endPos = 0;
+    while ((startPos = source.indexOf(delim, endPos)) > -1) {
 ```
 
 ### UnusedAssignment
@@ -1170,18 +1170,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/util/NameTable.java`
 ```
 
 ### ConstantValue
-Value `child` is always 'null'
-in `translator/src/main/java/com/google/devtools/j2objc/javac/MethodTranslator.java`
-#### Snippet
-```java
-      if (child instanceof com.strobel.decompiler.languages.java.ast.Expression) {
-        offset = ((com.strobel.decompiler.languages.java.ast.Expression) child).getOffset();
-      } else if (child instanceof com.strobel.decompiler.languages.java.ast.Statement) {
-        offset = ((com.strobel.decompiler.languages.java.ast.Statement) child).getOffset();
-      }
-```
-
-### ConstantValue
 Value `target` is always 'null'
 in `translator/src/main/java/com/google/devtools/j2objc/javac/MethodTranslator.java`
 #### Snippet
@@ -1206,6 +1194,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/javac/MethodTranslator.j
 ```
 
 ### ConstantValue
+Value `child` is always 'null'
+in `translator/src/main/java/com/google/devtools/j2objc/javac/MethodTranslator.java`
+#### Snippet
+```java
+      if (child instanceof com.strobel.decompiler.languages.java.ast.Expression) {
+        offset = ((com.strobel.decompiler.languages.java.ast.Expression) child).getOffset();
+      } else if (child instanceof com.strobel.decompiler.languages.java.ast.Statement) {
+        offset = ((com.strobel.decompiler.languages.java.ast.Statement) child).getOffset();
+      }
+```
+
+### ConstantValue
 Condition `metadata != null` is always `true`
 in `translator/src/main/java/com/google/devtools/j2objc/translate/MetadataWriter.java`
 #### Snippet
@@ -1215,30 +1215,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/MetadataWriter
         if (metadata != null) {
           fieldMetadata.add(metadata);
         }
-```
-
-### ConstantValue
-Condition `c >= 0x7F` is always `true` when reached
-in `translator/src/main/java/com/google/devtools/j2objc/util/UnicodeUtils.java`
-#### Snippet
-```java
-      // Printable ASCII character.
-      return null;
-    } else if (c < 0x20 || (c >= 0x7F && c < 0xA0)) {
-      // Invalid C++ Unicode number, convert to UTF-8 sequence.
-      if (idx + 1 < s.length() && isHexChar(s.charAt(idx + 1))) {
-```
-
-### ConstantValue
-Condition `end > -1` is always `true` when reached
-in `translator/src/main/java/com/google/devtools/j2objc/gen/JavadocGenerator.java`
-#### Snippet
-```java
-      return text.substring(0, start);
-    }
-    if (start == -1 && end > -1) {
-      spanningStyleTag = false;
-      return text.substring(end + 8); // "</style>".length
 ```
 
 ### ConstantValue
@@ -1275,6 +1251,30 @@ in `translator/src/main/java/com/google/devtools/j2objc/util/TypeUtil.java`
     if (classType != null && result) {
       result = visitTypeHierarchyObjcOrder(classType, visitor);
     }
+```
+
+### ConstantValue
+Condition `c >= 0x7F` is always `true` when reached
+in `translator/src/main/java/com/google/devtools/j2objc/util/UnicodeUtils.java`
+#### Snippet
+```java
+      // Printable ASCII character.
+      return null;
+    } else if (c < 0x20 || (c >= 0x7F && c < 0xA0)) {
+      // Invalid C++ Unicode number, convert to UTF-8 sequence.
+      if (idx + 1 < s.length() && isHexChar(s.charAt(idx + 1))) {
+```
+
+### ConstantValue
+Condition `end > -1` is always `true` when reached
+in `translator/src/main/java/com/google/devtools/j2objc/gen/JavadocGenerator.java`
+#### Snippet
+```java
+      return text.substring(0, start);
+    }
+    if (start == -1 && end > -1) {
+      spanningStyleTag = false;
+      return text.substring(end + 8); // "</style>".length
 ```
 
 ## RuleId[id=StringConcatenationInsideStringBufferAppend]
@@ -1573,15 +1573,15 @@ in `translator/src/main/java/com/google/devtools/j2objc/types/GeneratedElement.j
 
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
-Method invocation `getTypeParameters` may produce `NullPointerException`
-in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/GraphBuilder.java`
+Argument `TypeUtil.asTypeElement(type)` might be null
+in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/NameUtil.java`
 #### Snippet
 ```java
-  private static boolean isRawType(TypeMirror type) {
-    return TypeUtil.isDeclaredType(type)
-        && !TypeUtil.asTypeElement(type).getTypeParameters().isEmpty()
-        && ((DeclaredType) type).getTypeArguments().isEmpty();
-  }
+        break;
+      case DECLARED: {
+        sb.append(ElementUtil.getName(TypeUtil.asTypeElement(type)));
+        List<? extends TypeMirror> typeArguments = ((DeclaredType) type).getTypeArguments();
+        if (!typeArguments.isEmpty()) {
 ```
 
 ### DataFlowIssue
@@ -1597,15 +1597,15 @@ in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/GraphBuilder.java
 ```
 
 ### DataFlowIssue
-Argument `TypeUtil.asTypeElement(type)` might be null
-in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/NameUtil.java`
+Method invocation `getTypeParameters` may produce `NullPointerException`
+in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/GraphBuilder.java`
 #### Snippet
 ```java
-        break;
-      case DECLARED: {
-        sb.append(ElementUtil.getName(TypeUtil.asTypeElement(type)));
-        List<? extends TypeMirror> typeArguments = ((DeclaredType) type).getTypeArguments();
-        if (!typeArguments.isEmpty()) {
+  private static boolean isRawType(TypeMirror type) {
+    return TypeUtil.isDeclaredType(type)
+        && !TypeUtil.asTypeElement(type).getTypeParameters().isEmpty()
+        && ((DeclaredType) type).getTypeArguments().isEmpty();
+  }
 ```
 
 ### DataFlowIssue
@@ -1633,18 +1633,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/Rewriter.java`
 ```
 
 ### DataFlowIssue
-Argument `getBytes(groupCase)` might be null
-in `protobuf/tests/OneofTest.java`
-#### Snippet
-```java
-  public void testMergeFromInputStream(OneofGroupCase groupCase) throws Exception {
-    ExtensionRegistry registry = ExtensionRegistry.newInstance();
-    ByteArrayInputStream in = new ByteArrayInputStream(getBytes(groupCase));
-    OneofMsg.Builder builder = OneofMsg.newBuilder().mergeFrom(in, registry);
-    checkFields(builder, groupCase);
-```
-
-### DataFlowIssue
 Dereference of `expectedBytes` may produce `NullPointerException`
 in `protobuf/tests/OneofTest.java`
 #### Snippet
@@ -1654,6 +1642,18 @@ in `protobuf/tests/OneofTest.java`
     assertEquals(expectedBytes.length, msg.getSerializedSize());
     byte[] bytes1 = msg.toByteArray();
     checkBytes(expectedBytes, bytes1);
+```
+
+### DataFlowIssue
+Argument `getBytes(groupCase)` might be null
+in `protobuf/tests/OneofTest.java`
+#### Snippet
+```java
+  public void testMergeFromInputStream(OneofGroupCase groupCase) throws Exception {
+    ExtensionRegistry registry = ExtensionRegistry.newInstance();
+    ByteArrayInputStream in = new ByteArrayInputStream(getBytes(groupCase));
+    OneofMsg.Builder builder = OneofMsg.newBuilder().mergeFrom(in, registry);
+    checkFields(builder, groupCase);
 ```
 
 ### DataFlowIssue
@@ -1777,18 +1777,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/util/FileUtil.java`
 ```
 
 ### DataFlowIssue
-Method invocation `getFullName` may produce `NullPointerException`
-in `translator/src/main/java/com/google/devtools/j2objc/javac/ClassFileConverter.java`
-#### Snippet
-```java
-    this.file = file;
-    this.classFile = ClassFile.create(file);
-    this.typeName = classFile.getFullName();
-  }
-
-```
-
-### DataFlowIssue
 Method invocation `getSimpleName` may produce `NullPointerException`
 in `translator/src/main/java/com/google/devtools/j2objc/javac/ClassFileConverter.java`
 #### Snippet
@@ -1801,15 +1789,15 @@ in `translator/src/main/java/com/google/devtools/j2objc/javac/ClassFileConverter
 ```
 
 ### DataFlowIssue
-Dereference of `dir.listFiles()` may produce `NullPointerException`
-in `translator/src/main/java/com/google/devtools/j2objc/javac/JavacParser.java`
+Method invocation `getFullName` may produce `NullPointerException`
+in `translator/src/main/java/com/google/devtools/j2objc/javac/ClassFileConverter.java`
 #### Snippet
 ```java
-      File dir, String currentRelativePath, List<ProcessingContext> inputs) {
-    assert dir.exists() && dir.isDirectory();
-    for (File f : dir.listFiles()) {
-      String relativeName = currentRelativePath + File.separatorChar + f.getName();
-      if (f.isDirectory()) {
+    this.file = file;
+    this.classFile = ClassFile.create(file);
+    this.typeName = classFile.getFullName();
+  }
+
 ```
 
 ### DataFlowIssue
@@ -1825,15 +1813,15 @@ in `translator/src/main/java/com/google/devtools/j2objc/javac/JavacParser.java`
 ```
 
 ### DataFlowIssue
-Method invocation `asType` may produce `NullPointerException`
-in `translator/src/main/java/com/google/devtools/j2objc/javac/MethodTranslator.java`
+Dereference of `dir.listFiles()` may produce `NullPointerException`
+in `translator/src/main/java/com/google/devtools/j2objc/javac/JavacParser.java`
 #### Snippet
 ```java
-      if (exec.getParameters().size() == 0) {
-        ExecutableType execType = typeUtil
-            .asMemberOf((DeclaredType) superClass.asType(), exec);
-        superCall = new SuperConstructorInvocation()
-            .setExecutablePair(new ExecutablePair(exec, execType));
+      File dir, String currentRelativePath, List<ProcessingContext> inputs) {
+    assert dir.exists() && dir.isDirectory();
+    for (File f : dir.listFiles()) {
+      String relativeName = currentRelativePath + File.separatorChar + f.getName();
+      if (f.isDirectory()) {
 ```
 
 ### DataFlowIssue
@@ -1849,6 +1837,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/SwitchRewriter
 ```
 
 ### DataFlowIssue
+Method invocation `asType` may produce `NullPointerException`
+in `translator/src/main/java/com/google/devtools/j2objc/javac/MethodTranslator.java`
+#### Snippet
+```java
+      if (exec.getParameters().size() == 0) {
+        ExecutableType execType = typeUtil
+            .asMemberOf((DeclaredType) superClass.asType(), exec);
+        superCall = new SuperConstructorInvocation()
+            .setExecutablePair(new ExecutablePair(exec, execType));
+```
+
+### DataFlowIssue
 Dereference of `breakScope` may produce `NullPointerException`
 in `translator/src/main/java/com/google/devtools/j2objc/translate/NilCheckResolver.java`
 #### Snippet
@@ -1858,6 +1858,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/NilCheckResolv
     scope.mergeInto(breakScope.next);
     scope.terminates = true;
   }
+```
+
+### DataFlowIssue
+Method invocation `asElement` may produce `NullPointerException`
+in `translator/src/main/java/com/google/devtools/j2objc/translate/MetadataWriter.java`
+#### Snippet
+```java
+    DeclaredType containerType = (DeclaredType) ElementUtil.getAnnotationValue(
+        ElementUtil.getAnnotation(annotationType.asElement(), Repeatable.class), "value");
+    TypeElement containerElement = (TypeElement) containerType.asElement();
+    FunctionElement element = new FunctionElement(
+        "create_" + nameTable.getFullName(containerElement), containerType, containerElement);
 ```
 
 ### DataFlowIssue
@@ -1885,18 +1897,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/util/ElementUtil.java`
 ```
 
 ### DataFlowIssue
-Method invocation `asElement` may produce `NullPointerException`
-in `translator/src/main/java/com/google/devtools/j2objc/translate/MetadataWriter.java`
-#### Snippet
-```java
-    DeclaredType containerType = (DeclaredType) ElementUtil.getAnnotationValue(
-        ElementUtil.getAnnotation(annotationType.asElement(), Repeatable.class), "value");
-    TypeElement containerElement = (TypeElement) containerType.asElement();
-    FunctionElement element = new FunctionElement(
-        "create_" + nameTable.getFullName(containerElement), containerType, containerElement);
-```
-
-### DataFlowIssue
 Argument `node.getTypeMirror()` might be null
 in `translator/src/main/java/com/google/devtools/j2objc/translate/ComplexExpressionExtractor.java`
 #### Snippet
@@ -1906,66 +1906,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/ComplexExpress
     if (TypeUtil.isBoolean(node.getTypeMirror())) {
       if (node.getRightHandSide() instanceof InfixExpression) {
         // Avoid clang precedence warning by putting parentheses around expression.
-```
-
-### DataFlowIssue
-Method invocation `getKey` may produce `NullPointerException`
-in `protobuf/tests/MapsTest.java`
-#### Snippet
-```java
-    assertTrue(rawEntry instanceof MapEntry);
-    MapEntry<?, ?> entry = (MapEntry<?, ?>) rawEntry;
-    assertEquals("cat", entry.getKey());
-    assertEquals("meow", entry.getValue());
-  }
-```
-
-### DataFlowIssue
-Casting `rawValue` to `List` may produce `ClassCastException`
-in `protobuf/tests/MapsTest.java`
-#### Snippet
-```java
-    Object rawValue = msg.getField(stringStringField);
-    assertTrue(rawValue instanceof List);
-    List<?> list = (List<?>) rawValue;
-    assertEquals(2, list.size());
-    Object rawEntry = list.get(0);
-```
-
-### DataFlowIssue
-Method invocation `size` may produce `NullPointerException`
-in `protobuf/tests/MapsTest.java`
-#### Snippet
-```java
-    assertTrue(rawValue instanceof List);
-    List<?> list = (List<?>) rawValue;
-    assertEquals(2, list.size());
-    Object rawEntry = list.get(0);
-    assertTrue(rawEntry instanceof MapEntry);
-```
-
-### DataFlowIssue
-Method invocation `getKey` may produce `NullPointerException`
-in `protobuf/tests/MapsTest.java`
-#### Snippet
-```java
-    assertTrue(rawEntry instanceof MapEntry);
-    MapEntry<?, ?> entry = (MapEntry<?, ?>) rawEntry;
-    assertEquals("duck", entry.getKey());
-    assertEquals("quack", entry.getValue());
-
-```
-
-### DataFlowIssue
-Method invocation `getKey` may produce `NullPointerException`
-in `protobuf/tests/MapsTest.java`
-#### Snippet
-```java
-    assertTrue(rawEntry instanceof MapEntry);
-    entry = (MapEntry<?, ?>) rawEntry;
-    assertEquals("cat", entry.getKey());
-    assertEquals("meow", entry.getValue());
-
 ```
 
 ### DataFlowIssue
@@ -2065,15 +2005,63 @@ in `protobuf/tests/MapsTest.java`
 ```
 
 ### DataFlowIssue
-Method invocation `addMember` may produce `NullPointerException`
-in `tree_shaker/src/main/java/com/google/devtools/treeshaker/UsedCodeMarker.java`
+Method invocation `getKey` may produce `NullPointerException`
+in `protobuf/tests/MapsTest.java`
 #### Snippet
 ```java
-      clinit.addReferencedTypes(typeId);
-    }
-    context.currentTypeInfoScope.peek().addMember(clinit.build());
-    TypeInfo ti = context.currentTypeInfoScope.pop().build();
-    context.currentTypeNameScope.pop();
+    assertTrue(rawEntry instanceof MapEntry);
+    MapEntry<?, ?> entry = (MapEntry<?, ?>) rawEntry;
+    assertEquals("cat", entry.getKey());
+    assertEquals("meow", entry.getValue());
+  }
+```
+
+### DataFlowIssue
+Casting `rawValue` to `List` may produce `ClassCastException`
+in `protobuf/tests/MapsTest.java`
+#### Snippet
+```java
+    Object rawValue = msg.getField(stringStringField);
+    assertTrue(rawValue instanceof List);
+    List<?> list = (List<?>) rawValue;
+    assertEquals(2, list.size());
+    Object rawEntry = list.get(0);
+```
+
+### DataFlowIssue
+Method invocation `size` may produce `NullPointerException`
+in `protobuf/tests/MapsTest.java`
+#### Snippet
+```java
+    assertTrue(rawValue instanceof List);
+    List<?> list = (List<?>) rawValue;
+    assertEquals(2, list.size());
+    Object rawEntry = list.get(0);
+    assertTrue(rawEntry instanceof MapEntry);
+```
+
+### DataFlowIssue
+Method invocation `getKey` may produce `NullPointerException`
+in `protobuf/tests/MapsTest.java`
+#### Snippet
+```java
+    assertTrue(rawEntry instanceof MapEntry);
+    MapEntry<?, ?> entry = (MapEntry<?, ?>) rawEntry;
+    assertEquals("duck", entry.getKey());
+    assertEquals("quack", entry.getValue());
+
+```
+
+### DataFlowIssue
+Method invocation `getKey` may produce `NullPointerException`
+in `protobuf/tests/MapsTest.java`
+#### Snippet
+```java
+    assertTrue(rawEntry instanceof MapEntry);
+    entry = (MapEntry<?, ?>) rawEntry;
+    assertEquals("cat", entry.getKey());
+    assertEquals("meow", entry.getValue());
+
 ```
 
 ### DataFlowIssue
@@ -2093,11 +2081,11 @@ Method invocation `addMember` may produce `NullPointerException`
 in `tree_shaker/src/main/java/com/google/devtools/treeshaker/UsedCodeMarker.java`
 #### Snippet
 ```java
-      member.addReferencedTypes(typeId);
+      clinit.addReferencedTypes(typeId);
     }
-    context.currentTypeInfoScope.peek().addMember(member.build());
-  }
-
+    context.currentTypeInfoScope.peek().addMember(clinit.build());
+    TypeInfo ti = context.currentTypeInfoScope.pop().build();
+    context.currentTypeNameScope.pop();
 ```
 
 ### DataFlowIssue
@@ -2125,6 +2113,18 @@ in `tree_shaker/src/main/java/com/google/devtools/treeshaker/UsedCodeMarker.java
 ```
 
 ### DataFlowIssue
+Method invocation `addMember` may produce `NullPointerException`
+in `tree_shaker/src/main/java/com/google/devtools/treeshaker/UsedCodeMarker.java`
+#### Snippet
+```java
+      member.addReferencedTypes(typeId);
+    }
+    context.currentTypeInfoScope.peek().addMember(member.build());
+  }
+
+```
+
+### DataFlowIssue
 Method invocation `getKind` may produce `NullPointerException`
 in `translator/src/main/java/com/google/devtools/j2objc/translate/Autoboxer.java`
 #### Snippet
@@ -2146,42 +2146,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/Autoboxer.java
       boxWithClass(expr, TypeUtil.asTypeElement(boxedType));
     } else {
       box(expr);
-```
-
-### DataFlowIssue
-Method invocation `getTypeArguments` may produce `NullPointerException`
-in `translator/src/main/java/com/google/devtools/j2objc/translate/EnhancedForRewriter.java`
-#### Snippet
-```java
-      EnhancedForStatement node, TypeMirror expressionType, VariableElement loopVariable) {
-    DeclaredType iterableType = typeUtil.findSupertype(expressionType, "java.lang.Iterable");
-    List<? extends TypeMirror> typeArgs = iterableType.getTypeArguments();
-    assert typeArgs.size() == 1 && typeUtil.isBoxedType(typeArgs.get(0));
-    VariableElement boxVariable = GeneratedVariableElement.newLocalVar(
-```
-
-### DataFlowIssue
-Argument `iterableType` might be null
-in `translator/src/main/java/com/google/devtools/j2objc/translate/EnhancedForRewriter.java`
-#### Snippet
-```java
-    VariableElement loopVariable = node.getParameter().getVariableElement();
-    DeclaredType iterableType = typeUtil.findSupertype(expressionType, "java.lang.Iterable");
-    ExecutablePair iteratorMethod = typeUtil.findMethod(iterableType, "iterator");
-    DeclaredType iteratorType = (DeclaredType) iteratorMethod.type().getReturnType();
-    ExecutablePair hasNextMethod = typeUtil.findMethod(iteratorType, "hasNext");
-```
-
-### DataFlowIssue
-Method invocation `type` may produce `NullPointerException`
-in `translator/src/main/java/com/google/devtools/j2objc/translate/EnhancedForRewriter.java`
-#### Snippet
-```java
-    DeclaredType iterableType = typeUtil.findSupertype(expressionType, "java.lang.Iterable");
-    ExecutablePair iteratorMethod = typeUtil.findMethod(iterableType, "iterator");
-    DeclaredType iteratorType = (DeclaredType) iteratorMethod.type().getReturnType();
-    ExecutablePair hasNextMethod = typeUtil.findMethod(iteratorType, "hasNext");
-    ExecutablePair nextMethod = typeUtil.findMethod(iteratorType, "next");
 ```
 
 ### DataFlowIssue
@@ -2218,6 +2182,42 @@ in `translator/src/main/java/com/google/devtools/j2objc/util/TypeUtil.java`
         return asTypeElement(t).getQualifiedName().toString();
       case BOOLEAN:
       case BYTE:
+```
+
+### DataFlowIssue
+Argument `iterableType` might be null
+in `translator/src/main/java/com/google/devtools/j2objc/translate/EnhancedForRewriter.java`
+#### Snippet
+```java
+    VariableElement loopVariable = node.getParameter().getVariableElement();
+    DeclaredType iterableType = typeUtil.findSupertype(expressionType, "java.lang.Iterable");
+    ExecutablePair iteratorMethod = typeUtil.findMethod(iterableType, "iterator");
+    DeclaredType iteratorType = (DeclaredType) iteratorMethod.type().getReturnType();
+    ExecutablePair hasNextMethod = typeUtil.findMethod(iteratorType, "hasNext");
+```
+
+### DataFlowIssue
+Method invocation `type` may produce `NullPointerException`
+in `translator/src/main/java/com/google/devtools/j2objc/translate/EnhancedForRewriter.java`
+#### Snippet
+```java
+    DeclaredType iterableType = typeUtil.findSupertype(expressionType, "java.lang.Iterable");
+    ExecutablePair iteratorMethod = typeUtil.findMethod(iterableType, "iterator");
+    DeclaredType iteratorType = (DeclaredType) iteratorMethod.type().getReturnType();
+    ExecutablePair hasNextMethod = typeUtil.findMethod(iteratorType, "hasNext");
+    ExecutablePair nextMethod = typeUtil.findMethod(iteratorType, "next");
+```
+
+### DataFlowIssue
+Method invocation `getTypeArguments` may produce `NullPointerException`
+in `translator/src/main/java/com/google/devtools/j2objc/translate/EnhancedForRewriter.java`
+#### Snippet
+```java
+      EnhancedForStatement node, TypeMirror expressionType, VariableElement loopVariable) {
+    DeclaredType iterableType = typeUtil.findSupertype(expressionType, "java.lang.Iterable");
+    List<? extends TypeMirror> typeArgs = iterableType.getTypeArguments();
+    assert typeArgs.size() == 1 && typeUtil.isBoxedType(typeArgs.get(0));
+    VariableElement boxVariable = GeneratedVariableElement.newLocalVar(
 ```
 
 ## RuleId[id=SimplifyStreamApiCallChains]
@@ -2271,6 +2271,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/util/UnicodeUtils.java`
 ```
 
 ### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/gen/JavadocGenerator.java`
+#### Snippet
+```java
+          // Extract first sentence from description.
+          BreakIterator iterator = BreakIterator.getSentenceInstance(Locale.US);
+          iterator.setText(description.toString());
+          int start = iterator.first();
+          int end = iterator.next();
+```
+
+### StringOperationCanBeSimplified
 Call to `substring()` is redundant
 in `translator/src/main/java/com/google/devtools/j2objc/gen/JavadocGenerator.java`
 #### Snippet
@@ -2304,18 +2316,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/gen/JavadocGenerator.jav
       sb.append(text.substring(0, preStart));
       if (preStart > 0) {
         sb.append('\n');
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/gen/JavadocGenerator.java`
-#### Snippet
-```java
-          // Extract first sentence from description.
-          BreakIterator iterator = BreakIterator.getSentenceInstance(Locale.US);
-          iterator.setText(description.toString());
-          int start = iterator.first();
-          int end = iterator.next();
 ```
 
 ## RuleId[id=JavaReflectionMemberAccess]
@@ -2529,9 +2529,9 @@ Unnecessary `toString()` call
 in `translator/src/main/java/com/google/devtools/j2objc/gen/LiteralGenerator.java`
 #### Snippet
 ```java
-      return "((jlong) 0x8000000000000000LL)";
+      return "__FLT_MIN__";
     } else {
-      return value.toString() + "LL";
+      return value.toString() + "f";
     }
   }
 ```
@@ -2541,9 +2541,9 @@ Unnecessary `toString()` call
 in `translator/src/main/java/com/google/devtools/j2objc/gen/LiteralGenerator.java`
 #### Snippet
 ```java
-      return "__FLT_MIN__";
+      return "((jlong) 0x8000000000000000LL)";
     } else {
-      return value.toString() + "f";
+      return value.toString() + "LL";
     }
   }
 ```
@@ -2696,18 +2696,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/GwtConverter.j
 
 ### TrivialIf
 `if` statement can be simplified
-in `translator/src/main/java/com/google/devtools/j2objc/translate/OcniExtractor.java`
-#### Snippet
-```java
-      start = text.indexOf("/*-{");
-      end = text.lastIndexOf("}-*/");
-      if (start != -1 && end > start) {
-        return true;
-      }
-```
-
-### TrivialIf
-`if` statement can be simplified
 in `translator/src/main/java/com/google/devtools/j2objc/translate/NilCheckResolver.java`
 #### Snippet
 ```java
@@ -2716,6 +2704,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/NilCheckResolv
       if (params.isEmpty() && returnType.getKind().isPrimitive()
           && name.equals(TypeUtil.getName(returnType) + "Value")) {
         return true;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `translator/src/main/java/com/google/devtools/j2objc/translate/OcniExtractor.java`
+#### Snippet
+```java
+      start = text.indexOf("/*-{");
+      end = text.lastIndexOf("}-*/");
+      if (start != -1 && end > start) {
+        return true;
+      }
 ```
 
 ### TrivialIf
@@ -2914,18 +2914,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/util/UnicodeUtils.java`
 
 ## RuleId[id=AutoCloseableResource]
 ### AutoCloseableResource
-'Parser' used without 'try'-with-resources statement
-in `translator/src/main/java/com/google/devtools/j2objc/util/Version.java`
-#### Snippet
-```java
-    }
-
-    String javacVersion = Parser.newParser(null).version();
-    return String.format("%s (javac %s)", j2objcVersion, javacVersion);
-  }
-```
-
-### AutoCloseableResource
 'JarFile' used without 'try'-with-resources statement
 in `translator/src/main/java/com/google/devtools/j2objc/file/JarredInputFile.java`
 #### Snippet
@@ -2935,6 +2923,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/file/JarredInputFile.jav
     final JarFile jarFile = new JarFile(jarPath);
     ZipEntry entry = jarFile.getEntry(internalPath);
     final InputStream entryStream = jarFile.getInputStream(entry);
+```
+
+### AutoCloseableResource
+'Parser' used without 'try'-with-resources statement
+in `translator/src/main/java/com/google/devtools/j2objc/util/Version.java`
+#### Snippet
+```java
+    }
+
+    String javacVersion = Parser.newParser(null).version();
+    return String.format("%s (javac %s)", j2objcVersion, javacVersion);
+  }
 ```
 
 ### AutoCloseableResource
@@ -2988,18 +2988,6 @@ in `tree_shaker/src/main/java/com/google/devtools/treeshaker/RapidTypeAnalyser.j
 
 ## RuleId[id=ConditionCoveredByFurtherCondition]
 ### ConditionCoveredByFurtherCondition
-Condition 'constantValue != null' covered by subsequent condition 'constantValue instanceof String'
-in `translator/src/main/java/com/google/devtools/j2objc/util/ElementUtil.java`
-#### Snippet
-```java
-  public static boolean isStringConstant(VariableElement element) {
-    Object constantValue = element.getConstantValue();
-    return constantValue != null && constantValue instanceof String
-        && UnicodeUtils.hasValidCppCharacters((String) constantValue);
-  }
-```
-
-### ConditionCoveredByFurtherCondition
 Condition 'name.isEmpty()' covered by subsequent condition '!name.contains(...)'
 in `translator/src/main/java/com/google/devtools/j2objc/util/ElementUtil.java`
 #### Snippet
@@ -3009,6 +2997,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/util/ElementUtil.java`
     if (name.isEmpty() || !name.contains(".")) {
       return null;
     }
+```
+
+### ConditionCoveredByFurtherCondition
+Condition 'constantValue != null' covered by subsequent condition 'constantValue instanceof String'
+in `translator/src/main/java/com/google/devtools/j2objc/util/ElementUtil.java`
+#### Snippet
+```java
+  public static boolean isStringConstant(VariableElement element) {
+    Object constantValue = element.getConstantValue();
+    return constantValue != null && constantValue instanceof String
+        && UnicodeUtils.hasValidCppCharacters((String) constantValue);
+  }
 ```
 
 ### ConditionCoveredByFurtherCondition
@@ -3038,6 +3038,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
 
 ## RuleId[id=RedundantCast]
 ### RedundantCast
+Casting `decl` to `MethodDeclaration` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/gen/TypeGenerator.java`
+#### Snippet
+```java
+    public boolean apply(BodyDeclaration decl) {
+      return decl.getKind() == TreeNode.Kind.METHOD_DECLARATION
+          && !Modifier.isAbstract(((MethodDeclaration) decl).getModifiers());
+    }
+  };
+```
+
+### RedundantCast
 Casting `type` to `DeclaredType` is redundant
 in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/GraphBuilder.java`
 #### Snippet
@@ -3062,18 +3074,6 @@ in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/GraphBuilder.java
 ```
 
 ### RedundantCast
-Casting `decl` to `MethodDeclaration` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/gen/TypeGenerator.java`
-#### Snippet
-```java
-    public boolean apply(BodyDeclaration decl) {
-      return decl.getKind() == TreeNode.Kind.METHOD_DECLARATION
-          && !Modifier.isAbstract(((MethodDeclaration) decl).getModifiers());
-    }
-  };
-```
-
-### RedundantCast
 Casting `key` to `String` is redundant
 in `translator/src/main/java/com/google/devtools/j2objc/pipeline/FileProcessor.java`
 #### Snippet
@@ -3083,18 +3083,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/pipeline/FileProcessor.j
       return super.put(canonicalizePath((String) key), value);
     }
 
-```
-
-### RedundantCast
-Casting `node.getTypeMirror()` to `javax.lang.model.type.ArrayType` is redundant
-in `translator/src/main/java/com/google/devtools/j2objc/gen/StatementGenerator.java`
-#### Snippet
-```java
-  @Override
-  public boolean visit(ArrayInitializer node) {
-    javax.lang.model.type.ArrayType type = (javax.lang.model.type.ArrayType) node.getTypeMirror();
-    TypeMirror componentType = type.getComponentType();
-    buffer.append(UnicodeUtils.format("(%s[]){ ", NameTable.getPrimitiveObjCType(componentType)));
 ```
 
 ### RedundantCast
@@ -3110,6 +3098,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/ArrayCreation.java`
 ```
 
 ### RedundantCast
+Casting `node.getTypeMirror()` to `javax.lang.model.type.ArrayType` is redundant
+in `translator/src/main/java/com/google/devtools/j2objc/gen/StatementGenerator.java`
+#### Snippet
+```java
+  @Override
+  public boolean visit(ArrayInitializer node) {
+    javax.lang.model.type.ArrayType type = (javax.lang.model.type.ArrayType) node.getTypeMirror();
+    TypeMirror componentType = type.getComponentType();
+    buffer.append(UnicodeUtils.format("(%s[]){ ", NameTable.getPrimitiveObjCType(componentType)));
+```
+
+### RedundantCast
 Casting `value` to `Double` is redundant
 in `translator/src/main/java/com/google/devtools/j2objc/gen/LiteralGenerator.java`
 #### Snippet
@@ -3122,15 +3122,15 @@ in `translator/src/main/java/com/google/devtools/j2objc/gen/LiteralGenerator.jav
 ```
 
 ### RedundantCast
-Casting `it.next()` to `Expression` is redundant
+Casting `it.next()` to `MemberValuePair` is redundant
 in `translator/src/main/java/com/google/devtools/j2objc/ast/DebugASTPrinter.java`
 #### Snippet
 ```java
-      sb.print('(');
-      for (Iterator<Expression> it = node.getArguments().iterator(); it.hasNext(); ) {
-        Expression e = (Expression) it.next();
-        e.accept(this);
-        if (it.hasNext()) {
+    sb.print("(");
+    for (Iterator<MemberValuePair> it = node.getValues().iterator(); it.hasNext(); ) {
+      MemberValuePair p = (MemberValuePair) it.next();
+      p.accept(this);
+      if (it.hasNext()) {
 ```
 
 ### RedundantCast
@@ -3146,15 +3146,15 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/DebugASTPrinter.java
 ```
 
 ### RedundantCast
-Casting `it.next()` to `MemberValuePair` is redundant
+Casting `it.next()` to `Expression` is redundant
 in `translator/src/main/java/com/google/devtools/j2objc/ast/DebugASTPrinter.java`
 #### Snippet
 ```java
-    sb.print("(");
-    for (Iterator<MemberValuePair> it = node.getValues().iterator(); it.hasNext(); ) {
-      MemberValuePair p = (MemberValuePair) it.next();
-      p.accept(this);
-      if (it.hasNext()) {
+      sb.print('(');
+      for (Iterator<Expression> it = node.getArguments().iterator(); it.hasNext(); ) {
+        Expression e = (Expression) it.next();
+        e.accept(this);
+        if (it.hasNext()) {
 ```
 
 ### RedundantCast
@@ -3207,15 +3207,63 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/InnerClassExtr
 ```
 
 ### FieldMayBeFinal
-Field `fieldsWithTypes` may be 'final'
+Field `type` may be 'final'
+in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/Tarjans.java`
+#### Snippet
+```java
+    private int index = -1;
+    private int lowlink = -1;
+    private TypeNode type;
+
+    private Vertex(TypeNode type) {
+```
+
+### FieldMayBeFinal
+Field `stronglyConnectedComponents` may be 'final'
+in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/Tarjans.java`
+#### Snippet
+```java
+  private ArrayList<Vertex> stack = new ArrayList<>();
+  private Map<TypeNode, Vertex> vertices = new HashMap<>();
+  private List<List<TypeNode>> stronglyConnectedComponents = new ArrayList<>();
+
+  private Tarjans(SetMultimap<TypeNode, Edge> edges, Set<TypeNode> seedTypes) {
+```
+
+### FieldMayBeFinal
+Field `vertices` may be 'final'
+in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/Tarjans.java`
+#### Snippet
+```java
+  // In case of performance issues, consider a data structure with faster .contains().
+  private ArrayList<Vertex> stack = new ArrayList<>();
+  private Map<TypeNode, Vertex> vertices = new HashMap<>();
+  private List<List<TypeNode>> stronglyConnectedComponents = new ArrayList<>();
+
+```
+
+### FieldMayBeFinal
+Field `stack` may be 'final'
+in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/Tarjans.java`
+#### Snippet
+```java
+  private int vIndex = 0;
+  // In case of performance issues, consider a data structure with faster .contains().
+  private ArrayList<Vertex> stack = new ArrayList<>();
+  private Map<TypeNode, Vertex> vertices = new HashMap<>();
+  private List<List<TypeNode>> stronglyConnectedComponents = new ArrayList<>();
+```
+
+### FieldMayBeFinal
+Field `fields` may be 'final'
 in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/NameList.java`
 #### Snippet
 ```java
+public class NameList {
 
   private Set<String> fields = Sets.newHashSet();
   private SetMultimap<String, String> fieldsWithTypes = HashMultimap.create();
   private Set<String> types = Sets.newHashSet();
-  private Set<String> namespaces = Sets.newHashSet();
 ```
 
 ### FieldMayBeFinal
@@ -3243,6 +3291,18 @@ in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/NameList.java`
 ```
 
 ### FieldMayBeFinal
+Field `fieldsWithTypes` may be 'final'
+in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/NameList.java`
+#### Snippet
+```java
+
+  private Set<String> fields = Sets.newHashSet();
+  private SetMultimap<String, String> fieldsWithTypes = HashMultimap.create();
+  private Set<String> types = Sets.newHashSet();
+  private Set<String> namespaces = Sets.newHashSet();
+```
+
+### FieldMayBeFinal
 Field `namespaces` may be 'final'
 in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/NameList.java`
 #### Snippet
@@ -3255,75 +3315,15 @@ in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/NameList.java`
 ```
 
 ### FieldMayBeFinal
-Field `fields` may be 'final'
-in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/NameList.java`
+Field `orderedAccesses` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/translate/UnsequencedExpressionRewriter.java`
 #### Snippet
 ```java
-public class NameList {
-
-  private Set<String> fields = Sets.newHashSet();
-  private SetMultimap<String, String> fieldsWithTypes = HashMultimap.create();
-  private Set<String> types = Sets.newHashSet();
-```
-
-### FieldMayBeFinal
-Field `stack` may be 'final'
-in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/Tarjans.java`
-#### Snippet
-```java
-  private int vIndex = 0;
-  // In case of performance issues, consider a data structure with faster .contains().
-  private ArrayList<Vertex> stack = new ArrayList<>();
-  private Map<TypeNode, Vertex> vertices = new HashMap<>();
-  private List<List<TypeNode>> stronglyConnectedComponents = new ArrayList<>();
-```
-
-### FieldMayBeFinal
-Field `vertices` may be 'final'
-in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/Tarjans.java`
-#### Snippet
-```java
-  // In case of performance issues, consider a data structure with faster .contains().
-  private ArrayList<Vertex> stack = new ArrayList<>();
-  private Map<TypeNode, Vertex> vertices = new HashMap<>();
-  private List<List<TypeNode>> stronglyConnectedComponents = new ArrayList<>();
-
-```
-
-### FieldMayBeFinal
-Field `stronglyConnectedComponents` may be 'final'
-in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/Tarjans.java`
-#### Snippet
-```java
-  private ArrayList<Vertex> stack = new ArrayList<>();
-  private Map<TypeNode, Vertex> vertices = new HashMap<>();
-  private List<List<TypeNode>> stronglyConnectedComponents = new ArrayList<>();
-
-  private Tarjans(SetMultimap<TypeNode, Edge> edges, Set<TypeNode> seedTypes) {
-```
-
-### FieldMayBeFinal
-Field `type` may be 'final'
-in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/Tarjans.java`
-#### Snippet
-```java
-    private int index = -1;
-    private int lowlink = -1;
-    private TypeNode type;
-
-    private Vertex(TypeNode type) {
-```
-
-### FieldMayBeFinal
-Field `helpMessage` may be 'final'
-in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/Options.java`
-#### Snippet
-```java
-  private static final String XBOOTCLASSPATH = "-Xbootclasspath:";
-  private static String usageMessage;
-  private static String helpMessage;
-
-  static {
+  private ExecutableElement currentMethod = null;
+  private int count = 1;
+  private List<VariableAccess> orderedAccesses = Lists.newArrayList();
+  private TreeNode currentTopNode = null;
+  private boolean hasModification = false;
 ```
 
 ### FieldMayBeFinal
@@ -3339,6 +3339,18 @@ in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/Options.java`
 ```
 
 ### FieldMayBeFinal
+Field `helpMessage` may be 'final'
+in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/Options.java`
+#### Snippet
+```java
+  private static final String XBOOTCLASSPATH = "-Xbootclasspath:";
+  private static String usageMessage;
+  private static String helpMessage;
+
+  static {
+```
+
+### FieldMayBeFinal
 Field `edges` may be 'final'
 in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/ReferenceGraph.java`
 #### Snippet
@@ -3351,15 +3363,51 @@ public class ReferenceGraph {
 ```
 
 ### FieldMayBeFinal
-Field `catchClauses` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/ast/TryStatement.java`
+Field `lambdaCounts` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/translate/LambdaTypeElementAdder.java`
 #### Snippet
 ```java
-  private ChildList<TreeNode> resources = ChildList.create(TreeNode.class, this);
-  private ChildLink<Block> body = ChildLink.create(Block.class, this);
-  private ChildList<CatchClause> catchClauses = ChildList.create(CatchClause.class, this);
-  private ChildLink<Block> finallyBlock = ChildLink.create(Block.class, this);
+public class LambdaTypeElementAdder extends UnitTreeVisitor {
 
+  private Map<TypeElement, Integer> lambdaCounts = new HashMap<>();
+
+  public LambdaTypeElementAdder(CompilationUnit unit) {
+```
+
+### FieldMayBeFinal
+Field `statements` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/ast/SwitchStatement.java`
+#### Snippet
+```java
+
+  private ChildLink<Expression> expression = ChildLink.create(Expression.class, this);
+  private ChildList<Statement> statements = ChildList.create(Statement.class, this);
+
+  public SwitchStatement() {}
+```
+
+### FieldMayBeFinal
+Field `expression` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/ast/SwitchStatement.java`
+#### Snippet
+```java
+public class SwitchStatement extends Statement {
+
+  private ChildLink<Expression> expression = ChildLink.create(Expression.class, this);
+  private ChildList<Statement> statements = ChildList.create(Statement.class, this);
+
+```
+
+### FieldMayBeFinal
+Field `onExit` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/translate/OuterReferenceResolver.java`
+#### Snippet
+```java
+    // These callbacks are used for correct resolution of local classes where the captures are not
+    // always known at the point of creation.
+    private List<Runnable> onExit = new ArrayList<>();
+    private final Queue<Runnable> onOuterParam;
+    // The following fields are used only by CLASS scope kinds.
 ```
 
 ### FieldMayBeFinal
@@ -3399,27 +3447,15 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/TryStatement.java`
 ```
 
 ### FieldMayBeFinal
-Field `lambdaCounts` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/translate/LambdaTypeElementAdder.java`
+Field `catchClauses` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/ast/TryStatement.java`
 #### Snippet
 ```java
-public class LambdaTypeElementAdder extends UnitTreeVisitor {
-
-  private Map<TypeElement, Integer> lambdaCounts = new HashMap<>();
-
-  public LambdaTypeElementAdder(CompilationUnit unit) {
-```
-
-### FieldMayBeFinal
-Field `body` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/ast/MethodDeclaration.java`
-#### Snippet
-```java
-  private ChildList<SingleVariableDeclaration> parameters =
-      ChildList.create(SingleVariableDeclaration.class, this);
+  private ChildList<TreeNode> resources = ChildList.create(TreeNode.class, this);
   private ChildLink<Block> body = ChildLink.create(Block.class, this);
+  private ChildList<CatchClause> catchClauses = ChildList.create(CatchClause.class, this);
+  private ChildLink<Block> finallyBlock = ChildLink.create(Block.class, this);
 
-  public MethodDeclaration() {}
 ```
 
 ### FieldMayBeFinal
@@ -3435,63 +3471,15 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/MethodDeclaration.ja
 ```
 
 ### FieldMayBeFinal
-Field `expression` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/ast/SwitchStatement.java`
+Field `body` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/ast/MethodDeclaration.java`
 #### Snippet
 ```java
-public class SwitchStatement extends Statement {
+  private ChildList<SingleVariableDeclaration> parameters =
+      ChildList.create(SingleVariableDeclaration.class, this);
+  private ChildLink<Block> body = ChildLink.create(Block.class, this);
 
-  private ChildLink<Expression> expression = ChildLink.create(Expression.class, this);
-  private ChildList<Statement> statements = ChildList.create(Statement.class, this);
-
-```
-
-### FieldMayBeFinal
-Field `statements` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/ast/SwitchStatement.java`
-#### Snippet
-```java
-
-  private ChildLink<Expression> expression = ChildLink.create(Expression.class, this);
-  private ChildList<Statement> statements = ChildList.create(Statement.class, this);
-
-  public SwitchStatement() {}
-```
-
-### FieldMayBeFinal
-Field `orderedAccesses` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/translate/UnsequencedExpressionRewriter.java`
-#### Snippet
-```java
-  private ExecutableElement currentMethod = null;
-  private int count = 1;
-  private List<VariableAccess> orderedAccesses = Lists.newArrayList();
-  private TreeNode currentTopNode = null;
-  private boolean hasModification = false;
-```
-
-### FieldMayBeFinal
-Field `onExit` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/translate/OuterReferenceResolver.java`
-#### Snippet
-```java
-    // These callbacks are used for correct resolution of local classes where the captures are not
-    // always known at the point of creation.
-    private List<Runnable> onExit = new ArrayList<>();
-    private final Queue<Runnable> onOuterParam;
-    // The following fields are used only by CLASS scope kinds.
-```
-
-### FieldMayBeFinal
-Field `enumConstants` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/ast/EnumDeclaration.java`
-#### Snippet
-```java
-  private boolean stripSuperInterfaces = false;
-
-  private ChildList<EnumConstantDeclaration> enumConstants =
-      ChildList.create(EnumConstantDeclaration.class, this);
-
+  public MethodDeclaration() {}
 ```
 
 ### FieldMayBeFinal
@@ -3507,14 +3495,14 @@ public class ParenthesizedExpression extends Expression {
 ```
 
 ### FieldMayBeFinal
-Field `qualifier` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/ast/SuperFieldAccess.java`
+Field `enumConstants` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/ast/EnumDeclaration.java`
 #### Snippet
 ```java
+  private boolean stripSuperInterfaces = false;
 
-  private VariableElement variableElement = null;
-  private ChildLink<Name> qualifier = ChildLink.create(Name.class, this);
-  private TypeMirror typeMirror = null;
+  private ChildList<EnumConstantDeclaration> enumConstants =
+      ChildList.create(EnumConstantDeclaration.class, this);
 
 ```
 
@@ -3531,135 +3519,39 @@ public class ContinueStatement extends Statement {
 ```
 
 ### FieldMayBeFinal
-Field `types` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/ast/IntersectionType.java`
+Field `qualifier` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/ast/SuperFieldAccess.java`
 #### Snippet
 ```java
-public class IntersectionType extends Type {
 
-  private ChildList<Type> types = ChildList.create(Type.class, this);
-
-  public IntersectionType(TypeMirror typeMirror) {
-```
-
-### FieldMayBeFinal
-Field `dead` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/util/ProGuardUsageParser.java`
-#### Snippet
-```java
-  public static CodeReferenceMap parse(CharSource listing) throws IOException {
-    LineProcessor<CodeReferenceMap> processor = new LineProcessor<CodeReferenceMap>() {
-      CodeReferenceMap.Builder dead = CodeReferenceMap.builder();
-      String lastClass;
-
-```
-
-### FieldMayBeFinal
-Field `publicTypes` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/translate/PrivateDeclarationResolver.java`
-#### Snippet
-```java
-  // Collects types that must be public because they are exposed by another
-  // public declaration. These types and all of their supertypes must be public.
-  private Set<TypeElement> publicTypes = new HashSet<>();
-  private List<AbstractTypeDeclaration> publicNodesToVisit = new ArrayList<>();
-
-```
-
-### FieldMayBeFinal
-Field `typeMap` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/translate/PrivateDeclarationResolver.java`
-#### Snippet
-```java
-public class PrivateDeclarationResolver extends UnitTreeVisitor {
-
-  private Map<TypeElement, AbstractTypeDeclaration> typeMap = new HashMap<>();
-  // Collects types that must be public because they are exposed by another
-  // public declaration. These types and all of their supertypes must be public.
-```
-
-### FieldMayBeFinal
-Field `publicNodesToVisit` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/translate/PrivateDeclarationResolver.java`
-#### Snippet
-```java
-  // public declaration. These types and all of their supertypes must be public.
-  private Set<TypeElement> publicTypes = new HashSet<>();
-  private List<AbstractTypeDeclaration> publicNodesToVisit = new ArrayList<>();
-
-  public PrivateDeclarationResolver(CompilationUnit unit) {
-```
-
-### FieldMayBeFinal
-Field `expression` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/ast/ReturnStatement.java`
-#### Snippet
-```java
-public class ReturnStatement extends Statement {
-
-  private ChildLink<Expression> expression = ChildLink.create(Expression.class, this);
-
-  public ReturnStatement() {}
-```
-
-### FieldMayBeFinal
-Field `body` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/ast/CatchClause.java`
-#### Snippet
-```java
-  private ChildLink<SingleVariableDeclaration> exception =
-      ChildLink.create(SingleVariableDeclaration.class, this);
-  private ChildLink<Block> body = ChildLink.create(Block.class, this);
-
-  public CatchClause() {}
-```
-
-### FieldMayBeFinal
-Field `exception` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/ast/CatchClause.java`
-#### Snippet
-```java
-public class CatchClause extends TreeNode {
-
-  private ChildLink<SingleVariableDeclaration> exception =
-      ChildLink.create(SingleVariableDeclaration.class, this);
-  private ChildLink<Block> body = ChildLink.create(Block.class, this);
-```
-
-### FieldMayBeFinal
-Field `importTypes` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/ast/NativeExpression.java`
-#### Snippet
-```java
-  private String code = null;
+  private VariableElement variableElement = null;
+  private ChildLink<Name> qualifier = ChildLink.create(Name.class, this);
   private TypeMirror typeMirror = null;
-  private List<TypeMirror> importTypes = Lists.newArrayList();
 
-  public NativeExpression(NativeExpression other) {
 ```
 
 ### FieldMayBeFinal
-Field `packageInfoLookup` may be 'final'
+Field `processorPathEntries` may be 'final'
 in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
 #### Snippet
 ```java
+public class Options {
+
+  private List<String> processorPathEntries = new ArrayList<>();
+  private OutputLanguageOption language = OutputLanguageOption.OBJECTIVE_C;
+  private MemoryManagementOption memoryManagementOption = null;
+```
+
+### FieldMayBeFinal
+Field `fileUtil` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
+#### Snippet
+```java
+
   private Mappings mappings = new Mappings();
   private FileUtil fileUtil = new FileUtil();
   private PackageInfoLookup packageInfoLookup = new PackageInfoLookup(fileUtil);
   private PackagePrefixes packagePrefixes = new PackagePrefixes(packageInfoLookup);
-  private final ExternalAnnotations externalAnnotations = new ExternalAnnotations();
-```
-
-### FieldMayBeFinal
-Field `fileHeader` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
-#### Snippet
-```java
-  private File proGuardUsageFile = null;
-
-  private static String fileHeader;
-  private static final String FILE_HEADER_KEY = "file-header";
-  private static String usageMessage;
 ```
 
 ### FieldMayBeFinal
@@ -3675,18 +3567,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
 ```
 
 ### FieldMayBeFinal
-Field `usageMessage` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
-#### Snippet
-```java
-  private static String fileHeader;
-  private static final String FILE_HEADER_KEY = "file-header";
-  private static String usageMessage;
-  private static String helpMessage;
-  private static String xhelpMessage;
-```
-
-### FieldMayBeFinal
 Field `headerMap` may be 'final'
 in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
 #### Snippet
@@ -3696,18 +3576,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
   private HeaderMap headerMap = new HeaderMap();
   private boolean stripGwtIncompatible = false;
   private boolean segmentedHeaders = true;
-```
-
-### FieldMayBeFinal
-Field `processorPathEntries` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
-#### Snippet
-```java
-public class Options {
-
-  private List<String> processorPathEntries = new ArrayList<>();
-  private OutputLanguageOption language = OutputLanguageOption.OBJECTIVE_C;
-  private MemoryManagementOption memoryManagementOption = null;
 ```
 
 ### FieldMayBeFinal
@@ -3735,18 +3603,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
 ```
 
 ### FieldMayBeFinal
-Field `fileUtil` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
-#### Snippet
-```java
-
-  private Mappings mappings = new Mappings();
-  private FileUtil fileUtil = new FileUtil();
-  private PackageInfoLookup packageInfoLookup = new PackageInfoLookup(fileUtil);
-  private PackagePrefixes packagePrefixes = new PackagePrefixes(packageInfoLookup);
-```
-
-### FieldMayBeFinal
 Field `packagePrefixes` may be 'final'
 in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
 #### Snippet
@@ -3756,6 +3612,150 @@ in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
   private PackagePrefixes packagePrefixes = new PackagePrefixes(packageInfoLookup);
   private final ExternalAnnotations externalAnnotations = new ExternalAnnotations();
   private final List<String> entryClasses = new ArrayList<>();
+```
+
+### FieldMayBeFinal
+Field `packageInfoLookup` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
+#### Snippet
+```java
+  private Mappings mappings = new Mappings();
+  private FileUtil fileUtil = new FileUtil();
+  private PackageInfoLookup packageInfoLookup = new PackageInfoLookup(fileUtil);
+  private PackagePrefixes packagePrefixes = new PackagePrefixes(packageInfoLookup);
+  private final ExternalAnnotations externalAnnotations = new ExternalAnnotations();
+```
+
+### FieldMayBeFinal
+Field `fileHeader` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
+#### Snippet
+```java
+  private File proGuardUsageFile = null;
+
+  private static String fileHeader;
+  private static final String FILE_HEADER_KEY = "file-header";
+  private static String usageMessage;
+```
+
+### FieldMayBeFinal
+Field `usageMessage` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/Options.java`
+#### Snippet
+```java
+  private static String fileHeader;
+  private static final String FILE_HEADER_KEY = "file-header";
+  private static String usageMessage;
+  private static String helpMessage;
+  private static String xhelpMessage;
+```
+
+### FieldMayBeFinal
+Field `dead` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/util/ProGuardUsageParser.java`
+#### Snippet
+```java
+  public static CodeReferenceMap parse(CharSource listing) throws IOException {
+    LineProcessor<CodeReferenceMap> processor = new LineProcessor<CodeReferenceMap>() {
+      CodeReferenceMap.Builder dead = CodeReferenceMap.builder();
+      String lastClass;
+
+```
+
+### FieldMayBeFinal
+Field `types` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/ast/IntersectionType.java`
+#### Snippet
+```java
+public class IntersectionType extends Type {
+
+  private ChildList<Type> types = ChildList.create(Type.class, this);
+
+  public IntersectionType(TypeMirror typeMirror) {
+```
+
+### FieldMayBeFinal
+Field `publicNodesToVisit` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/translate/PrivateDeclarationResolver.java`
+#### Snippet
+```java
+  // public declaration. These types and all of their supertypes must be public.
+  private Set<TypeElement> publicTypes = new HashSet<>();
+  private List<AbstractTypeDeclaration> publicNodesToVisit = new ArrayList<>();
+
+  public PrivateDeclarationResolver(CompilationUnit unit) {
+```
+
+### FieldMayBeFinal
+Field `publicTypes` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/translate/PrivateDeclarationResolver.java`
+#### Snippet
+```java
+  // Collects types that must be public because they are exposed by another
+  // public declaration. These types and all of their supertypes must be public.
+  private Set<TypeElement> publicTypes = new HashSet<>();
+  private List<AbstractTypeDeclaration> publicNodesToVisit = new ArrayList<>();
+
+```
+
+### FieldMayBeFinal
+Field `typeMap` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/translate/PrivateDeclarationResolver.java`
+#### Snippet
+```java
+public class PrivateDeclarationResolver extends UnitTreeVisitor {
+
+  private Map<TypeElement, AbstractTypeDeclaration> typeMap = new HashMap<>();
+  // Collects types that must be public because they are exposed by another
+  // public declaration. These types and all of their supertypes must be public.
+```
+
+### FieldMayBeFinal
+Field `exception` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/ast/CatchClause.java`
+#### Snippet
+```java
+public class CatchClause extends TreeNode {
+
+  private ChildLink<SingleVariableDeclaration> exception =
+      ChildLink.create(SingleVariableDeclaration.class, this);
+  private ChildLink<Block> body = ChildLink.create(Block.class, this);
+```
+
+### FieldMayBeFinal
+Field `body` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/ast/CatchClause.java`
+#### Snippet
+```java
+  private ChildLink<SingleVariableDeclaration> exception =
+      ChildLink.create(SingleVariableDeclaration.class, this);
+  private ChildLink<Block> body = ChildLink.create(Block.class, this);
+
+  public CatchClause() {}
+```
+
+### FieldMayBeFinal
+Field `importTypes` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/ast/NativeExpression.java`
+#### Snippet
+```java
+  private String code = null;
+  private TypeMirror typeMirror = null;
+  private List<TypeMirror> importTypes = Lists.newArrayList();
+
+  public NativeExpression(NativeExpression other) {
+```
+
+### FieldMayBeFinal
+Field `expression` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/ast/ReturnStatement.java`
+#### Snippet
+```java
+public class ReturnStatement extends Statement {
+
+  private ChildLink<Expression> expression = ChildLink.create(Expression.class, this);
+
+  public ReturnStatement() {}
 ```
 
 ### FieldMayBeFinal
@@ -3771,18 +3771,6 @@ public class BreakStatement extends Statement {
 ```
 
 ### FieldMayBeFinal
-Field `label` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/ast/LabeledStatement.java`
-#### Snippet
-```java
-public class LabeledStatement extends Statement {
-
-  private ChildLink<SimpleName> label = ChildLink.create(SimpleName.class, this);
-  private ChildLink<Statement> body = ChildLink.create(Statement.class, this);
-
-```
-
-### FieldMayBeFinal
 Field `body` may be 'final'
 in `translator/src/main/java/com/google/devtools/j2objc/ast/LabeledStatement.java`
 #### Snippet
@@ -3792,6 +3780,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/LabeledStatement.jav
   private ChildLink<Statement> body = ChildLink.create(Statement.class, this);
 
   public LabeledStatement() {}
+```
+
+### FieldMayBeFinal
+Field `label` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/ast/LabeledStatement.java`
+#### Snippet
+```java
+public class LabeledStatement extends Statement {
+
+  private ChildLink<SimpleName> label = ChildLink.create(SimpleName.class, this);
+  private ChildLink<Statement> body = ChildLink.create(Statement.class, this);
+
 ```
 
 ### FieldMayBeFinal
@@ -3819,6 +3819,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/PrefixExpression.jav
 ```
 
 ### FieldMayBeFinal
+Field `targetTypes` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/ast/FunctionalExpression.java`
+#### Snippet
+```java
+  private TypeMirror typeMirror = null;
+  private TypeElement typeElement = null;
+  private List<TypeMirror> targetTypes = new ArrayList<>();
+  private ExecutablePair descriptor = ExecutablePair.NULL;
+  protected ChildLink<Expression> lambdaOuterArg = ChildLink.create(Expression.class, this);
+```
+
+### FieldMayBeFinal
 Field `qualifier` may be 'final'
 in `translator/src/main/java/com/google/devtools/j2objc/ast/SuperMethodReference.java`
 #### Snippet
@@ -3843,18 +3855,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/SuperMethodReference
 ```
 
 ### FieldMayBeFinal
-Field `targetTypes` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/ast/FunctionalExpression.java`
-#### Snippet
-```java
-  private TypeMirror typeMirror = null;
-  private TypeElement typeElement = null;
-  private List<TypeMirror> targetTypes = new ArrayList<>();
-  private ExecutablePair descriptor = ExecutablePair.NULL;
-  protected ChildLink<Expression> lambdaOuterArg = ChildLink.create(Expression.class, this);
-```
-
-### FieldMayBeFinal
 Field `parameterTypes` may be 'final'
 in `translator/src/main/java/com/google/devtools/j2objc/types/FunctionElement.java`
 #### Snippet
@@ -3867,15 +3867,15 @@ in `translator/src/main/java/com/google/devtools/j2objc/types/FunctionElement.ja
 ```
 
 ### FieldMayBeFinal
-Field `sb` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/types/DebugElementDump.java`
+Field `usageMessage` may be 'final'
+in `tree_shaker/src/main/java/com/google/devtools/treeshaker/Options.java`
 #### Snippet
 ```java
-public class DebugElementDump extends ElementScanner8<Void, Void> {
 
-  private SourceBuilder sb = new SourceBuilder(false);
+  private static final String XBOOTCLASSPATH = "-Xbootclasspath:";
+  private static String usageMessage;
+  private static String helpMessage;
 
-  public static String dump(TreeNode node) {
 ```
 
 ### FieldMayBeFinal
@@ -3891,15 +3891,15 @@ in `tree_shaker/src/main/java/com/google/devtools/treeshaker/Options.java`
 ```
 
 ### FieldMayBeFinal
-Field `usageMessage` may be 'final'
-in `tree_shaker/src/main/java/com/google/devtools/treeshaker/Options.java`
+Field `sb` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/types/DebugElementDump.java`
 #### Snippet
 ```java
+public class DebugElementDump extends ElementScanner8<Void, Void> {
 
-  private static final String XBOOTCLASSPATH = "-Xbootclasspath:";
-  private static String usageMessage;
-  private static String helpMessage;
+  private SourceBuilder sb = new SourceBuilder(false);
 
+  public static String dump(TreeNode node) {
 ```
 
 ### FieldMayBeFinal
@@ -4023,18 +4023,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/ArrayType.java`
 ```
 
 ### FieldMayBeFinal
-Field `classPathEntries` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/util/FileUtil.java`
-#### Snippet
-```java
-  private Set<String> tempDirs = new HashSet<>();
-  private List<String> sourcePathEntries = new ArrayList<>();
-  private List<String> classPathEntries = new ArrayList<>();
-  private File outputDirectory = new File(".");
-  private File headerOutputDirectory = null;
-```
-
-### FieldMayBeFinal
 Field `tempDirs` may be 'final'
 in `translator/src/main/java/com/google/devtools/j2objc/util/FileUtil.java`
 #### Snippet
@@ -4044,6 +4032,18 @@ public class FileUtil {
   private Set<String> tempDirs = new HashSet<>();
   private List<String> sourcePathEntries = new ArrayList<>();
   private List<String> classPathEntries = new ArrayList<>();
+```
+
+### FieldMayBeFinal
+Field `classPathEntries` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/util/FileUtil.java`
+#### Snippet
+```java
+  private Set<String> tempDirs = new HashSet<>();
+  private List<String> sourcePathEntries = new ArrayList<>();
+  private List<String> classPathEntries = new ArrayList<>();
+  private File outputDirectory = new File(".");
+  private File headerOutputDirectory = null;
 ```
 
 ### FieldMayBeFinal
@@ -4071,18 +4071,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/InfixExpression.java
 ```
 
 ### FieldMayBeFinal
-Field `value` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/ast/MemberValuePair.java`
-#### Snippet
-```java
-
-  private ChildLink<SimpleName> name = ChildLink.create(SimpleName.class, this);
-  private ChildLink<Expression> value = ChildLink.create(Expression.class, this);
-
-  public MemberValuePair() {}
-```
-
-### FieldMayBeFinal
 Field `name` may be 'final'
 in `translator/src/main/java/com/google/devtools/j2objc/ast/MemberValuePair.java`
 #### Snippet
@@ -4092,6 +4080,18 @@ public class MemberValuePair extends TreeNode {
   private ChildLink<SimpleName> name = ChildLink.create(SimpleName.class, this);
   private ChildLink<Expression> value = ChildLink.create(Expression.class, this);
 
+```
+
+### FieldMayBeFinal
+Field `value` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/ast/MemberValuePair.java`
+#### Snippet
+```java
+
+  private ChildLink<SimpleName> name = ChildLink.create(SimpleName.class, this);
+  private ChildLink<Expression> value = ChildLink.create(Expression.class, this);
+
+  public MemberValuePair() {}
 ```
 
 ### FieldMayBeFinal
@@ -4119,39 +4119,15 @@ public class Block extends Statement {
 ```
 
 ### FieldMayBeFinal
-Field `superCalls` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/translate/Functionizer.java`
+Field `value` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/ast/SingleMemberAnnotation.java`
 #### Snippet
 ```java
+public class SingleMemberAnnotation extends Annotation {
 
-    private Boolean functionizable = null;
-    private Set<ExecutableElement> superCalls = new HashSet<>();
+  private ChildLink<Expression> value = ChildLink.create(Expression.class, this);
 
-    private boolean resolveFunctionizable(Map<ExecutableElement, MethodInfo> infoMap) {
-```
-
-### FieldMayBeFinal
-Field `infoMap` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/translate/Functionizer.java`
-#### Snippet
-```java
-    // Don't need a stack here because local types have already been extracted.
-    private MethodInfo currentMethod = null;
-    private Map<ExecutableElement, MethodInfo> infoMap = new HashMap<>();
-    private Set<ExecutableElement> invocations = new HashSet<>();
-
-```
-
-### FieldMayBeFinal
-Field `invocations` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/translate/Functionizer.java`
-#### Snippet
-```java
-    private MethodInfo currentMethod = null;
-    private Map<ExecutableElement, MethodInfo> infoMap = new HashMap<>();
-    private Set<ExecutableElement> invocations = new HashSet<>();
-
-    @Override
+  public SingleMemberAnnotation() {}
 ```
 
 ### FieldMayBeFinal
@@ -4167,18 +4143,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/TagElement.java`
 ```
 
 ### FieldMayBeFinal
-Field `value` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/ast/SingleMemberAnnotation.java`
-#### Snippet
-```java
-public class SingleMemberAnnotation extends Annotation {
-
-  private ChildLink<Expression> value = ChildLink.create(Expression.class, this);
-
-  public SingleMemberAnnotation() {}
-```
-
-### FieldMayBeFinal
 Field `implementationImportTypes` may be 'final'
 in `translator/src/main/java/com/google/devtools/j2objc/ast/NativeDeclaration.java`
 #### Snippet
@@ -4188,6 +4152,42 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/NativeDeclaration.ja
   private List<TypeMirror> implementationImportTypes = new ArrayList<>();
 
   public NativeDeclaration(NativeDeclaration other) {
+```
+
+### FieldMayBeFinal
+Field `parameter` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/ast/EnhancedForStatement.java`
+#### Snippet
+```java
+public class EnhancedForStatement extends Statement {
+
+  private ChildLink<SingleVariableDeclaration> parameter =
+      ChildLink.create(SingleVariableDeclaration.class, this);
+  private ChildLink<Expression> expression = ChildLink.create(Expression.class, this);
+```
+
+### FieldMayBeFinal
+Field `body` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/ast/EnhancedForStatement.java`
+#### Snippet
+```java
+      ChildLink.create(SingleVariableDeclaration.class, this);
+  private ChildLink<Expression> expression = ChildLink.create(Expression.class, this);
+  private ChildLink<Statement> body = ChildLink.create(Statement.class, this);
+
+  public EnhancedForStatement() {}
+```
+
+### FieldMayBeFinal
+Field `expression` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/ast/EnhancedForStatement.java`
+#### Snippet
+```java
+  private ChildLink<SingleVariableDeclaration> parameter =
+      ChildLink.create(SingleVariableDeclaration.class, this);
+  private ChildLink<Expression> expression = ChildLink.create(Expression.class, this);
+  private ChildLink<Statement> body = ChildLink.create(Statement.class, this);
+
 ```
 
 ### FieldMayBeFinal
@@ -4227,75 +4227,39 @@ public class QualifiedName extends Name {
 ```
 
 ### FieldMayBeFinal
-Field `body` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/ast/EnhancedForStatement.java`
+Field `superCalls` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/translate/Functionizer.java`
 #### Snippet
 ```java
-      ChildLink.create(SingleVariableDeclaration.class, this);
-  private ChildLink<Expression> expression = ChildLink.create(Expression.class, this);
-  private ChildLink<Statement> body = ChildLink.create(Statement.class, this);
 
-  public EnhancedForStatement() {}
+    private Boolean functionizable = null;
+    private Set<ExecutableElement> superCalls = new HashSet<>();
+
+    private boolean resolveFunctionizable(Map<ExecutableElement, MethodInfo> infoMap) {
 ```
 
 ### FieldMayBeFinal
-Field `parameter` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/ast/EnhancedForStatement.java`
+Field `invocations` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/translate/Functionizer.java`
 #### Snippet
 ```java
-public class EnhancedForStatement extends Statement {
+    private MethodInfo currentMethod = null;
+    private Map<ExecutableElement, MethodInfo> infoMap = new HashMap<>();
+    private Set<ExecutableElement> invocations = new HashSet<>();
 
-  private ChildLink<SingleVariableDeclaration> parameter =
-      ChildLink.create(SingleVariableDeclaration.class, this);
-  private ChildLink<Expression> expression = ChildLink.create(Expression.class, this);
+    @Override
 ```
 
 ### FieldMayBeFinal
-Field `expression` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/ast/EnhancedForStatement.java`
+Field `infoMap` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/translate/Functionizer.java`
 #### Snippet
 ```java
-  private ChildLink<SingleVariableDeclaration> parameter =
-      ChildLink.create(SingleVariableDeclaration.class, this);
-  private ChildLink<Expression> expression = ChildLink.create(Expression.class, this);
-  private ChildLink<Statement> body = ChildLink.create(Statement.class, this);
+    // Don't need a stack here because local types have already been extracted.
+    private MethodInfo currentMethod = null;
+    private Map<ExecutableElement, MethodInfo> infoMap = new HashMap<>();
+    private Set<ExecutableElement> invocations = new HashSet<>();
 
-```
-
-### FieldMayBeFinal
-Field `leftOperand` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/ast/InstanceofExpression.java`
-#### Snippet
-```java
-
-  private TypeMirror typeMirror;
-  private ChildLink<Expression> leftOperand = ChildLink.create(Expression.class, this);
-  private ChildLink<Type> rightOperand = ChildLink.create(Type.class, this);
-
-```
-
-### FieldMayBeFinal
-Field `rightOperand` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/ast/InstanceofExpression.java`
-#### Snippet
-```java
-  private TypeMirror typeMirror;
-  private ChildLink<Expression> leftOperand = ChildLink.create(Expression.class, this);
-  private ChildLink<Type> rightOperand = ChildLink.create(Type.class, this);
-
-  public InstanceofExpression() {}
-```
-
-### FieldMayBeFinal
-Field `creationCaptureArgs` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/ast/CreationReference.java`
-#### Snippet
-```java
-  private ChildLink<Type> type = ChildLink.create(Type.class, this);
-  private ChildLink<Expression> creationOuterArg = ChildLink.create(Expression.class, this);
-  private ChildList<Expression> creationCaptureArgs = ChildList.create(Expression.class, this);
-
-  public CreationReference() {}
 ```
 
 ### FieldMayBeFinal
@@ -4323,6 +4287,42 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/CreationReference.ja
 ```
 
 ### FieldMayBeFinal
+Field `creationCaptureArgs` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/ast/CreationReference.java`
+#### Snippet
+```java
+  private ChildLink<Type> type = ChildLink.create(Type.class, this);
+  private ChildLink<Expression> creationOuterArg = ChildLink.create(Expression.class, this);
+  private ChildList<Expression> creationCaptureArgs = ChildList.create(Expression.class, this);
+
+  public CreationReference() {}
+```
+
+### FieldMayBeFinal
+Field `rightOperand` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/ast/InstanceofExpression.java`
+#### Snippet
+```java
+  private TypeMirror typeMirror;
+  private ChildLink<Expression> leftOperand = ChildLink.create(Expression.class, this);
+  private ChildLink<Type> rightOperand = ChildLink.create(Type.class, this);
+
+  public InstanceofExpression() {}
+```
+
+### FieldMayBeFinal
+Field `leftOperand` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/ast/InstanceofExpression.java`
+#### Snippet
+```java
+
+  private TypeMirror typeMirror;
+  private ChildLink<Expression> leftOperand = ChildLink.create(Expression.class, this);
+  private ChildLink<Type> rightOperand = ChildLink.create(Type.class, this);
+
+```
+
+### FieldMayBeFinal
 Field `type` may be 'final'
 in `translator/src/main/java/com/google/devtools/j2objc/ast/TypeMethodReference.java`
 #### Snippet
@@ -4344,30 +4344,6 @@ public class ExpressionStatement extends Statement {
   private ChildLink<Expression> expression = ChildLink.create(Expression.class, this);
 
   public ExpressionStatement() {}
-```
-
-### FieldMayBeFinal
-Field `expression` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/ast/CastExpression.java`
-#### Snippet
-```java
-
-  private ChildLink<Type> type = ChildLink.create(Type.class, this);
-  private ChildLink<Expression> expression = ChildLink.create(Expression.class, this);
-
-  public CastExpression(CastExpression other) {
-```
-
-### FieldMayBeFinal
-Field `type` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/ast/CastExpression.java`
-#### Snippet
-```java
-public class CastExpression extends Expression {
-
-  private ChildLink<Type> type = ChildLink.create(Type.class, this);
-  private ChildLink<Expression> expression = ChildLink.create(Expression.class, this);
-
 ```
 
 ### FieldMayBeFinal
@@ -4407,6 +4383,42 @@ public class DebugASTDump extends TreeVisitor {
 ```
 
 ### FieldMayBeFinal
+Field `type` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/ast/CastExpression.java`
+#### Snippet
+```java
+public class CastExpression extends Expression {
+
+  private ChildLink<Type> type = ChildLink.create(Type.class, this);
+  private ChildLink<Expression> expression = ChildLink.create(Expression.class, this);
+
+```
+
+### FieldMayBeFinal
+Field `expression` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/ast/CastExpression.java`
+#### Snippet
+```java
+
+  private ChildLink<Type> type = ChildLink.create(Type.class, this);
+  private ChildLink<Expression> expression = ChildLink.create(Expression.class, this);
+
+  public CastExpression(CastExpression other) {
+```
+
+### FieldMayBeFinal
+Field `expression` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/ast/SwitchCase.java`
+#### Snippet
+```java
+
+  private boolean isDefault = false;
+  private ChildLink<Expression> expression = ChildLink.create(Expression.class, this);
+
+  public SwitchCase() {}
+```
+
+### FieldMayBeFinal
 Field `leftHandSide` may be 'final'
 in `translator/src/main/java/com/google/devtools/j2objc/ast/Assignment.java`
 #### Snippet
@@ -4428,18 +4440,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/Assignment.java`
   private ChildLink<Expression> rightHandSide = ChildLink.create(Expression.class, this);
 
   public Assignment() {}
-```
-
-### FieldMayBeFinal
-Field `expression` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/ast/SwitchCase.java`
-#### Snippet
-```java
-
-  private boolean isDefault = false;
-  private ChildLink<Expression> expression = ChildLink.create(Expression.class, this);
-
-  public SwitchCase() {}
 ```
 
 ### FieldMayBeFinal
@@ -4479,18 +4479,6 @@ public class SuperMethodInvocationRewriter extends UnitTreeVisitor {
 ```
 
 ### FieldMayBeFinal
-Field `fieldNameStack` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/translate/VariableRenamer.java`
-#### Snippet
-```java
-public class VariableRenamer extends UnitTreeVisitor {
-
-  private List<Set<String>> fieldNameStack = new ArrayList<>();
-  private Set<TypeElement> renamedTypes = new HashSet<>();
-
-```
-
-### FieldMayBeFinal
 Field `renamedTypes` may be 'final'
 in `translator/src/main/java/com/google/devtools/j2objc/translate/VariableRenamer.java`
 #### Snippet
@@ -4503,14 +4491,14 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/VariableRename
 ```
 
 ### FieldMayBeFinal
-Field `thenStatement` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/ast/IfStatement.java`
+Field `fieldNameStack` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/translate/VariableRenamer.java`
 #### Snippet
 ```java
+public class VariableRenamer extends UnitTreeVisitor {
 
-  private ChildLink<Expression> expression = ChildLink.create(Expression.class, this);
-  private ChildLink<Statement> thenStatement = ChildLink.create(Statement.class, this);
-  private ChildLink<Statement> elseStatement = ChildLink.create(Statement.class, this);
+  private List<Set<String>> fieldNameStack = new ArrayList<>();
+  private Set<TypeElement> renamedTypes = new HashSet<>();
 
 ```
 
@@ -4527,6 +4515,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/IfStatement.java`
 ```
 
 ### FieldMayBeFinal
+Field `thenStatement` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/ast/IfStatement.java`
+#### Snippet
+```java
+
+  private ChildLink<Expression> expression = ChildLink.create(Expression.class, this);
+  private ChildLink<Statement> thenStatement = ChildLink.create(Statement.class, this);
+  private ChildLink<Statement> elseStatement = ChildLink.create(Statement.class, this);
+
+```
+
+### FieldMayBeFinal
 Field `expression` may be 'final'
 in `translator/src/main/java/com/google/devtools/j2objc/ast/IfStatement.java`
 #### Snippet
@@ -4536,6 +4536,18 @@ public class IfStatement extends Statement {
   private ChildLink<Expression> expression = ChildLink.create(Expression.class, this);
   private ChildLink<Statement> thenStatement = ChildLink.create(Statement.class, this);
   private ChildLink<Statement> elseStatement = ChildLink.create(Statement.class, this);
+```
+
+### FieldMayBeFinal
+Field `modifiers` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/types/GeneratedElement.java`
+#### Snippet
+```java
+  private final ElementKind kind;
+  private final boolean synthetic;
+  private Set<Modifier> modifiers = new HashSet<>();
+  private final Element enclosingElement;
+  private final List<AnnotationMirror> annotationMirrors = new ArrayList<>();
 ```
 
 ### FieldMayBeFinal
@@ -4563,15 +4575,27 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/AssertStatement.java
 ```
 
 ### FieldMayBeFinal
-Field `modifiers` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/types/GeneratedElement.java`
+Field `updaters` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/ast/ForStatement.java`
 #### Snippet
 ```java
-  private final ElementKind kind;
-  private final boolean synthetic;
-  private Set<Modifier> modifiers = new HashSet<>();
-  private final Element enclosingElement;
-  private final List<AnnotationMirror> annotationMirrors = new ArrayList<>();
+  private ChildList<Expression> initializers = ChildList.create(Expression.class, this);
+  private ChildLink<Expression> expression = ChildLink.create(Expression.class, this);
+  private ChildList<Expression> updaters = ChildList.create(Expression.class, this);
+  private ChildLink<Statement> body = ChildLink.create(Statement.class, this);
+
+```
+
+### FieldMayBeFinal
+Field `expression` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/ast/ForStatement.java`
+#### Snippet
+```java
+
+  private ChildList<Expression> initializers = ChildList.create(Expression.class, this);
+  private ChildLink<Expression> expression = ChildLink.create(Expression.class, this);
+  private ChildList<Expression> updaters = ChildList.create(Expression.class, this);
+  private ChildLink<Statement> body = ChildLink.create(Statement.class, this);
 ```
 
 ### FieldMayBeFinal
@@ -4587,18 +4611,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/ForStatement.java`
 ```
 
 ### FieldMayBeFinal
-Field `updaters` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/ast/ForStatement.java`
-#### Snippet
-```java
-  private ChildList<Expression> initializers = ChildList.create(Expression.class, this);
-  private ChildLink<Expression> expression = ChildLink.create(Expression.class, this);
-  private ChildList<Expression> updaters = ChildList.create(Expression.class, this);
-  private ChildLink<Statement> body = ChildLink.create(Statement.class, this);
-
-```
-
-### FieldMayBeFinal
 Field `initializers` may be 'final'
 in `translator/src/main/java/com/google/devtools/j2objc/ast/ForStatement.java`
 #### Snippet
@@ -4608,18 +4620,6 @@ public class ForStatement extends Statement {
   private ChildList<Expression> initializers = ChildList.create(Expression.class, this);
   private ChildLink<Expression> expression = ChildLink.create(Expression.class, this);
   private ChildList<Expression> updaters = ChildList.create(Expression.class, this);
-```
-
-### FieldMayBeFinal
-Field `expression` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/ast/ForStatement.java`
-#### Snippet
-```java
-
-  private ChildList<Expression> initializers = ChildList.create(Expression.class, this);
-  private ChildLink<Expression> expression = ChildLink.create(Expression.class, this);
-  private ChildList<Expression> updaters = ChildList.create(Expression.class, this);
-  private ChildLink<Statement> body = ChildLink.create(Statement.class, this);
 ```
 
 ### FieldMayBeFinal
@@ -4647,18 +4647,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/translate/ComplexExpress
 ```
 
 ### FieldMayBeFinal
-Field `annotations` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/ast/PackageDeclaration.java`
-#### Snippet
-```java
-  private PackageElement packageElement = null;
-  private ChildLink<Javadoc> javadoc = ChildLink.create(Javadoc.class, this);
-  private ChildList<Annotation> annotations = ChildList.create(Annotation.class, this);
-  private ChildLink<Name> name = ChildLink.create(Name.class, this);
-
-```
-
-### FieldMayBeFinal
 Field `name` may be 'final'
 in `translator/src/main/java/com/google/devtools/j2objc/ast/PackageDeclaration.java`
 #### Snippet
@@ -4680,6 +4668,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/PackageDeclaration.j
   private ChildLink<Javadoc> javadoc = ChildLink.create(Javadoc.class, this);
   private ChildList<Annotation> annotations = ChildList.create(Annotation.class, this);
   private ChildLink<Name> name = ChildLink.create(Name.class, this);
+```
+
+### FieldMayBeFinal
+Field `annotations` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/ast/PackageDeclaration.java`
+#### Snippet
+```java
+  private PackageElement packageElement = null;
+  private ChildLink<Javadoc> javadoc = ChildLink.create(Javadoc.class, this);
+  private ChildList<Annotation> annotations = ChildList.create(Annotation.class, this);
+  private ChildLink<Name> name = ChildLink.create(Name.class, this);
+
 ```
 
 ### FieldMayBeFinal
@@ -4715,30 +4715,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/FieldAccess.java`
   private VariableElement variableElement = null;
   private ChildLink<Expression> expression = ChildLink.create(Expression.class, this);
   private ChildLink<SimpleName> name = ChildLink.create(SimpleName.class, this);
-
-```
-
-### FieldMayBeFinal
-Field `body` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/ast/SynchronizedStatement.java`
-#### Snippet
-```java
-
-  private ChildLink<Expression> expression = ChildLink.create(Expression.class, this);
-  private ChildLink<Block> body = ChildLink.create(Block.class, this);
-
-  public SynchronizedStatement() {}
-```
-
-### FieldMayBeFinal
-Field `expression` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/ast/SynchronizedStatement.java`
-#### Snippet
-```java
-public class SynchronizedStatement extends Statement {
-
-  private ChildLink<Expression> expression = ChildLink.create(Expression.class, this);
-  private ChildLink<Block> body = ChildLink.create(Block.class, this);
 
 ```
 
@@ -4779,6 +4755,30 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/WhileStatement.java`
 ```
 
 ### FieldMayBeFinal
+Field `expression` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/ast/SynchronizedStatement.java`
+#### Snippet
+```java
+public class SynchronizedStatement extends Statement {
+
+  private ChildLink<Expression> expression = ChildLink.create(Expression.class, this);
+  private ChildLink<Block> body = ChildLink.create(Block.class, this);
+
+```
+
+### FieldMayBeFinal
+Field `body` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/ast/SynchronizedStatement.java`
+#### Snippet
+```java
+
+  private ChildLink<Expression> expression = ChildLink.create(Expression.class, this);
+  private ChildLink<Block> body = ChildLink.create(Block.class, this);
+
+  public SynchronizedStatement() {}
+```
+
+### FieldMayBeFinal
 Field `tags` may be 'final'
 in `translator/src/main/java/com/google/devtools/j2objc/ast/Javadoc.java`
 #### Snippet
@@ -4788,6 +4788,30 @@ public class Javadoc extends Comment {
   private ChildList<TagElement> tags = ChildList.create(TagElement.class, this);
 
   public Javadoc() {}
+```
+
+### FieldMayBeFinal
+Field `type` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/ast/VariableDeclarationExpression.java`
+#### Snippet
+```java
+public class VariableDeclarationExpression extends Expression {
+
+  private ChildLink<Type> type = ChildLink.create(Type.class, this);
+  private ChildList<VariableDeclarationFragment> fragments =
+      ChildList.create(VariableDeclarationFragment.class, this);
+```
+
+### FieldMayBeFinal
+Field `fragments` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/ast/VariableDeclarationExpression.java`
+#### Snippet
+```java
+
+  private ChildLink<Type> type = ChildLink.create(Type.class, this);
+  private ChildList<VariableDeclarationFragment> fragments =
+      ChildList.create(VariableDeclarationFragment.class, this);
+
 ```
 
 ### FieldMayBeFinal
@@ -4815,18 +4839,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/ConditionalExpressio
 ```
 
 ### FieldMayBeFinal
-Field `thenExpression` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/ast/ConditionalExpression.java`
-#### Snippet
-```java
-
-  private ChildLink<Expression> expression = ChildLink.create(Expression.class, this);
-  private ChildLink<Expression> thenExpression = ChildLink.create(Expression.class, this);
-  private ChildLink<Expression> elseExpression = ChildLink.create(Expression.class, this);
-  
-```
-
-### FieldMayBeFinal
 Field `elseExpression` may be 'final'
 in `translator/src/main/java/com/google/devtools/j2objc/ast/ConditionalExpression.java`
 #### Snippet
@@ -4839,27 +4851,15 @@ in `translator/src/main/java/com/google/devtools/j2objc/ast/ConditionalExpressio
 ```
 
 ### FieldMayBeFinal
-Field `fragments` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/ast/VariableDeclarationExpression.java`
+Field `thenExpression` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/ast/ConditionalExpression.java`
 #### Snippet
 ```java
 
-  private ChildLink<Type> type = ChildLink.create(Type.class, this);
-  private ChildList<VariableDeclarationFragment> fragments =
-      ChildList.create(VariableDeclarationFragment.class, this);
-
-```
-
-### FieldMayBeFinal
-Field `type` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/ast/VariableDeclarationExpression.java`
-#### Snippet
-```java
-public class VariableDeclarationExpression extends Expression {
-
-  private ChildLink<Type> type = ChildLink.create(Type.class, this);
-  private ChildList<VariableDeclarationFragment> fragments =
-      ChildList.create(VariableDeclarationFragment.class, this);
+  private ChildLink<Expression> expression = ChildLink.create(Expression.class, this);
+  private ChildLink<Expression> thenExpression = ChildLink.create(Expression.class, this);
+  private ChildLink<Expression> elseExpression = ChildLink.create(Expression.class, this);
+  
 ```
 
 ### FieldMayBeFinal
@@ -4899,18 +4899,6 @@ in `translator/src/main/java/com/google/devtools/j2objc/gen/GenerationUnit.java`
 ```
 
 ### FieldMayBeFinal
-Field `javadocBlocks` may be 'final'
-in `translator/src/main/java/com/google/devtools/j2objc/gen/GenerationUnit.java`
-#### Snippet
-```java
-  // we map units of generated code keyed by the Java class they come from,
-  // using map implementations with ordered keys.
-  private TreeMap<String, String> javadocBlocks = new TreeMap<>();
-  private TreeMap<String, String> nativeHeaderBlocks = new TreeMap<>();
-  private TreeMap<String, String> nativeImplementationBlocks = new TreeMap<>();
-```
-
-### FieldMayBeFinal
 Field `nativeHeaderBlocks` may be 'final'
 in `translator/src/main/java/com/google/devtools/j2objc/gen/GenerationUnit.java`
 #### Snippet
@@ -4920,6 +4908,18 @@ in `translator/src/main/java/com/google/devtools/j2objc/gen/GenerationUnit.java`
   private TreeMap<String, String> nativeHeaderBlocks = new TreeMap<>();
   private TreeMap<String, String> nativeImplementationBlocks = new TreeMap<>();
   private ListMultimap<String, GeneratedType> generatedTypes =
+```
+
+### FieldMayBeFinal
+Field `javadocBlocks` may be 'final'
+in `translator/src/main/java/com/google/devtools/j2objc/gen/GenerationUnit.java`
+#### Snippet
+```java
+  // we map units of generated code keyed by the Java class they come from,
+  // using map implementations with ordered keys.
+  private TreeMap<String, String> javadocBlocks = new TreeMap<>();
+  private TreeMap<String, String> nativeHeaderBlocks = new TreeMap<>();
+  private TreeMap<String, String> nativeImplementationBlocks = new TreeMap<>();
 ```
 
 ## RuleId[id=CachedNumberConstructorCall]
@@ -5010,6 +5010,18 @@ in `cycle_finder/src/main/java/com/google/devtools/cyclefinder/Options.java`
 ```
 
 ### UnnecessaryLocalVariable
+Local variable `dataAsMsg` is redundant
+in `protobuf/tests/CompatibilityTest.java`
+#### Snippet
+```java
+  public void testMergeFromOtherMessage() throws Exception {
+    TypicalData data = TypicalData.newBuilder().setMyInt(123).build();
+    Message dataAsMsg = data;
+    TypicalData.Builder builder1 = TypicalData.newBuilder().mergeFrom(dataAsMsg);
+    TypicalData.Builder builder2 = TypicalData.newBuilder().mergeFrom(data);
+```
+
+### UnnecessaryLocalVariable
 Local variable `data` is redundant
 in `protobuf/tests/CompatibilityTest.java`
 #### Snippet
@@ -5031,18 +5043,6 @@ in `protobuf/tests/CompatibilityTest.java`
     MessageLite messageLite = data;
     MessageLite.Builder builderLite = messageLite.newBuilderForType();
     messageLite.writeTo(new ByteArrayOutputStream());
-```
-
-### UnnecessaryLocalVariable
-Local variable `dataAsMsg` is redundant
-in `protobuf/tests/CompatibilityTest.java`
-#### Snippet
-```java
-  public void testMergeFromOtherMessage() throws Exception {
-    TypicalData data = TypicalData.newBuilder().setMyInt(123).build();
-    Message dataAsMsg = data;
-    TypicalData.Builder builder1 = TypicalData.newBuilder().mergeFrom(dataAsMsg);
-    TypicalData.Builder builder2 = TypicalData.newBuilder().mergeFrom(data);
 ```
 
 ### UnnecessaryLocalVariable
