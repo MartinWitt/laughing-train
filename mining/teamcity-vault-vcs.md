@@ -52,6 +52,18 @@ in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultConnecti
 ```
 
 ### UnnecessaryModifier
+Modifier `static` is redundant for inner enums
+in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/RawChangeInfo.java`
+#### Snippet
+```java
+//        public static final byte Rollback = -26;
+
+  public static enum RawChangeInfoType {
+    ADDED(10, "Added"),
+    DELETED(80, "Deleted"),
+```
+
+### UnnecessaryModifier
 Modifier `private` is redundant for enum constructors
 in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/RawChangeInfo.java`
 #### Snippet
@@ -64,15 +76,27 @@ in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/RawChangeInfo
 ```
 
 ### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/RawChangeInfo.java`
+Modifier `static` is redundant for inner interfaces
+in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSystemImpl.java`
 #### Snippet
 ```java
-//        public static final byte Rollback = -26;
+  }
 
-  public static enum RawChangeInfoType {
-    ADDED(10, "Added"),
-    DELETED(80, "Deleted"),
+  private static interface NodeVisitor {
+    void visit(Node node, String fullPath);
+  }
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/ChangesPatchBuilder.java`
+#### Snippet
+```java
+ */
+public class ChangesPatchBuilder {
+  public static interface FileContentProvider {
+
+    public abstract File getFile(@NotNull String path, @NotNull String version)
 ```
 
 ### UnnecessaryModifier
@@ -96,30 +120,6 @@ in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/ChangesPatchBuil
 
     public abstract File getFile(@NotNull String path, @NotNull String version)
       throws VcsException;
-  }
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/ChangesPatchBuilder.java`
-#### Snippet
-```java
- */
-public class ChangesPatchBuilder {
-  public static interface FileContentProvider {
-
-    public abstract File getFile(@NotNull String path, @NotNull String version)
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSystemImpl.java`
-#### Snippet
-```java
-  }
-
-  private static interface NodeVisitor {
-    void visit(Node node, String fullPath);
   }
 ```
 
@@ -179,23 +179,11 @@ Cannot resolve symbol `VcsException`
 in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultConnection.java`
 #### Snippet
 ```java
-   * @param path path to the fodler in repo
    *
+   * @return true if the object exisits, false otherwise
    * @throws VcsException
    */
-  @NotNull
-```
-
-### JavadocReference
-Cannot resolve symbol `VcsException`
-in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultConnection.java`
-#### Snippet
-```java
-   * @param version VCS root revision
-   *
-   * @throws VcsException
-   */
-  @Nullable
+  boolean objectExists(@NotNull String path, @Nullable String version) throws VcsException;
 ```
 
 ### JavadocReference
@@ -215,11 +203,23 @@ Cannot resolve symbol `VcsException`
 in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultConnection.java`
 #### Snippet
 ```java
+   * @param path path to the fodler in repo
    *
-   * @return true if the object exisits, false otherwise
    * @throws VcsException
    */
-  boolean objectExists(@NotNull String path, @Nullable String version) throws VcsException;
+  @NotNull
+```
+
+### JavadocReference
+Cannot resolve symbol `VcsException`
+in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultConnection.java`
+#### Snippet
+```java
+   *
+   * @return repo obeject or null if no object was present at the specified version
+   * @throws VcsException
+   */
+  @Nullable
 ```
 
 ### JavadocReference
@@ -239,8 +239,8 @@ Cannot resolve symbol `VcsException`
 in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultConnection.java`
 #### Snippet
 ```java
+   * @param version VCS root revision
    *
-   * @return repo obeject or null if no object was present at the specified version
    * @throws VcsException
    */
   @Nullable
@@ -299,18 +299,6 @@ import org.apache.log4j.Logger;
 ## RuleId[id=JavadocDeclaration]
 ### JavadocDeclaration
 Wrong tag `User`
-in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/connection/FullClassLoadingVaultConnection.java`
-#### Snippet
-```java
-
-/**
- * @User Victory.Bedrosova
- * 2/19/14.
- */
-```
-
-### JavadocDeclaration
-Wrong tag `User`
 in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/RepositoryInfo.java`
 #### Snippet
 ```java
@@ -318,6 +306,18 @@ in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/RepositoryInf
 /**
  * @User Victory.Bedrosova
  * 1/3/14.
+ */
+```
+
+### JavadocDeclaration
+Wrong tag `User`
+in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/connection/FullClassLoadingVaultConnection.java`
+#### Snippet
+```java
+
+/**
+ * @User Victory.Bedrosova
+ * 2/19/14.
  */
 ```
 
@@ -386,23 +386,11 @@ in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/connection/Cl
 in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultConnection.java`
 #### Snippet
 ```java
-   * @param path path to the fodler in repo
    *
+   * @return true if the object exisits, false otherwise
    * @throws VcsException
    */
-  @NotNull
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultConnection.java`
-#### Snippet
-```java
-   * @param version VCS root revision
-   *
-   * @throws VcsException
-   */
-  @Nullable
+  boolean objectExists(@NotNull String path, @Nullable String version) throws VcsException;
 ```
 
 ### JavadocDeclaration
@@ -422,11 +410,23 @@ in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultConnecti
 in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultConnection.java`
 #### Snippet
 ```java
+   * @param path path to the fodler in repo
    *
-   * @return true if the object exisits, false otherwise
    * @throws VcsException
    */
-  boolean objectExists(@NotNull String path, @Nullable String version) throws VcsException;
+  @NotNull
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultConnection.java`
+#### Snippet
+```java
+   *
+   * @return repo obeject or null if no object was present at the specified version
+   * @throws VcsException
+   */
+  @Nullable
 ```
 
 ### JavadocDeclaration
@@ -446,8 +446,8 @@ in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultConnecti
 in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultConnection.java`
 #### Snippet
 ```java
+   * @param version VCS root revision
    *
-   * @return repo obeject or null if no object was present at the specified version
    * @throws VcsException
    */
   @Nullable
@@ -726,11 +726,11 @@ in `vault-server/src/jetbrains/buildServer/buildTriggers/vcs/vault/VaultChangeCo
 in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSystem.java`
 #### Snippet
 ```java
-    LOG.debug("MemoryFileSystem create folder: " + path);
-    if (containsNode(path)) {
-      throw new FileSystemException((new StringBuilder()).append("Directory ").append(path).append(" already exists").toString());
+    LOG.debug("MemoryFileSystem create file: " + path);
+    if (containsFile(path)) {
+      throw new FileSystemException((new StringBuilder()).append("File ").append(path).append(" already exists").toString());
     } else {
-      Assert.assertFalse(myImpl.add(path, false, true), (new StringBuilder()).append("Path ").append(path).append(" already denotes a file").toString());
+      Assert.assertFalse(myImpl.add(path, true, true), (new StringBuilder()).append("Path ").append(path).append(" already denotes a directory").toString());
 ```
 
 ### StringBufferReplaceableByString
@@ -738,9 +738,9 @@ in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSys
 in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSystem.java`
 #### Snippet
 ```java
-      throw new FileSystemException((new StringBuilder()).append("Directory ").append(path).append(" already exists").toString());
+      throw new FileSystemException((new StringBuilder()).append("File ").append(path).append(" already exists").toString());
     } else {
-      Assert.assertFalse(myImpl.add(path, false, true), (new StringBuilder()).append("Path ").append(path).append(" already denotes a file").toString());
+      Assert.assertFalse(myImpl.add(path, true, true), (new StringBuilder()).append("Path ").append(path).append(" already denotes a directory").toString());
     }
   }
 ```
@@ -762,11 +762,11 @@ in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSys
 in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSystem.java`
 #### Snippet
 ```java
-    LOG.debug("MemoryFileSystem create file: " + path);
-    if (containsFile(path)) {
-      throw new FileSystemException((new StringBuilder()).append("File ").append(path).append(" already exists").toString());
+    LOG.debug("MemoryFileSystem create folder: " + path);
+    if (containsNode(path)) {
+      throw new FileSystemException((new StringBuilder()).append("Directory ").append(path).append(" already exists").toString());
     } else {
-      Assert.assertFalse(myImpl.add(path, true, true), (new StringBuilder()).append("Path ").append(path).append(" already denotes a directory").toString());
+      Assert.assertFalse(myImpl.add(path, false, true), (new StringBuilder()).append("Path ").append(path).append(" already denotes a file").toString());
 ```
 
 ### StringBufferReplaceableByString
@@ -774,9 +774,9 @@ in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSys
 in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/fs/MemoryFileSystem.java`
 #### Snippet
 ```java
-      throw new FileSystemException((new StringBuilder()).append("File ").append(path).append(" already exists").toString());
+      throw new FileSystemException((new StringBuilder()).append("Directory ").append(path).append(" already exists").toString());
     } else {
-      Assert.assertFalse(myImpl.add(path, true, true), (new StringBuilder()).append("Path ").append(path).append(" already denotes a directory").toString());
+      Assert.assertFalse(myImpl.add(path, false, true), (new StringBuilder()).append("Path ").append(path).append(" already denotes a file").toString());
     }
   }
 ```
@@ -930,10 +930,10 @@ in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/ChangesPatchBuil
 in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/ChangesPatchBuilder.java`
 #### Snippet
 ```java
-  private void fail(Exception e)
+  private void fail(String message)
     throws VcsException {
-    String message = (new StringBuilder()).append("Incorrect change set: ").append(e.getMessage()).toString();
-    LOG.warn(message, e);
+    message = (new StringBuilder()).append("Incorrect change set: ").append(message).toString();
+    LOG.warn(message);
     if (myStrict)
 ```
 
@@ -942,10 +942,10 @@ in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/ChangesPatchBuil
 in `changes-patch-builder/src/jetbrains/buildServer/vcs/patches/ChangesPatchBuilder.java`
 #### Snippet
 ```java
-  private void fail(String message)
+  private void fail(Exception e)
     throws VcsException {
-    message = (new StringBuilder()).append("Incorrect change set: ").append(message).toString();
-    LOG.warn(message);
+    String message = (new StringBuilder()).append("Incorrect change set: ").append(e.getMessage()).toString();
+    LOG.warn(message, e);
     if (myStrict)
 ```
 
