@@ -1,37 +1,27 @@
 # microprofile-starter 
  
 # Bad smells
-I found 109 bad smells with 2 repairable:
+I found 130 bad smells with 0 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
+| FieldMayBeFinal | 41 | false |
+| NonFinalFieldInEnum | 30 | false |
 | DuplicateBranchesInSwitch | 29 | false |
-| BoundedWildcard | 11 | false |
-| EmptyMethod | 10 | false |
-| RedundantFieldInitialization | 9 | false |
 | DataFlowIssue | 6 | false |
-| NonSerializableFieldInSerializableClass | 6 | false |
-| ReturnNull | 6 | false |
-| DynamicRegexReplaceableByCompiledPattern | 5 | false |
-| MissortedModifiers | 3 | false |
-| UtilityClassWithoutPrivateConstructor | 2 | true |
-| NestedAssignment | 2 | false |
-| ThrowablePrintStackTrace | 2 | false |
+| DuplicatedCode | 5 | false |
+| JavadocDeclaration | 4 | false |
+| UastIncorrectHttpHeaderInspection | 2 | false |
 | UnstableApiUsage | 2 | false |
 | WrapperTypeMayBePrimitive | 1 | false |
+| SlowListContainsAll | 1 | false |
+| RegExpSingleCharAlternation | 1 | false |
 | StringOperationCanBeSimplified | 1 | false |
 | RegExpRedundantEscape | 1 | false |
+| SlowAbstractSetRemoveAll | 1 | false |
 | CatchMayIgnoreException | 1 | false |
 | OctalLiteral | 1 | false |
-| NonShortCircuitBoolean | 1 | false |
-| SetReplaceableByEnumSet | 1 | false |
-| UnnecessaryBoxing | 1 | false |
-| SystemOutErr | 1 | false |
-| SlowListContainsAll | 1 | false |
-| UnnecessaryFullyQualifiedName | 1 | false |
-| RegExpSingleCharAlternation | 1 | false |
-| ReplaceAssignmentWithOperatorAssignment | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
 | RedundantStringFormatCall | 1 | false |
+| ArraysAsListWithZeroOrOneArgument | 1 | false |
 | ConstantValue | 1 | false |
 ## RuleId[id=WrapperTypeMayBePrimitive]
 ### WrapperTypeMayBePrimitive
@@ -46,32 +36,32 @@ in `src/main/java/org/eclipse/microprofile/starter/core/model/ModelManager.java`
                 result = true;
 ```
 
-## RuleId[id=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `OptionName` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/eclipse/microprofile/starter/core/model/BeansXMLMode.java`
+## RuleId[id=SlowListContainsAll]
+### SlowListContainsAll
+Call to 'list.containsAll(collection)' may have poor performance
+in `src/main/java/org/eclipse/microprofile/starter/rest/APIService.java`
 #### Snippet
 ```java
-    }
+        }
 
-    public static class OptionName {
-        public static final String NAME = BeansXMLMode.class.getSimpleName();
-    }
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Constants` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/org/eclipse/microprofile/starter/core/model/MicroProfileVersion.java`
-#### Snippet
-```java
-    }
-
-    public static class Constants {
-        public static final String MP3X_ALTERNATIVE = "mp3_x";
-        public static final String MP41_ALTERNATIVE = "mp4_1";
+        if (!mpvToOptions.get(p.getMpVersion()).getSpecs().containsAll(p.getSelectedSpecEnums())) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .type("application/json")
 ```
 
 ## RuleId[id=DataFlowIssue]
+### DataFlowIssue
+Argument `stream` might be null
+in `src/main/java/org/eclipse/microprofile/starter/spi/MavenHelper.java`
+#### Snippet
+```java
+        BufferedReader in = null;
+        try {
+            in = new BufferedReader(new InputStreamReader(stream));
+            MavenXpp3Reader reader = new MavenXpp3Reader();
+            model = reader.read(in);
+```
+
 ### DataFlowIssue
 Method invocation `close` may produce `NullPointerException`
 in `src/main/java/org/eclipse/microprofile/starter/core/templates/TemplateModelLoader.java`
@@ -94,18 +84,6 @@ in `src/main/java/org/eclipse/microprofile/starter/core/files/FilesLocator.java`
         try (Scanner scanner = new Scanner(FilesLocator.class.getClassLoader().getResourceAsStream("/files.lst"))) {
 
             while (scanner.hasNext()) {
-```
-
-### DataFlowIssue
-Argument `stream` might be null
-in `src/main/java/org/eclipse/microprofile/starter/spi/MavenHelper.java`
-#### Snippet
-```java
-        BufferedReader in = null;
-        try {
-            in = new BufferedReader(new InputStreamReader(stream));
-            MavenXpp3Reader reader = new MavenXpp3Reader();
-            model = reader.read(in);
 ```
 
 ### DataFlowIssue
@@ -146,6 +124,19 @@ in `src/main/java/org/eclipse/microprofile/starter/rest/APIService.java`
             readmeEtag = new EntityTag(Integer.toHexString(readme.hashCode()));
 ```
 
+## RuleId[id=RegExpSingleCharAlternation]
+### RegExpSingleCharAlternation
+Single character alternation in RegExp
+in `src/main/java/org/eclipse/microprofile/starter/core/files/FilesLocator.java`
+#### Snippet
+```java
+
+    private static class FileIdentification {
+        private static final Pattern FILE_PATH_PATTERN_SPLIT = Pattern.compile("\\\\|/");
+        private Set<String> alternatives;
+        private String name;
+```
+
 ## RuleId[id=StringOperationCanBeSimplified]
 ### StringOperationCanBeSimplified
 Inefficient conversion from ByteArrayOutputStream
@@ -157,6 +148,548 @@ in `src/main/java/org/eclipse/microprofile/starter/core/artifacts/MavenCreator.j
             content = new String(out.toByteArray());
         } catch (IOException e) {
             throw new TechnicalException(e);
+```
+
+## RuleId[id=JavadocDeclaration]
+### JavadocDeclaration
+`@return` tag description is missing
+in `src/main/java/org/eclipse/microprofile/starter/spi/JessieAlternativesProvider.java`
+#### Snippet
+```java
+     * If no alternatives, must return empty Set.
+     *
+     * @return
+     */
+    Set<String> alternativesNames(JessieModel model);
+```
+
+### JavadocDeclaration
+`@param model` tag description is missing
+in `src/main/java/org/eclipse/microprofile/starter/core/model/ModelManager.java`
+#### Snippet
+```java
+
+    /**
+     * @param model
+     * @param localExecution Is the generation run on local machine and thus need real directories.
+     */
+```
+
+### JavadocDeclaration
+`@param project` tag description is missing
+in `src/main/java/org/eclipse/microprofile/starter/rest/APIService.java`
+#### Snippet
+```java
+     * MicroProfileSpec codes are correctly moved to the StandaloneMPSpec property.
+     *
+     * @param project
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `src/main/java/org/eclipse/microprofile/starter/rest/APIService.java`
+#### Snippet
+```java
+     *
+     * @param project
+     * @return
+     */
+    private List<String> defineIncorrectSpecCodes(Project project) {
+```
+
+## RuleId[id=FieldMayBeFinal]
+### FieldMayBeFinal
+Field `parent` may be 'final'
+in `src/main/java/org/eclipse/microprofile/starter/exception/CustomExceptionHandlerFactory.java`
+#### Snippet
+```java
+public class CustomExceptionHandlerFactory extends ExceptionHandlerFactory {
+
+    private ExceptionHandlerFactory parent;
+
+    @SuppressWarnings("deprecation")
+```
+
+### FieldMayBeFinal
+Field `mode` may be 'final'
+in `src/main/java/org/eclipse/microprofile/starter/core/model/BeansXMLMode.java`
+#### Snippet
+```java
+    IMPLICIT("implicit"), ANNOTATED("annotated"), ALL("all");
+
+    private String mode;
+
+    BeansXMLMode(String mode) {
+```
+
+### FieldMayBeFinal
+Field `code` may be 'final'
+in `src/main/java/org/eclipse/microprofile/starter/core/model/ViewType.java`
+#### Snippet
+```java
+    JSF("jsf", "JSF"), REST("rest", "JAX-RS");
+
+    private String code;
+    private String label;
+
+```
+
+### FieldMayBeFinal
+Field `label` may be 'final'
+in `src/main/java/org/eclipse/microprofile/starter/core/model/ViewType.java`
+#### Snippet
+```java
+
+    private String code;
+    private String label;
+
+    ViewType(String code, String label) {
+```
+
+### FieldMayBeFinal
+Field `filesLocator` may be 'final'
+in `src/main/java/org/eclipse/microprofile/starter/core/files/JessieFileTemplateResolver.java`
+#### Snippet
+```java
+public class JessieFileTemplateResolver extends AbstractConfigurableTemplateResolver {
+
+    private FilesLocator filesLocator;
+
+    public JessieFileTemplateResolver(FilesLocator filesLocator) {
+```
+
+### FieldMayBeFinal
+Field `values` may be 'final'
+in `src/main/java/org/eclipse/microprofile/starter/core/model/OptionValue.java`
+#### Snippet
+```java
+public class OptionValue {
+
+    private List<String> values;
+
+    public OptionValue() {
+```
+
+### FieldMayBeFinal
+Field `engineData` may be 'final'
+in `src/main/java/org/eclipse/microprofile/starter/log/LoggingTask.java`
+#### Snippet
+```java
+public class LoggingTask implements Runnable {
+
+    private EngineData engineData;
+
+    public LoggingTask(EngineData engineData) {
+```
+
+### FieldMayBeFinal
+Field `templates` may be 'final'
+in `src/main/java/org/eclipse/microprofile/starter/core/templates/TemplateModelLoader.java`
+#### Snippet
+```java
+    private YAMLReader yamlReader;
+
+    private List<String> templates = new ArrayList<>();
+
+    @PostConstruct
+```
+
+### FieldMayBeFinal
+Field `code` may be 'final'
+in `src/main/java/org/eclipse/microprofile/starter/core/model/JavaSEVersion.java`
+#### Snippet
+```java
+    // @formatter:on
+
+    private String code;
+    private String label;
+
+```
+
+### FieldMayBeFinal
+Field `label` may be 'final'
+in `src/main/java/org/eclipse/microprofile/starter/core/model/JavaSEVersion.java`
+#### Snippet
+```java
+
+    private String code;
+    private String label;
+
+    JavaSEVersion(String code, String label) {
+```
+
+### FieldMayBeFinal
+Field `alternatives` may be 'final'
+in `src/main/java/org/eclipse/microprofile/starter/core/files/FilesLocator.java`
+#### Snippet
+```java
+    private static class FileIdentification {
+        private static final Pattern FILE_PATH_PATTERN_SPLIT = Pattern.compile("\\\\|/");
+        private Set<String> alternatives;
+        private String name;
+
+```
+
+### FieldMayBeFinal
+Field `name` may be 'final'
+in `src/main/java/org/eclipse/microprofile/starter/core/files/FilesLocator.java`
+#### Snippet
+```java
+        private static final Pattern FILE_PATH_PATTERN_SPLIT = Pattern.compile("\\\\|/");
+        private Set<String> alternatives;
+        private String name;
+
+        public FileIdentification(String fileName, String root) {
+```
+
+### FieldMayBeFinal
+Field `supportedServer` may be 'final'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/ServerMPVersion.java`
+#### Snippet
+```java
+public class ServerMPVersion {
+
+    private SupportedServer supportedServer;
+    private MicroProfileVersion minimalMPVersion;  // minimal MP Version required to show checkbox.
+    // Can be null meaning that there is no restriction on the MP Version, only on the Runtime.
+```
+
+### FieldMayBeFinal
+Field `minimalMPVersion` may be 'final'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/ServerMPVersion.java`
+#### Snippet
+```java
+
+    private SupportedServer supportedServer;
+    private MicroProfileVersion minimalMPVersion;  // minimal MP Version required to show checkbox.
+    // Can be null meaning that there is no restriction on the MP Version, only on the Runtime.
+
+```
+
+### FieldMayBeFinal
+Field `artifactId` may be 'final'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/StandaloneMPSpec.java`
+#### Snippet
+```java
+    private List<ServerMPVersion> serverRestrictions;
+    private String groupId;
+    private String artifactId;
+
+    StandaloneMPSpec(String code,
+```
+
+### FieldMayBeFinal
+Field `serverRestrictions` may be 'final'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/StandaloneMPSpec.java`
+#### Snippet
+```java
+    private String tagURL;
+    private String description;
+    private List<ServerMPVersion> serverRestrictions;
+    private String groupId;
+    private String artifactId;
+```
+
+### FieldMayBeFinal
+Field `tagURL` may be 'final'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/StandaloneMPSpec.java`
+#### Snippet
+```java
+    private String code;
+    private String label;
+    private String tagURL;
+    private String description;
+    private List<ServerMPVersion> serverRestrictions;
+```
+
+### FieldMayBeFinal
+Field `label` may be 'final'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/StandaloneMPSpec.java`
+#### Snippet
+```java
+
+    private String code;
+    private String label;
+    private String tagURL;
+    private String description;
+```
+
+### FieldMayBeFinal
+Field `code` may be 'final'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/StandaloneMPSpec.java`
+#### Snippet
+```java
+    ;
+
+    private String code;
+    private String label;
+    private String tagURL;
+```
+
+### FieldMayBeFinal
+Field `groupId` may be 'final'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/StandaloneMPSpec.java`
+#### Snippet
+```java
+    private String description;
+    private List<ServerMPVersion> serverRestrictions;
+    private String groupId;
+    private String artifactId;
+
+```
+
+### FieldMayBeFinal
+Field `description` may be 'final'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/StandaloneMPSpec.java`
+#### Snippet
+```java
+    private String label;
+    private String tagURL;
+    private String description;
+    private List<ServerMPVersion> serverRestrictions;
+    private String groupId;
+```
+
+### FieldMayBeFinal
+Field `code` may be 'final'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/MicroprofileSpec.java`
+#### Snippet
+```java
+    // @formatter:on
+
+    private String code;
+    private String label;
+    private String tagURL;
+```
+
+### FieldMayBeFinal
+Field `mpVersions` may be 'final'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/MicroprofileSpec.java`
+#### Snippet
+```java
+    private String tagURL;
+    private String description;
+    private List<MicroProfileVersion> mpVersions;
+
+    MicroprofileSpec(String code, String label, String description, String tagURL, List<MicroProfileVersion> mpVersions) {
+```
+
+### FieldMayBeFinal
+Field `tagURL` may be 'final'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/MicroprofileSpec.java`
+#### Snippet
+```java
+    private String code;
+    private String label;
+    private String tagURL;
+    private String description;
+    private List<MicroProfileVersion> mpVersions;
+```
+
+### FieldMayBeFinal
+Field `label` may be 'final'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/MicroprofileSpec.java`
+#### Snippet
+```java
+
+    private String code;
+    private String label;
+    private String tagURL;
+    private String description;
+```
+
+### FieldMayBeFinal
+Field `description` may be 'final'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/MicroprofileSpec.java`
+#### Snippet
+```java
+    private String label;
+    private String tagURL;
+    private String description;
+    private List<MicroProfileVersion> mpVersions;
+
+```
+
+### FieldMayBeFinal
+Field `jarFileName` may be 'final'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/SupportedServer.java`
+#### Snippet
+```java
+    private String displayName;
+    private List<MicroProfileVersion> mpVersions;
+    private String jarFileName;
+    private String jarParameters;
+    private String portServiceA;
+```
+
+### FieldMayBeFinal
+Field `mpVersions` may be 'final'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/SupportedServer.java`
+#### Snippet
+```java
+    private String code;
+    private String displayName;
+    private List<MicroProfileVersion> mpVersions;
+    private String jarFileName;
+    private String jarParameters;
+```
+
+### FieldMayBeFinal
+Field `code` may be 'final'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/SupportedServer.java`
+#### Snippet
+```java
+    // @formatter:on
+
+    private String code;
+    private String displayName;
+    private List<MicroProfileVersion> mpVersions;
+```
+
+### FieldMayBeFinal
+Field `portServiceA` may be 'final'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/SupportedServer.java`
+#### Snippet
+```java
+    private String jarFileName;
+    private String jarParameters;
+    private String portServiceA;
+    private String portServiceB;
+    private String homePage;
+```
+
+### FieldMayBeFinal
+Field `gradleSupport` may be 'final'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/SupportedServer.java`
+#### Snippet
+```java
+    private String portServiceB;
+    private String homePage;
+    private boolean gradleSupport;
+
+    SupportedServer(String code, String displayName, List<MicroProfileVersion> mpVersions, String jarFileName
+```
+
+### FieldMayBeFinal
+Field `jarParameters` may be 'final'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/SupportedServer.java`
+#### Snippet
+```java
+    private List<MicroProfileVersion> mpVersions;
+    private String jarFileName;
+    private String jarParameters;
+    private String portServiceA;
+    private String portServiceB;
+```
+
+### FieldMayBeFinal
+Field `homePage` may be 'final'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/SupportedServer.java`
+#### Snippet
+```java
+    private String portServiceA;
+    private String portServiceB;
+    private String homePage;
+    private boolean gradleSupport;
+
+```
+
+### FieldMayBeFinal
+Field `displayName` may be 'final'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/SupportedServer.java`
+#### Snippet
+```java
+
+    private String code;
+    private String displayName;
+    private List<MicroProfileVersion> mpVersions;
+    private String jarFileName;
+```
+
+### FieldMayBeFinal
+Field `portServiceB` may be 'final'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/SupportedServer.java`
+#### Snippet
+```java
+    private String jarParameters;
+    private String portServiceA;
+    private String portServiceB;
+    private String homePage;
+    private boolean gradleSupport;
+```
+
+### FieldMayBeFinal
+Field `pattern` may be 'final'
+in `src/main/java/org/eclipse/microprofile/starter/core/validation/PackageNameValidator.java`
+#### Snippet
+```java
+    public static final String VALID_REGEX = "^(?:\\w+|\\w+[\\.-]\\w+)+$";
+    public static final int MAX_LENGTH = 200;
+    private Pattern pattern = Pattern.compile(VALID_REGEX, Pattern.CASE_INSENSITIVE);
+
+    public boolean isValidPackageName(String name) {
+```
+
+### FieldMayBeFinal
+Field `label` may be 'final'
+in `src/main/java/org/eclipse/microprofile/starter/core/model/MicroProfileVersion.java`
+#### Snippet
+```java
+    private String code;
+    private String depVersion;
+    private String label;
+    private Set<String> alternatives;
+
+```
+
+### FieldMayBeFinal
+Field `alternatives` may be 'final'
+in `src/main/java/org/eclipse/microprofile/starter/core/model/MicroProfileVersion.java`
+#### Snippet
+```java
+    private String depVersion;
+    private String label;
+    private Set<String> alternatives;
+
+    MicroProfileVersion(String code, String label) {
+```
+
+### FieldMayBeFinal
+Field `code` may be 'final'
+in `src/main/java/org/eclipse/microprofile/starter/core/model/MicroProfileVersion.java`
+#### Snippet
+```java
+    // @formatter:on
+
+    private String code;
+    private String depVersion;
+    private String label;
+```
+
+### FieldMayBeFinal
+Field `depVersion` may be 'final'
+in `src/main/java/org/eclipse/microprofile/starter/core/model/MicroProfileVersion.java`
+#### Snippet
+```java
+
+    private String code;
+    private String depVersion;
+    private String label;
+    private Set<String> alternatives;
+```
+
+### FieldMayBeFinal
+Field `wrapped` may be 'final'
+in `src/main/java/org/eclipse/microprofile/starter/exception/CustomExceptionHandler.java`
+#### Snippet
+```java
+public class CustomExceptionHandler extends ExceptionHandlerWrapper {
+
+    private ExceptionHandler wrapped;
+
+    @SuppressWarnings("deprecation")
 ```
 
 ## RuleId[id=RegExpRedundantEscape]
@@ -172,31 +705,32 @@ public class PackageNameValidator {
     private Pattern pattern = Pattern.compile(VALID_REGEX, Pattern.CASE_INSENSITIVE);
 ```
 
+## RuleId[id=UastIncorrectHttpHeaderInspection]
+### UastIncorrectHttpHeaderInspection
+Unknown HTTP header
+in `src/main/java/org/eclipse/microprofile/starter/view/HeaderFilter.java`
+#### Snippet
+```java
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        HttpServletResponse servletResponse = (HttpServletResponse) response;
+        servletResponse.setHeader("X-XSS-Protection", "1; mode=block");
+        servletResponse.setHeader("Strict-Transport-Security", "max-age=31536000; includeSubDomains");
+        servletResponse.setHeader("X-Content-Type-Options", "nosniff");
+```
+
+### UastIncorrectHttpHeaderInspection
+Unknown HTTP header
+in `src/main/java/org/eclipse/microprofile/starter/view/HeaderFilter.java`
+#### Snippet
+```java
+        servletResponse.setHeader("X-Content-Type-Options", "nosniff");
+        servletResponse.setHeader("X-Frame-Options", "DENY");
+        servletResponse.setHeader("Content-Security-Policy", "default-src: https: font-src 'https://fonts.googleapis.com';" +
+                "img-src 'self' https://microprofile.io; style-src 'self'; frame-ancestors 'none';");
+        chain.doFilter(request, response);
+```
+
 ## RuleId[id=DuplicateBranchesInSwitch]
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/PayaraMicroServer.java`
-#### Snippet
-```java
-                break;
-            case MP14:
-                payaraVersion = "5.183";
-                break;
-            case MP13:
-```
-
-### DuplicateBranchesInSwitch
-Branch in 'switch' is a duplicate of the default branch
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/LibertyServer.java`
-#### Snippet
-```java
-
-            case NONE:
-                break;
-            case MP40: case MP41: case MP50:
-                jaegerClientVersion="1.5.0";
-```
-
 ### DuplicateBranchesInSwitch
 Duplicate branch in 'switch'
 in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/WildFlyServer.java`
@@ -282,111 +816,27 @@ in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/se
 ```
 
 ### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/HelidonServer.java`
+Branch in 'switch' is a duplicate of the default branch
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/LibertyServer.java`
 #### Snippet
 ```java
+
+            case NONE:
                 break;
-            case MP21:
-                break;
-            case MP20:
-                break;
+            case MP40: case MP41: case MP50:
+                jaegerClientVersion="1.5.0";
 ```
 
 ### DuplicateBranchesInSwitch
 Duplicate branch in 'switch'
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/HelidonServer.java`
-#### Snippet
-```java
-                break;
-            case MP20:
-                break;
-            case MP14:
-                break;
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/HelidonServer.java`
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/PayaraMicroServer.java`
 #### Snippet
 ```java
                 break;
             case MP14:
+                payaraVersion = "5.183";
                 break;
             case MP13:
-                break;
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/HelidonServer.java`
-#### Snippet
-```java
-                break;
-            case MP13:
-                break;
-            case MP12:
-                helidonVersion = "1.0.1";
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/TomeeServer.java`
-#### Snippet
-```java
-                break;
-            case MP22:
-                break;
-            case MP21:
-                tomeeVersion = "8.0.0-M3";
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/TomeeServer.java`
-#### Snippet
-```java
-                break;
-            case MP20:
-                tomeeVersion = "8.0.0-M3";
-                break;
-            case MP14:
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/TomeeServer.java`
-#### Snippet
-```java
-                break;
-            case MP14:
-                tomeeVersion = "8.0.0-M3";
-                break;
-            case MP13:
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/TomeeServer.java`
-#### Snippet
-```java
-                break;
-            case MP13:
-                tomeeVersion = "8.0.0-M3";
-                break;
-            case MP12:
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/TomeeServer.java`
-#### Snippet
-```java
-                break;
-            case MP12:
-                tomeeVersion = "8.0.0-M3";
-                break;
-            default:
 ```
 
 ### DuplicateBranchesInSwitch
@@ -423,6 +873,18 @@ in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/se
                 break;
             case MP13:
                 thorntailVersion = "2.1.0.Final";
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/TomeeServer.java`
+#### Snippet
+```java
+                break;
+            case MP22:
+                break;
+            case MP21:
+                tomeeVersion = "8.0.0-M3";
 ```
 
 ### DuplicateBranchesInSwitch
@@ -521,77 +983,559 @@ in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/se
         }
 ```
 
-## RuleId[id=NonSerializableFieldInSerializableClass]
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'modelManager' in a Serializable class
-in `src/main/java/org/eclipse/microprofile/starter/view/GeneratorDataBean.java`
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/TomeeServer.java`
 #### Snippet
 ```java
-
-    @Inject
-    private ModelManager modelManager;
-
-    @Inject
+                break;
+            case MP20:
+                tomeeVersion = "8.0.0-M3";
+                break;
+            case MP14:
 ```
 
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'errorLogger' in a Serializable class
-in `src/main/java/org/eclipse/microprofile/starter/view/GeneratorDataBean.java`
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/TomeeServer.java`
 #### Snippet
 ```java
-
-    @Inject
-    private ErrorLogger errorLogger;
-
-    @Resource
+                break;
+            case MP14:
+                tomeeVersion = "8.0.0-M3";
+                break;
+            case MP13:
 ```
 
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'creator' in a Serializable class
-in `src/main/java/org/eclipse/microprofile/starter/view/GeneratorDataBean.java`
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/TomeeServer.java`
 #### Snippet
 ```java
-
-    @Inject
-    private Creator creator;
-
-    @Inject
+                break;
+            case MP13:
+                tomeeVersion = "8.0.0-M3";
+                break;
+            case MP12:
 ```
 
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'version' in a Serializable class
-in `src/main/java/org/eclipse/microprofile/starter/view/GeneratorDataBean.java`
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/TomeeServer.java`
 #### Snippet
 ```java
-
-    @Inject
-    private Version version;
-
-    @Inject
+                break;
+            case MP12:
+                tomeeVersion = "8.0.0-M3";
+                break;
+            default:
 ```
 
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'jdkSelector' in a Serializable class
-in `src/main/java/org/eclipse/microprofile/starter/view/GeneratorDataBean.java`
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/HelidonServer.java`
 #### Snippet
 ```java
-
-    @Inject
-    private JDKSelector jdkSelector;
-
-    @Inject
+                break;
+            case MP21:
+                break;
+            case MP20:
+                break;
 ```
 
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'engineData' in a Serializable class
-in `src/main/java/org/eclipse/microprofile/starter/view/GeneratorDataBean.java`
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/HelidonServer.java`
 #### Snippet
 ```java
-    private ManagedExecutorService managedExecutorService;
+                break;
+            case MP20:
+                break;
+            case MP14:
+                break;
+```
 
-    private EngineData engineData;
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/HelidonServer.java`
+#### Snippet
+```java
+                break;
+            case MP14:
+                break;
+            case MP13:
+                break;
+```
 
-    private MicroProfileVersion microProfileVersion;
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/HelidonServer.java`
+#### Snippet
+```java
+                break;
+            case MP13:
+                break;
+            case MP12:
+                helidonVersion = "1.0.1";
+```
+
+## RuleId[id=SlowAbstractSetRemoveAll]
+### SlowAbstractSetRemoveAll
+Call to 'set.removeAll(list)' may work slowly
+in `src/main/java/org/eclipse/microprofile/starter/core/model/ModelManager.java`
+#### Snippet
+```java
+        List<String> addons = allAddons.stream().map(JessieAddon::addonName).collect(Collectors.toList());
+
+        dependents.removeAll(addons);
+
+        if (!dependents.isEmpty()) {
+```
+
+## RuleId[id=NonFinalFieldInEnum]
+### NonFinalFieldInEnum
+Non-final field `mode` in enum 'BeansXMLMode'
+in `src/main/java/org/eclipse/microprofile/starter/core/model/BeansXMLMode.java`
+#### Snippet
+```java
+    IMPLICIT("implicit"), ANNOTATED("annotated"), ALL("all");
+
+    private String mode;
+
+    BeansXMLMode(String mode) {
+```
+
+### NonFinalFieldInEnum
+Non-final field `code` in enum 'ViewType'
+in `src/main/java/org/eclipse/microprofile/starter/core/model/ViewType.java`
+#### Snippet
+```java
+    JSF("jsf", "JSF"), REST("rest", "JAX-RS");
+
+    private String code;
+    private String label;
+
+```
+
+### NonFinalFieldInEnum
+Non-final field `label` in enum 'ViewType'
+in `src/main/java/org/eclipse/microprofile/starter/core/model/ViewType.java`
+#### Snippet
+```java
+
+    private String code;
+    private String label;
+
+    ViewType(String code, String label) {
+```
+
+### NonFinalFieldInEnum
+Non-final field `code` in enum 'JavaSEVersion'
+in `src/main/java/org/eclipse/microprofile/starter/core/model/JavaSEVersion.java`
+#### Snippet
+```java
+    // @formatter:on
+
+    private String code;
+    private String label;
+
+```
+
+### NonFinalFieldInEnum
+Non-final field `label` in enum 'JavaSEVersion'
+in `src/main/java/org/eclipse/microprofile/starter/core/model/JavaSEVersion.java`
+#### Snippet
+```java
+
+    private String code;
+    private String label;
+
+    JavaSEVersion(String code, String label) {
+```
+
+### NonFinalFieldInEnum
+Non-final field `artifactId` in enum 'StandaloneMPSpec'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/StandaloneMPSpec.java`
+#### Snippet
+```java
+    private List<ServerMPVersion> serverRestrictions;
+    private String groupId;
+    private String artifactId;
+
+    StandaloneMPSpec(String code,
+```
+
+### NonFinalFieldInEnum
+Non-final field `serverRestrictions` in enum 'StandaloneMPSpec'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/StandaloneMPSpec.java`
+#### Snippet
+```java
+    private String tagURL;
+    private String description;
+    private List<ServerMPVersion> serverRestrictions;
+    private String groupId;
+    private String artifactId;
+```
+
+### NonFinalFieldInEnum
+Non-final field `tagURL` in enum 'StandaloneMPSpec'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/StandaloneMPSpec.java`
+#### Snippet
+```java
+    private String code;
+    private String label;
+    private String tagURL;
+    private String description;
+    private List<ServerMPVersion> serverRestrictions;
+```
+
+### NonFinalFieldInEnum
+Non-final field `label` in enum 'StandaloneMPSpec'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/StandaloneMPSpec.java`
+#### Snippet
+```java
+
+    private String code;
+    private String label;
+    private String tagURL;
+    private String description;
+```
+
+### NonFinalFieldInEnum
+Non-final field `code` in enum 'StandaloneMPSpec'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/StandaloneMPSpec.java`
+#### Snippet
+```java
+    ;
+
+    private String code;
+    private String label;
+    private String tagURL;
+```
+
+### NonFinalFieldInEnum
+Non-final field `groupId` in enum 'StandaloneMPSpec'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/StandaloneMPSpec.java`
+#### Snippet
+```java
+    private String description;
+    private List<ServerMPVersion> serverRestrictions;
+    private String groupId;
+    private String artifactId;
+
+```
+
+### NonFinalFieldInEnum
+Non-final field `description` in enum 'StandaloneMPSpec'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/StandaloneMPSpec.java`
+#### Snippet
+```java
+    private String label;
+    private String tagURL;
+    private String description;
+    private List<ServerMPVersion> serverRestrictions;
+    private String groupId;
+```
+
+### NonFinalFieldInEnum
+Non-final field `code` in enum 'MicroprofileSpec'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/MicroprofileSpec.java`
+#### Snippet
+```java
+    // @formatter:on
+
+    private String code;
+    private String label;
+    private String tagURL;
+```
+
+### NonFinalFieldInEnum
+Non-final field `mpVersions` in enum 'MicroprofileSpec'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/MicroprofileSpec.java`
+#### Snippet
+```java
+    private String tagURL;
+    private String description;
+    private List<MicroProfileVersion> mpVersions;
+
+    MicroprofileSpec(String code, String label, String description, String tagURL, List<MicroProfileVersion> mpVersions) {
+```
+
+### NonFinalFieldInEnum
+Non-final field `tagURL` in enum 'MicroprofileSpec'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/MicroprofileSpec.java`
+#### Snippet
+```java
+    private String code;
+    private String label;
+    private String tagURL;
+    private String description;
+    private List<MicroProfileVersion> mpVersions;
+```
+
+### NonFinalFieldInEnum
+Non-final field `label` in enum 'MicroprofileSpec'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/MicroprofileSpec.java`
+#### Snippet
+```java
+
+    private String code;
+    private String label;
+    private String tagURL;
+    private String description;
+```
+
+### NonFinalFieldInEnum
+Non-final field `description` in enum 'MicroprofileSpec'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/MicroprofileSpec.java`
+#### Snippet
+```java
+    private String label;
+    private String tagURL;
+    private String description;
+    private List<MicroProfileVersion> mpVersions;
+
+```
+
+### NonFinalFieldInEnum
+Non-final field `jarFileName` in enum 'SupportedServer'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/SupportedServer.java`
+#### Snippet
+```java
+    private String displayName;
+    private List<MicroProfileVersion> mpVersions;
+    private String jarFileName;
+    private String jarParameters;
+    private String portServiceA;
+```
+
+### NonFinalFieldInEnum
+Non-final field `mpVersions` in enum 'SupportedServer'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/SupportedServer.java`
+#### Snippet
+```java
+    private String code;
+    private String displayName;
+    private List<MicroProfileVersion> mpVersions;
+    private String jarFileName;
+    private String jarParameters;
+```
+
+### NonFinalFieldInEnum
+Non-final field `code` in enum 'SupportedServer'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/SupportedServer.java`
+#### Snippet
+```java
+    // @formatter:on
+
+    private String code;
+    private String displayName;
+    private List<MicroProfileVersion> mpVersions;
+```
+
+### NonFinalFieldInEnum
+Non-final field `portServiceA` in enum 'SupportedServer'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/SupportedServer.java`
+#### Snippet
+```java
+    private String jarFileName;
+    private String jarParameters;
+    private String portServiceA;
+    private String portServiceB;
+    private String homePage;
+```
+
+### NonFinalFieldInEnum
+Non-final field `gradleSupport` in enum 'SupportedServer'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/SupportedServer.java`
+#### Snippet
+```java
+    private String portServiceB;
+    private String homePage;
+    private boolean gradleSupport;
+
+    SupportedServer(String code, String displayName, List<MicroProfileVersion> mpVersions, String jarFileName
+```
+
+### NonFinalFieldInEnum
+Non-final field `jarParameters` in enum 'SupportedServer'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/SupportedServer.java`
+#### Snippet
+```java
+    private List<MicroProfileVersion> mpVersions;
+    private String jarFileName;
+    private String jarParameters;
+    private String portServiceA;
+    private String portServiceB;
+```
+
+### NonFinalFieldInEnum
+Non-final field `homePage` in enum 'SupportedServer'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/SupportedServer.java`
+#### Snippet
+```java
+    private String portServiceA;
+    private String portServiceB;
+    private String homePage;
+    private boolean gradleSupport;
+
+```
+
+### NonFinalFieldInEnum
+Non-final field `displayName` in enum 'SupportedServer'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/SupportedServer.java`
+#### Snippet
+```java
+
+    private String code;
+    private String displayName;
+    private List<MicroProfileVersion> mpVersions;
+    private String jarFileName;
+```
+
+### NonFinalFieldInEnum
+Non-final field `portServiceB` in enum 'SupportedServer'
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/SupportedServer.java`
+#### Snippet
+```java
+    private String jarParameters;
+    private String portServiceA;
+    private String portServiceB;
+    private String homePage;
+    private boolean gradleSupport;
+```
+
+### NonFinalFieldInEnum
+Non-final field `label` in enum 'MicroProfileVersion'
+in `src/main/java/org/eclipse/microprofile/starter/core/model/MicroProfileVersion.java`
+#### Snippet
+```java
+    private String code;
+    private String depVersion;
+    private String label;
+    private Set<String> alternatives;
+
+```
+
+### NonFinalFieldInEnum
+Non-final field `alternatives` in enum 'MicroProfileVersion'
+in `src/main/java/org/eclipse/microprofile/starter/core/model/MicroProfileVersion.java`
+#### Snippet
+```java
+    private String depVersion;
+    private String label;
+    private Set<String> alternatives;
+
+    MicroProfileVersion(String code, String label) {
+```
+
+### NonFinalFieldInEnum
+Non-final field `code` in enum 'MicroProfileVersion'
+in `src/main/java/org/eclipse/microprofile/starter/core/model/MicroProfileVersion.java`
+#### Snippet
+```java
+    // @formatter:on
+
+    private String code;
+    private String depVersion;
+    private String label;
+```
+
+### NonFinalFieldInEnum
+Non-final field `depVersion` in enum 'MicroProfileVersion'
+in `src/main/java/org/eclipse/microprofile/starter/core/model/MicroProfileVersion.java`
+#### Snippet
+```java
+
+    private String code;
+    private String depVersion;
+    private String label;
+    private Set<String> alternatives;
+```
+
+## RuleId[id=DuplicatedCode]
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/ThorntailServer.java`
+#### Snippet
+```java
+            String resourceDirectory = getResourceDirectory(model, false);
+            directoryCreator.createDirectory(resourceDirectory);
+            templateEngine.processTemplateFile(resourceDirectory, "project-defaults.yml", alternatives, variables);
+            templateEngine.processTemplateFile(resourceDirectory, "jwt-roles.properties", alternatives, variables);
+
+            String metaInfDirectory = getResourceDirectory(model, false) + "/META-INF";
+
+            directoryCreator.createDirectory(metaInfDirectory);
+            templateEngine.processTemplateFile(metaInfDirectory, "publicKey.pem", "MP-JWT-SIGNER", alternatives, variables);
+```
+
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/eclipse/microprofile/starter/core/artifacts/CDICreator.java`
+#### Snippet
+```java
+        BeansXMLMode mode = getMode(model);
+        if (mode == BeansXMLMode.IMPLICIT) {
+            // implicit means no beans.xml
+            return;
+        }
+        Set<String> alternatives = model.getParameter(JessieModel.Parameter.ALTERNATIVES);
+        Map<String, String> variables = model.getVariables();
+        variables.put("beans_xml_mode", mode.getMode());
+```
+
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/eclipse/microprofile/starter/rest/APIService.java`
+#### Snippet
+```java
+        if (StringUtils.isBlank(p.getGroupId())) {
+            p.setGroupId(EngineData.DEFAULT_GROUP_ID);
+        }
+        if (StringUtils.isBlank(p.getArtifactId())) {
+            p.setArtifactId(EngineData.DEFAULT_ARTIFACT_ID);
+        }
+        if (p.getMpVersion() == null || p.getMpVersion() == MicroProfileVersion.NONE) {
+            p.setMpVersion(
+                    p.getSupportedServer().getMpVersions().get(p.getSupportedServer().getMpVersions().size() - 1));
+        }
+```
+
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/eclipse/microprofile/starter/rest/APIService.java`
+#### Snippet
+```java
+        JessieModel model = new JessieModel();
+        model.setDirectory(ed.getMavenData().getArtifactId());
+
+        JessieMaven mavenModel = new JessieMaven();
+        mavenModel.setGroupId(ed.getMavenData().getGroupId());
+        mavenModel.setArtifactId(ed.getMavenData().getArtifactId());
+        model.setMaven(mavenModel);
+
+        JessieSpecification specifications = new JessieSpecification();
+```
+
+### DuplicatedCode
+Duplicated code
+in `src/main/webapp/resources/css/starter-1.4.css`
+#### Snippet
+```java
+.ui-chkbox-box .ui-icon::before {
+    content: '\f00c';
+    font-family: FontAwesome;
+    font-weight: 400;
+    font-style: normal;
+    color: #FFF;
+    text-decoration: inherit;
+    line-height: 1em;
+    font-size: 13px;
+    position: absolute;
+    left: 2px;
+    top: 2px;
+}
 ```
 
 ## RuleId[id=CatchMayIgnoreException]
@@ -620,707 +1564,6 @@ in `src/main/java/org/eclipse/microprofile/starter/ZipFileCreator.java`
                 archive.putArchiveEntry(zipEntry);
 ```
 
-## RuleId[id=NonShortCircuitBoolean]
-### NonShortCircuitBoolean
-Non-short-circuit boolean expression `supportedServer != SupportedServer.HELIDON & supportedServer != SupportedServer.QUARKUS`
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/MicroprofileServersAddon.java`
-#### Snippet
-```java
-        // Helidon should have it in src/main/resources/WEB
-        // Quarkus should have it in src/main/resources/META-INF/resources
-        if (supportedServer != SupportedServer.HELIDON & supportedServer != SupportedServer.QUARKUS) {
-            // Demo index file to all endpoints
-            String webDirectory = model.getDirectory(true) + "/" + MavenCreator.SRC_MAIN_WEBAPP;
-```
-
-## RuleId[id=SetReplaceableByEnumSet]
-### SetReplaceableByEnumSet
-`HashSet<>` can be replaced with 'EnumSet'
-in `src/main/java/org/eclipse/microprofile/starter/core/model/deserializer/ViewTypeDeserializer.java`
-#### Snippet
-```java
-    @Override
-    public List<ViewType> deserialize(JsonParser jsonParser, DeserializationContext context) throws IOException {
-        Set<ViewType> result = new HashSet<>();
-
-        ObjectMapper mapper = (ObjectMapper) jsonParser.getCodec();
-```
-
-## RuleId[id=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends T`
-in `src/main/java/org/eclipse/microprofile/starter/core/addon/AddonManager.java`
-#### Snippet
-```java
-    }
-
-    private <T> List<T> getProviders(Iterator<T> alternativesIterator) {
-        List<T> result = new ArrayList<>();
-        while (alternativesIterator.hasNext()) {
-```
-
-### BoundedWildcard
-Can generalize to `? super SupportedServer`
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/JDKSelector.java`
-#### Snippet
-```java
-    }
-
-    private void fillJavaSEVersion(Map<SupportedServer, Map<MicroProfileVersion, List<JavaSEVersion>>> data,
-                                   SupportedServer supportedServer,
-                                   JavaSEVersion seVersion,
-```
-
-### BoundedWildcard
-Can generalize to `? extends FileIdentification`
-in `src/main/java/org/eclipse/microprofile/starter/core/files/FilesLocator.java`
-#### Snippet
-```java
-    }
-
-    private int selectBasedOnAlternatives(List<FileIdentification> candidates, Set<String> alternatives) {
-        int result = -1;
-        boolean multipleMatch = false;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Plugin`
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/TomeeServer.java`
-#### Snippet
-```java
-    }
-
-    private Plugin findMavenPlugin(List<Plugin> plugins) {
-        Plugin result = null;
-        for (Plugin plugin : plugins) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends JessieAddon`
-in `src/main/java/org/eclipse/microprofile/starter/core/model/ModelManager.java`
-#### Snippet
-```java
-    }
-
-    private void setAddonOptions(List<JessieAddon> allAddons, Map<String, OptionValue> options) {
-
-        for (JessieAddon addon : allAddons) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `src/main/java/org/eclipse/microprofile/starter/core/model/ModelManager.java`
-#### Snippet
-```java
-    }
-
-    private void addDefaultOption(Map<String, OptionValue> options, String key, String value) {
-        OptionValue optionValue;
-        if (!options.containsKey(key)) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends JessieAddon`
-in `src/main/java/org/eclipse/microprofile/starter/core/model/ModelManager.java`
-#### Snippet
-```java
-    }
-
-    private Set<String> determineAlternatives(JessieModel model, List<JessieAddon> allAddons) {
-        Set<String> alternatives = alternativesProvider.determineAlternatives(model);
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends OptionValue`
-in `src/main/java/org/eclipse/microprofile/starter/core/model/ModelManager.java`
-#### Snippet
-```java
-    }
-
-    private boolean isAddonDisabled(String addonName, Map<String, OptionValue> options) {
-        boolean result = false;
-        String optionName = addonName + ".disable";
-```
-
-### BoundedWildcard
-Can generalize to `? extends JessieAddon`
-in `src/main/java/org/eclipse/microprofile/starter/core/model/ModelManager.java`
-#### Snippet
-```java
-    }
-
-    private void orderAddons(List<JessieAddon> allAddons) {
-        allAddons.sort(Comparator.comparing(JessieAddon::priority));
-    }
-```
-
-### BoundedWildcard
-Can generalize to `? extends ConstraintViolation`
-in `src/main/java/org/eclipse/microprofile/starter/core/validation/ModelValidationException.java`
-#### Snippet
-```java
-    }
-
-    private static String defineMessages(Set<ConstraintViolation<Object>> violations) {
-        StringBuilder result = new StringBuilder();
-        for (ConstraintViolation<Object> violation : violations) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ServerMPVersion`
-in `src/main/java/org/eclipse/microprofile/starter/view/GeneratorDataBean.java`
-#### Snippet
-```java
-    }
-
-    private boolean standaloneSpecForVersion(List<ServerMPVersion> serverRestrictions) {
-        boolean result = false;
-        for (ServerMPVersion serverRestriction : serverRestrictions) {
-```
-
-## RuleId[id=MissortedModifiers]
-### MissortedModifiers
-Missorted modifiers `final private`
-in `src/main/java/org/eclipse/microprofile/starter/core/model/JessieModel.java`
-#### Snippet
-```java
-
-    @JsonIgnore
-    final private Map<String, String> variables = new HashMap<>();
-
-    /**
-```
-
-### MissortedModifiers
-Missorted modifiers `final private`
-in `src/main/java/org/eclipse/microprofile/starter/core/model/JessieModel.java`
-#### Snippet
-```java
-
-    @JsonDeserialize(using = OptionsDeserializer.class)
-    final private Map<String, OptionValue> options = new HashMap<>();
-
-    @JsonIgnore
-```
-
-### MissortedModifiers
-Missorted modifiers `final private`
-in `src/main/java/org/eclipse/microprofile/starter/core/model/JessieModel.java`
-#### Snippet
-```java
-
-    @JsonIgnore
-    final private Map<String, Object> parameters = new HashMap<>();
-
-    @JsonIgnore
-```
-
-## RuleId[id=UnnecessaryBoxing]
-### UnnecessaryBoxing
-Redundant boxing, `Integer.parseInt()` call can be used instead
-in `src/main/java/org/eclipse/microprofile/starter/core/files/FilesLocator.java`
-#### Snippet
-```java
-
-    public String getTemplateFile(String index) {
-        return fileNames.get(Integer.valueOf(index));
-    }
-
-```
-
-## RuleId[id=SystemOutErr]
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `src/main/java/org/eclipse/microprofile/starter/log/ErrorLogger.java`
-#### Snippet
-```java
-        }
-
-        System.err.println(String.format("Error during generation of project: \n Model : %s \n Stacktrace %s", json, stacktrace(e)));
-    }
-
-```
-
-## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/org/eclipse/microprofile/starter/core/artifacts/DirectoryCreator.java`
-#### Snippet
-```java
-
-    public String createPathForGroupAndArtifact(JessieMaven mavenModel) {
-        return (mavenModel.getGroupId() + '.' + mavenModel.getPackage()).replaceAll("\\.", "/");
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/org/eclipse/microprofile/starter/core/TemplateVariableProvider.java`
-#### Snippet
-```java
-        result.put("maven_artifactid", model.getMaven().getArtifactId());
-
-        String artifactId = model.getMaven().getArtifactId().replaceAll("\\.", "");
-        result.put("artifact", StringUtils.capitalize(artifactId));
-        result.put("application", StringUtils.capitalize(artifactId.replaceAll("-", "")));
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/org/eclipse/microprofile/starter/core/TemplateVariableProvider.java`
-#### Snippet
-```java
-        String artifactId = model.getMaven().getArtifactId().replaceAll("\\.", "");
-        result.put("artifact", StringUtils.capitalize(artifactId));
-        result.put("application", StringUtils.capitalize(artifactId.replaceAll("-", "")));
-
-        result.put("mp_version", model.getSpecification().getMicroProfileVersion().getCode());
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/org/eclipse/microprofile/starter/core/model/JessieMaven.java`
-#### Snippet
-```java
-
-    public String getPackage() {
-        return artifactId.replaceAll("-", ".");
-    }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/MicroprofileServersAddon.java`
-#### Snippet
-```java
-        String artifactId = model.getMaven().getArtifactId();
-        variables.put("jar_file", defineJarFileName(supportedServer, artifactId));
-        variables.put("jar_file_no_suffix", variables.get("jar_file").split("\\.jar")[0]);
-        variables.put("jar_parameters", defineJarParameters(supportedServer));
-        variables.put("port_service_a", supportedServer.getPortServiceA());
-```
-
-## RuleId[id=SlowListContainsAll]
-### SlowListContainsAll
-Call to 'list.containsAll(collection)' may have poor performance
-in `src/main/java/org/eclipse/microprofile/starter/rest/APIService.java`
-#### Snippet
-```java
-        }
-
-        if (!mpvToOptions.get(p.getMpVersion()).getSpecs().containsAll(p.getSelectedSpecEnums())) {
-            return Response.status(Response.Status.BAD_REQUEST)
-                    .type("application/json")
-```
-
-## RuleId[id=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `java.lang` is unnecessary and can be removed
-in `src/main/java/org/eclipse/microprofile/starter/validation/PackageValidator.java`
-#### Snippet
-```java
-     * in case when there are no or multiple beans which are a candidate for the type.
-     *
-     * @param classType a {@link java.lang.Class} representing the required type
-     * @param <T>       Generic Type argument
-     * @return CDI instance matching the class type and qualifiers (if specified).
-```
-
-## RuleId[id=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/eclipse/microprofile/starter/log/DynamoDBLogger.java`
-#### Snippet
-```java
-                    try (BufferedReader reader = new BufferedReader(new InputStreamReader(myURLConnection.getErrorStream()))) {
-                        String line;
-                        while ((line = reader.readLine()) != null) {
-                            LOG.log(Level.FINE, line);
-                        }
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/org/eclipse/microprofile/starter/log/DynamoDBLogger.java`
-#### Snippet
-```java
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(myURLConnection.getInputStream()))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    LOG.log(Level.FINE, line);
-                }
-```
-
-## RuleId[id=RegExpSingleCharAlternation]
-### RegExpSingleCharAlternation
-Single character alternation in RegExp
-in `src/main/java/org/eclipse/microprofile/starter/core/files/FilesLocator.java`
-#### Snippet
-```java
-
-    private static class FileIdentification {
-        private static final Pattern FILE_PATH_PATTERN_SPLIT = Pattern.compile("\\\\|/");
-        private Set<String> alternatives;
-        private String name;
-```
-
-## RuleId[id=ReplaceAssignmentWithOperatorAssignment]
-### ReplaceAssignmentWithOperatorAssignment
-`resourceDirectory = resourceDirectory + "/resources/security"` could be simplified to 'resourceDirectory += "/resources/security"'
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/LibertyServer.java`
-#### Snippet
-```java
-            if  (microprofileSpecs.contains(MicroprofileSpec.JWT_AUTH)) {
-
-                resourceDirectory = resourceDirectory + "/resources/security";
-                directoryCreator.createDirectory(resourceDirectory);
-    
-```
-
-## RuleId[id=ThrowablePrintStackTrace]
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/org/eclipse/microprofile/starter/ZipFileCreator.java`
-#### Snippet
-```java
-            archive.finish();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            archiveContent.clear();
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `src/main/java/org/eclipse/microprofile/starter/log/ErrorLogger.java`
-#### Snippet
-```java
-            json = mapper.writeValueAsString(model);
-        } catch (JsonProcessingException ex) {
-            ex.printStackTrace();
-        }
-
-```
-
-## RuleId[id=EmptyMethod]
-### EmptyMethod
-Method only calls its super
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/HelidonServer.java`
-#### Snippet
-```java
-
-    @PostConstruct
-    public void init() {
-        super.init();
-    }
-```
-
-### EmptyMethod
-Method only calls its super
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/KumuluzeeServer.java`
-#### Snippet
-```java
-
-    @PostConstruct
-    public void init() {
-        super.init();
-    }
-```
-
-### EmptyMethod
-Method only calls its super
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/LibertyServer.java`
-#### Snippet
-```java
-
-    @PostConstruct
-    public void init() {
-        super.init();
-    }
-```
-
-### EmptyMethod
-Method only calls its super
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/PayaraMicroServer.java`
-#### Snippet
-```java
-
-    @PostConstruct
-    public void init() {
-        super.init();
-    }
-```
-
-### EmptyMethod
-Method only calls its super
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/QuarkusServer.java`
-#### Snippet
-```java
-
-    @PostConstruct
-    public void init() {
-        super.init();
-    }
-```
-
-### EmptyMethod
-Method only calls its super
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/ThorntailServer.java`
-#### Snippet
-```java
-
-    @PostConstruct
-    public void init() {
-        super.init();
-    }
-```
-
-### EmptyMethod
-Method only calls its super
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/TomeeServer.java`
-#### Snippet
-```java
-
-    @PostConstruct
-    public void init() {
-        super.init();
-    }
-```
-
-### EmptyMethod
-Method only calls its super
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/WildFlyServer.java`
-#### Snippet
-```java
-
-    @PostConstruct
-    public void init() {
-        super.init();
-    }
-```
-
-### EmptyMethod
-Method only calls its super
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/WildflySwarmServer.java`
-#### Snippet
-```java
-
-    @PostConstruct
-    public void init() {
-        super.init();
-    }
-```
-
-### EmptyMethod
-All implementations of this method are empty
-in `src/main/java/org/eclipse/microprofile/starter/core/artifacts/DirectoryCreator.java`
-#### Snippet
-```java
-public abstract class DirectoryCreator {
-
-    public abstract void createDirectory(String directoryPath);
-
-    public abstract void removeDirectory(String directoryPath);
-```
-
-## RuleId[id=RedundantFieldInitialization]
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/eclipse/microprofile/starter/rest/model/Project.java`
-#### Snippet
-```java
-    private JavaSEVersion javaSEVersion = null;
-    private SupportedServer supportedServer = null;
-    private List<String> selectedSpecs = null;
-    private List<MicroprofileSpec> selectedSpecEnums;
-    private List<StandaloneMPSpec> selectedStandaloneSpecs = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/eclipse/microprofile/starter/rest/model/Project.java`
-#### Snippet
-```java
-    private MicroProfileVersion mpVersion = null;
-    private JavaSEVersion javaSEVersion = null;
-    private SupportedServer supportedServer = null;
-    private List<String> selectedSpecs = null;
-    private List<MicroprofileSpec> selectedSpecEnums;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/eclipse/microprofile/starter/rest/model/Project.java`
-#### Snippet
-```java
-    private String groupId = null;
-    private String artifactId = null;
-    private MicroProfileVersion mpVersion = null;
-    private JavaSEVersion javaSEVersion = null;
-    private SupportedServer supportedServer = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/eclipse/microprofile/starter/rest/model/Project.java`
-#### Snippet
-```java
-public class Project {
-    private String groupId = null;
-    private String artifactId = null;
-    private MicroProfileVersion mpVersion = null;
-    private JavaSEVersion javaSEVersion = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/org/eclipse/microprofile/starter/rest/model/Project.java`
-#### Snippet
-```java
-    private List<StandaloneMPSpec> selectedStandaloneSpecs = null;
-    private BuildTool buildTool = BuildTool.MAVEN;
-    private boolean selectAllSpecs = false;
-
-    public String getGroupId() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/eclipse/microprofile/starter/rest/model/Project.java`
-#### Snippet
-```java
- */
-public class Project {
-    private String groupId = null;
-    private String artifactId = null;
-    private MicroProfileVersion mpVersion = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/eclipse/microprofile/starter/rest/model/Project.java`
-#### Snippet
-```java
-    private List<String> selectedSpecs = null;
-    private List<MicroprofileSpec> selectedSpecEnums;
-    private List<StandaloneMPSpec> selectedStandaloneSpecs = null;
-    private BuildTool buildTool = BuildTool.MAVEN;
-    private boolean selectAllSpecs = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `src/main/java/org/eclipse/microprofile/starter/rest/model/Project.java`
-#### Snippet
-```java
-    private String artifactId = null;
-    private MicroProfileVersion mpVersion = null;
-    private JavaSEVersion javaSEVersion = null;
-    private SupportedServer supportedServer = null;
-    private List<String> selectedSpecs = null;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `src/main/java/org/eclipse/microprofile/starter/view/GeneratorDataBean.java`
-#### Snippet
-```java
-    private List<String> selectedStandaloneSpecs = new ArrayList<>();
-    private List<SelectItem> javaSEItems;
-    private boolean javaSEEnabled = false;
-
-    @PostConstruct
-```
-
-## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/WildFlyServer.java`
-#### Snippet
-```java
-            default:
-        }
-        return null;
-    }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/eclipse/microprofile/starter/log/DynamoDBLogger.java`
-#### Snippet
-```java
-        } catch (NoSuchAlgorithmException | InvalidKeyException e) {
-            LOG.log(Level.SEVERE, "HmacSHA256 key problem:", e);
-            return null;
-        }
-        final String stringToSign = authHeaderSignatureHash(amzDate, dynamoDBJSON, credentialScope);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/eclipse/microprofile/starter/log/DynamoDBLogger.java`
-#### Snippet
-```java
-        final String stringToSign = authHeaderSignatureHash(amzDate, dynamoDBJSON, credentialScope);
-        if (stringToSign == null) {
-            return null;
-        }
-        final byte[] signatureBytes = mac.doFinal(stringToSign.getBytes(StandardCharsets.US_ASCII));
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/eclipse/microprofile/starter/log/DynamoDBLogger.java`
-#### Snippet
-```java
-        } catch (NoSuchAlgorithmException e) {
-            LOG.log(Level.SEVERE, "SHA-1 not available.", e);
-            return null;
-        }
-        final String timestamp = logMessageTimeFormat.format(date);
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/eclipse/microprofile/starter/log/DynamoDBLogger.java`
-#### Snippet
-```java
-        } catch (NoSuchAlgorithmException e) {
-            LOG.log(Level.SEVERE, "SHA-256 not available.", e);
-            return null;
-        }
-        digest.update(StandardCharsets.UTF_8.encode(dynamoDBJSON));
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/server/QuarkusServer.java`
-#### Snippet
-```java
-            default:
-        }
-        return null;
-    }
-}
-```
-
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-26-23-02-33.712.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
-```
-
 ## RuleId[id=RedundantStringFormatCall]
 ### RedundantStringFormatCall
 Redundant call to `format()`
@@ -1332,6 +1575,19 @@ in `src/main/java/org/eclipse/microprofile/starter/log/ErrorLogger.java`
         System.err.println(String.format("Error during generation of project: \n Model : %s \n Stacktrace %s", json, stacktrace(e)));
     }
 
+```
+
+## RuleId[id=ArraysAsListWithZeroOrOneArgument]
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `src/main/java/org/eclipse/microprofile/starter/addon/microprofile/servers/model/StandaloneMPSpec.java`
+#### Snippet
+```java
+            "https://github.com/eclipse/microprofile-graphql/releases/tag/%s",
+            "GraphQL - GraphQL is a query language for APIs and a library for fulfilling those queries with your existing data.",
+            Arrays.asList(ServerMPVersion.of(SupportedServer.LIBERTY)),
+            "org.eclipse.microprofile.graphql",
+            "microprofile-graphql-api"
 ```
 
 ## RuleId[id=ConstantValue]
