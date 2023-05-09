@@ -24,8 +24,8 @@ I found 332 bad smells with 5 repairable:
 | UnnecessarySemicolon | 1 | false |
 | UnnecessaryReturn | 1 | true |
 | TrivialStringConcatenation | 1 | false |
-| SuspiciousMethodCalls | 1 | false |
 | InnerClassMayBeStatic | 1 | true |
+| SuspiciousMethodCalls | 1 | false |
 | EqualsBetweenInconvertibleTypes | 1 | false |
 | AutoCloseableResource | 1 | false |
 | InfiniteLoopStatement | 1 | false |
@@ -37,6 +37,30 @@ I found 332 bad smells with 5 repairable:
 ## RuleId[id=UNCHECKED_WARNING]
 ### UNCHECKED_WARNING
 Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
+in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/topology/JobTopology.java`
+#### Snippet
+```java
+
+    public List<JobVertexID> getVerticesInTopologicalOrder() {
+        List<JobVertexID> sorted = new ArrayList<>(inputs.size());
+
+        Map<JobVertexID, List<JobVertexID>> remainingInputs = new HashMap<>(inputs.size());
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.HashMap' to 'java.util.Map\>'
+in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/topology/JobTopology.java`
+#### Snippet
+```java
+        List<JobVertexID> sorted = new ArrayList<>(inputs.size());
+
+        Map<JobVertexID, List<JobVertexID>> remainingInputs = new HashMap<>(inputs.size());
+        inputs.forEach((v, l) -> remainingInputs.put(v, new ArrayList<>(l)));
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
 in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/listener/ListenerUtils.java`
 #### Snippet
 ```java
@@ -45,50 +69,6 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
                 new ArrayList<>(
                         conf.getOptional(
                                         CoreOptions
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.flink.kubernetes.operator.api.AbstractFlinkResource' to 'org.apache.flink.kubernetes.operator.api.AbstractFlinkResource'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/SavepointObserver.java`
-#### Snippet
-```java
-                                + err);
-                ReconciliationUtils.updateLastReconciledSavepointTriggerNonce(
-                        savepointInfo, (AbstractFlinkResource) resource);
-            } else {
-                LOG.warn("Savepoint failed within grace period, retrying: " + err);
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'org.apache.flink.kubernetes.operator.controller.FlinkDeploymentContext' to 'org.apache.flink.kubernetes.operator.controller.FlinkResourceContext'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/FlinkResourceContextFactory.java`
-#### Snippet
-```java
-        if (resource instanceof FlinkDeployment) {
-            var flinkDep = (FlinkDeployment) resource;
-            return (FlinkResourceContext<CR>)
-                    new FlinkDeploymentContext(
-                            flinkDep,
-                            josdkContext,
-                            resMg,
-                            getOrCreateFlinkService(flinkDep),
-                            configManager);
-        } else if (resource instanceof FlinkSessionJob) {
-            return (FlinkResourceContext<CR>)
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'org.apache.flink.kubernetes.operator.controller.FlinkSessionJobContext' to 'org.apache.flink.kubernetes.operator.controller.FlinkResourceContext'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/FlinkResourceContextFactory.java`
-#### Snippet
-```java
-                            configManager);
-        } else if (resource instanceof FlinkSessionJob) {
-            return (FlinkResourceContext<CR>)
-                    new FlinkSessionJobContext(
-                            (FlinkSessionJob) resource, josdkContext, resMg, this, configManager);
-        } else {
-            throw new IllegalArgumentException(
 ```
 
 ### UNCHECKED_WARNING
@@ -116,17 +96,75 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'capture' to 'T'
-in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/utils/SpecUtils.java`
+Unchecked assignment: 'org.apache.flink.kubernetes.operator.api.listener.FlinkResourceListener.ResourceEventContext' to 'org.apache.flink.kubernetes.operator.api.listener.FlinkResourceListener.ResourceEventContext'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/EventRecorder.java`
 #### Snippet
 ```java
-        }
-        try {
-            return (T)
-                    objectMapper.readValue(
-                            objectMapper.writeValueAsString(object), object.getClass());
-        } catch (JsonProcessingException e) {
-            throw new IllegalStateException(e);
+                            listener -> {
+                                if (resource instanceof FlinkDeployment) {
+                                    listener.onDeploymentEvent(ctx);
+                                } else {
+                                    listener.onSessionJobEvent(ctx);
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.flink.kubernetes.operator.api.listener.FlinkResourceListener.ResourceEventContext' to 'org.apache.flink.kubernetes.operator.api.listener.FlinkResourceListener.ResourceEventContext'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/EventRecorder.java`
+#### Snippet
+```java
+                                    listener.onDeploymentEvent(ctx);
+                                } else {
+                                    listener.onSessionJobEvent(ctx);
+                                }
+                            });
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.flink.kubernetes.operator.api.listener.FlinkResourceListener.ResourceEventContext' to 'org.apache.flink.kubernetes.operator.api.listener.FlinkResourceListener.ResourceEventContext\>'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/EventRecorder.java`
+#### Snippet
+```java
+                                }
+                            });
+                    AuditUtils.logContext(ctx);
+                };
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.HashSet' to 'java.util.Set'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/config/FlinkOperatorConfiguration.java`
+#### Snippet
+```java
+            // all namespaces
+            watchedNamespaces =
+                    new HashSet<>(
+                            Arrays.asList(
+                                    operatorConfig
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'HashSet(Collection)' as a member of raw type 'java.util.HashSet'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/config/FlinkOperatorConfiguration.java`
+#### Snippet
+```java
+            // all namespaces
+            watchedNamespaces =
+                    new HashSet<>(
+                            Arrays.asList(
+                                    operatorConfig
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Map' to 'java.util.Map'. Reason: 'eventSourceEntry.getValue()' has raw type, so result of informerHealthIndicators is erased
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/health/InformerHealthSummary.java`
+#### Snippet
+```java
+            for (var eventSourceEntry : controllerEntry.getValue().entrySet()) {
+                Map<String, InformerHealthIndicator> informers =
+                        eventSourceEntry.getValue().informerHealthIndicators();
+                for (var informerEntry : informers.entrySet()) {
+                    if (informerEntry.getValue().getStatus() == Status.HEALTHY) {
 ```
 
 ### UNCHECKED_WARNING
@@ -216,15 +254,29 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Map' to 'java.util.Map'. Reason: 'eventSourceEntry.getValue()' has raw type, so result of informerHealthIndicators is erased
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/health/InformerHealthSummary.java`
+Unchecked assignment: 'org.apache.flink.kubernetes.operator.api.AbstractFlinkResource' to 'org.apache.flink.kubernetes.operator.api.AbstractFlinkResource'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/SavepointObserver.java`
 #### Snippet
 ```java
-            for (var eventSourceEntry : controllerEntry.getValue().entrySet()) {
-                Map<String, InformerHealthIndicator> informers =
-                        eventSourceEntry.getValue().informerHealthIndicators();
-                for (var informerEntry : informers.entrySet()) {
-                    if (informerEntry.getValue().getStatus() == Status.HEALTHY) {
+                                + err);
+                ReconciliationUtils.updateLastReconciledSavepointTriggerNonce(
+                        savepointInfo, (AbstractFlinkResource) resource);
+            } else {
+                LOG.warn("Savepoint failed within grace period, retrying: " + err);
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'capture' to 'T'
+in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/utils/SpecUtils.java`
+#### Snippet
+```java
+        }
+        try {
+            return (T)
+                    objectMapper.readValue(
+                            objectMapper.writeValueAsString(object), object.getClass());
+        } catch (JsonProcessingException e) {
+            throw new IllegalStateException(e);
 ```
 
 ### UNCHECKED_WARNING
@@ -240,138 +292,38 @@ in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernet
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
-in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/topology/JobTopology.java`
+Unchecked cast: 'org.apache.flink.kubernetes.operator.controller.FlinkDeploymentContext' to 'org.apache.flink.kubernetes.operator.controller.FlinkResourceContext'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/FlinkResourceContextFactory.java`
 #### Snippet
 ```java
-
-    public List<JobVertexID> getVerticesInTopologicalOrder() {
-        List<JobVertexID> sorted = new ArrayList<>(inputs.size());
-
-        Map<JobVertexID, List<JobVertexID>> remainingInputs = new HashMap<>(inputs.size());
+        if (resource instanceof FlinkDeployment) {
+            var flinkDep = (FlinkDeployment) resource;
+            return (FlinkResourceContext<CR>)
+                    new FlinkDeploymentContext(
+                            flinkDep,
+                            josdkContext,
+                            resMg,
+                            getOrCreateFlinkService(flinkDep),
+                            configManager);
+        } else if (resource instanceof FlinkSessionJob) {
+            return (FlinkResourceContext<CR>)
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.HashMap' to 'java.util.Map\>'
-in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/topology/JobTopology.java`
+Unchecked cast: 'org.apache.flink.kubernetes.operator.controller.FlinkSessionJobContext' to 'org.apache.flink.kubernetes.operator.controller.FlinkResourceContext'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/FlinkResourceContextFactory.java`
 #### Snippet
 ```java
-        List<JobVertexID> sorted = new ArrayList<>(inputs.size());
-
-        Map<JobVertexID, List<JobVertexID>> remainingInputs = new HashMap<>(inputs.size());
-        inputs.forEach((v, l) -> remainingInputs.put(v, new ArrayList<>(l)));
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.flink.kubernetes.operator.api.listener.FlinkResourceListener.ResourceEventContext' to 'org.apache.flink.kubernetes.operator.api.listener.FlinkResourceListener.ResourceEventContext'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/EventRecorder.java`
-#### Snippet
-```java
-                            listener -> {
-                                if (resource instanceof FlinkDeployment) {
-                                    listener.onDeploymentEvent(ctx);
-                                } else {
-                                    listener.onSessionJobEvent(ctx);
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.flink.kubernetes.operator.api.listener.FlinkResourceListener.ResourceEventContext' to 'org.apache.flink.kubernetes.operator.api.listener.FlinkResourceListener.ResourceEventContext'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/EventRecorder.java`
-#### Snippet
-```java
-                                    listener.onDeploymentEvent(ctx);
-                                } else {
-                                    listener.onSessionJobEvent(ctx);
-                                }
-                            });
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.flink.kubernetes.operator.api.listener.FlinkResourceListener.ResourceEventContext' to 'org.apache.flink.kubernetes.operator.api.listener.FlinkResourceListener.ResourceEventContext\>'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/EventRecorder.java`
-#### Snippet
-```java
-                                }
-                            });
-                    AuditUtils.logContext(ctx);
-                };
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.HashSet' to 'java.util.Set'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/config/FlinkOperatorConfiguration.java`
-#### Snippet
-```java
-            // all namespaces
-            watchedNamespaces =
-                    new HashSet<>(
-                            Arrays.asList(
-                                    operatorConfig
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'HashSet(Collection)' as a member of raw type 'java.util.HashSet'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/config/FlinkOperatorConfiguration.java`
-#### Snippet
-```java
-            // all namespaces
-            watchedNamespaces =
-                    new HashSet<>(
-                            Arrays.asList(
-                                    operatorConfig
+                            configManager);
+        } else if (resource instanceof FlinkSessionJob) {
+            return (FlinkResourceContext<CR>)
+                    new FlinkSessionJobContext(
+                            (FlinkSessionJob) resource, josdkContext, resMg, this, configManager);
+        } else {
+            throw new IllegalArgumentException(
 ```
 
 ## RuleId[id=MarkedForRemoval]
-### MarkedForRemoval
-'installShutdownHook()' is deprecated and marked for removal
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/FlinkOperator.java`
-#### Snippet
-```java
-        registerDeploymentController();
-        registerSessionJobController();
-        operator.installShutdownHook();
-        operator.start();
-        if (operatorHealthService != null) {
-```
-
-### MarkedForRemoval
-'fromConfiguration(io.javaoperatorsdk.operator.api.config.RetryConfiguration)' is deprecated and marked for removal
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/FlinkOperator.java`
-#### Snippet
-```java
-        overrider.settingNamespaces(operatorConf.getWatchedNamespaces());
-
-        overrider.withRetry(GenericRetry.fromConfiguration(operatorConf.getRetryConfiguration()));
-
-        var labelSelector = operatorConf.getLabelSelector();
-```
-
-### MarkedForRemoval
-'io.javaoperatorsdk.operator.api.config.RetryConfiguration' is deprecated and marked for removal
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/config/FlinkOperatorConfiguration.java`
-#### Snippet
-```java
-import io.fabric8.kubernetes.api.model.DeletionPropagation;
-import io.javaoperatorsdk.operator.api.config.LeaderElectionConfiguration;
-import io.javaoperatorsdk.operator.api.config.RetryConfiguration;
-import lombok.Value;
-import org.apache.commons.lang3.StringUtils;
-```
-
-### MarkedForRemoval
-'io.javaoperatorsdk.operator.api.config.RetryConfiguration' is deprecated and marked for removal
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/config/FlinkOperatorConfiguration.java`
-#### Snippet
-```java
-    Integer savepointHistoryCountThreshold;
-    Duration savepointHistoryAgeThreshold;
-    RetryConfiguration retryConfiguration;
-    boolean exceptionStackTraceEnabled;
-    int exceptionStackTraceLengthThreshold;
-```
-
 ### MarkedForRemoval
 'io.javaoperatorsdk.operator.api.config.RetryConfiguration' is deprecated and marked for removal
 in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/config/FlinkOperatorConfiguration.java`
@@ -397,6 +349,30 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
 ```
 
 ### MarkedForRemoval
+'io.javaoperatorsdk.operator.api.config.RetryConfiguration' is deprecated and marked for removal
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/config/FlinkOperatorConfiguration.java`
+#### Snippet
+```java
+    Integer savepointHistoryCountThreshold;
+    Duration savepointHistoryAgeThreshold;
+    RetryConfiguration retryConfiguration;
+    boolean exceptionStackTraceEnabled;
+    int exceptionStackTraceLengthThreshold;
+```
+
+### MarkedForRemoval
+'io.javaoperatorsdk.operator.api.config.RetryConfiguration' is deprecated and marked for removal
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/config/FlinkOperatorConfiguration.java`
+#### Snippet
+```java
+import io.fabric8.kubernetes.api.model.DeletionPropagation;
+import io.javaoperatorsdk.operator.api.config.LeaderElectionConfiguration;
+import io.javaoperatorsdk.operator.api.config.RetryConfiguration;
+import lombok.Value;
+import org.apache.commons.lang3.StringUtils;
+```
+
+### MarkedForRemoval
 Overrides method that is deprecated and marked for removal in 'io.javaoperatorsdk.operator.api.monitoring.Metrics'
 in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/metrics/OperatorJosdkMetrics.java`
 #### Snippet
@@ -415,9 +391,9 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
 ```java
 
     @Override
-    public void finishedReconciliation(ResourceID resourceID, Map<String, Object> metadata) {
-        counter(getResourceMg(resourceID, metadata), RECONCILIATION, "finished").inc();
-    }
+    public void reconcileCustomResource(
+            ResourceID resourceID, RetryInfo retryInfoNullable, Map<String, Object> metadata) {
+        counter(getResourceMg(resourceID, metadata), RECONCILIATION).inc();
 ```
 
 ### MarkedForRemoval
@@ -427,12 +403,72 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
 ```java
 
     @Override
-    public void reconcileCustomResource(
-            ResourceID resourceID, RetryInfo retryInfoNullable, Map<String, Object> metadata) {
-        counter(getResourceMg(resourceID, metadata), RECONCILIATION).inc();
+    public void finishedReconciliation(ResourceID resourceID, Map<String, Object> metadata) {
+        counter(getResourceMg(resourceID, metadata), RECONCILIATION, "finished").inc();
+    }
+```
+
+### MarkedForRemoval
+'fromConfiguration(io.javaoperatorsdk.operator.api.config.RetryConfiguration)' is deprecated and marked for removal
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/FlinkOperator.java`
+#### Snippet
+```java
+        overrider.settingNamespaces(operatorConf.getWatchedNamespaces());
+
+        overrider.withRetry(GenericRetry.fromConfiguration(operatorConf.getRetryConfiguration()));
+
+        var labelSelector = operatorConf.getLabelSelector();
+```
+
+### MarkedForRemoval
+'installShutdownHook()' is deprecated and marked for removal
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/FlinkOperator.java`
+#### Snippet
+```java
+        registerDeploymentController();
+        registerSessionJobController();
+        operator.installShutdownHook();
+        operator.start();
+        if (operatorHealthService != null) {
 ```
 
 ## RuleId[id=JavadocReference]
+### JavadocReference
+Cannot resolve symbol `JobVertexID`
+in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/utils/AutoScalerSerDeModule.java`
+#### Snippet
+```java
+import java.io.IOException;
+
+/** Jackson serializer module for {@link JobVertexID}. */
+public class AutoScalerSerDeModule extends SimpleModule {
+
+```
+
+### JavadocReference
+Cannot resolve symbol `RequestBody`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/runtime/rest/messages/job/savepoints/SavepointTriggerRequestBody.java`
+#### Snippet
+```java
+import java.util.Optional;
+
+/** {@link RequestBody} to trigger savepoints. */
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class SavepointTriggerRequestBody implements RequestBody {
+```
+
+### JavadocReference
+Cannot resolve symbol `ConfigOption`
+in `flink-kubernetes-docs/src/main/java/org/apache/flink/kubernetes/operator/docs/configuration/OptionsClassLocation.java`
+#### Snippet
+```java
+import org.apache.flink.configuration.ConfigOption;
+
+/** Simple descriptor for the location of a class containing {@link ConfigOption ConfigOptions}. */
+class OptionsClassLocation {
+    private final String module;
+```
+
 ### JavadocReference
 Cannot resolve symbol `ClusterDescriptor`
 in `flink-kubernetes-standalone/src/main/java/org/apache/flink/kubernetes/operator/standalone/KubernetesStandaloneClusterDescriptor.java`
@@ -442,78 +478,6 @@ import static org.apache.flink.util.Preconditions.checkNotNull;
 
 /** Standalone Kubernetes specific {@link ClusterDescriptor} implementation. */
 public class KubernetesStandaloneClusterDescriptor extends KubernetesClusterDescriptor {
-
-```
-
-### JavadocReference
-Cannot resolve symbol `org.apache.flink.kubernetes.kubeclient.FlinkPod`
-in `flink-kubernetes-standalone/src/main/java/org/apache/flink/kubernetes/operator/kubeclient/decorators/InitStandaloneTaskManagerDecorator.java`
-#### Snippet
-```java
-
-/**
- * An initializer for the TaskManager {@link org.apache.flink.kubernetes.kubeclient.FlinkPod} in
- * standalone mode.
- */
-```
-
-### JavadocReference
-Cannot resolve symbol `MeterView`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/metrics/OperatorMetricUtils.java`
-#### Snippet
-```java
-    }
-
-    /** Thread safe {@link MeterView} wrapper. */
-    public static class SynchronizedMeterView implements Meter, View {
-
-```
-
-### JavadocReference
-Cannot resolve symbol `Histogram`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/metrics/OperatorMetricUtils.java`
-#### Snippet
-```java
-    }
-
-    /** Thread safe {@link Histogram} wrapper. */
-    public static class SynchronizedHistogram implements Histogram {
-
-```
-
-### JavadocReference
-Cannot resolve symbol `Counter`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/metrics/OperatorMetricUtils.java`
-#### Snippet
-```java
-    }
-
-    /** Thread safe {@link Counter} wrapper. */
-    public static class SynchronizedCounter implements Counter {
-
-```
-
-### JavadocReference
-Cannot resolve symbol `RequestBody`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/runtime/rest/messages/job/savepoints/stop/StopWithSavepointRequestBody.java`
-#### Snippet
-```java
-import java.util.Optional;
-
-/** {@link RequestBody} for stopping a job with a savepoint. */
-@JsonInclude(JsonInclude.Include.NON_NULL)
-public class StopWithSavepointRequestBody implements RequestBody {
-```
-
-### JavadocReference
-Cannot resolve symbol `ConfigOption`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/ConfigOptionUtils.java`
-#### Snippet
-```java
-import org.slf4j.LoggerFactory;
-
-/** {@link ConfigOption} utilities. */
-public class ConfigOptionUtils {
 
 ```
 
@@ -542,27 +506,111 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
 ```
 
 ### JavadocReference
-Cannot resolve symbol `JobVertexID`
-in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/utils/AutoScalerSerDeModule.java`
+Cannot resolve symbol `ConfigOption`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/ConfigOptionUtils.java`
 #### Snippet
 ```java
-import java.io.IOException;
+import org.slf4j.LoggerFactory;
 
-/** Jackson serializer module for {@link JobVertexID}. */
-public class AutoScalerSerDeModule extends SimpleModule {
+/** {@link ConfigOption} utilities. */
+public class ConfigOptionUtils {
 
 ```
 
 ### JavadocReference
-Cannot resolve symbol `ConfigOption`
-in `flink-kubernetes-docs/src/main/java/org/apache/flink/kubernetes/operator/docs/configuration/OptionsClassLocation.java`
+Cannot resolve symbol `MetricRegistry`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/metrics/OperatorJosdkMetrics.java`
 #### Snippet
 ```java
-import org.apache.flink.configuration.ConfigOption;
 
-/** Simple descriptor for the location of a class containing {@link ConfigOption ConfigOptions}. */
-class OptionsClassLocation {
-    private final String module;
+/**
+ * Implementation of {@link Metrics} to monitor and forward JOSDK metrics to {@link MetricRegistry}.
+ */
+public class OperatorJosdkMetrics implements Metrics {
+```
+
+### JavadocReference
+Cannot resolve symbol `Histogram`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/metrics/OperatorMetricUtils.java`
+#### Snippet
+```java
+    }
+
+    /** Thread safe {@link Histogram} wrapper. */
+    public static class SynchronizedHistogram implements Histogram {
+
+```
+
+### JavadocReference
+Cannot resolve symbol `MeterView`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/metrics/OperatorMetricUtils.java`
+#### Snippet
+```java
+    }
+
+    /** Thread safe {@link MeterView} wrapper. */
+    public static class SynchronizedMeterView implements Meter, View {
+
+```
+
+### JavadocReference
+Cannot resolve symbol `Counter`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/metrics/OperatorMetricUtils.java`
+#### Snippet
+```java
+    }
+
+    /** Thread safe {@link Counter} wrapper. */
+    public static class SynchronizedCounter implements Counter {
+
+```
+
+### JavadocReference
+Cannot resolve symbol `RequestBody`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/runtime/rest/messages/job/savepoints/stop/StopWithSavepointRequestBody.java`
+#### Snippet
+```java
+import java.util.Optional;
+
+/** {@link RequestBody} for stopping a job with a savepoint. */
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class StopWithSavepointRequestBody implements RequestBody {
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.flink.kubernetes.kubeclient.FlinkPod`
+in `flink-kubernetes-standalone/src/main/java/org/apache/flink/kubernetes/operator/kubeclient/decorators/InitStandaloneTaskManagerDecorator.java`
+#### Snippet
+```java
+
+/**
+ * An initializer for the TaskManager {@link org.apache.flink.kubernetes.kubeclient.FlinkPod} in
+ * standalone mode.
+ */
+```
+
+### JavadocReference
+Cannot resolve symbol `ConfigOption`
+in `flink-kubernetes-docs/src/main/java/org/apache/flink/kubernetes/operator/docs/configuration/ConfigOptionsDocGenerator.java`
+#### Snippet
+```java
+
+    /**
+     * Data structure used to assign {@link ConfigOption ConfigOptions} to the {@link ConfigGroup}
+     * with the longest matching prefix.
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `ConfigGroup`
+in `flink-kubernetes-docs/src/main/java/org/apache/flink/kubernetes/operator/docs/configuration/ConfigOptionsDocGenerator.java`
+#### Snippet
+```java
+
+    /**
+     * Data structure used to assign {@link ConfigOption ConfigOptions} to the {@link ConfigGroup}
+     * with the longest matching prefix.
+     */
 ```
 
 ### JavadocReference
@@ -574,6 +622,18 @@ in `flink-kubernetes-docs/src/main/java/org/apache/flink/kubernetes/operator/doc
      *
      * <p>If the enum implements {@link DescribedEnum}, this includes the given description for each
      * constant. Otherwise, only the constant itself is printed.
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `Description`
+in `flink-kubernetes-docs/src/main/java/org/apache/flink/kubernetes/operator/docs/configuration/ConfigOptionsDocGenerator.java`
+#### Snippet
+```java
+
+    /**
+     * Returns a {@link Description} for the enum constants of the given option in case it is
+     * enum-based, and {@code null} otherwise.
      */
 ```
 
@@ -637,79 +697,6 @@ in `flink-kubernetes-docs/src/main/java/org/apache/flink/kubernetes/operator/doc
      * @param args [0] output directory for the generated files [1] project root directory
 ```
 
-### JavadocReference
-Cannot resolve symbol `ConfigOption`
-in `flink-kubernetes-docs/src/main/java/org/apache/flink/kubernetes/operator/docs/configuration/ConfigOptionsDocGenerator.java`
-#### Snippet
-```java
-
-    /**
-     * Data structure used to assign {@link ConfigOption ConfigOptions} to the {@link ConfigGroup}
-     * with the longest matching prefix.
-     */
-```
-
-### JavadocReference
-Cannot resolve symbol `ConfigGroup`
-in `flink-kubernetes-docs/src/main/java/org/apache/flink/kubernetes/operator/docs/configuration/ConfigOptionsDocGenerator.java`
-#### Snippet
-```java
-
-    /**
-     * Data structure used to assign {@link ConfigOption ConfigOptions} to the {@link ConfigGroup}
-     * with the longest matching prefix.
-     */
-```
-
-### JavadocReference
-Cannot resolve symbol `Description`
-in `flink-kubernetes-docs/src/main/java/org/apache/flink/kubernetes/operator/docs/configuration/ConfigOptionsDocGenerator.java`
-#### Snippet
-```java
-
-    /**
-     * Returns a {@link Description} for the enum constants of the given option in case it is
-     * enum-based, and {@code null} otherwise.
-     */
-```
-
-### JavadocReference
-Cannot resolve symbol `MetricRegistry`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/metrics/OperatorJosdkMetrics.java`
-#### Snippet
-```java
-
-/**
- * Implementation of {@link Metrics} to monitor and forward JOSDK metrics to {@link MetricRegistry}.
- */
-public class OperatorJosdkMetrics implements Metrics {
-```
-
-### JavadocReference
-Cannot resolve symbol `RequestBody`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/runtime/rest/messages/job/savepoints/SavepointTriggerRequestBody.java`
-#### Snippet
-```java
-import java.util.Optional;
-
-/** {@link RequestBody} to trigger savepoints. */
-@JsonInclude(JsonInclude.Include.NON_NULL)
-public class SavepointTriggerRequestBody implements RequestBody {
-```
-
-## RuleId[id=UnnecessarySemicolon]
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/status/JobManagerDeploymentStatus.java`
-#### Snippet
-```java
-
-    /** Deployment in terminal error, requires spec change for reconciliation to continue. */
-    ERROR;
-}
-
-```
-
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
 Argument `status` might be null
@@ -759,29 +746,42 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
                         return DeleteControl.defaultDelete();
 ```
 
+## RuleId[id=UnnecessarySemicolon]
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/status/JobManagerDeploymentStatus.java`
+#### Snippet
+```java
+
+    /** Deployment in terminal error, requires spec change for reconciliation to continue. */
+    ERROR;
+}
+
+```
+
 ## RuleId[id=RegExpRedundantEscape]
 ### RegExpRedundantEscape
-Redundant character escape `\\}` in RegExp
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/IngressUtils.java`
+Redundant character escape `\\/` in RegExp
+in `examples/flink-sql-runner-example/src/main/java/org/apache/flink/examples/SqlRunner.java`
 #### Snippet
 ```java
+    private static final String LINE_DELIMITER = "\n";
 
-    private static final Pattern NAME_PTN =
-            Pattern.compile("\\{\\{name\\}\\}", Pattern.CASE_INSENSITIVE);
-    private static final Pattern NAMESPACE_PTN =
-            Pattern.compile("\\{\\{namespace\\}\\}", Pattern.CASE_INSENSITIVE);
+    private static final String COMMENT_PATTERN = "(--.*)|(((\\/\\*)+?[\\w\\W]+?(\\*\\/)+))";
+
+    public static void main(String[] args) throws Exception {
 ```
 
 ### RegExpRedundantEscape
-Redundant character escape `\\}` in RegExp
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/IngressUtils.java`
+Redundant character escape `\\/` in RegExp
+in `examples/flink-sql-runner-example/src/main/java/org/apache/flink/examples/SqlRunner.java`
 #### Snippet
 ```java
+    private static final String LINE_DELIMITER = "\n";
 
-    private static final Pattern NAME_PTN =
-            Pattern.compile("\\{\\{name\\}\\}", Pattern.CASE_INSENSITIVE);
-    private static final Pattern NAMESPACE_PTN =
-            Pattern.compile("\\{\\{namespace\\}\\}", Pattern.CASE_INSENSITIVE);
+    private static final String COMMENT_PATTERN = "(--.*)|(((\\/\\*)+?[\\w\\W]+?(\\*\\/)+))";
+
+    public static void main(String[] args) throws Exception {
 ```
 
 ### RegExpRedundantEscape
@@ -809,27 +809,27 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
 ```
 
 ### RegExpRedundantEscape
-Redundant character escape `\\/` in RegExp
-in `examples/flink-sql-runner-example/src/main/java/org/apache/flink/examples/SqlRunner.java`
+Redundant character escape `\\}` in RegExp
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/IngressUtils.java`
 #### Snippet
 ```java
-    private static final String LINE_DELIMITER = "\n";
 
-    private static final String COMMENT_PATTERN = "(--.*)|(((\\/\\*)+?[\\w\\W]+?(\\*\\/)+))";
-
-    public static void main(String[] args) throws Exception {
+    private static final Pattern NAME_PTN =
+            Pattern.compile("\\{\\{name\\}\\}", Pattern.CASE_INSENSITIVE);
+    private static final Pattern NAMESPACE_PTN =
+            Pattern.compile("\\{\\{namespace\\}\\}", Pattern.CASE_INSENSITIVE);
 ```
 
 ### RegExpRedundantEscape
-Redundant character escape `\\/` in RegExp
-in `examples/flink-sql-runner-example/src/main/java/org/apache/flink/examples/SqlRunner.java`
+Redundant character escape `\\}` in RegExp
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/IngressUtils.java`
 #### Snippet
 ```java
-    private static final String LINE_DELIMITER = "\n";
 
-    private static final String COMMENT_PATTERN = "(--.*)|(((\\/\\*)+?[\\w\\W]+?(\\*\\/)+))";
-
-    public static void main(String[] args) throws Exception {
+    private static final Pattern NAME_PTN =
+            Pattern.compile("\\{\\{name\\}\\}", Pattern.CASE_INSENSITIVE);
+    private static final Pattern NAMESPACE_PTN =
+            Pattern.compile("\\{\\{namespace\\}\\}", Pattern.CASE_INSENSITIVE);
 ```
 
 ## RuleId[id=RegExpSimplifiable]
@@ -860,18 +860,6 @@ in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/oper
 ## RuleId[id=ProtectedMemberInFinalClass]
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/health/HttpBootstrap.java`
-#### Snippet
-```java
-                new ChannelInitializer<>() {
-                    @Override
-                    protected void initChannel(SocketChannel ch) {
-                        ChannelPipeline pipeline = ch.pipeline();
-                        pipeline.addLast(new HttpServerCodec());
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
 in `flink-kubernetes-webhook/src/main/java/org/apache/flink/kubernetes/operator/admission/FlinkOperatorWebhook.java`
 #### Snippet
 ```java
@@ -882,43 +870,19 @@ in `flink-kubernetes-webhook/src/main/java/org/apache/flink/kubernetes/operator/
                 if (sslContext != null) {
 ```
 
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/health/HttpBootstrap.java`
+#### Snippet
+```java
+                new ChannelInitializer<>() {
+                    @Override
+                    protected void initChannel(SocketChannel ch) {
+                        ChannelPipeline pipeline = ch.pipeline();
+                        pipeline.addLast(new HttpServerCodec());
+```
+
 ## RuleId[id=Deprecation]
-### Deprecation
-'createOrReplace()' is deprecated
-in `examples/kubernetes-client-examples/src/main/java/org/apache/flink/examples/Basic.java`
-#### Snippet
-```java
-
-        try (KubernetesClient kubernetesClient = new KubernetesClientBuilder().build()) {
-            kubernetesClient.resource(flinkDeployment).createOrReplace();
-        }
-    }
-```
-
-### Deprecation
-'createOrReplace()' is deprecated
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/IngressUtils.java`
-#### Snippet
-```java
-
-            LOG.info("Updating ingress rules {}", ingress);
-            client.resourceList(ingress).inNamespace(objectMeta.getNamespace()).createOrReplace();
-        }
-    }
-```
-
-### Deprecation
-'createOrReplace()' is deprecated
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/FlinkUtils.java`
-#### Snippet
-```java
-        }
-        if (shouldUpdate) {
-            kubernetesClient.resourceList(configMaps).inNamespace(namespace).createOrReplace();
-        }
-    }
-```
-
 ### Deprecation
 'createOrReplace()' is deprecated
 in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/EventUtils.java`
@@ -944,6 +908,18 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
 ```
 
 ### Deprecation
+'createOrReplace()' is deprecated
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/FlinkUtils.java`
+#### Snippet
+```java
+        }
+        if (shouldUpdate) {
+            kubernetesClient.resourceList(configMaps).inNamespace(namespace).createOrReplace();
+        }
+    }
+```
+
+### Deprecation
 'replace()' is deprecated
 in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/health/CanaryResourceManager.java`
 #### Snippet
@@ -953,6 +929,30 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
             kubernetesClient.resource(ReconciliationUtils.clone(crs.resource)).replace();
         } catch (Throwable t) {
             LOG.warn("Could not bump canary deployment, it may have been deleted", t);
+```
+
+### Deprecation
+'createOrReplace()' is deprecated
+in `examples/kubernetes-client-examples/src/main/java/org/apache/flink/examples/Basic.java`
+#### Snippet
+```java
+
+        try (KubernetesClient kubernetesClient = new KubernetesClientBuilder().build()) {
+            kubernetesClient.resource(flinkDeployment).createOrReplace();
+        }
+    }
+```
+
+### Deprecation
+'createOrReplace()' is deprecated
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/IngressUtils.java`
+#### Snippet
+```java
+
+            LOG.info("Updating ingress rules {}", ingress);
+            client.resourceList(ingress).inNamespace(objectMeta.getNamespace()).createOrReplace();
+        }
+    }
 ```
 
 ## RuleId[id=UnnecessaryReturn]
@@ -979,6 +979,32 @@ in `flink-kubernetes-docs/src/main/java/org/apache/flink/kubernetes/operator/doc
         return ""
                 + "        <tr>\n"
                 + "            <td><h5>"
+```
+
+## RuleId[id=InnerClassMayBeStatic]
+### InnerClassMayBeStatic
+Inner class `Option` may be 'static'
+in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/docs/CrdReferenceDoclet.java`
+#### Snippet
+```java
+    }
+
+    private abstract class Option implements Doclet.Option {
+        private final String name;
+        private final boolean hasArg;
+```
+
+## RuleId[id=SuspiciousMethodCalls]
+### SuspiciousMethodCalls
+'Map\>' may not contain keys of type ''
+in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/topology/JobTopology.java`
+#### Snippet
+```java
+                    v -> {
+                        remainingInputs.remove(v);
+                        outputs.get(v).forEach(o -> remainingInputs.get(o).remove(v));
+                    });
+
 ```
 
 ## RuleId[id=NumberEquality]
@@ -1018,36 +1044,10 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/runtime/rest/messag
 
 ```
 
-## RuleId[id=SuspiciousMethodCalls]
-### SuspiciousMethodCalls
-'Map\>' may not contain keys of type ''
-in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/topology/JobTopology.java`
-#### Snippet
-```java
-                    v -> {
-                        remainingInputs.remove(v);
-                        outputs.get(v).forEach(o -> remainingInputs.get(o).remove(v));
-                    });
-
-```
-
-## RuleId[id=InnerClassMayBeStatic]
-### InnerClassMayBeStatic
-Inner class `Option` may be 'static'
-in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/docs/CrdReferenceDoclet.java`
-#### Snippet
-```java
-    }
-
-    private abstract class Option implements Doclet.Option {
-        private final String name;
-        private final boolean hasArg;
-```
-
 ## RuleId[id=NullableProblems]
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/runtime/rest/messages/job/savepoints/stop/StopWithSavepointRequestBody.java`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/runtime/rest/messages/job/savepoints/SavepointTriggerRequestBody.java`
 #### Snippet
 ```java
 
@@ -1059,7 +1059,7 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/runtime/rest/messag
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/runtime/rest/messages/job/savepoints/stop/StopWithSavepointRequestBody.java`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/runtime/rest/messages/job/savepoints/SavepointTriggerRequestBody.java`
 #### Snippet
 ```java
 
@@ -1071,7 +1071,7 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/runtime/rest/messag
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/runtime/rest/messages/job/savepoints/stop/StopWithSavepointRequestBody.java`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/runtime/rest/messages/job/savepoints/SavepointTriggerRequestBody.java`
 #### Snippet
 ```java
 
@@ -1095,7 +1095,19 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/runtime/rest/messages/job/savepoints/SavepointTriggerRequestBody.java`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/runtime/rest/messages/job/savepoints/stop/StopWithSavepointRequestBody.java`
+#### Snippet
+```java
+
+    @JsonProperty(FIELD_NAME_TARGET_DIRECTORY)
+    @Nullable
+    private final String targetDirectory;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/runtime/rest/messages/job/savepoints/stop/StopWithSavepointRequestBody.java`
 #### Snippet
 ```java
 
@@ -1107,25 +1119,13 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/runtime/rest/messag
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/runtime/rest/messages/job/savepoints/SavepointTriggerRequestBody.java`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/runtime/rest/messages/job/savepoints/stop/StopWithSavepointRequestBody.java`
 #### Snippet
 ```java
 
     @JsonProperty(FIELD_NAME_FORMAT_TYPE)
     @Nullable
     private final SavepointFormatType formatType;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/runtime/rest/messages/job/savepoints/SavepointTriggerRequestBody.java`
-#### Snippet
-```java
-
-    @JsonProperty(FIELD_NAME_TARGET_DIRECTORY)
-    @Nullable
-    private final String targetDirectory;
 
 ```
 
@@ -1157,36 +1157,12 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/diff/ReflectiveDiffBuilder.java`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/diff/DiffBuilder.java`
 #### Snippet
 ```java
  *
  * <p>Inspired by:
- * https://github.com/apache/commons-lang/blob/master/src/main/java/org/apache/commons/lang3/builder/ReflectionDiffBuilder.java
- */
-@Experimental
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/EventUtils.java`
-#### Snippet
-```java
-/**
- * The util to generate an event for the target resource. It is copied from
- * https://github.com/EnMasseProject/enmasse/blob/master/k8s-api/src/main/java/io/enmasse/k8s/api/KubeEventLogger.java
- */
-public class EventUtils {
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/diff/Diffable.java`
-#### Snippet
-```java
- *
- * <p>Inspired by:
- * https://github.com/apache/commons-lang/blob/master/src/main/java/org/apache/commons/lang3/builder/Diffable.java
+ * https://github.com/apache/commons-lang/blob/master/src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java
  */
 @Experimental
 ```
@@ -1205,12 +1181,36 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/diff/DiffBuilder.java`
+in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/diff/Diffable.java`
 #### Snippet
 ```java
  *
  * <p>Inspired by:
- * https://github.com/apache/commons-lang/blob/master/src/main/java/org/apache/commons/lang3/builder/DiffBuilder.java
+ * https://github.com/apache/commons-lang/blob/master/src/main/java/org/apache/commons/lang3/builder/Diffable.java
+ */
+@Experimental
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/EventUtils.java`
+#### Snippet
+```java
+/**
+ * The util to generate an event for the target resource. It is copied from
+ * https://github.com/EnMasseProject/enmasse/blob/master/k8s-api/src/main/java/io/enmasse/k8s/api/KubeEventLogger.java
+ */
+public class EventUtils {
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/diff/ReflectiveDiffBuilder.java`
+#### Snippet
+```java
+ *
+ * <p>Inspired by:
+ * https://github.com/apache/commons-lang/blob/master/src/main/java/org/apache/commons/lang3/builder/ReflectionDiffBuilder.java
  */
 @Experimental
 ```
@@ -1226,6 +1226,42 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
     @Getter private final FlinkService flinkService;
 
     public FlinkDeploymentContext(
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingSummary.java`
+#### Snippet
+```java
+    private int newParallelism;
+
+    private Map<ScalingMetric, EvaluatedScalingMetric> metrics;
+
+    public ScalingSummary(
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/metrics/EvaluatedScalingMetric.java`
+#### Snippet
+```java
+@NoArgsConstructor
+public class EvaluatedScalingMetric {
+    private double current;
+
+    private double average;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/metrics/EvaluatedScalingMetric.java`
+#### Snippet
+```java
+    private double current;
+
+    private double average;
+
+    public EvaluatedScalingMetric(double current, double average) {
 ```
 
 ### FieldCanBeLocal
@@ -1254,6 +1290,54 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
+in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/lifecycle/ResourceLifecycleState.java`
+#### Snippet
+```java
+
+    @JsonIgnore private final boolean terminal;
+    @JsonIgnore @Getter private final String description;
+
+    ResourceLifecycleState(boolean terminal, String description) {
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/topology/JobTopology.java`
+#### Snippet
+```java
+    @Getter private final ImmutableMap<JobVertexID, Set<JobVertexID>> inputs;
+    @Getter private final ImmutableMap<JobVertexID, Set<JobVertexID>> outputs;
+    @Getter private final ImmutableMap<JobVertexID, Integer> parallelisms;
+    private final ImmutableMap<JobVertexID, Integer> originalMaxParallelism;
+    @Getter private final Map<JobVertexID, Integer> maxParallelisms;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/health/ClusterHealthInfo.java`
+#### Snippet
+```java
+
+    /** Calculated field whether the cluster is healthy or not. */
+    private boolean healthy;
+
+    public ClusterHealthInfo() {
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/metrics/KubernetesClientMetrics.java`
+#### Snippet
+```java
+    private final MetricGroup responseMetricGroup;
+
+    private final Counter requestCounter;
+    private final Counter failedRequestCounter;
+    private final Counter responseCounter;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
 in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/metrics/KubernetesClientMetrics.java`
 #### Snippet
 ```java
@@ -1269,34 +1353,22 @@ Field can be converted to a local variable
 in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/metrics/KubernetesClientMetrics.java`
 #### Snippet
 ```java
-    private final MetricGroup responseMetricGroup;
-
-    private final Counter requestCounter;
-    private final Counter failedRequestCounter;
-    private final Counter responseCounter;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/metrics/KubernetesClientMetrics.java`
-#### Snippet
-```java
-
-    private final Counter requestCounter;
-    private final Counter failedRequestCounter;
-    private final Counter responseCounter;
-
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/metrics/KubernetesClientMetrics.java`
-#### Snippet
-```java
 
     private final MetricGroup requestMetricGroup;
     private final MetricGroup failedRequestMetricGroup;
     private final MetricGroup responseMetricGroup;
+
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/metrics/KubernetesClientMetrics.java`
+#### Snippet
+```java
+
+    private final Counter requestCounter;
+    private final Counter failedRequestCounter;
+    private final Counter responseCounter;
 
 ```
 
@@ -1314,26 +1386,38 @@ in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/oper
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingSummary.java`
+in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/status/Savepoint.java`
 #### Snippet
 ```java
-    private int newParallelism;
 
-    private Map<ScalingMetric, EvaluatedScalingMetric> metrics;
+    /** Savepoint format. */
+    private SavepointFormatType formatType = SavepointFormatType.UNKNOWN;
 
-    public ScalingSummary(
+    /**
 ```
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/lifecycle/ResourceLifecycleState.java`
+in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/status/Savepoint.java`
 #### Snippet
 ```java
 
-    @JsonIgnore private final boolean terminal;
-    @JsonIgnore @Getter private final String description;
+    /** External pointer of the savepoint can be used to recover jobs. */
+    private String location;
 
-    ResourceLifecycleState(boolean terminal, String description) {
+    /** Savepoint trigger mechanism. */
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/status/Savepoint.java`
+#### Snippet
+```java
+     * SavepointTriggerType#MANUAL}, null for other types of savepoints.
+     */
+    private Long triggerNonce;
+
+    public Savepoint(
 ```
 
 ### FieldCanBeLocal
@@ -1354,107 +1438,23 @@ in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/oper
 #### Snippet
 ```java
 
-    /** External pointer of the savepoint can be used to recover jobs. */
-    private String location;
-
-    /** Savepoint trigger mechanism. */
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/status/Savepoint.java`
-#### Snippet
-```java
-
     /** Savepoint trigger mechanism. */
     private SavepointTriggerType triggerType = SavepointTriggerType.UNKNOWN;
 
     /** Savepoint format. */
 ```
 
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/status/Savepoint.java`
-#### Snippet
-```java
-     * SavepointTriggerType#MANUAL}, null for other types of savepoints.
-     */
-    private Long triggerNonce;
-
-    public Savepoint(
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/status/Savepoint.java`
-#### Snippet
-```java
-
-    /** Savepoint format. */
-    private SavepointFormatType formatType = SavepointFormatType.UNKNOWN;
-
-    /**
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/health/ClusterHealthInfo.java`
-#### Snippet
-```java
-
-    /** Calculated field whether the cluster is healthy or not. */
-    private boolean healthy;
-
-    public ClusterHealthInfo() {
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/topology/JobTopology.java`
-#### Snippet
-```java
-    @Getter private final ImmutableMap<JobVertexID, Set<JobVertexID>> inputs;
-    @Getter private final ImmutableMap<JobVertexID, Set<JobVertexID>> outputs;
-    @Getter private final ImmutableMap<JobVertexID, Integer> parallelisms;
-    private final ImmutableMap<JobVertexID, Integer> originalMaxParallelism;
-    @Getter private final Map<JobVertexID, Integer> maxParallelisms;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/metrics/EvaluatedScalingMetric.java`
-#### Snippet
-```java
-@NoArgsConstructor
-public class EvaluatedScalingMetric {
-    private double current;
-
-    private double average;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/metrics/EvaluatedScalingMetric.java`
-#### Snippet
-```java
-    private double current;
-
-    private double average;
-
-    public EvaluatedScalingMetric(double current, double average) {
-```
-
 ## RuleId[id=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'retryInfo'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/ReconciliationUtils.java`
+`Optional` used as type for field 'upgradeMode'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractJobReconciler.java`
 #### Snippet
 ```java
-            ErrorStatusUpdateControl<R> toErrorStatusUpdateControl(
-                    R resource,
-                    Optional<RetryInfo> retryInfo,
-                    Exception e,
-                    StatusRecorder<R, STATUS> statusRecorder,
+    @Value
+    public static class AvailableUpgradeMode {
+        Optional<UpgradeMode> upgradeMode;
+        boolean allowFallback;
+
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -1470,6 +1470,18 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'retryInfo'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/ReconciliationUtils.java`
+#### Snippet
+```java
+            ErrorStatusUpdateControl<R> toErrorStatusUpdateControl(
+                    R resource,
+                    Optional<RetryInfo> retryInfo,
+                    Exception e,
+                    StatusRecorder<R, STATUS> statusRecorder,
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'confOverrideDir'
 in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/config/FlinkConfigManager.java`
 #### Snippet
@@ -1482,30 +1494,6 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'flinkDeploymentOpt'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/sessionjob/SessionJobReconciler.java`
-#### Snippet
-```java
-    }
-
-    public static boolean sessionClusterReady(Optional<FlinkDeployment> flinkDeploymentOpt) {
-        if (flinkDeploymentOpt.isPresent()) {
-            var flinkdep = flinkDeploymentOpt.get();
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'upgradeMode'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractJobReconciler.java`
-#### Snippet
-```java
-    @Value
-    public static class AvailableUpgradeMode {
-        Optional<UpgradeMode> upgradeMode;
-        boolean allowFallback;
-
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'session'
 in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/validation/FlinkResourceValidator.java`
 #### Snippet
@@ -1515,6 +1503,18 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
             FlinkSessionJob sessionJob, Optional<FlinkDeployment> session);
 }
 
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'flinkDeploymentOpt'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/sessionjob/SessionJobReconciler.java`
+#### Snippet
+```java
+    }
+
+    public static boolean sessionClusterReady(Optional<FlinkDeployment> flinkDeploymentOpt) {
+        if (flinkDeploymentOpt.isPresent()) {
+            var flinkdep = flinkDeploymentOpt.get();
 ```
 
 ## RuleId[id=AutoCloseableResource]
@@ -1541,19 +1541,6 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
             while (true) {
                 LOG.debug("Taking watch key");
                 WatchKey watchKey = watcher.take();
-```
-
-## RuleId[id=JavadocDeclaration]
-### JavadocDeclaration
-`@throws` tag description is missing
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractFlinkResourceReconciler.java`
-#### Snippet
-```java
-     * @param diffType Spec change type.
-     * @return True if the scaling is successful
-     * @throws Exception
-     */
-    private boolean scaleCluster(
 ```
 
 ## RuleId[id=RedundantCast]
@@ -1605,67 +1592,20 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
 
 ```
 
+## RuleId[id=JavadocDeclaration]
+### JavadocDeclaration
+`@throws` tag description is missing
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractFlinkResourceReconciler.java`
+#### Snippet
+```java
+     * @param diffType Spec change type.
+     * @return True if the scaling is successful
+     * @throws Exception
+     */
+    private boolean scaleCluster(
+```
+
 ## RuleId[id=FieldMayBeFinal]
-### FieldMayBeFinal
-Field `upgradeMode` may be 'final'
-in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/spec/JobSpec.java`
-#### Snippet
-```java
-    /** Upgrade mode of the Flink job. */
-    @SpecDiff(DiffType.IGNORE)
-    private UpgradeMode upgradeMode = UpgradeMode.STATELESS;
-
-    /** Allow checkpoint state that cannot be mapped to any job vertex in tasks. */
-```
-
-### FieldMayBeFinal
-Field `args` may be 'final'
-in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/spec/JobSpec.java`
-#### Snippet
-```java
-
-    /** Arguments for the Flink job main class. */
-    private String[] args = new String[0];
-
-    /** Desired state for the job. */
-```
-
-### FieldMayBeFinal
-Field `state` may be 'final'
-in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/spec/JobSpec.java`
-#### Snippet
-```java
-
-    /** Desired state for the job. */
-    private JobState state = JobState.RUNNING;
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `replicas` may be 'final'
-in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/status/TaskManagerInfo.java`
-#### Snippet
-```java
-
-    /** Number of TaskManager replicas if defined in the spec. */
-    @StatusReplicas private int replicas = 0;
-}
-
-```
-
-### FieldMayBeFinal
-Field `savepointHistory` may be 'final'
-in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/status/SavepointInfo.java`
-#### Snippet
-```java
-
-    /** List of recent savepoints. */
-    private List<Savepoint> savepointHistory = new ArrayList<>();
-
-    /** Trigger timestamp of last periodic savepoint operation. */
-```
-
 ### FieldMayBeFinal
 Field `metrics` may be 'final'
 in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingSummary.java`
@@ -1676,18 +1616,6 @@ in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernet
     private Map<ScalingMetric, EvaluatedScalingMetric> metrics;
 
     public ScalingSummary(
-```
-
-### FieldMayBeFinal
-Field `currentParallelism` may be 'final'
-in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingSummary.java`
-#### Snippet
-```java
-public class ScalingSummary {
-
-    private int currentParallelism;
-
-    private int newParallelism;
 ```
 
 ### FieldMayBeFinal
@@ -1703,135 +1631,27 @@ in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernet
 ```
 
 ### FieldMayBeFinal
-Field `metricGroupFunction` may be 'final'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/metrics/lifecycle/LifecycleMetrics.java`
+Field `currentParallelism` may be 'final'
+in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingSummary.java`
 #### Snippet
 ```java
-    private Map<ResourceLifecycleState, Tuple2<Histogram, Map<String, Histogram>>> stateTimeMetrics;
+public class ScalingSummary {
 
-    private Function<MetricGroup, MetricGroup> metricGroupFunction = mg -> mg.addGroup("Lifecycle");
+    private int currentParallelism;
 
-    public LifecycleMetrics(
+    private int newParallelism;
 ```
 
 ### FieldMayBeFinal
-Field `timeStamp` may be 'final'
-in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/status/Savepoint.java`
+Field `eventRecorder` may be 'final'
+in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/JobVertexScaler.java`
 #### Snippet
 ```java
-public class Savepoint {
-    /** Millisecond timestamp at the start of the savepoint operation. */
-    private long timeStamp;
+    private Clock clock = Clock.system(ZoneId.systemDefault());
 
-    /** External pointer of the savepoint can be used to recover jobs. */
-```
+    private EventRecorder eventRecorder;
 
-### FieldMayBeFinal
-Field `location` may be 'final'
-in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/status/Savepoint.java`
-#### Snippet
-```java
-
-    /** External pointer of the savepoint can be used to recover jobs. */
-    private String location;
-
-    /** Savepoint trigger mechanism. */
-```
-
-### FieldMayBeFinal
-Field `triggerNonce` may be 'final'
-in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/status/Savepoint.java`
-#### Snippet
-```java
-     * SavepointTriggerType#MANUAL}, null for other types of savepoints.
-     */
-    private Long triggerNonce;
-
-    public Savepoint(
-```
-
-### FieldMayBeFinal
-Field `jobManagerDeploymentStatus` may be 'final'
-in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/status/FlinkDeploymentStatus.java`
-#### Snippet
-```java
-
-    /** Last observed status of the JobManager deployment. */
-    private JobManagerDeploymentStatus jobManagerDeploymentStatus =
-            JobManagerDeploymentStatus.MISSING;
-
-```
-
-### FieldMayBeFinal
-Field `clusterInfo` may be 'final'
-in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/status/FlinkDeploymentStatus.java`
-#### Snippet
-```java
-
-    /** Information from running clusters. */
-    private Map<String, String> clusterInfo = new HashMap<>();
-
-    /** Last observed status of the JobManager deployment. */
-```
-
-### FieldMayBeFinal
-Field `reconciliationStatus` may be 'final'
-in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/status/FlinkDeploymentStatus.java`
-#### Snippet
-```java
-
-    /** Status of the last reconcile operation. */
-    private FlinkDeploymentReconciliationStatus reconciliationStatus =
-            new FlinkDeploymentReconciliationStatus();
-
-```
-
-### FieldMayBeFinal
-Field `savepointInfo` may be 'final'
-in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/status/JobStatus.java`
-#### Snippet
-```java
-
-    /** Information about pending and last savepoint for the job. */
-    private SavepointInfo savepointInfo = new SavepointInfo();
-}
-
-```
-
-### FieldMayBeFinal
-Field `state` may be 'final'
-in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/status/ReconciliationStatus.java`
-#### Snippet
-```java
-
-    /** Deployment state of the last reconciled spec. */
-    private ReconciliationState state = ReconciliationState.UPGRADING;
-
-    @JsonIgnore
-```
-
-### FieldMayBeFinal
-Field `healthy` may be 'final'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/health/ClusterHealthInfo.java`
-#### Snippet
-```java
-
-    /** Calculated field whether the cluster is healthy or not. */
-    private boolean healthy;
-
-    public ClusterHealthInfo() {
-```
-
-### FieldMayBeFinal
-Field `timeStamp` may be 'final'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/health/ClusterHealthInfo.java`
-#### Snippet
-```java
-public class ClusterHealthInfo {
-    /** Millisecond timestamp of the last observed health information. */
-    private long timeStamp;
-
-    /** Number of restarts. */
+    public JobVertexScaler(EventRecorder eventRecorder) {
 ```
 
 ### FieldMayBeFinal
@@ -1871,18 +1691,6 @@ in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/oper
 ```
 
 ### FieldMayBeFinal
-Field `replicas` may be 'final'
-in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/spec/JobManagerSpec.java`
-#### Snippet
-```java
-
-    /** Number of JobManager replicas. Must be 1 for non-HA deployments. */
-    private int replicas = 1;
-
-    /** JobManager pod template. It will be merged with FlinkDeploymentSpec.podTemplate. */
-```
-
-### FieldMayBeFinal
 Field `jobStatus` may be 'final'
 in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/status/CommonStatus.java`
 #### Snippet
@@ -1895,15 +1703,207 @@ in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/oper
 ```
 
 ### FieldMayBeFinal
-Field `eventRecorder` may be 'final'
-in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/JobVertexScaler.java`
+Field `healthy` may be 'final'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/health/ClusterHealthInfo.java`
 #### Snippet
 ```java
-    private Clock clock = Clock.system(ZoneId.systemDefault());
 
-    private EventRecorder eventRecorder;
+    /** Calculated field whether the cluster is healthy or not. */
+    private boolean healthy;
 
-    public JobVertexScaler(EventRecorder eventRecorder) {
+    public ClusterHealthInfo() {
+```
+
+### FieldMayBeFinal
+Field `timeStamp` may be 'final'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/health/ClusterHealthInfo.java`
+#### Snippet
+```java
+public class ClusterHealthInfo {
+    /** Millisecond timestamp of the last observed health information. */
+    private long timeStamp;
+
+    /** Number of restarts. */
+```
+
+### FieldMayBeFinal
+Field `replicas` may be 'final'
+in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/spec/JobManagerSpec.java`
+#### Snippet
+```java
+
+    /** Number of JobManager replicas. Must be 1 for non-HA deployments. */
+    private int replicas = 1;
+
+    /** JobManager pod template. It will be merged with FlinkDeploymentSpec.podTemplate. */
+```
+
+### FieldMayBeFinal
+Field `replicas` may be 'final'
+in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/status/TaskManagerInfo.java`
+#### Snippet
+```java
+
+    /** Number of TaskManager replicas if defined in the spec. */
+    @StatusReplicas private int replicas = 0;
+}
+
+```
+
+### FieldMayBeFinal
+Field `args` may be 'final'
+in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/spec/JobSpec.java`
+#### Snippet
+```java
+
+    /** Arguments for the Flink job main class. */
+    private String[] args = new String[0];
+
+    /** Desired state for the job. */
+```
+
+### FieldMayBeFinal
+Field `upgradeMode` may be 'final'
+in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/spec/JobSpec.java`
+#### Snippet
+```java
+    /** Upgrade mode of the Flink job. */
+    @SpecDiff(DiffType.IGNORE)
+    private UpgradeMode upgradeMode = UpgradeMode.STATELESS;
+
+    /** Allow checkpoint state that cannot be mapped to any job vertex in tasks. */
+```
+
+### FieldMayBeFinal
+Field `state` may be 'final'
+in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/spec/JobSpec.java`
+#### Snippet
+```java
+
+    /** Desired state for the job. */
+    private JobState state = JobState.RUNNING;
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `savepointInfo` may be 'final'
+in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/status/JobStatus.java`
+#### Snippet
+```java
+
+    /** Information about pending and last savepoint for the job. */
+    private SavepointInfo savepointInfo = new SavepointInfo();
+}
+
+```
+
+### FieldMayBeFinal
+Field `state` may be 'final'
+in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/status/ReconciliationStatus.java`
+#### Snippet
+```java
+
+    /** Deployment state of the last reconciled spec. */
+    private ReconciliationState state = ReconciliationState.UPGRADING;
+
+    @JsonIgnore
+```
+
+### FieldMayBeFinal
+Field `clusterInfo` may be 'final'
+in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/status/FlinkDeploymentStatus.java`
+#### Snippet
+```java
+
+    /** Information from running clusters. */
+    private Map<String, String> clusterInfo = new HashMap<>();
+
+    /** Last observed status of the JobManager deployment. */
+```
+
+### FieldMayBeFinal
+Field `jobManagerDeploymentStatus` may be 'final'
+in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/status/FlinkDeploymentStatus.java`
+#### Snippet
+```java
+
+    /** Last observed status of the JobManager deployment. */
+    private JobManagerDeploymentStatus jobManagerDeploymentStatus =
+            JobManagerDeploymentStatus.MISSING;
+
+```
+
+### FieldMayBeFinal
+Field `reconciliationStatus` may be 'final'
+in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/status/FlinkDeploymentStatus.java`
+#### Snippet
+```java
+
+    /** Status of the last reconcile operation. */
+    private FlinkDeploymentReconciliationStatus reconciliationStatus =
+            new FlinkDeploymentReconciliationStatus();
+
+```
+
+### FieldMayBeFinal
+Field `metricGroupFunction` may be 'final'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/metrics/lifecycle/LifecycleMetrics.java`
+#### Snippet
+```java
+    private Map<ResourceLifecycleState, Tuple2<Histogram, Map<String, Histogram>>> stateTimeMetrics;
+
+    private Function<MetricGroup, MetricGroup> metricGroupFunction = mg -> mg.addGroup("Lifecycle");
+
+    public LifecycleMetrics(
+```
+
+### FieldMayBeFinal
+Field `savepointHistory` may be 'final'
+in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/status/SavepointInfo.java`
+#### Snippet
+```java
+
+    /** List of recent savepoints. */
+    private List<Savepoint> savepointHistory = new ArrayList<>();
+
+    /** Trigger timestamp of last periodic savepoint operation. */
+```
+
+### FieldMayBeFinal
+Field `location` may be 'final'
+in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/status/Savepoint.java`
+#### Snippet
+```java
+
+    /** External pointer of the savepoint can be used to recover jobs. */
+    private String location;
+
+    /** Savepoint trigger mechanism. */
+```
+
+### FieldMayBeFinal
+Field `triggerNonce` may be 'final'
+in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/status/Savepoint.java`
+#### Snippet
+```java
+     * SavepointTriggerType#MANUAL}, null for other types of savepoints.
+     */
+    private Long triggerNonce;
+
+    public Savepoint(
+```
+
+### FieldMayBeFinal
+Field `timeStamp` may be 'final'
+in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/status/Savepoint.java`
+#### Snippet
+```java
+public class Savepoint {
+    /** Millisecond timestamp at the start of the savepoint operation. */
+    private long timeStamp;
+
+    /** External pointer of the savepoint can be used to recover jobs. */
 ```
 
 ## RuleId[id=MismatchedCollectionQueryUpdate]
@@ -1961,6 +1961,210 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
 ## RuleId[id=ConstantValue]
 ### ConstantValue
 Value `jobId` is always 'null'
+in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingMetricCollector.java`
+#### Snippet
+```java
+                            ResourceID.fromResource(cr),
+                            r -> {
+                                var t = queryJobTopology(restClient, jobId);
+                                scalerInfo.updateVertexList(
+                                        t.getVerticesInTopologicalOrder(), clock.instant(), conf);
+```
+
+### ConstantValue
+Value `jobId` is always 'null'
+in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingMetricCollector.java`
+#### Snippet
+```java
+                                return t;
+                            });
+            updateKafkaSourceMaxParallelisms(restClient, jobId, topology);
+            return topology;
+        }
+```
+
+### ConstantValue
+Value `jobId` is always 'null'
+in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingMetricCollector.java`
+#### Snippet
+```java
+                                            v ->
+                                                    getFilteredVertexMetricNames(
+                                                            restClient, jobId, v, topology)));
+            availableVertexMetricNames.put(
+                    ResourceID.fromResource(cr), Tuple2.of(deployedGeneration, names));
+```
+
+### ConstantValue
+Condition `lastCollectedMetrics == null` is always `true`
+in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingMetricCollector.java`
+#### Snippet
+```java
+                metricHistory.get(lastCollectionTime).getVertexMetrics().get(jobVertexID);
+
+        if (lastCollectedMetrics == null) {
+            return Double.NaN;
+        }
+```
+
+### ConstantValue
+Value `inputs` is always 'null'
+in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingMetricEvaluator.java`
+#### Snippet
+```java
+            double sumAvgTargetRate = 0;
+            double sumCatchUpDataRate = 0;
+            for (var inputVertex : inputs) {
+                var inputEvaluatedMetrics = alreadyEvaluated.get(inputVertex);
+                var inputTargetRate = inputEvaluatedMetrics.get(TARGET_DATA_RATE);
+```
+
+### ConstantValue
+Value `inputVertex` is always 'null'
+in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingMetricEvaluator.java`
+#### Snippet
+```java
+            double sumCatchUpDataRate = 0;
+            for (var inputVertex : inputs) {
+                var inputEvaluatedMetrics = alreadyEvaluated.get(inputVertex);
+                var inputTargetRate = inputEvaluatedMetrics.get(TARGET_DATA_RATE);
+                var outputRateMultiplier =
+```
+
+### ConstantValue
+Value `inputVertex` is always 'null'
+in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingMetricEvaluator.java`
+#### Snippet
+```java
+                var inputTargetRate = inputEvaluatedMetrics.get(TARGET_DATA_RATE);
+                var outputRateMultiplier =
+                        getAverageOutputRatio(new Edge(inputVertex, vertex), metricsHistory);
+                sumCurrentTargetRate += inputTargetRate.getCurrent() * outputRateMultiplier;
+                sumAvgTargetRate += inputTargetRate.getAverage() * outputRateMultiplier;
+```
+
+### ConstantValue
+Value `latestVertexMetrics` is always 'null'
+in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingMetricEvaluator.java`
+#### Snippet
+```java
+                scalingOutput,
+                metricsHistory,
+                latestVertexMetrics,
+                evaluatedMetrics);
+
+```
+
+### ConstantValue
+Value `topology` is always 'null'
+in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingMetricEvaluator.java`
+#### Snippet
+```java
+        var topology = collectedMetrics.getJobTopology();
+
+        boolean processingBacklog = isProcessingBacklog(topology, metricsHistory, conf);
+
+        for (var vertex : topology.getVerticesInTopologicalOrder()) {
+```
+
+### ConstantValue
+Value `metricsHistory` is always 'null'
+in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingMetricEvaluator.java`
+#### Snippet
+```java
+        var topology = collectedMetrics.getJobTopology();
+
+        boolean processingBacklog = isProcessingBacklog(topology, metricsHistory, conf);
+
+        for (var vertex : topology.getVerticesInTopologicalOrder()) {
+```
+
+### ConstantValue
+Value `vertex` is always 'null'
+in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingMetricEvaluator.java`
+#### Snippet
+```java
+        for (var vertex : topology.getVerticesInTopologicalOrder()) {
+            scalingOutput.put(
+                    vertex,
+                    evaluateMetrics(
+                            conf,
+```
+
+### ConstantValue
+Value `vertex` is always 'null'
+in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingMetricEvaluator.java`
+#### Snippet
+```java
+                            metricsHistory,
+                            topology,
+                            vertex,
+                            processingBacklog));
+        }
+```
+
+### ConstantValue
+Value `currentProcRate` is always 'null'
+in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/JobVertexScaler.java`
+#### Snippet
+```java
+        // below the threshold, we mark the scaling ineffective.
+        double expectedIncrease = lastExpectedProcRate - lastProcRate;
+        double actualIncrease = currentProcRate - lastProcRate;
+
+        boolean withinEffectiveThreshold =
+```
+
+### ConstantValue
+Value `gracePeriod` is always 'null'
+in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/JobVertexScaler.java`
+#### Snippet
+```java
+
+        var gracePeriod = conf.get(SCALE_UP_GRACE_PERIOD);
+        if (lastScalingTs.plus(gracePeriod).isAfter(clock.instant())) {
+            LOG.info(
+                    "Skipping immediate scale down after scale up within grace period for {}",
+```
+
+### ConstantValue
+Value `scalingEnabled` is always 'null'
+in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingExecutor.java`
+#### Snippet
+```java
+        var scalingEnabled = conf.get(SCALING_ENABLED);
+
+        var scalingReport = scalingReport(scalingSummaries, scalingEnabled);
+        eventRecorder.triggerEvent(
+                resource,
+```
+
+### ConstantValue
+Value `session` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/controller/FlinkSessionJobContext.java`
+#### Snippet
+```java
+        var session = getJosdkContext().getSecondaryResource(FlinkDeployment.class);
+
+        if (sessionClusterReady(session)) {
+            return configManager.getSessionJobConfig(session.get(), (FlinkSessionJobSpec) spec);
+        }
+```
+
+### ConstantValue
+Value `session` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/controller/FlinkSessionJobContext.java`
+#### Snippet
+```java
+        var session = getJosdkContext().getSecondaryResource(FlinkDeployment.class);
+        return flinkService =
+                sessionClusterReady(session)
+                        ? flinkResourceContextFactory
+                                .getResourceContext(session.get(), getJosdkContext())
+```
+
+### ConstantValue
+Value `jobId` is always 'null'
 in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/ClusterHealthObserver.java`
 #### Snippet
 ```java
@@ -1969,174 +2173,6 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
                                     jobId,
                                     List.of(
                                             FULL_RESTARTS_METRIC_NAME,
-```
-
-### ConstantValue
-Value `jobId` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/SavepointObserver.java`
-#### Snippet
-```java
-        // If any manual or periodic savepoint is in progress, observe it
-        if (SavepointUtils.savepointInProgress(jobStatus)) {
-            observeTriggeredSavepoint(ctx, jobId);
-        }
-
-```
-
-### ConstantValue
-Value `savepointInfo` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/SavepointObserver.java`
-#### Snippet
-```java
-        if (ReconciliationUtils.isJobInTerminalState(resource.getStatus())) {
-            observeLatestSavepoint(
-                    ctx.getFlinkService(), savepointInfo, jobId, ctx.getObserveConfig());
-        }
-
-```
-
-### ConstantValue
-Value `jobId` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/SavepointObserver.java`
-#### Snippet
-```java
-        if (ReconciliationUtils.isJobInTerminalState(resource.getStatus())) {
-            observeLatestSavepoint(
-                    ctx.getFlinkService(), savepointInfo, jobId, ctx.getObserveConfig());
-        }
-
-```
-
-### ConstantValue
-Value `savepointInfo` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/SavepointObserver.java`
-#### Snippet
-```java
-        }
-
-        cleanupSavepointHistory(ctx.getFlinkService(), savepointInfo, ctx.getObserveConfig());
-    }
-
-```
-
-### ConstantValue
-Value `err` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/SavepointObserver.java`
-#### Snippet
-```java
-                LOG.error(
-                        "Savepoint attempt failed after grace period. Won't be retried again: "
-                                + err);
-                ReconciliationUtils.updateLastReconciledSavepointTriggerNonce(
-                        savepointInfo, (AbstractFlinkResource) resource);
-```
-
-### ConstantValue
-Value `err` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/SavepointObserver.java`
-#### Snippet
-```java
-                        savepointInfo, (AbstractFlinkResource) resource);
-            } else {
-                LOG.warn("Savepoint failed within grace period, retrying: " + err);
-            }
-            eventRecorder.triggerEvent(
-```
-
-### ConstantValue
-Value `flinkDep` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/deployment/AbstractFlinkDeploymentObserver.java`
-#### Snippet
-```java
-    public void observeInternal(FlinkResourceContext<FlinkDeployment> ctx) {
-        var flinkDep = ctx.getResource();
-        if (!isJmDeploymentReady(flinkDep)) {
-            // Only observe the JM if we think it's in bad state
-            observeJmDeployment(ctx);
-```
-
-### ConstantValue
-Value `previousJobStatus` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/JobStatusObserver.java`
-#### Snippet
-```java
-            // Error while accessing the rest api, will try again later...
-            LOG.warn("Exception while listing jobs", e);
-            ifRunningMoveToReconciling(jobStatus, previousJobStatus);
-            if (e instanceof TimeoutException) {
-                onTimeout(ctx);
-```
-
-### ConstantValue
-Value `previousJobStatus` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/JobStatusObserver.java`
-#### Snippet
-```java
-            if (targetJobStatusMessage.isEmpty()) {
-                LOG.warn("No matching jobs found on the cluster");
-                ifRunningMoveToReconciling(jobStatus, previousJobStatus);
-                onTargetJobNotFound(resource, ctx.getObserveConfig());
-                return false;
-```
-
-### ConstantValue
-Value `previousJobStatus` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/JobStatusObserver.java`
-#### Snippet
-```java
-            LOG.debug("No jobs found on the cluster");
-            // No jobs found on the cluster, it is possible that the jobmanager is still starting up
-            ifRunningMoveToReconciling(jobStatus, previousJobStatus);
-            onNoJobsFound(resource, ctx.getObserveConfig());
-            return false;
-```
-
-### ConstantValue
-Value `previousJobId` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/JobStatusObserver.java`
-#### Snippet
-```java
-        jobStatus.setStartTime(String.valueOf(clusterJobStatus.getStartTime()));
-
-        if (jobStatus.getJobId().equals(previousJobId)
-                && jobStatus.getState().equals(previousJobStatus)) {
-            LOG.info("Job status ({}) unchanged", previousJobStatus);
-```
-
-### ConstantValue
-Value `previousJobStatus` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/JobStatusObserver.java`
-#### Snippet
-```java
-
-        if (jobStatus.getJobId().equals(previousJobId)
-                && jobStatus.getState().equals(previousJobStatus)) {
-            LOG.info("Job status ({}) unchanged", previousJobStatus);
-        } else {
-```
-
-### ConstantValue
-Value `previousJobStatus` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/JobStatusObserver.java`
-#### Snippet
-```java
-        if (jobStatus.getJobId().equals(previousJobId)
-                && jobStatus.getState().equals(previousJobStatus)) {
-            LOG.info("Job status ({}) unchanged", previousJobStatus);
-        } else {
-            jobStatus.setUpdateTime(String.valueOf(System.currentTimeMillis()));
-```
-
-### ConstantValue
-Condition `previousJobStatus == null` is always `true`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/JobStatusObserver.java`
-#### Snippet
-```java
-            jobStatus.setUpdateTime(String.valueOf(System.currentTimeMillis()));
-            var message =
-                    previousJobStatus == null
-                            ? String.format("Job status changed to %s", jobStatus.getState())
-                            : String.format(
 ```
 
 ### ConstantValue
@@ -2185,438 +2221,6 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
         statusRecorder.patchAndCacheStatus(deployment);
 
         deploy(ctx, deployment.getSpec(), deployConfig, Optional.empty(), false);
-```
-
-### ConstantValue
-Value `oldJobID` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/sessionjob/FlinkSessionJobObserver.java`
-#### Snippet
-```java
-                LOG.info(
-                        "Pending upgrade is already deployed, updating status. Old jobID:{}, new jobID:{}",
-                        oldJobID,
-                        matchedJobID.toHexString());
-                ReconciliationUtils.updateStatusForAlreadyUpgraded(flinkSessionJob);
-```
-
-### ConstantValue
-Value `jobId` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/sessionjob/FlinkSessionJobObserver.java`
-#### Snippet
-```java
-            var matchedList =
-                    clusterJobStatuses.stream()
-                            .filter(job -> job.getJobId().toHexString().equals(jobId))
-                            .collect(Collectors.toList());
-            Preconditions.checkArgument(
-```
-
-### ConstantValue
-Value `jobId` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/sessionjob/FlinkSessionJobObserver.java`
-#### Snippet
-```java
-
-            if (matchedList.size() == 0) {
-                LOG.warn("No job found for JobID: {}", jobId);
-                return Optional.empty();
-            } else {
-```
-
-### ConstantValue
-Condition `lastJobSpec != null` is always `false`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/ReconciliationUtils.java`
-#### Snippet
-```java
-        var lastSpecWithMeta = reconciliationStatus.deserializeLastReconciledSpecWithMeta();
-        var lastJobSpec = lastSpecWithMeta.getSpec().getJob();
-        if (lastJobSpec != null) {
-            lastJobSpec.setState(JobState.RUNNING);
-        }
-```
-
-### ConstantValue
-Condition `reconciliationState != ReconciliationState.ROLLED_BACK` is always `true`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/ReconciliationUtils.java`
-#### Snippet
-```java
-        var reconciliationStatus = deployment.getStatus().getReconciliationStatus();
-        var reconciliationState = reconciliationStatus.getState();
-        if (reconciliationState != ReconciliationState.ROLLED_BACK) {
-            return reconciliationStatus.deserializeLastReconciledSpec();
-        } else {
-```
-
-### ConstantValue
-Value `reconciliationState` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/ReconciliationUtils.java`
-#### Snippet
-```java
-        var reconciliationStatus = deployment.getStatus().getReconciliationStatus();
-        var reconciliationState = reconciliationStatus.getState();
-        if (reconciliationState != ReconciliationState.ROLLED_BACK) {
-            return reconciliationStatus.deserializeLastReconciledSpec();
-        } else {
-```
-
-### ConstantValue
-Condition `job != null` is always `false`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/ReconciliationUtils.java`
-#### Snippet
-```java
-        var job = target.getSpec().getJob();
-        updateStatusForSpecReconciliation(
-                target, job != null ? job.getState() : null, conf, false, clock);
-    }
-
-```
-
-### ConstantValue
-Value `flinkJobStatus` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/ReconciliationUtils.java`
-#### Snippet
-```java
-        }
-
-        if (flinkJobStatus == RUNNING) {
-            // Running jobs are currently always marked stable
-            status.getReconciliationStatus().markReconciledSpecAsStable();
-```
-
-### ConstantValue
-Condition `reconciledJobState == JobState.RUNNING` is always `false`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/ReconciliationUtils.java`
-#### Snippet
-```java
-                        .getState();
-
-        if (reconciledJobState == JobState.RUNNING && flinkJobStatus == FINISHED) {
-            // If the job finished on its own, it's marked stable
-            status.getReconciliationStatus().markReconciledSpecAsStable();
-```
-
-### ConstantValue
-Condition `reconciledJobState == JobState.RUNNING && flinkJobStatus == FINISHED` is always `false`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/ReconciliationUtils.java`
-#### Snippet
-```java
-                        .getState();
-
-        if (reconciledJobState == JobState.RUNNING && flinkJobStatus == FINISHED) {
-            // If the job finished on its own, it's marked stable
-            status.getReconciliationStatus().markReconciledSpecAsStable();
-```
-
-### ConstantValue
-Value `reconciledJobState` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/ReconciliationUtils.java`
-#### Snippet
-```java
-                        .getState();
-
-        if (reconciledJobState == JobState.RUNNING && flinkJobStatus == FINISHED) {
-            // If the job finished on its own, it's marked stable
-            status.getReconciliationStatus().markReconciledSpecAsStable();
-```
-
-### ConstantValue
-Value `jobState` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/ReconciliationUtils.java`
-#### Snippet
-```java
-    public static boolean isJobInTerminalState(CommonStatus<?> status) {
-        var jobState = status.getJobStatus().getState();
-        return org.apache.flink.api.common.JobStatus.valueOf(jobState).isGloballyTerminalState();
-    }
-
-```
-
-### ConstantValue
-Condition `leftField != null` is always `false`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/diff/ReflectiveDiffBuilder.java`
-#### Snippet
-```java
-                                configDiff(
-                                        field,
-                                        (leftField != null)
-                                                ? (Map<String, String>) leftField
-                                                : new HashMap<>(),
-```
-
-### ConstantValue
-Condition `rightField != null` is always `false`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/diff/ReflectiveDiffBuilder.java`
-#### Snippet
-```java
-                                                ? (Map<String, String>) leftField
-                                                : new HashMap<>(),
-                                        (rightField != null)
-                                                ? (Map<String, String>) rightField
-                                                : new HashMap<>()));
-```
-
-### ConstantValue
-Value `leftField` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/diff/ReflectiveDiffBuilder.java`
-#### Snippet
-```java
-                        var annotation = field.getAnnotation(SpecDiff.class);
-                        diffBuilder.append(
-                                field.getName(), leftField, rightField, annotation.value());
-                    } else if (Diffable.class.isAssignableFrom(field.getType())
-                            && ObjectUtils.allNotNull(leftField, rightField)) {
-```
-
-### ConstantValue
-Value `rightField` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/diff/ReflectiveDiffBuilder.java`
-#### Snippet
-```java
-                        var annotation = field.getAnnotation(SpecDiff.class);
-                        diffBuilder.append(
-                                field.getName(), leftField, rightField, annotation.value());
-                    } else if (Diffable.class.isAssignableFrom(field.getType())
-                            && ObjectUtils.allNotNull(leftField, rightField)) {
-```
-
-### ConstantValue
-Value `leftField` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/diff/ReflectiveDiffBuilder.java`
-#### Snippet
-```java
-                                field.getName(), leftField, rightField, annotation.value());
-                    } else if (Diffable.class.isAssignableFrom(field.getType())
-                            && ObjectUtils.allNotNull(leftField, rightField)) {
-
-                        diffBuilder.append(
-```
-
-### ConstantValue
-Value `rightField` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/diff/ReflectiveDiffBuilder.java`
-#### Snippet
-```java
-                                field.getName(), leftField, rightField, annotation.value());
-                    } else if (Diffable.class.isAssignableFrom(field.getType())
-                            && ObjectUtils.allNotNull(leftField, rightField)) {
-
-                        diffBuilder.append(
-```
-
-### ConstantValue
-Value `leftField` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/diff/ReflectiveDiffBuilder.java`
-#### Snippet
-```java
-                        diffBuilder.append(
-                                field.getName(),
-                                new ReflectiveDiffBuilder<T>((T) leftField, (T) rightField)
-                                        .build());
-
-```
-
-### ConstantValue
-Value `rightField` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/diff/ReflectiveDiffBuilder.java`
-#### Snippet
-```java
-                        diffBuilder.append(
-                                field.getName(),
-                                new ReflectiveDiffBuilder<T>((T) leftField, (T) rightField)
-                                        .build());
-
-```
-
-### ConstantValue
-Value `spec` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractFlinkResourceReconciler.java`
-#### Snippet
-```java
-        var cr = ctx.getResource();
-        var spec = cr.getSpec();
-        var deployConfig = ctx.getDeployConfig(spec);
-        var status = cr.getStatus();
-        var reconciliationStatus = cr.getStatus().getReconciliationStatus();
-```
-
-### ConstantValue
-Value `spec` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractFlinkResourceReconciler.java`
-#### Snippet
-```java
-        if (reconciliationStatus.isBeforeFirstDeployment()) {
-            LOG.info("Deploying for the first time");
-            updateStatusBeforeFirstDeployment(cr, spec, deployConfig, status);
-            deploy(
-                    ctx,
-```
-
-### ConstantValue
-Value `status` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractFlinkResourceReconciler.java`
-#### Snippet
-```java
-        if (reconciliationStatus.isBeforeFirstDeployment()) {
-            LOG.info("Deploying for the first time");
-            updateStatusBeforeFirstDeployment(cr, spec, deployConfig, status);
-            deploy(
-                    ctx,
-```
-
-### ConstantValue
-Value `status` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractFlinkResourceReconciler.java`
-#### Snippet
-```java
-        if (shouldRollBack(cr, observeConfig, ctx.getFlinkService())) {
-            // Rollbacks are executed in two steps, we initiate it first then return
-            if (initiateRollBack(status)) {
-                return;
-            }
-```
-
-### ConstantValue
-Condition `jobSpec != null` is always `false`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractFlinkResourceReconciler.java`
-#### Snippet
-```java
-                var jobSpec = deployment.getSpec().getJob();
-                boolean stateless =
-                        jobSpec != null && jobSpec.getUpgradeMode() == UpgradeMode.STATELESS;
-                if (stateless || HighAvailabilityMode.isHighAvailabilityModeActivated(conf)) {
-                    LOG.debug("HA is enabled, recovering lost jobmanager deployment");
-```
-
-### ConstantValue
-Condition `jobSpec != null && jobSpec.getUpgradeMode() == UpgradeMode.STATELESS` is always `false`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractFlinkResourceReconciler.java`
-#### Snippet
-```java
-                var jobSpec = deployment.getSpec().getJob();
-                boolean stateless =
-                        jobSpec != null && jobSpec.getUpgradeMode() == UpgradeMode.STATELESS;
-                if (stateless || HighAvailabilityMode.isHighAvailabilityModeActivated(conf)) {
-                    LOG.debug("HA is enabled, recovering lost jobmanager deployment");
-```
-
-### ConstantValue
-Condition `stateless` is always `false`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractFlinkResourceReconciler.java`
-#### Snippet
-```java
-                boolean stateless =
-                        jobSpec != null && jobSpec.getUpgradeMode() == UpgradeMode.STATELESS;
-                if (stateless || HighAvailabilityMode.isHighAvailabilityModeActivated(conf)) {
-                    LOG.debug("HA is enabled, recovering lost jobmanager deployment");
-                    result = true;
-```
-
-### ConstantValue
-Condition `initialSp != null` is always `false`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractFlinkResourceReconciler.java`
-#### Snippet
-```java
-            var initialSp = spec.getJob().getInitialSavepointPath();
-
-            if (initialSp != null) {
-                status.getJobStatus()
-                        .getSavepointInfo()
-```
-
-### ConstantValue
-Condition `deployedJob == null` is always `true`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractFlinkResourceReconciler.java`
-#### Snippet
-```java
-    private boolean jmMissingForRunningDeployment(FlinkDeployment deployment) {
-        var deployedJob = ReconciliationUtils.getDeployedSpec(deployment).getJob();
-        return (deployedJob == null || deployedJob.getState() == JobState.RUNNING)
-                && (deployment.getStatus().getJobManagerDeploymentStatus()
-                        == JobManagerDeploymentStatus.MISSING);
-```
-
-### ConstantValue
-Condition `deployedJob == null || deployedJob.getState() == JobState.RUNNING` is always `true`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractFlinkResourceReconciler.java`
-#### Snippet
-```java
-    private boolean jmMissingForRunningDeployment(FlinkDeployment deployment) {
-        var deployedJob = ReconciliationUtils.getDeployedSpec(deployment).getJob();
-        return (deployedJob == null || deployedJob.getState() == JobState.RUNNING)
-                && (deployment.getStatus().getJobManagerDeploymentStatus()
-                        == JobManagerDeploymentStatus.MISSING);
-```
-
-### ConstantValue
-Value `millis` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/config/FlinkConfigManager.java`
-#### Snippet
-```java
-        var millis = checkInterval.toMillis();
-        executorService.scheduleAtFixedRate(
-                new ConfigUpdater(), millis, millis, TimeUnit.MILLISECONDS);
-        LOG.info("Enabled dynamic config updates, checking config changes every {}", checkInterval);
-    }
-```
-
-### ConstantValue
-Value `millis` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/config/FlinkConfigManager.java`
-#### Snippet
-```java
-        var millis = checkInterval.toMillis();
-        executorService.scheduleAtFixedRate(
-                new ConfigUpdater(), millis, millis, TimeUnit.MILLISECONDS);
-        LOG.info("Enabled dynamic config updates, checking config changes every {}", checkInterval);
-    }
-```
-
-### ConstantValue
-Value `key` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/config/FlinkConfigManager.java`
-#### Snippet
-```java
-
-        // Always return a copy of the configuration to avoid polluting the cache
-        return cache.get(key).clone();
-    }
-
-```
-
-### ConstantValue
-Condition `sessionJobFlinkConfiguration != null` is always `false`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/config/FlinkConfigManager.java`
-#### Snippet
-```java
-        // merge session job specific config
-        var sessionJobFlinkConfiguration = sessionJobSpec.getFlinkConfiguration();
-        if (sessionJobFlinkConfiguration != null) {
-            sessionJobFlinkConfiguration.forEach(sessionJobConfig::setString);
-        }
-```
-
-### ConstantValue
-Condition `!oldNs.equals(newNs)` is always `true` when reached
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/config/FlinkConfigManager.java`
-#### Snippet
-```java
-        this.operatorConfiguration = FlinkOperatorConfiguration.fromConfiguration(newConf);
-        var newNs = this.operatorConfiguration.getWatchedNamespaces();
-        if (this.operatorConfiguration.isDynamicNamespacesEnabled() && !oldNs.equals(newNs)) {
-            this.namespaceListener.accept(operatorConfiguration.getWatchedNamespaces());
-        }
-```
-
-### ConstantValue
-Value `newNs` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/config/FlinkConfigManager.java`
-#### Snippet
-```java
-        this.operatorConfiguration = FlinkOperatorConfiguration.fromConfiguration(newConf);
-        var newNs = this.operatorConfiguration.getWatchedNamespaces();
-        if (this.operatorConfiguration.isDynamicNamespacesEnabled() && !oldNs.equals(newNs)) {
-            this.namespaceListener.accept(operatorConfiguration.getWatchedNamespaces());
-        }
 ```
 
 ### ConstantValue
@@ -2740,308 +2344,6 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
 ```
 
 ### ConstantValue
-Condition `currentJobState == null` is always `true`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/AbstractFlinkService.java`
-#### Snippet
-```java
-        status.setJobManagerDeploymentStatus(JobManagerDeploymentStatus.MISSING);
-        var currentJobState = status.getJobStatus().getState();
-        if (currentJobState == null
-                || !JobStatus.valueOf(currentJobState).isGloballyTerminalState()) {
-            status.getJobStatus().setState(JobStatus.FINISHED.name());
-```
-
-### ConstantValue
-Condition `currentJobState == null || !JobStatus.valueOf(currentJobState).isGloballyTerminalSta...` is always `true`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/AbstractFlinkService.java`
-#### Snippet
-```java
-        status.setJobManagerDeploymentStatus(JobManagerDeploymentStatus.MISSING);
-        var currentJobState = status.getJobStatus().getState();
-        if (currentJobState == null
-                || !JobStatus.valueOf(currentJobState).isGloballyTerminalState()) {
-            status.getJobStatus().setState(JobStatus.FINISHED.name());
-        }
-```
-
-### ConstantValue
-Value `deletionPropagation` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/AbstractFlinkService.java`
-#### Snippet
-```java
-
-        var deletionPropagation = configManager.getOperatorConfiguration().getDeletionPropagation();
-        LOG.info("Deleting cluster with {} propagation", deletionPropagation);
-        deleteClusterInternal(meta, conf, deleteHaData, deletionPropagation);
-        updateStatusAfterClusterDeletion(status);
-```
-
-### ConstantValue
-Value `deletionPropagation` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/AbstractFlinkService.java`
-#### Snippet
-```java
-        var deletionPropagation = configManager.getOperatorConfiguration().getDeletionPropagation();
-        LOG.info("Deleting cluster with {} propagation", deletionPropagation);
-        deleteClusterInternal(meta, conf, deleteHaData, deletionPropagation);
-        updateStatusAfterClusterDeletion(status);
-    }
-```
-
-### ConstantValue
-Condition `jobIdString != null` is always `false`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/AbstractFlinkService.java`
-#### Snippet
-```java
-        var deploymentStatus = deployment.getStatus();
-        var jobIdString = deploymentStatus.getJobStatus().getJobId();
-        var jobId = jobIdString != null ? JobID.fromHexString(jobIdString) : null;
-
-        Optional<String> savepointOpt = Optional.empty();
-```
-
-### ConstantValue
-Value `jobId` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/AbstractFlinkService.java`
-#### Snippet
-```java
-                        try {
-                            clusterClient
-                                    .cancel(Preconditions.checkNotNull(jobId))
-                                    .get(
-                                            configManager
-```
-
-### ConstantValue
-Value `jobId` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/AbstractFlinkService.java`
-#### Snippet
-```java
-                                    clusterClient
-                                            .stopWithSavepoint(
-                                                    Preconditions.checkNotNull(jobId),
-                                                    false,
-                                                    savepointDirectory,
-```
-
-### ConstantValue
-Value `savepointDirectory` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/AbstractFlinkService.java`
-#### Snippet
-```java
-                                    savepointTriggerMessageParameters,
-                                    new SavepointTriggerRequestBody(
-                                            savepointDirectory,
-                                            false,
-                                            conf.get(FLINK_VERSION)
-```
-
-### ConstantValue
-Value `timeout` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/AbstractFlinkService.java`
-#### Snippet
-```java
-                                                    : null,
-                                            null))
-                            .get(timeout, TimeUnit.SECONDS);
-            LOG.info("Savepoint successfully triggered: " + response.getTriggerId().toHexString());
-
-```
-
-### ConstantValue
-Value `jobIdString` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/AbstractFlinkService.java`
-#### Snippet
-```java
-        var jobStatus = sessionJobStatus.getJobStatus();
-        var jobIdString = jobStatus.getJobId();
-        Preconditions.checkNotNull(jobIdString, "The job to be suspend should not be null");
-        var jobId = JobID.fromHexString(jobIdString);
-        Optional<String> savepointOpt = Optional.empty();
-```
-
-### ConstantValue
-Value `jobIdString` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/AbstractFlinkService.java`
-#### Snippet
-```java
-        var jobIdString = jobStatus.getJobId();
-        Preconditions.checkNotNull(jobIdString, "The job to be suspend should not be null");
-        var jobId = JobID.fromHexString(jobIdString);
-        Optional<String> savepointOpt = Optional.empty();
-
-```
-
-### ConstantValue
-Value `jobId` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/AbstractFlinkService.java`
-#### Snippet
-```java
-                        LOG.info("Cancelling job.");
-                        clusterClient
-                                .cancel(jobId)
-                                .get(
-                                        configManager
-```
-
-### ConstantValue
-Value `jobId` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/AbstractFlinkService.java`
-#### Snippet
-```java
-                                        clusterClient
-                                                .stopWithSavepoint(
-                                                        jobId,
-                                                        false,
-                                                        savepointDirectory,
-```
-
-### ConstantValue
-Value `taskManagerReplicas` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/AbstractFlinkService.java`
-#### Snippet
-```java
-        clusterInfo.put(
-                FIELD_NAME_TOTAL_CPU,
-                String.valueOf(FlinkUtils.calculateClusterCpuUsage(conf, taskManagerReplicas)));
-        clusterInfo.put(
-                FIELD_NAME_TOTAL_MEMORY,
-```
-
-### ConstantValue
-Value `taskManagerReplicas` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/AbstractFlinkService.java`
-#### Snippet
-```java
-        clusterInfo.put(
-                FIELD_NAME_TOTAL_MEMORY,
-                String.valueOf(FlinkUtils.calculateClusterMemoryUsage(conf, taskManagerReplicas)));
-
-        return clusterInfo;
-```
-
-### ConstantValue
-Value `client` is always 'null'
-in `flink-kubernetes-standalone/src/main/java/org/apache/flink/kubernetes/operator/kubeclient/Fabric8FlinkStandaloneKubeClient.java`
-#### Snippet
-```java
-                new DefaultKubernetesClient()
-                        .inNamespace(conf.get(KubernetesConfigOptions.NAMESPACE));
-        return new Fabric8FlinkStandaloneKubeClient(conf, client, executorService);
-    }
-}
-```
-
-### ConstantValue
-Value `jobStatus` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/SavepointUtils.java`
-#### Snippet
-```java
-        var jobStatus = status.getJobStatus();
-
-        if (!ReconciliationUtils.isJobRunning(status) || savepointInProgress(jobStatus)) {
-            return Optional.empty();
-        }
-```
-
-### ConstantValue
-Value `lastTriggerTs` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/SavepointUtils.java`
-#### Snippet
-```java
-        // against the creation timestamp for triggering the first periodic savepoint
-        var lastTrigger =
-                lastTriggerTs == 0
-                        ? Instant.parse(resource.getMetadata().getCreationTimestamp())
-                        : Instant.ofEpochMilli(lastTriggerTs);
-```
-
-### ConstantValue
-Value `lastTriggerTs` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/SavepointUtils.java`
-#### Snippet
-```java
-                lastTriggerTs == 0
-                        ? Instant.parse(resource.getMetadata().getCreationTimestamp())
-                        : Instant.ofEpochMilli(lastTriggerTs);
-        var now = Instant.now();
-        if (lastTrigger.plus(savepointInterval).isBefore(Instant.now())) {
-```
-
-### ConstantValue
-Value `jobStatus` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/SavepointUtils.java`
-#### Snippet
-```java
-        var jobStatus = status.getJobStatus();
-        if (!ReconciliationUtils.isJobRunning(status)
-                && SavepointUtils.savepointInProgress(jobStatus)) {
-            var savepointInfo = jobStatus.getSavepointInfo();
-            ReconciliationUtils.updateLastReconciledSavepointTriggerNonce(savepointInfo, resource);
-```
-
-### ConstantValue
-Value `savepointInfo` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/SavepointUtils.java`
-#### Snippet
-```java
-                && SavepointUtils.savepointInProgress(jobStatus)) {
-            var savepointInfo = jobStatus.getSavepointInfo();
-            ReconciliationUtils.updateLastReconciledSavepointTriggerNonce(savepointInfo, resource);
-            savepointInfo.resetTrigger();
-            LOG.error("Job is not running, cancelling savepoint operation");
-```
-
-### ConstantValue
-Value `savepointFormatType` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/SavepointUtils.java`
-#### Snippet
-```java
-                            KubernetesOperatorConfigOptions.OPERATOR_SAVEPOINT_FORMAT_TYPE);
-        }
-        return savepointFormatType;
-    }
-}
-```
-
-### ConstantValue
-Condition `targetSavepointTriggerNonce != null` is always `false`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/SavepointUtils.java`
-#### Snippet
-```java
-        // For manual savepoints, we report pending status
-        // during retries while the triggerId gets reset between retries.
-        if (targetSavepointTriggerNonce != null
-                && !Objects.equals(targetSavepointTriggerNonce, reconcileSavepointTriggerNonce)) {
-            return SavepointStatus.PENDING;
-```
-
-### ConstantValue
-Condition `targetSavepointTriggerNonce != null && !Objects.equals(targetSavepointTriggerNonce, ...` is always `false`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/SavepointUtils.java`
-#### Snippet
-```java
-        // For manual savepoints, we report pending status
-        // during retries while the triggerId gets reset between retries.
-        if (targetSavepointTriggerNonce != null
-                && !Objects.equals(targetSavepointTriggerNonce, reconcileSavepointTriggerNonce)) {
-            return SavepointStatus.PENDING;
-        }
-```
-
-### ConstantValue
-Condition `lastSavepoint != null` is always `false`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/SavepointUtils.java`
-#### Snippet
-```java
-
-        var lastSavepoint = savepointInfo.getLastSavepoint();
-        if (lastSavepoint != null) {
-            // Last savepoint was manual and triggerNonce matches
-            if (Objects.equals(
-```
-
-### ConstantValue
 Value `jobId` is always 'null'
 in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/RestApiMetricsCollector.java`
 #### Snippet
@@ -3054,412 +2356,291 @@ in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernet
 ```
 
 ### ConstantValue
-Condition `deploymentName != null` is always `false`
-in `flink-kubernetes-webhook/src/main/java/org/apache/flink/kubernetes/operator/admission/mutator/FlinkMutator.java`
+Condition `maxAge == null` is always `true`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractJobReconciler.java`
 #### Snippet
 ```java
-        }
-        var deploymentName = flinkSessionJob.getSpec().getDeploymentName();
-        if (deploymentName != null
-                && !deploymentName.equals(labels.get(CrdConstants.LABEL_TARGET_SESSION))) {
-            labels.put(
-```
 
-### ConstantValue
-Condition `deploymentName != null && !deploymentName.equals(labels.get(CrdConstants.LABEL_TARGE...` is always `false`
-in `flink-kubernetes-webhook/src/main/java/org/apache/flink/kubernetes/operator/admission/mutator/FlinkMutator.java`
-#### Snippet
-```java
-        }
-        var deploymentName = flinkSessionJob.getSpec().getDeploymentName();
-        if (deploymentName != null
-                && !deploymentName.equals(labels.get(CrdConstants.LABEL_TARGET_SESSION))) {
-            labels.put(
-                    CrdConstants.LABEL_TARGET_SESSION,
-```
-
-### ConstantValue
-Value `latestVertexMetrics` is always 'null'
-in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingMetricEvaluator.java`
-#### Snippet
-```java
-                scalingOutput,
-                metricsHistory,
-                latestVertexMetrics,
-                evaluatedMetrics);
-
-```
-
-### ConstantValue
-Value `inputs` is always 'null'
-in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingMetricEvaluator.java`
-#### Snippet
-```java
-            double sumAvgTargetRate = 0;
-            double sumCatchUpDataRate = 0;
-            for (var inputVertex : inputs) {
-                var inputEvaluatedMetrics = alreadyEvaluated.get(inputVertex);
-                var inputTargetRate = inputEvaluatedMetrics.get(TARGET_DATA_RATE);
-```
-
-### ConstantValue
-Value `inputVertex` is always 'null'
-in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingMetricEvaluator.java`
-#### Snippet
-```java
-            double sumCatchUpDataRate = 0;
-            for (var inputVertex : inputs) {
-                var inputEvaluatedMetrics = alreadyEvaluated.get(inputVertex);
-                var inputTargetRate = inputEvaluatedMetrics.get(TARGET_DATA_RATE);
-                var outputRateMultiplier =
-```
-
-### ConstantValue
-Value `inputVertex` is always 'null'
-in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingMetricEvaluator.java`
-#### Snippet
-```java
-                var inputTargetRate = inputEvaluatedMetrics.get(TARGET_DATA_RATE);
-                var outputRateMultiplier =
-                        getAverageOutputRatio(new Edge(inputVertex, vertex), metricsHistory);
-                sumCurrentTargetRate += inputTargetRate.getCurrent() * outputRateMultiplier;
-                sumAvgTargetRate += inputTargetRate.getAverage() * outputRateMultiplier;
-```
-
-### ConstantValue
-Value `topology` is always 'null'
-in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingMetricEvaluator.java`
-#### Snippet
-```java
-        var topology = collectedMetrics.getJobTopology();
-
-        boolean processingBacklog = isProcessingBacklog(topology, metricsHistory, conf);
-
-        for (var vertex : topology.getVerticesInTopologicalOrder()) {
-```
-
-### ConstantValue
-Value `metricsHistory` is always 'null'
-in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingMetricEvaluator.java`
-#### Snippet
-```java
-        var topology = collectedMetrics.getJobTopology();
-
-        boolean processingBacklog = isProcessingBacklog(topology, metricsHistory, conf);
-
-        for (var vertex : topology.getVerticesInTopologicalOrder()) {
-```
-
-### ConstantValue
-Value `vertex` is always 'null'
-in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingMetricEvaluator.java`
-#### Snippet
-```java
-        for (var vertex : topology.getVerticesInTopologicalOrder()) {
-            scalingOutput.put(
-                    vertex,
-                    evaluateMetrics(
-                            conf,
-```
-
-### ConstantValue
-Value `vertex` is always 'null'
-in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingMetricEvaluator.java`
-#### Snippet
-```java
-                            metricsHistory,
-                            topology,
-                            vertex,
-                            processingBacklog));
+        var maxAge = deployConfig.get(OPERATOR_JOB_UPGRADE_LAST_STATE_CHECKPOINT_MAX_AGE);
+        if (maxAge == null) {
+            return AvailableUpgradeMode.of(UpgradeMode.LAST_STATE);
         }
 ```
 
 ### ConstantValue
-Value `jobId` is always 'null'
-in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingMetricCollector.java`
+Condition `upgradeMode == UpgradeMode.STATELESS` is always `false`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractJobReconciler.java`
 #### Snippet
 ```java
-                                            v ->
-                                                    getFilteredVertexMetricNames(
-                                                            restClient, jobId, v, topology)));
-            availableVertexMetricNames.put(
-                    ResourceID.fromResource(cr), Tuple2.of(deployedGeneration, names));
+        var upgradeMode = resource.getSpec().getJob().getUpgradeMode();
+
+        if (upgradeMode == UpgradeMode.STATELESS) {
+            LOG.info("Stateless job, ready for upgrade");
+            return AvailableUpgradeMode.of(UpgradeMode.STATELESS);
 ```
 
 ### ConstantValue
-Value `jobId` is always 'null'
-in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingMetricCollector.java`
+Value `upgradeMode` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractJobReconciler.java`
 #### Snippet
 ```java
-                            ResourceID.fromResource(cr),
-                            r -> {
-                                var t = queryJobTopology(restClient, jobId);
-                                scalerInfo.updateVertexList(
-                                        t.getVerticesInTopologicalOrder(), clock.instant(), conf);
+        var upgradeMode = resource.getSpec().getJob().getUpgradeMode();
+
+        if (upgradeMode == UpgradeMode.STATELESS) {
+            LOG.info("Stateless job, ready for upgrade");
+            return AvailableUpgradeMode.of(UpgradeMode.STATELESS);
 ```
 
 ### ConstantValue
-Value `jobId` is always 'null'
-in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingMetricCollector.java`
+Value `status` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractJobReconciler.java`
 #### Snippet
 ```java
-                                return t;
-                            });
-            updateKafkaSourceMaxParallelisms(restClient, jobId, topology);
-            return topology;
+
+        var flinkService = ctx.getFlinkService();
+        if (ReconciliationUtils.isJobInTerminalState(status)
+                && !flinkService.isHaMetadataAvailable(ctx.getObserveConfig())) {
+            LOG.info(
+```
+
+### ConstantValue
+Value `upgradeMode` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractJobReconciler.java`
+#### Snippet
+```java
+
+        if (ReconciliationUtils.isJobRunning(status)) {
+            LOG.info("Job is in running state, ready for upgrade with {}", upgradeMode);
+            var changedToLastStateWithoutHa =
+                    ReconciliationUtils.isUpgradeModeChangedToLastStateAndHADisabledPreviously(
+```
+
+### ConstantValue
+Condition `upgradeMode == UpgradeMode.LAST_STATE` is always `false`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractJobReconciler.java`
+#### Snippet
+```java
+            }
+
+            if (upgradeMode == UpgradeMode.LAST_STATE) {
+                return changeLastStateIfCheckpointTooOld(ctx, deployConfig);
+            }
+```
+
+### ConstantValue
+Value `upgradeMode` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractJobReconciler.java`
+#### Snippet
+```java
+            }
+
+            if (upgradeMode == UpgradeMode.LAST_STATE) {
+                return changeLastStateIfCheckpointTooOld(ctx, deployConfig);
+            }
+```
+
+### ConstantValue
+Value `jobStatus` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractJobReconciler.java`
+#### Snippet
+```java
+        var jobStatus =
+                org.apache.flink.api.common.JobStatus.valueOf(status.getJobStatus().getState());
+        if (jobStatus == org.apache.flink.api.common.JobStatus.FAILED
+                && ctx.getObserveConfig().getBoolean(OPERATOR_JOB_RESTART_FAILED)) {
+            LOG.info("Stopping failed Flink job...");
+```
+
+### ConstantValue
+Value `spec` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractFlinkResourceReconciler.java`
+#### Snippet
+```java
+        var cr = ctx.getResource();
+        var spec = cr.getSpec();
+        var deployConfig = ctx.getDeployConfig(spec);
+        var status = cr.getStatus();
+        var reconciliationStatus = cr.getStatus().getReconciliationStatus();
+```
+
+### ConstantValue
+Value `spec` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractFlinkResourceReconciler.java`
+#### Snippet
+```java
+        if (reconciliationStatus.isBeforeFirstDeployment()) {
+            LOG.info("Deploying for the first time");
+            updateStatusBeforeFirstDeployment(cr, spec, deployConfig, status);
+            deploy(
+                    ctx,
+```
+
+### ConstantValue
+Value `status` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractFlinkResourceReconciler.java`
+#### Snippet
+```java
+        if (reconciliationStatus.isBeforeFirstDeployment()) {
+            LOG.info("Deploying for the first time");
+            updateStatusBeforeFirstDeployment(cr, spec, deployConfig, status);
+            deploy(
+                    ctx,
+```
+
+### ConstantValue
+Value `status` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractFlinkResourceReconciler.java`
+#### Snippet
+```java
+        if (shouldRollBack(cr, observeConfig, ctx.getFlinkService())) {
+            // Rollbacks are executed in two steps, we initiate it first then return
+            if (initiateRollBack(status)) {
+                return;
+            }
+```
+
+### ConstantValue
+Condition `initialSp != null` is always `false`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractFlinkResourceReconciler.java`
+#### Snippet
+```java
+            var initialSp = spec.getJob().getInitialSavepointPath();
+
+            if (initialSp != null) {
+                status.getJobStatus()
+                        .getSavepointInfo()
+```
+
+### ConstantValue
+Condition `jobSpec != null` is always `false`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractFlinkResourceReconciler.java`
+#### Snippet
+```java
+                var jobSpec = deployment.getSpec().getJob();
+                boolean stateless =
+                        jobSpec != null && jobSpec.getUpgradeMode() == UpgradeMode.STATELESS;
+                if (stateless || HighAvailabilityMode.isHighAvailabilityModeActivated(conf)) {
+                    LOG.debug("HA is enabled, recovering lost jobmanager deployment");
+```
+
+### ConstantValue
+Condition `jobSpec != null && jobSpec.getUpgradeMode() == UpgradeMode.STATELESS` is always `false`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractFlinkResourceReconciler.java`
+#### Snippet
+```java
+                var jobSpec = deployment.getSpec().getJob();
+                boolean stateless =
+                        jobSpec != null && jobSpec.getUpgradeMode() == UpgradeMode.STATELESS;
+                if (stateless || HighAvailabilityMode.isHighAvailabilityModeActivated(conf)) {
+                    LOG.debug("HA is enabled, recovering lost jobmanager deployment");
+```
+
+### ConstantValue
+Condition `stateless` is always `false`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractFlinkResourceReconciler.java`
+#### Snippet
+```java
+                boolean stateless =
+                        jobSpec != null && jobSpec.getUpgradeMode() == UpgradeMode.STATELESS;
+                if (stateless || HighAvailabilityMode.isHighAvailabilityModeActivated(conf)) {
+                    LOG.debug("HA is enabled, recovering lost jobmanager deployment");
+                    result = true;
+```
+
+### ConstantValue
+Condition `deployedJob == null` is always `true`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractFlinkResourceReconciler.java`
+#### Snippet
+```java
+    private boolean jmMissingForRunningDeployment(FlinkDeployment deployment) {
+        var deployedJob = ReconciliationUtils.getDeployedSpec(deployment).getJob();
+        return (deployedJob == null || deployedJob.getState() == JobState.RUNNING)
+                && (deployment.getStatus().getJobManagerDeploymentStatus()
+                        == JobManagerDeploymentStatus.MISSING);
+```
+
+### ConstantValue
+Condition `deployedJob == null || deployedJob.getState() == JobState.RUNNING` is always `true`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractFlinkResourceReconciler.java`
+#### Snippet
+```java
+    private boolean jmMissingForRunningDeployment(FlinkDeployment deployment) {
+        var deployedJob = ReconciliationUtils.getDeployedSpec(deployment).getJob();
+        return (deployedJob == null || deployedJob.getState() == JobState.RUNNING)
+                && (deployment.getStatus().getJobManagerDeploymentStatus()
+                        == JobManagerDeploymentStatus.MISSING);
+```
+
+### ConstantValue
+Value `inputStream` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/artifact/FileSystemBasedArtifactFetcher.java`
+#### Snippet
+```java
+        File targetFile = new File(targetDir, fileName);
+        try (var inputStream = fileSystem.open(source)) {
+            FileUtils.copyToFile(inputStream, targetFile);
+        }
+        LOG.debug(
+```
+
+### ConstantValue
+Value `desiredReplicas` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/StandaloneFlinkService.java`
+#### Snippet
+```java
+        var desiredReplicas =
+                conf.get(StandaloneKubernetesConfigOptionsInternal.KUBERNETES_TASKMANAGER_REPLICAS);
+        if (actualReplicas != desiredReplicas) {
+            LOG.info(
+                    "Scaling TM replicas: actual({}) -> desired({})",
+```
+
+### ConstantValue
+Value `desiredReplicas` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/StandaloneFlinkService.java`
+#### Snippet
+```java
+                    "Scaling TM replicas: actual({}) -> desired({})",
+                    actualReplicas,
+                    desiredReplicas);
+            deployment.scale(desiredReplicas);
+        } else {
+```
+
+### ConstantValue
+Value `desiredReplicas` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/StandaloneFlinkService.java`
+#### Snippet
+```java
+                    actualReplicas,
+                    desiredReplicas);
+            deployment.scale(desiredReplicas);
+        } else {
+            LOG.info(
+```
+
+### ConstantValue
+Value `actualReplicas` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/StandaloneFlinkService.java`
+#### Snippet
+```java
+            LOG.info(
+                    "Not scaling TM replicas: actual({}) == desired({})",
+                    actualReplicas,
+                    desiredReplicas);
         }
 ```
 
 ### ConstantValue
-Condition `lastCollectedMetrics == null` is always `true`
-in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingMetricCollector.java`
+Value `desiredReplicas` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/StandaloneFlinkService.java`
 #### Snippet
 ```java
-                metricHistory.get(lastCollectionTime).getVertexMetrics().get(jobVertexID);
-
-        if (lastCollectedMetrics == null) {
-            return Double.NaN;
+                    "Not scaling TM replicas: actual({}) == desired({})",
+                    actualReplicas,
+                    desiredReplicas);
         }
-```
-
-### ConstantValue
-Condition `leaderElectionConf != null` is always `false`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/FlinkOperator.java`
-#### Snippet
-```java
-
-        var leaderElectionConf = operatorConf.getLeaderElectionConfiguration();
-        if (leaderElectionConf != null) {
-            overrider.withLeaderElectionConfiguration(leaderElectionConf);
-            LOG.info("Operator leader election is enabled.");
-```
-
-### ConstantValue
-Value `watchNamespaces` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/FlinkOperator.java`
-#### Snippet
-```java
-        var operatorConf = configManager.getOperatorConfiguration();
-        var watchNamespaces = operatorConf.getWatchedNamespaces();
-        LOG.info("Configuring operator to watch the following namespaces: {}.", watchNamespaces);
-        overrider.settingNamespaces(operatorConf.getWatchedNamespaces());
-
-```
-
-### ConstantValue
-Value `labelSelector` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/FlinkOperator.java`
-#### Snippet
-```java
-        LOG.info(
-                "Configuring operator to select custom resources with the {} labels.",
-                labelSelector);
-        overrider.withLabelSelector(labelSelector);
-    }
-```
-
-### ConstantValue
-Value `labelSelector` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/FlinkOperator.java`
-#### Snippet
-```java
-                "Configuring operator to select custom resources with the {} labels.",
-                labelSelector);
-        overrider.withLabelSelector(labelSelector);
-    }
-
-```
-
-### ConstantValue
-Value `haConfigMapLabels` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/FlinkUtils.java`
-#### Snippet
-```java
-                        .configMaps()
-                        .inNamespace(namespace)
-                        .withLabels(haConfigMapLabels)
-                        .list()
-                        .getItems();
-```
-
-### ConstantValue
-Value `tmTotalCpu` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/FlinkUtils.java`
-#### Snippet
-```java
-                        * taskManagerReplicas;
-
-        return tmTotalCpu + jmTotalCpu;
-    }
-
-```
-
-### ConstantValue
-Value `jmTotalCpu` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/FlinkUtils.java`
-#### Snippet
-```java
-                        * taskManagerReplicas;
-
-        return tmTotalCpu + jmTotalCpu;
-    }
-
-```
-
-### ConstantValue
-Value `clusterSpec` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/FlinkUtils.java`
-#### Snippet
-```java
-        var clusterSpec = new KubernetesClusterClientFactory().getClusterSpecification(conf);
-
-        var jmParameters = new KubernetesJobManagerParameters(conf, clusterSpec);
-        var jmTotalMemory =
-                Math.round(
-```
-
-### ConstantValue
-Value `tmTotalMemory` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/FlinkUtils.java`
-#### Snippet
-```java
-                                * taskManagerReplicas);
-
-        return tmTotalMemory + jmTotalMemory;
-    }
-
-```
-
-### ConstantValue
-Value `jmTotalMemory` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/FlinkUtils.java`
-#### Snippet
-```java
-                                * taskManagerReplicas);
-
-        return tmTotalMemory + jmTotalMemory;
-    }
-
-```
-
-### ConstantValue
-Value `mergeArraysByName` is always 'true'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/FlinkUtils.java`
-#### Snippet
-```java
-                                            return fromElement;
-                                        }
-                                        mergeInto(toElement, fromElement, mergeArraysByName);
-                                        return toElement;
-                                    }));
-```
-
-### ConstantValue
-Value `script` is always 'null'
-in `examples/flink-sql-runner-example/src/main/java/org/apache/flink/examples/SqlRunner.java`
-#### Snippet
-```java
-        }
-        var script = FileUtils.readFileUtf8(new File(args[0]));
-        var statements = parseStatements(script);
-
-        var tableEnv = TableEnvironment.create(new Configuration());
-```
-
-### ConstantValue
-Condition `cause instanceof FlinkJobTerminatedWithoutCancellationException` is always `false`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/sessionjob/SessionJobReconciler.java`
-#### Snippet
-```java
-                    }
-
-                    if (cause instanceof FlinkJobTerminatedWithoutCancellationException) {
-                        LOG.error("Job {} already terminated without cancellation.", jobID, e);
-                        return DeleteControl.defaultDelete();
-```
-
-### ConstantValue
-Value `cause` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/sessionjob/SessionJobReconciler.java`
-#### Snippet
-```java
-                    }
-
-                    if (cause instanceof FlinkJobTerminatedWithoutCancellationException) {
-                        LOG.error("Job {} already terminated without cancellation.", jobID, e);
-                        return DeleteControl.defaultDelete();
-```
-
-### ConstantValue
-Condition `jobmanagerDeploymentStatus != JobManagerDeploymentStatus.READY` is always `true`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/sessionjob/SessionJobReconciler.java`
-#### Snippet
-```java
-            var flinkdep = flinkDeploymentOpt.get();
-            var jobmanagerDeploymentStatus = flinkdep.getStatus().getJobManagerDeploymentStatus();
-            if (jobmanagerDeploymentStatus != JobManagerDeploymentStatus.READY) {
-                LOG.info(
-                        "Session cluster deployment is in {} status, not ready for serve",
-```
-
-### ConstantValue
-Value `jobmanagerDeploymentStatus` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/sessionjob/SessionJobReconciler.java`
-#### Snippet
-```java
-            var flinkdep = flinkDeploymentOpt.get();
-            var jobmanagerDeploymentStatus = flinkdep.getStatus().getJobManagerDeploymentStatus();
-            if (jobmanagerDeploymentStatus != JobManagerDeploymentStatus.READY) {
-                LOG.info(
-                        "Session cluster deployment is in {} status, not ready for serve",
-```
-
-### ConstantValue
-Value `jobmanagerDeploymentStatus` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/sessionjob/SessionJobReconciler.java`
-#### Snippet
-```java
-                LOG.info(
-                        "Session cluster deployment is in {} status, not ready for serve",
-                        jobmanagerDeploymentStatus);
-                return false;
-            } else {
-```
-
-### ConstantValue
-Value `busyTimeMsPerSecond` is always 'null'
-in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/metrics/ScalingMetrics.java`
-#### Snippet
-```java
-        var busyTimeMsPerSecond =
-                busyTimeAggregator.get(flinkMetrics.get(FlinkMetric.BUSY_TIME_PER_SEC));
-        if (!Double.isFinite(busyTimeMsPerSecond)) {
-            LOG.error(
-                    "No busyTimeMsPerSecond metric available for {}. No scaling will be performed for this vertex.",
-```
-
-### ConstantValue
-Value `busyTimeMsPerSecond` is always 'null'
-in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/metrics/ScalingMetrics.java`
-#### Snippet
-```java
-            busyTimeMsPerSecond = conf.get(AutoScalerOptions.TARGET_UTILIZATION) * 1000;
-        }
-        return busyTimeMsPerSecond;
-    }
-
-```
-
-### ConstantValue
-Value `scalingEnabled` is always 'null'
-in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/ScalingExecutor.java`
-#### Snippet
-```java
-        var scalingEnabled = conf.get(SCALING_ENABLED);
-
-        var scalingReport = scalingReport(scalingSummaries, scalingEnabled);
-        eventRecorder.triggerEvent(
-                resource,
+        return true;
 ```
 
 ### ConstantValue
@@ -3547,6 +2728,524 @@ in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernet
 ```
 
 ### ConstantValue
+Value `previousJobStatus` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/JobStatusObserver.java`
+#### Snippet
+```java
+            // Error while accessing the rest api, will try again later...
+            LOG.warn("Exception while listing jobs", e);
+            ifRunningMoveToReconciling(jobStatus, previousJobStatus);
+            if (e instanceof TimeoutException) {
+                onTimeout(ctx);
+```
+
+### ConstantValue
+Value `previousJobStatus` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/JobStatusObserver.java`
+#### Snippet
+```java
+            if (targetJobStatusMessage.isEmpty()) {
+                LOG.warn("No matching jobs found on the cluster");
+                ifRunningMoveToReconciling(jobStatus, previousJobStatus);
+                onTargetJobNotFound(resource, ctx.getObserveConfig());
+                return false;
+```
+
+### ConstantValue
+Value `previousJobStatus` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/JobStatusObserver.java`
+#### Snippet
+```java
+            LOG.debug("No jobs found on the cluster");
+            // No jobs found on the cluster, it is possible that the jobmanager is still starting up
+            ifRunningMoveToReconciling(jobStatus, previousJobStatus);
+            onNoJobsFound(resource, ctx.getObserveConfig());
+            return false;
+```
+
+### ConstantValue
+Value `previousJobId` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/JobStatusObserver.java`
+#### Snippet
+```java
+        jobStatus.setStartTime(String.valueOf(clusterJobStatus.getStartTime()));
+
+        if (jobStatus.getJobId().equals(previousJobId)
+                && jobStatus.getState().equals(previousJobStatus)) {
+            LOG.info("Job status ({}) unchanged", previousJobStatus);
+```
+
+### ConstantValue
+Value `previousJobStatus` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/JobStatusObserver.java`
+#### Snippet
+```java
+
+        if (jobStatus.getJobId().equals(previousJobId)
+                && jobStatus.getState().equals(previousJobStatus)) {
+            LOG.info("Job status ({}) unchanged", previousJobStatus);
+        } else {
+```
+
+### ConstantValue
+Value `previousJobStatus` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/JobStatusObserver.java`
+#### Snippet
+```java
+        if (jobStatus.getJobId().equals(previousJobId)
+                && jobStatus.getState().equals(previousJobStatus)) {
+            LOG.info("Job status ({}) unchanged", previousJobStatus);
+        } else {
+            jobStatus.setUpdateTime(String.valueOf(System.currentTimeMillis()));
+```
+
+### ConstantValue
+Condition `previousJobStatus == null` is always `true`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/JobStatusObserver.java`
+#### Snippet
+```java
+            jobStatus.setUpdateTime(String.valueOf(System.currentTimeMillis()));
+            var message =
+                    previousJobStatus == null
+                            ? String.format("Job status changed to %s", jobStatus.getState())
+                            : String.format(
+```
+
+### ConstantValue
+Value `savepointFormatType` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/SavepointUtils.java`
+#### Snippet
+```java
+                            KubernetesOperatorConfigOptions.OPERATOR_SAVEPOINT_FORMAT_TYPE);
+        }
+        return savepointFormatType;
+    }
+}
+```
+
+### ConstantValue
+Value `jobStatus` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/SavepointUtils.java`
+#### Snippet
+```java
+        var jobStatus = status.getJobStatus();
+
+        if (!ReconciliationUtils.isJobRunning(status) || savepointInProgress(jobStatus)) {
+            return Optional.empty();
+        }
+```
+
+### ConstantValue
+Value `lastTriggerTs` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/SavepointUtils.java`
+#### Snippet
+```java
+        // against the creation timestamp for triggering the first periodic savepoint
+        var lastTrigger =
+                lastTriggerTs == 0
+                        ? Instant.parse(resource.getMetadata().getCreationTimestamp())
+                        : Instant.ofEpochMilli(lastTriggerTs);
+```
+
+### ConstantValue
+Value `lastTriggerTs` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/SavepointUtils.java`
+#### Snippet
+```java
+                lastTriggerTs == 0
+                        ? Instant.parse(resource.getMetadata().getCreationTimestamp())
+                        : Instant.ofEpochMilli(lastTriggerTs);
+        var now = Instant.now();
+        if (lastTrigger.plus(savepointInterval).isBefore(Instant.now())) {
+```
+
+### ConstantValue
+Value `jobStatus` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/SavepointUtils.java`
+#### Snippet
+```java
+        var jobStatus = status.getJobStatus();
+        if (!ReconciliationUtils.isJobRunning(status)
+                && SavepointUtils.savepointInProgress(jobStatus)) {
+            var savepointInfo = jobStatus.getSavepointInfo();
+            ReconciliationUtils.updateLastReconciledSavepointTriggerNonce(savepointInfo, resource);
+```
+
+### ConstantValue
+Value `savepointInfo` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/SavepointUtils.java`
+#### Snippet
+```java
+                && SavepointUtils.savepointInProgress(jobStatus)) {
+            var savepointInfo = jobStatus.getSavepointInfo();
+            ReconciliationUtils.updateLastReconciledSavepointTriggerNonce(savepointInfo, resource);
+            savepointInfo.resetTrigger();
+            LOG.error("Job is not running, cancelling savepoint operation");
+```
+
+### ConstantValue
+Condition `targetSavepointTriggerNonce != null` is always `false`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/SavepointUtils.java`
+#### Snippet
+```java
+        // For manual savepoints, we report pending status
+        // during retries while the triggerId gets reset between retries.
+        if (targetSavepointTriggerNonce != null
+                && !Objects.equals(targetSavepointTriggerNonce, reconcileSavepointTriggerNonce)) {
+            return SavepointStatus.PENDING;
+```
+
+### ConstantValue
+Condition `targetSavepointTriggerNonce != null && !Objects.equals(targetSavepointTriggerNonce, ...` is always `false`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/SavepointUtils.java`
+#### Snippet
+```java
+        // For manual savepoints, we report pending status
+        // during retries while the triggerId gets reset between retries.
+        if (targetSavepointTriggerNonce != null
+                && !Objects.equals(targetSavepointTriggerNonce, reconcileSavepointTriggerNonce)) {
+            return SavepointStatus.PENDING;
+        }
+```
+
+### ConstantValue
+Condition `lastSavepoint != null` is always `false`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/SavepointUtils.java`
+#### Snippet
+```java
+
+        var lastSavepoint = savepointInfo.getLastSavepoint();
+        if (lastSavepoint != null) {
+            // Last savepoint was manual and triggerNonce matches
+            if (Objects.equals(
+```
+
+### ConstantValue
+Condition `jobState != null` is always `false`
+in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/status/CommonStatus.java`
+#### Snippet
+```java
+
+        var jobState = getJobStatus().getState();
+        if (jobState != null
+                && org.apache.flink.api.common.JobStatus.valueOf(jobState)
+                        .equals(org.apache.flink.api.common.JobStatus.FAILED)) {
+```
+
+### ConstantValue
+Value `flinkDep` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/deployment/AbstractFlinkDeploymentObserver.java`
+#### Snippet
+```java
+    public void observeInternal(FlinkResourceContext<FlinkDeployment> ctx) {
+        var flinkDep = ctx.getResource();
+        if (!isJmDeploymentReady(flinkDep)) {
+            // Only observe the JM if we think it's in bad state
+            observeJmDeployment(ctx);
+```
+
+### ConstantValue
+Condition `job != null` is always `false`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/ReconciliationUtils.java`
+#### Snippet
+```java
+        var job = target.getSpec().getJob();
+        updateStatusForSpecReconciliation(
+                target, job != null ? job.getState() : null, conf, false, clock);
+    }
+
+```
+
+### ConstantValue
+Value `jobState` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/ReconciliationUtils.java`
+#### Snippet
+```java
+    public static boolean isJobInTerminalState(CommonStatus<?> status) {
+        var jobState = status.getJobStatus().getState();
+        return org.apache.flink.api.common.JobStatus.valueOf(jobState).isGloballyTerminalState();
+    }
+
+```
+
+### ConstantValue
+Value `flinkJobStatus` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/ReconciliationUtils.java`
+#### Snippet
+```java
+        }
+
+        if (flinkJobStatus == RUNNING) {
+            // Running jobs are currently always marked stable
+            status.getReconciliationStatus().markReconciledSpecAsStable();
+```
+
+### ConstantValue
+Condition `reconciledJobState == JobState.RUNNING` is always `false`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/ReconciliationUtils.java`
+#### Snippet
+```java
+                        .getState();
+
+        if (reconciledJobState == JobState.RUNNING && flinkJobStatus == FINISHED) {
+            // If the job finished on its own, it's marked stable
+            status.getReconciliationStatus().markReconciledSpecAsStable();
+```
+
+### ConstantValue
+Condition `reconciledJobState == JobState.RUNNING && flinkJobStatus == FINISHED` is always `false`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/ReconciliationUtils.java`
+#### Snippet
+```java
+                        .getState();
+
+        if (reconciledJobState == JobState.RUNNING && flinkJobStatus == FINISHED) {
+            // If the job finished on its own, it's marked stable
+            status.getReconciliationStatus().markReconciledSpecAsStable();
+```
+
+### ConstantValue
+Value `reconciledJobState` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/ReconciliationUtils.java`
+#### Snippet
+```java
+                        .getState();
+
+        if (reconciledJobState == JobState.RUNNING && flinkJobStatus == FINISHED) {
+            // If the job finished on its own, it's marked stable
+            status.getReconciliationStatus().markReconciledSpecAsStable();
+```
+
+### ConstantValue
+Condition `reconciliationState != ReconciliationState.ROLLED_BACK` is always `true`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/ReconciliationUtils.java`
+#### Snippet
+```java
+        var reconciliationStatus = deployment.getStatus().getReconciliationStatus();
+        var reconciliationState = reconciliationStatus.getState();
+        if (reconciliationState != ReconciliationState.ROLLED_BACK) {
+            return reconciliationStatus.deserializeLastReconciledSpec();
+        } else {
+```
+
+### ConstantValue
+Value `reconciliationState` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/ReconciliationUtils.java`
+#### Snippet
+```java
+        var reconciliationStatus = deployment.getStatus().getReconciliationStatus();
+        var reconciliationState = reconciliationStatus.getState();
+        if (reconciliationState != ReconciliationState.ROLLED_BACK) {
+            return reconciliationStatus.deserializeLastReconciledSpec();
+        } else {
+```
+
+### ConstantValue
+Condition `lastJobSpec != null` is always `false`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/ReconciliationUtils.java`
+#### Snippet
+```java
+        var lastSpecWithMeta = reconciliationStatus.deserializeLastReconciledSpecWithMeta();
+        var lastJobSpec = lastSpecWithMeta.getSpec().getJob();
+        if (lastJobSpec != null) {
+            lastJobSpec.setState(JobState.RUNNING);
+        }
+```
+
+### ConstantValue
+Condition `deploymentName != null` is always `false`
+in `flink-kubernetes-webhook/src/main/java/org/apache/flink/kubernetes/operator/admission/mutator/FlinkMutator.java`
+#### Snippet
+```java
+        }
+        var deploymentName = flinkSessionJob.getSpec().getDeploymentName();
+        if (deploymentName != null
+                && !deploymentName.equals(labels.get(CrdConstants.LABEL_TARGET_SESSION))) {
+            labels.put(
+```
+
+### ConstantValue
+Condition `deploymentName != null && !deploymentName.equals(labels.get(CrdConstants.LABEL_TARGE...` is always `false`
+in `flink-kubernetes-webhook/src/main/java/org/apache/flink/kubernetes/operator/admission/mutator/FlinkMutator.java`
+#### Snippet
+```java
+        }
+        var deploymentName = flinkSessionJob.getSpec().getDeploymentName();
+        if (deploymentName != null
+                && !deploymentName.equals(labels.get(CrdConstants.LABEL_TARGET_SESSION))) {
+            labels.put(
+                    CrdConstants.LABEL_TARGET_SESSION,
+```
+
+### ConstantValue
+Value `millis` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/config/FlinkConfigManager.java`
+#### Snippet
+```java
+        var millis = checkInterval.toMillis();
+        executorService.scheduleAtFixedRate(
+                new ConfigUpdater(), millis, millis, TimeUnit.MILLISECONDS);
+        LOG.info("Enabled dynamic config updates, checking config changes every {}", checkInterval);
+    }
+```
+
+### ConstantValue
+Value `millis` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/config/FlinkConfigManager.java`
+#### Snippet
+```java
+        var millis = checkInterval.toMillis();
+        executorService.scheduleAtFixedRate(
+                new ConfigUpdater(), millis, millis, TimeUnit.MILLISECONDS);
+        LOG.info("Enabled dynamic config updates, checking config changes every {}", checkInterval);
+    }
+```
+
+### ConstantValue
+Condition `!oldNs.equals(newNs)` is always `true` when reached
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/config/FlinkConfigManager.java`
+#### Snippet
+```java
+        this.operatorConfiguration = FlinkOperatorConfiguration.fromConfiguration(newConf);
+        var newNs = this.operatorConfiguration.getWatchedNamespaces();
+        if (this.operatorConfiguration.isDynamicNamespacesEnabled() && !oldNs.equals(newNs)) {
+            this.namespaceListener.accept(operatorConfiguration.getWatchedNamespaces());
+        }
+```
+
+### ConstantValue
+Value `newNs` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/config/FlinkConfigManager.java`
+#### Snippet
+```java
+        this.operatorConfiguration = FlinkOperatorConfiguration.fromConfiguration(newConf);
+        var newNs = this.operatorConfiguration.getWatchedNamespaces();
+        if (this.operatorConfiguration.isDynamicNamespacesEnabled() && !oldNs.equals(newNs)) {
+            this.namespaceListener.accept(operatorConfiguration.getWatchedNamespaces());
+        }
+```
+
+### ConstantValue
+Value `key` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/config/FlinkConfigManager.java`
+#### Snippet
+```java
+
+        // Always return a copy of the configuration to avoid polluting the cache
+        return cache.get(key).clone();
+    }
+
+```
+
+### ConstantValue
+Condition `sessionJobFlinkConfiguration != null` is always `false`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/config/FlinkConfigManager.java`
+#### Snippet
+```java
+        // merge session job specific config
+        var sessionJobFlinkConfiguration = sessionJobSpec.getFlinkConfiguration();
+        if (sessionJobFlinkConfiguration != null) {
+            sessionJobFlinkConfiguration.forEach(sessionJobConfig::setString);
+        }
+```
+
+### ConstantValue
+Value `haConfigMapLabels` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/FlinkUtils.java`
+#### Snippet
+```java
+                        .configMaps()
+                        .inNamespace(namespace)
+                        .withLabels(haConfigMapLabels)
+                        .list()
+                        .getItems();
+```
+
+### ConstantValue
+Value `tmTotalCpu` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/FlinkUtils.java`
+#### Snippet
+```java
+                        * taskManagerReplicas;
+
+        return tmTotalCpu + jmTotalCpu;
+    }
+
+```
+
+### ConstantValue
+Value `jmTotalCpu` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/FlinkUtils.java`
+#### Snippet
+```java
+                        * taskManagerReplicas;
+
+        return tmTotalCpu + jmTotalCpu;
+    }
+
+```
+
+### ConstantValue
+Value `mergeArraysByName` is always 'true'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/FlinkUtils.java`
+#### Snippet
+```java
+                                            return fromElement;
+                                        }
+                                        mergeInto(toElement, fromElement, mergeArraysByName);
+                                        return toElement;
+                                    }));
+```
+
+### ConstantValue
+Value `clusterSpec` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/FlinkUtils.java`
+#### Snippet
+```java
+        var clusterSpec = new KubernetesClusterClientFactory().getClusterSpecification(conf);
+
+        var jmParameters = new KubernetesJobManagerParameters(conf, clusterSpec);
+        var jmTotalMemory =
+                Math.round(
+```
+
+### ConstantValue
+Value `tmTotalMemory` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/FlinkUtils.java`
+#### Snippet
+```java
+                                * taskManagerReplicas);
+
+        return tmTotalMemory + jmTotalMemory;
+    }
+
+```
+
+### ConstantValue
+Value `jmTotalMemory` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/utils/FlinkUtils.java`
+#### Snippet
+```java
+                                * taskManagerReplicas);
+
+        return tmTotalMemory + jmTotalMemory;
+    }
+
+```
+
+### ConstantValue
+Value `group` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/metrics/OperatorJosdkMetrics.java`
+#### Snippet
+```java
+                        group = group.addGroup(mg);
+                    }
+                    var finalGroup = group;
+                    return finalGroup.histogram(
+                            "TimeSeconds",
+```
+
+### ConstantValue
 Value `flinkVersion` is always 'null'
 in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/metrics/FlinkDeploymentMetrics.java`
 #### Snippet
@@ -3607,195 +3306,508 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
 ```
 
 ### ConstantValue
-Value `jobStatus` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractJobReconciler.java`
-#### Snippet
-```java
-        var jobStatus =
-                org.apache.flink.api.common.JobStatus.valueOf(status.getJobStatus().getState());
-        if (jobStatus == org.apache.flink.api.common.JobStatus.FAILED
-                && ctx.getObserveConfig().getBoolean(OPERATOR_JOB_RESTART_FAILED)) {
-            LOG.info("Stopping failed Flink job...");
-```
-
-### ConstantValue
-Condition `upgradeMode == UpgradeMode.STATELESS` is always `false`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractJobReconciler.java`
-#### Snippet
-```java
-        var upgradeMode = resource.getSpec().getJob().getUpgradeMode();
-
-        if (upgradeMode == UpgradeMode.STATELESS) {
-            LOG.info("Stateless job, ready for upgrade");
-            return AvailableUpgradeMode.of(UpgradeMode.STATELESS);
-```
-
-### ConstantValue
-Value `upgradeMode` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractJobReconciler.java`
-#### Snippet
-```java
-        var upgradeMode = resource.getSpec().getJob().getUpgradeMode();
-
-        if (upgradeMode == UpgradeMode.STATELESS) {
-            LOG.info("Stateless job, ready for upgrade");
-            return AvailableUpgradeMode.of(UpgradeMode.STATELESS);
-```
-
-### ConstantValue
-Value `status` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractJobReconciler.java`
-#### Snippet
-```java
-
-        var flinkService = ctx.getFlinkService();
-        if (ReconciliationUtils.isJobInTerminalState(status)
-                && !flinkService.isHaMetadataAvailable(ctx.getObserveConfig())) {
-            LOG.info(
-```
-
-### ConstantValue
-Value `upgradeMode` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractJobReconciler.java`
-#### Snippet
-```java
-
-        if (ReconciliationUtils.isJobRunning(status)) {
-            LOG.info("Job is in running state, ready for upgrade with {}", upgradeMode);
-            var changedToLastStateWithoutHa =
-                    ReconciliationUtils.isUpgradeModeChangedToLastStateAndHADisabledPreviously(
-```
-
-### ConstantValue
-Condition `upgradeMode == UpgradeMode.LAST_STATE` is always `false`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractJobReconciler.java`
-#### Snippet
-```java
-            }
-
-            if (upgradeMode == UpgradeMode.LAST_STATE) {
-                return changeLastStateIfCheckpointTooOld(ctx, deployConfig);
-            }
-```
-
-### ConstantValue
-Value `upgradeMode` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractJobReconciler.java`
-#### Snippet
-```java
-            }
-
-            if (upgradeMode == UpgradeMode.LAST_STATE) {
-                return changeLastStateIfCheckpointTooOld(ctx, deployConfig);
-            }
-```
-
-### ConstantValue
-Condition `maxAge == null` is always `true`
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/AbstractJobReconciler.java`
-#### Snippet
-```java
-
-        var maxAge = deployConfig.get(OPERATOR_JOB_UPGRADE_LAST_STATE_CHECKPOINT_MAX_AGE);
-        if (maxAge == null) {
-            return AvailableUpgradeMode.of(UpgradeMode.LAST_STATE);
-        }
-```
-
-### ConstantValue
-Value `group` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/metrics/OperatorJosdkMetrics.java`
-#### Snippet
-```java
-                        group = group.addGroup(mg);
-                    }
-                    var finalGroup = group;
-                    return finalGroup.histogram(
-                            "TimeSeconds",
-```
-
-### ConstantValue
-Value `ttl` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/ApplicationReconciler.java`
-#### Snippet
-```java
-                                                    Long.parseLong(
-                                                            status.getJobStatus().getUpdateTime()))
-                                            .plus(ttl));
-            if (ttlPassed) {
-                LOG.info("Removing JobManager deployment for terminal application.");
-```
-
-### ConstantValue
-Value `deployment` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/ApplicationReconciler.java`
-#### Snippet
-```java
-        var observeConfig = ctx.getObserveConfig();
-        boolean shouldRestartJobBecauseUnhealthy =
-                shouldRestartJobBecauseUnhealthy(deployment, observeConfig);
-        boolean shouldRecoverDeployment = shouldRecoverDeployment(observeConfig, deployment);
-        if (shouldRestartJobBecauseUnhealthy || shouldRecoverDeployment) {
-```
-
-### ConstantValue
-Value `deployment` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/ApplicationReconciler.java`
-#### Snippet
-```java
-        boolean shouldRestartJobBecauseUnhealthy =
-                shouldRestartJobBecauseUnhealthy(deployment, observeConfig);
-        boolean shouldRecoverDeployment = shouldRecoverDeployment(observeConfig, deployment);
-        if (shouldRestartJobBecauseUnhealthy || shouldRecoverDeployment) {
-            if (shouldRecoverDeployment) {
-```
-
-### ConstantValue
-Value `deployment` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/ApplicationReconciler.java`
-#### Snippet
-```java
-            if (shouldRecoverDeployment) {
-                eventRecorder.triggerEvent(
-                        deployment,
-                        EventRecorder.Type.Warning,
-                        EventRecorder.Reason.RecoverDeployment,
-```
-
-### ConstantValue
-Value `deployment` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/ApplicationReconciler.java`
-#### Snippet
-```java
-            if (shouldRestartJobBecauseUnhealthy) {
-                eventRecorder.triggerEvent(
-                        deployment,
-                        EventRecorder.Type.Warning,
-                        EventRecorder.Reason.RestartUnhealthyJob,
-```
-
-### ConstantValue
-Value `deployment` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/ApplicationReconciler.java`
+Value `script` is always 'null'
+in `examples/flink-sql-runner-example/src/main/java/org/apache/flink/examples/SqlRunner.java`
 #### Snippet
 ```java
         }
+        var script = FileUtils.readFileUtf8(new File(args[0]));
+        var statements = parseStatements(script);
 
-        return cleanupTerminalJmAfterTtl(ctx.getFlinkService(), deployment, observeConfig);
+        var tableEnv = TableEnvironment.create(new Configuration());
+```
+
+### ConstantValue
+Value `watchNamespaces` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/FlinkOperator.java`
+#### Snippet
+```java
+        var operatorConf = configManager.getOperatorConfiguration();
+        var watchNamespaces = operatorConf.getWatchedNamespaces();
+        LOG.info("Configuring operator to watch the following namespaces: {}.", watchNamespaces);
+        overrider.settingNamespaces(operatorConf.getWatchedNamespaces());
+
+```
+
+### ConstantValue
+Value `labelSelector` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/FlinkOperator.java`
+#### Snippet
+```java
+        LOG.info(
+                "Configuring operator to select custom resources with the {} labels.",
+                labelSelector);
+        overrider.withLabelSelector(labelSelector);
+    }
+```
+
+### ConstantValue
+Value `labelSelector` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/FlinkOperator.java`
+#### Snippet
+```java
+                "Configuring operator to select custom resources with the {} labels.",
+                labelSelector);
+        overrider.withLabelSelector(labelSelector);
     }
 
 ```
 
 ### ConstantValue
-Value `clusterInfo` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/ApplicationReconciler.java`
+Condition `leaderElectionConf != null` is always `false`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/FlinkOperator.java`
 #### Snippet
 ```java
-            var clusterInfo = deployment.getStatus().getClusterInfo();
-            ClusterHealthInfo clusterHealthInfo =
-                    ClusterHealthEvaluator.getLastValidClusterHealthInfo(clusterInfo);
-            if (clusterHealthInfo != null) {
-                LOG.debug("Cluster info contains job health info");
+
+        var leaderElectionConf = operatorConf.getLeaderElectionConfiguration();
+        if (leaderElectionConf != null) {
+            overrider.withLeaderElectionConfiguration(leaderElectionConf);
+            LOG.info("Operator leader election is enabled.");
+```
+
+### ConstantValue
+Value `err` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/SavepointObserver.java`
+#### Snippet
+```java
+                LOG.error(
+                        "Savepoint attempt failed after grace period. Won't be retried again: "
+                                + err);
+                ReconciliationUtils.updateLastReconciledSavepointTriggerNonce(
+                        savepointInfo, (AbstractFlinkResource) resource);
+```
+
+### ConstantValue
+Value `err` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/SavepointObserver.java`
+#### Snippet
+```java
+                        savepointInfo, (AbstractFlinkResource) resource);
+            } else {
+                LOG.warn("Savepoint failed within grace period, retrying: " + err);
+            }
+            eventRecorder.triggerEvent(
+```
+
+### ConstantValue
+Value `jobId` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/SavepointObserver.java`
+#### Snippet
+```java
+        // If any manual or periodic savepoint is in progress, observe it
+        if (SavepointUtils.savepointInProgress(jobStatus)) {
+            observeTriggeredSavepoint(ctx, jobId);
+        }
+
+```
+
+### ConstantValue
+Value `savepointInfo` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/SavepointObserver.java`
+#### Snippet
+```java
+        if (ReconciliationUtils.isJobInTerminalState(resource.getStatus())) {
+            observeLatestSavepoint(
+                    ctx.getFlinkService(), savepointInfo, jobId, ctx.getObserveConfig());
+        }
+
+```
+
+### ConstantValue
+Value `jobId` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/SavepointObserver.java`
+#### Snippet
+```java
+        if (ReconciliationUtils.isJobInTerminalState(resource.getStatus())) {
+            observeLatestSavepoint(
+                    ctx.getFlinkService(), savepointInfo, jobId, ctx.getObserveConfig());
+        }
+
+```
+
+### ConstantValue
+Value `savepointInfo` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/SavepointObserver.java`
+#### Snippet
+```java
+        }
+
+        cleanupSavepointHistory(ctx.getFlinkService(), savepointInfo, ctx.getObserveConfig());
+    }
+
+```
+
+### ConstantValue
+Value `client` is always 'null'
+in `flink-kubernetes-standalone/src/main/java/org/apache/flink/kubernetes/operator/kubeclient/Fabric8FlinkStandaloneKubeClient.java`
+#### Snippet
+```java
+                new DefaultKubernetesClient()
+                        .inNamespace(conf.get(KubernetesConfigOptions.NAMESPACE));
+        return new Fabric8FlinkStandaloneKubeClient(conf, client, executorService);
+    }
+}
+```
+
+### ConstantValue
+Condition `leftField != null` is always `false`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/diff/ReflectiveDiffBuilder.java`
+#### Snippet
+```java
+                                configDiff(
+                                        field,
+                                        (leftField != null)
+                                                ? (Map<String, String>) leftField
+                                                : new HashMap<>(),
+```
+
+### ConstantValue
+Condition `rightField != null` is always `false`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/diff/ReflectiveDiffBuilder.java`
+#### Snippet
+```java
+                                                ? (Map<String, String>) leftField
+                                                : new HashMap<>(),
+                                        (rightField != null)
+                                                ? (Map<String, String>) rightField
+                                                : new HashMap<>()));
+```
+
+### ConstantValue
+Value `leftField` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/diff/ReflectiveDiffBuilder.java`
+#### Snippet
+```java
+                        var annotation = field.getAnnotation(SpecDiff.class);
+                        diffBuilder.append(
+                                field.getName(), leftField, rightField, annotation.value());
+                    } else if (Diffable.class.isAssignableFrom(field.getType())
+                            && ObjectUtils.allNotNull(leftField, rightField)) {
+```
+
+### ConstantValue
+Value `rightField` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/diff/ReflectiveDiffBuilder.java`
+#### Snippet
+```java
+                        var annotation = field.getAnnotation(SpecDiff.class);
+                        diffBuilder.append(
+                                field.getName(), leftField, rightField, annotation.value());
+                    } else if (Diffable.class.isAssignableFrom(field.getType())
+                            && ObjectUtils.allNotNull(leftField, rightField)) {
+```
+
+### ConstantValue
+Value `leftField` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/diff/ReflectiveDiffBuilder.java`
+#### Snippet
+```java
+                                field.getName(), leftField, rightField, annotation.value());
+                    } else if (Diffable.class.isAssignableFrom(field.getType())
+                            && ObjectUtils.allNotNull(leftField, rightField)) {
+
+                        diffBuilder.append(
+```
+
+### ConstantValue
+Condition `cause instanceof FlinkJobTerminatedWithoutCancellationException` is always `false`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/sessionjob/SessionJobReconciler.java`
+#### Snippet
+```java
+                    }
+
+                    if (cause instanceof FlinkJobTerminatedWithoutCancellationException) {
+                        LOG.error("Job {} already terminated without cancellation.", jobID, e);
+                        return DeleteControl.defaultDelete();
+```
+
+### ConstantValue
+Value `rightField` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/diff/ReflectiveDiffBuilder.java`
+#### Snippet
+```java
+                                field.getName(), leftField, rightField, annotation.value());
+                    } else if (Diffable.class.isAssignableFrom(field.getType())
+                            && ObjectUtils.allNotNull(leftField, rightField)) {
+
+                        diffBuilder.append(
+```
+
+### ConstantValue
+Value `leftField` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/diff/ReflectiveDiffBuilder.java`
+#### Snippet
+```java
+                        diffBuilder.append(
+                                field.getName(),
+                                new ReflectiveDiffBuilder<T>((T) leftField, (T) rightField)
+                                        .build());
+
+```
+
+### ConstantValue
+Value `rightField` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/diff/ReflectiveDiffBuilder.java`
+#### Snippet
+```java
+                        diffBuilder.append(
+                                field.getName(),
+                                new ReflectiveDiffBuilder<T>((T) leftField, (T) rightField)
+                                        .build());
+
+```
+
+### ConstantValue
+Value `cause` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/sessionjob/SessionJobReconciler.java`
+#### Snippet
+```java
+                    }
+
+                    if (cause instanceof FlinkJobTerminatedWithoutCancellationException) {
+                        LOG.error("Job {} already terminated without cancellation.", jobID, e);
+                        return DeleteControl.defaultDelete();
+```
+
+### ConstantValue
+Condition `jobmanagerDeploymentStatus != JobManagerDeploymentStatus.READY` is always `true`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/sessionjob/SessionJobReconciler.java`
+#### Snippet
+```java
+            var flinkdep = flinkDeploymentOpt.get();
+            var jobmanagerDeploymentStatus = flinkdep.getStatus().getJobManagerDeploymentStatus();
+            if (jobmanagerDeploymentStatus != JobManagerDeploymentStatus.READY) {
+                LOG.info(
+                        "Session cluster deployment is in {} status, not ready for serve",
+```
+
+### ConstantValue
+Value `jobmanagerDeploymentStatus` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/sessionjob/SessionJobReconciler.java`
+#### Snippet
+```java
+            var flinkdep = flinkDeploymentOpt.get();
+            var jobmanagerDeploymentStatus = flinkdep.getStatus().getJobManagerDeploymentStatus();
+            if (jobmanagerDeploymentStatus != JobManagerDeploymentStatus.READY) {
+                LOG.info(
+                        "Session cluster deployment is in {} status, not ready for serve",
+```
+
+### ConstantValue
+Value `jobmanagerDeploymentStatus` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/sessionjob/SessionJobReconciler.java`
+#### Snippet
+```java
+                LOG.info(
+                        "Session cluster deployment is in {} status, not ready for serve",
+                        jobmanagerDeploymentStatus);
+                return false;
+            } else {
+```
+
+### ConstantValue
+Value `busyTimeMsPerSecond` is always 'null'
+in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/metrics/ScalingMetrics.java`
+#### Snippet
+```java
+        var busyTimeMsPerSecond =
+                busyTimeAggregator.get(flinkMetrics.get(FlinkMetric.BUSY_TIME_PER_SEC));
+        if (!Double.isFinite(busyTimeMsPerSecond)) {
+            LOG.error(
+                    "No busyTimeMsPerSecond metric available for {}. No scaling will be performed for this vertex.",
+```
+
+### ConstantValue
+Value `busyTimeMsPerSecond` is always 'null'
+in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/metrics/ScalingMetrics.java`
+#### Snippet
+```java
+            busyTimeMsPerSecond = conf.get(AutoScalerOptions.TARGET_UTILIZATION) * 1000;
+        }
+        return busyTimeMsPerSecond;
+    }
+
+```
+
+### ConstantValue
+Condition `currentJobState == null` is always `true`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/AbstractFlinkService.java`
+#### Snippet
+```java
+        status.setJobManagerDeploymentStatus(JobManagerDeploymentStatus.MISSING);
+        var currentJobState = status.getJobStatus().getState();
+        if (currentJobState == null
+                || !JobStatus.valueOf(currentJobState).isGloballyTerminalState()) {
+            status.getJobStatus().setState(JobStatus.FINISHED.name());
+```
+
+### ConstantValue
+Condition `currentJobState == null || !JobStatus.valueOf(currentJobState).isGloballyTerminalSta...` is always `true`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/AbstractFlinkService.java`
+#### Snippet
+```java
+        status.setJobManagerDeploymentStatus(JobManagerDeploymentStatus.MISSING);
+        var currentJobState = status.getJobStatus().getState();
+        if (currentJobState == null
+                || !JobStatus.valueOf(currentJobState).isGloballyTerminalState()) {
+            status.getJobStatus().setState(JobStatus.FINISHED.name());
+        }
+```
+
+### ConstantValue
+Value `deletionPropagation` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/AbstractFlinkService.java`
+#### Snippet
+```java
+
+        var deletionPropagation = configManager.getOperatorConfiguration().getDeletionPropagation();
+        LOG.info("Deleting cluster with {} propagation", deletionPropagation);
+        deleteClusterInternal(meta, conf, deleteHaData, deletionPropagation);
+        updateStatusAfterClusterDeletion(status);
+```
+
+### ConstantValue
+Value `deletionPropagation` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/AbstractFlinkService.java`
+#### Snippet
+```java
+        var deletionPropagation = configManager.getOperatorConfiguration().getDeletionPropagation();
+        LOG.info("Deleting cluster with {} propagation", deletionPropagation);
+        deleteClusterInternal(meta, conf, deleteHaData, deletionPropagation);
+        updateStatusAfterClusterDeletion(status);
+    }
+```
+
+### ConstantValue
+Value `jobIdString` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/AbstractFlinkService.java`
+#### Snippet
+```java
+        var jobStatus = sessionJobStatus.getJobStatus();
+        var jobIdString = jobStatus.getJobId();
+        Preconditions.checkNotNull(jobIdString, "The job to be suspend should not be null");
+        var jobId = JobID.fromHexString(jobIdString);
+        Optional<String> savepointOpt = Optional.empty();
+```
+
+### ConstantValue
+Value `jobIdString` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/AbstractFlinkService.java`
+#### Snippet
+```java
+        var jobIdString = jobStatus.getJobId();
+        Preconditions.checkNotNull(jobIdString, "The job to be suspend should not be null");
+        var jobId = JobID.fromHexString(jobIdString);
+        Optional<String> savepointOpt = Optional.empty();
+
+```
+
+### ConstantValue
+Value `jobId` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/AbstractFlinkService.java`
+#### Snippet
+```java
+                        LOG.info("Cancelling job.");
+                        clusterClient
+                                .cancel(jobId)
+                                .get(
+                                        configManager
+```
+
+### ConstantValue
+Value `jobId` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/AbstractFlinkService.java`
+#### Snippet
+```java
+                                        clusterClient
+                                                .stopWithSavepoint(
+                                                        jobId,
+                                                        false,
+                                                        savepointDirectory,
+```
+
+### ConstantValue
+Value `savepointDirectory` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/AbstractFlinkService.java`
+#### Snippet
+```java
+                                    savepointTriggerMessageParameters,
+                                    new SavepointTriggerRequestBody(
+                                            savepointDirectory,
+                                            false,
+                                            conf.get(FLINK_VERSION)
+```
+
+### ConstantValue
+Value `timeout` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/AbstractFlinkService.java`
+#### Snippet
+```java
+                                                    : null,
+                                            null))
+                            .get(timeout, TimeUnit.SECONDS);
+            LOG.info("Savepoint successfully triggered: " + response.getTriggerId().toHexString());
+
+```
+
+### ConstantValue
+Value `taskManagerReplicas` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/AbstractFlinkService.java`
+#### Snippet
+```java
+        clusterInfo.put(
+                FIELD_NAME_TOTAL_CPU,
+                String.valueOf(FlinkUtils.calculateClusterCpuUsage(conf, taskManagerReplicas)));
+        clusterInfo.put(
+                FIELD_NAME_TOTAL_MEMORY,
+```
+
+### ConstantValue
+Value `taskManagerReplicas` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/AbstractFlinkService.java`
+#### Snippet
+```java
+        clusterInfo.put(
+                FIELD_NAME_TOTAL_MEMORY,
+                String.valueOf(FlinkUtils.calculateClusterMemoryUsage(conf, taskManagerReplicas)));
+
+        return clusterInfo;
+```
+
+### ConstantValue
+Condition `jobIdString != null` is always `false`
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/AbstractFlinkService.java`
+#### Snippet
+```java
+        var deploymentStatus = deployment.getStatus();
+        var jobIdString = deploymentStatus.getJobStatus().getJobId();
+        var jobId = jobIdString != null ? JobID.fromHexString(jobIdString) : null;
+
+        Optional<String> savepointOpt = Optional.empty();
+```
+
+### ConstantValue
+Value `jobId` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/AbstractFlinkService.java`
+#### Snippet
+```java
+                        try {
+                            clusterClient
+                                    .cancel(Preconditions.checkNotNull(jobId))
+                                    .get(
+                                            configManager
+```
+
+### ConstantValue
+Value `jobId` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/AbstractFlinkService.java`
+#### Snippet
+```java
+                                    clusterClient
+                                            .stopWithSavepoint(
+                                                    Preconditions.checkNotNull(jobId),
+                                                    false,
+                                                    savepointDirectory,
 ```
 
 ### ConstantValue
@@ -3898,111 +3910,123 @@ in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator
 ```
 
 ### ConstantValue
-Value `inputStream` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/artifact/FileSystemBasedArtifactFetcher.java`
+Value `ttl` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/ApplicationReconciler.java`
 #### Snippet
 ```java
-        File targetFile = new File(targetDir, fileName);
-        try (var inputStream = fileSystem.open(source)) {
-            FileUtils.copyToFile(inputStream, targetFile);
+                                                    Long.parseLong(
+                                                            status.getJobStatus().getUpdateTime()))
+                                            .plus(ttl));
+            if (ttlPassed) {
+                LOG.info("Removing JobManager deployment for terminal application.");
+```
+
+### ConstantValue
+Value `deployment` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/ApplicationReconciler.java`
+#### Snippet
+```java
+        var observeConfig = ctx.getObserveConfig();
+        boolean shouldRestartJobBecauseUnhealthy =
+                shouldRestartJobBecauseUnhealthy(deployment, observeConfig);
+        boolean shouldRecoverDeployment = shouldRecoverDeployment(observeConfig, deployment);
+        if (shouldRestartJobBecauseUnhealthy || shouldRecoverDeployment) {
+```
+
+### ConstantValue
+Value `deployment` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/ApplicationReconciler.java`
+#### Snippet
+```java
+        boolean shouldRestartJobBecauseUnhealthy =
+                shouldRestartJobBecauseUnhealthy(deployment, observeConfig);
+        boolean shouldRecoverDeployment = shouldRecoverDeployment(observeConfig, deployment);
+        if (shouldRestartJobBecauseUnhealthy || shouldRecoverDeployment) {
+            if (shouldRecoverDeployment) {
+```
+
+### ConstantValue
+Value `deployment` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/ApplicationReconciler.java`
+#### Snippet
+```java
+            if (shouldRecoverDeployment) {
+                eventRecorder.triggerEvent(
+                        deployment,
+                        EventRecorder.Type.Warning,
+                        EventRecorder.Reason.RecoverDeployment,
+```
+
+### ConstantValue
+Value `deployment` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/ApplicationReconciler.java`
+#### Snippet
+```java
+            if (shouldRestartJobBecauseUnhealthy) {
+                eventRecorder.triggerEvent(
+                        deployment,
+                        EventRecorder.Type.Warning,
+                        EventRecorder.Reason.RestartUnhealthyJob,
+```
+
+### ConstantValue
+Value `deployment` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/ApplicationReconciler.java`
+#### Snippet
+```java
         }
-        LOG.debug(
+
+        return cleanupTerminalJmAfterTtl(ctx.getFlinkService(), deployment, observeConfig);
+    }
+
 ```
 
 ### ConstantValue
-Value `desiredReplicas` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/StandaloneFlinkService.java`
+Value `clusterInfo` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/reconciler/deployment/ApplicationReconciler.java`
 #### Snippet
 ```java
-        var desiredReplicas =
-                conf.get(StandaloneKubernetesConfigOptionsInternal.KUBERNETES_TASKMANAGER_REPLICAS);
-        if (actualReplicas != desiredReplicas) {
-            LOG.info(
-                    "Scaling TM replicas: actual({}) -> desired({})",
+            var clusterInfo = deployment.getStatus().getClusterInfo();
+            ClusterHealthInfo clusterHealthInfo =
+                    ClusterHealthEvaluator.getLastValidClusterHealthInfo(clusterInfo);
+            if (clusterHealthInfo != null) {
+                LOG.debug("Cluster info contains job health info");
 ```
 
 ### ConstantValue
-Value `desiredReplicas` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/StandaloneFlinkService.java`
+Value `jobId` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/sessionjob/FlinkSessionJobObserver.java`
 #### Snippet
 ```java
-                    "Scaling TM replicas: actual({}) -> desired({})",
-                    actualReplicas,
-                    desiredReplicas);
-            deployment.scale(desiredReplicas);
-        } else {
+            var matchedList =
+                    clusterJobStatuses.stream()
+                            .filter(job -> job.getJobId().toHexString().equals(jobId))
+                            .collect(Collectors.toList());
+            Preconditions.checkArgument(
 ```
 
 ### ConstantValue
-Value `desiredReplicas` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/StandaloneFlinkService.java`
+Value `jobId` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/sessionjob/FlinkSessionJobObserver.java`
 #### Snippet
 ```java
-                    actualReplicas,
-                    desiredReplicas);
-            deployment.scale(desiredReplicas);
-        } else {
-            LOG.info(
+
+            if (matchedList.size() == 0) {
+                LOG.warn("No job found for JobID: {}", jobId);
+                return Optional.empty();
+            } else {
 ```
 
 ### ConstantValue
-Value `actualReplicas` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/StandaloneFlinkService.java`
+Value `oldJobID` is always 'null'
+in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/observer/sessionjob/FlinkSessionJobObserver.java`
 #### Snippet
 ```java
-            LOG.info(
-                    "Not scaling TM replicas: actual({}) == desired({})",
-                    actualReplicas,
-                    desiredReplicas);
-        }
-```
-
-### ConstantValue
-Value `desiredReplicas` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/service/StandaloneFlinkService.java`
-#### Snippet
-```java
-                    "Not scaling TM replicas: actual({}) == desired({})",
-                    actualReplicas,
-                    desiredReplicas);
-        }
-        return true;
-```
-
-### ConstantValue
-Value `session` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/controller/FlinkSessionJobContext.java`
-#### Snippet
-```java
-        var session = getJosdkContext().getSecondaryResource(FlinkDeployment.class);
-
-        if (sessionClusterReady(session)) {
-            return configManager.getSessionJobConfig(session.get(), (FlinkSessionJobSpec) spec);
-        }
-```
-
-### ConstantValue
-Value `session` is always 'null'
-in `flink-kubernetes-operator/src/main/java/org/apache/flink/kubernetes/operator/controller/FlinkSessionJobContext.java`
-#### Snippet
-```java
-        var session = getJosdkContext().getSecondaryResource(FlinkDeployment.class);
-        return flinkService =
-                sessionClusterReady(session)
-                        ? flinkResourceContextFactory
-                                .getResourceContext(session.get(), getJosdkContext())
-```
-
-### ConstantValue
-Condition `jobState != null` is always `false`
-in `flink-kubernetes-operator-api/src/main/java/org/apache/flink/kubernetes/operator/api/status/CommonStatus.java`
-#### Snippet
-```java
-
-        var jobState = getJobStatus().getState();
-        if (jobState != null
-                && org.apache.flink.api.common.JobStatus.valueOf(jobState)
-                        .equals(org.apache.flink.api.common.JobStatus.FAILED)) {
+                LOG.info(
+                        "Pending upgrade is already deployed, updating status. Old jobID:{}, new jobID:{}",
+                        oldJobID,
+                        matchedJobID.toHexString());
+                ReconciliationUtils.updateStatusForAlreadyUpgraded(flinkSessionJob);
 ```
 
 ### ConstantValue
@@ -4015,30 +4039,6 @@ in `flink-kubernetes-webhook/src/main/java/org/apache/flink/kubernetes/operator/
         var key = Cache.namespaceKeyFunc(namespace, deploymentName);
         var deployment = informerManager.getFlinkDepInformer(namespace).getStore().getByKey(key);
 
-```
-
-### ConstantValue
-Value `currentProcRate` is always 'null'
-in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/JobVertexScaler.java`
-#### Snippet
-```java
-        // below the threshold, we mark the scaling ineffective.
-        double expectedIncrease = lastExpectedProcRate - lastProcRate;
-        double actualIncrease = currentProcRate - lastProcRate;
-
-        boolean withinEffectiveThreshold =
-```
-
-### ConstantValue
-Value `gracePeriod` is always 'null'
-in `flink-kubernetes-operator-autoscaler/src/main/java/org/apache/flink/kubernetes/operator/autoscaler/JobVertexScaler.java`
-#### Snippet
-```java
-
-        var gracePeriod = conf.get(SCALE_UP_GRACE_PERIOD);
-        if (lastScalingTs.plus(gracePeriod).isAfter(clock.instant())) {
-            LOG.info(
-                    "Skipping immediate scale down after scale up within grace period for {}",
 ```
 
 ## RuleId[id=StringConcatenationInsideStringBufferAppend]
