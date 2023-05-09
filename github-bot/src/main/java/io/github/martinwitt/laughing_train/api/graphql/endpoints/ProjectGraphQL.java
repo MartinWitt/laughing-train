@@ -6,10 +6,10 @@ import io.github.martinwitt.laughing_train.api.graphql.dto.ProjectConfigGraphQLD
 import io.github.martinwitt.laughing_train.api.graphql.dto.ProjectGraphQLDto;
 import io.github.martinwitt.laughing_train.domain.entity.Project;
 import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
+import io.github.martinwitt.laughing_train.mining.PeriodicMiner;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectConfigRepository;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.github.martinwitt.laughing_train.services.ProjectConfigService;
-import io.github.martinwitt.laughing_train.services.ServiceAddresses;
 import io.quarkus.security.Authenticated;
 import io.vertx.core.Vertx;
 import jakarta.enterprise.context.RequestScoped;
@@ -38,6 +38,9 @@ public class ProjectGraphQL {
 
     @Inject
     ProjectConfigRepository projectConfigRepository;
+
+    @Inject
+    PeriodicMiner periodicMiner;
 
     @Query("getProjects")
     @Description("Gets all projects from the database")
@@ -71,13 +74,11 @@ public class ProjectGraphQL {
         if (!projectRepository.existsByProjectUrl(projectUrl)) {
             logger.atInfo().log("Project does not exist yet, creating it");
             Project project = new Project(projectUrl, projectName);
-            vertx.eventBus().publish(ServiceAddresses.REMINE_REQUEST, project);
+            periodicMiner.addToQueue(project);
             return mapToDto(projectRepository.create(project));
         } else {
-            vertx.eventBus()
-                    .publish(
-                            ServiceAddresses.REMINE_REQUEST,
-                            projectRepository.findByProjectUrl(projectUrl).get(0));
+            periodicMiner.addToQueue(
+                    projectRepository.findByProjectUrl(projectUrl).get(0));
 
             logger.atInfo().log("Project %s already exists", projectName);
             throw new RuntimeException("Project already exists");
