@@ -94,35 +94,11 @@ Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
 in `src/main/java/com/jetbrains/codegen/TeamCityGenerateRunnable.java`
 #### Snippet
 ```java
-            description = "sets specified system properties in the format of name=value,name=value (or multiple options, each with name=value)"
-    )
-    protected List<String> systemProperties = new ArrayList();
-    @Option(
-            name = {"-c", "--config"},
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
-in `src/main/java/com/jetbrains/codegen/TeamCityGenerateRunnable.java`
-#### Snippet
-```java
             description = "sets additional properties that can be referenced by the mustache templates in the format of name=value,name=value. You can also have multiple occurrences of this option."
     )
     protected List<String> additionalProperties = new ArrayList();
     @Option(
             name = {"--language-specific-primitives"},
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
-in `src/main/java/com/jetbrains/codegen/TeamCityGenerateRunnable.java`
-#### Snippet
-```java
-            description = "sets instantiation type mappings in the format of type=instantiatedType,type=instantiatedType.For example (in Java): array=ArrayList,map=HashMap. In other words array types will get instantiated as ArrayList in generated code. You can also have multiple occurrences of this option."
-    )
-    protected List<String> instantiationTypes = new ArrayList();
-    @Option(
-            name = {"--type-mappings"},
 ```
 
 ### UNCHECKED_WARNING
@@ -154,11 +130,35 @@ Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
 in `src/main/java/com/jetbrains/codegen/TeamCityGenerateRunnable.java`
 #### Snippet
 ```java
+            description = "sets instantiation type mappings in the format of type=instantiatedType,type=instantiatedType.For example (in Java): array=ArrayList,map=HashMap. In other words array types will get instantiated as ArrayList in generated code. You can also have multiple occurrences of this option."
+    )
+    protected List<String> instantiationTypes = new ArrayList();
+    @Option(
+            name = {"--type-mappings"},
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
+in `src/main/java/com/jetbrains/codegen/TeamCityGenerateRunnable.java`
+#### Snippet
+```java
             description = "specifies additional language specific primitive types in the format of type1,type2,type3,type3. For example: String,boolean,Boolean,Double. You can also have multiple occurrences of this option."
     )
     protected List<String> languageSpecificPrimitives = new ArrayList();
     @Option(
             name = {"--import-mappings"},
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
+in `src/main/java/com/jetbrains/codegen/TeamCityGenerateRunnable.java`
+#### Snippet
+```java
+            description = "sets specified system properties in the format of name=value,name=value (or multiple options, each with name=value)"
+    )
+    protected List<String> systemProperties = new ArrayList();
+    @Option(
+            name = {"-c", "--config"},
 ```
 
 ### UNCHECKED_WARNING
