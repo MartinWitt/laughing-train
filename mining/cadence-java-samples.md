@@ -8,8 +8,8 @@ I found 33 bad smells with 2 repairable:
 | DuplicatedCode | 3 | false |
 | ThrowablePrintedToSystemOut | 3 | false |
 | FieldMayBeFinal | 2 | false |
-| Deprecation | 2 | false |
 | UnnecessaryLocalVariable | 2 | true |
+| Deprecation | 2 | false |
 | DanglingJavadoc | 2 | false |
 | JavadocLinkAsPlainText | 2 | false |
 | UNCHECKED_WARNING | 1 | false |
@@ -280,31 +280,6 @@ in `src/main/java/com/uber/cadence/samples/hello/HelloConsistentQuery.java`
             .build();
 ```
 
-## RuleId[id=Deprecation]
-### Deprecation
-'com.uber.m3.tally.Buckets' is deprecated
-in `src/main/java/com/uber/cadence/samples/hello/HelloMetric.java`
-#### Snippet
-```java
-
-  @Override
-  public Histogram histogram(final String name, final Buckets buckets) {
-    String newName = fixName(name);
-    return scope.histogram(newName, buckets);
-```
-
-### Deprecation
-'createTempDir()' is deprecated
-in `src/main/java/com/uber/cadence/samples/fileprocessing/StoreActivitiesImpl.java`
-#### Snippet
-```java
-    try {
-      byte[] binary = Resources.toByteArray(url);
-      File destination = new File(Files.createTempDir(), "downloaded");
-      Files.write(binary, destination);
-      System.out.println(
-```
-
 ## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
 Local variable `newName` is redundant
@@ -328,6 +303,31 @@ in `src/main/java/com/uber/cadence/samples/hello/HelloDataConverter.java`
         Object[] result = new Object[valueTypes.length];
         return result;
       }
+```
+
+## RuleId[id=Deprecation]
+### Deprecation
+'com.uber.m3.tally.Buckets' is deprecated
+in `src/main/java/com/uber/cadence/samples/hello/HelloMetric.java`
+#### Snippet
+```java
+
+  @Override
+  public Histogram histogram(final String name, final Buckets buckets) {
+    String newName = fixName(name);
+    return scope.histogram(newName, buckets);
+```
+
+### Deprecation
+'createTempDir()' is deprecated
+in `src/main/java/com/uber/cadence/samples/fileprocessing/StoreActivitiesImpl.java`
+#### Snippet
+```java
+    try {
+      byte[] binary = Resources.toByteArray(url);
+      File destination = new File(Files.createTempDir(), "downloaded");
+      Files.write(binary, destination);
+      System.out.println(
 ```
 
 ## RuleId[id=BusyWait]
@@ -375,10 +375,10 @@ in `src/main/java/com/uber/cadence/samples/hello/HelloMetric.java`
 #### Snippet
 ```java
 /**
- * Hello World Cadence workflow that executes a single activity with emitting metrics to Prometheus.
- * Check http://localhost:9098/ to see the reported metrics for scaping. Requires a local instance
- * the Cadence service to be running.
+ * PrometheusScope will replace all "-"(dash) into "_"(underscore) so that it meets the requirement
+ * in https://prometheus.io/docs/concepts/data_model/
  */
+class PrometheusScope implements Scope {
 ```
 
 ### JavadocLinkAsPlainText
@@ -387,10 +387,10 @@ in `src/main/java/com/uber/cadence/samples/hello/HelloMetric.java`
 #### Snippet
 ```java
 /**
- * PrometheusScope will replace all "-"(dash) into "_"(underscore) so that it meets the requirement
- * in https://prometheus.io/docs/concepts/data_model/
+ * Hello World Cadence workflow that executes a single activity with emitting metrics to Prometheus.
+ * Check http://localhost:9098/ to see the reported metrics for scaping. Requires a local instance
+ * the Cadence service to be running.
  */
-class PrometheusScope implements Scope {
 ```
 
 ## RuleId[id=FieldCanBeLocal]
@@ -434,18 +434,6 @@ in `src/main/java/com/uber/cadence/samples/hello/HelloCron.java`
 
 ### ThrowablePrintedToSystemOut
 'Throwable' argument `e` to 'System.out.println()' call
-in `src/main/java/com/uber/cadence/samples/hello/HelloSearchAttributes.java`
-#### Snippet
-```java
-      System.out.printf("In workflow we get CustomKeywordField is: %s\n", keyword);
-    } catch (Exception e) {
-      System.out.println(e);
-    }
-
-```
-
-### ThrowablePrintedToSystemOut
-'Throwable' argument `e` to 'System.out.println()' call
 in `src/main/java/com/uber/cadence/samples/shadowing/ShadowTraffic.java`
 #### Snippet
 ```java
@@ -454,5 +442,17 @@ in `src/main/java/com/uber/cadence/samples/shadowing/ShadowTraffic.java`
             System.out.println(e);
             latch.countDown();
           }
+```
+
+### ThrowablePrintedToSystemOut
+'Throwable' argument `e` to 'System.out.println()' call
+in `src/main/java/com/uber/cadence/samples/hello/HelloSearchAttributes.java`
+#### Snippet
+```java
+      System.out.printf("In workflow we get CustomKeywordField is: %s\n", keyword);
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+
 ```
 
