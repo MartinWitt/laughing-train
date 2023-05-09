@@ -72,39 +72,27 @@ in `doxia-integration-tools/src/main/java/org/apache/maven/doxia/tools/SiteTool.
 ```
 
 ### JavadocReference
-Cannot resolve symbol `Artifact`
-in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/SiteRenderingContext.java`
+Cannot resolve symbol `PathTool`
+in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/DocumentRenderingContext.java`
 #### Snippet
 ```java
-     * <p>Setter for the field <code>skinJarFile</code>.</p>
      *
-     * @param skin an {@link Artifact} object.
+     * @return html output name
+     * @see PathTool#getRelativePath(String)
      */
-    public void setSkin(Artifact skin) {
+    public String getOutputName() {
 ```
 
 ### JavadocReference
-Cannot resolve symbol `Artifact`
-in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/SiteRenderingContext.java`
+Cannot resolve symbol `getRelativePath(String)`
+in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/DocumentRenderingContext.java`
 #### Snippet
 ```java
-     * <p>Getter for the field <code>skin</code>.</p>
      *
-     * @return a {@link Artifact} object.
+     * @return html output name
+     * @see PathTool#getRelativePath(String)
      */
-    public Artifact getSkin() {
-```
-
-### JavadocReference
-Cannot resolve symbol `org.apache.maven.doxia.site.SiteModel`
-in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/SiteRenderingContext.java`
-#### Snippet
-```java
-     * <p>Getter for the field <code>siteModel</code>.</p>
-     *
-     * @return a {@link org.apache.maven.doxia.site.SiteModel} object.
-     */
-    public SiteModel getSiteModel() {
+    public String getOutputName() {
 ```
 
 ### JavadocReference
@@ -144,6 +132,42 @@ in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/SiteRe
 ```
 
 ### JavadocReference
+Cannot resolve symbol `Artifact`
+in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/SiteRenderingContext.java`
+#### Snippet
+```java
+     * <p>Getter for the field <code>skin</code>.</p>
+     *
+     * @return a {@link Artifact} object.
+     */
+    public Artifact getSkin() {
+```
+
+### JavadocReference
+Cannot resolve symbol `Artifact`
+in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/SiteRenderingContext.java`
+#### Snippet
+```java
+     * <p>Setter for the field <code>skinJarFile</code>.</p>
+     *
+     * @param skin an {@link Artifact} object.
+     */
+    public void setSkin(Artifact skin) {
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.maven.doxia.site.SiteModel`
+in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/SiteRenderingContext.java`
+#### Snippet
+```java
+     * <p>Getter for the field <code>siteModel</code>.</p>
+     *
+     * @return a {@link org.apache.maven.doxia.site.SiteModel} object.
+     */
+    public SiteModel getSiteModel() {
+```
+
+### JavadocReference
 Cannot resolve symbol `ArtifactResolutionException`
 in `doxia-integration-tools/src/main/java/org/apache/maven/doxia/tools/DefaultSiteTool.java`
 #### Snippet
@@ -156,49 +180,25 @@ in `doxia-integration-tools/src/main/java/org/apache/maven/doxia/tools/DefaultSi
 ```
 
 ### JavadocReference
-Cannot resolve symbol `PathTool`
-in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/DocumentRenderingContext.java`
-#### Snippet
-```java
-     *
-     * @return html output name
-     * @see PathTool#getRelativePath(String)
-     */
-    public String getOutputName() {
-```
-
-### JavadocReference
-Cannot resolve symbol `getRelativePath(String)`
-in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/DocumentRenderingContext.java`
-#### Snippet
-```java
-     *
-     * @return html output name
-     * @see PathTool#getRelativePath(String)
-     */
-    public String getOutputName() {
-```
-
-### JavadocReference
 Cannot resolve symbol `org.apache.maven.doxia.module.xhtml5.Xhtml5Sink`
 in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/sink/SiteRendererSink.java`
 #### Snippet
 ```java
      *
      * Do nothing.
-     * @see org.apache.maven.doxia.module.xhtml5.Xhtml5Sink#body_()
+     * @see org.apache.maven.doxia.module.xhtml5.Xhtml5Sink#body()
      */
     @Override
 ```
 
 ### JavadocReference
-Cannot resolve symbol `body_()`
+Cannot resolve symbol `body()`
 in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/sink/SiteRendererSink.java`
 #### Snippet
 ```java
      *
      * Do nothing.
-     * @see org.apache.maven.doxia.module.xhtml5.Xhtml5Sink#body_()
+     * @see org.apache.maven.doxia.module.xhtml5.Xhtml5Sink#body()
      */
     @Override
 ```
@@ -234,19 +234,19 @@ in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/sink/S
 ```java
      *
      * Do nothing.
-     * @see org.apache.maven.doxia.module.xhtml5.Xhtml5Sink#body()
+     * @see org.apache.maven.doxia.module.xhtml5.Xhtml5Sink#body_()
      */
     @Override
 ```
 
 ### JavadocReference
-Cannot resolve symbol `body()`
+Cannot resolve symbol `body_()`
 in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/sink/SiteRendererSink.java`
 #### Snippet
 ```java
      *
      * Do nothing.
-     * @see org.apache.maven.doxia.module.xhtml5.Xhtml5Sink#body()
+     * @see org.apache.maven.doxia.module.xhtml5.Xhtml5Sink#body_()
      */
     @Override
 ```
@@ -294,18 +294,6 @@ Call to `toString()` is redundant
 in `doxia-integration-tools/src/main/java/org/apache/maven/doxia/tools/DefaultSiteTool.java`
 #### Snippet
 ```java
-        }
-
-        if (LOGGER.isDebugEnabled() && !relativePath.toString().equals(to)) {
-            LOGGER.debug("Mapped url: " + to + " to relative path: " + relativePath);
-        }
-```
-
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `doxia-integration-tools/src/main/java/org/apache/maven/doxia/tools/DefaultSiteTool.java`
-#### Snippet
-```java
         final String relativePath = buildRelativePath(toPath, fromPath, File.separatorChar);
 
         return relativePath.toString();
@@ -313,17 +301,16 @@ in `doxia-integration-tools/src/main/java/org/apache/maven/doxia/tools/DefaultSi
 
 ```
 
-## RuleId[id=RedundantCast]
-### RedundantCast
-Casting `sink` to `DocumentContent` is redundant
-in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/DefaultSiteRenderer.java`
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `doxia-integration-tools/src/main/java/org/apache/maven/doxia/tools/DefaultSiteTool.java`
 #### Snippet
 ```java
         }
 
-        mergeDocumentIntoSite(writer, (DocumentContent) sink, siteContext);
-    }
-
+        if (LOGGER.isDebugEnabled() && !relativePath.toString().equals(to)) {
+            LOGGER.debug("Mapped url: " + to + " to relative path: " + relativePath);
+        }
 ```
 
 ## RuleId[id=JavadocDeclaration]
@@ -363,29 +350,30 @@ in `doxia-site-model/src/main/java/org/apache/maven/doxia/site/inheritance/Defau
     private void relativizeBannerPaths(final Banner banner, final String baseUrl) {
 ```
 
-## RuleId[id=FieldMayBeFinal]
-### FieldMayBeFinal
-Field `siteDirectories` may be 'final'
-in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/SiteRenderingContext.java`
+## RuleId[id=RedundantCast]
+### RedundantCast
+Casting `sink` to `DocumentContent` is redundant
+in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/DefaultSiteRenderer.java`
 #### Snippet
 ```java
-    private File rootDirectory;
+        }
 
-    private List<File> siteDirectories = new ArrayList<File>();
+        mergeDocumentIntoSite(writer, (DocumentContent) sink, siteContext);
+    }
 
-    private Map<String, String> moduleExcludes;
 ```
 
+## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
-Field `siteLocales` may be 'final'
-in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/SiteRenderingContext.java`
+Field `attributes` may be 'final'
+in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/DocumentRenderingContext.java`
 #### Snippet
 ```java
-    private Locale locale = Locale.ROOT;
+    private final String extension;
 
-    private List<Locale> siteLocales = new ArrayList<Locale>();
+    private Map<String, String> attributes;
 
-    private SiteModel siteModel;
+    private final boolean editable;
 ```
 
 ### FieldMayBeFinal
@@ -401,27 +389,27 @@ public class DoxiaDocumentRenderer implements DocumentRenderer {
 ```
 
 ### FieldMayBeFinal
-Field `attributes` may be 'final'
-in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/DocumentRenderingContext.java`
+Field `siteLocales` may be 'final'
+in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/SiteRenderingContext.java`
 #### Snippet
 ```java
-    private final String extension;
+    private Locale locale = Locale.ROOT;
 
-    private Map<String, String> attributes;
+    private List<Locale> siteLocales = new ArrayList<Locale>();
 
-    private final boolean editable;
+    private SiteModel siteModel;
 ```
 
 ### FieldMayBeFinal
-Field `docRenderingContext` may be 'final'
-in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/sink/SiteRendererSink.java`
+Field `siteDirectories` may be 'final'
+in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/SiteRenderingContext.java`
 #### Snippet
 ```java
-    private final Writer writer;
+    private File rootDirectory;
 
-    private DocumentRenderingContext docRenderingContext;
+    private List<File> siteDirectories = new ArrayList<File>();
 
-    /**
+    private Map<String, String> moduleExcludes;
 ```
 
 ### FieldMayBeFinal
@@ -434,6 +422,18 @@ in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/sink/S
     private List<String> authors = new ArrayList<String>();
 
     private final StringWriter headWriter;
+```
+
+### FieldMayBeFinal
+Field `docRenderingContext` may be 'final'
+in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/sink/SiteRendererSink.java`
+#### Snippet
+```java
+    private final Writer writer;
+
+    private DocumentRenderingContext docRenderingContext;
+
+    /**
 ```
 
 ## RuleId[id=DeprecatedIsStillUsed]
@@ -507,72 +507,12 @@ public class DefaultSiteRenderer implements Renderer {
 ## RuleId[id=CdiInjectionPointsInspection]
 ### CdiInjectionPointsInspection
 Unsatisfied dependency: no bean matches the injection point
-in `doxia-integration-tools/src/main/java/org/apache/maven/doxia/tools/DefaultSiteTool.java`
-#### Snippet
-```java
-     */
-    @Inject
-    private ArtifactHandlerManager artifactHandlerManager;
-
-    /**
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `doxia-integration-tools/src/main/java/org/apache/maven/doxia/tools/DefaultSiteTool.java`
-#### Snippet
-```java
-     */
-    @Inject
-    protected I18N i18n;
-
-    /**
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `doxia-integration-tools/src/main/java/org/apache/maven/doxia/tools/DefaultSiteTool.java`
-#### Snippet
-```java
-     */
-    @Inject
-    protected RepositorySystem repositorySystem;
-
-    /**
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `doxia-integration-tools/src/main/java/org/apache/maven/doxia/tools/DefaultSiteTool.java`
-#### Snippet
-```java
-     */
-    @Inject
-    protected ProjectBuilder projectBuilder;
-
-    // ----------------------------------------------------------------------
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
 in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/DefaultSiteRenderer.java`
 #### Snippet
 ```java
 
     @Inject
     private ParserModuleManager parserModuleManager;
-
-    @Inject
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/DefaultSiteRenderer.java`
-#### Snippet
-```java
-
-    @Inject
-    private VelocityComponent velocity;
 
     @Inject
 ```
@@ -596,9 +536,69 @@ in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/Defaul
 ```java
 
     @Inject
+    private VelocityComponent velocity;
+
+    @Inject
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/DefaultSiteRenderer.java`
+#### Snippet
+```java
+
+    @Inject
     private PlexusContainer plexus;
 
     private static final String SKIN_TEMPLATE_LOCATION = "META-INF/maven/site.vm";
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `doxia-integration-tools/src/main/java/org/apache/maven/doxia/tools/DefaultSiteTool.java`
+#### Snippet
+```java
+     */
+    @Inject
+    private ArtifactHandlerManager artifactHandlerManager;
+
+    /**
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `doxia-integration-tools/src/main/java/org/apache/maven/doxia/tools/DefaultSiteTool.java`
+#### Snippet
+```java
+     */
+    @Inject
+    protected RepositorySystem repositorySystem;
+
+    /**
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `doxia-integration-tools/src/main/java/org/apache/maven/doxia/tools/DefaultSiteTool.java`
+#### Snippet
+```java
+     */
+    @Inject
+    protected I18N i18n;
+
+    /**
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `doxia-integration-tools/src/main/java/org/apache/maven/doxia/tools/DefaultSiteTool.java`
+#### Snippet
+```java
+     */
+    @Inject
+    protected ProjectBuilder projectBuilder;
+
+    // ----------------------------------------------------------------------
 ```
 
 ## RuleId[id=SimplifiableConditionalExpression]
@@ -615,6 +615,18 @@ in `doxia-site-model/src/main/java/org/apache/maven/doxia/site/inheritance/URIPa
 ```
 
 ## RuleId[id=UnusedAssignment]
+### UnusedAssignment
+Variable `localeStr` initializer `null` is redundant
+in `doxia-integration-tools/src/main/java/org/apache/maven/doxia/tools/DefaultSiteTool.java`
+#### Snippet
+```java
+        String language = locale.getLanguage();
+
+        String localeStr = null;
+        File siteDescriptor = null;
+        boolean found = false;
+```
+
 ### UnusedAssignment
 Variable `toUrl` initializer `null` is redundant
 in `doxia-integration-tools/src/main/java/org/apache/maven/doxia/tools/DefaultSiteTool.java`
@@ -639,18 +651,6 @@ in `doxia-integration-tools/src/main/java/org/apache/maven/doxia/tools/DefaultSi
         String toPath = to;
 ```
 
-### UnusedAssignment
-Variable `localeStr` initializer `null` is redundant
-in `doxia-integration-tools/src/main/java/org/apache/maven/doxia/tools/DefaultSiteTool.java`
-#### Snippet
-```java
-        String language = locale.getLanguage();
-
-        String localeStr = null;
-        File siteDescriptor = null;
-        boolean found = false;
-```
-
 ## RuleId[id=UseBulkOperation]
 ### UseBulkOperation
 Iteration can be replaced with bulk 'Collection.addAll()' call
@@ -665,6 +665,18 @@ in `doxia-site-model/src/main/java/org/apache/maven/doxia/site/inheritance/Defau
 ```
 
 ## RuleId[id=ConstantValue]
+### ConstantValue
+Condition `resourcesDirectory != null` is always `true`
+in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/DefaultSiteRenderer.java`
+#### Snippet
+```java
+            File resourcesDirectory = new File(siteDirectory, "resources");
+
+            if (resourcesDirectory != null && resourcesDirectory.exists()) {
+                copyDirectory(resourcesDirectory, outputDirectory);
+            }
+```
+
 ### ConstantValue
 Condition `toUrl != null` is always `true`
 in `doxia-integration-tools/src/main/java/org/apache/maven/doxia/tools/DefaultSiteTool.java`
@@ -699,18 +711,6 @@ in `doxia-integration-tools/src/main/java/org/apache/maven/doxia/tools/DefaultSi
         if (toUrl != null && fromUrl != null) {
             // URLs, determine if they share protocol and domain info
 
-```
-
-### ConstantValue
-Condition `resourcesDirectory != null` is always `true`
-in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/DefaultSiteRenderer.java`
-#### Snippet
-```java
-            File resourcesDirectory = new File(siteDirectory, "resources");
-
-            if (resourcesDirectory != null && resourcesDirectory.exists()) {
-                copyDirectory(resourcesDirectory, outputDirectory);
-            }
 ```
 
 ## RuleId[id=JavadocLinkAsPlainText]
@@ -853,18 +853,6 @@ Result of `File.mkdirs()` is ignored
 in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/DefaultSiteRenderer.java`
 #### Snippet
 ```java
-            if (modified || docRenderer.isOverwrite()) {
-                if (!outputFile.getParentFile().exists()) {
-                    outputFile.getParentFile().mkdirs();
-                }
-
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/DefaultSiteRenderer.java`
-#### Snippet
-```java
                         }
 
                         destFile.getParentFile().mkdirs();
@@ -905,6 +893,18 @@ in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/Defaul
         if (!outputParent.exists()) {
             outputParent.mkdirs();
         }
+
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `doxia-site-renderer/src/main/java/org/apache/maven/doxia/siterenderer/DefaultSiteRenderer.java`
+#### Snippet
+```java
+            if (modified || docRenderer.isOverwrite()) {
+                if (!outputFile.getParentFile().exists()) {
+                    outputFile.getParentFile().mkdirs();
+                }
 
 ```
 
