@@ -99,11 +99,11 @@ Not annotated parameter overrides @NonNullApi parameter
 in `src/main/java/com/palantir/gradle/externalpublish/CircleCiContextDeadlineAvoidance.java`
 #### Snippet
 ```java
-        task.doLast(new Action<Task>() {
+        task.doFirst(new Action<Task>() {
             @Override
             public void execute(Task _ignored) {
-                spammerTask.get().cancel(true);
-            }
+                spammerTask.set(CIRCLE_CI_OUTPUT_SPAMMER.scheduleWithFixedDelay(
+                        () -> {
 ```
 
 ### NullableProblems
@@ -111,11 +111,11 @@ Not annotated parameter overrides @NonNullApi parameter
 in `src/main/java/com/palantir/gradle/externalpublish/CircleCiContextDeadlineAvoidance.java`
 #### Snippet
 ```java
-        task.doFirst(new Action<Task>() {
+        task.doLast(new Action<Task>() {
             @Override
             public void execute(Task _ignored) {
-                spammerTask.set(CIRCLE_CI_OUTPUT_SPAMMER.scheduleWithFixedDelay(
-                        () -> {
+                spammerTask.get().cancel(true);
+            }
 ```
 
 ### NullableProblems
@@ -127,6 +127,18 @@ in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishRootPlugin.
     @Override
     public final void apply(Project rootProjectVal) {
         this.rootProject = rootProjectVal;
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNullApi parameter
+in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishBasePlugin.java`
+#### Snippet
+```java
+
+    @Override
+    public void apply(Project projectVal) {
+        this.project = projectVal;
 
 ```
 
@@ -151,18 +163,6 @@ in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishApplication
         @Override
         public void execute(Task task) {
             CreateStartScripts createStartScripts = (CreateStartScripts) task;
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNullApi parameter
-in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishBasePlugin.java`
-#### Snippet
-```java
-
-    @Override
-    public void apply(Project projectVal) {
-        this.project = projectVal;
 
 ```
 
