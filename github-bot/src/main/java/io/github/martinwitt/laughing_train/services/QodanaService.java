@@ -13,12 +13,9 @@ import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
 import io.smallrye.health.api.AsyncHealthCheck;
 import io.smallrye.mutiny.Uni;
 import io.smallrye.mutiny.infrastructure.Infrastructure;
-import io.vertx.core.Vertx;
-import io.vertx.core.eventbus.EventBus;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
 import java.io.Closeable;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -37,20 +34,21 @@ import xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaAnalyzer;
 public class QodanaService {
     private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
-    @Inject
-    Config config;
+    final Config config;
+    final ThreadPoolManager threadPoolManager;
+    final ProjectConfigService projectConfigService;
+    final AnalyzerResultPersistenceService analyzerResultPersistenceService;
 
-    @Inject
-    ThreadPoolManager threadPoolManager;
-
-    @Inject
-    EventBus eventBus;
-
-    @Inject
-    Vertx vertx;
-
-    @Inject
-    ProjectConfigService projectConfigService;
+    QodanaService(
+            Config config,
+            ThreadPoolManager threadPoolManager,
+            ProjectConfigService projectConfigService,
+            AnalyzerResultPersistenceService analyzerResultPersistenceService) {
+        this.config = config;
+        this.threadPoolManager = threadPoolManager;
+        this.projectConfigService = projectConfigService;
+        this.analyzerResultPersistenceService = analyzerResultPersistenceService;
+    }
 
     public List<AnalyzerResult> runQodana(String gitUrl) throws IOException {
         Path file = Files.createTempDirectory(Constants.TEMP_FOLDER_PREFIX);
@@ -121,7 +119,7 @@ public class QodanaService {
                 })
                 .emitOn(Infrastructure.getDefaultExecutor())
                 .map(config -> invokeQodana(project, config))
-                .invoke(this::publishResults)
+                .invoke(this::persistResults)
                 .onFailure()
                 .recoverWithItem(e -> new QodanaResult.Failure(Strings.nullToEmpty(e.getMessage())));
     }
@@ -131,8 +129,8 @@ public class QodanaService {
                 new FindProjectConfigRequest.ByProjectUrl(item.project().url()));
     }
 
-    private void publishResults(QodanaResult result) {
-        eventBus.publish(ServiceAddresses.QODANA_ANALYZER_RESPONSE, result);
+    private void persistResults(QodanaResult result) {
+        analyzerResultPersistenceService.persistResults(result);
     }
 
     private QodanaResult invokeQodana(AnalyzerRequest.WithProject project, ProjectConfig projectConfig) {

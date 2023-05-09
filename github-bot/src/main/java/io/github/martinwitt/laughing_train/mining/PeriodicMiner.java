@@ -10,10 +10,8 @@ import io.github.martinwitt.laughing_train.domain.entity.Project;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.github.martinwitt.laughing_train.services.ProjectService;
 import io.github.martinwitt.laughing_train.services.QodanaService;
-import io.github.martinwitt.laughing_train.services.ServiceAddresses;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.quarkus.runtime.StartupEvent;
-import io.quarkus.vertx.ConsumeEvent;
 import io.vertx.core.Vertx;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Observes;
@@ -193,8 +191,10 @@ public class PeriodicMiner {
         }
     }
 
-    @ConsumeEvent(ServiceAddresses.REMINE_REQUEST)
     public void addToQueue(Project project) {
+        if (project == null) {
+            return;
+        }
         queue.add(project);
     }
 }
