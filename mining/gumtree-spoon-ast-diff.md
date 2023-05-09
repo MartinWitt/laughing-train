@@ -16,8 +16,8 @@ I found 53 bad smells with 6 repairable:
 | UnusedAssignment | 2 | false |
 | UNUSED_IMPORT | 1 | false |
 | StringOperationCanBeSimplified | 1 | false |
-| DeprecatedIsStillUsed | 1 | false |
 | CommentedOutCode | 1 | false |
+| DeprecatedIsStillUsed | 1 | false |
 | MismatchedCollectionQueryUpdate | 1 | false |
 | UnnecessaryToStringCall | 1 | true |
 | StringConcatenationInLoops | 1 | false |
@@ -26,24 +26,24 @@ I found 53 bad smells with 6 repairable:
 ## RuleId[id=UnnecessaryModifier]
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `src/main/java/gumtree/spoon/builder/jsonsupport/NodePainter.java`
-#### Snippet
-```java
-public interface NodePainter {
-
-	public void paint(Tree tree, JsonObject jsontree);
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
 in `src/main/java/gumtree/spoon/diff/Diff.java`
 #### Snippet
 ```java
 	 * returns the mappings between the compared elements
 	 */
 	public MappingStore getMappingsComp();
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/gumtree/spoon/builder/jsonsupport/NodePainter.java`
+#### Snippet
+```java
+public interface NodePainter {
+
+	public void paint(Tree tree, JsonObject jsontree);
 }
 
 ```
@@ -74,6 +74,18 @@ in `src/main/java/gumtree/spoon/builder/NodeCreator.java`
 ```
 
 ## RuleId[id=DataFlowIssue]
+### DataFlowIssue
+Method invocation `getRoleInParent` may produce `NullPointerException`
+in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
+#### Snippet
+```java
+			nodeTypeName = element.getRoleInParent().toString();
+		}
+		if (element.getRoleInParent() == CtRole.SUPER_TYPE) {
+			nodeTypeName = "SUPER_TYPE";
+		}
+```
+
 ### DataFlowIssue
 Argument `cu` might be null
 in `src/main/java/gumtree/spoon/builder/NodeCreator.java`
@@ -110,18 +122,6 @@ in `src/main/java/gumtree/spoon/builder/NodeCreator.java`
 
 ```
 
-### DataFlowIssue
-Method invocation `getRoleInParent` may produce `NullPointerException`
-in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
-#### Snippet
-```java
-			nodeTypeName = element.getRoleInParent().toString();
-		}
-		if (element.getRoleInParent() == CtRole.SUPER_TYPE) {
-			nodeTypeName = "SUPER_TYPE";
-		}
-```
-
 ## RuleId[id=UnnecessarySemicolon]
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
@@ -140,11 +140,11 @@ Unnecessary semicolon `;`
 in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
 #### Snippet
 ```java
+
 	public enum JSON_PROPERTIES {
 		label, type, op, children;
 	};
 
-	@SuppressWarnings("rawtypes")
 ```
 
 ### UnnecessarySemicolon
@@ -152,11 +152,11 @@ Unnecessary semicolon `;`
 in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
 #### Snippet
 ```java
-
 	public enum JSON_PROPERTIES {
 		label, type, op, children;
 	};
 
+	@SuppressWarnings("rawtypes")
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
@@ -186,54 +186,6 @@ in `src/main/java/gumtree/spoon/builder/CtVirtualElement.java`
 ```
 
 ## RuleId[id=JavadocDeclaration]
-### JavadocDeclaration
-`@param context` tag description is missing
-in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
-#### Snippet
-```java
-	 * Decorates a node with the affected operator, if any.
-	 * 
-	 * @param context
-	 * @param tree
-	 * @param operations
-```
-
-### JavadocDeclaration
-`@param tree` tag description is missing
-in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
-#### Snippet
-```java
-	 * 
-	 * @param context
-	 * @param tree
-	 * @param operations
-	 * @return
-```
-
-### JavadocDeclaration
-`@param operations` tag description is missing
-in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
-#### Snippet
-```java
-	 * @param context
-	 * @param tree
-	 * @param operations
-	 * @return
-	 */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
-#### Snippet
-```java
-	 * @param tree
-	 * @param operations
-	 * @return
-	 */
-	public JsonObject getJSONwithOperations(TreeContext context, Tree tree, List<Operation> operations) {
-```
-
 ### JavadocDeclaration
 `@param mapping` tag description is missing
 in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
@@ -294,6 +246,67 @@ in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
 	private boolean isToIgnore(CtElement element) {
 ```
 
+### JavadocDeclaration
+`@param context` tag description is missing
+in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
+#### Snippet
+```java
+	 * Decorates a node with the affected operator, if any.
+	 * 
+	 * @param context
+	 * @param tree
+	 * @param operations
+```
+
+### JavadocDeclaration
+`@param tree` tag description is missing
+in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
+#### Snippet
+```java
+	 * 
+	 * @param context
+	 * @param tree
+	 * @param operations
+	 * @return
+```
+
+### JavadocDeclaration
+`@param operations` tag description is missing
+in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
+#### Snippet
+```java
+	 * @param context
+	 * @param tree
+	 * @param operations
+	 * @return
+	 */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
+#### Snippet
+```java
+	 * @param tree
+	 * @param operations
+	 * @return
+	 */
+	public JsonObject getJSONwithOperations(TreeContext context, Tree tree, List<Operation> operations) {
+```
+
+## RuleId[id=CommentedOutCode]
+### CommentedOutCode
+Commented out code (2 lines)
+in `src/main/java/gumtree/spoon/AstComparator.java`
+#### Snippet
+```java
+		// 1000 OK
+		// see AbstractBottomUpMatcher#SIZE_THRESHOD in Gumtree
+		// System.setProperty("gumtree.match.bu.size","10");
+		// System.setProperty("gt.bum.szt", "1000");
+	}
+```
+
 ## RuleId[id=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
 Deprecated member 'getNode' is still used
@@ -345,6 +358,30 @@ in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
 ```
 
 ### FieldMayBeFinal
+Field `srcUpdTrees` may be 'final'
+in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
+#### Snippet
+```java
+	// ROOT CLASSIFIER
+	// /
+	private List<Tree> srcUpdTrees = new ArrayList<>();
+	private List<Tree> dstUpdTrees = new ArrayList<>();
+	private List<Tree> srcMvTrees = new ArrayList<>();
+```
+
+### FieldMayBeFinal
+Field `originalActionsSrc` may be 'final'
+in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
+#### Snippet
+```java
+	private List<Tree> srcDelTrees = new ArrayList<>();
+	private List<Tree> dstAddTrees = new ArrayList<>();
+	private Map<Tree, Action> originalActionsSrc = new HashMap<>();
+	private Map<Tree, Action> originalActionsDst = new HashMap<>();
+
+```
+
+### FieldMayBeFinal
 Field `originalActionsDst` may be 'final'
 in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
 #### Snippet
@@ -354,18 +391,6 @@ in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
 	private Map<Tree, Action> originalActionsDst = new HashMap<>();
 
 	public ActionClassifier(MappingStore mappings, List<Action> actions) {
-```
-
-### FieldMayBeFinal
-Field `dstUpdTrees` may be 'final'
-in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
-#### Snippet
-```java
-	// /
-	private List<Tree> srcUpdTrees = new ArrayList<>();
-	private List<Tree> dstUpdTrees = new ArrayList<>();
-	private List<Tree> srcMvTrees = new ArrayList<>();
-	private List<Tree> dstMvTrees = new ArrayList<>();
 ```
 
 ### FieldMayBeFinal
@@ -381,15 +406,15 @@ in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
 ```
 
 ### FieldMayBeFinal
-Field `srcUpdTrees` may be 'final'
+Field `dstUpdTrees` may be 'final'
 in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
 #### Snippet
 ```java
-	// ROOT CLASSIFIER
 	// /
 	private List<Tree> srcUpdTrees = new ArrayList<>();
 	private List<Tree> dstUpdTrees = new ArrayList<>();
 	private List<Tree> srcMvTrees = new ArrayList<>();
+	private List<Tree> dstMvTrees = new ArrayList<>();
 ```
 
 ### FieldMayBeFinal
@@ -404,31 +429,6 @@ in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
 	private List<Tree> dstAddTrees = new ArrayList<>();
 ```
 
-### FieldMayBeFinal
-Field `originalActionsSrc` may be 'final'
-in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
-#### Snippet
-```java
-	private List<Tree> srcDelTrees = new ArrayList<>();
-	private List<Tree> dstAddTrees = new ArrayList<>();
-	private Map<Tree, Action> originalActionsSrc = new HashMap<>();
-	private Map<Tree, Action> originalActionsDst = new HashMap<>();
-
-```
-
-## RuleId[id=CommentedOutCode]
-### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/gumtree/spoon/AstComparator.java`
-#### Snippet
-```java
-		// 1000 OK
-		// see AbstractBottomUpMatcher#SIZE_THRESHOD in Gumtree
-		// System.setProperty("gumtree.match.bu.size","10");
-		// System.setProperty("gt.bum.szt", "1000");
-	}
-```
-
 ## RuleId[id=MismatchedCollectionQueryUpdate]
 ### MismatchedCollectionQueryUpdate
 Contents of collection `srcMvTrees` are updated, but never queried
@@ -440,6 +440,67 @@ in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
 	private List<Tree> srcMvTrees = new ArrayList<>();
 	private List<Tree> dstMvTrees = new ArrayList<>();
 	private List<Tree> srcDelTrees = new ArrayList<>();
+```
+
+## RuleId[id=Deprecation]
+### Deprecation
+'getNode()' is deprecated
+in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
+#### Snippet
+```java
+	public List<Operation> getOperationChildren(Operation operationParent, List<Operation> rootOperations) {
+		return rootOperations.stream() //
+				.filter(operation -> operation.getNode().getParent().equals(operationParent)) //
+				.collect(Collectors.toList());
+	}
+```
+
+### Deprecation
+'getNode()' is deprecated
+in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
+#### Snippet
+```java
+				.findFirst();
+		if (firstNode.isPresent()) {
+			return firstNode.get().getNode();
+		}
+		throw new NoSuchElementException();
+```
+
+### Deprecation
+'getNode()' is deprecated
+in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
+#### Snippet
+```java
+		for (Operation operation : ops) {
+			Tree node = operation.getAction().getNode();
+			final CtElement nodeElement = operation.getNode();
+			String nodeType = node.getType().name;
+			if (nodeElement != null) {
+```
+
+### Deprecation
+'getNode()' is deprecated
+in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
+#### Snippet
+```java
+		final List<CtElement> copy = new ArrayList<>();
+		for (Operation operation : rootOperations) {
+			CtElement el = operation.getNode();
+			if (operation instanceof InsertOperation) {
+				// we take the corresponding node in the source tree
+```
+
+### Deprecation
+'spoon.reflect.cu.CompilationUnit' is deprecated
+in `src/main/java/gumtree/spoon/builder/NodeCreator.java`
+#### Snippet
+```java
+
+	private static SourcePosition computeSourcePositionOfVirtualElement(List<SourcePosition> modifierPositions) {
+		CompilationUnit cu = null;
+		Integer sourceStart = null;
+		Integer sourceEnd = null;
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
@@ -479,67 +540,6 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 			} else if (action instanceof TreeInsert) {
 ```
 
-## RuleId[id=Deprecation]
-### Deprecation
-'spoon.reflect.cu.CompilationUnit' is deprecated
-in `src/main/java/gumtree/spoon/builder/NodeCreator.java`
-#### Snippet
-```java
-
-	private static SourcePosition computeSourcePositionOfVirtualElement(List<SourcePosition> modifierPositions) {
-		CompilationUnit cu = null;
-		Integer sourceStart = null;
-		Integer sourceEnd = null;
-```
-
-### Deprecation
-'getNode()' is deprecated
-in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
-#### Snippet
-```java
-				.findFirst();
-		if (firstNode.isPresent()) {
-			return firstNode.get().getNode();
-		}
-		throw new NoSuchElementException();
-```
-
-### Deprecation
-'getNode()' is deprecated
-in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
-#### Snippet
-```java
-	public List<Operation> getOperationChildren(Operation operationParent, List<Operation> rootOperations) {
-		return rootOperations.stream() //
-				.filter(operation -> operation.getNode().getParent().equals(operationParent)) //
-				.collect(Collectors.toList());
-	}
-```
-
-### Deprecation
-'getNode()' is deprecated
-in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
-#### Snippet
-```java
-		for (Operation operation : ops) {
-			Tree node = operation.getAction().getNode();
-			final CtElement nodeElement = operation.getNode();
-			String nodeType = node.getType().name;
-			if (nodeElement != null) {
-```
-
-### Deprecation
-'getNode()' is deprecated
-in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
-#### Snippet
-```java
-		final List<CtElement> copy = new ArrayList<>();
-		for (Operation operation : rootOperations) {
-			CtElement el = operation.getNode();
-			if (operation instanceof InsertOperation) {
-				// we take the corresponding node in the source tree
-```
-
 ## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
@@ -568,18 +568,6 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 
 ## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
-Variable `label` initializer `null` is redundant
-in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
-#### Snippet
-```java
-		}
-
-		String label = null;
-		String nodeTypeName = getNodeType(element);
-
-```
-
-### UnusedAssignment
 Variable `nolabel` initializer `false` is redundant
 in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
 #### Snippet
@@ -589,6 +577,18 @@ in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
 	boolean nolabel = false;
 
 	TreeScanner(TreeContext treeContext, Tree root) {
+```
+
+### UnusedAssignment
+Variable `label` initializer `null` is redundant
+in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
+#### Snippet
+```java
+		}
+
+		String label = null;
+		String nodeTypeName = getNodeType(element);
+
 ```
 
 ## RuleId[id=EqualsBetweenInconvertibleTypes]
