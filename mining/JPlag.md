@@ -26,9 +26,9 @@ I found 147 bad smells with 4 repairable:
 | DeprecatedIsStillUsed | 1 | false |
 | DuplicatedCode | 1 | false |
 | Deprecation | 1 | false |
+| ManualMinMaxCalculation | 1 | false |
 | UnnecessaryToStringCall | 1 | true |
 | UnnecessaryDefault | 1 | false |
-| ManualMinMaxCalculation | 1 | false |
 | DanglingJavadoc | 1 | false |
 | InnerClassMayBeStatic | 1 | true |
 | SynchronizeOnNonFinalField | 1 | false |
@@ -74,7 +74,44 @@ in `languages/rlang/src/main/java/de/jplag/rlang/RCombinedBaseListener.java`
 public abstract class RCombinedBaseListener implements RListener, RFilterListener {
 ```
 
+## RuleId[id=UnnecessarySemicolon]
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `languages/emf-metamodel/src/main/java/de/jplag/emf/util/AbstractModelView.java`
+#### Snippet
+```java
+    public void writeToFile(String suffix) {
+        File treeViewFile = new File(file + suffix);
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(treeViewFile));) {
+            if (!treeViewFile.createNewFile()) {
+                logger.warn("Overwriting tree view file: {}", treeViewFile);
+```
+
 ## RuleId[id=DataFlowIssue]
+### DataFlowIssue
+Dereference of `nearest` may produce `NullPointerException`
+in `core/src/main/java/de/jplag/clustering/algorithm/AgglomerativeClustering.java`
+#### Snippet
+```java
+            ClusterConnection nearest = similarities.poll();
+            // TODO Check that nearest is never null
+            if (!(clusters.contains(nearest.left) && clusters.contains(nearest.right))) {
+                // One cluster already part of another cluster
+                continue;
+```
+
+### DataFlowIssue
+Dereference of `ParsingException.wrappingExceptions(parsingExceptions)` may produce `NullPointerException`
+in `languages/java/src/main/java/de/jplag/java/JavacAdapter.java`
+#### Snippet
+```java
+        parsingExceptions.addAll(processErrors(parser.logger, listener));
+        if (!parsingExceptions.isEmpty()) {
+            throw ParsingException.wrappingExceptions(parsingExceptions);
+        }
+    }
+```
+
 ### DataFlowIssue
 Dereference of `best` may produce `NullPointerException`
 in `core/src/main/java/de/jplag/clustering/algorithm/BayesianOptimization.java`
@@ -88,50 +125,14 @@ in `core/src/main/java/de/jplag/clustering/algorithm/BayesianOptimization.java`
 ```
 
 ### DataFlowIssue
-Condition `context.parent instanceof RustParser.ArrayElementsContext` is redundant and can be replaced with a null check
-in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
+Passing a non-null argument to `Optional`
+in `core/src/main/java/de/jplag/SubmissionSetBuilder.java`
 #### Snippet
 ```java
-        // used in various 'lists' of elements
-        if (context instanceof RustParser.ExpressionContext expression) {
-            if (context.parent instanceof RustParser.ArrayElementsContext) {
-                transformToken(ARRAY_ELEMENT, expression.getStart());
-            } else if (context.parent instanceof RustParser.CallParamsContext) {
-```
-
-### DataFlowIssue
-Condition `context instanceof RustParser.ExpressionContext` is redundant and can be replaced with a null check
-in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
-#### Snippet
-```java
-    @Override
-    public void exitEveryRule(ParserRuleContext context) {
-        if (context instanceof RustParser.ExpressionContext && context.parent instanceof RustParser.ClosureExpressionContext) {
-            transformToken(CLOSURE_BODY_END, context.getStop());
-
-```
-
-### DataFlowIssue
-Condition `context.parent instanceof RustParser.ClosureExpressionContext` is redundant and can be replaced with a null check
-in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
-#### Snippet
-```java
-    @Override
-    public void exitEveryRule(ParserRuleContext context) {
-        if (context instanceof RustParser.ExpressionContext && context.parent instanceof RustParser.ClosureExpressionContext) {
-            transformToken(CLOSURE_BODY_END, context.getStop());
-
-```
-
-### DataFlowIssue
-Condition `maybeFunctionBlock instanceof RustParser.StatementsContext` is redundant and can be replaced with a null check
-in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
-#### Snippet
-```java
-        // may be return value
-        RuleContext maybeFunctionBlock = context.parent.parent;
-        boolean isImplicitReturnValue = maybeFunctionBlock instanceof RustParser.StatementsContext && (maybeFunctionBlock.getChildCount() == 1)
-                && (state.getCurrentContext() == RustContext.FUNCTION_BODY) && !(context.getChild(0) instanceof RustParser.ReturnExpressionContext);
+        Submission baseCodeSubmission = processSubmission(baseCodeSubmissionDirectory.getName(), baseCodeSubmissionDirectory, false);
+        logger.info("Basecode directory \"{}\" will be used.", baseCodeSubmission.getName());
+        return Optional.ofNullable(baseCodeSubmission);
+    }
 
 ```
 
@@ -160,67 +161,54 @@ in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
 ```
 
 ### DataFlowIssue
-Passing a non-null argument to `Optional`
-in `core/src/main/java/de/jplag/SubmissionSetBuilder.java`
+Condition `context instanceof RustParser.ExpressionContext` is redundant and can be replaced with a null check
+in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
 #### Snippet
 ```java
-        Submission baseCodeSubmission = processSubmission(baseCodeSubmissionDirectory.getName(), baseCodeSubmissionDirectory, false);
-        logger.info("Basecode directory \"{}\" will be used.", baseCodeSubmission.getName());
-        return Optional.ofNullable(baseCodeSubmission);
-    }
+    @Override
+    public void exitEveryRule(ParserRuleContext context) {
+        if (context instanceof RustParser.ExpressionContext && context.parent instanceof RustParser.ClosureExpressionContext) {
+            transformToken(CLOSURE_BODY_END, context.getStop());
 
 ```
 
 ### DataFlowIssue
-Dereference of `nearest` may produce `NullPointerException`
-in `core/src/main/java/de/jplag/clustering/algorithm/AgglomerativeClustering.java`
+Condition `context.parent instanceof RustParser.ClosureExpressionContext` is redundant and can be replaced with a null check
+in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
 #### Snippet
 ```java
-            ClusterConnection nearest = similarities.poll();
-            // TODO Check that nearest is never null
-            if (!(clusters.contains(nearest.left) && clusters.contains(nearest.right))) {
-                // One cluster already part of another cluster
-                continue;
+    @Override
+    public void exitEveryRule(ParserRuleContext context) {
+        if (context instanceof RustParser.ExpressionContext && context.parent instanceof RustParser.ClosureExpressionContext) {
+            transformToken(CLOSURE_BODY_END, context.getStop());
+
 ```
 
 ### DataFlowIssue
-Dereference of `ParsingException.wrappingExceptions(parsingExceptions)` may produce `NullPointerException`
-in `languages/java/src/main/java/de/jplag/java/JavacAdapter.java`
+Condition `context.parent instanceof RustParser.ArrayElementsContext` is redundant and can be replaced with a null check
+in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
 #### Snippet
 ```java
-        parsingExceptions.addAll(processErrors(parser.logger, listener));
-        if (!parsingExceptions.isEmpty()) {
-            throw ParsingException.wrappingExceptions(parsingExceptions);
-        }
-    }
+        // used in various 'lists' of elements
+        if (context instanceof RustParser.ExpressionContext expression) {
+            if (context.parent instanceof RustParser.ArrayElementsContext) {
+                transformToken(ARRAY_ELEMENT, expression.getStart());
+            } else if (context.parent instanceof RustParser.CallParamsContext) {
 ```
 
-## RuleId[id=UnnecessarySemicolon]
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `languages/emf-metamodel/src/main/java/de/jplag/emf/util/AbstractModelView.java`
+### DataFlowIssue
+Condition `maybeFunctionBlock instanceof RustParser.StatementsContext` is redundant and can be replaced with a null check
+in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
 #### Snippet
 ```java
-    public void writeToFile(String suffix) {
-        File treeViewFile = new File(file + suffix);
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(treeViewFile));) {
-            if (!treeViewFile.createNewFile()) {
-                logger.warn("Overwriting tree view file: {}", treeViewFile);
+        // may be return value
+        RuleContext maybeFunctionBlock = context.parent.parent;
+        boolean isImplicitReturnValue = maybeFunctionBlock instanceof RustParser.StatementsContext && (maybeFunctionBlock.getChildCount() == 1)
+                && (state.getCurrentContext() == RustContext.FUNCTION_BODY) && !(context.getChild(0) instanceof RustParser.ReturnExpressionContext);
+
 ```
 
 ## RuleId[id=EmptyStatementBody]
-### EmptyStatementBody
-`if` statement has empty body
-in `core/src/main/java/de/jplag/clustering/algorithm/BFGS.java`
-#### Snippet
-```java
-        }
-
-        if (slope >= 0) {
-            // throw new IllegalArgumentException("Line Search: the search direction is not a descent direction, which may be caused
-            // by roundoff problem.");
-```
-
 ### EmptyStatementBody
 `if` statement has empty body
 in `core/src/main/java/de/jplag/clustering/algorithm/BFGS.java`
@@ -231,6 +219,18 @@ in `core/src/main/java/de/jplag/clustering/algorithm/BFGS.java`
             if (iter % 100 == 0) {
                 // logger.info(String.format("L-BFGS-B: the function value after %3d iterations: %.5f", iter, f));
             }
+```
+
+### EmptyStatementBody
+`if` statement has empty body
+in `core/src/main/java/de/jplag/clustering/algorithm/BFGS.java`
+#### Snippet
+```java
+        }
+
+        if (slope >= 0) {
+            // throw new IllegalArgumentException("Line Search: the search direction is not a descent direction, which may be caused
+            // by roundoff problem.");
 ```
 
 ## RuleId[id=SimplifyStreamApiCallChains]
@@ -271,17 +271,42 @@ in `core/src/main/java/de/jplag/Submission.java`
             hasErrors = true;
 ```
 
+## RuleId[id=DeprecatedIsStillUsed]
+### DeprecatedIsStillUsed
+Deprecated member 'withBaseCodeSubmissionName' is still used
+in `core/src/main/java/de/jplag/options/JPlagOptions.java`
+#### Snippet
+```java
+     */
+    @Deprecated(since = "4.0.0", forRemoval = true)
+    public JPlagOptions withBaseCodeSubmissionName(String baseCodeSubmissionName) {
+        File baseCodeDirectory = new File(baseCodeSubmissionName);
+        if (baseCodeDirectory.exists()) {
+```
+
 ## RuleId[id=CommentedOutCode]
 ### CommentedOutCode
-Commented out code (4 lines)
+Commented out code (2 lines)
+in `core/src/main/java/de/jplag/clustering/algorithm/BFGS.java`
+#### Snippet
+```java
+            }
+
+            // logger.debug("L-BFGS-B iteration {} moves from {} to {} where f(x) = {}", iter, Arrays.toString(x_old),
+            // Arrays.toString(x), f);
+
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
 in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
 #### Snippet
 ```java
-        int start = tokens.index();
-        String text = tokens.getText(Interval.of(start, stop));
-        // System.out.println("text: '"+text+"', op: '"+op+"', text.equals(op): '"+text.equals(op)+"'");
-
-        // for (int i = 0; i <= stop; i++) {
+        boolean prevIsWS = isLeftOperatorWS(prevToken);
+        boolean nextIsWS = isRightOperatorWS(nextToken);
+        // String text = tokens.getText(Interval.of(start, stop));
+        // System.out.println("isPostfixOp: '"+prevToken+"','"+text+"','"+nextToken+"' is "+result);
+        return !prevIsWS && nextIsWS || !prevIsWS && nextToken.getType() == Swift5Parser.DOT;
 ```
 
 ### CommentedOutCode
@@ -316,8 +341,20 @@ in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
         boolean prevIsWS = isLeftOperatorWS(prevToken);
         boolean nextIsWS = isRightOperatorWS(nextToken);
         // String text = tokens.getText(Interval.of(start, stop));
-        // System.out.println("isPostfixOp: '"+prevToken+"','"+text+"','"+nextToken+"' is "+result);
-        return !prevIsWS && nextIsWS || !prevIsWS && nextToken.getType() == Swift5Parser.DOT;
+        // System.out.println("isPrefixOp: '"+prevToken+"','"+text+"','"+nextToken+"' is "+result);
+        return prevIsWS && !nextIsWS;
+```
+
+### CommentedOutCode
+Commented out code (4 lines)
+in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
+#### Snippet
+```java
+        int start = tokens.index();
+        String text = tokens.getText(Interval.of(start, stop));
+        // System.out.println("text: '"+text+"', op: '"+op+"', text.equals(op): '"+text.equals(op)+"'");
+
+        // for (int i = 0; i <= stop; i++) {
 ```
 
 ### CommentedOutCode
@@ -340,45 +377,8 @@ in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
         boolean prevIsWS = isLeftOperatorWS(prevToken);
         boolean nextIsWS = isRightOperatorWS(nextToken);
         // String text = tokens.getText(Interval.of(start, stop));
-        // System.out.println("isPrefixOp: '"+prevToken+"','"+text+"','"+nextToken+"' is "+result);
-        return prevIsWS && !nextIsWS;
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
-#### Snippet
-```java
-        boolean prevIsWS = isLeftOperatorWS(prevToken);
-        boolean nextIsWS = isRightOperatorWS(nextToken);
-        // String text = tokens.getText(Interval.of(start, stop));
         // System.out.println("isBinaryOp: '"+prevToken+"','"+text+"','"+nextToken+"' is "+result);
         if (prevIsWS) {
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `core/src/main/java/de/jplag/clustering/algorithm/BFGS.java`
-#### Snippet
-```java
-            }
-
-            // logger.debug("L-BFGS-B iteration {} moves from {} to {} where f(x) = {}", iter, Arrays.toString(x_old),
-            // Arrays.toString(x), f);
-
-```
-
-## RuleId[id=DeprecatedIsStillUsed]
-### DeprecatedIsStillUsed
-Deprecated member 'withBaseCodeSubmissionName' is still used
-in `core/src/main/java/de/jplag/options/JPlagOptions.java`
-#### Snippet
-```java
-     */
-    @Deprecated(since = "4.0.0", forRemoval = true)
-    public JPlagOptions withBaseCodeSubmissionName(String baseCodeSubmissionName) {
-        File baseCodeDirectory = new File(baseCodeSubmissionName);
-        if (baseCodeDirectory.exists()) {
 ```
 
 ## RuleId[id=FinalMethodInFinalClass]
@@ -387,23 +387,11 @@ Method declared `final` in 'final' class
 in `core/src/main/java/de/jplag/JPlagComparison.java`
 #### Snippet
 ```java
-     * @return Average similarity in interval [0, 1]. O means no similarity, 1 means maximum similarity.
+     * @return Maximum similarity in interval [0, 1]. O means no similarity, 1 means maximum similarity.
      */
-    public final double similarity() {
-        boolean subtractBaseCode = firstSubmission.hasBaseCodeMatches() && secondSubmission.hasBaseCodeMatches();
-        int divisorA = firstSubmission.getSimilarityDivisor(subtractBaseCode);
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `core/src/main/java/de/jplag/JPlagComparison.java`
-#### Snippet
-```java
-     * @return Similarity of the first submission in interval [0, 1]. O means no similarity, 1 means maximum similarity.
-     */
-    public final double similarityOfFirst() {
-        int divisor = firstSubmission.getSimilarityDivisor(true);
-        return similarity(divisor);
+    public final double maximalSimilarity() {
+        return Math.max(similarityOfFirst(), similarityOfSecond());
+    }
 ```
 
 ### FinalMethodInFinalClass
@@ -423,11 +411,11 @@ Method declared `final` in 'final' class
 in `core/src/main/java/de/jplag/JPlagComparison.java`
 #### Snippet
 ```java
-     * @return Minimum similarity in interval [0, 1]. O means no similarity, 1 means maximum similarity.
+     * @return Similarity of the first submission in interval [0, 1]. O means no similarity, 1 means maximum similarity.
      */
-    public final double minimalSimilarity() {
-        return Math.min(similarityOfFirst(), similarityOfSecond());
-    }
+    public final double similarityOfFirst() {
+        int divisor = firstSubmission.getSimilarityDivisor(true);
+        return similarity(divisor);
 ```
 
 ### FinalMethodInFinalClass
@@ -435,10 +423,22 @@ Method declared `final` in 'final' class
 in `core/src/main/java/de/jplag/JPlagComparison.java`
 #### Snippet
 ```java
-     * @return Maximum similarity in interval [0, 1]. O means no similarity, 1 means maximum similarity.
+     * @return Average similarity in interval [0, 1]. O means no similarity, 1 means maximum similarity.
      */
-    public final double maximalSimilarity() {
-        return Math.max(similarityOfFirst(), similarityOfSecond());
+    public final double similarity() {
+        boolean subtractBaseCode = firstSubmission.hasBaseCodeMatches() && secondSubmission.hasBaseCodeMatches();
+        int divisorA = firstSubmission.getSimilarityDivisor(subtractBaseCode);
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `core/src/main/java/de/jplag/JPlagComparison.java`
+#### Snippet
+```java
+     * @return Minimum similarity in interval [0, 1]. O means no similarity, 1 means maximum similarity.
+     */
+    public final double minimalSimilarity() {
+        return Math.min(similarityOfFirst(), similarityOfSecond());
     }
 ```
 
@@ -522,6 +522,19 @@ public final class CollectedLogger extends MarkerIgnoringBase {
     @Serial
 ```
 
+## RuleId[id=ManualMinMaxCalculation]
+### ManualMinMaxCalculation
+Can be replaced with 'Math.min()' call
+in `core/src/main/java/de/jplag/reporting/reportobject/ReportObjectFactory.java`
+#### Snippet
+```java
+        int totalComparisons = result.getAllComparisons().size();
+        int numberOfMaximumComparisons = result.getOptions().maximumNumberOfComparisons();
+        int shownComparisons = totalComparisons > numberOfMaximumComparisons ? numberOfMaximumComparisons : totalComparisons;
+        int missingComparisons = totalComparisons > numberOfMaximumComparisons ? (totalComparisons - numberOfMaximumComparisons) : 0;
+        logger.info("Total Comparisons: {}. Shown Comparisons: {}. Missing Comparisons: {}.", totalComparisons, shownComparisons, missingComparisons);
+```
+
 ## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
@@ -546,19 +559,6 @@ in `endtoend-testing/src/main/java/de/jplag/endtoend/model/ExpectedResult.java`
             default -> throw new IllegalArgumentException("Metric not supported!");
         };
     }
-```
-
-## RuleId[id=ManualMinMaxCalculation]
-### ManualMinMaxCalculation
-Can be replaced with 'Math.min()' call
-in `core/src/main/java/de/jplag/reporting/reportobject/ReportObjectFactory.java`
-#### Snippet
-```java
-        int totalComparisons = result.getAllComparisons().size();
-        int numberOfMaximumComparisons = result.getOptions().maximumNumberOfComparisons();
-        int shownComparisons = totalComparisons > numberOfMaximumComparisons ? numberOfMaximumComparisons : totalComparisons;
-        int missingComparisons = totalComparisons > numberOfMaximumComparisons ? (totalComparisons - numberOfMaximumComparisons) : 0;
-        logger.info("Total Comparisons: {}. Shown Comparisons: {}. Missing Comparisons: {}.", totalComparisons, shownComparisons, missingComparisons);
 ```
 
 ## RuleId[id=DanglingJavadoc]
@@ -590,18 +590,6 @@ in `endtoend-testing/src/main/java/de/jplag/endtoend/helper/DeltaSummaryStatisti
 ## RuleId[id=JavadocLinkAsPlainText]
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `endtoend-testing/src/main/java/de/jplag/endtoend/model/ExpectedResult.java`
-#### Snippet
-```java
-/**
- * contains the current comparative values for the endToEnd tests. The comparative values were determined by discussion
- * which can be found at https://github.com/jplag/JPlag/issues/548 Here this object is used for serialization and
- * deserialization of the information from json to object or object to json.
- */
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
 in `endtoend-testing/src/main/java/de/jplag/endtoend/model/Options.java`
 #### Snippet
 ```java
@@ -610,6 +598,18 @@ in `endtoend-testing/src/main/java/de/jplag/endtoend/model/Options.java`
  * determined by discussion which can be found at https://github.com/jplag/JPlag/issues/590.
  */
 public record Options(@JsonProperty("minimum_token_match") Integer minimumTokenMatch) {
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `endtoend-testing/src/main/java/de/jplag/endtoend/model/ExpectedResult.java`
+#### Snippet
+```java
+/**
+ * contains the current comparative values for the endToEnd tests. The comparative values were determined by discussion
+ * which can be found at https://github.com/jplag/JPlag/issues/548 Here this object is used for serialization and
+ * deserialization of the information from json to object or object to json.
+ */
 ```
 
 ## RuleId[id=FieldCanBeLocal]
@@ -639,18 +639,6 @@ in `core/src/main/java/de/jplag/JPlagResult.java`
 
 ## RuleId[id=IgnoreResultOfCall]
 ### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `core/src/main/java/de/jplag/Submission.java`
-#### Snippet
-```java
-        File subdirectory = Path.of(ERROR_FOLDER, subdirectoryNames).toFile();
-        if (!subdirectory.exists()) {
-            subdirectory.mkdirs();
-        }
-        return subdirectory;
-```
-
-### IgnoreResultOfCall
 Result of `File.delete()` is ignored
 in `core/src/main/java/de/jplag/reporting/jsonfactory/DirectoryManager.java`
 #### Snippet
@@ -660,6 +648,18 @@ in `core/src/main/java/de/jplag/reporting/jsonfactory/DirectoryManager.java`
             f.sorted(Comparator.reverseOrder()).map(Path::toFile).forEach(File::delete);
         } catch (IOException e) {
             logger.error("Could not delete folder " + path, e);
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `core/src/main/java/de/jplag/Submission.java`
+#### Snippet
+```java
+        File subdirectory = Path.of(ERROR_FOLDER, subdirectoryNames).toFile();
+        if (!subdirectory.exists()) {
+            subdirectory.mkdirs();
+        }
+        return subdirectory;
 ```
 
 ## RuleId[id=SynchronizeOnNonFinalField]
@@ -677,15 +677,15 @@ in `core/src/main/java/de/jplag/GreedyStringTiling.java`
 
 ## RuleId[id=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'eObject'
-in `languages/emf-metamodel/src/main/java/de/jplag/emf/MetamodelToken.java`
+`Optional` used as type for parameter 'suffix'
+in `language-api/src/main/java/de/jplag/TokenPrinter.java`
 #### Snippet
 ```java
-public class MetamodelToken extends Token {
+    }
 
-    private final Optional<EObject> eObject;
-
-    /**
+    private static List<LineData> getLineData(List<Token> fileTokens, Optional<String> suffix) {
+        // We expect that all fileTokens share the same Token.file!
+        File file = fileTokens.get(0).getFile();
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -698,6 +698,66 @@ in `languages/emf-metamodel/src/main/java/de/jplag/emf/MetamodelToken.java`
     public MetamodelToken(TokenType type, File file, int line, int column, int length, Optional<EObject> eObject) {
         super(type, file, line, column, length);
         this.eObject = eObject;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'eObject'
+in `languages/emf-metamodel/src/main/java/de/jplag/emf/MetamodelToken.java`
+#### Snippet
+```java
+public class MetamodelToken extends Token {
+
+    private final Optional<EObject> eObject;
+
+    /**
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'suffix'
+in `language-api/src/main/java/de/jplag/TokenPrinter.java`
+#### Snippet
+```java
+     * @return the string representation.
+     */
+    public static String printTokens(List<Token> tokenList, File rootDirectory, Optional<String> suffix) {
+        PrinterOutputBuilder builder = new PrinterOutputBuilder();
+        Map<File, List<Token>> fileToTokens = groupTokensByFile(tokenList);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'targetType'
+in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
+#### Snippet
+```java
+    }
+
+    private void transformToken(Optional<RustTokenType> targetType, Token token) {
+        targetType.ifPresent(type -> transformToken(type, token));
+    }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'startType'
+in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
+#### Snippet
+```java
+        STRUCT_INITIALISATION();
+
+        private final Optional<RustTokenType> startType;
+        private final Optional<RustTokenType> endType;
+
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'endType'
+in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
+#### Snippet
+```java
+
+        private final Optional<RustTokenType> startType;
+        private final Optional<RustTokenType> endType;
+
+        RustContext() {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -725,63 +785,63 @@ in `languages/golang/src/main/java/de/jplag/golang/JPlagGoListener.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'targetType'
-in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
+`Optional` used as type for field 'defaultValue'
+in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
 #### Snippet
 ```java
-    }
-
-    private void transformToken(Optional<RustTokenType> targetType, Token token) {
-        targetType.ifPresent(type -> transformToken(type, token));
-    }
+    private final NumberOfArgumentValues numberOfValues;
+    private final String description;
+    private final Optional<Object> defaultValue;
+    private final Optional<Collection<String>> choices;
+    private final Optional<String> argumentGroup;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'endType'
-in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
+`Optional` used as type for field 'metaVar'
+in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
 #### Snippet
 ```java
-
-        private final Optional<RustTokenType> startType;
-        private final Optional<RustTokenType> endType;
-
-        RustContext() {
+        private Optional<String> mutuallyExclusiveGroup = Optional.empty();
+        private Optional<ArgumentAction> action = Optional.empty();
+        private Optional<String> metaVar = Optional.empty();
+        private Optional<NumberOfArgumentValues> nargs = Optional.empty();
+        private boolean hidden;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'startType'
-in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
+`Optional` used as type for field 'mutuallyExclusiveGroup'
+in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
 #### Snippet
 ```java
-        STRUCT_INITIALISATION();
-
-        private final Optional<RustTokenType> startType;
-        private final Optional<RustTokenType> endType;
-
+    private final Optional<Collection<String>> choices;
+    private final Optional<String> argumentGroup;
+    private final Optional<String> mutuallyExclusiveGroup;
+    private final Optional<ArgumentAction> action;
+    private final Optional<String> metaVar;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'suffix'
-in `language-api/src/main/java/de/jplag/TokenPrinter.java`
+`Optional` used as type for field 'argumentGroup'
+in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
 #### Snippet
 ```java
-    }
-
-    private static List<LineData> getLineData(List<Token> fileTokens, Optional<String> suffix) {
-        // We expect that all fileTokens share the same Token.file!
-        File file = fileTokens.get(0).getFile();
+    private final Optional<Object> defaultValue;
+    private final Optional<Collection<String>> choices;
+    private final Optional<String> argumentGroup;
+    private final Optional<String> mutuallyExclusiveGroup;
+    private final Optional<ArgumentAction> action;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'suffix'
-in `language-api/src/main/java/de/jplag/TokenPrinter.java`
+`Optional` used as type for field 'nargs'
+in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
 #### Snippet
 ```java
-     * @return the string representation.
-     */
-    public static String printTokens(List<Token> tokenList, File rootDirectory, Optional<String> suffix) {
-        PrinterOutputBuilder builder = new PrinterOutputBuilder();
-        Map<File, List<Token>> fileToTokens = groupTokensByFile(tokenList);
+        private Optional<ArgumentAction> action = Optional.empty();
+        private Optional<String> metaVar = Optional.empty();
+        private Optional<NumberOfArgumentValues> nargs = Optional.empty();
+        private boolean hidden;
+
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -789,23 +849,11 @@ in `language-api/src/main/java/de/jplag/TokenPrinter.java`
 in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
 #### Snippet
 ```java
-    private final String description;
-    private final Optional<Object> defaultValue;
-    private final Optional<Collection<String>> choices;
-    private final Optional<String> argumentGroup;
-    private final Optional<String> mutuallyExclusiveGroup;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'defaultValue'
-in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
-#### Snippet
-```java
-        private final String flag;
         private final Class<?> type;
         private Optional<Object> defaultValue = Optional.empty();
         private Optional<Collection<String>> choices = Optional.empty();
         private Optional<String> argumentGroup = Optional.empty();
+        private Optional<String> mutuallyExclusiveGroup = Optional.empty();
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -833,39 +881,15 @@ in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'nargs'
-in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
-#### Snippet
-```java
-        private Optional<ArgumentAction> action = Optional.empty();
-        private Optional<String> metaVar = Optional.empty();
-        private Optional<NumberOfArgumentValues> nargs = Optional.empty();
-        private boolean hidden;
-
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'metaVar'
-in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
-#### Snippet
-```java
-        private Optional<String> mutuallyExclusiveGroup = Optional.empty();
-        private Optional<ArgumentAction> action = Optional.empty();
-        private Optional<String> metaVar = Optional.empty();
-        private Optional<NumberOfArgumentValues> nargs = Optional.empty();
-        private boolean hidden;
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'argumentGroup'
 in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
 #### Snippet
 ```java
-    private final Optional<Object> defaultValue;
-    private final Optional<Collection<String>> choices;
-    private final Optional<String> argumentGroup;
-    private final Optional<String> mutuallyExclusiveGroup;
-    private final Optional<ArgumentAction> action;
+        private Optional<Object> defaultValue = Optional.empty();
+        private Optional<Collection<String>> choices = Optional.empty();
+        private Optional<String> argumentGroup = Optional.empty();
+        private Optional<String> mutuallyExclusiveGroup = Optional.empty();
+        private Optional<ArgumentAction> action = Optional.empty();
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -881,39 +905,15 @@ in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'mutuallyExclusiveGroup'
-in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
-#### Snippet
-```java
-    private final Optional<Collection<String>> choices;
-    private final Optional<String> argumentGroup;
-    private final Optional<String> mutuallyExclusiveGroup;
-    private final Optional<ArgumentAction> action;
-    private final Optional<String> metaVar;
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'defaultValue'
 in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
 #### Snippet
 ```java
-    private final NumberOfArgumentValues numberOfValues;
-    private final String description;
-    private final Optional<Object> defaultValue;
-    private final Optional<Collection<String>> choices;
-    private final Optional<String> argumentGroup;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for field 'choices'
-in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
-#### Snippet
-```java
+        private final String flag;
         private final Class<?> type;
         private Optional<Object> defaultValue = Optional.empty();
         private Optional<Collection<String>> choices = Optional.empty();
         private Optional<String> argumentGroup = Optional.empty();
-        private Optional<String> mutuallyExclusiveGroup = Optional.empty();
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -929,15 +929,15 @@ in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'argumentGroup'
+`Optional`> used as type for field 'choices'
 in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
 #### Snippet
 ```java
-        private Optional<Object> defaultValue = Optional.empty();
-        private Optional<Collection<String>> choices = Optional.empty();
-        private Optional<String> argumentGroup = Optional.empty();
-        private Optional<String> mutuallyExclusiveGroup = Optional.empty();
-        private Optional<ArgumentAction> action = Optional.empty();
+    private final String description;
+    private final Optional<Object> defaultValue;
+    private final Optional<Collection<String>> choices;
+    private final Optional<String> argumentGroup;
+    private final Optional<String> mutuallyExclusiveGroup;
 ```
 
 ## RuleId[id=ConditionCoveredByFurtherCondition]
@@ -980,6 +980,18 @@ in `languages/swift/src/main/java/de/jplag/swift/JPlagSwiftListener.java`
 
 ## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
+Field `line` may be 'final'
+in `language-api/src/main/java/de/jplag/Token.java`
+#### Snippet
+```java
+    public static final int NO_VALUE = -1;
+
+    private int line;
+    private int column;
+    private int length;
+```
+
+### FieldMayBeFinal
 Field `length` may be 'final'
 in `language-api/src/main/java/de/jplag/Token.java`
 #### Snippet
@@ -989,18 +1001,6 @@ in `language-api/src/main/java/de/jplag/Token.java`
     private int length;
     private File file;
     private TokenType type;
-```
-
-### FieldMayBeFinal
-Field `type` may be 'final'
-in `language-api/src/main/java/de/jplag/Token.java`
-#### Snippet
-```java
-    private int length;
-    private File file;
-    private TokenType type;
-
-    /**
 ```
 
 ### FieldMayBeFinal
@@ -1016,18 +1016,6 @@ in `language-api/src/main/java/de/jplag/Token.java`
 ```
 
 ### FieldMayBeFinal
-Field `logger` may be 'final'
-in `language-api/src/main/java/de/jplag/Token.java`
-#### Snippet
-```java
- */
-public class Token {
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
-    /** Indicates that the requested field has no value. */
-    public static final int NO_VALUE = -1;
-```
-
-### FieldMayBeFinal
 Field `column` may be 'final'
 in `language-api/src/main/java/de/jplag/Token.java`
 #### Snippet
@@ -1040,39 +1028,27 @@ in `language-api/src/main/java/de/jplag/Token.java`
 ```
 
 ### FieldMayBeFinal
-Field `line` may be 'final'
+Field `type` may be 'final'
 in `language-api/src/main/java/de/jplag/Token.java`
 #### Snippet
 ```java
-    public static final int NO_VALUE = -1;
-
-    private int line;
-    private int column;
     private int length;
+    private File file;
+    private TokenType type;
+
+    /**
 ```
 
 ### FieldMayBeFinal
-Field `tokenTypeValues` may be 'final'
-in `core/src/main/java/de/jplag/GreedyStringTiling.java`
+Field `logger` may be 'final'
+in `language-api/src/main/java/de/jplag/Token.java`
 #### Snippet
 ```java
-
-    private final int minimumMatchLength;
-    private ConcurrentMap<TokenType, Integer> tokenTypeValues;
-    private final Map<Submission, Set<Token>> baseCodeMarkings = new IdentityHashMap<>();
-
-```
-
-### FieldMayBeFinal
-Field `mutuallyExclusiveGroup` may be 'final'
-in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
-#### Snippet
-```java
-        private Optional<Collection<String>> choices = Optional.empty();
-        private Optional<String> argumentGroup = Optional.empty();
-        private Optional<String> mutuallyExclusiveGroup = Optional.empty();
-        private Optional<ArgumentAction> action = Optional.empty();
-        private Optional<String> metaVar = Optional.empty();
+ */
+public class Token {
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    /** Indicates that the requested field has no value. */
+    public static final int NO_VALUE = -1;
 ```
 
 ### FieldMayBeFinal
@@ -1109,6 +1085,30 @@ in `languages/emf-metamodel/src/main/java/de/jplag/emf/util/EmfaticModelView.jav
     private Copier modelCopier; // Allows to trace between original and copied elements
     private int lastLineIndex; // last line given to a token
 
+```
+
+### FieldMayBeFinal
+Field `tokenTypeValues` may be 'final'
+in `core/src/main/java/de/jplag/GreedyStringTiling.java`
+#### Snippet
+```java
+
+    private final int minimumMatchLength;
+    private ConcurrentMap<TokenType, Integer> tokenTypeValues;
+    private final Map<Submission, Set<Token>> baseCodeMarkings = new IdentityHashMap<>();
+
+```
+
+### FieldMayBeFinal
+Field `mutuallyExclusiveGroup` may be 'final'
+in `cli/src/main/java/de/jplag/cli/CommandLineArgument.java`
+#### Snippet
+```java
+        private Optional<Collection<String>> choices = Optional.empty();
+        private Optional<String> argumentGroup = Optional.empty();
+        private Optional<String> mutuallyExclusiveGroup = Optional.empty();
+        private Optional<ArgumentAction> action = Optional.empty();
+        private Optional<String> metaVar = Optional.empty();
 ```
 
 ## RuleId[id=UnnecessaryUnicodeEscape]
@@ -1522,18 +1522,6 @@ in `languages/swift/src/main/java/de/jplag/swift/grammar/SwiftSupport.java`
 
 ## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
-Local variable `xtol` is redundant
-in `core/src/main/java/de/jplag/clustering/algorithm/BFGS.java`
-#### Snippet
-```java
-        // Termination occurs when the relative width of the interval
-        // of uncertainty is at most xtol.
-        final double xtol = EPSILON;
-        // Tolerance for the sufficient decrease condition.
-        final double ftol = 1.0E-4;
-```
-
-### UnnecessaryLocalVariable
 Local variable `c` is redundant
 in `core/src/main/java/de/jplag/clustering/algorithm/BFGS.java`
 #### Snippet
@@ -1543,6 +1531,18 @@ in `core/src/main/java/de/jplag/clustering/algorithm/BFGS.java`
             Matrix c = new Matrix(d.transpose().multiply(d));
             // c.mm(TRANSPOSE, 1this, NO_TRANSPOSE, this);
             // c.uplo(LOWER);
+```
+
+### UnnecessaryLocalVariable
+Local variable `xtol` is redundant
+in `core/src/main/java/de/jplag/clustering/algorithm/BFGS.java`
+#### Snippet
+```java
+        // Termination occurs when the relative width of the interval
+        // of uncertainty is at most xtol.
+        final double xtol = EPSILON;
+        // Tolerance for the sufficient decrease condition.
+        final double ftol = 1.0E-4;
 ```
 
 ## RuleId[id=RedundantUnmodifiable]
@@ -1558,54 +1558,113 @@ in `core/src/main/java/de/jplag/clustering/ClusteringResult.java`
 
 ```
 
-## RuleId[id=OptionalGetWithoutIsPresent]
-### OptionalGetWithoutIsPresent
-`OptionalDouble.getAsDouble()` without 'isPresent()' check
-in `core/src/main/java/de/jplag/clustering/ClusteringResult.java`
-#### Snippet
-```java
-    public double getWorth(BiFunction<T, T, Double> similarity) {
-        return getClusters().stream().mapToDouble(c -> c.getWorth(similarity)).map(worth -> Double.isFinite(worth) ? worth : 0).average()
-                .getAsDouble();
-    }
-
-```
-
 ## RuleId[id=ConstantValue]
 ### ConstantValue
-Condition `caseBlock != null` is always `false`
-in `languages/golang/src/main/java/de/jplag/golang/JPlagGoListener.java`
+Condition `parentNode instanceof RustParser.MacroPunctuationTokenContext` is always `false`
+in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
 #### Snippet
 ```java
-        transformToken(SWITCH_CASE, context.getStart());
-        var caseBlock = context.getChild(GoParser.StatementListContext.class, 0);
-        if (caseBlock != null) {
-            enterContext(GoBlockContext.CASE_BLOCK);
-            transformToken(CASE_BLOCK_BEGIN, caseBlock.getStart());
+            }
+            case "=" -> {
+                if (!(parentNode instanceof RustParser.AttrInputContext || parentNode instanceof RustParser.MacroPunctuationTokenContext
+                        || parentNode instanceof RustParser.TypeParamContext || parentNode instanceof RustParser.GenericArgsBindingContext)
+                        && stateContext != RustContext.MACRO_INNER) {
 ```
 
 ### ConstantValue
-Condition `caseBlock != null` is always `false`
-in `languages/golang/src/main/java/de/jplag/golang/JPlagGoListener.java`
+Value `parentNode` is always 'null'
+in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
 #### Snippet
 ```java
-        transformToken(SWITCH_CASE, context.getStart());
-        var caseBlock = context.getChild(GoParser.StatementListContext.class, 0);
-        if (caseBlock != null) {
-            enterContext(GoBlockContext.CASE_BLOCK);
-            transformToken(CASE_BLOCK_BEGIN, caseBlock.getStart());
+            }
+            case "=" -> {
+                if (!(parentNode instanceof RustParser.AttrInputContext || parentNode instanceof RustParser.MacroPunctuationTokenContext
+                        || parentNode instanceof RustParser.TypeParamContext || parentNode instanceof RustParser.GenericArgsBindingContext)
+                        && stateContext != RustContext.MACRO_INNER) {
 ```
 
 ### ConstantValue
-Condition `caseBlock != null` is always `false`
-in `languages/golang/src/main/java/de/jplag/golang/JPlagGoListener.java`
+Condition `parentNode instanceof RustParser.TypeParamContext` is always `false`
+in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
 #### Snippet
 ```java
-        transformToken(SWITCH_CASE, context.getStart());
-        var caseBlock = context.getChild(GoParser.StatementListContext.class, 0);
-        if (caseBlock != null) {
-            enterContext(GoBlockContext.CASE_BLOCK);
-            transformToken(CASE_BLOCK_BEGIN, caseBlock.getStart());
+            case "=" -> {
+                if (!(parentNode instanceof RustParser.AttrInputContext || parentNode instanceof RustParser.MacroPunctuationTokenContext
+                        || parentNode instanceof RustParser.TypeParamContext || parentNode instanceof RustParser.GenericArgsBindingContext)
+                        && stateContext != RustContext.MACRO_INNER) {
+                    transformToken(ASSIGNMENT, token);
+```
+
+### ConstantValue
+Value `parentNode` is always 'null'
+in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
+#### Snippet
+```java
+            case "=" -> {
+                if (!(parentNode instanceof RustParser.AttrInputContext || parentNode instanceof RustParser.MacroPunctuationTokenContext
+                        || parentNode instanceof RustParser.TypeParamContext || parentNode instanceof RustParser.GenericArgsBindingContext)
+                        && stateContext != RustContext.MACRO_INNER) {
+                    transformToken(ASSIGNMENT, token);
+```
+
+### ConstantValue
+Condition `parentNode instanceof RustParser.GenericArgsBindingContext` is always `false`
+in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
+#### Snippet
+```java
+            case "=" -> {
+                if (!(parentNode instanceof RustParser.AttrInputContext || parentNode instanceof RustParser.MacroPunctuationTokenContext
+                        || parentNode instanceof RustParser.TypeParamContext || parentNode instanceof RustParser.GenericArgsBindingContext)
+                        && stateContext != RustContext.MACRO_INNER) {
+                    transformToken(ASSIGNMENT, token);
+```
+
+### ConstantValue
+Value `parentNode` is always 'null'
+in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
+#### Snippet
+```java
+            case "=" -> {
+                if (!(parentNode instanceof RustParser.AttrInputContext || parentNode instanceof RustParser.MacroPunctuationTokenContext
+                        || parentNode instanceof RustParser.TypeParamContext || parentNode instanceof RustParser.GenericArgsBindingContext)
+                        && stateContext != RustContext.MACRO_INNER) {
+                    transformToken(ASSIGNMENT, token);
+```
+
+### ConstantValue
+Condition `Objects.nonNull(elements)` is always `false`
+in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
+#### Snippet
+```java
+        var elements = context.getChild(RustParser.TupleElementsContext.class, 0);
+        // one child = exactly one subtree and no trailing comma
+        if (Objects.nonNull(elements) && elements.getChildCount() == 1) {
+            state.enter(RustContext.REDUNDANT_TUPLE);
+        }
+```
+
+### ConstantValue
+Condition `Objects.nonNull(elements) && elements.getChildCount() == 1` is always `false`
+in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
+#### Snippet
+```java
+        var elements = context.getChild(RustParser.TupleElementsContext.class, 0);
+        // one child = exactly one subtree and no trailing comma
+        if (Objects.nonNull(elements) && elements.getChildCount() == 1) {
+            state.enter(RustContext.REDUNDANT_TUPLE);
+        }
+```
+
+### ConstantValue
+Value `elements` is always 'null'
+in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
+#### Snippet
+```java
+        var elements = context.getChild(RustParser.TupleElementsContext.class, 0);
+        // one child = exactly one subtree and no trailing comma
+        if (Objects.nonNull(elements) && elements.getChildCount() == 1) {
+            state.enter(RustContext.REDUNDANT_TUPLE);
+        }
 ```
 
 ### ConstantValue
@@ -1717,111 +1776,52 @@ in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
 ```
 
 ### ConstantValue
-Condition `parentNode instanceof RustParser.MacroPunctuationTokenContext` is always `false`
-in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
+Condition `caseBlock != null` is always `false`
+in `languages/golang/src/main/java/de/jplag/golang/JPlagGoListener.java`
 #### Snippet
 ```java
-            }
-            case "=" -> {
-                if (!(parentNode instanceof RustParser.AttrInputContext || parentNode instanceof RustParser.MacroPunctuationTokenContext
-                        || parentNode instanceof RustParser.TypeParamContext || parentNode instanceof RustParser.GenericArgsBindingContext)
-                        && stateContext != RustContext.MACRO_INNER) {
+        transformToken(SWITCH_CASE, context.getStart());
+        var caseBlock = context.getChild(GoParser.StatementListContext.class, 0);
+        if (caseBlock != null) {
+            enterContext(GoBlockContext.CASE_BLOCK);
+            transformToken(CASE_BLOCK_BEGIN, caseBlock.getStart());
 ```
 
 ### ConstantValue
-Value `parentNode` is always 'null'
-in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
+Condition `caseBlock != null` is always `false`
+in `languages/golang/src/main/java/de/jplag/golang/JPlagGoListener.java`
 #### Snippet
 ```java
-            }
-            case "=" -> {
-                if (!(parentNode instanceof RustParser.AttrInputContext || parentNode instanceof RustParser.MacroPunctuationTokenContext
-                        || parentNode instanceof RustParser.TypeParamContext || parentNode instanceof RustParser.GenericArgsBindingContext)
-                        && stateContext != RustContext.MACRO_INNER) {
+        transformToken(SWITCH_CASE, context.getStart());
+        var caseBlock = context.getChild(GoParser.StatementListContext.class, 0);
+        if (caseBlock != null) {
+            enterContext(GoBlockContext.CASE_BLOCK);
+            transformToken(CASE_BLOCK_BEGIN, caseBlock.getStart());
 ```
 
 ### ConstantValue
-Condition `parentNode instanceof RustParser.TypeParamContext` is always `false`
-in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
+Condition `caseBlock != null` is always `false`
+in `languages/golang/src/main/java/de/jplag/golang/JPlagGoListener.java`
 #### Snippet
 ```java
-            case "=" -> {
-                if (!(parentNode instanceof RustParser.AttrInputContext || parentNode instanceof RustParser.MacroPunctuationTokenContext
-                        || parentNode instanceof RustParser.TypeParamContext || parentNode instanceof RustParser.GenericArgsBindingContext)
-                        && stateContext != RustContext.MACRO_INNER) {
-                    transformToken(ASSIGNMENT, token);
+        transformToken(SWITCH_CASE, context.getStart());
+        var caseBlock = context.getChild(GoParser.StatementListContext.class, 0);
+        if (caseBlock != null) {
+            enterContext(GoBlockContext.CASE_BLOCK);
+            transformToken(CASE_BLOCK_BEGIN, caseBlock.getStart());
 ```
 
-### ConstantValue
-Value `parentNode` is always 'null'
-in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
+## RuleId[id=OptionalGetWithoutIsPresent]
+### OptionalGetWithoutIsPresent
+`OptionalDouble.getAsDouble()` without 'isPresent()' check
+in `core/src/main/java/de/jplag/clustering/ClusteringResult.java`
 #### Snippet
 ```java
-            case "=" -> {
-                if (!(parentNode instanceof RustParser.AttrInputContext || parentNode instanceof RustParser.MacroPunctuationTokenContext
-                        || parentNode instanceof RustParser.TypeParamContext || parentNode instanceof RustParser.GenericArgsBindingContext)
-                        && stateContext != RustContext.MACRO_INNER) {
-                    transformToken(ASSIGNMENT, token);
-```
+    public double getWorth(BiFunction<T, T, Double> similarity) {
+        return getClusters().stream().mapToDouble(c -> c.getWorth(similarity)).map(worth -> Double.isFinite(worth) ? worth : 0).average()
+                .getAsDouble();
+    }
 
-### ConstantValue
-Condition `parentNode instanceof RustParser.GenericArgsBindingContext` is always `false`
-in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
-#### Snippet
-```java
-            case "=" -> {
-                if (!(parentNode instanceof RustParser.AttrInputContext || parentNode instanceof RustParser.MacroPunctuationTokenContext
-                        || parentNode instanceof RustParser.TypeParamContext || parentNode instanceof RustParser.GenericArgsBindingContext)
-                        && stateContext != RustContext.MACRO_INNER) {
-                    transformToken(ASSIGNMENT, token);
-```
-
-### ConstantValue
-Value `parentNode` is always 'null'
-in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
-#### Snippet
-```java
-            case "=" -> {
-                if (!(parentNode instanceof RustParser.AttrInputContext || parentNode instanceof RustParser.MacroPunctuationTokenContext
-                        || parentNode instanceof RustParser.TypeParamContext || parentNode instanceof RustParser.GenericArgsBindingContext)
-                        && stateContext != RustContext.MACRO_INNER) {
-                    transformToken(ASSIGNMENT, token);
-```
-
-### ConstantValue
-Condition `Objects.nonNull(elements)` is always `false`
-in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
-#### Snippet
-```java
-        var elements = context.getChild(RustParser.TupleElementsContext.class, 0);
-        // one child = exactly one subtree and no trailing comma
-        if (Objects.nonNull(elements) && elements.getChildCount() == 1) {
-            state.enter(RustContext.REDUNDANT_TUPLE);
-        }
-```
-
-### ConstantValue
-Condition `Objects.nonNull(elements) && elements.getChildCount() == 1` is always `false`
-in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
-#### Snippet
-```java
-        var elements = context.getChild(RustParser.TupleElementsContext.class, 0);
-        // one child = exactly one subtree and no trailing comma
-        if (Objects.nonNull(elements) && elements.getChildCount() == 1) {
-            state.enter(RustContext.REDUNDANT_TUPLE);
-        }
-```
-
-### ConstantValue
-Value `elements` is always 'null'
-in `languages/rust/src/main/java/de/jplag/rust/JPlagRustListener.java`
-#### Snippet
-```java
-        var elements = context.getChild(RustParser.TupleElementsContext.class, 0);
-        // one child = exactly one subtree and no trailing comma
-        if (Objects.nonNull(elements) && elements.getChildCount() == 1) {
-            state.enter(RustContext.REDUNDANT_TUPLE);
-        }
 ```
 
 ## RuleId[id=StringConcatenationInsideStringBufferAppend]
