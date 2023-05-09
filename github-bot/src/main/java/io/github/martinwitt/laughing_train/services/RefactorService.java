@@ -13,12 +13,9 @@ import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
 import io.github.martinwitt.laughing_train.persistence.BadSmell;
 import io.smallrye.health.api.AsyncHealthCheck;
 import io.smallrye.mutiny.Uni;
-import io.vertx.core.AsyncResult;
 import io.vertx.core.Promise;
 import io.vertx.core.Vertx;
-import io.vertx.core.eventbus.DeliveryOptions;
 import io.vertx.core.eventbus.EventBus;
-import io.vertx.core.eventbus.Message;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import java.io.IOException;
@@ -30,7 +27,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.apache.commons.io.FileUtils;
@@ -73,6 +69,9 @@ public class RefactorService {
     @Inject
     ProjectConfigService projectConfigService;
 
+    @Inject
+    ProjectService projectService;
+
     DiffCleaner diffCleaner;
 
     public RefactorService() {
@@ -108,27 +107,20 @@ public class RefactorService {
                     return Uni.createFrom().item(list.get(0));
                 })
                 .subscribe()
-                .with(config -> eventBus.<ProjectResult>request(
-                        ServiceAddresses.PROJECT_REQUEST,
-                        new ProjectRequest.WithUrl(projectUrl),
-                        new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(300)),
-                        result -> vertx.executeBlocking(v -> createPullRequest(result, badSmells, config))));
+                .with(it -> {
+                    var result = projectService.handleProjectRequest(new ProjectRequest.WithUrl(projectUrl));
+                    createPullRequest(result, badSmells, it);
+                });
     }
 
     private Promise<String> createPullRequest(
-            AsyncResult<? extends Message<ProjectResult>> message,
-            List<? extends BadSmell> badSmells,
-            ProjectConfig config) {
-        if (message.failed()) {
-            logger.atSevere().withCause(message.cause()).log("Failed to get project");
-            return Promise.promise();
-        }
-        var projectResult = message.result().body();
-        if (projectResult instanceof ProjectResult.Error error) {
+            ProjectResult message, List<? extends BadSmell> badSmells, ProjectConfig config) {
+        if (message instanceof ProjectResult.Error error) {
             logger.atSevere().log("Failed to get project %s", error.message());
             return Promise.promise();
         }
-        if (projectResult instanceof ProjectResult.Success success) {
+
+        if (message instanceof ProjectResult.Success success) {
             ChangeListener listener = new ChangeListener();
             QodanaRefactor refactor = new QodanaRefactor(EnumSet.allOf(QodanaRules.class), listener, badSmells);
             String refactorPath = success.project().folder().getAbsolutePath() + "/" + config.getSourceFolder();

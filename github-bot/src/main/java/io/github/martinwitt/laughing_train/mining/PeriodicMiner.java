@@ -33,12 +33,12 @@ public class PeriodicMiner {
 
     static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
-    MiningPrinter miningPrinter;
-    Vertx vertx;
-    SearchProjectService searchProjectService;
-    ProjectRepository projectRepository;
-    QodanaService qodanaService;
-    ProjectService projectService;
+    final MiningPrinter miningPrinter;
+    final Vertx vertx;
+    final SearchProjectService searchProjectService;
+    final ProjectRepository projectRepository;
+    final QodanaService qodanaService;
+    final ProjectService projectService;
 
     MeterRegistry registry;
 
@@ -51,13 +51,15 @@ public class PeriodicMiner {
             SearchProjectService searchProjectService,
             ProjectRepository projectRepository,
             QodanaService qodanaService,
-            ProjectService projectService) {
+            ProjectService projectService,
+            MiningPrinter miningPrinter) {
         this.registry = registry;
         this.vertx = vertx;
         this.searchProjectService = searchProjectService;
         this.projectRepository = projectRepository;
         this.qodanaService = qodanaService;
         this.projectService = projectService;
+        this.miningPrinter = miningPrinter;
     }
 
     private Project getRandomProject() throws IOException {
@@ -74,7 +76,7 @@ public class PeriodicMiner {
     }
 
     void mine(@Observes StartupEvent event) {
-        vertx.setTimer(TimeUnit.MINUTES.toMillis(5), v -> mineRandomRepo());
+        vertx.setTimer(TimeUnit.MINUTES.toMillis(5), v -> vertx.executeBlocking(it -> mineRandomRepo()));
     }
 
     private void mineRandomRepo() {
@@ -107,7 +109,7 @@ public class PeriodicMiner {
             logger.atWarning().withCause(e).log("Failed to mine random repo");
             registry.counter("mining.error").increment();
         } finally {
-            vertx.setTimer(TimeUnit.MINUTES.toMillis(1), v -> mineRandomRepo());
+            vertx.setTimer(TimeUnit.MINUTES.toMillis(1), v -> vertx.executeBlocking(it -> mineRandomRepo()));
         }
     }
 

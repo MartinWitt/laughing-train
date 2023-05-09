@@ -1,6 +1,6 @@
 plugins {
 	id 'java'
-	id "io.quarkus" version "3.0.1.Final"
+	id "io.quarkus" version "3.0.2.Final"
 	id 'xyz.keksdose.spoon.code_solver.java-common-conventions'
 }
 
@@ -14,7 +14,7 @@ dependencies {
 	implementation 'io.quarkus:quarkus-smallrye-health'
 	testImplementation 'io.quarkus:quarkus-junit5'
 	implementation project(":code-transformation")
-	implementation 'io.quarkus:quarkus-mongodb-panache:3.0.1.Final'
+	implementation 'io.quarkus:quarkus-mongodb-panache:3.0.2.Final'
 	annotationProcessor("io.quarkus:quarkus-panache-common")
 	implementation("io.quarkus:quarkus-smallrye-graphql")
 	implementation("io.quarkus:quarkus-smallrye-graphql-client")
