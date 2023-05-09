@@ -1,11 +1,30 @@
 # maven-scripting-plugin 
  
 # Bad smells
-I found 16 bad smells with 0 repairable:
+I found 3 bad smells with 0 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| UnnecessaryFullyQualifiedName | 15 | false |
+| DuplicatedCode | 1 | false |
 | DataFlowIssue | 1 | false |
+| JavadocLinkAsPlainText | 1 | false |
+## RuleId[id=DuplicatedCode]
+### DuplicatedCode
+Duplicated code
+in `src/main/java/org/apache/maven/plugins/scripting/FileScriptEvaluator.java`
+#### Snippet
+```java
+            int position = extension.indexOf(".");
+
+            if (position >= 0) {
+                extension = extension.substring(position + 1);
+            }
+            result = manager.getEngineByExtension(extension);
+
+            if (result == null) {
+                throw new UnsupportedScriptEngineException("No engine found by extension \"" + extension + "\n");
+            }
+```
+
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
 Argument `is` might be null
@@ -19,184 +38,16 @@ in `src/main/java/org/apache/maven/plugins/scripting/ResourceScriptEvaluator.jav
         } catch (IOException ex) {
 ```
 
-## RuleId[id=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.plugins.scripting` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/scripting/StringScriptEvaluator.java`
+## RuleId[id=JavadocLinkAsPlainText]
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `src/main/java/org/apache/maven/plugins/scripting/EvalMojo.java`
 #### Snippet
 ```java
-     * @param context the script context.
-     * @throws ScriptException if an error occurs in script.
-     * @see org.apache.maven.plugins.scripting.AbstractScriptEvaluator#eval(javax.script.ScriptEngine, javax.script.ScriptContext)
+     * When scriptFile provided the script is ignored.
+     * The file name extension identifies the script language to use, as of javax.script.ScriptEngineManager
+     * and {@linkplain "https://jcp.org/aboutJava/communityprocess/final/jsr223/index.html"}
      */
-    protected Object eval(ScriptEngine engine, ScriptContext context) throws ScriptException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.script` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/scripting/StringScriptEvaluator.java`
-#### Snippet
-```java
-     * @param context the script context.
-     * @throws ScriptException if an error occurs in script.
-     * @see org.apache.maven.plugins.scripting.AbstractScriptEvaluator#eval(javax.script.ScriptEngine, javax.script.ScriptContext)
-     */
-    protected Object eval(ScriptEngine engine, ScriptContext context) throws ScriptException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.script` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/scripting/StringScriptEvaluator.java`
-#### Snippet
-```java
-     * @param context the script context.
-     * @throws ScriptException if an error occurs in script.
-     * @see org.apache.maven.plugins.scripting.AbstractScriptEvaluator#eval(javax.script.ScriptEngine, javax.script.ScriptContext)
-     */
-    protected Object eval(ScriptEngine engine, ScriptContext context) throws ScriptException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.plugins.scripting` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/scripting/StringScriptEvaluator.java`
-#### Snippet
-```java
-     * @param manager the script engine manager.
-     * @throws UnsupportedScriptEngineException if the engineName is not supported
-     * @see org.apache.maven.plugins.scripting.AbstractScriptEvaluator#getEngine(javax.script.ScriptEngineManager)
-     */
-    protected ScriptEngine getEngine(ScriptEngineManager manager) throws UnsupportedScriptEngineException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.script` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/scripting/StringScriptEvaluator.java`
-#### Snippet
-```java
-     * @param manager the script engine manager.
-     * @throws UnsupportedScriptEngineException if the engineName is not supported
-     * @see org.apache.maven.plugins.scripting.AbstractScriptEvaluator#getEngine(javax.script.ScriptEngineManager)
-     */
-    protected ScriptEngine getEngine(ScriptEngineManager manager) throws UnsupportedScriptEngineException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.plugins.scripting` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/scripting/ResourceScriptEvaluator.java`
-#### Snippet
-```java
-     * @param manager the script engine manager
-     * @throws UnsupportedScriptEngineException if specified engine is not available
-     * @see org.apache.maven.plugins.scripting.AbstractScriptEvaluator#getEngine(javax.script.ScriptEngineManager)
-     */
-    protected ScriptEngine getEngine(ScriptEngineManager manager) throws UnsupportedScriptEngineException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.script` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/scripting/ResourceScriptEvaluator.java`
-#### Snippet
-```java
-     * @param manager the script engine manager
-     * @throws UnsupportedScriptEngineException if specified engine is not available
-     * @see org.apache.maven.plugins.scripting.AbstractScriptEvaluator#getEngine(javax.script.ScriptEngineManager)
-     */
-    protected ScriptEngine getEngine(ScriptEngineManager manager) throws UnsupportedScriptEngineException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.plugins.scripting` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/scripting/ResourceScriptEvaluator.java`
-#### Snippet
-```java
-     * @return the result of the scriptFile.
-     * @throws ScriptException if an error occurs in script.
-     * @see org.apache.maven.plugins.scripting.AbstractScriptEvaluator#eval(javax.script.ScriptEngine, javax.script.ScriptContext)
-     */
-    protected Object eval(ScriptEngine engine, ScriptContext context) throws ScriptException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.script` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/scripting/ResourceScriptEvaluator.java`
-#### Snippet
-```java
-     * @return the result of the scriptFile.
-     * @throws ScriptException if an error occurs in script.
-     * @see org.apache.maven.plugins.scripting.AbstractScriptEvaluator#eval(javax.script.ScriptEngine, javax.script.ScriptContext)
-     */
-    protected Object eval(ScriptEngine engine, ScriptContext context) throws ScriptException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.script` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/scripting/ResourceScriptEvaluator.java`
-#### Snippet
-```java
-     * @return the result of the scriptFile.
-     * @throws ScriptException if an error occurs in script.
-     * @see org.apache.maven.plugins.scripting.AbstractScriptEvaluator#eval(javax.script.ScriptEngine, javax.script.ScriptContext)
-     */
-    protected Object eval(ScriptEngine engine, ScriptContext context) throws ScriptException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.plugins.scripting` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/scripting/FileScriptEvaluator.java`
-#### Snippet
-```java
-     * @return the result of the scriptFile.
-     * @throws ScriptException if an error occurs in script.
-     * @see org.apache.maven.plugins.scripting.AbstractScriptEvaluator#eval(javax.script.ScriptEngine, javax.script.ScriptContext)
-     */
-    protected Object eval(ScriptEngine engine, ScriptContext context) throws ScriptException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.script` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/scripting/FileScriptEvaluator.java`
-#### Snippet
-```java
-     * @return the result of the scriptFile.
-     * @throws ScriptException if an error occurs in script.
-     * @see org.apache.maven.plugins.scripting.AbstractScriptEvaluator#eval(javax.script.ScriptEngine, javax.script.ScriptContext)
-     */
-    protected Object eval(ScriptEngine engine, ScriptContext context) throws ScriptException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.script` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/scripting/FileScriptEvaluator.java`
-#### Snippet
-```java
-     * @return the result of the scriptFile.
-     * @throws ScriptException if an error occurs in script.
-     * @see org.apache.maven.plugins.scripting.AbstractScriptEvaluator#eval(javax.script.ScriptEngine, javax.script.ScriptContext)
-     */
-    protected Object eval(ScriptEngine engine, ScriptContext context) throws ScriptException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.maven.plugins.scripting` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/scripting/FileScriptEvaluator.java`
-#### Snippet
-```java
-     * @param manager the script engine manager
-     * @throws UnsupportedScriptEngineException if specified engine is not available
-     * @see org.apache.maven.plugins.scripting.AbstractScriptEvaluator#getEngine(javax.script.ScriptEngineManager)
-     */
-    protected ScriptEngine getEngine(ScriptEngineManager manager) throws UnsupportedScriptEngineException {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `javax.script` is unnecessary and can be removed
-in `src/main/java/org/apache/maven/plugins/scripting/FileScriptEvaluator.java`
-#### Snippet
-```java
-     * @param manager the script engine manager
-     * @throws UnsupportedScriptEngineException if specified engine is not available
-     * @see org.apache.maven.plugins.scripting.AbstractScriptEvaluator#getEngine(javax.script.ScriptEngineManager)
-     */
-    protected ScriptEngine getEngine(ScriptEngineManager manager) throws UnsupportedScriptEngineException {
+    @Parameter
 ```
 
