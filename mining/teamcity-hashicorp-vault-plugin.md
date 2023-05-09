@@ -60,6 +60,18 @@ public class Jackson2ObjectMapperBuilder {
 ## RuleId[id=KotlinDeprecation]
 ### KotlinDeprecation
 Unnecessary non-null assertion (!!) on a non-null receiver of type VaultEndpoint!
+in `common/src/main/kotlin/org/jetbrains/teamcity/vault/util.kt`
+#### Snippet
+```java
+
+fun createRestTemplate(settings: VaultFeatureSettings, trustStoreProvider: SSLTrustStoreProvider): RestTemplate {
+    val endpoint = VaultEndpoint.from(URI.create(settings.url))!!
+    val factory = createClientHttpRequestFactory(trustStoreProvider)
+    // HttpComponents.usingHttpComponents(options, sslConfiguration)
+```
+
+### KotlinDeprecation
+Unnecessary non-null assertion (!!) on a non-null receiver of type VaultEndpoint!
 in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultConnector.kt`
 #### Snippet
 ```java
@@ -80,18 +92,6 @@ in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultConnector.kt
             val endpoint = VaultEndpoint.from(URI.create(settings.url))!!
             val factory = createClientHttpRequestFactory(trustStoreProvider)
 
-```
-
-### KotlinDeprecation
-Unnecessary non-null assertion (!!) on a non-null receiver of type VaultEndpoint!
-in `common/src/main/kotlin/org/jetbrains/teamcity/vault/util.kt`
-#### Snippet
-```java
-
-fun createRestTemplate(settings: VaultFeatureSettings, trustStoreProvider: SSLTrustStoreProvider): RestTemplate {
-    val endpoint = VaultEndpoint.from(URI.create(settings.url))!!
-    val factory = createClientHttpRequestFactory(trustStoreProvider)
-    // HttpComponents.usingHttpComponents(options, sslConfiguration)
 ```
 
 ## RuleId[id=DataFlowIssue]
@@ -201,11 +201,11 @@ in `common/src/main/java/org/jetbrains/teamcity/vault/support/VaultTemplate.java
 in `common/src/main/java/org/springframework/vault/authentication/LdapAuthenticationOptions.java`
 #### Snippet
 ```java
+        private String username;
+
         private CharSequence password;
 
         private String path;
-
-        LdapAuthenticationOptionsBuilder() {
 ```
 
 ### NotNullFieldNotInitialized
@@ -213,11 +213,11 @@ in `common/src/main/java/org/springframework/vault/authentication/LdapAuthentica
 in `common/src/main/java/org/springframework/vault/authentication/LdapAuthenticationOptions.java`
 #### Snippet
 ```java
-        private String username;
-
         private CharSequence password;
 
         private String path;
+
+        LdapAuthenticationOptionsBuilder() {
 ```
 
 ### NotNullFieldNotInitialized
@@ -331,6 +331,18 @@ in `common/src/main/java/org/jetbrains/teamcity/vault/support/Jackson2ObjectMapp
 ```
 
 ### Deprecation
+'APPLICATION_JSON_UTF8' is deprecated
+in `common/src/main/java/org/jetbrains/teamcity/vault/support/MappingJackson2HttpMessageConverter.java`
+#### Snippet
+```java
+	 */
+	public MappingJackson2HttpMessageConverter(ObjectMapper objectMapper) {
+		super(objectMapper, MediaType.APPLICATION_JSON_UTF8,
+				new MediaType("application", "*+json", DEFAULT_CHARSET));
+	}
+```
+
+### Deprecation
 'renewable(java.lang.String, long)' is deprecated
 in `common/src/main/java/org/jetbrains/teamcity/vault/support/LifecycleAwareSessionManager.java`
 #### Snippet
@@ -352,18 +364,6 @@ in `common/src/main/java/org/jetbrains/teamcity/vault/support/LifecycleAwareSess
             return LoginToken.of(token, leaseDuration.longValue());
         }
 
-```
-
-### Deprecation
-'APPLICATION_JSON_UTF8' is deprecated
-in `common/src/main/java/org/jetbrains/teamcity/vault/support/MappingJackson2HttpMessageConverter.java`
-#### Snippet
-```java
-	 */
-	public MappingJackson2HttpMessageConverter(ObjectMapper objectMapper) {
-		super(objectMapper, MediaType.APPLICATION_JSON_UTF8,
-				new MediaType("application", "*+json", DEFAULT_CHARSET));
-	}
 ```
 
 ## RuleId[id=LeakingThis]
@@ -545,18 +545,6 @@ import org.springframework.vault.client.VaultEndpoint
 
 ## RuleId[id=PrivatePropertyName]
 ### PrivatePropertyName
-Private property name `jetty_port` should not contain underscores in the middle or the end
-in `common/src/testFixtures/kotlin/org/jetbrains/teamcity/vault/VaultSemiClusterDevContainer.kt`
-#### Snippet
-```java
-    private var _used: Boolean = false
-
-    private val jetty_port: Int by lazy {
-        SocketUtils.findAvailableTcpPort(8222)
-    }
-```
-
-### PrivatePropertyName
 Private property name `jetty_server` should not contain underscores in the middle or the end
 in `common/src/testFixtures/kotlin/org/jetbrains/teamcity/vault/VaultSemiClusterDevContainer.kt`
 #### Snippet
@@ -566,6 +554,18 @@ in `common/src/testFixtures/kotlin/org/jetbrains/teamcity/vault/VaultSemiCluster
     private var jetty_server: Server? = null
 
     override fun starting(description: Description?) {
+```
+
+### PrivatePropertyName
+Private property name `jetty_port` should not contain underscores in the middle or the end
+in `common/src/testFixtures/kotlin/org/jetbrains/teamcity/vault/VaultSemiClusterDevContainer.kt`
+#### Snippet
+```java
+    private var _used: Boolean = false
+
+    private val jetty_port: Int by lazy {
+        SocketUtils.findAvailableTcpPort(8222)
+    }
 ```
 
 ## RuleId[id=SpringXmlAutowireExplicitlyInspection]
