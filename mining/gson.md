@@ -22,21 +22,9 @@ I found 84 bad smells with 19 repairable:
 | UNUSED_IMPORT | 1 | false |
 | SwitchStatementWithTooFewBranches | 1 | false |
 | EqualsWhichDoesntCheckParameterClass | 1 | false |
-| JavadocLinkAsPlainText | 1 | false |
 | ConstantValue | 1 | false |
+| JavadocLinkAsPlainText | 1 | false |
 ## RuleId[id=UnnecessaryModifier]
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `gson/src/main/java/com/google/gson/JsonSerializationContext.java`
-#### Snippet
-```java
-   * @return a tree of {@link JsonElement}s corresponding to the serialized form of {@code src}.
-   */
-  public JsonElement serialize(Object src);
-
-  /**
-```
-
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
 in `gson/src/main/java/com/google/gson/JsonSerializationContext.java`
@@ -51,12 +39,83 @@ in `gson/src/main/java/com/google/gson/JsonSerializationContext.java`
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
+in `gson/src/main/java/com/google/gson/JsonSerializationContext.java`
+#### Snippet
+```java
+   * @return a tree of {@link JsonElement}s corresponding to the serialized form of {@code src}.
+   */
+  public JsonElement serialize(Object src);
+
+  /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `gson/src/main/java/com/google/gson/ToNumberStrategy.java`
+#### Snippet
+```java
+   * @return number read from the JSON reader.
+   */
+  public Number readNumber(JsonReader in) throws IOException;
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `gson/src/main/java/com/google/gson/JsonDeserializationContext.java`
+#### Snippet
+```java
+   */
+  @SuppressWarnings("TypeParameterUnusedInFormals")
+  public <T> T deserialize(JsonElement json, Type typeOfT) throws JsonParseException;
+}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `gson/src/main/java/com/google/gson/JsonDeserializer.java`
+#### Snippet
+```java
+   * @throws JsonParseException if json is not in the expected format of {@code typeOfT}
+   */
+  public T deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+      throws JsonParseException;
+}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
 in `gson/src/main/java/com/google/gson/JsonSerializer.java`
 #### Snippet
 ```java
    * @return a JsonElement corresponding to the specified object.
    */
   public JsonElement serialize(T src, Type typeOfSrc, JsonSerializationContext context);
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `extras/src/main/java/com/google/gson/interceptors/Intercept.java`
+#### Snippet
+```java
+   */
+  @SuppressWarnings("rawtypes")
+  public Class<? extends JsonPostDeserializer> postDeserialize();
+}
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `gson/src/main/java/com/google/gson/InstanceCreator.java`
+#### Snippet
+```java
+   * @return a default object instance of type T.
+   */
+  public T createInstance(Type type);
 }
 
 ```
@@ -87,84 +146,12 @@ in `gson/src/main/java/com/google/gson/annotations/Expose.java`
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `gson/src/main/java/com/google/gson/InstanceCreator.java`
-#### Snippet
-```java
-   * @return a default object instance of type T.
-   */
-  public T createInstance(Type type);
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `gson/src/main/java/com/google/gson/ExclusionStrategy.java`
-#### Snippet
-```java
-   * @return true if the field should be ignored; otherwise false
-   */
-  public boolean shouldSkipField(FieldAttributes f);
-
-  /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `gson/src/main/java/com/google/gson/ExclusionStrategy.java`
-#### Snippet
-```java
-   * @return true if the class should be ignored; otherwise false
-   */
-  public boolean shouldSkipClass(Class<?> clazz);
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
 in `gson/src/main/java/com/google/gson/internal/ObjectConstructor.java`
 #### Snippet
 ```java
    * Returns a new instance.
    */
   public T construct();
-}
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `extras/src/main/java/com/google/gson/interceptors/Intercept.java`
-#### Snippet
-```java
-   */
-  @SuppressWarnings("rawtypes")
-  public Class<? extends JsonPostDeserializer> postDeserialize();
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
-in `metrics/src/main/java/com/google/gson/metrics/ParseBenchmark.java`
-#### Snippet
-```java
-    private final TypeReference<?> jacksonType;
-
-    private Document(TypeToken<?> typeToken, TypeReference<?> typeReference) {
-      this.gsonType = typeToken;
-      this.jacksonType = typeReference;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `gson/src/main/java/com/google/gson/JsonDeserializer.java`
-#### Snippet
-```java
-   * @throws JsonParseException if json is not in the expected format of {@code typeOfT}
-   */
-  public T deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
-      throws JsonParseException;
 }
 ```
 
@@ -193,26 +180,39 @@ in `gson/src/main/java/com/google/gson/FieldNamingStrategy.java`
 ```
 
 ### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `gson/src/main/java/com/google/gson/ToNumberStrategy.java`
+Modifier `private` is redundant for enum constructors
+in `metrics/src/main/java/com/google/gson/metrics/ParseBenchmark.java`
 #### Snippet
 ```java
-   * @return number read from the JSON reader.
-   */
-  public Number readNumber(JsonReader in) throws IOException;
-}
+    private final TypeReference<?> jacksonType;
 
+    private Document(TypeToken<?> typeToken, TypeReference<?> typeReference) {
+      this.gsonType = typeToken;
+      this.jacksonType = typeReference;
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `gson/src/main/java/com/google/gson/JsonDeserializationContext.java`
+in `gson/src/main/java/com/google/gson/ExclusionStrategy.java`
 #### Snippet
 ```java
+   * @return true if the field should be ignored; otherwise false
    */
-  @SuppressWarnings("TypeParameterUnusedInFormals")
-  public <T> T deserialize(JsonElement json, Type typeOfT) throws JsonParseException;
+  public boolean shouldSkipField(FieldAttributes f);
+
+  /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `gson/src/main/java/com/google/gson/ExclusionStrategy.java`
+#### Snippet
+```java
+   * @return true if the class should be ignored; otherwise false
+   */
+  public boolean shouldSkipClass(Class<?> clazz);
 }
+
 ```
 
 ## RuleId[id=MagicConstant]
@@ -258,35 +258,35 @@ in `gson/src/main/java/com/google/gson/ReflectionAccessFilter.java`
 in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
 #### Snippet
 ```java
+        // Reflection access might throw SecurityException, therefore run this in privileged context;
+        // should be acceptable because this only retrieves enum constants, but does not expose anything else
+        Field[] constantFields = AccessController.doPrivileged(new PrivilegedAction<Field[]>() {
+          @Override public Field[] run() {
+            Field[] fields = classOfT.getDeclaredFields();
+```
+
+### MarkedForRemoval
+'java.security.AccessController' is deprecated and marked for removal
+in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
+#### Snippet
+```java
+        // Reflection access might throw SecurityException, therefore run this in privileged context;
+        // should be acceptable because this only retrieves enum constants, but does not expose anything else
+        Field[] constantFields = AccessController.doPrivileged(new PrivilegedAction<Field[]>() {
+          @Override public Field[] run() {
+            Field[] fields = classOfT.getDeclaredFields();
+```
+
+### MarkedForRemoval
+'java.security.AccessController' is deprecated and marked for removal
+in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
+#### Snippet
+```java
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.ArrayDeque;
-```
-
-### MarkedForRemoval
-'java.security.AccessController' is deprecated and marked for removal
-in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
-#### Snippet
-```java
-        // Reflection access might throw SecurityException, therefore run this in privileged context;
-        // should be acceptable because this only retrieves enum constants, but does not expose anything else
-        Field[] constantFields = AccessController.doPrivileged(new PrivilegedAction<Field[]>() {
-          @Override public Field[] run() {
-            Field[] fields = classOfT.getDeclaredFields();
-```
-
-### MarkedForRemoval
-'java.security.AccessController' is deprecated and marked for removal
-in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapters.java`
-#### Snippet
-```java
-        // Reflection access might throw SecurityException, therefore run this in privileged context;
-        // should be acceptable because this only retrieves enum constants, but does not expose anything else
-        Field[] constantFields = AccessController.doPrivileged(new PrivilegedAction<Field[]>() {
-          @Override public Field[] run() {
-            Field[] fields = classOfT.getDeclaredFields();
 ```
 
 ## RuleId[id=UnnecessarySemicolon]
@@ -304,18 +304,6 @@ in `proto/src/main/java/com/google/gson/protobuf/ProtoTypeAdapter.java`
 
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
-Variable is already assigned to this value
-in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapterRuntimeTypeWrapper.java`
-#### Snippet
-```java
-        // The user registered a type adapter for Base class, so we prefer it over the
-        // reflective type adapter for the runtime type
-        chosen = delegate;
-      } else {
-        // Use the type adapter for runtime type
-```
-
-### DataFlowIssue
 Casting `current` to `Map` may produce `ClassCastException`
 in `gson/src/main/java/com/google/gson/internal/bind/ObjectTypeAdapter.java`
 #### Snippet
@@ -328,26 +316,26 @@ in `gson/src/main/java/com/google/gson/internal/bind/ObjectTypeAdapter.java`
 ```
 
 ### DataFlowIssue
-Dereference of `created` may produce `NullPointerException`
-in `gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java`
+Variable is already assigned to this value
+in `gson/src/main/java/com/google/gson/internal/bind/TypeAdapterRuntimeTypeWrapper.java`
 #### Snippet
 ```java
-    }
-    Node<K, V> created = find(key, true);
-    V result = created.value;
-    created.value = value;
-    return result;
+        // The user registered a type adapter for Base class, so we prefer it over the
+        // reflective type adapter for the runtime type
+        chosen = delegate;
+      } else {
+        // Use the type adapter for runtime type
 ```
 
 ### DataFlowIssue
-Argument `nearest.key` might be null
-in `gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java`
+Variable is already assigned to this value
+in `gson/src/main/java/com/google/gson/internal/$Gson$Types.java`
 #### Snippet
 ```java
-      while (true) {
-        comparison = (comparableKey != null)
-            ? comparableKey.compareTo(nearest.key)
-            : comparator.compare(key, nearest.key);
+          }
+        }
+        toResolve = original;
+        break;
 
 ```
 
@@ -376,15 +364,27 @@ in `gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java`
 ```
 
 ### DataFlowIssue
-Variable is already assigned to this value
-in `gson/src/main/java/com/google/gson/internal/$Gson$Types.java`
+Argument `nearest.key` might be null
+in `gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java`
 #### Snippet
 ```java
-          }
-        }
-        toResolve = original;
-        break;
+      while (true) {
+        comparison = (comparableKey != null)
+            ? comparableKey.compareTo(nearest.key)
+            : comparator.compare(key, nearest.key);
 
+```
+
+### DataFlowIssue
+Dereference of `created` may produce `NullPointerException`
+in `gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java`
+#### Snippet
+```java
+    }
+    Node<K, V> created = find(key, true);
+    V result = created.value;
+    created.value = value;
+    return result;
 ```
 
 ### DataFlowIssue
@@ -500,18 +500,6 @@ in `gson/src/main/java/com/google/gson/JsonElement.java`
 
 ## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
-Field `name` may be 'final'
-in `extras/src/main/java/com/google/gson/extras/examples/rawcollections/RawCollectionsExample.java`
-#### Snippet
-```java
-public class RawCollectionsExample {
-  static class Event {
-    private String name;
-    private String source;
-    private Event(String name, String source) {
-```
-
-### FieldMayBeFinal
 Field `source` may be 'final'
 in `extras/src/main/java/com/google/gson/extras/examples/rawcollections/RawCollectionsExample.java`
 #### Snippet
@@ -521,6 +509,18 @@ in `extras/src/main/java/com/google/gson/extras/examples/rawcollections/RawColle
     private String source;
     private Event(String name, String source) {
       this.name = name;
+```
+
+### FieldMayBeFinal
+Field `name` may be 'final'
+in `extras/src/main/java/com/google/gson/extras/examples/rawcollections/RawCollectionsExample.java`
+#### Snippet
+```java
+public class RawCollectionsExample {
+  static class Event {
+    private String name;
+    private String source;
+    private Event(String name, String source) {
 ```
 
 ### FieldMayBeFinal
@@ -595,19 +595,6 @@ in `gson/src/main/java/com/google/gson/internal/UnsafeAllocator.java`
           .getDeclaredMethod("newInstance", Class.class, Class.class);
       newInstance.setAccessible(true);
       return new UnsafeAllocator() {
-```
-
-## RuleId[id=SwitchStatementWithTooFewBranches]
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `extras/src/main/java/com/google/gson/typeadapters/UtcDateTypeAdapter.java`
-#### Snippet
-```java
-  public Date read(JsonReader in) throws IOException {
-    try {
-      switch (in.peek()) {
-        case NULL:
-          in.nextNull();
 ```
 
 ## RuleId[id=DuplicatedCode]
@@ -944,6 +931,19 @@ in `metrics/src/main/java/com/google/gson/metrics/BagOfPrimitivesDeserialization
       jr.endObject();
 ```
 
+## RuleId[id=SwitchStatementWithTooFewBranches]
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `extras/src/main/java/com/google/gson/typeadapters/UtcDateTypeAdapter.java`
+#### Snippet
+```java
+  public Date read(JsonReader in) throws IOException {
+    try {
+      switch (in.peek()) {
+        case NULL:
+          in.nextNull();
+```
+
 ## RuleId[id=Deprecation]
 ### Deprecation
 Overrides deprecated method in 'com.google.gson.JsonElement'
@@ -972,14 +972,14 @@ in `gson/src/main/java/com/google/gson/JsonArray.java`
 ## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `gson/src/main/java/com/google/gson/reflect/TypeToken.java`
+in `gson/src/main/java/com/google/gson/internal/ConstructorConstructor.java`
 #### Snippet
 ```java
-    }
-    exceptionMessage.append("but got: ").append(token.getClass().getName())
-        .append(", for type token: ").append(token.toString()).append('.');
-
-    return new AssertionError(exceptionMessage.toString());
+              return map;
+            } else {
+              throw new JsonIOException("Invalid EnumMap type: " + type.toString());
+            }
+          } else {
 ```
 
 ### UnnecessaryToStringCall
@@ -996,14 +996,27 @@ in `gson/src/main/java/com/google/gson/internal/ConstructorConstructor.java`
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `gson/src/main/java/com/google/gson/internal/ConstructorConstructor.java`
+in `gson/src/main/java/com/google/gson/reflect/TypeToken.java`
 #### Snippet
 ```java
-              return map;
-            } else {
-              throw new JsonIOException("Invalid EnumMap type: " + type.toString());
-            }
-          } else {
+    }
+    exceptionMessage.append("but got: ").append(token.getClass().getName())
+        .append(", for type token: ").append(token.toString()).append('.');
+
+    return new AssertionError(exceptionMessage.toString());
+```
+
+## RuleId[id=EqualsWhichDoesntCheckParameterClass]
+### EqualsWhichDoesntCheckParameterClass
+`equals()` should check the class of its parameter
+in `gson/src/main/java/com/google/gson/internal/NonNullElementWrapperList.java`
+#### Snippet
+```java
+  }
+
+  @Override public boolean equals(Object o) {
+    return delegate.equals(o);
+  }
 ```
 
 ## RuleId[id=UnusedAssignment]
@@ -1046,18 +1059,6 @@ in `extras/src/main/java/com/google/gson/typeadapters/UtcDateTypeAdapter.java`
 ## RuleId[id=NullableProblems]
 ### NullableProblems
 Not annotated parameter overrides @NotNull parameter
-in `gson/src/main/java/com/google/gson/internal/bind/JsonTreeWriter.java`
-#### Snippet
-```java
-public final class JsonTreeWriter extends JsonWriter {
-  private static final Writer UNWRITABLE_WRITER = new Writer() {
-    @Override public void write(char[] buffer, int offset, int counter) {
-      throw new AssertionError();
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
 in `gson/src/main/java/com/google/gson/internal/bind/JsonTreeReader.java`
 #### Snippet
 ```java
@@ -1087,8 +1088,8 @@ in `gson/src/main/java/com/google/gson/internal/NonNullElementWrapperList.java`
 ```java
   }
 
-  @Override public <T> T[] toArray(T[] a) {
-    return delegate.toArray(a);
+  @Override public boolean removeAll(Collection<?> c) {
+    return delegate.removeAll(c);
   }
 ```
 
@@ -1099,8 +1100,8 @@ in `gson/src/main/java/com/google/gson/internal/NonNullElementWrapperList.java`
 ```java
   }
 
-  @Override public boolean removeAll(Collection<?> c) {
-    return delegate.removeAll(c);
+  @Override public <T> T[] toArray(T[] a) {
+    return delegate.toArray(a);
   }
 ```
 
@@ -1117,15 +1118,27 @@ in `gson/src/main/java/com/google/gson/JsonArray.java`
 ```
 
 ### NullableProblems
-Not annotated method overrides method annotated with @NotNull
-in `gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java`
+Not annotated parameter overrides @NotNull parameter
+in `gson/src/main/java/com/google/gson/internal/bind/JsonTreeWriter.java`
+#### Snippet
+```java
+public final class JsonTreeWriter extends JsonWriter {
+  private static final Writer UNWRITABLE_WRITER = new Writer() {
+    @Override public void write(char[] buffer, int offset, int counter) {
+      throw new AssertionError();
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `gson/src/main/java/com/google/gson/internal/Streams.java`
 #### Snippet
 ```java
     }
 
-    @Override public Iterator<K> iterator() {
-      return new LinkedTreeMapIterator<K>() {
-        @Override public K next() {
+    @Override public void write(char[] chars, int offset, int length) throws IOException {
+      currentWrite.setChars(chars);
+      appendable.append(currentWrite, offset, offset + length);
 ```
 
 ### NullableProblems
@@ -1153,41 +1166,15 @@ in `gson/src/main/java/com/google/gson/internal/Streams.java`
 ```
 
 ### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `gson/src/main/java/com/google/gson/internal/Streams.java`
+Not annotated method overrides method annotated with @NotNull
+in `gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java`
 #### Snippet
 ```java
     }
 
-    @Override public void write(char[] chars, int offset, int length) throws IOException {
-      currentWrite.setChars(chars);
-      appendable.append(currentWrite, offset, offset + length);
-```
-
-## RuleId[id=EqualsWhichDoesntCheckParameterClass]
-### EqualsWhichDoesntCheckParameterClass
-`equals()` should check the class of its parameter
-in `gson/src/main/java/com/google/gson/internal/NonNullElementWrapperList.java`
-#### Snippet
-```java
-  }
-
-  @Override public boolean equals(Object o) {
-    return delegate.equals(o);
-  }
-```
-
-## RuleId[id=JavadocLinkAsPlainText]
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `gson/src/main/java/com/google/gson/internal/$Gson$Types.java`
-#### Snippet
-```java
-   * The WildcardType interface supports multiple upper bounds and multiple
-   * lower bounds. We only support what the target Java version supports - at most one
-   * bound, see also https://bugs.openjdk.java.net/browse/JDK-8250660. If a lower bound
-   * is set, the upper bound must be Object.class.
-   */
+    @Override public Iterator<K> iterator() {
+      return new LinkedTreeMapIterator<K>() {
+        @Override public K next() {
 ```
 
 ## RuleId[id=ConstantValue]
@@ -1201,5 +1188,18 @@ in `gson/src/main/java/com/google/gson/internal/LinkedTreeMap.java`
       created = new Node<>(allowNullValues, nearest, key, header, header.prev);
       root = created;
     } else {
+```
+
+## RuleId[id=JavadocLinkAsPlainText]
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `gson/src/main/java/com/google/gson/internal/$Gson$Types.java`
+#### Snippet
+```java
+   * The WildcardType interface supports multiple upper bounds and multiple
+   * lower bounds. We only support what the target Java version supports - at most one
+   * bound, see also https://bugs.openjdk.java.net/browse/JDK-8250660. If a lower bound
+   * is set, the upper bound must be Object.class.
+   */
 ```
 
