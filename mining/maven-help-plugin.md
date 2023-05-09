@@ -93,14 +93,14 @@ in `src/main/java/org/apache/maven/plugins/help/EffectiveSettingsMojo.java`
 
 ### JavadocReference
 Cannot resolve symbol `MojoExecutionException`
-in `src/main/java/org/apache/maven/plugins/help/EffectivePomMojo.java`
+in `src/main/java/org/apache/maven/plugins/help/AbstractHelpMojo.java`
 #### Snippet
 ```java
-     * @param project the project of the current build, not null.
-     * @param writer the XML writer , not null, not null.
-     * @throws MojoExecutionException if any
+     * @param type The extension for the artifact, must not be <code>null</code>.
+     * @return the <code>Artifact</code> object for the <code>artifactString</code> parameter.
+     * @throws MojoExecutionException if the <code>artifactString</code> doesn't respect the format.
      */
-    private void writeEffectivePom(MavenProject project, XMLWriter writer) throws MojoExecutionException {
+    protected org.eclipse.aether.artifact.Artifact getAetherArtifact(String artifactString, String type)
 ```
 
 ### JavadocReference
@@ -113,18 +113,6 @@ in `src/main/java/org/apache/maven/plugins/help/AbstractHelpMojo.java`
      * @throws MojoExecutionException If there was an error while getting the Maven project.
      */
     protected MavenProject getMavenProject(String artifactString) throws MojoExecutionException {
-```
-
-### JavadocReference
-Cannot resolve symbol `MojoExecutionException`
-in `src/main/java/org/apache/maven/plugins/help/AbstractHelpMojo.java`
-#### Snippet
-```java
-     * @param type The extension for the artifact, must not be <code>null</code>.
-     * @return the <code>Artifact</code> object for the <code>artifactString</code> parameter.
-     * @throws MojoExecutionException if the <code>artifactString</code> doesn't respect the format.
-     */
-    protected org.eclipse.aether.artifact.Artifact getAetherArtifact(String artifactString, String type)
 ```
 
 ### JavadocReference
@@ -156,18 +144,6 @@ Cannot resolve symbol `MojoExecutionException`
 in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
 #### Snippet
 ```java
-    /**
-     * @return the <code>org.apache.maven: artifactId </code> artifact jar file for this current HelpPlugin pom.
-     * @throws MojoExecutionException if any
-     */
-    private File getArtifactFile(String artifactId) throws MojoExecutionException, RepositoryException {
-```
-
-### JavadocReference
-Cannot resolve symbol `MojoExecutionException`
-in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
-#### Snippet
-```java
      * @param expr the user expression asked.
      * @param output the file where to write the result, or <code>null</code> to print in standard output.
      * @throws MojoExecutionException if any
@@ -185,6 +161,174 @@ in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
      * @throws MojoFailureException if any reflection exceptions occur or missing components.
      */
     private void handleResponse(String expr, File output) throws MojoExecutionException, MojoFailureException {
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/help/EvaluateMojo.java`
+#### Snippet
+```java
+    /**
+     * @return the <code>org.apache.maven: artifactId </code> artifact jar file for this current HelpPlugin pom.
+     * @throws MojoExecutionException if any
+     */
+    private File getArtifactFile(String artifactId) throws MojoExecutionException, RepositoryException {
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/help/EffectivePomMojo.java`
+#### Snippet
+```java
+     * @param project the project of the current build, not null.
+     * @param writer the XML writer , not null, not null.
+     * @throws MojoExecutionException if any
+     */
+    private void writeEffectivePom(MavenProject project, XMLWriter writer) throws MojoExecutionException {
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoFailureException`
+in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
+#### Snippet
+```java
+     * @param description The description, not <code>null</code>.
+     * @param indent      The base indentation level of each line, must not be negative.
+     * @throws MojoFailureException   if any reflection exceptions occur.
+     * @throws MojoExecutionException if any
+     * @see #toLines(String, int, int, int)
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
+#### Snippet
+```java
+     * @param indent      The base indentation level of each line, must not be negative.
+     * @throws MojoFailureException   if any reflection exceptions occur.
+     * @throws MojoExecutionException if any
+     * @see #toLines(String, int, int, int)
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
+#### Snippet
+```java
+     *
+     * @param descriptionBuffer contains the description to be written to the file
+     * @throws MojoExecutionException if any
+     */
+    private void writeDescription(StringBuilder descriptionBuffer) throws MojoExecutionException {
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoFailureException`
+in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
+#### Snippet
+```java
+     * @param md     contains the description of the Plugin Mojo
+     * @param buffer the displayed output
+     * @throws MojoFailureException   if any reflection exceptions occur.
+     * @throws MojoExecutionException if any
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
+#### Snippet
+```java
+     * @param buffer the displayed output
+     * @throws MojoFailureException   if any reflection exceptions occur.
+     * @throws MojoExecutionException if any
+     */
+    private void describeMojo(MojoDescriptor md, StringBuilder buffer)
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoFailureException`
+in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
+#### Snippet
+```java
+     * @param buffer          contains information to be printed or displayed
+     * @param fullDescription specifies whether all the details about the Plugin Mojo is to  be displayed
+     * @throws MojoFailureException   if any reflection exceptions occur.
+     * @throws MojoExecutionException if any
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
+#### Snippet
+```java
+     * @param fullDescription specifies whether all the details about the Plugin Mojo is to  be displayed
+     * @throws MojoFailureException   if any reflection exceptions occur.
+     * @throws MojoExecutionException if any
+     */
+    private void describeMojoGuts(MojoDescriptor md, StringBuilder buffer, boolean fullDescription)
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoFailureException`
+in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
+#### Snippet
+```java
+     *
+     * @return Plugin info containing information about the plugin whose description is to be retrieved
+     * @throws MojoFailureException if <code>plugin<*code> parameter is not conform to
+     *                              <code>groupId:artifactId[:version]</code>
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoFailureException`
+in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
+#### Snippet
+```java
+     * @param lineLength The length of the line, must not be negative.
+     * @return The sequence of display lines, never <code>null</code>.
+     * @throws MojoFailureException   if any can not invoke the method
+     * @throws MojoExecutionException if no line was found for <code>text</code>
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
+#### Snippet
+```java
+     * @return The sequence of display lines, never <code>null</code>.
+     * @throws MojoFailureException   if any can not invoke the method
+     * @throws MojoExecutionException if no line was found for <code>text</code>
+     */
+    private static List<String> toLines(String text, int indent, int indentSize, int lineLength)
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoFailureException`
+in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
+#### Snippet
+```java
+     * @param value  The value, could be <code>null</code>.
+     * @param indent The base indentation level of each line, must not be negative.
+     * @throws MojoFailureException   if any reflection exceptions occur.
+     * @throws MojoExecutionException if any
+     * @see #toLines(String, int, int, int)
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
+#### Snippet
+```java
+     * @param indent The base indentation level of each line, must not be negative.
+     * @throws MojoFailureException   if any reflection exceptions occur.
+     * @throws MojoExecutionException if any
+     * @see #toLines(String, int, int, int)
+     */
 ```
 
 ### JavadocReference
@@ -228,6 +372,30 @@ Cannot resolve symbol `MojoFailureException`
 in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
 #### Snippet
 ```java
+     * @param pd     contains the plugin description
+     * @param buffer contains the information to be displayed or printed
+     * @throws MojoFailureException   if any reflection exceptions occur.
+     * @throws MojoExecutionException if any
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
+#### Snippet
+```java
+     * @param buffer contains the information to be displayed or printed
+     * @throws MojoFailureException   if any reflection exceptions occur.
+     * @throws MojoExecutionException if any
+     */
+    private void describePlugin(PluginDescriptor pd, StringBuilder buffer)
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoFailureException`
+in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
+#### Snippet
+```java
      * @param value  The value associated to the key, could be <code>null</code>.
      * @param indent The base indentation level of each line, must not be negative.
      * @throws MojoFailureException   if any reflection exceptions occur.
@@ -252,102 +420,6 @@ Cannot resolve symbol `MojoFailureException`
 in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
 #### Snippet
 ```java
-     * @param description The description, not <code>null</code>.
-     * @param indent      The base indentation level of each line, must not be negative.
-     * @throws MojoFailureException   if any reflection exceptions occur.
-     * @throws MojoExecutionException if any
-     * @see #toLines(String, int, int, int)
-```
-
-### JavadocReference
-Cannot resolve symbol `MojoExecutionException`
-in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
-#### Snippet
-```java
-     * @param indent      The base indentation level of each line, must not be negative.
-     * @throws MojoFailureException   if any reflection exceptions occur.
-     * @throws MojoExecutionException if any
-     * @see #toLines(String, int, int, int)
-     */
-```
-
-### JavadocReference
-Cannot resolve symbol `MojoFailureException`
-in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
-#### Snippet
-```java
-     * @param buffer          contains information to be printed or displayed
-     * @param fullDescription specifies whether all the details about the Plugin Mojo is to  be displayed
-     * @throws MojoFailureException   if any reflection exceptions occur.
-     * @throws MojoExecutionException if any
-     */
-```
-
-### JavadocReference
-Cannot resolve symbol `MojoExecutionException`
-in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
-#### Snippet
-```java
-     * @param fullDescription specifies whether all the details about the Plugin Mojo is to  be displayed
-     * @throws MojoFailureException   if any reflection exceptions occur.
-     * @throws MojoExecutionException if any
-     */
-    private void describeMojoGuts(MojoDescriptor md, StringBuilder buffer, boolean fullDescription)
-```
-
-### JavadocReference
-Cannot resolve symbol `MojoFailureException`
-in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
-#### Snippet
-```java
-     * @param lineLength The length of the line, must not be negative.
-     * @return The sequence of display lines, never <code>null</code>.
-     * @throws MojoFailureException   if any can not invoke the method
-     * @throws MojoExecutionException if no line was found for <code>text</code>
-     */
-```
-
-### JavadocReference
-Cannot resolve symbol `MojoExecutionException`
-in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
-#### Snippet
-```java
-     * @return The sequence of display lines, never <code>null</code>.
-     * @throws MojoFailureException   if any can not invoke the method
-     * @throws MojoExecutionException if no line was found for <code>text</code>
-     */
-    private static List<String> toLines(String text, int indent, int indentSize, int lineLength)
-```
-
-### JavadocReference
-Cannot resolve symbol `MojoFailureException`
-in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
-#### Snippet
-```java
-     *
-     * @return Plugin info containing information about the plugin whose description is to be retrieved
-     * @throws MojoFailureException if <code>plugin<*code> parameter is not conform to
-     *                              <code>groupId:artifactId[:version]</code>
-     */
-```
-
-### JavadocReference
-Cannot resolve symbol `MojoExecutionException`
-in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
-#### Snippet
-```java
-     *
-     * @param descriptionBuffer contains the description to be written to the file
-     * @throws MojoExecutionException if any
-     */
-    private void writeDescription(StringBuilder descriptionBuffer) throws MojoExecutionException {
-```
-
-### JavadocReference
-Cannot resolve symbol `MojoFailureException`
-in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
-#### Snippet
-```java
      * @param md     contains the description of the Plugin Mojo
      * @param buffer contains information to be printed or displayed
      * @throws MojoFailureException   if any reflection exceptions occur.
@@ -365,78 +437,6 @@ in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
      * @throws MojoExecutionException if any
      */
     private void describeMojoParameters(MojoDescriptor md, StringBuilder buffer)
-```
-
-### JavadocReference
-Cannot resolve symbol `MojoFailureException`
-in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
-#### Snippet
-```java
-     * @param value  The value, could be <code>null</code>.
-     * @param indent The base indentation level of each line, must not be negative.
-     * @throws MojoFailureException   if any reflection exceptions occur.
-     * @throws MojoExecutionException if any
-     * @see #toLines(String, int, int, int)
-```
-
-### JavadocReference
-Cannot resolve symbol `MojoExecutionException`
-in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
-#### Snippet
-```java
-     * @param indent The base indentation level of each line, must not be negative.
-     * @throws MojoFailureException   if any reflection exceptions occur.
-     * @throws MojoExecutionException if any
-     * @see #toLines(String, int, int, int)
-     */
-```
-
-### JavadocReference
-Cannot resolve symbol `MojoFailureException`
-in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
-#### Snippet
-```java
-     * @param md     contains the description of the Plugin Mojo
-     * @param buffer the displayed output
-     * @throws MojoFailureException   if any reflection exceptions occur.
-     * @throws MojoExecutionException if any
-     */
-```
-
-### JavadocReference
-Cannot resolve symbol `MojoExecutionException`
-in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
-#### Snippet
-```java
-     * @param buffer the displayed output
-     * @throws MojoFailureException   if any reflection exceptions occur.
-     * @throws MojoExecutionException if any
-     */
-    private void describeMojo(MojoDescriptor md, StringBuilder buffer)
-```
-
-### JavadocReference
-Cannot resolve symbol `MojoFailureException`
-in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
-#### Snippet
-```java
-     * @param pd     contains the plugin description
-     * @param buffer contains the information to be displayed or printed
-     * @throws MojoFailureException   if any reflection exceptions occur.
-     * @throws MojoExecutionException if any
-     */
-```
-
-### JavadocReference
-Cannot resolve symbol `MojoExecutionException`
-in `src/main/java/org/apache/maven/plugins/help/DescribeMojo.java`
-#### Snippet
-```java
-     * @param buffer contains the information to be displayed or printed
-     * @throws MojoFailureException   if any reflection exceptions occur.
-     * @throws MojoExecutionException if any
-     */
-    private void describePlugin(PluginDescriptor pd, StringBuilder buffer)
 ```
 
 ## RuleId[id=UnnecessaryToStringCall]
@@ -661,18 +661,6 @@ in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
 ```
 
 ### MismatchedCollectionQueryUpdate
-Contents of collection `settingsProfiles` are queried, but never updated
-in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
-#### Snippet
-```java
-     */
-    @Parameter(defaultValue = "${settings.profiles}", readonly = true, required = true)
-    private List<org.apache.maven.settings.Profile> settingsProfiles;
-
-    // ----------------------------------------------------------------------
-```
-
-### MismatchedCollectionQueryUpdate
 Contents of collection `projects` are queried, but never updated
 in `src/main/java/org/apache/maven/plugins/help/ActiveProfilesMojo.java`
 #### Snippet
@@ -680,6 +668,18 @@ in `src/main/java/org/apache/maven/plugins/help/ActiveProfilesMojo.java`
      */
     @Parameter(defaultValue = "${reactorProjects}", required = true, readonly = true)
     private List<MavenProject> projects;
+
+    // ----------------------------------------------------------------------
+```
+
+### MismatchedCollectionQueryUpdate
+Contents of collection `settingsProfiles` are queried, but never updated
+in `src/main/java/org/apache/maven/plugins/help/AllProfilesMojo.java`
+#### Snippet
+```java
+     */
+    @Parameter(defaultValue = "${settings.profiles}", readonly = true, required = true)
+    private List<org.apache.maven.settings.Profile> settingsProfiles;
 
     // ----------------------------------------------------------------------
 ```
