@@ -12,8 +12,8 @@ I found 32 bad smells with 0 repairable:
 | SpringXmlAutowireExplicitlyInspection | 1 | false |
 | JavadocReference | 1 | false |
 | JavadocDeclaration | 1 | false |
-| DeprecatedIsStillUsed | 1 | false |
 | EqualsWhichDoesntCheckParameterClass | 1 | false |
+| DeprecatedIsStillUsed | 1 | false |
 ## RuleId[id=SpringJavaInjectionPointsAutowiringInspection]
 ### SpringJavaInjectionPointsAutowiringInspection
 Could not autowire. No beans of 'PluginLifecycleEventDispatcher' type found.
@@ -141,18 +141,6 @@ in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/async/AsyncEvent
 
 ### Deprecation
 'jetbrains.buildServer.webhook.async.AsyncEventDispatcher' is deprecated
-in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/WebhooksManager.java`
-#### Snippet
-```java
-
-    public WebhooksManager(PluginLifecycleEventDispatcher dispatcher,
-                           AsyncEventDispatcher asyncEventDispatcher,
-                           WebhooksEventListener eventListener) {
-
-```
-
-### Deprecation
-'jetbrains.buildServer.webhook.async.AsyncEventDispatcher' is deprecated
 in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/async/events/AsyncEvent.java`
 #### Snippet
 ```java
@@ -161,6 +149,18 @@ in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/async/events/Asy
  * Simple event used by {@link jetbrains.buildServer.webhook.async.AsyncEventDispatcher}
  * to allows listeners {@link jetbrains.buildServer.webhook.async.AsyncEventListener} handle it asynchronously
  */
+```
+
+### Deprecation
+'jetbrains.buildServer.webhook.async.AsyncEventDispatcher' is deprecated
+in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/WebhooksManager.java`
+#### Snippet
+```java
+
+    public WebhooksManager(PluginLifecycleEventDispatcher dispatcher,
+                           AsyncEventDispatcher asyncEventDispatcher,
+                           WebhooksEventListener eventListener) {
+
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
@@ -345,19 +345,6 @@ in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/WebhookDataProdu
     String getJson(AsyncEvent event, String fields);
 ```
 
-## RuleId[id=DeprecatedIsStillUsed]
-### DeprecatedIsStillUsed
-Deprecated member 'AsyncEventDispatcher' is still used
-in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/async/AsyncEventDispatcher.java`
-#### Snippet
-```java
- */
-@Component
-public class AsyncEventDispatcher {
-
-    private final jetbrains.buildServer.serverSide.impl.events.async.AsyncEventDispatcher myDelegate;
-```
-
 ## RuleId[id=EqualsWhichDoesntCheckParameterClass]
 ### EqualsWhichDoesntCheckParameterClass
 `equals()` should check the class of its parameter
@@ -369,6 +356,19 @@ in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/async/AsyncEvent
             public boolean equals(Object obj) {
                 return listener.equals(obj);
             }
+```
+
+## RuleId[id=DeprecatedIsStillUsed]
+### DeprecatedIsStillUsed
+Deprecated member 'AsyncEventDispatcher' is still used
+in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/async/AsyncEventDispatcher.java`
+#### Snippet
+```java
+ */
+@Component
+public class AsyncEventDispatcher {
+
+    private final jetbrains.buildServer.serverSide.impl.events.async.AsyncEventDispatcher myDelegate;
 ```
 
 ## RuleId[id=FieldMayBeFinal]
