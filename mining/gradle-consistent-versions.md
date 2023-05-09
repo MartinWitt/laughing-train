@@ -29,18 +29,6 @@ in `src/main/java/com/palantir/gradle/versions/GradleConfigurations.java`
 ```
 
 ### JavadocReference
-Cannot resolve symbol `platform`
-in `src/main/java/com/palantir/gradle/versions/GradleWorkarounds.java`
-#### Snippet
-```java
-    /**
-     * Returns whether a dependency / component is a non-enforced platform, i.e. what you create with
-     * {@link DependencyHandler#platform} or {@link DependencyConstraintHandler#platform}.
-     */
-    static boolean isPlatform(AttributeContainer attributes) {
-```
-
-### JavadocReference
 Cannot resolve symbol `DomainObjectCollection`
 in `src/main/java/com/palantir/gradle/versions/GradleWorkarounds.java`
 #### Snippet
@@ -62,6 +50,18 @@ in `src/main/java/com/palantir/gradle/versions/GradleWorkarounds.java`
      * Allow a {@link ListProperty} to be used with {@link DomainObjectCollection#addAllLater}.
      *
      * <p>Pending fix: https://github.com/gradle/gradle/pull/10288
+```
+
+### JavadocReference
+Cannot resolve symbol `platform`
+in `src/main/java/com/palantir/gradle/versions/GradleWorkarounds.java`
+#### Snippet
+```java
+    /**
+     * Returns whether a dependency / component is a non-enforced platform, i.e. what you create with
+     * {@link DependencyHandler#platform} or {@link DependencyConstraintHandler#platform}.
+     */
+    static boolean isPlatform(AttributeContainer attributes) {
 ```
 
 ### JavadocReference
@@ -167,11 +167,11 @@ Method invocation `getGroup` may produce `NullPointerException`
 in `src/main/java/com/palantir/gradle/versions/GetVersionPlugin.java`
 #### Snippet
 ```java
-                        .map(ResolvedComponentResult::getModuleVersion)
-                        .filter(item ->
-                                item.getGroup().equals(group) && item.getName().equals(name))
-                        .collect(toList());
-
+        String actual = configuration.getIncoming().getResolutionResult().getAllComponents().stream()
+                .map(ResolvedComponentResult::getModuleVersion)
+                .map(mvi -> String.format("\t- %s:%s:%s", mvi.getGroup(), mvi.getName(), mvi.getVersion()))
+                .collect(Collectors.joining("\n"));
+        return new GradleException(String.format(
 ```
 
 ### DataFlowIssue
@@ -179,11 +179,11 @@ Method invocation `getGroup` may produce `NullPointerException`
 in `src/main/java/com/palantir/gradle/versions/GetVersionPlugin.java`
 #### Snippet
 ```java
-        String actual = configuration.getIncoming().getResolutionResult().getAllComponents().stream()
-                .map(ResolvedComponentResult::getModuleVersion)
-                .map(mvi -> String.format("\t- %s:%s:%s", mvi.getGroup(), mvi.getName(), mvi.getVersion()))
-                .collect(Collectors.joining("\n"));
-        return new GradleException(String.format(
+                        .map(ResolvedComponentResult::getModuleVersion)
+                        .filter(item ->
+                                item.getGroup().equals(group) && item.getName().equals(name))
+                        .collect(toList());
+
 ```
 
 ### DataFlowIssue
@@ -352,18 +352,6 @@ Not annotated method overrides method annotated with @NonNullApi
 in `src/main/java/com/palantir/gradle/versions/internal/MyModuleVersionIdentifier.java`
 #### Snippet
 ```java
-
-    @Override
-    public final ModuleIdentifier getModule() {
-        return MyModuleIdentifier.of(getGroup(), getName());
-    }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NonNullApi
-in `src/main/java/com/palantir/gradle/versions/internal/MyModuleVersionIdentifier.java`
-#### Snippet
-```java
     @Override
     @Parameter
     public abstract String getVersion();
@@ -372,15 +360,15 @@ in `src/main/java/com/palantir/gradle/versions/internal/MyModuleVersionIdentifie
 ```
 
 ### NullableProblems
-Not annotated parameter overrides @NonNullApi parameter
-in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
+Not annotated method overrides method annotated with @NonNullApi
+in `src/main/java/com/palantir/gradle/versions/internal/MyModuleVersionIdentifier.java`
 #### Snippet
 ```java
 
     @Override
-    public final void apply(Project project) {
-        checkPreconditions(project);
-        project.getPluginManager().apply(LifecycleBasePlugin.class);
+    public final ModuleIdentifier getModule() {
+        return MyModuleIdentifier.of(getGroup(), getName());
+    }
 ```
 
 ### NullableProblems
@@ -393,6 +381,18 @@ in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
         public String getName() {
             return this.name();
         }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNullApi parameter
+in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
+#### Snippet
+```java
+
+    @Override
+    public final void apply(Project project) {
+        checkPreconditions(project);
+        project.getPluginManager().apply(LifecycleBasePlugin.class);
 ```
 
 ### NullableProblems
@@ -459,6 +459,30 @@ in `src/main/java/com/palantir/gradle/versions/TaskNameMatcher.java`
 ```
 
 ### UnstableApiUsage
+'isConfigureOnDemand()' is marked unstable with @Incubating
+in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
+#### Snippet
+```java
+    private static Map<Project, LockedConfigurations> wireUpLockedConfigurationsByProject(Project rootProject) {
+        return rootProject.getAllprojects().stream().collect(Collectors.toMap(Functions.identity(), subproject -> {
+            if (rootProject.getGradle().getStartParameter().isConfigureOnDemand()
+                    && !subproject.getState().getExecuted()) {
+                return ImmutableLockedConfigurations.builder().build();
+```
+
+### UnstableApiUsage
+'isConfigureOnDemand()' is marked unstable with @Incubating
+in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
+#### Snippet
+```java
+                        unifiedClasspath.getIncoming().getResolutionResult();
+                // Throw if there are dependencies that are not present in the lock state.
+                if (startParameter.isConfigureOnDemand()
+                        && project.getAllprojects().stream()
+                                .anyMatch(subproject -> !subproject.getState().getExecuted())) {
+```
+
+### UnstableApiUsage
 'com.google.common.hash.Hasher' is marked unstable with @Beta
 in `src/main/java/com/palantir/gradle/versions/lockstate/LockStates.java`
 #### Snippet
@@ -504,30 +528,6 @@ in `src/main/java/com/palantir/gradle/versions/lockstate/LockStates.java`
         HashCode hash = hasher.hash();
 
         Line line = ImmutableLine.of(
-```
-
-### UnstableApiUsage
-'isConfigureOnDemand()' is marked unstable with @Incubating
-in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
-#### Snippet
-```java
-                        unifiedClasspath.getIncoming().getResolutionResult();
-                // Throw if there are dependencies that are not present in the lock state.
-                if (startParameter.isConfigureOnDemand()
-                        && project.getAllprojects().stream()
-                                .anyMatch(subproject -> !subproject.getState().getExecuted())) {
-```
-
-### UnstableApiUsage
-'isConfigureOnDemand()' is marked unstable with @Incubating
-in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
-#### Snippet
-```java
-    private static Map<Project, LockedConfigurations> wireUpLockedConfigurationsByProject(Project rootProject) {
-        return rootProject.getAllprojects().stream().collect(Collectors.toMap(Functions.identity(), subproject -> {
-            if (rootProject.getGradle().getStartParameter().isConfigureOnDemand()
-                    && !subproject.getState().getExecuted()) {
-                return ImmutableLockedConfigurations.builder().build();
 ```
 
 ### UnstableApiUsage
