@@ -15,12 +15,24 @@ I found 37 bad smells with 8 repairable:
 | CatchMayIgnoreException | 1 | false |
 | UnnecessaryLocalVariable | 1 | true |
 | UnnecessaryToStringCall | 1 | true |
-| DanglingJavadoc | 1 | false |
 | InnerClassMayBeStatic | 1 | true |
+| DanglingJavadoc | 1 | false |
 | ConstantValue | 1 | false |
 | UnnecessaryInitCause | 1 | false |
 | IgnoreResultOfCall | 1 | false |
 ## RuleId[id=UnnecessaryStringEscape]
+### UnnecessaryStringEscape
+`\'` is unnecessarily escaped
+in `src/main/java/org/apache/commons/exec/util/StringUtils.java`
+#### Snippet
+```java
+
+    private static final String[] EMPTY_STRING_ARRAY = new String[0];
+    private static final String SINGLE_QUOTE = "\'";
+    private static final String DOUBLE_QUOTE = "\"";
+    private static final char SLASH_CHAR = '/';
+```
+
 ### UnnecessaryStringEscape
 `\'` is unnecessarily escaped
 in `src/main/java/org/apache/commons/exec/OS.java`
@@ -67,18 +79,6 @@ in `src/main/java/org/apache/commons/exec/CommandLine.java`
                 if ("\'".equals(nextTok)) {
                     state = inQuote;
                 } else if ("\"".equals(nextTok)) {
-```
-
-### UnnecessaryStringEscape
-`\'` is unnecessarily escaped
-in `src/main/java/org/apache/commons/exec/util/StringUtils.java`
-#### Snippet
-```java
-
-    private static final String[] EMPTY_STRING_ARRAY = new String[0];
-    private static final String SINGLE_QUOTE = "\'";
-    private static final String DOUBLE_QUOTE = "\"";
-    private static final char SLASH_CHAR = '/';
 ```
 
 ## RuleId[id=StringOperationCanBeSimplified]
@@ -145,30 +145,6 @@ package org.apache.commons.exec.environment;
 ```
 
 ### CommentedOutCode
-Commented out code (28 lines)
-in `src/main/java/org/apache/commons/exec/environment/DefaultProcessingEnvironment.java`
-#### Snippet
-```java
-
-// No longer needed
-//        if (procEnvironment == null) {
-//            procEnvironment = createEnvironmentMap();
-//            final BufferedReader in = runProcEnvCommand();
-```
-
-### CommentedOutCode
-Commented out code (6 lines)
-in `src/main/java/org/apache/commons/exec/environment/DefaultProcessingEnvironment.java`
-#### Snippet
-```java
-    @Deprecated
-    protected BufferedReader runProcEnvCommand() throws IOException {
-//        final ByteArrayOutputStream out = new ByteArrayOutputStream();
-//        final Executor exe = new DefaultExecutor();
-//        exe.setStreamHandler(new PumpStreamHandler(out));
-```
-
-### CommentedOutCode
 Commented out code (37 lines)
 in `src/main/java/org/apache/commons/exec/environment/DefaultProcessingEnvironment.java`
 #### Snippet
@@ -202,6 +178,30 @@ in `src/main/java/org/apache/commons/exec/environment/DefaultProcessingEnvironme
 //    /**
 //     * ByteArrayOutputStream#toString doesn't seem to work reliably on OS/390,
 //     * at least not the way we use it in the execution context.
+```
+
+### CommentedOutCode
+Commented out code (28 lines)
+in `src/main/java/org/apache/commons/exec/environment/DefaultProcessingEnvironment.java`
+#### Snippet
+```java
+
+// No longer needed
+//        if (procEnvironment == null) {
+//            procEnvironment = createEnvironmentMap();
+//            final BufferedReader in = runProcEnvCommand();
+```
+
+### CommentedOutCode
+Commented out code (6 lines)
+in `src/main/java/org/apache/commons/exec/environment/DefaultProcessingEnvironment.java`
+#### Snippet
+```java
+    @Deprecated
+    protected BufferedReader runProcEnvCommand() throws IOException {
+//        final ByteArrayOutputStream out = new ByteArrayOutputStream();
+//        final Executor exe = new DefaultExecutor();
+//        exe.setStreamHandler(new PumpStreamHandler(out));
 ```
 
 ## RuleId[id=SwitchStatementWithTooFewBranches]
@@ -274,10 +274,10 @@ in `src/main/java/org/apache/commons/exec/Executor.java`
 #### Snippet
 ```java
      */
-    void execute(CommandLine command, Map<String, String> environment, ExecuteResultHandler handler)
+    void execute(CommandLine command, ExecuteResultHandler handler)
         throws ExecuteException, IOException;
-}
 
+    /**
 ```
 
 ### DuplicateThrows
@@ -286,10 +286,22 @@ in `src/main/java/org/apache/commons/exec/Executor.java`
 #### Snippet
 ```java
      */
-    void execute(CommandLine command, ExecuteResultHandler handler)
+    void execute(CommandLine command, Map<String, String> environment, ExecuteResultHandler handler)
         throws ExecuteException, IOException;
+}
 
-    /**
+```
+
+### DuplicateThrows
+There is a more general exception, 'java.io.IOException', in the throws list already.
+in `src/main/java/org/apache/commons/exec/DefaultExecutor.java`
+#### Snippet
+```java
+    @Override
+    public void execute(final CommandLine command, final ExecuteResultHandler handler)
+            throws ExecuteException, IOException {
+        execute(command, null, handler);
+    }
 ```
 
 ### DuplicateThrows
@@ -314,18 +326,6 @@ in `src/main/java/org/apache/commons/exec/DefaultExecutor.java`
             throws ExecuteException, IOException {
 
         if (workingDirectory != null && !workingDirectory.exists()) {
-```
-
-### DuplicateThrows
-There is a more general exception, 'java.io.IOException', in the throws list already.
-in `src/main/java/org/apache/commons/exec/DefaultExecutor.java`
-#### Snippet
-```java
-    @Override
-    public void execute(final CommandLine command, final ExecuteResultHandler handler)
-            throws ExecuteException, IOException {
-        execute(command, null, handler);
-    }
 ```
 
 ### DuplicateThrows
@@ -372,7 +372,7 @@ in `src/main/java/org/apache/commons/exec/DefaultExecuteResultHandler.java`
 #### Snippet
 ```java
 
-        while (!hasResult() && System.currentTimeMillis() < untilMillis) {
+        while (!hasResult()) {
             Thread.sleep(SLEEP_TIME_MS);
         }
     }
@@ -384,23 +384,10 @@ in `src/main/java/org/apache/commons/exec/DefaultExecuteResultHandler.java`
 #### Snippet
 ```java
 
-        while (!hasResult()) {
+        while (!hasResult() && System.currentTimeMillis() < untilMillis) {
             Thread.sleep(SLEEP_TIME_MS);
         }
     }
-```
-
-## RuleId[id=DanglingJavadoc]
-### DanglingJavadoc
-Dangling Javadoc comment
-in `src/main/java/org/apache/commons/exec/environment/DefaultProcessingEnvironment.java`
-#### Snippet
-```java
-public class DefaultProcessingEnvironment {
-
-    /** the line separator of the system */
-//    private static final String LINE_SEPARATOR = System.getProperty("line.separator");
-
 ```
 
 ## RuleId[id=InnerClassMayBeStatic]
@@ -414,6 +401,19 @@ in `src/main/java/org/apache/commons/exec/CommandLine.java`
     class Argument {
 
         private final String value;
+```
+
+## RuleId[id=DanglingJavadoc]
+### DanglingJavadoc
+Dangling Javadoc comment
+in `src/main/java/org/apache/commons/exec/environment/DefaultProcessingEnvironment.java`
+#### Snippet
+```java
+public class DefaultProcessingEnvironment {
+
+    /** the line separator of the system */
+//    private static final String LINE_SEPARATOR = System.getProperty("line.separator");
+
 ```
 
 ## RuleId[id=UnusedAssignment]
