@@ -26,6 +26,7 @@ dependencies {
 	implementation project(":application")
 	implementation project(":persistence")
 	implementation project(":commons")
+	implementation("io.quarkus:quarkus-opentelemetry")
 }
 
 group 'io.github.martinwitt'
