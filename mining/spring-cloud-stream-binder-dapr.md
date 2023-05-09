@@ -335,18 +335,6 @@ in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/
 ## RuleId[id=JavadocReference]
 ### JavadocReference
 Cannot resolve symbol `Message`
-in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/messaging/DaprMessage.java`
-#### Snippet
-```java
-
-/**
- * Encapsulates {@link Message} payload and headers for serialization.
- */
-public class DaprMessage implements Serializable {
-```
-
-### JavadocReference
-Cannot resolve symbol `Message`
 in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/messaging/DaprConverter.java`
 #### Snippet
 ```java
@@ -383,6 +371,30 @@ in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/
 
 ### JavadocReference
 Cannot resolve symbol `Message`
+in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/messaging/DaprMessage.java`
+#### Snippet
+```java
+
+/**
+ * Encapsulates {@link Message} payload and headers for serialization.
+ */
+public class DaprMessage implements Serializable {
+```
+
+### JavadocReference
+Cannot resolve symbol `org.springframework.cloud.stream.binder.Binder`
+in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/DaprMessageChannelBinder.java`
+#### Snippet
+```java
+
+/**
+ * A {@link org.springframework.cloud.stream.binder.Binder} implementation backed by Dapr.
+ */
+public class DaprMessageChannelBinder extends
+```
+
+### JavadocReference
+Cannot resolve symbol `Message`
 in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/messaging/DaprMessageConverter.java`
 #### Snippet
 ```java
@@ -403,18 +415,6 @@ in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/
  * and turn a {@link DaprAppCallbackProtos.TopicEventRequest} to {@link Message}.
  */
 public class DaprMessageConverter implements DaprConverter<DaprProtos.PublishEventRequest.Builder,
-```
-
-### JavadocReference
-Cannot resolve symbol `org.springframework.cloud.stream.binder.Binder`
-in `spring-cloud-stream-binder-dapr/src/main/java/com/azure/spring/cloud/stream/binder/dapr/DaprMessageChannelBinder.java`
-#### Snippet
-```java
-
-/**
- * A {@link org.springframework.cloud.stream.binder.Binder} implementation backed by Dapr.
- */
-public class DaprMessageChannelBinder extends
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
