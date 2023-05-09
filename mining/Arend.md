@@ -134,15 +134,15 @@ in `base/src/main/java/org/arend/term/concrete/SubstConcreteVisitor.java`
 ```
 
 ### RedundantMethodOverride
-Method `printSpaceBefore()` is identical to its super method
-in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
+Method `getTypecheckable()` is identical to its super method
+in `base/src/main/java/org/arend/naming/reference/TCLevelReferable.java`
 #### Snippet
 ```java
 
-      @Override
-      boolean printSpaceBefore() { return true; }
-
-      @Override
+  @Override
+  public @NotNull TCReferable getTypecheckable() {
+    return this;
+  }
 ```
 
 ### RedundantMethodOverride
@@ -158,15 +158,15 @@ in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
 ```
 
 ### RedundantMethodOverride
-Method `getTypecheckable()` is identical to its super method
-in `base/src/main/java/org/arend/naming/reference/TCLevelReferable.java`
+Method `printSpaceBefore()` is identical to its super method
+in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
 #### Snippet
 ```java
 
-  @Override
-  public @NotNull TCReferable getTypecheckable() {
-    return this;
-  }
+      @Override
+      boolean printSpaceBefore() { return true; }
+
+      @Override
 ```
 
 ### RedundantMethodOverride
@@ -208,26 +208,14 @@ in `base/src/main/java/org/arend/module/serialization/ModuleDeserialization.java
 
 ### UNCHECKED_WARNING
 Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
-in `base/src/main/java/org/arend/module/serialization/DefinitionDeserialization.java`
-#### Snippet
-```java
-      }
-      case INTERVAL_ELIM -> {
-        List<IntervalElim.CasePair> cases = new ArrayList<>(proto.getIntervalElim().getCaseCount());
-        for (DefinitionProtos.Body.ExpressionPair pairProto : proto.getIntervalElim().getCaseList()) {
-          cases.add(new IntervalElim.CasePair(pairProto.hasLeft() ? defDeserializer.readExpr(pairProto.getLeft()) : null, pairProto.hasRight() ? defDeserializer.readExpr(pairProto.getRight()) : null));
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
-in `base/src/main/java/org/arend/module/serialization/DefinitionDeserialization.java`
+in `base/src/main/java/org/arend/module/serialization/ExpressionDeserialization.java`
 #### Snippet
 ```java
 
-  private void fillInMetaDefinition(ExpressionDeserialization defDeserializer, DefinitionProtos.Definition.MetaData metaProto, MetaTopDefinition metaDef) throws DeserializationException {
-    metaDef.setParameters(defDeserializer.readParameters(metaProto.getParamList()), new ArrayList<>(metaProto.getTypedParamList()));
-  }
-
+  private CaseExpression readCase(ExpressionProtos.Expression.Case proto) throws DeserializationException {
+    List<Expression> arguments = new ArrayList<>(proto.getArgumentCount());
+    ElimBody elimBody = readElimBody(proto.getElimBody());
+    DependentLink parameters = readParameters(proto.getParamList());
 ```
 
 ### UNCHECKED_WARNING
@@ -268,29 +256,29 @@ in `base/src/main/java/org/arend/module/serialization/ExpressionDeserialization.
 
 ### UNCHECKED_WARNING
 Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
-in `base/src/main/java/org/arend/module/serialization/ExpressionDeserialization.java`
+in `base/src/main/java/org/arend/module/serialization/DefinitionDeserialization.java`
+#### Snippet
+```java
+      }
+      case INTERVAL_ELIM -> {
+        List<IntervalElim.CasePair> cases = new ArrayList<>(proto.getIntervalElim().getCaseCount());
+        for (DefinitionProtos.Body.ExpressionPair pairProto : proto.getIntervalElim().getCaseList()) {
+          cases.add(new IntervalElim.CasePair(pairProto.hasLeft() ? defDeserializer.readExpr(pairProto.getLeft()) : null, pairProto.hasRight() ? defDeserializer.readExpr(pairProto.getRight()) : null));
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
+in `base/src/main/java/org/arend/module/serialization/DefinitionDeserialization.java`
 #### Snippet
 ```java
 
-  private CaseExpression readCase(ExpressionProtos.Expression.Case proto) throws DeserializationException {
-    List<Expression> arguments = new ArrayList<>(proto.getArgumentCount());
-    ElimBody elimBody = readElimBody(proto.getElimBody());
-    DependentLink parameters = readParameters(proto.getParamList());
+  private void fillInMetaDefinition(ExpressionDeserialization defDeserializer, DefinitionProtos.Definition.MetaData metaProto, MetaTopDefinition metaDef) throws DeserializationException {
+    metaDef.setParameters(defDeserializer.readParameters(metaProto.getParamList()), new ArrayList<>(metaProto.getTypedParamList()));
+  }
+
 ```
 
 ## RuleId[id=DataFlowIssue]
-### DataFlowIssue
-Method `doTypechecking` is too complex to analyze by data flow algorithm
-in `base/src/main/java/org/arend/typechecking/patternmatching/PatternTypechecking.java`
-#### Snippet
-```java
-  }
-
-  private Result doTypechecking(List<Concrete.Pattern> patterns, DependentLink parameters, ExprSubstitution paramsSubst, ExprSubstitution totalSubst, ConcreteSourceNode sourceNode, boolean withElim, int addIntervalVars) {
-    List<ExpressionPattern> result = new ArrayList<>();
-    List<Expression> exprs = new ArrayList<>();
-```
-
 ### DataFlowIssue
 Method `clausesToElimTree` is too complex to analyze by data flow algorithm
 in `base/src/main/java/org/arend/typechecking/patternmatching/ElimTypechecking.java`
@@ -313,6 +301,18 @@ in `base/src/main/java/org/arend/typechecking/visitor/DefinitionTypechecker.java
   private List<ExtElimClause> typecheckFunctionBody(FunctionDefinition typedDef, Concrete.BaseFunctionDefinition def) {
     UniverseKind universeKind = typedDef.getUniverseKind();
     if (myNewDef) {
+```
+
+### DataFlowIssue
+Method `doTypechecking` is too complex to analyze by data flow algorithm
+in `base/src/main/java/org/arend/typechecking/patternmatching/PatternTypechecking.java`
+#### Snippet
+```java
+  }
+
+  private Result doTypechecking(List<Concrete.Pattern> patterns, DependentLink parameters, ExprSubstitution paramsSubst, ExprSubstitution totalSubst, ConcreteSourceNode sourceNode, boolean withElim, int addIntervalVars) {
+    List<ExpressionPattern> result = new ArrayList<>();
+    List<Expression> exprs = new ArrayList<>();
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
@@ -692,18 +692,6 @@ in `base/src/main/java/org/arend/repl/CommandHandler.java`
 
 ### SimplifyStreamApiCallChains
 'collect(toList())' can be replaced with 'toList()'
-in `base/src/main/java/org/arend/term/prettyprint/FreeVariableCollectorConcrete.java`
-#### Snippet
-```java
-
-  private void removeParameters(List<? extends Concrete.Parameter> parameters) {
-    parameters.stream().flatMap(a -> a.getRefList().stream()).collect(Collectors.toList()).forEach(myReferables::remove);
-  }
-
-```
-
-### SimplifyStreamApiCallChains
-'collect(toList())' can be replaced with 'toList()'
 in `base/src/main/java/org/arend/term/prettyprint/MinimizedRepresentation.java`
 #### Snippet
 ```java
@@ -712,6 +700,18 @@ in `base/src/main/java/org/arend/term/prettyprint/MinimizedRepresentation.java`
         var errorList = myErrors.stream().filter(err -> err.getCauseSourceNode() == expr).collect(Collectors.toList());
         if (!errorList.isEmpty()) {
             var verboseExpr = (Concrete.Expression) params;
+```
+
+### SimplifyStreamApiCallChains
+'collect(toList())' can be replaced with 'toList()'
+in `base/src/main/java/org/arend/term/prettyprint/FreeVariableCollectorConcrete.java`
+#### Snippet
+```java
+
+  private void removeParameters(List<? extends Concrete.Parameter> parameters) {
+    parameters.stream().flatMap(a -> a.getRefList().stream()).collect(Collectors.toList()).forEach(myReferables::remove);
+  }
+
 ```
 
 ## RuleId[id=CommentedOutCode]
@@ -752,18 +752,6 @@ in `base/src/main/java/org/arend/core/expr/visitor/ElimBindingVisitor.java`
 ```
 
 ### CommentedOutCode
-Commented out code (104 lines)
-in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
-#### Snippet
-```java
-  }
-
-  /*
-  private void visitWhere(Collection<? extends LegacyAbstract.Statement> statements) {
-    myBuilder.append(" \\where {\n");
-```
-
-### CommentedOutCode
 Commented out code (19 lines)
 in `base/src/main/java/org/arend/core/expr/visitor/CompareVisitor.java`
 #### Snippet
@@ -773,6 +761,18 @@ in `base/src/main/java/org/arend/core/expr/visitor/CompareVisitor.java`
   /*
   private boolean compareIsoArgs(List<? extends Expression> list1, List<? extends Expression> list2, ExprSubstitution substitution) {
     DependentLink link = Prelude.ISO.getParameters();
+```
+
+### CommentedOutCode
+Commented out code (104 lines)
+in `base/src/main/java/org/arend/term/prettyprint/PrettyPrintVisitor.java`
+#### Snippet
+```java
+  }
+
+  /*
+  private void visitWhere(Collection<? extends LegacyAbstract.Statement> statements) {
+    myBuilder.append(" \\where {\n");
 ```
 
 ### CommentedOutCode
@@ -1222,11 +1222,11 @@ Primitive type members cannot be annotated
 in `api/src/main/java/org/arend/ext/serialization/SerializableKey.java`
 #### Snippet
 ```java
-  }
-
   public abstract @NotNull byte[] serialize(@NotNull ArendSerializer serializer, T object);
 
   public abstract @NotNull T deserialize(@NotNull ArendDeserializer deserializer, @NotNull byte[] data) throws DeserializationException;
+}
+
 ```
 
 ### NullableProblems
@@ -1234,11 +1234,11 @@ Primitive type members cannot be annotated
 in `api/src/main/java/org/arend/ext/serialization/SerializableKey.java`
 #### Snippet
 ```java
+  }
+
   public abstract @NotNull byte[] serialize(@NotNull ArendSerializer serializer, T object);
 
   public abstract @NotNull T deserialize(@NotNull ArendDeserializer deserializer, @NotNull byte[] data) throws DeserializationException;
-}
-
 ```
 
 ## RuleId[id=ConstantValue]
@@ -1379,6 +1379,54 @@ in `cli/src/main/java/org/arend/frontend/ui/CliSession.java`
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
+in `cli/src/main/java/org/arend/frontend/repl/jline/JLineCliRepl.java`
+#### Snippet
+```java
+      // Assuming user.home exists
+      if (Files.notExists(dir) || Files.isRegularFile(dir)) {
+        Files.deleteIfExists(dir);
+        Files.createDirectory(dir);
+      }
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `cli/src/main/java/org/arend/frontend/repl/jline/JLineCliRepl.java`
+#### Snippet
+```java
+      if (Files.notExists(dir) || Files.isRegularFile(dir)) {
+        Files.deleteIfExists(dir);
+        Files.createDirectory(dir);
+      }
+      if (Files.notExists(history) || Files.isDirectory(history)) {
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `cli/src/main/java/org/arend/frontend/repl/jline/JLineCliRepl.java`
+#### Snippet
+```java
+      }
+      if (Files.notExists(history) || Files.isDirectory(history)) {
+        Files.deleteIfExists(history);
+        Files.createFile(history);
+      }
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `cli/src/main/java/org/arend/frontend/repl/jline/JLineCliRepl.java`
+#### Snippet
+```java
+      if (Files.notExists(history) || Files.isDirectory(history)) {
+        Files.deleteIfExists(history);
+        Files.createFile(history);
+      }
+    } catch (IOException e) {
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
 in `cli/src/main/java/org/arend/frontend/repl/jline/Completers.java`
 #### Snippet
 ```java
@@ -1439,49 +1487,13 @@ in `cli/src/main/java/org/arend/frontend/source/FileRawSource.java`
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
-in `cli/src/main/java/org/arend/frontend/repl/jline/JLineCliRepl.java`
+in `cli/src/main/java/org/arend/frontend/library/ZipSourceLibrary.java`
 #### Snippet
 ```java
-      // Assuming user.home exists
-      if (Files.notExists(dir) || Files.isRegularFile(dir)) {
-        Files.deleteIfExists(dir);
-        Files.createDirectory(dir);
-      }
-```
 
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `cli/src/main/java/org/arend/frontend/repl/jline/JLineCliRepl.java`
-#### Snippet
-```java
-      if (Files.notExists(dir) || Files.isRegularFile(dir)) {
-        Files.deleteIfExists(dir);
-        Files.createDirectory(dir);
-      }
-      if (Files.notExists(history) || Files.isDirectory(history)) {
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `cli/src/main/java/org/arend/frontend/repl/jline/JLineCliRepl.java`
-#### Snippet
-```java
-      }
-      if (Files.notExists(history) || Files.isDirectory(history)) {
-        Files.deleteIfExists(history);
-        Files.createFile(history);
-      }
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `cli/src/main/java/org/arend/frontend/repl/jline/JLineCliRepl.java`
-#### Snippet
-```java
-      if (Files.notExists(history) || Files.isDirectory(history)) {
-        Files.deleteIfExists(history);
-        Files.createFile(history);
-      }
+    LibraryConfig config;
+    try (InputStream stream = myZipFile.getInputStream(yamlEntry)) {
+      config = new YAMLMapper().readValue(stream, LibraryConfig.class);
     } catch (IOException e) {
 ```
 
@@ -1511,18 +1523,6 @@ in `cli/src/main/java/org/arend/frontend/repl/CommonCliRepl.java`
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
-in `cli/src/main/java/org/arend/frontend/library/ZipSourceLibrary.java`
-#### Snippet
-```java
-
-    LibraryConfig config;
-    try (InputStream stream = myZipFile.getInputStream(yamlEntry)) {
-      config = new YAMLMapper().readValue(stream, LibraryConfig.class);
-    } catch (IOException e) {
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
 in `cli/src/main/java/org/arend/frontend/BaseCliFrontend.java`
 #### Snippet
 ```java
@@ -1543,6 +1543,30 @@ in `base/src/main/java/org/arend/util/FileUtils.java`
       Files.walkFileTree(path, new SimpleFileVisitor<>() {
         @Override
         public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `base/src/main/java/org/arend/source/FileBinarySource.java`
+#### Snippet
+```java
+  public boolean delete(SourceLibrary library) {
+    try {
+      Files.deleteIfExists(myFile);
+      return true;
+    } catch (IOException e) {
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `base/src/main/java/org/arend/source/FileBinarySource.java`
+#### Snippet
+```java
+  @Override
+  protected InputStream getInputStream() throws IOException {
+    return Files.newInputStream(myFile);
+  }
+
 ```
 
 ### BlockingMethodInNonBlockingContext
@@ -1579,30 +1603,6 @@ in `base/src/main/java/org/arend/source/FileBinarySource.java`
       return Files.getLastModifiedTime(myFile).toMillis();
     } catch (IOException e) {
       return 0;
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `base/src/main/java/org/arend/source/FileBinarySource.java`
-#### Snippet
-```java
-  public boolean delete(SourceLibrary library) {
-    try {
-      Files.deleteIfExists(myFile);
-      return true;
-    } catch (IOException e) {
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `base/src/main/java/org/arend/source/FileBinarySource.java`
-#### Snippet
-```java
-  @Override
-  protected InputStream getInputStream() throws IOException {
-    return Files.newInputStream(myFile);
-  }
-
 ```
 
 ### BlockingMethodInNonBlockingContext
