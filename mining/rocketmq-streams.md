@@ -34,15 +34,51 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocksDBStore.java`
 
 ## RuleId[id=UNCHECKED_WARNING]
 ### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.rocketmq.streams.core.function.accumulator.AvgAccumulator' to 'org.apache.rocketmq.streams.core.function.accumulator.AvgAccumulator'
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/accumulator/AvgAccumulator.java`
+Unchecked assignment: 'org.apache.rocketmq.streams.core.topology.virtual.ProcessorNode' to 'org.apache.rocketmq.streams.core.topology.virtual.ProcessorNode'
+in `core/src/main/java/org/apache/rocketmq/streams/core/rstream/JoinedStream.java`
 #### Snippet
 ```java
-    public void merge(Accumulator<V, Double> other) {
-        if (other instanceof AvgAccumulator) {
-            AvgAccumulator<V> otherAvgAccumulator = (AvgAccumulator) other;
-            Integer numOther = otherAvgAccumulator.getNum();
-            Double avgOther = otherAvgAccumulator.getAvg();
+            String name = OperatorNameMaker.makeName(OperatorNameMaker.JOIN_WINDOW_PREFIX, jobId);
+            Supplier<Processor<? super OUT>> supplier = new JoinWindowAggregateSupplier<>(name, windowInfo, joinAction);
+            ProcessorNode<OUT> commChild = new ProcessorNode(name, temp, supplier);
+
+
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'ProcessorNode(String, List, Supplier\>)' as a member of raw type 'org.apache.rocketmq.streams.core.topology.virtual.ProcessorNode'
+in `core/src/main/java/org/apache/rocketmq/streams/core/rstream/JoinedStream.java`
+#### Snippet
+```java
+            String name = OperatorNameMaker.makeName(OperatorNameMaker.JOIN_WINDOW_PREFIX, jobId);
+            Supplier<Processor<? super OUT>> supplier = new JoinWindowAggregateSupplier<>(name, windowInfo, joinAction);
+            ProcessorNode<OUT> commChild = new ProcessorNode(name, temp, supplier);
+
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.rocketmq.streams.core.topology.virtual.ProcessorNode' to 'org.apache.rocketmq.streams.core.topology.virtual.ProcessorNode'
+in `core/src/main/java/org/apache/rocketmq/streams/core/rstream/JoinedStream.java`
+#### Snippet
+```java
+            String name = OperatorNameMaker.makeName(OperatorNameMaker.JOIN_PREFIX, jobId);
+            Supplier<Processor<? super OUT>> supplier = new JoinAggregateSupplier<>(name, joinType, joinAction);
+            ProcessorNode<OUT> commChild = new ProcessorNode(name, temp, supplier);
+
+
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'ProcessorNode(String, List, Supplier\>)' as a member of raw type 'org.apache.rocketmq.streams.core.topology.virtual.ProcessorNode'
+in `core/src/main/java/org/apache/rocketmq/streams/core/rstream/JoinedStream.java`
+#### Snippet
+```java
+            String name = OperatorNameMaker.makeName(OperatorNameMaker.JOIN_PREFIX, jobId);
+            Supplier<Processor<? super OUT>> supplier = new JoinAggregateSupplier<>(name, joinType, joinAction);
+            ProcessorNode<OUT> commChild = new ProcessorNode(name, temp, supplier);
+
+
 ```
 
 ### UNCHECKED_WARNING
@@ -130,51 +166,15 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/running/MessageQueueList
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.rocketmq.streams.core.topology.virtual.ProcessorNode' to 'org.apache.rocketmq.streams.core.topology.virtual.ProcessorNode'
-in `core/src/main/java/org/apache/rocketmq/streams/core/rstream/JoinedStream.java`
+Unchecked assignment: 'org.apache.rocketmq.streams.core.function.accumulator.AvgAccumulator' to 'org.apache.rocketmq.streams.core.function.accumulator.AvgAccumulator'
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/accumulator/AvgAccumulator.java`
 #### Snippet
 ```java
-            String name = OperatorNameMaker.makeName(OperatorNameMaker.JOIN_WINDOW_PREFIX, jobId);
-            Supplier<Processor<? super OUT>> supplier = new JoinWindowAggregateSupplier<>(name, windowInfo, joinAction);
-            ProcessorNode<OUT> commChild = new ProcessorNode(name, temp, supplier);
-
-
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'ProcessorNode(String, List, Supplier\>)' as a member of raw type 'org.apache.rocketmq.streams.core.topology.virtual.ProcessorNode'
-in `core/src/main/java/org/apache/rocketmq/streams/core/rstream/JoinedStream.java`
-#### Snippet
-```java
-            String name = OperatorNameMaker.makeName(OperatorNameMaker.JOIN_WINDOW_PREFIX, jobId);
-            Supplier<Processor<? super OUT>> supplier = new JoinWindowAggregateSupplier<>(name, windowInfo, joinAction);
-            ProcessorNode<OUT> commChild = new ProcessorNode(name, temp, supplier);
-
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.rocketmq.streams.core.topology.virtual.ProcessorNode' to 'org.apache.rocketmq.streams.core.topology.virtual.ProcessorNode'
-in `core/src/main/java/org/apache/rocketmq/streams/core/rstream/JoinedStream.java`
-#### Snippet
-```java
-            String name = OperatorNameMaker.makeName(OperatorNameMaker.JOIN_PREFIX, jobId);
-            Supplier<Processor<? super OUT>> supplier = new JoinAggregateSupplier<>(name, joinType, joinAction);
-            ProcessorNode<OUT> commChild = new ProcessorNode(name, temp, supplier);
-
-
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'ProcessorNode(String, List, Supplier\>)' as a member of raw type 'org.apache.rocketmq.streams.core.topology.virtual.ProcessorNode'
-in `core/src/main/java/org/apache/rocketmq/streams/core/rstream/JoinedStream.java`
-#### Snippet
-```java
-            String name = OperatorNameMaker.makeName(OperatorNameMaker.JOIN_PREFIX, jobId);
-            Supplier<Processor<? super OUT>> supplier = new JoinAggregateSupplier<>(name, joinType, joinAction);
-            ProcessorNode<OUT> commChild = new ProcessorNode(name, temp, supplier);
-
-
+    public void merge(Accumulator<V, Double> other) {
+        if (other instanceof AvgAccumulator) {
+            AvgAccumulator<V> otherAvgAccumulator = (AvgAccumulator) other;
+            Integer numOther = otherAvgAccumulator.getNum();
+            Double avgOther = otherAvgAccumulator.getAvg();
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
@@ -626,315 +626,123 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/window/fire/JoinWindowFi
 
 ## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
-Field `filterAction` may be 'final'
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/FilterSupplier.java`
+Field `aggregateAction` may be 'final'
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAggregateSupplier.java`
 #### Snippet
 ```java
+    private WindowInfo windowInfo;
+    private Supplier<OV> initAction;
+    private AggregateAction<K, V, OV> aggregateAction;
 
-public class FilterSupplier<T> implements Supplier<Processor<T>> {
-    private FilterAction<T> filterAction;
-
-    public FilterSupplier(FilterAction<T> filterAction) {
+    public WindowAggregateSupplier(String name, WindowInfo windowInfo, Supplier<OV> initAction, AggregateAction<K, V, OV> aggregateAction) {
 ```
 
 ### FieldMayBeFinal
-Field `accumulator` may be 'final'
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/AccumulatorSupplier.java`
+Field `initAction` may be 'final'
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAggregateSupplier.java`
 #### Snippet
 ```java
+        private final String name;
+        private final WindowInfo windowInfo;
+        private Supplier<OV> initAction;
+        private AggregateAction<K, V, OV> aggregateAction;
         private MessageQueue stateTopicMessageQueue;
-        private SelectAction<R, V> selectAction;
-        private Accumulator<R, OV> accumulator;
-
-        public AccumulatorProcessor(String currentName, String parentName, SelectAction<R, V> selectAction, Accumulator<R, OV> accumulator) {
 ```
 
 ### FieldMayBeFinal
-Field `selectAction` may be 'final'
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/AccumulatorSupplier.java`
+Field `name` may be 'final'
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAggregateSupplier.java`
 #### Snippet
 ```java
-        private StateStore stateStore;
+public class WindowAggregateSupplier<K, V, OV> implements Supplier<Processor<V>> {
+    private static final Logger logger = LoggerFactory.getLogger(WindowAggregateSupplier.class.getName());
+    private String name;
+    private WindowInfo windowInfo;
+    private Supplier<OV> initAction;
+```
+
+### FieldMayBeFinal
+Field `aggregateAction` may be 'final'
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAggregateSupplier.java`
+#### Snippet
+```java
+        private final WindowInfo windowInfo;
+        private Supplier<OV> initAction;
+        private AggregateAction<K, V, OV> aggregateAction;
         private MessageQueue stateTopicMessageQueue;
-        private SelectAction<R, V> selectAction;
-        private Accumulator<R, OV> accumulator;
-
+        private WindowStore<K, OV> windowStore;
 ```
 
 ### FieldMayBeFinal
-Field `selectAction` may be 'final'
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/AccumulatorSupplier.java`
+Field `aggregateAction` may be 'final'
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAggregateSupplier.java`
 #### Snippet
 ```java
-    private final String currentName;
-    private final String parentName;
-    private SelectAction<R, V> selectAction;
-    private Accumulator<R, OV> accumulator;
-
+        private String name;
+        private Supplier<OV> initAction;
+        private AggregateAction<K, V, OV> aggregateAction;
+        private MessageQueue stateTopicMessageQueue;
+        private WindowStore<K, OV> windowStore;
 ```
 
 ### FieldMayBeFinal
-Field `accumulator` may be 'final'
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/AccumulatorSupplier.java`
+Field `initAction` may be 'final'
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAggregateSupplier.java`
 #### Snippet
 ```java
-    private final String parentName;
-    private SelectAction<R, V> selectAction;
-    private Accumulator<R, OV> accumulator;
-
-    public AccumulatorSupplier(String currentName, String parentName, SelectAction<R, V> selectAction, Accumulator<R, OV> accumulator) {
-```
-
-### FieldMayBeFinal
-Field `deserializer` may be 'final'
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/SourceSupplier.java`
-#### Snippet
-```java
-
-    private class SourceProcessorImpl extends AbstractProcessor<V> implements SourceProcessor<K, V> {
-        private KeyValueDeserializer<K, V> deserializer;
-
-        public SourceProcessorImpl(KeyValueDeserializer<K, V> deserializer) {
-```
-
-### FieldMayBeFinal
-Field `deserializer` may be 'final'
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/SourceSupplier.java`
-#### Snippet
-```java
-public class SourceSupplier<K, V> implements Supplier<Processor<V>> {
-    private String topicName;
-    private KeyValueDeserializer<K, V> deserializer;
-
-    public SourceSupplier(String topicName, KeyValueDeserializer<K, V> deserializer) {
-```
-
-### FieldMayBeFinal
-Field `topicName` may be 'final'
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/SourceSupplier.java`
-#### Snippet
-```java
-
-public class SourceSupplier<K, V> implements Supplier<Processor<V>> {
-    private String topicName;
-    private KeyValueDeserializer<K, V> deserializer;
-
-```
-
-### FieldMayBeFinal
-Field `rightSelectAction` may be 'final'
-in `core/src/main/java/org/apache/rocketmq/streams/core/rstream/JoinedStream.java`
-#### Snippet
-```java
-    public class JoinWindow<K> {
-        private SelectAction<K, V1> leftSelectAction;
-        private SelectAction<K, V2> rightSelectAction;
-        private WindowInfo windowInfo;
-
-```
-
-### FieldMayBeFinal
-Field `leftSelectAction` may be 'final'
-in `core/src/main/java/org/apache/rocketmq/streams/core/rstream/JoinedStream.java`
-#### Snippet
-```java
-
-    public class JoinWindow<K> {
-        private SelectAction<K, V1> leftSelectAction;
-        private SelectAction<K, V2> rightSelectAction;
-        private WindowInfo windowInfo;
-```
-
-### FieldMayBeFinal
-Field `leftSelectAction` may be 'final'
-in `core/src/main/java/org/apache/rocketmq/streams/core/rstream/JoinedStream.java`
-#### Snippet
-```java
-
-    public class Where<K> {
-        private SelectAction<K, V1> leftSelectAction;
-        private SelectAction<K, V2> rightSelectAction;
-
-```
-
-### FieldMayBeFinal
-Field `leftStream` may be 'final'
-in `core/src/main/java/org/apache/rocketmq/streams/core/rstream/JoinedStream.java`
-#### Snippet
-```java
-
-public class JoinedStream<V1, V2> {
-    private RStream<V1> leftStream;
-    private RStream<V2> rightStream;
-    private JoinType joinType;
-```
-
-### FieldMayBeFinal
-Field `joinType` may be 'final'
-in `core/src/main/java/org/apache/rocketmq/streams/core/rstream/JoinedStream.java`
-#### Snippet
-```java
-    private RStream<V1> leftStream;
-    private RStream<V2> rightStream;
-    private JoinType joinType;
-
-    public JoinedStream(RStream<V1> leftStream, RStream<V2> rightStream, JoinType joinType) {
-```
-
-### FieldMayBeFinal
-Field `windowInfo` may be 'final'
-in `core/src/main/java/org/apache/rocketmq/streams/core/rstream/JoinedStream.java`
-#### Snippet
-```java
-        private SelectAction<K, V1> leftSelectAction;
-        private SelectAction<K, V2> rightSelectAction;
-        private WindowInfo windowInfo;
-
-        public JoinWindow(SelectAction<K, V1> leftSelectAction, SelectAction<K, V2> rightSelectAction, WindowInfo windowInfo) {
-```
-
-### FieldMayBeFinal
-Field `rightStream` may be 'final'
-in `core/src/main/java/org/apache/rocketmq/streams/core/rstream/JoinedStream.java`
-#### Snippet
-```java
-public class JoinedStream<V1, V2> {
-    private RStream<V1> leftStream;
-    private RStream<V2> rightStream;
-    private JoinType joinType;
+    private String name;
+    private WindowInfo windowInfo;
+    private Supplier<OV> initAction;
+    private AggregateAction<K, V, OV> aggregateAction;
 
 ```
 
 ### FieldMayBeFinal
 Field `initAction` may be 'final'
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/AggregateSupplier.java`
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAggregateSupplier.java`
 #### Snippet
 ```java
-    private final String currentName;
-    private final String parentName;
-    private Supplier<OV> initAction;
-    private AggregateAction<K, V, OV> aggregateAction;
-
-```
-
-### FieldMayBeFinal
-Field `aggregateAction` may be 'final'
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/AggregateSupplier.java`
-#### Snippet
-```java
-    private final String parentName;
-    private Supplier<OV> initAction;
-    private AggregateAction<K, V, OV> aggregateAction;
-
-    public AggregateSupplier(String currentName, String parentName, Supplier<OV> initAction,
-```
-
-### FieldMayBeFinal
-Field `foreachAction` may be 'final'
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/ForeachSupplier.java`
-#### Snippet
-```java
-
-public class ForeachSupplier<T> implements Supplier<Processor<T>> {
-    private ForeachAction<T> foreachAction;
-
-    public ForeachSupplier(ForeachAction<T> foreachAction) {
-```
-
-### FieldMayBeFinal
-Field `foreachAction` may be 'final'
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/ForeachSupplier.java`
-#### Snippet
-```java
-
-    class ForeachProcessor extends AbstractProcessor<T> {
-        private ForeachAction<T> foreachAction;
-
-        public ForeachProcessor(ForeachAction<T> foreachAction) {
-```
-
-### FieldMayBeFinal
-Field `topicName` may be 'final'
-in `core/src/main/java/org/apache/rocketmq/streams/core/topology/virtual/SourceGraphNode.java`
-#### Snippet
-```java
-public class SourceGraphNode<T> extends AbstractGraphNode {
-    private Supplier<Processor<T>> supplier;
-    private String topicName;
-
-
-```
-
-### FieldMayBeFinal
-Field `supplier` may be 'final'
-in `core/src/main/java/org/apache/rocketmq/streams/core/topology/virtual/SourceGraphNode.java`
-#### Snippet
-```java
-
-public class SourceGraphNode<T> extends AbstractGraphNode {
-    private Supplier<Processor<T>> supplier;
-    private String topicName;
-
-```
-
-### FieldMayBeFinal
-Field `joinType` may be 'final'
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/JoinAggregateSupplier.java`
-#### Snippet
-```java
-    private class JoinStreamAggregateProcessor extends AbstractProcessor<Object> {
+        private final WindowInfo windowInfo;
         private String name;
-        private JoinType joinType;
-        private final ValueJoinAction<V1, V2, OUT> joinAction;
+        private Supplier<OV> initAction;
+        private AggregateAction<K, V, OV> aggregateAction;
         private MessageQueue stateTopicMessageQueue;
 ```
 
 ### FieldMayBeFinal
-Field `joinType` may be 'final'
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/JoinAggregateSupplier.java`
-#### Snippet
-```java
-
-    private String name;
-    private JoinType joinType;
-    private final ValueJoinAction<V1, V2, OUT> joinAction;
-
-```
-
-### FieldMayBeFinal
 Field `name` may be 'final'
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/JoinAggregateSupplier.java`
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAggregateSupplier.java`
 #### Snippet
 ```java
-    private static final Logger logger = LoggerFactory.getLogger(JoinAggregateSupplier.class.getName());
-
-    private String name;
-    private JoinType joinType;
-    private final ValueJoinAction<V1, V2, OUT> joinAction;
-```
-
-### FieldMayBeFinal
-Field `name` may be 'final'
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/JoinAggregateSupplier.java`
-#### Snippet
-```java
-
-    private class JoinStreamAggregateProcessor extends AbstractProcessor<Object> {
+    private class WindowAggregateProcessor extends AbstractWindowProcessor<V> {
+        private final WindowInfo windowInfo;
         private String name;
-        private JoinType joinType;
-        private final ValueJoinAction<V1, V2, OUT> joinAction;
+        private Supplier<OV> initAction;
+        private AggregateAction<K, V, OV> aggregateAction;
 ```
 
 ### FieldMayBeFinal
 Field `windowInfo` may be 'final'
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAggregateSupplier.java`
+#### Snippet
+```java
+    private static final Logger logger = LoggerFactory.getLogger(WindowAggregateSupplier.class.getName());
+    private String name;
+    private WindowInfo windowInfo;
+    private Supplier<OV> initAction;
+    private AggregateAction<K, V, OV> aggregateAction;
+```
+
+### FieldMayBeFinal
+Field `name` may be 'final'
 in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/JoinWindowAggregateSupplier.java`
 #### Snippet
 ```java
+    private static final Logger logger = LoggerFactory.getLogger(JoinWindowAggregateSupplier.class.getName());
 
     private String name;
     private WindowInfo windowInfo;
     private final ValueJoinAction<V1, V2, OUT> joinAction;
-    private JoinType joinType;
 ```
 
 ### FieldMayBeFinal
@@ -950,15 +758,15 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/JoinWi
 ```
 
 ### FieldMayBeFinal
-Field `name` may be 'final'
+Field `windowInfo` may be 'final'
 in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/JoinWindowAggregateSupplier.java`
 #### Snippet
 ```java
-    private static final Logger logger = LoggerFactory.getLogger(JoinWindowAggregateSupplier.class.getName());
 
     private String name;
     private WindowInfo windowInfo;
     private final ValueJoinAction<V1, V2, OUT> joinAction;
+    private JoinType joinType;
 ```
 
 ### FieldMayBeFinal
@@ -983,6 +791,78 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/JoinWi
         private ValueJoinAction<V1, V2, OUT> joinAction;
         private MessageQueue stateTopicMessageQueue;
         private WindowStore<K, V1> leftWindowStore;
+```
+
+### FieldMayBeFinal
+Field `foreachAction` may be 'final'
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/ForeachSupplier.java`
+#### Snippet
+```java
+
+    class ForeachProcessor extends AbstractProcessor<T> {
+        private ForeachAction<T> foreachAction;
+
+        public ForeachProcessor(ForeachAction<T> foreachAction) {
+```
+
+### FieldMayBeFinal
+Field `foreachAction` may be 'final'
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/ForeachSupplier.java`
+#### Snippet
+```java
+
+public class ForeachSupplier<T> implements Supplier<Processor<T>> {
+    private ForeachAction<T> foreachAction;
+
+    public ForeachSupplier(ForeachAction<T> foreachAction) {
+```
+
+### FieldMayBeFinal
+Field `commitInterval` may be 'final'
+in `core/src/main/java/org/apache/rocketmq/streams/core/running/WorkerThread.java`
+#### Snippet
+```java
+
+        private long lastCommit = 0;
+        private int commitInterval = 10 * 1000;
+        private final HashSet<MessageQueue> mq2Commit = new HashSet<>();
+
+```
+
+### FieldMayBeFinal
+Field `filterAction` may be 'final'
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/FilterSupplier.java`
+#### Snippet
+```java
+
+public class FilterSupplier<T> implements Supplier<Processor<T>> {
+    private FilterAction<T> filterAction;
+
+    public FilterSupplier(FilterAction<T> filterAction) {
+```
+
+### FieldMayBeFinal
+Field `supplier` may be 'final'
+in `core/src/main/java/org/apache/rocketmq/streams/core/topology/virtual/SourceGraphNode.java`
+#### Snippet
+```java
+
+public class SourceGraphNode<T> extends AbstractGraphNode {
+    private Supplier<Processor<T>> supplier;
+    private String topicName;
+
+```
+
+### FieldMayBeFinal
+Field `topicName` may be 'final'
+in `core/src/main/java/org/apache/rocketmq/streams/core/topology/virtual/SourceGraphNode.java`
+#### Snippet
+```java
+public class SourceGraphNode<T> extends AbstractGraphNode {
+    private Supplier<Processor<T>> supplier;
+    private String topicName;
+
+
 ```
 
 ### FieldMayBeFinal
@@ -1022,26 +902,242 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/window/WindowStore.java`
 ```
 
 ### FieldMayBeFinal
-Field `selectAction` may be 'final'
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAccumulatorSupplier.java`
+Field `rightStream` may be 'final'
+in `core/src/main/java/org/apache/rocketmq/streams/core/rstream/JoinedStream.java`
 #### Snippet
 ```java
-        private final WindowInfo windowInfo;
+public class JoinedStream<V1, V2> {
+    private RStream<V1> leftStream;
+    private RStream<V2> rightStream;
+    private JoinType joinType;
+
+```
+
+### FieldMayBeFinal
+Field `leftStream` may be 'final'
+in `core/src/main/java/org/apache/rocketmq/streams/core/rstream/JoinedStream.java`
+#### Snippet
+```java
+
+public class JoinedStream<V1, V2> {
+    private RStream<V1> leftStream;
+    private RStream<V2> rightStream;
+    private JoinType joinType;
+```
+
+### FieldMayBeFinal
+Field `windowInfo` may be 'final'
+in `core/src/main/java/org/apache/rocketmq/streams/core/rstream/JoinedStream.java`
+#### Snippet
+```java
+        private SelectAction<K, V1> leftSelectAction;
+        private SelectAction<K, V2> rightSelectAction;
+        private WindowInfo windowInfo;
+
+        public JoinWindow(SelectAction<K, V1> leftSelectAction, SelectAction<K, V2> rightSelectAction, WindowInfo windowInfo) {
+```
+
+### FieldMayBeFinal
+Field `rightSelectAction` may be 'final'
+in `core/src/main/java/org/apache/rocketmq/streams/core/rstream/JoinedStream.java`
+#### Snippet
+```java
+    public class JoinWindow<K> {
+        private SelectAction<K, V1> leftSelectAction;
+        private SelectAction<K, V2> rightSelectAction;
+        private WindowInfo windowInfo;
+
+```
+
+### FieldMayBeFinal
+Field `leftSelectAction` may be 'final'
+in `core/src/main/java/org/apache/rocketmq/streams/core/rstream/JoinedStream.java`
+#### Snippet
+```java
+
+    public class Where<K> {
+        private SelectAction<K, V1> leftSelectAction;
+        private SelectAction<K, V2> rightSelectAction;
+
+```
+
+### FieldMayBeFinal
+Field `joinType` may be 'final'
+in `core/src/main/java/org/apache/rocketmq/streams/core/rstream/JoinedStream.java`
+#### Snippet
+```java
+    private RStream<V1> leftStream;
+    private RStream<V2> rightStream;
+    private JoinType joinType;
+
+    public JoinedStream(RStream<V1> leftStream, RStream<V2> rightStream, JoinType joinType) {
+```
+
+### FieldMayBeFinal
+Field `leftSelectAction` may be 'final'
+in `core/src/main/java/org/apache/rocketmq/streams/core/rstream/JoinedStream.java`
+#### Snippet
+```java
+
+    public class JoinWindow<K> {
+        private SelectAction<K, V1> leftSelectAction;
+        private SelectAction<K, V2> rightSelectAction;
+        private WindowInfo windowInfo;
+```
+
+### FieldMayBeFinal
+Field `deserializer` may be 'final'
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/SourceSupplier.java`
+#### Snippet
+```java
+
+    private class SourceProcessorImpl extends AbstractProcessor<V> implements SourceProcessor<K, V> {
+        private KeyValueDeserializer<K, V> deserializer;
+
+        public SourceProcessorImpl(KeyValueDeserializer<K, V> deserializer) {
+```
+
+### FieldMayBeFinal
+Field `deserializer` may be 'final'
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/SourceSupplier.java`
+#### Snippet
+```java
+public class SourceSupplier<K, V> implements Supplier<Processor<V>> {
+    private String topicName;
+    private KeyValueDeserializer<K, V> deserializer;
+
+    public SourceSupplier(String topicName, KeyValueDeserializer<K, V> deserializer) {
+```
+
+### FieldMayBeFinal
+Field `topicName` may be 'final'
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/SourceSupplier.java`
+#### Snippet
+```java
+
+public class SourceSupplier<K, V> implements Supplier<Processor<V>> {
+    private String topicName;
+    private KeyValueDeserializer<K, V> deserializer;
+
+```
+
+### FieldMayBeFinal
+Field `joinType` may be 'final'
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/JoinAggregateSupplier.java`
+#### Snippet
+```java
+    private class JoinStreamAggregateProcessor extends AbstractProcessor<Object> {
+        private String name;
+        private JoinType joinType;
+        private final ValueJoinAction<V1, V2, OUT> joinAction;
         private MessageQueue stateTopicMessageQueue;
-        private SelectAction<R, V> selectAction;
-        private Accumulator<R, OV> accumulator;
-        private WindowStore<K, Accumulator<R, OV>> windowStore;
+```
+
+### FieldMayBeFinal
+Field `name` may be 'final'
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/JoinAggregateSupplier.java`
+#### Snippet
+```java
+
+    private class JoinStreamAggregateProcessor extends AbstractProcessor<Object> {
+        private String name;
+        private JoinType joinType;
+        private final ValueJoinAction<V1, V2, OUT> joinAction;
+```
+
+### FieldMayBeFinal
+Field `name` may be 'final'
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/JoinAggregateSupplier.java`
+#### Snippet
+```java
+    private static final Logger logger = LoggerFactory.getLogger(JoinAggregateSupplier.class.getName());
+
+    private String name;
+    private JoinType joinType;
+    private final ValueJoinAction<V1, V2, OUT> joinAction;
+```
+
+### FieldMayBeFinal
+Field `joinType` may be 'final'
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/JoinAggregateSupplier.java`
+#### Snippet
+```java
+
+    private String name;
+    private JoinType joinType;
+    private final ValueJoinAction<V1, V2, OUT> joinAction;
+
 ```
 
 ### FieldMayBeFinal
 Field `accumulator` may be 'final'
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAccumulatorSupplier.java`
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/AccumulatorSupplier.java`
+#### Snippet
+```java
+    private final String parentName;
+    private SelectAction<R, V> selectAction;
+    private Accumulator<R, OV> accumulator;
+
+    public AccumulatorSupplier(String currentName, String parentName, SelectAction<R, V> selectAction, Accumulator<R, OV> accumulator) {
+```
+
+### FieldMayBeFinal
+Field `accumulator` may be 'final'
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/AccumulatorSupplier.java`
 #### Snippet
 ```java
         private MessageQueue stateTopicMessageQueue;
         private SelectAction<R, V> selectAction;
         private Accumulator<R, OV> accumulator;
-        private WindowStore<K, Accumulator<R, OV>> windowStore;
+
+        public AccumulatorProcessor(String currentName, String parentName, SelectAction<R, V> selectAction, Accumulator<R, OV> accumulator) {
+```
+
+### FieldMayBeFinal
+Field `selectAction` may be 'final'
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/AccumulatorSupplier.java`
+#### Snippet
+```java
+    private final String currentName;
+    private final String parentName;
+    private SelectAction<R, V> selectAction;
+    private Accumulator<R, OV> accumulator;
+
+```
+
+### FieldMayBeFinal
+Field `selectAction` may be 'final'
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/AccumulatorSupplier.java`
+#### Snippet
+```java
+        private StateStore stateStore;
+        private MessageQueue stateTopicMessageQueue;
+        private SelectAction<R, V> selectAction;
+        private Accumulator<R, OV> accumulator;
+
+```
+
+### FieldMayBeFinal
+Field `aggregateAction` may be 'final'
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/AggregateSupplier.java`
+#### Snippet
+```java
+    private final String parentName;
+    private Supplier<OV> initAction;
+    private AggregateAction<K, V, OV> aggregateAction;
+
+    public AggregateSupplier(String currentName, String parentName, Supplier<OV> initAction,
+```
+
+### FieldMayBeFinal
+Field `initAction` may be 'final'
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/AggregateSupplier.java`
+#### Snippet
+```java
+    private final String currentName;
+    private final String parentName;
+    private Supplier<OV> initAction;
+    private AggregateAction<K, V, OV> aggregateAction;
 
 ```
 
@@ -1055,6 +1151,30 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/Window
     private Accumulator<R, OV> accumulator;
 
     public WindowAccumulatorSupplier(String name, WindowInfo windowInfo,
+```
+
+### FieldMayBeFinal
+Field `accumulator` may be 'final'
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAccumulatorSupplier.java`
+#### Snippet
+```java
+        private MessageQueue stateTopicMessageQueue;
+        private SelectAction<R, V> selectAction;
+        private Accumulator<R, OV> accumulator;
+        private WindowStore<K, Accumulator<R, OV>> windowStore;
+
+```
+
+### FieldMayBeFinal
+Field `selectAction` may be 'final'
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAccumulatorSupplier.java`
+#### Snippet
+```java
+        private String name;
+        private MessageQueue stateTopicMessageQueue;
+        private SelectAction<R, V> selectAction;
+        private Accumulator<R, OV> accumulator;
+        private WindowStore<K, Accumulator<R, OV>> windowStore;
 ```
 
 ### FieldMayBeFinal
@@ -1074,19 +1194,7 @@ Field `selectAction` may be 'final'
 in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAccumulatorSupplier.java`
 #### Snippet
 ```java
-    private final String name;
-    private WindowInfo windowInfo;
-    private SelectAction<R, V> selectAction;
-    private Accumulator<R, OV> accumulator;
-
-```
-
-### FieldMayBeFinal
-Field `selectAction` may be 'final'
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAccumulatorSupplier.java`
-#### Snippet
-```java
-        private String name;
+        private final WindowInfo windowInfo;
         private MessageQueue stateTopicMessageQueue;
         private SelectAction<R, V> selectAction;
         private Accumulator<R, OV> accumulator;
@@ -1118,123 +1226,15 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/Window
 ```
 
 ### FieldMayBeFinal
-Field `commitInterval` may be 'final'
-in `core/src/main/java/org/apache/rocketmq/streams/core/running/WorkerThread.java`
+Field `selectAction` may be 'final'
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAccumulatorSupplier.java`
 #### Snippet
 ```java
-
-        private long lastCommit = 0;
-        private int commitInterval = 10 * 1000;
-        private final HashSet<MessageQueue> mq2Commit = new HashSet<>();
-
-```
-
-### FieldMayBeFinal
-Field `initAction` may be 'final'
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAggregateSupplier.java`
-#### Snippet
-```java
-    private String name;
+    private final String name;
     private WindowInfo windowInfo;
-    private Supplier<OV> initAction;
-    private AggregateAction<K, V, OV> aggregateAction;
+    private SelectAction<R, V> selectAction;
+    private Accumulator<R, OV> accumulator;
 
-```
-
-### FieldMayBeFinal
-Field `windowInfo` may be 'final'
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAggregateSupplier.java`
-#### Snippet
-```java
-    private static final Logger logger = LoggerFactory.getLogger(WindowAggregateSupplier.class.getName());
-    private String name;
-    private WindowInfo windowInfo;
-    private Supplier<OV> initAction;
-    private AggregateAction<K, V, OV> aggregateAction;
-```
-
-### FieldMayBeFinal
-Field `name` may be 'final'
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAggregateSupplier.java`
-#### Snippet
-```java
-public class WindowAggregateSupplier<K, V, OV> implements Supplier<Processor<V>> {
-    private static final Logger logger = LoggerFactory.getLogger(WindowAggregateSupplier.class.getName());
-    private String name;
-    private WindowInfo windowInfo;
-    private Supplier<OV> initAction;
-```
-
-### FieldMayBeFinal
-Field `aggregateAction` may be 'final'
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAggregateSupplier.java`
-#### Snippet
-```java
-        private final WindowInfo windowInfo;
-        private Supplier<OV> initAction;
-        private AggregateAction<K, V, OV> aggregateAction;
-        private MessageQueue stateTopicMessageQueue;
-        private WindowStore<K, OV> windowStore;
-```
-
-### FieldMayBeFinal
-Field `initAction` may be 'final'
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAggregateSupplier.java`
-#### Snippet
-```java
-        private final WindowInfo windowInfo;
-        private String name;
-        private Supplier<OV> initAction;
-        private AggregateAction<K, V, OV> aggregateAction;
-        private MessageQueue stateTopicMessageQueue;
-```
-
-### FieldMayBeFinal
-Field `aggregateAction` may be 'final'
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAggregateSupplier.java`
-#### Snippet
-```java
-    private WindowInfo windowInfo;
-    private Supplier<OV> initAction;
-    private AggregateAction<K, V, OV> aggregateAction;
-
-    public WindowAggregateSupplier(String name, WindowInfo windowInfo, Supplier<OV> initAction, AggregateAction<K, V, OV> aggregateAction) {
-```
-
-### FieldMayBeFinal
-Field `name` may be 'final'
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAggregateSupplier.java`
-#### Snippet
-```java
-    private class WindowAggregateProcessor extends AbstractWindowProcessor<V> {
-        private final WindowInfo windowInfo;
-        private String name;
-        private Supplier<OV> initAction;
-        private AggregateAction<K, V, OV> aggregateAction;
-```
-
-### FieldMayBeFinal
-Field `initAction` may be 'final'
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAggregateSupplier.java`
-#### Snippet
-```java
-        private final String name;
-        private final WindowInfo windowInfo;
-        private Supplier<OV> initAction;
-        private AggregateAction<K, V, OV> aggregateAction;
-        private MessageQueue stateTopicMessageQueue;
-```
-
-### FieldMayBeFinal
-Field `aggregateAction` may be 'final'
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/WindowAggregateSupplier.java`
-#### Snippet
-```java
-        private String name;
-        private Supplier<OV> initAction;
-        private AggregateAction<K, V, OV> aggregateAction;
-        private MessageQueue stateTopicMessageQueue;
-        private WindowStore<K, OV> windowStore;
 ```
 
 ## RuleId[id=MismatchedCollectionQueryUpdate]
@@ -1265,18 +1265,6 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/function/accumulator/Cou
 
 ### RefusedBequest
 Method `clone()` does not call 'super.clone()'
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/accumulator/AvgAccumulator.java`
-#### Snippet
-```java
-
-    @Override
-    public Accumulator<V, Double> clone() {
-        return new AvgAccumulator<>();
-    }
-```
-
-### RefusedBequest
-Method `clone()` does not call 'super.clone()'
 in `core/src/main/java/org/apache/rocketmq/streams/core/function/accumulator/MinAccumulator.java`
 #### Snippet
 ```java
@@ -1284,6 +1272,18 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/function/accumulator/Min
     @Override
     public Accumulator<V, Double> clone() {
         return new MinAccumulator<>();
+    }
+```
+
+### RefusedBequest
+Method `clone()` does not call 'super.clone()'
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/accumulator/AvgAccumulator.java`
+#### Snippet
+```java
+
+    @Override
+    public Accumulator<V, Double> clone() {
+        return new AvgAccumulator<>();
     }
 ```
 
@@ -1766,11 +1766,11 @@ Empty `catch` block
 in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocketMQStore.java`
 #### Snippet
 ```java
-        try {
-            future.get(100, TimeUnit.MILLISECONDS);
-        } catch (InterruptedException | TimeoutException e) {
-        }
-    }
+                try {
+                    logger.debug("recover state, key: " + new String(key, StandardCharsets.UTF_8) + ", stateTopicQueue: " + stateTopicQueue);
+                } catch (Throwable t) {
+                }
+
 ```
 
 ### CatchMayIgnoreException
@@ -1778,11 +1778,11 @@ Empty `catch` block
 in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocketMQStore.java`
 #### Snippet
 ```java
-                try {
-                    logger.debug("recover state, key: " + new String(key, StandardCharsets.UTF_8) + ", stateTopicQueue: " + stateTopicQueue);
-                } catch (Throwable t) {
-                }
-
+        try {
+            future.get(100, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException | TimeoutException e) {
+        }
+    }
 ```
 
 ### CatchMayIgnoreException
@@ -1803,18 +1803,6 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/state/RocketMQStore.java
 in `core/src/main/java/org/apache/rocketmq/streams/core/util/RocketMQUtil.java`
 #### Snippet
 ```java
-        }
-
-        final CommandLine commandLine = ServerUtil.parseCmdLine("mqadmin " + cmd.commandName(), args, cmd.buildCommandlineOptions(options), new PosixParser());
-
-        String namesrvAddr = commandLine.getOptionValue('n');
-```
-
-### Deprecation
-'org.apache.commons.cli.PosixParser' is deprecated
-in `core/src/main/java/org/apache/rocketmq/streams/core/util/RocketMQUtil.java`
-#### Snippet
-```java
         };
 
         final CommandLine commandLine = ServerUtil.parseCmdLine("mqadmin " + command.commandName(), args, command.buildCommandlineOptions(options), new PosixParser());
@@ -1822,19 +1810,19 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/util/RocketMQUtil.java`
         System.setProperty(MixAll.NAMESRV_ADDR_PROPERTY, namesrvAddr);
 ```
 
-## RuleId[id=StringBufferReplaceableByString]
-### StringBufferReplaceableByString
-`StringBuilder builder` can be replaced with 'String'
-in `core/src/main/java/org/apache/rocketmq/streams/core/window/WindowKey.java`
+### Deprecation
+'org.apache.commons.cli.PosixParser' is deprecated
+in `core/src/main/java/org/apache/rocketmq/streams/core/util/RocketMQUtil.java`
 #### Snippet
 ```java
+        }
 
-    public String getKeyAndWindow() {
-        StringBuilder builder = new StringBuilder();
-        builder.append(windowStart)
-                .append(WindowKey.SPLIT)
+        final CommandLine commandLine = ServerUtil.parseCmdLine("mqadmin " + cmd.commandName(), args, cmd.buildCommandlineOptions(options), new PosixParser());
+
+        String namesrvAddr = commandLine.getOptionValue('n');
 ```
 
+## RuleId[id=StringBufferReplaceableByString]
 ### StringBufferReplaceableByString
 `StringBuilder builder` can be replaced with 'String'
 in `core/src/main/java/org/apache/rocketmq/streams/core/window/WindowKey.java`
@@ -1844,6 +1832,18 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/window/WindowKey.java`
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append(operatorName)
+                .append(WindowKey.SPLIT)
+```
+
+### StringBufferReplaceableByString
+`StringBuilder builder` can be replaced with 'String'
+in `core/src/main/java/org/apache/rocketmq/streams/core/window/WindowKey.java`
+#### Snippet
+```java
+
+    public String getKeyAndWindow() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(windowStart)
                 .append(WindowKey.SPLIT)
 ```
 
@@ -1876,62 +1876,14 @@ in `core/src/main/java/org/apache/rocketmq/streams/core/running/MessageQueueList
 ## RuleId[id=FieldCanBeLocal]
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/AccumulatorSupplier.java`
+in `core/src/main/java/org/apache/rocketmq/streams/core/running/WorkerThread.java`
 #### Snippet
 ```java
 
-    private class AccumulatorProcessor extends AbstractProcessor<V> {
-        private final String currentName;
-        private final String parentName;
-        private StateStore stateStore;
-```
+        private long lastCommit = 0;
+        private int commitInterval = 10 * 1000;
+        private final HashSet<MessageQueue> mq2Commit = new HashSet<>();
 
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/AccumulatorSupplier.java`
-#### Snippet
-```java
-    private class AccumulatorProcessor extends AbstractProcessor<V> {
-        private final String currentName;
-        private final String parentName;
-        private StateStore stateStore;
-        private MessageQueue stateTopicMessageQueue;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/SourceSupplier.java`
-#### Snippet
-```java
-
-public class SourceSupplier<K, V> implements Supplier<Processor<V>> {
-    private String topicName;
-    private KeyValueDeserializer<K, V> deserializer;
-
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/AggregateSupplier.java`
-#### Snippet
-```java
-
-    private class AggregateProcessor extends AbstractProcessor<V> {
-        private final String currentName;
-        private final String parentName;
-        private final Supplier<OV> initAction;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/AggregateSupplier.java`
-#### Snippet
-```java
-    private class AggregateProcessor extends AbstractProcessor<V> {
-        private final String currentName;
-        private final String parentName;
-        private final Supplier<OV> initAction;
-        private final AggregateAction<K, V, OV> aggregateAction;
 ```
 
 ### FieldCanBeLocal
@@ -1948,13 +1900,61 @@ public class SourceFactory<T> implements RealProcessorFactory<T> {
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `core/src/main/java/org/apache/rocketmq/streams/core/running/WorkerThread.java`
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/SourceSupplier.java`
 #### Snippet
 ```java
 
-        private long lastCommit = 0;
-        private int commitInterval = 10 * 1000;
-        private final HashSet<MessageQueue> mq2Commit = new HashSet<>();
+public class SourceSupplier<K, V> implements Supplier<Processor<V>> {
+    private String topicName;
+    private KeyValueDeserializer<K, V> deserializer;
 
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/AccumulatorSupplier.java`
+#### Snippet
+```java
+    private class AccumulatorProcessor extends AbstractProcessor<V> {
+        private final String currentName;
+        private final String parentName;
+        private StateStore stateStore;
+        private MessageQueue stateTopicMessageQueue;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/AccumulatorSupplier.java`
+#### Snippet
+```java
+
+    private class AccumulatorProcessor extends AbstractProcessor<V> {
+        private final String currentName;
+        private final String parentName;
+        private StateStore stateStore;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/AggregateSupplier.java`
+#### Snippet
+```java
+    private class AggregateProcessor extends AbstractProcessor<V> {
+        private final String currentName;
+        private final String parentName;
+        private final Supplier<OV> initAction;
+        private final AggregateAction<K, V, OV> aggregateAction;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `core/src/main/java/org/apache/rocketmq/streams/core/function/supplier/AggregateSupplier.java`
+#### Snippet
+```java
+
+    private class AggregateProcessor extends AbstractProcessor<V> {
+        private final String currentName;
+        private final String parentName;
+        private final Supplier<OV> initAction;
 ```
 
