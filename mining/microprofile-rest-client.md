@@ -24,8 +24,8 @@ I found 165 bad smells with 17 repairable:
 | UnnecessarySemicolon | 1 | false |
 | SimplifyStreamApiCallChains | 1 | false |
 | ExtendsAnnotation | 1 | false |
-| OctalLiteral | 1 | false |
 | CatchMayIgnoreException | 1 | false |
+| OctalLiteral | 1 | false |
 | StringBufferReplaceableByString | 1 | false |
 | ConstantValue | 1 | false |
 ## RuleId[id=CharsetObjectCanBeUsed]
@@ -68,13 +68,25 @@ in `api/src/main/java/org/eclipse/microprofile/rest/client/ext/DefaultClientHead
 
 ## RuleId[id=UnnecessaryModifier]
 ### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/cditests/CDIQueryParamStyleTest.java`
+Modifier `public` is redundant for interface members
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/CustomHttpMethod.java`
 #### Snippet
 ```java
+    @Retention(RetentionPolicy.RUNTIME)
+    @HttpMethod("MYMETHOD")
+    public static @interface MYMETHOD {
+    }
 
-    @RegisterRestClient(configKey = "queryParamStyle")
-    public static interface ArrayPairsStringClient extends StringClient {
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/CustomHttpMethod.java`
+#### Snippet
+```java
+    @Retention(RetentionPolicy.RUNTIME)
+    @HttpMethod("MYMETHOD")
+    public static @interface MYMETHOD {
     }
 
 ```
@@ -110,43 +122,19 @@ in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/cditests/CDIQuery
 ```java
 
     @RegisterRestClient(configKey = "queryParamStyle")
-    public static interface MultiPairsStringClient extends StringClient {
-    }
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/cditests/HasSingletonScopeTest.java`
-#### Snippet
-```java
-    public interface MySingletonApi {
-        @GET
-        public Response get();
-    }
-}
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/CustomHttpMethod.java`
-#### Snippet
-```java
-    @Retention(RetentionPolicy.RUNTIME)
-    @HttpMethod("MYMETHOD")
-    public static @interface MYMETHOD {
+    public static interface ArrayPairsStringClient extends StringClient {
     }
 
 ```
 
 ### UnnecessaryModifier
 Modifier `static` is redundant for inner interfaces
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/CustomHttpMethod.java`
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/cditests/CDIQueryParamStyleTest.java`
 #### Snippet
 ```java
-    @Retention(RetentionPolicy.RUNTIME)
-    @HttpMethod("MYMETHOD")
-    public static @interface MYMETHOD {
+
+    @RegisterRestClient(configKey = "queryParamStyle")
+    public static interface MultiPairsStringClient extends StringClient {
     }
 
 ```
@@ -177,10 +165,10 @@ in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/cditests/HasAppSc
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/cditests/HasConversationScopeTest.java`
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/cditests/HasSingletonScopeTest.java`
 #### Snippet
 ```java
-    public interface MyConversationScopedApi {
+    public interface MySingletonApi {
         @GET
         public Response get();
     }
@@ -189,10 +177,10 @@ in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/cditests/HasConve
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/cditests/HasSessionScopeTest.java`
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/cditests/HasConversationScopeTest.java`
 #### Snippet
 ```java
-    public interface MySessionScopedApi {
+    public interface MyConversationScopedApi {
         @GET
         public Response get();
     }
@@ -223,19 +211,19 @@ in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/cditests/CDIManag
         Response executeGet();
 ```
 
-## RuleId[id=AutoCloseableResource]
-### AutoCloseableResource
-'Response' used without 'try'-with-resources statement
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/RestClientListenerTest.java`
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/cditests/HasSessionScopeTest.java`
 #### Snippet
 ```java
-                .build(SimpleGetApi.class);
-
-        assertEquals(client.executeGet().getStatus(), 500,
-                "The RestClientListener impl was not invoked");
-        assertEquals(SimpleRestClientListenerImpl.getServiceInterface(), SimpleGetApi.class,
+    public interface MySessionScopedApi {
+        @GET
+        public Response get();
+    }
+}
 ```
 
+## RuleId[id=AutoCloseableResource]
 ### AutoCloseableResource
 'Response' used without 'try'-with-resources statement
 in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/RestClientBuilderListenerTest.java`
@@ -246,42 +234,6 @@ in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/RestClientBuilder
         assertEquals(client.executeGet().getStatus(), 200,
                 "The RestClientBuilderListener impl was not invoked");
     }
-```
-
-### AutoCloseableResource
-'Response' used without 'try'-with-resources statement
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/InvokedMethodTest.java`
-#### Snippet
-```java
-                .build(ChildClient.class);
-
-        Response response = client.executeBasePost();
-        assertEquals(response.getStatus(), 200,
-                "An exception occurred in the ClientRequestFilter");
-```
-
-### AutoCloseableResource
-'Response' used without 'try'-with-resources statement
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/CallMultipleMappersTest.java`
-#### Snippet
-```java
-
-        try {
-            simpleGetApi.executeGet();
-            fail("A " + WebApplicationException.class + " should have been thrown via the registered "
-                    + TestResponseExceptionMapper.class);
-```
-
-### AutoCloseableResource
-'Response' used without 'try'-with-resources statement
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/cditests/ConfigKeyForMultipleInterfacesTest.java`
-#### Snippet
-```java
-    public void testConfigKeyUsedForUri() throws Exception {
-        assertEquals(client1.get(), "GET http://localhost:1234/configKeyUri/hello");
-        assertEquals(client2.executeGet().readEntity(String.class), "GET http://localhost:1234/configKeyUri");
-    }
-
 ```
 
 ### AutoCloseableResource
@@ -310,6 +262,18 @@ in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ProvidesRestClien
 
 ### AutoCloseableResource
 'Response' used without 'try'-with-resources statement
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/RestClientListenerTest.java`
+#### Snippet
+```java
+                .build(SimpleGetApi.class);
+
+        assertEquals(client.executeGet().getStatus(), 500,
+                "The RestClientListener impl was not invoked");
+        assertEquals(SimpleRestClientListenerImpl.getServiceInterface(), SimpleGetApi.class,
+```
+
+### AutoCloseableResource
+'Response' used without 'try'-with-resources statement
 in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/BeanParamTest.java`
 #### Snippet
 ```java
@@ -334,30 +298,6 @@ in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/BeanParamTest.jav
 
 ### AutoCloseableResource
 'Response' used without 'try'-with-resources statement
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/CustomHttpMethodTest.java`
-#### Snippet
-```java
-        RestClientBuilder builder = RestClientBuilder.newBuilder().register(filter);
-        CustomHttpMethod client = builder.baseUri(new URI("http://localhost/stub")).build(CustomHttpMethod.class);
-        Response response = client.executeMyMethod();
-        assertEquals(response.getStatus(), 200, "Unexpected HTTP Method sent from client - " +
-                "expected \"MYMETHOD\", was \"" + response.readEntity(String.class) + "\"");
-```
-
-### AutoCloseableResource
-'Response' used without 'try'-with-resources statement
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/InheritanceTest.java`
-#### Snippet
-```java
-        RestClientBuilder builder = RestClientBuilder.newBuilder().register(filter);
-        BaseClient client = builder.baseUri(new URI("http://localhost/stub")).build(ChildClient.class);
-        Response response = client.executeBaseGet();
-        assertEquals(response.getStatus(), 200, "Unexpected response status code");
-        String responseStr = response.readEntity(String.class);
-```
-
-### AutoCloseableResource
-'Response' used without 'try'-with-resources statement
 in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/InheritanceTest.java`
 #### Snippet
 ```java
@@ -378,6 +318,30 @@ in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/InheritanceTest.j
         Response response = client.executeChildGet();
         assertEquals(response.getStatus(), 200, "Unexpected response status code");
         String responseStr = response.readEntity(String.class);
+```
+
+### AutoCloseableResource
+'Response' used without 'try'-with-resources statement
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/InheritanceTest.java`
+#### Snippet
+```java
+        RestClientBuilder builder = RestClientBuilder.newBuilder().register(filter);
+        BaseClient client = builder.baseUri(new URI("http://localhost/stub")).build(ChildClient.class);
+        Response response = client.executeBaseGet();
+        assertEquals(response.getStatus(), 200, "Unexpected response status code");
+        String responseStr = response.readEntity(String.class);
+```
+
+### AutoCloseableResource
+'Response' used without 'try'-with-resources statement
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/CustomHttpMethodTest.java`
+#### Snippet
+```java
+        RestClientBuilder builder = RestClientBuilder.newBuilder().register(filter);
+        CustomHttpMethod client = builder.baseUri(new URI("http://localhost/stub")).build(CustomHttpMethod.class);
+        Response response = client.executeMyMethod();
+        assertEquals(response.getStatus(), 200, "Unexpected HTTP Method sent from client - " +
+                "expected \"MYMETHOD\", was \"" + response.readEntity(String.class) + "\"");
 ```
 
 ### AutoCloseableResource
@@ -442,38 +406,14 @@ in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/DefaultExceptionM
 
 ### AutoCloseableResource
 'Response' used without 'try'-with-resources statement
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ProxyServerTest.java`
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/timeout/TimeoutTestBase.java`
 #### Snippet
 ```java
-                    .baseUri(URI.create("http://localhost:" + DESTINATION_SERVER_PORT + "/testProxy"))
-                    .build(SimpleGetApi.class);
-            Response response = client.executeGet();
-            assertEquals(response.getStatus(), 200);
-            assertEquals(response.readEntity(String.class).trim(), "foo");
-```
-
-### AutoCloseableResource
-'Response' used without 'try'-with-resources statement
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ExceptionMapperTest.java`
-#### Snippet
-```java
-
+        long startTime = System.nanoTime();
         try {
-            simpleGetApi.executeGet();
-            fail("A " + WebApplicationException.class + " should have been thrown via the registered "
-                    + TestResponseExceptionMapper.class);
-```
-
-### AutoCloseableResource
-'Response' used without 'try'-with-resources statement
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ExceptionMapperTest.java`
-#### Snippet
-```java
-
-        try {
-            simpleGetApi.executeGet();
-            fail("A " + WebApplicationException.class + " should have been thrown via the registered "
-                    + TestResponseExceptionMapper.class);
+            getClientWithReadTimeout().executeGet();
+            fail("A ProcessingException should have been thrown due to a read timeout");
+        } finally {
 ```
 
 ### AutoCloseableResource
@@ -490,38 +430,14 @@ in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/timeout/TimeoutTe
 
 ### AutoCloseableResource
 'Response' used without 'try'-with-resources statement
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/timeout/TimeoutTestBase.java`
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/cditests/CDIProxyServerTest.java`
 #### Snippet
 ```java
-        long startTime = System.nanoTime();
         try {
-            getClientWithReadTimeout().executeGet();
-            fail("A ProcessingException should have been thrown due to a read timeout");
-        } finally {
-```
-
-### AutoCloseableResource
-'Response' used without 'try'-with-resources statement
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/cditests/CDIManagedProviderTest.java`
-#### Snippet
-```java
-    @Test
-    public void testCDIProviderSpecifiedViaAnnotation() throws Exception {
-        Response r = annotationClient.executeGet();
-        assertEquals(r.getStatus(), 200);
-    }
-```
-
-### AutoCloseableResource
-'Response' used without 'try'-with-resources statement
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/cditests/CDIManagedProviderTest.java`
-#### Snippet
-```java
-    @Test
-    public void testCDIProviderSpecifiedInMPConfig() throws Exception {
-        Response r = configClient.executeGet();
-        assertEquals(r.getStatus(), 200);
-    }
+            startDestinationServer("bar");
+            Response response = client.executeGet();
+            assertEquals(response.getStatus(), 200);
+            assertEquals(response.readEntity(String.class).trim(), "bar");
 ```
 
 ### AutoCloseableResource
@@ -541,6 +457,18 @@ in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/cditests/CDIManag
 in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/cditests/CDIManagedProviderTest.java`
 #### Snippet
 ```java
+    @Test
+    public void testCDIProviderSpecifiedViaAnnotation() throws Exception {
+        Response r = annotationClient.executeGet();
+        assertEquals(r.getStatus(), 200);
+    }
+```
+
+### AutoCloseableResource
+'Response' used without 'try'-with-resources statement
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/cditests/CDIManagedProviderTest.java`
+#### Snippet
+```java
                 .register(MyFilter.class)
                 .build(MyProgrammaticClient.class);
         Response r = client.executeGet();
@@ -550,14 +478,98 @@ in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/cditests/CDIManag
 
 ### AutoCloseableResource
 'Response' used without 'try'-with-resources statement
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/cditests/CDIProxyServerTest.java`
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/cditests/CDIManagedProviderTest.java`
 #### Snippet
 ```java
-        try {
-            startDestinationServer("bar");
+    @Test
+    public void testCDIProviderSpecifiedInMPConfig() throws Exception {
+        Response r = configClient.executeGet();
+        assertEquals(r.getStatus(), 200);
+    }
+```
+
+### AutoCloseableResource
+'Response' used without 'try'-with-resources statement
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/cditests/ConfigKeyForMultipleInterfacesTest.java`
+#### Snippet
+```java
+    public void testConfigKeyUsedForUri() throws Exception {
+        assertEquals(client1.get(), "GET http://localhost:1234/configKeyUri/hello");
+        assertEquals(client2.executeGet().readEntity(String.class), "GET http://localhost:1234/configKeyUri");
+    }
+
+```
+
+### AutoCloseableResource
+'Response' used without 'try'-with-resources statement
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ProxyServerTest.java`
+#### Snippet
+```java
+                    .baseUri(URI.create("http://localhost:" + DESTINATION_SERVER_PORT + "/testProxy"))
+                    .build(SimpleGetApi.class);
             Response response = client.executeGet();
             assertEquals(response.getStatus(), 200);
-            assertEquals(response.readEntity(String.class).trim(), "bar");
+            assertEquals(response.readEntity(String.class).trim(), "foo");
+```
+
+### AutoCloseableResource
+'Response' used without 'try'-with-resources statement
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/InvokedMethodTest.java`
+#### Snippet
+```java
+                .build(ChildClient.class);
+
+        Response response = client.executeBasePost();
+        assertEquals(response.getStatus(), 200,
+                "An exception occurred in the ClientRequestFilter");
+```
+
+### AutoCloseableResource
+'Response' used without 'try'-with-resources statement
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ExceptionMapperTest.java`
+#### Snippet
+```java
+
+        try {
+            simpleGetApi.executeGet();
+            fail("A " + WebApplicationException.class + " should have been thrown via the registered "
+                    + TestResponseExceptionMapper.class);
+```
+
+### AutoCloseableResource
+'Response' used without 'try'-with-resources statement
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ExceptionMapperTest.java`
+#### Snippet
+```java
+
+        try {
+            simpleGetApi.executeGet();
+            fail("A " + WebApplicationException.class + " should have been thrown via the registered "
+                    + TestResponseExceptionMapper.class);
+```
+
+### AutoCloseableResource
+'Response' used without 'try'-with-resources statement
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/CallMultipleMappersTest.java`
+#### Snippet
+```java
+
+        try {
+            simpleGetApi.executeGet();
+            fail("A " + WebApplicationException.class + " should have been thrown via the registered "
+                    + TestResponseExceptionMapper.class);
+```
+
+### AutoCloseableResource
+'Response' used without 'try'-with-resources statement
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ProducesConsumesTest.java`
+#### Snippet
+```java
+
+        LOG.info(m + " @Produce(text/html) @Consume(text/plain)");
+        Response r = client.produceHtmlConsumeText("1", "whatever");
+        String acceptHeader = r.getHeaderString("Sent-Accept");
+        LOG.info(m + "Sent-Accept: " + acceptHeader);
 ```
 
 ### AutoCloseableResource
@@ -581,18 +593,6 @@ in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ProducesConsumesT
         LOG.info(m + " @Produce(application/xml) @Consume(application/json)");
         r = client.produceXMLConsumeJSON(JSON_PAYLOAD);
         acceptHeader = r.getHeaderString("Sent-Accept");
-        LOG.info(m + "Sent-Accept: " + acceptHeader);
-```
-
-### AutoCloseableResource
-'Response' used without 'try'-with-resources statement
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ProducesConsumesTest.java`
-#### Snippet
-```java
-
-        LOG.info(m + " @Produce(text/html) @Consume(text/plain)");
-        Response r = client.produceHtmlConsumeText("1", "whatever");
-        String acceptHeader = r.getHeaderString("Sent-Accept");
         LOG.info(m + "Sent-Accept: " + acceptHeader);
 ```
 
@@ -636,75 +636,15 @@ in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/CloseTest.java`
 
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
-Method invocation `delete` may produce `NullPointerException`
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ClientHeadersFactoryTest.java`
-#### Snippet
-```java
-        CustomClientHeadersFactory.passedInOutgoingHeaders.clear();
-
-        JsonObject headers = client(ReturnWithAllClientHeadersFilter.class).delete("argValue");
-
-        assertTrue(CustomClientHeadersFactory.invoked);
-```
-
-### DataFlowIssue
-Argument `input` might be null
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ssl/AbstractSslTest.java`
-#### Snippet
-```java
-
-        try (InputStream input = AbstractSslTest.class.getResourceAsStream(resourceLocation)) {
-            Files.copy(input, diskLocation);
-            diskLocation.toFile().deleteOnExit();
-        } catch (IOException e) {
-```
-
-### DataFlowIssue
-Method invocation `forEach` may produce `NullPointerException`
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ext/CustomClientHeadersFactory.java`
-#### Snippet
-```java
-        MultivaluedMap<String, String> returnVal = new MultivaluedHashMap<>();
-        returnVal.putSingle("FactoryHeader", "factoryValue");
-        clientOutgoingHeaders.forEach((k, v) -> {
-            returnVal.putSingle(k, v.get(0) + "Modified");
-        });
-```
-
-### DataFlowIssue
-Method invocation `forEach` may produce `NullPointerException`
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ext/CdiCustomClientHeadersFactory.java`
-#### Snippet
-```java
-        MultivaluedMap<String, String> returnVal = new MultivaluedHashMap<>();
-        returnVal.putSingle("FactoryHeader", "factoryValue");
-        clientOutgoingHeaders.forEach((k, v) -> {
-            returnVal.putSingle(k, v.get(0) + "Modified");
-        });
-```
-
-### DataFlowIssue
-Method invocation `delete` may produce `NullPointerException`
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/cditests/CDIClientHeadersFactoryTest.java`
-#### Snippet
-```java
-        CdiCustomClientHeadersFactory.passedInOutgoingHeaders.clear();
-
-        JsonObject headers = client(ReturnWithAllClientHeadersFilter.class).delete("argValue");
-
-        assertTrue(CdiCustomClientHeadersFactory.invoked);
-```
-
-### DataFlowIssue
-Method invocation `methodClientHeaderParamOverridesInterfaceExplicit` may produce `NullPointerException`
+Method invocation `methodExplicit` may produce `NullPointerException`
 in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ClientHeaderParamTest.java`
 #### Snippet
 ```java
-    public void testExplicitClientHeaderParamOnMethodOverridesClientHeaderParamOnInterface() {
-        stub("OverrideableExplicit", "overriddenMethodExplicit");
-        assertEquals(client().methodClientHeaderParamOverridesInterfaceExplicit(),
-                "overriddenMethodExplicit");
+    public void testExplicitClientHeaderParamOnMethod() {
+        stub("MethodHeaderExplicit", "methodExplicit");
+        assertEquals(client().methodExplicit(), "methodExplicit");
     }
+
 ```
 
 ### DataFlowIssue
@@ -720,13 +660,25 @@ in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ClientHeaderParam
 ```
 
 ### DataFlowIssue
-Method invocation `methodExplicit` may produce `NullPointerException`
+Method invocation `headerParamOverridesInterfaceExplicit` may produce `NullPointerException`
 in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ClientHeaderParamTest.java`
 #### Snippet
 ```java
-    public void testExplicitClientHeaderParamOnMethod() {
-        stub("MethodHeaderExplicit", "methodExplicit");
-        assertEquals(client().methodExplicit(), "methodExplicit");
+    public void testHeaderParamOverridesExplicitClientHeaderParamOnInterface() {
+        stub("InterfaceHeaderExplicit", "header");
+        assertEquals(client().headerParamOverridesInterfaceExplicit("header"), "header");
+    }
+
+```
+
+### DataFlowIssue
+Method invocation `headerParamOverridesInterfaceComputed` may produce `NullPointerException`
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ClientHeaderParamTest.java`
+#### Snippet
+```java
+    public void testHeaderParamOverridesComputedClientHeaderParamOnInterface() {
+        stub("InterfaceHeaderComputed", "override");
+        assertEquals(client().headerParamOverridesInterfaceComputed("override"), "override");
     }
 
 ```
@@ -740,18 +692,6 @@ in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ClientHeaderParam
         stub("InterfaceMultiValuedHeaderExplicit", "abc", "xyz");
         assertEquals(client().methodComputeMultiValuedHeaderFromOtherClass(),
                 "abc-xyz");
-    }
-```
-
-### DataFlowIssue
-Method invocation `methodComputeMultiValuedHeaderFromOtherClass` may produce `NullPointerException`
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ClientHeaderParamTest.java`
-#### Snippet
-```java
-    public void testMultivaluedHeaderSentWhenInvokingComputeMethodFromSeparateClass() {
-        stub("MultiValueInvokedFromAnotherClass", "value1", "value2");
-        assertEquals(client().methodComputeMultiValuedHeaderFromOtherClass(),
-                "value1-value2");
     }
 ```
 
@@ -792,18 +732,6 @@ in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ClientHeaderParam
 ```
 
 ### DataFlowIssue
-Method invocation `headerParamOverridesInterfaceExplicit` may produce `NullPointerException`
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ClientHeaderParamTest.java`
-#### Snippet
-```java
-    public void testHeaderParamOverridesExplicitClientHeaderParamOnInterface() {
-        stub("InterfaceHeaderExplicit", "header");
-        assertEquals(client().headerParamOverridesInterfaceExplicit("header"), "header");
-    }
-
-```
-
-### DataFlowIssue
 Method invocation `headerParamOverridesMethodComputed` may produce `NullPointerException`
 in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ClientHeaderParamTest.java`
 #### Snippet
@@ -811,18 +739,6 @@ in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ClientHeaderParam
     public void testHeaderParamOverridesComputedClientHeaderParamOnMethod() {
         stub("MethodHeaderComputed", "override2");
         assertEquals(client().headerParamOverridesMethodComputed("override2"), "override2");
-    }
-
-```
-
-### DataFlowIssue
-Method invocation `interfaceComputed` may produce `NullPointerException`
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ClientHeaderParamTest.java`
-#### Snippet
-```java
-    public void testComputedClientHeaderParamOnInterface() {
-        stub("InterfaceHeaderComputed", "interfaceComputed");
-        assertEquals(client().interfaceComputed(), "interfaceComputed");
     }
 
 ```
@@ -852,15 +768,99 @@ in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ClientHeaderParam
 ```
 
 ### DataFlowIssue
-Method invocation `headerParamOverridesInterfaceComputed` may produce `NullPointerException`
+Method invocation `methodComputeMultiValuedHeaderFromOtherClass` may produce `NullPointerException`
 in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ClientHeaderParamTest.java`
 #### Snippet
 ```java
-    public void testHeaderParamOverridesComputedClientHeaderParamOnInterface() {
-        stub("InterfaceHeaderComputed", "override");
-        assertEquals(client().headerParamOverridesInterfaceComputed("override"), "override");
+    public void testMultivaluedHeaderSentWhenInvokingComputeMethodFromSeparateClass() {
+        stub("MultiValueInvokedFromAnotherClass", "value1", "value2");
+        assertEquals(client().methodComputeMultiValuedHeaderFromOtherClass(),
+                "value1-value2");
+    }
+```
+
+### DataFlowIssue
+Method invocation `interfaceComputed` may produce `NullPointerException`
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ClientHeaderParamTest.java`
+#### Snippet
+```java
+    public void testComputedClientHeaderParamOnInterface() {
+        stub("InterfaceHeaderComputed", "interfaceComputed");
+        assertEquals(client().interfaceComputed(), "interfaceComputed");
     }
 
+```
+
+### DataFlowIssue
+Method invocation `methodClientHeaderParamOverridesInterfaceExplicit` may produce `NullPointerException`
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ClientHeaderParamTest.java`
+#### Snippet
+```java
+    public void testExplicitClientHeaderParamOnMethodOverridesClientHeaderParamOnInterface() {
+        stub("OverrideableExplicit", "overriddenMethodExplicit");
+        assertEquals(client().methodClientHeaderParamOverridesInterfaceExplicit(),
+                "overriddenMethodExplicit");
+    }
+```
+
+### DataFlowIssue
+Argument `input` might be null
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ssl/AbstractSslTest.java`
+#### Snippet
+```java
+
+        try (InputStream input = AbstractSslTest.class.getResourceAsStream(resourceLocation)) {
+            Files.copy(input, diskLocation);
+            diskLocation.toFile().deleteOnExit();
+        } catch (IOException e) {
+```
+
+### DataFlowIssue
+Method invocation `delete` may produce `NullPointerException`
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ClientHeadersFactoryTest.java`
+#### Snippet
+```java
+        CustomClientHeadersFactory.passedInOutgoingHeaders.clear();
+
+        JsonObject headers = client(ReturnWithAllClientHeadersFilter.class).delete("argValue");
+
+        assertTrue(CustomClientHeadersFactory.invoked);
+```
+
+### DataFlowIssue
+Method invocation `forEach` may produce `NullPointerException`
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ext/CustomClientHeadersFactory.java`
+#### Snippet
+```java
+        MultivaluedMap<String, String> returnVal = new MultivaluedHashMap<>();
+        returnVal.putSingle("FactoryHeader", "factoryValue");
+        clientOutgoingHeaders.forEach((k, v) -> {
+            returnVal.putSingle(k, v.get(0) + "Modified");
+        });
+```
+
+### DataFlowIssue
+Method invocation `forEach` may produce `NullPointerException`
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ext/CdiCustomClientHeadersFactory.java`
+#### Snippet
+```java
+        MultivaluedMap<String, String> returnVal = new MultivaluedHashMap<>();
+        returnVal.putSingle("FactoryHeader", "factoryValue");
+        clientOutgoingHeaders.forEach((k, v) -> {
+            returnVal.putSingle(k, v.get(0) + "Modified");
+        });
+```
+
+### DataFlowIssue
+Method invocation `delete` may produce `NullPointerException`
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/cditests/CDIClientHeadersFactoryTest.java`
+#### Snippet
+```java
+        CdiCustomClientHeadersFactory.passedInOutgoingHeaders.clear();
+
+        JsonObject headers = client(ReturnWithAllClientHeadersFilter.class).delete("argValue");
+
+        assertTrue(CdiCustomClientHeadersFactory.invoked);
 ```
 
 ## RuleId[id=SimplifyStreamApiCallChains]
@@ -975,18 +975,6 @@ public class TestWriterInterceptor implements WriterInterceptor {
 ```
 
 ### FieldMayBeFinal
-Field `invocations` may be 'final'
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/providers/TestClientResponseFilter.java`
-#### Snippet
-```java
-
-public class TestClientResponseFilter implements ClientResponseFilter {
-    private static AtomicInteger invocations = new AtomicInteger(0);
-    @Override
-    public void filter(ClientRequestContext clientRequestContext, ClientResponseContext clientResponseContext)
-```
-
-### FieldMayBeFinal
 Field `privateIgnoredField` may be 'final'
 in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/MyJsonBObjectWithPrivateProperties.java`
 #### Snippet
@@ -996,18 +984,6 @@ in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/MyJson
     private String privateIgnoredField;
 
     public MyJsonBObjectWithPrivateProperties() {
-```
-
-### FieldMayBeFinal
-Field `invocations` may be 'final'
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/providers/TestReaderInterceptor.java`
-#### Snippet
-```java
-
-public class TestReaderInterceptor implements ReaderInterceptor {
-    private static AtomicInteger invocations = new AtomicInteger(0);
-    @Override
-    public Object aroundReadFrom(ReaderInterceptorContext readerInterceptorContext)
 ```
 
 ### FieldMayBeFinal
@@ -1046,19 +1022,31 @@ in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/sse/ReactiveStrea
     @Deployment
 ```
 
-## RuleId[id=MismatchedCollectionQueryUpdate]
-### MismatchedCollectionQueryUpdate
-Contents of collection `ids` are updated, but never queried
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/sse/BasicReactiveStreamsTest.java`
+### FieldMayBeFinal
+Field `invocations` may be 'final'
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/providers/TestClientResponseFilter.java`
 #### Snippet
 ```java
-        final Set<String> comments = new HashSet<>();
-        final Set<String> names = new HashSet<>();
-        final Set<String> ids = new HashSet<>();
-        final CountDownLatch eventLatch;
-        Throwable throwable;
+
+public class TestClientResponseFilter implements ClientResponseFilter {
+    private static AtomicInteger invocations = new AtomicInteger(0);
+    @Override
+    public void filter(ClientRequestContext clientRequestContext, ClientResponseContext clientResponseContext)
 ```
 
+### FieldMayBeFinal
+Field `invocations` may be 'final'
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/providers/TestReaderInterceptor.java`
+#### Snippet
+```java
+
+public class TestReaderInterceptor implements ReaderInterceptor {
+    private static AtomicInteger invocations = new AtomicInteger(0);
+    @Override
+    public Object aroundReadFrom(ReaderInterceptorContext readerInterceptorContext)
+```
+
+## RuleId[id=MismatchedCollectionQueryUpdate]
 ### MismatchedCollectionQueryUpdate
 Contents of collection `eventSources` are queried, but never updated
 in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/sse/MyEventSourceServlet.java`
@@ -1069,6 +1057,18 @@ in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/sse/MyEventSource
     private final Set<MyEventSource> eventSources = new HashSet<>();
 
     MyEventSourceServlet(Consumer<MyEventSource> consumer) {
+```
+
+### MismatchedCollectionQueryUpdate
+Contents of collection `ids` are updated, but never queried
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/sse/BasicReactiveStreamsTest.java`
+#### Snippet
+```java
+        final Set<String> comments = new HashSet<>();
+        final Set<String> names = new HashSet<>();
+        final Set<String> ids = new HashSet<>();
+        final CountDownLatch eventLatch;
+        Throwable throwable;
 ```
 
 ## RuleId[id=ExtendsAnnotation]
@@ -1087,38 +1087,14 @@ in `api/src/main/java/org/eclipse/microprofile/rest/client/inject/RestClient.jav
 ## RuleId[id=UastIncorrectHttpHeaderInspection]
 ### UastIncorrectHttpHeaderInspection
 Unknown HTTP header
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/CdiClientHeadersFactoryClient.java`
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/InvalidComputeMethodSignature.java`
 #### Snippet
 ```java
-@Path("/")
-@RegisterClientHeaders(CdiCustomClientHeadersFactory.class)
-@ClientHeaderParam(name = "IntfHeader", value = "intfValue")
-public interface CdiClientHeadersFactoryClient {
-    @DELETE
-```
+    }
 
-### UastIncorrectHttpHeaderInspection
-Unknown HTTP header
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/CdiClientHeadersFactoryClient.java`
-#### Snippet
-```java
-public interface CdiClientHeadersFactoryClient {
-    @DELETE
-    @ClientHeaderParam(name = "MethodHeader", value = "methodValue")
-    JsonObject delete(@HeaderParam("ArgHeader") String argHeader);
-}
-```
-
-### UastIncorrectHttpHeaderInspection
-Unknown HTTP header
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/CdiClientHeadersFactoryClient.java`
-#### Snippet
-```java
-    @DELETE
-    @ClientHeaderParam(name = "MethodHeader", value = "methodValue")
-    JsonObject delete(@HeaderParam("ArgHeader") String argHeader);
-}
-
+    @ClientHeaderParam(name = "TestHeader", value = "{invalidMethod}")
+    @GET
+    Response get();
 ```
 
 ### UastIncorrectHttpHeaderInspection
@@ -1147,13 +1123,49 @@ in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/Multip
 
 ### UastIncorrectHttpHeaderInspection
 Unknown HTTP header
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/ClientHeadersFactoryClient.java`
+#### Snippet
+```java
+public interface ClientHeadersFactoryClient {
+    @DELETE
+    @ClientHeaderParam(name = "MethodHeader", value = "methodValue")
+    JsonObject delete(@HeaderParam("ArgHeader") String argHeader);
+}
+```
+
+### UastIncorrectHttpHeaderInspection
+Unknown HTTP header
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/ClientHeadersFactoryClient.java`
+#### Snippet
+```java
+    @DELETE
+    @ClientHeaderParam(name = "MethodHeader", value = "methodValue")
+    JsonObject delete(@HeaderParam("ArgHeader") String argHeader);
+}
+
+```
+
+### UastIncorrectHttpHeaderInspection
+Unknown HTTP header
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/ClientHeadersFactoryClient.java`
+#### Snippet
+```java
+@Path("/")
+@RegisterClientHeaders(CustomClientHeadersFactory.class)
+@ClientHeaderParam(name = "IntfHeader", value = "intfValue")
+public interface ClientHeadersFactoryClient {
+    @DELETE
+```
+
+### UastIncorrectHttpHeaderInspection
+Unknown HTTP header
 in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/ClientHeaderParamClient.java`
 #### Snippet
 ```java
 
     @GET
-    @ClientHeaderParam(name = "OverrideableComputed", value = "{computeForMethod3}")
-    String methodClientHeaderParamOverridesInterfaceComputed();
+    @ClientHeaderParam(name = "OverrideableExplicit", value = "overriddenMethodExplicit")
+    String methodClientHeaderParamOverridesInterfaceExplicit();
 
 ```
 
@@ -1164,8 +1176,8 @@ in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/Client
 ```java
 
     @GET
-    @ClientHeaderParam(name = "MethodHeaderExplicit", value = "methodExplicit")
-    String headerParamOverridesMethodExplicit(@HeaderParam("MethodHeaderExplicit") String param);
+    @ClientHeaderParam(name = "MethodHeaderComputed", value = "{computeForMethod2}")
+    String headerParamOverridesMethodComputed(@HeaderParam("MethodHeaderComputed") String param);
 
 ```
 
@@ -1175,8 +1187,8 @@ in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/Client
 #### Snippet
 ```java
     @GET
-    @ClientHeaderParam(name = "MethodHeaderExplicit", value = "methodExplicit")
-    String headerParamOverridesMethodExplicit(@HeaderParam("MethodHeaderExplicit") String param);
+    @ClientHeaderParam(name = "MethodHeaderComputed", value = "{computeForMethod2}")
+    String headerParamOverridesMethodComputed(@HeaderParam("MethodHeaderComputed") String param);
 
     @GET
 ```
@@ -1260,33 +1272,9 @@ in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/Client
 ```java
 
     @GET
-    String headerParamOverridesInterfaceExplicit(@HeaderParam("InterfaceHeaderExplicit") String param);
+    String headerParamOverridesInterfaceComputed(@HeaderParam("InterfaceHeaderComputed") String param);
 
     @GET
-```
-
-### UastIncorrectHttpHeaderInspection
-Unknown HTTP header
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/ClientHeaderParamClient.java`
-#### Snippet
-```java
-
-    @GET
-    @ClientHeaderParam(name = "OptionalMethodHeader", value = "{fail}", required = false)
-    @ClientHeaderParam(name = "MethodHeaderExplicit", value = "SomeValue")
-    JsonObject methodOptionalMethodHeaderNotSentWhenComputeThrowsException();
-```
-
-### UastIncorrectHttpHeaderInspection
-Unknown HTTP header
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/ClientHeaderParamClient.java`
-#### Snippet
-```java
-    @GET
-    @ClientHeaderParam(name = "OptionalMethodHeader", value = "{fail}", required = false)
-    @ClientHeaderParam(name = "MethodHeaderExplicit", value = "SomeValue")
-    JsonObject methodOptionalMethodHeaderNotSentWhenComputeThrowsException();
-
 ```
 
 ### UastIncorrectHttpHeaderInspection
@@ -1306,11 +1294,11 @@ Unknown HTTP header
 in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/ClientHeaderParamClient.java`
 #### Snippet
 ```java
-    // CHECKSTYLE:OFF
-    // something in the parent pom is forcing these lines to merged into one line, which is longer than 150 characters
-    @ClientHeaderParam(name = "MultiValueInvokedFromAnotherClass", value = "{org.eclipse.microprofile.rest.client.tck.ext.HeaderGenerator.generateHeader}")
-    // CHECKSTYLE:OFF
-    String methodComputeMultiValuedHeaderFromOtherClass();
+
+    @GET
+    String headerParamOverridesInterfaceExplicit(@HeaderParam("InterfaceHeaderExplicit") String param);
+
+    @GET
 ```
 
 ### UastIncorrectHttpHeaderInspection
@@ -1322,30 +1310,6 @@ in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/Client
     @GET
     @ClientHeaderParam(name = "MethodHeaderExplicit", value = "methodExplicit")
     String methodExplicit();
-
-```
-
-### UastIncorrectHttpHeaderInspection
-Unknown HTTP header
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/ClientHeaderParamClient.java`
-#### Snippet
-```java
-
-    @GET
-    String headerParamOverridesInterfaceComputed(@HeaderParam("InterfaceHeaderComputed") String param);
-
-    @GET
-```
-
-### UastIncorrectHttpHeaderInspection
-Unknown HTTP header
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/ClientHeaderParamClient.java`
-#### Snippet
-```java
-
-    @GET
-    @ClientHeaderParam(name = "OverrideableExplicit", value = "overriddenMethodExplicit")
-    String methodClientHeaderParamOverridesInterfaceExplicit();
 
 ```
 
@@ -1368,8 +1332,8 @@ in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/Client
 ```java
 
     @GET
-    @ClientHeaderParam(name = "MethodHeaderComputed", value = "{computeForMethod2}")
-    String headerParamOverridesMethodComputed(@HeaderParam("MethodHeaderComputed") String param);
+    @ClientHeaderParam(name = "MethodHeaderExplicit", value = "methodExplicit")
+    String headerParamOverridesMethodExplicit(@HeaderParam("MethodHeaderExplicit") String param);
 
 ```
 
@@ -1379,129 +1343,105 @@ in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/Client
 #### Snippet
 ```java
     @GET
-    @ClientHeaderParam(name = "MethodHeaderComputed", value = "{computeForMethod2}")
-    String headerParamOverridesMethodComputed(@HeaderParam("MethodHeaderComputed") String param);
+    @ClientHeaderParam(name = "MethodHeaderExplicit", value = "methodExplicit")
+    String headerParamOverridesMethodExplicit(@HeaderParam("MethodHeaderExplicit") String param);
 
     @GET
 ```
 
 ### UastIncorrectHttpHeaderInspection
 Unknown HTTP header
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ProxyServerTest.java`
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/ClientHeaderParamClient.java`
 #### Snippet
 ```java
-                            HttpServletResponse response) throws IOException {
-                        response.setHeader("Content-Type", "text/plain");
-                        response.setHeader("X-Via", request.getHeader("X-Via"));
-                        try (PrintWriter writer = response.getWriter()) {
-                            writer.println(responseContent);
-```
 
-### UastIncorrectHttpHeaderInspection
-Unknown HTTP header
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ExceptionMapperTest.java`
-#### Snippet
-```java
-    @Test
-    public void testWithTwoRegisteredProviders() throws Exception {
-        stubFor(get(urlEqualTo("/")).willReturn(aResponse().withHeader("CustomHeader", "true")
-                .withBody("body is ignored in this test")));
-        SimpleGetApi simpleGetApi = RestClientBuilder.newBuilder()
-```
-
-### UastIncorrectHttpHeaderInspection
-Unknown HTTP header
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ExceptionMapperTest.java`
-#### Snippet
-```java
-    @Test
-    public void testWithOneRegisteredProvider() throws Exception {
-        stubFor(get(urlEqualTo("/")).willReturn(aResponse().withHeader("CustomHeader", "true")
-                .withBody("body is ignored in this test")));
-        SimpleGetApi simpleGetApi = RestClientBuilder.newBuilder()
-```
-
-### UastIncorrectHttpHeaderInspection
-Unknown HTTP header
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/InvalidComputeMethodSignature.java`
-#### Snippet
-```java
-    }
-
-    @ClientHeaderParam(name = "TestHeader", value = "{invalidMethod}")
     @GET
+    @ClientHeaderParam(name = "OverrideableComputed", value = "{computeForMethod3}")
+    String methodClientHeaderParamOverridesInterfaceComputed();
+
+```
+
+### UastIncorrectHttpHeaderInspection
+Unknown HTTP header
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/ClientHeaderParamClient.java`
+#### Snippet
+```java
+    // CHECKSTYLE:OFF
+    // something in the parent pom is forcing these lines to merged into one line, which is longer than 150 characters
+    @ClientHeaderParam(name = "MultiValueInvokedFromAnotherClass", value = "{org.eclipse.microprofile.rest.client.tck.ext.HeaderGenerator.generateHeader}")
+    // CHECKSTYLE:OFF
+    String methodComputeMultiValuedHeaderFromOtherClass();
+```
+
+### UastIncorrectHttpHeaderInspection
+Unknown HTTP header
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/ClientHeaderParamClient.java`
+#### Snippet
+```java
+
+    @GET
+    @ClientHeaderParam(name = "OptionalMethodHeader", value = "{fail}", required = false)
+    @ClientHeaderParam(name = "MethodHeaderExplicit", value = "SomeValue")
+    JsonObject methodOptionalMethodHeaderNotSentWhenComputeThrowsException();
+```
+
+### UastIncorrectHttpHeaderInspection
+Unknown HTTP header
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/ClientHeaderParamClient.java`
+#### Snippet
+```java
+    @GET
+    @ClientHeaderParam(name = "OptionalMethodHeader", value = "{fail}", required = false)
+    @ClientHeaderParam(name = "MethodHeaderExplicit", value = "SomeValue")
+    JsonObject methodOptionalMethodHeaderNotSentWhenComputeThrowsException();
+
+```
+
+### UastIncorrectHttpHeaderInspection
+Unknown HTTP header
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/MultiValueClientHeaderWithComputeMethodOnMethod.java`
+#### Snippet
+```java
+
+    @GET
+    @ClientHeaderParam(name = "TestHeader", value = {"InitialValue", "{computeHeader}"})
     Response get();
+}
 ```
 
 ### UastIncorrectHttpHeaderInspection
 Unknown HTTP header
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/ClientHeadersFactoryClient.java`
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/CdiClientHeadersFactoryClient.java`
 #### Snippet
 ```java
 @Path("/")
-@RegisterClientHeaders(CustomClientHeadersFactory.class)
+@RegisterClientHeaders(CdiCustomClientHeadersFactory.class)
 @ClientHeaderParam(name = "IntfHeader", value = "intfValue")
-public interface ClientHeadersFactoryClient {
+public interface CdiClientHeadersFactoryClient {
     @DELETE
 ```
 
 ### UastIncorrectHttpHeaderInspection
 Unknown HTTP header
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/ClientHeadersFactoryClient.java`
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/CdiClientHeadersFactoryClient.java`
 #### Snippet
 ```java
-public interface ClientHeadersFactoryClient {
-    @DELETE
-    @ClientHeaderParam(name = "MethodHeader", value = "methodValue")
-    JsonObject delete(@HeaderParam("ArgHeader") String argHeader);
-}
-```
-
-### UastIncorrectHttpHeaderInspection
-Unknown HTTP header
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/ClientHeadersFactoryClient.java`
-#### Snippet
-```java
+public interface CdiClientHeadersFactoryClient {
     @DELETE
     @ClientHeaderParam(name = "MethodHeader", value = "methodValue")
     JsonObject delete(@HeaderParam("ArgHeader") String argHeader);
 }
-
 ```
 
 ### UastIncorrectHttpHeaderInspection
 Unknown HTTP header
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/MultipleHeadersOnSameInterface.java`
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/CdiClientHeadersFactoryClient.java`
 #### Snippet
 ```java
-import jakarta.ws.rs.core.Response;
-
-@ClientHeaderParam(name = "IdenticalHeader", value = "{computeMethod}")
-@ClientHeaderParam(name = "IdenticalHeader", value = "someValue")
-public interface MultipleHeadersOnSameInterface {
-```
-
-### UastIncorrectHttpHeaderInspection
-Unknown HTTP header
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/MultipleHeadersOnSameInterface.java`
-#### Snippet
-```java
-
-@ClientHeaderParam(name = "IdenticalHeader", value = "{computeMethod}")
-@ClientHeaderParam(name = "IdenticalHeader", value = "someValue")
-public interface MultipleHeadersOnSameInterface {
-
-```
-
-### UastIncorrectHttpHeaderInspection
-Unknown HTTP header
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/MyBean.java`
-#### Snippet
-```java
-    private String cookie;
-
-    @HeaderParam("MyHeader")
-    private String header;
+    @DELETE
+    @ClientHeaderParam(name = "MethodHeader", value = "methodValue")
+    JsonObject delete(@HeaderParam("ArgHeader") String argHeader);
+}
 
 ```
 
@@ -1519,14 +1459,26 @@ public interface MultiValueClientHeaderWithComputeMethodOnInterface {
 
 ### UastIncorrectHttpHeaderInspection
 Unknown HTTP header
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/MultiValueClientHeaderWithComputeMethodOnMethod.java`
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/MultipleHeadersOnSameInterface.java`
+#### Snippet
+```java
+import jakarta.ws.rs.core.Response;
+
+@ClientHeaderParam(name = "IdenticalHeader", value = "{computeMethod}")
+@ClientHeaderParam(name = "IdenticalHeader", value = "someValue")
+public interface MultipleHeadersOnSameInterface {
+```
+
+### UastIncorrectHttpHeaderInspection
+Unknown HTTP header
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/MultipleHeadersOnSameInterface.java`
 #### Snippet
 ```java
 
-    @GET
-    @ClientHeaderParam(name = "TestHeader", value = {"InitialValue", "{computeHeader}"})
-    Response get();
-}
+@ClientHeaderParam(name = "IdenticalHeader", value = "{computeMethod}")
+@ClientHeaderParam(name = "IdenticalHeader", value = "someValue")
+public interface MultipleHeadersOnSameInterface {
+
 ```
 
 ### UastIncorrectHttpHeaderInspection
@@ -1539,6 +1491,54 @@ public interface MissingHeaderComputeMethod {
     @ClientHeaderParam(name = "TestHeader", value = "{missingMethod}")
     @GET
     Response get();
+```
+
+### UastIncorrectHttpHeaderInspection
+Unknown HTTP header
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ProxyServerTest.java`
+#### Snippet
+```java
+                            HttpServletResponse response) throws IOException {
+                        response.setHeader("Content-Type", "text/plain");
+                        response.setHeader("X-Via", request.getHeader("X-Via"));
+                        try (PrintWriter writer = response.getWriter()) {
+                            writer.println(responseContent);
+```
+
+### UastIncorrectHttpHeaderInspection
+Unknown HTTP header
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/MyBean.java`
+#### Snippet
+```java
+    private String cookie;
+
+    @HeaderParam("MyHeader")
+    private String header;
+
+```
+
+### UastIncorrectHttpHeaderInspection
+Unknown HTTP header
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ExceptionMapperTest.java`
+#### Snippet
+```java
+    @Test
+    public void testWithOneRegisteredProvider() throws Exception {
+        stubFor(get(urlEqualTo("/")).willReturn(aResponse().withHeader("CustomHeader", "true")
+                .withBody("body is ignored in this test")));
+        SimpleGetApi simpleGetApi = RestClientBuilder.newBuilder()
+```
+
+### UastIncorrectHttpHeaderInspection
+Unknown HTTP header
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ExceptionMapperTest.java`
+#### Snippet
+```java
+    @Test
+    public void testWithTwoRegisteredProviders() throws Exception {
+        stubFor(get(urlEqualTo("/")).willReturn(aResponse().withHeader("CustomHeader", "true")
+                .withBody("body is ignored in this test")));
+        SimpleGetApi simpleGetApi = RestClientBuilder.newBuilder()
 ```
 
 ## RuleId[id=DuplicatedCode]
@@ -1649,19 +1649,6 @@ in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/sse/BasicReactive
         assertTrue(resultsLatch.await(30, TimeUnit.SECONDS));
 ```
 
-## RuleId[id=OctalLiteral]
-### OctalLiteral
-Octal integer `04`
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/jsonb/InvokeWithJsonBProviderTest.java`
-#### Snippet
-```java
-        assertEquals(obj.getQty(), 17);
-        assertEquals(obj.getIgnoredField(), "CTOR");
-        assertEquals(obj.getDate(), LocalDate.of(2018, 12, 04));
-    }
-}
-```
-
 ## RuleId[id=CatchMayIgnoreException]
 ### CatchMayIgnoreException
 Empty `catch` block
@@ -1673,6 +1660,19 @@ in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/DefaultExceptionM
         } catch (WebApplicationException w) {
         }
     }
+```
+
+## RuleId[id=OctalLiteral]
+### OctalLiteral
+Octal integer `04`
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/jsonb/InvokeWithJsonBProviderTest.java`
+#### Snippet
+```java
+        assertEquals(obj.getQty(), 17);
+        assertEquals(obj.getIgnoredField(), "CTOR");
+        assertEquals(obj.getDate(), LocalDate.of(2018, 12, 04));
+    }
+}
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
@@ -1740,18 +1740,6 @@ in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/interfaces/MyJson
 ## RuleId[id=CdiInjectionPointsInspection]
 ### CdiInjectionPointsInspection
 Ambiguous dependency: there are multiple beans that match the injection point
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/cditests/CDIFollowRedirectsTest.java`
-#### Snippet
-```java
-    @Inject
-    @RestClient
-    private SimpleGetApi defaultClient;
-
-    @Inject
-```
-
-### CdiInjectionPointsInspection
-Ambiguous dependency: there are multiple beans that match the injection point
 in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ssl/SslTrustStoreTest.java`
 #### Snippet
 ```java
@@ -1760,6 +1748,18 @@ in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ssl/SslTrustStore
     private JsonPClient clientWithNoSslStores;
 
     @Inject
+```
+
+### CdiInjectionPointsInspection
+Ambiguous dependency: there are multiple beans that match the injection point
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/cditests/CDIInvokeSimpleGetOperationTest.java`
+#### Snippet
+```java
+    @Inject
+    @RestClient
+    private SimpleGetApi api;
+    @Inject
+    private BeanManager beanManager;
 ```
 
 ### CdiInjectionPointsInspection
@@ -1776,14 +1776,14 @@ in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ssl/SslMutualTest
 
 ### CdiInjectionPointsInspection
 Ambiguous dependency: there are multiple beans that match the injection point
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ssl/SslHostnameVerifierTest.java`
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/jsonb/InvokeWithJsonBProviderTest.java`
 #### Snippet
 ```java
-    @Inject
     @RestClient
-    private JsonPClient clientWithHostnameVerifier;
+    @Inject
+    private JsonBClient cdiJsonBClient;
 
-    @Test(expectedExceptions = ProcessingException.class)
+    @RestClient
 ```
 
 ### CdiInjectionPointsInspection
@@ -1824,26 +1824,14 @@ in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/timeout/TimeoutVi
 
 ### CdiInjectionPointsInspection
 Ambiguous dependency: there are multiple beans that match the injection point
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/jsonb/InvokeWithJsonBProviderTest.java`
-#### Snippet
-```java
-    @RestClient
-    @Inject
-    private JsonBClient cdiJsonBClient;
-
-    @RestClient
-```
-
-### CdiInjectionPointsInspection
-Ambiguous dependency: there are multiple beans that match the injection point
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/cditests/CDIInvokeSimpleGetOperationTest.java`
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/cditests/CDIProxyServerTest.java`
 #### Snippet
 ```java
     @Inject
     @RestClient
-    private SimpleGetApi api;
-    @Inject
-    private BeanManager beanManager;
+    private SimpleGetApi client;
+
+    @Deployment
 ```
 
 ### CdiInjectionPointsInspection
@@ -1860,27 +1848,39 @@ in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/cditests/CDIManag
 
 ### CdiInjectionPointsInspection
 Ambiguous dependency: there are multiple beans that match the injection point
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/cditests/CDIProxyServerTest.java`
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ssl/SslHostnameVerifierTest.java`
 #### Snippet
 ```java
     @Inject
     @RestClient
-    private SimpleGetApi client;
+    private JsonPClient clientWithHostnameVerifier;
 
-    @Deployment
+    @Test(expectedExceptions = ProcessingException.class)
+```
+
+### CdiInjectionPointsInspection
+Ambiguous dependency: there are multiple beans that match the injection point
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/cditests/CDIFollowRedirectsTest.java`
+#### Snippet
+```java
+    @Inject
+    @RestClient
+    private SimpleGetApi defaultClient;
+
+    @Inject
 ```
 
 ## RuleId[id=TrivialStringConcatenation]
 ### TrivialStringConcatenation
 Empty string used in concatenation
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/providers/ThreadedClientResponseFilter.java`
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/asynctests/AsyncMethodTest.java`
 #### Snippet
 ```java
-    public void filter(ClientRequestContext clientRequestContext, ClientResponseContext clientResponseContext)
-            throws IOException {
-        responseThreadId = "" + Thread.currentThread().getId();
-        clientResponseContext.getHeaders().putSingle(RESPONSE_THREAD_ID_HEADER, responseThreadId);
-        responseThreadName = Thread.currentThread().getName();
+                        .withBody(expectedBody)));
+
+        final String mainThreadId = "" + Thread.currentThread().getId();
+
+        SimpleGetApiAsync api = RestClientBuilder.newBuilder()
 ```
 
 ### TrivialStringConcatenation
@@ -1897,14 +1897,26 @@ in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/asynctests/AsyncM
 
 ### TrivialStringConcatenation
 Empty string used in concatenation
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/asynctests/AsyncMethodTest.java`
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/WiremockArquillianTest.java`
 #### Snippet
 ```java
-                        .withBody(expectedBody)));
+    protected static String getStringURL() {
+        int port = getPort();
+        return scheme + "://" + host + ":" + port + "" + context;
+    }
 
-        final String mainThreadId = "" + Thread.currentThread().getId();
+```
 
-        SimpleGetApiAsync api = RestClientBuilder.newBuilder()
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/providers/ThreadedClientResponseFilter.java`
+#### Snippet
+```java
+    public void filter(ClientRequestContext clientRequestContext, ClientResponseContext clientResponseContext)
+            throws IOException {
+        responseThreadId = "" + Thread.currentThread().getId();
+        clientResponseContext.getHeaders().putSingle(RESPONSE_THREAD_ID_HEADER, responseThreadId);
+        responseThreadName = Thread.currentThread().getName();
 ```
 
 ### TrivialStringConcatenation
@@ -1917,18 +1929,6 @@ in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ext/CdiCustomClie
             returnVal.putSingle("CDI_INJECT_COUNT", "" + counter.count());
         }
         return returnVal;
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/WiremockArquillianTest.java`
-#### Snippet
-```java
-    protected static String getStringURL() {
-        int port = getPort();
-        return scheme + "://" + host + ":" + port + "" + context;
-    }
-
 ```
 
 ## RuleId[id=NullableProblems]
@@ -1984,26 +1984,14 @@ in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/ssl/AbstractSslTe
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `api/src/main/java/org/eclipse/microprofile/rest/client/RestClientBuilder.java`
+in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/utils/ConfigUtil.java`
 #### Snippet
 ```java
-     * Specifies the base URL to be used when making requests. Assuming that the interface has a
-     * <code>@Path("/api")</code> at the interface level and a <code>url</code> is given with
-     * <code>http://my-service:8080/service</code> then all REST calls will be invoked with a <code>url</code> of
-     * <code>http://my-service:8080/service/api</code> in addition to any <code>@Path</code> annotations included on the
-     * method.
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `api/src/main/java/org/eclipse/microprofile/rest/client/RestClientBuilder.java`
-#### Snippet
-```java
-     * <code>@Path("/api")</code> at the interface level and a <code>url</code> is given with
-     * <code>http://my-service:8080/service</code> then all REST calls will be invoked with a <code>url</code> of
-     * <code>http://my-service:8080/service/api</code> in addition to any <code>@Path</code> annotations included on the
-     * method.
-     *
+     * @param value
+     *            property value
+     * @return an MP Config line, e.g. com.example.MyClient/mp-rest/url=http://example.com
+     */
+    public static String configLine(Class<?> aClass, String key, String value) {
 ```
 
 ### JavadocLinkAsPlainText
@@ -2032,14 +2020,26 @@ in `api/src/main/java/org/eclipse/microprofile/rest/client/RestClientBuilder.jav
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `tck/src/main/java/org/eclipse/microprofile/rest/client/tck/utils/ConfigUtil.java`
+in `api/src/main/java/org/eclipse/microprofile/rest/client/RestClientBuilder.java`
 #### Snippet
 ```java
-     * @param value
-     *            property value
-     * @return an MP Config line, e.g. com.example.MyClient/mp-rest/url=http://example.com
-     */
-    public static String configLine(Class<?> aClass, String key, String value) {
+     * Specifies the base URL to be used when making requests. Assuming that the interface has a
+     * <code>@Path("/api")</code> at the interface level and a <code>url</code> is given with
+     * <code>http://my-service:8080/service</code> then all REST calls will be invoked with a <code>url</code> of
+     * <code>http://my-service:8080/service/api</code> in addition to any <code>@Path</code> annotations included on the
+     * method.
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `api/src/main/java/org/eclipse/microprofile/rest/client/RestClientBuilder.java`
+#### Snippet
+```java
+     * <code>@Path("/api")</code> at the interface level and a <code>url</code> is given with
+     * <code>http://my-service:8080/service</code> then all REST calls will be invoked with a <code>url</code> of
+     * <code>http://my-service:8080/service/api</code> in addition to any <code>@Path</code> annotations included on the
+     * method.
+     *
 ```
 
 ## RuleId[id=TrivialIf]
