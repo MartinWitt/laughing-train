@@ -34,10 +34,22 @@ String values are compared using `==`, not 'equals()'
 in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/resources/ReviewResource.java`
 #### Snippet
 ```java
-        for (Review review : reviews.values()) {
             User currentUser = review.getUser();
-            if (currentUser.getUserName() == user && (minRating == null || review.getRating() >= minRating)) {
-                reviewsByUser.add(review);
+
+            if (currentAirline.getName() == airlines && currentUser.getUserName() == user) {
+                reviewsByAirlinesUser.add(review);
+            }
+```
+
+### StringEquality
+String values are compared using `==`, not 'equals()'
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/resources/ReviewResource.java`
+#### Snippet
+```java
+            User currentUser = review.getUser();
+
+            if (currentAirline.getName() == airlines && currentUser.getUserName() == user) {
+                reviewsByAirlinesUser.add(review);
             }
 ```
 
@@ -58,22 +70,10 @@ String values are compared using `==`, not 'equals()'
 in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/resources/ReviewResource.java`
 #### Snippet
 ```java
+        for (Review review : reviews.values()) {
             User currentUser = review.getUser();
-
-            if (currentAirline.getName() == airlines && currentUser.getUserName() == user) {
-                reviewsByAirlinesUser.add(review);
-            }
-```
-
-### StringEquality
-String values are compared using `==`, not 'equals()'
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/resources/ReviewResource.java`
-#### Snippet
-```java
-            User currentUser = review.getUser();
-
-            if (currentAirline.getName() == airlines && currentUser.getUserName() == user) {
-                reviewsByAirlinesUser.add(review);
+            if (currentUser.getUserName() == user && (minRating == null || review.getRating() >= minRating)) {
+                reviewsByUser.add(review);
             }
 ```
 
@@ -117,6 +117,18 @@ in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/resource/Pe
 ## RuleId[id=UnnecessaryModifier]
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
+in `api/src/main/java/org/eclipse/microprofile/openapi/models/headers/Header.java`
+#### Snippet
+```java
+     * Controls the style of serialization. Only one style is supported for headers.
+     */
+    public enum Style {
+        SIMPLE("simple");
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
 in `api/src/main/java/org/eclipse/microprofile/openapi/models/servers/Server.java`
 #### Snippet
 ```java
@@ -141,14 +153,50 @@ in `api/src/main/java/org/eclipse/microprofile/openapi/models/servers/Server.jav
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `api/src/main/java/org/eclipse/microprofile/openapi/models/headers/Header.java`
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/resources/PlayerService.java`
 #### Snippet
 ```java
-     * Controls the style of serialization. Only one style is supported for headers.
-     */
-    public enum Style {
-        SIMPLE("simple");
+    @Path("/player/{playerId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getPlayerById(@PathParam("playerId") String id);
 
+    @POST
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/resources/PlayerService.java`
+#### Snippet
+```java
+    @POST
+    @Path("/rank/{playerId}/recordGame")
+    public void recordGame(@PathParam("playerId") String id, @QueryParam("place") int place,
+            @HeaderParam("Authorization") String token);
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/media/Schema.java`
+#### Snippet
+```java
+     * @since 3.1
+     */
+    public final class True {
+        private True() {
+        }
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/media/Schema.java`
+#### Snippet
+```java
+     * @since 3.1
+     */
+    public final class False {
+        private False() {
+        }
 ```
 
 ### UnnecessaryModifier
@@ -189,26 +237,14 @@ public interface APIResponses extends Constructible, Extensible<APIResponses> {
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/media/Schema.java`
+in `api/src/main/java/org/eclipse/microprofile/openapi/models/security/SecurityScheme.java`
 #### Snippet
 ```java
-     * @since 3.1
+     * </p>
      */
-    public final class False {
-        private False() {
-        }
-```
+    public enum In {
+        COOKIE("cookie"), HEADER("header"), QUERY("query");
 
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/media/Schema.java`
-#### Snippet
-```java
-     * @since 3.1
-     */
-    public final class True {
-        private True() {
-        }
 ```
 
 ### UnnecessaryModifier
@@ -223,42 +259,6 @@ in `api/src/main/java/org/eclipse/microprofile/openapi/models/security/SecurityS
 
 ```
 
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `api/src/main/java/org/eclipse/microprofile/openapi/models/security/SecurityScheme.java`
-#### Snippet
-```java
-     * </p>
-     */
-    public enum In {
-        COOKIE("cookie"), HEADER("header"), QUERY("query");
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/resources/PlayerService.java`
-#### Snippet
-```java
-    @Path("/player/{playerId}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getPlayerById(@PathParam("playerId") String id);
-
-    @POST
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/resources/PlayerService.java`
-#### Snippet
-```java
-    @POST
-    @Path("/rank/{playerId}/recordGame")
-    public void recordGame(@PathParam("playerId") String id, @QueryParam("place") int place,
-            @HeaderParam("Authorization") String token);
-
-```
-
 ## RuleId[id=ManualArrayToCollectionCopy]
 ### ManualArrayToCollectionCopy
 Manual array to collection copy
@@ -270,19 +270,6 @@ in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/data/PetDat
             for (String urlString : urls) {
                 urlObjs.add(urlString);
             }
-```
-
-## RuleId[id=UnnecessarySemicolon]
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/enums/Explode.java`
-#### Snippet
-```java
- */
-public enum Explode {
-    DEFAULT, FALSE, TRUE;
-}
-
 ```
 
 ## RuleId[id=DataFlowIssue]
@@ -334,17 +321,30 @@ in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/resource/Ja
 
 ```
 
+## RuleId[id=UnnecessarySemicolon]
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/enums/Explode.java`
+#### Snippet
+```java
+ */
+public enum Explode {
+    DEFAULT, FALSE, TRUE;
+}
+
+```
+
 ## RuleId[id=StringOperationCanBeSimplified]
 ### StringOperationCanBeSimplified
 `new String()` is redundant
 in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/ModelConstructionTest.java`
 #### Snippet
 ```java
-        final ServerVariable sv = processConstructible(ServerVariable.class);
 
-        final String enumeration = new String("enumValue");
-        checkSameObject(sv, sv.addEnumeration(enumeration));
-        checkListEntry(sv.getEnumeration(), enumeration);
+        final String key = "myKey";
+        final String value = new String("myValue");
+        checkSameObject(d, d.addMapping(key, value));
+        checkMapEntry(d.getMapping(), key, value);
 ```
 
 ### StringOperationCanBeSimplified
@@ -352,11 +352,11 @@ in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/ModelConstructionTest
 in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/ModelConstructionTest.java`
 #### Snippet
 ```java
-        assertEquals(sv.getEnumeration().size(), 0, "The list is expected to be empty.");
 
-        final String enumeration2 = new String("enumValue2");
-        sv.setEnumeration(Collections.singletonList(enumeration2));
-        assertEquals(sv.getEnumeration().size(), 1, "The list is expected to contain one entry.");
+        final String key2 = "myCallbackKey2";
+        final String value2 = new String("myValue2");
+        d.setMapping(Collections.singletonMap(key2, value2));
+        checkMapEntry(d.getMapping(), key2, value2);
 ```
 
 ### StringOperationCanBeSimplified
@@ -364,11 +364,11 @@ in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/ModelConstructionTest
 in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/ModelConstructionTest.java`
 #### Snippet
 ```java
-        checkListEntry(sv.getEnumeration(), enumeration);
+        assertEquals(d.getMapping().size(), 2, "The map is expected to contain two entries.");
 
-        final String otherEnumerationValue = new String("otherValue");
-        checkListImmutable(sv, ServerVariable::getEnumeration, otherEnumerationValue);
-    }
+        final String otherValue = new String("otherValue");
+        checkMapImmutable(d, Discriminator::getMapping, "otherValue", otherValue);
+        checkNullValueInAdd(d::getMapping, d::addMapping, "otherKey", value);
 ```
 
 ### StringOperationCanBeSimplified
@@ -448,6 +448,42 @@ in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/ModelConstructionTest
 in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/ModelConstructionTest.java`
 #### Snippet
 ```java
+        final ServerVariable sv = processConstructible(ServerVariable.class);
+
+        final String enumeration = new String("enumValue");
+        checkSameObject(sv, sv.addEnumeration(enumeration));
+        checkListEntry(sv.getEnumeration(), enumeration);
+```
+
+### StringOperationCanBeSimplified
+`new String()` is redundant
+in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/ModelConstructionTest.java`
+#### Snippet
+```java
+        assertEquals(sv.getEnumeration().size(), 0, "The list is expected to be empty.");
+
+        final String enumeration2 = new String("enumValue2");
+        sv.setEnumeration(Collections.singletonList(enumeration2));
+        assertEquals(sv.getEnumeration().size(), 1, "The list is expected to contain one entry.");
+```
+
+### StringOperationCanBeSimplified
+`new String()` is redundant
+in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/ModelConstructionTest.java`
+#### Snippet
+```java
+        checkListEntry(sv.getEnumeration(), enumeration);
+
+        final String otherEnumerationValue = new String("otherValue");
+        checkListImmutable(sv, ServerVariable::getEnumeration, otherEnumerationValue);
+    }
+```
+
+### StringOperationCanBeSimplified
+`new String()` is redundant
+in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/ModelConstructionTest.java`
+#### Snippet
+```java
         checkListImmutable(s, Schema::getAnyOf, otherAnyOfValue);
 
         final String enumeration = new String("enumValue");
@@ -515,55 +551,7 @@ in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/ModelConstructionTest
     }
 ```
 
-### StringOperationCanBeSimplified
-`new String()` is redundant
-in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/ModelConstructionTest.java`
-#### Snippet
-```java
-
-        final String key = "myKey";
-        final String value = new String("myValue");
-        checkSameObject(d, d.addMapping(key, value));
-        checkMapEntry(d.getMapping(), key, value);
-```
-
-### StringOperationCanBeSimplified
-`new String()` is redundant
-in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/ModelConstructionTest.java`
-#### Snippet
-```java
-
-        final String key2 = "myCallbackKey2";
-        final String value2 = new String("myValue2");
-        d.setMapping(Collections.singletonMap(key2, value2));
-        checkMapEntry(d.getMapping(), key2, value2);
-```
-
-### StringOperationCanBeSimplified
-`new String()` is redundant
-in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/ModelConstructionTest.java`
-#### Snippet
-```java
-        assertEquals(d.getMapping().size(), 2, "The map is expected to contain two entries.");
-
-        final String otherValue = new String("otherValue");
-        checkMapImmutable(d, Discriminator::getMapping, "otherValue", otherValue);
-        checkNullValueInAdd(d::getMapping, d::addMapping, "otherKey", value);
-```
-
 ## RuleId[id=RedundantCast]
-### RedundantCast
-Casting `null` to `Map` is redundant
-in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/ModelConstructionTest.java`
-#### Snippet
-```java
-        assertEquals(scopes.get(key), value, "The value corresponding to the 'myKey' is wrong.");
-
-        o.setScopes((Map<String, String>) null);
-        assertNull(o.getScopes(), "The value is expected to be null.");
-    }
-```
-
 ### RedundantCast
 Casting `null` to `Map` is redundant
 in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/ModelConstructionTest.java`
@@ -573,6 +561,18 @@ in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/ModelConstructionTest
 
         server.setVariables((Map<String, ServerVariable>) null);
         assertNull(server.getVariables(), "The value is expected to be null.");
+    }
+```
+
+### RedundantCast
+Casting `null` to `Map` is redundant
+in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/ModelConstructionTest.java`
+#### Snippet
+```java
+        assertEquals(scopes.get(key), value, "The value corresponding to the 'myKey' is wrong.");
+
+        o.setScopes((Map<String, String>) null);
+        assertNull(o.getScopes(), "The value is expected to be null.");
     }
 ```
 
@@ -590,18 +590,6 @@ in `api/src/main/java/org/eclipse/microprofile/openapi/models/media/Encoding.jav
 ```
 
 ### FieldMayBeFinal
-Field `airlines` may be 'final'
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/resources/AirlinesResource.java`
-#### Snippet
-```java
-          }))
-public class AirlinesResource {
-    private static Map<Integer, Airline> airlines = new ConcurrentHashMap<Integer, Airline>();
-
-    static {
-```
-
-### FieldMayBeFinal
 Field `bookings` may be 'final'
 in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/resources/bookings/BookingResource.java`
 #### Snippet
@@ -611,30 +599,6 @@ public class BookingResource {
     private Map<Integer, Booking> bookings = new ConcurrentHashMap<Integer, Booking>();
     private volatile int currentId = 0;
 
-```
-
-### FieldMayBeFinal
-Field `properties` may be 'final'
-in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/utils/ConfigAsset.java`
-#### Snippet
-```java
-public class ConfigAsset implements Asset {
-
-    private Properties properties = new Properties();
-
-    public ConfigAsset put(String key, String... values) {
-```
-
-### FieldMayBeFinal
-Field `code` may be 'final'
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/exception/BadRequestException.java`
-#### Snippet
-```java
-
-public class BadRequestException extends ApiException {
-    private int code;
-    public BadRequestException(int code, String msg) {
-        super(code, msg);
 ```
 
 ### FieldMayBeFinal
@@ -662,6 +626,138 @@ public class NotFoundException extends ApiException {
 ```
 
 ### FieldMayBeFinal
+Field `code` may be 'final'
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/exception/ApiException.java`
+#### Snippet
+```java
+
+public class ApiException extends Exception {
+    private int code;
+    public ApiException(int code, String msg) {
+        super(msg);
+```
+
+### FieldMayBeFinal
+Field `value` may be 'final'
+in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/enums/ParameterStyle.java`
+#### Snippet
+```java
+                    "deepObject"), SIMPLE("simple");
+
+    private String value;
+
+    ParameterStyle(String value) {
+```
+
+### FieldMayBeFinal
+Field `code` may be 'final'
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/exception/ApiException.java`
+#### Snippet
+```java
+
+public class ApiException extends Exception {
+    private int code;
+    public ApiException(int code, String msg) {
+        super(msg);
+```
+
+### FieldMayBeFinal
+Field `value` may be 'final'
+in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/enums/ParameterIn.java`
+#### Snippet
+```java
+    DEFAULT(""), HEADER("header"), QUERY("query"), PATH("path"), COOKIE("cookie");
+
+    private String value;
+
+    ParameterIn(String value) {
+```
+
+### FieldMayBeFinal
+Field `value` may be 'final'
+in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/enums/SecuritySchemeType.java`
+#### Snippet
+```java
+    DEFAULT(""), APIKEY("apiKey"), HTTP("http"), OPENIDCONNECT("openIdConnect"), OAUTH2("oauth2");
+
+    private String value;
+
+    SecuritySchemeType(String value) {
+```
+
+### FieldMayBeFinal
+Field `code` may be 'final'
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/exception/BadRequestException.java`
+#### Snippet
+```java
+
+public class BadRequestException extends ApiException {
+    private int code;
+    public BadRequestException(int code, String msg) {
+        super(code, msg);
+```
+
+### FieldMayBeFinal
+Field `value` may be 'final'
+in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/enums/SchemaType.java`
+#### Snippet
+```java
+            "array"), DEFAULT("");
+
+    private String value;
+
+    SchemaType(String value) {
+```
+
+### FieldMayBeFinal
+Field `narrative` may be 'final'
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/model/Weather.java`
+#### Snippet
+```java
+
+    @Schema(required = true)
+    private String narrative;
+
+    public Weather() {
+```
+
+### FieldMayBeFinal
+Field `properties` may be 'final'
+in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/utils/ConfigAsset.java`
+#### Snippet
+```java
+public class ConfigAsset implements Asset {
+
+    private Properties properties = new Properties();
+
+    public ConfigAsset put(String key, String... values) {
+```
+
+### FieldMayBeFinal
+Field `value` may be 'final'
+in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/enums/SecuritySchemeIn.java`
+#### Snippet
+```java
+    DEFAULT(""), HEADER("header"), QUERY("query"), COOKIE("cookie");
+
+    private String value;
+
+    SecuritySchemeIn(String value) {
+```
+
+### FieldMayBeFinal
+Field `airlines` may be 'final'
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/resources/AirlinesResource.java`
+#### Snippet
+```java
+          }))
+public class AirlinesResource {
+    private static Map<Integer, Airline> airlines = new ConcurrentHashMap<Integer, Airline>();
+
+    static {
+```
+
+### FieldMayBeFinal
 Field `reviews` may be 'final'
 in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/resources/ReviewResource.java`
 #### Snippet
@@ -685,102 +781,6 @@ in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/resources/R
 
 ```
 
-### FieldMayBeFinal
-Field `value` may be 'final'
-in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/enums/ParameterStyle.java`
-#### Snippet
-```java
-                    "deepObject"), SIMPLE("simple");
-
-    private String value;
-
-    ParameterStyle(String value) {
-```
-
-### FieldMayBeFinal
-Field `value` may be 'final'
-in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/enums/SecuritySchemeType.java`
-#### Snippet
-```java
-    DEFAULT(""), APIKEY("apiKey"), HTTP("http"), OPENIDCONNECT("openIdConnect"), OAUTH2("oauth2");
-
-    private String value;
-
-    SecuritySchemeType(String value) {
-```
-
-### FieldMayBeFinal
-Field `value` may be 'final'
-in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/enums/SchemaType.java`
-#### Snippet
-```java
-            "array"), DEFAULT("");
-
-    private String value;
-
-    SchemaType(String value) {
-```
-
-### FieldMayBeFinal
-Field `value` may be 'final'
-in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/enums/SecuritySchemeIn.java`
-#### Snippet
-```java
-    DEFAULT(""), HEADER("header"), QUERY("query"), COOKIE("cookie");
-
-    private String value;
-
-    SecuritySchemeIn(String value) {
-```
-
-### FieldMayBeFinal
-Field `narrative` may be 'final'
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/model/Weather.java`
-#### Snippet
-```java
-
-    @Schema(required = true)
-    private String narrative;
-
-    public Weather() {
-```
-
-### FieldMayBeFinal
-Field `value` may be 'final'
-in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/enums/ParameterIn.java`
-#### Snippet
-```java
-    DEFAULT(""), HEADER("header"), QUERY("query"), PATH("path"), COOKIE("cookie");
-
-    private String value;
-
-    ParameterIn(String value) {
-```
-
-### FieldMayBeFinal
-Field `code` may be 'final'
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/exception/ApiException.java`
-#### Snippet
-```java
-
-public class ApiException extends Exception {
-    private int code;
-    public ApiException(int code, String msg) {
-        super(msg);
-```
-
-### FieldMayBeFinal
-Field `code` may be 'final'
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/exception/ApiException.java`
-#### Snippet
-```java
-
-public class ApiException extends Exception {
-    private int code;
-    public ApiException(int code, String msg) {
-        super(msg);
-```
-
 ## RuleId[id=CommentedOutCode]
 ### CommentedOutCode
 Commented out code (2 lines)
@@ -800,18 +800,6 @@ Unknown HTTP header
 in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/resource/PetResource.java`
 #### Snippet
 ```java
-            @Parameter(name = "apiKey", description = "authentication key to access this method",
-                       schema = @Schema(type = SchemaType.STRING, implementation = String.class, maxLength = 256,
-                                        minLength = 32)) @HeaderParam("apiKey") String apiKey,
-            @Parameter(name = "petId", description = "ID of pet that needs to be fetched", required = true,
-                       schema = @Schema(implementation = Long.class, maximum = "10",
-```
-
-### UastIncorrectHttpHeaderInspection
-Unknown HTTP header
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/resource/PetResource.java`
-#### Snippet
-```java
     @Deprecated
     public Response findPetsByTags(
             @HeaderParam("apiKey") String apiKey,
@@ -819,77 +807,16 @@ in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/resource/Pe
                        schema = @Schema(implementation = String.class, deprecated = true,
 ```
 
-## RuleId[id=NonFinalFieldInEnum]
-### NonFinalFieldInEnum
-Non-final field `value` in enum 'Style'
-in `api/src/main/java/org/eclipse/microprofile/openapi/models/media/Encoding.java`
+### UastIncorrectHttpHeaderInspection
+Unknown HTTP header
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/resource/PetResource.java`
 #### Snippet
 ```java
-        FORM("form"), SPACE_DELIMITED("spaceDelimited"), PIPE_DELIMITED("pipeDelimited"), DEEP_OBJECT("deepObject");
-
-        private String value;
-
-        Style(String value) {
-```
-
-### NonFinalFieldInEnum
-Non-final field `value` in enum 'ParameterStyle'
-in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/enums/ParameterStyle.java`
-#### Snippet
-```java
-                    "deepObject"), SIMPLE("simple");
-
-    private String value;
-
-    ParameterStyle(String value) {
-```
-
-### NonFinalFieldInEnum
-Non-final field `value` in enum 'SecuritySchemeType'
-in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/enums/SecuritySchemeType.java`
-#### Snippet
-```java
-    DEFAULT(""), APIKEY("apiKey"), HTTP("http"), OPENIDCONNECT("openIdConnect"), OAUTH2("oauth2");
-
-    private String value;
-
-    SecuritySchemeType(String value) {
-```
-
-### NonFinalFieldInEnum
-Non-final field `value` in enum 'SchemaType'
-in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/enums/SchemaType.java`
-#### Snippet
-```java
-            "array"), DEFAULT("");
-
-    private String value;
-
-    SchemaType(String value) {
-```
-
-### NonFinalFieldInEnum
-Non-final field `value` in enum 'SecuritySchemeIn'
-in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/enums/SecuritySchemeIn.java`
-#### Snippet
-```java
-    DEFAULT(""), HEADER("header"), QUERY("query"), COOKIE("cookie");
-
-    private String value;
-
-    SecuritySchemeIn(String value) {
-```
-
-### NonFinalFieldInEnum
-Non-final field `value` in enum 'ParameterIn'
-in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/enums/ParameterIn.java`
-#### Snippet
-```java
-    DEFAULT(""), HEADER("header"), QUERY("query"), PATH("path"), COOKIE("cookie");
-
-    private String value;
-
-    ParameterIn(String value) {
+            @Parameter(name = "apiKey", description = "authentication key to access this method",
+                       schema = @Schema(type = SchemaType.STRING, implementation = String.class, maxLength = 256,
+                                        minLength = 32)) @HeaderParam("apiKey") String apiKey,
+            @Parameter(name = "petId", description = "ID of pet that needs to be fetched", required = true,
+                       schema = @Schema(implementation = Long.class, maximum = "10",
 ```
 
 ## RuleId[id=DuplicatedCode]
@@ -1502,19 +1429,80 @@ in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/PetStoreAppTest.java`
                         hasEntry(equalTo("properties"), notNullValue())));
 ```
 
-## RuleId[id=MismatchedJavadocCode]
-### MismatchedJavadocCode
-Method is specified to return list but the return type is array
-in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/security/SecurityRequirement.java`
+## RuleId[id=NonFinalFieldInEnum]
+### NonFinalFieldInEnum
+Non-final field `value` in enum 'Style'
+in `api/src/main/java/org/eclipse/microprofile/openapi/models/media/Encoding.java`
 #### Snippet
 ```java
-     * </p>
-     * 
-     * @return a list of scope names required for the execution of this Security Requirement instance.
-     */
-    String[] scopes() default {};
+        FORM("form"), SPACE_DELIMITED("spaceDelimited"), PIPE_DELIMITED("pipeDelimited"), DEEP_OBJECT("deepObject");
+
+        private String value;
+
+        Style(String value) {
 ```
 
+### NonFinalFieldInEnum
+Non-final field `value` in enum 'ParameterStyle'
+in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/enums/ParameterStyle.java`
+#### Snippet
+```java
+                    "deepObject"), SIMPLE("simple");
+
+    private String value;
+
+    ParameterStyle(String value) {
+```
+
+### NonFinalFieldInEnum
+Non-final field `value` in enum 'ParameterIn'
+in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/enums/ParameterIn.java`
+#### Snippet
+```java
+    DEFAULT(""), HEADER("header"), QUERY("query"), PATH("path"), COOKIE("cookie");
+
+    private String value;
+
+    ParameterIn(String value) {
+```
+
+### NonFinalFieldInEnum
+Non-final field `value` in enum 'SecuritySchemeType'
+in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/enums/SecuritySchemeType.java`
+#### Snippet
+```java
+    DEFAULT(""), APIKEY("apiKey"), HTTP("http"), OPENIDCONNECT("openIdConnect"), OAUTH2("oauth2");
+
+    private String value;
+
+    SecuritySchemeType(String value) {
+```
+
+### NonFinalFieldInEnum
+Non-final field `value` in enum 'SchemaType'
+in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/enums/SchemaType.java`
+#### Snippet
+```java
+            "array"), DEFAULT("");
+
+    private String value;
+
+    SchemaType(String value) {
+```
+
+### NonFinalFieldInEnum
+Non-final field `value` in enum 'SecuritySchemeIn'
+in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/enums/SecuritySchemeIn.java`
+#### Snippet
+```java
+    DEFAULT(""), HEADER("header"), QUERY("query"), COOKIE("cookie");
+
+    private String value;
+
+    SecuritySchemeIn(String value) {
+```
+
+## RuleId[id=MismatchedJavadocCode]
 ### MismatchedJavadocCode
 Method is specified to return list but the return type is array
 in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/media/Content.java`
@@ -1523,6 +1511,18 @@ in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/media/Content
      * An array of examples used to show the use of the associated schema.
      *
      * @return the list of examples
+     **/
+    ExampleObject[] examples() default {};
+```
+
+### MismatchedJavadocCode
+Method is specified to return list but the return type is array
+in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/parameters/Parameter.java`
+#### Snippet
+```java
+     * Ignored if the properties content or array are specified.
+     * 
+     * @return the list of examples for this parameter
      **/
     ExampleObject[] examples() default {};
 ```
@@ -1541,91 +1541,7 @@ in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/links/Link.ja
 
 ### MismatchedJavadocCode
 Method is specified to return list but the return type is array
-in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/callbacks/CallbackOperation.java`
-#### Snippet
-```java
-     * Including an empty set within this list indicates that the other requirements are optional.
-     * 
-     * @return the list of security mechanisms for this callback operation
-     */
-    SecurityRequirementsSet[] securitySets() default {};
-```
-
-### MismatchedJavadocCode
-Method is specified to return list but the return type is array
-in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/callbacks/CallbackOperation.java`
-#### Snippet
-```java
-     * array can be used.
-     * 
-     * @return the list of security mechanisms for this callback operation
-     */
-    SecurityRequirement[] security() default {};
-```
-
-### MismatchedJavadocCode
-Method is specified to return list but the return type is array
-in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/callbacks/CallbackOperation.java`
-#### Snippet
-```java
-     * </p>
-     * 
-     * @return the list of responses for this callback operation
-     **/
-    APIResponse[] responses() default {};
-```
-
-### MismatchedJavadocCode
-Method is specified to return list but the return type is array
-in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/callbacks/CallbackOperation.java`
-#### Snippet
-```java
-     * </p>
-     * 
-     * @return the list of parameters for this callback operation
-     **/
-    Parameter[] parameters() default {};
-```
-
-### MismatchedJavadocCode
-Method is specified to return list but the return type is array
-in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/media/SchemaProperty.java`
-#### Snippet
-```java
-     * </p>
-     * 
-     * @return the list of possible classes for a single match
-     **/
-    Class<?>[] oneOf() default {};
-```
-
-### MismatchedJavadocCode
-Method is specified to return list but the return type is array
-in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/media/SchemaProperty.java`
-#### Snippet
-```java
-     * </p>
-     * 
-     * @return the list of possible class matches
-     **/
-    Class<?>[] anyOf() default {};
-```
-
-### MismatchedJavadocCode
-Method is specified to return list but the return type is array
-in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/media/SchemaProperty.java`
-#### Snippet
-```java
-     * Allows multiple properties in an object to be marked as required.
-     *
-     * @return the list of required schema properties
-     **/
-    String[] requiredProperties() default {};
-```
-
-### MismatchedJavadocCode
-Method is specified to return list but the return type is array
-in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/media/SchemaProperty.java`
+in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/media/Schema.java`
 #### Snippet
 ```java
      * </p>
@@ -1637,42 +1553,6 @@ in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/media/SchemaP
 
 ### MismatchedJavadocCode
 Method is specified to return list but the return type is array
-in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/media/SchemaProperty.java`
-#### Snippet
-```java
-     * in the schema model.
-     *
-     * @return a list of allowed schema values
-     */
-    String[] enumeration() default {};
-```
-
-### MismatchedJavadocCode
-Method is specified to return list but the return type is array
-in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/media/Schema.java`
-#### Snippet
-```java
-     * in the schema model.
-     * 
-     * @return a list of allowed schema values
-     */
-    String[] enumeration() default {};
-```
-
-### MismatchedJavadocCode
-Method is specified to return list but the return type is array
-in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/media/Schema.java`
-#### Snippet
-```java
-     * </p>
-     * 
-     * @return the list of possible classes for a single match
-     **/
-    Class<?>[] oneOf() default {};
-```
-
-### MismatchedJavadocCode
-Method is specified to return list but the return type is array
 in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/media/Schema.java`
 #### Snippet
 ```java
@@ -1690,9 +1570,9 @@ in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/media/Schema.
 ```java
      * </p>
      * 
-     * @return the list of possible class matches
+     * @return the list of possible classes for a single match
      **/
-    Class<?>[] anyOf() default {};
+    Class<?>[] oneOf() default {};
 ```
 
 ### MismatchedJavadocCode
@@ -1712,6 +1592,78 @@ Method is specified to return list but the return type is array
 in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/media/Schema.java`
 #### Snippet
 ```java
+     * in the schema model.
+     * 
+     * @return a list of allowed schema values
+     */
+    String[] enumeration() default {};
+```
+
+### MismatchedJavadocCode
+Method is specified to return list but the return type is array
+in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/media/Schema.java`
+#### Snippet
+```java
+     * </p>
+     * 
+     * @return the list of possible class matches
+     **/
+    Class<?>[] anyOf() default {};
+```
+
+### MismatchedJavadocCode
+Method is specified to return list but the return type is array
+in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/callbacks/CallbackOperation.java`
+#### Snippet
+```java
+     * </p>
+     * 
+     * @return the list of parameters for this callback operation
+     **/
+    Parameter[] parameters() default {};
+```
+
+### MismatchedJavadocCode
+Method is specified to return list but the return type is array
+in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/callbacks/CallbackOperation.java`
+#### Snippet
+```java
+     * Including an empty set within this list indicates that the other requirements are optional.
+     * 
+     * @return the list of security mechanisms for this callback operation
+     */
+    SecurityRequirementsSet[] securitySets() default {};
+```
+
+### MismatchedJavadocCode
+Method is specified to return list but the return type is array
+in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/callbacks/CallbackOperation.java`
+#### Snippet
+```java
+     * </p>
+     * 
+     * @return the list of responses for this callback operation
+     **/
+    APIResponse[] responses() default {};
+```
+
+### MismatchedJavadocCode
+Method is specified to return list but the return type is array
+in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/callbacks/CallbackOperation.java`
+#### Snippet
+```java
+     * array can be used.
+     * 
+     * @return the list of security mechanisms for this callback operation
+     */
+    SecurityRequirement[] security() default {};
+```
+
+### MismatchedJavadocCode
+Method is specified to return list but the return type is array
+in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/media/SchemaProperty.java`
+#### Snippet
+```java
      * </p>
      * 
      * @return the list of classes to match
@@ -1721,14 +1673,62 @@ in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/media/Schema.
 
 ### MismatchedJavadocCode
 Method is specified to return list but the return type is array
-in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/parameters/Parameter.java`
+in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/media/SchemaProperty.java`
 #### Snippet
 ```java
-     * Ignored if the properties content or array are specified.
-     * 
-     * @return the list of examples for this parameter
+     * in the schema model.
+     *
+     * @return a list of allowed schema values
+     */
+    String[] enumeration() default {};
+```
+
+### MismatchedJavadocCode
+Method is specified to return list but the return type is array
+in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/media/SchemaProperty.java`
+#### Snippet
+```java
+     * Allows multiple properties in an object to be marked as required.
+     *
+     * @return the list of required schema properties
      **/
-    ExampleObject[] examples() default {};
+    String[] requiredProperties() default {};
+```
+
+### MismatchedJavadocCode
+Method is specified to return list but the return type is array
+in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/media/SchemaProperty.java`
+#### Snippet
+```java
+     * </p>
+     * 
+     * @return the list of possible class matches
+     **/
+    Class<?>[] anyOf() default {};
+```
+
+### MismatchedJavadocCode
+Method is specified to return list but the return type is array
+in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/media/SchemaProperty.java`
+#### Snippet
+```java
+     * </p>
+     * 
+     * @return the list of possible classes for a single match
+     **/
+    Class<?>[] oneOf() default {};
+```
+
+### MismatchedJavadocCode
+Method is specified to return list but the return type is array
+in `api/src/main/java/org/eclipse/microprofile/openapi/annotations/security/SecurityRequirement.java`
+#### Snippet
+```java
+     * </p>
+     * 
+     * @return a list of scope names required for the execution of this Security Requirement instance.
+     */
+    String[] scopes() default {};
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
@@ -1757,20 +1757,19 @@ in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/ModelConstructionTest
             return new Byte((byte) 1);
 ```
 
-## RuleId[id=DanglingJavadoc]
-### DanglingJavadoc
-Dangling Javadoc comment
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/model/User.java`
+## RuleId[id=InnerClassMayBeStatic]
+### InnerClassMayBeStatic
+Inner class `MyAbstractLicenseImpl` may be 'static'
+in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/OASFactoryErrorTest.java`
 #### Snippet
 ```java
-    @Schema(name = "status", title = "User Status")
-
-    /**
-     * Returns the status of this User instance.
-     * 
+    public interface MyLicense extends License {
+    }
+    public abstract class MyAbstractLicenseImpl implements License {
+    }
+    public final class MyLicenseImpl implements License {
 ```
 
-## RuleId[id=InnerClassMayBeStatic]
 ### InnerClassMayBeStatic
 Inner class `MyLicenseImpl` may be 'static'
 in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/OASFactoryErrorTest.java`
@@ -1783,16 +1782,17 @@ in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/OASFactoryErrorTest.j
         public Map<String, Object> getExtensions() {
 ```
 
-### InnerClassMayBeStatic
-Inner class `MyAbstractLicenseImpl` may be 'static'
-in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/OASFactoryErrorTest.java`
+## RuleId[id=DanglingJavadoc]
+### DanglingJavadoc
+Dangling Javadoc comment
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/model/User.java`
 #### Snippet
 ```java
-    public interface MyLicense extends License {
-    }
-    public abstract class MyAbstractLicenseImpl implements License {
-    }
-    public final class MyLicenseImpl implements License {
+    @Schema(name = "status", title = "User Status")
+
+    /**
+     * Returns the status of this User instance.
+     * 
 ```
 
 ## RuleId[id=UnusedAssignment]
@@ -1856,19 +1856,6 @@ public class JavaRestResourceUtil {
             output = Integer.parseInt(inputString);
 ```
 
-## RuleId[id=UseBulkOperation]
-### UseBulkOperation
-Iteration can be replaced with bulk 'Collection.addAll()' call
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/data/PetData.java`
-#### Snippet
-```java
-            List<String> urlObjs = new ArrayList<String>();
-            for (String urlString : urls) {
-                urlObjs.add(urlString);
-            }
-            pet.setPhotoUrls(urlObjs);
-```
-
 ## RuleId[id=ConstantValue]
 ### ConstantValue
 Condition `output < minVal` is always `false`
@@ -1894,6 +1881,19 @@ in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/resource/Ja
             }
 ```
 
+## RuleId[id=UseBulkOperation]
+### UseBulkOperation
+Iteration can be replaced with bulk 'Collection.addAll()' call
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/data/PetData.java`
+#### Snippet
+```java
+            List<String> urlObjs = new ArrayList<String>();
+            for (String urlString : urls) {
+                urlObjs.add(urlString);
+            }
+            pet.setPhotoUrls(urlObjs);
+```
+
 ## RuleId[id=JavadocLinkAsPlainText]
 ### JavadocLinkAsPlainText
 Link specified as plain text
@@ -1908,18 +1908,6 @@ in `api/src/main/java/org/eclipse/microprofile/openapi/OASFactory.java`
 ```
 
 ## RuleId[id=FieldCanBeLocal]
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/exception/BadRequestException.java`
-#### Snippet
-```java
-
-public class BadRequestException extends ApiException {
-    private int code;
-    public BadRequestException(int code, String msg) {
-        super(code, msg);
-```
-
 ### FieldCanBeLocal
 Field can be converted to a local variable
 in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/exception/BadRequestException.java`
@@ -1946,26 +1934,14 @@ public class NotFoundException extends ApiException {
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/OASConfigScanClassBase.java`
-#### Snippet
-```java
- */
-public abstract class OASConfigScanClassBase extends AppTestBase {
-    private ValidatableResponse vr;
-
-    @Test(dataProvider = "formatProvider")
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/OASConfigServersTest.java`
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/exception/ApiException.java`
 #### Snippet
 ```java
 
-public class OASConfigServersTest extends AppTestBase {
-    private ValidatableResponse vr;
-
-    @Deployment(name = "airlines", testable = false)
+public class ApiException extends Exception {
+    private int code;
+    public ApiException(int code, String msg) {
+        super(msg);
 ```
 
 ### FieldCanBeLocal
@@ -1975,6 +1951,18 @@ in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/OASConfigScanDisableT
 ```java
 
 public class OASConfigScanDisableTest extends AppTestBase {
+    private ValidatableResponse vr;
+
+    @Deployment(name = "airlines", testable = false)
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/OASConfigServersTest.java`
+#### Snippet
+```java
+
+public class OASConfigServersTest extends AppTestBase {
     private ValidatableResponse vr;
 
     @Deployment(name = "airlines", testable = false)
@@ -1994,14 +1982,26 @@ public class ApiException extends Exception {
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/AppTestBase.java`
+in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/airlines/exception/BadRequestException.java`
 #### Snippet
 ```java
 
+public class BadRequestException extends ApiException {
+    private int code;
+    public BadRequestException(int code, String msg) {
+        super(code, msg);
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/AppTestBase.java`
+#### Snippet
+```java
     private static String serverUrl;
     private static String username;
     private static String password;
 
+    protected static final Filter YAML_FILTER = new YamlToJsonFilter();
 ```
 
 ### FieldCanBeLocal
@@ -2021,23 +2021,23 @@ Field can be converted to a local variable
 in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/AppTestBase.java`
 #### Snippet
 ```java
+
     private static String serverUrl;
     private static String username;
     private static String password;
 
-    protected static final Filter YAML_FILTER = new YamlToJsonFilter();
 ```
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `tck/src/main/java/org/eclipse/microprofile/openapi/apps/petstore/exception/ApiException.java`
+in `tck/src/main/java/org/eclipse/microprofile/openapi/tck/OASConfigScanClassBase.java`
 #### Snippet
 ```java
+ */
+public abstract class OASConfigScanClassBase extends AppTestBase {
+    private ValidatableResponse vr;
 
-public class ApiException extends Exception {
-    private int code;
-    public ApiException(int code, String msg) {
-        super(msg);
+    @Test(dataProvider = "formatProvider")
 ```
 
 ## RuleId[id=NonAtomicOperationOnVolatileField]
