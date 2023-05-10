@@ -46,18 +46,6 @@ String values are compared using `==`, not 'equals()'
 in `src/main/java/org/apache/commons/lang3/BooleanUtils.java`
 #### Snippet
 ```java
-        // Similar performance for null, 'false', and other strings not length 2/3/4.
-        // 'true'/'TRUE' match 4 times slower, 'tRUE'/'True' 7 times slower.
-        if (str == TRUE) {
-            return Boolean.TRUE;
-        }
-```
-
-### StringEquality
-String values are compared using `==`, not 'equals()'
-in `src/main/java/org/apache/commons/lang3/BooleanUtils.java`
-#### Snippet
-```java
      */
     public static boolean toBoolean(final String str, final String trueString, final String falseString) {
         if (str == trueString) {
@@ -79,11 +67,23 @@ in `src/main/java/org/apache/commons/lang3/BooleanUtils.java`
 
 ### StringEquality
 String values are compared using `==`, not 'equals()'
+in `src/main/java/org/apache/commons/lang3/BooleanUtils.java`
+#### Snippet
+```java
+        // Similar performance for null, 'false', and other strings not length 2/3/4.
+        // 'true'/'TRUE' match 4 times slower, 'tRUE'/'True' 7 times slower.
+        if (str == TRUE) {
+            return Boolean.TRUE;
+        }
+```
+
+### StringEquality
+String values are compared using `==`, not 'equals()'
 in `src/main/java/org/apache/commons/lang3/StringUtils.java`
 #### Snippet
 ```java
      */
-    public static int compare(final String str1, final String str2, final boolean nullIsLess) {
+    public static int compareIgnoreCase(final String str1, final String str2, final boolean nullIsLess) {
         if (str1 == str2) { // NOSONARLINT this intentionally uses == to allow for both null
             return 0;
         }
@@ -95,7 +95,7 @@ in `src/main/java/org/apache/commons/lang3/StringUtils.java`
 #### Snippet
 ```java
      */
-    public static int compareIgnoreCase(final String str1, final String str2, final boolean nullIsLess) {
+    public static int compare(final String str1, final String str2, final boolean nullIsLess) {
         if (str1 == str2) { // NOSONARLINT this intentionally uses == to allow for both null
             return 0;
         }
@@ -141,108 +141,24 @@ in `src/main/java/org/apache/commons/lang3/time/DateUtils.java`
 
 ## RuleId[id=UNCHECKED_WARNING]
 ### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableObjLongConsumer' to 'org.apache.commons.lang3.function.FailableObjLongConsumer'
-in `src/main/java/org/apache/commons/lang3/function/FailableObjLongConsumer.java`
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableIntToDoubleFunction' to 'org.apache.commons.lang3.function.FailableIntToDoubleFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableIntToDoubleFunction.java`
 #### Snippet
 ```java
      */
-    static <T, E extends Throwable> FailableObjLongConsumer<T, E> nop() {
+    static <E extends Throwable> FailableIntToDoubleFunction<E> nop() {
         return NOP;
     }
 
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableToIntBiFunction' to 'org.apache.commons.lang3.function.FailableToIntBiFunction'
-in `src/main/java/org/apache/commons/lang3/function/FailableToIntBiFunction.java`
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableIntConsumer' to 'org.apache.commons.lang3.function.FailableIntConsumer'
+in `src/main/java/org/apache/commons/lang3/function/FailableIntConsumer.java`
 #### Snippet
 ```java
      */
-    static <T, U, E extends Throwable> FailableToIntBiFunction<T, U, E> nop() {
-        return NOP;
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableDoublePredicate' to 'org.apache.commons.lang3.function.FailableDoublePredicate'
-in `src/main/java/org/apache/commons/lang3/function/FailableDoublePredicate.java`
-#### Snippet
-```java
-     */
-   static <E extends Throwable> FailableDoublePredicate<E> falsePredicate() {
-        return FALSE;
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableDoublePredicate' to 'org.apache.commons.lang3.function.FailableDoublePredicate'
-in `src/main/java/org/apache/commons/lang3/function/FailableDoublePredicate.java`
-#### Snippet
-```java
-     */
-   static <E extends Throwable> FailableDoublePredicate<E> truePredicate() {
-        return TRUE;
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableConsumer' to 'org.apache.commons.lang3.function.FailableConsumer'
-in `src/main/java/org/apache/commons/lang3/function/FailableConsumer.java`
-#### Snippet
-```java
-     */
-    static <T, E extends Throwable> FailableConsumer<T, E> nop() {
-        return NOP;
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableIntPredicate' to 'org.apache.commons.lang3.function.FailableIntPredicate'
-in `src/main/java/org/apache/commons/lang3/function/FailableIntPredicate.java`
-#### Snippet
-```java
-     */
-    static <E extends Throwable> FailableIntPredicate<E> falsePredicate() {
-        return FALSE;
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableIntPredicate' to 'org.apache.commons.lang3.function.FailableIntPredicate'
-in `src/main/java/org/apache/commons/lang3/function/FailableIntPredicate.java`
-#### Snippet
-```java
-     */
-    static <E extends Throwable> FailableIntPredicate<E> truePredicate() {
-        return TRUE;
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableLongConsumer' to 'org.apache.commons.lang3.function.FailableLongConsumer'
-in `src/main/java/org/apache/commons/lang3/function/FailableLongConsumer.java`
-#### Snippet
-```java
-     */
-    static <E extends Throwable> FailableLongConsumer<E> nop() {
-        return NOP;
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableIntToLongFunction' to 'org.apache.commons.lang3.function.FailableIntToLongFunction'
-in `src/main/java/org/apache/commons/lang3/function/FailableIntToLongFunction.java`
-#### Snippet
-```java
-     */
-    static <E extends Throwable> FailableIntToLongFunction<E> nop() {
+    static <E extends Throwable> FailableIntConsumer<E> nop() {
         return NOP;
     }
 
@@ -261,24 +177,12 @@ in `src/main/java/org/apache/commons/lang3/function/FailableToDoubleFunction.jav
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableDoubleConsumer' to 'org.apache.commons.lang3.function.FailableDoubleConsumer'
-in `src/main/java/org/apache/commons/lang3/function/FailableDoubleConsumer.java`
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableIntFunction' to 'org.apache.commons.lang3.function.FailableIntFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableIntFunction.java`
 #### Snippet
 ```java
      */
-    static <E extends Throwable> FailableDoubleConsumer<E> nop() {
-        return NOP;
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableIntUnaryOperator' to 'org.apache.commons.lang3.function.FailableIntUnaryOperator'
-in `src/main/java/org/apache/commons/lang3/function/FailableIntUnaryOperator.java`
-#### Snippet
-```java
-     */
-    static <E extends Throwable> FailableIntUnaryOperator<E> nop() {
+    static <R, E extends Throwable> FailableIntFunction<R, E> nop() {
         return NOP;
     }
 
@@ -297,24 +201,36 @@ in `src/main/java/org/apache/commons/lang3/function/FailableBiConsumer.java`
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableObjIntConsumer' to 'org.apache.commons.lang3.function.FailableObjIntConsumer'
-in `src/main/java/org/apache/commons/lang3/function/FailableObjIntConsumer.java`
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableLongUnaryOperator' to 'org.apache.commons.lang3.function.FailableLongUnaryOperator'
+in `src/main/java/org/apache/commons/lang3/function/FailableLongUnaryOperator.java`
 #### Snippet
 ```java
      */
-    static <T, E extends Throwable> FailableObjIntConsumer<T, E> nop() {
+   static <E extends Throwable> FailableLongUnaryOperator<E> nop() {
         return NOP;
     }
 
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableDoubleFunction' to 'org.apache.commons.lang3.function.FailableDoubleFunction'
-in `src/main/java/org/apache/commons/lang3/function/FailableDoubleFunction.java`
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableObjDoubleConsumer' to 'org.apache.commons.lang3.function.FailableObjDoubleConsumer'
+in `src/main/java/org/apache/commons/lang3/function/FailableObjDoubleConsumer.java`
 #### Snippet
 ```java
      */
-    static <R, E extends Throwable> FailableDoubleFunction<R, E> nop() {
+   static <T, E extends Throwable> FailableObjDoubleConsumer<T, E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableIntToLongFunction' to 'org.apache.commons.lang3.function.FailableIntToLongFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableIntToLongFunction.java`
+#### Snippet
+```java
+     */
+    static <E extends Throwable> FailableIntToLongFunction<E> nop() {
         return NOP;
     }
 
@@ -333,6 +249,270 @@ in `src/main/java/org/apache/commons/lang3/function/FailableToLongFunction.java`
 ```
 
 ### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableConsumer' to 'org.apache.commons.lang3.function.FailableConsumer'
+in `src/main/java/org/apache/commons/lang3/function/FailableConsumer.java`
+#### Snippet
+```java
+     */
+    static <T, E extends Throwable> FailableConsumer<T, E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableLongConsumer' to 'org.apache.commons.lang3.function.FailableLongConsumer'
+in `src/main/java/org/apache/commons/lang3/function/FailableLongConsumer.java`
+#### Snippet
+```java
+     */
+    static <E extends Throwable> FailableLongConsumer<E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableLongToIntFunction' to 'org.apache.commons.lang3.function.FailableLongToIntFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableLongToIntFunction.java`
+#### Snippet
+```java
+     */
+    static <E extends Throwable> FailableLongToIntFunction<E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableToIntBiFunction' to 'org.apache.commons.lang3.function.FailableToIntBiFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableToIntBiFunction.java`
+#### Snippet
+```java
+     */
+    static <T, U, E extends Throwable> FailableToIntBiFunction<T, U, E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableToDoubleBiFunction' to 'org.apache.commons.lang3.function.FailableToDoubleBiFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableToDoubleBiFunction.java`
+#### Snippet
+```java
+     */
+    static <T, U, E extends Throwable> FailableToDoubleBiFunction<T, U, E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableObjLongConsumer' to 'org.apache.commons.lang3.function.FailableObjLongConsumer'
+in `src/main/java/org/apache/commons/lang3/function/FailableObjLongConsumer.java`
+#### Snippet
+```java
+     */
+    static <T, E extends Throwable> FailableObjLongConsumer<T, E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableToLongBiFunction' to 'org.apache.commons.lang3.function.FailableToLongBiFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableToLongBiFunction.java`
+#### Snippet
+```java
+     */
+    static <T, U, E extends Throwable> FailableToLongBiFunction<T, U, E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableDoubleUnaryOperator' to 'org.apache.commons.lang3.function.FailableDoubleUnaryOperator'
+in `src/main/java/org/apache/commons/lang3/function/FailableDoubleUnaryOperator.java`
+#### Snippet
+```java
+     */
+    static <E extends Throwable> FailableDoubleUnaryOperator<E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableBiFunction' to 'org.apache.commons.lang3.function.FailableBiFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableBiFunction.java`
+#### Snippet
+```java
+     */
+    static <T, U, R, E extends Throwable> FailableBiFunction<T, U, R, E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableDoubleToIntFunction' to 'org.apache.commons.lang3.function.FailableDoubleToIntFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableDoubleToIntFunction.java`
+#### Snippet
+```java
+     */
+   static <E extends Throwable> FailableDoubleToIntFunction<E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableLongFunction' to 'org.apache.commons.lang3.function.FailableLongFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableLongFunction.java`
+#### Snippet
+```java
+     */
+   static <R, E extends Throwable> FailableLongFunction<R, E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableDoubleToLongFunction' to 'org.apache.commons.lang3.function.FailableDoubleToLongFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableDoubleToLongFunction.java`
+#### Snippet
+```java
+     */
+    static <E extends Throwable> FailableDoubleToLongFunction<E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableLongPredicate' to 'org.apache.commons.lang3.function.FailableLongPredicate'
+in `src/main/java/org/apache/commons/lang3/function/FailableLongPredicate.java`
+#### Snippet
+```java
+     */
+    static <E extends Throwable> FailableLongPredicate<E> truePredicate() {
+        return TRUE;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableLongPredicate' to 'org.apache.commons.lang3.function.FailableLongPredicate'
+in `src/main/java/org/apache/commons/lang3/function/FailableLongPredicate.java`
+#### Snippet
+```java
+     */
+   static <E extends Throwable> FailableLongPredicate<E> falsePredicate() {
+        return FALSE;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableObjIntConsumer' to 'org.apache.commons.lang3.function.FailableObjIntConsumer'
+in `src/main/java/org/apache/commons/lang3/function/FailableObjIntConsumer.java`
+#### Snippet
+```java
+     */
+    static <T, E extends Throwable> FailableObjIntConsumer<T, E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableDoubleConsumer' to 'org.apache.commons.lang3.function.FailableDoubleConsumer'
+in `src/main/java/org/apache/commons/lang3/function/FailableDoubleConsumer.java`
+#### Snippet
+```java
+     */
+    static <E extends Throwable> FailableDoubleConsumer<E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'T\[\]'
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
+#### Snippet
+```java
+            throw new IllegalArgumentException("Array and element cannot both be null");
+        }
+        return (T[]) add(array, index, element, clss);
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'T\[\]'
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
+#### Snippet
+```java
+     */
+    public static <T> T[] removeAllOccurrences(final T[] array, final T element) {
+        return (T[]) removeAll((Object) array, indexesOf(array, element));
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'T\[\]'
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
+#### Snippet
+```java
+    @Deprecated
+    public static <T> T[] removeAllOccurences(final T[] array, final T element) {
+        return (T[]) removeAll((Object) array, indexesOf(array, element));
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailablePredicate' to 'org.apache.commons.lang3.function.FailablePredicate'
+in `src/main/java/org/apache/commons/lang3/function/FailablePredicate.java`
+#### Snippet
+```java
+     */
+    static <T, E extends Throwable> FailablePredicate<T, E> truePredicate() {
+        return TRUE;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailablePredicate' to 'org.apache.commons.lang3.function.FailablePredicate'
+in `src/main/java/org/apache/commons/lang3/function/FailablePredicate.java`
+#### Snippet
+```java
+     */
+    static <T, E extends Throwable> FailablePredicate<T, E> falsePredicate() {
+        return FALSE;
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableToIntFunction' to 'org.apache.commons.lang3.function.FailableToIntFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableToIntFunction.java`
+#### Snippet
+```java
+     */
+    static <T, E extends Throwable> FailableToIntFunction<T, E> nop() {
+        return NOP;
+    }
+
+```
+
+### UNCHECKED_WARNING
 Unchecked assignment: 'org.apache.commons.lang3.function.FailableLongToDoubleFunction' to 'org.apache.commons.lang3.function.FailableLongToDoubleFunction'
 in `src/main/java/org/apache/commons/lang3/function/FailableLongToDoubleFunction.java`
 #### Snippet
@@ -345,12 +525,12 @@ in `src/main/java/org/apache/commons/lang3/function/FailableLongToDoubleFunction
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableIntConsumer' to 'org.apache.commons.lang3.function.FailableIntConsumer'
-in `src/main/java/org/apache/commons/lang3/function/FailableIntConsumer.java`
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableFunction' to 'org.apache.commons.lang3.function.FailableFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableFunction.java`
 #### Snippet
 ```java
      */
-    static <E extends Throwable> FailableIntConsumer<E> nop() {
+    static <T, R, E extends Throwable> FailableFunction<T, R, E> nop() {
         return NOP;
     }
 
@@ -381,258 +561,126 @@ in `src/main/java/org/apache/commons/lang3/function/FailableBiPredicate.java`
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableToIntFunction' to 'org.apache.commons.lang3.function.FailableToIntFunction'
-in `src/main/java/org/apache/commons/lang3/function/FailableToIntFunction.java`
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableIntUnaryOperator' to 'org.apache.commons.lang3.function.FailableIntUnaryOperator'
+in `src/main/java/org/apache/commons/lang3/function/FailableIntUnaryOperator.java`
 #### Snippet
 ```java
      */
-    static <T, E extends Throwable> FailableToIntFunction<T, E> nop() {
+    static <E extends Throwable> FailableIntUnaryOperator<E> nop() {
         return NOP;
     }
 
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailablePredicate' to 'org.apache.commons.lang3.function.FailablePredicate'
-in `src/main/java/org/apache/commons/lang3/function/FailablePredicate.java`
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableDoubleFunction' to 'org.apache.commons.lang3.function.FailableDoubleFunction'
+in `src/main/java/org/apache/commons/lang3/function/FailableDoubleFunction.java`
 #### Snippet
 ```java
      */
-    static <T, E extends Throwable> FailablePredicate<T, E> truePredicate() {
-        return TRUE;
+    static <R, E extends Throwable> FailableDoubleFunction<R, E> nop() {
+        return NOP;
     }
 
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailablePredicate' to 'org.apache.commons.lang3.function.FailablePredicate'
-in `src/main/java/org/apache/commons/lang3/function/FailablePredicate.java`
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableDoublePredicate' to 'org.apache.commons.lang3.function.FailableDoublePredicate'
+in `src/main/java/org/apache/commons/lang3/function/FailableDoublePredicate.java`
 #### Snippet
 ```java
      */
-    static <T, E extends Throwable> FailablePredicate<T, E> falsePredicate() {
+   static <E extends Throwable> FailableDoublePredicate<E> falsePredicate() {
         return FALSE;
     }
 
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableDoubleToIntFunction' to 'org.apache.commons.lang3.function.FailableDoubleToIntFunction'
-in `src/main/java/org/apache/commons/lang3/function/FailableDoubleToIntFunction.java`
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableDoublePredicate' to 'org.apache.commons.lang3.function.FailableDoublePredicate'
+in `src/main/java/org/apache/commons/lang3/function/FailableDoublePredicate.java`
 #### Snippet
 ```java
      */
-   static <E extends Throwable> FailableDoubleToIntFunction<E> nop() {
-        return NOP;
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableDoubleUnaryOperator' to 'org.apache.commons.lang3.function.FailableDoubleUnaryOperator'
-in `src/main/java/org/apache/commons/lang3/function/FailableDoubleUnaryOperator.java`
-#### Snippet
-```java
-     */
-    static <E extends Throwable> FailableDoubleUnaryOperator<E> nop() {
-        return NOP;
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableLongToIntFunction' to 'org.apache.commons.lang3.function.FailableLongToIntFunction'
-in `src/main/java/org/apache/commons/lang3/function/FailableLongToIntFunction.java`
-#### Snippet
-```java
-     */
-    static <E extends Throwable> FailableLongToIntFunction<E> nop() {
-        return NOP;
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableToLongBiFunction' to 'org.apache.commons.lang3.function.FailableToLongBiFunction'
-in `src/main/java/org/apache/commons/lang3/function/FailableToLongBiFunction.java`
-#### Snippet
-```java
-     */
-    static <T, U, E extends Throwable> FailableToLongBiFunction<T, U, E> nop() {
-        return NOP;
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableFunction' to 'org.apache.commons.lang3.function.FailableFunction'
-in `src/main/java/org/apache/commons/lang3/function/FailableFunction.java`
-#### Snippet
-```java
-     */
-    static <T, R, E extends Throwable> FailableFunction<T, R, E> nop() {
-        return NOP;
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableDoubleToLongFunction' to 'org.apache.commons.lang3.function.FailableDoubleToLongFunction'
-in `src/main/java/org/apache/commons/lang3/function/FailableDoubleToLongFunction.java`
-#### Snippet
-```java
-     */
-    static <E extends Throwable> FailableDoubleToLongFunction<E> nop() {
-        return NOP;
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableBiFunction' to 'org.apache.commons.lang3.function.FailableBiFunction'
-in `src/main/java/org/apache/commons/lang3/function/FailableBiFunction.java`
-#### Snippet
-```java
-     */
-    static <T, U, R, E extends Throwable> FailableBiFunction<T, U, R, E> nop() {
-        return NOP;
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableLongUnaryOperator' to 'org.apache.commons.lang3.function.FailableLongUnaryOperator'
-in `src/main/java/org/apache/commons/lang3/function/FailableLongUnaryOperator.java`
-#### Snippet
-```java
-     */
-   static <E extends Throwable> FailableLongUnaryOperator<E> nop() {
-        return NOP;
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableLongPredicate' to 'org.apache.commons.lang3.function.FailableLongPredicate'
-in `src/main/java/org/apache/commons/lang3/function/FailableLongPredicate.java`
-#### Snippet
-```java
-     */
-   static <E extends Throwable> FailableLongPredicate<E> falsePredicate() {
-        return FALSE;
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableLongPredicate' to 'org.apache.commons.lang3.function.FailableLongPredicate'
-in `src/main/java/org/apache/commons/lang3/function/FailableLongPredicate.java`
-#### Snippet
-```java
-     */
-    static <E extends Throwable> FailableLongPredicate<E> truePredicate() {
+   static <E extends Throwable> FailableDoublePredicate<E> truePredicate() {
         return TRUE;
     }
 
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableLongFunction' to 'org.apache.commons.lang3.function.FailableLongFunction'
-in `src/main/java/org/apache/commons/lang3/function/FailableLongFunction.java`
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableIntPredicate' to 'org.apache.commons.lang3.function.FailableIntPredicate'
+in `src/main/java/org/apache/commons/lang3/function/FailableIntPredicate.java`
 #### Snippet
 ```java
      */
-   static <R, E extends Throwable> FailableLongFunction<R, E> nop() {
-        return NOP;
+    static <E extends Throwable> FailableIntPredicate<E> truePredicate() {
+        return TRUE;
     }
 
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableIntToDoubleFunction' to 'org.apache.commons.lang3.function.FailableIntToDoubleFunction'
-in `src/main/java/org/apache/commons/lang3/function/FailableIntToDoubleFunction.java`
+Unchecked assignment: 'org.apache.commons.lang3.function.FailableIntPredicate' to 'org.apache.commons.lang3.function.FailableIntPredicate'
+in `src/main/java/org/apache/commons/lang3/function/FailableIntPredicate.java`
 #### Snippet
 ```java
      */
-    static <E extends Throwable> FailableIntToDoubleFunction<E> nop() {
-        return NOP;
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableObjDoubleConsumer' to 'org.apache.commons.lang3.function.FailableObjDoubleConsumer'
-in `src/main/java/org/apache/commons/lang3/function/FailableObjDoubleConsumer.java`
-#### Snippet
-```java
-     */
-   static <T, E extends Throwable> FailableObjDoubleConsumer<T, E> nop() {
-        return NOP;
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableIntFunction' to 'org.apache.commons.lang3.function.FailableIntFunction'
-in `src/main/java/org/apache/commons/lang3/function/FailableIntFunction.java`
-#### Snippet
-```java
-     */
-    static <R, E extends Throwable> FailableIntFunction<R, E> nop() {
-        return NOP;
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.commons.lang3.function.FailableToDoubleBiFunction' to 'org.apache.commons.lang3.function.FailableToDoubleBiFunction'
-in `src/main/java/org/apache/commons/lang3/function/FailableToDoubleBiFunction.java`
-#### Snippet
-```java
-     */
-    static <T, U, E extends Throwable> FailableToDoubleBiFunction<T, U, E> nop() {
-        return NOP;
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'T\[\]'
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-            throw new IllegalArgumentException("Array and element cannot both be null");
-        }
-        return (T[]) add(array, index, element, clss);
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'T\[\]'
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    @Deprecated
-    public static <T> T[] removeAllOccurences(final T[] array, final T element) {
-        return (T[]) removeAll((Object) array, indexesOf(array, element));
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'T\[\]'
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-     */
-    public static <T> T[] removeAllOccurrences(final T[] array, final T element) {
-        return (T[]) removeAll((Object) array, indexesOf(array, element));
+    static <E extends Throwable> FailableIntPredicate<E> falsePredicate() {
+        return FALSE;
     }
 
 ```
 
 ## RuleId[id=JavadocReference]
+### JavadocReference
+Cannot resolve symbol `String`
+in `src/main/java/org/apache/commons/lang3/concurrent/package-info.java`
+#### Snippet
+```java
+ * configuring the new {@link org.apache.commons.lang3.concurrent.BasicThreadFactory} instance. Objects of this class
+ * are immutable, so these attributes cannot be changed later. The naming pattern is a string which can be passed to
+ * {@link String#format(java.util.Locale, String, Object...)}. The placeholder <em>%d</em> is replaced by an
+ * increasing counter value. An instance can wrap another {@link java.util.concurrent.ThreadFactory} implementation;
+ * this is achieved by calling the builder's
+```
+
+### JavadocReference
+Cannot resolve symbol `format(java.util.Locale, String, Object...)`
+in `src/main/java/org/apache/commons/lang3/concurrent/package-info.java`
+#### Snippet
+```java
+ * configuring the new {@link org.apache.commons.lang3.concurrent.BasicThreadFactory} instance. Objects of this class
+ * are immutable, so these attributes cannot be changed later. The naming pattern is a string which can be passed to
+ * {@link String#format(java.util.Locale, String, Object...)}. The placeholder <em>%d</em> is replaced by an
+ * increasing counter value. An instance can wrap another {@link java.util.concurrent.ThreadFactory} implementation;
+ * this is achieved by calling the builder's
+```
+
+### JavadocReference
+Cannot resolve symbol `Throwable`
+in `src/main/java/org/apache/commons/lang3/exception/package-info.java`
+#### Snippet
+```java
+ * <p>Contains the concept of an exception with context i.e. such an exception will contain a map with keys and values.
+ * This provides an easy way to pass valuable state information at exception time in useful form to a calling process.</p>
+ * <p>Lastly, {@link org.apache.commons.lang3.exception.ExceptionUtils} also contains {@link Throwable} manipulation
+ * and examination routines.</p>
+ *
+```
+
+### JavadocReference
+Cannot resolve symbol `MultipartKey`
+in `src/main/java/org/apache/commons/lang3/time/FormatCache.java`
+#### Snippet
+```java
+
+        /**
+         * Constructs an instance of {@link MultipartKey} to hold the specified objects.
+         *
+         * @param keys the set of objects that make up the key.  Each key may be null.
+```
+
 ### JavadocReference
 Cannot resolve symbol `Object`
 in `src/main/java/org/apache/commons/lang3/builder/package-info.java`
@@ -730,51 +778,51 @@ in `src/main/java/org/apache/commons/lang3/builder/package-info.java`
 ```
 
 ### JavadocReference
-Cannot resolve symbol `String`
-in `src/main/java/org/apache/commons/lang3/concurrent/package-info.java`
+Cannot resolve symbol `org.apache.commons.text.WordUtils`
+in `src/main/java/org/apache/commons/lang3/StringUtils.java`
 #### Snippet
 ```java
- * configuring the new {@link org.apache.commons.lang3.concurrent.BasicThreadFactory} instance. Objects of this class
- * are immutable, so these attributes cannot be changed later. The naming pattern is a string which can be passed to
- * {@link String#format(java.util.Locale, String, Object...)}. The placeholder <em>%d</em> is replaced by an
- * increasing counter value. An instance can wrap another {@link java.util.concurrent.ThreadFactory} implementation;
- * this is achieved by calling the builder's
+     * per {@link Character#toTitleCase(int)}. No other characters are changed.
+     *
+     * <p>For a word based algorithm, see {@link org.apache.commons.text.WordUtils#capitalize(String)}.
+     * A {@code null} input String returns {@code null}.</p>
+     *
 ```
 
 ### JavadocReference
-Cannot resolve symbol `format(java.util.Locale, String, Object...)`
-in `src/main/java/org/apache/commons/lang3/concurrent/package-info.java`
+Cannot resolve symbol `capitalize(String)`
+in `src/main/java/org/apache/commons/lang3/StringUtils.java`
 #### Snippet
 ```java
- * configuring the new {@link org.apache.commons.lang3.concurrent.BasicThreadFactory} instance. Objects of this class
- * are immutable, so these attributes cannot be changed later. The naming pattern is a string which can be passed to
- * {@link String#format(java.util.Locale, String, Object...)}. The placeholder <em>%d</em> is replaced by an
- * increasing counter value. An instance can wrap another {@link java.util.concurrent.ThreadFactory} implementation;
- * this is achieved by calling the builder's
+     * per {@link Character#toTitleCase(int)}. No other characters are changed.
+     *
+     * <p>For a word based algorithm, see {@link org.apache.commons.text.WordUtils#capitalize(String)}.
+     * A {@code null} input String returns {@code null}.</p>
+     *
 ```
 
 ### JavadocReference
-Cannot resolve symbol `Throwable`
-in `src/main/java/org/apache/commons/lang3/exception/package-info.java`
+Cannot resolve symbol `org.apache.commons.text.WordUtils`
+in `src/main/java/org/apache/commons/lang3/StringUtils.java`
 #### Snippet
 ```java
- * <p>Contains the concept of an exception with context i.e. such an exception will contain a map with keys and values.
- * This provides an easy way to pass valuable state information at exception time in useful form to a calling process.</p>
- * <p>Lastly, {@link org.apache.commons.lang3.exception.ExceptionUtils} also contains {@link Throwable} manipulation
- * and examination routines.</p>
- *
+     * @param str the String to capitalize, may be null
+     * @return the capitalized String, {@code null} if null String input
+     * @see org.apache.commons.text.WordUtils#capitalize(String)
+     * @see #uncapitalize(String)
+     * @since 2.0
 ```
 
 ### JavadocReference
-Cannot resolve symbol `MultipartKey`
-in `src/main/java/org/apache/commons/lang3/time/FormatCache.java`
+Cannot resolve symbol `capitalize(String)`
+in `src/main/java/org/apache/commons/lang3/StringUtils.java`
 #### Snippet
 ```java
-
-        /**
-         * Constructs an instance of {@link MultipartKey} to hold the specified objects.
-         *
-         * @param keys the set of objects that make up the key.  Each key may be null.
+     * @param str the String to capitalize, may be null
+     * @return the capitalized String, {@code null} if null String input
+     * @see org.apache.commons.text.WordUtils#capitalize(String)
+     * @see #uncapitalize(String)
+     * @since 2.0
 ```
 
 ### JavadocReference
@@ -849,54 +897,6 @@ in `src/main/java/org/apache/commons/lang3/StringUtils.java`
      *
 ```
 
-### JavadocReference
-Cannot resolve symbol `org.apache.commons.text.WordUtils`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-     * per {@link Character#toTitleCase(int)}. No other characters are changed.
-     *
-     * <p>For a word based algorithm, see {@link org.apache.commons.text.WordUtils#capitalize(String)}.
-     * A {@code null} input String returns {@code null}.</p>
-     *
-```
-
-### JavadocReference
-Cannot resolve symbol `capitalize(String)`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-     * per {@link Character#toTitleCase(int)}. No other characters are changed.
-     *
-     * <p>For a word based algorithm, see {@link org.apache.commons.text.WordUtils#capitalize(String)}.
-     * A {@code null} input String returns {@code null}.</p>
-     *
-```
-
-### JavadocReference
-Cannot resolve symbol `org.apache.commons.text.WordUtils`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-     * @param str the String to capitalize, may be null
-     * @return the capitalized String, {@code null} if null String input
-     * @see org.apache.commons.text.WordUtils#capitalize(String)
-     * @see #uncapitalize(String)
-     * @since 2.0
-```
-
-### JavadocReference
-Cannot resolve symbol `capitalize(String)`
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-     * @param str the String to capitalize, may be null
-     * @return the capitalized String, {@code null} if null String input
-     * @see org.apache.commons.text.WordUtils#capitalize(String)
-     * @see #uncapitalize(String)
-     * @since 2.0
-```
-
 ## RuleId[id=SuspiciousSystemArraycopy]
 ### SuspiciousSystemArraycopy
 `varArgsArray` is not of an array type
@@ -915,11 +915,11 @@ in `src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java`
 in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
-            count = set - srcIndex;
-            if (count > 0) {
-                System.arraycopy(array, srcIndex, result, destIndex, count);
-                destIndex += count;
-            }
+                    final int cp = end - index - 1;
+                    dest -= cp;
+                    System.arraycopy(array, index + 1, result, dest, cp);
+                    // After this copy, we still have room for dest items.
+                }
 ```
 
 ### SuspiciousSystemArraycopy
@@ -927,11 +927,11 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
-            count = set - srcIndex;
-            if (count > 0) {
-                System.arraycopy(array, srcIndex, result, destIndex, count);
-                destIndex += count;
-            }
+                    final int cp = end - index - 1;
+                    dest -= cp;
+                    System.arraycopy(array, index + 1, result, dest, cp);
+                    // After this copy, we still have room for dest items.
+                }
 ```
 
 ### SuspiciousSystemArraycopy
@@ -939,11 +939,11 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
-        count = srcLength - srcIndex;
-        if (count > 0) {
-            System.arraycopy(array, srcIndex, result, destIndex, count);
+            }
+            if (end > 0) {
+                System.arraycopy(array, 0, result, 0, end);
+            }
         }
-        return result;
 ```
 
 ### SuspiciousSystemArraycopy
@@ -951,11 +951,59 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
-        count = srcLength - srcIndex;
-        if (count > 0) {
-            System.arraycopy(array, srcIndex, result, destIndex, count);
+            }
+            if (end > 0) {
+                System.arraycopy(array, 0, result, 0, end);
+            }
         }
-        return result;
+```
+
+### SuspiciousSystemArraycopy
+`array` is not of an array type
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
+#### Snippet
+```java
+
+        final Object result = Array.newInstance(array.getClass().getComponentType(), length - 1);
+        System.arraycopy(array, 0, result, 0, index);
+        if (index < length - 1) {
+            System.arraycopy(array, index + 1, result, index, length - index - 1);
+```
+
+### SuspiciousSystemArraycopy
+`result` is not of an array type
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
+#### Snippet
+```java
+
+        final Object result = Array.newInstance(array.getClass().getComponentType(), length - 1);
+        System.arraycopy(array, 0, result, 0, index);
+        if (index < length - 1) {
+            System.arraycopy(array, index + 1, result, index, length - index - 1);
+```
+
+### SuspiciousSystemArraycopy
+`array` is not of an array type
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
+#### Snippet
+```java
+        System.arraycopy(array, 0, result, 0, index);
+        if (index < length - 1) {
+            System.arraycopy(array, index + 1, result, index, length - index - 1);
+        }
+
+```
+
+### SuspiciousSystemArraycopy
+`result` is not of an array type
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
+#### Snippet
+```java
+        System.arraycopy(array, 0, result, 0, index);
+        if (index < length - 1) {
+            System.arraycopy(array, index + 1, result, index, length - index - 1);
+        }
+
 ```
 
 ### SuspiciousSystemArraycopy
@@ -1004,54 +1052,6 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
             System.arraycopy(array, index, result, index + 1, length - index);
         }
         return result;
-```
-
-### SuspiciousSystemArraycopy
-`array` is not of an array type
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-                    final int cp = end - index - 1;
-                    dest -= cp;
-                    System.arraycopy(array, index + 1, result, dest, cp);
-                    // After this copy, we still have room for dest items.
-                }
-```
-
-### SuspiciousSystemArraycopy
-`result` is not of an array type
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-                    final int cp = end - index - 1;
-                    dest -= cp;
-                    System.arraycopy(array, index + 1, result, dest, cp);
-                    // After this copy, we still have room for dest items.
-                }
-```
-
-### SuspiciousSystemArraycopy
-`array` is not of an array type
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-            }
-            if (end > 0) {
-                System.arraycopy(array, 0, result, 0, end);
-            }
-        }
-```
-
-### SuspiciousSystemArraycopy
-`result` is not of an array type
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-            }
-            if (end > 0) {
-                System.arraycopy(array, 0, result, 0, end);
-            }
-        }
 ```
 
 ### SuspiciousSystemArraycopy
@@ -1083,11 +1083,11 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
-
-        final Object result = Array.newInstance(array.getClass().getComponentType(), length - 1);
-        System.arraycopy(array, 0, result, 0, index);
-        if (index < length - 1) {
-            System.arraycopy(array, index + 1, result, index, length - index - 1);
+            count = set - srcIndex;
+            if (count > 0) {
+                System.arraycopy(array, srcIndex, result, destIndex, count);
+                destIndex += count;
+            }
 ```
 
 ### SuspiciousSystemArraycopy
@@ -1095,11 +1095,11 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
-
-        final Object result = Array.newInstance(array.getClass().getComponentType(), length - 1);
-        System.arraycopy(array, 0, result, 0, index);
-        if (index < length - 1) {
-            System.arraycopy(array, index + 1, result, index, length - index - 1);
+            count = set - srcIndex;
+            if (count > 0) {
+                System.arraycopy(array, srcIndex, result, destIndex, count);
+                destIndex += count;
+            }
 ```
 
 ### SuspiciousSystemArraycopy
@@ -1107,11 +1107,11 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
-        System.arraycopy(array, 0, result, 0, index);
-        if (index < length - 1) {
-            System.arraycopy(array, index + 1, result, index, length - index - 1);
+        count = srcLength - srcIndex;
+        if (count > 0) {
+            System.arraycopy(array, srcIndex, result, destIndex, count);
         }
-
+        return result;
 ```
 
 ### SuspiciousSystemArraycopy
@@ -1119,26 +1119,14 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
-        System.arraycopy(array, 0, result, 0, index);
-        if (index < length - 1) {
-            System.arraycopy(array, index + 1, result, index, length - index - 1);
+        count = srcLength - srcIndex;
+        if (count > 0) {
+            System.arraycopy(array, srcIndex, result, destIndex, count);
         }
-
+        return result;
 ```
 
 ## RuleId[id=DataFlowIssue]
-### DataFlowIssue
-Method invocation `keySet` may produce `NullPointerException`
-in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
-#### Snippet
-```java
-
-        // now to check each type argument
-        for (final TypeVariable<?> var : toTypeVarAssigns.keySet()) {
-            final Type toTypeArg = unrollVariableAssignments(var, toTypeVarAssigns);
-            final Type fromTypeArg = unrollVariableAssignments(var, fromTypeVarAssigns);
-```
-
 ### DataFlowIssue
 Method invocation `put` may produce `NullPointerException`
 in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
@@ -1151,7 +1139,55 @@ in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
                     typeVarAssigns.getOrDefault(typeArg, typeArg)
 ```
 
+### DataFlowIssue
+Method invocation `keySet` may produce `NullPointerException`
+in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
+#### Snippet
+```java
+
+        // now to check each type argument
+        for (final TypeVariable<?> var : toTypeVarAssigns.keySet()) {
+            final Type toTypeArg = unrollVariableAssignments(var, toTypeVarAssigns);
+            final Type fromTypeArg = unrollVariableAssignments(var, fromTypeVarAssigns);
+```
+
 ## RuleId[id=StaticInitializerReferencesSubClass]
+### StaticInitializerReferencesSubClass
+Referencing subclass MapStrLookup from superclass StrLookup initializer might lead to class loading deadlock
+in `src/main/java/org/apache/commons/lang3/text/StrLookup.java`
+#### Snippet
+```java
+     * Lookup that always returns null.
+     */
+    private static final StrLookup<String> NONE_LOOKUP = new MapStrLookup<>(null);
+
+    /**
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass NoMatcher from superclass StrMatcher initializer might lead to class loading deadlock
+in `src/main/java/org/apache/commons/lang3/text/StrMatcher.java`
+#### Snippet
+```java
+     * Matches no characters.
+     */
+    private static final StrMatcher NONE_MATCHER = new NoMatcher();
+
+    /**
+```
+
+### StaticInitializerReferencesSubClass
+Referencing subclass CharMatcher from superclass StrMatcher initializer might lead to class loading deadlock
+in `src/main/java/org/apache/commons/lang3/text/StrMatcher.java`
+#### Snippet
+```java
+     * Matches the space character.
+     */
+    private static final StrMatcher SPACE_MATCHER = new CharMatcher(' ');
+    /**
+     * Matches the same characters as StringTokenizer,
+```
+
 ### StaticInitializerReferencesSubClass
 Referencing subclass CharMatcher from superclass StrMatcher initializer might lead to class loading deadlock
 in `src/main/java/org/apache/commons/lang3/text/StrMatcher.java`
@@ -1177,6 +1213,18 @@ in `src/main/java/org/apache/commons/lang3/text/StrMatcher.java`
 ```
 
 ### StaticInitializerReferencesSubClass
+Referencing subclass TrimMatcher from superclass StrMatcher initializer might lead to class loading deadlock
+in `src/main/java/org/apache/commons/lang3/text/StrMatcher.java`
+#### Snippet
+```java
+     * Matches the String trim() whitespace characters.
+     */
+    private static final StrMatcher TRIM_MATCHER = new TrimMatcher();
+    /**
+     * Matches the double quote character.
+```
+
+### StaticInitializerReferencesSubClass
 Referencing subclass CharSetMatcher from superclass StrMatcher initializer might lead to class loading deadlock
 in `src/main/java/org/apache/commons/lang3/text/StrMatcher.java`
 #### Snippet
@@ -1186,18 +1234,6 @@ in `src/main/java/org/apache/commons/lang3/text/StrMatcher.java`
     private static final StrMatcher SPLIT_MATCHER = new CharSetMatcher(" \t\n\r\f".toCharArray());
     /**
      * Matches the String trim() whitespace characters.
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass CharMatcher from superclass StrMatcher initializer might lead to class loading deadlock
-in `src/main/java/org/apache/commons/lang3/text/StrMatcher.java`
-#### Snippet
-```java
-     * Matches the comma character.
-     */
-    private static final StrMatcher COMMA_MATCHER = new CharMatcher(',');
-    /**
-     * Matches the tab character.
 ```
 
 ### StaticInitializerReferencesSubClass
@@ -1213,18 +1249,6 @@ in `src/main/java/org/apache/commons/lang3/text/StrMatcher.java`
 ```
 
 ### StaticInitializerReferencesSubClass
-Referencing subclass NoMatcher from superclass StrMatcher initializer might lead to class loading deadlock
-in `src/main/java/org/apache/commons/lang3/text/StrMatcher.java`
-#### Snippet
-```java
-     * Matches no characters.
-     */
-    private static final StrMatcher NONE_MATCHER = new NoMatcher();
-
-    /**
-```
-
-### StaticInitializerReferencesSubClass
 Referencing subclass CharMatcher from superclass StrMatcher initializer might lead to class loading deadlock
 in `src/main/java/org/apache/commons/lang3/text/StrMatcher.java`
 #### Snippet
@@ -1237,64 +1261,28 @@ in `src/main/java/org/apache/commons/lang3/text/StrMatcher.java`
 ```
 
 ### StaticInitializerReferencesSubClass
-Referencing subclass TrimMatcher from superclass StrMatcher initializer might lead to class loading deadlock
-in `src/main/java/org/apache/commons/lang3/text/StrMatcher.java`
-#### Snippet
-```java
-     * Matches the String trim() whitespace characters.
-     */
-    private static final StrMatcher TRIM_MATCHER = new TrimMatcher();
-    /**
-     * Matches the double quote character.
-```
-
-### StaticInitializerReferencesSubClass
 Referencing subclass CharMatcher from superclass StrMatcher initializer might lead to class loading deadlock
 in `src/main/java/org/apache/commons/lang3/text/StrMatcher.java`
 #### Snippet
 ```java
-     * Matches the space character.
+     * Matches the comma character.
      */
-    private static final StrMatcher SPACE_MATCHER = new CharMatcher(' ');
+    private static final StrMatcher COMMA_MATCHER = new CharMatcher(',');
     /**
-     * Matches the same characters as StringTokenizer,
-```
-
-### StaticInitializerReferencesSubClass
-Referencing subclass MapStrLookup from superclass StrLookup initializer might lead to class loading deadlock
-in `src/main/java/org/apache/commons/lang3/text/StrLookup.java`
-#### Snippet
-```java
-     * Lookup that always returns null.
-     */
-    private static final StrLookup<String> NONE_LOOKUP = new MapStrLookup<>(null);
-
-    /**
+     * Matches the tab character.
 ```
 
 ## RuleId[id=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
-Deprecated member 'findThreads' is still used
+Deprecated member 'ThreadGroupPredicate' is still used
 in `src/main/java/org/apache/commons/lang3/ThreadUtils.java`
 #### Snippet
 ```java
-     */
-    @Deprecated
-    public static Collection<Thread> findThreads(final ThreadPredicate predicate) {
-        return findThreads(getSystemThreadGroup(), true, predicate);
-    }
-```
+    // When breaking BC, replace this with Predicate<ThreadGroup>
+    @FunctionalInterface
+    public interface ThreadGroupPredicate {
 
-### DeprecatedIsStillUsed
-Deprecated member 'findThreadGroups' is still used
-in `src/main/java/org/apache/commons/lang3/ThreadUtils.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static Collection<ThreadGroup> findThreadGroups(final ThreadGroupPredicate predicate) {
-        return findThreadGroups(getSystemThreadGroup(), true, predicate);
-    }
+        /**
 ```
 
 ### DeprecatedIsStillUsed
@@ -1316,21 +1304,9 @@ in `src/main/java/org/apache/commons/lang3/ThreadUtils.java`
 ```java
      */
     @Deprecated
-    public static Collection<ThreadGroup> findThreadGroups(final ThreadGroup threadGroup, final boolean recurse, final ThreadGroupPredicate predicate) {
-        return findThreadGroups(threadGroup, recurse, (Predicate<ThreadGroup>) predicate::test);
+    public static Collection<ThreadGroup> findThreadGroups(final ThreadGroupPredicate predicate) {
+        return findThreadGroups(getSystemThreadGroup(), true, predicate);
     }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'ThreadGroupPredicate' is still used
-in `src/main/java/org/apache/commons/lang3/ThreadUtils.java`
-#### Snippet
-```java
-    // When breaking BC, replace this with Predicate<ThreadGroup>
-    @FunctionalInterface
-    public interface ThreadGroupPredicate {
-
-        /**
 ```
 
 ### DeprecatedIsStillUsed
@@ -1346,14 +1322,38 @@ in `src/main/java/org/apache/commons/lang3/ThreadUtils.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'getUserName' is still used
-in `src/main/java/org/apache/commons/lang3/SystemUtils.java`
+Deprecated member 'findThreads' is still used
+in `src/main/java/org/apache/commons/lang3/ThreadUtils.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public static String getUserName() {
-        return SystemProperties.getUserName();
+    public static Collection<Thread> findThreads(final ThreadPredicate predicate) {
+        return findThreads(getSystemThreadGroup(), true, predicate);
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'findThreadGroups' is still used
+in `src/main/java/org/apache/commons/lang3/ThreadUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static Collection<ThreadGroup> findThreadGroups(final ThreadGroup threadGroup, final boolean recurse, final ThreadGroupPredicate predicate) {
+        return findThreadGroups(threadGroup, recurse, (Predicate<ThreadGroup>) predicate::test);
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'toCharacterObject' is still used
+in `src/main/java/org/apache/commons/lang3/CharUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static Character toCharacterObject(final char ch) {
+        return Character.valueOf(ch);
     }
 ```
 
@@ -1382,13 +1382,25 @@ in `src/main/java/org/apache/commons/lang3/time/DurationUtils.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'ISO_TIME_NO_T_FORMAT' is still used
+Deprecated member 'ISO_DATE_TIME_ZONE_FORMAT' is still used
 in `src/main/java/org/apache/commons/lang3/time/DateFormatUtils.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public static final FastDateFormat ISO_TIME_NO_T_FORMAT = ISO_8601_EXTENDED_TIME_FORMAT;
+    public static final FastDateFormat ISO_DATE_TIME_ZONE_FORMAT
+            = FastDateFormat.getInstance("yyyy-MM-ddZZ");
+
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'ISO_DATETIME_FORMAT' is still used
+in `src/main/java/org/apache/commons/lang3/time/DateFormatUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static final FastDateFormat ISO_DATETIME_FORMAT = ISO_8601_EXTENDED_DATETIME_FORMAT;
 
     /**
 ```
@@ -1406,26 +1418,14 @@ in `src/main/java/org/apache/commons/lang3/time/DateFormatUtils.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'ISO_DATE_TIME_ZONE_FORMAT' is still used
+Deprecated member 'ISO_TIME_TIME_ZONE_FORMAT' is still used
 in `src/main/java/org/apache/commons/lang3/time/DateFormatUtils.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public static final FastDateFormat ISO_DATE_TIME_ZONE_FORMAT
-            = FastDateFormat.getInstance("yyyy-MM-ddZZ");
-
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'ISO_TIME_FORMAT' is still used
-in `src/main/java/org/apache/commons/lang3/time/DateFormatUtils.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static final FastDateFormat ISO_TIME_FORMAT
-            = FastDateFormat.getInstance("'T'HH:mm:ss");
+    public static final FastDateFormat ISO_TIME_TIME_ZONE_FORMAT
+            = FastDateFormat.getInstance("'T'HH:mm:ssZZ");
 
 ```
 
@@ -1442,49 +1442,37 @@ in `src/main/java/org/apache/commons/lang3/time/DateFormatUtils.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'ISO_DATETIME_FORMAT' is still used
+Deprecated member 'ISO_TIME_NO_T_FORMAT' is still used
 in `src/main/java/org/apache/commons/lang3/time/DateFormatUtils.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public static final FastDateFormat ISO_DATETIME_FORMAT = ISO_8601_EXTENDED_DATETIME_FORMAT;
+    public static final FastDateFormat ISO_TIME_NO_T_FORMAT = ISO_8601_EXTENDED_TIME_FORMAT;
 
     /**
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'ISO_TIME_TIME_ZONE_FORMAT' is still used
+Deprecated member 'ISO_TIME_FORMAT' is still used
 in `src/main/java/org/apache/commons/lang3/time/DateFormatUtils.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public static final FastDateFormat ISO_TIME_TIME_ZONE_FORMAT
-            = FastDateFormat.getInstance("'T'HH:mm:ssZZ");
+    public static final FastDateFormat ISO_TIME_FORMAT
+            = FastDateFormat.getInstance("'T'HH:mm:ss");
 
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'toCharacterObject' is still used
-in `src/main/java/org/apache/commons/lang3/CharUtils.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static Character toCharacterObject(final char ch) {
-        return Character.valueOf(ch);
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'FailableRunnable' is still used
+Deprecated member 'FailableBiConsumer' is still used
 in `src/main/java/org/apache/commons/lang3/Functions.java`
 #### Snippet
 ```java
     @Deprecated
     @FunctionalInterface
-    public interface FailableRunnable<T extends Throwable> {
+    public interface FailableBiConsumer<O1, O2, T extends Throwable> {
 
         /**
 ```
@@ -1497,30 +1485,6 @@ in `src/main/java/org/apache/commons/lang3/Functions.java`
     @Deprecated
     @FunctionalInterface
     public interface FailableBiFunction<O1, O2, R, T extends Throwable> {
-
-        /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'FailableBiPredicate' is still used
-in `src/main/java/org/apache/commons/lang3/Functions.java`
-#### Snippet
-```java
-    @Deprecated
-    @FunctionalInterface
-    public interface FailableBiPredicate<O1, O2, T extends Throwable> {
-
-        /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'FailableBiConsumer' is still used
-in `src/main/java/org/apache/commons/lang3/Functions.java`
-#### Snippet
-```java
-    @Deprecated
-    @FunctionalInterface
-    public interface FailableBiConsumer<O1, O2, T extends Throwable> {
 
         /**
 ```
@@ -1561,6 +1525,42 @@ in `src/main/java/org/apache/commons/lang3/Functions.java`
         /**
 ```
 
+### DeprecatedIsStillUsed
+Deprecated member 'FailableRunnable' is still used
+in `src/main/java/org/apache/commons/lang3/Functions.java`
+#### Snippet
+```java
+    @Deprecated
+    @FunctionalInterface
+    public interface FailableRunnable<T extends Throwable> {
+
+        /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'FailableBiPredicate' is still used
+in `src/main/java/org/apache/commons/lang3/Functions.java`
+#### Snippet
+```java
+    @Deprecated
+    @FunctionalInterface
+    public interface FailableBiPredicate<O1, O2, T extends Throwable> {
+
+        /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getUserName' is still used
+in `src/main/java/org/apache/commons/lang3/SystemUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static String getUserName() {
+        return SystemProperties.getUserName();
+    }
+```
+
 ## RuleId[id=CommentedOutCode]
 ### CommentedOutCode
 Commented out code (2 lines)
@@ -1575,18 +1575,6 @@ in `src/main/java/org/apache/commons/lang3/SystemProperties.java`
 ```
 
 ### CommentedOutCode
-Commented out code (9 lines)
-in `src/main/java/org/apache/commons/lang3/CharSequenceUtils.java`
-#### Snippet
-```java
-        }
-        return cs.toString().indexOf(searchChar.toString(), start);
-//        if (cs instanceof String && searchChar instanceof String) {
-//            // TODO: Do we assume searchChar is usually relatively small;
-//            //       If so then calling toString() on it is better than reverting to
-```
-
-### CommentedOutCode
 Commented out code (4 lines)
 in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
@@ -1596,6 +1584,18 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 //        final int maxIndex = indices.length();
 //        if (maxIndex > srcLength) {
 //            throw new IndexOutOfBoundsException("Index: " + (maxIndex-1) + ", Length: " + srcLength);
+```
+
+### CommentedOutCode
+Commented out code (9 lines)
+in `src/main/java/org/apache/commons/lang3/CharSequenceUtils.java`
+#### Snippet
+```java
+        }
+        return cs.toString().indexOf(searchChar.toString(), start);
+//        if (cs instanceof String && searchChar instanceof String) {
+//            // TODO: Do we assume searchChar is usually relatively small;
+//            //       If so then calling toString() on it is better than reverting to
 ```
 
 ## RuleId[id=UnnecessaryCallToStringValueOf]
@@ -1614,18 +1614,6 @@ in `src/main/java/org/apache/commons/lang3/concurrent/ConstantInitializer.java`
 ## RuleId[id=RefusedBequest]
 ### RefusedBequest
 Method `clone()` does not call 'super.clone()'
-in `src/main/java/org/apache/commons/lang3/util/FluentBitSet.java`
-#### Snippet
-```java
-     */
-    @Override
-    public Object clone() {
-        return new FluentBitSet((BitSet) bitSet.clone());
-    }
-```
-
-### RefusedBequest
-Method `clone()` does not call 'super.clone()'
 in `src/main/java/org/apache/commons/lang3/text/StrTokenizer.java`
 #### Snippet
 ```java
@@ -1634,6 +1622,18 @@ in `src/main/java/org/apache/commons/lang3/text/StrTokenizer.java`
     public Object clone() {
         try {
             return cloneReset();
+```
+
+### RefusedBequest
+Method `clone()` does not call 'super.clone()'
+in `src/main/java/org/apache/commons/lang3/util/FluentBitSet.java`
+#### Snippet
+```java
+     */
+    @Override
+    public Object clone() {
+        return new FluentBitSet((BitSet) bitSet.clone());
+    }
 ```
 
 ## RuleId[id=DuplicatedCode]
@@ -1909,102 +1909,6 @@ in `src/main/java/org/apache/commons/lang3/ObjectUtils.java`
 
 ## RuleId[id=Deprecation]
 ### Deprecation
-'org.apache.commons.lang3.RandomUtils' is deprecated
-in `src/main/java/org/apache/commons/lang3/RandomStringUtils.java`
-#### Snippet
-```java
-     */
-    public static String randomAlphabetic(final int minLengthInclusive, final int maxLengthExclusive) {
-        return randomAlphabetic(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
-    }
-
-```
-
-### Deprecation
-'org.apache.commons.lang3.RandomUtils' is deprecated
-in `src/main/java/org/apache/commons/lang3/RandomStringUtils.java`
-#### Snippet
-```java
-     */
-    public static String randomNumeric(final int minLengthInclusive, final int maxLengthExclusive) {
-        return randomNumeric(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
-    }
-
-```
-
-### Deprecation
-'org.apache.commons.lang3.RandomUtils' is deprecated
-in `src/main/java/org/apache/commons/lang3/RandomStringUtils.java`
-#### Snippet
-```java
-     */
-    public static String randomAscii(final int minLengthInclusive, final int maxLengthExclusive) {
-        return randomAscii(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
-    }
-
-```
-
-### Deprecation
-'org.apache.commons.lang3.RandomUtils' is deprecated
-in `src/main/java/org/apache/commons/lang3/RandomStringUtils.java`
-#### Snippet
-```java
-     */
-    public static String randomGraph(final int minLengthInclusive, final int maxLengthExclusive) {
-        return randomGraph(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
-    }
-
-```
-
-### Deprecation
-'org.apache.commons.lang3.RandomUtils' is deprecated
-in `src/main/java/org/apache/commons/lang3/RandomStringUtils.java`
-#### Snippet
-```java
-     */
-    public static String randomPrint(final int minLengthInclusive, final int maxLengthExclusive) {
-        return randomPrint(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
-    }
-
-```
-
-### Deprecation
-'org.apache.commons.lang3.RandomUtils' is deprecated
-in `src/main/java/org/apache/commons/lang3/RandomStringUtils.java`
-#### Snippet
-```java
-     */
-    public static String randomAlphanumeric(final int minLengthInclusive, final int maxLengthExclusive) {
-        return randomAlphanumeric(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
-    }
-
-```
-
-### Deprecation
-'org.apache.commons.lang3.StringEscapeUtils' is deprecated
-in `src/main/java/org/apache/commons/lang3/package-info.java`
-#### Snippet
-```java
- * <p>Lang has a series of String utilities.
- * The first is {@link org.apache.commons.lang3.StringUtils}, oodles and oodles of functions which tweak, transform, squeeze and cuddle {@link java.lang.String java.lang.Strings}.
- * In addition to StringUtils, there are a series of other String manipulating classes; {@link org.apache.commons.lang3.RandomStringUtils} and {@link org.apache.commons.lang3.StringEscapeUtils StringEscapeUtils}.
- * RandomStringUtils speaks for itself.
- * It's provides ways in which to generate pieces of text, such as might be used for default passwords.
-```
-
-### Deprecation
-'org.apache.commons.lang3.CharEncoding' is deprecated
-in `src/main/java/org/apache/commons/lang3/package-info.java`
-#### Snippet
-```java
- * There was no obvious solution and I needed to move onwards, so the simple solution was to wrap that particular test in a <code>if (SystemUtils.isJavaVersionAtLeast(1.3f)) {</code>, make a note and move on.</p>
- *
- * <p>The {@link org.apache.commons.lang3.CharEncoding} class is also used to interact with the Java environment and may be used to see which character encodings are supported in a particular environment.</p>
- *
- * <h2>Serialization - SerializationUtils, SerializationException</h2>
-```
-
-### Deprecation
 'org.apache.commons.lang3.text.StrBuilder' is deprecated
 in `src/main/java/org/apache/commons/lang3/text/package-info.java`
 #### Snippet
@@ -2040,221 +1944,100 @@ in `src/main/java/org/apache/commons/lang3/text/package-info.java`
  *
 ```
 
-## RuleId[id=FinalStaticMethod]
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
+### Deprecation
+'org.apache.commons.lang3.StringEscapeUtils' is deprecated
+in `src/main/java/org/apache/commons/lang3/package-info.java`
 #### Snippet
 ```java
-     * @since 3.2
-     */
-    public static final ParameterizedType parameterizeWithOwner(final Type owner, final Class<?> rawClass,
-        final Map<TypeVariable<?>, Type> typeVariableMap) {
-        Objects.requireNonNull(rawClass, "rawClass");
+ * <p>Lang has a series of String utilities.
+ * The first is {@link org.apache.commons.lang3.StringUtils}, oodles and oodles of functions which tweak, transform, squeeze and cuddle {@link java.lang.String java.lang.Strings}.
+ * In addition to StringUtils, there are a series of other String manipulating classes; {@link org.apache.commons.lang3.RandomStringUtils} and {@link org.apache.commons.lang3.StringEscapeUtils StringEscapeUtils}.
+ * RandomStringUtils speaks for itself.
+ * It's provides ways in which to generate pieces of text, such as might be used for default passwords.
 ```
 
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
+### Deprecation
+'org.apache.commons.lang3.CharEncoding' is deprecated
+in `src/main/java/org/apache/commons/lang3/package-info.java`
 #### Snippet
 ```java
-     * @since 3.2
-     */
-    public static final ParameterizedType parameterizeWithOwner(final Type owner, final Class<?> rawClass,
-        final Type... typeArguments) {
-        Objects.requireNonNull(rawClass, "rawClass");
+ * There was no obvious solution and I needed to move onwards, so the simple solution was to wrap that particular test in a <code>if (SystemUtils.isJavaVersionAtLeast(1.3f)) {</code>, make a note and move on.</p>
+ *
+ * <p>The {@link org.apache.commons.lang3.CharEncoding} class is also used to interact with the Java environment and may be used to see which character encodings are supported in a particular environment.</p>
+ *
+ * <h2>Serialization - SerializationUtils, SerializationException</h2>
 ```
 
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
+### Deprecation
+'org.apache.commons.lang3.RandomUtils' is deprecated
+in `src/main/java/org/apache/commons/lang3/RandomStringUtils.java`
 #### Snippet
 ```java
-     * @since 3.2
      */
-    public static final ParameterizedType parameterize(final Class<?> rawClass, final Type... typeArguments) {
-        return parameterizeWithOwner(null, rawClass, typeArguments);
+    public static String randomAlphanumeric(final int minLengthInclusive, final int maxLengthExclusive) {
+        return randomAlphanumeric(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
     }
+
 ```
 
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
+### Deprecation
+'org.apache.commons.lang3.RandomUtils' is deprecated
+in `src/main/java/org/apache/commons/lang3/RandomStringUtils.java`
 #### Snippet
 ```java
-     * @since 3.2
      */
-    public static final ParameterizedType parameterize(final Class<?> rawClass,
-        final Map<TypeVariable<?>, Type> typeVariableMap) {
-        Objects.requireNonNull(rawClass, "rawClass");
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
-#### Snippet
-```java
-     * @return String with escaped values, {@code null} if null string input
-     */
-    public static final String escapeJava(final String input) {
-        return ESCAPE_JAVA.translate(input);
+    public static String randomPrint(final int minLengthInclusive, final int maxLengthExclusive) {
+        return randomPrint(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
     }
+
 ```
 
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
-#### Snippet
-```java
-     * @since 3.0
-     */
-    public static final String unescapeEcmaScript(final String input) {
-        return UNESCAPE_ECMASCRIPT.translate(input);
-    }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
-#### Snippet
-```java
-     * @since 2.4
-     */
-    public static final String escapeCsv(final String input) {
-        return ESCAPE_CSV.translate(input);
-    }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
+### Deprecation
+'org.apache.commons.lang3.RandomUtils' is deprecated
+in `src/main/java/org/apache/commons/lang3/RandomStringUtils.java`
 #### Snippet
 ```java
      */
-    @Deprecated
-    public static final String escapeXml(final String input) {
-        return ESCAPE_XML.translate(input);
+    public static String randomNumeric(final int minLengthInclusive, final int maxLengthExclusive) {
+        return randomNumeric(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
     }
+
 ```
 
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
+### Deprecation
+'org.apache.commons.lang3.RandomUtils' is deprecated
+in `src/main/java/org/apache/commons/lang3/RandomStringUtils.java`
 #### Snippet
 ```java
-     * @since 3.0
      */
-    public static final String unescapeHtml4(final String input) {
-        return UNESCAPE_HTML4.translate(input);
+    public static String randomGraph(final int minLengthInclusive, final int maxLengthExclusive) {
+        return randomGraph(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
     }
+
 ```
 
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
+### Deprecation
+'org.apache.commons.lang3.RandomUtils' is deprecated
+in `src/main/java/org/apache/commons/lang3/RandomStringUtils.java`
 #### Snippet
 ```java
-     * @since 3.2
      */
-    public static final String unescapeJson(final String input) {
-        return UNESCAPE_JSON.translate(input);
+    public static String randomAscii(final int minLengthInclusive, final int maxLengthExclusive) {
+        return randomAscii(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
     }
+
 ```
 
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
+### Deprecation
+'org.apache.commons.lang3.RandomUtils' is deprecated
+in `src/main/java/org/apache/commons/lang3/RandomStringUtils.java`
 #### Snippet
 ```java
-     * @since 3.0
      */
-    public static final String unescapeHtml3(final String input) {
-        return UNESCAPE_HTML3.translate(input);
+    public static String randomAlphabetic(final int minLengthInclusive, final int maxLengthExclusive) {
+        return randomAlphabetic(RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
     }
-```
 
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
-#### Snippet
-```java
-     * @since 2.4
-     */
-    public static final String unescapeCsv(final String input) {
-        return UNESCAPE_CSV.translate(input);
-    }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
-#### Snippet
-```java
-     * @since 3.2
-     */
-    public static final String escapeJson(final String input) {
-        return ESCAPE_JSON.translate(input);
-    }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
-#### Snippet
-```java
-     * @see #escapeXml11(String)
-     */
-    public static final String unescapeXml(final String input) {
-        return UNESCAPE_XML.translate(input);
-    }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
-#### Snippet
-```java
-     * @since 3.0
-     */
-    public static final String escapeHtml3(final String input) {
-        return ESCAPE_HTML3.translate(input);
-    }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
-#### Snippet
-```java
-     * @return a new unescaped {@link String}, {@code null} if null string input
-     */
-    public static final String unescapeJava(final String input) {
-        return UNESCAPE_JAVA.translate(input);
-    }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
-#### Snippet
-```java
-     * @since 3.0
-     */
-    public static final String escapeEcmaScript(final String input) {
-        return ESCAPE_ECMASCRIPT.translate(input);
-    }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
-#### Snippet
-```java
-     * @since 3.0
-     */
-    public static final String escapeHtml4(final String input) {
-        return ESCAPE_HTML4.translate(input);
-    }
 ```
 
 ## RuleId[id=UnnecessaryToStringCall]
@@ -2306,6 +2089,223 @@ in `src/main/java/org/apache/commons/lang3/StringUtils.java`
 
 ```
 
+## RuleId[id=FinalStaticMethod]
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
+#### Snippet
+```java
+     * @since 3.0
+     */
+    public static final String unescapeHtml3(final String input) {
+        return UNESCAPE_HTML3.translate(input);
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static final String escapeXml(final String input) {
+        return ESCAPE_XML.translate(input);
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
+#### Snippet
+```java
+     * @since 3.2
+     */
+    public static final String escapeJson(final String input) {
+        return ESCAPE_JSON.translate(input);
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
+#### Snippet
+```java
+     * @since 2.4
+     */
+    public static final String unescapeCsv(final String input) {
+        return UNESCAPE_CSV.translate(input);
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
+#### Snippet
+```java
+     * @since 3.0
+     */
+    public static final String escapeHtml4(final String input) {
+        return ESCAPE_HTML4.translate(input);
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
+#### Snippet
+```java
+     * @return a new unescaped {@link String}, {@code null} if null string input
+     */
+    public static final String unescapeJava(final String input) {
+        return UNESCAPE_JAVA.translate(input);
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
+#### Snippet
+```java
+     * @since 3.0
+     */
+    public static final String unescapeHtml4(final String input) {
+        return UNESCAPE_HTML4.translate(input);
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
+#### Snippet
+```java
+     * @return String with escaped values, {@code null} if null string input
+     */
+    public static final String escapeJava(final String input) {
+        return ESCAPE_JAVA.translate(input);
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
+#### Snippet
+```java
+     * @since 3.0
+     */
+    public static final String escapeHtml3(final String input) {
+        return ESCAPE_HTML3.translate(input);
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
+#### Snippet
+```java
+     * @since 2.4
+     */
+    public static final String escapeCsv(final String input) {
+        return ESCAPE_CSV.translate(input);
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
+#### Snippet
+```java
+     * @see #escapeXml11(String)
+     */
+    public static final String unescapeXml(final String input) {
+        return UNESCAPE_XML.translate(input);
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
+#### Snippet
+```java
+     * @since 3.2
+     */
+    public static final String unescapeJson(final String input) {
+        return UNESCAPE_JSON.translate(input);
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
+#### Snippet
+```java
+     * @since 3.0
+     */
+    public static final String unescapeEcmaScript(final String input) {
+        return UNESCAPE_ECMASCRIPT.translate(input);
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
+#### Snippet
+```java
+     * @since 3.0
+     */
+    public static final String escapeEcmaScript(final String input) {
+        return ESCAPE_ECMASCRIPT.translate(input);
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
+#### Snippet
+```java
+     * @since 3.2
+     */
+    public static final ParameterizedType parameterize(final Class<?> rawClass,
+        final Map<TypeVariable<?>, Type> typeVariableMap) {
+        Objects.requireNonNull(rawClass, "rawClass");
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
+#### Snippet
+```java
+     * @since 3.2
+     */
+    public static final ParameterizedType parameterizeWithOwner(final Type owner, final Class<?> rawClass,
+        final Map<TypeVariable<?>, Type> typeVariableMap) {
+        Objects.requireNonNull(rawClass, "rawClass");
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
+#### Snippet
+```java
+     * @since 3.2
+     */
+    public static final ParameterizedType parameterize(final Class<?> rawClass, final Type... typeArguments) {
+        return parameterizeWithOwner(null, rawClass, typeArguments);
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
+#### Snippet
+```java
+     * @since 3.2
+     */
+    public static final ParameterizedType parameterizeWithOwner(final Type owner, final Class<?> rawClass,
+        final Type... typeArguments) {
+        Objects.requireNonNull(rawClass, "rawClass");
+```
+
 ## RuleId[id=DanglingJavadoc]
 ### DanglingJavadoc
 Dangling Javadoc comment
@@ -2319,20 +2319,19 @@ in `src/main/java/org/apache/commons/lang3/ClassUtils.java`
         final Map<String, String> map = new HashMap<>();
 ```
 
-## RuleId[id=RedundantTypeArguments]
-### RedundantTypeArguments
-Explicit type arguments can be inferred
-in `src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java`
+## RuleId[id=SuspiciousMethodCalls]
+### SuspiciousMethodCalls
+Suspicious call to 'Map.getOrDefault()'
+in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
 #### Snippet
 ```java
-    public static <R> R rethrow(final Throwable throwable) {
-        // claim that the typeErasure invocation throws a RuntimeException
-        return ExceptionUtils.<R, RuntimeException>eraseType(throwable);
-    }
-
+            typeVarAssigns.put(
+                    typeParams[i],
+                    typeVarAssigns.getOrDefault(typeArg, typeArg)
+            );
+        }
 ```
 
-## RuleId[id=SuspiciousMethodCalls]
 ### SuspiciousMethodCalls
 Suspicious call to 'List.contains()'
 in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
@@ -2345,16 +2344,17 @@ in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
                     // the super type.
 ```
 
-### SuspiciousMethodCalls
-Suspicious call to 'Map.getOrDefault()'
-in `src/main/java/org/apache/commons/lang3/reflect/TypeUtils.java`
+## RuleId[id=RedundantTypeArguments]
+### RedundantTypeArguments
+Explicit type arguments can be inferred
+in `src/main/java/org/apache/commons/lang3/exception/ExceptionUtils.java`
 #### Snippet
 ```java
-            typeVarAssigns.put(
-                    typeParams[i],
-                    typeVarAssigns.getOrDefault(typeArg, typeArg)
-            );
-        }
+    public static <R> R rethrow(final Throwable throwable) {
+        // claim that the typeErasure invocation throws a RuntimeException
+        return ExceptionUtils.<R, RuntimeException>eraseType(throwable);
+    }
+
 ```
 
 ## RuleId[id=NumberEquality]
@@ -2398,102 +2398,6 @@ in `src/main/java/org/apache/commons/lang3/concurrent/AbstractFutureProxy.java`
 
 ### NullableProblems
 Not annotated parameter overrides @NotNull parameter
-in `src/main/java/org/apache/commons/lang3/concurrent/BasicThreadFactory.java`
-#### Snippet
-```java
-     */
-    @Override
-    public Thread newThread(final Runnable runnable) {
-        final Thread thread = getWrappedFactory().newThread(runnable);
-        initializeThread(thread);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `src/main/java/org/apache/commons/lang3/math/Fraction.java`
-#### Snippet
-```java
-     */
-    @Override
-    public int compareTo(final Fraction other) {
-        if (this == other) {
-            return 0;
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NotNull
-in `src/main/java/org/apache/commons/lang3/CharRange.java`
-#### Snippet
-```java
-     */
-    @Override
-    public Iterator<Character> iterator() {
-        return new CharacterIterator(this);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
-#### Snippet
-```java
-        /** {@inheritDoc} */
-        @Override
-        public void write(final char[] cbuf) {
-            StrBuilder.this.append(cbuf);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
-#### Snippet
-```java
-        /** {@inheritDoc} */
-        @Override
-        public void write(final String str, final int off, final int len) {
-            StrBuilder.this.append(str, off, len);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
-#### Snippet
-```java
-        /** {@inheritDoc} */
-        @Override
-        public int read(final char[] b, final int off, int len) {
-            if (off < 0 || len < 0 || off > b.length ||
-                    off + len > b.length || off + len < 0) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
-#### Snippet
-```java
-        /** {@inheritDoc} */
-        @Override
-        public void write(final char[] cbuf, final int off, final int len) {
-            StrBuilder.this.append(cbuf, off, len);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
-#### Snippet
-```java
-        /** {@inheritDoc} */
-        @Override
-        public void write(final String str) {
-            StrBuilder.this.append(str);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
 in `src/main/java/org/apache/commons/lang3/text/CompositeFormat.java`
 #### Snippet
 ```java
@@ -2525,6 +2429,78 @@ in `src/main/java/org/apache/commons/lang3/text/CompositeFormat.java`
     public StringBuffer format(final Object obj, final StringBuffer toAppendTo,
             final FieldPosition pos) {
         return formatter.format(obj, toAppendTo, pos);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/org/apache/commons/lang3/math/Fraction.java`
+#### Snippet
+```java
+     */
+    @Override
+    public int compareTo(final Fraction other) {
+        if (this == other) {
+            return 0;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/org/apache/commons/lang3/concurrent/UncheckedFuture.java`
+#### Snippet
+```java
+     */
+    @Override
+    V get(long timeout, TimeUnit unit);
+
+}
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/org/apache/commons/lang3/concurrent/BasicThreadFactory.java`
+#### Snippet
+```java
+     */
+    @Override
+    public Thread newThread(final Runnable runnable) {
+        final Thread thread = getWrappedFactory().newThread(runnable);
+        initializeThread(thread);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java`
+#### Snippet
+```java
+     */
+    @Override
+    public void setFormatsByArgumentIndex(final Format[] newFormats) {
+        throw new UnsupportedOperationException();
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java`
+#### Snippet
+```java
+     */
+    @Override
+    public final void applyPattern(final String pattern) {
+        if (registry == null) {
+            super.applyPattern(pattern);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java`
+#### Snippet
+```java
+     */
+    @Override
+    public void setFormats(final Format[] newFormats) {
+        throw new UnsupportedOperationException();
     }
 ```
 
@@ -2565,90 +2541,91 @@ in `src/main/java/org/apache/commons/lang3/concurrent/ConcurrentUtils.java`
 ```
 
 ### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `src/main/java/org/apache/commons/lang3/concurrent/UncheckedFuture.java`
+Not annotated method overrides method annotated with @NotNull
+in `src/main/java/org/apache/commons/lang3/CharRange.java`
 #### Snippet
 ```java
      */
     @Override
-    V get(long timeout, TimeUnit unit);
-
-}
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java`
-#### Snippet
-```java
-     */
-    @Override
-    public void setFormatsByArgumentIndex(final Format[] newFormats) {
-        throw new UnsupportedOperationException();
+    public Iterator<Character> iterator() {
+        return new CharacterIterator(this);
     }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NotNull parameter
-in `src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java`
+in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
 #### Snippet
 ```java
-     */
-    @Override
-    public final void applyPattern(final String pattern) {
-        if (registry == null) {
-            super.applyPattern(pattern);
+        /** {@inheritDoc} */
+        @Override
+        public void write(final String str, final int off, final int len) {
+            StrBuilder.this.append(str, off, len);
+        }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NotNull parameter
-in `src/main/java/org/apache/commons/lang3/text/ExtendedMessageFormat.java`
+in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
 #### Snippet
 ```java
-     */
-    @Override
-    public void setFormats(final Format[] newFormats) {
-        throw new UnsupportedOperationException();
-    }
+        /** {@inheritDoc} */
+        @Override
+        public void write(final char[] cbuf, final int off, final int len) {
+            StrBuilder.this.append(cbuf, off, len);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
+#### Snippet
+```java
+        /** {@inheritDoc} */
+        @Override
+        public void write(final String str) {
+            StrBuilder.this.append(str);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
+#### Snippet
+```java
+        /** {@inheritDoc} */
+        @Override
+        public int read(final char[] b, final int off, int len) {
+            if (off < 0 || len < 0 || off > b.length ||
+                    off + len > b.length || off + len < 0) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/org/apache/commons/lang3/text/StrBuilder.java`
+#### Snippet
+```java
+        /** {@inheritDoc} */
+        @Override
+        public void write(final char[] cbuf) {
+            StrBuilder.this.append(cbuf);
+        }
+```
+
+## RuleId[id=NegativeIntConstantInLongContext]
+### NegativeIntConstantInLongContext
+Negative int hexadecimal constant in long context
+in `src/main/java/org/apache/commons/lang3/Conversion.java`
+#### Snippet
+```java
+        for (int i = 0; i < nInts; i++) {
+            final int shift = i * 32 + srcPos;
+            dst[dstPos + i] = (int) (0xffffffff & (src >> shift));
+        }
+        return dst;
 ```
 
 ## RuleId[id=JavadocLinkAsPlainText]
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `src/main/java/org/apache/commons/lang3/SystemUtils.java`
-#### Snippet
-```java
-     * </p>
-     * <ul>
-     * <li>Affects Java versions 7u321, 8u311, 11.0.13-oracle, 17.0.1: https://bugs.openjdk.org/browse/JDK-8274737</li>
-     * <li>Fixed in OpenJDK commit https://github.com/openjdk/jdk/commit/97ea9dd2f24f9f1fb9b9345a4202a825ee28e014</li>
-     * </ul>
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `src/main/java/org/apache/commons/lang3/SystemUtils.java`
-#### Snippet
-```java
-     * <ul>
-     * <li>Affects Java versions 7u321, 8u311, 11.0.13-oracle, 17.0.1: https://bugs.openjdk.org/browse/JDK-8274737</li>
-     * <li>Fixed in OpenJDK commit https://github.com/openjdk/jdk/commit/97ea9dd2f24f9f1fb9b9345a4202a825ee28e014</li>
-     * </ul>
-     * <p>
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java`
-#### Snippet
-```java
-     * @deprecated As of Java 12, we can no longer drop the {@code final} modifier, thus
-     *             rendering this method obsolete. The JDK discussion about this change can be found
-     *             here: https://mail.openjdk.java.net/pipermail/core-libs-dev/2018-November/056486.html
-     * @since 3.3
-     */
-```
-
 ### JavadocLinkAsPlainText
 Link specified as plain text
 in `src/main/java/org/apache/commons/lang3/concurrent/locks/LockingVisitors.java`
@@ -2673,17 +2650,40 @@ in `src/main/java/org/apache/commons/lang3/StringEscapeUtils.java`
      * <p>Example:</p>
 ```
 
-## RuleId[id=NegativeIntConstantInLongContext]
-### NegativeIntConstantInLongContext
-Negative int hexadecimal constant in long context
-in `src/main/java/org/apache/commons/lang3/Conversion.java`
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `src/main/java/org/apache/commons/lang3/reflect/FieldUtils.java`
 #### Snippet
 ```java
-        for (int i = 0; i < nInts; i++) {
-            final int shift = i * 32 + srcPos;
-            dst[dstPos + i] = (int) (0xffffffff & (src >> shift));
-        }
-        return dst;
+     * @deprecated As of Java 12, we can no longer drop the {@code final} modifier, thus
+     *             rendering this method obsolete. The JDK discussion about this change can be found
+     *             here: https://mail.openjdk.java.net/pipermail/core-libs-dev/2018-November/056486.html
+     * @since 3.3
+     */
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `src/main/java/org/apache/commons/lang3/SystemUtils.java`
+#### Snippet
+```java
+     * </p>
+     * <ul>
+     * <li>Affects Java versions 7u321, 8u311, 11.0.13-oracle, 17.0.1: https://bugs.openjdk.org/browse/JDK-8274737</li>
+     * <li>Fixed in OpenJDK commit https://github.com/openjdk/jdk/commit/97ea9dd2f24f9f1fb9b9345a4202a825ee28e014</li>
+     * </ul>
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `src/main/java/org/apache/commons/lang3/SystemUtils.java`
+#### Snippet
+```java
+     * <ul>
+     * <li>Affects Java versions 7u321, 8u311, 11.0.13-oracle, 17.0.1: https://bugs.openjdk.org/browse/JDK-8274737</li>
+     * <li>Fixed in OpenJDK commit https://github.com/openjdk/jdk/commit/97ea9dd2f24f9f1fb9b9345a4202a825ee28e014</li>
+     * </ul>
+     * <p>
 ```
 
 ## RuleId[id=FunctionalExpressionCanBeFolded]
@@ -2727,18 +2727,6 @@ in `src/main/java/org/apache/commons/lang3/time/FastDateParser.java`
 ## RuleId[id=JavadocDeclaration]
 ### JavadocDeclaration
 Javadoc pointing to itself
-in `src/main/java/org/apache/commons/lang3/text/StrLookup.java`
-#### Snippet
-```java
-     * </p>
-     * <p>
-     * The {@link #lookup(String)} method always returns a String, regardless of
-     * the underlying data, by converting it as necessary. For example:
-     * </p>
-```
-
-### JavadocDeclaration
-Javadoc pointing to itself
 in `src/main/java/org/apache/commons/lang3/ClassUtils.java`
 #### Snippet
 ```java
@@ -2746,6 +2734,18 @@ in `src/main/java/org/apache/commons/lang3/ClassUtils.java`
      * <p>
      * This method simply gets the name using {@code Class.getName()} and then calls {@link #getShortClassName(Class)}. See
      * relevant notes there.
+     * </p>
+```
+
+### JavadocDeclaration
+Javadoc pointing to itself
+in `src/main/java/org/apache/commons/lang3/text/StrLookup.java`
+#### Snippet
+```java
+     * </p>
+     * <p>
+     * The {@link #lookup(String)} method always returns a String, regardless of
+     * the underlying data, by converting it as necessary. For example:
      * </p>
 ```
 
@@ -2779,9 +2779,21 @@ Casting `array` to `Object` is redundant
 in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
+     */
+    public static long[] removeAllOccurrences(final long[] array, final long element) {
+        return (long[]) removeAll((Object) array, indexesOf(array, element));
+    }
+
+```
+
+### RedundantCast
+Casting `array` to `Object` is redundant
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
+#### Snippet
+```java
     @Deprecated
-    public static char[] removeAllOccurences(final char[] array, final char element) {
-        return (char[]) removeAll((Object) array, indexesOf(array, element));
+    public static boolean[] removeAllOccurences(final boolean[] array, final boolean element) {
+        return (boolean[]) removeAll((Object) array, indexesOf(array, element));
     }
 
 ```
@@ -2804,56 +2816,8 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
      */
-    public static double[] removeAllOccurrences(final double[] array, final double element) {
-        return (double[]) removeAll((Object) array, indexesOf(array, element));
-    }
-
-```
-
-### RedundantCast
-Casting `array` to `Object` is redundant
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-     */
-    public static float[] removeAllOccurrences(final float[] array, final float element) {
-        return (float[]) removeAll((Object) array, indexesOf(array, element));
-    }
-
-```
-
-### RedundantCast
-Casting `array` to `Object` is redundant
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-     */
     public static char[] removeAllOccurrences(final char[] array, final char element) {
         return (char[]) removeAll((Object) array, indexesOf(array, element));
-    }
-
-```
-
-### RedundantCast
-Casting `array` to `Object` is redundant
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    @Deprecated
-    public static <T> T[] removeAllOccurences(final T[] array, final T element) {
-        return (T[]) removeAll((Object) array, indexesOf(array, element));
-    }
-
-```
-
-### RedundantCast
-Casting `array` to `Object` is redundant
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-     */
-    public static byte[] removeAllOccurrences(final byte[] array, final byte element) {
-        return (byte[]) removeAll((Object) array, indexesOf(array, element));
     }
 
 ```
@@ -2866,66 +2830,6 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
      */
     public static boolean[] removeAllOccurrences(final boolean[] array, final boolean element) {
         return (boolean[]) removeAll((Object) array, indexesOf(array, element));
-    }
-
-```
-
-### RedundantCast
-Casting `array` to `Object` is redundant
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-     */
-    public static long[] removeAllOccurrences(final long[] array, final long element) {
-        return (long[]) removeAll((Object) array, indexesOf(array, element));
-    }
-
-```
-
-### RedundantCast
-Casting `array` to `Object` is redundant
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    @Deprecated
-    public static short[] removeAllOccurences(final short[] array, final short element) {
-        return (short[]) removeAll((Object) array, indexesOf(array, element));
-    }
-
-```
-
-### RedundantCast
-Casting `array` to `Object` is redundant
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    @Deprecated
-    public static long[] removeAllOccurences(final long[] array, final long element) {
-        return (long[]) removeAll((Object) array, indexesOf(array, element));
-    }
-
-```
-
-### RedundantCast
-Casting `array` to `Object` is redundant
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-    @Deprecated
-    public static byte[] removeAllOccurences(final byte[] array, final byte element) {
-        return (byte[]) removeAll((Object) array, indexesOf(array, element));
-    }
-
-```
-
-### RedundantCast
-Casting `array` to `Object` is redundant
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-     */
-    public static int[] removeAllOccurrences(final int[] array, final int element) {
-        return (int[]) removeAll((Object) array, indexesOf(array, element));
     }
 
 ```
@@ -2960,8 +2864,8 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
      */
-    public static <T> T[] removeAllOccurrences(final T[] array, final T element) {
-        return (T[]) removeAll((Object) array, indexesOf(array, element));
+    public static byte[] removeAllOccurrences(final byte[] array, final byte element) {
+        return (byte[]) removeAll((Object) array, indexesOf(array, element));
     }
 
 ```
@@ -2972,8 +2876,8 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
     @Deprecated
-    public static boolean[] removeAllOccurences(final boolean[] array, final boolean element) {
-        return (boolean[]) removeAll((Object) array, indexesOf(array, element));
+    public static byte[] removeAllOccurences(final byte[] array, final byte element) {
+        return (byte[]) removeAll((Object) array, indexesOf(array, element));
     }
 
 ```
@@ -2990,1133 +2894,186 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 
 ```
 
+### RedundantCast
+Casting `array` to `Object` is redundant
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
+#### Snippet
+```java
+    @Deprecated
+    public static char[] removeAllOccurences(final char[] array, final char element) {
+        return (char[]) removeAll((Object) array, indexesOf(array, element));
+    }
+
+```
+
+### RedundantCast
+Casting `array` to `Object` is redundant
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
+#### Snippet
+```java
+     */
+    public static <T> T[] removeAllOccurrences(final T[] array, final T element) {
+        return (T[]) removeAll((Object) array, indexesOf(array, element));
+    }
+
+```
+
+### RedundantCast
+Casting `array` to `Object` is redundant
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
+#### Snippet
+```java
+    @Deprecated
+    public static long[] removeAllOccurences(final long[] array, final long element) {
+        return (long[]) removeAll((Object) array, indexesOf(array, element));
+    }
+
+```
+
+### RedundantCast
+Casting `array` to `Object` is redundant
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
+#### Snippet
+```java
+     */
+    public static double[] removeAllOccurrences(final double[] array, final double element) {
+        return (double[]) removeAll((Object) array, indexesOf(array, element));
+    }
+
+```
+
+### RedundantCast
+Casting `array` to `Object` is redundant
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
+#### Snippet
+```java
+     */
+    public static int[] removeAllOccurrences(final int[] array, final int element) {
+        return (int[]) removeAll((Object) array, indexesOf(array, element));
+    }
+
+```
+
+### RedundantCast
+Casting `array` to `Object` is redundant
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
+#### Snippet
+```java
+    @Deprecated
+    public static short[] removeAllOccurences(final short[] array, final short element) {
+        return (short[]) removeAll((Object) array, indexesOf(array, element));
+    }
+
+```
+
+### RedundantCast
+Casting `array` to `Object` is redundant
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
+#### Snippet
+```java
+    @Deprecated
+    public static <T> T[] removeAllOccurences(final T[] array, final T element) {
+        return (T[]) removeAll((Object) array, indexesOf(array, element));
+    }
+
+```
+
+### RedundantCast
+Casting `array` to `Object` is redundant
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
+#### Snippet
+```java
+     */
+    public static float[] removeAllOccurrences(final float[] array, final float element) {
+        return (float[]) removeAll((Object) array, indexesOf(array, element));
+    }
+
+```
+
+## RuleId[id=PointlessBitwiseExpression]
+### PointlessBitwiseExpression
+`0xffffffff & (src >> shift)` can be replaced with '(src \>\> shift)'
+in `src/main/java/org/apache/commons/lang3/Conversion.java`
+#### Snippet
+```java
+        for (int i = 0; i < nInts; i++) {
+            final int shift = i * 32 + srcPos;
+            dst[dstPos + i] = (int) (0xffffffff & (src >> shift));
+        }
+        return dst;
+```
+
 ## RuleId[id=UnnecessaryUnicodeEscape]
 ### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00A1` can be replaced with '¡'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+Unicode escape sequence `\u0020` can be replaced with ' '
+in `src/main/java/org/apache/commons/lang3/CharUtils.java`
 #### Snippet
 ```java
-    private static final String[][] ISO8859_1_ESCAPE = {
-        {"\u00A0", "&nbsp;"}, // non-breaking space
-        {"\u00A1", "&iexcl;"}, // inverted exclamation mark
-        {"\u00A2", "&cent;"}, // cent sign
-        {"\u00A3", "&pound;"}, // pound sign
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00A2` can be replaced with '¢'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00A0", "&nbsp;"}, // non-breaking space
-        {"\u00A1", "&iexcl;"}, // inverted exclamation mark
-        {"\u00A2", "&cent;"}, // cent sign
-        {"\u00A3", "&pound;"}, // pound sign
-        {"\u00A4", "&curren;"}, // currency sign
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00A3` can be replaced with '£'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00A1", "&iexcl;"}, // inverted exclamation mark
-        {"\u00A2", "&cent;"}, // cent sign
-        {"\u00A3", "&pound;"}, // pound sign
-        {"\u00A4", "&curren;"}, // currency sign
-        {"\u00A5", "&yen;"}, // yen sign = yuan sign
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00A4` can be replaced with '¤'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00A2", "&cent;"}, // cent sign
-        {"\u00A3", "&pound;"}, // pound sign
-        {"\u00A4", "&curren;"}, // currency sign
-        {"\u00A5", "&yen;"}, // yen sign = yuan sign
-        {"\u00A6", "&brvbar;"}, // broken bar = broken vertical bar
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00A5` can be replaced with '¥'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00A3", "&pound;"}, // pound sign
-        {"\u00A4", "&curren;"}, // currency sign
-        {"\u00A5", "&yen;"}, // yen sign = yuan sign
-        {"\u00A6", "&brvbar;"}, // broken bar = broken vertical bar
-        {"\u00A7", "&sect;"}, // section sign
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00A6` can be replaced with '¦'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00A4", "&curren;"}, // currency sign
-        {"\u00A5", "&yen;"}, // yen sign = yuan sign
-        {"\u00A6", "&brvbar;"}, // broken bar = broken vertical bar
-        {"\u00A7", "&sect;"}, // section sign
-        {"\u00A8", "&uml;"}, // diaeresis = spacing diaeresis
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00A7` can be replaced with '§'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00A5", "&yen;"}, // yen sign = yuan sign
-        {"\u00A6", "&brvbar;"}, // broken bar = broken vertical bar
-        {"\u00A7", "&sect;"}, // section sign
-        {"\u00A8", "&uml;"}, // diaeresis = spacing diaeresis
-        {"\u00A9", "&copy;"}, // © - copyright sign
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00A8` can be replaced with '¨'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00A6", "&brvbar;"}, // broken bar = broken vertical bar
-        {"\u00A7", "&sect;"}, // section sign
-        {"\u00A8", "&uml;"}, // diaeresis = spacing diaeresis
-        {"\u00A9", "&copy;"}, // © - copyright sign
-        {"\u00AA", "&ordf;"}, // feminine ordinal indicator
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00A9` can be replaced with '©'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00A7", "&sect;"}, // section sign
-        {"\u00A8", "&uml;"}, // diaeresis = spacing diaeresis
-        {"\u00A9", "&copy;"}, // © - copyright sign
-        {"\u00AA", "&ordf;"}, // feminine ordinal indicator
-        {"\u00AB", "&laquo;"}, // left-pointing double angle quotation mark = left pointing guillemet
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00AA` can be replaced with 'ª'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00A8", "&uml;"}, // diaeresis = spacing diaeresis
-        {"\u00A9", "&copy;"}, // © - copyright sign
-        {"\u00AA", "&ordf;"}, // feminine ordinal indicator
-        {"\u00AB", "&laquo;"}, // left-pointing double angle quotation mark = left pointing guillemet
-        {"\u00AC", "&not;"}, // not sign
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00AB` can be replaced with '\<\<'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00A9", "&copy;"}, // © - copyright sign
-        {"\u00AA", "&ordf;"}, // feminine ordinal indicator
-        {"\u00AB", "&laquo;"}, // left-pointing double angle quotation mark = left pointing guillemet
-        {"\u00AC", "&not;"}, // not sign
-        {"\u00AD", "&shy;"}, // soft hyphen = discretionary hyphen
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00AC` can be replaced with '¬'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00AA", "&ordf;"}, // feminine ordinal indicator
-        {"\u00AB", "&laquo;"}, // left-pointing double angle quotation mark = left pointing guillemet
-        {"\u00AC", "&not;"}, // not sign
-        {"\u00AD", "&shy;"}, // soft hyphen = discretionary hyphen
-        {"\u00AE", "&reg;"}, // ® - registered trademark sign
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00AE` can be replaced with '®'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00AC", "&not;"}, // not sign
-        {"\u00AD", "&shy;"}, // soft hyphen = discretionary hyphen
-        {"\u00AE", "&reg;"}, // ® - registered trademark sign
-        {"\u00AF", "&macr;"}, // macron = spacing macron = overline = APL overbar
-        {"\u00B0", "&deg;"}, // degree sign
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00AF` can be replaced with '¯'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00AD", "&shy;"}, // soft hyphen = discretionary hyphen
-        {"\u00AE", "&reg;"}, // ® - registered trademark sign
-        {"\u00AF", "&macr;"}, // macron = spacing macron = overline = APL overbar
-        {"\u00B0", "&deg;"}, // degree sign
-        {"\u00B1", "&plusmn;"}, // plus-minus sign = plus-or-minus sign
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00B0` can be replaced with '°'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00AE", "&reg;"}, // ® - registered trademark sign
-        {"\u00AF", "&macr;"}, // macron = spacing macron = overline = APL overbar
-        {"\u00B0", "&deg;"}, // degree sign
-        {"\u00B1", "&plusmn;"}, // plus-minus sign = plus-or-minus sign
-        {"\u00B2", "&sup2;"}, // superscript two = superscript digit two = squared
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00B1` can be replaced with '±'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00AF", "&macr;"}, // macron = spacing macron = overline = APL overbar
-        {"\u00B0", "&deg;"}, // degree sign
-        {"\u00B1", "&plusmn;"}, // plus-minus sign = plus-or-minus sign
-        {"\u00B2", "&sup2;"}, // superscript two = superscript digit two = squared
-        {"\u00B3", "&sup3;"}, // superscript three = superscript digit three = cubed
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00B2` can be replaced with '²'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00B0", "&deg;"}, // degree sign
-        {"\u00B1", "&plusmn;"}, // plus-minus sign = plus-or-minus sign
-        {"\u00B2", "&sup2;"}, // superscript two = superscript digit two = squared
-        {"\u00B3", "&sup3;"}, // superscript three = superscript digit three = cubed
-        {"\u00B4", "&acute;"}, // acute accent = spacing acute
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00B3` can be replaced with '³'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00B1", "&plusmn;"}, // plus-minus sign = plus-or-minus sign
-        {"\u00B2", "&sup2;"}, // superscript two = superscript digit two = squared
-        {"\u00B3", "&sup3;"}, // superscript three = superscript digit three = cubed
-        {"\u00B4", "&acute;"}, // acute accent = spacing acute
-        {"\u00B5", "&micro;"}, // micro sign
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00B4` can be replaced with '´'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00B2", "&sup2;"}, // superscript two = superscript digit two = squared
-        {"\u00B3", "&sup3;"}, // superscript three = superscript digit three = cubed
-        {"\u00B4", "&acute;"}, // acute accent = spacing acute
-        {"\u00B5", "&micro;"}, // micro sign
-        {"\u00B6", "&para;"}, // pilcrow sign = paragraph sign
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00B5` can be replaced with 'µ'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00B3", "&sup3;"}, // superscript three = superscript digit three = cubed
-        {"\u00B4", "&acute;"}, // acute accent = spacing acute
-        {"\u00B5", "&micro;"}, // micro sign
-        {"\u00B6", "&para;"}, // pilcrow sign = paragraph sign
-        {"\u00B7", "&middot;"}, // middle dot = Georgian comma = Greek middle dot
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00B6` can be replaced with '¶'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00B4", "&acute;"}, // acute accent = spacing acute
-        {"\u00B5", "&micro;"}, // micro sign
-        {"\u00B6", "&para;"}, // pilcrow sign = paragraph sign
-        {"\u00B7", "&middot;"}, // middle dot = Georgian comma = Greek middle dot
-        {"\u00B8", "&cedil;"}, // cedilla = spacing cedilla
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00B7` can be replaced with '·'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00B5", "&micro;"}, // micro sign
-        {"\u00B6", "&para;"}, // pilcrow sign = paragraph sign
-        {"\u00B7", "&middot;"}, // middle dot = Georgian comma = Greek middle dot
-        {"\u00B8", "&cedil;"}, // cedilla = spacing cedilla
-        {"\u00B9", "&sup1;"}, // superscript one = superscript digit one
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00B8` can be replaced with '¸'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00B6", "&para;"}, // pilcrow sign = paragraph sign
-        {"\u00B7", "&middot;"}, // middle dot = Georgian comma = Greek middle dot
-        {"\u00B8", "&cedil;"}, // cedilla = spacing cedilla
-        {"\u00B9", "&sup1;"}, // superscript one = superscript digit one
-        {"\u00BA", "&ordm;"}, // masculine ordinal indicator
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00B9` can be replaced with '¹'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00B7", "&middot;"}, // middle dot = Georgian comma = Greek middle dot
-        {"\u00B8", "&cedil;"}, // cedilla = spacing cedilla
-        {"\u00B9", "&sup1;"}, // superscript one = superscript digit one
-        {"\u00BA", "&ordm;"}, // masculine ordinal indicator
-        {"\u00BB", "&raquo;"}, // right-pointing double angle quotation mark = right pointing guillemet
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00BA` can be replaced with 'º'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00B8", "&cedil;"}, // cedilla = spacing cedilla
-        {"\u00B9", "&sup1;"}, // superscript one = superscript digit one
-        {"\u00BA", "&ordm;"}, // masculine ordinal indicator
-        {"\u00BB", "&raquo;"}, // right-pointing double angle quotation mark = right pointing guillemet
-        {"\u00BC", "&frac14;"}, // vulgar fraction one quarter = fraction one quarter
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00BB` can be replaced with '\>\>'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00B9", "&sup1;"}, // superscript one = superscript digit one
-        {"\u00BA", "&ordm;"}, // masculine ordinal indicator
-        {"\u00BB", "&raquo;"}, // right-pointing double angle quotation mark = right pointing guillemet
-        {"\u00BC", "&frac14;"}, // vulgar fraction one quarter = fraction one quarter
-        {"\u00BD", "&frac12;"}, // vulgar fraction one half = fraction one half
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00BC` can be replaced with '¼'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00BA", "&ordm;"}, // masculine ordinal indicator
-        {"\u00BB", "&raquo;"}, // right-pointing double angle quotation mark = right pointing guillemet
-        {"\u00BC", "&frac14;"}, // vulgar fraction one quarter = fraction one quarter
-        {"\u00BD", "&frac12;"}, // vulgar fraction one half = fraction one half
-        {"\u00BE", "&frac34;"}, // vulgar fraction three quarters = fraction three quarters
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00BD` can be replaced with '½'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00BB", "&raquo;"}, // right-pointing double angle quotation mark = right pointing guillemet
-        {"\u00BC", "&frac14;"}, // vulgar fraction one quarter = fraction one quarter
-        {"\u00BD", "&frac12;"}, // vulgar fraction one half = fraction one half
-        {"\u00BE", "&frac34;"}, // vulgar fraction three quarters = fraction three quarters
-        {"\u00BF", "&iquest;"}, // inverted question mark = turned question mark
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00BE` can be replaced with '¾'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00BC", "&frac14;"}, // vulgar fraction one quarter = fraction one quarter
-        {"\u00BD", "&frac12;"}, // vulgar fraction one half = fraction one half
-        {"\u00BE", "&frac34;"}, // vulgar fraction three quarters = fraction three quarters
-        {"\u00BF", "&iquest;"}, // inverted question mark = turned question mark
-        {"\u00C0", "&Agrave;"}, // À - uppercase A, grave accent
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00BF` can be replaced with '¿'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00BD", "&frac12;"}, // vulgar fraction one half = fraction one half
-        {"\u00BE", "&frac34;"}, // vulgar fraction three quarters = fraction three quarters
-        {"\u00BF", "&iquest;"}, // inverted question mark = turned question mark
-        {"\u00C0", "&Agrave;"}, // À - uppercase A, grave accent
-        {"\u00C1", "&Aacute;"}, // Á - uppercase A, acute accent
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00C0` can be replaced with 'À'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00BE", "&frac34;"}, // vulgar fraction three quarters = fraction three quarters
-        {"\u00BF", "&iquest;"}, // inverted question mark = turned question mark
-        {"\u00C0", "&Agrave;"}, // À - uppercase A, grave accent
-        {"\u00C1", "&Aacute;"}, // Á - uppercase A, acute accent
-        {"\u00C2", "&Acirc;"}, // Â - uppercase A, circumflex accent
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00C1` can be replaced with 'Á'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00BF", "&iquest;"}, // inverted question mark = turned question mark
-        {"\u00C0", "&Agrave;"}, // À - uppercase A, grave accent
-        {"\u00C1", "&Aacute;"}, // Á - uppercase A, acute accent
-        {"\u00C2", "&Acirc;"}, // Â - uppercase A, circumflex accent
-        {"\u00C3", "&Atilde;"}, // Ã - uppercase A, tilde
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00C2` can be replaced with 'Â'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00C0", "&Agrave;"}, // À - uppercase A, grave accent
-        {"\u00C1", "&Aacute;"}, // Á - uppercase A, acute accent
-        {"\u00C2", "&Acirc;"}, // Â - uppercase A, circumflex accent
-        {"\u00C3", "&Atilde;"}, // Ã - uppercase A, tilde
-        {"\u00C4", "&Auml;"}, // Ä - uppercase A, umlaut
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00C3` can be replaced with 'Ã'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00C1", "&Aacute;"}, // Á - uppercase A, acute accent
-        {"\u00C2", "&Acirc;"}, // Â - uppercase A, circumflex accent
-        {"\u00C3", "&Atilde;"}, // Ã - uppercase A, tilde
-        {"\u00C4", "&Auml;"}, // Ä - uppercase A, umlaut
-        {"\u00C5", "&Aring;"}, // Å - uppercase A, ring
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00C4` can be replaced with 'Ä'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00C2", "&Acirc;"}, // Â - uppercase A, circumflex accent
-        {"\u00C3", "&Atilde;"}, // Ã - uppercase A, tilde
-        {"\u00C4", "&Auml;"}, // Ä - uppercase A, umlaut
-        {"\u00C5", "&Aring;"}, // Å - uppercase A, ring
-        {"\u00C6", "&AElig;"}, // Æ - uppercase AE
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00C5` can be replaced with 'Å'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00C3", "&Atilde;"}, // Ã - uppercase A, tilde
-        {"\u00C4", "&Auml;"}, // Ä - uppercase A, umlaut
-        {"\u00C5", "&Aring;"}, // Å - uppercase A, ring
-        {"\u00C6", "&AElig;"}, // Æ - uppercase AE
-        {"\u00C7", "&Ccedil;"}, // Ç - uppercase C, cedilla
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00C6` can be replaced with 'Æ'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00C4", "&Auml;"}, // Ä - uppercase A, umlaut
-        {"\u00C5", "&Aring;"}, // Å - uppercase A, ring
-        {"\u00C6", "&AElig;"}, // Æ - uppercase AE
-        {"\u00C7", "&Ccedil;"}, // Ç - uppercase C, cedilla
-        {"\u00C8", "&Egrave;"}, // È - uppercase E, grave accent
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00C7` can be replaced with 'Ç'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00C5", "&Aring;"}, // Å - uppercase A, ring
-        {"\u00C6", "&AElig;"}, // Æ - uppercase AE
-        {"\u00C7", "&Ccedil;"}, // Ç - uppercase C, cedilla
-        {"\u00C8", "&Egrave;"}, // È - uppercase E, grave accent
-        {"\u00C9", "&Eacute;"}, // É - uppercase E, acute accent
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00C8` can be replaced with 'È'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00C6", "&AElig;"}, // Æ - uppercase AE
-        {"\u00C7", "&Ccedil;"}, // Ç - uppercase C, cedilla
-        {"\u00C8", "&Egrave;"}, // È - uppercase E, grave accent
-        {"\u00C9", "&Eacute;"}, // É - uppercase E, acute accent
-        {"\u00CA", "&Ecirc;"}, // Ê - uppercase E, circumflex accent
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00C9` can be replaced with 'É'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00C7", "&Ccedil;"}, // Ç - uppercase C, cedilla
-        {"\u00C8", "&Egrave;"}, // È - uppercase E, grave accent
-        {"\u00C9", "&Eacute;"}, // É - uppercase E, acute accent
-        {"\u00CA", "&Ecirc;"}, // Ê - uppercase E, circumflex accent
-        {"\u00CB", "&Euml;"}, // Ë - uppercase E, umlaut
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00CA` can be replaced with 'Ê'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00C8", "&Egrave;"}, // È - uppercase E, grave accent
-        {"\u00C9", "&Eacute;"}, // É - uppercase E, acute accent
-        {"\u00CA", "&Ecirc;"}, // Ê - uppercase E, circumflex accent
-        {"\u00CB", "&Euml;"}, // Ë - uppercase E, umlaut
-        {"\u00CC", "&Igrave;"}, // Ì - uppercase I, grave accent
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00CB` can be replaced with 'Ë'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00C9", "&Eacute;"}, // É - uppercase E, acute accent
-        {"\u00CA", "&Ecirc;"}, // Ê - uppercase E, circumflex accent
-        {"\u00CB", "&Euml;"}, // Ë - uppercase E, umlaut
-        {"\u00CC", "&Igrave;"}, // Ì - uppercase I, grave accent
-        {"\u00CD", "&Iacute;"}, // Í - uppercase I, acute accent
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00CC` can be replaced with 'Ì'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00CA", "&Ecirc;"}, // Ê - uppercase E, circumflex accent
-        {"\u00CB", "&Euml;"}, // Ë - uppercase E, umlaut
-        {"\u00CC", "&Igrave;"}, // Ì - uppercase I, grave accent
-        {"\u00CD", "&Iacute;"}, // Í - uppercase I, acute accent
-        {"\u00CE", "&Icirc;"}, // Î - uppercase I, circumflex accent
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00CD` can be replaced with 'Í'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00CB", "&Euml;"}, // Ë - uppercase E, umlaut
-        {"\u00CC", "&Igrave;"}, // Ì - uppercase I, grave accent
-        {"\u00CD", "&Iacute;"}, // Í - uppercase I, acute accent
-        {"\u00CE", "&Icirc;"}, // Î - uppercase I, circumflex accent
-        {"\u00CF", "&Iuml;"}, // Ï - uppercase I, umlaut
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00CE` can be replaced with 'Î'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00CC", "&Igrave;"}, // Ì - uppercase I, grave accent
-        {"\u00CD", "&Iacute;"}, // Í - uppercase I, acute accent
-        {"\u00CE", "&Icirc;"}, // Î - uppercase I, circumflex accent
-        {"\u00CF", "&Iuml;"}, // Ï - uppercase I, umlaut
-        {"\u00D0", "&ETH;"}, // Ð - uppercase Eth, Icelandic
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00CF` can be replaced with 'Ï'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00CD", "&Iacute;"}, // Í - uppercase I, acute accent
-        {"\u00CE", "&Icirc;"}, // Î - uppercase I, circumflex accent
-        {"\u00CF", "&Iuml;"}, // Ï - uppercase I, umlaut
-        {"\u00D0", "&ETH;"}, // Ð - uppercase Eth, Icelandic
-        {"\u00D1", "&Ntilde;"}, // Ñ - uppercase N, tilde
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00D0` can be replaced with 'Ð'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00CE", "&Icirc;"}, // Î - uppercase I, circumflex accent
-        {"\u00CF", "&Iuml;"}, // Ï - uppercase I, umlaut
-        {"\u00D0", "&ETH;"}, // Ð - uppercase Eth, Icelandic
-        {"\u00D1", "&Ntilde;"}, // Ñ - uppercase N, tilde
-        {"\u00D2", "&Ograve;"}, // Ò - uppercase O, grave accent
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00D1` can be replaced with 'Ñ'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00CF", "&Iuml;"}, // Ï - uppercase I, umlaut
-        {"\u00D0", "&ETH;"}, // Ð - uppercase Eth, Icelandic
-        {"\u00D1", "&Ntilde;"}, // Ñ - uppercase N, tilde
-        {"\u00D2", "&Ograve;"}, // Ò - uppercase O, grave accent
-        {"\u00D3", "&Oacute;"}, // Ó - uppercase O, acute accent
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00D2` can be replaced with 'Ò'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00D0", "&ETH;"}, // Ð - uppercase Eth, Icelandic
-        {"\u00D1", "&Ntilde;"}, // Ñ - uppercase N, tilde
-        {"\u00D2", "&Ograve;"}, // Ò - uppercase O, grave accent
-        {"\u00D3", "&Oacute;"}, // Ó - uppercase O, acute accent
-        {"\u00D4", "&Ocirc;"}, // Ô - uppercase O, circumflex accent
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00D3` can be replaced with 'Ó'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00D1", "&Ntilde;"}, // Ñ - uppercase N, tilde
-        {"\u00D2", "&Ograve;"}, // Ò - uppercase O, grave accent
-        {"\u00D3", "&Oacute;"}, // Ó - uppercase O, acute accent
-        {"\u00D4", "&Ocirc;"}, // Ô - uppercase O, circumflex accent
-        {"\u00D5", "&Otilde;"}, // Õ - uppercase O, tilde
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00D4` can be replaced with 'Ô'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00D2", "&Ograve;"}, // Ò - uppercase O, grave accent
-        {"\u00D3", "&Oacute;"}, // Ó - uppercase O, acute accent
-        {"\u00D4", "&Ocirc;"}, // Ô - uppercase O, circumflex accent
-        {"\u00D5", "&Otilde;"}, // Õ - uppercase O, tilde
-        {"\u00D6", "&Ouml;"}, // Ö - uppercase O, umlaut
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00D5` can be replaced with 'Õ'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00D3", "&Oacute;"}, // Ó - uppercase O, acute accent
-        {"\u00D4", "&Ocirc;"}, // Ô - uppercase O, circumflex accent
-        {"\u00D5", "&Otilde;"}, // Õ - uppercase O, tilde
-        {"\u00D6", "&Ouml;"}, // Ö - uppercase O, umlaut
-        {"\u00D7", "&times;"}, // multiplication sign
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00D6` can be replaced with 'Ö'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00D4", "&Ocirc;"}, // Ô - uppercase O, circumflex accent
-        {"\u00D5", "&Otilde;"}, // Õ - uppercase O, tilde
-        {"\u00D6", "&Ouml;"}, // Ö - uppercase O, umlaut
-        {"\u00D7", "&times;"}, // multiplication sign
-        {"\u00D8", "&Oslash;"}, // Ø - uppercase O, slash
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00D7` can be replaced with '×'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00D5", "&Otilde;"}, // Õ - uppercase O, tilde
-        {"\u00D6", "&Ouml;"}, // Ö - uppercase O, umlaut
-        {"\u00D7", "&times;"}, // multiplication sign
-        {"\u00D8", "&Oslash;"}, // Ø - uppercase O, slash
-        {"\u00D9", "&Ugrave;"}, // Ù - uppercase U, grave accent
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00D8` can be replaced with 'Ø'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00D6", "&Ouml;"}, // Ö - uppercase O, umlaut
-        {"\u00D7", "&times;"}, // multiplication sign
-        {"\u00D8", "&Oslash;"}, // Ø - uppercase O, slash
-        {"\u00D9", "&Ugrave;"}, // Ù - uppercase U, grave accent
-        {"\u00DA", "&Uacute;"}, // Ú - uppercase U, acute accent
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00D9` can be replaced with 'Ù'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00D7", "&times;"}, // multiplication sign
-        {"\u00D8", "&Oslash;"}, // Ø - uppercase O, slash
-        {"\u00D9", "&Ugrave;"}, // Ù - uppercase U, grave accent
-        {"\u00DA", "&Uacute;"}, // Ú - uppercase U, acute accent
-        {"\u00DB", "&Ucirc;"}, // Û - uppercase U, circumflex accent
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00DA` can be replaced with 'Ú'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00D8", "&Oslash;"}, // Ø - uppercase O, slash
-        {"\u00D9", "&Ugrave;"}, // Ù - uppercase U, grave accent
-        {"\u00DA", "&Uacute;"}, // Ú - uppercase U, acute accent
-        {"\u00DB", "&Ucirc;"}, // Û - uppercase U, circumflex accent
-        {"\u00DC", "&Uuml;"}, // Ü - uppercase U, umlaut
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00DB` can be replaced with 'Û'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00D9", "&Ugrave;"}, // Ù - uppercase U, grave accent
-        {"\u00DA", "&Uacute;"}, // Ú - uppercase U, acute accent
-        {"\u00DB", "&Ucirc;"}, // Û - uppercase U, circumflex accent
-        {"\u00DC", "&Uuml;"}, // Ü - uppercase U, umlaut
-        {"\u00DD", "&Yacute;"}, // Ý - uppercase Y, acute accent
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00DC` can be replaced with 'Ü'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00DA", "&Uacute;"}, // Ú - uppercase U, acute accent
-        {"\u00DB", "&Ucirc;"}, // Û - uppercase U, circumflex accent
-        {"\u00DC", "&Uuml;"}, // Ü - uppercase U, umlaut
-        {"\u00DD", "&Yacute;"}, // Ý - uppercase Y, acute accent
-        {"\u00DE", "&THORN;"}, // Þ - uppercase THORN, Icelandic
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00DD` can be replaced with 'Ý'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00DB", "&Ucirc;"}, // Û - uppercase U, circumflex accent
-        {"\u00DC", "&Uuml;"}, // Ü - uppercase U, umlaut
-        {"\u00DD", "&Yacute;"}, // Ý - uppercase Y, acute accent
-        {"\u00DE", "&THORN;"}, // Þ - uppercase THORN, Icelandic
-        {"\u00DF", "&szlig;"}, // ß - lowercase sharps, German
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00DE` can be replaced with 'Þ'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00DC", "&Uuml;"}, // Ü - uppercase U, umlaut
-        {"\u00DD", "&Yacute;"}, // Ý - uppercase Y, acute accent
-        {"\u00DE", "&THORN;"}, // Þ - uppercase THORN, Icelandic
-        {"\u00DF", "&szlig;"}, // ß - lowercase sharps, German
-        {"\u00E0", "&agrave;"}, // à - lowercase a, grave accent
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00DF` can be replaced with 'ß'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00DD", "&Yacute;"}, // Ý - uppercase Y, acute accent
-        {"\u00DE", "&THORN;"}, // Þ - uppercase THORN, Icelandic
-        {"\u00DF", "&szlig;"}, // ß - lowercase sharps, German
-        {"\u00E0", "&agrave;"}, // à - lowercase a, grave accent
-        {"\u00E1", "&aacute;"}, // á - lowercase a, acute accent
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00E0` can be replaced with 'à'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00DE", "&THORN;"}, // Þ - uppercase THORN, Icelandic
-        {"\u00DF", "&szlig;"}, // ß - lowercase sharps, German
-        {"\u00E0", "&agrave;"}, // à - lowercase a, grave accent
-        {"\u00E1", "&aacute;"}, // á - lowercase a, acute accent
-        {"\u00E2", "&acirc;"}, // â - lowercase a, circumflex accent
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00E1` can be replaced with 'á'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00DF", "&szlig;"}, // ß - lowercase sharps, German
-        {"\u00E0", "&agrave;"}, // à - lowercase a, grave accent
-        {"\u00E1", "&aacute;"}, // á - lowercase a, acute accent
-        {"\u00E2", "&acirc;"}, // â - lowercase a, circumflex accent
-        {"\u00E3", "&atilde;"}, // ã - lowercase a, tilde
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00E2` can be replaced with 'â'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00E0", "&agrave;"}, // à - lowercase a, grave accent
-        {"\u00E1", "&aacute;"}, // á - lowercase a, acute accent
-        {"\u00E2", "&acirc;"}, // â - lowercase a, circumflex accent
-        {"\u00E3", "&atilde;"}, // ã - lowercase a, tilde
-        {"\u00E4", "&auml;"}, // ä - lowercase a, umlaut
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00E3` can be replaced with 'ã'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00E1", "&aacute;"}, // á - lowercase a, acute accent
-        {"\u00E2", "&acirc;"}, // â - lowercase a, circumflex accent
-        {"\u00E3", "&atilde;"}, // ã - lowercase a, tilde
-        {"\u00E4", "&auml;"}, // ä - lowercase a, umlaut
-        {"\u00E5", "&aring;"}, // å - lowercase a, ring
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00E4` can be replaced with 'ä'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00E2", "&acirc;"}, // â - lowercase a, circumflex accent
-        {"\u00E3", "&atilde;"}, // ã - lowercase a, tilde
-        {"\u00E4", "&auml;"}, // ä - lowercase a, umlaut
-        {"\u00E5", "&aring;"}, // å - lowercase a, ring
-        {"\u00E6", "&aelig;"}, // æ - lowercase ae
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00E5` can be replaced with 'å'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00E3", "&atilde;"}, // ã - lowercase a, tilde
-        {"\u00E4", "&auml;"}, // ä - lowercase a, umlaut
-        {"\u00E5", "&aring;"}, // å - lowercase a, ring
-        {"\u00E6", "&aelig;"}, // æ - lowercase ae
-        {"\u00E7", "&ccedil;"}, // ç - lowercase c, cedilla
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00E6` can be replaced with 'æ'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00E4", "&auml;"}, // ä - lowercase a, umlaut
-        {"\u00E5", "&aring;"}, // å - lowercase a, ring
-        {"\u00E6", "&aelig;"}, // æ - lowercase ae
-        {"\u00E7", "&ccedil;"}, // ç - lowercase c, cedilla
-        {"\u00E8", "&egrave;"}, // è - lowercase e, grave accent
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00E7` can be replaced with 'ç'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00E5", "&aring;"}, // å - lowercase a, ring
-        {"\u00E6", "&aelig;"}, // æ - lowercase ae
-        {"\u00E7", "&ccedil;"}, // ç - lowercase c, cedilla
-        {"\u00E8", "&egrave;"}, // è - lowercase e, grave accent
-        {"\u00E9", "&eacute;"}, // é - lowercase e, acute accent
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00E8` can be replaced with 'è'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00E6", "&aelig;"}, // æ - lowercase ae
-        {"\u00E7", "&ccedil;"}, // ç - lowercase c, cedilla
-        {"\u00E8", "&egrave;"}, // è - lowercase e, grave accent
-        {"\u00E9", "&eacute;"}, // é - lowercase e, acute accent
-        {"\u00EA", "&ecirc;"}, // ê - lowercase e, circumflex accent
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00E9` can be replaced with 'é'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00E7", "&ccedil;"}, // ç - lowercase c, cedilla
-        {"\u00E8", "&egrave;"}, // è - lowercase e, grave accent
-        {"\u00E9", "&eacute;"}, // é - lowercase e, acute accent
-        {"\u00EA", "&ecirc;"}, // ê - lowercase e, circumflex accent
-        {"\u00EB", "&euml;"}, // ë - lowercase e, umlaut
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00EA` can be replaced with 'ê'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00E8", "&egrave;"}, // è - lowercase e, grave accent
-        {"\u00E9", "&eacute;"}, // é - lowercase e, acute accent
-        {"\u00EA", "&ecirc;"}, // ê - lowercase e, circumflex accent
-        {"\u00EB", "&euml;"}, // ë - lowercase e, umlaut
-        {"\u00EC", "&igrave;"}, // ì - lowercase i, grave accent
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00EB` can be replaced with 'ë'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00E9", "&eacute;"}, // é - lowercase e, acute accent
-        {"\u00EA", "&ecirc;"}, // ê - lowercase e, circumflex accent
-        {"\u00EB", "&euml;"}, // ë - lowercase e, umlaut
-        {"\u00EC", "&igrave;"}, // ì - lowercase i, grave accent
-        {"\u00ED", "&iacute;"}, // í - lowercase i, acute accent
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00EC` can be replaced with 'ì'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00EA", "&ecirc;"}, // ê - lowercase e, circumflex accent
-        {"\u00EB", "&euml;"}, // ë - lowercase e, umlaut
-        {"\u00EC", "&igrave;"}, // ì - lowercase i, grave accent
-        {"\u00ED", "&iacute;"}, // í - lowercase i, acute accent
-        {"\u00EE", "&icirc;"}, // î - lowercase i, circumflex accent
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00ED` can be replaced with 'í'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00EB", "&euml;"}, // ë - lowercase e, umlaut
-        {"\u00EC", "&igrave;"}, // ì - lowercase i, grave accent
-        {"\u00ED", "&iacute;"}, // í - lowercase i, acute accent
-        {"\u00EE", "&icirc;"}, // î - lowercase i, circumflex accent
-        {"\u00EF", "&iuml;"}, // ï - lowercase i, umlaut
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00EE` can be replaced with 'î'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00EC", "&igrave;"}, // ì - lowercase i, grave accent
-        {"\u00ED", "&iacute;"}, // í - lowercase i, acute accent
-        {"\u00EE", "&icirc;"}, // î - lowercase i, circumflex accent
-        {"\u00EF", "&iuml;"}, // ï - lowercase i, umlaut
-        {"\u00F0", "&eth;"}, // ð - lowercase eth, Icelandic
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00EF` can be replaced with 'ï'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00ED", "&iacute;"}, // í - lowercase i, acute accent
-        {"\u00EE", "&icirc;"}, // î - lowercase i, circumflex accent
-        {"\u00EF", "&iuml;"}, // ï - lowercase i, umlaut
-        {"\u00F0", "&eth;"}, // ð - lowercase eth, Icelandic
-        {"\u00F1", "&ntilde;"}, // ñ - lowercase n, tilde
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00F0` can be replaced with 'ð'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00EE", "&icirc;"}, // î - lowercase i, circumflex accent
-        {"\u00EF", "&iuml;"}, // ï - lowercase i, umlaut
-        {"\u00F0", "&eth;"}, // ð - lowercase eth, Icelandic
-        {"\u00F1", "&ntilde;"}, // ñ - lowercase n, tilde
-        {"\u00F2", "&ograve;"}, // ò - lowercase o, grave accent
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00F1` can be replaced with 'ñ'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00EF", "&iuml;"}, // ï - lowercase i, umlaut
-        {"\u00F0", "&eth;"}, // ð - lowercase eth, Icelandic
-        {"\u00F1", "&ntilde;"}, // ñ - lowercase n, tilde
-        {"\u00F2", "&ograve;"}, // ò - lowercase o, grave accent
-        {"\u00F3", "&oacute;"}, // ó - lowercase o, acute accent
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00F2` can be replaced with 'ò'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00F0", "&eth;"}, // ð - lowercase eth, Icelandic
-        {"\u00F1", "&ntilde;"}, // ñ - lowercase n, tilde
-        {"\u00F2", "&ograve;"}, // ò - lowercase o, grave accent
-        {"\u00F3", "&oacute;"}, // ó - lowercase o, acute accent
-        {"\u00F4", "&ocirc;"}, // ô - lowercase o, circumflex accent
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00F3` can be replaced with 'ó'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00F1", "&ntilde;"}, // ñ - lowercase n, tilde
-        {"\u00F2", "&ograve;"}, // ò - lowercase o, grave accent
-        {"\u00F3", "&oacute;"}, // ó - lowercase o, acute accent
-        {"\u00F4", "&ocirc;"}, // ô - lowercase o, circumflex accent
-        {"\u00F5", "&otilde;"}, // õ - lowercase o, tilde
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00F4` can be replaced with 'ô'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00F2", "&ograve;"}, // ò - lowercase o, grave accent
-        {"\u00F3", "&oacute;"}, // ó - lowercase o, acute accent
-        {"\u00F4", "&ocirc;"}, // ô - lowercase o, circumflex accent
-        {"\u00F5", "&otilde;"}, // õ - lowercase o, tilde
-        {"\u00F6", "&ouml;"}, // ö - lowercase o, umlaut
-```
 
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00F5` can be replaced with 'õ'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00F3", "&oacute;"}, // ó - lowercase o, acute accent
-        {"\u00F4", "&ocirc;"}, // ô - lowercase o, circumflex accent
-        {"\u00F5", "&otilde;"}, // õ - lowercase o, tilde
-        {"\u00F6", "&ouml;"}, // ö - lowercase o, umlaut
-        {"\u00F7", "&divide;"}, // division sign
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00F6` can be replaced with 'ö'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00F4", "&ocirc;"}, // ô - lowercase o, circumflex accent
-        {"\u00F5", "&otilde;"}, // õ - lowercase o, tilde
-        {"\u00F6", "&ouml;"}, // ö - lowercase o, umlaut
-        {"\u00F7", "&divide;"}, // division sign
-        {"\u00F8", "&oslash;"}, // ø - lowercase o, slash
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00F7` can be replaced with '÷'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00F5", "&otilde;"}, // õ - lowercase o, tilde
-        {"\u00F6", "&ouml;"}, // ö - lowercase o, umlaut
-        {"\u00F7", "&divide;"}, // division sign
-        {"\u00F8", "&oslash;"}, // ø - lowercase o, slash
-        {"\u00F9", "&ugrave;"}, // ù - lowercase u, grave accent
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00F8` can be replaced with 'ø'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00F6", "&ouml;"}, // ö - lowercase o, umlaut
-        {"\u00F7", "&divide;"}, // division sign
-        {"\u00F8", "&oslash;"}, // ø - lowercase o, slash
-        {"\u00F9", "&ugrave;"}, // ù - lowercase u, grave accent
-        {"\u00FA", "&uacute;"}, // ú - lowercase u, acute accent
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00F9` can be replaced with 'ù'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00F7", "&divide;"}, // division sign
-        {"\u00F8", "&oslash;"}, // ø - lowercase o, slash
-        {"\u00F9", "&ugrave;"}, // ù - lowercase u, grave accent
-        {"\u00FA", "&uacute;"}, // ú - lowercase u, acute accent
-        {"\u00FB", "&ucirc;"}, // û - lowercase u, circumflex accent
+    /**
+     * Converts the string to the Unicode format '\u0020'.
+     *
+     * <p>This format is the Java source code format.</p>
 ```
 
 ### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00FA` can be replaced with 'ú'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+Unicode escape sequence `\u0020` can be replaced with ' '
+in `src/main/java/org/apache/commons/lang3/CharUtils.java`
 #### Snippet
 ```java
-        {"\u00F8", "&oslash;"}, // ø - lowercase o, slash
-        {"\u00F9", "&ugrave;"}, // ù - lowercase u, grave accent
-        {"\u00FA", "&uacute;"}, // ú - lowercase u, acute accent
-        {"\u00FB", "&ucirc;"}, // û - lowercase u, circumflex accent
-        {"\u00FC", "&uuml;"}, // ü - lowercase u, umlaut
+     * <pre>
+     *   CharUtils.unicodeEscaped(null) = null
+     *   CharUtils.unicodeEscaped(' ')  = "\u0020"
+     *   CharUtils.unicodeEscaped('A')  = "\u0041"
+     * </pre>
 ```
 
 ### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00FB` can be replaced with 'û'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+Unicode escape sequence `\u0041` can be replaced with 'A'
+in `src/main/java/org/apache/commons/lang3/CharUtils.java`
 #### Snippet
 ```java
-        {"\u00F9", "&ugrave;"}, // ù - lowercase u, grave accent
-        {"\u00FA", "&uacute;"}, // ú - lowercase u, acute accent
-        {"\u00FB", "&ucirc;"}, // û - lowercase u, circumflex accent
-        {"\u00FC", "&uuml;"}, // ü - lowercase u, umlaut
-        {"\u00FD", "&yacute;"}, // ý - lowercase y, acute accent
+     *   CharUtils.unicodeEscaped(null) = null
+     *   CharUtils.unicodeEscaped(' ')  = "\u0020"
+     *   CharUtils.unicodeEscaped('A')  = "\u0041"
+     * </pre>
+     *
 ```
 
 ### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00FC` can be replaced with 'ü'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+Unicode escape sequence `\u0020` can be replaced with ' '
+in `src/main/java/org/apache/commons/lang3/CharUtils.java`
 #### Snippet
 ```java
-        {"\u00FA", "&uacute;"}, // ú - lowercase u, acute accent
-        {"\u00FB", "&ucirc;"}, // û - lowercase u, circumflex accent
-        {"\u00FC", "&uuml;"}, // ü - lowercase u, umlaut
-        {"\u00FD", "&yacute;"}, // ý - lowercase y, acute accent
-        {"\u00FE", "&thorn;"}, // þ - lowercase thorn, Icelandic
-```
 
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00FD` can be replaced with 'ý'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
-#### Snippet
-```java
-        {"\u00FB", "&ucirc;"}, // û - lowercase u, circumflex accent
-        {"\u00FC", "&uuml;"}, // ü - lowercase u, umlaut
-        {"\u00FD", "&yacute;"}, // ý - lowercase y, acute accent
-        {"\u00FE", "&thorn;"}, // þ - lowercase thorn, Icelandic
-        {"\u00FF", "&yuml;"}, // ÿ - lowercase y, umlaut
+    /**
+     * Converts the string to the Unicode format '\u0020'.
+     *
+     * <p>This format is the Java source code format.</p>
 ```
 
 ### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00FE` can be replaced with 'þ'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+Unicode escape sequence `\u0020` can be replaced with ' '
+in `src/main/java/org/apache/commons/lang3/CharUtils.java`
 #### Snippet
 ```java
-        {"\u00FC", "&uuml;"}, // ü - lowercase u, umlaut
-        {"\u00FD", "&yacute;"}, // ý - lowercase y, acute accent
-        {"\u00FE", "&thorn;"}, // þ - lowercase thorn, Icelandic
-        {"\u00FF", "&yuml;"}, // ÿ - lowercase y, umlaut
-    };
+     *
+     * <pre>
+     *   CharUtils.unicodeEscaped(' ') = "\u0020"
+     *   CharUtils.unicodeEscaped('A') = "\u0041"
+     * </pre>
 ```
 
 ### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00FF` can be replaced with 'ÿ'
-in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+Unicode escape sequence `\u0041` can be replaced with 'A'
+in `src/main/java/org/apache/commons/lang3/CharUtils.java`
 #### Snippet
 ```java
-        {"\u00FD", "&yacute;"}, // ý - lowercase y, acute accent
-        {"\u00FE", "&thorn;"}, // þ - lowercase thorn, Icelandic
-        {"\u00FF", "&yuml;"}, // ÿ - lowercase y, umlaut
-    };
-
+     * <pre>
+     *   CharUtils.unicodeEscaped(' ') = "\u0020"
+     *   CharUtils.unicodeEscaped('A') = "\u0041"
+     * </pre>
+     *
 ```
 
 ### UnnecessaryUnicodeEscape
@@ -5860,6 +4817,1134 @@ in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
 ```
 
 ### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00A1` can be replaced with '¡'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+    private static final String[][] ISO8859_1_ESCAPE = {
+        {"\u00A0", "&nbsp;"}, // non-breaking space
+        {"\u00A1", "&iexcl;"}, // inverted exclamation mark
+        {"\u00A2", "&cent;"}, // cent sign
+        {"\u00A3", "&pound;"}, // pound sign
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00A2` can be replaced with '¢'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00A0", "&nbsp;"}, // non-breaking space
+        {"\u00A1", "&iexcl;"}, // inverted exclamation mark
+        {"\u00A2", "&cent;"}, // cent sign
+        {"\u00A3", "&pound;"}, // pound sign
+        {"\u00A4", "&curren;"}, // currency sign
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00A3` can be replaced with '£'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00A1", "&iexcl;"}, // inverted exclamation mark
+        {"\u00A2", "&cent;"}, // cent sign
+        {"\u00A3", "&pound;"}, // pound sign
+        {"\u00A4", "&curren;"}, // currency sign
+        {"\u00A5", "&yen;"}, // yen sign = yuan sign
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00A4` can be replaced with '¤'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00A2", "&cent;"}, // cent sign
+        {"\u00A3", "&pound;"}, // pound sign
+        {"\u00A4", "&curren;"}, // currency sign
+        {"\u00A5", "&yen;"}, // yen sign = yuan sign
+        {"\u00A6", "&brvbar;"}, // broken bar = broken vertical bar
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00A5` can be replaced with '¥'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00A3", "&pound;"}, // pound sign
+        {"\u00A4", "&curren;"}, // currency sign
+        {"\u00A5", "&yen;"}, // yen sign = yuan sign
+        {"\u00A6", "&brvbar;"}, // broken bar = broken vertical bar
+        {"\u00A7", "&sect;"}, // section sign
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00A6` can be replaced with '¦'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00A4", "&curren;"}, // currency sign
+        {"\u00A5", "&yen;"}, // yen sign = yuan sign
+        {"\u00A6", "&brvbar;"}, // broken bar = broken vertical bar
+        {"\u00A7", "&sect;"}, // section sign
+        {"\u00A8", "&uml;"}, // diaeresis = spacing diaeresis
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00A7` can be replaced with '§'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00A5", "&yen;"}, // yen sign = yuan sign
+        {"\u00A6", "&brvbar;"}, // broken bar = broken vertical bar
+        {"\u00A7", "&sect;"}, // section sign
+        {"\u00A8", "&uml;"}, // diaeresis = spacing diaeresis
+        {"\u00A9", "&copy;"}, // © - copyright sign
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00A8` can be replaced with '¨'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00A6", "&brvbar;"}, // broken bar = broken vertical bar
+        {"\u00A7", "&sect;"}, // section sign
+        {"\u00A8", "&uml;"}, // diaeresis = spacing diaeresis
+        {"\u00A9", "&copy;"}, // © - copyright sign
+        {"\u00AA", "&ordf;"}, // feminine ordinal indicator
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00A9` can be replaced with '©'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00A7", "&sect;"}, // section sign
+        {"\u00A8", "&uml;"}, // diaeresis = spacing diaeresis
+        {"\u00A9", "&copy;"}, // © - copyright sign
+        {"\u00AA", "&ordf;"}, // feminine ordinal indicator
+        {"\u00AB", "&laquo;"}, // left-pointing double angle quotation mark = left pointing guillemet
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00AA` can be replaced with 'ª'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00A8", "&uml;"}, // diaeresis = spacing diaeresis
+        {"\u00A9", "&copy;"}, // © - copyright sign
+        {"\u00AA", "&ordf;"}, // feminine ordinal indicator
+        {"\u00AB", "&laquo;"}, // left-pointing double angle quotation mark = left pointing guillemet
+        {"\u00AC", "&not;"}, // not sign
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00AB` can be replaced with '\<\<'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00A9", "&copy;"}, // © - copyright sign
+        {"\u00AA", "&ordf;"}, // feminine ordinal indicator
+        {"\u00AB", "&laquo;"}, // left-pointing double angle quotation mark = left pointing guillemet
+        {"\u00AC", "&not;"}, // not sign
+        {"\u00AD", "&shy;"}, // soft hyphen = discretionary hyphen
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00AC` can be replaced with '¬'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00AA", "&ordf;"}, // feminine ordinal indicator
+        {"\u00AB", "&laquo;"}, // left-pointing double angle quotation mark = left pointing guillemet
+        {"\u00AC", "&not;"}, // not sign
+        {"\u00AD", "&shy;"}, // soft hyphen = discretionary hyphen
+        {"\u00AE", "&reg;"}, // ® - registered trademark sign
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00AE` can be replaced with '®'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00AC", "&not;"}, // not sign
+        {"\u00AD", "&shy;"}, // soft hyphen = discretionary hyphen
+        {"\u00AE", "&reg;"}, // ® - registered trademark sign
+        {"\u00AF", "&macr;"}, // macron = spacing macron = overline = APL overbar
+        {"\u00B0", "&deg;"}, // degree sign
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00AF` can be replaced with '¯'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00AD", "&shy;"}, // soft hyphen = discretionary hyphen
+        {"\u00AE", "&reg;"}, // ® - registered trademark sign
+        {"\u00AF", "&macr;"}, // macron = spacing macron = overline = APL overbar
+        {"\u00B0", "&deg;"}, // degree sign
+        {"\u00B1", "&plusmn;"}, // plus-minus sign = plus-or-minus sign
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00B0` can be replaced with '°'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00AE", "&reg;"}, // ® - registered trademark sign
+        {"\u00AF", "&macr;"}, // macron = spacing macron = overline = APL overbar
+        {"\u00B0", "&deg;"}, // degree sign
+        {"\u00B1", "&plusmn;"}, // plus-minus sign = plus-or-minus sign
+        {"\u00B2", "&sup2;"}, // superscript two = superscript digit two = squared
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00B1` can be replaced with '±'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00AF", "&macr;"}, // macron = spacing macron = overline = APL overbar
+        {"\u00B0", "&deg;"}, // degree sign
+        {"\u00B1", "&plusmn;"}, // plus-minus sign = plus-or-minus sign
+        {"\u00B2", "&sup2;"}, // superscript two = superscript digit two = squared
+        {"\u00B3", "&sup3;"}, // superscript three = superscript digit three = cubed
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00B2` can be replaced with '²'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00B0", "&deg;"}, // degree sign
+        {"\u00B1", "&plusmn;"}, // plus-minus sign = plus-or-minus sign
+        {"\u00B2", "&sup2;"}, // superscript two = superscript digit two = squared
+        {"\u00B3", "&sup3;"}, // superscript three = superscript digit three = cubed
+        {"\u00B4", "&acute;"}, // acute accent = spacing acute
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00B3` can be replaced with '³'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00B1", "&plusmn;"}, // plus-minus sign = plus-or-minus sign
+        {"\u00B2", "&sup2;"}, // superscript two = superscript digit two = squared
+        {"\u00B3", "&sup3;"}, // superscript three = superscript digit three = cubed
+        {"\u00B4", "&acute;"}, // acute accent = spacing acute
+        {"\u00B5", "&micro;"}, // micro sign
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00B4` can be replaced with '´'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00B2", "&sup2;"}, // superscript two = superscript digit two = squared
+        {"\u00B3", "&sup3;"}, // superscript three = superscript digit three = cubed
+        {"\u00B4", "&acute;"}, // acute accent = spacing acute
+        {"\u00B5", "&micro;"}, // micro sign
+        {"\u00B6", "&para;"}, // pilcrow sign = paragraph sign
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00B5` can be replaced with 'µ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00B3", "&sup3;"}, // superscript three = superscript digit three = cubed
+        {"\u00B4", "&acute;"}, // acute accent = spacing acute
+        {"\u00B5", "&micro;"}, // micro sign
+        {"\u00B6", "&para;"}, // pilcrow sign = paragraph sign
+        {"\u00B7", "&middot;"}, // middle dot = Georgian comma = Greek middle dot
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00B6` can be replaced with '¶'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00B4", "&acute;"}, // acute accent = spacing acute
+        {"\u00B5", "&micro;"}, // micro sign
+        {"\u00B6", "&para;"}, // pilcrow sign = paragraph sign
+        {"\u00B7", "&middot;"}, // middle dot = Georgian comma = Greek middle dot
+        {"\u00B8", "&cedil;"}, // cedilla = spacing cedilla
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00B7` can be replaced with '·'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00B5", "&micro;"}, // micro sign
+        {"\u00B6", "&para;"}, // pilcrow sign = paragraph sign
+        {"\u00B7", "&middot;"}, // middle dot = Georgian comma = Greek middle dot
+        {"\u00B8", "&cedil;"}, // cedilla = spacing cedilla
+        {"\u00B9", "&sup1;"}, // superscript one = superscript digit one
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00B8` can be replaced with '¸'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00B6", "&para;"}, // pilcrow sign = paragraph sign
+        {"\u00B7", "&middot;"}, // middle dot = Georgian comma = Greek middle dot
+        {"\u00B8", "&cedil;"}, // cedilla = spacing cedilla
+        {"\u00B9", "&sup1;"}, // superscript one = superscript digit one
+        {"\u00BA", "&ordm;"}, // masculine ordinal indicator
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00B9` can be replaced with '¹'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00B7", "&middot;"}, // middle dot = Georgian comma = Greek middle dot
+        {"\u00B8", "&cedil;"}, // cedilla = spacing cedilla
+        {"\u00B9", "&sup1;"}, // superscript one = superscript digit one
+        {"\u00BA", "&ordm;"}, // masculine ordinal indicator
+        {"\u00BB", "&raquo;"}, // right-pointing double angle quotation mark = right pointing guillemet
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00BA` can be replaced with 'º'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00B8", "&cedil;"}, // cedilla = spacing cedilla
+        {"\u00B9", "&sup1;"}, // superscript one = superscript digit one
+        {"\u00BA", "&ordm;"}, // masculine ordinal indicator
+        {"\u00BB", "&raquo;"}, // right-pointing double angle quotation mark = right pointing guillemet
+        {"\u00BC", "&frac14;"}, // vulgar fraction one quarter = fraction one quarter
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00BB` can be replaced with '\>\>'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00B9", "&sup1;"}, // superscript one = superscript digit one
+        {"\u00BA", "&ordm;"}, // masculine ordinal indicator
+        {"\u00BB", "&raquo;"}, // right-pointing double angle quotation mark = right pointing guillemet
+        {"\u00BC", "&frac14;"}, // vulgar fraction one quarter = fraction one quarter
+        {"\u00BD", "&frac12;"}, // vulgar fraction one half = fraction one half
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00BC` can be replaced with '¼'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00BA", "&ordm;"}, // masculine ordinal indicator
+        {"\u00BB", "&raquo;"}, // right-pointing double angle quotation mark = right pointing guillemet
+        {"\u00BC", "&frac14;"}, // vulgar fraction one quarter = fraction one quarter
+        {"\u00BD", "&frac12;"}, // vulgar fraction one half = fraction one half
+        {"\u00BE", "&frac34;"}, // vulgar fraction three quarters = fraction three quarters
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00BD` can be replaced with '½'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00BB", "&raquo;"}, // right-pointing double angle quotation mark = right pointing guillemet
+        {"\u00BC", "&frac14;"}, // vulgar fraction one quarter = fraction one quarter
+        {"\u00BD", "&frac12;"}, // vulgar fraction one half = fraction one half
+        {"\u00BE", "&frac34;"}, // vulgar fraction three quarters = fraction three quarters
+        {"\u00BF", "&iquest;"}, // inverted question mark = turned question mark
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00BE` can be replaced with '¾'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00BC", "&frac14;"}, // vulgar fraction one quarter = fraction one quarter
+        {"\u00BD", "&frac12;"}, // vulgar fraction one half = fraction one half
+        {"\u00BE", "&frac34;"}, // vulgar fraction three quarters = fraction three quarters
+        {"\u00BF", "&iquest;"}, // inverted question mark = turned question mark
+        {"\u00C0", "&Agrave;"}, // À - uppercase A, grave accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00BF` can be replaced with '¿'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00BD", "&frac12;"}, // vulgar fraction one half = fraction one half
+        {"\u00BE", "&frac34;"}, // vulgar fraction three quarters = fraction three quarters
+        {"\u00BF", "&iquest;"}, // inverted question mark = turned question mark
+        {"\u00C0", "&Agrave;"}, // À - uppercase A, grave accent
+        {"\u00C1", "&Aacute;"}, // Á - uppercase A, acute accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00C0` can be replaced with 'À'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00BE", "&frac34;"}, // vulgar fraction three quarters = fraction three quarters
+        {"\u00BF", "&iquest;"}, // inverted question mark = turned question mark
+        {"\u00C0", "&Agrave;"}, // À - uppercase A, grave accent
+        {"\u00C1", "&Aacute;"}, // Á - uppercase A, acute accent
+        {"\u00C2", "&Acirc;"}, // Â - uppercase A, circumflex accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00C1` can be replaced with 'Á'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00BF", "&iquest;"}, // inverted question mark = turned question mark
+        {"\u00C0", "&Agrave;"}, // À - uppercase A, grave accent
+        {"\u00C1", "&Aacute;"}, // Á - uppercase A, acute accent
+        {"\u00C2", "&Acirc;"}, // Â - uppercase A, circumflex accent
+        {"\u00C3", "&Atilde;"}, // Ã - uppercase A, tilde
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00C2` can be replaced with 'Â'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00C0", "&Agrave;"}, // À - uppercase A, grave accent
+        {"\u00C1", "&Aacute;"}, // Á - uppercase A, acute accent
+        {"\u00C2", "&Acirc;"}, // Â - uppercase A, circumflex accent
+        {"\u00C3", "&Atilde;"}, // Ã - uppercase A, tilde
+        {"\u00C4", "&Auml;"}, // Ä - uppercase A, umlaut
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00C3` can be replaced with 'Ã'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00C1", "&Aacute;"}, // Á - uppercase A, acute accent
+        {"\u00C2", "&Acirc;"}, // Â - uppercase A, circumflex accent
+        {"\u00C3", "&Atilde;"}, // Ã - uppercase A, tilde
+        {"\u00C4", "&Auml;"}, // Ä - uppercase A, umlaut
+        {"\u00C5", "&Aring;"}, // Å - uppercase A, ring
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00C4` can be replaced with 'Ä'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00C2", "&Acirc;"}, // Â - uppercase A, circumflex accent
+        {"\u00C3", "&Atilde;"}, // Ã - uppercase A, tilde
+        {"\u00C4", "&Auml;"}, // Ä - uppercase A, umlaut
+        {"\u00C5", "&Aring;"}, // Å - uppercase A, ring
+        {"\u00C6", "&AElig;"}, // Æ - uppercase AE
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00C5` can be replaced with 'Å'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00C3", "&Atilde;"}, // Ã - uppercase A, tilde
+        {"\u00C4", "&Auml;"}, // Ä - uppercase A, umlaut
+        {"\u00C5", "&Aring;"}, // Å - uppercase A, ring
+        {"\u00C6", "&AElig;"}, // Æ - uppercase AE
+        {"\u00C7", "&Ccedil;"}, // Ç - uppercase C, cedilla
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00C6` can be replaced with 'Æ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00C4", "&Auml;"}, // Ä - uppercase A, umlaut
+        {"\u00C5", "&Aring;"}, // Å - uppercase A, ring
+        {"\u00C6", "&AElig;"}, // Æ - uppercase AE
+        {"\u00C7", "&Ccedil;"}, // Ç - uppercase C, cedilla
+        {"\u00C8", "&Egrave;"}, // È - uppercase E, grave accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00C7` can be replaced with 'Ç'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00C5", "&Aring;"}, // Å - uppercase A, ring
+        {"\u00C6", "&AElig;"}, // Æ - uppercase AE
+        {"\u00C7", "&Ccedil;"}, // Ç - uppercase C, cedilla
+        {"\u00C8", "&Egrave;"}, // È - uppercase E, grave accent
+        {"\u00C9", "&Eacute;"}, // É - uppercase E, acute accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00C8` can be replaced with 'È'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00C6", "&AElig;"}, // Æ - uppercase AE
+        {"\u00C7", "&Ccedil;"}, // Ç - uppercase C, cedilla
+        {"\u00C8", "&Egrave;"}, // È - uppercase E, grave accent
+        {"\u00C9", "&Eacute;"}, // É - uppercase E, acute accent
+        {"\u00CA", "&Ecirc;"}, // Ê - uppercase E, circumflex accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00C9` can be replaced with 'É'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00C7", "&Ccedil;"}, // Ç - uppercase C, cedilla
+        {"\u00C8", "&Egrave;"}, // È - uppercase E, grave accent
+        {"\u00C9", "&Eacute;"}, // É - uppercase E, acute accent
+        {"\u00CA", "&Ecirc;"}, // Ê - uppercase E, circumflex accent
+        {"\u00CB", "&Euml;"}, // Ë - uppercase E, umlaut
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00CA` can be replaced with 'Ê'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00C8", "&Egrave;"}, // È - uppercase E, grave accent
+        {"\u00C9", "&Eacute;"}, // É - uppercase E, acute accent
+        {"\u00CA", "&Ecirc;"}, // Ê - uppercase E, circumflex accent
+        {"\u00CB", "&Euml;"}, // Ë - uppercase E, umlaut
+        {"\u00CC", "&Igrave;"}, // Ì - uppercase I, grave accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00CB` can be replaced with 'Ë'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00C9", "&Eacute;"}, // É - uppercase E, acute accent
+        {"\u00CA", "&Ecirc;"}, // Ê - uppercase E, circumflex accent
+        {"\u00CB", "&Euml;"}, // Ë - uppercase E, umlaut
+        {"\u00CC", "&Igrave;"}, // Ì - uppercase I, grave accent
+        {"\u00CD", "&Iacute;"}, // Í - uppercase I, acute accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00CC` can be replaced with 'Ì'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00CA", "&Ecirc;"}, // Ê - uppercase E, circumflex accent
+        {"\u00CB", "&Euml;"}, // Ë - uppercase E, umlaut
+        {"\u00CC", "&Igrave;"}, // Ì - uppercase I, grave accent
+        {"\u00CD", "&Iacute;"}, // Í - uppercase I, acute accent
+        {"\u00CE", "&Icirc;"}, // Î - uppercase I, circumflex accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00CD` can be replaced with 'Í'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00CB", "&Euml;"}, // Ë - uppercase E, umlaut
+        {"\u00CC", "&Igrave;"}, // Ì - uppercase I, grave accent
+        {"\u00CD", "&Iacute;"}, // Í - uppercase I, acute accent
+        {"\u00CE", "&Icirc;"}, // Î - uppercase I, circumflex accent
+        {"\u00CF", "&Iuml;"}, // Ï - uppercase I, umlaut
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00CE` can be replaced with 'Î'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00CC", "&Igrave;"}, // Ì - uppercase I, grave accent
+        {"\u00CD", "&Iacute;"}, // Í - uppercase I, acute accent
+        {"\u00CE", "&Icirc;"}, // Î - uppercase I, circumflex accent
+        {"\u00CF", "&Iuml;"}, // Ï - uppercase I, umlaut
+        {"\u00D0", "&ETH;"}, // Ð - uppercase Eth, Icelandic
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00CF` can be replaced with 'Ï'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00CD", "&Iacute;"}, // Í - uppercase I, acute accent
+        {"\u00CE", "&Icirc;"}, // Î - uppercase I, circumflex accent
+        {"\u00CF", "&Iuml;"}, // Ï - uppercase I, umlaut
+        {"\u00D0", "&ETH;"}, // Ð - uppercase Eth, Icelandic
+        {"\u00D1", "&Ntilde;"}, // Ñ - uppercase N, tilde
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00D0` can be replaced with 'Ð'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00CE", "&Icirc;"}, // Î - uppercase I, circumflex accent
+        {"\u00CF", "&Iuml;"}, // Ï - uppercase I, umlaut
+        {"\u00D0", "&ETH;"}, // Ð - uppercase Eth, Icelandic
+        {"\u00D1", "&Ntilde;"}, // Ñ - uppercase N, tilde
+        {"\u00D2", "&Ograve;"}, // Ò - uppercase O, grave accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00D1` can be replaced with 'Ñ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00CF", "&Iuml;"}, // Ï - uppercase I, umlaut
+        {"\u00D0", "&ETH;"}, // Ð - uppercase Eth, Icelandic
+        {"\u00D1", "&Ntilde;"}, // Ñ - uppercase N, tilde
+        {"\u00D2", "&Ograve;"}, // Ò - uppercase O, grave accent
+        {"\u00D3", "&Oacute;"}, // Ó - uppercase O, acute accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00D2` can be replaced with 'Ò'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00D0", "&ETH;"}, // Ð - uppercase Eth, Icelandic
+        {"\u00D1", "&Ntilde;"}, // Ñ - uppercase N, tilde
+        {"\u00D2", "&Ograve;"}, // Ò - uppercase O, grave accent
+        {"\u00D3", "&Oacute;"}, // Ó - uppercase O, acute accent
+        {"\u00D4", "&Ocirc;"}, // Ô - uppercase O, circumflex accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00D3` can be replaced with 'Ó'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00D1", "&Ntilde;"}, // Ñ - uppercase N, tilde
+        {"\u00D2", "&Ograve;"}, // Ò - uppercase O, grave accent
+        {"\u00D3", "&Oacute;"}, // Ó - uppercase O, acute accent
+        {"\u00D4", "&Ocirc;"}, // Ô - uppercase O, circumflex accent
+        {"\u00D5", "&Otilde;"}, // Õ - uppercase O, tilde
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00D4` can be replaced with 'Ô'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00D2", "&Ograve;"}, // Ò - uppercase O, grave accent
+        {"\u00D3", "&Oacute;"}, // Ó - uppercase O, acute accent
+        {"\u00D4", "&Ocirc;"}, // Ô - uppercase O, circumflex accent
+        {"\u00D5", "&Otilde;"}, // Õ - uppercase O, tilde
+        {"\u00D6", "&Ouml;"}, // Ö - uppercase O, umlaut
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00D5` can be replaced with 'Õ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00D3", "&Oacute;"}, // Ó - uppercase O, acute accent
+        {"\u00D4", "&Ocirc;"}, // Ô - uppercase O, circumflex accent
+        {"\u00D5", "&Otilde;"}, // Õ - uppercase O, tilde
+        {"\u00D6", "&Ouml;"}, // Ö - uppercase O, umlaut
+        {"\u00D7", "&times;"}, // multiplication sign
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00D6` can be replaced with 'Ö'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00D4", "&Ocirc;"}, // Ô - uppercase O, circumflex accent
+        {"\u00D5", "&Otilde;"}, // Õ - uppercase O, tilde
+        {"\u00D6", "&Ouml;"}, // Ö - uppercase O, umlaut
+        {"\u00D7", "&times;"}, // multiplication sign
+        {"\u00D8", "&Oslash;"}, // Ø - uppercase O, slash
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00D7` can be replaced with '×'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00D5", "&Otilde;"}, // Õ - uppercase O, tilde
+        {"\u00D6", "&Ouml;"}, // Ö - uppercase O, umlaut
+        {"\u00D7", "&times;"}, // multiplication sign
+        {"\u00D8", "&Oslash;"}, // Ø - uppercase O, slash
+        {"\u00D9", "&Ugrave;"}, // Ù - uppercase U, grave accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00D8` can be replaced with 'Ø'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00D6", "&Ouml;"}, // Ö - uppercase O, umlaut
+        {"\u00D7", "&times;"}, // multiplication sign
+        {"\u00D8", "&Oslash;"}, // Ø - uppercase O, slash
+        {"\u00D9", "&Ugrave;"}, // Ù - uppercase U, grave accent
+        {"\u00DA", "&Uacute;"}, // Ú - uppercase U, acute accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00D9` can be replaced with 'Ù'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00D7", "&times;"}, // multiplication sign
+        {"\u00D8", "&Oslash;"}, // Ø - uppercase O, slash
+        {"\u00D9", "&Ugrave;"}, // Ù - uppercase U, grave accent
+        {"\u00DA", "&Uacute;"}, // Ú - uppercase U, acute accent
+        {"\u00DB", "&Ucirc;"}, // Û - uppercase U, circumflex accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00DA` can be replaced with 'Ú'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00D8", "&Oslash;"}, // Ø - uppercase O, slash
+        {"\u00D9", "&Ugrave;"}, // Ù - uppercase U, grave accent
+        {"\u00DA", "&Uacute;"}, // Ú - uppercase U, acute accent
+        {"\u00DB", "&Ucirc;"}, // Û - uppercase U, circumflex accent
+        {"\u00DC", "&Uuml;"}, // Ü - uppercase U, umlaut
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00DB` can be replaced with 'Û'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00D9", "&Ugrave;"}, // Ù - uppercase U, grave accent
+        {"\u00DA", "&Uacute;"}, // Ú - uppercase U, acute accent
+        {"\u00DB", "&Ucirc;"}, // Û - uppercase U, circumflex accent
+        {"\u00DC", "&Uuml;"}, // Ü - uppercase U, umlaut
+        {"\u00DD", "&Yacute;"}, // Ý - uppercase Y, acute accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00DC` can be replaced with 'Ü'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00DA", "&Uacute;"}, // Ú - uppercase U, acute accent
+        {"\u00DB", "&Ucirc;"}, // Û - uppercase U, circumflex accent
+        {"\u00DC", "&Uuml;"}, // Ü - uppercase U, umlaut
+        {"\u00DD", "&Yacute;"}, // Ý - uppercase Y, acute accent
+        {"\u00DE", "&THORN;"}, // Þ - uppercase THORN, Icelandic
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00DD` can be replaced with 'Ý'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00DB", "&Ucirc;"}, // Û - uppercase U, circumflex accent
+        {"\u00DC", "&Uuml;"}, // Ü - uppercase U, umlaut
+        {"\u00DD", "&Yacute;"}, // Ý - uppercase Y, acute accent
+        {"\u00DE", "&THORN;"}, // Þ - uppercase THORN, Icelandic
+        {"\u00DF", "&szlig;"}, // ß - lowercase sharps, German
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00DE` can be replaced with 'Þ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00DC", "&Uuml;"}, // Ü - uppercase U, umlaut
+        {"\u00DD", "&Yacute;"}, // Ý - uppercase Y, acute accent
+        {"\u00DE", "&THORN;"}, // Þ - uppercase THORN, Icelandic
+        {"\u00DF", "&szlig;"}, // ß - lowercase sharps, German
+        {"\u00E0", "&agrave;"}, // à - lowercase a, grave accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00DF` can be replaced with 'ß'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00DD", "&Yacute;"}, // Ý - uppercase Y, acute accent
+        {"\u00DE", "&THORN;"}, // Þ - uppercase THORN, Icelandic
+        {"\u00DF", "&szlig;"}, // ß - lowercase sharps, German
+        {"\u00E0", "&agrave;"}, // à - lowercase a, grave accent
+        {"\u00E1", "&aacute;"}, // á - lowercase a, acute accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00E0` can be replaced with 'à'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00DE", "&THORN;"}, // Þ - uppercase THORN, Icelandic
+        {"\u00DF", "&szlig;"}, // ß - lowercase sharps, German
+        {"\u00E0", "&agrave;"}, // à - lowercase a, grave accent
+        {"\u00E1", "&aacute;"}, // á - lowercase a, acute accent
+        {"\u00E2", "&acirc;"}, // â - lowercase a, circumflex accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00E1` can be replaced with 'á'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00DF", "&szlig;"}, // ß - lowercase sharps, German
+        {"\u00E0", "&agrave;"}, // à - lowercase a, grave accent
+        {"\u00E1", "&aacute;"}, // á - lowercase a, acute accent
+        {"\u00E2", "&acirc;"}, // â - lowercase a, circumflex accent
+        {"\u00E3", "&atilde;"}, // ã - lowercase a, tilde
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00E2` can be replaced with 'â'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00E0", "&agrave;"}, // à - lowercase a, grave accent
+        {"\u00E1", "&aacute;"}, // á - lowercase a, acute accent
+        {"\u00E2", "&acirc;"}, // â - lowercase a, circumflex accent
+        {"\u00E3", "&atilde;"}, // ã - lowercase a, tilde
+        {"\u00E4", "&auml;"}, // ä - lowercase a, umlaut
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00E3` can be replaced with 'ã'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00E1", "&aacute;"}, // á - lowercase a, acute accent
+        {"\u00E2", "&acirc;"}, // â - lowercase a, circumflex accent
+        {"\u00E3", "&atilde;"}, // ã - lowercase a, tilde
+        {"\u00E4", "&auml;"}, // ä - lowercase a, umlaut
+        {"\u00E5", "&aring;"}, // å - lowercase a, ring
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00E4` can be replaced with 'ä'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00E2", "&acirc;"}, // â - lowercase a, circumflex accent
+        {"\u00E3", "&atilde;"}, // ã - lowercase a, tilde
+        {"\u00E4", "&auml;"}, // ä - lowercase a, umlaut
+        {"\u00E5", "&aring;"}, // å - lowercase a, ring
+        {"\u00E6", "&aelig;"}, // æ - lowercase ae
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00E5` can be replaced with 'å'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00E3", "&atilde;"}, // ã - lowercase a, tilde
+        {"\u00E4", "&auml;"}, // ä - lowercase a, umlaut
+        {"\u00E5", "&aring;"}, // å - lowercase a, ring
+        {"\u00E6", "&aelig;"}, // æ - lowercase ae
+        {"\u00E7", "&ccedil;"}, // ç - lowercase c, cedilla
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00E6` can be replaced with 'æ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00E4", "&auml;"}, // ä - lowercase a, umlaut
+        {"\u00E5", "&aring;"}, // å - lowercase a, ring
+        {"\u00E6", "&aelig;"}, // æ - lowercase ae
+        {"\u00E7", "&ccedil;"}, // ç - lowercase c, cedilla
+        {"\u00E8", "&egrave;"}, // è - lowercase e, grave accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00E7` can be replaced with 'ç'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00E5", "&aring;"}, // å - lowercase a, ring
+        {"\u00E6", "&aelig;"}, // æ - lowercase ae
+        {"\u00E7", "&ccedil;"}, // ç - lowercase c, cedilla
+        {"\u00E8", "&egrave;"}, // è - lowercase e, grave accent
+        {"\u00E9", "&eacute;"}, // é - lowercase e, acute accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00E8` can be replaced with 'è'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00E6", "&aelig;"}, // æ - lowercase ae
+        {"\u00E7", "&ccedil;"}, // ç - lowercase c, cedilla
+        {"\u00E8", "&egrave;"}, // è - lowercase e, grave accent
+        {"\u00E9", "&eacute;"}, // é - lowercase e, acute accent
+        {"\u00EA", "&ecirc;"}, // ê - lowercase e, circumflex accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00E9` can be replaced with 'é'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00E7", "&ccedil;"}, // ç - lowercase c, cedilla
+        {"\u00E8", "&egrave;"}, // è - lowercase e, grave accent
+        {"\u00E9", "&eacute;"}, // é - lowercase e, acute accent
+        {"\u00EA", "&ecirc;"}, // ê - lowercase e, circumflex accent
+        {"\u00EB", "&euml;"}, // ë - lowercase e, umlaut
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00EA` can be replaced with 'ê'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00E8", "&egrave;"}, // è - lowercase e, grave accent
+        {"\u00E9", "&eacute;"}, // é - lowercase e, acute accent
+        {"\u00EA", "&ecirc;"}, // ê - lowercase e, circumflex accent
+        {"\u00EB", "&euml;"}, // ë - lowercase e, umlaut
+        {"\u00EC", "&igrave;"}, // ì - lowercase i, grave accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00EB` can be replaced with 'ë'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00E9", "&eacute;"}, // é - lowercase e, acute accent
+        {"\u00EA", "&ecirc;"}, // ê - lowercase e, circumflex accent
+        {"\u00EB", "&euml;"}, // ë - lowercase e, umlaut
+        {"\u00EC", "&igrave;"}, // ì - lowercase i, grave accent
+        {"\u00ED", "&iacute;"}, // í - lowercase i, acute accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00EC` can be replaced with 'ì'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00EA", "&ecirc;"}, // ê - lowercase e, circumflex accent
+        {"\u00EB", "&euml;"}, // ë - lowercase e, umlaut
+        {"\u00EC", "&igrave;"}, // ì - lowercase i, grave accent
+        {"\u00ED", "&iacute;"}, // í - lowercase i, acute accent
+        {"\u00EE", "&icirc;"}, // î - lowercase i, circumflex accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00ED` can be replaced with 'í'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00EB", "&euml;"}, // ë - lowercase e, umlaut
+        {"\u00EC", "&igrave;"}, // ì - lowercase i, grave accent
+        {"\u00ED", "&iacute;"}, // í - lowercase i, acute accent
+        {"\u00EE", "&icirc;"}, // î - lowercase i, circumflex accent
+        {"\u00EF", "&iuml;"}, // ï - lowercase i, umlaut
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00EE` can be replaced with 'î'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00EC", "&igrave;"}, // ì - lowercase i, grave accent
+        {"\u00ED", "&iacute;"}, // í - lowercase i, acute accent
+        {"\u00EE", "&icirc;"}, // î - lowercase i, circumflex accent
+        {"\u00EF", "&iuml;"}, // ï - lowercase i, umlaut
+        {"\u00F0", "&eth;"}, // ð - lowercase eth, Icelandic
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00EF` can be replaced with 'ï'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00ED", "&iacute;"}, // í - lowercase i, acute accent
+        {"\u00EE", "&icirc;"}, // î - lowercase i, circumflex accent
+        {"\u00EF", "&iuml;"}, // ï - lowercase i, umlaut
+        {"\u00F0", "&eth;"}, // ð - lowercase eth, Icelandic
+        {"\u00F1", "&ntilde;"}, // ñ - lowercase n, tilde
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00F0` can be replaced with 'ð'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00EE", "&icirc;"}, // î - lowercase i, circumflex accent
+        {"\u00EF", "&iuml;"}, // ï - lowercase i, umlaut
+        {"\u00F0", "&eth;"}, // ð - lowercase eth, Icelandic
+        {"\u00F1", "&ntilde;"}, // ñ - lowercase n, tilde
+        {"\u00F2", "&ograve;"}, // ò - lowercase o, grave accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00F1` can be replaced with 'ñ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00EF", "&iuml;"}, // ï - lowercase i, umlaut
+        {"\u00F0", "&eth;"}, // ð - lowercase eth, Icelandic
+        {"\u00F1", "&ntilde;"}, // ñ - lowercase n, tilde
+        {"\u00F2", "&ograve;"}, // ò - lowercase o, grave accent
+        {"\u00F3", "&oacute;"}, // ó - lowercase o, acute accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00F2` can be replaced with 'ò'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00F0", "&eth;"}, // ð - lowercase eth, Icelandic
+        {"\u00F1", "&ntilde;"}, // ñ - lowercase n, tilde
+        {"\u00F2", "&ograve;"}, // ò - lowercase o, grave accent
+        {"\u00F3", "&oacute;"}, // ó - lowercase o, acute accent
+        {"\u00F4", "&ocirc;"}, // ô - lowercase o, circumflex accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00F3` can be replaced with 'ó'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00F1", "&ntilde;"}, // ñ - lowercase n, tilde
+        {"\u00F2", "&ograve;"}, // ò - lowercase o, grave accent
+        {"\u00F3", "&oacute;"}, // ó - lowercase o, acute accent
+        {"\u00F4", "&ocirc;"}, // ô - lowercase o, circumflex accent
+        {"\u00F5", "&otilde;"}, // õ - lowercase o, tilde
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00F4` can be replaced with 'ô'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00F2", "&ograve;"}, // ò - lowercase o, grave accent
+        {"\u00F3", "&oacute;"}, // ó - lowercase o, acute accent
+        {"\u00F4", "&ocirc;"}, // ô - lowercase o, circumflex accent
+        {"\u00F5", "&otilde;"}, // õ - lowercase o, tilde
+        {"\u00F6", "&ouml;"}, // ö - lowercase o, umlaut
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00F5` can be replaced with 'õ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00F3", "&oacute;"}, // ó - lowercase o, acute accent
+        {"\u00F4", "&ocirc;"}, // ô - lowercase o, circumflex accent
+        {"\u00F5", "&otilde;"}, // õ - lowercase o, tilde
+        {"\u00F6", "&ouml;"}, // ö - lowercase o, umlaut
+        {"\u00F7", "&divide;"}, // division sign
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00F6` can be replaced with 'ö'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00F4", "&ocirc;"}, // ô - lowercase o, circumflex accent
+        {"\u00F5", "&otilde;"}, // õ - lowercase o, tilde
+        {"\u00F6", "&ouml;"}, // ö - lowercase o, umlaut
+        {"\u00F7", "&divide;"}, // division sign
+        {"\u00F8", "&oslash;"}, // ø - lowercase o, slash
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00F7` can be replaced with '÷'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00F5", "&otilde;"}, // õ - lowercase o, tilde
+        {"\u00F6", "&ouml;"}, // ö - lowercase o, umlaut
+        {"\u00F7", "&divide;"}, // division sign
+        {"\u00F8", "&oslash;"}, // ø - lowercase o, slash
+        {"\u00F9", "&ugrave;"}, // ù - lowercase u, grave accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00F8` can be replaced with 'ø'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00F6", "&ouml;"}, // ö - lowercase o, umlaut
+        {"\u00F7", "&divide;"}, // division sign
+        {"\u00F8", "&oslash;"}, // ø - lowercase o, slash
+        {"\u00F9", "&ugrave;"}, // ù - lowercase u, grave accent
+        {"\u00FA", "&uacute;"}, // ú - lowercase u, acute accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00F9` can be replaced with 'ù'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00F7", "&divide;"}, // division sign
+        {"\u00F8", "&oslash;"}, // ø - lowercase o, slash
+        {"\u00F9", "&ugrave;"}, // ù - lowercase u, grave accent
+        {"\u00FA", "&uacute;"}, // ú - lowercase u, acute accent
+        {"\u00FB", "&ucirc;"}, // û - lowercase u, circumflex accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00FA` can be replaced with 'ú'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00F8", "&oslash;"}, // ø - lowercase o, slash
+        {"\u00F9", "&ugrave;"}, // ù - lowercase u, grave accent
+        {"\u00FA", "&uacute;"}, // ú - lowercase u, acute accent
+        {"\u00FB", "&ucirc;"}, // û - lowercase u, circumflex accent
+        {"\u00FC", "&uuml;"}, // ü - lowercase u, umlaut
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00FB` can be replaced with 'û'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00F9", "&ugrave;"}, // ù - lowercase u, grave accent
+        {"\u00FA", "&uacute;"}, // ú - lowercase u, acute accent
+        {"\u00FB", "&ucirc;"}, // û - lowercase u, circumflex accent
+        {"\u00FC", "&uuml;"}, // ü - lowercase u, umlaut
+        {"\u00FD", "&yacute;"}, // ý - lowercase y, acute accent
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00FC` can be replaced with 'ü'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00FA", "&uacute;"}, // ú - lowercase u, acute accent
+        {"\u00FB", "&ucirc;"}, // û - lowercase u, circumflex accent
+        {"\u00FC", "&uuml;"}, // ü - lowercase u, umlaut
+        {"\u00FD", "&yacute;"}, // ý - lowercase y, acute accent
+        {"\u00FE", "&thorn;"}, // þ - lowercase thorn, Icelandic
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00FD` can be replaced with 'ý'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00FB", "&ucirc;"}, // û - lowercase u, circumflex accent
+        {"\u00FC", "&uuml;"}, // ü - lowercase u, umlaut
+        {"\u00FD", "&yacute;"}, // ý - lowercase y, acute accent
+        {"\u00FE", "&thorn;"}, // þ - lowercase thorn, Icelandic
+        {"\u00FF", "&yuml;"}, // ÿ - lowercase y, umlaut
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00FE` can be replaced with 'þ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00FC", "&uuml;"}, // ü - lowercase u, umlaut
+        {"\u00FD", "&yacute;"}, // ý - lowercase y, acute accent
+        {"\u00FE", "&thorn;"}, // þ - lowercase thorn, Icelandic
+        {"\u00FF", "&yuml;"}, // ÿ - lowercase y, umlaut
+    };
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00FF` can be replaced with 'ÿ'
+in `src/main/java/org/apache/commons/lang3/text/translate/EntityArrays.java`
+#### Snippet
+```java
+        {"\u00FD", "&yacute;"}, // ý - lowercase y, acute accent
+        {"\u00FE", "&thorn;"}, // þ - lowercase thorn, Icelandic
+        {"\u00FF", "&yuml;"}, // ÿ - lowercase y, umlaut
+    };
+
+```
+
+### UnnecessaryUnicodeEscape
 Unicode escape sequence `\u0020` can be replaced with ' '
 in `src/main/java/org/apache/commons/lang3/StringUtils.java`
 #### Snippet
@@ -5919,91 +6004,6 @@ in `src/main/java/org/apache/commons/lang3/StringUtils.java`
      *
 ```
 
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u0020` can be replaced with ' '
-in `src/main/java/org/apache/commons/lang3/CharUtils.java`
-#### Snippet
-```java
-
-    /**
-     * Converts the string to the Unicode format '\u0020'.
-     *
-     * <p>This format is the Java source code format.</p>
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u0020` can be replaced with ' '
-in `src/main/java/org/apache/commons/lang3/CharUtils.java`
-#### Snippet
-```java
-     * <pre>
-     *   CharUtils.unicodeEscaped(null) = null
-     *   CharUtils.unicodeEscaped(' ')  = "\u0020"
-     *   CharUtils.unicodeEscaped('A')  = "\u0041"
-     * </pre>
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u0041` can be replaced with 'A'
-in `src/main/java/org/apache/commons/lang3/CharUtils.java`
-#### Snippet
-```java
-     *   CharUtils.unicodeEscaped(null) = null
-     *   CharUtils.unicodeEscaped(' ')  = "\u0020"
-     *   CharUtils.unicodeEscaped('A')  = "\u0041"
-     * </pre>
-     *
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u0020` can be replaced with ' '
-in `src/main/java/org/apache/commons/lang3/CharUtils.java`
-#### Snippet
-```java
-
-    /**
-     * Converts the string to the Unicode format '\u0020'.
-     *
-     * <p>This format is the Java source code format.</p>
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u0020` can be replaced with ' '
-in `src/main/java/org/apache/commons/lang3/CharUtils.java`
-#### Snippet
-```java
-     *
-     * <pre>
-     *   CharUtils.unicodeEscaped(' ') = "\u0020"
-     *   CharUtils.unicodeEscaped('A') = "\u0041"
-     * </pre>
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u0041` can be replaced with 'A'
-in `src/main/java/org/apache/commons/lang3/CharUtils.java`
-#### Snippet
-```java
-     * <pre>
-     *   CharUtils.unicodeEscaped(' ') = "\u0020"
-     *   CharUtils.unicodeEscaped('A') = "\u0041"
-     * </pre>
-     *
-```
-
-## RuleId[id=PointlessBitwiseExpression]
-### PointlessBitwiseExpression
-`0xffffffff & (src >> shift)` can be replaced with '(src \>\> shift)'
-in `src/main/java/org/apache/commons/lang3/Conversion.java`
-#### Snippet
-```java
-        for (int i = 0; i < nInts; i++) {
-            final int shift = i * 32 + srcPos;
-            dst[dstPos + i] = (int) (0xffffffff & (src >> shift));
-        }
-        return dst;
-```
-
 ## RuleId[id=UnnecessaryContinue]
 ### UnnecessaryContinue
 `continue` is unnecessary as the last statement in a loop
@@ -6037,8 +6037,8 @@ in `src/main/java/org/apache/commons/lang3/text/WordUtils.java`
 #### Snippet
 ```java
      */
-    public static String capitalizeFully(final String str) {
-        return capitalizeFully(str, null);
+    public static String uncapitalize(final String str) {
+        return uncapitalize(str, null);
     }
 
 ```
@@ -6061,8 +6061,8 @@ in `src/main/java/org/apache/commons/lang3/text/WordUtils.java`
 #### Snippet
 ```java
      */
-    public static String uncapitalize(final String str) {
-        return uncapitalize(str, null);
+    public static String capitalizeFully(final String str) {
+        return capitalizeFully(str, null);
     }
 
 ```
@@ -6106,48 +6106,12 @@ in `src/main/java/org/apache/commons/lang3/reflect/MethodUtils.java`
 ```
 
 ### ConstantValue
-Condition `lastMatch` is always `true` when reached
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-            i++;
-        }
-        if (match || preserveAllTokens && lastMatch) {
-            list.add(str.substring(start, i));
-        }
-```
-
-### ConstantValue
-Value `repeat` is always 'true'
-in `src/main/java/org/apache/commons/lang3/StringUtils.java`
-#### Snippet
-```java
-        }
-
-        return replaceEach(result, searchList, replacementList, repeat, timeToLive - 1);
-    }
-
-```
-
-### ConstantValue
 Value `array` is always 'null'
 in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
      */
     public static char[] addFirst(final char[] array, final char element) {
-        return array == null ? add(array, element) : insert(0, array, element);
-    }
-
-```
-
-### ConstantValue
-Value `array` is always 'null'
-in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
-#### Snippet
-```java
-     */
-    public static short[] addFirst(final short[] array, final short element) {
         return array == null ? add(array, element) : insert(0, array, element);
     }
 
@@ -6183,7 +6147,19 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
      */
-    public static int[] addFirst(final int[] array, final int element) {
+    public static long[] addFirst(final long[] array, final long element) {
+        return array == null ? add(array, element) : insert(0, array, element);
+    }
+
+```
+
+### ConstantValue
+Value `array` is always 'null'
+in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
+#### Snippet
+```java
+     */
+    public static float[] addFirst(final float[] array, final float element) {
         return array == null ? add(array, element) : insert(0, array, element);
     }
 
@@ -6219,7 +6195,7 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
      */
-    public static long[] addFirst(final long[] array, final long element) {
+    public static short[] addFirst(final short[] array, final short element) {
         return array == null ? add(array, element) : insert(0, array, element);
     }
 
@@ -6231,9 +6207,33 @@ in `src/main/java/org/apache/commons/lang3/ArrayUtils.java`
 #### Snippet
 ```java
      */
-    public static float[] addFirst(final float[] array, final float element) {
+    public static int[] addFirst(final int[] array, final int element) {
         return array == null ? add(array, element) : insert(0, array, element);
     }
 
+```
+
+### ConstantValue
+Value `repeat` is always 'true'
+in `src/main/java/org/apache/commons/lang3/StringUtils.java`
+#### Snippet
+```java
+        }
+
+        return replaceEach(result, searchList, replacementList, repeat, timeToLive - 1);
+    }
+
+```
+
+### ConstantValue
+Condition `lastMatch` is always `true` when reached
+in `src/main/java/org/apache/commons/lang3/StringUtils.java`
+#### Snippet
+```java
+            i++;
+        }
+        if (match || preserveAllTokens && lastMatch) {
+            list.add(str.substring(start, i));
+        }
 ```
 
