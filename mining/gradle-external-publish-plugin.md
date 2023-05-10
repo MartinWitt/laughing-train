@@ -84,26 +84,14 @@ public final class ExternalPublishCustomPlugin implements Plugin<Project> {
 
 ### NullableProblems
 Not annotated parameter overrides @NonNullApi parameter
-in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishJarPlugin.java`
+in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishRootPlugin.java`
 #### Snippet
 ```java
 
     @Override
-    public final void apply(Project project) {
-        configureJars(project);
+    public final void apply(Project rootProjectVal) {
+        this.rootProject = rootProjectVal;
 
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNullApi parameter
-in `src/main/java/com/palantir/gradle/externalpublish/CircleCiContextDeadlineAvoidance.java`
-#### Snippet
-```java
-        task.doFirst(new Action<Task>() {
-            @Override
-            public void execute(Task _ignored) {
-                spammerTask.set(CIRCLE_CI_OUTPUT_SPAMMER.scheduleWithFixedDelay(
-                        () -> {
 ```
 
 ### NullableProblems
@@ -120,25 +108,37 @@ in `src/main/java/com/palantir/gradle/externalpublish/CircleCiContextDeadlineAvo
 
 ### NullableProblems
 Not annotated parameter overrides @NonNullApi parameter
-in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishRootPlugin.java`
+in `src/main/java/com/palantir/gradle/externalpublish/CircleCiContextDeadlineAvoidance.java`
+#### Snippet
+```java
+        task.doFirst(new Action<Task>() {
+            @Override
+            public void execute(Task _ignored) {
+                spammerTask.set(CIRCLE_CI_OUTPUT_SPAMMER.scheduleWithFixedDelay(
+                        () -> {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNullApi parameter
+in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishJarPlugin.java`
 #### Snippet
 ```java
 
     @Override
-    public final void apply(Project rootProjectVal) {
-        this.rootProject = rootProjectVal;
+    public final void apply(Project project) {
+        configureJars(project);
 
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNullApi parameter
-in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishBasePlugin.java`
+in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishApplicationDistPlugin.java`
 #### Snippet
 ```java
-
-    @Override
-    public void apply(Project projectVal) {
-        this.project = projectVal;
+    private static final class FixWindowsStartScripts implements Action<Task> {
+        @Override
+        public void execute(Task task) {
+            CreateStartScripts createStartScripts = (CreateStartScripts) task;
 
 ```
 
@@ -156,13 +156,13 @@ in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishApplication
 
 ### NullableProblems
 Not annotated parameter overrides @NonNullApi parameter
-in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishApplicationDistPlugin.java`
+in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishBasePlugin.java`
 #### Snippet
 ```java
-    private static final class FixWindowsStartScripts implements Action<Task> {
-        @Override
-        public void execute(Task task) {
-            CreateStartScripts createStartScripts = (CreateStartScripts) task;
+
+    @Override
+    public void apply(Project projectVal) {
+        this.project = projectVal;
 
 ```
 
