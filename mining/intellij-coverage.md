@@ -304,6 +304,18 @@ Result of `File.mkdirs()` is ignored
 in `src/com/intellij/rt/coverage/data/ProjectData.java`
 #### Snippet
 ```java
+    final File result = new File(dataFile.getParent(), dirName);
+    if (!result.exists()) {
+      result.mkdirs();
+    }
+    return result;
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `src/com/intellij/rt/coverage/data/ProjectData.java`
+#### Snippet
+```java
     if (dataFile != null && !dataFile.exists()) {
       final File parentDir = dataFile.getParentFile();
       if (parentDir != null && !parentDir.exists()) parentDir.mkdirs();
@@ -321,17 +333,5 @@ in `src/com/intellij/rt/coverage/data/ProjectData.java`
       dataFile.createNewFile();
     }
     ourProjectData.myStopped = false;
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `src/com/intellij/rt/coverage/data/ProjectData.java`
-#### Snippet
-```java
-    final File result = new File(dataFile.getParent(), dirName);
-    if (!result.exists()) {
-      result.mkdirs();
-    }
-    return result;
 ```
 
