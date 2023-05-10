@@ -73,18 +73,6 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ReverseEngineerJava
 
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
-`null` is returned by the method declared as @NonNullApi
-in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
-#### Snippet
-```java
-                                    .set(project.provider(options::get)
-                                            .map(opts ->
-                                                    opts.has("packageName") ? (String) opts.get("packageName") : null)
-                                            .orElse(compileConjureTypeScript.flatMap(
-                                                    CompileConjureTypeScriptTask::getPackageName)));
-```
-
-### DataFlowIssue
 Method invocation `getSourceSets` may produce `NullPointerException`
 in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
 #### Snippet
@@ -94,6 +82,18 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
         javaPlugin.getSourceSets().getByName("main").getJava().srcDir(subproj.files(JAVA_GENERATED_SOURCE_DIRNAME));
     }
 
+```
+
+### DataFlowIssue
+`null` is returned by the method declared as @NonNullApi
+in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
+#### Snippet
+```java
+                                    .set(project.provider(options::get)
+                                            .map(opts ->
+                                                    opts.has("packageName") ? (String) opts.get("packageName") : null)
+                                            .orElse(compileConjureTypeScript.flatMap(
+                                                    CompileConjureTypeScriptTask::getPackageName)));
 ```
 
 ## RuleId[id=FieldMayBeFinal]
@@ -188,18 +188,6 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePublishPlugi
 
 ## RuleId[id=NullableProblems]
 ### NullableProblems
-Not annotated method overrides method annotated with @NonNullApi
-in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjureGeneratorTask.java`
-#### Snippet
-```java
-    @Override
-    @PathSensitive(PathSensitivity.RELATIVE)
-    public final FileTree getSource() {
-        return super.getSource();
-    }
-```
-
-### NullableProblems
 Not annotated parameter overrides @NonNullApi parameter
 in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjureGeneratorTask.java`
 #### Snippet
@@ -212,27 +200,15 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjureGeneratorTas
 ```
 
 ### NullableProblems
-Not annotated parameter overrides @NonNullApi parameter
-in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/GradleExecUtils.java`
+Not annotated method overrides method annotated with @NonNullApi
+in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjureGeneratorTask.java`
 #### Snippet
 ```java
-                            new Action<BuildServiceSpec<Params>>() {
-                                @Override
-                                public void execute(BuildServiceSpec<Params> spec) {
-                                    spec.getParameters().getExecutable().set(executable);
-                                }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNullApi parameter
-in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ExtractExecutableTask.java`
-#### Snippet
-```java
-
-                    @Override
-                    public void visitFile(FileVisitDetails _fileDetails) {}
-                });
-                if (rootDirectories.size() != 1) {
+    @Override
+    @PathSensitive(PathSensitivity.RELATIVE)
+    public final FileTree getSource() {
+        return super.getSource();
+    }
 ```
 
 ### NullableProblems
@@ -273,6 +249,18 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ExtractExecutableTa
 
 ### NullableProblems
 Not annotated parameter overrides @NonNullApi parameter
+in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ExtractExecutableTask.java`
+#### Snippet
+```java
+
+                    @Override
+                    public void visitFile(FileVisitDetails _fileDetails) {}
+                });
+                if (rootDirectories.size() != 1) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNullApi parameter
 in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjureBasePlugin.java`
 #### Snippet
 ```java
@@ -281,6 +269,18 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjureBasePlugin.j
                         public void execute(Task _task) {
                             try {
                                 FileUtils.deleteDirectory(buildDir);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNullApi parameter
+in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/GradleExecUtils.java`
+#### Snippet
+```java
+                            new Action<BuildServiceSpec<Params>>() {
+                                @Override
+                                public void execute(BuildServiceSpec<Params> spec) {
+                                    spec.getParameters().getExecutable().set(executable);
+                                }
 ```
 
 ### NullableProblems
@@ -358,19 +358,6 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/CompileConjureTypeS
         });
 ```
 
-## RuleId[id=StringConcatenationInsideStringBufferAppend]
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
-in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/CompileConjurePythonTask.java`
-#### Snippet
-```java
-                    .orElseThrow(() -> new InvalidUserDataException("Cannot specify commit distance without hash"));
-            // We prefix 'g' to the hash because conda strips leading zeros!!
-            version.append("+").append(distance).append(".").append("g" + hash);
-        });
-        getGroup(matcher, "dirty").ifPresent(dirty -> version.append('.').append(dirty));
-```
-
 ## RuleId[id=BlockingMethodInNonBlockingContext]
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
@@ -401,6 +388,18 @@ Possibly blocking call in non-blocking context could lead to thread starvation
 in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjureRunnerResource.java`
 #### Snippet
 ```java
+        @Override
+        public void close() throws IOException {
+            classLoader.close();
+        }
+    }
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjureRunnerResource.java`
+#### Snippet
+```java
     @Override
     public final void close() throws IOException {
         delegate.close();
@@ -418,18 +417,6 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjureRunnerResour
                     classLoader.close();
                 }
             }
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjureRunnerResource.java`
-#### Snippet
-```java
-        @Override
-        public void close() throws IOException {
-            classLoader.close();
-        }
-    }
 ```
 
 ### BlockingMethodInNonBlockingContext
@@ -458,14 +445,14 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ChildFirstUrlClassL
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
-in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/GenerateNpmrcTask.java`
+in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ReverseEngineerJavaStartScript.java`
 #### Snippet
 ```java
-
+    private static Optional<String> readFileToString(Path script) {
         try {
-            Files.writeString(outputFile.getAsFile().get().toPath(), npmRcContents, StandardCharsets.UTF_8);
-        } catch (@DoNotLog IOException e) {
-            throw new SafeRuntimeException("Error writing npmrc file");
+            byte[] bytes = Files.readAllBytes(script);
+            if (Utf8.isWellFormed(bytes)) {
+                return Optional.of(new String(bytes, StandardCharsets.UTF_8));
 ```
 
 ### BlockingMethodInNonBlockingContext
@@ -482,13 +469,26 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/GenerateNpmrcTask.j
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
-in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ReverseEngineerJavaStartScript.java`
+in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/GenerateNpmrcTask.java`
 #### Snippet
 ```java
-    private static Optional<String> readFileToString(Path script) {
+
         try {
-            byte[] bytes = Files.readAllBytes(script);
-            if (Utf8.isWellFormed(bytes)) {
-                return Optional.of(new String(bytes, StandardCharsets.UTF_8));
+            Files.writeString(outputFile.getAsFile().get().toPath(), npmRcContents, StandardCharsets.UTF_8);
+        } catch (@DoNotLog IOException e) {
+            throw new SafeRuntimeException("Error writing npmrc file");
+```
+
+## RuleId[id=StringConcatenationInsideStringBufferAppend]
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/CompileConjurePythonTask.java`
+#### Snippet
+```java
+                    .orElseThrow(() -> new InvalidUserDataException("Cannot specify commit distance without hash"));
+            // We prefix 'g' to the hash because conda strips leading zeros!!
+            version.append("+").append(distance).append(".").append("g" + hash);
+        });
+        getGroup(matcher, "dirty").ifPresent(dirty -> version.append('.').append(dirty));
 ```
 
