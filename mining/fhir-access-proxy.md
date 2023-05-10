@@ -56,15 +56,27 @@ in `server/src/main/java/com/google/fhir/gateway/AllowedQueriesConfig.java`
 
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
-Method invocation `getTokenValue` may produce `NullPointerException`
-in `server/src/main/java/com/google/fhir/gateway/GcpFhirClient.java`
+Argument `authHeader` might be null
+in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
 #### Snippet
 ```java
-      ExceptionUtil.throwRuntimeExceptionAndLog(logger, "Cannot get an access token!");
+          logger, "No Authorization header provided!", AuthenticationException.class);
     }
-    return accessToken.getTokenValue();
-  }
+    DecodedJWT decodedJwt = decodeAndVerifyBearerToken(authHeader);
+    FhirContext fhirContext = server.getFhirContext();
+    AccessDecision allowedQueriesDecision = allowedQueriesChecker.checkAccess(requestDetailsReader);
+```
 
+### DataFlowIssue
+Method invocation `checkAccess` may produce `NullPointerException`
+in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
+#### Snippet
+```java
+          logger, "Cannot create an AccessChecker!", AuthenticationException.class);
+    }
+    AccessDecision outcome = accessChecker.checkAccess(requestDetailsReader);
+    if (!outcome.canAccess()) {
+      ExceptionUtil.throwRuntimeExceptionAndLog(
 ```
 
 ### DataFlowIssue
@@ -92,27 +104,15 @@ in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.
 ```
 
 ### DataFlowIssue
-Argument `authHeader` might be null
-in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
+Method invocation `getTokenValue` may produce `NullPointerException`
+in `server/src/main/java/com/google/fhir/gateway/GcpFhirClient.java`
 #### Snippet
 ```java
-          logger, "No Authorization header provided!", AuthenticationException.class);
+      ExceptionUtil.throwRuntimeExceptionAndLog(logger, "Cannot get an access token!");
     }
-    DecodedJWT decodedJwt = decodeAndVerifyBearerToken(authHeader);
-    FhirContext fhirContext = server.getFhirContext();
-    AccessDecision allowedQueriesDecision = allowedQueriesChecker.checkAccess(requestDetailsReader);
-```
+    return accessToken.getTokenValue();
+  }
 
-### DataFlowIssue
-Method invocation `checkAccess` may produce `NullPointerException`
-in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
-#### Snippet
-```java
-          logger, "Cannot create an AccessChecker!", AuthenticationException.class);
-    }
-    AccessDecision outcome = accessChecker.checkAccess(requestDetailsReader);
-    if (!outcome.canAccess()) {
-      ExceptionUtil.throwRuntimeExceptionAndLog(
 ```
 
 ## RuleId[id=ConstantValue]
@@ -221,18 +221,6 @@ Field can be converted to a local variable
 in `server/src/main/java/com/google/fhir/gateway/BundlePatients.java`
 #### Snippet
 ```java
-public class BundlePatients {
-
-  private final ImmutableList<ImmutableSet<String>> referencedPatients;
-  private final ImmutableSet<String> updatedPatients;
-  private final boolean patientsToCreate;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `server/src/main/java/com/google/fhir/gateway/BundlePatients.java`
-#### Snippet
-```java
   private final boolean patientsToCreate;
 
   private final ImmutableSet<String> deletedPatients;
@@ -254,26 +242,14 @@ in `server/src/main/java/com/google/fhir/gateway/BundlePatients.java`
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `plugins/src/main/java/com/google/fhir/gateway/plugin/SmartFhirScope.java`
+in `server/src/main/java/com/google/fhir/gateway/BundlePatients.java`
 #### Snippet
 ```java
-  private static final String SMART_V1_WRITE_RESOURCE_PERMISSIONS = "write";
+public class BundlePatients {
 
-  private final Principal principal;
-  private final String resourceType;
-  private final Set<Permission> permissions;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `plugins/src/main/java/com/google/fhir/gateway/plugin/SmartFhirScope.java`
-#### Snippet
-```java
-
-  private final Principal principal;
-  private final String resourceType;
-  private final Set<Permission> permissions;
-
+  private final ImmutableList<ImmutableSet<String>> referencedPatients;
+  private final ImmutableSet<String> updatedPatients;
+  private final boolean patientsToCreate;
 ```
 
 ### FieldCanBeLocal
@@ -286,6 +262,30 @@ in `plugins/src/main/java/com/google/fhir/gateway/plugin/SmartFhirScope.java`
   private final Set<Permission> permissions;
 
   private SmartFhirScope(
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `plugins/src/main/java/com/google/fhir/gateway/plugin/SmartFhirScope.java`
+#### Snippet
+```java
+
+  private final Principal principal;
+  private final String resourceType;
+  private final Set<Permission> permissions;
+
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `plugins/src/main/java/com/google/fhir/gateway/plugin/SmartFhirScope.java`
+#### Snippet
+```java
+  private static final String SMART_V1_WRITE_RESOURCE_PERMISSIONS = "write";
+
+  private final Principal principal;
+  private final String resourceType;
+  private final Set<Permission> permissions;
 ```
 
 ## RuleId[id=UnstableApiUsage]
