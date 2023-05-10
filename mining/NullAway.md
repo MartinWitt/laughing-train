@@ -72,10 +72,10 @@ Can be replaced with single expression in functional style
 in `nullaway/src/main/java/com/uber/nullaway/ErrorProneCLIFlagsConfig.java`
 #### Snippet
 ```java
-  private static ImmutableSet<String> getFlagStringSet(ErrorProneFlags flags, String flagName) {
+    Set<String> combined = new LinkedHashSet<>(defaults);
     Optional<String> flagValue = flags.get(flagName);
     if (flagValue.isPresent()) {
-      return ImmutableSet.copyOf(flagValue.get().split(DELIMITER));
+      Collections.addAll(combined, flagValue.get().split(DELIMITER));
     }
 ```
 
@@ -84,10 +84,10 @@ Can be replaced with single expression in functional style
 in `nullaway/src/main/java/com/uber/nullaway/ErrorProneCLIFlagsConfig.java`
 #### Snippet
 ```java
-    Set<String> combined = new LinkedHashSet<>(defaults);
+  private static ImmutableSet<String> getFlagStringSet(ErrorProneFlags flags, String flagName) {
     Optional<String> flagValue = flags.get(flagName);
     if (flagValue.isPresent()) {
-      Collections.addAll(combined, flagValue.get().split(DELIMITER));
+      return ImmutableSet.copyOf(flagValue.get().split(DELIMITER));
     }
 ```
 
@@ -166,18 +166,6 @@ public class NullnessStore implements Store<NullnessStore> {
 ```
 
 ### JavadocReference
-Cannot resolve symbol `NullnessAnalysis`
-in `nullaway/src/main/java/com/uber/nullaway/dataflow/AccessPathNullnessAnalysis.java`
-#### Snippet
-```java
- * API to our nullness dataflow analysis for access paths.
- *
- * <p>Based on code from Error Prone; see {@link NullnessAnalysis}
- */
-public final class AccessPathNullnessAnalysis {
-```
-
-### JavadocReference
 Symbol `Context` is inaccessible from here
 in `nullaway/src/main/java/com/uber/nullaway/handlers/OptionalEmptinessHandler.java`
 #### Snippet
@@ -187,6 +175,18 @@ in `nullaway/src/main/java/com/uber/nullaway/handlers/OptionalEmptinessHandler.j
    * <p>Instances of this type should be accessed using {@link #instance(Context)}, not instantiated
    * directly.
    */
+```
+
+### JavadocReference
+Cannot resolve symbol `NullnessAnalysis`
+in `nullaway/src/main/java/com/uber/nullaway/dataflow/AccessPathNullnessAnalysis.java`
+#### Snippet
+```java
+ * API to our nullness dataflow analysis for access paths.
+ *
+ * <p>Based on code from Error Prone; see {@link NullnessAnalysis}
+ */
+public final class AccessPathNullnessAnalysis {
 ```
 
 ### JavadocReference
@@ -310,54 +310,6 @@ in `nullaway/src/main/java/com/uber/nullaway/handlers/Handler.java`
 ```
 
 ### JavadocReference
-Symbol `com.google.errorprone.dataflow.nullnesspropagation.AbstractNullnessPropagationTransfer` is inaccessible from here
-in `nullaway/src/main/java/com/uber/nullaway/dataflow/AccessPathNullnessPropagation.java`
-#### Snippet
-```java
- *
- * <p>Based on code originally from Error Prone (see {@link
- * com.google.errorprone.dataflow.nullnesspropagation.AbstractNullnessPropagationTransfer} and
- * {@link com.google.errorprone.dataflow.nullnesspropagation.NullnessPropagationTransfer})
- */
-```
-
-### JavadocReference
-Symbol `com.google.errorprone.dataflow.nullnesspropagation.NullnessPropagationTransfer` is inaccessible from here
-in `nullaway/src/main/java/com/uber/nullaway/dataflow/AccessPathNullnessPropagation.java`
-#### Snippet
-```java
- * <p>Based on code originally from Error Prone (see {@link
- * com.google.errorprone.dataflow.nullnesspropagation.AbstractNullnessPropagationTransfer} and
- * {@link com.google.errorprone.dataflow.nullnesspropagation.NullnessPropagationTransfer})
- */
-public class AccessPathNullnessPropagation
-```
-
-### JavadocReference
-Symbol `org.jspecify.annotations.NullMarked` is inaccessible from here
-in `nullaway/src/main/java/com/uber/nullaway/NullAway.java`
-#### Snippet
-```java
-    /**
-     * class has a mix of annotatedness, depending on presence of {@link
-     * org.jspecify.annotations.NullMarked} annotations
-     */
-    PARTIALLY_MARKED
-```
-
-### JavadocReference
-Symbol `com.sun.tools.javac.code.Symbol.MethodSymbol` is inaccessible from here
-in `nullaway/src/main/java/com/uber/nullaway/handlers/LibraryModelsHandler.java`
-#### Snippet
-```java
-  /**
-   * A view of library models optimized to make lookup of {@link
-   * com.sun.tools.javac.code.Symbol.MethodSymbol}s fast
-   */
-  private static class OptimizedLibraryModels {
-```
-
-### JavadocReference
 Symbol `Name` is inaccessible from here
 in `nullaway/src/main/java/com/uber/nullaway/handlers/LibraryModelsHandler.java`
 #### Snippet
@@ -381,19 +333,55 @@ in `nullaway/src/main/java/com/uber/nullaway/handlers/LibraryModelsHandler.java`
      * @param <T> the type of the associated state.
 ```
 
-## RuleId[id=DataFlowIssue]
-### DataFlowIssue
-Casting `cursor` to `Symbol.MethodSymbol` may produce `ClassCastException`
-in `nullaway/src/main/java/com/uber/nullaway/fixserialization/location/MethodParameterLocation.java`
+### JavadocReference
+Symbol `com.sun.tools.javac.code.Symbol.MethodSymbol` is inaccessible from here
+in `nullaway/src/main/java/com/uber/nullaway/handlers/LibraryModelsHandler.java`
 #### Snippet
 ```java
-    }
-    Preconditions.checkNotNull(cursor);
-    this.enclosingMethod = (Symbol.MethodSymbol) cursor;
-    int i;
-    for (i = 0; i < this.enclosingMethod.getParameters().size(); i++) {
+  /**
+   * A view of library models optimized to make lookup of {@link
+   * com.sun.tools.javac.code.Symbol.MethodSymbol}s fast
+   */
+  private static class OptimizedLibraryModels {
 ```
 
+### JavadocReference
+Symbol `org.jspecify.annotations.NullMarked` is inaccessible from here
+in `nullaway/src/main/java/com/uber/nullaway/NullAway.java`
+#### Snippet
+```java
+    /**
+     * class has a mix of annotatedness, depending on presence of {@link
+     * org.jspecify.annotations.NullMarked} annotations
+     */
+    PARTIALLY_MARKED
+```
+
+### JavadocReference
+Symbol `com.google.errorprone.dataflow.nullnesspropagation.AbstractNullnessPropagationTransfer` is inaccessible from here
+in `nullaway/src/main/java/com/uber/nullaway/dataflow/AccessPathNullnessPropagation.java`
+#### Snippet
+```java
+ *
+ * <p>Based on code originally from Error Prone (see {@link
+ * com.google.errorprone.dataflow.nullnesspropagation.AbstractNullnessPropagationTransfer} and
+ * {@link com.google.errorprone.dataflow.nullnesspropagation.NullnessPropagationTransfer})
+ */
+```
+
+### JavadocReference
+Symbol `com.google.errorprone.dataflow.nullnesspropagation.NullnessPropagationTransfer` is inaccessible from here
+in `nullaway/src/main/java/com/uber/nullaway/dataflow/AccessPathNullnessPropagation.java`
+#### Snippet
+```java
+ * <p>Based on code originally from Error Prone (see {@link
+ * com.google.errorprone.dataflow.nullnesspropagation.AbstractNullnessPropagationTransfer} and
+ * {@link com.google.errorprone.dataflow.nullnesspropagation.NullnessPropagationTransfer})
+ */
+public class AccessPathNullnessPropagation
+```
+
+## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
 Unboxing of `NULL_TEST_APIS.get(sign)` may produce `NullPointerException`
 in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/DefinitelyDerefedParams.java`
@@ -404,6 +392,18 @@ in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/DefinitelyD
               derefValueNumber = callInst.getUse(NULL_TEST_APIS.get(sign));
             }
           } else {
+```
+
+### DataFlowIssue
+Casting `cursor` to `Symbol.MethodSymbol` may produce `ClassCastException`
+in `nullaway/src/main/java/com/uber/nullaway/fixserialization/location/MethodParameterLocation.java`
+#### Snippet
+```java
+    }
+    Preconditions.checkNotNull(cursor);
+    this.enclosingMethod = (Symbol.MethodSymbol) cursor;
+    int i;
+    for (i = 0; i < this.enclosingMethod.getParameters().size(); i++) {
 ```
 
 ### DataFlowIssue
@@ -431,18 +431,6 @@ in `nullaway/src/main/java/com/uber/nullaway/fixserialization/Serializer.java`
 ```
 
 ### DataFlowIssue
-Argument `outputDirectory` might be null
-in `nullaway/src/main/java/com/uber/nullaway/fixserialization/Serializer.java`
-#### Snippet
-```java
-  public Serializer(FixSerializationConfig config, SerializationAdapter serializationAdapter) {
-    String outputDirectory = config.outputDirectory;
-    this.errorOutputPath = Paths.get(outputDirectory, "errors.tsv");
-    this.suggestedFixesOutputPath = Paths.get(outputDirectory, "fixes.tsv");
-    this.fieldInitializationOutputPath = Paths.get(outputDirectory, "field_init.tsv");
-```
-
-### DataFlowIssue
 Argument `config.outputDirectory` might be null
 in `nullaway/src/main/java/com/uber/nullaway/fixserialization/Serializer.java`
 #### Snippet
@@ -452,6 +440,18 @@ in `nullaway/src/main/java/com/uber/nullaway/fixserialization/Serializer.java`
       Files.createDirectories(Paths.get(config.outputDirectory));
       if (config.suggestEnabled) {
         initializeFile(suggestedFixesOutputPath, SuggestedNullableFixInfo.header());
+```
+
+### DataFlowIssue
+Argument `outputDirectory` might be null
+in `nullaway/src/main/java/com/uber/nullaway/fixserialization/Serializer.java`
+#### Snippet
+```java
+  public Serializer(FixSerializationConfig config, SerializationAdapter serializationAdapter) {
+    String outputDirectory = config.outputDirectory;
+    this.errorOutputPath = Paths.get(outputDirectory, "errors.tsv");
+    this.suggestedFixesOutputPath = Paths.get(outputDirectory, "fixes.tsv");
+    this.fieldInitializationOutputPath = Paths.get(outputDirectory, "field_init.tsv");
 ```
 
 ### DataFlowIssue
@@ -730,6 +730,18 @@ in `nullaway/src/main/java/com/uber/nullaway/fixserialization/Serializer.java`
 
 ## RuleId[id=IOStreamConstructor]
 ### IOStreamConstructor
+'InputStream' can be constructed using 'Files.newInputStream()'
+in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/DefinitelyDerefedParamsDriver.java`
+#### Snippet
+```java
+    InputStream jarIS = null;
+    if (libPath.endsWith(".jar")) {
+      jarIS = new FileInputStream(libPath);
+    } else if (libPath.endsWith(".aar")) {
+      ZipFile aar = new ZipFile(libPath);
+```
+
+### IOStreamConstructor
 'OutputStream' can be constructed using 'Files.newOutputStream()'
 in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/DefinitelyDerefedParamsDriver.java`
 #### Snippet
@@ -782,18 +794,6 @@ in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/DefinitelyD
 in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/DefinitelyDerefedParamsDriver.java`
 #### Snippet
 ```java
-      new File(outPath).getParentFile().mkdirs();
-      if (outPath.endsWith(".astubx")) {
-        writeModel(new DataOutputStream(new FileOutputStream(outPath)));
-      } else {
-        writeModelJAR(outPath);
-```
-
-### IOStreamConstructor
-'OutputStream' can be constructed using 'Files.newOutputStream()'
-in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/DefinitelyDerefedParamsDriver.java`
-#### Snippet
-```java
     Preconditions.checkArgument(
         outPath.endsWith(ASTUBX_JAR_SUFFIX), "invalid model file path! " + outPath);
     ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(outPath));
@@ -802,15 +802,15 @@ in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/DefinitelyD
 ```
 
 ### IOStreamConstructor
-'InputStream' can be constructed using 'Files.newInputStream()'
+'OutputStream' can be constructed using 'Files.newOutputStream()'
 in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/DefinitelyDerefedParamsDriver.java`
 #### Snippet
 ```java
-    InputStream jarIS = null;
-    if (libPath.endsWith(".jar")) {
-      jarIS = new FileInputStream(libPath);
-    } else if (libPath.endsWith(".aar")) {
-      ZipFile aar = new ZipFile(libPath);
+      new File(outPath).getParentFile().mkdirs();
+      if (outPath.endsWith(".astubx")) {
+        writeModel(new DataOutputStream(new FileOutputStream(outPath)));
+      } else {
+        writeModelJAR(outPath);
 ```
 
 ## RuleId[id=RedundantEscapeInRegexReplacement]
@@ -868,11 +868,11 @@ Unnecessary `toString()` call
 in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/DefinitelyDerefedParams.java`
 #### Snippet
 ```java
-    // Get Post-dominator Tree
-    Graph<ISSABasicBlock> pdomTree = GraphInverter.invert(domTree);
-    LOG(DEBUG, "DEBUG", "post-dominator tree:" + pdomTree.toString());
-    // Note: WALA creates a single dummy exit node. Multiple exits points will never post-dominate
-    // this exit node. (?)
+          continue;
+        }
+        LOG(DEBUG, "DEBUG", "\tinst: " + instr.toString());
+        int derefValueNumber = -1;
+        if (instr instanceof SSAGetInstruction && !((SSAGetInstruction) instr).isStatic()) {
 ```
 
 ### UnnecessaryToStringCall
@@ -880,11 +880,11 @@ Unnecessary `toString()` call
 in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/DefinitelyDerefedParams.java`
 #### Snippet
 ```java
-          continue;
-        }
-        LOG(DEBUG, "DEBUG", "\tinst: " + instr.toString());
-        int derefValueNumber = -1;
-        if (instr instanceof SSAGetInstruction && !((SSAGetInstruction) instr).isStatic()) {
+    // Get Post-dominator Tree
+    Graph<ISSABasicBlock> pdomTree = GraphInverter.invert(domTree);
+    LOG(DEBUG, "DEBUG", "post-dominator tree:" + pdomTree.toString());
+    // Note: WALA creates a single dummy exit node. Multiple exits points will never post-dominate
+    // this exit node. (?)
 ```
 
 ### UnnecessaryToStringCall
@@ -1003,11 +1003,11 @@ Not annotated method overrides method annotated with @ElementTypesAreNonnullByDe
 in `nullaway/src/main/java/com/uber/nullaway/dataflow/DataFlow.java`
 #### Snippet
 ```java
-              new CacheLoader<CfgParams, ControlFlowGraph>() {
+              new CacheLoader<AnalysisParams, Analysis<?, ?, ?>>() {
                 @Override
-                public ControlFlowGraph load(CfgParams key) {
-                  final TreePath codePath = key.codePath();
-                  final TreePath bodyPath;
+                public Analysis<?, ?, ?> load(AnalysisParams key) {
+                  final ControlFlowGraph cfg = key.cfg();
+                  final ForwardTransferFunction<?, ?> transfer = key.transferFunction();
 ```
 
 ### NullableProblems
@@ -1015,11 +1015,11 @@ Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
 in `nullaway/src/main/java/com/uber/nullaway/dataflow/DataFlow.java`
 #### Snippet
 ```java
-              new CacheLoader<CfgParams, ControlFlowGraph>() {
+              new CacheLoader<AnalysisParams, Analysis<?, ?, ?>>() {
                 @Override
-                public ControlFlowGraph load(CfgParams key) {
-                  final TreePath codePath = key.codePath();
-                  final TreePath bodyPath;
+                public Analysis<?, ?, ?> load(AnalysisParams key) {
+                  final ControlFlowGraph cfg = key.cfg();
+                  final ForwardTransferFunction<?, ?> transfer = key.transferFunction();
 ```
 
 ### NullableProblems
@@ -1027,11 +1027,11 @@ Not annotated method overrides method annotated with @ElementTypesAreNonnullByDe
 in `nullaway/src/main/java/com/uber/nullaway/dataflow/DataFlow.java`
 #### Snippet
 ```java
-              new CacheLoader<AnalysisParams, Analysis<?, ?, ?>>() {
+              new CacheLoader<CfgParams, ControlFlowGraph>() {
                 @Override
-                public Analysis<?, ?, ?> load(AnalysisParams key) {
-                  final ControlFlowGraph cfg = key.cfg();
-                  final ForwardTransferFunction<?, ?> transfer = key.transferFunction();
+                public ControlFlowGraph load(CfgParams key) {
+                  final TreePath codePath = key.codePath();
+                  final TreePath bodyPath;
 ```
 
 ### NullableProblems
@@ -1039,11 +1039,11 @@ Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
 in `nullaway/src/main/java/com/uber/nullaway/dataflow/DataFlow.java`
 #### Snippet
 ```java
-              new CacheLoader<AnalysisParams, Analysis<?, ?, ?>>() {
+              new CacheLoader<CfgParams, ControlFlowGraph>() {
                 @Override
-                public Analysis<?, ?, ?> load(AnalysisParams key) {
-                  final ControlFlowGraph cfg = key.cfg();
-                  final ForwardTransferFunction<?, ?> transfer = key.transferFunction();
+                public ControlFlowGraph load(CfgParams key) {
+                  final TreePath codePath = key.codePath();
+                  final TreePath bodyPath;
 ```
 
 ### NullableProblems
@@ -1133,31 +1133,6 @@ in `nullaway/src/main/java/com/uber/nullaway/handlers/contract/ContractCheckHand
             || valueConstraint.equals("null"))) {
 ```
 
-## RuleId[id=IgnoreResultOfCall]
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/DefinitelyDerefedParamsDriver.java`
-#### Snippet
-```java
-    LOG(DEBUG, "DEBUG", "Writing Annotations to " + outFile);
-
-    new File(outFile).getParentFile().mkdirs();
-    if (inPath.endsWith(".jar")) {
-      JarFile jar = new JarFile(inPath);
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/DefinitelyDerefedParamsDriver.java`
-#### Snippet
-```java
-    }
-    if (!this.annotateBytecode) {
-      new File(outPath).getParentFile().mkdirs();
-      if (outPath.endsWith(".astubx")) {
-        writeModel(new DataOutputStream(new FileOutputStream(outPath)));
-```
-
 ## RuleId[id=TrivialIf]
 ### TrivialIf
 `if` statement can be simplified
@@ -1221,6 +1196,18 @@ in `nullaway/src/main/java/com/uber/nullaway/CodeAnnotationInfo.java`
 
 ### TrivialIf
 `if` statement can be simplified
+in `nullaway/src/main/java/com/uber/nullaway/handlers/LibraryModelsHandler.java`
+#### Snippet
+```java
+      return true;
+    }
+    if (!optLibraryModels.nullImpliesNullParameters(methodSymbol).isEmpty()) {
+      return true;
+    }
+```
+
+### TrivialIf
+`if` statement can be simplified
 in `nullaway/src/main/java/com/uber/nullaway/NullAway.java`
 #### Snippet
 ```java
@@ -1243,16 +1230,29 @@ in `nullaway/src/main/java/com/uber/nullaway/NullAway.java`
       }
 ```
 
-### TrivialIf
-`if` statement can be simplified
-in `nullaway/src/main/java/com/uber/nullaway/handlers/LibraryModelsHandler.java`
+## RuleId[id=IgnoreResultOfCall]
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/DefinitelyDerefedParamsDriver.java`
 #### Snippet
 ```java
-      return true;
+    LOG(DEBUG, "DEBUG", "Writing Annotations to " + outFile);
+
+    new File(outFile).getParentFile().mkdirs();
+    if (inPath.endsWith(".jar")) {
+      JarFile jar = new JarFile(inPath);
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/DefinitelyDerefedParamsDriver.java`
+#### Snippet
+```java
     }
-    if (!optLibraryModels.nullImpliesNullParameters(methodSymbol).isEmpty()) {
-      return true;
-    }
+    if (!this.annotateBytecode) {
+      new File(outPath).getParentFile().mkdirs();
+      if (outPath.endsWith(".astubx")) {
+        writeModel(new DataOutputStream(new FileOutputStream(outPath)));
 ```
 
 ## RuleId[id=OptionalUsedAsFieldOrParameterType]
@@ -1317,19 +1317,6 @@ in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/BytecodeAnn
         && (entryName.endsWith(".DSA")
 ```
 
-## RuleId[id=AutoCloseableResource]
-### AutoCloseableResource
-'ZipFile' used without 'try'-with-resources statement
-in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/DefinitelyDerefedParamsDriver.java`
-#### Snippet
-```java
-      jarIS = new FileInputStream(libPath);
-    } else if (libPath.endsWith(".aar")) {
-      ZipFile aar = new ZipFile(libPath);
-      ZipEntry jarEntry = aar.getEntry("classes.jar");
-      jarIS = (jarEntry == null ? null : aar.getInputStream(jarEntry));
-```
-
 ## RuleId[id=OptionalAssignedToNull]
 ### OptionalAssignedToNull
 Optional value is compared with null
@@ -1365,6 +1352,19 @@ in `nullaway/src/main/java/com/uber/nullaway/handlers/GrpcHandler.java`
     if (grpcMetadataType == null || grpcKeyType == null) {
       grpcMetadataType =
           Optional.ofNullable(GRPC_METADATA_TYPE_SUPPLIER.get(state))
+```
+
+## RuleId[id=AutoCloseableResource]
+### AutoCloseableResource
+'ZipFile' used without 'try'-with-resources statement
+in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/DefinitelyDerefedParamsDriver.java`
+#### Snippet
+```java
+      jarIS = new FileInputStream(libPath);
+    } else if (libPath.endsWith(".aar")) {
+      ZipFile aar = new ZipFile(libPath);
+      ZipEntry jarEntry = aar.getEntry("classes.jar");
+      jarIS = (jarEntry == null ? null : aar.getInputStream(jarEntry));
 ```
 
 ## RuleId[id=ConditionCoveredByFurtherCondition]
@@ -1457,18 +1457,6 @@ in `nullaway/src/main/java/com/uber/nullaway/ErrorBuilder.java`
 
 ## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
-Field `DEBUG` may be 'final'
-in `nullaway/src/main/java/com/uber/nullaway/handlers/InferredJARModelsHandler.java`
-#### Snippet
-```java
-/** This handler loads inferred nullability model from stubs for methods in unannotated packages. */
-public class InferredJARModelsHandler extends BaseNoOpHandler {
-  private static boolean DEBUG = false;
-  private static boolean VERBOSE = false;
-
-```
-
-### FieldMayBeFinal
 Field `VERBOSE` may be 'final'
 in `nullaway/src/main/java/com/uber/nullaway/handlers/InferredJARModelsHandler.java`
 #### Snippet
@@ -1481,63 +1469,15 @@ public class InferredJARModelsHandler extends BaseNoOpHandler {
 ```
 
 ### FieldMayBeFinal
-Field `fileManager` may be 'final'
-in `jmh/src/main/java/com/uber/nullaway/jmh/NullawayJavac.java`
+Field `DEBUG` may be 'final'
+in `nullaway/src/main/java/com/uber/nullaway/handlers/InferredJARModelsHandler.java`
 #### Snippet
 ```java
-  private JavaCompiler compiler;
-  @Nullable private DiagnosticListener<JavaFileObject> diagnosticListener;
-  private StandardJavaFileManager fileManager;
-  private List<String> options;
+/** This handler loads inferred nullability model from stubs for methods in unannotated packages. */
+public class InferredJARModelsHandler extends BaseNoOpHandler {
+  private static boolean DEBUG = false;
+  private static boolean VERBOSE = false;
 
-```
-
-### FieldMayBeFinal
-Field `diagnosticListener` may be 'final'
-in `jmh/src/main/java/com/uber/nullaway/jmh/NullawayJavac.java`
-#### Snippet
-```java
-  private List<JavaFileObject> compilationUnits;
-  private JavaCompiler compiler;
-  @Nullable private DiagnosticListener<JavaFileObject> diagnosticListener;
-  private StandardJavaFileManager fileManager;
-  private List<String> options;
-```
-
-### FieldMayBeFinal
-Field `compilationUnits` may be 'final'
-in `jmh/src/main/java/com/uber/nullaway/jmh/NullawayJavac.java`
-#### Snippet
-```java
-  // state required to run javac via the standard APIs
-  //////////////////////
-  private List<JavaFileObject> compilationUnits;
-  private JavaCompiler compiler;
-  @Nullable private DiagnosticListener<JavaFileObject> diagnosticListener;
-```
-
-### FieldMayBeFinal
-Field `compiler` may be 'final'
-in `jmh/src/main/java/com/uber/nullaway/jmh/NullawayJavac.java`
-#### Snippet
-```java
-  //////////////////////
-  private List<JavaFileObject> compilationUnits;
-  private JavaCompiler compiler;
-  @Nullable private DiagnosticListener<JavaFileObject> diagnosticListener;
-  private StandardJavaFileManager fileManager;
-```
-
-### FieldMayBeFinal
-Field `options` may be 'final'
-in `jmh/src/main/java/com/uber/nullaway/jmh/NullawayJavac.java`
-#### Snippet
-```java
-  @Nullable private DiagnosticListener<JavaFileObject> diagnosticListener;
-  private StandardJavaFileManager fileManager;
-  private List<String> options;
-
-  /**
 ```
 
 ### FieldMayBeFinal
@@ -1550,30 +1490,6 @@ public class DefinitelyDerefedParams {
   private boolean USE_EXTENDED_APPROACH = true;
 
   private static void LOG(boolean cond, String tag, String msg) {
-```
-
-### FieldMayBeFinal
-Field `bar` may be 'final'
-in `jar-infer/test-java-lib-jarinfer/src/main/java/com/uber/nullaway/jarinfer/toys/unannotated/Bar.java`
-#### Snippet
-```java
-
-public class Bar {
-  private String bar;
-  public int b;
-
-```
-
-### FieldMayBeFinal
-Field `foo` may be 'final'
-in `jar-infer/test-java-lib-jarinfer/src/main/java/com/uber/nullaway/jarinfer/toys/unannotated/Foo.java`
-#### Snippet
-```java
-
-public class Foo {
-  private String foo;
-
-  public Foo(String str) {
 ```
 
 ### FieldMayBeFinal
@@ -1601,15 +1517,87 @@ in `jar-infer/jar-infer-lib/src/main/java/com/uber/nullaway/jarinfer/DefinitelyD
 ```
 
 ### FieldMayBeFinal
-Field `analysis` may be 'final'
-in `nullaway/src/main/java/com/uber/nullaway/GenericsChecks.java`
+Field `foo` may be 'final'
+in `jar-infer/test-java-lib-jarinfer/src/main/java/com/uber/nullaway/jarinfer/toys/unannotated/Foo.java`
 #### Snippet
 ```java
-  private VisitorState state;
-  private Config config;
-  private NullAway analysis;
 
-  public GenericsChecks(VisitorState state, Config config, NullAway analysis) {
+public class Foo {
+  private String foo;
+
+  public Foo(String str) {
+```
+
+### FieldMayBeFinal
+Field `bar` may be 'final'
+in `jar-infer/test-java-lib-jarinfer/src/main/java/com/uber/nullaway/jarinfer/toys/unannotated/Bar.java`
+#### Snippet
+```java
+
+public class Bar {
+  private String bar;
+  public int b;
+
+```
+
+### FieldMayBeFinal
+Field `compilationUnits` may be 'final'
+in `jmh/src/main/java/com/uber/nullaway/jmh/NullawayJavac.java`
+#### Snippet
+```java
+  // state required to run javac via the standard APIs
+  //////////////////////
+  private List<JavaFileObject> compilationUnits;
+  private JavaCompiler compiler;
+  @Nullable private DiagnosticListener<JavaFileObject> diagnosticListener;
+```
+
+### FieldMayBeFinal
+Field `options` may be 'final'
+in `jmh/src/main/java/com/uber/nullaway/jmh/NullawayJavac.java`
+#### Snippet
+```java
+  @Nullable private DiagnosticListener<JavaFileObject> diagnosticListener;
+  private StandardJavaFileManager fileManager;
+  private List<String> options;
+
+  /**
+```
+
+### FieldMayBeFinal
+Field `diagnosticListener` may be 'final'
+in `jmh/src/main/java/com/uber/nullaway/jmh/NullawayJavac.java`
+#### Snippet
+```java
+  private List<JavaFileObject> compilationUnits;
+  private JavaCompiler compiler;
+  @Nullable private DiagnosticListener<JavaFileObject> diagnosticListener;
+  private StandardJavaFileManager fileManager;
+  private List<String> options;
+```
+
+### FieldMayBeFinal
+Field `compiler` may be 'final'
+in `jmh/src/main/java/com/uber/nullaway/jmh/NullawayJavac.java`
+#### Snippet
+```java
+  //////////////////////
+  private List<JavaFileObject> compilationUnits;
+  private JavaCompiler compiler;
+  @Nullable private DiagnosticListener<JavaFileObject> diagnosticListener;
+  private StandardJavaFileManager fileManager;
+```
+
+### FieldMayBeFinal
+Field `fileManager` may be 'final'
+in `jmh/src/main/java/com/uber/nullaway/jmh/NullawayJavac.java`
+#### Snippet
+```java
+  private JavaCompiler compiler;
+  @Nullable private DiagnosticListener<JavaFileObject> diagnosticListener;
+  private StandardJavaFileManager fileManager;
+  private List<String> options;
+
 ```
 
 ### FieldMayBeFinal
@@ -1622,6 +1610,18 @@ in `nullaway/src/main/java/com/uber/nullaway/GenericsChecks.java`
   private VisitorState state;
   private Config config;
   private NullAway analysis;
+```
+
+### FieldMayBeFinal
+Field `analysis` may be 'final'
+in `nullaway/src/main/java/com/uber/nullaway/GenericsChecks.java`
+#### Snippet
+```java
+  private VisitorState state;
+  private Config config;
+  private NullAway analysis;
+
+  public GenericsChecks(VisitorState state, Config config, NullAway analysis) {
 ```
 
 ### FieldMayBeFinal
