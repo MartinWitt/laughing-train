@@ -56,6 +56,42 @@ in `src/main/java/fr/inria/gforge/spoon/transformation/bound/processing/BoundTem
 ```
 
 ### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.List' to 'java.util.List'. Reason: 'testMethod' has raw type, so result of getElements is erased
+in `src/main/java/fr/inria/gforge/spoon/assertgenerator/workflow/Analyzer.java`
+#### Snippet
+```java
+					}
+				};
+		return testMethod.getElements(filterLocalVar);
+	}
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'spoon.reflect.visitor.filter.TypeFilter' to 'spoon.reflect.visitor.Filter'
+in `src/main/java/fr/inria/gforge/spoon/assertgenerator/workflow/Analyzer.java`
+#### Snippet
+```java
+					}
+				};
+		return testMethod.getElements(filterLocalVar);
+	}
+
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'TypeFilter(Class)' as a member of raw type 'spoon.reflect.visitor.filter.TypeFilter'
+in `src/main/java/fr/inria/gforge/spoon/assertgenerator/workflow/Analyzer.java`
+#### Snippet
+```java
+	List<CtLocalVariable> analyze(CtMethod testMethod) {
+		TypeFilter filterLocalVar =
+				new TypeFilter(CtLocalVariable.class) {
+					public boolean matches(CtLocalVariable localVariable) {
+						return !localVariable.getType().isPrimitive();
+```
+
+### UNCHECKED_WARNING
 Unchecked cast: 'spoon.reflect.declaration.CtCodeSnippet' to 'spoon.reflect.code.CtExpression'
 in `src/main/java/fr/inria/gforge/spoon/transformation/bound/processing/BoundProcessor.java`
 #### Snippet
@@ -92,42 +128,6 @@ in `src/main/java/fr/inria/gforge/spoon/transformation/OnTheFlyTransfoTest.java`
 ```
 
 ### UNCHECKED_WARNING
-Unchecked call to 'TypeFilter(Class)' as a member of raw type 'spoon.reflect.visitor.filter.TypeFilter'
-in `src/main/java/fr/inria/gforge/spoon/assertgenerator/workflow/Analyzer.java`
-#### Snippet
-```java
-	List<CtLocalVariable> analyze(CtMethod testMethod) {
-		TypeFilter filterLocalVar =
-				new TypeFilter(CtLocalVariable.class) {
-					public boolean matches(CtLocalVariable localVariable) {
-						return !localVariable.getType().isPrimitive();
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.List' to 'java.util.List'. Reason: 'testMethod' has raw type, so result of getElements is erased
-in `src/main/java/fr/inria/gforge/spoon/assertgenerator/workflow/Analyzer.java`
-#### Snippet
-```java
-					}
-				};
-		return testMethod.getElements(filterLocalVar);
-	}
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'spoon.reflect.visitor.filter.TypeFilter' to 'spoon.reflect.visitor.Filter'
-in `src/main/java/fr/inria/gforge/spoon/assertgenerator/workflow/Analyzer.java`
-#### Snippet
-```java
-					}
-				};
-		return testMethod.getElements(filterLocalVar);
-	}
-
-```
-
-### UNCHECKED_WARNING
 Unchecked assignment: 'spoon.reflect.reference.CtExecutableReference' to 'spoon.reflect.reference.CtExecutableReference'
 in `src/main/java/fr/inria/gforge/spoon/assertgenerator/workflow/AssertionAdder.java`
 #### Snippet
@@ -149,6 +149,18 @@ in `src/main/java/fr/inria/gforge/spoon/transformation/mutation/MutationTester.j
 				testDriver.test(t);
 				throw new MutantNotKilledException();
 			} catch (AssertionError expected) {
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'isToBeProcessed(E)' as a member of raw type 'spoon.processing.Processor'
+in `src/main/java/fr/inria/gforge/spoon/transformation/mutation/MutationTester.java`
+#### Snippet
+```java
+			@Override
+			public boolean matches(CtElement arg0) {
+				return mutator.isToBeProcessed(arg0);
+			}
+		});
 ```
 
 ### UNCHECKED_WARNING
@@ -200,18 +212,6 @@ in `src/main/java/fr/inria/gforge/spoon/transformation/mutation/MutationTester.j
 ```
 
 ### UNCHECKED_WARNING
-Unchecked call to 'isToBeProcessed(E)' as a member of raw type 'spoon.processing.Processor'
-in `src/main/java/fr/inria/gforge/spoon/transformation/mutation/MutationTester.java`
-#### Snippet
-```java
-			@Override
-			public boolean matches(CtElement arg0) {
-				return mutator.isToBeProcessed(arg0);
-			}
-		});
-```
-
-### UNCHECKED_WARNING
 Unchecked generics array creation for varargs parameter
 in `src/main/java/fr/inria/gforge/spoon/transformation/retry/RetryTest.java`
 #### Snippet
@@ -245,6 +245,42 @@ in `src/main/java/fr/inria/gforge/spoon/transformation/retry/RetryTest.java`
 		Collection<Long> result = (Collection<Long>) field.get(instance);
 		Assert.assertEquals(3, result.size());
 	}
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'spoon.reflect.reference.CtLocalVariableReference' to 'spoon.reflect.reference.CtVariableReference'. Reason: 'localVariable' has raw type, so result of getReference is erased
+in `src/main/java/fr/inria/gforge/spoon/assertgenerator/Util.java`
+#### Snippet
+```java
+	public static CtInvocation invok(CtMethod method, CtLocalVariable localVariable) {
+		final CtExecutableReference reference = method.getReference();
+		final CtVariableAccess variableRead = method.getFactory().createVariableRead(localVariable.getReference(), false);
+		return method.getFactory().createInvocation(variableRead, reference);
+	}
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'spoon.reflect.reference.CtExecutableReference' to 'spoon.reflect.reference.CtExecutableReference'
+in `src/main/java/fr/inria/gforge/spoon/assertgenerator/Util.java`
+#### Snippet
+```java
+		final CtExecutableReference reference = method.getReference();
+		final CtVariableAccess variableRead = method.getFactory().createVariableRead(localVariable.getReference(), false);
+		return method.getFactory().createInvocation(variableRead, reference);
+	}
+
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.util.Set' to 'java.util.Set\>'. Reason: 'localVariable.getType().getDeclaration()' has raw type, so result of getMethods is erased
+in `src/main/java/fr/inria/gforge/spoon/assertgenerator/Util.java`
+#### Snippet
+```java
+
+	public static List<CtMethod> getGetters(CtLocalVariable localVariable) {
+		return ((Set<CtMethod<?>>) localVariable.getType().getDeclaration().getMethods()).stream()
+				.filter(method -> method.getParameters().isEmpty() &&
+						method.getType() != localVariable.getFactory().Type().VOID_PRIMITIVE &&
 ```
 
 ### UNCHECKED_WARNING
@@ -305,42 +341,6 @@ in `src/main/java/fr/inria/gforge/spoon/assertgenerator/workflow/Collector.java`
 				refObserve,
 				factory.createLiteral(getKey(getter)),
 				invocationToGetter
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'spoon.reflect.reference.CtLocalVariableReference' to 'spoon.reflect.reference.CtVariableReference'. Reason: 'localVariable' has raw type, so result of getReference is erased
-in `src/main/java/fr/inria/gforge/spoon/assertgenerator/Util.java`
-#### Snippet
-```java
-	public static CtInvocation invok(CtMethod method, CtLocalVariable localVariable) {
-		final CtExecutableReference reference = method.getReference();
-		final CtVariableAccess variableRead = method.getFactory().createVariableRead(localVariable.getReference(), false);
-		return method.getFactory().createInvocation(variableRead, reference);
-	}
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'spoon.reflect.reference.CtExecutableReference' to 'spoon.reflect.reference.CtExecutableReference'
-in `src/main/java/fr/inria/gforge/spoon/assertgenerator/Util.java`
-#### Snippet
-```java
-		final CtExecutableReference reference = method.getReference();
-		final CtVariableAccess variableRead = method.getFactory().createVariableRead(localVariable.getReference(), false);
-		return method.getFactory().createInvocation(variableRead, reference);
-	}
-
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.util.Set' to 'java.util.Set\>'. Reason: 'localVariable.getType().getDeclaration()' has raw type, so result of getMethods is erased
-in `src/main/java/fr/inria/gforge/spoon/assertgenerator/Util.java`
-#### Snippet
-```java
-
-	public static List<CtMethod> getGetters(CtLocalVariable localVariable) {
-		return ((Set<CtMethod<?>>) localVariable.getType().getDeclaration().getMethods()).stream()
-				.filter(method -> method.getParameters().isEmpty() &&
-						method.getType() != localVariable.getFactory().Type().VOID_PRIMITIVE &&
 ```
 
 ## RuleId[id=JavadocReference]
@@ -537,18 +537,6 @@ in `src/main/java/fr/inria/gforge/spoon/analysis/FactoryProcessorTest.java`
 ```
 
 ### Deprecation
-'newInstance()' is deprecated
-in `src/main/java/fr/inria/gforge/spoon/transformation/mutation/MutationTester.java`
-#### Snippet
-```java
-		// instantiating the mutant classes
-		for (Class mutantClass : compiledMutants) {
-			mutantInstances.add((T) mutantClass.newInstance());
-		}
-		return mutantInstances;
-```
-
-### Deprecation
 'assertThat(T, org.hamcrest.Matcher)' is deprecated
 in `src/main/java/fr/inria/gforge/spoon/analysis/DocProcessorTest.java`
 #### Snippet
@@ -574,6 +562,18 @@ in `src/main/java/fr/inria/gforge/spoon/analysis/EmptyMethodBodyProcessorTest.ja
 
 ### Deprecation
 'newInstance()' is deprecated
+in `src/main/java/fr/inria/gforge/spoon/transformation/mutation/MutationTester.java`
+#### Snippet
+```java
+		// instantiating the mutant classes
+		for (Class mutantClass : compiledMutants) {
+			mutantInstances.add((T) mutantClass.newInstance());
+		}
+		return mutantInstances;
+```
+
+### Deprecation
+'newInstance()' is deprecated
 in `src/main/java/fr/inria/gforge/spoon/transformation/retry/RetryTest.java`
 #### Snippet
 ```java
@@ -582,18 +582,6 @@ in `src/main/java/fr/inria/gforge/spoon/transformation/retry/RetryTest.java`
 		Object instance = clz.newInstance();
 		try {
 			clz.getMethod("retry").invoke(instance);
-```
-
-### Deprecation
-'spoon.reflect.cu.CompilationUnit' is deprecated
-in `src/main/java/fr/inria/gforge/spoon/utils/TestSpoonCompiler.java`
-#### Snippet
-```java
-			List<File> printedFiles = new ArrayList<>();
-			printing:
-			for (spoon.reflect.cu.CompilationUnit cu : getFactory().CompilationUnit()
-					.getMap().values()) {
-
 ```
 
 ### Deprecation
@@ -606,6 +594,18 @@ in `src/main/java/fr/inria/gforge/spoon/utils/TestSpooner.java`
 			processorsNames.add(processor.newInstance());
 		}
 		compiler.process(processorsNames);
+```
+
+### Deprecation
+'spoon.reflect.cu.CompilationUnit' is deprecated
+in `src/main/java/fr/inria/gforge/spoon/utils/TestSpoonCompiler.java`
+#### Snippet
+```java
+			List<File> printedFiles = new ArrayList<>();
+			printing:
+			for (spoon.reflect.cu.CompilationUnit cu : getFactory().CompilationUnit()
+					.getMap().values()) {
+
 ```
 
 ## RuleId[id=UnnecessaryToStringCall]
@@ -722,18 +722,6 @@ in `src/main/java/fr/inria/gforge/spoon/assertgenerator/AssertionGenerationTest.
 ```
 
 ### IgnoreResultOfCall
-Result of `File.createNewFile()` is ignored
-in `src/main/java/fr/inria/gforge/spoon/utils/TestSpoonCompiler.java`
-#### Snippet
-```java
-						+ File.separatorChar + element.getSimpleName()
-						+ DefaultJavaPrettyPrinter.JAVA_FILE_EXTENSION);
-				file.createNewFile();
-
-				// the path must be given relatively to to the working directory
-```
-
-### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
 in `src/main/java/fr/inria/gforge/spoon/utils/TestSpooner.java`
 #### Snippet
@@ -755,6 +743,18 @@ in `src/main/java/fr/inria/gforge/spoon/utils/TestSpooner.java`
 			file.delete();
 		}
 
+```
+
+### IgnoreResultOfCall
+Result of `File.createNewFile()` is ignored
+in `src/main/java/fr/inria/gforge/spoon/utils/TestSpoonCompiler.java`
+#### Snippet
+```java
+						+ File.separatorChar + element.getSimpleName()
+						+ DefaultJavaPrettyPrinter.JAVA_FILE_EXTENSION);
+				file.createNewFile();
+
+				// the path must be given relatively to to the working directory
 ```
 
 ## RuleId[id=DefaultAnnotationParam]
@@ -1004,18 +1004,6 @@ public class ReferenceProcessor extends AbstractProcessor<CtPackage> {
 ```
 
 ### FieldMayBeFinal
-Field `factory` may be 'final'
-in `src/main/java/fr/inria/gforge/spoon/assertgenerator/workflow/AssertionAdder.java`
-#### Snippet
-```java
-public class AssertionAdder {
-
-	private Factory factory;
-
-	public AssertionAdder(Factory factory) {
-```
-
-### FieldMayBeFinal
 Field `factoryTypeRef` may be 'final'
 in `src/main/java/fr/inria/gforge/spoon/analysis/FactoryProcessor.java`
 #### Snippet
@@ -1025,6 +1013,18 @@ in `src/main/java/fr/inria/gforge/spoon/analysis/FactoryProcessor.java`
 	private CtTypeReference factoryTypeRef;
 
 	public FactoryProcessor(CtTypeReference factoryTypeRef) {
+```
+
+### FieldMayBeFinal
+Field `factory` may be 'final'
+in `src/main/java/fr/inria/gforge/spoon/assertgenerator/workflow/AssertionAdder.java`
+#### Snippet
+```java
+public class AssertionAdder {
+
+	private Factory factory;
+
+	public AssertionAdder(Factory factory) {
 ```
 
 ### FieldMayBeFinal
@@ -1201,18 +1201,6 @@ public class MavenLauncherExampleTest {
 
 ### ConfusingMainMethod
 Method `main()` does not have signature 'public static void main(String\[\])'
-in `src/main/java/fr/inria/gforge/spoon/analysis/APILauncherExampleTest.java`
-#### Snippet
-```java
-public class APILauncherExampleTest {
-    @Test
-    public void main() {
-        Launcher launcher = new Launcher();
-        launcher.addInputResource("src/test/resources/src");
-```
-
-### ConfusingMainMethod
-Method `main()` does not have signature 'public static void main(String\[\])'
 in `src/main/java/fr/inria/gforge/spoon/transformation/apichecking/ProcessorMainTest.java`
 #### Snippet
 ```java
@@ -1221,6 +1209,18 @@ public class ProcessorMainTest {
     public void main() {
         String projectPath = ".";
 
+```
+
+### ConfusingMainMethod
+Method `main()` does not have signature 'public static void main(String\[\])'
+in `src/main/java/fr/inria/gforge/spoon/analysis/APILauncherExampleTest.java`
+#### Snippet
+```java
+public class APILauncherExampleTest {
+    @Test
+    public void main() {
+        Launcher launcher = new Launcher();
+        launcher.addInputResource("src/test/resources/src");
 ```
 
 ## RuleId[id=BusyWait]
