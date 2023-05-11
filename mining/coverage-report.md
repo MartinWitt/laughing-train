@@ -151,8 +151,8 @@ in `report-builder/src/jetbrains/coverage/report/impl/html/fs/ZipFileSystem.java
 ```java
 
       @Override
-      public void write(byte[] b, int off, int len) throws IOException {
-        myZos.write(b, off, len);
+      public void write(byte[] b) throws IOException {
+        myZos.write(b);
       }
 ```
 
@@ -163,8 +163,8 @@ in `report-builder/src/jetbrains/coverage/report/impl/html/fs/ZipFileSystem.java
 ```java
 
       @Override
-      public void write(byte[] b) throws IOException {
-        myZos.write(b);
+      public void write(byte[] b, int off, int len) throws IOException {
+        myZos.write(b, off, len);
       }
 ```
 
@@ -178,6 +178,18 @@ in `report-builder/src/jetbrains/coverage/report/impl/StatisticsCalculatorImpl.j
 public class StatisticsCalculatorImpl implements StatisticsCalculator {
   private Map<String, CoverageStatisticsBean> myStats = new HashMap<String, CoverageStatisticsBean>();
   private StatisticsCalculatorImpl myPrevStatsHolder;
+
+```
+
+### FieldMayBeFinal
+Field `mySourceCode` may be 'final'
+in `report-builder/src/jetbrains/coverage/report/impl/ClassDataBean.java`
+#### Snippet
+```java
+  public final static class LineDataBean {
+    private int myLineNum;
+    private CharSequence mySourceCode;
+    private CoverageStatus myCoverageStatus;
 
 ```
 
@@ -203,18 +215,6 @@ in `report-builder/src/jetbrains/coverage/report/impl/ClassDataBean.java`
     private int myLineNum;
     private CharSequence mySourceCode;
     private CoverageStatus myCoverageStatus;
-```
-
-### FieldMayBeFinal
-Field `mySourceCode` may be 'final'
-in `report-builder/src/jetbrains/coverage/report/impl/ClassDataBean.java`
-#### Snippet
-```java
-  public final static class LineDataBean {
-    private int myLineNum;
-    private CharSequence mySourceCode;
-    private CoverageStatus myCoverageStatus;
-
 ```
 
 ### FieldMayBeFinal
@@ -266,6 +266,30 @@ in `report-builder/src/jetbrains/coverage/report/impl/html/TemplateFactory.java`
 ```
 
 ### FieldMayBeFinal
+Field `myNamespaceIndexTemplate` may be 'final'
+in `report-builder/src/jetbrains/coverage/report/impl/html/TemplateFactory.java`
+#### Snippet
+```java
+  private Template myNamespacesTeamplate;
+  private Template myModulesTemplate;
+  private Template myNamespaceIndexTemplate;
+  private Template myClassTemplate;
+  private Template myEmpty;
+```
+
+### FieldMayBeFinal
+Field `myClassTemplate` may be 'final'
+in `report-builder/src/jetbrains/coverage/report/impl/html/TemplateFactory.java`
+#### Snippet
+```java
+  private Template myModulesTemplate;
+  private Template myNamespaceIndexTemplate;
+  private Template myClassTemplate;
+  private Template myEmpty;
+
+```
+
+### FieldMayBeFinal
 Field `myNamespacesTeamplate` may be 'final'
 in `report-builder/src/jetbrains/coverage/report/impl/html/TemplateFactory.java`
 #### Snippet
@@ -290,30 +314,6 @@ in `report-builder/src/jetbrains/coverage/report/impl/html/TemplateFactory.java`
 ```
 
 ### FieldMayBeFinal
-Field `myClassTemplate` may be 'final'
-in `report-builder/src/jetbrains/coverage/report/impl/html/TemplateFactory.java`
-#### Snippet
-```java
-  private Template myModulesTemplate;
-  private Template myNamespaceIndexTemplate;
-  private Template myClassTemplate;
-  private Template myEmpty;
-
-```
-
-### FieldMayBeFinal
-Field `myNamespaceIndexTemplate` may be 'final'
-in `report-builder/src/jetbrains/coverage/report/impl/html/TemplateFactory.java`
-#### Snippet
-```java
-  private Template myNamespacesTeamplate;
-  private Template myModulesTemplate;
-  private Template myNamespaceIndexTemplate;
-  private Template myClassTemplate;
-  private Template myEmpty;
-```
-
-### FieldMayBeFinal
 Field `myNamespace` may be 'final'
 in `report-builder/src/jetbrains/coverage/report/JavaClassInfo.java`
 #### Snippet
@@ -326,18 +326,6 @@ public abstract class JavaClassInfo implements ClassInfo {
 ```
 
 ### FieldMayBeFinal
-Field `myName` may be 'final'
-in `report-builder/src/jetbrains/coverage/report/JavaClassInfo.java`
-#### Snippet
-```java
- */
-public abstract class JavaClassInfo implements ClassInfo {
-  private CharSequence myName;
-  private CharSequence myNamespace;
-  private String myFQClassName;
-```
-
-### FieldMayBeFinal
 Field `myFQClassName` may be 'final'
 in `report-builder/src/jetbrains/coverage/report/JavaClassInfo.java`
 #### Snippet
@@ -347,6 +335,18 @@ in `report-builder/src/jetbrains/coverage/report/JavaClassInfo.java`
   private String myFQClassName;
 
   private final static String EMPTY = "";
+```
+
+### FieldMayBeFinal
+Field `myName` may be 'final'
+in `report-builder/src/jetbrains/coverage/report/JavaClassInfo.java`
+#### Snippet
+```java
+ */
+public abstract class JavaClassInfo implements ClassInfo {
+  private CharSequence myName;
+  private CharSequence myNamespace;
+  private String myFQClassName;
 ```
 
 ### FieldMayBeFinal
