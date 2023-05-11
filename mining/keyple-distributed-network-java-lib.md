@@ -159,6 +159,18 @@ in `src/main/java/org/eclipse/keyple/distributed/AsyncNodeServerAdapter.java`
 ```
 
 ### IgnoreResultOfCall
+Result of `Assert.notEmpty()` is ignored
+in `src/main/java/org/eclipse/keyple/distributed/AsyncNodeClientAdapter.java`
+#### Snippet
+```java
+  @Override
+  public void onOpen(String sessionId) {
+    Assert.getInstance().notEmpty(sessionId, SESSION_ID);
+    SessionManager manager = getManagerForEndpoint(sessionId);
+    if (manager != null) {
+```
+
+### IgnoreResultOfCall
 Result of `Assert.notNull()` is ignored
 in `src/main/java/org/eclipse/keyple/distributed/AsyncNodeClientAdapter.java`
 #### Snippet
@@ -166,18 +178,6 @@ in `src/main/java/org/eclipse/keyple/distributed/AsyncNodeClientAdapter.java`
   @Override
   public void onError(String sessionId, Throwable error) {
     Assert.getInstance().notEmpty(sessionId, SESSION_ID).notNull(error, "error");
-    SessionManager manager = getManagerForEndpoint(sessionId);
-    if (manager != null) {
-```
-
-### IgnoreResultOfCall
-Result of `Assert.notEmpty()` is ignored
-in `src/main/java/org/eclipse/keyple/distributed/AsyncNodeClientAdapter.java`
-#### Snippet
-```java
-  @Override
-  public void onClose(String sessionId) {
-    Assert.getInstance().notEmpty(sessionId, SESSION_ID);
     SessionManager manager = getManagerForEndpoint(sessionId);
     if (manager != null) {
 ```
@@ -200,7 +200,7 @@ in `src/main/java/org/eclipse/keyple/distributed/AsyncNodeClientAdapter.java`
 #### Snippet
 ```java
   @Override
-  public void onOpen(String sessionId) {
+  public void onClose(String sessionId) {
     Assert.getInstance().notEmpty(sessionId, SESSION_ID);
     SessionManager manager = getManagerForEndpoint(sessionId);
     if (manager != null) {
