@@ -8,6 +8,30 @@ I found 5 bad smells with 0 repairable:
 ## RuleId[id=BlockingMethodInNonBlockingContext]
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
+in `src/main/java/org/jetbrains/nativecerts/linux/LinuxTrustedCertificatesUtil.java`
+#### Snippet
+```java
+
+        LOGGER.fine("Reading certificates from " + dir + ": file does not exist");
+        try (Stream<Path> filesStream = Files.list(dir)) {
+            List<Path> paths = filesStream.collect(Collectors.toList());
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `src/main/java/org/jetbrains/nativecerts/linux/LinuxTrustedCertificatesUtil.java`
+#### Snippet
+```java
+            }
+
+            try (InputStream stream = Files.newInputStream(file)) {
+                List<X509Certificate> list = PemReaderUtil.readPemBundle(stream, file.toString());
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
 in `src/main/java/org/jetbrains/nativecerts/linux/PemReaderUtil.java`
 #### Snippet
 ```java
@@ -39,30 +63,6 @@ in `src/main/java/org/jetbrains/nativecerts/NativeTrustedRootsDebugMain.java`
     public static void main(String[] args) throws Exception {
         File logFile = File.createTempFile("nativecerts-", ".log");
         setupLogging(logFile);
-
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `src/main/java/org/jetbrains/nativecerts/linux/LinuxTrustedCertificatesUtil.java`
-#### Snippet
-```java
-
-        LOGGER.fine("Reading certificates from " + dir + ": file does not exist");
-        try (Stream<Path> filesStream = Files.list(dir)) {
-            List<Path> paths = filesStream.collect(Collectors.toList());
-
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `src/main/java/org/jetbrains/nativecerts/linux/LinuxTrustedCertificatesUtil.java`
-#### Snippet
-```java
-            }
-
-            try (InputStream stream = Files.newInputStream(file)) {
-                List<X509Certificate> list = PemReaderUtil.readPemBundle(stream, file.toString());
 
 ```
 
