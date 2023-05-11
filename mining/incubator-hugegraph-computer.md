@@ -23,8 +23,8 @@ I found 353 bad smells with 3 repairable:
 | FunctionalExpressionCanBeFolded | 3 | false |
 | UnusedAssignment | 3 | false |
 | UnnecessarySemicolon | 2 | false |
-| FinalPrivateMethod | 2 | false |
 | NonFinalFieldInEnum | 2 | false |
+| FinalPrivateMethod | 2 | false |
 | SwitchStatementWithConfusingDeclaration | 2 | false |
 | JavadocLinkAsPlainText | 2 | false |
 | IntegerMultiplicationImplicitCastToLong | 2 | false |
@@ -38,8 +38,8 @@ I found 353 bad smells with 3 repairable:
 | EmptyStatementBody | 1 | false |
 | DeprecatedIsStillUsed | 1 | false |
 | RedundantArrayCreation | 1 | true |
-| RedundantCollectionOperation | 1 | false |
 | SwitchStatementWithTooFewBranches | 1 | false |
+| RedundantCollectionOperation | 1 | false |
 | StringBufferReplaceableByString | 1 | false |
 | UnnecessaryToStringCall | 1 | true |
 | SuspiciousMethodCalls | 1 | false |
@@ -77,18 +77,6 @@ in `computer-test/src/main/java/org/apache/hugegraph/computer/core/graph/value/B
 
 ### EqualsWithItself
 `equals()` called on itself
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/graph/value/NullValueTest.java`
-#### Snippet
-```java
-        NullValue value1 = NullValue.get();
-
-        Assert.assertTrue(value1.equals(value1));
-        Assert.assertTrue(value1.equals(NullValue.get()));
-
-```
-
-### EqualsWithItself
-`equals()` called on itself
 in `computer-test/src/main/java/org/apache/hugegraph/computer/core/graph/value/LongValueTest.java`
 #### Snippet
 ```java
@@ -101,14 +89,14 @@ in `computer-test/src/main/java/org/apache/hugegraph/computer/core/graph/value/L
 
 ### EqualsWithItself
 `equals()` called on itself
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/graph/value/DoubleValueTest.java`
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/graph/value/NullValueTest.java`
 #### Snippet
 ```java
-    public void testEquals() {
-        DoubleValue value1 = new DoubleValue();
+        NullValue value1 = NullValue.get();
+
         Assert.assertTrue(value1.equals(value1));
-        Assert.assertTrue(value1.equals(new DoubleValue(0d)));
-        Assert.assertFalse(value1.equals(new DoubleValue(1)));
+        Assert.assertTrue(value1.equals(NullValue.get()));
+
 ```
 
 ### EqualsWithItself
@@ -121,6 +109,18 @@ in `computer-test/src/main/java/org/apache/hugegraph/computer/core/graph/value/I
         Assert.assertTrue(intValue1.equals(intValue1));
         Assert.assertTrue(intValue1.equals(new IntValue(0)));
         Assert.assertFalse(intValue1.equals(new IntValue(1)));
+```
+
+### EqualsWithItself
+`equals()` called on itself
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/graph/value/DoubleValueTest.java`
+#### Snippet
+```java
+    public void testEquals() {
+        DoubleValue value1 = new DoubleValue();
+        Assert.assertTrue(value1.equals(value1));
+        Assert.assertTrue(value1.equals(new DoubleValue(0d)));
+        Assert.assertFalse(value1.equals(new DoubleValue(1)));
 ```
 
 ### EqualsWithItself
@@ -200,18 +200,6 @@ in `computer-core/src/main/java/org/apache/hugegraph/computer/core/sort/flusher/
 
 ## RuleId[id=JavadocReference]
 ### JavadocReference
-Cannot resolve symbol `StringSerializer`
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/util/StringEncoding.java`
-#### Snippet
-```java
-    private static final Base64.Decoder BASE64_DECODER = Base64.getDecoder();
-
-    /** Similar to {@link StringSerializer} */
-    public static int writeAsciiString(byte[] array, int offset, String value) {
-        E.checkArgument(CharMatcher.ascii().matchesAllOf(value),
-```
-
-### JavadocReference
 Cannot resolve symbol `ConfigOption`
 in `computer-driver/src/main/java/org/apache/hugegraph/computer/driver/config/DriverConfigOption.java`
 #### Snippet
@@ -221,6 +209,18 @@ in `computer-driver/src/main/java/org/apache/hugegraph/computer/driver/config/Dr
  * The class is subclass of {@link ConfigOption} it without default value
  */
 public class DriverConfigOption<T> extends ConfigOption<T> {
+```
+
+### JavadocReference
+Cannot resolve symbol `StringSerializer`
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/util/StringEncoding.java`
+#### Snippet
+```java
+    private static final Base64.Decoder BASE64_DECODER = Base64.getDecoder();
+
+    /** Similar to {@link StringSerializer} */
+    public static int writeAsciiString(byte[] array, int offset, String value) {
+        E.checkArgument(CharMatcher.ascii().matchesAllOf(value),
 ```
 
 ### JavadocReference
@@ -235,29 +235,138 @@ in `computer-api/src/main/java/org/apache/hugegraph/computer/core/config/Null.ja
  */
 ```
 
-## RuleId[id=DataFlowIssue]
-### DataFlowIssue
-Method invocation `getMostSignificantBits` may produce `NullPointerException`
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/graph/id/BytesId.java`
+## RuleId[id=UnnecessarySemicolon]
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/combiner/PointerCombinerTest.java`
 #### Snippet
 ```java
-    public static BytesId of(UUID value) {
-        E.checkArgument(value != null, "The value can't be null");
-        long high = value.getMostSignificantBits();
-        long low = value.getLeastSignificantBits();
-        BytesOutput output = IOFactory.createBytesOutput(16);
+                                        Constants.SMALL_BUF_SIZE);
+             BytesOutput bytesOutput2 = IOFactory.createBytesOutput(
+                                        Constants.SMALL_BUF_SIZE);) {
+            DoubleValue value1 = new DoubleValue(1.0D);
+            DoubleValue value2 = new DoubleValue(2.0D);
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/io/OutputFormat.java`
+#### Snippet
+```java
+    CSV,
+
+    JSON;
+}
+
+```
+
+## RuleId[id=DataFlowIssue]
+### DataFlowIssue
+Method invocation `getData` may produce `NullPointerException`
+in `computer-k8s-operator/src/main/java/org/apache/hugegraph/computer/k8s/operator/controller/ComputerJobDeployer.java`
+#### Snippet
+```java
+                this.mountConfigMapOrSecret(volumeMounts, key,
+                                            configMapPaths.get(key),
+                                            configMap.getData());
+            }
+        }
 ```
 
 ### DataFlowIssue
-Argument `value` might be null
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/graph/id/BytesId.java`
+Method invocation `getData` may produce `NullPointerException`
+in `computer-k8s-operator/src/main/java/org/apache/hugegraph/computer/k8s/operator/controller/ComputerJobDeployer.java`
 #### Snippet
 ```java
-    public static BytesId of(String value) {
-        E.checkArgument(value != null, "The value can't be null");
-        return new BytesId(IdType.UTF8, CoderUtil.encode(value));
-    }
+                this.mountConfigMapOrSecret(volumeMounts, key,
+                                            secretPaths.get(key),
+                                            secret.getData());
+            }
+        }
+```
 
+### DataFlowIssue
+The call to 'convertToMap' always fails, according to its method contracts
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/util/ComputerContextUtilTest.java`
+#### Snippet
+```java
+
+        Assert.assertThrows(ComputerException.class, () -> {
+            ComputerContextUtil.convertToMap((Properties) null);
+        });
+
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/store/ValueFileTest.java`
+#### Snippet
+```java
+                position = 3L;
+                assertSeek(fileLength, input, position);
+                position = 3L;
+                assertSeek(fileLength, input, position);
+                position = 68L;
+```
+
+### DataFlowIssue
+Method invocation `getPath` may produce `NullPointerException`
+in `computer-test/src/main/java/org/apache/hugegraph/computer/dist/HugeGraphComputerTest.java`
+#### Snippet
+```java
+        Throwable[] exceptions = new Throwable[2];
+        String masterConfPath = HugeGraphComputerTest.class.getResource(
+                                "/computer.properties").getPath();
+        String work1ConfPath = HugeGraphComputerTest.class.getResource(
+                               "/computer.properties").getPath();
+```
+
+### DataFlowIssue
+Method invocation `getPath` may produce `NullPointerException`
+in `computer-test/src/main/java/org/apache/hugegraph/computer/dist/HugeGraphComputerTest.java`
+#### Snippet
+```java
+                                "/computer.properties").getPath();
+        String work1ConfPath = HugeGraphComputerTest.class.getResource(
+                               "/computer.properties").getPath();
+        pool.submit(() -> {
+            try {
+```
+
+### DataFlowIssue
+Method invocation `getPath` may produce `NullPointerException`
+in `computer-test/src/main/java/org/apache/hugegraph/computer/dist/HugeGraphComputerTest.java`
+#### Snippet
+```java
+    public void testServiceWithError() {
+        String work1ConfPath = HugeGraphComputerTest.class.getResource(
+                               "/computer.properties").getPath();
+        Assert.assertThrows(IllegalArgumentException.class,
+                            () -> {
+```
+
+### DataFlowIssue
+Casting `value` to `String` may produce `ClassCastException`
+in `computer-test/src/main/java/org/apache/hugegraph/computer/suite/unit/UnitTestBase.java`
+#### Snippet
+```java
+            E.checkArgument(value instanceof String,
+                            "The option value must be String class");
+            map.put(((TypedOption<?, ?>) key).name(), (String) value);
+        }
+        if (!map.keySet().contains(
+```
+
+### DataFlowIssue
+Argument `bashStream` might be null
+in `computer-k8s/src/main/java/org/apache/hugegraph/computer/k8s/driver/KubernetesDriver.java`
+#### Snippet
+```java
+                bashStream = new FileInputStream(this.bashPath);
+            }
+            String bashAsStr = IOHelpers.readFully(bashStream);
+
+            StringBuilder builder = new StringBuilder();
 ```
 
 ### DataFlowIssue
@@ -297,6 +406,30 @@ in `computer-core/src/main/java/org/apache/hugegraph/computer/core/util/StringEn
 ```
 
 ### DataFlowIssue
+Method invocation `getMostSignificantBits` may produce `NullPointerException`
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/graph/id/BytesId.java`
+#### Snippet
+```java
+    public static BytesId of(UUID value) {
+        E.checkArgument(value != null, "The value can't be null");
+        long high = value.getMostSignificantBits();
+        long low = value.getLeastSignificantBits();
+        BytesOutput output = IOFactory.createBytesOutput(16);
+```
+
+### DataFlowIssue
+Argument `value` might be null
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/graph/id/BytesId.java`
+#### Snippet
+```java
+    public static BytesId of(String value) {
+        E.checkArgument(value != null, "The value can't be null");
+        return new BytesId(IdType.UTF8, CoderUtil.encode(value));
+    }
+
+```
+
+### DataFlowIssue
 Argument `entry` might be null
 in `computer-core/src/main/java/org/apache/hugegraph/computer/core/store/file/hgkvfile/builder/HgkvFileBuilderImpl.java`
 #### Snippet
@@ -306,6 +439,18 @@ in `computer-core/src/main/java/org/apache/hugegraph/computer/core/store/file/hg
         this.changeMetaAfterAdd(entry);
     }
 
+```
+
+### DataFlowIssue
+Method invocation `active` may produce `NullPointerException`
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/master/MasterService.java`
+#### Snippet
+```java
+        watcher.start();
+        // Step 3: Iteration computation of all supersteps.
+        for (; superstepStat.active(); superstep++) {
+            LOG.info("{} MasterService superstep {} started",
+                     this, superstep);
 ```
 
 ### DataFlowIssue
@@ -334,18 +479,6 @@ in `computer-core/src/main/java/org/apache/hugegraph/computer/core/master/Master
 
 ### DataFlowIssue
 Method invocation `active` may produce `NullPointerException`
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/master/MasterService.java`
-#### Snippet
-```java
-        watcher.start();
-        // Step 3: Iteration computation of all supersteps.
-        for (; superstepStat.active(); superstep++) {
-            LOG.info("{} MasterService superstep {} started",
-                     this, superstep);
-```
-
-### DataFlowIssue
-Method invocation `active` may produce `NullPointerException`
 in `computer-core/src/main/java/org/apache/hugegraph/computer/core/worker/WorkerService.java`
 #### Snippet
 ```java
@@ -354,18 +487,6 @@ in `computer-core/src/main/java/org/apache/hugegraph/computer/core/worker/Worker
         while (superstepStat.active()) {
             WorkerContext context = new SuperstepContext(superstep,
                                                          superstepStat);
-```
-
-### DataFlowIssue
-Method invocation `isEmpty` may produce `NullPointerException`
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/aggregator/RegisterAggregators.java`
-#### Snippet
-```java
-        E.checkArgument(name != null,
-                        "The registered aggregator name can't be null");
-        E.checkArgument(!name.isEmpty(),
-                        "The registered aggregator name can't be empty");
-        E.checkArgument(aggregator != null,
 ```
 
 ### DataFlowIssue
@@ -381,75 +502,15 @@ in `computer-core/src/main/java/org/apache/hugegraph/computer/core/aggregator/Re
 ```
 
 ### DataFlowIssue
-The call to 'convertToMap' always fails, according to its method contracts
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/util/ComputerContextUtilTest.java`
+Method invocation `isEmpty` may produce `NullPointerException`
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/aggregator/RegisterAggregators.java`
 #### Snippet
 ```java
-
-        Assert.assertThrows(ComputerException.class, () -> {
-            ComputerContextUtil.convertToMap((Properties) null);
-        });
-
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/store/ValueFileTest.java`
-#### Snippet
-```java
-                position = 3L;
-                assertSeek(fileLength, input, position);
-                position = 3L;
-                assertSeek(fileLength, input, position);
-                position = 68L;
-```
-
-### DataFlowIssue
-Method invocation `getPath` may produce `NullPointerException`
-in `computer-test/src/main/java/org/apache/hugegraph/computer/dist/HugeGraphComputerTest.java`
-#### Snippet
-```java
-    public void testServiceWithError() {
-        String work1ConfPath = HugeGraphComputerTest.class.getResource(
-                               "/computer.properties").getPath();
-        Assert.assertThrows(IllegalArgumentException.class,
-                            () -> {
-```
-
-### DataFlowIssue
-Method invocation `getPath` may produce `NullPointerException`
-in `computer-test/src/main/java/org/apache/hugegraph/computer/dist/HugeGraphComputerTest.java`
-#### Snippet
-```java
-        Throwable[] exceptions = new Throwable[2];
-        String masterConfPath = HugeGraphComputerTest.class.getResource(
-                                "/computer.properties").getPath();
-        String work1ConfPath = HugeGraphComputerTest.class.getResource(
-                               "/computer.properties").getPath();
-```
-
-### DataFlowIssue
-Method invocation `getPath` may produce `NullPointerException`
-in `computer-test/src/main/java/org/apache/hugegraph/computer/dist/HugeGraphComputerTest.java`
-#### Snippet
-```java
-                                "/computer.properties").getPath();
-        String work1ConfPath = HugeGraphComputerTest.class.getResource(
-                               "/computer.properties").getPath();
-        pool.submit(() -> {
-            try {
-```
-
-### DataFlowIssue
-Casting `value` to `String` may produce `ClassCastException`
-in `computer-test/src/main/java/org/apache/hugegraph/computer/suite/unit/UnitTestBase.java`
-#### Snippet
-```java
-            E.checkArgument(value instanceof String,
-                            "The option value must be String class");
-            map.put(((TypedOption<?, ?>) key).name(), (String) value);
-        }
-        if (!map.keySet().contains(
+        E.checkArgument(name != null,
+                        "The registered aggregator name can't be null");
+        E.checkArgument(!name.isEmpty(),
+                        "The registered aggregator name can't be empty");
+        E.checkArgument(aggregator != null,
 ```
 
 ### DataFlowIssue
@@ -534,67 +595,6 @@ in `computer-api/src/main/java/org/apache/hugegraph/computer/core/graph/value/Li
             this.elemType = value.valueType();
         }
     }
-```
-
-### DataFlowIssue
-Argument `bashStream` might be null
-in `computer-k8s/src/main/java/org/apache/hugegraph/computer/k8s/driver/KubernetesDriver.java`
-#### Snippet
-```java
-                bashStream = new FileInputStream(this.bashPath);
-            }
-            String bashAsStr = IOHelpers.readFully(bashStream);
-
-            StringBuilder builder = new StringBuilder();
-```
-
-### DataFlowIssue
-Method invocation `getData` may produce `NullPointerException`
-in `computer-k8s-operator/src/main/java/org/apache/hugegraph/computer/k8s/operator/controller/ComputerJobDeployer.java`
-#### Snippet
-```java
-                this.mountConfigMapOrSecret(volumeMounts, key,
-                                            configMapPaths.get(key),
-                                            configMap.getData());
-            }
-        }
-```
-
-### DataFlowIssue
-Method invocation `getData` may produce `NullPointerException`
-in `computer-k8s-operator/src/main/java/org/apache/hugegraph/computer/k8s/operator/controller/ComputerJobDeployer.java`
-#### Snippet
-```java
-                this.mountConfigMapOrSecret(volumeMounts, key,
-                                            secretPaths.get(key),
-                                            secret.getData());
-            }
-        }
-```
-
-## RuleId[id=UnnecessarySemicolon]
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/io/OutputFormat.java`
-#### Snippet
-```java
-    CSV,
-
-    JSON;
-}
-
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/combiner/PointerCombinerTest.java`
-#### Snippet
-```java
-                                        Constants.SMALL_BUF_SIZE);
-             BytesOutput bytesOutput2 = IOFactory.createBytesOutput(
-                                        Constants.SMALL_BUF_SIZE);) {
-            DoubleValue value1 = new DoubleValue(1.0D);
-            DoubleValue value2 = new DoubleValue(2.0D);
 ```
 
 ## RuleId[id=EmptyStatementBody]
@@ -685,42 +685,17 @@ in `computer-driver/src/main/java/org/apache/hugegraph/computer/driver/Superstep
                (Long.hashCode(this.messageCount) >>> 16) ^
 ```
 
-## RuleId[id=RedundantCollectionOperation]
-### RedundantCollectionOperation
-`contains` can be replaced with 'Map.containsKey()'
-in `computer-test/src/main/java/org/apache/hugegraph/computer/suite/unit/UnitTestBase.java`
+## RuleId[id=SwitchStatementWithTooFewBranches]
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/store/file/hgkvfile/HgkvFileImpl.java`
 #### Snippet
 ```java
-            map.put(((TypedOption<?, ?>) key).name(), (String) value);
-        }
-        if (!map.keySet().contains(
-                          ComputerOptions.ALGORITHM_PARAMS_CLASS.name())) {
-            map.put(ComputerOptions.ALGORITHM_PARAMS_CLASS.name(),
-```
-
-## RuleId[id=FinalPrivateMethod]
-### FinalPrivateMethod
-'private' method declared `final`
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/io/BufferedStreamOutput.java`
-#### Snippet
-```java
-    }
-
-    private final int bufferAvailable() {
-        return this.bufferCapacity - (int) super.position();
-    }
-```
-
-### FinalPrivateMethod
-'private' method declared `final`
-in `computer-k8s-operator/src/main/java/org/apache/hugegraph/computer/k8s/operator/OperatorEntrypoint.java`
-#### Snippet
-```java
-
-    @SafeVarargs
-    private final void registerController(
-                       AbstractController<?> controller,
-                       Class<? extends HasMetadata>... ownsClass) {
+            // Read footerLength
+            int footerLength = input.readFixedInt();
+            switch (version) {
+                case "1.0":
+                    this.readFooterV1d0(input, file.length() - footerLength);
 ```
 
 ## RuleId[id=NonFinalFieldInEnum]
@@ -748,17 +723,42 @@ in `computer-core/src/main/java/org/apache/hugegraph/computer/core/bsp/BspEvent.
     BspEvent(int code, String key) {
 ```
 
-## RuleId[id=SwitchStatementWithTooFewBranches]
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/store/file/hgkvfile/HgkvFileImpl.java`
+## RuleId[id=RedundantCollectionOperation]
+### RedundantCollectionOperation
+`contains` can be replaced with 'Map.containsKey()'
+in `computer-test/src/main/java/org/apache/hugegraph/computer/suite/unit/UnitTestBase.java`
 #### Snippet
 ```java
-            // Read footerLength
-            int footerLength = input.readFixedInt();
-            switch (version) {
-                case "1.0":
-                    this.readFooterV1d0(input, file.length() - footerLength);
+            map.put(((TypedOption<?, ?>) key).name(), (String) value);
+        }
+        if (!map.keySet().contains(
+                          ComputerOptions.ALGORITHM_PARAMS_CLASS.name())) {
+            map.put(ComputerOptions.ALGORITHM_PARAMS_CLASS.name(),
+```
+
+## RuleId[id=FinalPrivateMethod]
+### FinalPrivateMethod
+'private' method declared `final`
+in `computer-k8s-operator/src/main/java/org/apache/hugegraph/computer/k8s/operator/OperatorEntrypoint.java`
+#### Snippet
+```java
+
+    @SafeVarargs
+    private final void registerController(
+                       AbstractController<?> controller,
+                       Class<? extends HasMetadata>... ownsClass) {
+```
+
+### FinalPrivateMethod
+'private' method declared `final`
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/io/BufferedStreamOutput.java`
+#### Snippet
+```java
+    }
+
+    private final int bufferAvailable() {
+        return this.bufferCapacity - (int) super.position();
+    }
 ```
 
 ## RuleId[id=DuplicatedCode]
@@ -1984,55 +1984,20 @@ in `computer-test/src/main/java/org/apache/hugegraph/computer/k8s/MiniKubeTest.j
         DefaultJobState jobState2 = new DefaultJobState();
 ```
 
+## RuleId[id=StringBufferReplaceableByString]
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/common/ContainerInfo.java`
+#### Snippet
+```java
+
+    public String uniqueName() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.hostname)
+          .append(":")
+```
+
 ## RuleId[id=Deprecation]
-### Deprecation
-'newInstance()' is deprecated
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/master/MasterService.java`
-#### Snippet
-```java
-            Aggregator<V> aggr;
-            try {
-                aggr = aggregatorClass.newInstance();
-            } catch (Exception e) {
-                throw new ComputerException("Can't new instance from class: %s",
-```
-
-### Deprecation
-'org.apache.hugegraph.computer.core.network.message.FailMessage' is deprecated
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/network/netty/AbstractNettyHandler.java`
-#### Snippet
-```java
-                break;
-            case FAIL:
-                this.processFailMessage(ctx, channel, (FailMessage) msg);
-                break;
-            case ACK:
-```
-
-### Deprecation
-'org.apache.hugegraph.computer.core.network.message.FailMessage' is deprecated
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/network/netty/AbstractNettyHandler.java`
-#### Snippet
-```java
-    protected void processFailMessage(ChannelHandlerContext ctx,
-                                      Channel channel,
-                                      FailMessage failMessage) {
-        int errorCode = failMessage.errorCode();
-
-```
-
-### Deprecation
-'newInstance()' is deprecated
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/aggregator/DefaultAggregator.java`
-#### Snippet
-```java
-    public void repair(ComputerContext context) {
-        try {
-            this.combiner = this.combinerClass.newInstance();
-        } catch (Exception e) {
-            throw new ComputerException("Can't new instance from class: %s",
-```
-
 ### Deprecation
 'Long(long)' is deprecated
 in `computer-test/src/main/java/org/apache/hugegraph/computer/core/graph/id/BytesIdTest.java`
@@ -2059,6 +2024,54 @@ in `computer-test/src/main/java/org/apache/hugegraph/computer/core/graph/id/Byte
 
 ### Deprecation
 'newInstance()' is deprecated
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/master/MasterService.java`
+#### Snippet
+```java
+            Aggregator<V> aggr;
+            try {
+                aggr = aggregatorClass.newInstance();
+            } catch (Exception e) {
+                throw new ComputerException("Can't new instance from class: %s",
+```
+
+### Deprecation
+'org.apache.hugegraph.computer.core.network.message.FailMessage' is deprecated
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/network/netty/AbstractNettyHandler.java`
+#### Snippet
+```java
+    protected void processFailMessage(ChannelHandlerContext ctx,
+                                      Channel channel,
+                                      FailMessage failMessage) {
+        int errorCode = failMessage.errorCode();
+
+```
+
+### Deprecation
+'org.apache.hugegraph.computer.core.network.message.FailMessage' is deprecated
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/network/netty/AbstractNettyHandler.java`
+#### Snippet
+```java
+                break;
+            case FAIL:
+                this.processFailMessage(ctx, channel, (FailMessage) msg);
+                break;
+            case ACK:
+```
+
+### Deprecation
+'newInstance()' is deprecated
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/aggregator/DefaultAggregator.java`
+#### Snippet
+```java
+    public void repair(ComputerContext context) {
+        try {
+            this.combiner = this.combinerClass.newInstance();
+        } catch (Exception e) {
+            throw new ComputerException("Can't new instance from class: %s",
+```
+
+### Deprecation
+'newInstance()' is deprecated
 in `computer-api/src/main/java/org/apache/hugegraph/computer/core/config/DefaultConfig.java`
 #### Snippet
 ```java
@@ -2067,19 +2080,6 @@ in `computer-api/src/main/java/org/apache/hugegraph/computer/core/config/Default
             T instance = (T) clazz.newInstance();
             return instance;
         } catch (Exception e) {
-```
-
-## RuleId[id=StringBufferReplaceableByString]
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/common/ContainerInfo.java`
-#### Snippet
-```java
-
-    public String uniqueName() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(this.hostname)
-          .append(":")
 ```
 
 ## RuleId[id=UnnecessaryToStringCall]
@@ -2136,6 +2136,66 @@ in `computer-core/src/main/java/org/apache/hugegraph/computer/core/graph/id/Byte
 ## RuleId[id=NullableProblems]
 ### NullableProblems
 Not annotated parameter overrides @NotNull parameter
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/io/OptimizedBytesInput.java`
+#### Snippet
+```java
+
+    @Override
+    public void readFully(byte[] b) throws IOException {
+        this.in.readFully(b);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/io/OptimizedBytesInput.java`
+#### Snippet
+```java
+
+    @Override
+    public void readFully(byte[] b, int off, int len) throws IOException {
+        this.in.readFully(b, off, len);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/io/OptimizedBytesOutput.java`
+#### Snippet
+```java
+
+    @Override
+    public void writeChars(String s) throws IOException {
+        this.out.writeChars(s);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/io/OptimizedBytesOutput.java`
+#### Snippet
+```java
+
+    @Override
+    public void writeUTF(String s) throws IOException {
+        this.writeString(s);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/io/OptimizedBytesOutput.java`
+#### Snippet
+```java
+
+    @Override
+    public void write(byte[] b) throws IOException {
+        this.out.write(b);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
 in `computer-core/src/main/java/org/apache/hugegraph/computer/core/io/OptimizedBytesOutput.java`
 #### Snippet
 ```java
@@ -2160,78 +2220,6 @@ in `computer-core/src/main/java/org/apache/hugegraph/computer/core/io/OptimizedB
 
 ### NullableProblems
 Not annotated parameter overrides @NotNull parameter
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/io/OptimizedBytesOutput.java`
-#### Snippet
-```java
-
-    @Override
-    public void writeUTF(String s) throws IOException {
-        this.writeString(s);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/io/OptimizedBytesOutput.java`
-#### Snippet
-```java
-
-    @Override
-    public void writeChars(String s) throws IOException {
-        this.out.writeChars(s);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/io/OptimizedBytesOutput.java`
-#### Snippet
-```java
-
-    @Override
-    public void write(byte[] b) throws IOException {
-        this.out.write(b);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/io/OptimizedBytesInput.java`
-#### Snippet
-```java
-
-    @Override
-    public void readFully(byte[] b, int off, int len) throws IOException {
-        this.in.readFully(b, off, len);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/io/OptimizedBytesInput.java`
-#### Snippet
-```java
-
-    @Override
-    public void readFully(byte[] b) throws IOException {
-        this.in.readFully(b);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/io/StructRandomAccessOutput.java`
-#### Snippet
-```java
-
-    @Override
-    public void writeChars(String s) throws IOException {
-        this.writeString(s);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
 in `computer-core/src/main/java/org/apache/hugegraph/computer/core/io/StructRandomAccessOutput.java`
 #### Snippet
 ```java
@@ -2239,6 +2227,18 @@ in `computer-core/src/main/java/org/apache/hugegraph/computer/core/io/StructRand
     @Override
     public void write(byte[] b) throws IOException {
         this.writeString(StringEncoding.encodeBase64(b));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/io/StructRandomAccessOutput.java`
+#### Snippet
+```java
+
+    @Override
+    public void writeChars(String s) throws IOException {
+        this.writeString(s);
     }
 ```
 
@@ -2261,9 +2261,9 @@ in `computer-core/src/main/java/org/apache/hugegraph/computer/core/io/StructRand
 ```java
 
     @Override
-    public void write(byte[] b, int off, int len) throws IOException {
-        byte[] dest = new byte[len];
-        System.arraycopy(b, off, dest, 0, len);
+    public void writeUTF(String s) throws IOException {
+        this.writeString(s);
+    }
 ```
 
 ### NullableProblems
@@ -2273,9 +2273,9 @@ in `computer-core/src/main/java/org/apache/hugegraph/computer/core/io/StructRand
 ```java
 
     @Override
-    public void writeUTF(String s) throws IOException {
-        this.writeString(s);
-    }
+    public void write(byte[] b, int off, int len) throws IOException {
+        byte[] dest = new byte[len];
+        System.arraycopy(b, off, dest, 0, len);
 ```
 
 ### NullableProblems
@@ -2340,30 +2340,6 @@ in `computer-api/src/main/java/org/apache/hugegraph/computer/core/graph/value/St
 
 ### NullableProblems
 Not annotated parameter overrides @NotNull parameter
-in `computer-api/src/main/java/org/apache/hugegraph/computer/core/graph/value/DoubleValue.java`
-#### Snippet
-```java
-
-    @Override
-    public int compareTo(Value obj) {
-        E.checkArgumentNotNull(obj, "The compare argument can't be null");
-        int typeDiff = this.valueType().compareTo(obj.valueType());
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `computer-api/src/main/java/org/apache/hugegraph/computer/core/graph/value/BooleanValue.java`
-#### Snippet
-```java
-
-    @Override
-    public int compareTo(Value obj) {
-        E.checkArgumentNotNull(obj, "The compare argument can't be null");
-        int typeDiff = this.valueType().compareTo(obj.valueType());
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
 in `computer-api/src/main/java/org/apache/hugegraph/computer/core/graph/value/IdSet.java`
 #### Snippet
 ```java
@@ -2372,6 +2348,18 @@ in `computer-api/src/main/java/org/apache/hugegraph/computer/core/graph/value/Id
     public int compareTo(Value o) {
         throw new UnsupportedOperationException("compareTo");
     }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `computer-api/src/main/java/org/apache/hugegraph/computer/core/graph/value/DoubleValue.java`
+#### Snippet
+```java
+
+    @Override
+    public int compareTo(Value obj) {
+        E.checkArgumentNotNull(obj, "The compare argument can't be null");
+        int typeDiff = this.valueType().compareTo(obj.valueType());
 ```
 
 ### NullableProblems
@@ -2400,7 +2388,7 @@ in `computer-api/src/main/java/org/apache/hugegraph/computer/core/graph/value/Fl
 
 ### NullableProblems
 Not annotated parameter overrides @NotNull parameter
-in `computer-api/src/main/java/org/apache/hugegraph/computer/core/graph/value/IntValue.java`
+in `computer-api/src/main/java/org/apache/hugegraph/computer/core/graph/value/BooleanValue.java`
 #### Snippet
 ```java
 
@@ -2420,6 +2408,18 @@ in `computer-api/src/main/java/org/apache/hugegraph/computer/core/graph/value/Va
         default int compareTo(Value other) {
             throw new UnsupportedOperationException("compareTo");
         }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `computer-api/src/main/java/org/apache/hugegraph/computer/core/graph/value/IntValue.java`
+#### Snippet
+```java
+
+    @Override
+    public int compareTo(Value obj) {
+        E.checkArgumentNotNull(obj, "The compare argument can't be null");
+        int typeDiff = this.valueType().compareTo(obj.valueType());
 ```
 
 ### NullableProblems
@@ -2497,13 +2497,13 @@ in `computer-test/src/main/java/org/apache/hugegraph/computer/core/graph/value/B
 ```
 
 ### EqualsBetweenInconvertibleTypes
-`equals` between objects of inconvertible types 'NullValue' and 'IntValue'
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/graph/value/NullValueTest.java`
+`equals` between objects of inconvertible types 'LongValue' and 'FloatValue'
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/graph/value/LongValueTest.java`
 #### Snippet
 ```java
-        Assert.assertTrue(value1.equals(NullValue.get()));
-
-        Assert.assertFalse(value1.equals(new IntValue(1)));
+        Assert.assertTrue(value1.equals(new LongValue(0L)));
+        Assert.assertFalse(value1.equals(new LongValue(1L)));
+        Assert.assertFalse(value1.equals(new FloatValue(1f)));
         Assert.assertFalse(value1.equals(null));
     }
 ```
@@ -2521,13 +2521,13 @@ in `computer-test/src/main/java/org/apache/hugegraph/computer/core/graph/value/S
 ```
 
 ### EqualsBetweenInconvertibleTypes
-`equals` between objects of inconvertible types 'LongValue' and 'FloatValue'
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/graph/value/LongValueTest.java`
+`equals` between objects of inconvertible types 'NullValue' and 'IntValue'
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/graph/value/NullValueTest.java`
 #### Snippet
 ```java
-        Assert.assertTrue(value1.equals(new LongValue(0L)));
-        Assert.assertFalse(value1.equals(new LongValue(1L)));
-        Assert.assertFalse(value1.equals(new FloatValue(1f)));
+        Assert.assertTrue(value1.equals(NullValue.get()));
+
+        Assert.assertFalse(value1.equals(new IntValue(1)));
         Assert.assertFalse(value1.equals(null));
     }
 ```
@@ -2595,6 +2595,30 @@ in `computer-test/src/main/java/org/apache/hugegraph/computer/core/graph/value/L
 ## RuleId[id=FieldCanBeLocal]
 ### FieldCanBeLocal
 Field can be converted to a local variable
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClientTest.java`
+#### Snippet
+```java
+
+    private static String ENDPOINTS = "http://localhost:2579";
+    private static String NAMESPACE = "test_job_0001";
+    private static String KEY_PREFIX = "/key";
+    private static String KEY1 = "/key1";
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClientTest.java`
+#### Snippet
+```java
+public class EtcdClientTest {
+
+    private static String ENDPOINTS = "http://localhost:2579";
+    private static String NAMESPACE = "test_job_0001";
+    private static String KEY_PREFIX = "/key";
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
 in `computer-core/src/main/java/org/apache/hugegraph/computer/core/input/loader/LoaderFileInputSplitFetcher.java`
 #### Snippet
 ```java
@@ -2653,30 +2677,6 @@ public final class DefaultAllocator implements Allocator {
     private final Recycler<RecyclerReference<Edge>> edgeRecycler;
 ```
 
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClientTest.java`
-#### Snippet
-```java
-
-    private static String ENDPOINTS = "http://localhost:2579";
-    private static String NAMESPACE = "test_job_0001";
-    private static String KEY_PREFIX = "/key";
-    private static String KEY1 = "/key1";
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClientTest.java`
-#### Snippet
-```java
-public class EtcdClientTest {
-
-    private static String ENDPOINTS = "http://localhost:2579";
-    private static String NAMESPACE = "test_job_0001";
-    private static String KEY_PREFIX = "/key";
-```
-
 ## RuleId[id=TrivialIf]
 ### TrivialIf
 `if` statement can be simplified
@@ -2691,6 +2691,150 @@ in `computer-algorithm/src/main/java/org/apache/hugegraph/computer/algorithm/cen
 ```
 
 ## RuleId[id=IgnoreResultOfCall]
+### IgnoreResultOfCall
+Result of `ExecutorService.awaitTermination()` is ignored
+in `computer-k8s-operator/src/main/java/org/apache/hugegraph/computer/k8s/operator/common/AbstractController.java`
+#### Snippet
+```java
+                           .get(OperatorOptions.CLOSE_RECONCILER_TIMEOUT);
+        try {
+            this.executor.awaitTermination(timeout, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+```
+
+### IgnoreResultOfCall
+Result of `FilterInputStream.skip()` is ignored
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/io/BufferedStreamTest.java`
+#### Snippet
+```java
+                                       new FileInputStream(file))) {
+                Assert.assertEquals(-128, dis.readByte());
+                dis.skip(1);
+                for (int i = -126; i <= 127; i++) {
+                    Assert.assertEquals(i, dis.readByte());
+```
+
+### IgnoreResultOfCall
+Result of `ExecutorService.awaitTermination()` is ignored
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClientTest.java`
+#### Snippet
+```java
+        byte[] bytes1 = this.client.get(KEY1, 1000L, 500L);
+        executorService.shutdown();
+        executorService.awaitTermination(1L, TimeUnit.SECONDS);
+        Assert.assertArrayEquals(VALUE1, bytes1);
+        Assert.assertThrows(ComputerException.class, () -> {
+```
+
+### IgnoreResultOfCall
+Result of `ExecutorService.awaitTermination()` is ignored
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClientTest.java`
+#### Snippet
+```java
+        });
+        executorService.shutdown();
+        executorService.awaitTermination(1L, TimeUnit.SECONDS);
+        long deleteCount = this.client.delete(KEY1);
+        Assert.assertEquals(1L, deleteCount);
+```
+
+### IgnoreResultOfCall
+Result of `ExecutorService.awaitTermination()` is ignored
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClientTest.java`
+#### Snippet
+```java
+        byte[] bytes1 = this.client.get(KEY1, 1000L, 500L);
+        executorService.shutdown();
+        executorService.awaitTermination(1L, TimeUnit.SECONDS);
+        Assert.assertArrayEquals(VALUE1, bytes1);
+    }
+```
+
+### IgnoreResultOfCall
+Result of `ExecutorService.awaitTermination()` is ignored
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClientTest.java`
+#### Snippet
+```java
+                                                            1000L, 200L);
+        executorService.shutdown();
+        executorService.awaitTermination(1L, TimeUnit.SECONDS);
+        Assert.assertEquals(2, valueList1.size());
+        Assert.assertArrayEquals(VALUE1, valueList1.get(0));
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/store/BitFileTest.java`
+#### Snippet
+```java
+    private static File createTempDir() {
+        File dir = new File(UUID.randomUUID().toString());
+        dir.mkdirs();
+        return dir;
+    }
+```
+
+### IgnoreResultOfCall
+Result of `File.createNewFile()` is ignored
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/store/FileManagerTest.java`
+#### Snippet
+```java
+    public void testInitWithFile() throws IOException {
+        File file = new File("exist");
+        file.createNewFile();
+        Config config = UnitTestBase.updateWithRequiredOptions(
+            ComputerOptions.JOB_ID, "local_001",
+```
+
+### IgnoreResultOfCall
+Result of `File.delete()` is ignored
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/store/FileManagerTest.java`
+#### Snippet
+```java
+            Assert.assertContains("Can't create dir ", e.getMessage());
+        });
+        file.delete();
+    }
+
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/store/HgkvDirTest.java`
+#### Snippet
+```java
+        // Path isn't directory
+        File file = new File(StoreTestUtil.availablePathById("1"));
+        file.getParentFile().mkdirs();
+        file.createNewFile();
+        Assert.assertThrows(IllegalArgumentException.class, () -> {
+```
+
+### IgnoreResultOfCall
+Result of `File.createNewFile()` is ignored
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/store/HgkvDirTest.java`
+#### Snippet
+```java
+        File file = new File(StoreTestUtil.availablePathById("1"));
+        file.getParentFile().mkdirs();
+        file.createNewFile();
+        Assert.assertThrows(IllegalArgumentException.class, () -> {
+            HgkvDirImpl.open(file.getPath());
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/store/ValueFileTest.java`
+#### Snippet
+```java
+    private static File createTempDir() {
+        File dir = new File(UUID.randomUUID().toString());
+        dir.mkdirs();
+        return dir;
+    }
+```
+
 ### IgnoreResultOfCall
 Result of `ExecutorService.awaitTermination()` is ignored
 in `computer-core/src/main/java/org/apache/hugegraph/computer/core/sort/sorting/SortManager.java`
@@ -2736,18 +2880,6 @@ in `computer-core/src/main/java/org/apache/hugegraph/computer/core/store/file/hg
                         "directory already exists: '%s'", file.getPath());
         file.mkdirs();
         return new HgkvDirImpl(path);
-    }
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/compute/FileGraphPartition.java`
-#### Snippet
-```java
-
-    private static void createFile(File file) throws IOException {
-        file.getParentFile().mkdirs();
-        E.checkArgument(file.createNewFile(), "Already exists file: %s", file);
     }
 ```
 
@@ -2825,6 +2957,18 @@ in `computer-core/src/main/java/org/apache/hugegraph/computer/core/compute/FileG
 
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/compute/FileGraphPartition.java`
+#### Snippet
+```java
+
+    private static void createFile(File file) throws IOException {
+        file.getParentFile().mkdirs();
+        E.checkArgument(file.createNewFile(), "Already exists file: %s", file);
+    }
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
 in `computer-core/src/main/java/org/apache/hugegraph/computer/core/receiver/MessageRecvPartitions.java`
 #### Snippet
 ```java
@@ -2832,138 +2976,6 @@ in `computer-core/src/main/java/org/apache/hugegraph/computer/core/receiver/Mess
         String path = partition.genOutputPath();
         new File(path).getParentFile().mkdirs();
         return path;
-    }
-```
-
-### IgnoreResultOfCall
-Result of `FilterInputStream.skip()` is ignored
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/io/BufferedStreamTest.java`
-#### Snippet
-```java
-                                       new FileInputStream(file))) {
-                Assert.assertEquals(-128, dis.readByte());
-                dis.skip(1);
-                for (int i = -126; i <= 127; i++) {
-                    Assert.assertEquals(i, dis.readByte());
-```
-
-### IgnoreResultOfCall
-Result of `ExecutorService.awaitTermination()` is ignored
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClientTest.java`
-#### Snippet
-```java
-        });
-        executorService.shutdown();
-        executorService.awaitTermination(1L, TimeUnit.SECONDS);
-        long deleteCount = this.client.delete(KEY1);
-        Assert.assertEquals(1L, deleteCount);
-```
-
-### IgnoreResultOfCall
-Result of `ExecutorService.awaitTermination()` is ignored
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClientTest.java`
-#### Snippet
-```java
-        byte[] bytes1 = this.client.get(KEY1, 1000L, 500L);
-        executorService.shutdown();
-        executorService.awaitTermination(1L, TimeUnit.SECONDS);
-        Assert.assertArrayEquals(VALUE1, bytes1);
-        Assert.assertThrows(ComputerException.class, () -> {
-```
-
-### IgnoreResultOfCall
-Result of `ExecutorService.awaitTermination()` is ignored
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClientTest.java`
-#### Snippet
-```java
-                                                            1000L, 200L);
-        executorService.shutdown();
-        executorService.awaitTermination(1L, TimeUnit.SECONDS);
-        Assert.assertEquals(2, valueList1.size());
-        Assert.assertArrayEquals(VALUE1, valueList1.get(0));
-```
-
-### IgnoreResultOfCall
-Result of `ExecutorService.awaitTermination()` is ignored
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClientTest.java`
-#### Snippet
-```java
-        byte[] bytes1 = this.client.get(KEY1, 1000L, 500L);
-        executorService.shutdown();
-        executorService.awaitTermination(1L, TimeUnit.SECONDS);
-        Assert.assertArrayEquals(VALUE1, bytes1);
-    }
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/store/BitFileTest.java`
-#### Snippet
-```java
-    private static File createTempDir() {
-        File dir = new File(UUID.randomUUID().toString());
-        dir.mkdirs();
-        return dir;
-    }
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/store/HgkvDirTest.java`
-#### Snippet
-```java
-        // Path isn't directory
-        File file = new File(StoreTestUtil.availablePathById("1"));
-        file.getParentFile().mkdirs();
-        file.createNewFile();
-        Assert.assertThrows(IllegalArgumentException.class, () -> {
-```
-
-### IgnoreResultOfCall
-Result of `File.createNewFile()` is ignored
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/store/HgkvDirTest.java`
-#### Snippet
-```java
-        File file = new File(StoreTestUtil.availablePathById("1"));
-        file.getParentFile().mkdirs();
-        file.createNewFile();
-        Assert.assertThrows(IllegalArgumentException.class, () -> {
-            HgkvDirImpl.open(file.getPath());
-```
-
-### IgnoreResultOfCall
-Result of `File.createNewFile()` is ignored
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/store/FileManagerTest.java`
-#### Snippet
-```java
-    public void testInitWithFile() throws IOException {
-        File file = new File("exist");
-        file.createNewFile();
-        Config config = UnitTestBase.updateWithRequiredOptions(
-            ComputerOptions.JOB_ID, "local_001",
-```
-
-### IgnoreResultOfCall
-Result of `File.delete()` is ignored
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/store/FileManagerTest.java`
-#### Snippet
-```java
-            Assert.assertContains("Can't create dir ", e.getMessage());
-        });
-        file.delete();
-    }
-
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/store/ValueFileTest.java`
-#### Snippet
-```java
-    private static File createTempDir() {
-        File dir = new File(UUID.randomUUID().toString());
-        dir.mkdirs();
-        return dir;
     }
 ```
 
@@ -2989,18 +3001,6 @@ in `computer-api/src/main/java/org/apache/hugegraph/computer/core/output/hg/task
             this.singleService.awaitTermination(timeout, TimeUnit.SECONDS);
             LOG.info("The single-mode tasks service executor shutdown");
         } catch (InterruptedException e) {
-```
-
-### IgnoreResultOfCall
-Result of `ExecutorService.awaitTermination()` is ignored
-in `computer-k8s-operator/src/main/java/org/apache/hugegraph/computer/k8s/operator/common/AbstractController.java`
-#### Snippet
-```java
-                           .get(OperatorOptions.CLOSE_RECONCILER_TIMEOUT);
-        try {
-            this.executor.awaitTermination(timeout, TimeUnit.MILLISECONDS);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
 ```
 
 ## RuleId[id=FunctionalExpressionCanBeFolded]
@@ -3127,13 +3127,13 @@ in `computer-algorithm/src/main/java/org/apache/hugegraph/computer/algorithm/com
 ```
 
 ### RedundantMethodOverride
-Method `close()` is identical to its super method
+Method `beforeSuperstep()` is identical to its super method
 in `computer-algorithm/src/main/java/org/apache/hugegraph/computer/algorithm/centrality/degree/DegreeCentrality.java`
 #### Snippet
 ```java
 
     @Override
-    public void close(Config config) {
+    public void beforeSuperstep(WorkerContext context) {
         // pass
     }
 ```
@@ -3151,13 +3151,13 @@ in `computer-algorithm/src/main/java/org/apache/hugegraph/computer/algorithm/cen
 ```
 
 ### RedundantMethodOverride
-Method `beforeSuperstep()` is identical to its super method
+Method `close()` is identical to its super method
 in `computer-algorithm/src/main/java/org/apache/hugegraph/computer/algorithm/centrality/degree/DegreeCentrality.java`
 #### Snippet
 ```java
 
     @Override
-    public void beforeSuperstep(WorkerContext context) {
+    public void close(Config config) {
         // pass
     }
 ```
@@ -3200,6 +3200,18 @@ in `computer-algorithm/src/main/java/org/apache/hugegraph/computer/algorithm/cen
 
 ## RuleId[id=IntegerMultiplicationImplicitCastToLong]
 ### IntegerMultiplicationImplicitCastToLong
+i \* 4: integer multiplication implicitly cast to long
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/io/BufferedFileTest.java`
+#### Snippet
+```java
+                }
+                for (int i = size; i >= 0; i--) {
+                    output.seek(i * 4);
+                    output.writeInt(size - i);
+                }
+```
+
+### IntegerMultiplicationImplicitCastToLong
 this.config.get(ComputerOptions.TRANSPORT_SYNC_REQUEST_TIMEOUT) \* this.config.get(Com...: integer multiplication implicitly cast to long
 in `computer-core/src/main/java/org/apache/hugegraph/computer/core/network/TransportConf.java`
 #### Snippet
@@ -3212,79 +3224,7 @@ in `computer-core/src/main/java/org/apache/hugegraph/computer/core/network/Trans
 
 ```
 
-### IntegerMultiplicationImplicitCastToLong
-i \* 4: integer multiplication implicitly cast to long
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/io/BufferedFileTest.java`
-#### Snippet
-```java
-                }
-                for (int i = size; i >= 0; i--) {
-                    output.seek(i * 4);
-                    output.writeInt(size - i);
-                }
-```
-
 ## RuleId[id=AutoCloseableResource]
-### AutoCloseableResource
-'BytesOutput' used without 'try'-with-resources statement
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/graph/id/BytesId.java`
-#### Snippet
-```java
-        long high = value.getMostSignificantBits();
-        long low = value.getLeastSignificantBits();
-        BytesOutput output = IOFactory.createBytesOutput(16);
-        try {
-            output.writeLong(high);
-```
-
-### AutoCloseableResource
-'BytesInput' used without 'try'-with-resources statement
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/graph/id/BytesId.java`
-#### Snippet
-```java
-        switch (this.idType) {
-            case LONG:
-                BytesInput input = IOFactory.createBytesInput(this.bytes, 0,
-                                                              this.length);
-                try {
-```
-
-### AutoCloseableResource
-'BytesInput' used without 'try'-with-resources statement
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/graph/id/BytesId.java`
-#### Snippet
-```java
-                return CoderUtil.decode(this.bytes, 0, this.length);
-            case UUID:
-                input = IOFactory.createBytesInput(this.bytes, 0, this.length);
-                try {
-                    long high = input.readLong();
-```
-
-### AutoCloseableResource
-'BytesOutput' used without 'try'-with-resources statement
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/graph/id/BytesId.java`
-#### Snippet
-```java
-
-    public static BytesId of(long value) {
-        BytesOutput output = IOFactory.createBytesOutput(9);
-        try {
-            output.writeLong(value);
-```
-
-### AutoCloseableResource
-'BytesOutput' used without 'try'-with-resources statement
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/sender/WriteBuffers.java`
-#### Snippet
-```java
-
-    public synchronized RandomAccessInput wrapForRead() {
-        BytesOutput output = this.sortingBuffer.output();
-        return IOFactory.createBytesInput(output.buffer(),
-                                          (int) output.position());
-```
-
 ### AutoCloseableResource
 'FileInputStream' used without 'try'-with-resources statement
 in `computer-test/src/main/java/org/apache/hugegraph/computer/k8s/KubernetesDriverTest.java`
@@ -3350,11 +3290,11 @@ in `computer-test/src/main/java/org/apache/hugegraph/computer/core/sort/SorterTe
 in `computer-test/src/main/java/org/apache/hugegraph/computer/core/sort/sorter/SortLargeDataTest.java`
 #### Snippet
 ```java
-        int mergeTotal = 0;
-        for (String output : outputs) {
-            mergeTotal += HgkvDirImpl.open(output).numEntries();
+        long entrySize = 0L;
+        for (String file : files) {
+            HgkvDir dir = HgkvDirImpl.open(file);
+            entrySize += dir.numEntries();
         }
-        Assert.assertEquals(total, mergeTotal);
 ```
 
 ### AutoCloseableResource
@@ -3362,11 +3302,11 @@ in `computer-test/src/main/java/org/apache/hugegraph/computer/core/sort/sorter/S
 in `computer-test/src/main/java/org/apache/hugegraph/computer/core/sort/sorter/SortLargeDataTest.java`
 #### Snippet
 ```java
-        long entrySize = 0L;
-        for (String file : files) {
-            HgkvDir dir = HgkvDirImpl.open(file);
-            entrySize += dir.numEntries();
+        int mergeTotal = 0;
+        for (String output : outputs) {
+            mergeTotal += HgkvDirImpl.open(output).numEntries();
         }
+        Assert.assertEquals(total, mergeTotal);
 ```
 
 ### AutoCloseableResource
@@ -3379,6 +3319,30 @@ in `computer-test/src/main/java/org/apache/hugegraph/computer/core/sort/sorter/S
         HgkvDir dir = HgkvDirImpl.open(outputFile);
         Assert.assertEquals(5, dir.numEntries());
         Assert.assertEquals(8, dir.numSubEntries());
+```
+
+### AutoCloseableResource
+'HgkvFile' used without 'try'-with-resources statement
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/store/HgkvFileTest.java`
+#### Snippet
+```java
+        File tempFile = new File(StoreTestUtil.availablePathById("2"));
+        Assert.assertThrows(IllegalArgumentException.class, () -> {
+            HgkvFileImpl.open(tempFile);
+        }, e -> {
+            Assert.assertContains("file does not exists", e.getMessage());
+```
+
+### AutoCloseableResource
+'HgkvFile' used without 'try'-with-resources statement
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/store/HgkvFileTest.java`
+#### Snippet
+```java
+        File file = StoreTestUtil.mapToHgkvFile(CONFIG, data, filePath);
+        // Open file
+        HgkvFile hgkvFile = HgkvFileImpl.open(file.getPath());
+        // Assert magic
+        Assert.assertEquals(HgkvFileImpl.MAGIC, hgkvFile.magic());
 ```
 
 ### AutoCloseableResource
@@ -3418,27 +3382,15 @@ in `computer-test/src/main/java/org/apache/hugegraph/computer/core/store/HgkvDir
 ```
 
 ### AutoCloseableResource
-'HgkvFile' used without 'try'-with-resources statement
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/store/HgkvFileTest.java`
+'BytesInput' used without 'try'-with-resources statement
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/store/StoreTestUtil.java`
 #### Snippet
 ```java
-        File tempFile = new File(StoreTestUtil.availablePathById("2"));
-        Assert.assertThrows(IllegalArgumentException.class, () -> {
-            HgkvFileImpl.open(tempFile);
-        }, e -> {
-            Assert.assertContains("file does not exists", e.getMessage());
-```
 
-### AutoCloseableResource
-'HgkvFile' used without 'try'-with-resources statement
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/store/HgkvFileTest.java`
-#### Snippet
-```java
-        File file = StoreTestUtil.mapToHgkvFile(CONFIG, data, filePath);
-        // Open file
-        HgkvFile hgkvFile = HgkvFileImpl.open(file.getPath());
-        // Assert magic
-        Assert.assertEquals(HgkvFileImpl.MAGIC, hgkvFile.magic());
+    public static int byteArrayToInt(byte[] bytes) throws IOException {
+        return IOFactory.createBytesInput(bytes).readInt();
+    }
+
 ```
 
 ### AutoCloseableResource
@@ -3454,111 +3406,27 @@ in `computer-test/src/main/java/org/apache/hugegraph/computer/core/store/StoreTe
 ```
 
 ### AutoCloseableResource
-'BytesInput' used without 'try'-with-resources statement
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/store/StoreTestUtil.java`
+'ValueFileOutput' used without 'try'-with-resources statement
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/store/ValueFileTest.java`
 #### Snippet
 ```java
-
-    public static int byteArrayToInt(byte[] bytes) throws IOException {
-        return IOFactory.createBytesInput(bytes).readInt();
-    }
-
+            }
+            Assert.assertThrows(IllegalArgumentException.class, () -> {
+                new ValueFileOutput(CONFIG, dir, 1);
+            }, e -> {
+                Assert.assertContains("bufferCapacity must be >= 8",
 ```
 
 ### AutoCloseableResource
-'BytesOutput' used without 'try'-with-resources statement
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/sender/WriteBuffersTest.java`
+'ValueFileInput' used without 'try'-with-resources statement
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/store/ValueFileTest.java`
 #### Snippet
 ```java
-
-        buffers.writeMessage(BytesId.of(1L), new DoubleValue(0.85D));
-        long position1 = buffer.output().position();
-        Assert.assertGt(0L, position1);
-
-```
-
-### AutoCloseableResource
-'BytesOutput' used without 'try'-with-resources statement
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/sender/WriteBuffersTest.java`
-#### Snippet
-```java
-
-        buffers.writeMessage(BytesId.of(2L), new DoubleValue(0.15D));
-        long position2 = buffer.output().position();
-        Assert.assertGt(position1, position2);
-    }
-```
-
-### AutoCloseableResource
-'BytesOutput' used without 'try'-with-resources statement
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/sender/WriteBuffersTest.java`
-#### Snippet
-```java
-        WriteBuffer buffer = Whitebox.getInternalState(buffers,
-                                                       "writingBuffer");
-        long position1 = buffer.output().position();
-        Assert.assertGt(0L, position1);
-
-```
-
-### AutoCloseableResource
-'BytesOutput' used without 'try'-with-resources statement
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/sender/WriteBuffersTest.java`
-#### Snippet
-```java
-        buffers.writeVertex(vertex);
-        buffer = Whitebox.getInternalState(buffers, "writingBuffer");
-        long position2 = buffer.output().position();
-        Assert.assertGt(position1, position2);
-
-```
-
-### AutoCloseableResource
-'BytesOutput' used without 'try'-with-resources statement
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/sender/WriteBuffersTest.java`
-#### Snippet
-```java
-        buffers.writeEdges(vertex);
-        buffer = Whitebox.getInternalState(buffers, "writingBuffer");
-        long position3 = buffer.output().position();
-        Assert.assertGt(position2, position3);
-    }
-```
-
-### AutoCloseableResource
-'BytesOutput' used without 'try'-with-resources statement
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/sender/WriteBufferTest.java`
-#### Snippet
-```java
-        buffer = new WriteBuffer(ComputerContext.instance(), 100, 110);
-        buffer.writeEdges(vertex);
-        long position1 = buffer.output().position();
-        Assert.assertGt(0L, position1);
-
-```
-
-### AutoCloseableResource
-'BytesOutput' used without 'try'-with-resources statement
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/sender/WriteBufferTest.java`
-#### Snippet
-```java
-        buffer = new WriteBuffer(ComputerContext.instance(), 100, 110);
-        buffer.writeEdges(vertex);
-        long position2 = buffer.output().position();
-        Assert.assertGte(position1, position2);
-
-```
-
-### AutoCloseableResource
-'BytesOutput' used without 'try'-with-resources statement
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/sender/WriteBufferTest.java`
-#### Snippet
-```java
-        buffer = new WriteBuffer(ComputerContext.instance(), 100, 110);
-        buffer.writeEdges(vertex);
-        long position3 = buffer.output().position();
-        Assert.assertGte(position2, position3);
-    }
+            }
+            Assert.assertThrows(IllegalArgumentException.class, () -> {
+                new ValueFileInput(CONFIG, dir, 1);
+            }, e -> {
+                Assert.assertContains("The parameter bufferSize must be >= 8",
 ```
 
 ### AutoCloseableResource
@@ -3623,6 +3491,66 @@ in `computer-test/src/main/java/org/apache/hugegraph/computer/core/sender/WriteB
 
 ### AutoCloseableResource
 'BytesOutput' used without 'try'-with-resources statement
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/sender/WriteBufferTest.java`
+#### Snippet
+```java
+        buffer = new WriteBuffer(ComputerContext.instance(), 100, 110);
+        buffer.writeEdges(vertex);
+        long position1 = buffer.output().position();
+        Assert.assertGt(0L, position1);
+
+```
+
+### AutoCloseableResource
+'BytesOutput' used without 'try'-with-resources statement
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/sender/WriteBufferTest.java`
+#### Snippet
+```java
+        buffer = new WriteBuffer(ComputerContext.instance(), 100, 110);
+        buffer.writeEdges(vertex);
+        long position2 = buffer.output().position();
+        Assert.assertGte(position1, position2);
+
+```
+
+### AutoCloseableResource
+'BytesOutput' used without 'try'-with-resources statement
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/sender/WriteBufferTest.java`
+#### Snippet
+```java
+        buffer = new WriteBuffer(ComputerContext.instance(), 100, 110);
+        buffer.writeEdges(vertex);
+        long position3 = buffer.output().position();
+        Assert.assertGte(position2, position3);
+    }
+```
+
+### AutoCloseableResource
+'BytesOutput' used without 'try'-with-resources statement
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/sender/WriteBuffersTest.java`
+#### Snippet
+```java
+
+        buffers.writeMessage(BytesId.of(1L), new DoubleValue(0.85D));
+        long position1 = buffer.output().position();
+        Assert.assertGt(0L, position1);
+
+```
+
+### AutoCloseableResource
+'BytesOutput' used without 'try'-with-resources statement
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/sender/WriteBuffersTest.java`
+#### Snippet
+```java
+
+        buffers.writeMessage(BytesId.of(2L), new DoubleValue(0.15D));
+        long position2 = buffer.output().position();
+        Assert.assertGt(position1, position2);
+    }
+```
+
+### AutoCloseableResource
+'BytesOutput' used without 'try'-with-resources statement
 in `computer-test/src/main/java/org/apache/hugegraph/computer/core/compute/input/ResuablePointerTest.java`
 #### Snippet
 ```java
@@ -3631,6 +3559,42 @@ in `computer-test/src/main/java/org/apache/hugegraph/computer/core/compute/input
         BytesOutput output1 = IOFactory.createBytesOutput(100);
         long position = output1.position();
         output1.writeFixedInt(0);
+```
+
+### AutoCloseableResource
+'BytesOutput' used without 'try'-with-resources statement
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/sender/WriteBuffersTest.java`
+#### Snippet
+```java
+        WriteBuffer buffer = Whitebox.getInternalState(buffers,
+                                                       "writingBuffer");
+        long position1 = buffer.output().position();
+        Assert.assertGt(0L, position1);
+
+```
+
+### AutoCloseableResource
+'BytesOutput' used without 'try'-with-resources statement
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/sender/WriteBuffersTest.java`
+#### Snippet
+```java
+        buffers.writeVertex(vertex);
+        buffer = Whitebox.getInternalState(buffers, "writingBuffer");
+        long position2 = buffer.output().position();
+        Assert.assertGt(position1, position2);
+
+```
+
+### AutoCloseableResource
+'BytesOutput' used without 'try'-with-resources statement
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/sender/WriteBuffersTest.java`
+#### Snippet
+```java
+        buffers.writeEdges(vertex);
+        buffer = Whitebox.getInternalState(buffers, "writingBuffer");
+        long position3 = buffer.output().position();
+        Assert.assertGt(position2, position3);
+    }
 ```
 
 ### AutoCloseableResource
@@ -3643,30 +3607,6 @@ in `computer-test/src/main/java/org/apache/hugegraph/computer/core/worker/Worker
         WorkerService workerService = new MockWorkerService();
         Assert.assertThrows(ComputerException.class, () -> {
             workerService.init(config);
-```
-
-### AutoCloseableResource
-'ValueFileOutput' used without 'try'-with-resources statement
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/store/ValueFileTest.java`
-#### Snippet
-```java
-            }
-            Assert.assertThrows(IllegalArgumentException.class, () -> {
-                new ValueFileOutput(CONFIG, dir, 1);
-            }, e -> {
-                Assert.assertContains("bufferCapacity must be >= 8",
-```
-
-### AutoCloseableResource
-'ValueFileInput' used without 'try'-with-resources statement
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/store/ValueFileTest.java`
-#### Snippet
-```java
-            }
-            Assert.assertThrows(IllegalArgumentException.class, () -> {
-                new ValueFileInput(CONFIG, dir, 1);
-            }, e -> {
-                Assert.assertContains("The parameter bufferSize must be >= 8",
 ```
 
 ### AutoCloseableResource
@@ -3691,6 +3631,66 @@ in `computer-test/src/main/java/org/apache/hugegraph/computer/core/allocator/Def
         RecyclerReference<Vertex> reference1 = allocator.newVertex();
 
         Thread thread1 = new Thread(() -> allocator.freeVertex(reference1));
+```
+
+### AutoCloseableResource
+'BytesOutput' used without 'try'-with-resources statement
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/graph/id/BytesId.java`
+#### Snippet
+```java
+        long high = value.getMostSignificantBits();
+        long low = value.getLeastSignificantBits();
+        BytesOutput output = IOFactory.createBytesOutput(16);
+        try {
+            output.writeLong(high);
+```
+
+### AutoCloseableResource
+'BytesInput' used without 'try'-with-resources statement
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/graph/id/BytesId.java`
+#### Snippet
+```java
+        switch (this.idType) {
+            case LONG:
+                BytesInput input = IOFactory.createBytesInput(this.bytes, 0,
+                                                              this.length);
+                try {
+```
+
+### AutoCloseableResource
+'BytesInput' used without 'try'-with-resources statement
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/graph/id/BytesId.java`
+#### Snippet
+```java
+                return CoderUtil.decode(this.bytes, 0, this.length);
+            case UUID:
+                input = IOFactory.createBytesInput(this.bytes, 0, this.length);
+                try {
+                    long high = input.readLong();
+```
+
+### AutoCloseableResource
+'BytesOutput' used without 'try'-with-resources statement
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/graph/id/BytesId.java`
+#### Snippet
+```java
+
+    public static BytesId of(long value) {
+        BytesOutput output = IOFactory.createBytesOutput(9);
+        try {
+            output.writeLong(value);
+```
+
+### AutoCloseableResource
+'BytesOutput' used without 'try'-with-resources statement
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/sender/WriteBuffers.java`
+#### Snippet
+```java
+
+    public synchronized RandomAccessInput wrapForRead() {
+        BytesOutput output = this.sortingBuffer.output();
+        return IOFactory.createBytesInput(output.buffer(),
+                                          (int) output.position());
 ```
 
 ## RuleId[id=ConditionCoveredByFurtherCondition]
@@ -3831,6 +3831,126 @@ in `computer-api/src/main/java/org/apache/hugegraph/computer/algorithm/Algorithm
 
 ## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
+Field `executorService` may be 'final'
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdBspTest.java`
+#### Snippet
+```java
+    private ContainerInfo masterInfo;
+    private ContainerInfo workerInfo;
+    private ExecutorService executorService = Executors.newFixedThreadPool(2);
+    private int maxSuperStep;
+
+```
+
+### FieldMayBeFinal
+Field `KEY2` may be 'final'
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClientTest.java`
+#### Snippet
+```java
+    private static String KEY_PREFIX = "/key";
+    private static String KEY1 = "/key1";
+    private static String KEY2 = "/key2";
+    private static String NO_SUCH_KEY = "/no-such-key";
+    private static byte[] VALUE1 = "value1".getBytes(StandardCharsets.UTF_8);
+```
+
+### FieldMayBeFinal
+Field `VALUE1` may be 'final'
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClientTest.java`
+#### Snippet
+```java
+    private static String KEY2 = "/key2";
+    private static String NO_SUCH_KEY = "/no-such-key";
+    private static byte[] VALUE1 = "value1".getBytes(StandardCharsets.UTF_8);
+    private static byte[] VALUE2 = "value2".getBytes(StandardCharsets.UTF_8);
+
+```
+
+### FieldMayBeFinal
+Field `KEY_PREFIX` may be 'final'
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClientTest.java`
+#### Snippet
+```java
+    private static String ENDPOINTS = "http://localhost:2579";
+    private static String NAMESPACE = "test_job_0001";
+    private static String KEY_PREFIX = "/key";
+    private static String KEY1 = "/key1";
+    private static String KEY2 = "/key2";
+```
+
+### FieldMayBeFinal
+Field `VALUE2` may be 'final'
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClientTest.java`
+#### Snippet
+```java
+    private static String NO_SUCH_KEY = "/no-such-key";
+    private static byte[] VALUE1 = "value1".getBytes(StandardCharsets.UTF_8);
+    private static byte[] VALUE2 = "value2".getBytes(StandardCharsets.UTF_8);
+
+    private EtcdClient client;
+```
+
+### FieldMayBeFinal
+Field `KEY1` may be 'final'
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClientTest.java`
+#### Snippet
+```java
+    private static String NAMESPACE = "test_job_0001";
+    private static String KEY_PREFIX = "/key";
+    private static String KEY1 = "/key1";
+    private static String KEY2 = "/key2";
+    private static String NO_SUCH_KEY = "/no-such-key";
+```
+
+### FieldMayBeFinal
+Field `NAMESPACE` may be 'final'
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClientTest.java`
+#### Snippet
+```java
+
+    private static String ENDPOINTS = "http://localhost:2579";
+    private static String NAMESPACE = "test_job_0001";
+    private static String KEY_PREFIX = "/key";
+    private static String KEY1 = "/key1";
+```
+
+### FieldMayBeFinal
+Field `NO_SUCH_KEY` may be 'final'
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClientTest.java`
+#### Snippet
+```java
+    private static String KEY1 = "/key1";
+    private static String KEY2 = "/key2";
+    private static String NO_SUCH_KEY = "/no-such-key";
+    private static byte[] VALUE1 = "value1".getBytes(StandardCharsets.UTF_8);
+    private static byte[] VALUE2 = "value2".getBytes(StandardCharsets.UTF_8);
+```
+
+### FieldMayBeFinal
+Field `ENDPOINTS` may be 'final'
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClientTest.java`
+#### Snippet
+```java
+public class EtcdClientTest {
+
+    private static String ENDPOINTS = "http://localhost:2579";
+    private static String NAMESPACE = "test_job_0001";
+    private static String KEY_PREFIX = "/key";
+```
+
+### FieldMayBeFinal
+Field `connectionId` may be 'final'
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/sender/MockTransportClient.java`
+#### Snippet
+```java
+public class MockTransportClient implements TransportClient {
+
+    private ConnectionId connectionId;
+
+    public MockTransportClient() {
+```
+
+### FieldMayBeFinal
 Field `code` may be 'final'
 in `computer-core/src/main/java/org/apache/hugegraph/computer/core/bsp/BspEvent.java`
 #### Snippet
@@ -3855,18 +3975,6 @@ in `computer-core/src/main/java/org/apache/hugegraph/computer/core/bsp/BspEvent.
 ```
 
 ### FieldMayBeFinal
-Field `dirs` may be 'final'
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/store/FileManager.java`
-#### Snippet
-```java
-    public static final String NAME = "data_dir";
-
-    private List<String> dirs;
-    private AtomicInteger sequence;
-
-```
-
-### FieldMayBeFinal
 Field `sequence` may be 'final'
 in `computer-core/src/main/java/org/apache/hugegraph/computer/core/store/FileManager.java`
 #### Snippet
@@ -3876,6 +3984,18 @@ in `computer-core/src/main/java/org/apache/hugegraph/computer/core/store/FileMan
     private AtomicInteger sequence;
 
     public FileManager() {
+```
+
+### FieldMayBeFinal
+Field `dirs` may be 'final'
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/store/FileManager.java`
+#### Snippet
+```java
+    public static final String NAME = "data_dir";
+
+    private List<String> dirs;
+    private AtomicInteger sequence;
+
 ```
 
 ### FieldMayBeFinal
@@ -3927,126 +4047,6 @@ in `computer-core/src/main/java/org/apache/hugegraph/computer/core/allocator/Rec
 ```
 
 ### FieldMayBeFinal
-Field `NO_SUCH_KEY` may be 'final'
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClientTest.java`
-#### Snippet
-```java
-    private static String KEY1 = "/key1";
-    private static String KEY2 = "/key2";
-    private static String NO_SUCH_KEY = "/no-such-key";
-    private static byte[] VALUE1 = "value1".getBytes(StandardCharsets.UTF_8);
-    private static byte[] VALUE2 = "value2".getBytes(StandardCharsets.UTF_8);
-```
-
-### FieldMayBeFinal
-Field `NAMESPACE` may be 'final'
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClientTest.java`
-#### Snippet
-```java
-
-    private static String ENDPOINTS = "http://localhost:2579";
-    private static String NAMESPACE = "test_job_0001";
-    private static String KEY_PREFIX = "/key";
-    private static String KEY1 = "/key1";
-```
-
-### FieldMayBeFinal
-Field `ENDPOINTS` may be 'final'
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClientTest.java`
-#### Snippet
-```java
-public class EtcdClientTest {
-
-    private static String ENDPOINTS = "http://localhost:2579";
-    private static String NAMESPACE = "test_job_0001";
-    private static String KEY_PREFIX = "/key";
-```
-
-### FieldMayBeFinal
-Field `VALUE1` may be 'final'
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClientTest.java`
-#### Snippet
-```java
-    private static String KEY2 = "/key2";
-    private static String NO_SUCH_KEY = "/no-such-key";
-    private static byte[] VALUE1 = "value1".getBytes(StandardCharsets.UTF_8);
-    private static byte[] VALUE2 = "value2".getBytes(StandardCharsets.UTF_8);
-
-```
-
-### FieldMayBeFinal
-Field `VALUE2` may be 'final'
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClientTest.java`
-#### Snippet
-```java
-    private static String NO_SUCH_KEY = "/no-such-key";
-    private static byte[] VALUE1 = "value1".getBytes(StandardCharsets.UTF_8);
-    private static byte[] VALUE2 = "value2".getBytes(StandardCharsets.UTF_8);
-
-    private EtcdClient client;
-```
-
-### FieldMayBeFinal
-Field `KEY_PREFIX` may be 'final'
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClientTest.java`
-#### Snippet
-```java
-    private static String ENDPOINTS = "http://localhost:2579";
-    private static String NAMESPACE = "test_job_0001";
-    private static String KEY_PREFIX = "/key";
-    private static String KEY1 = "/key1";
-    private static String KEY2 = "/key2";
-```
-
-### FieldMayBeFinal
-Field `KEY2` may be 'final'
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClientTest.java`
-#### Snippet
-```java
-    private static String KEY_PREFIX = "/key";
-    private static String KEY1 = "/key1";
-    private static String KEY2 = "/key2";
-    private static String NO_SUCH_KEY = "/no-such-key";
-    private static byte[] VALUE1 = "value1".getBytes(StandardCharsets.UTF_8);
-```
-
-### FieldMayBeFinal
-Field `KEY1` may be 'final'
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClientTest.java`
-#### Snippet
-```java
-    private static String NAMESPACE = "test_job_0001";
-    private static String KEY_PREFIX = "/key";
-    private static String KEY1 = "/key1";
-    private static String KEY2 = "/key2";
-    private static String NO_SUCH_KEY = "/no-such-key";
-```
-
-### FieldMayBeFinal
-Field `executorService` may be 'final'
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdBspTest.java`
-#### Snippet
-```java
-    private ContainerInfo masterInfo;
-    private ContainerInfo workerInfo;
-    private ExecutorService executorService = Executors.newFixedThreadPool(2);
-    private int maxSuperStep;
-
-```
-
-### FieldMayBeFinal
-Field `connectionId` may be 'final'
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/sender/MockTransportClient.java`
-#### Snippet
-```java
-public class MockTransportClient implements TransportClient {
-
-    private ConnectionId connectionId;
-
-    public MockTransportClient() {
-```
-
-### FieldMayBeFinal
 Field `summary` may be 'final'
 in `computer-api/src/main/java/org/apache/hugegraph/computer/core/output/hg/task/InsertTask.java`
 #### Snippet
@@ -4083,18 +4083,6 @@ in `computer-api/src/main/java/org/apache/hugegraph/computer/core/output/hg/task
 ```
 
 ### FieldMayBeFinal
-Field `loadSummary` may be 'final'
-in `computer-api/src/main/java/org/apache/hugegraph/computer/core/output/hg/task/TaskManager.java`
-#### Snippet
-```java
-    private final ExecutorService singleService;
-
-    private LoadSummary loadSummary;
-
-    public TaskManager(Config config) {
-```
-
-### FieldMayBeFinal
 Field `client` may be 'final'
 in `computer-api/src/main/java/org/apache/hugegraph/computer/core/output/hg/task/TaskManager.java`
 #### Snippet
@@ -4106,19 +4094,19 @@ in `computer-api/src/main/java/org/apache/hugegraph/computer/core/output/hg/task
 
 ```
 
-## RuleId[id=MismatchedCollectionQueryUpdate]
-### MismatchedCollectionQueryUpdate
-Contents of collection `workers` are updated, but never queried
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/worker/WorkerService.java`
+### FieldMayBeFinal
+Field `loadSummary` may be 'final'
+in `computer-api/src/main/java/org/apache/hugegraph/computer/core/output/hg/task/TaskManager.java`
 #### Snippet
 ```java
-    private final ComputerContext context;
-    private final Managers managers;
-    private final Map<Integer, ContainerInfo> workers;
+    private final ExecutorService singleService;
 
-    private volatile boolean inited;
+    private LoadSummary loadSummary;
+
+    public TaskManager(Config config) {
 ```
 
+## RuleId[id=MismatchedCollectionQueryUpdate]
 ### MismatchedCollectionQueryUpdate
 Contents of collection `entries` are queried, but never updated
 in `computer-test/src/main/java/org/apache/hugegraph/computer/core/sort/sorter/FlusherTest.java`
@@ -4129,6 +4117,18 @@ in `computer-test/src/main/java/org/apache/hugegraph/computer/core/sort/sorter/F
         List<KvEntry> entries = new ArrayList<>();
 
         Assert.assertThrows(IllegalArgumentException.class, () -> {
+```
+
+### MismatchedCollectionQueryUpdate
+Contents of collection `workers` are updated, but never queried
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/worker/WorkerService.java`
+#### Snippet
+```java
+    private final ComputerContext context;
+    private final Managers managers;
+    private final Map<Integer, ContainerInfo> workers;
+
+    private volatile boolean inited;
 ```
 
 ## RuleId[id=CachedNumberConstructorCall]
@@ -4172,18 +4172,6 @@ in `computer-api/src/main/java/org/apache/hugegraph/computer/core/util/CoderUtil
 ## RuleId[id=SynchronizationOnLocalVariableOrMethodParameter]
 ### SynchronizationOnLocalVariableOrMethodParameter
 Synchronization on local variable `aggr`
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/aggregator/WorkerAggrManager.java`
-#### Snippet
-```java
-                                                             this.service());
-        // May be executed in parallel by multiple threads in a worker
-        synchronized (aggr) {
-            aggr.aggregateValue(value);
-        }
-```
-
-### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on local variable `aggr`
 in `computer-core/src/main/java/org/apache/hugegraph/computer/core/aggregator/MasterAggrManager.java`
 #### Snippet
 ```java
@@ -4192,6 +4180,18 @@ in `computer-core/src/main/java/org/apache/hugegraph/computer/core/aggregator/Ma
             synchronized (aggr) {
                 aggr.aggregateValue(value);
             }
+```
+
+### SynchronizationOnLocalVariableOrMethodParameter
+Synchronization on local variable `aggr`
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/aggregator/WorkerAggrManager.java`
+#### Snippet
+```java
+                                                             this.service());
+        // May be executed in parallel by multiple threads in a worker
+        synchronized (aggr) {
+            aggr.aggregateValue(value);
+        }
 ```
 
 ## RuleId[id=BusyWait]
@@ -4210,7 +4210,7 @@ in `computer-test/src/main/java/org/apache/hugegraph/computer/core/sender/WriteB
 ## RuleId[id=ArraysAsListWithZeroOrOneArgument]
 ### ArraysAsListWithZeroOrOneArgument
 Call to `asList()` with only one argument
-in `computer-api/src/main/java/org/apache/hugegraph/computer/core/worker/ReduceComputation.java`
+in `computer-api/src/main/java/org/apache/hugegraph/computer/core/worker/FilterComputation.java`
 #### Snippet
 ```java
     default void compute0(ComputationContext context, Vertex vertex) {
@@ -4222,7 +4222,7 @@ in `computer-api/src/main/java/org/apache/hugegraph/computer/core/worker/ReduceC
 
 ### ArraysAsListWithZeroOrOneArgument
 Call to `asList()` with only one argument
-in `computer-api/src/main/java/org/apache/hugegraph/computer/core/worker/FilterComputation.java`
+in `computer-api/src/main/java/org/apache/hugegraph/computer/core/worker/ReduceComputation.java`
 #### Snippet
 ```java
     default void compute0(ComputationContext context, Vertex vertex) {
@@ -4233,18 +4233,6 @@ in `computer-api/src/main/java/org/apache/hugegraph/computer/core/worker/FilterC
 ```
 
 ## RuleId[id=UnusedAssignment]
-### UnusedAssignment
-Variable `mergeFileNum` initializer `this.mergeFileNum` is redundant
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/receiver/MessageRecvPartition.java`
-#### Snippet
-```java
-         *  after add Sorter#iterator() of subkv
-         */
-        int mergeFileNum = this.mergeFileNum;
-        mergeFileNum = 1;
-        List<String> newOutputs = this.genOutputFileNames(mergeFileNum);
-```
-
 ### UnusedAssignment
 Variable `workerService` initializer `null` is redundant
 in `computer-test/src/main/java/org/apache/hugegraph/computer/algorithm/AlgorithmTestBase.java`
@@ -4269,82 +4257,22 @@ in `computer-test/src/main/java/org/apache/hugegraph/computer/algorithm/Algorith
                 Map<String, String> params = new HashMap<>();
 ```
 
+### UnusedAssignment
+Variable `mergeFileNum` initializer `this.mergeFileNum` is redundant
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/receiver/MessageRecvPartition.java`
+#### Snippet
+```java
+         *  after add Sorter#iterator() of subkv
+         */
+        int mergeFileNum = this.mergeFileNum;
+        mergeFileNum = 1;
+        List<String> newOutputs = this.genOutputFileNames(mergeFileNum);
+```
+
 ## RuleId[id=ConstantValue]
-### ConstantValue
-Condition `leading != 0x80` is always `true`
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/io/OptimizedBytesInput.java`
-#### Snippet
-```java
-    private int readVInt() throws IOException {
-        byte leading = this.readByte();
-        E.checkArgument(leading != 0x80,
-                        "Unexpected varint with leading byte '0x%s'",
-                        Bytes.toHex(leading));
-```
-
-### ConstantValue
-Condition `(leading & 0x80) == 0` is always `true`
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/io/OptimizedBytesInput.java`
-#### Snippet
-```java
-        int value = leading & 0x7f;
-        if (leading >= 0) {
-            assert (leading & 0x80) == 0;
-            return value;
-        }
-```
-
-### ConstantValue
-Condition `leading != 0x80` is always `true`
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/io/OptimizedBytesInput.java`
-#### Snippet
-```java
-    private long readVLong() throws IOException {
-        byte leading = this.readByte();
-        E.checkArgument(leading != 0x80,
-                        "Unexpected varlong with leading byte '0x%s'",
-                        Bytes.toHex(leading));
-```
-
-### ConstantValue
-Condition `(leading & 0x80) == 0` is always `true`
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/io/OptimizedBytesInput.java`
-#### Snippet
-```java
-        long value = leading & 0x7fL;
-        if (leading >= 0) {
-            assert (leading & 0x80) == 0;
-            return value;
-        }
-```
-
-### ConstantValue
-Condition `matched == 0` is always `true`
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/compute/FileGraphPartition.java`
-#### Snippet
-```java
-                continue;
-            }
-            assert matched == 0;
-            edgeOut.writeFixedInt(vidBytes.length);
-            edgeOut.write(vidBytes);
-```
-
 ### ConstantValue
 Result of `value1.equals(null)` is always 'false'
 in `computer-test/src/main/java/org/apache/hugegraph/computer/core/graph/value/BooleanValueTest.java`
-#### Snippet
-```java
-
-        Assert.assertFalse(value1.equals(new IntValue(1)));
-        Assert.assertFalse(value1.equals(null));
-    }
-
-```
-
-### ConstantValue
-Result of `value1.equals(null)` is always 'false'
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/graph/value/NullValueTest.java`
 #### Snippet
 ```java
 
@@ -4368,11 +4296,11 @@ in `computer-test/src/main/java/org/apache/hugegraph/computer/core/graph/value/L
 
 ### ConstantValue
 Result of `value1.equals(null)` is always 'false'
-in `computer-test/src/main/java/org/apache/hugegraph/computer/core/graph/value/DoubleValueTest.java`
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/graph/value/NullValueTest.java`
 #### Snippet
 ```java
-        Assert.assertFalse(value1.equals(new DoubleValue(1)));
-        Assert.assertFalse(value1.equals(new DoubleValue(1.0d)));
+
+        Assert.assertFalse(value1.equals(new IntValue(1)));
         Assert.assertFalse(value1.equals(null));
     }
 
@@ -4386,6 +4314,18 @@ in `computer-test/src/main/java/org/apache/hugegraph/computer/core/graph/value/I
         Assert.assertFalse(intValue1.equals(new IntValue(1)));
         Assert.assertFalse(intValue1.equals(new FloatValue(1f)));
         Assert.assertFalse(intValue1.equals(null));
+    }
+
+```
+
+### ConstantValue
+Result of `value1.equals(null)` is always 'false'
+in `computer-test/src/main/java/org/apache/hugegraph/computer/core/graph/value/DoubleValueTest.java`
+#### Snippet
+```java
+        Assert.assertFalse(value1.equals(new DoubleValue(1)));
+        Assert.assertFalse(value1.equals(new DoubleValue(1.0d)));
+        Assert.assertFalse(value1.equals(null));
     }
 
 ```
@@ -4535,6 +4475,66 @@ in `computer-test/src/main/java/org/apache/hugegraph/computer/core/network/Trans
 ```
 
 ### ConstantValue
+Condition `leading != 0x80` is always `true`
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/io/OptimizedBytesInput.java`
+#### Snippet
+```java
+    private long readVLong() throws IOException {
+        byte leading = this.readByte();
+        E.checkArgument(leading != 0x80,
+                        "Unexpected varlong with leading byte '0x%s'",
+                        Bytes.toHex(leading));
+```
+
+### ConstantValue
+Condition `(leading & 0x80) == 0` is always `true`
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/io/OptimizedBytesInput.java`
+#### Snippet
+```java
+        long value = leading & 0x7fL;
+        if (leading >= 0) {
+            assert (leading & 0x80) == 0;
+            return value;
+        }
+```
+
+### ConstantValue
+Condition `leading != 0x80` is always `true`
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/io/OptimizedBytesInput.java`
+#### Snippet
+```java
+    private int readVInt() throws IOException {
+        byte leading = this.readByte();
+        E.checkArgument(leading != 0x80,
+                        "Unexpected varint with leading byte '0x%s'",
+                        Bytes.toHex(leading));
+```
+
+### ConstantValue
+Condition `(leading & 0x80) == 0` is always `true`
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/io/OptimizedBytesInput.java`
+#### Snippet
+```java
+        int value = leading & 0x7f;
+        if (leading >= 0) {
+            assert (leading & 0x80) == 0;
+            return value;
+        }
+```
+
+### ConstantValue
+Condition `matched == 0` is always `true`
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/compute/FileGraphPartition.java`
+#### Snippet
+```java
+                continue;
+            }
+            assert matched == 0;
+            edgeOut.writeFixedInt(vidBytes.length);
+            edgeOut.write(vidBytes);
+```
+
+### ConstantValue
 Condition `superstep > 2` is always `true`
 in `computer-algorithm/src/main/java/org/apache/hugegraph/computer/algorithm/community/kcore/Kcore.java`
 #### Snippet
@@ -4547,162 +4547,6 @@ in `computer-algorithm/src/main/java/org/apache/hugegraph/computer/algorithm/com
 ```
 
 ## RuleId[id=UnstableApiUsage]
-### UnstableApiUsage
-'get(io.etcd.jetcd.ByteSequence)' is declared in unstable interface 'io.etcd.jetcd.KV' marked with @Beta
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClient.java`
-#### Snippet
-```java
-        ByteSequence keySeq = ByteSequence.from(key, ENCODING);
-        try {
-            GetResponse response = this.kv.get(keySeq).get();
-            if (response.getCount() > 0) {
-                List<KeyValue> kvs = response.getKvs();
-```
-
-### UnstableApiUsage
-'io.etcd.jetcd.KV' is marked unstable with @Beta
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClient.java`
-#### Snippet
-```java
-
-    @VisibleForTesting
-    protected KV getKv() {
-        return this.kv;
-    }
-```
-
-### UnstableApiUsage
-'io.etcd.jetcd.KV' is marked unstable with @Beta
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClient.java`
-#### Snippet
-```java
-    private final Client client;
-    private final Watch watch;
-    private final KV kv;
-
-    public EtcdClient(String endpoints, String namespace) {
-```
-
-### UnstableApiUsage
-'get(io.etcd.jetcd.ByteSequence, io.etcd.jetcd.options.GetOption)' is declared in unstable interface 'io.etcd.jetcd.KV' marked with @Beta
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClient.java`
-#### Snippet
-```java
-                                       .build();
-        try {
-            GetResponse response = this.kv.get(prefixSeq, getOption).get();
-            if (response.getCount() == count) {
-                return getResponseValues(response);
-```
-
-### UnstableApiUsage
-'getKVClient()' is unstable because its signature references unstable interface 'io.etcd.jetcd.KV' marked with @Beta
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClient.java`
-#### Snippet
-```java
-        ByteSequence keySeq = ByteSequence.from(key, ENCODING);
-        try {
-            DeleteResponse response = this.client.getKVClient().delete(keySeq)
-                                                 .get();
-            return response.getDeleted();
-```
-
-### UnstableApiUsage
-'delete(io.etcd.jetcd.ByteSequence)' is declared in unstable interface 'io.etcd.jetcd.KV' marked with @Beta
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClient.java`
-#### Snippet
-```java
-        ByteSequence keySeq = ByteSequence.from(key, ENCODING);
-        try {
-            DeleteResponse response = this.client.getKVClient().delete(keySeq)
-                                                 .get();
-            return response.getDeleted();
-```
-
-### UnstableApiUsage
-'getKVClient()' is unstable because its signature references unstable interface 'io.etcd.jetcd.KV' marked with @Beta
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClient.java`
-#### Snippet
-```java
-                                                .withPrefix(prefixSeq).build();
-        try {
-            DeleteResponse response = this.client.getKVClient()
-                                                 .delete(prefixSeq,
-                                                         deleteOption)
-```
-
-### UnstableApiUsage
-'delete(io.etcd.jetcd.ByteSequence, io.etcd.jetcd.options.DeleteOption)' is declared in unstable interface 'io.etcd.jetcd.KV' marked with @Beta
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClient.java`
-#### Snippet
-```java
-        try {
-            DeleteResponse response = this.client.getKVClient()
-                                                 .delete(prefixSeq,
-                                                         deleteOption)
-                                                 .get();
-```
-
-### UnstableApiUsage
-'get(io.etcd.jetcd.ByteSequence, io.etcd.jetcd.options.GetOption)' is declared in unstable interface 'io.etcd.jetcd.KV' marked with @Beta
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClient.java`
-#### Snippet
-```java
-                                           .withSortOrder(SortOrder.ASCEND)
-                                           .build();
-            GetResponse response = this.kv.get(prefixSeq, getOption).get();
-            if (response.getCount() > 0) {
-                return getResponseValues(response);
-```
-
-### UnstableApiUsage
-'get(io.etcd.jetcd.ByteSequence)' is declared in unstable interface 'io.etcd.jetcd.KV' marked with @Beta
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClient.java`
-#### Snippet
-```java
-        try {
-            ByteSequence keySeq = ByteSequence.from(key, ENCODING);
-            GetResponse response = this.kv.get(keySeq).get();
-            if (response.getCount() > 0) {
-                List<KeyValue> kvs = response.getKvs();
-```
-
-### UnstableApiUsage
-'put(io.etcd.jetcd.ByteSequence, io.etcd.jetcd.ByteSequence)' is declared in unstable interface 'io.etcd.jetcd.KV' marked with @Beta
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClient.java`
-#### Snippet
-```java
-                        "The value can't be null.");
-        try {
-            this.kv.put(ByteSequence.from(key, ENCODING),
-                        ByteSequence.from(value))
-                   .get();
-```
-
-### UnstableApiUsage
-'getKVClient()' is unstable because its signature references unstable interface 'io.etcd.jetcd.KV' marked with @Beta
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClient.java`
-#### Snippet
-```java
-                            .namespace(namespaceSeq).build();
-        this.watch = this.client.getWatchClient();
-        this.kv = this.client.getKVClient();
-    }
-
-```
-
-### UnstableApiUsage
-'get(io.etcd.jetcd.ByteSequence, io.etcd.jetcd.options.GetOption)' is declared in unstable interface 'io.etcd.jetcd.KV' marked with @Beta
-in `computer-core/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClient.java`
-#### Snippet
-```java
-                                           .withSortOrder(SortOrder.ASCEND)
-                                           .build();
-            GetResponse response = this.kv.get(prefixSeq, getOption).get();
-            if (response.getCount() == count) {
-                return getResponseValues(response);
-```
-
 ### UnstableApiUsage
 'io.etcd.jetcd.KV' is marked unstable with @Beta
 in `computer-test/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClientTest.java`
@@ -4785,5 +4629,161 @@ in `computer-test/src/main/java/org/apache/hugegraph/computer/algorithm/centrali
                 double totalValue = Streams.stream(edges).map(
                         (edge) -> {
                             DoubleValue weightValue = edge.property(this.weight);
+```
+
+### UnstableApiUsage
+'get(io.etcd.jetcd.ByteSequence)' is declared in unstable interface 'io.etcd.jetcd.KV' marked with @Beta
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClient.java`
+#### Snippet
+```java
+        try {
+            ByteSequence keySeq = ByteSequence.from(key, ENCODING);
+            GetResponse response = this.kv.get(keySeq).get();
+            if (response.getCount() > 0) {
+                List<KeyValue> kvs = response.getKvs();
+```
+
+### UnstableApiUsage
+'getKVClient()' is unstable because its signature references unstable interface 'io.etcd.jetcd.KV' marked with @Beta
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClient.java`
+#### Snippet
+```java
+        ByteSequence keySeq = ByteSequence.from(key, ENCODING);
+        try {
+            DeleteResponse response = this.client.getKVClient().delete(keySeq)
+                                                 .get();
+            return response.getDeleted();
+```
+
+### UnstableApiUsage
+'delete(io.etcd.jetcd.ByteSequence)' is declared in unstable interface 'io.etcd.jetcd.KV' marked with @Beta
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClient.java`
+#### Snippet
+```java
+        ByteSequence keySeq = ByteSequence.from(key, ENCODING);
+        try {
+            DeleteResponse response = this.client.getKVClient().delete(keySeq)
+                                                 .get();
+            return response.getDeleted();
+```
+
+### UnstableApiUsage
+'put(io.etcd.jetcd.ByteSequence, io.etcd.jetcd.ByteSequence)' is declared in unstable interface 'io.etcd.jetcd.KV' marked with @Beta
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClient.java`
+#### Snippet
+```java
+                        "The value can't be null.");
+        try {
+            this.kv.put(ByteSequence.from(key, ENCODING),
+                        ByteSequence.from(value))
+                   .get();
+```
+
+### UnstableApiUsage
+'get(io.etcd.jetcd.ByteSequence, io.etcd.jetcd.options.GetOption)' is declared in unstable interface 'io.etcd.jetcd.KV' marked with @Beta
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClient.java`
+#### Snippet
+```java
+                                           .withSortOrder(SortOrder.ASCEND)
+                                           .build();
+            GetResponse response = this.kv.get(prefixSeq, getOption).get();
+            if (response.getCount() == count) {
+                return getResponseValues(response);
+```
+
+### UnstableApiUsage
+'io.etcd.jetcd.KV' is marked unstable with @Beta
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClient.java`
+#### Snippet
+```java
+
+    @VisibleForTesting
+    protected KV getKv() {
+        return this.kv;
+    }
+```
+
+### UnstableApiUsage
+'get(io.etcd.jetcd.ByteSequence, io.etcd.jetcd.options.GetOption)' is declared in unstable interface 'io.etcd.jetcd.KV' marked with @Beta
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClient.java`
+#### Snippet
+```java
+                                       .build();
+        try {
+            GetResponse response = this.kv.get(prefixSeq, getOption).get();
+            if (response.getCount() == count) {
+                return getResponseValues(response);
+```
+
+### UnstableApiUsage
+'get(io.etcd.jetcd.ByteSequence)' is declared in unstable interface 'io.etcd.jetcd.KV' marked with @Beta
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClient.java`
+#### Snippet
+```java
+        ByteSequence keySeq = ByteSequence.from(key, ENCODING);
+        try {
+            GetResponse response = this.kv.get(keySeq).get();
+            if (response.getCount() > 0) {
+                List<KeyValue> kvs = response.getKvs();
+```
+
+### UnstableApiUsage
+'getKVClient()' is unstable because its signature references unstable interface 'io.etcd.jetcd.KV' marked with @Beta
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClient.java`
+#### Snippet
+```java
+                                                .withPrefix(prefixSeq).build();
+        try {
+            DeleteResponse response = this.client.getKVClient()
+                                                 .delete(prefixSeq,
+                                                         deleteOption)
+```
+
+### UnstableApiUsage
+'delete(io.etcd.jetcd.ByteSequence, io.etcd.jetcd.options.DeleteOption)' is declared in unstable interface 'io.etcd.jetcd.KV' marked with @Beta
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClient.java`
+#### Snippet
+```java
+        try {
+            DeleteResponse response = this.client.getKVClient()
+                                                 .delete(prefixSeq,
+                                                         deleteOption)
+                                                 .get();
+```
+
+### UnstableApiUsage
+'getKVClient()' is unstable because its signature references unstable interface 'io.etcd.jetcd.KV' marked with @Beta
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClient.java`
+#### Snippet
+```java
+                            .namespace(namespaceSeq).build();
+        this.watch = this.client.getWatchClient();
+        this.kv = this.client.getKVClient();
+    }
+
+```
+
+### UnstableApiUsage
+'io.etcd.jetcd.KV' is marked unstable with @Beta
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClient.java`
+#### Snippet
+```java
+    private final Client client;
+    private final Watch watch;
+    private final KV kv;
+
+    public EtcdClient(String endpoints, String namespace) {
+```
+
+### UnstableApiUsage
+'get(io.etcd.jetcd.ByteSequence, io.etcd.jetcd.options.GetOption)' is declared in unstable interface 'io.etcd.jetcd.KV' marked with @Beta
+in `computer-core/src/main/java/org/apache/hugegraph/computer/core/bsp/EtcdClient.java`
+#### Snippet
+```java
+                                           .withSortOrder(SortOrder.ASCEND)
+                                           .build();
+            GetResponse response = this.kv.get(prefixSeq, getOption).get();
+            if (response.getCount() > 0) {
+                return getResponseValues(response);
 ```
 
