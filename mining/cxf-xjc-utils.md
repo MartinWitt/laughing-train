@@ -1,36 +1,22 @@
 # cxf-xjc-utils 
  
 # Bad smells
-I found 113 bad smells with 4 repairable:
+I found 54 bad smells with 3 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| ReturnNull | 27 | false |
-| SystemOutErr | 22 | false |
-| ZeroLengthArrayInitialization | 8 | false |
+| FieldMayBeFinal | 10 | false |
+| JavadocLinkAsPlainText | 10 | false |
 | DuplicateExpressions | 7 | false |
 | DataFlowIssue | 6 | false |
 | IgnoreResultOfCall | 5 | false |
-| ThrowablePrintStackTrace | 5 | false |
-| PublicFieldAccessedInSynchronizedContext | 4 | false |
-| AssignmentToMethodParameter | 4 | false |
-| AssignmentToStaticFieldFromInstanceMethod | 2 | false |
-| SizeReplaceableByIsEmpty | 2 | true |
-| UnnecessaryToStringCall | 2 | true |
-| StringEqualsEmptyString | 2 | false |
-| UnnecessaryFullyQualifiedName | 2 | false |
+| ConstantValue | 4 | false |
+| DuplicatedCode | 3 | false |
+| JavadocDeclaration | 2 | false |
 | MismatchedCollectionQueryUpdate | 2 | false |
-| ConstantValue | 2 | false |
-| WhileCanBeForeach | 1 | false |
+| UnnecessaryToStringCall | 2 | true |
+| JavaReflectionInvocation | 1 | false |
+| ProtectedMemberInFinalClass | 1 | true |
 | StringBufferReplaceableByString | 1 | false |
-| AssignmentToForLoopParameter | 1 | false |
-| BoundedWildcard | 1 | false |
-| RedundantSuppression | 1 | false |
-| UnnecessaryBoxing | 1 | false |
-| Convert2Lambda | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
-| StringBufferReplaceableByStringBuilder | 1 | false |
-| IndexOfReplaceableByContains | 1 | false |
-| UseBulkOperation | 1 | false |
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
 Method invocation `javadoc` may produce `NullPointerException`
@@ -42,6 +28,30 @@ in `javadoc/src/main/java/org/apache/cxf/xjc/javadoc/PropertyJavadoc.java`
         JDocComment javadoc = getter.javadoc();
         if (javadoc.size() != 0) {
             documentation = "\n<p>\n" + documentation;
+```
+
+### DataFlowIssue
+Dereference of `files` may produce `NullPointerException`
+in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/AbstractXSDToJavaMojo.java`
+#### Snippet
+```java
+        if (f.isDirectory()) {
+            File[] files = f.listFiles();
+            for (File file : files) {
+                deleteDir(file);
+            }
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `dv/src/main/java/org/apache/cxf/xjc/dv/DefaultValuePlugin.java`
+#### Snippet
+```java
+                .arg(qn.getPrefix());
+        } else if ("javax.xml.datatype.Duration".equals(typeName)) {
+            dv = null;
+        } else if (type instanceof JDefinedClass) {
+            JDefinedClass cls = (JDefinedClass)type;
 ```
 
 ### DataFlowIssue
@@ -80,66 +90,250 @@ in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XSDToJavaRunner.jav
                             url = new URL(resolved);
 ```
 
-### DataFlowIssue
-Variable is already assigned to this value
-in `dv/src/main/java/org/apache/cxf/xjc/dv/DefaultValuePlugin.java`
+## RuleId[id=JavadocDeclaration]
+### JavadocDeclaration
+`@param classOutline` tag description is missing
+in `javadoc/src/main/java/org/apache/cxf/xjc/javadoc/MethodHelper.java`
 #### Snippet
 ```java
-                .arg(qn.getPrefix());
-        } else if ("javax.xml.datatype.Duration".equals(typeName)) {
-            dv = null;
-        } else if (type instanceof JDefinedClass) {
-            JDefinedClass cls = (JDefinedClass)type;
+     * Find method in given class with given method name
+     * 
+     * @param classOutline
+     * @param methodName
+     * @return method in given class with given method name
 ```
 
-### DataFlowIssue
-Dereference of `files` may produce `NullPointerException`
+### JavadocDeclaration
+`@param methodName` tag description is missing
+in `javadoc/src/main/java/org/apache/cxf/xjc/javadoc/MethodHelper.java`
+#### Snippet
+```java
+     * 
+     * @param classOutline
+     * @param methodName
+     * @return method in given class with given method name
+     */
+```
+
+## RuleId[id=FieldMayBeFinal]
+### FieldMayBeFinal
+Field `classOutline` may be 'final'
+in `javadoc/src/main/java/org/apache/cxf/xjc/javadoc/PropertyJavadoc.java`
+#### Snippet
+```java
+    private Options options;
+
+    private ClassOutline classOutline;
+
+    private FieldOutline fieldOutline;
+```
+
+### FieldMayBeFinal
+Field `codeModel` may be 'final'
+in `javadoc/src/main/java/org/apache/cxf/xjc/javadoc/PropertyJavadoc.java`
+#### Snippet
+```java
+public class PropertyJavadoc {
+
+    private JCodeModel codeModel;
+
+    private Options options;
+```
+
+### FieldMayBeFinal
+Field `fieldOutline` may be 'final'
+in `javadoc/src/main/java/org/apache/cxf/xjc/javadoc/PropertyJavadoc.java`
+#### Snippet
+```java
+    private ClassOutline classOutline;
+
+    private FieldOutline fieldOutline;
+
+    public PropertyJavadoc(JCodeModel codeModel, Options options, ClassOutline classOutline,
+```
+
+### FieldMayBeFinal
+Field `options` may be 'final'
+in `javadoc/src/main/java/org/apache/cxf/xjc/javadoc/PropertyJavadoc.java`
+#### Snippet
+```java
+    private JCodeModel codeModel;
+
+    private Options options;
+
+    private ClassOutline classOutline;
+```
+
+### FieldMayBeFinal
+Field `plugin` may be 'final'
+in `bug671/src/main/java/org/apache/cxf/xjc/bug671/Bug671Plugin.java`
+#### Snippet
+```java
+ */
+public class Bug671Plugin {
+    private Plugin plugin;
+
+    public Bug671Plugin(Plugin p) {
+```
+
+### FieldMayBeFinal
+Field `impl` may be 'final'
+in `javadoc/src/main/java/com/sun/tools/xjc/addon/dpytel/javadoc/JavadocPlugin.java`
+#### Snippet
+```java
+public class JavadocPlugin extends Plugin {
+
+    private org.apache.cxf.xjc.javadoc.JavadocPlugin impl = new org.apache.cxf.xjc.javadoc.JavadocPlugin();
+
+    /*
+```
+
+### FieldMayBeFinal
+Field `options` may be 'final'
+in `javadoc/src/main/java/org/apache/cxf/xjc/javadoc/JavadocInserter.java`
+#### Snippet
+```java
+
+    private Outline outline;
+    private Options options;
+
+    public JavadocInserter(Outline outline, Options opt, ErrorHandler errorHandler) {
+```
+
+### FieldMayBeFinal
+Field `outline` may be 'final'
+in `javadoc/src/main/java/org/apache/cxf/xjc/javadoc/JavadocInserter.java`
+#### Snippet
+```java
+public class JavadocInserter {
+
+    private Outline outline;
+    private Options options;
+
+```
+
+### FieldMayBeFinal
+Field `message` may be 'final'
 in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/AbstractXSDToJavaMojo.java`
 #### Snippet
 ```java
-        if (f.isDirectory()) {
-            File[] files = f.listFiles();
-            for (File file : files) {
-                deleteDir(file);
+            int linenum;
+            int column;
+            StringBuilder message = new StringBuilder();
+            
+            public void consumeLine(String line) {
+```
+
+### FieldMayBeFinal
+Field `buildContext` may be 'final'
+in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCErrorListener.java`
+#### Snippet
+```java
+
+public class XJCErrorListener extends ErrorReceiver {
+    private BuildContext buildContext;
+    private final List<File> errorfiles = new ArrayList<File>();
+    private Exception firstError;
+```
+
+## RuleId[id=MismatchedCollectionQueryUpdate]
+### MismatchedCollectionQueryUpdate
+Contents of collection `extensions` are queried, but never updated
+in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/AbstractXSDToJavaMojo.java`
+#### Snippet
+```java
+     */
+    @Parameter
+    private List<String> extensions;
+    
+       
+```
+
+### MismatchedCollectionQueryUpdate
+Contents of collection `pluginArtifacts` are queried, but never updated
+in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/AbstractXSDToJavaMojo.java`
+#### Snippet
+```java
+     */
+    @Parameter(property = "plugin.artifacts", readonly = true, required = true)
+    private List<Artifact> pluginArtifacts;    
+
+    abstract String getOutputDir();
+```
+
+## RuleId[id=JavaReflectionInvocation]
+### JavaReflectionInvocation
+Argument is not assignable to 'ErrorReceiver'
+in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XSDToJavaRunner.java`
+#### Snippet
+```java
+            return (Model)getModelLoaderClass()
+                .getMethod("load", Options.class, JCodeModel.class, ErrorReceiver.class)
+                .invoke(null, opt, new JCodeModel(), listener);
+        } catch (Exception e) {
+            listener.error("Failed to create model", e);
+```
+
+## RuleId[id=DuplicatedCode]
+### DuplicatedCode
+Duplicated code
+in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.java`
+#### Snippet
+```java
+        System.out.println("Line: " + line);
+        System.out.println("Col: " + column);
+        System.out.println(message);
+        if (cause != null) {
+            cause.printStackTrace(System.out);
+        }
+        System.out.println();
+        System.out.println("DONE");
+```
+
+### DuplicatedCode
+Duplicated code
+in `dv/src/main/java/org/apache/cxf/xjc/dv/DefaultValuePlugin.java`
+#### Snippet
+```java
+        if (LOG.isLoggable(Level.FINE)) {
+            LOG.fine("Updating getter: " + getterName);
+        }
+        // remove existing method and define new one
+
+        dc.methods().remove(method);
+
+        method = dc.method(mods, mtype, getterName);
+        method.javadoc().append(doc);
+
+        JFieldRef fr = JExpr.ref(fieldName);
+```
+
+### DuplicatedCode
+Duplicated code
+in `dv/src/main/java/org/apache/cxf/xjc/dv/DefaultValuePlugin.java`
+#### Snippet
+```java
+        String fieldName = fo.getPropertyInfo().getName(false);
+        JType type = fo.getRawType();
+        String typeName = type.fullName();
+
+        String getterName = ("java.lang.Boolean".equals(typeName) ? "is" : "get")
+                            + fo.getPropertyInfo().getName(true);
+
+        JMethod method = dc.getMethod(getterName, new JType[0]);
+```
+
+## RuleId[id=ProtectedMemberInFinalClass]
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XSDToJavaRunner.java`
+#### Snippet
+```java
             }
-```
-
-## RuleId[id=WhileCanBeForeach]
-### WhileCanBeForeach
-`while` loop can be replaced with enhanced 'for'
-in `boolean/src/main/java/org/apache/cxf/xjc/bgi/BooleanGetAndIsPlugin.java`
-#### Snippet
-```java
-        
-        Iterator<Entry<String, JType>> todo = methodsToAdd.entrySet().iterator();
-        while (todo.hasNext()) {
-            Entry<String, JType> entry = todo.next();
-            String newName = "get" + entry.getKey().substring(2);
-```
-
-## RuleId[id=AssignmentToStaticFieldFromInstanceMethod]
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `modelLoaderClass` from instance context
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XSDToJavaRunner.java`
-#### Snippet
-```java
-                    }
-                }
-                modelLoaderClass = cc.toClass();
-            } catch (Throwable t) {
-                try {
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `modelLoaderClass` from instance context
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XSDToJavaRunner.java`
-#### Snippet
-```java
-            } catch (Throwable t) {
-                try {
-                    modelLoaderClass = Class.forName("com.sun.tools.xjc.ModelLoader");
-                } catch (ClassNotFoundException e) {
-                    //ignore
+            
+            protected String findExternalResource(String nsURI, String localName, Attributes atts) {
+                if ("http://www.w3.org/2001/XMLSchema".equals(nsURI)
+                    && ("import".equals(localName) || "include".equals(localName))) {
 ```
 
 ## RuleId[id=DuplicateExpressions]
@@ -227,31 +421,6 @@ in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/AbstractXSDToJavaMo
                     message.append(line).append('\n');
 ```
 
-## RuleId[id=SizeReplaceableByIsEmpty]
-### SizeReplaceableByIsEmpty
-`javadoc.size() != 0` can be replaced with '!javadoc.isEmpty()'
-in `javadoc/src/main/java/org/apache/cxf/xjc/javadoc/PropertyJavadoc.java`
-#### Snippet
-```java
-        JMethod getter = MethodHelper.findMethod(classOutline, getterMethod);
-        JDocComment javadoc = getter.javadoc();
-        if (javadoc.size() != 0) {
-            documentation = "\n<p>\n" + documentation;
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`propertyInfo.javadoc.length() > 0` can be replaced with '!propertyInfo.javadoc.isEmpty()'
-in `javadoc/src/main/java/org/apache/cxf/xjc/javadoc/PropertyJavadoc.java`
-#### Snippet
-```java
-            return;
-        }
-        if (propertyInfo.javadoc.length() > 0) {
-            return; // JAXB binding customization overwrites xsd:documentation
-        }
-```
-
 ## RuleId[id=StringBufferReplaceableByString]
 ### StringBufferReplaceableByString
 `StringBuffer msg` can be replaced with 'String'
@@ -268,18 +437,6 @@ in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/AbstractXSDToJavaMo
 ## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XSDToJavaRunner.java`
-#### Snippet
-```java
-                            if (bangIdx > 0) {
-                                ref = lsi.substring(0, bangIdx + 1)
-                                        + new URI(lsi.substring(bangIdx + 1)).resolve(new URI(relativeRef)).toString();
-                            } else {
-                                ref = relativeRef;
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
 in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/AbstractXSDToJavaMojo.java`
 #### Snippet
 ```java
@@ -290,117 +447,186 @@ in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/AbstractXSDToJavaMo
             }
 ```
 
-## RuleId[id=AssignmentToForLoopParameter]
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `x`
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
 in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XSDToJavaRunner.java`
 #### Snippet
 ```java
-                    urls.add(file.getAbsoluteFile().toURI().toURL());
-                }
-                x++;
-            }
-        }
+                            if (bangIdx > 0) {
+                                ref = lsi.substring(0, bangIdx + 1)
+                                        + new URI(lsi.substring(bangIdx + 1)).resolve(new URI(relativeRef)).toString();
+                            } else {
+                                ref = relativeRef;
 ```
 
-## RuleId[id=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends JMethod`
-in `boolean/src/main/java/org/apache/cxf/xjc/bgi/BooleanGetAndIsPlugin.java`
-#### Snippet
-```java
-    }
-    
-    private boolean requiresGetter(Collection<JMethod> methods, JMethod method) {
-        String newName = "get" + method.name().substring(2);
-        // Check if already exists.
-```
-
-## RuleId[id=StringEqualsEmptyString]
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
+## RuleId[id=ConstantValue]
+### ConstantValue
+Value `schemaComponent` is always 'null'
 in `javadoc/src/main/java/org/apache/cxf/xjc/javadoc/PropertyJavadoc.java`
 #### Snippet
 ```java
-
-        String documentation = XSComponentHelper.getDocumentation(component);
-        if (documentation == null || "".equals(documentation.trim())) {
-            return;
-        }
+        if (schemaComponent instanceof XSParticle) {
+            return ((XSParticle)schemaComponent).getTerm();
+        } else if (schemaComponent instanceof XSAttributeUse) {
+            return ((XSAttributeUse)schemaComponent).getDecl();
+        } else {
 ```
 
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `javadoc/src/main/java/org/apache/cxf/xjc/javadoc/JavadocInserter.java`
+### ConstantValue
+Condition `target != null` is always `false`
+in `property-listener/src/main/java/org/apache/cxf/xjc/property_listener/PropertyListenerPlugin.java`
 #### Snippet
 ```java
-        XSComponent schemaComponent = enumOutline.target.getSchemaComponent();
-        String documentation = XSComponentHelper.getDocumentation(schemaComponent);
-        if (documentation == null || "".equals(documentation)) {
-            return;
-        }
-```
-
-## RuleId[id=PublicFieldAccessedInSynchronizedContext]
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `modelLoaderClass` accessed in synchronized context
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XSDToJavaRunner.java`
-#### Snippet
-```java
-
-    private synchronized Class<?> getModelLoaderClass() {
-        if (modelLoaderClass == null) {
-            try {
-                ClassPool pool = ClassPool.getDefault();
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `modelLoaderClass` accessed in synchronized context
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XSDToJavaRunner.java`
-#### Snippet
-```java
+                        }
                     }
-                }
-                modelLoaderClass = cc.toClass();
-            } catch (Throwable t) {
-                try {
+                    if (target != null) {
+                        try {
+                            String targetName = getName(target);
 ```
 
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `modelLoaderClass` accessed in synchronized context
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XSDToJavaRunner.java`
+### ConstantValue
+Condition `file != null` is always `true`
+in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCErrorListener.java`
 #### Snippet
 ```java
-            } catch (Throwable t) {
-                try {
-                    modelLoaderClass = Class.forName("com.sun.tools.xjc.ModelLoader");
-                } catch (ClassNotFoundException e) {
-                    //ignore
+    public void warning(SAXParseException exception) {
+        File file = mapFile(exception.getSystemId());
+        if (file != null && !errorfiles.contains(file)) {
+            buildContext.removeMessages(file);
+            errorfiles.add(file);
 ```
 
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `modelLoaderClass` accessed in synchronized context
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XSDToJavaRunner.java`
+### ConstantValue
+Condition `file != null` is always `true`
+in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCErrorListener.java`
 #### Snippet
 ```java
-            }
-        }
-        return modelLoaderClass;
-    }
-    
+        final String sysId = exception.getSystemId();
+        File file = mapFile(sysId);
+        if (file != null && !errorfiles.contains(file)) {
+            buildContext.removeMessages(file);
+            errorfiles.add(file);
 ```
 
-## RuleId[id=RedundantSuppression]
-### RedundantSuppression
-Redundant suppression
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.java`
+## RuleId[id=JavadocLinkAsPlainText]
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `bug671/src/main/java/org/apache/cxf/xjc/bug671/Bug671Plugin.java`
 #### Snippet
 ```java
-        return false;
-    }
-    public boolean hasDelta(@SuppressWarnings("rawtypes") List relpaths) {
-        return false;
-    }
+/**
+ * Modifies the JAXB code model to handle package naming that run into:
+ * https://jaxb.dev.java.net/issues/show_bug.cgi?id=671
+ */
+public class Bug671Plugin {
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `boolean/src/main/java/com/sun/tools/xjc/addon/apache_cxf/bgi/BooleanGetAndIsPlugin.java`
+#### Snippet
+```java
+/**
+ * Thin wrapper around the BooleanGetAndIsPlugin. This must be in the com.sun.tools.xjc.addon package for it to
+ * work with Java 6. See https://issues.apache.org/jira/browse/CXF-1880.
+ */
+public class BooleanGetAndIsPlugin extends Plugin {
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `boolean/src/main/java/com/sun/tools/xjc/addon/apache_cxf/bg/BooleanGetterPlugin.java`
+#### Snippet
+```java
+/**
+ * Thin wrapper around the BooleanGetterPlugin. This must be in the com.sun.tools.xjc.addon package for it to
+ * work with Java 6. See https://issues.apache.org/jira/browse/CXF-1880.
+ */
+public class BooleanGetterPlugin extends Plugin {
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `javadoc/src/main/java/com/sun/tools/xjc/addon/dpytel/javadoc/JavadocPlugin.java`
+#### Snippet
+```java
+/**
+ * Thin wrapper around the DefaultValuePlugin. This must be in the com.sun.tools.xjc.addon package for it to
+ * work with Java 6. See https://issues.apache.org/jira/browse/CXF-1880.
+ */
+public class JavadocPlugin extends Plugin {
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `bug671/src/main/java/com/sun/tools/xjc/addon/apache_cxf/bug671/Bug671Plugin.java`
+#### Snippet
+```java
+/**
+ * Thin wrapper around the Bug671Plugin. This must be in the com.sun.tools.xjc.addon package
+ * for it to work with Java 6. See https://issues.apache.org/jira/browse/CXF-1880.
+ */
+public class Bug671Plugin extends Plugin {
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `dv/src/main/java/com/sun/tools/xjc/addon/apache_cxf/dv/DefaultValuePlugin.java`
+#### Snippet
+```java
+/**
+ * Thin wrapper around the DefaultValuePlugin. This must be in the com.sun.tools.xjc.addon package
+ * for it to work with Java 6. See https://issues.apache.org/jira/browse/CXF-1880.
+ */
+public class DefaultValuePlugin extends Plugin {
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `bug986/src/main/java/com/sun/tools/xjc/addon/apache_cxf/bug986/Bug986Plugin.java`
+#### Snippet
+```java
+/**
+ * Thin wrapper around the Bug986Plugin. This must be in the com.sun.tools.xjc.addon package
+ * for it to work with Java 6. See https://issues.apache.org/jira/browse/CXF-1880.
+ */
+public class Bug986Plugin extends Plugin {
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `ts/src/main/java/com/sun/tools/xjc/addon/apache_cxf/ts/ToStringPlugin.java`
+#### Snippet
+```java
+/**
+ * Thin wrapper around the ToStringPlugin. This must be in the com.sun.tools.xjc.addon package
+ * for it to work with Java 6. See https://issues.apache.org/jira/browse/CXF-1880.
+ */
+public class ToStringPlugin extends Plugin {
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `property-listener/src/main/java/com/sun/tools/xjc/addon/apache_cxf/property_listener/PropertyListenerPlugin.java`
+#### Snippet
+```java
+/**
+ * Thin wrapper around the DefaultValuePlugin. This must be in the com.sun.tools.xjc.addon package
+ * for it to work with Java 6. See https://issues.apache.org/jira/browse/CXF-1880.
+ */
+public class PropertyListenerPlugin extends Plugin {
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `bug986/src/main/java/org/apache/cxf/xjc/bug986/Bug986Plugin.java`
+#### Snippet
+```java
+/**
+ * Modifies the JAXB code model to handle package naming that run into:
+ * https://jaxb.dev.java.net/issues/show_bug.cgi?id=671
+ */
+public class Bug986Plugin {
 ```
 
 ## RuleId[id=IgnoreResultOfCall]
@@ -462,955 +688,5 @@ in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/AbstractXSDToJavaMo
         file.delete();
         return 0;
     }
-```
-
-## RuleId[id=UnnecessaryBoxing]
-### UnnecessaryBoxing
-Redundant boxing, `Boolean.parseBoolean()` call can be used instead
-in `dv/src/main/java/org/apache/cxf/xjc/dv/DefaultValuePlugin.java`
-#### Snippet
-```java
-        
-        if ("java.lang.Boolean".equals(typeName) && isElement) {
-            dv = JExpr.direct(Boolean.valueOf(defaultValue) ? "Boolean.TRUE" : "Boolean.FALSE");
-        } else if ("java.lang.Byte".equals(typeName) && isElement) {
-            dv = JExpr._new(type)
-```
-
-## RuleId[id=SystemOutErr]
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.java`
-#### Snippet
-```java
-    }
-    public void addMessage(File file, int line, int column, String message, int severity, Throwable cause) {
-        System.out.println("MSG: " + file.getAbsolutePath());
-        System.out.println("Severity: " + severity);
-        System.out.println("Line: " + line);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.java`
-#### Snippet
-```java
-    public void addMessage(File file, int line, int column, String message, int severity, Throwable cause) {
-        System.out.println("MSG: " + file.getAbsolutePath());
-        System.out.println("Severity: " + severity);
-        System.out.println("Line: " + line);
-        System.out.println("Col: " + column);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.java`
-#### Snippet
-```java
-        System.out.println("MSG: " + file.getAbsolutePath());
-        System.out.println("Severity: " + severity);
-        System.out.println("Line: " + line);
-        System.out.println("Col: " + column);
-        System.out.println(message);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.java`
-#### Snippet
-```java
-        System.out.println("Severity: " + severity);
-        System.out.println("Line: " + line);
-        System.out.println("Col: " + column);
-        System.out.println(message);
-        if (cause != null) {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.java`
-#### Snippet
-```java
-        System.out.println("Line: " + line);
-        System.out.println("Col: " + column);
-        System.out.println(message);
-        if (cause != null) {
-            cause.printStackTrace(System.out);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.java`
-#### Snippet
-```java
-        System.out.println(message);
-        if (cause != null) {
-            cause.printStackTrace(System.out);
-        }
-        System.out.println();
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.java`
-#### Snippet
-```java
-            cause.printStackTrace(System.out);
-        }
-        System.out.println();
-        System.out.println("DONE");
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.java`
-#### Snippet
-```java
-        }
-        System.out.println();
-        System.out.println("DONE");
-    }
-    public void removeMessages(File file) {
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.java`
-#### Snippet
-```java
-    @Override
-    public void addError(File file, int line, int column, String message, Throwable cause) {
-        System.err.println("ERROR: " + file.getAbsolutePath());
-        System.err.println("Line: " + line);
-        System.err.println("Col: " + column);
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.java`
-#### Snippet
-```java
-    public void addError(File file, int line, int column, String message, Throwable cause) {
-        System.err.println("ERROR: " + file.getAbsolutePath());
-        System.err.println("Line: " + line);
-        System.err.println("Col: " + column);
-        System.err.println(message);
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.java`
-#### Snippet
-```java
-        System.err.println("ERROR: " + file.getAbsolutePath());
-        System.err.println("Line: " + line);
-        System.err.println("Col: " + column);
-        System.err.println(message);
-        if (cause != null) {
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.java`
-#### Snippet
-```java
-        System.err.println("Line: " + line);
-        System.err.println("Col: " + column);
-        System.err.println(message);
-        if (cause != null) {
-            cause.printStackTrace(System.err);
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.java`
-#### Snippet
-```java
-        System.err.println(message);
-        if (cause != null) {
-            cause.printStackTrace(System.err);
-        }
-        System.err.println();
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.java`
-#### Snippet
-```java
-            cause.printStackTrace(System.err);
-        }
-        System.err.println();
-        System.err.println("DONE");
-    }
-```
-
-### SystemOutErr
-Uses of `System.err` should probably be replaced with more robust logging
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.java`
-#### Snippet
-```java
-        }
-        System.err.println();
-        System.err.println("DONE");
-    }
-    public void addMessage(File file, int line, int column, String message, int severity, Throwable cause) {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.java`
-#### Snippet
-```java
-    }
-    public void addWarning(File file, int line, int column, String message, Throwable cause) {
-        System.out.println("WARNING: " + file.getAbsolutePath());
-        System.out.println("Line: " + line);
-        System.out.println("Col: " + column);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.java`
-#### Snippet
-```java
-    public void addWarning(File file, int line, int column, String message, Throwable cause) {
-        System.out.println("WARNING: " + file.getAbsolutePath());
-        System.out.println("Line: " + line);
-        System.out.println("Col: " + column);
-        System.out.println(message);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.java`
-#### Snippet
-```java
-        System.out.println("WARNING: " + file.getAbsolutePath());
-        System.out.println("Line: " + line);
-        System.out.println("Col: " + column);
-        System.out.println(message);
-        if (cause != null) {
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.java`
-#### Snippet
-```java
-        System.out.println("Line: " + line);
-        System.out.println("Col: " + column);
-        System.out.println(message);
-        if (cause != null) {
-            cause.printStackTrace(System.out);
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.java`
-#### Snippet
-```java
-        System.out.println(message);
-        if (cause != null) {
-            cause.printStackTrace(System.out);
-        }
-        System.out.println();
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.java`
-#### Snippet
-```java
-            cause.printStackTrace(System.out);
-        }
-        System.out.println();
-        System.out.println("DONE");
-    }
-```
-
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.java`
-#### Snippet
-```java
-        }
-        System.out.println();
-        System.out.println("DONE");
-    }
-
-```
-
-## RuleId[id=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `com.sun.tools.xjc` is unnecessary, and can be replaced with an import
-in `ts/src/main/java/org/apache/cxf/xjc/ts/ToStringPlugin.java`
-#### Snippet
-```java
-    }
-
-    public int parseArgument(Options opt, String[] args, int index, com.sun.tools.xjc.Plugin plugin) 
-        throws BadCommandLineException, IOException {
-        int ret = 0;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.sun.tools.xjc` is unnecessary, and can be replaced with an import
-in `dv/src/main/java/org/apache/cxf/xjc/dv/DefaultValuePlugin.java`
-#### Snippet
-```java
-    }
-
-    public int parseArgument(Options opt, String[] args, int index, com.sun.tools.xjc.Plugin plugin) 
-        throws BadCommandLineException, IOException {
-        int ret = 0;
-```
-
-## RuleId[id=ThrowablePrintStackTrace]
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `bug986/src/main/java/org/apache/cxf/xjc/bug986/Bug986Plugin.java`
-#### Snippet
-```java
-        } catch (Throwable t) {
-            //ignore for now
-            t.printStackTrace();
-        }
-        return Collections.emptyList();
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `bug986/src/main/java/org/apache/cxf/xjc/bug986/Bug986Plugin.java`
-#### Snippet
-```java
-        } catch (Throwable t) {
-            //ignore for now
-            t.printStackTrace();
-        }
-        return null;
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `bug986/src/main/java/org/apache/cxf/xjc/bug986/Bug986Plugin.java`
-#### Snippet
-```java
-        } catch (Throwable t) {
-            //ignore for now
-            t.printStackTrace();
-        }
-        return null;
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `property-listener/src/main/java/org/apache/cxf/xjc/property_listener/PropertyListenerPlugin.java`
-#### Snippet
-```java
-                        } catch (Throwable t) {
-                            //ignore
-                            t.printStackTrace();
-                        }
-                    }
-```
-
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XSDToJavaRunner.java`
-#### Snippet
-```java
-            listener.error("Failed to create model", e);
-        } catch (Throwable e) {
-            e.printStackTrace();
-        }
-        return null;
-```
-
-## RuleId[id=MismatchedCollectionQueryUpdate]
-### MismatchedCollectionQueryUpdate
-Contents of collection `extensions` are queried, but never updated
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/AbstractXSDToJavaMojo.java`
-#### Snippet
-```java
-     */
-    @Parameter
-    private List<String> extensions;
-    
-       
-```
-
-### MismatchedCollectionQueryUpdate
-Contents of collection `pluginArtifacts` are queried, but never updated
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/AbstractXSDToJavaMojo.java`
-#### Snippet
-```java
-     */
-    @Parameter(property = "plugin.artifacts", readonly = true, required = true)
-    private List<Artifact> pluginArtifacts;    
-
-    abstract String getOutputDir();
-```
-
-## RuleId[id=Convert2Lambda]
-### Convert2Lambda
-Anonymous new FilenameFilter() can be replaced with lambda
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/AbstractXSDToJavaMojo.java`
-#### Snippet
-```java
-                throw new MojoExecutionException("Error, xsdDir \"" + xsdDir + "\" does not exist.");
-            }  
-            String[] fileList = dir.list(new FilenameFilter() {
-                @Override
-                public boolean accept(File dir, String name) {
-```
-
-## RuleId[id=AssignmentToMethodParameter]
-### AssignmentToMethodParameter
-Assignment to method parameter `object`
-in `runtime/src/main/java/org/apache/cxf/xjc/runtime/JAXBToStringBuilder.java`
-#### Snippet
-```java
-        }
-        if (object instanceof Collection) {
-            object = ((Collection<?>) object).toArray();
-        }
-        return ToStringBuilder.reflectionToString(object, style);        
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `documentation`
-in `javadoc/src/main/java/org/apache/cxf/xjc/javadoc/PropertyJavadoc.java`
-#### Snippet
-```java
-        JDocComment javadoc = getter.javadoc();
-        if (javadoc.size() != 0) {
-            documentation = "\n<p>\n" + documentation;
-        }
-        javadoc.add(javadoc.size(), documentation); // add comment as last
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `s`
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCErrorListener.java`
-#### Snippet
-```java
-        if (s != null && s.startsWith("file:")) {
-            if (s.contains("#")) {
-                s = s.substring(0, s.indexOf('#'));
-            }
-            try {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `xsType`
-in `dv/src/main/java/org/apache/cxf/xjc/dv/DefaultValuePlugin.java`
-#### Snippet
-```java
-        } else if ("byte[]".equals(type.fullName()) && xsType.isSimpleType() && isElement) {
-            while (!"anySimpleType".equals(xsType.getBaseType().getName())) {
-                xsType = xsType.getBaseType();
-            }
-            if ("base64Binary".equals(xsType.getName())) {
-```
-
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-24-23-16-49.292.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
-```
-
-## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
-in `javadoc/src/main/java/org/apache/cxf/xjc/javadoc/XSComponentHelper.java`
-#### Snippet
-```java
-    public static String getDocumentation(XSComponent schemaComponent) {
-        if (schemaComponent == null) {
-            return null;
-        }
-        XSAnnotation xsAnnotation = schemaComponent.getAnnotation();
-```
-
-### ReturnNull
-Return of `null`
-in `javadoc/src/main/java/org/apache/cxf/xjc/javadoc/XSComponentHelper.java`
-#### Snippet
-```java
-        XSAnnotation xsAnnotation = schemaComponent.getAnnotation();
-        if (xsAnnotation == null) {
-            return null;
-        }
-        BindInfo annotation = (BindInfo)xsAnnotation.getAnnotation();
-```
-
-### ReturnNull
-Return of `null`
-in `javadoc/src/main/java/org/apache/cxf/xjc/javadoc/XSComponentHelper.java`
-#### Snippet
-```java
-        BindInfo annotation = (BindInfo)xsAnnotation.getAnnotation();
-        if (annotation == null) {
-            return null;
-        }
-        return annotation.getDocumentation();
-```
-
-### ReturnNull
-Return of `null`
-in `runtime/src/main/java/org/apache/cxf/xjc/runtime/DataTypeAdapter.java`
-#### Snippet
-```java
-    public static String printDate(Date dt) {
-        if (dt == null) {
-            return null;
-        }
-        Calendar c = Calendar.getInstance();
-```
-
-### ReturnNull
-Return of `null`
-in `runtime/src/main/java/org/apache/cxf/xjc/runtime/DataTypeAdapter.java`
-#### Snippet
-```java
-    public static String printTime(Date dt) {
-        if (dt == null) {
-            return null;
-        }
-        Calendar c = Calendar.getInstance();
-```
-
-### ReturnNull
-Return of `null`
-in `runtime/src/main/java/org/apache/cxf/xjc/runtime/DataTypeAdapter.java`
-#### Snippet
-```java
-    public static Date parseDate(String s) {
-        if (s == null) {
-            return null;
-        }
-        return DatatypeConverter.parseDate(s).getTime();
-```
-
-### ReturnNull
-Return of `null`
-in `runtime/src/main/java/org/apache/cxf/xjc/runtime/DataTypeAdapter.java`
-#### Snippet
-```java
-    public static Date parseTime(String s) {
-        if (s == null) {
-            return null;
-        }
-        return DatatypeConverter.parseTime(s).getTime();
-```
-
-### ReturnNull
-Return of `null`
-in `runtime/src/main/java/org/apache/cxf/xjc/runtime/DataTypeAdapter.java`
-#### Snippet
-```java
-    public static String printDateTime(Date dt) {
-        if (dt == null) {
-            return null;
-        }
-        Calendar c = Calendar.getInstance();
-```
-
-### ReturnNull
-Return of `null`
-in `runtime/src/main/java/org/apache/cxf/xjc/runtime/DataTypeAdapter.java`
-#### Snippet
-```java
-    public static Date parseDateTime(String s) {
-        if (s == null) {
-            return null;
-        }
-        return DatatypeConverter.parseDateTime(s).getTime();
-```
-
-### ReturnNull
-Return of `null`
-in `javadoc/src/main/java/org/apache/cxf/xjc/javadoc/PropertyJavadoc.java`
-#### Snippet
-```java
-            return ((XSAttributeUse)schemaComponent).getDecl();
-        } else {
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `bug986/src/main/java/org/apache/cxf/xjc/bug986/Bug986Plugin.java`
-#### Snippet
-```java
-            Map<String, JAnnotationValue> memberValues = (Map<String, JAnnotationValue>)f.get(ju);
-            if (memberValues == null) {
-                return null;
-            }
-            return memberValues.get(name);
-```
-
-### ReturnNull
-Return of `null`
-in `bug986/src/main/java/org/apache/cxf/xjc/bug986/Bug986Plugin.java`
-#### Snippet
-```java
-            t.printStackTrace();
-        }
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `bug986/src/main/java/org/apache/cxf/xjc/bug986/Bug986Plugin.java`
-#### Snippet
-```java
-            t.printStackTrace();
-        }
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.java`
-#### Snippet
-```java
-    }
-    public Scanner newScanner(File basedir) {
-        return null;
-    }
-    public Scanner newDeleteScanner(File basedir) {
-```
-
-### ReturnNull
-Return of `null`
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.java`
-#### Snippet
-```java
-    }
-    public Object getValue(String key) {
-        return null;
-    }
-    public void addWarning(File file, int line, int column, String message, Throwable cause) {
-```
-
-### ReturnNull
-Return of `null`
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.java`
-#### Snippet
-```java
-
-    public OutputStream newFileOutputStream(File file) throws IOException {
-        return null;
-    }
-    public Scanner newScanner(File basedir) {
-```
-
-### ReturnNull
-Return of `null`
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.java`
-#### Snippet
-```java
-    }
-    public Scanner newDeleteScanner(File basedir) {
-        return null;
-    }
-    public Scanner newScanner(File basedir, boolean ignoreDelta) {
-```
-
-### ReturnNull
-Return of `null`
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCBuildContext.java`
-#### Snippet
-```java
-    }
-    public Scanner newScanner(File basedir, boolean ignoreDelta) {
-        return null;
-    }
-    public boolean isIncremental() {
-```
-
-### ReturnNull
-Return of `null`
-in `property-listener/src/main/java/org/apache/cxf/xjc/property_listener/PropertyListenerPlugin.java`
-#### Snippet
-```java
-            //ignore
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XsdOption.java`
-#### Snippet
-```java
-            return bindingFiles.get(0);
-        }
-        return null;
-    }
-    public void setBindingFile(String bf) {
-```
-
-### ReturnNull
-Return of `null`
-in `javadoc/src/main/java/org/apache/cxf/xjc/javadoc/MethodHelper.java`
-#### Snippet
-```java
-            }
-        }
-        return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XSDToJavaRunner.java`
-#### Snippet
-```java
-                    final String resolved = getResolvedEntity(publicId, systemId);
-                    if (resolved == null) {
-                        return null;
-                    }
-                    InputSource iSource = new InputSource((systemId != null) ? systemId : resolved);
-```
-
-### ReturnNull
-Return of `null`
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XSDToJavaRunner.java`
-#### Snippet
-```java
-                    } catch (Exception e) {
-                        listener.warning(xsdFile, e);
-                        return null;
-                    }
-                }
-```
-
-### ReturnNull
-Return of `null`
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XSDToJavaRunner.java`
-#### Snippet
-```java
-                l.debug("Could not find a file for " + s);
-            }
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XSDToJavaRunner.java`
-#### Snippet
-```java
-                    return atts.getValue("schemaLocation");
-                }
-                return null;
-            }
-        }
-```
-
-### ReturnNull
-Return of `null`
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XSDToJavaRunner.java`
-#### Snippet
-```java
-            e.printStackTrace();
-        }
-        return null;
-    }
-    
-```
-
-### ReturnNull
-Return of `null`
-in `dv/src/main/java/org/apache/cxf/xjc/dv/DefaultValuePlugin.java`
-#### Snippet
-```java
-        String defaultValue = xmlDefaultValue == null ? null : xmlDefaultValue.value;
-        if (defaultValue == null) {
-            return null;
-        }
-
-```
-
-## RuleId[id=StringBufferReplaceableByStringBuilder]
-### StringBufferReplaceableByStringBuilder
-`StringBuffer msg` may be declared as 'StringBuilder'
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/AbstractXSDToJavaMojo.java`
-#### Snippet
-```java
-
-        if (exitCode != 0) {
-            StringBuffer msg = new StringBuffer("\nExit code: ");
-            msg.append(exitCode);
-            msg.append('\n');
-```
-
-## RuleId[id=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XSDToJavaRunner.java`
-#### Snippet
-```java
-        }
-
-        try (URLClassLoader loader = new URLClassLoader(urls.toArray(new URL[0]),
-                                                      this.getClass().getClassLoader())) {
-            final CatalogManager cm = new CatalogManager();
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `dv/src/main/java/org/apache/cxf/xjc/dv/DefaultValuePlugin.java`
-#### Snippet
-```java
-                            + fo.getPropertyInfo().getName(true);
-
-        JMethod method = dc.getMethod(getterName, new JType[0]);
-        JDocComment doc = method.javadoc();
-        int mods = method.mods().getValue();
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `dv/src/main/java/org/apache/cxf/xjc/dv/DefaultValuePlugin.java`
-#### Snippet
-```java
-        String getterName = "get" + fo.getPropertyInfo().getName(true);
-
-        JMethod method = dc.getMethod(getterName, new JType[0]);
-        JDocComment doc = method.javadoc();
-        int mods = method.mods().getValue();
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `dv/src/main/java/org/apache/cxf/xjc/dv/DefaultValuePlugin.java`
-#### Snippet
-```java
-        String getterName = ("java.lang.Boolean".equals(typeName) ? "is" : "get")
-                            + fo.getPropertyInfo().getName(true);
-        JMethod method = dc.getMethod(getterName, new JType[0]);
-        JType mtype = method.type();
-        String setterName = "set" + fo.getPropertyInfo().getName(true);
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `dv/src/main/java/org/apache/cxf/xjc/dv/DefaultValuePlugin.java`
-#### Snippet
-```java
-        method.body().assign(fr, var);
-        
-        JMethod oldMethod = dc.getMethod("unset" + fo.getPropertyInfo().getName(true), new JType[0]);
-        if (oldMethod != null) {
-            dc.methods().remove(oldMethod);
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `dv/src/main/java/org/apache/cxf/xjc/dv/DefaultValuePlugin.java`
-#### Snippet
-```java
-        method.body().assign(fr, JExpr._null());
-        
-        method = dc.getMethod("isSet" + fo.getPropertyInfo().getName(true), new JType[0]);
-        if (method != null) {
-            //move to end
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/AbstractXSDToJavaMojo.java`
-#### Snippet
-```java
-        if (!newCp.isEmpty()) {
-            Thread.currentThread()
-                .setContextClassLoader(new URLClassLoader(newCp.toArray(new URL[0]),
-                                                          Thread.currentThread().getContextClassLoader()));
-        }
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/AbstractXSDToJavaMojo.java`
-#### Snippet
-```java
-        }
-
-        return list.toArray(new String[0]);
-        
-    }
-```
-
-## RuleId[id=IndexOfReplaceableByContains]
-### IndexOfReplaceableByContains
-`args[index].indexOf(":optional") != -1` can be replaced with 'args\[index\].contains(":optional")'
-in `dv/src/main/java/org/apache/cxf/xjc/dv/DefaultValuePlugin.java`
-#### Snippet
-```java
-        if (args[index].startsWith("-Xdv")) {
-            ret = 1;                    
-            if (args[index].indexOf(":optional") != -1) {
-                complexTypes = true;
-            }
-```
-
-## RuleId[id=UseBulkOperation]
-### UseBulkOperation
-Iteration can be replaced with bulk 'Collection.addAll()' call
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XSDToJavaRunner.java`
-#### Snippet
-```java
-
-            for (URL url : urls) {
-                opt.classpaths.add(url);
-            }
-            if (checkXmlElementRef()) {
-```
-
-## RuleId[id=ConstantValue]
-### ConstantValue
-Condition `file != null` is always `true`
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCErrorListener.java`
-#### Snippet
-```java
-    public void warning(SAXParseException exception) {
-        File file = mapFile(exception.getSystemId());
-        if (file != null && !errorfiles.contains(file)) {
-            buildContext.removeMessages(file);
-            errorfiles.add(file);
-```
-
-### ConstantValue
-Condition `file != null` is always `true`
-in `cxf-xjc-plugin/src/main/java/org/apache/cxf/maven_plugin/XJCErrorListener.java`
-#### Snippet
-```java
-        final String sysId = exception.getSystemId();
-        File file = mapFile(sysId);
-        if (file != null && !errorfiles.contains(file)) {
-            buildContext.removeMessages(file);
-            errorfiles.add(file);
 ```
 
