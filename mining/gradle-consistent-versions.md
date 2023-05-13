@@ -372,18 +372,6 @@ in `src/main/java/com/palantir/gradle/versions/internal/MyModuleVersionIdentifie
 ```
 
 ### NullableProblems
-Not annotated method overrides method annotated with @NonNullApi
-in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
-#### Snippet
-```java
-        /** Must match the enum name exactly, so you can pass this into {@link #valueOf(String)}. */
-        @Override
-        public String getName() {
-            return this.name();
-        }
-```
-
-### NullableProblems
 Not annotated parameter overrides @NonNullApi parameter
 in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
 #### Snippet
@@ -393,6 +381,18 @@ in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
     public final void apply(Project project) {
         checkPreconditions(project);
         project.getPluginManager().apply(LifecycleBasePlugin.class);
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NonNullApi
+in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
+#### Snippet
+```java
+        /** Must match the enum name exactly, so you can pass this into {@link #valueOf(String)}. */
+        @Override
+        public String getName() {
+            return this.name();
+        }
 ```
 
 ### NullableProblems
@@ -460,26 +460,14 @@ in `src/main/java/com/palantir/gradle/versions/TaskNameMatcher.java`
 
 ### UnstableApiUsage
 'isConfigureOnDemand()' is marked unstable with @Incubating
-in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
+in `src/main/java/com/palantir/gradle/versions/VersionsPropsPlugin.java`
 #### Snippet
 ```java
-    private static Map<Project, LockedConfigurations> wireUpLockedConfigurationsByProject(Project rootProject) {
-        return rootProject.getAllprojects().stream().collect(Collectors.toMap(Functions.identity(), subproject -> {
-            if (rootProject.getGradle().getStartParameter().isConfigureOnDemand()
-                    && !subproject.getState().getExecuted()) {
-                return ImmutableLockedConfigurations.builder().build();
-```
-
-### UnstableApiUsage
-'isConfigureOnDemand()' is marked unstable with @Incubating
-in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
-#### Snippet
-```java
-                        unifiedClasspath.getIncoming().getResolutionResult();
-                // Throw if there are dependencies that are not present in the lock state.
-                if (startParameter.isConfigureOnDemand()
-                        && project.getAllprojects().stream()
-                                .anyMatch(subproject -> !subproject.getState().getExecuted())) {
+            TaskProvider<CheckUnusedConstraintsTask> checkNoUnusedConstraints = project.getTasks()
+                    .register("checkUnusedConstraints", CheckUnusedConstraintsTask.class, task -> {
+                        if (project.getGradle().getStartParameter().isConfigureOnDemand()
+                                && project.getAllprojects().stream()
+                                        .anyMatch(p -> !p.getState().getExecuted())) {
 ```
 
 ### UnstableApiUsage
@@ -532,13 +520,25 @@ in `src/main/java/com/palantir/gradle/versions/lockstate/LockStates.java`
 
 ### UnstableApiUsage
 'isConfigureOnDemand()' is marked unstable with @Incubating
-in `src/main/java/com/palantir/gradle/versions/VersionsPropsPlugin.java`
+in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
 #### Snippet
 ```java
-            TaskProvider<CheckUnusedConstraintsTask> checkNoUnusedConstraints = project.getTasks()
-                    .register("checkUnusedConstraints", CheckUnusedConstraintsTask.class, task -> {
-                        if (project.getGradle().getStartParameter().isConfigureOnDemand()
-                                && project.getAllprojects().stream()
-                                        .anyMatch(p -> !p.getState().getExecuted())) {
+    private static Map<Project, LockedConfigurations> wireUpLockedConfigurationsByProject(Project rootProject) {
+        return rootProject.getAllprojects().stream().collect(Collectors.toMap(Functions.identity(), subproject -> {
+            if (rootProject.getGradle().getStartParameter().isConfigureOnDemand()
+                    && !subproject.getState().getExecuted()) {
+                return ImmutableLockedConfigurations.builder().build();
+```
+
+### UnstableApiUsage
+'isConfigureOnDemand()' is marked unstable with @Incubating
+in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
+#### Snippet
+```java
+                        unifiedClasspath.getIncoming().getResolutionResult();
+                // Throw if there are dependencies that are not present in the lock state.
+                if (startParameter.isConfigureOnDemand()
+                        && project.getAllprojects().stream()
+                                .anyMatch(subproject -> !subproject.getState().getExecuted())) {
 ```
 
