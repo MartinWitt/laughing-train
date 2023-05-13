@@ -1,7 +1,7 @@
 # atlasdb 
  
 # Bad smells
-I found 2728 bad smells with 48 repairable:
+I found 2729 bad smells with 48 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | NullableProblems | 426 | false |
@@ -26,7 +26,7 @@ I found 2728 bad smells with 48 repairable:
 | UNCHECKED_WARNING | 17 | false |
 | CStyleArrayDeclaration | 15 | false |
 | UnnecessaryLocalVariable | 15 | true |
-| JavadocLinkAsPlainText | 13 | false |
+| JavadocLinkAsPlainText | 14 | false |
 | UnnecessaryToStringCall | 13 | true |
 | IgnoreResultOfCall | 11 | false |
 | RedundantMethodOverride | 10 | false |
@@ -313,7 +313,7 @@ in `commons-db/src/main/java/com/palantir/nexus/db/sql/BasicSQLUtils.java`
 #### Snippet
 ```java
     @SuppressWarnings("StringSplitter") // Legacy code, uncertainty of full implications of change
-    public static String generateUpdateString(String fieldList) {
+    public static String qualifyFields(String fieldList, String tableName) {
         String fields[] = fieldList.split("\\s*,\\s*"); // $NON-NLS-1$
         StringBuilder out = new StringBuilder();
         for (int i = 0; i < fields.length; i++) {
@@ -325,7 +325,7 @@ in `commons-db/src/main/java/com/palantir/nexus/db/sql/BasicSQLUtils.java`
 #### Snippet
 ```java
     @SuppressWarnings("StringSplitter") // Legacy code, uncertainty of full implications of change
-    public static String qualifyFields(String fieldList, String tableName) {
+    public static String generateUpdateString(String fieldList) {
         String fields[] = fieldList.split("\\s*,\\s*"); // $NON-NLS-1$
         StringBuilder out = new StringBuilder();
         for (int i = 0; i < fields.length; i++) {
@@ -337,9 +337,21 @@ in `commons-db/src/main/java/com/palantir/nexus/db/sql/BasicSQL.java`
 #### Snippet
 ```java
 
-    @SuppressWarnings("BadAssert") // performance sensitive asserts
-    public boolean insertMany(final Connection c, final FinalSQLString sql, final Object vs[][])
+    PreparedStatement updateInternal(
+            final Connection c, final FinalSQLString sql, final Object vs[], final AutoClose autoClose)
             throws PalantirSqlException {
+        if (SqlLoggers.LOGGER.isTraceEnabled()) {
+```
+
+### CStyleArrayDeclaration
+C-style array declaration of parameter `vs`
+in `commons-db/src/main/java/com/palantir/nexus/db/sql/BasicSQL.java`
+#### Snippet
+```java
+
+    protected AgnosticLightResultSet selectLightResultSetSpecifyingDBType(
+            final Connection c, final FinalSQLString sql, Object vs[], final DBType dbType, @Nullable Integer fetchSize)
+            throws PalantirSqlException, PalantirInterruptedException {
         if (SqlLoggers.LOGGER.isTraceEnabled()) {
 ```
 
@@ -361,8 +373,8 @@ in `commons-db/src/main/java/com/palantir/nexus/db/sql/BasicSQL.java`
 #### Snippet
 ```java
 
-    PreparedStatement updateInternal(
-            final Connection c, final FinalSQLString sql, final Object vs[], final AutoClose autoClose)
+    @SuppressWarnings("BadAssert") // performance sensitive asserts
+    public boolean insertMany(final Connection c, final FinalSQLString sql, final Object vs[][])
             throws PalantirSqlException {
         if (SqlLoggers.LOGGER.isTraceEnabled()) {
 ```
@@ -392,15 +404,15 @@ in `commons-db/src/main/java/com/palantir/nexus/db/sql/BasicSQL.java`
 ```
 
 ### CStyleArrayDeclaration
-C-style array declaration of parameter `vs`
-in `commons-db/src/main/java/com/palantir/nexus/db/sql/BasicSQL.java`
+C-style array declaration of parameter `b`
+in `atlasdb-commons/src/main/java/com/palantir/util/ByteArrayIOStream.java`
 #### Snippet
 ```java
 
-    protected AgnosticLightResultSet selectLightResultSetSpecifyingDBType(
-            final Connection c, final FinalSQLString sql, Object vs[], final DBType dbType, @Nullable Integer fetchSize)
-            throws PalantirSqlException, PalantirInterruptedException {
-        if (SqlLoggers.LOGGER.isTraceEnabled()) {
+    @Override
+    public void write(byte b[], int off, int len) throws IOException {
+        if (b == null) {
+            throw new NullPointerException();
 ```
 
 ### CStyleArrayDeclaration
@@ -417,18 +429,6 @@ in `atlasdb-commons/src/main/java/com/palantir/util/ByteArrayIOStream.java`
 
 ### CStyleArrayDeclaration
 C-style array declaration of parameter `b`
-in `atlasdb-commons/src/main/java/com/palantir/util/ByteArrayIOStream.java`
-#### Snippet
-```java
-
-    @Override
-    public void write(byte b[], int off, int len) throws IOException {
-        if (b == null) {
-            throw new NullPointerException();
-```
-
-### CStyleArrayDeclaration
-C-style array declaration of parameter `b`
 in `atlasdb-commons/src/main/java/com/palantir/common/io/ConcatenatedInputStream.java`
 #### Snippet
 ```java
@@ -437,18 +437,6 @@ in `atlasdb-commons/src/main/java/com/palantir/common/io/ConcatenatedInputStream
     public int read(byte b[], int off, int len) throws IOException {
         if (b == null) {
             throw new NullPointerException();
-```
-
-### CStyleArrayDeclaration
-C-style array declaration of parameter `elements`
-in `atlasdb-commons/src/main/java/com/palantir/common/base/Throwables.java`
-#### Snippet
-```java
-    }
-
-    private static void printStackTrace(PrintWriter printwriter, StackTraceElement elements[]) {
-        synchronized (printwriter) {
-            for (int i = 0; i < elements.length; i++) {
 ```
 
 ### CStyleArrayDeclaration
@@ -464,15 +452,15 @@ in `atlasdb-commons/src/main/java/com/palantir/common/base/Throwables.java`
 ```
 
 ### CStyleArrayDeclaration
-C-style array declaration of parameter `b`
-in `atlasdb-commons/src/main/java/com/palantir/common/compression/LZ4CompressingInputStream.java`
+C-style array declaration of parameter `elements`
+in `atlasdb-commons/src/main/java/com/palantir/common/base/Throwables.java`
 #### Snippet
 ```java
+    }
 
-        @Override
-        public void write(byte b[], int off, int len) throws IOException {
-            LZ4CompressingInputStream.this.write(b, off, len);
-        }
+    private static void printStackTrace(PrintWriter printwriter, StackTraceElement elements[]) {
+        synchronized (printwriter) {
+            for (int i = 0; i < elements.length; i++) {
 ```
 
 ### CStyleArrayDeclaration
@@ -485,6 +473,18 @@ in `atlasdb-commons/src/main/java/com/palantir/common/compression/LZ4Compressing
     private void write(byte b[], int off, int len) throws IOException {
         Preconditions.checkNotNull(b, "Provided byte array b cannot be null.");
         if ((off < 0) || (len < 0) || (off + len > b.length)) {
+```
+
+### CStyleArrayDeclaration
+C-style array declaration of parameter `b`
+in `atlasdb-commons/src/main/java/com/palantir/common/compression/LZ4CompressingInputStream.java`
+#### Snippet
+```java
+
+        @Override
+        public void write(byte b[], int off, int len) throws IOException {
+            LZ4CompressingInputStream.this.write(b, off, len);
+        }
 ```
 
 ## RuleId[id=AssertWithSideEffects]
@@ -551,18 +551,6 @@ in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/Cass
 
 ### RegExpRedundantEscape
 Redundant character escape `\\}` in RegExp
-in `atlasdb-container-test-utils/src/main/java/com/palantir/atlasdb/containers/Cassandra3XVersion.java`
-#### Snippet
-```java
-
-public class Cassandra3XVersion implements CassandraVersion {
-    private static final Pattern REPLICATION_REGEX = Pattern.compile("^.*'replication_factor': '(\\d+)'\\}$");
-    private static final String ALL_KEYSPACES_CQL = "SELECT * FROM system_schema.keyspaces;";
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\}` in RegExp
 in `atlasdb-container-test-utils/src/main/java/com/palantir/atlasdb/containers/Cassandra22XVersion.java`
 #### Snippet
 ```java
@@ -570,6 +558,18 @@ in `atlasdb-container-test-utils/src/main/java/com/palantir/atlasdb/containers/C
 public class Cassandra22XVersion implements CassandraVersion {
     private static final Pattern REPLICATION_REGEX = Pattern.compile("^.*\"replication_factor\":\"(\\d+)\"\\}$");
     private static final String ALL_KEYSPACES_CQL = "SELECT * FROM system.schema_keyspaces;";
+
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\}` in RegExp
+in `atlasdb-container-test-utils/src/main/java/com/palantir/atlasdb/containers/Cassandra3XVersion.java`
+#### Snippet
+```java
+
+public class Cassandra3XVersion implements CassandraVersion {
+    private static final Pattern REPLICATION_REGEX = Pattern.compile("^.*'replication_factor': '(\\d+)'\\}$");
+    private static final String ALL_KEYSPACES_CQL = "SELECT * FROM system_schema.keyspaces;";
 
 ```
 
@@ -603,9 +603,9 @@ Redundant array creation for calling varargs method
 in `commons-proxy/src/main/java/com/palantir/proxy/util/ProxyUtils.java`
 #### Snippet
 ```java
-    public static boolean isToString(Method method) throws ProxyException {
+    public static boolean isHashCode(Method method) throws ProxyException {
         try {
-            return method.equals(Object.class.getMethod("toString", new Class[] {}));
+            return method.equals(Object.class.getMethod("hashCode", new Class[] {}));
         } catch (NoSuchMethodException nsme) {
             throw new ProxyException(nsme);
 ```
@@ -615,9 +615,9 @@ Redundant array creation for calling varargs method
 in `commons-proxy/src/main/java/com/palantir/proxy/util/ProxyUtils.java`
 #### Snippet
 ```java
-    public static boolean isHashCode(Method method) throws ProxyException {
+    public static boolean isToString(Method method) throws ProxyException {
         try {
-            return method.equals(Object.class.getMethod("hashCode", new Class[] {}));
+            return method.equals(Object.class.getMethod("toString", new Class[] {}));
         } catch (NoSuchMethodException nsme) {
             throw new ProxyException(nsme);
 ```
@@ -796,18 +796,6 @@ in `lock-api/src/main/java/com/palantir/lock/client/LockRefreshingLockService.ja
 ```
 
 ### Deprecation
-'getMinLockedInVersionId()' is deprecated
-in `lock-impl/src/main/java/com/palantir/lock/impl/ThreadPooledLockService.java`
-#### Snippet
-```java
-    @Override
-    public Long getMinLockedInVersionId() {
-        return delegate.getMinLockedInVersionId();
-    }
-
-```
-
-### Deprecation
 'unlock(com.palantir.lock.HeldLocksToken)' is deprecated
 in `lock-impl/src/main/java/com/palantir/lock/impl/ThreadPooledLockService.java`
 #### Snippet
@@ -827,6 +815,18 @@ in `lock-impl/src/main/java/com/palantir/lock/impl/ThreadPooledLockService.java`
     @Override
     public Set<HeldLocksToken> refreshTokens(Iterable<HeldLocksToken> tokens) {
         return delegate.refreshTokens(tokens);
+    }
+
+```
+
+### Deprecation
+'getMinLockedInVersionId()' is deprecated
+in `lock-impl/src/main/java/com/palantir/lock/impl/ThreadPooledLockService.java`
+#### Snippet
+```java
+    @Override
+    public Long getMinLockedInVersionId() {
+        return delegate.getMinLockedInVersionId();
     }
 
 ```
@@ -853,54 +853,6 @@ in `commons-db/src/main/java/com/palantir/nexus/db/ThreadConfinedProxy.java`
             throw Throwables.propagate(e);
         }
     }
-```
-
-### Deprecation
-'oracle.sql.BLOB' is deprecated
-in `commons-db/src/main/java/com/palantir/db/oracle/NativeOracleJdbcHandler.java`
-#### Snippet
-```java
-    public BlobHandler createBlob(Connection connection) throws SQLException {
-        OracleConnection oracleConnection = getOracleConnection(connection);
-        BLOB blob = BLOB.createTemporary(oracleConnection, false, BLOB.DURATION_SESSION);
-
-        return new BlobHandler() {
-```
-
-### Deprecation
-'oracle.sql.BLOB' is deprecated
-in `commons-db/src/main/java/com/palantir/db/oracle/NativeOracleJdbcHandler.java`
-#### Snippet
-```java
-    public BlobHandler createBlob(Connection connection) throws SQLException {
-        OracleConnection oracleConnection = getOracleConnection(connection);
-        BLOB blob = BLOB.createTemporary(oracleConnection, false, BLOB.DURATION_SESSION);
-
-        return new BlobHandler() {
-```
-
-### Deprecation
-'oracle.sql.BLOB' is deprecated
-in `commons-db/src/main/java/com/palantir/db/oracle/NativeOracleJdbcHandler.java`
-#### Snippet
-```java
-    public BlobHandler createBlob(Connection connection) throws SQLException {
-        OracleConnection oracleConnection = getOracleConnection(connection);
-        BLOB blob = BLOB.createTemporary(oracleConnection, false, BLOB.DURATION_SESSION);
-
-        return new BlobHandler() {
-```
-
-### Deprecation
-'oracle.sql.ARRAY' is deprecated
-in `commons-db/src/main/java/com/palantir/db/oracle/NativeOracleJdbcHandler.java`
-#### Snippet
-```java
-    public ArrayHandler createStructArray(String structType, String arrayType, List<Object[]> elements) {
-        return new ArrayHandler() {
-            private ARRAY array = null;
-
-            @Override
 ```
 
 ### Deprecation
@@ -1024,6 +976,54 @@ in `commons-db/src/main/java/com/palantir/db/oracle/NativeOracleJdbcHandler.java
 ```
 
 ### Deprecation
+'oracle.sql.BLOB' is deprecated
+in `commons-db/src/main/java/com/palantir/db/oracle/NativeOracleJdbcHandler.java`
+#### Snippet
+```java
+    public BlobHandler createBlob(Connection connection) throws SQLException {
+        OracleConnection oracleConnection = getOracleConnection(connection);
+        BLOB blob = BLOB.createTemporary(oracleConnection, false, BLOB.DURATION_SESSION);
+
+        return new BlobHandler() {
+```
+
+### Deprecation
+'oracle.sql.BLOB' is deprecated
+in `commons-db/src/main/java/com/palantir/db/oracle/NativeOracleJdbcHandler.java`
+#### Snippet
+```java
+    public BlobHandler createBlob(Connection connection) throws SQLException {
+        OracleConnection oracleConnection = getOracleConnection(connection);
+        BLOB blob = BLOB.createTemporary(oracleConnection, false, BLOB.DURATION_SESSION);
+
+        return new BlobHandler() {
+```
+
+### Deprecation
+'oracle.sql.BLOB' is deprecated
+in `commons-db/src/main/java/com/palantir/db/oracle/NativeOracleJdbcHandler.java`
+#### Snippet
+```java
+    public BlobHandler createBlob(Connection connection) throws SQLException {
+        OracleConnection oracleConnection = getOracleConnection(connection);
+        BLOB blob = BLOB.createTemporary(oracleConnection, false, BLOB.DURATION_SESSION);
+
+        return new BlobHandler() {
+```
+
+### Deprecation
+'oracle.sql.ARRAY' is deprecated
+in `commons-db/src/main/java/com/palantir/db/oracle/NativeOracleJdbcHandler.java`
+#### Snippet
+```java
+    public ArrayHandler createStructArray(String structType, String arrayType, List<Object[]> elements) {
+        return new ArrayHandler() {
+            private ARRAY array = null;
+
+            @Override
+```
+
+### Deprecation
 Overrides deprecated method in 'com.palantir.nexus.db.sql.AbstractAgnosticResultRow'
 in `commons-db/src/main/java/com/palantir/nexus/db/sql/AgnosticLightResultRowImpl.java`
 #### Snippet
@@ -1100,11 +1100,11 @@ public abstract class CellReference {
 in `atlasdb-cli/src/main/java/com/palantir/atlasdb/cli/command/timestamp/AbstractTimestampCommand.java`
 #### Snippet
 ```java
-        } catch (IOException e) {
-            printer.error("IOException thrown writing timestamp to file: {}", SafeArg.of("file path", file.getPath()));
-            Throwables.propagate(e);
+            printer.error(
+                    "IOException thrown reading timestamp from file: {}", SafeArg.of("file path", file.getPath()));
+            throw Throwables.propagate(e);
         }
-    }
+        return Long.parseLong(timestampString);
 ```
 
 ### Deprecation
@@ -1112,11 +1112,11 @@ in `atlasdb-cli/src/main/java/com/palantir/atlasdb/cli/command/timestamp/Abstrac
 in `atlasdb-cli/src/main/java/com/palantir/atlasdb/cli/command/timestamp/AbstractTimestampCommand.java`
 #### Snippet
 ```java
-            printer.error(
-                    "IOException thrown reading timestamp from file: {}", SafeArg.of("file path", file.getPath()));
-            throw Throwables.propagate(e);
+        } catch (IOException e) {
+            printer.error("IOException thrown writing timestamp to file: {}", SafeArg.of("file path", file.getPath()));
+            Throwables.propagate(e);
         }
-        return Long.parseLong(timestampString);
+    }
 ```
 
 ### Deprecation
@@ -1232,18 +1232,6 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/Timesta
 in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/TimestampsByCellResultWithToken.java`
 #### Snippet
 ```java
-
-    private boolean finishedSkipping(Token oldToken, AgnosticLightResultRow next) {
-        return !Arrays.equals(next.getBytes(DbKvs.ROW), oldToken.row()) || compareColumns(oldToken, next) > 0;
-    }
-
-```
-
-### Deprecation
-'getBytes(java.lang.String)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/TimestampsByCellResultWithToken.java`
-#### Snippet
-```java
     private boolean currentCellHasEntriesLeft() {
         return iterator.hasNext()
                 && Arrays.equals(iterator.peek().getBytes(DbKvs.ROW), currentRow)
@@ -1300,49 +1288,13 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/Timesta
 ```
 
 ### Deprecation
-'FullQuery(java.lang.String)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/AbstractDbQueryFactory.java`
+'getBytes(java.lang.String)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/TimestampsByCellResultWithToken.java`
 #### Snippet
 ```java
-                .append(" ORDER BY row_name ASC, col_name ASC")
-                .toString();
-        return new FullQuery(query).withArgs(args);
-    }
 
-```
-
-### Deprecation
-'withArgs(java.lang.Iterable)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/AbstractDbQueryFactory.java`
-#### Snippet
-```java
-                .append(" ORDER BY row_name ASC, col_name ASC")
-                .toString();
-        return new FullQuery(query).withArgs(args);
-    }
-
-```
-
-### Deprecation
-'FullQuery(java.lang.String)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/AbstractDbQueryFactory.java`
-#### Snippet
-```java
-                .append(" ORDER BY row_name ASC, col_name ASC")
-                .toString();
-        return new FullQuery(query).withArgs(args);
-    }
-
-```
-
-### Deprecation
-'withArgs(java.lang.Iterable)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/AbstractDbQueryFactory.java`
-#### Snippet
-```java
-                .append(" ORDER BY row_name ASC, col_name ASC")
-                .toString();
-        return new FullQuery(query).withArgs(args);
+    private boolean finishedSkipping(Token oldToken, AgnosticLightResultRow next) {
+        return !Arrays.equals(next.getBytes(DbKvs.ROW), oldToken.row()) || compareColumns(oldToken, next) > 0;
     }
 
 ```
@@ -1360,15 +1312,51 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/TableVa
 ```
 
 ### Deprecation
-'propagate(java.lang.Throwable)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/OraclePrefixedTableNames.java`
+'FullQuery(java.lang.String)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/AbstractDbQueryFactory.java`
 #### Snippet
 ```java
-            return oracleTableNameGetter.getInternalShortTableName(connectionSupplier, tableRef);
-        } catch (TableMappingNotFoundException e) {
-            throw Throwables.propagate(e);
-        }
+                .append(" ORDER BY row_name ASC, col_name ASC")
+                .toString();
+        return new FullQuery(query).withArgs(args);
     }
+
+```
+
+### Deprecation
+'withArgs(java.lang.Iterable)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/AbstractDbQueryFactory.java`
+#### Snippet
+```java
+                .append(" ORDER BY row_name ASC, col_name ASC")
+                .toString();
+        return new FullQuery(query).withArgs(args);
+    }
+
+```
+
+### Deprecation
+'FullQuery(java.lang.String)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/AbstractDbQueryFactory.java`
+#### Snippet
+```java
+                .append(" ORDER BY row_name ASC, col_name ASC")
+                .toString();
+        return new FullQuery(query).withArgs(args);
+    }
+
+```
+
+### Deprecation
+'withArgs(java.lang.Iterable)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/AbstractDbQueryFactory.java`
+#### Snippet
+```java
+                .append(" ORDER BY row_name ASC, col_name ASC")
+                .toString();
+        return new FullQuery(query).withArgs(args);
+    }
+
 ```
 
 ### Deprecation
@@ -1381,6 +1369,18 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/UpdateE
             results.forEach(row -> actualValues.add(row.getBytes(DbKvs.VAL)));
             return actualValues;
         }
+```
+
+### Deprecation
+'propagate(java.lang.Throwable)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/OraclePrefixedTableNames.java`
+#### Snippet
+```java
+            return oracleTableNameGetter.getInternalShortTableName(connectionSupplier, tableRef);
+        } catch (TableMappingNotFoundException e) {
+            throw Throwables.propagate(e);
+        }
+    }
 ```
 
 ### Deprecation
@@ -1432,6 +1432,54 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/DbReadT
 ```
 
 ### Deprecation
+'FullQuery(java.lang.String)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleOverflowValueLoader.java`
+#### Snippet
+```java
+                + "   TABLE(CAST(? AS " + structArrayPrefix() + "CELL_TS_TABLE)) t "
+                + " WHERE t.max_ts = o.id ";
+        return new FullQuery(query).withArg(arg);
+    }
+
+```
+
+### Deprecation
+'withArg(java.lang.Object)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleOverflowValueLoader.java`
+#### Snippet
+```java
+                + "   TABLE(CAST(? AS " + structArrayPrefix() + "CELL_TS_TABLE)) t "
+                + " WHERE t.max_ts = o.id ";
+        return new FullQuery(query).withArg(arg);
+    }
+
+```
+
+### Deprecation
+'FullQuery(java.lang.String)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleOverflowValueLoader.java`
+#### Snippet
+```java
+                + "   TABLE(CAST(? AS " + structArrayPrefix() + "CELL_TS_TABLE)) t "
+                + " WHERE t.max_ts = o.id ";
+        return new FullQuery(query).withArg(arg);
+    }
+
+```
+
+### Deprecation
+'withArg(java.lang.Object)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleOverflowValueLoader.java`
+#### Snippet
+```java
+                + "   TABLE(CAST(? AS " + structArrayPrefix() + "CELL_TS_TABLE)) t "
+                + " WHERE t.max_ts = o.id ";
+        return new FullQuery(query).withArg(arg);
+    }
+
+```
+
+### Deprecation
 'getBytes(java.lang.String)' is deprecated
 in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleOverflowValueLoader.java`
 #### Snippet
@@ -1441,54 +1489,6 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/
                         byte[] val = row.getBytes("val");
                         long id = row.getLong("id");
                         ret.put(id, val);
-```
-
-### Deprecation
-'FullQuery(java.lang.String)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleOverflowValueLoader.java`
-#### Snippet
-```java
-                + "   TABLE(CAST(? AS " + structArrayPrefix() + "CELL_TS_TABLE)) t "
-                + " WHERE t.max_ts = o.id ";
-        return new FullQuery(query).withArg(arg);
-    }
-
-```
-
-### Deprecation
-'withArg(java.lang.Object)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleOverflowValueLoader.java`
-#### Snippet
-```java
-                + "   TABLE(CAST(? AS " + structArrayPrefix() + "CELL_TS_TABLE)) t "
-                + " WHERE t.max_ts = o.id ";
-        return new FullQuery(query).withArg(arg);
-    }
-
-```
-
-### Deprecation
-'FullQuery(java.lang.String)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleOverflowValueLoader.java`
-#### Snippet
-```java
-                + "   TABLE(CAST(? AS " + structArrayPrefix() + "CELL_TS_TABLE)) t "
-                + " WHERE t.max_ts = o.id ";
-        return new FullQuery(query).withArg(arg);
-    }
-
-```
-
-### Deprecation
-'withArg(java.lang.Object)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleOverflowValueLoader.java`
-#### Snippet
-```java
-                + "   TABLE(CAST(? AS " + structArrayPrefix() + "CELL_TS_TABLE)) t "
-                + " WHERE t.max_ts = o.id ";
-        return new FullQuery(query).withArg(arg);
-    }
-
 ```
 
 ### Deprecation
@@ -1544,7 +1544,7 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/
 in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleOverflowWriteTable.java`
 #### Snippet
 ```java
-            return oracleTableNameGetter.getInternalShortTableName(conns, tableRef);
+            return oracleTableNameGetter.getInternalShortOverflowTableName(conns, tableRef);
         } catch (TableMappingNotFoundException e) {
             throw Throwables.propagate(e);
         }
@@ -1556,7 +1556,7 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/
 in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleOverflowWriteTable.java`
 #### Snippet
 ```java
-            return oracleTableNameGetter.getInternalShortOverflowTableName(conns, tableRef);
+            return oracleTableNameGetter.getInternalShortTableName(conns, tableRef);
         } catch (TableMappingNotFoundException e) {
             throw Throwables.propagate(e);
         }
@@ -1592,6 +1592,30 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgre
 in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
 #### Snippet
 ```java
+                + "   AND m.col_name = ? "
+                + "   AND m.ts < ? ";
+        return new FullQuery(query).withArgs(cell.getRowName(), cell.getColumnName(), ts);
+    }
+
+```
+
+### Deprecation
+'withArgs(java.lang.Object, java.lang.Object, java.lang.Object)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
+#### Snippet
+```java
+                + "   AND m.col_name = ? "
+                + "   AND m.ts < ? ";
+        return new FullQuery(query).withArgs(cell.getRowName(), cell.getColumnName(), ts);
+    }
+
+```
+
+### Deprecation
+'FullQuery(java.lang.String)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
+#### Snippet
+```java
                 + "   AND m.col_name = t.col_name "
                 + "   AND m.ts < ? ";
         return new FullQuery(query).withArgs(cellsToOracleArray(cells), ts);
@@ -1616,23 +1640,47 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/
 in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
 #### Snippet
 ```java
-                                + " FROM TABLE(CAST(? AS " + structArrayPrefix() + "CELL_TS_TABLE))"
-                                + " WHERE row_name = m.col_name) ");
-        FullQuery fullQuery = new FullQuery(query).withArgs(rowsToOracleArray(rows), ts);
-        return columns.allColumnsSelected()
-                ? fullQuery
+                    + " FROM " + tableName + " m "
+                    + (bounds.isEmpty() ? "" : " WHERE  " + Joiner.on(" AND ").join(bounds));
+            return new FullQuery(query).withArgs(args);
+        }
+
 ```
 
 ### Deprecation
-'withArgs(java.lang.Object, java.lang.Object)' is deprecated
+'withArgs(java.lang.Iterable)' is deprecated
 in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
 #### Snippet
 ```java
-                                + " FROM TABLE(CAST(? AS " + structArrayPrefix() + "CELL_TS_TABLE))"
-                                + " WHERE row_name = m.col_name) ");
-        FullQuery fullQuery = new FullQuery(query).withArgs(rowsToOracleArray(rows), ts);
-        return columns.allColumnsSelected()
-                ? fullQuery
+                    + " FROM " + tableName + " m "
+                    + (bounds.isEmpty() ? "" : " WHERE  " + Joiner.on(" AND ").join(bounds));
+            return new FullQuery(query).withArgs(args);
+        }
+
+```
+
+### Deprecation
+'FullQuery(java.lang.String)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
+#### Snippet
+```java
+                + "     ORDER BY m.row_name " + (range.isReverse() ? "DESC" : "ASC")
+                + "   ) inner WHERE rownum <= ?";
+        return new FullQuery(query).withArgs(args).withArg(maxRows);
+    }
+
+```
+
+### Deprecation
+'withArgs(java.lang.Iterable)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
+#### Snippet
+```java
+                + "     ORDER BY m.row_name " + (range.isReverse() ? "DESC" : "ASC")
+                + "   ) inner WHERE rownum <= ?";
+        return new FullQuery(query).withArgs(args).withArg(maxRows);
+    }
+
 ```
 
 ### Deprecation
@@ -1640,9 +1688,9 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/
 in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
 #### Snippet
 ```java
-        return columns.allColumnsSelected()
-                ? fullQuery
-                : fullQuery.withArg(rowsToOracleArray(columns.getSelectedColumns()));
+                + "     ORDER BY m.row_name " + (range.isReverse() ? "DESC" : "ASC")
+                + "   ) inner WHERE rownum <= ?";
+        return new FullQuery(query).withArgs(args).withArg(maxRows);
     }
 
 ```
@@ -1652,11 +1700,11 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/
 in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
 #### Snippet
 ```java
-                + (columnRangeSelection.getEndCol().length > 0 ? " AND m.col_name < ?" : "")
-                + " GROUP BY m.row_name";
-        FullQuery fullQuery = new FullQuery(query).withArgs(rowsToOracleArray(rows), ts);
+                + " ORDER BY m.row_name ASC, m.col_name ASC )";
+        String wrappedQuery = wrapQueryWithIncludeValue("GET_ROWS_COLUMN_RANGE_FULLY_LOADED_ROWS", query, true);
+        FullQuery fullQuery = new FullQuery(wrappedQuery).withArgs(rowsToOracleArray(rows), ts);
         if (columnRangeSelection.getStartCol().length > 0) {
-            fullQuery.withArg(columnRangeSelection.getStartCol());
+            fullQuery = fullQuery.withArg(columnRangeSelection.getStartCol());
 ```
 
 ### Deprecation
@@ -1664,11 +1712,11 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/
 in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
 #### Snippet
 ```java
-                + (columnRangeSelection.getEndCol().length > 0 ? " AND m.col_name < ?" : "")
-                + " GROUP BY m.row_name";
-        FullQuery fullQuery = new FullQuery(query).withArgs(rowsToOracleArray(rows), ts);
+                + " ORDER BY m.row_name ASC, m.col_name ASC )";
+        String wrappedQuery = wrapQueryWithIncludeValue("GET_ROWS_COLUMN_RANGE_FULLY_LOADED_ROWS", query, true);
+        FullQuery fullQuery = new FullQuery(wrappedQuery).withArgs(rowsToOracleArray(rows), ts);
         if (columnRangeSelection.getStartCol().length > 0) {
-            fullQuery.withArg(columnRangeSelection.getStartCol());
+            fullQuery = fullQuery.withArg(columnRangeSelection.getStartCol());
 ```
 
 ### Deprecation
@@ -1676,9 +1724,9 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/
 in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
 #### Snippet
 ```java
-        FullQuery fullQuery = new FullQuery(query).withArgs(rowsToOracleArray(rows), ts);
+        FullQuery fullQuery = new FullQuery(wrappedQuery).withArgs(rowsToOracleArray(rows), ts);
         if (columnRangeSelection.getStartCol().length > 0) {
-            fullQuery.withArg(columnRangeSelection.getStartCol());
+            fullQuery = fullQuery.withArg(columnRangeSelection.getStartCol());
         }
         if (columnRangeSelection.getEndCol().length > 0) {
 ```
@@ -1690,321 +1738,9 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/
 ```java
         }
         if (columnRangeSelection.getEndCol().length > 0) {
-            fullQuery.withArg(columnRangeSelection.getEndCol());
+            fullQuery = fullQuery.withArg(columnRangeSelection.getEndCol());
         }
         return fullQuery;
-```
-
-### Deprecation
-'FullQuery(java.lang.String)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
-#### Snippet
-```java
-                + "   AND m.col_name = ? "
-                + "   AND m.ts < ? ";
-        return new FullQuery(query).withArgs(cell.getRowName(), cell.getColumnName(), ts);
-    }
-
-```
-
-### Deprecation
-'withArgs(java.lang.Object, java.lang.Object, java.lang.Object)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
-#### Snippet
-```java
-                + "   AND m.col_name = ? "
-                + "   AND m.ts < ? ";
-        return new FullQuery(query).withArgs(cell.getRowName(), cell.getColumnName(), ts);
-    }
-
-```
-
-### Deprecation
-'FullQuery(java.lang.String)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
-#### Snippet
-```java
-                                + " FROM TABLE(CAST(? AS " + structArrayPrefix() + "CELL_TS_TABLE))"
-                                + " WHERE row_name = m.col_name) ");
-        FullQuery fullQuery = new FullQuery(query).withArgs(row, ts);
-        return columns.allColumnsSelected()
-                ? fullQuery
-```
-
-### Deprecation
-'withArgs(java.lang.Object, java.lang.Object)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
-#### Snippet
-```java
-                                + " FROM TABLE(CAST(? AS " + structArrayPrefix() + "CELL_TS_TABLE))"
-                                + " WHERE row_name = m.col_name) ");
-        FullQuery fullQuery = new FullQuery(query).withArgs(row, ts);
-        return columns.allColumnsSelected()
-                ? fullQuery
-```
-
-### Deprecation
-'withArg(java.lang.Object)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
-#### Snippet
-```java
-        return columns.allColumnsSelected()
-                ? fullQuery
-                : fullQuery.withArg(rowsToOracleArray(columns.getSelectedColumns()));
-    }
-
-```
-
-### Deprecation
-'FullQuery(java.lang.String)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
-#### Snippet
-```java
-                + "   AND m.col_name = t.col_name "
-                + "   AND m.ts < t.max_ts ";
-        return new FullQuery(query).withArg(cellsAndTimestampsToOracleArray(cells));
-    }
-
-```
-
-### Deprecation
-'withArg(java.lang.Object)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
-#### Snippet
-```java
-                + "   AND m.col_name = t.col_name "
-                + "   AND m.ts < t.max_ts ";
-        return new FullQuery(query).withArg(cellsAndTimestampsToOracleArray(cells));
-    }
-
-```
-
-### Deprecation
-'FullQuery(java.lang.String)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
-#### Snippet
-```java
-                + " GROUP BY m.row_name, m.col_name";
-        query = wrapQueryWithIncludeValue("GET_LATEST_ROWS_SINGLE_BOUND", query, includeValue);
-        FullQuery fullQuery = new FullQuery(query).withArgs(rowsToOracleArray(rows), ts);
-        return columns.allColumnsSelected()
-                ? fullQuery
-```
-
-### Deprecation
-'withArgs(java.lang.Object, java.lang.Object)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
-#### Snippet
-```java
-                + " GROUP BY m.row_name, m.col_name";
-        query = wrapQueryWithIncludeValue("GET_LATEST_ROWS_SINGLE_BOUND", query, includeValue);
-        FullQuery fullQuery = new FullQuery(query).withArgs(rowsToOracleArray(rows), ts);
-        return columns.allColumnsSelected()
-                ? fullQuery
-```
-
-### Deprecation
-'withArg(java.lang.Object)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
-#### Snippet
-```java
-        return columns.allColumnsSelected()
-                ? fullQuery
-                : fullQuery.withArg(rowsToOracleArray(columns.getSelectedColumns()));
-    }
-
-```
-
-### Deprecation
-'FullQuery(java.lang.String)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
-#### Snippet
-```java
-                    + " FROM " + tableName + " m "
-                    + (bounds.isEmpty() ? "" : " WHERE  " + Joiner.on(" AND ").join(bounds));
-            return new FullQuery(query).withArgs(args);
-        }
-
-```
-
-### Deprecation
-'withArgs(java.lang.Iterable)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
-#### Snippet
-```java
-                    + " FROM " + tableName + " m "
-                    + (bounds.isEmpty() ? "" : " WHERE  " + Joiner.on(" AND ").join(bounds));
-            return new FullQuery(query).withArgs(args);
-        }
-
-```
-
-### Deprecation
-'FullQuery(java.lang.String)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
-#### Snippet
-```java
-                + "     ORDER BY m.row_name " + (range.isReverse() ? "DESC" : "ASC")
-                + "   ) inner WHERE rownum <= ?";
-        return new FullQuery(query).withArgs(args).withArg(maxRows);
-    }
-
-```
-
-### Deprecation
-'withArgs(java.lang.Iterable)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
-#### Snippet
-```java
-                + "     ORDER BY m.row_name " + (range.isReverse() ? "DESC" : "ASC")
-                + "   ) inner WHERE rownum <= ?";
-        return new FullQuery(query).withArgs(args).withArg(maxRows);
-    }
-
-```
-
-### Deprecation
-'withArg(java.lang.Object)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
-#### Snippet
-```java
-                + "     ORDER BY m.row_name " + (range.isReverse() ? "DESC" : "ASC")
-                + "   ) inner WHERE rownum <= ?";
-        return new FullQuery(query).withArgs(args).withArg(maxRows);
-    }
-
-```
-
-### Deprecation
-'FullQuery(java.lang.String)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
-#### Snippet
-```java
-                + " GROUP BY m.row_name, m.col_name";
-        query = wrapQueryWithIncludeValue("GET_LATEST_ONE_CELL", query, includeValue);
-        return new FullQuery(query).withArgs(cell.getRowName(), cell.getColumnName(), ts);
-    }
-
-```
-
-### Deprecation
-'withArgs(java.lang.Object, java.lang.Object, java.lang.Object)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
-#### Snippet
-```java
-                + " GROUP BY m.row_name, m.col_name";
-        query = wrapQueryWithIncludeValue("GET_LATEST_ONE_CELL", query, includeValue);
-        return new FullQuery(query).withArgs(cell.getRowName(), cell.getColumnName(), ts);
-    }
-
-```
-
-### Deprecation
-'FullQuery(java.lang.String)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
-#### Snippet
-```java
-                + " GROUP BY m.row_name, m.col_name";
-        query = wrapQueryWithIncludeValue("GET_LATEST_ROWS_MANY_BOUNDS", query, includeValue);
-        FullQuery fullQuery = new FullQuery(query).withArg(rowsAndTimestampsToOracleArray(rows));
-        return columns.allColumnsSelected()
-                ? fullQuery
-```
-
-### Deprecation
-'withArg(java.lang.Object)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
-#### Snippet
-```java
-                + " GROUP BY m.row_name, m.col_name";
-        query = wrapQueryWithIncludeValue("GET_LATEST_ROWS_MANY_BOUNDS", query, includeValue);
-        FullQuery fullQuery = new FullQuery(query).withArg(rowsAndTimestampsToOracleArray(rows));
-        return columns.allColumnsSelected()
-                ? fullQuery
-```
-
-### Deprecation
-'withArg(java.lang.Object)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
-#### Snippet
-```java
-        return columns.allColumnsSelected()
-                ? fullQuery
-                : fullQuery.withArg(rowsToOracleArray(columns.getSelectedColumns()));
-    }
-
-```
-
-### Deprecation
-'FullQuery(java.lang.String)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
-#### Snippet
-```java
-                                + " FROM TABLE(CAST(? AS " + structArrayPrefix() + "CELL_TS_TABLE))"
-                                + " WHERE row_name = m.col_name) ");
-        FullQuery fullQuery = new FullQuery(query).withArg(rowsAndTimestampsToOracleArray(rows));
-        return columns.allColumnsSelected()
-                ? fullQuery
-```
-
-### Deprecation
-'withArg(java.lang.Object)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
-#### Snippet
-```java
-                                + " FROM TABLE(CAST(? AS " + structArrayPrefix() + "CELL_TS_TABLE))"
-                                + " WHERE row_name = m.col_name) ");
-        FullQuery fullQuery = new FullQuery(query).withArg(rowsAndTimestampsToOracleArray(rows));
-        return columns.allColumnsSelected()
-                ? fullQuery
-```
-
-### Deprecation
-'withArg(java.lang.Object)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
-#### Snippet
-```java
-        return columns.allColumnsSelected()
-                ? fullQuery
-                : fullQuery.withArg(rowsToOracleArray(columns.getSelectedColumns()));
-    }
-
-```
-
-### Deprecation
-'FullQuery(java.lang.String)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
-#### Snippet
-```java
-                + " GROUP BY m.row_name, m.col_name";
-        query = wrapQueryWithIncludeValue("GET_LATEST_ONE_ROW", query, includeValue);
-        FullQuery fullQuery = new FullQuery(query).withArgs(row, ts);
-        return columns.allColumnsSelected()
-                ? fullQuery
-```
-
-### Deprecation
-'withArgs(java.lang.Object, java.lang.Object)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
-#### Snippet
-```java
-                + " GROUP BY m.row_name, m.col_name";
-        query = wrapQueryWithIncludeValue("GET_LATEST_ONE_ROW", query, includeValue);
-        FullQuery fullQuery = new FullQuery(query).withArgs(row, ts);
-        return columns.allColumnsSelected()
-                ? fullQuery
-```
-
-### Deprecation
-'withArg(java.lang.Object)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
-#### Snippet
-```java
-        return columns.allColumnsSelected()
-                ? fullQuery
-                : fullQuery.withArg(rowsToOracleArray(columns.getSelectedColumns()));
-    }
-
 ```
 
 ### Deprecation
@@ -2084,11 +1820,11 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/
 in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
 #### Snippet
 ```java
-                + " ORDER BY m.row_name ASC, m.col_name ASC )";
-        String wrappedQuery = wrapQueryWithIncludeValue("GET_ROWS_COLUMN_RANGE_FULLY_LOADED_ROWS", query, true);
-        FullQuery fullQuery = new FullQuery(wrappedQuery).withArgs(rowsToOracleArray(rows), ts);
-        if (columnRangeSelection.getStartCol().length > 0) {
-            fullQuery = fullQuery.withArg(columnRangeSelection.getStartCol());
+                + " GROUP BY m.row_name, m.col_name";
+        query = wrapQueryWithIncludeValue("GET_LATEST_ONE_ROW", query, includeValue);
+        FullQuery fullQuery = new FullQuery(query).withArgs(row, ts);
+        return columns.allColumnsSelected()
+                ? fullQuery
 ```
 
 ### Deprecation
@@ -2096,11 +1832,11 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/
 in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
 #### Snippet
 ```java
-                + " ORDER BY m.row_name ASC, m.col_name ASC )";
-        String wrappedQuery = wrapQueryWithIncludeValue("GET_ROWS_COLUMN_RANGE_FULLY_LOADED_ROWS", query, true);
-        FullQuery fullQuery = new FullQuery(wrappedQuery).withArgs(rowsToOracleArray(rows), ts);
-        if (columnRangeSelection.getStartCol().length > 0) {
-            fullQuery = fullQuery.withArg(columnRangeSelection.getStartCol());
+                + " GROUP BY m.row_name, m.col_name";
+        query = wrapQueryWithIncludeValue("GET_LATEST_ONE_ROW", query, includeValue);
+        FullQuery fullQuery = new FullQuery(query).withArgs(row, ts);
+        return columns.allColumnsSelected()
+                ? fullQuery
 ```
 
 ### Deprecation
@@ -2108,9 +1844,201 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/
 in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
 #### Snippet
 ```java
-        FullQuery fullQuery = new FullQuery(wrappedQuery).withArgs(rowsToOracleArray(rows), ts);
+        return columns.allColumnsSelected()
+                ? fullQuery
+                : fullQuery.withArg(rowsToOracleArray(columns.getSelectedColumns()));
+    }
+
+```
+
+### Deprecation
+'FullQuery(java.lang.String)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
+#### Snippet
+```java
+                + "   AND m.col_name = t.col_name "
+                + "   AND m.ts < t.max_ts ";
+        return new FullQuery(query).withArg(cellsAndTimestampsToOracleArray(cells));
+    }
+
+```
+
+### Deprecation
+'withArg(java.lang.Object)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
+#### Snippet
+```java
+                + "   AND m.col_name = t.col_name "
+                + "   AND m.ts < t.max_ts ";
+        return new FullQuery(query).withArg(cellsAndTimestampsToOracleArray(cells));
+    }
+
+```
+
+### Deprecation
+'FullQuery(java.lang.String)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
+#### Snippet
+```java
+                                + " FROM TABLE(CAST(? AS " + structArrayPrefix() + "CELL_TS_TABLE))"
+                                + " WHERE row_name = m.col_name) ");
+        FullQuery fullQuery = new FullQuery(query).withArg(rowsAndTimestampsToOracleArray(rows));
+        return columns.allColumnsSelected()
+                ? fullQuery
+```
+
+### Deprecation
+'withArg(java.lang.Object)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
+#### Snippet
+```java
+                                + " FROM TABLE(CAST(? AS " + structArrayPrefix() + "CELL_TS_TABLE))"
+                                + " WHERE row_name = m.col_name) ");
+        FullQuery fullQuery = new FullQuery(query).withArg(rowsAndTimestampsToOracleArray(rows));
+        return columns.allColumnsSelected()
+                ? fullQuery
+```
+
+### Deprecation
+'withArg(java.lang.Object)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
+#### Snippet
+```java
+        return columns.allColumnsSelected()
+                ? fullQuery
+                : fullQuery.withArg(rowsToOracleArray(columns.getSelectedColumns()));
+    }
+
+```
+
+### Deprecation
+'FullQuery(java.lang.String)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
+#### Snippet
+```java
+                + " GROUP BY m.row_name, m.col_name";
+        query = wrapQueryWithIncludeValue("GET_LATEST_CELLS_SINGLE_BOUND", query, includeValue);
+        return new FullQuery(query).withArgs(cellsToOracleArray(cells), ts);
+    }
+
+```
+
+### Deprecation
+'withArgs(java.lang.Object, java.lang.Object)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
+#### Snippet
+```java
+                + " GROUP BY m.row_name, m.col_name";
+        query = wrapQueryWithIncludeValue("GET_LATEST_CELLS_SINGLE_BOUND", query, includeValue);
+        return new FullQuery(query).withArgs(cellsToOracleArray(cells), ts);
+    }
+
+```
+
+### Deprecation
+'FullQuery(java.lang.String)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
+#### Snippet
+```java
+                                + " FROM TABLE(CAST(? AS " + structArrayPrefix() + "CELL_TS_TABLE))"
+                                + " WHERE row_name = m.col_name) ");
+        FullQuery fullQuery = new FullQuery(query).withArgs(rowsToOracleArray(rows), ts);
+        return columns.allColumnsSelected()
+                ? fullQuery
+```
+
+### Deprecation
+'withArgs(java.lang.Object, java.lang.Object)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
+#### Snippet
+```java
+                                + " FROM TABLE(CAST(? AS " + structArrayPrefix() + "CELL_TS_TABLE))"
+                                + " WHERE row_name = m.col_name) ");
+        FullQuery fullQuery = new FullQuery(query).withArgs(rowsToOracleArray(rows), ts);
+        return columns.allColumnsSelected()
+                ? fullQuery
+```
+
+### Deprecation
+'withArg(java.lang.Object)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
+#### Snippet
+```java
+        return columns.allColumnsSelected()
+                ? fullQuery
+                : fullQuery.withArg(rowsToOracleArray(columns.getSelectedColumns()));
+    }
+
+```
+
+### Deprecation
+'FullQuery(java.lang.String)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
+#### Snippet
+```java
+                                + " FROM TABLE(CAST(? AS " + structArrayPrefix() + "CELL_TS_TABLE))"
+                                + " WHERE row_name = m.col_name) ");
+        FullQuery fullQuery = new FullQuery(query).withArgs(row, ts);
+        return columns.allColumnsSelected()
+                ? fullQuery
+```
+
+### Deprecation
+'withArgs(java.lang.Object, java.lang.Object)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
+#### Snippet
+```java
+                                + " FROM TABLE(CAST(? AS " + structArrayPrefix() + "CELL_TS_TABLE))"
+                                + " WHERE row_name = m.col_name) ");
+        FullQuery fullQuery = new FullQuery(query).withArgs(row, ts);
+        return columns.allColumnsSelected()
+                ? fullQuery
+```
+
+### Deprecation
+'withArg(java.lang.Object)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
+#### Snippet
+```java
+        return columns.allColumnsSelected()
+                ? fullQuery
+                : fullQuery.withArg(rowsToOracleArray(columns.getSelectedColumns()));
+    }
+
+```
+
+### Deprecation
+'FullQuery(java.lang.String)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
+#### Snippet
+```java
+                + (columnRangeSelection.getEndCol().length > 0 ? " AND m.col_name < ?" : "")
+                + " GROUP BY m.row_name";
+        FullQuery fullQuery = new FullQuery(query).withArgs(rowsToOracleArray(rows), ts);
         if (columnRangeSelection.getStartCol().length > 0) {
-            fullQuery = fullQuery.withArg(columnRangeSelection.getStartCol());
+            fullQuery.withArg(columnRangeSelection.getStartCol());
+```
+
+### Deprecation
+'withArgs(java.lang.Object, java.lang.Object)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
+#### Snippet
+```java
+                + (columnRangeSelection.getEndCol().length > 0 ? " AND m.col_name < ?" : "")
+                + " GROUP BY m.row_name";
+        FullQuery fullQuery = new FullQuery(query).withArgs(rowsToOracleArray(rows), ts);
+        if (columnRangeSelection.getStartCol().length > 0) {
+            fullQuery.withArg(columnRangeSelection.getStartCol());
+```
+
+### Deprecation
+'withArg(java.lang.Object)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
+#### Snippet
+```java
+        FullQuery fullQuery = new FullQuery(query).withArgs(rowsToOracleArray(rows), ts);
+        if (columnRangeSelection.getStartCol().length > 0) {
+            fullQuery.withArg(columnRangeSelection.getStartCol());
         }
         if (columnRangeSelection.getEndCol().length > 0) {
 ```
@@ -2122,7 +2050,7 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/
 ```java
         }
         if (columnRangeSelection.getEndCol().length > 0) {
-            fullQuery = fullQuery.withArg(columnRangeSelection.getEndCol());
+            fullQuery.withArg(columnRangeSelection.getEndCol());
         }
         return fullQuery;
 ```
@@ -2133,20 +2061,20 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/
 #### Snippet
 ```java
                 + " GROUP BY m.row_name, m.col_name";
-        query = wrapQueryWithIncludeValue("GET_LATEST_CELLS_SINGLE_BOUND", query, includeValue);
-        return new FullQuery(query).withArgs(cellsToOracleArray(cells), ts);
+        query = wrapQueryWithIncludeValue("GET_LATEST_ONE_CELL", query, includeValue);
+        return new FullQuery(query).withArgs(cell.getRowName(), cell.getColumnName(), ts);
     }
 
 ```
 
 ### Deprecation
-'withArgs(java.lang.Object, java.lang.Object)' is deprecated
+'withArgs(java.lang.Object, java.lang.Object, java.lang.Object)' is deprecated
 in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
 #### Snippet
 ```java
                 + " GROUP BY m.row_name, m.col_name";
-        query = wrapQueryWithIncludeValue("GET_LATEST_CELLS_SINGLE_BOUND", query, includeValue);
-        return new FullQuery(query).withArgs(cellsToOracleArray(cells), ts);
+        query = wrapQueryWithIncludeValue("GET_LATEST_ONE_CELL", query, includeValue);
+        return new FullQuery(query).withArgs(cell.getRowName(), cell.getColumnName(), ts);
     }
 
 ```
@@ -2171,6 +2099,102 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/
                 + " GROUP BY m.row_name, m.col_name";
         query = wrapQueryWithIncludeValue("GET_LATEST_CELLS_MANY_BOUNDS", query, includeValue);
         return new FullQuery(query).withArg(cellsAndTimestampsToOracleArray(cells));
+    }
+
+```
+
+### Deprecation
+'FullQuery(java.lang.String)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
+#### Snippet
+```java
+                + " GROUP BY m.row_name, m.col_name";
+        query = wrapQueryWithIncludeValue("GET_LATEST_ROWS_MANY_BOUNDS", query, includeValue);
+        FullQuery fullQuery = new FullQuery(query).withArg(rowsAndTimestampsToOracleArray(rows));
+        return columns.allColumnsSelected()
+                ? fullQuery
+```
+
+### Deprecation
+'withArg(java.lang.Object)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
+#### Snippet
+```java
+                + " GROUP BY m.row_name, m.col_name";
+        query = wrapQueryWithIncludeValue("GET_LATEST_ROWS_MANY_BOUNDS", query, includeValue);
+        FullQuery fullQuery = new FullQuery(query).withArg(rowsAndTimestampsToOracleArray(rows));
+        return columns.allColumnsSelected()
+                ? fullQuery
+```
+
+### Deprecation
+'withArg(java.lang.Object)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
+#### Snippet
+```java
+        return columns.allColumnsSelected()
+                ? fullQuery
+                : fullQuery.withArg(rowsToOracleArray(columns.getSelectedColumns()));
+    }
+
+```
+
+### Deprecation
+'FullQuery(java.lang.String)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
+#### Snippet
+```java
+                + " GROUP BY m.row_name, m.col_name";
+        query = wrapQueryWithIncludeValue("GET_LATEST_ROWS_SINGLE_BOUND", query, includeValue);
+        FullQuery fullQuery = new FullQuery(query).withArgs(rowsToOracleArray(rows), ts);
+        return columns.allColumnsSelected()
+                ? fullQuery
+```
+
+### Deprecation
+'withArgs(java.lang.Object, java.lang.Object)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
+#### Snippet
+```java
+                + " GROUP BY m.row_name, m.col_name";
+        query = wrapQueryWithIncludeValue("GET_LATEST_ROWS_SINGLE_BOUND", query, includeValue);
+        FullQuery fullQuery = new FullQuery(query).withArgs(rowsToOracleArray(rows), ts);
+        return columns.allColumnsSelected()
+                ? fullQuery
+```
+
+### Deprecation
+'withArg(java.lang.Object)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/oracle/OracleQueryFactory.java`
+#### Snippet
+```java
+        return columns.allColumnsSelected()
+                ? fullQuery
+                : fullQuery.withArg(rowsToOracleArray(columns.getSelectedColumns()));
+    }
+
+```
+
+### Deprecation
+'FullQuery(java.lang.String)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
+#### Snippet
+```java
+                + " LIMIT 1";
+        query = wrapQueryWithIncludeValue("GET_LATEST_CELL", query, includeValue);
+        return new FullQuery(query).withArgs(cell.getRowName(), cell.getColumnName(), ts);
+    }
+
+```
+
+### Deprecation
+'withArgs(java.lang.Object, java.lang.Object, java.lang.Object)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
+#### Snippet
+```java
+                + " LIMIT 1";
+        query = wrapQueryWithIncludeValue("GET_LATEST_CELL", query, includeValue);
+        return new FullQuery(query).withArgs(cell.getRowName(), cell.getColumnName(), ts);
     }
 
 ```
@@ -2200,25 +2224,25 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgre
 ```
 
 ### Deprecation
-'withArgs(java.lang.Object, java.lang.Object)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
-#### Snippet
-```java
-    private FullQuery addCellArgs(FullQuery fullQuery, Iterable<Cell> cells) {
-        for (Cell cell : cells) {
-            fullQuery.withArgs(cell.getRowName(), cell.getColumnName());
-        }
-        return fullQuery;
-```
-
-### Deprecation
 'FullQuery(java.lang.String)' is deprecated
 in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
 #### Snippet
 ```java
-                        ? ""
-                        : "    AND m.col_name IN " + numParams(Iterables.size(columns.getSelectedColumns())));
-        FullQuery fullQuery = addRowTsArgs(new FullQuery(query), rows);
+                + " GROUP BY m.row_name, m.col_name";
+        query = wrapQueryWithIncludeValue("GET_LATEST_ROW", query, includeValue);
+        FullQuery fullQuery = new FullQuery(query).withArgs(row, ts);
+        return columns.allColumnsSelected() ? fullQuery : fullQuery.withArgs(columns.getSelectedColumns());
+    }
+```
+
+### Deprecation
+'withArgs(java.lang.Object, java.lang.Object)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
+#### Snippet
+```java
+                + " GROUP BY m.row_name, m.col_name";
+        query = wrapQueryWithIncludeValue("GET_LATEST_ROW", query, includeValue);
+        FullQuery fullQuery = new FullQuery(query).withArgs(row, ts);
         return columns.allColumnsSelected() ? fullQuery : fullQuery.withArgs(columns.getSelectedColumns());
     }
 ```
@@ -2228,23 +2252,11 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgre
 in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
 #### Snippet
 ```java
-                        : "    AND m.col_name IN " + numParams(Iterables.size(columns.getSelectedColumns())));
-        FullQuery fullQuery = addRowTsArgs(new FullQuery(query), rows);
+        query = wrapQueryWithIncludeValue("GET_LATEST_ROW", query, includeValue);
+        FullQuery fullQuery = new FullQuery(query).withArgs(row, ts);
         return columns.allColumnsSelected() ? fullQuery : fullQuery.withArgs(columns.getSelectedColumns());
     }
 
-```
-
-### Deprecation
-'withArgs(java.lang.Object, java.lang.Object)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
-#### Snippet
-```java
-    private FullQuery addRowTsArgs(FullQuery fullQuery, Iterable<Map.Entry<byte[], Long>> rows) {
-        for (Map.Entry<byte[], Long> entry : rows) {
-            fullQuery.withArgs(entry.getKey(), entry.getValue());
-        }
-        return fullQuery;
 ```
 
 ### Deprecation
@@ -2252,9 +2264,21 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgre
 in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
 #### Snippet
 ```java
-                + "    AND m.col_name = t.col_name "
-                + "    AND m.ts < ? ";
-        return addCellArgs(new FullQuery(query), cells).withArg(ts);
+                + " ORDER BY m.row_name " + (range.isReverse() ? "DESC" : "ASC")
+                + " LIMIT ?";
+        return new FullQuery(query).withArgs(args).withArg(maxRows);
+    }
+
+```
+
+### Deprecation
+'withArgs(java.lang.Iterable)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
+#### Snippet
+```java
+                + " ORDER BY m.row_name " + (range.isReverse() ? "DESC" : "ASC")
+                + " LIMIT ?";
+        return new FullQuery(query).withArgs(args).withArg(maxRows);
     }
 
 ```
@@ -2264,9 +2288,9 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgre
 in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
 #### Snippet
 ```java
-                + "    AND m.col_name = t.col_name "
-                + "    AND m.ts < ? ";
-        return addCellArgs(new FullQuery(query), cells).withArg(ts);
+                + " ORDER BY m.row_name " + (range.isReverse() ? "DESC" : "ASC")
+                + " LIMIT ?";
+        return new FullQuery(query).withArgs(args).withArg(maxRows);
     }
 
 ```
@@ -2300,102 +2324,6 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgre
 in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
 #### Snippet
 ```java
-                + " ORDER BY m.row_name " + (range.isReverse() ? "DESC" : "ASC")
-                + " LIMIT ?";
-        return new FullQuery(query).withArgs(args).withArg(maxRows);
-    }
-
-```
-
-### Deprecation
-'withArgs(java.lang.Iterable)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
-#### Snippet
-```java
-                + " ORDER BY m.row_name " + (range.isReverse() ? "DESC" : "ASC")
-                + " LIMIT ?";
-        return new FullQuery(query).withArgs(args).withArg(maxRows);
-    }
-
-```
-
-### Deprecation
-'withArg(java.lang.Object)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
-#### Snippet
-```java
-                + " ORDER BY m.row_name " + (range.isReverse() ? "DESC" : "ASC")
-                + " LIMIT ?";
-        return new FullQuery(query).withArgs(args).withArg(maxRows);
-    }
-
-```
-
-### Deprecation
-'FullQuery(java.lang.String)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
-#### Snippet
-```java
-                + " ORDER BY m.row_name ASC, m.col_name ASC";
-        String wrappedQuery = wrapQueryWithIncludeValue("GET_ROWS_COLUMN_RANGE_FULLY_LOADED_ROW", query, true);
-        FullQuery fullQuery = new FullQuery(wrappedQuery).withArgs(rows).withArg(ts);
-        if (columnRangeSelection.getStartCol().length > 0) {
-            fullQuery = fullQuery.withArg(columnRangeSelection.getStartCol());
-```
-
-### Deprecation
-'withArgs(java.lang.Iterable)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
-#### Snippet
-```java
-                + " ORDER BY m.row_name ASC, m.col_name ASC";
-        String wrappedQuery = wrapQueryWithIncludeValue("GET_ROWS_COLUMN_RANGE_FULLY_LOADED_ROW", query, true);
-        FullQuery fullQuery = new FullQuery(wrappedQuery).withArgs(rows).withArg(ts);
-        if (columnRangeSelection.getStartCol().length > 0) {
-            fullQuery = fullQuery.withArg(columnRangeSelection.getStartCol());
-```
-
-### Deprecation
-'withArg(java.lang.Object)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
-#### Snippet
-```java
-                + " ORDER BY m.row_name ASC, m.col_name ASC";
-        String wrappedQuery = wrapQueryWithIncludeValue("GET_ROWS_COLUMN_RANGE_FULLY_LOADED_ROW", query, true);
-        FullQuery fullQuery = new FullQuery(wrappedQuery).withArgs(rows).withArg(ts);
-        if (columnRangeSelection.getStartCol().length > 0) {
-            fullQuery = fullQuery.withArg(columnRangeSelection.getStartCol());
-```
-
-### Deprecation
-'withArg(java.lang.Object)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
-#### Snippet
-```java
-        FullQuery fullQuery = new FullQuery(wrappedQuery).withArgs(rows).withArg(ts);
-        if (columnRangeSelection.getStartCol().length > 0) {
-            fullQuery = fullQuery.withArg(columnRangeSelection.getStartCol());
-        }
-        if (columnRangeSelection.getEndCol().length > 0) {
-```
-
-### Deprecation
-'withArg(java.lang.Object)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
-#### Snippet
-```java
-        }
-        if (columnRangeSelection.getEndCol().length > 0) {
-            fullQuery = fullQuery.withArg(columnRangeSelection.getEndCol());
-        }
-        return fullQuery;
-```
-
-### Deprecation
-'FullQuery(java.lang.String)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
-#### Snippet
-```java
                 + " GROUP BY m.row_name, m.col_name ";
         query = wrapQueryWithIncludeValue("GET_LATEST_ROW", query, includeValue);
         FullQuery fullQuery = new FullQuery(query).withArgs(rows).withArg(ts);
@@ -2444,105 +2372,9 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgre
 in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
 #### Snippet
 ```java
-                + " GROUP BY m.row_name, m.col_name ";
-        query = wrapQueryWithIncludeValue("GET_LATEST_CELLS", query, includeValue);
-        return addCellArgs(new FullQuery(query), cells).withArg(ts);
-    }
-
-```
-
-### Deprecation
-'withArg(java.lang.Object)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
-#### Snippet
-```java
-                + " GROUP BY m.row_name, m.col_name ";
-        query = wrapQueryWithIncludeValue("GET_LATEST_CELLS", query, includeValue);
-        return addCellArgs(new FullQuery(query), cells).withArg(ts);
-    }
-
-```
-
-### Deprecation
-'FullQuery(java.lang.String)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
-#### Snippet
-```java
-                        ? ""
-                        : "    AND m.col_name IN " + numParams(Iterables.size(columns.getSelectedColumns())));
-        FullQuery fullQuery = new FullQuery(query).withArgs(rows).withArg(ts);
-        return columns.allColumnsSelected() ? fullQuery : fullQuery.withArgs(columns.getSelectedColumns());
-    }
-```
-
-### Deprecation
-'withArgs(java.lang.Iterable)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
-#### Snippet
-```java
-                        ? ""
-                        : "    AND m.col_name IN " + numParams(Iterables.size(columns.getSelectedColumns())));
-        FullQuery fullQuery = new FullQuery(query).withArgs(rows).withArg(ts);
-        return columns.allColumnsSelected() ? fullQuery : fullQuery.withArgs(columns.getSelectedColumns());
-    }
-```
-
-### Deprecation
-'withArg(java.lang.Object)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
-#### Snippet
-```java
-                        ? ""
-                        : "    AND m.col_name IN " + numParams(Iterables.size(columns.getSelectedColumns())));
-        FullQuery fullQuery = new FullQuery(query).withArgs(rows).withArg(ts);
-        return columns.allColumnsSelected() ? fullQuery : fullQuery.withArgs(columns.getSelectedColumns());
-    }
-```
-
-### Deprecation
-'withArgs(java.lang.Iterable)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
-#### Snippet
-```java
-                        : "    AND m.col_name IN " + numParams(Iterables.size(columns.getSelectedColumns())));
-        FullQuery fullQuery = new FullQuery(query).withArgs(rows).withArg(ts);
-        return columns.allColumnsSelected() ? fullQuery : fullQuery.withArgs(columns.getSelectedColumns());
-    }
-
-```
-
-### Deprecation
-'FullQuery(java.lang.String)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
-#### Snippet
-```java
-                        ? ""
-                        : "    AND m.col_name IN " + numParams(Iterables.size(columns.getSelectedColumns())));
-        FullQuery fullQuery = new FullQuery(query).withArgs(row, ts);
-        return columns.allColumnsSelected() ? fullQuery : fullQuery.withArgs(columns.getSelectedColumns());
-    }
-```
-
-### Deprecation
-'withArgs(java.lang.Object, java.lang.Object)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
-#### Snippet
-```java
-                        ? ""
-                        : "    AND m.col_name IN " + numParams(Iterables.size(columns.getSelectedColumns())));
-        FullQuery fullQuery = new FullQuery(query).withArgs(row, ts);
-        return columns.allColumnsSelected() ? fullQuery : fullQuery.withArgs(columns.getSelectedColumns());
-    }
-```
-
-### Deprecation
-'withArgs(java.lang.Iterable)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
-#### Snippet
-```java
-                        : "    AND m.col_name IN " + numParams(Iterables.size(columns.getSelectedColumns())));
-        FullQuery fullQuery = new FullQuery(query).withArgs(row, ts);
-        return columns.allColumnsSelected() ? fullQuery : fullQuery.withArgs(columns.getSelectedColumns());
+                + "    AND m.col_name = t.col_name "
+                + "    AND m.ts < t.ts ";
+        return addCellTsArgs(new FullQuery(query), cells);
     }
 
 ```
@@ -2564,11 +2396,11 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgre
 in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
 #### Snippet
 ```java
-                + (columnRangeSelection.getEndCol().length > 0 ? " AND m.col_name < ?" : "")
-                + " GROUP BY m.row_name";
+                        ? ""
+                        : "    AND m.col_name IN " + numParams(Iterables.size(columns.getSelectedColumns())));
         FullQuery fullQuery = new FullQuery(query).withArgs(rows).withArg(ts);
-        if (columnRangeSelection.getStartCol().length > 0) {
-            fullQuery = fullQuery.withArg(columnRangeSelection.getStartCol());
+        return columns.allColumnsSelected() ? fullQuery : fullQuery.withArgs(columns.getSelectedColumns());
+    }
 ```
 
 ### Deprecation
@@ -2576,11 +2408,11 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgre
 in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
 #### Snippet
 ```java
-                + (columnRangeSelection.getEndCol().length > 0 ? " AND m.col_name < ?" : "")
-                + " GROUP BY m.row_name";
+                        ? ""
+                        : "    AND m.col_name IN " + numParams(Iterables.size(columns.getSelectedColumns())));
         FullQuery fullQuery = new FullQuery(query).withArgs(rows).withArg(ts);
-        if (columnRangeSelection.getStartCol().length > 0) {
-            fullQuery = fullQuery.withArg(columnRangeSelection.getStartCol());
+        return columns.allColumnsSelected() ? fullQuery : fullQuery.withArgs(columns.getSelectedColumns());
+    }
 ```
 
 ### Deprecation
@@ -2588,35 +2420,23 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgre
 in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
 #### Snippet
 ```java
-                + (columnRangeSelection.getEndCol().length > 0 ? " AND m.col_name < ?" : "")
-                + " GROUP BY m.row_name";
+                        ? ""
+                        : "    AND m.col_name IN " + numParams(Iterables.size(columns.getSelectedColumns())));
         FullQuery fullQuery = new FullQuery(query).withArgs(rows).withArg(ts);
-        if (columnRangeSelection.getStartCol().length > 0) {
-            fullQuery = fullQuery.withArg(columnRangeSelection.getStartCol());
+        return columns.allColumnsSelected() ? fullQuery : fullQuery.withArgs(columns.getSelectedColumns());
+    }
 ```
 
 ### Deprecation
-'withArg(java.lang.Object)' is deprecated
+'withArgs(java.lang.Iterable)' is deprecated
 in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
 #### Snippet
 ```java
+                        : "    AND m.col_name IN " + numParams(Iterables.size(columns.getSelectedColumns())));
         FullQuery fullQuery = new FullQuery(query).withArgs(rows).withArg(ts);
-        if (columnRangeSelection.getStartCol().length > 0) {
-            fullQuery = fullQuery.withArg(columnRangeSelection.getStartCol());
-        }
-        if (columnRangeSelection.getEndCol().length > 0) {
-```
+        return columns.allColumnsSelected() ? fullQuery : fullQuery.withArgs(columns.getSelectedColumns());
+    }
 
-### Deprecation
-'withArg(java.lang.Object)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
-#### Snippet
-```java
-        }
-        if (columnRangeSelection.getEndCol().length > 0) {
-            fullQuery = fullQuery.withArg(columnRangeSelection.getEndCol());
-        }
-        return fullQuery;
 ```
 
 ### Deprecation
@@ -2624,11 +2444,23 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgre
 in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
 #### Snippet
 ```java
-                + " GROUP BY m.row_name, m.col_name";
-        query = wrapQueryWithIncludeValue("GET_LATEST_ROW", query, includeValue);
-        FullQuery fullQuery = new FullQuery(query).withArgs(row, ts);
-        return columns.allColumnsSelected() ? fullQuery : fullQuery.withArgs(columns.getSelectedColumns());
+                + " GROUP BY m.row_name, m.col_name ";
+        query = wrapQueryWithIncludeValue("GET_LATEST_CELLS", query, includeValue);
+        return addCellArgs(new FullQuery(query), cells).withArg(ts);
     }
+
+```
+
+### Deprecation
+'withArg(java.lang.Object)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
+#### Snippet
+```java
+                + " GROUP BY m.row_name, m.col_name ";
+        query = wrapQueryWithIncludeValue("GET_LATEST_CELLS", query, includeValue);
+        return addCellArgs(new FullQuery(query), cells).withArg(ts);
+    }
+
 ```
 
 ### Deprecation
@@ -2636,23 +2468,11 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgre
 in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
 #### Snippet
 ```java
-                + " GROUP BY m.row_name, m.col_name";
-        query = wrapQueryWithIncludeValue("GET_LATEST_ROW", query, includeValue);
-        FullQuery fullQuery = new FullQuery(query).withArgs(row, ts);
-        return columns.allColumnsSelected() ? fullQuery : fullQuery.withArgs(columns.getSelectedColumns());
-    }
-```
-
-### Deprecation
-'withArgs(java.lang.Iterable)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
-#### Snippet
-```java
-        query = wrapQueryWithIncludeValue("GET_LATEST_ROW", query, includeValue);
-        FullQuery fullQuery = new FullQuery(query).withArgs(row, ts);
-        return columns.allColumnsSelected() ? fullQuery : fullQuery.withArgs(columns.getSelectedColumns());
-    }
-
+    private FullQuery addCellArgs(FullQuery fullQuery, Iterable<Cell> cells) {
+        for (Cell cell : cells) {
+            fullQuery.withArgs(cell.getRowName(), cell.getColumnName());
+        }
+        return fullQuery;
 ```
 
 ### Deprecation
@@ -2732,33 +2552,33 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgre
 in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
 #### Snippet
 ```java
-                + " GROUP BY m.row_name, m.col_name ";
-        query = wrapQueryWithIncludeValue("GET_LATEST_CELLS", query, includeValue);
-        return addCellTsArgs(new FullQuery(query), cells);
+                        ? ""
+                        : "    AND m.col_name IN " + numParams(Iterables.size(columns.getSelectedColumns())));
+        FullQuery fullQuery = new FullQuery(query).withArgs(row, ts);
+        return columns.allColumnsSelected() ? fullQuery : fullQuery.withArgs(columns.getSelectedColumns());
     }
-
 ```
 
 ### Deprecation
-'FullQuery(java.lang.String)' is deprecated
+'withArgs(java.lang.Object, java.lang.Object)' is deprecated
 in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
 #### Snippet
 ```java
-                + " LIMIT 1";
-        query = wrapQueryWithIncludeValue("GET_LATEST_CELL", query, includeValue);
-        return new FullQuery(query).withArgs(cell.getRowName(), cell.getColumnName(), ts);
+                        ? ""
+                        : "    AND m.col_name IN " + numParams(Iterables.size(columns.getSelectedColumns())));
+        FullQuery fullQuery = new FullQuery(query).withArgs(row, ts);
+        return columns.allColumnsSelected() ? fullQuery : fullQuery.withArgs(columns.getSelectedColumns());
     }
-
 ```
 
 ### Deprecation
-'withArgs(java.lang.Object, java.lang.Object, java.lang.Object)' is deprecated
+'withArgs(java.lang.Iterable)' is deprecated
 in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
 #### Snippet
 ```java
-                + " LIMIT 1";
-        query = wrapQueryWithIncludeValue("GET_LATEST_CELL", query, includeValue);
-        return new FullQuery(query).withArgs(cell.getRowName(), cell.getColumnName(), ts);
+                        : "    AND m.col_name IN " + numParams(Iterables.size(columns.getSelectedColumns())));
+        FullQuery fullQuery = new FullQuery(query).withArgs(row, ts);
+        return columns.allColumnsSelected() ? fullQuery : fullQuery.withArgs(columns.getSelectedColumns());
     }
 
 ```
@@ -2769,22 +2589,190 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgre
 #### Snippet
 ```java
                 + "    AND m.col_name = t.col_name "
-                + "    AND m.ts < t.ts ";
+                + "    AND m.ts < ? ";
+        return addCellArgs(new FullQuery(query), cells).withArg(ts);
+    }
+
+```
+
+### Deprecation
+'withArg(java.lang.Object)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
+#### Snippet
+```java
+                + "    AND m.col_name = t.col_name "
+                + "    AND m.ts < ? ";
+        return addCellArgs(new FullQuery(query), cells).withArg(ts);
+    }
+
+```
+
+### Deprecation
+'FullQuery(java.lang.String)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
+#### Snippet
+```java
+                + " ORDER BY m.row_name ASC, m.col_name ASC";
+        String wrappedQuery = wrapQueryWithIncludeValue("GET_ROWS_COLUMN_RANGE_FULLY_LOADED_ROW", query, true);
+        FullQuery fullQuery = new FullQuery(wrappedQuery).withArgs(rows).withArg(ts);
+        if (columnRangeSelection.getStartCol().length > 0) {
+            fullQuery = fullQuery.withArg(columnRangeSelection.getStartCol());
+```
+
+### Deprecation
+'withArgs(java.lang.Iterable)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
+#### Snippet
+```java
+                + " ORDER BY m.row_name ASC, m.col_name ASC";
+        String wrappedQuery = wrapQueryWithIncludeValue("GET_ROWS_COLUMN_RANGE_FULLY_LOADED_ROW", query, true);
+        FullQuery fullQuery = new FullQuery(wrappedQuery).withArgs(rows).withArg(ts);
+        if (columnRangeSelection.getStartCol().length > 0) {
+            fullQuery = fullQuery.withArg(columnRangeSelection.getStartCol());
+```
+
+### Deprecation
+'withArg(java.lang.Object)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
+#### Snippet
+```java
+                + " ORDER BY m.row_name ASC, m.col_name ASC";
+        String wrappedQuery = wrapQueryWithIncludeValue("GET_ROWS_COLUMN_RANGE_FULLY_LOADED_ROW", query, true);
+        FullQuery fullQuery = new FullQuery(wrappedQuery).withArgs(rows).withArg(ts);
+        if (columnRangeSelection.getStartCol().length > 0) {
+            fullQuery = fullQuery.withArg(columnRangeSelection.getStartCol());
+```
+
+### Deprecation
+'withArg(java.lang.Object)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
+#### Snippet
+```java
+        FullQuery fullQuery = new FullQuery(wrappedQuery).withArgs(rows).withArg(ts);
+        if (columnRangeSelection.getStartCol().length > 0) {
+            fullQuery = fullQuery.withArg(columnRangeSelection.getStartCol());
+        }
+        if (columnRangeSelection.getEndCol().length > 0) {
+```
+
+### Deprecation
+'withArg(java.lang.Object)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
+#### Snippet
+```java
+        }
+        if (columnRangeSelection.getEndCol().length > 0) {
+            fullQuery = fullQuery.withArg(columnRangeSelection.getEndCol());
+        }
+        return fullQuery;
+```
+
+### Deprecation
+'FullQuery(java.lang.String)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
+#### Snippet
+```java
+                        ? ""
+                        : "    AND m.col_name IN " + numParams(Iterables.size(columns.getSelectedColumns())));
+        FullQuery fullQuery = addRowTsArgs(new FullQuery(query), rows);
+        return columns.allColumnsSelected() ? fullQuery : fullQuery.withArgs(columns.getSelectedColumns());
+    }
+```
+
+### Deprecation
+'withArgs(java.lang.Iterable)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
+#### Snippet
+```java
+                        : "    AND m.col_name IN " + numParams(Iterables.size(columns.getSelectedColumns())));
+        FullQuery fullQuery = addRowTsArgs(new FullQuery(query), rows);
+        return columns.allColumnsSelected() ? fullQuery : fullQuery.withArgs(columns.getSelectedColumns());
+    }
+
+```
+
+### Deprecation
+'FullQuery(java.lang.String)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
+#### Snippet
+```java
+                + (columnRangeSelection.getEndCol().length > 0 ? " AND m.col_name < ?" : "")
+                + " GROUP BY m.row_name";
+        FullQuery fullQuery = new FullQuery(query).withArgs(rows).withArg(ts);
+        if (columnRangeSelection.getStartCol().length > 0) {
+            fullQuery = fullQuery.withArg(columnRangeSelection.getStartCol());
+```
+
+### Deprecation
+'withArgs(java.lang.Iterable)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
+#### Snippet
+```java
+                + (columnRangeSelection.getEndCol().length > 0 ? " AND m.col_name < ?" : "")
+                + " GROUP BY m.row_name";
+        FullQuery fullQuery = new FullQuery(query).withArgs(rows).withArg(ts);
+        if (columnRangeSelection.getStartCol().length > 0) {
+            fullQuery = fullQuery.withArg(columnRangeSelection.getStartCol());
+```
+
+### Deprecation
+'withArg(java.lang.Object)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
+#### Snippet
+```java
+                + (columnRangeSelection.getEndCol().length > 0 ? " AND m.col_name < ?" : "")
+                + " GROUP BY m.row_name";
+        FullQuery fullQuery = new FullQuery(query).withArgs(rows).withArg(ts);
+        if (columnRangeSelection.getStartCol().length > 0) {
+            fullQuery = fullQuery.withArg(columnRangeSelection.getStartCol());
+```
+
+### Deprecation
+'withArg(java.lang.Object)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
+#### Snippet
+```java
+        FullQuery fullQuery = new FullQuery(query).withArgs(rows).withArg(ts);
+        if (columnRangeSelection.getStartCol().length > 0) {
+            fullQuery = fullQuery.withArg(columnRangeSelection.getStartCol());
+        }
+        if (columnRangeSelection.getEndCol().length > 0) {
+```
+
+### Deprecation
+'withArg(java.lang.Object)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
+#### Snippet
+```java
+        }
+        if (columnRangeSelection.getEndCol().length > 0) {
+            fullQuery = fullQuery.withArg(columnRangeSelection.getEndCol());
+        }
+        return fullQuery;
+```
+
+### Deprecation
+'FullQuery(java.lang.String)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
+#### Snippet
+```java
+                + " GROUP BY m.row_name, m.col_name ";
+        query = wrapQueryWithIncludeValue("GET_LATEST_CELLS", query, includeValue);
         return addCellTsArgs(new FullQuery(query), cells);
     }
 
 ```
 
 ### Deprecation
-'propagate(java.lang.Throwable)' is deprecated
-in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/LockAcquirer.java`
+'withArgs(java.lang.Object, java.lang.Object)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/postgres/PostgresQueryFactory.java`
 #### Snippet
 ```java
-                log.error("Error while acquiring locks", t);
-                unlockAll();
-                throw Throwables.propagate(t);
-            }
+    private FullQuery addRowTsArgs(FullQuery fullQuery, Iterable<Map.Entry<byte[], Long>> rows) {
+        for (Map.Entry<byte[], Long> entry : rows) {
+            fullQuery.withArgs(entry.getKey(), entry.getValue());
         }
+        return fullQuery;
 ```
 
 ### Deprecation
@@ -2797,6 +2785,18 @@ in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/LockAcquirer.
         lockLog.logLockDiagnosticInfo();
         timeoutExecutor.shutdown();
     }
+```
+
+### Deprecation
+'propagate(java.lang.Throwable)' is deprecated
+in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/LockAcquirer.java`
+#### Snippet
+```java
+                log.error("Error while acquiring locks", t);
+                unlockAll();
+                throw Throwables.propagate(t);
+            }
+        }
 ```
 
 ### Deprecation
@@ -2860,15 +2860,87 @@ in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/BlockingTimeL
 ```
 
 ### Deprecation
-'getSingleton()' is deprecated
-in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/paxos/CumulativeLeaderPinger.java`
+'createUnsafe(java.lang.String)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/DbKvs.java`
 #### Snippet
 ```java
-                .putSafeTags("remoteHostAndPort", remoteClient.hostAndPort().toString())
-                .build();
-        this.histogram = SharedTaggedMetricRegistries.getSingleton().histogram(metricName);
-    }
+            Set<TableReference> ret = Sets.newHashSetWithExpectedSize(results.size());
+            for (AgnosticResultRow row : results.rows()) {
+                ret.add(TableReference.createUnsafe(row.getString("table_name")));
+            }
+            return ret;
+```
 
+### Deprecation
+'getBytes(java.lang.String)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/DbKvs.java`
+#### Snippet
+```java
+        try (ClosableIterator<AgnosticLightResultRow> rangeResults = table.getRange(range, timestamp, maxRows)) {
+            while (rows.size() < maxRows && rangeResults.hasNext()) {
+                byte[] rowName = rangeResults.next().getBytes(ROW);
+                if (rowName != null) {
+                    rows.add(rowName);
+```
+
+### Deprecation
+'getBytes(java.lang.String)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/DbKvs.java`
+#### Snippet
+```java
+            while (iter.hasNext()) {
+                AgnosticLightResultRow row = iter.next();
+                Cell cell = Cell.create(row.getBytes(ROW), row.getBytes(COL));
+                long ts = row.getLong(TIMESTAMP);
+                results.put(cell, ts);
+```
+
+### Deprecation
+'getBytes(java.lang.String)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/DbKvs.java`
+#### Snippet
+```java
+            while (iter.hasNext()) {
+                AgnosticLightResultRow row = iter.next();
+                Cell cell = Cell.create(row.getBytes(ROW), row.getBytes(COL));
+                long ts = row.getLong(TIMESTAMP);
+                results.put(cell, ts);
+```
+
+### Deprecation
+'getBytes(java.lang.String)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/DbKvs.java`
+#### Snippet
+```java
+                while (iter.hasNext()) {
+                    AgnosticLightResultRow row = iter.next();
+                    Sha256Hash rowHash = Sha256Hash.computeHash(row.getBytes(ROW));
+                    counts.put(rowHash, row.getInteger("column_count"));
+                }
+```
+
+### Deprecation
+'getBytes(java.lang.String)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/DbKvs.java`
+#### Snippet
+```java
+            while (iter.hasNext()) {
+                AgnosticLightResultRow row = iter.next();
+                Cell cell = Cell.create(row.getBytes(ROW), row.getBytes(COL));
+                long ts = row.getLong(TIMESTAMP);
+                Long oldTs = results.put(cell, ts);
+```
+
+### Deprecation
+'getBytes(java.lang.String)' is deprecated
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/DbKvs.java`
+#### Snippet
+```java
+            while (iter.hasNext()) {
+                AgnosticLightResultRow row = iter.next();
+                Cell cell = Cell.create(row.getBytes(ROW), row.getBytes(COL));
+                long ts = row.getLong(TIMESTAMP);
+                Long oldTs = results.put(cell, ts);
 ```
 
 ### Deprecation
@@ -2932,99 +3004,15 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/DbKvs.j
 ```
 
 ### Deprecation
-'getBytes(java.lang.String)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/DbKvs.java`
+'getSingleton()' is deprecated
+in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/paxos/CumulativeLeaderPinger.java`
 #### Snippet
 ```java
-                while (iter.hasNext()) {
-                    AgnosticLightResultRow row = iter.next();
-                    Sha256Hash rowHash = Sha256Hash.computeHash(row.getBytes(ROW));
-                    counts.put(rowHash, row.getInteger("column_count"));
-                }
-```
+                .putSafeTags("remoteHostAndPort", remoteClient.hostAndPort().toString())
+                .build();
+        this.histogram = SharedTaggedMetricRegistries.getSingleton().histogram(metricName);
+    }
 
-### Deprecation
-'getBytes(java.lang.String)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/DbKvs.java`
-#### Snippet
-```java
-            while (iter.hasNext()) {
-                AgnosticLightResultRow row = iter.next();
-                Cell cell = Cell.create(row.getBytes(ROW), row.getBytes(COL));
-                long ts = row.getLong(TIMESTAMP);
-                results.put(cell, ts);
-```
-
-### Deprecation
-'getBytes(java.lang.String)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/DbKvs.java`
-#### Snippet
-```java
-            while (iter.hasNext()) {
-                AgnosticLightResultRow row = iter.next();
-                Cell cell = Cell.create(row.getBytes(ROW), row.getBytes(COL));
-                long ts = row.getLong(TIMESTAMP);
-                results.put(cell, ts);
-```
-
-### Deprecation
-'getBytes(java.lang.String)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/DbKvs.java`
-#### Snippet
-```java
-        try (ClosableIterator<AgnosticLightResultRow> rangeResults = table.getRange(range, timestamp, maxRows)) {
-            while (rows.size() < maxRows && rangeResults.hasNext()) {
-                byte[] rowName = rangeResults.next().getBytes(ROW);
-                if (rowName != null) {
-                    rows.add(rowName);
-```
-
-### Deprecation
-'getBytes(java.lang.String)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/DbKvs.java`
-#### Snippet
-```java
-            while (iter.hasNext()) {
-                AgnosticLightResultRow row = iter.next();
-                Cell cell = Cell.create(row.getBytes(ROW), row.getBytes(COL));
-                long ts = row.getLong(TIMESTAMP);
-                Long oldTs = results.put(cell, ts);
-```
-
-### Deprecation
-'getBytes(java.lang.String)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/DbKvs.java`
-#### Snippet
-```java
-            while (iter.hasNext()) {
-                AgnosticLightResultRow row = iter.next();
-                Cell cell = Cell.create(row.getBytes(ROW), row.getBytes(COL));
-                long ts = row.getLong(TIMESTAMP);
-                Long oldTs = results.put(cell, ts);
-```
-
-### Deprecation
-'createUnsafe(java.lang.String)' is deprecated
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/DbKvs.java`
-#### Snippet
-```java
-            Set<TableReference> ret = Sets.newHashSetWithExpectedSize(results.size());
-            for (AgnosticResultRow row : results.rows()) {
-                ret.add(TableReference.createUnsafe(row.getString("table_name")));
-            }
-            return ret;
-```
-
-### Deprecation
-'registerCache(com.codahale.metrics.MetricRegistry, com.github.benmanes.caffeine.cache.Cache, java.lang.String)' is deprecated
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/util/AtlasDbMetrics.java`
-#### Snippet
-```java
-                .collect(Collectors.toSet());
-        if (existingMetrics.isEmpty()) {
-            CaffeineCacheStats.registerCache(metricRegistry, cache, metricsPrefix);
-        } else {
-            log.info(
 ```
 
 ### Deprecation
@@ -3040,6 +3028,30 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/util/AtlasDbMetrics.java`
 ```
 
 ### Deprecation
+'registerCache(com.codahale.metrics.MetricRegistry, com.github.benmanes.caffeine.cache.Cache, java.lang.String)' is deprecated
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/util/AtlasDbMetrics.java`
+#### Snippet
+```java
+                .collect(Collectors.toSet());
+        if (existingMetrics.isEmpty()) {
+            CaffeineCacheStats.registerCache(metricRegistry, cache, metricsPrefix);
+        } else {
+            log.info(
+```
+
+### Deprecation
+'com.palantir.atlasdb.persist.api.Persister' is deprecated
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/ReusablePersisters.java`
+#### Snippet
+```java
+    }
+
+    private static final class BackcompatPersister<T> implements Persister<T> {
+        private final ReusablePersister<T> delegate;
+
+```
+
+### Deprecation
 'com.palantir.atlasdb.persist.api.Persister' is deprecated
 in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/ReusablePersisters.java`
 #### Snippet
@@ -3048,6 +3060,18 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/Reusable
 
     static <T> Persister<T> backcompat(ReusablePersister<T> persister) {
         return new BackcompatPersister<T>(persister);
+    }
+```
+
+### Deprecation
+'com.palantir.atlasdb.persist.api.Persister' is deprecated
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/ReusablePersisters.java`
+#### Snippet
+```java
+    }
+
+    static <T> ReusablePersister<T> wrapLegacyPersister(Persister<T> legacyPersister) {
+        return new WrapLegacyPersister<T>(legacyPersister);
     }
 ```
 
@@ -3068,35 +3092,11 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/Reusable
 in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/ReusablePersisters.java`
 #### Snippet
 ```java
-    }
-
-    static <T> ReusablePersister<T> wrapLegacyPersister(Persister<T> legacyPersister) {
-        return new WrapLegacyPersister<T>(legacyPersister);
-    }
-```
-
-### Deprecation
-'com.palantir.atlasdb.persist.api.Persister' is deprecated
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/ReusablePersisters.java`
-#### Snippet
-```java
 
     private static final class WrapLegacyPersister<T> implements ReusablePersister<T> {
         private final Persister<T> delegate;
 
         private WrapLegacyPersister(Persister<T> delegate) {
-```
-
-### Deprecation
-'com.palantir.atlasdb.persist.api.Persister' is deprecated
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/ReusablePersisters.java`
-#### Snippet
-```java
-    }
-
-    private static final class BackcompatPersister<T> implements Persister<T> {
-        private final ReusablePersister<T> delegate;
-
 ```
 
 ### Deprecation
@@ -3140,35 +3140,35 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/TableDef
 in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/ColumnValueDescription.java`
 #### Snippet
 ```java
+
+            if (isLegacyPersister(importClass)) {
+                Class<Persister<?>> persisterClass = (Class<Persister<?>>) importClass;
+                return persisterClass.isAnnotationPresent(Reusable.class);
+            } else {
+```
+
+### Deprecation
+'com.palantir.atlasdb.persist.api.Persister' is deprecated
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/ColumnValueDescription.java`
+#### Snippet
+```java
+
+            if (isLegacyPersister(importClass)) {
+                Class<Persister<?>> persisterClass = (Class<Persister<?>>) importClass;
+                return persisterClass.isAnnotationPresent(Reusable.class);
+            } else {
+```
+
+### Deprecation
+'com.palantir.atlasdb.persist.api.Persister' is deprecated
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/ColumnValueDescription.java`
+#### Snippet
+```java
         Preconditions.checkArgument(Format.PERSISTER == format);
 
         return Persister.class.isAssignableFrom(importClass);
     }
 
-```
-
-### Deprecation
-'com.palantir.atlasdb.persist.api.Persister' is deprecated
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/ColumnValueDescription.java`
-#### Snippet
-```java
-
-            if (isLegacyPersister(importClass)) {
-                Class<Persister<?>> persisterClass = (Class<Persister<?>>) importClass;
-                return persisterClass.isAnnotationPresent(Reusable.class);
-            } else {
-```
-
-### Deprecation
-'com.palantir.atlasdb.persist.api.Persister' is deprecated
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/ColumnValueDescription.java`
-#### Snippet
-```java
-
-            if (isLegacyPersister(importClass)) {
-                Class<Persister<?>> persisterClass = (Class<Persister<?>>) importClass;
-                return persisterClass.isAnnotationPresent(Reusable.class);
-            } else {
 ```
 
 ### Deprecation
@@ -3268,15 +3268,15 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/transaction/impl/AbstractC
 ```
 
 ### Deprecation
-'getRowKeysInRange(com.palantir.atlasdb.keyvalue.api.TableReference, byte\[\], byte\[\], int)' is deprecated
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/ProfilingKeyValueService.java`
+'getRanges(com.palantir.atlasdb.keyvalue.api.TableReference, java.lang.Iterable)' is deprecated
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/transaction/impl/ForwardingTransaction.java`
 #### Snippet
 ```java
-    public List<byte[]> getRowKeysInRange(TableReference tableRef, byte[] startRow, byte[] endRow, int maxResults) {
-        return maybeLog(
-                () -> delegate.getRowKeysInRange(tableRef, startRow, endRow, maxResults),
-                logTimeAndTable("getRowKeysInRange", tableRef));
+    public Iterable<BatchingVisitable<RowResult<byte[]>>> getRanges(
+            TableReference tableRef, Iterable<RangeRequest> rangeRequests) {
+        return delegate().getRanges(tableRef, rangeRequests);
     }
+
 ```
 
 ### Deprecation
@@ -3292,15 +3292,15 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/ProfilingKey
 ```
 
 ### Deprecation
-'getRanges(com.palantir.atlasdb.keyvalue.api.TableReference, java.lang.Iterable)' is deprecated
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/transaction/impl/ForwardingTransaction.java`
+'getRowKeysInRange(com.palantir.atlasdb.keyvalue.api.TableReference, byte\[\], byte\[\], int)' is deprecated
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/ProfilingKeyValueService.java`
 #### Snippet
 ```java
-    public Iterable<BatchingVisitable<RowResult<byte[]>>> getRanges(
-            TableReference tableRef, Iterable<RangeRequest> rangeRequests) {
-        return delegate().getRanges(tableRef, rangeRequests);
+    public List<byte[]> getRowKeysInRange(TableReference tableRef, byte[] startRow, byte[] endRow, int maxResults) {
+        return maybeLog(
+                () -> delegate.getRowKeysInRange(tableRef, startRow, endRow, maxResults),
+                logTimeAndTable("getRowKeysInRange", tableRef));
     }
-
 ```
 
 ### Deprecation
@@ -3341,18 +3341,6 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyVa
 
 ### Deprecation
 'serversList()' is deprecated
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/config/ServerListConfigs.java`
-#### Snippet
-```java
-            TimeLockClientConfig installClientConfig, Refreshable<Optional<TimeLockRuntimeConfig>> runtimeConfig) {
-        return runtimeConfig.map(
-                config -> config.map(TimeLockRuntimeConfig::serversList).orElseGet(installClientConfig::serversList));
-    }
-
-```
-
-### Deprecation
-'serversList()' is deprecated
 in `atlasdb-config/src/main/java/com/palantir/atlasdb/config/AtlasDbConfigs.java`
 #### Snippet
 ```java
@@ -3361,6 +3349,18 @@ in `atlasdb-config/src/main/java/com/palantir/atlasdb/config/AtlasDbConfigs.java
                         .apply(clientConfig.serversList()))
                 .build());
     }
+```
+
+### Deprecation
+'serversList()' is deprecated
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/config/ServerListConfigs.java`
+#### Snippet
+```java
+            TimeLockClientConfig installClientConfig, Refreshable<Optional<TimeLockRuntimeConfig>> runtimeConfig) {
+        return runtimeConfig.map(
+                config -> config.map(TimeLockRuntimeConfig::serversList).orElseGet(installClientConfig::serversList));
+    }
+
 ```
 
 ### Deprecation
@@ -3424,27 +3424,39 @@ in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/ServiceCreator.jav
 ```
 
 ### Deprecation
-'createLockAndTimestampServicesForCli(com.palantir.atlasdb.util.MetricsManager, com.palantir.atlasdb.config.AtlasDbConfig, com.palantir.refreshable.Refreshable, java.util.function.Consumer, java.util.function.Supplier, java.util.function.Supplier, com.palantir.timestamp.TimestampStoreInvalidator, ...)' is deprecated
-in `atlasdb-dagger/src/main/java/com/palantir/atlasdb/services/LockAndTimestampModule.java`
+'com.palantir.atlasdb.debug.LockDiagnosticComponents' is deprecated
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/DefaultLockAndTimestampServiceFactory.java`
 #### Snippet
 ```java
-        Supplier<ManagedTimestampService> managedTimestampService = atlasSupplier::getManagedTimestampService;
-
-        return TransactionManagers.createLockAndTimestampServicesForCli(
-                metricsManager,
-                config.atlasDbConfig(),
+            UserAgent userAgent,
+            String timelockNamespace,
+            Optional<LockDiagnosticComponents> lockDiagnosticComponents,
+            ReloadingFactory reloadingFactory,
+            Optional<TimeLockFeedbackBackgroundTask> timeLockFeedbackBackgroundTask,
 ```
 
 ### Deprecation
-'com.palantir.atlasdb.debug.ConflictTracer' is deprecated
-in `atlasdb-dagger/src/main/java/com/palantir/atlasdb/services/TransactionManagerModule.java`
+'com.palantir.atlasdb.debug.LockDiagnosticConjureTimelockService' is deprecated
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/DefaultLockAndTimestampServiceFactory.java`
 #### Snippet
 ```java
-                true,
-                () -> config.atlasDbRuntimeConfig().transaction(),
-                ConflictTracer.NO_OP,
-                DefaultMetricsFilterEvaluationContext.createDefault(),
-                Optional.empty(),
+        // TODO(fdesouza): Remove this once PDS-95791 is resolved.
+        ConjureTimelockService withDiagnosticsConjureTimelockService = lockDiagnosticComponents
+                .<ConjureTimelockService>map(components -> new LockDiagnosticConjureTimelockService(
+                        conjureTimelockService,
+                        components.clientLockDiagnosticCollector(),
+```
+
+### Deprecation
+'com.palantir.atlasdb.debug.LockDiagnosticComponents' is deprecated
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/DefaultLockAndTimestampServiceFactory.java`
+#### Snippet
+```java
+            TimestampStoreInvalidator invalidator,
+            UserAgent userAgent,
+            Optional<LockDiagnosticComponents> lockDiagnosticComponents,
+            ReloadingFactory reloadingFactory,
+            Optional<TimeLockFeedbackBackgroundTask> timeLockFeedbackBackgroundTask,
 ```
 
 ### Deprecation
@@ -3496,39 +3508,27 @@ in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/DefaultLockAndTime
 ```
 
 ### Deprecation
-'com.palantir.atlasdb.debug.LockDiagnosticComponents' is deprecated
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/DefaultLockAndTimestampServiceFactory.java`
+'createLockAndTimestampServicesForCli(com.palantir.atlasdb.util.MetricsManager, com.palantir.atlasdb.config.AtlasDbConfig, com.palantir.refreshable.Refreshable, java.util.function.Consumer, java.util.function.Supplier, java.util.function.Supplier, com.palantir.timestamp.TimestampStoreInvalidator, ...)' is deprecated
+in `atlasdb-dagger/src/main/java/com/palantir/atlasdb/services/LockAndTimestampModule.java`
 #### Snippet
 ```java
-            TimestampStoreInvalidator invalidator,
-            UserAgent userAgent,
-            Optional<LockDiagnosticComponents> lockDiagnosticComponents,
-            ReloadingFactory reloadingFactory,
-            Optional<TimeLockFeedbackBackgroundTask> timeLockFeedbackBackgroundTask,
+        Supplier<ManagedTimestampService> managedTimestampService = atlasSupplier::getManagedTimestampService;
+
+        return TransactionManagers.createLockAndTimestampServicesForCli(
+                metricsManager,
+                config.atlasDbConfig(),
 ```
 
 ### Deprecation
-'com.palantir.atlasdb.debug.LockDiagnosticComponents' is deprecated
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/DefaultLockAndTimestampServiceFactory.java`
+'com.palantir.atlasdb.debug.ConflictTracer' is deprecated
+in `atlasdb-dagger/src/main/java/com/palantir/atlasdb/services/TransactionManagerModule.java`
 #### Snippet
 ```java
-            UserAgent userAgent,
-            String timelockNamespace,
-            Optional<LockDiagnosticComponents> lockDiagnosticComponents,
-            ReloadingFactory reloadingFactory,
-            Optional<TimeLockFeedbackBackgroundTask> timeLockFeedbackBackgroundTask,
-```
-
-### Deprecation
-'com.palantir.atlasdb.debug.LockDiagnosticConjureTimelockService' is deprecated
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/DefaultLockAndTimestampServiceFactory.java`
-#### Snippet
-```java
-        // TODO(fdesouza): Remove this once PDS-95791 is resolved.
-        ConjureTimelockService withDiagnosticsConjureTimelockService = lockDiagnosticComponents
-                .<ConjureTimelockService>map(components -> new LockDiagnosticConjureTimelockService(
-                        conjureTimelockService,
-                        components.clientLockDiagnosticCollector(),
+                true,
+                () -> config.atlasDbRuntimeConfig().transaction(),
+                ConflictTracer.NO_OP,
+                DefaultMetricsFilterEvaluationContext.createDefault(),
+                Optional.empty(),
 ```
 
 ### Deprecation
@@ -3556,15 +3556,15 @@ in `atlasdb-dagger/src/main/java/com/palantir/atlasdb/services/KeyValueServiceMo
 ```
 
 ### Deprecation
-'getDefault()' is deprecated
+'client()' is deprecated
 in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/TransactionManagers.java`
 #### Snippet
 ```java
-                .userAgent(AtlasDbRemotingConstants.DEFAULT_USER_AGENT)
-                .globalMetricsRegistry(new MetricRegistry())
-                .globalTaggedMetricRegistry(DefaultTaggedMetricRegistry.getDefault())
-                .lockAndTimestampServiceFactory(maybeFactory)
-                .addAllSchemas(schemas)
+        return Stream.of(
+                        config().namespace(),
+                        config().timelock().flatMap(TimeLockClientConfig::client),
+                        config().keyValueService().namespace())
+                .filter(Optional::isPresent)
 ```
 
 ### Deprecation
@@ -3577,6 +3577,18 @@ in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/TransactionManager
     abstract Optional<LockDiagnosticComponents> lockDiagnosticComponents();
 
     @Value.Default
+```
+
+### Deprecation
+'getDefault()' is deprecated
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/TransactionManagers.java`
+#### Snippet
+```java
+                .userAgent(AtlasDbRemotingConstants.DEFAULT_USER_AGENT)
+                .globalMetricsRegistry(new MetricRegistry())
+                .globalTaggedMetricRegistry(DefaultTaggedMetricRegistry.getDefault())
+                .lockAndTimestampServiceFactory(maybeFactory)
+                .addAllSchemas(schemas)
 ```
 
 ### Deprecation
@@ -3628,15 +3640,15 @@ in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/TransactionManager
 ```
 
 ### Deprecation
-'client()' is deprecated
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/TransactionManagers.java`
+'com.palantir.atlasdb.debug.LockDiagnosticConfig' is deprecated
+in `timelock-agent/src/main/java/com/palantir/timelock/paxos/AsyncTimeLockServicesCreator.java`
 #### Snippet
 ```java
-        return Stream.of(
-                        config().namespace(),
-                        config().timelock().flatMap(TimeLockClientConfig::client),
-                        config().keyValueService().namespace())
-                .filter(Optional::isPresent)
+    private final LockLog lockLog;
+    private final LeadershipComponents leadershipComponents;
+    private final Map<Client, LockDiagnosticConfig> lockDiagnosticConfig;
+
+    AsyncTimeLockServicesCreator(
 ```
 
 ### Deprecation
@@ -3649,18 +3661,6 @@ in `timelock-agent/src/main/java/com/palantir/timelock/paxos/AsyncTimeLockServic
             Map<Client, LockDiagnosticConfig> lockDiagnosticConfig) {
         this.metricsManager = metricsManager;
         this.lockLog = lockLog;
-```
-
-### Deprecation
-'com.palantir.atlasdb.debug.LockDiagnosticConfig' is deprecated
-in `timelock-agent/src/main/java/com/palantir/timelock/paxos/AsyncTimeLockServicesCreator.java`
-#### Snippet
-```java
-    private final LockLog lockLog;
-    private final LeadershipComponents leadershipComponents;
-    private final Map<Client, LockDiagnosticConfig> lockDiagnosticConfig;
-
-    AsyncTimeLockServicesCreator(
 ```
 
 ### Deprecation
@@ -3724,30 +3724,6 @@ in `atlasdb-commons/src/main/java/com/palantir/common/concurrent/CoalescingSuppl
 ```
 
 ### Deprecation
-'writerWithType(java.lang.Class)' is deprecated
-in `atlasdb-console/src/main/groovy/com/palantir/atlasdb/console/AtlasConsoleServiceImpl.java`
-#### Snippet
-```java
-
-    private <T> String toJson(T value, Class<T> type) throws IOException {
-        return mapper.writerWithType(type).writeValueAsString(value);
-    }
-
-```
-
-### Deprecation
-'createUnsafe(java.lang.String)' is deprecated
-in `atlasdb-service/src/main/java/com/palantir/atlasdb/impl/TableMetadataCache.java`
-#### Snippet
-```java
-                    @Override
-                    public TableMetadata load(String tableName) throws Exception {
-                        byte[] rawMetadata = kvs.getMetadataForTable(TableReference.createUnsafe(tableName));
-                        if (rawMetadata == null || rawMetadata.length == 0) {
-                            return EMPTY;
-```
-
-### Deprecation
 'org.apache.commons.cli.OptionBuilder' is deprecated
 in `atlasdb-console/src/main/groovy/com/palantir/atlasdb/console/AtlasConsoleMain.java`
 #### Snippet
@@ -3769,6 +3745,30 @@ in `atlasdb-console/src/main/groovy/com/palantir/atlasdb/console/AtlasConsoleMai
             CommandLineParser parser = new GnuParser();
             CommandLine cli = parser.parse(OPTIONS, args);
             if (cli.hasOption(HELP_FLAG_SHORT)) {
+```
+
+### Deprecation
+'createUnsafe(java.lang.String)' is deprecated
+in `atlasdb-service/src/main/java/com/palantir/atlasdb/impl/TableMetadataCache.java`
+#### Snippet
+```java
+                    @Override
+                    public TableMetadata load(String tableName) throws Exception {
+                        byte[] rawMetadata = kvs.getMetadataForTable(TableReference.createUnsafe(tableName));
+                        if (rawMetadata == null || rawMetadata.length == 0) {
+                            return EMPTY;
+```
+
+### Deprecation
+'writerWithType(java.lang.Class)' is deprecated
+in `atlasdb-console/src/main/groovy/com/palantir/atlasdb/console/AtlasConsoleServiceImpl.java`
+#### Snippet
+```java
+
+    private <T> String toJson(T value, Class<T> type) throws IOException {
+        return mapper.writerWithType(type).writeValueAsString(value);
+    }
+
 ```
 
 ### Deprecation
@@ -3928,6 +3928,18 @@ in `timelock-server/src/testCommon/java/com/palantir/atlasdb/timelock/TestableTi
 ```
 
 ### Deprecation
+'getSingleton()' is deprecated
+in `atlasdb-autobatch/src/main/java/com/palantir/atlasdb/autobatch/BatchSizeRecorder.java`
+#### Snippet
+```java
+
+    public static BatchSizeRecorder create(String safeLoggerIdentifier, Map<String, String> tags) {
+        Histogram histogram = SharedTaggedMetricRegistries.getSingleton()
+                .histogram(MetricName.builder()
+                        .safeName(BATCH_SIZE_METER_NAME)
+```
+
+### Deprecation
 'getMinLockedInVersionId()' is deprecated
 in `lock-api-objects/src/main/java/com/palantir/lock/LockRequest.java`
 #### Snippet
@@ -3949,18 +3961,6 @@ in `lock-api-objects/src/main/java/com/palantir/lock/LockRequest.java`
      * @see LockService#getMinLockedInVersionId()
      */
     @Nullable
-```
-
-### Deprecation
-'getSingleton()' is deprecated
-in `atlasdb-autobatch/src/main/java/com/palantir/atlasdb/autobatch/BatchSizeRecorder.java`
-#### Snippet
-```java
-
-    public static BatchSizeRecorder create(String safeLoggerIdentifier, Map<String, String> tags) {
-        Histogram histogram = SharedTaggedMetricRegistries.getSingleton()
-                .histogram(MetricName.builder()
-                        .safeName(BATCH_SIZE_METER_NAME)
 ```
 
 ### Deprecation
@@ -4029,8 +4029,8 @@ in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/Cass
 #### Snippet
 ```java
     @SuppressWarnings("checkstyle:RegexpSinglelineJava")
-    static TableReference lowerCaseTableReferenceFromBytes(byte[] name) {
-        return TableReference.createUnsafe(new String(name, Charset.defaultCharset()).toLowerCase(Locale.ROOT));
+    static TableReference tableReferenceFromBytes(byte[] name) {
+        return TableReference.createUnsafe(new String(name, Charset.defaultCharset()));
     }
 
 ```
@@ -4053,8 +4053,8 @@ in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/Cass
 #### Snippet
 ```java
     @SuppressWarnings("checkstyle:RegexpSinglelineJava")
-    static TableReference tableReferenceFromBytes(byte[] name) {
-        return TableReference.createUnsafe(new String(name, Charset.defaultCharset()));
+    static TableReference lowerCaseTableReferenceFromBytes(byte[] name) {
+        return TableReference.createUnsafe(new String(name, Charset.defaultCharset()).toLowerCase(Locale.ROOT));
     }
 
 ```
@@ -4080,30 +4080,6 @@ in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/cassandra/CassandraKeyV
         String desiredKeyspace =
                 OptionalResolver.resolve(maybeKeyspace, installConfig().keyspace());
         return this.copyWithKeyspace(desiredKeyspace);
-    }
-```
-
-### Deprecation
-'fetchBatchCount()' is deprecated
-in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/cassandra/CassandraReloadableKeyValueServiceRuntimeConfig.java`
-#### Snippet
-```java
-    @Override
-    public int fetchBatchCount() {
-        return installConfig.fetchBatchCount().orElseGet(runtimeConfig::fetchBatchCount);
-    }
-
-```
-
-### Deprecation
-'unresponsiveHostBackoffTimeSeconds()' is deprecated
-in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/cassandra/CassandraReloadableKeyValueServiceRuntimeConfig.java`
-#### Snippet
-```java
-    public int unresponsiveHostBackoffTimeSeconds() {
-        return installConfig
-                .unresponsiveHostBackoffTimeSeconds()
-                .orElseGet(runtimeConfig::unresponsiveHostBackoffTimeSeconds);
     }
 ```
 
@@ -4156,6 +4132,30 @@ in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/cassandra/CassandraRelo
 ```
 
 ### Deprecation
+'unresponsiveHostBackoffTimeSeconds()' is deprecated
+in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/cassandra/CassandraReloadableKeyValueServiceRuntimeConfig.java`
+#### Snippet
+```java
+    public int unresponsiveHostBackoffTimeSeconds() {
+        return installConfig
+                .unresponsiveHostBackoffTimeSeconds()
+                .orElseGet(runtimeConfig::unresponsiveHostBackoffTimeSeconds);
+    }
+```
+
+### Deprecation
+'fetchBatchCount()' is deprecated
+in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/cassandra/CassandraReloadableKeyValueServiceRuntimeConfig.java`
+#### Snippet
+```java
+    @Override
+    public int fetchBatchCount() {
+        return installConfig.fetchBatchCount().orElseGet(runtimeConfig::fetchBatchCount);
+    }
+
+```
+
+### Deprecation
 'mutationBatchSizeBytes()' is deprecated
 in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/cassandra/CassandraReloadableKeyValueServiceRuntimeConfig.java`
 #### Snippet
@@ -4165,18 +4165,6 @@ in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/cassandra/CassandraRelo
         return installConfig.mutationBatchSizeBytes().orElseGet(runtimeConfig::mutationBatchSizeBytes);
     }
 
-```
-
-### Deprecation
-'instrument(com.codahale.metrics.MetricRegistry, java.lang.Class, U)' is deprecated
-in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/CassandraKeyValueServiceImpl.java`
-#### Snippet
-```java
-
-    private CqlExecutor newInstrumentedCqlExecutor() {
-        return AtlasDbMetrics.instrument(
-                metricsManager.getRegistry(), CqlExecutor.class, new CqlExecutorImpl(clientPool, ConsistencyLevel.ALL));
-    }
 ```
 
 ### Deprecation
@@ -4192,6 +4180,18 @@ in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/Cass
 ```
 
 ### Deprecation
+'instrument(com.codahale.metrics.MetricRegistry, java.lang.Class, U)' is deprecated
+in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/CassandraKeyValueServiceImpl.java`
+#### Snippet
+```java
+
+    private CqlExecutor newInstrumentedCqlExecutor() {
+        return AtlasDbMetrics.instrument(
+                metricsManager.getRegistry(), CqlExecutor.class, new CqlExecutorImpl(clientPool, ConsistencyLevel.ALL));
+    }
+```
+
+### Deprecation
 'getSingleton()' is deprecated
 in `atlasdb-ete-tests/src/main/java/com/palantir/atlasdb/AtlasDbEteServer.java`
 #### Snippet
@@ -4201,54 +4201,6 @@ in `atlasdb-ete-tests/src/main/java/com/palantir/atlasdb/AtlasDbEteServer.java`
         TaggedMetricRegistry taggedMetrics = SharedTaggedMetricRegistries.getSingleton();
         TransactionManager txManager = tryToCreateTransactionManager(config, environment, taggedMetrics);
         Supplier<SweepTaskRunner> sweepTaskRunner = Suppliers.memoize(() -> getSweepTaskRunner(txManager));
-```
-
-### Deprecation
-'get(java.lang.Iterable)' is deprecated
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/debug/WritesDigestEmitter.java`
-#### Snippet
-```java
-        log.info("All written timestamps", SafeArg.of("allWrittenTimestamps", allWrittenTimestamps));
-
-        Map<Long, Long> transactionCommitStatuses = transactionService.get(allWrittenTimestamps);
-        log.info("Transaction commit statuses", SafeArg.of("transactionCommitStatuses", transactionCommitStatuses));
-
-```
-
-### Deprecation
-'getRangeOfTimestamps(com.palantir.atlasdb.keyvalue.api.TableReference, com.palantir.atlasdb.keyvalue.api.RangeRequest, long)' is deprecated
-in `atlasdb-dbkvs-tests/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/AbstractDbKvsKeyValueServiceTest.java`
-#### Snippet
-```java
-        setMaxRangeOfTimestampsBatchSize(8);
-        try (ClosableIterator<RowResult<Set<Long>>> rowResults =
-                keyValueService.getRangeOfTimestamps(TEST_TABLE, reverseRange(5), 100)) {
-            List<RowResult<Set<Long>>> resultList = ImmutableList.copyOf(rowResults);
-
-```
-
-### Deprecation
-'getRangeOfTimestamps(com.palantir.atlasdb.keyvalue.api.TableReference, com.palantir.atlasdb.keyvalue.api.RangeRequest, long)' is deprecated
-in `atlasdb-dbkvs-tests/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/AbstractDbKvsKeyValueServiceTest.java`
-#### Snippet
-```java
-        setMaxRangeOfTimestampsBatchSize(7);
-        try (ClosableIterator<RowResult<Set<Long>>> rowResults =
-                keyValueService.getRangeOfTimestamps(TEST_TABLE, normalRange(10), 62)) {
-            List<RowResult<Set<Long>>> resultList = ImmutableList.copyOf(rowResults);
-
-```
-
-### Deprecation
-'getSingleton()' is deprecated
-in `commons-executors/src/main/java/com/palantir/common/concurrent/PTExecutors.java`
-#### Snippet
-```java
-    public static ExecutorService newFixedThreadPool(int numThreads, String name) {
-        return MetricRegistries.executor()
-                .registry(SharedTaggedMetricRegistries.getSingleton())
-                .name(name)
-                .executor(PTExecutors.wrap(
 ```
 
 ### Deprecation
@@ -4280,11 +4232,59 @@ in `commons-executors/src/main/java/com/palantir/common/concurrent/PTExecutors.j
 in `commons-executors/src/main/java/com/palantir/common/concurrent/PTExecutors.java`
 #### Snippet
 ```java
+    public static ExecutorService newFixedThreadPool(int numThreads, String name) {
+        return MetricRegistries.executor()
+                .registry(SharedTaggedMetricRegistries.getSingleton())
+                .name(name)
+                .executor(PTExecutors.wrap(
+```
+
+### Deprecation
+'getSingleton()' is deprecated
+in `commons-executors/src/main/java/com/palantir/common/concurrent/PTExecutors.java`
+#### Snippet
+```java
         Preconditions.checkArgument(maxThreads > 0, "Max threads must be positive");
         return MetricRegistries.executor()
                 .registry(SharedTaggedMetricRegistries.getSingleton())
                 .name(name)
                 .executor(PTExecutors.wrap(name, getViewExecutor(name, maxThreads, 0, SHARED_EXECUTOR.get())))
+```
+
+### Deprecation
+'getRangeOfTimestamps(com.palantir.atlasdb.keyvalue.api.TableReference, com.palantir.atlasdb.keyvalue.api.RangeRequest, long)' is deprecated
+in `atlasdb-dbkvs-tests/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/AbstractDbKvsKeyValueServiceTest.java`
+#### Snippet
+```java
+        setMaxRangeOfTimestampsBatchSize(8);
+        try (ClosableIterator<RowResult<Set<Long>>> rowResults =
+                keyValueService.getRangeOfTimestamps(TEST_TABLE, reverseRange(5), 100)) {
+            List<RowResult<Set<Long>>> resultList = ImmutableList.copyOf(rowResults);
+
+```
+
+### Deprecation
+'getRangeOfTimestamps(com.palantir.atlasdb.keyvalue.api.TableReference, com.palantir.atlasdb.keyvalue.api.RangeRequest, long)' is deprecated
+in `atlasdb-dbkvs-tests/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/AbstractDbKvsKeyValueServiceTest.java`
+#### Snippet
+```java
+        setMaxRangeOfTimestampsBatchSize(7);
+        try (ClosableIterator<RowResult<Set<Long>>> rowResults =
+                keyValueService.getRangeOfTimestamps(TEST_TABLE, normalRange(10), 62)) {
+            List<RowResult<Set<Long>>> resultList = ImmutableList.copyOf(rowResults);
+
+```
+
+### Deprecation
+'get(java.lang.Iterable)' is deprecated
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/debug/WritesDigestEmitter.java`
+#### Snippet
+```java
+        log.info("All written timestamps", SafeArg.of("allWrittenTimestamps", allWrittenTimestamps));
+
+        Map<Long, Long> transactionCommitStatuses = transactionService.get(allWrittenTimestamps);
+        log.info("Transaction commit statuses", SafeArg.of("transactionCommitStatuses", transactionCommitStatuses));
+
 ```
 
 ### Deprecation
@@ -4336,6 +4336,18 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/table/common/RangeVis
 ```
 
 ### Deprecation
+'createUnsafe(java.lang.String)' is deprecated
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/compact/BackgroundCompactor.java`
+#### Snippet
+```java
+    private void compactTable(String tableToCompact, CompactorConfig config) {
+        // System tables MAY be involved in this process.
+        keyValueService.compactInternally(TableReference.createUnsafe(tableToCompact), config.inMaintenanceMode());
+    }
+
+```
+
+### Deprecation
 'get(long)' is deprecated
 in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/cleaner/Scrubber.java`
 #### Snippet
@@ -4360,39 +4372,15 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/cleaner/Scrubber.java
 ```
 
 ### Deprecation
-'createUnsafe(java.lang.String)' is deprecated
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/compact/BackgroundCompactor.java`
+'getRowKeysInRange(com.palantir.atlasdb.keyvalue.api.TableReference, byte\[\], byte\[\], int)' is deprecated
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableSplittingKeyValueService.java`
 #### Snippet
 ```java
-    private void compactTable(String tableToCompact, CompactorConfig config) {
-        // System tables MAY be involved in this process.
-        keyValueService.compactInternally(TableReference.createUnsafe(tableToCompact), config.inMaintenanceMode());
+    @Override
+    public List<byte[]> getRowKeysInRange(TableReference tableRef, byte[] startRow, byte[] endRow, int maxResults) {
+        return getDelegate(tableRef).getRowKeysInRange(tableRef, startRow, endRow, maxResults);
     }
 
-```
-
-### Deprecation
-'getRowKeysInRange(com.palantir.atlasdb.keyvalue.api.TableReference, byte\[\], byte\[\], int)' is deprecated
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
-#### Snippet
-```java
-    public List<byte[]> getRowKeysInRange(TableReference tableRef, byte[] startRow, byte[] endRow, int maxResults) {
-        try {
-            return delegate().getRowKeysInRange(tableMapper.getMappedTableName(tableRef), startRow, endRow, maxResults);
-        } catch (TableMappingNotFoundException e) {
-            throw new IllegalArgumentException(e);
-```
-
-### Deprecation
-'getRangeOfTimestamps(com.palantir.atlasdb.keyvalue.api.TableReference, com.palantir.atlasdb.keyvalue.api.RangeRequest, long)' is deprecated
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
-#### Snippet
-```java
-            TableReference tableRef, RangeRequest rangeRequest, long timestamp) {
-        try {
-            return delegate().getRangeOfTimestamps(tableMapper.getMappedTableName(tableRef), rangeRequest, timestamp);
-        } catch (TableMappingNotFoundException e) {
-            throw new IllegalArgumentException(e);
 ```
 
 ### Deprecation
@@ -4408,15 +4396,15 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableSp
 ```
 
 ### Deprecation
-'getRowKeysInRange(com.palantir.atlasdb.keyvalue.api.TableReference, byte\[\], byte\[\], int)' is deprecated
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableSplittingKeyValueService.java`
+'com.palantir.atlasdb.debug.ConflictTracer' is deprecated
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/SerializableTransactionManager.java`
 #### Snippet
 ```java
-    @Override
-    public List<byte[]> getRowKeysInRange(TableReference tableRef, byte[] startRow, byte[] endRow, int maxResults) {
-        return getDelegate(tableRef).getRowKeysInRange(tableRef, startRow, endRow, maxResults);
-    }
-
+            boolean validateLocksOnReads,
+            Supplier<TransactionConfig> transactionConfig,
+            ConflictTracer conflictTracer,
+            MetricsFilterEvaluationContext metricsFilterEvaluationContext,
+            Optional<Integer> sharedGetRangesPoolSize,
 ```
 
 ### Deprecation
@@ -4424,11 +4412,11 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableSp
 in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/SerializableTransactionManager.java`
 #### Snippet
 ```java
-    private static final SafeLogger log = SafeLoggerFactory.get(SerializableTransactionManager.class);
-
-    private final ConflictTracer conflictTracer;
-
-    public static class InitializeCheckingWrapper implements AutoDelegate_TransactionManager {
+                true,
+                () -> ImmutableTransactionConfig.builder().build(),
+                ConflictTracer.NO_OP,
+                DefaultMetricsFilterEvaluationContext.createDefault(),
+                Optional.empty(),
 ```
 
 ### Deprecation
@@ -4441,6 +4429,18 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/Seri
             ConflictTracer conflictTracer,
             MetricsFilterEvaluationContext metricsFilterEvaluationContext,
             Optional<Integer> sharedGetRangesPoolSize,
+```
+
+### Deprecation
+'com.palantir.atlasdb.debug.ConflictTracer' is deprecated
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/SerializableTransactionManager.java`
+#### Snippet
+```java
+    private static final SafeLogger log = SafeLoggerFactory.get(SerializableTransactionManager.class);
+
+    private final ConflictTracer conflictTracer;
+
+    public static class InitializeCheckingWrapper implements AutoDelegate_TransactionManager {
 ```
 
 ### Deprecation
@@ -4480,8 +4480,32 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/Seri
 ```
 
 ### Deprecation
+'getRangeOfTimestamps(com.palantir.atlasdb.keyvalue.api.TableReference, com.palantir.atlasdb.keyvalue.api.RangeRequest, long)' is deprecated
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
+#### Snippet
+```java
+            TableReference tableRef, RangeRequest rangeRequest, long timestamp) {
+        try {
+            return delegate().getRangeOfTimestamps(tableMapper.getMappedTableName(tableRef), rangeRequest, timestamp);
+        } catch (TableMappingNotFoundException e) {
+            throw new IllegalArgumentException(e);
+```
+
+### Deprecation
+'getRowKeysInRange(com.palantir.atlasdb.keyvalue.api.TableReference, byte\[\], byte\[\], int)' is deprecated
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
+#### Snippet
+```java
+    public List<byte[]> getRowKeysInRange(TableReference tableRef, byte[] startRow, byte[] endRow, int maxResults) {
+        try {
+            return delegate().getRowKeysInRange(tableMapper.getMappedTableName(tableRef), startRow, endRow, maxResults);
+        } catch (TableMappingNotFoundException e) {
+            throw new IllegalArgumentException(e);
+```
+
+### Deprecation
 'com.palantir.atlasdb.debug.ConflictTracer' is deprecated
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/SerializableTransactionManager.java`
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/SnapshotTransactionManager.java`
 #### Snippet
 ```java
             boolean validateLocksOnReads,
@@ -4489,18 +4513,6 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/Seri
             ConflictTracer conflictTracer,
             MetricsFilterEvaluationContext metricsFilterEvaluationContext,
             Optional<Integer> sharedGetRangesPoolSize,
-```
-
-### Deprecation
-'com.palantir.atlasdb.debug.ConflictTracer' is deprecated
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/SerializableTransactionManager.java`
-#### Snippet
-```java
-                true,
-                () -> ImmutableTransactionConfig.builder().build(),
-                ConflictTracer.NO_OP,
-                DefaultMetricsFilterEvaluationContext.createDefault(),
-                Optional.empty(),
 ```
 
 ### Deprecation
@@ -4516,15 +4528,15 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/Snap
 ```
 
 ### Deprecation
-'com.palantir.atlasdb.debug.ConflictTracer' is deprecated
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/SnapshotTransactionManager.java`
+'getRowKeysInRange(com.palantir.atlasdb.keyvalue.api.TableReference, byte\[\], byte\[\], int)' is deprecated
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/expectations/TrackingKeyValueServiceImpl.java`
 #### Snippet
 ```java
-            boolean validateLocksOnReads,
-            Supplier<TransactionConfig> transactionConfig,
-            ConflictTracer conflictTracer,
-            MetricsFilterEvaluationContext metricsFilterEvaluationContext,
-            Optional<Integer> sharedGetRangesPoolSize,
+    @Override
+    public List<byte[]> getRowKeysInRange(TableReference tableRef, byte[] startRow, byte[] endRow, int maxResults) {
+        List<byte[]> result = delegate.getRowKeysInRange(tableRef, startRow, endRow, maxResults);
+        tracker.recordReadForTable(tableRef, "getRowKeysInRange", MeasuringUtils.sizeOfByteCollection(result));
+        return result;
 ```
 
 ### Deprecation
@@ -4537,18 +4549,6 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/expe
                 delegate.getRangeOfTimestamps(tableRef, rangeRequest, timestamp)) {
             return wrapIterator(result, tracker.recordCallForTable(tableRef), MeasuringUtils::sizeOfLongSetRowResult);
         }
-```
-
-### Deprecation
-'getRowKeysInRange(com.palantir.atlasdb.keyvalue.api.TableReference, byte\[\], byte\[\], int)' is deprecated
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/expectations/TrackingKeyValueServiceImpl.java`
-#### Snippet
-```java
-    @Override
-    public List<byte[]> getRowKeysInRange(TableReference tableRef, byte[] startRow, byte[] endRow, int maxResults) {
-        List<byte[]> result = delegate.getRowKeysInRange(tableRef, startRow, endRow, maxResults);
-        tracker.recordReadForTable(tableRef, "getRowKeysInRange", MeasuringUtils.sizeOfByteCollection(result));
-        return result;
 ```
 
 ### Deprecation
@@ -4600,18 +4600,6 @@ in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/sweep/AbstractBackgr
 ```
 
 ### Deprecation
-'com.palantir.atlasdb.debug.ConflictTracer' is deprecated
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/SnapshotTransaction.java`
-#### Snippet
-```java
-    private final Supplier<Long> startTimestamp;
-    protected final MetricsManager metricsManager;
-    protected final ConflictTracer conflictTracer;
-
-    protected final MultiTableSweepQueueWriter sweepQueue;
-```
-
-### Deprecation
 'get(java.lang.Iterable)' is deprecated
 in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/SnapshotTransaction.java`
 #### Snippet
@@ -4621,6 +4609,18 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/Snap
                             defaultTransactionService.get(cellsToQuery.values()))
                     .filter(Objects::nonNull)
                     .keys()
+```
+
+### Deprecation
+'com.palantir.atlasdb.debug.ConflictTracer' is deprecated
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/SnapshotTransaction.java`
+#### Snippet
+```java
+    private final Supplier<Long> startTimestamp;
+    protected final MetricsManager metricsManager;
+    protected final ConflictTracer conflictTracer;
+
+    protected final MultiTableSweepQueueWriter sweepQueue;
 ```
 
 ### Deprecation
@@ -4661,6 +4661,30 @@ public class TrackingKeyValueService extends ForwardingKeyValueService {
 
 ### Deprecation
 'com.palantir.atlasdb.debug.ConflictTracer' is deprecated
+in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/CommitLockTest.java`
+#### Snippet
+```java
+                true,
+                () -> TRANSACTION_CONFIG,
+                ConflictTracer.NO_OP,
+                new SimpleTableLevelMetricsController(metricsManager),
+                knowledge) {
+```
+
+### Deprecation
+'com.palantir.atlasdb.debug.ConflictTracer' is deprecated
+in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/TestTransactionManagerImpl.java`
+#### Snippet
+```java
+                true,
+                () -> TRANSACTION_CONFIG,
+                ConflictTracer.NO_OP,
+                DefaultMetricsFilterEvaluationContext.createDefault(),
+                Optional.empty(),
+```
+
+### Deprecation
+'com.palantir.atlasdb.debug.ConflictTracer' is deprecated
 in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/TestTransactionManagerImpl.java`
 #### Snippet
 ```java
@@ -4684,30 +4708,6 @@ in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/Tes
 ```
 
 ### Deprecation
-'com.palantir.atlasdb.debug.ConflictTracer' is deprecated
-in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/TestTransactionManagerImpl.java`
-#### Snippet
-```java
-                true,
-                () -> TRANSACTION_CONFIG,
-                ConflictTracer.NO_OP,
-                DefaultMetricsFilterEvaluationContext.createDefault(),
-                Optional.empty(),
-```
-
-### Deprecation
-'com.palantir.atlasdb.debug.ConflictTracer' is deprecated
-in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/CommitLockTest.java`
-#### Snippet
-```java
-                true,
-                () -> TRANSACTION_CONFIG,
-                ConflictTracer.NO_OP,
-                new SimpleTableLevelMetricsController(metricsManager),
-                knowledge) {
-```
-
-### Deprecation
 'getLockLog()' is deprecated
 in `atlasdb-tests-shared/src/main/java/com/palantir/timelock/paxos/InMemoryTimelockServices.java`
 #### Snippet
@@ -4715,18 +4715,6 @@ in `atlasdb-tests-shared/src/main/java/com/palantir/timelock/paxos/InMemoryTimel
     @Override
     public LockLog getLockLog() {
         return delegate.getLockLog();
-    }
-
-```
-
-### Deprecation
-'startTransactions(java.util.List)' is deprecated
-in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/AbstractSerializableTransactionTest.java`
-#### Snippet
-```java
-    @Override
-    protected Transaction startTransaction() {
-        return Iterables.getOnlyElement(txMgr.startTransactions(List.of(PreCommitConditions.NO_OP)));
     }
 
 ```
@@ -4744,99 +4732,15 @@ in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/Abs
 ```
 
 ### Deprecation
-'getRanges(com.palantir.atlasdb.keyvalue.api.TableReference, java.lang.Iterable)' is deprecated
-in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/AbstractTransactionTest.java`
-#### Snippet
-```java
-        secondTransaction.put(TEST_TABLE, ImmutableMap.of(secondCell, value, thirdCell, value));
-
-        Iterable<BatchingVisitable<RowResult<byte[]>>> visitables = secondTransaction.getRanges(
-                TEST_TABLE,
-                ImmutableList.of(
-```
-
-### Deprecation
-'getRanges(com.palantir.atlasdb.keyvalue.api.TableReference, java.lang.Iterable)' is deprecated
-in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/AbstractTransactionTest.java`
-#### Snippet
-```java
-        tx = startTransaction();
-        Iterable<BatchingVisitable<RowResult<byte[]>>> ranges =
-                tx.getRanges(TEST_TABLE, Iterables.limit(Iterables.cycle(range1, range2), 1000));
-        for (BatchingVisitable<RowResult<byte[]>> batchingVisitable : ranges) {
-            final List<RowResult<byte[]>> list = BatchingVisitables.copyToList(batchingVisitable);
-```
-
-### Deprecation
-'getRanges(com.palantir.atlasdb.keyvalue.api.TableReference, java.lang.Iterable)' is deprecated
-in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/AbstractTransactionTest.java`
-#### Snippet
-```java
-
-        List<BatchingVisitable<RowResult<byte[]>>> getRangesWithPrefetchingImpl =
-                ImmutableList.copyOf(tx.getRanges(TEST_TABLE, rangeRequests));
-        List<BatchingVisitable<RowResult<byte[]>>> getRangesInParallelImpl = tx.getRanges(
-                        TEST_TABLE, rangeRequests, 2, (rangeRequest, visitable) -> visitable)
-```
-
-### Deprecation
-'getRanges(com.palantir.atlasdb.keyvalue.api.TableReference, java.lang.Iterable)' is deprecated
-in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/AbstractTransactionTest.java`
-#### Snippet
-```java
-            Transaction tx, Iterable<RangeRequest> rangeRequests, List<String> expectedValues) {
-        Iterable<BatchingVisitable<RowResult<byte[]>>> getRangesWithPrefetchingImpl =
-                tx.getRanges(TEST_TABLE, rangeRequests);
-        Iterable<BatchingVisitable<RowResult<byte[]>>> getRangesInParallelImpl = tx.getRanges(
-                        TEST_TABLE, rangeRequests, 2, (rangeRequest, visitable) -> visitable)
-```
-
-### Deprecation
 'startTransactions(java.util.List)' is deprecated
-in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/AbstractTransactionTest.java`
+in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/AbstractSerializableTransactionTest.java`
 #### Snippet
 ```java
-
+    @Override
     protected Transaction startTransaction() {
         return Iterables.getOnlyElement(txMgr.startTransactions(List.of(PreCommitConditions.NO_OP)));
     }
 
-```
-
-### Deprecation
-'createUnsafe(java.lang.String)' is deprecated
-in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/AbstractKeyValueServiceTest.java`
-#### Snippet
-```java
-    @Test
-    public void truncateShouldBeIdempotent() {
-        TableReference fooBar = TableReference.createUnsafe("foo.bar");
-        keyValueService.createTable(fooBar, AtlasDbConstants.GENERIC_TABLE_METADATA);
-
-```
-
-### Deprecation
-'getRangeOfTimestamps(com.palantir.atlasdb.keyvalue.api.TableReference, com.palantir.atlasdb.keyvalue.api.RangeRequest, long)' is deprecated
-in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/AbstractKeyValueServiceTest.java`
-#### Snippet
-```java
-            KeyValueService keyValueService, TableReference tableRef, RangeRequest rangeRequest, long timestamp) {
-        try (ClosableIterator<RowResult<Set<Long>>> iterator =
-                keyValueService.getRangeOfTimestamps(tableRef, rangeRequest, timestamp)) {
-            return ImmutableList.copyOf(iterator);
-        }
-```
-
-### Deprecation
-'getRangeOfTimestamps(com.palantir.atlasdb.keyvalue.api.TableReference, com.palantir.atlasdb.keyvalue.api.RangeRequest, long)' is deprecated
-in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/AbstractKeyValueServiceTest.java`
-#### Snippet
-```java
-        RangeRequest range = RangeRequest.all().withBatchHint(1);
-        List<RowResult<Set<Long>>> results =
-                ImmutableList.copyOf(keyValueService.getRangeOfTimestamps(TEST_TABLE, range, TEST_TIMESTAMP + 1));
-        assertThat(results).hasSize(3);
-        assertThat(results.get(0).getRowName()).isEqualTo(row(0));
 ```
 
 ### Deprecation
@@ -4880,6 +4784,18 @@ in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/Abstra
 in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/AbstractKeyValueServiceTest.java`
 #### Snippet
 ```java
+        RangeRequest range = RangeRequest.all().withBatchHint(1);
+        List<RowResult<Set<Long>>> results =
+                ImmutableList.copyOf(keyValueService.getRangeOfTimestamps(TEST_TABLE, range, TEST_TIMESTAMP + 1));
+        assertThat(results).hasSize(3);
+        assertThat(results.get(0).getRowName()).isEqualTo(row(0));
+```
+
+### Deprecation
+'getRangeOfTimestamps(com.palantir.atlasdb.keyvalue.api.TableReference, com.palantir.atlasdb.keyvalue.api.RangeRequest, long)' is deprecated
+in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/AbstractKeyValueServiceTest.java`
+#### Snippet
+```java
     public void testGetRangeOfTimestampsThrowsOnError() {
         assertThatThrownBy(() -> {
                     try (ClosableIterator<RowResult<Set<Long>>> iterator = keyValueService.getRangeOfTimestamps(
@@ -4888,15 +4804,99 @@ in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/Abstra
 ```
 
 ### Deprecation
-'AGGRESSIVE_WITH_NETWORK_CLEANUP' is deprecated
-in `atlasdb-container-test-utils/src/main/java/com/palantir/atlasdb/containers/Containers.java`
+'createUnsafe(java.lang.String)' is deprecated
+in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/AbstractKeyValueServiceTest.java`
 #### Snippet
 ```java
-                .machine(machine)
-                .logCollector(currentLogCollector)
-                .shutdownStrategy(ShutdownStrategy.AGGRESSIVE_WITH_NETWORK_CLEANUP)
-                .build();
+    @Test
+    public void truncateShouldBeIdempotent() {
+        TableReference fooBar = TableReference.createUnsafe("foo.bar");
+        keyValueService.createTable(fooBar, AtlasDbConstants.GENERIC_TABLE_METADATA);
 
+```
+
+### Deprecation
+'getRangeOfTimestamps(com.palantir.atlasdb.keyvalue.api.TableReference, com.palantir.atlasdb.keyvalue.api.RangeRequest, long)' is deprecated
+in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/AbstractKeyValueServiceTest.java`
+#### Snippet
+```java
+            KeyValueService keyValueService, TableReference tableRef, RangeRequest rangeRequest, long timestamp) {
+        try (ClosableIterator<RowResult<Set<Long>>> iterator =
+                keyValueService.getRangeOfTimestamps(tableRef, rangeRequest, timestamp)) {
+            return ImmutableList.copyOf(iterator);
+        }
+```
+
+### Deprecation
+'getRanges(com.palantir.atlasdb.keyvalue.api.TableReference, java.lang.Iterable)' is deprecated
+in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/AbstractTransactionTest.java`
+#### Snippet
+```java
+        tx = startTransaction();
+        Iterable<BatchingVisitable<RowResult<byte[]>>> ranges =
+                tx.getRanges(TEST_TABLE, Iterables.limit(Iterables.cycle(range1, range2), 1000));
+        for (BatchingVisitable<RowResult<byte[]>> batchingVisitable : ranges) {
+            final List<RowResult<byte[]>> list = BatchingVisitables.copyToList(batchingVisitable);
+```
+
+### Deprecation
+'getRanges(com.palantir.atlasdb.keyvalue.api.TableReference, java.lang.Iterable)' is deprecated
+in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/AbstractTransactionTest.java`
+#### Snippet
+```java
+            Transaction tx, Iterable<RangeRequest> rangeRequests, List<String> expectedValues) {
+        Iterable<BatchingVisitable<RowResult<byte[]>>> getRangesWithPrefetchingImpl =
+                tx.getRanges(TEST_TABLE, rangeRequests);
+        Iterable<BatchingVisitable<RowResult<byte[]>>> getRangesInParallelImpl = tx.getRanges(
+                        TEST_TABLE, rangeRequests, 2, (rangeRequest, visitable) -> visitable)
+```
+
+### Deprecation
+'getRanges(com.palantir.atlasdb.keyvalue.api.TableReference, java.lang.Iterable)' is deprecated
+in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/AbstractTransactionTest.java`
+#### Snippet
+```java
+
+        List<BatchingVisitable<RowResult<byte[]>>> getRangesWithPrefetchingImpl =
+                ImmutableList.copyOf(tx.getRanges(TEST_TABLE, rangeRequests));
+        List<BatchingVisitable<RowResult<byte[]>>> getRangesInParallelImpl = tx.getRanges(
+                        TEST_TABLE, rangeRequests, 2, (rangeRequest, visitable) -> visitable)
+```
+
+### Deprecation
+'startTransactions(java.util.List)' is deprecated
+in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/AbstractTransactionTest.java`
+#### Snippet
+```java
+
+    protected Transaction startTransaction() {
+        return Iterables.getOnlyElement(txMgr.startTransactions(List.of(PreCommitConditions.NO_OP)));
+    }
+
+```
+
+### Deprecation
+'getRanges(com.palantir.atlasdb.keyvalue.api.TableReference, java.lang.Iterable)' is deprecated
+in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/AbstractTransactionTest.java`
+#### Snippet
+```java
+        secondTransaction.put(TEST_TABLE, ImmutableMap.of(secondCell, value, thirdCell, value));
+
+        Iterable<BatchingVisitable<RowResult<byte[]>>> visitables = secondTransaction.getRanges(
+                TEST_TABLE,
+                ImmutableList.of(
+```
+
+### Deprecation
+'getSingleton()' is deprecated
+in `timelock-server-benchmark-client/src/main/java/com/palantir/atlasdb/timelock/benchmarks/BenchmarksResource.java`
+#### Snippet
+```java
+                .userAgent(UserAgent.of(UserAgent.Agent.of("benchmarks", "0.0.0")))
+                .globalMetricsRegistry(new MetricRegistry())
+                .globalTaggedMetricRegistry(SharedTaggedMetricRegistries.getSingleton())
+                .addSchemas(BenchmarksSchema.SCHEMA)
+                .allowHiddenTableAccess(true)
 ```
 
 ### Deprecation
@@ -4912,15 +4912,15 @@ in `atlasdb-container-test-utils/src/main/java/com/palantir/atlasdb/containers/C
 ```
 
 ### Deprecation
-'getSingleton()' is deprecated
-in `timelock-server-benchmark-client/src/main/java/com/palantir/atlasdb/timelock/benchmarks/BenchmarksResource.java`
+'AGGRESSIVE_WITH_NETWORK_CLEANUP' is deprecated
+in `atlasdb-container-test-utils/src/main/java/com/palantir/atlasdb/containers/Containers.java`
 #### Snippet
 ```java
-                .userAgent(UserAgent.of(UserAgent.Agent.of("benchmarks", "0.0.0")))
-                .globalMetricsRegistry(new MetricRegistry())
-                .globalTaggedMetricRegistry(SharedTaggedMetricRegistries.getSingleton())
-                .addSchemas(BenchmarksSchema.SCHEMA)
-                .allowHiddenTableAccess(true)
+                .machine(machine)
+                .logCollector(currentLogCollector)
+                .shutdownStrategy(ShutdownStrategy.AGGRESSIVE_WITH_NETWORK_CLEANUP)
+                .build();
+
 ```
 
 ### Deprecation
@@ -5154,8 +5154,8 @@ in `commons-db/src/main/java/com/palantir/nexus/db/sql/SqlConnectionHelper.java`
 #### Snippet
 ```java
 
-    void updateMany(Connection c, RegisteredSQLString sql) throws PalantirSqlException {
-        updateMany(c, sql.getKey(), ImmutableList.<Object[]>of());
+    void updateMany(Connection c, String key) throws PalantirSqlException {
+        updateMany(c, key, ImmutableList.<Object[]>of());
     }
 
 ```
@@ -5166,8 +5166,8 @@ in `commons-db/src/main/java/com/palantir/nexus/db/sql/SqlConnectionHelper.java`
 #### Snippet
 ```java
 
-    void updateMany(Connection c, String key) throws PalantirSqlException {
-        updateMany(c, key, ImmutableList.<Object[]>of());
+    void updateMany(Connection c, RegisteredSQLString sql) throws PalantirSqlException {
+        updateMany(c, sql.getKey(), ImmutableList.<Object[]>of());
     }
 
 ```
@@ -5186,14 +5186,14 @@ in `commons-db/src/main/java/com/palantir/nexus/db/pool/RetriableTransactions.ja
 
 ### RedundantTypeArguments
 Explicit type arguments can be inferred
-in `lock-impl/src/main/java/com/palantir/lock/impl/LockServiceImpl.java`
+in `atlasdb-api/src/main/java/com/palantir/atlasdb/keyvalue/api/RowResult.java`
 #### Snippet
 ```java
 
-    private final SetMultimap<LockClient, LockRequest> outstandingLockRequestMultimap =
-            Multimaps.synchronizedSetMultimap(HashMultimap.<LockClient, LockRequest>create());
+    public static <T> Ordering<RowResult<T>> getOrderingByRowName() {
+        return Ordering.from(UnsignedBytes.lexicographicalComparator()).onResultOf(RowResult.<T>getRowNameFun());
+    }
 
-    private final Set<Thread> blockingThreads = ConcurrentHashMap.newKeySet();
 ```
 
 ### RedundantTypeArguments
@@ -5210,14 +5210,14 @@ in `lock-impl/src/main/java/com/palantir/lock/impl/LockServiceImpl.java`
 
 ### RedundantTypeArguments
 Explicit type arguments can be inferred
-in `atlasdb-api/src/main/java/com/palantir/atlasdb/keyvalue/api/RowResult.java`
+in `lock-impl/src/main/java/com/palantir/lock/impl/LockServiceImpl.java`
 #### Snippet
 ```java
 
-    public static <T> Ordering<RowResult<T>> getOrderingByRowName() {
-        return Ordering.from(UnsignedBytes.lexicographicalComparator()).onResultOf(RowResult.<T>getRowNameFun());
-    }
+    private final SetMultimap<LockClient, LockRequest> outstandingLockRequestMultimap =
+            Multimaps.synchronizedSetMultimap(HashMultimap.<LockClient, LockRequest>create());
 
+    private final Set<Thread> blockingThreads = ConcurrentHashMap.newKeySet();
 ```
 
 ### RedundantTypeArguments
@@ -5369,6 +5369,54 @@ Explicit type arguments can be inferred
 in `atlasdb-commons/src/main/java/com/palantir/common/base/BatchingVisitables.java`
 #### Snippet
 ```java
+    public static <T> T getFirst(BatchingVisitable<T> visitable, @Nullable T defaultElement) {
+        final Mutable<T> ret = Mutables.newMutable(defaultElement);
+        visitable.batchAccept(1, AbortingVisitors.<T, RuntimeException>batching(item -> {
+            ret.set(item);
+            return false;
+```
+
+### RedundantTypeArguments
+Explicit type arguments can be inferred
+in `atlasdb-commons/src/main/java/com/palantir/common/base/BatchingVisitables.java`
+#### Snippet
+```java
+     */
+    public static <T> BatchingVisitableView<T> unique(final BatchingVisitable<T> visitable) {
+        return uniqueOn(visitable, Functions.<T>identity());
+    }
+
+```
+
+### RedundantTypeArguments
+Explicit type arguments can be inferred
+in `atlasdb-commons/src/main/java/com/palantir/common/base/BatchingVisitables.java`
+#### Snippet
+```java
+
+    public static <T> boolean isEmpty(BatchingVisitable<T> v) {
+        return v.batchAccept(1, AbortingVisitors.<T, RuntimeException>batching(AbortingVisitors.<T>alwaysFalse()));
+    }
+
+```
+
+### RedundantTypeArguments
+Explicit type arguments can be inferred
+in `atlasdb-commons/src/main/java/com/palantir/common/base/BatchingVisitables.java`
+#### Snippet
+```java
+
+    public static <T> boolean isEmpty(BatchingVisitable<T> v) {
+        return v.batchAccept(1, AbortingVisitors.<T, RuntimeException>batching(AbortingVisitors.<T>alwaysFalse()));
+    }
+
+```
+
+### RedundantTypeArguments
+Explicit type arguments can be inferred
+in `atlasdb-commons/src/main/java/com/palantir/common/base/BatchingVisitables.java`
+#### Snippet
+```java
     private static <T> long countInternal(BatchingVisitable<T> visitable, int batchSize) {
         final long[] count = new long[1];
         visitable.batchAccept(batchSize, AbortingVisitors.<T, RuntimeException>batching(item -> {
@@ -5393,57 +5441,9 @@ Explicit type arguments can be inferred
 in `atlasdb-commons/src/main/java/com/palantir/common/base/BatchingVisitables.java`
 #### Snippet
 ```java
-     */
-    public static <T> BatchingVisitableView<T> unique(final BatchingVisitable<T> visitable) {
-        return uniqueOn(visitable, Functions.<T>identity());
-    }
 
-```
-
-### RedundantTypeArguments
-Explicit type arguments can be inferred
-in `atlasdb-commons/src/main/java/com/palantir/common/base/BatchingVisitables.java`
-#### Snippet
-```java
-        v.batchAccept(
-                DEFAULT_BATCH_SIZE,
-                AbortingVisitors.<T, RuntimeException>batching(new AbortingVisitor<T, RuntimeException>() {
-                    boolean hasSeenFirst = false;
-
-```
-
-### RedundantTypeArguments
-Explicit type arguments can be inferred
-in `atlasdb-commons/src/main/java/com/palantir/common/base/BatchingVisitables.java`
-#### Snippet
-```java
-        v.batchAccept(
-                DEFAULT_BATCH_SIZE,
-                AbortingVisitors.<T, RuntimeException>batching(new AbortingVisitor<T, RuntimeException>() {
-                    boolean hasSeenFirst = false;
-
-```
-
-### RedundantTypeArguments
-Explicit type arguments can be inferred
-in `atlasdb-commons/src/main/java/com/palantir/common/base/BatchingVisitables.java`
-#### Snippet
-```java
-
-    public static <T> boolean isEmpty(BatchingVisitable<T> v) {
-        return v.batchAccept(1, AbortingVisitors.<T, RuntimeException>batching(AbortingVisitors.<T>alwaysFalse()));
-    }
-
-```
-
-### RedundantTypeArguments
-Explicit type arguments can be inferred
-in `atlasdb-commons/src/main/java/com/palantir/common/base/BatchingVisitables.java`
-#### Snippet
-```java
-
-    public static <T> boolean isEmpty(BatchingVisitable<T> v) {
-        return v.batchAccept(1, AbortingVisitors.<T, RuntimeException>batching(AbortingVisitors.<T>alwaysFalse()));
+    public static <T> TokenBackedBasicResultsPage<T, T> getFirstPage(BatchingVisitable<T> v, int numToVisitArg) {
+        return getFirstPage(v, numToVisitArg, Functions.<T>identity());
     }
 
 ```
@@ -5465,10 +5465,10 @@ Explicit type arguments can be inferred
 in `atlasdb-commons/src/main/java/com/palantir/common/base/BatchingVisitables.java`
 #### Snippet
 ```java
-
-    public static <T> TokenBackedBasicResultsPage<T, T> getFirstPage(BatchingVisitable<T> v, int numToVisitArg) {
-        return getFirstPage(v, numToVisitArg, Functions.<T>identity());
-    }
+        v.batchAccept(
+                DEFAULT_BATCH_SIZE,
+                AbortingVisitors.<T, RuntimeException>batching(new AbortingVisitor<T, RuntimeException>() {
+                    boolean hasSeenFirst = false;
 
 ```
 
@@ -5477,11 +5477,11 @@ Explicit type arguments can be inferred
 in `atlasdb-commons/src/main/java/com/palantir/common/base/BatchingVisitables.java`
 #### Snippet
 ```java
-    public static <T> T getFirst(BatchingVisitable<T> visitable, @Nullable T defaultElement) {
-        final Mutable<T> ret = Mutables.newMutable(defaultElement);
-        visitable.batchAccept(1, AbortingVisitors.<T, RuntimeException>batching(item -> {
-            ret.set(item);
-            return false;
+        v.batchAccept(
+                DEFAULT_BATCH_SIZE,
+                AbortingVisitors.<T, RuntimeException>batching(new AbortingVisitor<T, RuntimeException>() {
+                    boolean hasSeenFirst = false;
+
 ```
 
 ### RedundantTypeArguments
@@ -5526,6 +5526,30 @@ Overridden method parameters are not annotated
 in `lock-api/src/main/java/com/palantir/lock/LockService.java`
 #### Snippet
 ```java
+    @Deprecated
+    @Idempotent
+    Set<HeldLocksToken> refreshTokens(Iterable<HeldLocksToken> tokens);
+
+    /**
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/LockService.java`
+#### Snippet
+```java
+    @Idempotent
+    @Nullable
+    HeldLocksGrant refreshGrant(BigInteger grantId);
+
+    /**
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/LockService.java`
+#### Snippet
+```java
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     Long getMinLockedInVersionId(@Safe @PathParam("client") LockClient client);
@@ -5538,9 +5562,57 @@ Overridden method parameters are not annotated
 in `lock-api/src/main/java/com/palantir/lock/LockService.java`
 #### Snippet
 ```java
-    @Idempotent
-    @Nullable
-    HeldLocksGrant refreshGrant(BigInteger grantId);
+    @Consumes(MediaType.APPLICATION_JSON)
+    @NonIdempotent
+    HeldLocksToken useGrant(@Safe @PathParam("client") LockClient client, BigInteger grantId);
+
+    /**
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/LockService.java`
+#### Snippet
+```java
+    @Consumes(MediaType.APPLICATION_JSON)
+    @NonIdempotent
+    HeldLocksToken useGrant(@Safe @PathParam("client") LockClient client, BigInteger grantId);
+
+    /**
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/LockService.java`
+#### Snippet
+```java
+    @CancelableServerCall
+    @NonIdempotent
+    LockResponse lockWithFullLockResponse(@Safe @PathParam("client") LockClient client, LockRequest request)
+            throws InterruptedException;
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/LockService.java`
+#### Snippet
+```java
+    @CancelableServerCall
+    @NonIdempotent
+    LockResponse lockWithFullLockResponse(@Safe @PathParam("client") LockClient client, LockRequest request)
+            throws InterruptedException;
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/LockService.java`
+#### Snippet
+```java
+    @Consumes(MediaType.APPLICATION_JSON)
+    @NonIdempotent
+    boolean unlockSimple(SimpleHeldLocksToken token);
 
     /**
 ```
@@ -5562,57 +5634,9 @@ Overridden method parameters are not annotated
 in `lock-api/src/main/java/com/palantir/lock/LockService.java`
 #### Snippet
 ```java
-    @Deprecated
-    @NonIdempotent
-    boolean unlock(HeldLocksToken token);
-
-    @POST
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/LockService.java`
-#### Snippet
-```java
     @Consumes(MediaType.APPLICATION_JSON)
     @NonIdempotent
-    boolean unlockSimple(SimpleHeldLocksToken token);
-
-    /**
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/LockService.java`
-#### Snippet
-```java
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Idempotent
-    Set<HeldLocksToken> getTokens(@Safe @PathParam("client") LockClient client);
-
-    /**
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/LockService.java`
-#### Snippet
-```java
-    @Consumes(MediaType.APPLICATION_JSON)
-    @NonIdempotent
-    HeldLocksToken useGrant(@Safe @PathParam("client") LockClient client, BigInteger grantId);
-
-    /**
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/LockService.java`
-#### Snippet
-```java
-    @Consumes(MediaType.APPLICATION_JSON)
-    @NonIdempotent
-    HeldLocksToken useGrant(@Safe @PathParam("client") LockClient client, BigInteger grantId);
+    boolean unlockAndFreeze(HeldLocksToken token);
 
     /**
 ```
@@ -5658,35 +5682,23 @@ Overridden method parameters are not annotated
 in `lock-api/src/main/java/com/palantir/lock/LockService.java`
 #### Snippet
 ```java
-    @Deprecated
+    @Consumes(MediaType.APPLICATION_JSON)
     @Idempotent
-    Set<HeldLocksToken> refreshTokens(Iterable<HeldLocksToken> tokens);
+    Set<HeldLocksToken> getTokens(@Safe @PathParam("client") LockClient client);
 
     /**
 ```
 
 ### NullableProblems
 Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/ForwardingRemoteLockService.java`
+in `lock-api/src/main/java/com/palantir/lock/LockService.java`
 #### Snippet
 ```java
+    @Deprecated
+    @NonIdempotent
+    boolean unlock(HeldLocksToken token);
 
-    @Override
-    public LockRefreshToken lock(String client, LockRequest request) throws InterruptedException {
-        return delegate().lock(client, request);
-    }
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/ForwardingRemoteLockService.java`
-#### Snippet
-```java
-
-    @Override
-    public LockRefreshToken lock(String client, LockRequest request) throws InterruptedException {
-        return delegate().lock(client, request);
-    }
+    @POST
 ```
 
 ### NullableProblems
@@ -5739,314 +5751,26 @@ in `lock-api/src/main/java/com/palantir/lock/ForwardingRemoteLockService.java`
 
 ### NullableProblems
 Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/LockService.java`
+in `lock-api/src/main/java/com/palantir/lock/ForwardingRemoteLockService.java`
 #### Snippet
 ```java
-    @Consumes(MediaType.APPLICATION_JSON)
-    @NonIdempotent
-    boolean unlockAndFreeze(HeldLocksToken token);
 
-    /**
+    @Override
+    public LockRefreshToken lock(String client, LockRequest request) throws InterruptedException {
+        return delegate().lock(client, request);
+    }
 ```
 
 ### NullableProblems
 Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/LockService.java`
+in `lock-api/src/main/java/com/palantir/lock/ForwardingRemoteLockService.java`
 #### Snippet
 ```java
-    @CancelableServerCall
-    @NonIdempotent
-    LockResponse lockWithFullLockResponse(@Safe @PathParam("client") LockClient client, LockRequest request)
-            throws InterruptedException;
 
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/LockService.java`
-#### Snippet
-```java
-    @CancelableServerCall
-    @NonIdempotent
-    LockResponse lockWithFullLockResponse(@Safe @PathParam("client") LockClient client, LockRequest request)
-            throws InterruptedException;
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
-#### Snippet
-```java
-    @POST
-    @Path("get-tokens/{client: .*}")
-    Set<HeldLocksToken> getTokens(@Safe @PathParam("client") LockClient client);
-
-    @POST
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
-#### Snippet
-```java
-    @POST
-    @Path("min-locked-in-version/{client: .*}")
-    Optional<Long> getMinLockedInVersionId(@Safe @PathParam("client") String client);
-
-    @POST
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
-#### Snippet
-```java
-    @POST
-    @Path("unlock")
-    boolean unlock(LockRefreshToken token);
-
-    @POST
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
-#### Snippet
-```java
-    @POST
-    @Path("refresh-lock-tokens")
-    Set<LockRefreshToken> refreshLockRefreshTokens(Iterable<LockRefreshToken> tokens);
-
-    @POST
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
-#### Snippet
-```java
-    @POST
-    @Path("unlock-deprecated")
-    boolean unlock(HeldLocksToken token);
-
-    @POST
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
-#### Snippet
-```java
-    @Path("lock-with-full-response/{client: .*}")
-    @CancelableServerCall
-    Optional<LockResponse> lockWithFullLockResponse(@Safe @PathParam("client") LockClient client, LockRequest request)
-            throws InterruptedException;
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
-#### Snippet
-```java
-    @Path("lock-with-full-response/{client: .*}")
-    @CancelableServerCall
-    Optional<LockResponse> lockWithFullLockResponse(@Safe @PathParam("client") LockClient client, LockRequest request)
-            throws InterruptedException;
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
-#### Snippet
-```java
-    @POST
-    @Path("min-locked-in-version-id-for-client/{client: .*}")
-    Optional<Long> getMinLockedInVersionId(@Safe @PathParam("client") LockClient client);
-
-    @POST
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
-#### Snippet
-```java
-    @POST
-    @Path("use-grant/{client: .*}")
-    HeldLocksToken useGrant(@Safe @PathParam("client") LockClient client, HeldLocksGrant grant);
-
-    @POST
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
-#### Snippet
-```java
-    @POST
-    @Path("use-grant/{client: .*}")
-    HeldLocksToken useGrant(@Safe @PathParam("client") LockClient client, HeldLocksGrant grant);
-
-    @POST
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
-#### Snippet
-```java
-    @POST
-    @Path("get-debugging-lock-state")
-    LockState getLockState(LockDescriptor lock);
-}
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
-#### Snippet
-```java
-    @POST
-    @Path("try-lock/{client: .*}")
-    Optional<HeldLocksToken> lockAndGetHeldLocks(@Safe @PathParam("client") String client, LockRequest request)
-            throws InterruptedException;
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
-#### Snippet
-```java
-    @POST
-    @Path("try-lock/{client: .*}")
-    Optional<HeldLocksToken> lockAndGetHeldLocks(@Safe @PathParam("client") String client, LockRequest request)
-            throws InterruptedException;
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
-#### Snippet
-```java
-    @POST
-    @Path("unlock-simple")
-    boolean unlockSimple(SimpleHeldLocksToken token);
-
-    @POST
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
-#### Snippet
-```java
-    @POST
-    @Path("refresh-tokens")
-    Set<HeldLocksToken> refreshTokens(Iterable<HeldLocksToken> tokens);
-
-    @POST
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
-#### Snippet
-```java
-    @POST
-    @Path("use-grant-id/{client: .*}")
-    HeldLocksToken useGrant(@Safe @PathParam("client") LockClient client, BigInteger grantId);
-
-    @POST
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
-#### Snippet
-```java
-    @POST
-    @Path("use-grant-id/{client: .*}")
-    HeldLocksToken useGrant(@Safe @PathParam("client") LockClient client, BigInteger grantId);
-
-    @POST
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
-#### Snippet
-```java
-    @POST
-    @Path("refresh-grant-id")
-    Optional<HeldLocksGrant> refreshGrant(BigInteger grantId);
-
-    @POST
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
-#### Snippet
-```java
-    @POST
-    @Path("lock/{client: .*}")
-    Optional<LockRefreshToken> lock(@Safe @PathParam("client") String client, LockRequest request)
-            throws InterruptedException;
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
-#### Snippet
-```java
-    @POST
-    @Path("lock/{client: .*}")
-    Optional<LockRefreshToken> lock(@Safe @PathParam("client") String client, LockRequest request)
-            throws InterruptedException;
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
-#### Snippet
-```java
-    @POST
-    @Path("convert-to-grant")
-    HeldLocksGrant convertToGrant(HeldLocksToken token);
-
-    @POST
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
-#### Snippet
-```java
-    @POST
-    @Path("refresh-grant")
-    Optional<HeldLocksGrant> refreshGrant(HeldLocksGrant grant);
-
-    @POST
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
-#### Snippet
-```java
-    @POST
-    @Path("unlock-and-freeze")
-    boolean unlockAndFreeze(HeldLocksToken token);
-
-    @POST
+    @Override
+    public LockRefreshToken lock(String client, LockRequest request) throws InterruptedException {
+        return delegate().lock(client, request);
+    }
 ```
 
 ### NullableProblems
@@ -6075,6 +5799,294 @@ in `lock-api/src/main/java/com/palantir/lock/SimplifyingLockService.java`
 
 ### NullableProblems
 Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
+#### Snippet
+```java
+    @POST
+    @Path("use-grant-id/{client: .*}")
+    HeldLocksToken useGrant(@Safe @PathParam("client") LockClient client, BigInteger grantId);
+
+    @POST
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
+#### Snippet
+```java
+    @POST
+    @Path("use-grant-id/{client: .*}")
+    HeldLocksToken useGrant(@Safe @PathParam("client") LockClient client, BigInteger grantId);
+
+    @POST
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
+#### Snippet
+```java
+    @POST
+    @Path("get-debugging-lock-state")
+    LockState getLockState(LockDescriptor lock);
+}
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
+#### Snippet
+```java
+    @POST
+    @Path("lock/{client: .*}")
+    Optional<LockRefreshToken> lock(@Safe @PathParam("client") String client, LockRequest request)
+            throws InterruptedException;
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
+#### Snippet
+```java
+    @POST
+    @Path("lock/{client: .*}")
+    Optional<LockRefreshToken> lock(@Safe @PathParam("client") String client, LockRequest request)
+            throws InterruptedException;
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
+#### Snippet
+```java
+    @POST
+    @Path("unlock-deprecated")
+    boolean unlock(HeldLocksToken token);
+
+    @POST
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
+#### Snippet
+```java
+    @POST
+    @Path("get-tokens/{client: .*}")
+    Set<HeldLocksToken> getTokens(@Safe @PathParam("client") LockClient client);
+
+    @POST
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
+#### Snippet
+```java
+    @POST
+    @Path("try-lock/{client: .*}")
+    Optional<HeldLocksToken> lockAndGetHeldLocks(@Safe @PathParam("client") String client, LockRequest request)
+            throws InterruptedException;
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
+#### Snippet
+```java
+    @POST
+    @Path("try-lock/{client: .*}")
+    Optional<HeldLocksToken> lockAndGetHeldLocks(@Safe @PathParam("client") String client, LockRequest request)
+            throws InterruptedException;
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
+#### Snippet
+```java
+    @POST
+    @Path("unlock")
+    boolean unlock(LockRefreshToken token);
+
+    @POST
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
+#### Snippet
+```java
+    @POST
+    @Path("refresh-tokens")
+    Set<HeldLocksToken> refreshTokens(Iterable<HeldLocksToken> tokens);
+
+    @POST
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
+#### Snippet
+```java
+    @POST
+    @Path("unlock-and-freeze")
+    boolean unlockAndFreeze(HeldLocksToken token);
+
+    @POST
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
+#### Snippet
+```java
+    @POST
+    @Path("convert-to-grant")
+    HeldLocksGrant convertToGrant(HeldLocksToken token);
+
+    @POST
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
+#### Snippet
+```java
+    @POST
+    @Path("refresh-lock-tokens")
+    Set<LockRefreshToken> refreshLockRefreshTokens(Iterable<LockRefreshToken> tokens);
+
+    @POST
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
+#### Snippet
+```java
+    @POST
+    @Path("use-grant/{client: .*}")
+    HeldLocksToken useGrant(@Safe @PathParam("client") LockClient client, HeldLocksGrant grant);
+
+    @POST
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
+#### Snippet
+```java
+    @POST
+    @Path("use-grant/{client: .*}")
+    HeldLocksToken useGrant(@Safe @PathParam("client") LockClient client, HeldLocksGrant grant);
+
+    @POST
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
+#### Snippet
+```java
+    @POST
+    @Path("min-locked-in-version-id-for-client/{client: .*}")
+    Optional<Long> getMinLockedInVersionId(@Safe @PathParam("client") LockClient client);
+
+    @POST
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
+#### Snippet
+```java
+    @POST
+    @Path("refresh-grant")
+    Optional<HeldLocksGrant> refreshGrant(HeldLocksGrant grant);
+
+    @POST
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
+#### Snippet
+```java
+    @POST
+    @Path("min-locked-in-version/{client: .*}")
+    Optional<Long> getMinLockedInVersionId(@Safe @PathParam("client") String client);
+
+    @POST
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
+#### Snippet
+```java
+    @POST
+    @Path("refresh-grant-id")
+    Optional<HeldLocksGrant> refreshGrant(BigInteger grantId);
+
+    @POST
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
+#### Snippet
+```java
+    @POST
+    @Path("unlock-simple")
+    boolean unlockSimple(SimpleHeldLocksToken token);
+
+    @POST
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
+#### Snippet
+```java
+    @Path("lock-with-full-response/{client: .*}")
+    @CancelableServerCall
+    Optional<LockResponse> lockWithFullLockResponse(@Safe @PathParam("client") LockClient client, LockRequest request)
+            throws InterruptedException;
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/NamespaceAgnosticLockRpcClient.java`
+#### Snippet
+```java
+    @Path("lock-with-full-response/{client: .*}")
+    @CancelableServerCall
+    Optional<LockResponse> lockWithFullLockResponse(@Safe @PathParam("client") LockClient client, LockRequest request)
+            throws InterruptedException;
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/RemoteLockService.java`
+#### Snippet
+```java
+    @Consumes(MediaType.APPLICATION_JSON)
+    @NonIdempotent
+    boolean unlock(LockRefreshToken token);
+
+    /**
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
 in `lock-api/src/main/java/com/palantir/lock/RemoteLockService.java`
 #### Snippet
 ```java
@@ -6083,6 +6095,18 @@ in `lock-api/src/main/java/com/palantir/lock/RemoteLockService.java`
     LockState getLockState(LockDescriptor lock);
 }
 
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/RemoteLockService.java`
+#### Snippet
+```java
+    @Idempotent
+    @Nullable
+    Long getMinLockedInVersionId(@Safe @PathParam("client") String client);
+
+    /** Returns the current time in milliseconds on the server. */
 ```
 
 ### NullableProblems
@@ -6147,26 +6171,26 @@ in `lock-api/src/main/java/com/palantir/lock/RemoteLockService.java`
 
 ### NullableProblems
 Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/RemoteLockService.java`
+in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
 #### Snippet
 ```java
-    @Idempotent
-    @Nullable
-    Long getMinLockedInVersionId(@Safe @PathParam("client") String client);
+    @POST
+    @Path("unlock-deprecated")
+    boolean unlock(@Safe @PathParam("namespace") String namespace, HeldLocksToken token);
 
-    /** Returns the current time in milliseconds on the server. */
+    @POST
 ```
 
 ### NullableProblems
 Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/RemoteLockService.java`
+in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
 #### Snippet
 ```java
-    @Consumes(MediaType.APPLICATION_JSON)
-    @NonIdempotent
-    boolean unlock(LockRefreshToken token);
+    @POST
+    @Path("unlock-deprecated")
+    boolean unlock(@Safe @PathParam("namespace") String namespace, HeldLocksToken token);
 
-    /**
+    @POST
 ```
 
 ### NullableProblems
@@ -6186,306 +6210,6 @@ Overridden method parameters are not annotated
 in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
 #### Snippet
 ```java
-    @Path("use-grant/{client: .*}")
-    HeldLocksToken useGrant(
-            @Safe @PathParam("namespace") String namespace,
-            @Safe @PathParam("client") LockClient client,
-            HeldLocksGrant grant);
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
-#### Snippet
-```java
-    HeldLocksToken useGrant(
-            @Safe @PathParam("namespace") String namespace,
-            @Safe @PathParam("client") LockClient client,
-            HeldLocksGrant grant);
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
-#### Snippet
-```java
-            @Safe @PathParam("namespace") String namespace,
-            @Safe @PathParam("client") LockClient client,
-            HeldLocksGrant grant);
-
-    @POST
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
-#### Snippet
-```java
-    @POST
-    @Path("log-current-state")
-    void logCurrentState(@Safe @PathParam("namespace") String namespace);
-
-    @POST
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
-#### Snippet
-```java
-    @Path("lock/{client: .*}")
-    Optional<LockRefreshToken> lock(
-            @Safe @PathParam("namespace") String namespace,
-            @Safe @PathParam("client") String client,
-            LockRequest request)
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
-#### Snippet
-```java
-    Optional<LockRefreshToken> lock(
-            @Safe @PathParam("namespace") String namespace,
-            @Safe @PathParam("client") String client,
-            LockRequest request)
-            throws InterruptedException;
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
-#### Snippet
-```java
-            @Safe @PathParam("namespace") String namespace,
-            @Safe @PathParam("client") String client,
-            LockRequest request)
-            throws InterruptedException;
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
-#### Snippet
-```java
-    @POST
-    @Path("unlock")
-    boolean unlock(@Safe @PathParam("namespace") String namespace, LockRefreshToken token);
-
-    @POST
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
-#### Snippet
-```java
-    @POST
-    @Path("unlock")
-    boolean unlock(@Safe @PathParam("namespace") String namespace, LockRefreshToken token);
-
-    @POST
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
-#### Snippet
-```java
-    @Path("min-locked-in-version-id-for-client/{client: .*}")
-    Optional<Long> getMinLockedInVersionId(
-            @Safe @PathParam("namespace") String namespace, @Safe @PathParam("client") LockClient client);
-
-    @POST
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
-#### Snippet
-```java
-    @Path("min-locked-in-version-id-for-client/{client: .*}")
-    Optional<Long> getMinLockedInVersionId(
-            @Safe @PathParam("namespace") String namespace, @Safe @PathParam("client") LockClient client);
-
-    @POST
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
-#### Snippet
-```java
-    @POST
-    @Path("convert-to-grant")
-    HeldLocksGrant convertToGrant(@Safe @PathParam("namespace") String namespace, HeldLocksToken token);
-
-    @POST
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
-#### Snippet
-```java
-    @POST
-    @Path("convert-to-grant")
-    HeldLocksGrant convertToGrant(@Safe @PathParam("namespace") String namespace, HeldLocksToken token);
-
-    @POST
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
-#### Snippet
-```java
-    @POST
-    @Path("unlock-simple")
-    boolean unlockSimple(@Safe @PathParam("namespace") String namespace, SimpleHeldLocksToken token);
-
-    @POST
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
-#### Snippet
-```java
-    @POST
-    @Path("unlock-simple")
-    boolean unlockSimple(@Safe @PathParam("namespace") String namespace, SimpleHeldLocksToken token);
-
-    @POST
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
-#### Snippet
-```java
-    @Path("use-grant-id/{client: .*}")
-    HeldLocksToken useGrant(
-            @Safe @PathParam("namespace") String namespace,
-            @Safe @PathParam("client") LockClient client,
-            BigInteger grantId);
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
-#### Snippet
-```java
-    HeldLocksToken useGrant(
-            @Safe @PathParam("namespace") String namespace,
-            @Safe @PathParam("client") LockClient client,
-            BigInteger grantId);
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
-#### Snippet
-```java
-            @Safe @PathParam("namespace") String namespace,
-            @Safe @PathParam("client") LockClient client,
-            BigInteger grantId);
-
-    @POST
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
-#### Snippet
-```java
-    @CancelableServerCall
-    Optional<LockResponse> lockWithFullLockResponse(
-            @Safe @PathParam("namespace") String namespace,
-            @Safe @PathParam("client") LockClient client,
-            LockRequest request)
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
-#### Snippet
-```java
-    Optional<LockResponse> lockWithFullLockResponse(
-            @Safe @PathParam("namespace") String namespace,
-            @Safe @PathParam("client") LockClient client,
-            LockRequest request)
-            throws InterruptedException;
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
-#### Snippet
-```java
-            @Safe @PathParam("namespace") String namespace,
-            @Safe @PathParam("client") LockClient client,
-            LockRequest request)
-            throws InterruptedException;
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
-#### Snippet
-```java
-    @Path("try-lock/{client: .*}")
-    Optional<HeldLocksToken> lockAndGetHeldLocks(
-            @Safe @PathParam("namespace") String namespace,
-            @Safe @PathParam("client") String client,
-            LockRequest request)
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
-#### Snippet
-```java
-    Optional<HeldLocksToken> lockAndGetHeldLocks(
-            @Safe @PathParam("namespace") String namespace,
-            @Safe @PathParam("client") String client,
-            LockRequest request)
-            throws InterruptedException;
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
-#### Snippet
-```java
-            @Safe @PathParam("namespace") String namespace,
-            @Safe @PathParam("client") String client,
-            LockRequest request)
-            throws InterruptedException;
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
-#### Snippet
-```java
-    @POST
-    @Path("min-locked-in-version-id")
-    Optional<Long> getMinLockedInVersionId(@Safe @PathParam("namespace") String namespace);
-
-    @POST
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
-#### Snippet
-```java
     @POST
     @Path("refresh-grant-id")
     Optional<HeldLocksGrant> refreshGrant(@Safe @PathParam("namespace") String namespace, BigInteger grantId);
@@ -6510,9 +6234,9 @@ Overridden method parameters are not annotated
 in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
 #### Snippet
 ```java
-    @POST
-    @Path("refresh-grant")
-    Optional<HeldLocksGrant> refreshGrant(@Safe @PathParam("namespace") String namespace, HeldLocksGrant grant);
+    @Path("get-tokens/{client: .*}")
+    Set<HeldLocksToken> getTokens(
+            @Safe @PathParam("namespace") String namespace, @Safe @PathParam("client") LockClient client);
 
     @POST
 ```
@@ -6522,81 +6246,9 @@ Overridden method parameters are not annotated
 in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
 #### Snippet
 ```java
-    @POST
-    @Path("refresh-grant")
-    Optional<HeldLocksGrant> refreshGrant(@Safe @PathParam("namespace") String namespace, HeldLocksGrant grant);
-
-    @POST
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
-#### Snippet
-```java
-    @POST
-    @Path("unlock-and-freeze")
-    boolean unlockAndFreeze(@Safe @PathParam("namespace") String namespace, HeldLocksToken token);
-
-    @POST
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
-#### Snippet
-```java
-    @POST
-    @Path("unlock-and-freeze")
-    boolean unlockAndFreeze(@Safe @PathParam("namespace") String namespace, HeldLocksToken token);
-
-    @POST
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
-#### Snippet
-```java
-    @Path("min-locked-in-version/{client: .*}")
-    Optional<Long> getMinLockedInVersionId(
-            @Safe @PathParam("namespace") String namespace, @Safe @PathParam("client") String client);
-
-    @POST
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
-#### Snippet
-```java
-    @Path("min-locked-in-version/{client: .*}")
-    Optional<Long> getMinLockedInVersionId(
-            @Safe @PathParam("namespace") String namespace, @Safe @PathParam("client") String client);
-
-    @POST
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
-#### Snippet
-```java
-    @POST
-    @Path("unlock-deprecated")
-    boolean unlock(@Safe @PathParam("namespace") String namespace, HeldLocksToken token);
-
-    @POST
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
-#### Snippet
-```java
-    @POST
-    @Path("unlock-deprecated")
-    boolean unlock(@Safe @PathParam("namespace") String namespace, HeldLocksToken token);
+    @Path("get-tokens/{client: .*}")
+    Set<HeldLocksToken> getTokens(
+            @Safe @PathParam("namespace") String namespace, @Safe @PathParam("client") LockClient client);
 
     @POST
 ```
@@ -6630,32 +6282,8 @@ Overridden method parameters are not annotated
 in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
 #### Snippet
 ```java
-    @Path("refresh-lock-tokens")
-    Set<LockRefreshToken> refreshLockRefreshTokens(
-            @Safe @PathParam("namespace") String namespace, Iterable<LockRefreshToken> tokens);
-
-    @POST
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
-#### Snippet
-```java
-    @Path("refresh-lock-tokens")
-    Set<LockRefreshToken> refreshLockRefreshTokens(
-            @Safe @PathParam("namespace") String namespace, Iterable<LockRefreshToken> tokens);
-
-    @POST
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
-#### Snippet
-```java
-    @Path("get-tokens/{client: .*}")
-    Set<HeldLocksToken> getTokens(
+    @Path("min-locked-in-version-id-for-client/{client: .*}")
+    Optional<Long> getMinLockedInVersionId(
             @Safe @PathParam("namespace") String namespace, @Safe @PathParam("client") LockClient client);
 
     @POST
@@ -6666,9 +6294,201 @@ Overridden method parameters are not annotated
 in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
 #### Snippet
 ```java
-    @Path("get-tokens/{client: .*}")
-    Set<HeldLocksToken> getTokens(
+    @Path("min-locked-in-version-id-for-client/{client: .*}")
+    Optional<Long> getMinLockedInVersionId(
             @Safe @PathParam("namespace") String namespace, @Safe @PathParam("client") LockClient client);
+
+    @POST
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
+#### Snippet
+```java
+    @POST
+    @Path("refresh-grant")
+    Optional<HeldLocksGrant> refreshGrant(@Safe @PathParam("namespace") String namespace, HeldLocksGrant grant);
+
+    @POST
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
+#### Snippet
+```java
+    @POST
+    @Path("refresh-grant")
+    Optional<HeldLocksGrant> refreshGrant(@Safe @PathParam("namespace") String namespace, HeldLocksGrant grant);
+
+    @POST
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
+#### Snippet
+```java
+    @POST
+    @Path("unlock-simple")
+    boolean unlockSimple(@Safe @PathParam("namespace") String namespace, SimpleHeldLocksToken token);
+
+    @POST
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
+#### Snippet
+```java
+    @POST
+    @Path("unlock-simple")
+    boolean unlockSimple(@Safe @PathParam("namespace") String namespace, SimpleHeldLocksToken token);
+
+    @POST
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
+#### Snippet
+```java
+    @POST
+    @Path("convert-to-grant")
+    HeldLocksGrant convertToGrant(@Safe @PathParam("namespace") String namespace, HeldLocksToken token);
+
+    @POST
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
+#### Snippet
+```java
+    @POST
+    @Path("convert-to-grant")
+    HeldLocksGrant convertToGrant(@Safe @PathParam("namespace") String namespace, HeldLocksToken token);
+
+    @POST
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
+#### Snippet
+```java
+    @POST
+    @Path("unlock-and-freeze")
+    boolean unlockAndFreeze(@Safe @PathParam("namespace") String namespace, HeldLocksToken token);
+
+    @POST
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
+#### Snippet
+```java
+    @POST
+    @Path("unlock-and-freeze")
+    boolean unlockAndFreeze(@Safe @PathParam("namespace") String namespace, HeldLocksToken token);
+
+    @POST
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
+#### Snippet
+```java
+    @POST
+    @Path("unlock")
+    boolean unlock(@Safe @PathParam("namespace") String namespace, LockRefreshToken token);
+
+    @POST
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
+#### Snippet
+```java
+    @POST
+    @Path("unlock")
+    boolean unlock(@Safe @PathParam("namespace") String namespace, LockRefreshToken token);
+
+    @POST
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
+#### Snippet
+```java
+    @Path("use-grant/{client: .*}")
+    HeldLocksToken useGrant(
+            @Safe @PathParam("namespace") String namespace,
+            @Safe @PathParam("client") LockClient client,
+            HeldLocksGrant grant);
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
+#### Snippet
+```java
+    HeldLocksToken useGrant(
+            @Safe @PathParam("namespace") String namespace,
+            @Safe @PathParam("client") LockClient client,
+            HeldLocksGrant grant);
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
+#### Snippet
+```java
+            @Safe @PathParam("namespace") String namespace,
+            @Safe @PathParam("client") LockClient client,
+            HeldLocksGrant grant);
+
+    @POST
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
+#### Snippet
+```java
+    @POST
+    @Path("min-locked-in-version-id")
+    Optional<Long> getMinLockedInVersionId(@Safe @PathParam("namespace") String namespace);
+
+    @POST
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
+#### Snippet
+```java
+    @Path("min-locked-in-version/{client: .*}")
+    Optional<Long> getMinLockedInVersionId(
+            @Safe @PathParam("namespace") String namespace, @Safe @PathParam("client") String client);
+
+    @POST
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
+#### Snippet
+```java
+    @Path("min-locked-in-version/{client: .*}")
+    Optional<Long> getMinLockedInVersionId(
+            @Safe @PathParam("namespace") String namespace, @Safe @PathParam("client") String client);
 
     @POST
 ```
@@ -6695,6 +6515,282 @@ in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
     Set<HeldLocksToken> refreshTokens(@Safe @PathParam("namespace") String namespace, Iterable<HeldLocksToken> tokens);
 
     @POST
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
+#### Snippet
+```java
+    @POST
+    @Path("log-current-state")
+    void logCurrentState(@Safe @PathParam("namespace") String namespace);
+
+    @POST
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
+#### Snippet
+```java
+    @Path("refresh-lock-tokens")
+    Set<LockRefreshToken> refreshLockRefreshTokens(
+            @Safe @PathParam("namespace") String namespace, Iterable<LockRefreshToken> tokens);
+
+    @POST
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
+#### Snippet
+```java
+    @Path("refresh-lock-tokens")
+    Set<LockRefreshToken> refreshLockRefreshTokens(
+            @Safe @PathParam("namespace") String namespace, Iterable<LockRefreshToken> tokens);
+
+    @POST
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
+#### Snippet
+```java
+    @Path("use-grant-id/{client: .*}")
+    HeldLocksToken useGrant(
+            @Safe @PathParam("namespace") String namespace,
+            @Safe @PathParam("client") LockClient client,
+            BigInteger grantId);
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
+#### Snippet
+```java
+    HeldLocksToken useGrant(
+            @Safe @PathParam("namespace") String namespace,
+            @Safe @PathParam("client") LockClient client,
+            BigInteger grantId);
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
+#### Snippet
+```java
+            @Safe @PathParam("namespace") String namespace,
+            @Safe @PathParam("client") LockClient client,
+            BigInteger grantId);
+
+    @POST
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
+#### Snippet
+```java
+    @Path("try-lock/{client: .*}")
+    Optional<HeldLocksToken> lockAndGetHeldLocks(
+            @Safe @PathParam("namespace") String namespace,
+            @Safe @PathParam("client") String client,
+            LockRequest request)
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
+#### Snippet
+```java
+    Optional<HeldLocksToken> lockAndGetHeldLocks(
+            @Safe @PathParam("namespace") String namespace,
+            @Safe @PathParam("client") String client,
+            LockRequest request)
+            throws InterruptedException;
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
+#### Snippet
+```java
+            @Safe @PathParam("namespace") String namespace,
+            @Safe @PathParam("client") String client,
+            LockRequest request)
+            throws InterruptedException;
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
+#### Snippet
+```java
+    @CancelableServerCall
+    Optional<LockResponse> lockWithFullLockResponse(
+            @Safe @PathParam("namespace") String namespace,
+            @Safe @PathParam("client") LockClient client,
+            LockRequest request)
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
+#### Snippet
+```java
+    Optional<LockResponse> lockWithFullLockResponse(
+            @Safe @PathParam("namespace") String namespace,
+            @Safe @PathParam("client") LockClient client,
+            LockRequest request)
+            throws InterruptedException;
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
+#### Snippet
+```java
+            @Safe @PathParam("namespace") String namespace,
+            @Safe @PathParam("client") LockClient client,
+            LockRequest request)
+            throws InterruptedException;
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
+#### Snippet
+```java
+    @Path("lock/{client: .*}")
+    Optional<LockRefreshToken> lock(
+            @Safe @PathParam("namespace") String namespace,
+            @Safe @PathParam("client") String client,
+            LockRequest request)
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
+#### Snippet
+```java
+    Optional<LockRefreshToken> lock(
+            @Safe @PathParam("namespace") String namespace,
+            @Safe @PathParam("client") String client,
+            LockRequest request)
+            throws InterruptedException;
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `lock-api/src/main/java/com/palantir/lock/LockRpcClient.java`
+#### Snippet
+```java
+            @Safe @PathParam("namespace") String namespace,
+            @Safe @PathParam("client") String client,
+            LockRequest request)
+            throws InterruptedException;
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/RemoteLockServiceAdapter.java`
+#### Snippet
+```java
+
+    @Override
+    public Set<HeldLocksToken> refreshTokens(Iterable<HeldLocksToken> tokens) {
+        return namespaceAgnosticLockRpcClient.refreshTokens(tokens);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/RemoteLockServiceAdapter.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean unlock(HeldLocksToken token) {
+        return namespaceAgnosticLockRpcClient.unlock(token);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/RemoteLockServiceAdapter.java`
+#### Snippet
+```java
+
+    @Override
+    public HeldLocksToken lockAndGetHeldLocks(String client, LockRequest request) throws InterruptedException {
+        return namespaceAgnosticLockRpcClient
+                .lockAndGetHeldLocks(client, request)
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/RemoteLockServiceAdapter.java`
+#### Snippet
+```java
+
+    @Override
+    public HeldLocksToken lockAndGetHeldLocks(String client, LockRequest request) throws InterruptedException {
+        return namespaceAgnosticLockRpcClient
+                .lockAndGetHeldLocks(client, request)
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/RemoteLockServiceAdapter.java`
+#### Snippet
+```java
+    @Nullable
+    @Override
+    public LockRefreshToken lock(String client, LockRequest request) throws InterruptedException {
+        return namespaceAgnosticLockRpcClient.lock(client, request).orElse(null);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/RemoteLockServiceAdapter.java`
+#### Snippet
+```java
+    @Nullable
+    @Override
+    public LockRefreshToken lock(String client, LockRequest request) throws InterruptedException {
+        return namespaceAgnosticLockRpcClient.lock(client, request).orElse(null);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/RemoteLockServiceAdapter.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean unlock(LockRefreshToken token) {
+        return namespaceAgnosticLockRpcClient.unlock(token);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/RemoteLockServiceAdapter.java`
+#### Snippet
+```java
+
+    @Override
+    public Set<LockRefreshToken> refreshLockRefreshTokens(Iterable<LockRefreshToken> tokens) {
+        return namespaceAgnosticLockRpcClient.refreshLockRefreshTokens(tokens);
+    }
 ```
 
 ### NullableProblems
@@ -6706,18 +6802,6 @@ in `lock-api/src/main/java/com/palantir/lock/client/RemoteLockServiceAdapter.jav
     @Override
     public Long getMinLockedInVersionId(String client) {
         return namespaceAgnosticLockRpcClient.getMinLockedInVersionId(client).orElse(null);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/RemoteLockServiceAdapter.java`
-#### Snippet
-```java
-
-    @Override
-    public HeldLocksGrant convertToGrant(HeldLocksToken token) {
-        return namespaceAgnosticLockRpcClient.convertToGrant(token);
     }
 ```
 
@@ -6738,10 +6822,46 @@ Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
 in `lock-api/src/main/java/com/palantir/lock/client/RemoteLockServiceAdapter.java`
 #### Snippet
 ```java
-    @Nullable
+
     @Override
-    public HeldLocksGrant refreshGrant(BigInteger grantId) {
-        return namespaceAgnosticLockRpcClient.refreshGrant(grantId).orElse(null);
+    public HeldLocksToken useGrant(LockClient client, HeldLocksGrant grant) {
+        return namespaceAgnosticLockRpcClient.useGrant(client, grant);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/RemoteLockServiceAdapter.java`
+#### Snippet
+```java
+
+    @Override
+    public HeldLocksToken useGrant(LockClient client, HeldLocksGrant grant) {
+        return namespaceAgnosticLockRpcClient.useGrant(client, grant);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/RemoteLockServiceAdapter.java`
+#### Snippet
+```java
+
+    @Override
+    public HeldLocksToken useGrant(LockClient client, BigInteger grantId) {
+        return namespaceAgnosticLockRpcClient.useGrant(client, grantId);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/RemoteLockServiceAdapter.java`
+#### Snippet
+```java
+
+    @Override
+    public HeldLocksToken useGrant(LockClient client, BigInteger grantId) {
+        return namespaceAgnosticLockRpcClient.useGrant(client, grantId);
     }
 ```
 
@@ -6764,90 +6884,6 @@ in `lock-api/src/main/java/com/palantir/lock/client/RemoteLockServiceAdapter.jav
 ```java
 
     @Override
-    public boolean unlock(LockRefreshToken token) {
-        return namespaceAgnosticLockRpcClient.unlock(token);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/RemoteLockServiceAdapter.java`
-#### Snippet
-```java
-
-    @Override
-    public LockResponse lockWithFullLockResponse(LockClient client, LockRequest request) throws InterruptedException {
-        return namespaceAgnosticLockRpcClient
-                .lockWithFullLockResponse(client, request)
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/RemoteLockServiceAdapter.java`
-#### Snippet
-```java
-
-    @Override
-    public LockResponse lockWithFullLockResponse(LockClient client, LockRequest request) throws InterruptedException {
-        return namespaceAgnosticLockRpcClient
-                .lockWithFullLockResponse(client, request)
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/RemoteLockServiceAdapter.java`
-#### Snippet
-```java
-
-    @Override
-    public HeldLocksToken useGrant(LockClient client, HeldLocksGrant grant) {
-        return namespaceAgnosticLockRpcClient.useGrant(client, grant);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/RemoteLockServiceAdapter.java`
-#### Snippet
-```java
-
-    @Override
-    public HeldLocksToken useGrant(LockClient client, HeldLocksGrant grant) {
-        return namespaceAgnosticLockRpcClient.useGrant(client, grant);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/RemoteLockServiceAdapter.java`
-#### Snippet
-```java
-
-    @Override
-    public Set<LockRefreshToken> refreshLockRefreshTokens(Iterable<LockRefreshToken> tokens) {
-        return namespaceAgnosticLockRpcClient.refreshLockRefreshTokens(tokens);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/RemoteLockServiceAdapter.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean unlock(HeldLocksToken token) {
-        return namespaceAgnosticLockRpcClient.unlock(token);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/RemoteLockServiceAdapter.java`
-#### Snippet
-```java
-
-    @Override
     public boolean unlockAndFreeze(HeldLocksToken token) {
         return namespaceAgnosticLockRpcClient.unlockAndFreeze(token);
     }
@@ -6860,56 +6896,8 @@ in `lock-api/src/main/java/com/palantir/lock/client/RemoteLockServiceAdapter.jav
 ```java
     @Nullable
     @Override
-    public LockRefreshToken lock(String client, LockRequest request) throws InterruptedException {
-        return namespaceAgnosticLockRpcClient.lock(client, request).orElse(null);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/RemoteLockServiceAdapter.java`
-#### Snippet
-```java
-    @Nullable
-    @Override
-    public LockRefreshToken lock(String client, LockRequest request) throws InterruptedException {
-        return namespaceAgnosticLockRpcClient.lock(client, request).orElse(null);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/RemoteLockServiceAdapter.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean unlockSimple(SimpleHeldLocksToken token) {
-        return namespaceAgnosticLockRpcClient.unlockSimple(token);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/RemoteLockServiceAdapter.java`
-#### Snippet
-```java
-
-    @Override
-    public Long getMinLockedInVersionId(LockClient client) {
-        return namespaceAgnosticLockRpcClient.getMinLockedInVersionId(client).orElse(null);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/RemoteLockServiceAdapter.java`
-#### Snippet
-```java
-
-    @Override
-    public Set<HeldLocksToken> refreshTokens(Iterable<HeldLocksToken> tokens) {
-        return namespaceAgnosticLockRpcClient.refreshTokens(tokens);
+    public HeldLocksGrant refreshGrant(BigInteger grantId) {
+        return namespaceAgnosticLockRpcClient.refreshGrant(grantId).orElse(null);
     }
 ```
 
@@ -6932,9 +6920,33 @@ in `lock-api/src/main/java/com/palantir/lock/client/RemoteLockServiceAdapter.jav
 ```java
 
     @Override
-    public HeldLocksToken lockAndGetHeldLocks(String client, LockRequest request) throws InterruptedException {
+    public Long getMinLockedInVersionId(LockClient client) {
+        return namespaceAgnosticLockRpcClient.getMinLockedInVersionId(client).orElse(null);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/RemoteLockServiceAdapter.java`
+#### Snippet
+```java
+
+    @Override
+    public HeldLocksGrant convertToGrant(HeldLocksToken token) {
+        return namespaceAgnosticLockRpcClient.convertToGrant(token);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/RemoteLockServiceAdapter.java`
+#### Snippet
+```java
+
+    @Override
+    public LockResponse lockWithFullLockResponse(LockClient client, LockRequest request) throws InterruptedException {
         return namespaceAgnosticLockRpcClient
-                .lockAndGetHeldLocks(client, request)
+                .lockWithFullLockResponse(client, request)
 ```
 
 ### NullableProblems
@@ -6944,9 +6956,9 @@ in `lock-api/src/main/java/com/palantir/lock/client/RemoteLockServiceAdapter.jav
 ```java
 
     @Override
-    public HeldLocksToken lockAndGetHeldLocks(String client, LockRequest request) throws InterruptedException {
+    public LockResponse lockWithFullLockResponse(LockClient client, LockRequest request) throws InterruptedException {
         return namespaceAgnosticLockRpcClient
-                .lockAndGetHeldLocks(client, request)
+                .lockWithFullLockResponse(client, request)
 ```
 
 ### NullableProblems
@@ -6956,573 +6968,9 @@ in `lock-api/src/main/java/com/palantir/lock/client/RemoteLockServiceAdapter.jav
 ```java
 
     @Override
-    public HeldLocksToken useGrant(LockClient client, BigInteger grantId) {
-        return namespaceAgnosticLockRpcClient.useGrant(client, grantId);
+    public boolean unlockSimple(SimpleHeldLocksToken token) {
+        return namespaceAgnosticLockRpcClient.unlockSimple(token);
     }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/RemoteLockServiceAdapter.java`
-#### Snippet
-```java
-
-    @Override
-    public HeldLocksToken useGrant(LockClient client, BigInteger grantId) {
-        return namespaceAgnosticLockRpcClient.useGrant(client, grantId);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Optional<HeldLocksToken> lockAndGetHeldLocks(String namespace, String client, LockRequest request) {
-        return pureDialogueDelegate.lockAndGetHeldLocks(
-                UNUSED_AUTH_HEADER,
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Optional<HeldLocksToken> lockAndGetHeldLocks(String namespace, String client, LockRequest request) {
-        return pureDialogueDelegate.lockAndGetHeldLocks(
-                UNUSED_AUTH_HEADER,
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Optional<HeldLocksToken> lockAndGetHeldLocks(String namespace, String client, LockRequest request) {
-        return pureDialogueDelegate.lockAndGetHeldLocks(
-                UNUSED_AUTH_HEADER,
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean unlock(String namespace, HeldLocksToken token) {
-        return dialogueShimDelegate.unlock(namespace, token);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean unlock(String namespace, HeldLocksToken token) {
-        return dialogueShimDelegate.unlock(namespace, token);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Set<HeldLocksToken> getTokens(String namespace, LockClient client) {
-        return dialogueShimDelegate.getTokens(namespace, client);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Set<HeldLocksToken> getTokens(String namespace, LockClient client) {
-        return dialogueShimDelegate.getTokens(namespace, client);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Optional<Long> getMinLockedInVersionId(String namespace, String client) {
-        return dialogueShimDelegate.getMinLockedInVersionId(namespace, client);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Optional<Long> getMinLockedInVersionId(String namespace, String client) {
-        return dialogueShimDelegate.getMinLockedInVersionId(namespace, client);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Optional<Long> getMinLockedInVersionId(String namespace, LockClient client) {
-        return dialogueShimDelegate.getMinLockedInVersionId(namespace, client);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Optional<Long> getMinLockedInVersionId(String namespace, LockClient client) {
-        return dialogueShimDelegate.getMinLockedInVersionId(namespace, client);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Set<HeldLocksToken> refreshTokens(String namespace, Iterable<HeldLocksToken> tokens) {
-        return dialogueShimDelegate.refreshTokens(namespace, tokens);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Set<HeldLocksToken> refreshTokens(String namespace, Iterable<HeldLocksToken> tokens) {
-        return dialogueShimDelegate.refreshTokens(namespace, tokens);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Optional<LockResponse> lockWithFullLockResponse(String namespace, LockClient client, LockRequest request)
-            throws InterruptedException {
-        return dialogueShimDelegate.lockWithFullLockResponse(namespace, client, request);
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Optional<LockResponse> lockWithFullLockResponse(String namespace, LockClient client, LockRequest request)
-            throws InterruptedException {
-        return dialogueShimDelegate.lockWithFullLockResponse(namespace, client, request);
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Optional<LockResponse> lockWithFullLockResponse(String namespace, LockClient client, LockRequest request)
-            throws InterruptedException {
-        return dialogueShimDelegate.lockWithFullLockResponse(namespace, client, request);
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public HeldLocksToken useGrant(String namespace, LockClient client, BigInteger grantId) {
-        return dialogueShimDelegate.useGrant(namespace, client, grantId);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public HeldLocksToken useGrant(String namespace, LockClient client, BigInteger grantId) {
-        return dialogueShimDelegate.useGrant(namespace, client, grantId);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public HeldLocksToken useGrant(String namespace, LockClient client, BigInteger grantId) {
-        return dialogueShimDelegate.useGrant(namespace, client, grantId);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public HeldLocksToken useGrant(String namespace, LockClient client, HeldLocksGrant grant) {
-        return dialogueShimDelegate.useGrant(namespace, client, grant);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public HeldLocksToken useGrant(String namespace, LockClient client, HeldLocksGrant grant) {
-        return dialogueShimDelegate.useGrant(namespace, client, grant);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public HeldLocksToken useGrant(String namespace, LockClient client, HeldLocksGrant grant) {
-        return dialogueShimDelegate.useGrant(namespace, client, grant);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean unlock(String namespace, LockRefreshToken token) {
-        return dialogueShimDelegate.unlock(namespace, token);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean unlock(String namespace, LockRefreshToken token) {
-        return dialogueShimDelegate.unlock(namespace, token);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Optional<LockRefreshToken> lock(String namespace, String client, LockRequest request)
-            throws InterruptedException {
-        return dialogueShimDelegate.lock(namespace, client, request);
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Optional<LockRefreshToken> lock(String namespace, String client, LockRequest request)
-            throws InterruptedException {
-        return dialogueShimDelegate.lock(namespace, client, request);
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Optional<LockRefreshToken> lock(String namespace, String client, LockRequest request)
-            throws InterruptedException {
-        return dialogueShimDelegate.lock(namespace, client, request);
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public LockState getLockState(LockDescriptor lock) {
-        return dialogueShimDelegate.getLockState(lock);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public long currentTimeMillis(String namespace) {
-        return dialogueShimDelegate.currentTimeMillis(namespace);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public void logCurrentState(String namespace) {
-        dialogueShimDelegate.logCurrentState(namespace);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Optional<Long> getMinLockedInVersionId(String namespace) {
-        return dialogueShimDelegate.getMinLockedInVersionId(namespace);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Set<LockRefreshToken> refreshLockRefreshTokens(String namespace, Iterable<LockRefreshToken> tokens) {
-        return ImmutableSet.copyOf(ConjureLockV1Tokens.getLegacyTokens(pureDialogueDelegate.refreshLockRefreshTokens(
-                UNUSED_AUTH_HEADER, namespace, ConjureLockV1Tokens.getConjureTokens(tokens))));
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Set<LockRefreshToken> refreshLockRefreshTokens(String namespace, Iterable<LockRefreshToken> tokens) {
-        return ImmutableSet.copyOf(ConjureLockV1Tokens.getLegacyTokens(pureDialogueDelegate.refreshLockRefreshTokens(
-                UNUSED_AUTH_HEADER, namespace, ConjureLockV1Tokens.getConjureTokens(tokens))));
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public HeldLocksGrant convertToGrant(String namespace, HeldLocksToken token) {
-        return dialogueShimDelegate.convertToGrant(namespace, token);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public HeldLocksGrant convertToGrant(String namespace, HeldLocksToken token) {
-        return dialogueShimDelegate.convertToGrant(namespace, token);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public LockServerOptions getLockServerOptions(String namespace) {
-        return dialogueShimDelegate.getLockServerOptions(namespace);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Optional<HeldLocksGrant> refreshGrant(String namespace, BigInteger grantId) {
-        return dialogueShimDelegate.refreshGrant(namespace, grantId);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Optional<HeldLocksGrant> refreshGrant(String namespace, BigInteger grantId) {
-        return dialogueShimDelegate.refreshGrant(namespace, grantId);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean unlockSimple(String namespace, SimpleHeldLocksToken token) {
-        return pureDialogueDelegate.unlockSimple(
-                UNUSED_AUTH_HEADER, namespace, ConjureLockV1Tokens.getSimpleHeldLocksToken(token));
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean unlockSimple(String namespace, SimpleHeldLocksToken token) {
-        return pureDialogueDelegate.unlockSimple(
-                UNUSED_AUTH_HEADER, namespace, ConjureLockV1Tokens.getSimpleHeldLocksToken(token));
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Optional<HeldLocksGrant> refreshGrant(String namespace, HeldLocksGrant grant) {
-        return dialogueShimDelegate.refreshGrant(namespace, grant);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Optional<HeldLocksGrant> refreshGrant(String namespace, HeldLocksGrant grant) {
-        return dialogueShimDelegate.refreshGrant(namespace, grant);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean unlockAndFreeze(String namespace, HeldLocksToken token) {
-        return dialogueShimDelegate.unlockAndFreeze(namespace, token);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean unlockAndFreeze(String namespace, HeldLocksToken token) {
-        return dialogueShimDelegate.unlockAndFreeze(namespace, token);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/LockRefreshingRemoteLockService.java`
-#### Snippet
-```java
-
-    @Override
-    public LockRefreshToken lock(String client, LockRequest request) throws InterruptedException {
-        LockRefreshToken ret = super.lock(client, request);
-        if (ret != null) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/LockRefreshingRemoteLockService.java`
-#### Snippet
-```java
-
-    @Override
-    public LockRefreshToken lock(String client, LockRequest request) throws InterruptedException {
-        LockRefreshToken ret = super.lock(client, request);
-        if (ret != null) {
 ```
 
 ### NullableProblems
@@ -7563,74 +7011,638 @@ in `lock-api/src/main/java/com/palantir/lock/client/LockRefreshingRemoteLockServ
 
 ### NullableProblems
 Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/NamespaceAgnosticLockClientAdaptor.java`
+in `lock-api/src/main/java/com/palantir/lock/client/LockRefreshingRemoteLockService.java`
 #### Snippet
 ```java
 
     @Override
-    public Optional<LockRefreshToken> lock(String client, LockRequest request) throws InterruptedException {
-        return lockRpcClient.lock(namespace, client, request);
+    public LockRefreshToken lock(String client, LockRequest request) throws InterruptedException {
+        LockRefreshToken ret = super.lock(client, request);
+        if (ret != null) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/LockRefreshingRemoteLockService.java`
+#### Snippet
+```java
+
+    @Override
+    public LockRefreshToken lock(String client, LockRequest request) throws InterruptedException {
+        LockRefreshToken ret = super.lock(client, request);
+        if (ret != null) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public long currentTimeMillis(String namespace) {
+        return dialogueShimDelegate.currentTimeMillis(namespace);
     }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/NamespaceAgnosticLockClientAdaptor.java`
+in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
 #### Snippet
 ```java
 
     @Override
-    public Optional<LockRefreshToken> lock(String client, LockRequest request) throws InterruptedException {
-        return lockRpcClient.lock(namespace, client, request);
+    public Set<LockRefreshToken> refreshLockRefreshTokens(String namespace, Iterable<LockRefreshToken> tokens) {
+        return ImmutableSet.copyOf(ConjureLockV1Tokens.getLegacyTokens(pureDialogueDelegate.refreshLockRefreshTokens(
+                UNUSED_AUTH_HEADER, namespace, ConjureLockV1Tokens.getConjureTokens(tokens))));
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public Set<LockRefreshToken> refreshLockRefreshTokens(String namespace, Iterable<LockRefreshToken> tokens) {
+        return ImmutableSet.copyOf(ConjureLockV1Tokens.getLegacyTokens(pureDialogueDelegate.refreshLockRefreshTokens(
+                UNUSED_AUTH_HEADER, namespace, ConjureLockV1Tokens.getConjureTokens(tokens))));
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public Optional<Long> getMinLockedInVersionId(String namespace) {
+        return dialogueShimDelegate.getMinLockedInVersionId(namespace);
     }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/NamespaceAgnosticLockClientAdaptor.java`
+in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
 #### Snippet
 ```java
 
     @Override
-    public Optional<Long> getMinLockedInVersionId(String client) {
-        return lockRpcClient.getMinLockedInVersionId(namespace, client);
+    public Optional<HeldLocksGrant> refreshGrant(String namespace, HeldLocksGrant grant) {
+        return dialogueShimDelegate.refreshGrant(namespace, grant);
     }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/NamespaceAgnosticLockClientAdaptor.java`
+in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
 #### Snippet
 ```java
 
     @Override
-    public Optional<LockResponse> lockWithFullLockResponse(LockClient client, LockRequest request)
+    public Optional<HeldLocksGrant> refreshGrant(String namespace, HeldLocksGrant grant) {
+        return dialogueShimDelegate.refreshGrant(namespace, grant);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public Optional<LockRefreshToken> lock(String namespace, String client, LockRequest request)
             throws InterruptedException {
-        return lockRpcClient.lockWithFullLockResponse(namespace, client, request);
+        return dialogueShimDelegate.lock(namespace, client, request);
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/NamespaceAgnosticLockClientAdaptor.java`
+in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
 #### Snippet
 ```java
 
     @Override
-    public Optional<LockResponse> lockWithFullLockResponse(LockClient client, LockRequest request)
+    public Optional<LockRefreshToken> lock(String namespace, String client, LockRequest request)
             throws InterruptedException {
-        return lockRpcClient.lockWithFullLockResponse(namespace, client, request);
+        return dialogueShimDelegate.lock(namespace, client, request);
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/NamespaceAgnosticLockClientAdaptor.java`
+in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
 #### Snippet
 ```java
 
     @Override
-    public Optional<HeldLocksGrant> refreshGrant(HeldLocksGrant grant) {
-        return lockRpcClient.refreshGrant(namespace, grant);
+    public Optional<LockRefreshToken> lock(String namespace, String client, LockRequest request)
+            throws InterruptedException {
+        return dialogueShimDelegate.lock(namespace, client, request);
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public void logCurrentState(String namespace) {
+        dialogueShimDelegate.logCurrentState(namespace);
     }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean unlockAndFreeze(String namespace, HeldLocksToken token) {
+        return dialogueShimDelegate.unlockAndFreeze(namespace, token);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean unlockAndFreeze(String namespace, HeldLocksToken token) {
+        return dialogueShimDelegate.unlockAndFreeze(namespace, token);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public LockState getLockState(LockDescriptor lock) {
+        return dialogueShimDelegate.getLockState(lock);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public Optional<Long> getMinLockedInVersionId(String namespace, String client) {
+        return dialogueShimDelegate.getMinLockedInVersionId(namespace, client);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public Optional<Long> getMinLockedInVersionId(String namespace, String client) {
+        return dialogueShimDelegate.getMinLockedInVersionId(namespace, client);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public HeldLocksToken useGrant(String namespace, LockClient client, HeldLocksGrant grant) {
+        return dialogueShimDelegate.useGrant(namespace, client, grant);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public HeldLocksToken useGrant(String namespace, LockClient client, HeldLocksGrant grant) {
+        return dialogueShimDelegate.useGrant(namespace, client, grant);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public HeldLocksToken useGrant(String namespace, LockClient client, HeldLocksGrant grant) {
+        return dialogueShimDelegate.useGrant(namespace, client, grant);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean unlock(String namespace, LockRefreshToken token) {
+        return dialogueShimDelegate.unlock(namespace, token);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean unlock(String namespace, LockRefreshToken token) {
+        return dialogueShimDelegate.unlock(namespace, token);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean unlock(String namespace, HeldLocksToken token) {
+        return dialogueShimDelegate.unlock(namespace, token);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean unlock(String namespace, HeldLocksToken token) {
+        return dialogueShimDelegate.unlock(namespace, token);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public Optional<Long> getMinLockedInVersionId(String namespace, LockClient client) {
+        return dialogueShimDelegate.getMinLockedInVersionId(namespace, client);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public Optional<Long> getMinLockedInVersionId(String namespace, LockClient client) {
+        return dialogueShimDelegate.getMinLockedInVersionId(namespace, client);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public Set<HeldLocksToken> refreshTokens(String namespace, Iterable<HeldLocksToken> tokens) {
+        return dialogueShimDelegate.refreshTokens(namespace, tokens);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public Set<HeldLocksToken> refreshTokens(String namespace, Iterable<HeldLocksToken> tokens) {
+        return dialogueShimDelegate.refreshTokens(namespace, tokens);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public Optional<HeldLocksGrant> refreshGrant(String namespace, BigInteger grantId) {
+        return dialogueShimDelegate.refreshGrant(namespace, grantId);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public Optional<HeldLocksGrant> refreshGrant(String namespace, BigInteger grantId) {
+        return dialogueShimDelegate.refreshGrant(namespace, grantId);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean unlockSimple(String namespace, SimpleHeldLocksToken token) {
+        return pureDialogueDelegate.unlockSimple(
+                UNUSED_AUTH_HEADER, namespace, ConjureLockV1Tokens.getSimpleHeldLocksToken(token));
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean unlockSimple(String namespace, SimpleHeldLocksToken token) {
+        return pureDialogueDelegate.unlockSimple(
+                UNUSED_AUTH_HEADER, namespace, ConjureLockV1Tokens.getSimpleHeldLocksToken(token));
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public Optional<LockResponse> lockWithFullLockResponse(String namespace, LockClient client, LockRequest request)
+            throws InterruptedException {
+        return dialogueShimDelegate.lockWithFullLockResponse(namespace, client, request);
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public Optional<LockResponse> lockWithFullLockResponse(String namespace, LockClient client, LockRequest request)
+            throws InterruptedException {
+        return dialogueShimDelegate.lockWithFullLockResponse(namespace, client, request);
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public Optional<LockResponse> lockWithFullLockResponse(String namespace, LockClient client, LockRequest request)
+            throws InterruptedException {
+        return dialogueShimDelegate.lockWithFullLockResponse(namespace, client, request);
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public LockServerOptions getLockServerOptions(String namespace) {
+        return dialogueShimDelegate.getLockServerOptions(namespace);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public Set<HeldLocksToken> getTokens(String namespace, LockClient client) {
+        return dialogueShimDelegate.getTokens(namespace, client);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public Set<HeldLocksToken> getTokens(String namespace, LockClient client) {
+        return dialogueShimDelegate.getTokens(namespace, client);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public HeldLocksGrant convertToGrant(String namespace, HeldLocksToken token) {
+        return dialogueShimDelegate.convertToGrant(namespace, token);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public HeldLocksGrant convertToGrant(String namespace, HeldLocksToken token) {
+        return dialogueShimDelegate.convertToGrant(namespace, token);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public HeldLocksToken useGrant(String namespace, LockClient client, BigInteger grantId) {
+        return dialogueShimDelegate.useGrant(namespace, client, grantId);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public HeldLocksToken useGrant(String namespace, LockClient client, BigInteger grantId) {
+        return dialogueShimDelegate.useGrant(namespace, client, grantId);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public HeldLocksToken useGrant(String namespace, LockClient client, BigInteger grantId) {
+        return dialogueShimDelegate.useGrant(namespace, client, grantId);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public Optional<HeldLocksToken> lockAndGetHeldLocks(String namespace, String client, LockRequest request) {
+        return pureDialogueDelegate.lockAndGetHeldLocks(
+                UNUSED_AUTH_HEADER,
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public Optional<HeldLocksToken> lockAndGetHeldLocks(String namespace, String client, LockRequest request) {
+        return pureDialogueDelegate.lockAndGetHeldLocks(
+                UNUSED_AUTH_HEADER,
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/DialogueComposingLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public Optional<HeldLocksToken> lockAndGetHeldLocks(String namespace, String client, LockRequest request) {
+        return pureDialogueDelegate.lockAndGetHeldLocks(
+                UNUSED_AUTH_HEADER,
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/LockRefreshingLockService.java`
+#### Snippet
+```java
+
+    @Override
+    public HeldLocksToken lockAndGetHeldLocks(String client, LockRequest request) throws InterruptedException {
+        HeldLocksToken lock = super.lockAndGetHeldLocks(client, request);
+        if (lock != null) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/LockRefreshingLockService.java`
+#### Snippet
+```java
+
+    @Override
+    public HeldLocksToken lockAndGetHeldLocks(String client, LockRequest request) throws InterruptedException {
+        HeldLocksToken lock = super.lockAndGetHeldLocks(client, request);
+        if (lock != null) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/LockRefreshingLockService.java`
+#### Snippet
+```java
+
+    @Override
+    public LockResponse lockWithFullLockResponse(LockClient client, LockRequest request) throws InterruptedException {
+        LockResponse lock = super.lockWithFullLockResponse(client, request);
+        if (lock.getToken() != null) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/LockRefreshingLockService.java`
+#### Snippet
+```java
+
+    @Override
+    public LockResponse lockWithFullLockResponse(LockClient client, LockRequest request) throws InterruptedException {
+        LockResponse lock = super.lockWithFullLockResponse(client, request);
+        if (lock.getToken() != null) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/LockRefreshingLockService.java`
+#### Snippet
+```java
+
+    @Override
+    public LockRefreshToken lock(String client, LockRequest request) throws InterruptedException {
+        LockRefreshToken ret = super.lock(client, request);
+        if (ret != null) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/LockRefreshingLockService.java`
+#### Snippet
+```java
+
+    @Override
+    public LockRefreshToken lock(String client, LockRequest request) throws InterruptedException {
+        LockRefreshToken ret = super.lock(client, request);
+        if (ret != null) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/LockRefreshingLockService.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean unlock(LockRefreshToken token) {
+        toRefresh.remove(token);
+        return super.unlock(token);
 ```
 
 ### NullableProblems
@@ -7642,126 +7654,6 @@ in `lock-api/src/main/java/com/palantir/lock/client/NamespaceAgnosticLockClientA
     @Override
     public Optional<HeldLocksGrant> refreshGrant(BigInteger grantId) {
         return lockRpcClient.refreshGrant(namespace, grantId);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/NamespaceAgnosticLockClientAdaptor.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean unlockAndFreeze(HeldLocksToken token) {
-        return lockRpcClient.unlockAndFreeze(namespace, token);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/NamespaceAgnosticLockClientAdaptor.java`
-#### Snippet
-```java
-
-    @Override
-    public Optional<Long> getMinLockedInVersionId(LockClient client) {
-        return lockRpcClient.getMinLockedInVersionId(namespace, client);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/NamespaceAgnosticLockClientAdaptor.java`
-#### Snippet
-```java
-
-    @Override
-    public HeldLocksToken useGrant(LockClient client, BigInteger grantId) {
-        return lockRpcClient.useGrant(namespace, client, grantId);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/NamespaceAgnosticLockClientAdaptor.java`
-#### Snippet
-```java
-
-    @Override
-    public HeldLocksToken useGrant(LockClient client, BigInteger grantId) {
-        return lockRpcClient.useGrant(namespace, client, grantId);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/NamespaceAgnosticLockClientAdaptor.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean unlock(LockRefreshToken token) {
-        return lockRpcClient.unlock(namespace, token);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/NamespaceAgnosticLockClientAdaptor.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean unlockSimple(SimpleHeldLocksToken token) {
-        return lockRpcClient.unlockSimple(namespace, token);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/NamespaceAgnosticLockClientAdaptor.java`
-#### Snippet
-```java
-
-    @Override
-    public Set<HeldLocksToken> getTokens(LockClient client) {
-        return lockRpcClient.getTokens(namespace, client);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/NamespaceAgnosticLockClientAdaptor.java`
-#### Snippet
-```java
-
-    @Override
-    public Set<LockRefreshToken> refreshLockRefreshTokens(Iterable<LockRefreshToken> tokens) {
-        return lockRpcClient.refreshLockRefreshTokens(namespace, tokens);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/NamespaceAgnosticLockClientAdaptor.java`
-#### Snippet
-```java
-
-    @Override
-    public HeldLocksGrant convertToGrant(HeldLocksToken token) {
-        return lockRpcClient.convertToGrant(namespace, token);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/NamespaceAgnosticLockClientAdaptor.java`
-#### Snippet
-```java
-
-    @Override
-    public LockState getLockState(LockDescriptor lock) {
-        return lockRpcClient.getLockState(lock);
     }
 ```
 
@@ -7784,8 +7676,8 @@ in `lock-api/src/main/java/com/palantir/lock/client/NamespaceAgnosticLockClientA
 ```java
 
     @Override
-    public HeldLocksToken useGrant(LockClient client, HeldLocksGrant grant) {
-        return lockRpcClient.useGrant(namespace, client, grant);
+    public Optional<Long> getMinLockedInVersionId(LockClient client) {
+        return lockRpcClient.getMinLockedInVersionId(namespace, client);
     }
 ```
 
@@ -7808,21 +7700,9 @@ in `lock-api/src/main/java/com/palantir/lock/client/NamespaceAgnosticLockClientA
 ```java
 
     @Override
-    public Optional<HeldLocksToken> lockAndGetHeldLocks(String client, LockRequest request)
-            throws InterruptedException {
-        return lockRpcClient.lockAndGetHeldLocks(namespace, client, request);
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/NamespaceAgnosticLockClientAdaptor.java`
-#### Snippet
-```java
-
-    @Override
-    public Optional<HeldLocksToken> lockAndGetHeldLocks(String client, LockRequest request)
-            throws InterruptedException {
-        return lockRpcClient.lockAndGetHeldLocks(namespace, client, request);
+    public HeldLocksToken useGrant(LockClient client, HeldLocksGrant grant) {
+        return lockRpcClient.useGrant(namespace, client, grant);
+    }
 ```
 
 ### NullableProblems
@@ -7839,86 +7719,206 @@ in `lock-api/src/main/java/com/palantir/lock/client/NamespaceAgnosticLockClientA
 
 ### NullableProblems
 Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/LockRefreshingLockService.java`
+in `lock-api/src/main/java/com/palantir/lock/client/NamespaceAgnosticLockClientAdaptor.java`
+#### Snippet
+```java
+
+    @Override
+    public Optional<LockResponse> lockWithFullLockResponse(LockClient client, LockRequest request)
+            throws InterruptedException {
+        return lockRpcClient.lockWithFullLockResponse(namespace, client, request);
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/NamespaceAgnosticLockClientAdaptor.java`
+#### Snippet
+```java
+
+    @Override
+    public Optional<LockResponse> lockWithFullLockResponse(LockClient client, LockRequest request)
+            throws InterruptedException {
+        return lockRpcClient.lockWithFullLockResponse(namespace, client, request);
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/NamespaceAgnosticLockClientAdaptor.java`
+#### Snippet
+```java
+
+    @Override
+    public Optional<LockRefreshToken> lock(String client, LockRequest request) throws InterruptedException {
+        return lockRpcClient.lock(namespace, client, request);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/NamespaceAgnosticLockClientAdaptor.java`
+#### Snippet
+```java
+
+    @Override
+    public Optional<LockRefreshToken> lock(String client, LockRequest request) throws InterruptedException {
+        return lockRpcClient.lock(namespace, client, request);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/NamespaceAgnosticLockClientAdaptor.java`
+#### Snippet
+```java
+
+    @Override
+    public LockState getLockState(LockDescriptor lock) {
+        return lockRpcClient.getLockState(lock);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/NamespaceAgnosticLockClientAdaptor.java`
 #### Snippet
 ```java
 
     @Override
     public boolean unlock(LockRefreshToken token) {
-        toRefresh.remove(token);
-        return super.unlock(token);
+        return lockRpcClient.unlock(namespace, token);
+    }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/LockRefreshingLockService.java`
+in `lock-api/src/main/java/com/palantir/lock/client/NamespaceAgnosticLockClientAdaptor.java`
 #### Snippet
 ```java
 
     @Override
-    public HeldLocksToken lockAndGetHeldLocks(String client, LockRequest request) throws InterruptedException {
-        HeldLocksToken lock = super.lockAndGetHeldLocks(client, request);
-        if (lock != null) {
+    public boolean unlockAndFreeze(HeldLocksToken token) {
+        return lockRpcClient.unlockAndFreeze(namespace, token);
+    }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/LockRefreshingLockService.java`
+in `lock-api/src/main/java/com/palantir/lock/client/NamespaceAgnosticLockClientAdaptor.java`
 #### Snippet
 ```java
 
     @Override
-    public HeldLocksToken lockAndGetHeldLocks(String client, LockRequest request) throws InterruptedException {
-        HeldLocksToken lock = super.lockAndGetHeldLocks(client, request);
-        if (lock != null) {
+    public boolean unlockSimple(SimpleHeldLocksToken token) {
+        return lockRpcClient.unlockSimple(namespace, token);
+    }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/LockRefreshingLockService.java`
+in `lock-api/src/main/java/com/palantir/lock/client/NamespaceAgnosticLockClientAdaptor.java`
 #### Snippet
 ```java
 
     @Override
-    public LockRefreshToken lock(String client, LockRequest request) throws InterruptedException {
-        LockRefreshToken ret = super.lock(client, request);
-        if (ret != null) {
+    public Set<LockRefreshToken> refreshLockRefreshTokens(Iterable<LockRefreshToken> tokens) {
+        return lockRpcClient.refreshLockRefreshTokens(namespace, tokens);
+    }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/LockRefreshingLockService.java`
+in `lock-api/src/main/java/com/palantir/lock/client/NamespaceAgnosticLockClientAdaptor.java`
 #### Snippet
 ```java
 
     @Override
-    public LockRefreshToken lock(String client, LockRequest request) throws InterruptedException {
-        LockRefreshToken ret = super.lock(client, request);
-        if (ret != null) {
+    public Set<HeldLocksToken> getTokens(LockClient client) {
+        return lockRpcClient.getTokens(namespace, client);
+    }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/LockRefreshingLockService.java`
+in `lock-api/src/main/java/com/palantir/lock/client/NamespaceAgnosticLockClientAdaptor.java`
 #### Snippet
 ```java
 
     @Override
-    public LockResponse lockWithFullLockResponse(LockClient client, LockRequest request) throws InterruptedException {
-        LockResponse lock = super.lockWithFullLockResponse(client, request);
-        if (lock.getToken() != null) {
+    public Optional<HeldLocksToken> lockAndGetHeldLocks(String client, LockRequest request)
+            throws InterruptedException {
+        return lockRpcClient.lockAndGetHeldLocks(namespace, client, request);
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `lock-api/src/main/java/com/palantir/lock/client/LockRefreshingLockService.java`
+in `lock-api/src/main/java/com/palantir/lock/client/NamespaceAgnosticLockClientAdaptor.java`
 #### Snippet
 ```java
 
     @Override
-    public LockResponse lockWithFullLockResponse(LockClient client, LockRequest request) throws InterruptedException {
-        LockResponse lock = super.lockWithFullLockResponse(client, request);
-        if (lock.getToken() != null) {
+    public Optional<HeldLocksToken> lockAndGetHeldLocks(String client, LockRequest request)
+            throws InterruptedException {
+        return lockRpcClient.lockAndGetHeldLocks(namespace, client, request);
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/NamespaceAgnosticLockClientAdaptor.java`
+#### Snippet
+```java
+
+    @Override
+    public Optional<Long> getMinLockedInVersionId(String client) {
+        return lockRpcClient.getMinLockedInVersionId(namespace, client);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/NamespaceAgnosticLockClientAdaptor.java`
+#### Snippet
+```java
+
+    @Override
+    public HeldLocksToken useGrant(LockClient client, BigInteger grantId) {
+        return lockRpcClient.useGrant(namespace, client, grantId);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/NamespaceAgnosticLockClientAdaptor.java`
+#### Snippet
+```java
+
+    @Override
+    public HeldLocksToken useGrant(LockClient client, BigInteger grantId) {
+        return lockRpcClient.useGrant(namespace, client, grantId);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/NamespaceAgnosticLockClientAdaptor.java`
+#### Snippet
+```java
+
+    @Override
+    public HeldLocksGrant convertToGrant(HeldLocksToken token) {
+        return lockRpcClient.convertToGrant(namespace, token);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `lock-api/src/main/java/com/palantir/lock/client/NamespaceAgnosticLockClientAdaptor.java`
+#### Snippet
+```java
+
+    @Override
+    public Optional<HeldLocksGrant> refreshGrant(HeldLocksGrant grant) {
+        return lockRpcClient.refreshGrant(namespace, grant);
+    }
 ```
 
 ### NullableProblems
@@ -8106,10 +8106,22 @@ Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
 in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/BlockingTimeLimitedLockService.java`
 #### Snippet
 ```java
+
+    @Override
+    public boolean unlockAndFreeze(HeldLocksToken token) {
+        return delegate.unlockAndFreeze(token);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/BlockingTimeLimitedLockService.java`
+#### Snippet
+```java
     @Nullable
     @Override
-    public HeldLocksGrant refreshGrant(BigInteger grantId) {
-        return delegate.refreshGrant(grantId);
+    public Long getMinLockedInVersionId(@PathParam("client") String client) {
+        return delegate.getMinLockedInVersionId(client);
     }
 ```
 
@@ -8120,9 +8132,57 @@ in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/BlockingTimeL
 ```java
 
     @Override
-    public Set<HeldLocksToken> refreshTokens(Iterable<HeldLocksToken> tokens) {
-        return delegate.refreshTokens(tokens);
+    public HeldLocksGrant convertToGrant(HeldLocksToken token) {
+        return delegate.convertToGrant(token);
     }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/BlockingTimeLimitedLockService.java`
+#### Snippet
+```java
+
+    @Override
+    public LockResponse lockWithFullLockResponse(LockClient client, LockRequest request) throws InterruptedException {
+        return callWithTimeLimit(
+                () -> delegate.lockWithFullLockResponse(client, request),
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/BlockingTimeLimitedLockService.java`
+#### Snippet
+```java
+
+    @Override
+    public Set<LockRefreshToken> refreshLockRefreshTokens(Iterable<LockRefreshToken> tokens) {
+        return delegate.refreshLockRefreshTokens(tokens);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/BlockingTimeLimitedLockService.java`
+#### Snippet
+```java
+
+    @Override
+    public HeldLocksToken lockAndGetHeldLocks(@PathParam("client") String client, LockRequest request)
+            throws InterruptedException {
+        return callWithTimeLimit(
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/BlockingTimeLimitedLockService.java`
+#### Snippet
+```java
+
+    @Override
+    public HeldLocksToken lockAndGetHeldLocks(@PathParam("client") String client, LockRequest request)
+            throws InterruptedException {
+        return callWithTimeLimit(
 ```
 
 ### NullableProblems
@@ -8147,6 +8207,54 @@ in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/BlockingTimeL
     public LockRefreshToken lock(@PathParam("client") String client, LockRequest request) throws InterruptedException {
         return callWithTimeLimit(
                 () -> delegate.lock(client, request), ImmutableLockRequestSpecification.of("lock", client, request));
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/BlockingTimeLimitedLockService.java`
+#### Snippet
+```java
+    @Nullable
+    @Override
+    public HeldLocksGrant refreshGrant(HeldLocksGrant grant) {
+        return delegate.refreshGrant(grant);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/BlockingTimeLimitedLockService.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean unlock(LockRefreshToken token) {
+        return delegate.unlock(token);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/BlockingTimeLimitedLockService.java`
+#### Snippet
+```java
+
+    @Override
+    public HeldLocksToken useGrant(LockClient client, BigInteger grantId) {
+        return delegate.useGrant(client, grantId);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/BlockingTimeLimitedLockService.java`
+#### Snippet
+```java
+
+    @Override
+    public HeldLocksToken useGrant(LockClient client, BigInteger grantId) {
+        return delegate.useGrant(client, grantId);
+    }
 ```
 
 ### NullableProblems
@@ -8158,6 +8266,18 @@ in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/BlockingTimeL
     @Override
     public boolean unlock(HeldLocksToken token) {
         return delegate.unlock(token);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/BlockingTimeLimitedLockService.java`
+#### Snippet
+```java
+
+    @Override
+    public LockState getLockState(LockDescriptor lock) {
+        return delegate.getLockState(lock);
     }
 ```
 
@@ -8180,19 +8300,7 @@ in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/BlockingTimeL
 ```java
 
     @Override
-    public HeldLocksGrant convertToGrant(HeldLocksToken token) {
-        return delegate.convertToGrant(token);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/BlockingTimeLimitedLockService.java`
-#### Snippet
-```java
-    @Nullable
-    @Override
-    public Long getMinLockedInVersionId(@PathParam("client") String client) {
+    public Long getMinLockedInVersionId(LockClient client) {
         return delegate.getMinLockedInVersionId(client);
     }
 ```
@@ -8216,8 +8324,20 @@ in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/BlockingTimeL
 ```java
 
     @Override
-    public Long getMinLockedInVersionId(LockClient client) {
-        return delegate.getMinLockedInVersionId(client);
+    public HeldLocksToken useGrant(LockClient client, HeldLocksGrant grant) {
+        return delegate.useGrant(client, grant);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/BlockingTimeLimitedLockService.java`
+#### Snippet
+```java
+
+    @Override
+    public HeldLocksToken useGrant(LockClient client, HeldLocksGrant grant) {
+        return delegate.useGrant(client, grant);
     }
 ```
 
@@ -8228,8 +8348,8 @@ in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/BlockingTimeL
 ```java
     @Nullable
     @Override
-    public HeldLocksGrant refreshGrant(HeldLocksGrant grant) {
-        return delegate.refreshGrant(grant);
+    public HeldLocksGrant refreshGrant(BigInteger grantId) {
+        return delegate.refreshGrant(grantId);
     }
 ```
 
@@ -8240,129 +8360,9 @@ in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/BlockingTimeL
 ```java
 
     @Override
-    public HeldLocksToken useGrant(LockClient client, HeldLocksGrant grant) {
-        return delegate.useGrant(client, grant);
+    public Set<HeldLocksToken> refreshTokens(Iterable<HeldLocksToken> tokens) {
+        return delegate.refreshTokens(tokens);
     }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/BlockingTimeLimitedLockService.java`
-#### Snippet
-```java
-
-    @Override
-    public HeldLocksToken useGrant(LockClient client, HeldLocksGrant grant) {
-        return delegate.useGrant(client, grant);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/BlockingTimeLimitedLockService.java`
-#### Snippet
-```java
-
-    @Override
-    public LockState getLockState(LockDescriptor lock) {
-        return delegate.getLockState(lock);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/BlockingTimeLimitedLockService.java`
-#### Snippet
-```java
-
-    @Override
-    public HeldLocksToken lockAndGetHeldLocks(@PathParam("client") String client, LockRequest request)
-            throws InterruptedException {
-        return callWithTimeLimit(
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/BlockingTimeLimitedLockService.java`
-#### Snippet
-```java
-
-    @Override
-    public HeldLocksToken lockAndGetHeldLocks(@PathParam("client") String client, LockRequest request)
-            throws InterruptedException {
-        return callWithTimeLimit(
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/BlockingTimeLimitedLockService.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean unlock(LockRefreshToken token) {
-        return delegate.unlock(token);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/BlockingTimeLimitedLockService.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean unlockAndFreeze(HeldLocksToken token) {
-        return delegate.unlockAndFreeze(token);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/BlockingTimeLimitedLockService.java`
-#### Snippet
-```java
-
-    @Override
-    public Set<LockRefreshToken> refreshLockRefreshTokens(Iterable<LockRefreshToken> tokens) {
-        return delegate.refreshLockRefreshTokens(tokens);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/BlockingTimeLimitedLockService.java`
-#### Snippet
-```java
-
-    @Override
-    public HeldLocksToken useGrant(LockClient client, BigInteger grantId) {
-        return delegate.useGrant(client, grantId);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/BlockingTimeLimitedLockService.java`
-#### Snippet
-```java
-
-    @Override
-    public HeldLocksToken useGrant(LockClient client, BigInteger grantId) {
-        return delegate.useGrant(client, grantId);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/BlockingTimeLimitedLockService.java`
-#### Snippet
-```java
-
-    @Override
-    public LockResponse lockWithFullLockResponse(LockClient client, LockRequest request) throws InterruptedException {
-        return callWithTimeLimit(
-                () -> delegate.lockWithFullLockResponse(client, request),
 ```
 
 ### NullableProblems
@@ -8426,42 +8426,6 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/util/SlidingWindowMetricsI
 ```
 
 ### NullableProblems
-Not annotated parameter overrides @Nonnull parameter
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/util/TaggedMetricsInvocationEventHandler.java`
-#### Snippet
-```java
-
-    @Override
-    public InvocationContext preInvocation(Object instance, Method method, Object[] args) {
-        return DefaultInvocationContext.of(instance, method, args);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @Nonnull parameter
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/util/TaggedMetricsInvocationEventHandler.java`
-#### Snippet
-```java
-
-    @Override
-    public InvocationContext preInvocation(Object instance, Method method, Object[] args) {
-        return DefaultInvocationContext.of(instance, method, args);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @Nonnull parameter
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/util/TaggedMetricsInvocationEventHandler.java`
-#### Snippet
-```java
-
-    @Override
-    public InvocationContext preInvocation(Object instance, Method method, Object[] args) {
-        return DefaultInvocationContext.of(instance, method, args);
-    }
-```
-
-### NullableProblems
 Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
 in `atlasdb-client/src/main/java/com/palantir/atlasdb/util/TaggedMetricsInvocationEventHandler.java`
 #### Snippet
@@ -8471,6 +8435,54 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/util/TaggedMetricsInvocati
                         public void onFailure(Throwable t) {
                             TaggedMetricsInvocationEventHandler.this.onFailure(context, t);
                         }
+```
+
+### NullableProblems
+Not annotated parameter overrides @Nonnull parameter
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/util/TaggedMetricsInvocationEventHandler.java`
+#### Snippet
+```java
+
+    @Override
+    public InvocationContext preInvocation(Object instance, Method method, Object[] args) {
+        return DefaultInvocationContext.of(instance, method, args);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @Nonnull parameter
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/util/TaggedMetricsInvocationEventHandler.java`
+#### Snippet
+```java
+
+    @Override
+    public InvocationContext preInvocation(Object instance, Method method, Object[] args) {
+        return DefaultInvocationContext.of(instance, method, args);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @Nonnull parameter
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/util/TaggedMetricsInvocationEventHandler.java`
+#### Snippet
+```java
+
+    @Override
+    public InvocationContext preInvocation(Object instance, Method method, Object[] args) {
+        return DefaultInvocationContext.of(instance, method, args);
+    }
+```
+
+### NullableProblems
+Constructor parameter for @Nullable field might be annotated @Nullable itself
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/IndexMetadata.java`
+#### Snippet
+```java
+            Iterable<IndexComponent> rowComponents,
+            Iterable<IndexComponent> colComponents,
+            String colNameToAccessFrom,
+            CachePriority cachePriority,
+            ConflictHandler conflictHandler,
 ```
 
 ### NullableProblems
@@ -8499,18 +8511,6 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/NameComp
 
 ### NullableProblems
 Constructor parameter for @Nullable field might be annotated @Nullable itself
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/IndexMetadata.java`
-#### Snippet
-```java
-            Iterable<IndexComponent> rowComponents,
-            Iterable<IndexComponent> colComponents,
-            String colNameToAccessFrom,
-            CachePriority cachePriority,
-            ConflictHandler conflictHandler,
-```
-
-### NullableProblems
-Constructor parameter for @Nullable field might be annotated @Nullable itself
 in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/ColumnMetadataDescription.java`
 #### Snippet
 ```java
@@ -8519,18 +8519,6 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/ColumnMe
     public ColumnMetadataDescription(DynamicColumnDescription dynamicColumn) {
         namedColumns = null;
         this.dynamicColumn = dynamicColumn;
-```
-
-### NullableProblems
-Getter for @Nullable field might be annotated @Nullable itself
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/ColumnValueDescription.java`
-#### Snippet
-```java
-    }
-
-    public Descriptor getProtoDescriptor() {
-        return protoDescriptor;
-    }
 ```
 
 ### NullableProblems
@@ -8543,6 +8531,18 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/ColumnVa
             Descriptor protoDescriptor) {
         this.compression = Preconditions.checkNotNull(compression);
         this.type = ValueType.BLOB;
+```
+
+### NullableProblems
+Getter for @Nullable field might be annotated @Nullable itself
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/ColumnValueDescription.java`
+#### Snippet
+```java
+    }
+
+    public Descriptor getProtoDescriptor() {
+        return protoDescriptor;
+    }
 ```
 
 ### NullableProblems
@@ -8756,273 +8756,9 @@ in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSe
 ```java
 
     @Override
-    public LockServerOptions getLockServerOptions(String namespace) {
-        return shortTimeoutProxy.getLockServerOptions(namespace);
+    public LockState getLockState(LockDescriptor lock) {
+        return shortTimeoutProxy.getLockState(lock);
     }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public HeldLocksToken useGrant(String namespace, LockClient client, BigInteger grantId) {
-        // It feels like this could have a short timeout but not 100% sure so going for the safe option.
-        return longTimeoutProxy.useGrant(namespace, client, grantId);
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public HeldLocksToken useGrant(String namespace, LockClient client, BigInteger grantId) {
-        // It feels like this could have a short timeout but not 100% sure so going for the safe option.
-        return longTimeoutProxy.useGrant(namespace, client, grantId);
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public HeldLocksToken useGrant(String namespace, LockClient client, BigInteger grantId) {
-        // It feels like this could have a short timeout but not 100% sure so going for the safe option.
-        return longTimeoutProxy.useGrant(namespace, client, grantId);
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public HeldLocksToken useGrant(String namespace, LockClient client, HeldLocksGrant grant) {
-        // It feels like this could have a short timeout but not 100% sure so going for the safe option.
-        return longTimeoutProxy.useGrant(namespace, client, grant);
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public HeldLocksToken useGrant(String namespace, LockClient client, HeldLocksGrant grant) {
-        // It feels like this could have a short timeout but not 100% sure so going for the safe option.
-        return longTimeoutProxy.useGrant(namespace, client, grant);
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public HeldLocksToken useGrant(String namespace, LockClient client, HeldLocksGrant grant) {
-        // It feels like this could have a short timeout but not 100% sure so going for the safe option.
-        return longTimeoutProxy.useGrant(namespace, client, grant);
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Optional<Long> getMinLockedInVersionId(String namespace, LockClient client) {
-        return shortTimeoutProxy.getMinLockedInVersionId(namespace, client);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Optional<Long> getMinLockedInVersionId(String namespace, LockClient client) {
-        return shortTimeoutProxy.getMinLockedInVersionId(namespace, client);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean unlockAndFreeze(String namespace, HeldLocksToken token) {
-        // It feels like this could have a short timeout but not 100% sure so going for the safe option.
-        return longTimeoutProxy.unlockAndFreeze(namespace, token);
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean unlockAndFreeze(String namespace, HeldLocksToken token) {
-        // It feels like this could have a short timeout but not 100% sure so going for the safe option.
-        return longTimeoutProxy.unlockAndFreeze(namespace, token);
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public HeldLocksGrant convertToGrant(String namespace, HeldLocksToken token) {
-        // It feels like this could have a short timeout but not 100% sure so going for the safe option.
-        return longTimeoutProxy.convertToGrant(namespace, token);
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public HeldLocksGrant convertToGrant(String namespace, HeldLocksToken token) {
-        // It feels like this could have a short timeout but not 100% sure so going for the safe option.
-        return longTimeoutProxy.convertToGrant(namespace, token);
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Optional<HeldLocksToken> lockAndGetHeldLocks(String namespace, String client, LockRequest request)
-            throws InterruptedException {
-        return longTimeoutProxy.lockAndGetHeldLocks(namespace, client, request);
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Optional<HeldLocksToken> lockAndGetHeldLocks(String namespace, String client, LockRequest request)
-            throws InterruptedException {
-        return longTimeoutProxy.lockAndGetHeldLocks(namespace, client, request);
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Optional<HeldLocksToken> lockAndGetHeldLocks(String namespace, String client, LockRequest request)
-            throws InterruptedException {
-        return longTimeoutProxy.lockAndGetHeldLocks(namespace, client, request);
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public void logCurrentState(String namespace) {
-        // Even if this does take more than the short timeout, the request will fail while the server will
-        // dump its logs out.
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Optional<LockRefreshToken> lock(String namespace, String client, LockRequest request)
-            throws InterruptedException {
-        return longTimeoutProxy.lock(namespace, client, request);
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Optional<LockRefreshToken> lock(String namespace, String client, LockRequest request)
-            throws InterruptedException {
-        return longTimeoutProxy.lock(namespace, client, request);
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Optional<LockRefreshToken> lock(String namespace, String client, LockRequest request)
-            throws InterruptedException {
-        return longTimeoutProxy.lock(namespace, client, request);
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Optional<LockResponse> lockWithFullLockResponse(String namespace, LockClient client, LockRequest request)
-            throws InterruptedException {
-        return longTimeoutProxy.lockWithFullLockResponse(namespace, client, request);
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Optional<LockResponse> lockWithFullLockResponse(String namespace, LockClient client, LockRequest request)
-            throws InterruptedException {
-        return longTimeoutProxy.lockWithFullLockResponse(namespace, client, request);
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Optional<LockResponse> lockWithFullLockResponse(String namespace, LockClient client, LockRequest request)
-            throws InterruptedException {
-        return longTimeoutProxy.lockWithFullLockResponse(namespace, client, request);
 ```
 
 ### NullableProblems
@@ -9044,8 +8780,188 @@ in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSe
 ```java
 
     @Override
-    public LockState getLockState(LockDescriptor lock) {
-        return shortTimeoutProxy.getLockState(lock);
+    public Optional<LockResponse> lockWithFullLockResponse(String namespace, LockClient client, LockRequest request)
+            throws InterruptedException {
+        return longTimeoutProxy.lockWithFullLockResponse(namespace, client, request);
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public Optional<LockResponse> lockWithFullLockResponse(String namespace, LockClient client, LockRequest request)
+            throws InterruptedException {
+        return longTimeoutProxy.lockWithFullLockResponse(namespace, client, request);
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public Optional<LockResponse> lockWithFullLockResponse(String namespace, LockClient client, LockRequest request)
+            throws InterruptedException {
+        return longTimeoutProxy.lockWithFullLockResponse(namespace, client, request);
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public Optional<HeldLocksToken> lockAndGetHeldLocks(String namespace, String client, LockRequest request)
+            throws InterruptedException {
+        return longTimeoutProxy.lockAndGetHeldLocks(namespace, client, request);
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public Optional<HeldLocksToken> lockAndGetHeldLocks(String namespace, String client, LockRequest request)
+            throws InterruptedException {
+        return longTimeoutProxy.lockAndGetHeldLocks(namespace, client, request);
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public Optional<HeldLocksToken> lockAndGetHeldLocks(String namespace, String client, LockRequest request)
+            throws InterruptedException {
+        return longTimeoutProxy.lockAndGetHeldLocks(namespace, client, request);
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public HeldLocksToken useGrant(String namespace, LockClient client, HeldLocksGrant grant) {
+        // It feels like this could have a short timeout but not 100% sure so going for the safe option.
+        return longTimeoutProxy.useGrant(namespace, client, grant);
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public HeldLocksToken useGrant(String namespace, LockClient client, HeldLocksGrant grant) {
+        // It feels like this could have a short timeout but not 100% sure so going for the safe option.
+        return longTimeoutProxy.useGrant(namespace, client, grant);
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public HeldLocksToken useGrant(String namespace, LockClient client, HeldLocksGrant grant) {
+        // It feels like this could have a short timeout but not 100% sure so going for the safe option.
+        return longTimeoutProxy.useGrant(namespace, client, grant);
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean unlockAndFreeze(String namespace, HeldLocksToken token) {
+        // It feels like this could have a short timeout but not 100% sure so going for the safe option.
+        return longTimeoutProxy.unlockAndFreeze(namespace, token);
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean unlockAndFreeze(String namespace, HeldLocksToken token) {
+        // It feels like this could have a short timeout but not 100% sure so going for the safe option.
+        return longTimeoutProxy.unlockAndFreeze(namespace, token);
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public Optional<LockRefreshToken> lock(String namespace, String client, LockRequest request)
+            throws InterruptedException {
+        return longTimeoutProxy.lock(namespace, client, request);
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public Optional<LockRefreshToken> lock(String namespace, String client, LockRequest request)
+            throws InterruptedException {
+        return longTimeoutProxy.lock(namespace, client, request);
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public Optional<LockRefreshToken> lock(String namespace, String client, LockRequest request)
+            throws InterruptedException {
+        return longTimeoutProxy.lock(namespace, client, request);
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public void logCurrentState(String namespace) {
+        // Even if this does take more than the short timeout, the request will fail while the server will
+        // dump its logs out.
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean unlock(String namespace, HeldLocksToken token) {
+        return shortTimeoutProxy.unlock(namespace, token);
     }
 ```
 
@@ -9056,8 +8972,8 @@ in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSe
 ```java
 
     @Override
-    public Optional<Long> getMinLockedInVersionId(String namespace, String client) {
-        return shortTimeoutProxy.getMinLockedInVersionId(namespace, client);
+    public boolean unlock(String namespace, HeldLocksToken token) {
+        return shortTimeoutProxy.unlock(namespace, token);
     }
 ```
 
@@ -9068,8 +8984,8 @@ in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSe
 ```java
 
     @Override
-    public Optional<Long> getMinLockedInVersionId(String namespace, String client) {
-        return shortTimeoutProxy.getMinLockedInVersionId(namespace, client);
+    public Optional<HeldLocksGrant> refreshGrant(String namespace, HeldLocksGrant grant) {
+        return shortTimeoutProxy.refreshGrant(namespace, grant);
     }
 ```
 
@@ -9080,8 +8996,8 @@ in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSe
 ```java
 
     @Override
-    public Set<HeldLocksToken> refreshTokens(String namespace, Iterable<HeldLocksToken> tokens) {
-        return shortTimeoutProxy.refreshTokens(namespace, tokens);
+    public Optional<HeldLocksGrant> refreshGrant(String namespace, HeldLocksGrant grant) {
+        return shortTimeoutProxy.refreshGrant(namespace, grant);
     }
 ```
 
@@ -9092,9 +9008,33 @@ in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSe
 ```java
 
     @Override
-    public Set<HeldLocksToken> refreshTokens(String namespace, Iterable<HeldLocksToken> tokens) {
-        return shortTimeoutProxy.refreshTokens(namespace, tokens);
-    }
+    public HeldLocksToken useGrant(String namespace, LockClient client, BigInteger grantId) {
+        // It feels like this could have a short timeout but not 100% sure so going for the safe option.
+        return longTimeoutProxy.useGrant(namespace, client, grantId);
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public HeldLocksToken useGrant(String namespace, LockClient client, BigInteger grantId) {
+        // It feels like this could have a short timeout but not 100% sure so going for the safe option.
+        return longTimeoutProxy.useGrant(namespace, client, grantId);
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public HeldLocksToken useGrant(String namespace, LockClient client, BigInteger grantId) {
+        // It feels like this could have a short timeout but not 100% sure so going for the safe option.
+        return longTimeoutProxy.useGrant(namespace, client, grantId);
 ```
 
 ### NullableProblems
@@ -9116,6 +9056,18 @@ in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSe
 ```java
 
     @Override
+    public LockServerOptions getLockServerOptions(String namespace) {
+        return shortTimeoutProxy.getLockServerOptions(namespace);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
     public boolean unlock(String namespace, LockRefreshToken token) {
         return shortTimeoutProxy.unlock(namespace, token);
     }
@@ -9130,6 +9082,54 @@ in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSe
     @Override
     public boolean unlock(String namespace, LockRefreshToken token) {
         return shortTimeoutProxy.unlock(namespace, token);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public HeldLocksGrant convertToGrant(String namespace, HeldLocksToken token) {
+        // It feels like this could have a short timeout but not 100% sure so going for the safe option.
+        return longTimeoutProxy.convertToGrant(namespace, token);
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public HeldLocksGrant convertToGrant(String namespace, HeldLocksToken token) {
+        // It feels like this could have a short timeout but not 100% sure so going for the safe option.
+        return longTimeoutProxy.convertToGrant(namespace, token);
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public Optional<HeldLocksGrant> refreshGrant(String namespace, BigInteger grantId) {
+        return shortTimeoutProxy.refreshGrant(namespace, grantId);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public Optional<HeldLocksGrant> refreshGrant(String namespace, BigInteger grantId) {
+        return shortTimeoutProxy.refreshGrant(namespace, grantId);
     }
 ```
 
@@ -9164,30 +9164,6 @@ in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSe
 ```java
 
     @Override
-    public Optional<HeldLocksGrant> refreshGrant(String namespace, BigInteger grantId) {
-        return shortTimeoutProxy.refreshGrant(namespace, grantId);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Optional<HeldLocksGrant> refreshGrant(String namespace, BigInteger grantId) {
-        return shortTimeoutProxy.refreshGrant(namespace, grantId);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
     public boolean unlockSimple(String namespace, SimpleHeldLocksToken token) {
         return shortTimeoutProxy.unlockSimple(namespace, token);
     }
@@ -9202,54 +9178,6 @@ in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSe
     @Override
     public boolean unlockSimple(String namespace, SimpleHeldLocksToken token) {
         return shortTimeoutProxy.unlockSimple(namespace, token);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean unlock(String namespace, HeldLocksToken token) {
-        return shortTimeoutProxy.unlock(namespace, token);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean unlock(String namespace, HeldLocksToken token) {
-        return shortTimeoutProxy.unlock(namespace, token);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Optional<HeldLocksGrant> refreshGrant(String namespace, HeldLocksGrant grant) {
-        return shortTimeoutProxy.refreshGrant(namespace, grant);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
-#### Snippet
-```java
-
-    @Override
-    public Optional<HeldLocksGrant> refreshGrant(String namespace, HeldLocksGrant grant) {
-        return shortTimeoutProxy.refreshGrant(namespace, grant);
     }
 ```
 
@@ -9278,15 +9206,75 @@ in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSe
 ```
 
 ### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `atlasdb-commons/src/main/java/com/palantir/util/ByteArrayIOStream.java`
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
 #### Snippet
 ```java
 
-        @Override
-        public int read(byte b[], int off, int len) {
-            if (b == null) {
-                throw new NullPointerException();
+    @Override
+    public Set<HeldLocksToken> refreshTokens(String namespace, Iterable<HeldLocksToken> tokens) {
+        return shortTimeoutProxy.refreshTokens(namespace, tokens);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public Set<HeldLocksToken> refreshTokens(String namespace, Iterable<HeldLocksToken> tokens) {
+        return shortTimeoutProxy.refreshTokens(namespace, tokens);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public Optional<Long> getMinLockedInVersionId(String namespace, LockClient client) {
+        return shortTimeoutProxy.getMinLockedInVersionId(namespace, client);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public Optional<Long> getMinLockedInVersionId(String namespace, LockClient client) {
+        return shortTimeoutProxy.getMinLockedInVersionId(namespace, client);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public Optional<Long> getMinLockedInVersionId(String namespace, String client) {
+        return shortTimeoutProxy.getMinLockedInVersionId(namespace, client);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/timelock/TimeoutSensitiveLockRpcClient.java`
+#### Snippet
+```java
+
+    @Override
+    public Optional<Long> getMinLockedInVersionId(String namespace, String client) {
+        return shortTimeoutProxy.getMinLockedInVersionId(namespace, client);
+    }
 ```
 
 ### NullableProblems
@@ -9302,6 +9290,18 @@ in `atlasdb-commons/src/main/java/com/palantir/util/ByteArrayIOStream.java`
 ```
 
 ### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `atlasdb-commons/src/main/java/com/palantir/util/ByteArrayIOStream.java`
+#### Snippet
+```java
+
+        @Override
+        public int read(byte b[], int off, int len) {
+            if (b == null) {
+                throw new NullPointerException();
+```
+
+### NullableProblems
 Overridden methods are not annotated
 in `atlasdb-commons/src/main/java/com/palantir/util/jmx/OperationTimer.java`
 #### Snippet
@@ -9311,6 +9311,18 @@ public interface OperationTimer {
     @Nonnull
     TimingState begin(String operationName);
 
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @Nonnull
+in `atlasdb-commons/src/main/java/com/palantir/util/timer/LoggingOperationTimer.java`
+#### Snippet
+```java
+
+    @Override
+    public TimingState begin(String operationName) {
+        return new TimeBegin(operationName);
+    }
 ```
 
 ### NullableProblems
@@ -9335,18 +9347,6 @@ in `atlasdb-commons/src/main/java/com/palantir/util/MutuallyExclusiveSetLock.jav
                 public ReentrantLock load(T key) {
                     return new ReentrantLock(fair);
                 }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @Nonnull
-in `atlasdb-commons/src/main/java/com/palantir/util/timer/LoggingOperationTimer.java`
-#### Snippet
-```java
-
-    @Override
-    public TimingState begin(String operationName) {
-        return new TimeBegin(operationName);
-    }
 ```
 
 ### NullableProblems
@@ -9374,90 +9374,6 @@ in `atlasdb-commons/src/main/java/com/palantir/common/base/ForwardingClosableIte
 ```
 
 ### NullableProblems
-Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
-in `atlasdb-commons/src/main/java/com/palantir/common/proxy/MultiDelegateProxy.java`
-#### Snippet
-```java
-
-    @Override
-    protected Object handleInvocation(Object proxy, Method method, Object[] args) throws Throwable {
-        try {
-            for (T t : othersToCall.get()) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
-in `atlasdb-commons/src/main/java/com/palantir/common/proxy/MultiDelegateProxy.java`
-#### Snippet
-```java
-
-    @Override
-    protected Object handleInvocation(Object proxy, Method method, Object[] args) throws Throwable {
-        try {
-            for (T t : othersToCall.get()) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
-in `atlasdb-commons/src/main/java/com/palantir/common/proxy/MultiDelegateProxy.java`
-#### Snippet
-```java
-
-    @Override
-    protected Object handleInvocation(Object proxy, Method method, Object[] args) throws Throwable {
-        try {
-            for (T t : othersToCall.get()) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
-in `atlasdb-commons/src/main/java/com/palantir/common/proxy/PredicateSwitchedProxy.java`
-#### Snippet
-```java
-
-    @Override
-    protected Object handleInvocation(Object proxy, Method method, Object[] args) throws Throwable {
-        Object target = shouldUseFirstService.get() ? firstService : secondService;
-        try {
-```
-
-### NullableProblems
-Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
-in `atlasdb-commons/src/main/java/com/palantir/common/proxy/PredicateSwitchedProxy.java`
-#### Snippet
-```java
-
-    @Override
-    protected Object handleInvocation(Object proxy, Method method, Object[] args) throws Throwable {
-        Object target = shouldUseFirstService.get() ? firstService : secondService;
-        try {
-```
-
-### NullableProblems
-Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
-in `atlasdb-commons/src/main/java/com/palantir/common/proxy/ReplaceIfExceptionMatchingProxy.java`
-#### Snippet
-```java
-
-    @Override
-    protected Object handleInvocation(Object proxy, Method method, Object[] args) throws Throwable {
-        try {
-            return method.invoke(getAndPossiblyInitializeDelegate(), args);
-```
-
-### NullableProblems
-Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
-in `atlasdb-commons/src/main/java/com/palantir/common/proxy/ReplaceIfExceptionMatchingProxy.java`
-#### Snippet
-```java
-
-    @Override
-    protected Object handleInvocation(Object proxy, Method method, Object[] args) throws Throwable {
-        try {
-            return method.invoke(getAndPossiblyInitializeDelegate(), args);
-```
-
-### NullableProblems
 Not annotated method overrides method annotated with @ElementTypesAreNonnullByDefault
 in `atlasdb-commons/src/main/java/com/palantir/common/base/BatchingVisitableView.java`
 #### Snippet
@@ -9467,6 +9383,90 @@ in `atlasdb-commons/src/main/java/com/palantir/common/base/BatchingVisitableView
     protected abstract BatchingVisitable<T> delegate();
 
     public static <T> BatchingVisitableView<T> of(final BatchingVisitable<T> underlyingVisitable) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+in `atlasdb-commons/src/main/java/com/palantir/common/proxy/PredicateSwitchedProxy.java`
+#### Snippet
+```java
+
+    @Override
+    protected Object handleInvocation(Object proxy, Method method, Object[] args) throws Throwable {
+        Object target = shouldUseFirstService.get() ? firstService : secondService;
+        try {
+```
+
+### NullableProblems
+Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+in `atlasdb-commons/src/main/java/com/palantir/common/proxy/PredicateSwitchedProxy.java`
+#### Snippet
+```java
+
+    @Override
+    protected Object handleInvocation(Object proxy, Method method, Object[] args) throws Throwable {
+        Object target = shouldUseFirstService.get() ? firstService : secondService;
+        try {
+```
+
+### NullableProblems
+Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+in `atlasdb-commons/src/main/java/com/palantir/common/proxy/ReplaceIfExceptionMatchingProxy.java`
+#### Snippet
+```java
+
+    @Override
+    protected Object handleInvocation(Object proxy, Method method, Object[] args) throws Throwable {
+        try {
+            return method.invoke(getAndPossiblyInitializeDelegate(), args);
+```
+
+### NullableProblems
+Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+in `atlasdb-commons/src/main/java/com/palantir/common/proxy/ReplaceIfExceptionMatchingProxy.java`
+#### Snippet
+```java
+
+    @Override
+    protected Object handleInvocation(Object proxy, Method method, Object[] args) throws Throwable {
+        try {
+            return method.invoke(getAndPossiblyInitializeDelegate(), args);
+```
+
+### NullableProblems
+Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+in `atlasdb-commons/src/main/java/com/palantir/common/proxy/MultiDelegateProxy.java`
+#### Snippet
+```java
+
+    @Override
+    protected Object handleInvocation(Object proxy, Method method, Object[] args) throws Throwable {
+        try {
+            for (T t : othersToCall.get()) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+in `atlasdb-commons/src/main/java/com/palantir/common/proxy/MultiDelegateProxy.java`
+#### Snippet
+```java
+
+    @Override
+    protected Object handleInvocation(Object proxy, Method method, Object[] args) throws Throwable {
+        try {
+            for (T t : othersToCall.get()) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+in `atlasdb-commons/src/main/java/com/palantir/common/proxy/MultiDelegateProxy.java`
+#### Snippet
+```java
+
+    @Override
+    protected Object handleInvocation(Object proxy, Method method, Object[] args) throws Throwable {
+        try {
+            for (T t : othersToCall.get()) {
 ```
 
 ### NullableProblems
@@ -9615,42 +9615,6 @@ in `atlasdb-conjure/src/main/java/com/palantir/atlasdb/http/v2/UnknownRemoteDebu
 
 ### NullableProblems
 Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
-in `atlasdb-conjure/src/main/java/com/palantir/atlasdb/http/v2/FastFailoverProxy.java`
-#### Snippet
-```java
-
-    @Override
-    protected Object handleInvocation(Object proxy, Method method, Object[] args) throws Throwable {
-        Instant lastRetryInstant = clock.instant().plus(TIME_LIMIT);
-        ResultOrThrowable attempt = singleInvocation(method, args);
-```
-
-### NullableProblems
-Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
-in `atlasdb-conjure/src/main/java/com/palantir/atlasdb/http/v2/FastFailoverProxy.java`
-#### Snippet
-```java
-
-    @Override
-    protected Object handleInvocation(Object proxy, Method method, Object[] args) throws Throwable {
-        Instant lastRetryInstant = clock.instant().plus(TIME_LIMIT);
-        ResultOrThrowable attempt = singleInvocation(method, args);
-```
-
-### NullableProblems
-Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
-in `atlasdb-conjure/src/main/java/com/palantir/atlasdb/http/v2/FastFailoverProxy.java`
-#### Snippet
-```java
-
-    @Override
-    protected Object handleInvocation(Object proxy, Method method, Object[] args) throws Throwable {
-        Instant lastRetryInstant = clock.instant().plus(TIME_LIMIT);
-        ResultOrThrowable attempt = singleInvocation(method, args);
-```
-
-### NullableProblems
-Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
 in `atlasdb-conjure/src/main/java/com/palantir/atlasdb/http/v2/RetryOnSocketTimeoutExceptionProxy.java`
 #### Snippet
 ```java
@@ -9683,6 +9647,42 @@ in `atlasdb-conjure/src/main/java/com/palantir/atlasdb/http/v2/RetryOnSocketTime
     protected Object handleInvocation(Object proxy, Method method, Object[] args) throws Throwable {
         ResultOrThrowable attempt = singleInvocation(method, args);
         int numRetries = 0;
+```
+
+### NullableProblems
+Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+in `atlasdb-conjure/src/main/java/com/palantir/atlasdb/http/v2/FastFailoverProxy.java`
+#### Snippet
+```java
+
+    @Override
+    protected Object handleInvocation(Object proxy, Method method, Object[] args) throws Throwable {
+        Instant lastRetryInstant = clock.instant().plus(TIME_LIMIT);
+        ResultOrThrowable attempt = singleInvocation(method, args);
+```
+
+### NullableProblems
+Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+in `atlasdb-conjure/src/main/java/com/palantir/atlasdb/http/v2/FastFailoverProxy.java`
+#### Snippet
+```java
+
+    @Override
+    protected Object handleInvocation(Object proxy, Method method, Object[] args) throws Throwable {
+        Instant lastRetryInstant = clock.instant().plus(TIME_LIMIT);
+        ResultOrThrowable attempt = singleInvocation(method, args);
+```
+
+### NullableProblems
+Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+in `atlasdb-conjure/src/main/java/com/palantir/atlasdb/http/v2/FastFailoverProxy.java`
+#### Snippet
+```java
+
+    @Override
+    protected Object handleInvocation(Object proxy, Method method, Object[] args) throws Throwable {
+        Instant lastRetryInstant = clock.instant().plus(TIME_LIMIT);
+        ResultOrThrowable attempt = singleInvocation(method, args);
 ```
 
 ### NullableProblems
@@ -9806,15 +9806,15 @@ in `timelock-server/src/testCommon/java/com/palantir/atlasdb/timelock/TestableTi
 ```
 
 ### NullableProblems
-Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+Not annotated method overrides method annotated with @ElementTypesAreNonnullByDefault
 in `atlasdb-autobatch/src/main/java/com/palantir/atlasdb/autobatch/DisruptorAutobatcher.java`
 #### Snippet
 ```java
 
-        @Override
-        public boolean setException(Throwable throwable) {
-            return super.setException(throwable);
-        }
+    @Override
+    public ListenableFuture<R> apply(T argument) {
+        Preconditions.checkState(!closed, "Autobatcher is already shut down");
+        DisruptorFuture<R> result = new DisruptorFuture<R>(safeLoggablePurpose);
 ```
 
 ### NullableProblems
@@ -9830,15 +9830,15 @@ in `atlasdb-autobatch/src/main/java/com/palantir/atlasdb/autobatch/DisruptorAuto
 ```
 
 ### NullableProblems
-Not annotated method overrides method annotated with @ElementTypesAreNonnullByDefault
+Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
 in `atlasdb-autobatch/src/main/java/com/palantir/atlasdb/autobatch/DisruptorAutobatcher.java`
 #### Snippet
 ```java
 
-    @Override
-    public ListenableFuture<R> apply(T argument) {
-        Preconditions.checkState(!closed, "Autobatcher is already shut down");
-        DisruptorFuture<R> result = new DisruptorFuture<R>(safeLoggablePurpose);
+        @Override
+        public boolean setException(Throwable throwable) {
+            return super.setException(throwable);
+        }
 ```
 
 ### NullableProblems
@@ -9850,30 +9850,6 @@ in `commons-executors/src/main/java/com/palantir/common/concurrent/ForwardingFut
     @Override
     public V get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
         return delegate().get(timeout, unit);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `commons-executors/src/main/java/com/palantir/common/concurrent/AbstractForwardingExecutorService.java`
-#### Snippet
-```java
-
-    @Override
-    public void execute(Runnable command) {
-        delegate().execute(wrap(command));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `commons-executors/src/main/java/com/palantir/common/concurrent/AbstractForwardingExecutorService.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean awaitTermination(long timeout, TimeUnit unit) throws InterruptedException {
-        return delegate().awaitTermination(timeout, unit);
     }
 ```
 
@@ -9891,79 +9867,7 @@ in `commons-executors/src/main/java/com/palantir/common/concurrent/NamedThreadFa
 
 ### NullableProblems
 Not annotated parameter overrides @NotNull parameter
-in `commons-executors/src/main/java/com/palantir/common/concurrent/InternalForwardingScheduledExecutorService.java`
-#### Snippet
-```java
-
-    @Override
-    public ScheduledFuture<?> scheduleWithFixedDelay(Runnable command, long initialDelay, long delay, TimeUnit unit) {
-        return delegate().scheduleWithFixedDelay(wrapRecurring(command), initialDelay, delay, unit);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `commons-executors/src/main/java/com/palantir/common/concurrent/InternalForwardingScheduledExecutorService.java`
-#### Snippet
-```java
-
-    @Override
-    public ScheduledFuture<?> scheduleWithFixedDelay(Runnable command, long initialDelay, long delay, TimeUnit unit) {
-        return delegate().scheduleWithFixedDelay(wrapRecurring(command), initialDelay, delay, unit);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `commons-executors/src/main/java/com/palantir/common/concurrent/InternalForwardingScheduledExecutorService.java`
-#### Snippet
-```java
-
-    @Override
-    public <V> ScheduledFuture<V> schedule(Callable<V> callable, long delay, TimeUnit unit) {
-        return delegate().schedule(wrap(callable), delay, unit);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `commons-executors/src/main/java/com/palantir/common/concurrent/InternalForwardingScheduledExecutorService.java`
-#### Snippet
-```java
-
-    @Override
-    public <V> ScheduledFuture<V> schedule(Callable<V> callable, long delay, TimeUnit unit) {
-        return delegate().schedule(wrap(callable), delay, unit);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `commons-executors/src/main/java/com/palantir/common/concurrent/InternalForwardingScheduledExecutorService.java`
-#### Snippet
-```java
-
-    @Override
-    public ScheduledFuture<?> scheduleAtFixedRate(Runnable command, long initialDelay, long period, TimeUnit unit) {
-        return delegate().scheduleAtFixedRate(wrapRecurring(command), initialDelay, period, unit);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `commons-executors/src/main/java/com/palantir/common/concurrent/InternalForwardingScheduledExecutorService.java`
-#### Snippet
-```java
-
-    @Override
-    public ScheduledFuture<?> scheduleAtFixedRate(Runnable command, long initialDelay, long period, TimeUnit unit) {
-        return delegate().scheduleAtFixedRate(wrapRecurring(command), initialDelay, period, unit);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `commons-executors/src/main/java/com/palantir/common/concurrent/InternalForwardingScheduledExecutorService.java`
+in `commons-executors/src/main/java/com/palantir/common/concurrent/AbstractForwardingExecutorService.java`
 #### Snippet
 ```java
 
@@ -9975,13 +9879,13 @@ in `commons-executors/src/main/java/com/palantir/common/concurrent/InternalForwa
 
 ### NullableProblems
 Not annotated parameter overrides @NotNull parameter
-in `commons-executors/src/main/java/com/palantir/common/concurrent/InternalForwardingScheduledExecutorService.java`
+in `commons-executors/src/main/java/com/palantir/common/concurrent/AbstractForwardingExecutorService.java`
 #### Snippet
 ```java
 
     @Override
-    public ScheduledFuture<?> schedule(Runnable command, long delay, TimeUnit unit) {
-        return delegate().schedule(wrap(command), delay, unit);
+    public boolean awaitTermination(long timeout, TimeUnit unit) throws InterruptedException {
+        return delegate().awaitTermination(timeout, unit);
     }
 ```
 
@@ -9992,8 +9896,20 @@ in `commons-executors/src/main/java/com/palantir/common/concurrent/InternalForwa
 ```java
 
     @Override
-    public ScheduledFuture<?> schedule(Runnable command, long delay, TimeUnit unit) {
-        return delegate().schedule(wrap(command), delay, unit);
+    public ScheduledFuture<?> scheduleWithFixedDelay(Runnable command, long initialDelay, long delay, TimeUnit unit) {
+        return delegate().scheduleWithFixedDelay(wrapRecurring(command), initialDelay, delay, unit);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `commons-executors/src/main/java/com/palantir/common/concurrent/InternalForwardingScheduledExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public ScheduledFuture<?> scheduleWithFixedDelay(Runnable command, long initialDelay, long delay, TimeUnit unit) {
+        return delegate().scheduleWithFixedDelay(wrapRecurring(command), initialDelay, delay, unit);
     }
 ```
 
@@ -10011,25 +9927,85 @@ in `commons-executors/src/main/java/com/palantir/common/concurrent/InternalForwa
 
 ### NullableProblems
 Not annotated parameter overrides @NotNull parameter
-in `commons-executors/src/main/java/com/palantir/common/concurrent/AbstractForwardingScheduledExecutorService.java`
+in `commons-executors/src/main/java/com/palantir/common/concurrent/InternalForwardingScheduledExecutorService.java`
 #### Snippet
 ```java
 
     @Override
-    public ScheduledFuture<?> scheduleAtFixedRate(Runnable command, long initialDelay, long period, TimeUnit unit) {
-        return delegate().scheduleAtFixedRate(wrap(command), initialDelay, period, unit);
+    public ScheduledFuture<?> schedule(Runnable command, long delay, TimeUnit unit) {
+        return delegate().schedule(wrap(command), delay, unit);
     }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NotNull parameter
-in `commons-executors/src/main/java/com/palantir/common/concurrent/AbstractForwardingScheduledExecutorService.java`
+in `commons-executors/src/main/java/com/palantir/common/concurrent/InternalForwardingScheduledExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public ScheduledFuture<?> schedule(Runnable command, long delay, TimeUnit unit) {
+        return delegate().schedule(wrap(command), delay, unit);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `commons-executors/src/main/java/com/palantir/common/concurrent/InternalForwardingScheduledExecutorService.java`
 #### Snippet
 ```java
 
     @Override
     public ScheduledFuture<?> scheduleAtFixedRate(Runnable command, long initialDelay, long period, TimeUnit unit) {
-        return delegate().scheduleAtFixedRate(wrap(command), initialDelay, period, unit);
+        return delegate().scheduleAtFixedRate(wrapRecurring(command), initialDelay, period, unit);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `commons-executors/src/main/java/com/palantir/common/concurrent/InternalForwardingScheduledExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public ScheduledFuture<?> scheduleAtFixedRate(Runnable command, long initialDelay, long period, TimeUnit unit) {
+        return delegate().scheduleAtFixedRate(wrapRecurring(command), initialDelay, period, unit);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `commons-executors/src/main/java/com/palantir/common/concurrent/InternalForwardingScheduledExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public <V> ScheduledFuture<V> schedule(Callable<V> callable, long delay, TimeUnit unit) {
+        return delegate().schedule(wrap(callable), delay, unit);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `commons-executors/src/main/java/com/palantir/common/concurrent/InternalForwardingScheduledExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public <V> ScheduledFuture<V> schedule(Callable<V> callable, long delay, TimeUnit unit) {
+        return delegate().schedule(wrap(callable), delay, unit);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `commons-executors/src/main/java/com/palantir/common/concurrent/InternalForwardingScheduledExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public void execute(Runnable command) {
+        delegate().execute(wrap(command));
     }
 ```
 
@@ -10052,6 +10028,30 @@ in `commons-executors/src/main/java/com/palantir/common/concurrent/AbstractForwa
 ```java
 
     @Override
+    public ScheduledFuture<?> schedule(Runnable command, long delay, TimeUnit unit) {
+        return delegate().schedule(wrap(command), delay, unit);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `commons-executors/src/main/java/com/palantir/common/concurrent/AbstractForwardingScheduledExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public ScheduledFuture<?> schedule(Runnable command, long delay, TimeUnit unit) {
+        return delegate().schedule(wrap(command), delay, unit);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `commons-executors/src/main/java/com/palantir/common/concurrent/AbstractForwardingScheduledExecutorService.java`
+#### Snippet
+```java
+
+    @Override
     public <V> ScheduledFuture<V> schedule(Callable<V> callable, long delay, TimeUnit unit) {
         return delegate().schedule(wrap(callable), delay, unit);
     }
@@ -10066,6 +10066,30 @@ in `commons-executors/src/main/java/com/palantir/common/concurrent/AbstractForwa
     @Override
     public <V> ScheduledFuture<V> schedule(Callable<V> callable, long delay, TimeUnit unit) {
         return delegate().schedule(wrap(callable), delay, unit);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `commons-executors/src/main/java/com/palantir/common/concurrent/AbstractForwardingScheduledExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public ScheduledFuture<?> scheduleAtFixedRate(Runnable command, long initialDelay, long period, TimeUnit unit) {
+        return delegate().scheduleAtFixedRate(wrap(command), initialDelay, period, unit);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `commons-executors/src/main/java/com/palantir/common/concurrent/AbstractForwardingScheduledExecutorService.java`
+#### Snippet
+```java
+
+    @Override
+    public ScheduledFuture<?> scheduleAtFixedRate(Runnable command, long initialDelay, long period, TimeUnit unit) {
+        return delegate().scheduleAtFixedRate(wrap(command), initialDelay, period, unit);
     }
 ```
 
@@ -10102,30 +10126,6 @@ in `commons-executors/src/main/java/com/palantir/common/concurrent/AbstractForwa
     @Override
     public boolean awaitTermination(long timeout, TimeUnit unit) throws InterruptedException {
         return delegate().awaitTermination(timeout, unit);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `commons-executors/src/main/java/com/palantir/common/concurrent/AbstractForwardingScheduledExecutorService.java`
-#### Snippet
-```java
-
-    @Override
-    public ScheduledFuture<?> schedule(Runnable command, long delay, TimeUnit unit) {
-        return delegate().schedule(wrap(command), delay, unit);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `commons-executors/src/main/java/com/palantir/common/concurrent/AbstractForwardingScheduledExecutorService.java`
-#### Snippet
-```java
-
-    @Override
-    public ScheduledFuture<?> schedule(Runnable command, long delay, TimeUnit unit) {
-        return delegate().schedule(wrap(command), delay, unit);
     }
 ```
 
@@ -10146,11 +10146,11 @@ Not annotated parameter overrides @NotNull parameter
 in `commons-executors/src/main/java/com/palantir/common/concurrent/PTExecutors.java`
 #### Snippet
 ```java
-
-            @Override
-            public Thread newThread(Runnable runnable) {
-                Thread thread = new Thread(runnable, prefix + "-" + nextThreadId.getAndIncrement());
-                thread.setPriority(priority);
+                        handler) {
+                    @Override
+                    public void execute(Runnable command) {
+                        super.execute(wrap(executorName, command));
+                    }
 ```
 
 ### NullableProblems
@@ -10158,11 +10158,11 @@ Not annotated parameter overrides @NotNull parameter
 in `commons-executors/src/main/java/com/palantir/common/concurrent/PTExecutors.java`
 #### Snippet
 ```java
-                        handler) {
-                    @Override
-                    public void execute(Runnable command) {
-                        super.execute(wrap(executorName, command));
-                    }
+
+            @Override
+            public Thread newThread(Runnable runnable) {
+                Thread thread = new Thread(runnable, prefix + "-" + nextThreadId.getAndIncrement());
+                thread.setPriority(priority);
 ```
 
 ### NullableProblems
@@ -10298,18 +10298,6 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/expe
 ```
 
 ### NullableProblems
-Getter for @Nonnull field might be annotated @Nonnull itself
-in `leader-election-api/src/main/java/com/palantir/paxos/PaxosPromise.java`
-#### Snippet
-```java
-    }
-
-    public PaxosProposalId getPromisedId() {
-        return promisedId;
-    }
-```
-
-### NullableProblems
 Getter for @Nullable field might be annotated @Nullable itself
 in `leader-election-api/src/main/java/com/palantir/paxos/PaxosPromise.java`
 #### Snippet
@@ -10358,87 +10346,51 @@ in `leader-election-api/src/main/java/com/palantir/paxos/PaxosPromise.java`
 ```
 
 ### NullableProblems
-Not annotated method overrides method annotated with @ElementTypesAreNonnullByDefault
-in `atlasdb-dbkvs-hikari/src/main/java/com/palantir/nexus/db/pool/InterceptorConnection.java`
+Getter for @Nonnull field might be annotated @Nonnull itself
+in `leader-election-api/src/main/java/com/palantir/paxos/PaxosPromise.java`
 #### Snippet
 ```java
+    }
 
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(getClass()).add("delegate", delegate).toString();
+    public PaxosProposalId getPromisedId() {
+        return promisedId;
     }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
-in `atlasdb-dbkvs-hikari/src/main/java/com/palantir/nexus/db/pool/InterceptorConnection.java`
+in `atlasdb-dbkvs-hikari/src/main/java/com/palantir/nexus/db/pool/InterceptorDataSource.java`
 #### Snippet
 ```java
-
-    @Override
-    public Object handleInvocation(Object proxy, Method method, Object[] args) throws Throwable {
-        Object ret;
-        try {
+        this.handler = new AbstractInvocationHandler() {
+            @Override
+            protected Object handleInvocation(Object proxy, Method method, Object[] args) throws Throwable {
+                Object ret;
+                try {
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
-in `atlasdb-dbkvs-hikari/src/main/java/com/palantir/nexus/db/pool/InterceptorConnection.java`
+in `atlasdb-dbkvs-hikari/src/main/java/com/palantir/nexus/db/pool/InterceptorDataSource.java`
 #### Snippet
 ```java
-
-    @Override
-    public Object handleInvocation(Object proxy, Method method, Object[] args) throws Throwable {
-        Object ret;
-        try {
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @ElementTypesAreNonnullByDefault
-in `atlasdb-dbkvs-hikari/src/main/java/com/palantir/nexus/db/pool/InterceptorStatement.java`
-#### Snippet
-```java
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(getClass()).add("delegate", delegate).toString();
-    }
+        this.handler = new AbstractInvocationHandler() {
+            @Override
+            protected Object handleInvocation(Object proxy, Method method, Object[] args) throws Throwable {
+                Object ret;
+                try {
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
-in `atlasdb-dbkvs-hikari/src/main/java/com/palantir/nexus/db/pool/InterceptorStatement.java`
+in `atlasdb-dbkvs-hikari/src/main/java/com/palantir/nexus/db/pool/InterceptorDataSource.java`
 #### Snippet
 ```java
-
-    @Override
-    public Object handleInvocation(Object proxy, Method method, Object[] args) throws Throwable {
-        try {
-            try {
-```
-
-### NullableProblems
-Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
-in `atlasdb-dbkvs-hikari/src/main/java/com/palantir/nexus/db/pool/InterceptorStatement.java`
-#### Snippet
-```java
-
-    @Override
-    public Object handleInvocation(Object proxy, Method method, Object[] args) throws Throwable {
-        try {
-            try {
-```
-
-### NullableProblems
-Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
-in `atlasdb-dbkvs-hikari/src/main/java/com/palantir/nexus/db/pool/InterceptorStatement.java`
-#### Snippet
-```java
-
-    @Override
-    public Object handleInvocation(Object proxy, Method method, Object[] args) throws Throwable {
-        try {
-            try {
+        this.handler = new AbstractInvocationHandler() {
+            @Override
+            protected Object handleInvocation(Object proxy, Method method, Object[] args) throws Throwable {
+                Object ret;
+                try {
 ```
 
 ### NullableProblems
@@ -10455,38 +10407,86 @@ in `atlasdb-dbkvs-hikari/src/main/java/com/palantir/nexus/db/pool/InterceptorDat
 
 ### NullableProblems
 Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
-in `atlasdb-dbkvs-hikari/src/main/java/com/palantir/nexus/db/pool/InterceptorDataSource.java`
+in `atlasdb-dbkvs-hikari/src/main/java/com/palantir/nexus/db/pool/InterceptorConnection.java`
 #### Snippet
 ```java
-        this.handler = new AbstractInvocationHandler() {
-            @Override
-            protected Object handleInvocation(Object proxy, Method method, Object[] args) throws Throwable {
-                Object ret;
-                try {
+
+    @Override
+    public Object handleInvocation(Object proxy, Method method, Object[] args) throws Throwable {
+        Object ret;
+        try {
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
-in `atlasdb-dbkvs-hikari/src/main/java/com/palantir/nexus/db/pool/InterceptorDataSource.java`
+in `atlasdb-dbkvs-hikari/src/main/java/com/palantir/nexus/db/pool/InterceptorConnection.java`
 #### Snippet
 ```java
-        this.handler = new AbstractInvocationHandler() {
-            @Override
-            protected Object handleInvocation(Object proxy, Method method, Object[] args) throws Throwable {
-                Object ret;
-                try {
+
+    @Override
+    public Object handleInvocation(Object proxy, Method method, Object[] args) throws Throwable {
+        Object ret;
+        try {
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @ElementTypesAreNonnullByDefault
+in `atlasdb-dbkvs-hikari/src/main/java/com/palantir/nexus/db/pool/InterceptorConnection.java`
+#### Snippet
+```java
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(getClass()).add("delegate", delegate).toString();
+    }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
-in `atlasdb-dbkvs-hikari/src/main/java/com/palantir/nexus/db/pool/InterceptorDataSource.java`
+in `atlasdb-dbkvs-hikari/src/main/java/com/palantir/nexus/db/pool/InterceptorStatement.java`
 #### Snippet
 ```java
-        this.handler = new AbstractInvocationHandler() {
-            @Override
-            protected Object handleInvocation(Object proxy, Method method, Object[] args) throws Throwable {
-                Object ret;
-                try {
+
+    @Override
+    public Object handleInvocation(Object proxy, Method method, Object[] args) throws Throwable {
+        try {
+            try {
+```
+
+### NullableProblems
+Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+in `atlasdb-dbkvs-hikari/src/main/java/com/palantir/nexus/db/pool/InterceptorStatement.java`
+#### Snippet
+```java
+
+    @Override
+    public Object handleInvocation(Object proxy, Method method, Object[] args) throws Throwable {
+        try {
+            try {
+```
+
+### NullableProblems
+Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+in `atlasdb-dbkvs-hikari/src/main/java/com/palantir/nexus/db/pool/InterceptorStatement.java`
+#### Snippet
+```java
+
+    @Override
+    public Object handleInvocation(Object proxy, Method method, Object[] args) throws Throwable {
+        try {
+            try {
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @ElementTypesAreNonnullByDefault
+in `atlasdb-dbkvs-hikari/src/main/java/com/palantir/nexus/db/pool/InterceptorStatement.java`
+#### Snippet
+```java
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(getClass()).add("delegate", delegate).toString();
+    }
 ```
 
 ### NullableProblems
@@ -10611,18 +10611,6 @@ in `leader-election-impl/src/main/java/com/palantir/leader/proxy/AwaitingLeaders
 
 ### NullableProblems
 Not annotated parameter overrides @NotNull parameter
-in `atlasdb-container-test-utils/src/main/java/com/palantir/atlasdb/containers/CassandraResource.java`
-#### Snippet
-```java
-
-    @Override
-    public Statement apply(Statement base, Description description) {
-        containers = new Containers(description.getTestClass()).with(containerInstance);
-        testResourceManager = new TestResourceManager(supplier);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
 in `atlasdb-container-test-utils/src/main/java/com/palantir/atlasdb/containers/ThreeNodeCassandraResource.java`
 #### Snippet
 ```java
@@ -10630,6 +10618,18 @@ in `atlasdb-container-test-utils/src/main/java/com/palantir/atlasdb/containers/T
     @Override
     public Statement apply(Statement base, Description description) {
         containers = new Containers(description.getTestClass()).with(new ThreeNodeCassandraCluster());
+        testResourceManager = new TestResourceManager(supplier);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `atlasdb-container-test-utils/src/main/java/com/palantir/atlasdb/containers/CassandraResource.java`
+#### Snippet
+```java
+
+    @Override
+    public Statement apply(Statement base, Description description) {
+        containers = new Containers(description.getTestClass()).with(containerInstance);
         testResourceManager = new TestResourceManager(supplier);
 ```
 
@@ -10668,6 +10668,18 @@ in `timestamp-impl/src/main/java/com/palantir/timestamp/DebugLogger.java`
  * http://palantir.github.io/atlasdb/html/configuration/logging.html#debug-logging-for-multiple-timestamp-services-error
  */
 @SuppressFBWarnings("SLF4J_LOGGER_SHOULD_BE_PRIVATE")
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `atlasdb-buggify/src/main/java/com/palantir/atlasdb/buggify/api/Buggify.java`
+#### Snippet
+```java
+ * behavior of never running the provided runnable, or always running the provided runnable.
+ *
+ * See https://apple.github.io/foundationdb/client-testing.html for more information.
+ */
+public interface Buggify {
 ```
 
 ### JavadocLinkAsPlainText
@@ -10773,7 +10785,7 @@ in `leader-election-impl/src/main/java/com/palantir/paxos/PaxosProposerImpl.java
 ```java
 
     /**
-     * Executes phase two of paxos (see http://en.wikipedia.org/wiki/Paxos_(computer_science)#Basic_Paxos).
+     * Executes phase one of paxos (see http://en.wikipedia.org/wiki/Paxos_(computer_science)#Basic_Paxos).
      *
      * @param seq the number identifying this instance of paxos
 ```
@@ -10785,7 +10797,7 @@ in `leader-election-impl/src/main/java/com/palantir/paxos/PaxosProposerImpl.java
 ```java
 
     /**
-     * Executes phase one of paxos (see http://en.wikipedia.org/wiki/Paxos_(computer_science)#Basic_Paxos).
+     * Executes phase two of paxos (see http://en.wikipedia.org/wiki/Paxos_(computer_science)#Basic_Paxos).
      *
      * @param seq the number identifying this instance of paxos
 ```
@@ -10821,6 +10833,18 @@ Field can be converted to a local variable
 in `commons-db/src/main/java/com/palantir/nexus/db/sql/AgnosticLightResultSetImpl.java`
 #### Snippet
 ```java
+
+    private final ResultSet results;
+    private final DBType dbType;
+    private final Map<String, Integer> columnMap;
+    private final PreparedStatement stmt;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `commons-db/src/main/java/com/palantir/nexus/db/sql/AgnosticLightResultSetImpl.java`
+#### Snippet
+```java
     private final ResultSet results;
     private final DBType dbType;
     private final Map<String, Integer> columnMap;
@@ -10830,14 +10854,14 @@ in `commons-db/src/main/java/com/palantir/nexus/db/sql/AgnosticLightResultSetImp
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `commons-db/src/main/java/com/palantir/nexus/db/sql/AgnosticLightResultSetImpl.java`
+in `atlasdb-cli/src/main/java/com/palantir/atlasdb/cli/command/AbstractCommand.java`
 #### Snippet
 ```java
+            type = OptionType.GLOBAL,
+            description = "field in the runtime config yaml file that contains the atlasdb configuration root")
+    private String runtimeConfigRoot = AtlasDbConfigs.ATLASDB_CONFIG_OBJECT_PATH;
 
-    private final ResultSet results;
-    private final DBType dbType;
-    private final Map<String, Integer> columnMap;
-    private final PreparedStatement stmt;
+    @Option(
 ```
 
 ### FieldCanBeLocal
@@ -10854,12 +10878,24 @@ in `atlasdb-cli/src/main/java/com/palantir/atlasdb/cli/command/AbstractCommand.j
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `atlasdb-cli/src/main/java/com/palantir/atlasdb/cli/command/AbstractCommand.java`
+in `atlasdb-cli/src/main/java/com/palantir/atlasdb/cli/command/KvsMigrationCommand.java`
 #### Snippet
 ```java
-            type = OptionType.GLOBAL,
-            description = "field in the runtime config yaml file that contains the atlasdb configuration root")
-    private String runtimeConfigRoot = AtlasDbConfigs.ATLASDB_CONFIG_OBJECT_PATH;
+            name = {"-m", "--migrate"},
+            description = "Start or continue migration.")
+    private boolean migrate = false;
+
+    @Option(
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `atlasdb-cli/src/main/java/com/palantir/atlasdb/cli/command/KvsMigrationCommand.java`
+#### Snippet
+```java
+            name = {"-v", "--validate"},
+            description = "Validate migration.")
+    private boolean validate = false;
 
     @Option(
 ```
@@ -10890,26 +10926,26 @@ in `atlasdb-cli/src/main/java/com/palantir/atlasdb/cli/command/KvsMigrationComma
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `atlasdb-cli/src/main/java/com/palantir/atlasdb/cli/command/KvsMigrationCommand.java`
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/render/TableClassRendererV2.java`
 #### Snippet
 ```java
-            name = {"-m", "--migrate"},
-            description = "Start or continue migration.")
-    private boolean migrate = false;
+    private final ClassName tableType;
 
-    @Option(
+    private final String rowClassName;
+    private final ClassName rowType;
+
 ```
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `atlasdb-cli/src/main/java/com/palantir/atlasdb/cli/command/KvsMigrationCommand.java`
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/render/TableClassRendererV2.java`
 #### Snippet
 ```java
-            name = {"-v", "--validate"},
-            description = "Validate migration.")
-    private boolean validate = false;
+    private final ClassName rowType;
 
-    @Option(
+    private final String rowResultClassName;
+    private final ClassName rowResultType;
+
 ```
 
 ### FieldCanBeLocal
@@ -10933,30 +10969,6 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/render/T
 
     private final String tableClassName;
     private final ClassName tableType;
-
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/render/TableClassRendererV2.java`
-#### Snippet
-```java
-    private final ClassName tableType;
-
-    private final String rowClassName;
-    private final ClassName rowType;
-
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/render/TableClassRendererV2.java`
-#### Snippet
-```java
-    private final ClassName rowType;
-
-    private final String rowResultClassName;
-    private final ClassName rowResultType;
 
 ```
 
@@ -11106,18 +11118,6 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/Schema.j
 ```
 
 ### IgnoreResultOfCall
-Result of `File.createNewFile()` is ignored
-in `atlasdb-commons/src/main/java/com/palantir/util/file/TempFileUtils.java`
-#### Snippet
-```java
-    public static void ensureFileExists(File file) throws IOException {
-        if (!file.exists()) {
-            file.createNewFile();
-        }
-    }
-```
-
-### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
 in `atlasdb-commons/src/main/java/com/palantir/util/file/TempFileUtils.java`
 #### Snippet
@@ -11127,6 +11127,18 @@ in `atlasdb-commons/src/main/java/com/palantir/util/file/TempFileUtils.java`
             f.mkdirs();
         }
 
+```
+
+### IgnoreResultOfCall
+Result of `File.createNewFile()` is ignored
+in `atlasdb-commons/src/main/java/com/palantir/util/file/TempFileUtils.java`
+#### Snippet
+```java
+    public static void ensureFileExists(File file) throws IOException {
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+    }
 ```
 
 ### IgnoreResultOfCall
@@ -11219,18 +11231,6 @@ Possibly blocking call in non-blocking context could lead to thread starvation
 in `lock-impl/src/main/java/com/palantir/lock/impl/LockServerLock.java`
 #### Snippet
 ```java
-        @Override
-        public void lockInterruptibly() throws InterruptedException {
-            sync.acquireInterruptibly(clientIndex);
-        }
-
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `lock-impl/src/main/java/com/palantir/lock/impl/LockServerLock.java`
-#### Snippet
-```java
         public LockClient tryLock(long time, TimeUnit unit) throws InterruptedException {
             LockClient client = tryLock();
             if (client != null && sync.tryAcquireSharedNanos(clientIndex, unit.toNanos(time))) {
@@ -11252,6 +11252,18 @@ in `lock-impl/src/main/java/com/palantir/lock/impl/LockServerLock.java`
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
+in `lock-impl/src/main/java/com/palantir/lock/impl/LockServerLock.java`
+#### Snippet
+```java
+        @Override
+        public void lockInterruptibly() throws InterruptedException {
+            sync.acquireInterruptibly(clientIndex);
+        }
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
 in `lock-impl/src/main/java/com/palantir/lock/logger/LockStateYamlWriter.java`
 #### Snippet
 ```java
@@ -11267,18 +11279,6 @@ Possibly blocking call in non-blocking context could lead to thread starvation
 in `lock-impl/src/main/java/com/palantir/lock/logger/LockStateYamlWriter.java`
 #### Snippet
 ```java
-    @Override
-    public void close() throws IOException {
-        writer.close();
-    }
-
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `lock-impl/src/main/java/com/palantir/lock/logger/LockStateYamlWriter.java`
-#### Snippet
-```java
      */
     public void appendComment(String string) throws IOException {
         writer.append("# ");
@@ -11306,6 +11306,18 @@ in `lock-impl/src/main/java/com/palantir/lock/logger/LockStateYamlWriter.java`
         writer.append("# ");
         writer.append(string);
         writer.append("\n");
+    }
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `lock-impl/src/main/java/com/palantir/lock/logger/LockStateYamlWriter.java`
+#### Snippet
+```java
+    @Override
+    public void close() throws IOException {
+        writer.close();
     }
 
 ```
@@ -11411,42 +11423,6 @@ Possibly blocking call in non-blocking context could lead to thread starvation
 in `commons-db/src/main/java/com/palantir/nexus/db/sql/BasicSQL.java`
 #### Snippet
 ```java
-    static Object getBlobObject(InputStream stream) throws IOException, ClassNotFoundException {
-        ObjectInputStream ois = new ObjectInputStream(stream);
-        Object object = ois.readObject();
-        ois.close();
-
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `commons-db/src/main/java/com/palantir/nexus/db/sql/BasicSQL.java`
-#### Snippet
-```java
-        ObjectInputStream ois = new ObjectInputStream(stream);
-        Object object = ois.readObject();
-        ois.close();
-
-        return object;
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `commons-db/src/main/java/com/palantir/nexus/db/sql/BasicSQL.java`
-#### Snippet
-```java
-                Thread.currentThread(), oldName + " blocking on " + threadString + " started at " + currentTimestamp);
-        try {
-            rs = result.get();
-            return visitor.visit(rs);
-        } catch (InterruptedException e) {
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `commons-db/src/main/java/com/palantir/nexus/db/sql/BasicSQL.java`
-#### Snippet
-```java
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(baos);
         oos.writeObject(obj);
@@ -11480,6 +11456,54 @@ in `commons-db/src/main/java/com/palantir/nexus/db/sql/BasicSQL.java`
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
+in `commons-db/src/main/java/com/palantir/nexus/db/sql/BasicSQL.java`
+#### Snippet
+```java
+    static Object getBlobObject(InputStream stream) throws IOException, ClassNotFoundException {
+        ObjectInputStream ois = new ObjectInputStream(stream);
+        Object object = ois.readObject();
+        ois.close();
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `commons-db/src/main/java/com/palantir/nexus/db/sql/BasicSQL.java`
+#### Snippet
+```java
+        ObjectInputStream ois = new ObjectInputStream(stream);
+        Object object = ois.readObject();
+        ois.close();
+
+        return object;
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `commons-db/src/main/java/com/palantir/nexus/db/sql/BasicSQL.java`
+#### Snippet
+```java
+                Thread.currentThread(), oldName + " blocking on " + threadString + " started at " + currentTimestamp);
+        try {
+            rs = result.get();
+            return visitor.visit(rs);
+        } catch (InterruptedException e) {
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `atlasdb-cli/src/main/java/com/palantir/atlasdb/cli/command/timestamp/AbstractTimestampCommand.java`
+#### Snippet
+```java
+        String timestampString;
+        try {
+            timestampString = StringUtils.strip(Iterables.getOnlyElement(Files.readAllLines(file.toPath())));
+        } catch (IOException e) {
+            printer.error(
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
 in `atlasdb-cli/src/main/java/com/palantir/atlasdb/cli/command/timestamp/AbstractTimestampCommand.java`
 #### Snippet
 ```java
@@ -11500,18 +11524,6 @@ in `atlasdb-cli/src/main/java/com/palantir/atlasdb/cli/command/timestamp/Abstrac
             Files.write(file.toPath(), lines, StandardCharsets.UTF_8);
         } catch (IOException e) {
             printer.error("IOException thrown writing timestamp to file: {}", SafeArg.of("file path", file.getPath()));
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `atlasdb-cli/src/main/java/com/palantir/atlasdb/cli/command/timestamp/AbstractTimestampCommand.java`
-#### Snippet
-```java
-        String timestampString;
-        try {
-            timestampString = StringUtils.strip(Iterables.getOnlyElement(Files.readAllLines(file.toPath())));
-        } catch (IOException e) {
-            printer.error(
 ```
 
 ### BlockingMethodInNonBlockingContext
@@ -11555,18 +11567,6 @@ Possibly blocking call in non-blocking context could lead to thread starvation
 in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/StreamStoreBenchmarks.java`
 #### Snippet
 ```java
-        try (InputStream inputStream = transactionManager.runTaskThrowOnConflict(txn -> store.loadStream(txn, id))) {
-            byte[] firstBytes = new byte[16];
-            int read = inputStream.read(firstBytes);
-            assertThat(read).isEqualTo(16);
-            assertThat(firstBytes).isEqualTo(table.getLargeStreamFirstBytes());
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/StreamStoreBenchmarks.java`
-#### Snippet
-```java
                 InputStreamReader reader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
                 BufferedReader bufferedReader = new BufferedReader(reader)) {
             String line = bufferedReader.readLine();
@@ -11584,6 +11584,18 @@ in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/Strea
             int read = inputStream.read(firstBytes);
             assertThat(read).isEqualTo(16);
             assertThat(firstBytes).isEqualTo(table.getVeryLargeStreamFirstBytes());
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/StreamStoreBenchmarks.java`
+#### Snippet
+```java
+        try (InputStream inputStream = transactionManager.runTaskThrowOnConflict(txn -> store.loadStream(txn, id))) {
+            byte[] firstBytes = new byte[16];
+            int read = inputStream.read(firstBytes);
+            assertThat(read).isEqualTo(16);
+            assertThat(firstBytes).isEqualTo(table.getLargeStreamFirstBytes());
 ```
 
 ### BlockingMethodInNonBlockingContext
@@ -11624,6 +11636,54 @@ in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/BlockingTimeL
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/DbKvs.java`
+#### Snippet
+```java
+        writeThread.start();
+        try {
+            writeThread.join();
+        } catch (InterruptedException e) {
+            throw Throwables.rewrapAndThrowUncheckedException(e);
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/DbKvs.java`
+#### Snippet
+```java
+        List<Future<Void>> futures;
+        try {
+            futures = executor.invokeAll(callables);
+        } catch (InterruptedException e) {
+            throw Throwables.throwUncheckedException(e);
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/DbKvs.java`
+#### Snippet
+```java
+        for (Future<Void> future : futures) {
+            try {
+                future.get();
+            } catch (InterruptedException e) {
+                throw Throwables.throwUncheckedException(e);
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/paxos/AutobatchingPingableLeaderFactory.java`
+#### Snippet
+```java
+        for (Closeable closeable : closeables) {
+            try {
+                closeable.close();
+            } catch (IOException e) {
+                log.error("could not close autobatcher for pingable leader", e);
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
 in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/paxos/AutobatchingPingableLeaderFactory.java`
 #### Snippet
 ```java
@@ -11644,18 +11704,6 @@ in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/paxos/Autobatching
                         .get(leaderPingResponseWait.toMillis(), TimeUnit.MILLISECONDS);
             } catch (InterruptedException e) {
                 log.warn("received interrupt whilst trying to ping leader", SafeArg.of("client", client), e);
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/paxos/AutobatchingPingableLeaderFactory.java`
-#### Snippet
-```java
-        for (Closeable closeable : closeables) {
-            try {
-                closeable.close();
-            } catch (IOException e) {
-                log.error("could not close autobatcher for pingable leader", e);
 ```
 
 ### BlockingMethodInNonBlockingContext
@@ -11696,38 +11744,14 @@ in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/paxos/Autobatching
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/DbKvs.java`
+in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/paxos/AutobatchingPaxosAcceptorNetworkClientFactory.java`
 #### Snippet
 ```java
-        List<Future<Void>> futures;
-        try {
-            futures = executor.invokeAll(callables);
-        } catch (InterruptedException e) {
-            throw Throwables.throwUncheckedException(e);
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/DbKvs.java`
-#### Snippet
-```java
-        for (Future<Void> future : futures) {
+                    seq == proposal.getValue().getRound(), "seq does not match round in paxos value inside proposal");
             try {
-                future.get();
-            } catch (InterruptedException e) {
-                throw Throwables.throwUncheckedException(e);
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/DbKvs.java`
-#### Snippet
-```java
-        writeThread.start();
-        try {
-            writeThread.join();
-        } catch (InterruptedException e) {
-            throw Throwables.rewrapAndThrowUncheckedException(e);
+                return accept.apply(Maps.immutableEntry(client, proposal)).get();
+            } catch (ExecutionException | InterruptedException e) {
+                throw AutobatcherExecutionExceptions.handleAutobatcherExceptions(e);
 ```
 
 ### BlockingMethodInNonBlockingContext
@@ -11738,18 +11762,6 @@ in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/paxos/Autobatching
             try {
                 return prepare.apply(Maps.immutableEntry(client, WithSeq.of(proposalId, seq)))
                         .get();
-            } catch (ExecutionException | InterruptedException e) {
-                throw AutobatcherExecutionExceptions.handleAutobatcherExceptions(e);
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/paxos/AutobatchingPaxosAcceptorNetworkClientFactory.java`
-#### Snippet
-```java
-                    seq == proposal.getValue().getRound(), "seq does not match round in paxos value inside proposal");
-            try {
-                return accept.apply(Maps.immutableEntry(client, proposal)).get();
             } catch (ExecutionException | InterruptedException e) {
                 throw AutobatcherExecutionExceptions.handleAutobatcherExceptions(e);
 ```
@@ -11819,11 +11831,11 @@ Possibly blocking call in non-blocking context could lead to thread starvation
 in `atlasdb-client/src/main/java/com/palantir/atlasdb/stream/AbstractGenericStreamStore.java`
 #### Snippet
 ```java
-            ByteStreams.copy(in, fos);
-        }
-        fos.close();
-    }
-
+        } finally {
+            try {
+                fos.close();
+            } catch (IOException e) {
+                // Do nothing
 ```
 
 ### BlockingMethodInNonBlockingContext
@@ -11831,11 +11843,11 @@ Possibly blocking call in non-blocking context could lead to thread starvation
 in `atlasdb-client/src/main/java/com/palantir/atlasdb/stream/AbstractGenericStreamStore.java`
 #### Snippet
 ```java
-        } finally {
-            try {
-                fos.close();
-            } catch (IOException e) {
-                // Do nothing
+            ByteStreams.copy(in, fos);
+        }
+        fos.close();
+    }
+
 ```
 
 ### BlockingMethodInNonBlockingContext
@@ -11948,18 +11960,6 @@ in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/PersistentStorageP
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/LocalOrRemoteProxy.java`
-#### Snippet
-```java
-    private T delegate() {
-        try {
-            if (useLocalServiceFuture.get(0, TimeUnit.SECONDS)) {
-                return localService;
-            } else {
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
 in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/ServiceDiscoveringAtlasSupplier.java`
 #### Snippet
 ```java
@@ -11968,6 +11968,18 @@ in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/ServiceDiscovering
             Files.createFile(path);
         }
         return path.toFile();
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/LocalOrRemoteProxy.java`
+#### Snippet
+```java
+    private T delegate() {
+        try {
+            if (useLocalServiceFuture.get(0, TimeUnit.SECONDS)) {
+                return localService;
+            } else {
 ```
 
 ### BlockingMethodInNonBlockingContext
@@ -12032,14 +12044,14 @@ in `atlasdb-commons/src/main/java/com/palantir/util/SafeShutdownRunner.java`
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
-in `atlasdb-commons/src/main/java/com/palantir/util/file/DeleteOnCloseFileInputStream.java`
+in `atlasdb-commons/src/main/java/com/palantir/util/TimedRunner.java`
 #### Snippet
 ```java
-
-    public DeleteOnCloseFileInputStream(File file) throws FileNotFoundException {
-        super(file);
-        this.file = file;
-    }
+        final Exception failure;
+        try {
+            return future.get(timeoutDuration.toMillis(), TimeUnit.MILLISECONDS);
+        } catch (InterruptedException e) {
+            log.warn("Execution failed with exception", e);
 ```
 
 ### BlockingMethodInNonBlockingContext
@@ -12056,26 +12068,26 @@ in `atlasdb-commons/src/main/java/com/palantir/util/file/DeleteOnCloseFileInputS
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
-in `atlasdb-commons/src/main/java/com/palantir/util/TimedRunner.java`
+in `atlasdb-commons/src/main/java/com/palantir/util/file/DeleteOnCloseFileInputStream.java`
 #### Snippet
 ```java
-        final Exception failure;
-        try {
-            return future.get(timeoutDuration.toMillis(), TimeUnit.MILLISECONDS);
-        } catch (InterruptedException e) {
-            log.warn("Execution failed with exception", e);
+
+    public DeleteOnCloseFileInputStream(File file) throws FileNotFoundException {
+        super(file);
+        this.file = file;
+    }
 ```
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
-in `atlasdb-commons/src/main/java/com/palantir/util/MutuallyExclusiveSetLock.java`
+in `atlasdb-commons/src/main/java/com/palantir/util/file/TempFileUtils.java`
 #### Snippet
 ```java
-            final SortedMap<T, ReentrantLock> sortedLocks = getSortedLocks(hashSet);
-            for (ReentrantLock lock : sortedLocks.values()) {
-                lock.lockInterruptibly();
-                toUnlock.add(lock);
-            }
+        ensureTempDirectoryExists();
+        byte[] bytes = generateRandomBytes(32);
+        return File.createTempFile(prefix + bytesToHex(bytes), suffix);
+    }
+
 ```
 
 ### BlockingMethodInNonBlockingContext
@@ -12104,98 +12116,14 @@ in `atlasdb-commons/src/main/java/com/palantir/util/file/TempFileUtils.java`
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
-in `atlasdb-commons/src/main/java/com/palantir/util/file/TempFileUtils.java`
+in `atlasdb-commons/src/main/java/com/palantir/util/MutuallyExclusiveSetLock.java`
 #### Snippet
 ```java
-        ensureTempDirectoryExists();
-        byte[] bytes = generateRandomBytes(32);
-        return File.createTempFile(prefix + bytesToHex(bytes), suffix);
-    }
-
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `atlasdb-commons/src/main/java/com/palantir/util/crypto/Sha256Hash.java`
-#### Snippet
-```java
-            DigestInputStream digestInputStream = new DigestInputStream(is, digest);
-            ByteStreams.copy(digestInputStream, ByteStreams.nullOutputStream());
-            digestInputStream.close();
-            return createFrom(digest);
-        } finally {
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `atlasdb-commons/src/main/java/com/palantir/util/crypto/Sha256Hash.java`
-#### Snippet
-```java
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                /* don't throw from finally*/
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `atlasdb-commons/src/main/java/com/palantir/common/io/ConcatenatedInputStream.java`
-#### Snippet
-```java
-        }
-        InputStream stream = streams.peek();
-        int read = stream.read(b, off, len);
-        if (read == -1) {
-            stream.close();
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `atlasdb-commons/src/main/java/com/palantir/common/io/ConcatenatedInputStream.java`
-#### Snippet
-```java
-        int read = stream.read(b, off, len);
-        if (read == -1) {
-            stream.close();
-            streams.poll();
-            return read(b, off, len);
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `atlasdb-commons/src/main/java/com/palantir/common/io/ConcatenatedInputStream.java`
-#### Snippet
-```java
-        }
-        InputStream stream = streams.peek();
-        int read = stream.read();
-        if (read == -1) {
-            stream.close();
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `atlasdb-commons/src/main/java/com/palantir/common/io/ConcatenatedInputStream.java`
-#### Snippet
-```java
-        int read = stream.read();
-        if (read == -1) {
-            stream.close();
-            streams.poll();
-            return read();
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `atlasdb-commons/src/main/java/com/palantir/common/io/ConcatenatedInputStream.java`
-#### Snippet
-```java
-    public void close() throws IOException {
-        for (InputStream stream = streams.poll(); stream != null; stream = streams.poll()) {
-            stream.close();
-        }
-    }
+            final SortedMap<T, ReentrantLock> sortedLocks = getSortedLocks(hashSet);
+            for (ReentrantLock lock : sortedLocks.values()) {
+                lock.lockInterruptibly();
+                toUnlock.add(lock);
+            }
 ```
 
 ### BlockingMethodInNonBlockingContext
@@ -12260,14 +12188,86 @@ in `atlasdb-commons/src/main/java/com/palantir/util/JMXUtils.java`
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
-in `atlasdb-commons/src/main/java/com/palantir/common/base/ClosableIterators.java`
+in `atlasdb-commons/src/main/java/com/palantir/util/crypto/Sha256Hash.java`
 #### Snippet
 ```java
-            public void close() {
-                try {
-                    closable.close();
-                } catch (IOException e) {
-                    throw Throwables.throwUncheckedException(e);
+            DigestInputStream digestInputStream = new DigestInputStream(is, digest);
+            ByteStreams.copy(digestInputStream, ByteStreams.nullOutputStream());
+            digestInputStream.close();
+            return createFrom(digest);
+        } finally {
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `atlasdb-commons/src/main/java/com/palantir/util/crypto/Sha256Hash.java`
+#### Snippet
+```java
+        } finally {
+            try {
+                is.close();
+            } catch (IOException e) {
+                /* don't throw from finally*/
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `atlasdb-commons/src/main/java/com/palantir/common/io/ConcatenatedInputStream.java`
+#### Snippet
+```java
+    public void close() throws IOException {
+        for (InputStream stream = streams.poll(); stream != null; stream = streams.poll()) {
+            stream.close();
+        }
+    }
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `atlasdb-commons/src/main/java/com/palantir/common/io/ConcatenatedInputStream.java`
+#### Snippet
+```java
+        }
+        InputStream stream = streams.peek();
+        int read = stream.read();
+        if (read == -1) {
+            stream.close();
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `atlasdb-commons/src/main/java/com/palantir/common/io/ConcatenatedInputStream.java`
+#### Snippet
+```java
+        int read = stream.read();
+        if (read == -1) {
+            stream.close();
+            streams.poll();
+            return read();
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `atlasdb-commons/src/main/java/com/palantir/common/io/ConcatenatedInputStream.java`
+#### Snippet
+```java
+        }
+        InputStream stream = streams.peek();
+        int read = stream.read(b, off, len);
+        if (read == -1) {
+            stream.close();
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `atlasdb-commons/src/main/java/com/palantir/common/io/ConcatenatedInputStream.java`
+#### Snippet
+```java
+        int read = stream.read(b, off, len);
+        if (read == -1) {
+            stream.close();
+            streams.poll();
+            return read(b, off, len);
 ```
 
 ### BlockingMethodInNonBlockingContext
@@ -12292,6 +12292,18 @@ in `atlasdb-commons/src/main/java/com/palantir/common/base/PrefetchingBatchingVi
                         itemAvailable.await();
                     }
                     batch = queue.poll();
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `atlasdb-commons/src/main/java/com/palantir/common/base/ClosableIterators.java`
+#### Snippet
+```java
+            public void close() {
+                try {
+                    closable.close();
+                } catch (IOException e) {
+                    throw Throwables.throwUncheckedException(e);
 ```
 
 ### BlockingMethodInNonBlockingContext
@@ -12328,18 +12340,6 @@ in `atlasdb-commons/src/main/java/com/palantir/common/proxy/DelayProxy.java`
             Thread.sleep(sleepTimeMs / 2);
         } catch (InterruptedException e) {
             throw Throwables.throwUncheckedException(e);
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `atlasdb-commons/src/main/java/com/palantir/common/proxy/InterruptibleProxy.java`
-#### Snippet
-```java
-        });
-        try {
-            return future.get();
-        } catch (ExecutionException e) {
-            throw Throwables.rewrap(e.getCause());
 ```
 
 ### BlockingMethodInNonBlockingContext
@@ -12388,6 +12388,18 @@ in `atlasdb-commons/src/main/java/com/palantir/common/proxy/SerializingUtils.jav
             closeable.close();
         } catch (IOException e) {
             // Ignore
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `atlasdb-commons/src/main/java/com/palantir/common/proxy/InterruptibleProxy.java`
+#### Snippet
+```java
+        });
+        try {
+            return future.get();
+        } catch (ExecutionException e) {
+            throw Throwables.rewrap(e.getCause());
 ```
 
 ### BlockingMethodInNonBlockingContext
@@ -12464,30 +12476,6 @@ in `atlasdb-commons/src/main/java/com/palantir/common/concurrent/BlockingWorkerP
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
-in `atlasdb-commons/src/main/java/com/palantir/common/concurrent/InterruptibleFuture.java`
-#### Snippet
-```java
-        try {
-            while (state != State.COMPLETED) {
-                condition.await();
-            }
-            return getReturnValue();
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `atlasdb-commons/src/main/java/com/palantir/common/concurrent/InterruptibleFuture.java`
-#### Snippet
-```java
-        try {
-            while (state != State.COMPLETED) {
-                if (condition.awaitNanos(deadline - System.nanoTime()) <= 0) {
-                    throw new TimeoutException();
-                }
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
 in `atlasdb-commons/src/main/java/com/palantir/common/compression/BufferedDelegateInputStream.java`
 #### Snippet
 ```java
@@ -12508,6 +12496,30 @@ in `atlasdb-commons/src/main/java/com/palantir/common/concurrent/MultiplexingCom
         return taskQueue.poll(timeout, unit);
     }
 
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `atlasdb-commons/src/main/java/com/palantir/common/concurrent/InterruptibleFuture.java`
+#### Snippet
+```java
+        try {
+            while (state != State.COMPLETED) {
+                if (condition.awaitNanos(deadline - System.nanoTime()) <= 0) {
+                    throw new TimeoutException();
+                }
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `atlasdb-commons/src/main/java/com/palantir/common/concurrent/InterruptibleFuture.java`
+#### Snippet
+```java
+        try {
+            while (state != State.COMPLETED) {
+                condition.await();
+            }
+            return getReturnValue();
 ```
 
 ### BlockingMethodInNonBlockingContext
@@ -12612,8 +12624,8 @@ in `lock-api-objects/src/main/java/com/palantir/lock/SimpleTimeDuration.java`
 #### Snippet
 ```java
     @Override
-    public void timedJoin(Thread thread) throws InterruptedException {
-        unit.timedJoin(thread, time);
+    public void sleep() throws InterruptedException {
+        unit.sleep(time);
     }
 
 ```
@@ -12624,8 +12636,8 @@ in `lock-api-objects/src/main/java/com/palantir/lock/SimpleTimeDuration.java`
 #### Snippet
 ```java
     @Override
-    public void sleep() throws InterruptedException {
-        unit.sleep(time);
+    public void timedJoin(Thread thread) throws InterruptedException {
+        unit.timedJoin(thread, time);
     }
 
 ```
@@ -12740,18 +12752,6 @@ in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/CqlE
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
-in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/pool/AsyncSupplier.java`
-#### Snippet
-```java
-        } else if (result.isDone()) {
-            try {
-                return result.get();
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
 in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/CassandraKeyValueServices.java`
 #### Snippet
 ```java
@@ -12760,6 +12760,18 @@ in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/Cass
             Thread.sleep(sleepTime);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/pool/AsyncSupplier.java`
+#### Snippet
+```java
+        } else if (result.isDone()) {
+            try {
+                return result.get();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
 ```
 
 ### BlockingMethodInNonBlockingContext
@@ -12828,8 +12840,8 @@ in `commons-executors/src/main/java/com/palantir/common/concurrent/ForwardingFut
 #### Snippet
 ```java
     @Override
-    public V get() throws InterruptedException, ExecutionException {
-        return delegate().get();
+    public V get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
+        return delegate().get(timeout, unit);
     }
 
 ```
@@ -12840,8 +12852,8 @@ in `commons-executors/src/main/java/com/palantir/common/concurrent/ForwardingFut
 #### Snippet
 ```java
     @Override
-    public V get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
-        return delegate().get(timeout, unit);
+    public V get() throws InterruptedException, ExecutionException {
+        return delegate().get();
     }
 
 ```
@@ -12920,66 +12932,6 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/schema/KeyValueServic
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/cleaner/Scrubber.java`
-#### Snippet
-```java
-                            "Sleeping {} millis until next execution of scrub task",
-                            SafeArg.of("sleepDuration", sleepDuration));
-                    Thread.sleep(sleepDuration);
-                } catch (InterruptedException e) {
-                    break;
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/cleaner/Scrubber.java`
-#### Snippet
-```java
-                    lazyWriteMetric(AtlasDbMetricNames.SCRUB_RETRIES, 1);
-                    try {
-                        Thread.sleep(RETRY_SLEEP_INTERVAL_IN_MILLIS);
-                    } catch (InterruptedException e) {
-                        break;
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/cleaner/Scrubber.java`
-#### Snippet
-```java
-        boolean shutdown = false;
-        try {
-            shutdown = service.awaitTermination(5, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            log.error("Interrupted while shutting down the scrubber. This shouldn't happen.", e);
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/cleaner/Scrubber.java`
-#### Snippet
-```java
-                        SafeArg.of("nextImmutableTimestamp", nextImmutableTimestamp),
-                        SafeArg.of("commitTimestamp", commitTimestamp));
-                Thread.sleep(AtlasDbConstants.SCRUBBER_RETRY_DELAY_MILLIS);
-            } catch (InterruptedException e) {
-                log.error("Interrupted while waiting for immutableTimestamp to advance past commitTimestamp", e);
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/cleaner/Scrubber.java`
-#### Snippet
-```java
-        for (Future<Void> future : scrubFutures) {
-            try {
-                future.get();
-            } catch (InterruptedException e) {
-                throw Throwables.throwUncheckedException(e);
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
 in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/atomic/mcas/MarkAndCasConsensusForgettingStore.java`
 #### Snippet
 ```java
@@ -13024,6 +12976,66 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/compact/BackgroundCom
             daemon.join();
             if (daemon.isAlive()) {
                 log.error("Background compaction thread failed to shut down");
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/cleaner/Scrubber.java`
+#### Snippet
+```java
+        boolean shutdown = false;
+        try {
+            shutdown = service.awaitTermination(5, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            log.error("Interrupted while shutting down the scrubber. This shouldn't happen.", e);
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/cleaner/Scrubber.java`
+#### Snippet
+```java
+                        SafeArg.of("nextImmutableTimestamp", nextImmutableTimestamp),
+                        SafeArg.of("commitTimestamp", commitTimestamp));
+                Thread.sleep(AtlasDbConstants.SCRUBBER_RETRY_DELAY_MILLIS);
+            } catch (InterruptedException e) {
+                log.error("Interrupted while waiting for immutableTimestamp to advance past commitTimestamp", e);
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/cleaner/Scrubber.java`
+#### Snippet
+```java
+        for (Future<Void> future : scrubFutures) {
+            try {
+                future.get();
+            } catch (InterruptedException e) {
+                throw Throwables.throwUncheckedException(e);
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/cleaner/Scrubber.java`
+#### Snippet
+```java
+                            "Sleeping {} millis until next execution of scrub task",
+                            SafeArg.of("sleepDuration", sleepDuration));
+                    Thread.sleep(sleepDuration);
+                } catch (InterruptedException e) {
+                    break;
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/cleaner/Scrubber.java`
+#### Snippet
+```java
+                    lazyWriteMetric(AtlasDbMetricNames.SCRUB_RETRIES, 1);
+                    try {
+                        Thread.sleep(RETRY_SLEEP_INTERVAL_IN_MILLIS);
+                    } catch (InterruptedException e) {
+                        break;
 ```
 
 ### BlockingMethodInNonBlockingContext
@@ -13160,18 +13172,6 @@ in `leader-election-impl/src/main/java/com/palantir/leader/BatchingLeaderElectio
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
-in `leader-election-impl/src/main/java/com/palantir/leader/proxy/LeadershipCoordinator.java`
-#### Snippet
-```java
-        while (!gainLeadershipBlocking()) {
-            try {
-                Thread.sleep(GAIN_LEADERSHIP_BACKOFF.toMillis());
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
 in `leader-election-impl/src/main/java/com/palantir/leader/proxy/LeadershipStateManager.java`
 #### Snippet
 ```java
@@ -13180,6 +13180,18 @@ in `leader-election-impl/src/main/java/com/palantir/leader/proxy/LeadershipState
                 ((Closeable) delegate).close();
             } catch (IOException ex) {
                 log.warn("problem closing delegate", ex);
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `leader-election-impl/src/main/java/com/palantir/leader/proxy/LeadershipCoordinator.java`
+#### Snippet
+```java
+        while (!gainLeadershipBlocking()) {
+            try {
+                Thread.sleep(GAIN_LEADERSHIP_BACKOFF.toMillis());
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
 ```
 
 ### BlockingMethodInNonBlockingContext
@@ -13236,42 +13248,6 @@ in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/Abs
 #### Snippet
 ```java
         Future<?> future = exec.submit((Callable<Void>) () -> {
-            withdrawMoney(t1, true, true);
-            barrier.await();
-            t1.commit();
-            return null;
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/AbstractSerializableTransactionTest.java`
-#### Snippet
-```java
-        withdrawMoney(t2, false, true);
-
-        barrier.await();
-        assertThat(catchThrowable(() -> {
-                    t2.commit();
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/AbstractSerializableTransactionTest.java`
-#### Snippet
-```java
-        assertThat(catchThrowable(() -> {
-                    t2.commit();
-                    future.get();
-                }))
-                .satisfiesAnyOf(
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/AbstractSerializableTransactionTest.java`
-#### Snippet
-```java
-        Future<?> future = exec.submit((Callable<Void>) () -> {
             withdrawMoney(t1, true, false);
             barrier.await();
             t1.commit();
@@ -13304,38 +13280,38 @@ in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/Abs
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
-in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/AbstractTransactionTest.java`
+in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/AbstractSerializableTransactionTest.java`
 #### Snippet
 ```java
-                    try {
-                        latch.countDown();
-                        latch2.await();
-                    } catch (InterruptedException e) {
-                        throw Throwables.throwUncheckedException(e);
+        Future<?> future = exec.submit((Callable<Void>) () -> {
+            withdrawMoney(t1, true, true);
+            barrier.await();
+            t1.commit();
+            return null;
 ```
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
-in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/AbstractTransactionTest.java`
+in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/AbstractSerializableTransactionTest.java`
 #### Snippet
 ```java
-        thread.start();
+        withdrawMoney(t2, false, true);
 
-        latch.await();
-
-        // These puts will be seen by the range scan happening on the other thread
+        barrier.await();
+        assertThat(catchThrowable(() -> {
+                    t2.commit();
 ```
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
-in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/AbstractTransactionTest.java`
+in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/AbstractSerializableTransactionTest.java`
 #### Snippet
 ```java
-        put(tx, TEST_TABLE, "row2", "col2", "v8");
-        latch2.countDown();
-        futureTask.get();
-    }
-
+        assertThat(catchThrowable(() -> {
+                    t2.commit();
+                    future.get();
+                }))
+                .satisfiesAnyOf(
 ```
 
 ### BlockingMethodInNonBlockingContext
@@ -13372,6 +13348,42 @@ in `atlasdb-container-test-utils/src/main/java/com/palantir/atlasdb/containers/I
             if (!executor.awaitTermination(STOP_TIMEOUT_IN_MILLIS, TimeUnit.MILLISECONDS)) {
                 log.warn("docker containers were still running when log collection stopped");
                 executor.shutdownNow();
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/AbstractTransactionTest.java`
+#### Snippet
+```java
+                    try {
+                        latch.countDown();
+                        latch2.await();
+                    } catch (InterruptedException e) {
+                        throw Throwables.throwUncheckedException(e);
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/AbstractTransactionTest.java`
+#### Snippet
+```java
+        thread.start();
+
+        latch.await();
+
+        // These puts will be seen by the range scan happening on the other thread
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/AbstractTransactionTest.java`
+#### Snippet
+```java
+        put(tx, TEST_TABLE, "row2", "col2", "v8");
+        latch2.countDown();
+        futureTask.get();
+    }
+
 ```
 
 ### BlockingMethodInNonBlockingContext
@@ -13516,14 +13528,14 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/cleaner/NoOpCleaner.j
 
 ### RedundantMethodOverride
 Method `cleanup()` is identical to its super method
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/ExternalLocksCondition.java`
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/AdvisoryLockConditionSuppliers.java`
 #### Snippet
 ```java
 
-    @Override
-    public void cleanup() {}
-
-    @Override
+        @Override
+        public void cleanup() {}
+    };
+}
 ```
 
 ### RedundantMethodOverride
@@ -13540,14 +13552,14 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/PreC
 
 ### RedundantMethodOverride
 Method `cleanup()` is identical to its super method
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/AdvisoryLockConditionSuppliers.java`
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/ExternalLocksCondition.java`
 #### Snippet
 ```java
 
-        @Override
-        public void cleanup() {}
-    };
-}
+    @Override
+    public void cleanup() {}
+
+    @Override
 ```
 
 ### RedundantMethodOverride
@@ -13640,11 +13652,11 @@ Redundant default parameter value assignment
 in `atlasdb-cli/src/main/java/com/palantir/atlasdb/cli/command/KvsMigrationCommand.java`
 #### Snippet
 ```java
-            description = "path to yaml runtime configuration file for the KVS you're migrating from. Note that this "
-                    + "config will not be reloaded while the CLI is running",
-            required = false)
-    private File fromRuntimeConfigFile;
-
+            title = "BATCH SIZE",
+            description = "batch size of rows to read",
+            required = false,
+            arity = 1)
+    private int batchSize = 100;
 ```
 
 ### DefaultAnnotationParam
@@ -13652,10 +13664,10 @@ Redundant default parameter value assignment
 in `atlasdb-cli/src/main/java/com/palantir/atlasdb/cli/command/KvsMigrationCommand.java`
 #### Snippet
 ```java
-            title = "CONFIG PATH",
-            description = "path to yaml configuration file for the KVS you're migrating to",
+            description = "path to yaml runtime configuration file for the KVS you're migrating from. Note that this "
+                    + "config will not be reloaded while the CLI is running",
             required = false)
-    private File toConfigFile;
+    private File fromRuntimeConfigFile;
 
 ```
 
@@ -13676,11 +13688,59 @@ Redundant default parameter value assignment
 in `atlasdb-cli/src/main/java/com/palantir/atlasdb/cli/command/KvsMigrationCommand.java`
 #### Snippet
 ```java
-            title = "BATCH SIZE",
-            description = "batch size of rows to read",
-            required = false,
-            arity = 1)
-    private int batchSize = 100;
+            title = "CONFIG PATH",
+            description = "path to yaml configuration file for the KVS you're migrating to",
+            required = false)
+    private File toConfigFile;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/TransactionPutBenchmarks.java`
+#### Snippet
+```java
+    @Benchmark
+    @Threads(1)
+    @Warmup(time = 2, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 10, timeUnit = TimeUnit.SECONDS)
+    public Object singleRandomPut(EmptyTables tables) {
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/TransactionPutBenchmarks.java`
+#### Snippet
+```java
+    @Threads(1)
+    @Warmup(time = 2, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 10, timeUnit = TimeUnit.SECONDS)
+    public Object singleRandomPut(EmptyTables tables) {
+        return tables.getTransactionManager().runTaskThrowOnConflict(txn -> {
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/TransactionPutBenchmarks.java`
+#### Snippet
+```java
+    @Benchmark
+    @Threads(1)
+    @Warmup(time = 3, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 15, timeUnit = TimeUnit.SECONDS)
+    public Object batchRandomPut(EmptyTables tables) {
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/TransactionPutBenchmarks.java`
+#### Snippet
+```java
+    @Threads(1)
+    @Warmup(time = 3, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 15, timeUnit = TimeUnit.SECONDS)
+    public Object batchRandomPut(EmptyTables tables) {
+        return tables.getTransactionManager().runTaskThrowOnConflict(txn -> {
 ```
 
 ### DefaultAnnotationParam
@@ -13692,7 +13752,7 @@ in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsGe
     @Threads(1)
     @Warmup(time = 20, timeUnit = TimeUnit.SECONDS)
     @Measurement(time = 160, timeUnit = TimeUnit.SECONDS)
-    public Object fullTableScanDirtyThorough(ConsecutiveNarrowTable.DirtyNarrowTable table) {
+    public Object fullTableScanDirtyConservative(ConsecutiveNarrowTable.DirtyNarrowTable table) {
 ```
 
 ### DefaultAnnotationParam
@@ -13703,32 +13763,8 @@ in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsGe
     @Threads(1)
     @Warmup(time = 20, timeUnit = TimeUnit.SECONDS)
     @Measurement(time = 160, timeUnit = TimeUnit.SECONDS)
-    public Object fullTableScanDirtyThorough(ConsecutiveNarrowTable.DirtyNarrowTable table) {
-        return fullTableScan(table, true);
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsGetCandidateCellsForSweepingBenchmarks.java`
-#### Snippet
-```java
-    @Benchmark
-    @Threads(1)
-    @Warmup(time = 20, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 160, timeUnit = TimeUnit.SECONDS)
-    public Object fullTableScanCleanThorough(ConsecutiveNarrowTable.CleanNarrowTable table) {
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsGetCandidateCellsForSweepingBenchmarks.java`
-#### Snippet
-```java
-    @Threads(1)
-    @Warmup(time = 20, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 160, timeUnit = TimeUnit.SECONDS)
-    public Object fullTableScanCleanThorough(ConsecutiveNarrowTable.CleanNarrowTable table) {
-        return fullTableScan(table, true);
+    public Object fullTableScanDirtyConservative(ConsecutiveNarrowTable.DirtyNarrowTable table) {
+        return fullTableScan(table, false);
 ```
 
 ### DefaultAnnotationParam
@@ -13764,7 +13800,7 @@ in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsGe
     @Threads(1)
     @Warmup(time = 20, timeUnit = TimeUnit.SECONDS)
     @Measurement(time = 160, timeUnit = TimeUnit.SECONDS)
-    public Object fullTableScanDirtyConservative(ConsecutiveNarrowTable.DirtyNarrowTable table) {
+    public Object fullTableScanDirtyThorough(ConsecutiveNarrowTable.DirtyNarrowTable table) {
 ```
 
 ### DefaultAnnotationParam
@@ -13775,8 +13811,32 @@ in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsGe
     @Threads(1)
     @Warmup(time = 20, timeUnit = TimeUnit.SECONDS)
     @Measurement(time = 160, timeUnit = TimeUnit.SECONDS)
-    public Object fullTableScanDirtyConservative(ConsecutiveNarrowTable.DirtyNarrowTable table) {
-        return fullTableScan(table, false);
+    public Object fullTableScanDirtyThorough(ConsecutiveNarrowTable.DirtyNarrowTable table) {
+        return fullTableScan(table, true);
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsGetCandidateCellsForSweepingBenchmarks.java`
+#### Snippet
+```java
+    @Benchmark
+    @Threads(1)
+    @Warmup(time = 20, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 160, timeUnit = TimeUnit.SECONDS)
+    public Object fullTableScanCleanThorough(ConsecutiveNarrowTable.CleanNarrowTable table) {
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsGetCandidateCellsForSweepingBenchmarks.java`
+#### Snippet
+```java
+    @Threads(1)
+    @Warmup(time = 20, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 160, timeUnit = TimeUnit.SECONDS)
+    public Object fullTableScanCleanThorough(ConsecutiveNarrowTable.CleanNarrowTable table) {
+        return fullTableScan(table, true);
 ```
 
 ### DefaultAnnotationParam
@@ -13805,50 +13865,50 @@ in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsGe
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/TransactionPutBenchmarks.java`
-#### Snippet
-```java
-    @Benchmark
-    @Threads(1)
-    @Warmup(time = 3, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 15, timeUnit = TimeUnit.SECONDS)
-    public Object batchRandomPut(EmptyTables tables) {
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/TransactionPutBenchmarks.java`
-#### Snippet
-```java
-    @Threads(1)
-    @Warmup(time = 3, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 15, timeUnit = TimeUnit.SECONDS)
-    public Object batchRandomPut(EmptyTables tables) {
-        return tables.getTransactionManager().runTaskThrowOnConflict(txn -> {
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/TransactionPutBenchmarks.java`
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/TransactionDeleteBenchmarks.java`
 #### Snippet
 ```java
     @Benchmark
     @Threads(1)
     @Warmup(time = 2, timeUnit = TimeUnit.SECONDS)
     @Measurement(time = 10, timeUnit = TimeUnit.SECONDS)
-    public Object singleRandomPut(EmptyTables tables) {
+    public Object singleDelete(RegeneratingTable.TransactionRowRegeneratingTable table) {
 ```
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/TransactionPutBenchmarks.java`
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/TransactionDeleteBenchmarks.java`
 #### Snippet
 ```java
     @Threads(1)
     @Warmup(time = 2, timeUnit = TimeUnit.SECONDS)
     @Measurement(time = 10, timeUnit = TimeUnit.SECONDS)
-    public Object singleRandomPut(EmptyTables tables) {
-        return tables.getTransactionManager().runTaskThrowOnConflict(txn -> {
+    public Object singleDelete(RegeneratingTable.TransactionRowRegeneratingTable table) {
+        return doDelete(table);
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/TransactionDeleteBenchmarks.java`
+#### Snippet
+```java
+    @Benchmark
+    @Threads(1)
+    @Warmup(time = 4, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 20, timeUnit = TimeUnit.SECONDS)
+    public Object batchDelete(RegeneratingTable.TransactionBatchRegeneratingTable table) {
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/TransactionDeleteBenchmarks.java`
+#### Snippet
+```java
+    @Threads(1)
+    @Warmup(time = 4, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 20, timeUnit = TimeUnit.SECONDS)
+    public Object batchDelete(RegeneratingTable.TransactionBatchRegeneratingTable table) {
+        return doDelete(table);
 ```
 
 ### DefaultAnnotationParam
@@ -13877,50 +13937,74 @@ in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/HttpB
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/TransactionDeleteBenchmarks.java`
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsGetDynamicBenchmarks.java`
 #### Snippet
 ```java
     @Benchmark
     @Threads(1)
-    @Warmup(time = 2, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 10, timeUnit = TimeUnit.SECONDS)
-    public Object singleDelete(RegeneratingTable.TransactionRowRegeneratingTable table) {
+    @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 5, timeUnit = TimeUnit.SECONDS)
+    public Object getFirstColumnExplicitly(ModeratelyWideRowTable table) {
 ```
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/TransactionDeleteBenchmarks.java`
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsGetDynamicBenchmarks.java`
 #### Snippet
 ```java
     @Threads(1)
-    @Warmup(time = 2, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 10, timeUnit = TimeUnit.SECONDS)
-    public Object singleDelete(RegeneratingTable.TransactionRowRegeneratingTable table) {
-        return doDelete(table);
+    @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 5, timeUnit = TimeUnit.SECONDS)
+    public Object getFirstColumnExplicitly(ModeratelyWideRowTable table) {
+        Map<Cell, Value> result = table.getKvs().get(table.getTableRef(), table.getFirstCellAtMaxTimestampAsMap());
 ```
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/TransactionDeleteBenchmarks.java`
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsGetDynamicBenchmarks.java`
 #### Snippet
 ```java
     @Benchmark
     @Threads(1)
-    @Warmup(time = 4, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 20, timeUnit = TimeUnit.SECONDS)
-    public Object batchDelete(RegeneratingTable.TransactionBatchRegeneratingTable table) {
+    @Warmup(time = 6, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 60, timeUnit = TimeUnit.SECONDS)
+    public Object getAllColumnsImplicitly(ModeratelyWideRowTable table) throws UnsupportedEncodingException {
 ```
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/TransactionDeleteBenchmarks.java`
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsGetDynamicBenchmarks.java`
 #### Snippet
 ```java
     @Threads(1)
-    @Warmup(time = 4, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 20, timeUnit = TimeUnit.SECONDS)
-    public Object batchDelete(RegeneratingTable.TransactionBatchRegeneratingTable table) {
-        return doDelete(table);
+    @Warmup(time = 6, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 60, timeUnit = TimeUnit.SECONDS)
+    public Object getAllColumnsImplicitly(ModeratelyWideRowTable table) throws UnsupportedEncodingException {
+        Map<Cell, Value> result = table.getKvs()
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsGetDynamicBenchmarks.java`
+#### Snippet
+```java
+    @Benchmark
+    @Threads(1)
+    @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 5, timeUnit = TimeUnit.SECONDS)
+    public Object getFirstColumnExplicitlyGetRows(ModeratelyWideRowTable table) throws UnsupportedEncodingException {
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsGetDynamicBenchmarks.java`
+#### Snippet
+```java
+    @Threads(1)
+    @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 5, timeUnit = TimeUnit.SECONDS)
+    public Object getFirstColumnExplicitlyGetRows(ModeratelyWideRowTable table) throws UnsupportedEncodingException {
+        Map<Cell, Value> result = table.getKvs()
 ```
 
 ### DefaultAnnotationParam
@@ -13949,86 +14033,14 @@ in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsGe
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsGetDynamicBenchmarks.java`
-#### Snippet
-```java
-    @Benchmark
-    @Threads(1)
-    @Warmup(time = 6, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 60, timeUnit = TimeUnit.SECONDS)
-    public Object getAllColumnsImplicitly(ModeratelyWideRowTable table) throws UnsupportedEncodingException {
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsGetDynamicBenchmarks.java`
-#### Snippet
-```java
-    @Threads(1)
-    @Warmup(time = 6, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 60, timeUnit = TimeUnit.SECONDS)
-    public Object getAllColumnsImplicitly(ModeratelyWideRowTable table) throws UnsupportedEncodingException {
-        Map<Cell, Value> result = table.getKvs()
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsGetDynamicBenchmarks.java`
-#### Snippet
-```java
-    @Benchmark
-    @Threads(1)
-    @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 5, timeUnit = TimeUnit.SECONDS)
-    public Object getFirstColumnExplicitlyGetRows(ModeratelyWideRowTable table) throws UnsupportedEncodingException {
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsGetDynamicBenchmarks.java`
-#### Snippet
-```java
-    @Threads(1)
-    @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 5, timeUnit = TimeUnit.SECONDS)
-    public Object getFirstColumnExplicitlyGetRows(ModeratelyWideRowTable table) throws UnsupportedEncodingException {
-        Map<Cell, Value> result = table.getKvs()
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsGetDynamicBenchmarks.java`
-#### Snippet
-```java
-    @Benchmark
-    @Threads(1)
-    @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 5, timeUnit = TimeUnit.SECONDS)
-    public Object getFirstColumnExplicitly(ModeratelyWideRowTable table) {
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsGetDynamicBenchmarks.java`
-#### Snippet
-```java
-    @Threads(1)
-    @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 5, timeUnit = TimeUnit.SECONDS)
-    public Object getFirstColumnExplicitly(ModeratelyWideRowTable table) {
-        Map<Cell, Value> result = table.getKvs().get(table.getTableRef(), table.getFirstCellAtMaxTimestampAsMap());
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
 in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/TransactionGetDynamicBenchmarks.java`
 #### Snippet
 ```java
     @Benchmark
     @Threads(1)
-    @Warmup(time = 25, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 180, timeUnit = TimeUnit.SECONDS)
-    public Object getAllColumnsExplicitly(ModeratelyWideRowTable table) {
+    @Warmup(time = 10, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 65, timeUnit = TimeUnit.SECONDS)
+    public Object getAllColumnsImplicitly(ModeratelyWideRowTable table) {
 ```
 
 ### DefaultAnnotationParam
@@ -14037,9 +14049,9 @@ in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/Trans
 #### Snippet
 ```java
     @Threads(1)
-    @Warmup(time = 25, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 180, timeUnit = TimeUnit.SECONDS)
-    public Object getAllColumnsExplicitly(ModeratelyWideRowTable table) {
+    @Warmup(time = 10, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 65, timeUnit = TimeUnit.SECONDS)
+    public Object getAllColumnsImplicitly(ModeratelyWideRowTable table) {
         return table.getTransactionManager().runTaskThrowOnConflict(txn -> {
 ```
 
@@ -14074,9 +14086,9 @@ in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/Trans
 ```java
     @Benchmark
     @Threads(1)
-    @Warmup(time = 10, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 65, timeUnit = TimeUnit.SECONDS)
-    public Object getAllColumnsImplicitly(ModeratelyWideRowTable table) {
+    @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 5, timeUnit = TimeUnit.SECONDS)
+    public Object getFirstColumnExplicitly(ModeratelyWideRowTable table) {
 ```
 
 ### DefaultAnnotationParam
@@ -14085,9 +14097,9 @@ in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/Trans
 #### Snippet
 ```java
     @Threads(1)
-    @Warmup(time = 10, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 65, timeUnit = TimeUnit.SECONDS)
-    public Object getAllColumnsImplicitly(ModeratelyWideRowTable table) {
+    @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 5, timeUnit = TimeUnit.SECONDS)
+    public Object getFirstColumnExplicitly(ModeratelyWideRowTable table) {
         return table.getTransactionManager().runTaskThrowOnConflict(txn -> {
 ```
 
@@ -14098,9 +14110,9 @@ in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/Trans
 ```java
     @Benchmark
     @Threads(1)
-    @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 5, timeUnit = TimeUnit.SECONDS)
-    public Object getFirstColumnExplicitly(ModeratelyWideRowTable table) {
+    @Warmup(time = 25, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 180, timeUnit = TimeUnit.SECONDS)
+    public Object getAllColumnsExplicitly(ModeratelyWideRowTable table) {
 ```
 
 ### DefaultAnnotationParam
@@ -14109,9 +14121,9 @@ in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/Trans
 #### Snippet
 ```java
     @Threads(1)
-    @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 5, timeUnit = TimeUnit.SECONDS)
-    public Object getFirstColumnExplicitly(ModeratelyWideRowTable table) {
+    @Warmup(time = 25, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 180, timeUnit = TimeUnit.SECONDS)
+    public Object getAllColumnsExplicitly(ModeratelyWideRowTable table) {
         return table.getTransactionManager().runTaskThrowOnConflict(txn -> {
 ```
 
@@ -14137,30 +14149,6 @@ in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/Trans
     @Measurement(time = 15, timeUnit = TimeUnit.SECONDS)
     public void getAllColumnsModeratelyWideRowWithSomeUncommitted(
             CleanModeratelyWideRowTable table, Blackhole blackhole) {
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/TransactionGetRowsColumnRangeBenchmarks.java`
-#### Snippet
-```java
-    @Benchmark
-    @Threads(1)
-    @Warmup(time = 16, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 160, timeUnit = TimeUnit.SECONDS)
-    public void getAllColumnsSingleBigRow(VeryWideRowTable table, Blackhole blackhole) {
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/TransactionGetRowsColumnRangeBenchmarks.java`
-#### Snippet
-```java
-    @Threads(1)
-    @Warmup(time = 16, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 160, timeUnit = TimeUnit.SECONDS)
-    public void getAllColumnsSingleBigRow(VeryWideRowTable table, Blackhole blackhole) {
-        getAllRowsAndAssert(
 ```
 
 ### DefaultAnnotationParam
@@ -14218,9 +14206,9 @@ in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/Trans
 ```java
     @Benchmark
     @Threads(1)
-    @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 5, timeUnit = TimeUnit.SECONDS)
-    public Object getSingleCellDirty(ConsecutiveNarrowTable.DirtyNarrowTable table) {
+    @Warmup(time = 2, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 10, timeUnit = TimeUnit.SECONDS)
+    public Object getRange(ConsecutiveNarrowTable.CleanNarrowTable table) {
 ```
 
 ### DefaultAnnotationParam
@@ -14229,10 +14217,34 @@ in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/Trans
 #### Snippet
 ```java
     @Threads(1)
-    @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 5, timeUnit = TimeUnit.SECONDS)
-    public Object getSingleCellDirty(ConsecutiveNarrowTable.DirtyNarrowTable table) {
-        return getSingleCellInner(table);
+    @Warmup(time = 2, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 10, timeUnit = TimeUnit.SECONDS)
+    public Object getRange(ConsecutiveNarrowTable.CleanNarrowTable table) {
+        return getRangeInner(table);
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/TransactionGetBenchmarks.java`
+#### Snippet
+```java
+    @Benchmark
+    @Threads(1)
+    @Warmup(time = 8, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 40, timeUnit = TimeUnit.SECONDS)
+    public Object getRanges(ConsecutiveNarrowTable.CleanNarrowTable table) {
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/TransactionGetBenchmarks.java`
+#### Snippet
+```java
+    @Threads(1)
+    @Warmup(time = 8, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 40, timeUnit = TimeUnit.SECONDS)
+    public Object getRanges(ConsecutiveNarrowTable.CleanNarrowTable table) {
+        return getRangesInner(table);
 ```
 
 ### DefaultAnnotationParam
@@ -14257,6 +14269,30 @@ in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/Trans
     @Measurement(time = 5, timeUnit = TimeUnit.SECONDS)
     public Object getSingleCell(ConsecutiveNarrowTable.CleanNarrowTable table) {
         return getSingleCellInner(table);
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/TransactionGetBenchmarks.java`
+#### Snippet
+```java
+    @Benchmark
+    @Threads(1)
+    @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 5, timeUnit = TimeUnit.SECONDS)
+    public Object getSingleRowWithRangeQuery(ConsecutiveNarrowTable.CleanNarrowTable table) {
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/TransactionGetBenchmarks.java`
+#### Snippet
+```java
+    @Threads(1)
+    @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 5, timeUnit = TimeUnit.SECONDS)
+    public Object getSingleRowWithRangeQuery(ConsecutiveNarrowTable.CleanNarrowTable table) {
+        return getSingleRowWithRangeQueryInner(table);
 ```
 
 ### DefaultAnnotationParam
@@ -14314,6 +14350,30 @@ in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/Trans
 ```java
     @Benchmark
     @Threads(1)
+    @Warmup(time = 8, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 45, timeUnit = TimeUnit.SECONDS)
+    public Object getRangeDirty(ConsecutiveNarrowTable.DirtyNarrowTable table) {
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/TransactionGetBenchmarks.java`
+#### Snippet
+```java
+    @Threads(1)
+    @Warmup(time = 8, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 45, timeUnit = TimeUnit.SECONDS)
+    public Object getRangeDirty(ConsecutiveNarrowTable.DirtyNarrowTable table) {
+        return getRangeInner(table);
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/TransactionGetBenchmarks.java`
+#### Snippet
+```java
+    @Benchmark
+    @Threads(1)
     @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
     @Measurement(time = 5, timeUnit = TimeUnit.SECONDS)
     public Object getSingleRowWithRangeQueryDirty(ConsecutiveNarrowTable.DirtyNarrowTable table) {
@@ -14362,57 +14422,9 @@ in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/Trans
 ```java
     @Benchmark
     @Threads(1)
-    @Warmup(time = 8, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 40, timeUnit = TimeUnit.SECONDS)
-    public Object getRanges(ConsecutiveNarrowTable.CleanNarrowTable table) {
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/TransactionGetBenchmarks.java`
-#### Snippet
-```java
-    @Threads(1)
-    @Warmup(time = 8, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 40, timeUnit = TimeUnit.SECONDS)
-    public Object getRanges(ConsecutiveNarrowTable.CleanNarrowTable table) {
-        return getRangesInner(table);
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/TransactionGetBenchmarks.java`
-#### Snippet
-```java
-    @Benchmark
-    @Threads(1)
-    @Warmup(time = 2, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 10, timeUnit = TimeUnit.SECONDS)
-    public Object getRange(ConsecutiveNarrowTable.CleanNarrowTable table) {
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/TransactionGetBenchmarks.java`
-#### Snippet
-```java
-    @Threads(1)
-    @Warmup(time = 2, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 10, timeUnit = TimeUnit.SECONDS)
-    public Object getRange(ConsecutiveNarrowTable.CleanNarrowTable table) {
-        return getRangeInner(table);
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/TransactionGetBenchmarks.java`
-#### Snippet
-```java
-    @Benchmark
-    @Threads(1)
     @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
     @Measurement(time = 5, timeUnit = TimeUnit.SECONDS)
-    public Object getSingleRowWithRangeQuery(ConsecutiveNarrowTable.CleanNarrowTable table) {
+    public Object getSingleCellDirty(ConsecutiveNarrowTable.DirtyNarrowTable table) {
 ```
 
 ### DefaultAnnotationParam
@@ -14423,56 +14435,32 @@ in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/Trans
     @Threads(1)
     @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
     @Measurement(time = 5, timeUnit = TimeUnit.SECONDS)
-    public Object getSingleRowWithRangeQuery(ConsecutiveNarrowTable.CleanNarrowTable table) {
-        return getSingleRowWithRangeQueryInner(table);
+    public Object getSingleCellDirty(ConsecutiveNarrowTable.DirtyNarrowTable table) {
+        return getSingleCellInner(table);
 ```
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/TransactionGetBenchmarks.java`
-#### Snippet
-```java
-    @Benchmark
-    @Threads(1)
-    @Warmup(time = 8, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 45, timeUnit = TimeUnit.SECONDS)
-    public Object getRangeDirty(ConsecutiveNarrowTable.DirtyNarrowTable table) {
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/TransactionGetBenchmarks.java`
-#### Snippet
-```java
-    @Threads(1)
-    @Warmup(time = 8, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 45, timeUnit = TimeUnit.SECONDS)
-    public Object getRangeDirty(ConsecutiveNarrowTable.DirtyNarrowTable table) {
-        return getRangeInner(table);
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsGetRowsColumnRangeBenchmarks.java`
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/TransactionGetRowsColumnRangeBenchmarks.java`
 #### Snippet
 ```java
     @Benchmark
     @Threads(1)
     @Warmup(time = 16, timeUnit = TimeUnit.SECONDS)
     @Measurement(time = 160, timeUnit = TimeUnit.SECONDS)
-    public Object getAllColumnsAligned(WideRowsTable table) {
+    public void getAllColumnsSingleBigRow(VeryWideRowTable table, Blackhole blackhole) {
 ```
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsGetRowsColumnRangeBenchmarks.java`
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/TransactionGetRowsColumnRangeBenchmarks.java`
 #### Snippet
 ```java
     @Threads(1)
     @Warmup(time = 16, timeUnit = TimeUnit.SECONDS)
     @Measurement(time = 160, timeUnit = TimeUnit.SECONDS)
-    public Object getAllColumnsAligned(WideRowsTable table) {
-        List<byte[]> rows = IntStream.rangeClosed(0, WideRowsTable.NUM_ROWS - 1)
+    public void getAllColumnsSingleBigRow(VeryWideRowTable table, Blackhole blackhole) {
+        getAllRowsAndAssert(
 ```
 
 ### DefaultAnnotationParam
@@ -14525,14 +14513,38 @@ in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsGe
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsGetRowsColumnRangeBenchmarks.java`
+#### Snippet
+```java
+    @Benchmark
+    @Threads(1)
+    @Warmup(time = 16, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 160, timeUnit = TimeUnit.SECONDS)
+    public Object getAllColumnsAligned(WideRowsTable table) {
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsGetRowsColumnRangeBenchmarks.java`
+#### Snippet
+```java
+    @Threads(1)
+    @Warmup(time = 16, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 160, timeUnit = TimeUnit.SECONDS)
+    public Object getAllColumnsAligned(WideRowsTable table) {
+        List<byte[]> rows = IntStream.rangeClosed(0, WideRowsTable.NUM_ROWS - 1)
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
 in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsPutBenchmarks.java`
 #### Snippet
 ```java
     @Benchmark
     @Threads(1)
-    @Warmup(time = 3, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 15, timeUnit = TimeUnit.SECONDS)
-    public Object batchRandomPut(EmptyTables tables) {
+    @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 10, timeUnit = TimeUnit.SECONDS)
+    public Map<Cell, byte[]> putUnlessExistsDoesNotExist(EmptyTables tables) {
 ```
 
 ### DefaultAnnotationParam
@@ -14541,10 +14553,10 @@ in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsPu
 #### Snippet
 ```java
     @Threads(1)
-    @Warmup(time = 3, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 15, timeUnit = TimeUnit.SECONDS)
-    public Object batchRandomPut(EmptyTables tables) {
-        Map<Cell, byte[]> batch = tables.generateBatchToInsert(BATCH_SIZE);
+    @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 10, timeUnit = TimeUnit.SECONDS)
+    public Map<Cell, byte[]> putUnlessExistsDoesNotExist(EmptyTables tables) {
+        Map<Cell, byte[]> batch = tables.generateBatchToInsert(1);
 ```
 
 ### DefaultAnnotationParam
@@ -14578,54 +14590,6 @@ in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsPu
 ```java
     @Benchmark
     @Threads(1)
-    @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 6, timeUnit = TimeUnit.SECONDS)
-    public Object singleRandomPut(EmptyTables tables) {
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsPutBenchmarks.java`
-#### Snippet
-```java
-    @Threads(1)
-    @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 6, timeUnit = TimeUnit.SECONDS)
-    public Object singleRandomPut(EmptyTables tables) {
-        Map<Cell, byte[]> batch = tables.generateBatchToInsert(1);
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsPutBenchmarks.java`
-#### Snippet
-```java
-    @Benchmark
-    @Threads(1)
-    @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 10, timeUnit = TimeUnit.SECONDS)
-    public Map<Cell, byte[]> putUnlessExistsDoesNotExist(EmptyTables tables) {
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsPutBenchmarks.java`
-#### Snippet
-```java
-    @Threads(1)
-    @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 10, timeUnit = TimeUnit.SECONDS)
-    public Map<Cell, byte[]> putUnlessExistsDoesNotExist(EmptyTables tables) {
-        Map<Cell, byte[]> batch = tables.generateBatchToInsert(1);
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsPutBenchmarks.java`
-#### Snippet
-```java
-    @Benchmark
-    @Threads(1)
     @Warmup(time = 2, timeUnit = TimeUnit.SECONDS)
     @Measurement(time = 20, timeUnit = TimeUnit.SECONDS)
     public Map<Cell, byte[]> putUnlessExistsAndExists(EmptyTables tables) {
@@ -14645,266 +14609,38 @@ in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsPu
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/SweepBenchmarks.java`
-#### Snippet
-```java
-    @Benchmark
-    @Threads(1)
-    @Warmup(time = 10, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 75, timeUnit = TimeUnit.SECONDS)
-    public Object batchedSingleSweepRun(RegeneratingTable.SweepBatchNonUniformMultipleSeparateRegeneratingTable table) {
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/SweepBenchmarks.java`
-#### Snippet
-```java
-    @Threads(1)
-    @Warmup(time = 10, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 75, timeUnit = TimeUnit.SECONDS)
-    public Object batchedSingleSweepRun(RegeneratingTable.SweepBatchNonUniformMultipleSeparateRegeneratingTable table) {
-        return runSingleSweep(table, BATCH_SIZE);
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/SweepBenchmarks.java`
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsPutBenchmarks.java`
 #### Snippet
 ```java
     @Benchmark
     @Threads(1)
     @Warmup(time = 3, timeUnit = TimeUnit.SECONDS)
     @Measurement(time = 15, timeUnit = TimeUnit.SECONDS)
-    public Object batchedUniformSingleSweepRun(RegeneratingTable.SweepBatchUniformMultipleRegeneratingTable table) {
+    public Object batchRandomPut(EmptyTables tables) {
 ```
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/SweepBenchmarks.java`
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsPutBenchmarks.java`
 #### Snippet
 ```java
     @Threads(1)
     @Warmup(time = 3, timeUnit = TimeUnit.SECONDS)
     @Measurement(time = 15, timeUnit = TimeUnit.SECONDS)
-    public Object batchedUniformSingleSweepRun(RegeneratingTable.SweepBatchUniformMultipleRegeneratingTable table) {
-        return runSingleSweep(table, BATCH_SIZE);
+    public Object batchRandomPut(EmptyTables tables) {
+        Map<Cell, byte[]> batch = tables.generateBatchToInsert(BATCH_SIZE);
 ```
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/SweepBenchmarks.java`
-#### Snippet
-```java
-    @Benchmark
-    @Threads(1)
-    @Warmup(time = 3, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 15, timeUnit = TimeUnit.SECONDS)
-    public Object singleSweepRun(RegeneratingTable.SweepRegeneratingTable table) {
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/SweepBenchmarks.java`
-#### Snippet
-```java
-    @Threads(1)
-    @Warmup(time = 3, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 15, timeUnit = TimeUnit.SECONDS)
-    public Object singleSweepRun(RegeneratingTable.SweepRegeneratingTable table) {
-        return runSingleSweep(table, 1);
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/SweepBenchmarks.java`
-#### Snippet
-```java
-    @Benchmark
-    @Threads(1)
-    @Warmup(time = 5, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 25, timeUnit = TimeUnit.SECONDS)
-    public Object multipleUniformSweepRun(RegeneratingTable.SweepBatchUniformMultipleRegeneratingTable table) {
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/SweepBenchmarks.java`
-#### Snippet
-```java
-    @Threads(1)
-    @Warmup(time = 5, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 25, timeUnit = TimeUnit.SECONDS)
-    public Object multipleUniformSweepRun(RegeneratingTable.SweepBatchUniformMultipleRegeneratingTable table) {
-        return runMultiSweep(table);
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/SweepBenchmarks.java`
-#### Snippet
-```java
-    @Benchmark
-    @Threads(1)
-    @Warmup(time = 15, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 90, timeUnit = TimeUnit.SECONDS)
-    public Object multipleSweepRun(RegeneratingTable.SweepBatchNonUniformMultipleSeparateRegeneratingTable table) {
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/SweepBenchmarks.java`
-#### Snippet
-```java
-    @Threads(1)
-    @Warmup(time = 15, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 90, timeUnit = TimeUnit.SECONDS)
-    public Object multipleSweepRun(RegeneratingTable.SweepBatchNonUniformMultipleSeparateRegeneratingTable table) {
-        return runMultiSweep(table);
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsDeleteBenchmarks.java`
-#### Snippet
-```java
-    @Benchmark
-    @Threads(1)
-    @Warmup(time = 6, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 60, timeUnit = TimeUnit.SECONDS)
-    public Object batchRangeDelete(ConsecutiveNarrowTable.RegeneratingCleanNarrowTable table) {
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsDeleteBenchmarks.java`
-#### Snippet
-```java
-    @Threads(1)
-    @Warmup(time = 6, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 60, timeUnit = TimeUnit.SECONDS)
-    public Object batchRangeDelete(ConsecutiveNarrowTable.RegeneratingCleanNarrowTable table) {
-        return doDeleteRange(table, 4);
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsDeleteBenchmarks.java`
-#### Snippet
-```java
-    @Benchmark
-    @Threads(1)
-    @Warmup(time = 3, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 22, timeUnit = TimeUnit.SECONDS)
-    public Object batchDelete(RegeneratingTable.KvsBatchRegeneratingTable table) {
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsDeleteBenchmarks.java`
-#### Snippet
-```java
-    @Threads(1)
-    @Warmup(time = 3, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 22, timeUnit = TimeUnit.SECONDS)
-    public Object batchDelete(RegeneratingTable.KvsBatchRegeneratingTable table) {
-        return doDelete(table);
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsDeleteBenchmarks.java`
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsPutBenchmarks.java`
 #### Snippet
 ```java
     @Benchmark
     @Threads(1)
     @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
     @Measurement(time = 6, timeUnit = TimeUnit.SECONDS)
-    public Object singleDelete(RegeneratingTable.KvsRowRegeneratingTable table) {
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsDeleteBenchmarks.java`
-#### Snippet
-```java
-    @Threads(1)
-    @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 6, timeUnit = TimeUnit.SECONDS)
-    public Object singleDelete(RegeneratingTable.KvsRowRegeneratingTable table) {
-        return doDelete(table);
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsDeleteBenchmarks.java`
-#### Snippet
-```java
-    @Benchmark
-    @Threads(1)
-    @Warmup(time = 5, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 30, timeUnit = TimeUnit.SECONDS)
-    public Object deleteAllTimestamps(RegeneratingTable.VersionedCellRegeneratingTable table) {
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsDeleteBenchmarks.java`
-#### Snippet
-```java
-    @Threads(1)
-    @Warmup(time = 5, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 30, timeUnit = TimeUnit.SECONDS)
-    public Object deleteAllTimestamps(RegeneratingTable.VersionedCellRegeneratingTable table) {
-        return doDeleteAllTimestamps(table);
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsDeleteBenchmarks.java`
-#### Snippet
-```java
-    @Benchmark
-    @Threads(1)
-    @Warmup(time = 5, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 45, timeUnit = TimeUnit.SECONDS)
-    public Object allRangeDelete(ConsecutiveNarrowTable.RegeneratingCleanNarrowTable table) {
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsDeleteBenchmarks.java`
-#### Snippet
-```java
-    @Threads(1)
-    @Warmup(time = 5, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 45, timeUnit = TimeUnit.SECONDS)
-    public Object allRangeDelete(ConsecutiveNarrowTable.RegeneratingCleanNarrowTable table) {
-        return doDeleteRange(table, 1);
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/TimestampServiceBenchmarks.java`
-#### Snippet
-```java
-
-    @Benchmark
-    @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 10, timeUnit = TimeUnit.SECONDS)
-    @Threads(32)
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/TimestampServiceBenchmarks.java`
-#### Snippet
-```java
-    @Benchmark
-    @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 10, timeUnit = TimeUnit.SECONDS)
-    @Threads(32)
-    public TimestampRange manyThreadsGetBatchOfTimestamps(TimestampServiceEndpoint timestampService) {
+    public Object singleRandomPut(EmptyTables tables) {
 ```
 
 ### DefaultAnnotationParam
@@ -14929,6 +14665,30 @@ in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/Times
     @Measurement(time = 10, timeUnit = TimeUnit.SECONDS)
     @Threads(4)
     public long fewThreadsGetFreshTimestamp(TimestampServiceEndpoint timestampService) {
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/TimestampServiceBenchmarks.java`
+#### Snippet
+```java
+
+    @Benchmark
+    @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 10, timeUnit = TimeUnit.SECONDS)
+    @Threads(4)
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/TimestampServiceBenchmarks.java`
+#### Snippet
+```java
+    @Benchmark
+    @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 10, timeUnit = TimeUnit.SECONDS)
+    @Threads(4)
+    public TimestampRange fewThreadsGetBatchOfTimestamps(TimestampServiceEndpoint timestampService) {
 ```
 
 ### DefaultAnnotationParam
@@ -14988,7 +14748,7 @@ in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/Times
     @Benchmark
     @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
     @Measurement(time = 10, timeUnit = TimeUnit.SECONDS)
-    @Threads(4)
+    @Threads(32)
 ```
 
 ### DefaultAnnotationParam
@@ -14999,32 +14759,56 @@ in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/Times
     @Benchmark
     @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
     @Measurement(time = 10, timeUnit = TimeUnit.SECONDS)
-    @Threads(4)
-    public TimestampRange fewThreadsGetBatchOfTimestamps(TimestampServiceEndpoint timestampService) {
+    @Threads(32)
+    public TimestampRange manyThreadsGetBatchOfTimestamps(TimestampServiceEndpoint timestampService) {
 ```
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/StreamStoreBenchmarks.java`
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsPutBenchmarks.java`
+#### Snippet
+```java
+    @Threads(1)
+    @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 6, timeUnit = TimeUnit.SECONDS)
+    public Object singleRandomPut(EmptyTables tables) {
+        Map<Cell, byte[]> batch = tables.generateBatchToInsert(1);
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/SweepBenchmarks.java`
 #### Snippet
 ```java
     @Benchmark
     @Threads(1)
-    @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 30, timeUnit = TimeUnit.SECONDS)
-    public void loadLargeStream(StreamingTable table) throws IOException {
+    @Warmup(time = 5, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 25, timeUnit = TimeUnit.SECONDS)
+    public Object multipleUniformSweepRun(RegeneratingTable.SweepBatchUniformMultipleRegeneratingTable table) {
 ```
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/StreamStoreBenchmarks.java`
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/SweepBenchmarks.java`
 #### Snippet
 ```java
     @Threads(1)
-    @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 30, timeUnit = TimeUnit.SECONDS)
-    public void loadLargeStream(StreamingTable table) throws IOException {
-        long id = table.getLargeStreamId();
+    @Warmup(time = 5, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 25, timeUnit = TimeUnit.SECONDS)
+    public Object multipleUniformSweepRun(RegeneratingTable.SweepBatchUniformMultipleRegeneratingTable table) {
+        return runMultiSweep(table);
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/SweepBenchmarks.java`
+#### Snippet
+```java
+    @Benchmark
+    @Threads(1)
+    @Warmup(time = 10, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 75, timeUnit = TimeUnit.SECONDS)
+    public Object batchedSingleSweepRun(RegeneratingTable.SweepBatchNonUniformMultipleSeparateRegeneratingTable table) {
 ```
 
 ### DefaultAnnotationParam
@@ -15037,6 +14821,18 @@ in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/Strea
     @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
     @Measurement(time = 5, timeUnit = TimeUnit.SECONDS)
     public void loadSmallStream(StreamingTable table) throws IOException {
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/SweepBenchmarks.java`
+#### Snippet
+```java
+    @Threads(1)
+    @Warmup(time = 10, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 75, timeUnit = TimeUnit.SECONDS)
+    public Object batchedSingleSweepRun(RegeneratingTable.SweepBatchNonUniformMultipleSeparateRegeneratingTable table) {
+        return runSingleSweep(table, BATCH_SIZE);
 ```
 
 ### DefaultAnnotationParam
@@ -15053,6 +14849,18 @@ in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/Strea
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/SweepBenchmarks.java`
+#### Snippet
+```java
+    @Benchmark
+    @Threads(1)
+    @Warmup(time = 3, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 15, timeUnit = TimeUnit.SECONDS)
+    public Object batchedUniformSingleSweepRun(RegeneratingTable.SweepBatchUniformMultipleRegeneratingTable table) {
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
 in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/StreamStoreBenchmarks.java`
 #### Snippet
 ```java
@@ -15065,6 +14873,42 @@ in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/Strea
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/SweepBenchmarks.java`
+#### Snippet
+```java
+    @Threads(1)
+    @Warmup(time = 3, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 15, timeUnit = TimeUnit.SECONDS)
+    public Object batchedUniformSingleSweepRun(RegeneratingTable.SweepBatchUniformMultipleRegeneratingTable table) {
+        return runSingleSweep(table, BATCH_SIZE);
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/SweepBenchmarks.java`
+#### Snippet
+```java
+    @Benchmark
+    @Threads(1)
+    @Warmup(time = 15, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 90, timeUnit = TimeUnit.SECONDS)
+    public Object multipleSweepRun(RegeneratingTable.SweepBatchNonUniformMultipleSeparateRegeneratingTable table) {
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/SweepBenchmarks.java`
+#### Snippet
+```java
+    @Threads(1)
+    @Warmup(time = 15, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 90, timeUnit = TimeUnit.SECONDS)
+    public Object multipleSweepRun(RegeneratingTable.SweepBatchNonUniformMultipleSeparateRegeneratingTable table) {
+        return runMultiSweep(table);
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
 in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/StreamStoreBenchmarks.java`
 #### Snippet
 ```java
@@ -15073,6 +14917,174 @@ in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/Strea
     @Measurement(time = 30, timeUnit = TimeUnit.SECONDS)
     public void loadVeryLargeStream(StreamingTable table) throws IOException {
         long id = table.getVeryLargeStreamId();
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/SweepBenchmarks.java`
+#### Snippet
+```java
+    @Benchmark
+    @Threads(1)
+    @Warmup(time = 3, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 15, timeUnit = TimeUnit.SECONDS)
+    public Object singleSweepRun(RegeneratingTable.SweepRegeneratingTable table) {
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/StreamStoreBenchmarks.java`
+#### Snippet
+```java
+    @Benchmark
+    @Threads(1)
+    @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 30, timeUnit = TimeUnit.SECONDS)
+    public void loadLargeStream(StreamingTable table) throws IOException {
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/SweepBenchmarks.java`
+#### Snippet
+```java
+    @Threads(1)
+    @Warmup(time = 3, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 15, timeUnit = TimeUnit.SECONDS)
+    public Object singleSweepRun(RegeneratingTable.SweepRegeneratingTable table) {
+        return runSingleSweep(table, 1);
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/StreamStoreBenchmarks.java`
+#### Snippet
+```java
+    @Threads(1)
+    @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 30, timeUnit = TimeUnit.SECONDS)
+    public void loadLargeStream(StreamingTable table) throws IOException {
+        long id = table.getLargeStreamId();
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsDeleteBenchmarks.java`
+#### Snippet
+```java
+    @Benchmark
+    @Threads(1)
+    @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 6, timeUnit = TimeUnit.SECONDS)
+    public Object singleDelete(RegeneratingTable.KvsRowRegeneratingTable table) {
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsDeleteBenchmarks.java`
+#### Snippet
+```java
+    @Threads(1)
+    @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 6, timeUnit = TimeUnit.SECONDS)
+    public Object singleDelete(RegeneratingTable.KvsRowRegeneratingTable table) {
+        return doDelete(table);
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsDeleteBenchmarks.java`
+#### Snippet
+```java
+    @Benchmark
+    @Threads(1)
+    @Warmup(time = 6, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 60, timeUnit = TimeUnit.SECONDS)
+    public Object batchRangeDelete(ConsecutiveNarrowTable.RegeneratingCleanNarrowTable table) {
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsDeleteBenchmarks.java`
+#### Snippet
+```java
+    @Threads(1)
+    @Warmup(time = 6, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 60, timeUnit = TimeUnit.SECONDS)
+    public Object batchRangeDelete(ConsecutiveNarrowTable.RegeneratingCleanNarrowTable table) {
+        return doDeleteRange(table, 4);
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsDeleteBenchmarks.java`
+#### Snippet
+```java
+    @Benchmark
+    @Threads(1)
+    @Warmup(time = 5, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 30, timeUnit = TimeUnit.SECONDS)
+    public Object deleteAllTimestamps(RegeneratingTable.VersionedCellRegeneratingTable table) {
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsDeleteBenchmarks.java`
+#### Snippet
+```java
+    @Threads(1)
+    @Warmup(time = 5, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 30, timeUnit = TimeUnit.SECONDS)
+    public Object deleteAllTimestamps(RegeneratingTable.VersionedCellRegeneratingTable table) {
+        return doDeleteAllTimestamps(table);
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsDeleteBenchmarks.java`
+#### Snippet
+```java
+    @Benchmark
+    @Threads(1)
+    @Warmup(time = 5, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 45, timeUnit = TimeUnit.SECONDS)
+    public Object allRangeDelete(ConsecutiveNarrowTable.RegeneratingCleanNarrowTable table) {
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsDeleteBenchmarks.java`
+#### Snippet
+```java
+    @Threads(1)
+    @Warmup(time = 5, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 45, timeUnit = TimeUnit.SECONDS)
+    public Object allRangeDelete(ConsecutiveNarrowTable.RegeneratingCleanNarrowTable table) {
+        return doDeleteRange(table, 1);
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsDeleteBenchmarks.java`
+#### Snippet
+```java
+    @Benchmark
+    @Threads(1)
+    @Warmup(time = 3, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 22, timeUnit = TimeUnit.SECONDS)
+    public Object batchDelete(RegeneratingTable.KvsBatchRegeneratingTable table) {
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsDeleteBenchmarks.java`
+#### Snippet
+```java
+    @Threads(1)
+    @Warmup(time = 3, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 22, timeUnit = TimeUnit.SECONDS)
+    public Object batchDelete(RegeneratingTable.KvsBatchRegeneratingTable table) {
+        return doDelete(table);
 ```
 
 ### DefaultAnnotationParam
@@ -15097,6 +15109,78 @@ in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsGe
     @Measurement(time = 60, timeUnit = TimeUnit.SECONDS)
     public Object getMultiRangeDirty(ConsecutiveNarrowTable.DirtyNarrowTable table) {
         return getMultiRangeInner(table);
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsGetRangeBenchmarks.java`
+#### Snippet
+```java
+    @Benchmark
+    @Threads(1)
+    @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 5, timeUnit = TimeUnit.SECONDS)
+    public Object getSingleRangeDirty(ConsecutiveNarrowTable.DirtyNarrowTable table) {
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsGetRangeBenchmarks.java`
+#### Snippet
+```java
+    @Threads(1)
+    @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 5, timeUnit = TimeUnit.SECONDS)
+    public Object getSingleRangeDirty(ConsecutiveNarrowTable.DirtyNarrowTable table) {
+        return getSingleRangeInner(table, 1);
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsGetRangeBenchmarks.java`
+#### Snippet
+```java
+    @Benchmark
+    @Threads(1)
+    @Warmup(time = 5, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 30, timeUnit = TimeUnit.SECONDS)
+    public Object getMultiRange(ConsecutiveNarrowTable.CleanNarrowTable table) {
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsGetRangeBenchmarks.java`
+#### Snippet
+```java
+    @Threads(1)
+    @Warmup(time = 5, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 30, timeUnit = TimeUnit.SECONDS)
+    public Object getMultiRange(ConsecutiveNarrowTable.CleanNarrowTable table) {
+        return getMultiRangeInner(table);
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsGetRangeBenchmarks.java`
+#### Snippet
+```java
+    @Benchmark
+    @Threads(1)
+    @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 5, timeUnit = TimeUnit.SECONDS)
+    public Object getSingleRange(ConsecutiveNarrowTable.CleanNarrowTable table) {
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsGetRangeBenchmarks.java`
+#### Snippet
+```java
+    @Threads(1)
+    @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
+    @Measurement(time = 5, timeUnit = TimeUnit.SECONDS)
+    public Object getSingleRange(ConsecutiveNarrowTable.CleanNarrowTable table) {
+        return getSingleRangeInner(table, 1);
 ```
 
 ### DefaultAnnotationParam
@@ -15130,30 +15214,6 @@ in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsGe
 ```java
     @Benchmark
     @Threads(1)
-    @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 5, timeUnit = TimeUnit.SECONDS)
-    public Object getSingleRangeDirty(ConsecutiveNarrowTable.DirtyNarrowTable table) {
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsGetRangeBenchmarks.java`
-#### Snippet
-```java
-    @Threads(1)
-    @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 5, timeUnit = TimeUnit.SECONDS)
-    public Object getSingleRangeDirty(ConsecutiveNarrowTable.DirtyNarrowTable table) {
-        return getSingleRangeInner(table, 1);
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsGetRangeBenchmarks.java`
-#### Snippet
-```java
-    @Benchmark
-    @Threads(1)
     @Warmup(time = 20, timeUnit = TimeUnit.SECONDS)
     @Measurement(time = 120, timeUnit = TimeUnit.SECONDS)
     public Object getSingleLargeRangeDirty(ConsecutiveNarrowTable.DirtyNarrowTable table) {
@@ -15169,54 +15229,6 @@ in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsGe
     @Measurement(time = 120, timeUnit = TimeUnit.SECONDS)
     public Object getSingleLargeRangeDirty(ConsecutiveNarrowTable.DirtyNarrowTable table) {
         return getSingleRangeInner(table, (int) (0.1 * table.getNumRows()));
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsGetRangeBenchmarks.java`
-#### Snippet
-```java
-    @Benchmark
-    @Threads(1)
-    @Warmup(time = 5, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 30, timeUnit = TimeUnit.SECONDS)
-    public Object getMultiRange(ConsecutiveNarrowTable.CleanNarrowTable table) {
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsGetRangeBenchmarks.java`
-#### Snippet
-```java
-    @Threads(1)
-    @Warmup(time = 5, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 30, timeUnit = TimeUnit.SECONDS)
-    public Object getMultiRange(ConsecutiveNarrowTable.CleanNarrowTable table) {
-        return getMultiRangeInner(table);
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsGetRangeBenchmarks.java`
-#### Snippet
-```java
-    @Benchmark
-    @Threads(1)
-    @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 5, timeUnit = TimeUnit.SECONDS)
-    public Object getSingleRange(ConsecutiveNarrowTable.CleanNarrowTable table) {
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/KvsGetRangeBenchmarks.java`
-#### Snippet
-```java
-    @Threads(1)
-    @Warmup(time = 1, timeUnit = TimeUnit.SECONDS)
-    @Measurement(time = 5, timeUnit = TimeUnit.SECONDS)
-    public Object getSingleRange(ConsecutiveNarrowTable.CleanNarrowTable table) {
-        return getSingleRangeInner(table, 1);
 ```
 
 ### DefaultAnnotationParam
@@ -15612,11 +15624,11 @@ Can be replaced with 'isEmpty()'
 in `timelock-agent/src/main/java/com/palantir/timelock/paxos/TimeLockAgent.java`
 #### Snippet
 ```java
+        Optional<TsBoundPersisterConfiguration> configInDatabase = store.getPersistedConfig();
 
-    private void registerTimeLockCorruptionJerseyFilter() {
-        if (!undertowRegistrar.isPresent()) {
-            registrar.accept(new JerseyCorruptionFilter(corruptionComponents.timeLockCorruptionHealthCheck()));
-        }
+        if (!configInDatabase.isPresent()) {
+            log.info(
+                    "There is no config in the SQLite database indicating where timestamps are being stored. We are"
 ```
 
 ### SimplifyOptionalCallChains
@@ -15624,11 +15636,11 @@ Can be replaced with 'isEmpty()'
 in `timelock-agent/src/main/java/com/palantir/timelock/paxos/TimeLockAgent.java`
 #### Snippet
 ```java
-        Optional<TsBoundPersisterConfiguration> configInDatabase = store.getPersistedConfig();
 
-        if (!configInDatabase.isPresent()) {
-            log.info(
-                    "There is no config in the SQLite database indicating where timestamps are being stored. We are"
+    private void registerTimeLockCorruptionJerseyFilter() {
+        if (!undertowRegistrar.isPresent()) {
+            registrar.accept(new JerseyCorruptionFilter(corruptionComponents.timeLockCorruptionHealthCheck()));
+        }
 ```
 
 ### SimplifyOptionalCallChains
@@ -15653,6 +15665,42 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/sweep/priority/SweepP
         if (!newPriority.lastSweepTimeMillis().isPresent()) {
             // Highest priority if we've never swept it before.
             return Double.MAX_VALUE;
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/cleaner/KeyValueServicePuncherStore.java`
+#### Snippet
+```java
+                        .build(),
+                lowerBoundToUse.timestamp());
+        if (!boundsOrMillis.bounds().isPresent()) {
+            return boundsOrMillis.millis();
+        }
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/cleaner/KeyValueServicePuncherStore.java`
+#### Snippet
+```java
+            return rangeScanResult;
+        }
+        if (!boundsOrMillis.millis().isPresent()) {
+            log.info(
+                    "Did not find a match for timestamp {} with initial bounds {} and {}. Bounds for range scan were "
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/restore/V1TransactionsTableRangeDeleter.java`
+#### Snippet
+```java
+        try (ClosableIterator<RowResult<Value>> range = kvs.getRange(
+                TransactionConstants.TRANSACTION_TABLE,
+                !startTimestamp.isPresent()
+                        ? RangeRequest.all()
+                        : RangeRequest.builder().startRowInclusive(startBytes).build(),
 ```
 
 ### SimplifyOptionalCallChains
@@ -15693,18 +15741,6 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/compact/CompactPriori
 
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/restore/V1TransactionsTableRangeDeleter.java`
-#### Snippet
-```java
-        try (ClosableIterator<RowResult<Value>> range = kvs.getRange(
-                TransactionConstants.TRANSACTION_TABLE,
-                !startTimestamp.isPresent()
-                        ? RangeRequest.all()
-                        : RangeRequest.builder().startRowInclusive(startBytes).build(),
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
 in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/compact/BackgroundCompactor.java`
 #### Snippet
 ```java
@@ -15713,30 +15749,6 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/compact/BackgroundCom
         if (!tableToCompactOptional.isPresent()) {
             log.debug("No table to compact.");
             return CompactionOutcome.NOTHING_TO_COMPACT;
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/cleaner/KeyValueServicePuncherStore.java`
-#### Snippet
-```java
-                        .build(),
-                lowerBoundToUse.timestamp());
-        if (!boundsOrMillis.bounds().isPresent()) {
-            return boundsOrMillis.millis();
-        }
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/cleaner/KeyValueServicePuncherStore.java`
-#### Snippet
-```java
-            return rangeScanResult;
-        }
-        if (!boundsOrMillis.millis().isPresent()) {
-            log.info(
-                    "Did not find a match for timestamp {} with initial bounds {} and {}. Bounds for range scan were "
 ```
 
 ### SimplifyOptionalCallChains
@@ -15801,18 +15813,6 @@ in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/sweep/AbstractSweepT
 
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
-in `leader-election-impl/src/main/java/com/palantir/paxos/SingleLeaderPinger.java`
-#### Snippet
-```java
-    public LeaderPingResult pingLeaderWithUuid(UUID uuid) {
-        Optional<LeaderPingerContext<PingableLeader>> suspectedLeader = getSuspectedLeader(uuid);
-        if (!suspectedLeader.isPresent()) {
-            return LeaderPingResults.pingReturnedFalse();
-        }
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
 in `leader-election-impl/src/main/java/com/palantir/paxos/PaxosLearnerImpl.java`
 #### Snippet
 ```java
@@ -15820,6 +15820,18 @@ in `leader-election-impl/src/main/java/com/palantir/paxos/PaxosLearnerImpl.java`
         Optional<Long> greatestSeq = getGreatestLearnedValue().map(PaxosValue::getRound);
         if (!greatestSeq.isPresent()) {
             return ImmutableList.of();
+        }
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `leader-election-impl/src/main/java/com/palantir/paxos/SingleLeaderPinger.java`
+#### Snippet
+```java
+    public LeaderPingResult pingLeaderWithUuid(UUID uuid) {
+        Optional<LeaderPingerContext<PingableLeader>> suspectedLeader = getSuspectedLeader(uuid);
+        if (!suspectedLeader.isPresent()) {
+            return LeaderPingResults.pingReturnedFalse();
         }
 ```
 
@@ -15840,11 +15852,11 @@ Can be replaced with 'isEmpty()'
 in `atlasdb-coordination-impl/src/main/java/com/palantir/atlasdb/coordination/keyvalue/KeyValueServiceCoordinationStore.java`
 #### Snippet
 ```java
-    @SuppressWarnings("OptionalUsedAsFieldOrParameterType") // Passed from other operations returning Optional
-    private boolean reuseExtantValue(Optional<CoordinationStoreState<T>> oldState, T targetValue) {
-        if (!oldState.isPresent()) {
-            return false;
-        }
+            Optional<SequenceAndBound> oldValue, SequenceAndBound newValue) {
+        Optional<SequenceAndBound> actualValue = getCoordinationValue();
+        if (!actualValue.isPresent()) {
+            throw new SafeIllegalStateException(
+                    "Failed to check and set coordination value from oldValue to newValue, but "
 ```
 
 ### SimplifyOptionalCallChains
@@ -15852,11 +15864,11 @@ Can be replaced with 'isEmpty()'
 in `atlasdb-coordination-impl/src/main/java/com/palantir/atlasdb/coordination/keyvalue/KeyValueServiceCoordinationStore.java`
 #### Snippet
 ```java
-            Optional<SequenceAndBound> oldValue, SequenceAndBound newValue) {
-        Optional<SequenceAndBound> actualValue = getCoordinationValue();
-        if (!actualValue.isPresent()) {
-            throw new SafeIllegalStateException(
-                    "Failed to check and set coordination value from oldValue to newValue, but "
+    @SuppressWarnings("OptionalUsedAsFieldOrParameterType") // Passed from other operations returning Optional
+    private boolean reuseExtantValue(Optional<CoordinationStoreState<T>> oldState, T targetValue) {
+        if (!oldState.isPresent()) {
+            return false;
+        }
 ```
 
 ### SimplifyOptionalCallChains
@@ -15960,6 +15972,18 @@ in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/pool
 
 ## RuleId[id=PointlessBitwiseExpression]
 ### PointlessBitwiseExpression
+`ret ^ -1L` can be replaced with '\~ret'
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/ptobject/EncodingUtils.java`
+#### Snippet
+```java
+        }
+        if (isNegative) {
+            return ret ^ -1L;
+        }
+        return ret;
+```
+
+### PointlessBitwiseExpression
 `-1L ^ buf.getLong()` can be replaced with '\~buf.getLong()'
 in `atlasdb-client/src/main/java/com/palantir/atlasdb/ptobject/EncodingUtils.java`
 #### Snippet
@@ -15981,18 +16005,6 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/ptobject/EncodingUtils.jav
         long leastSigBits = -1L ^ buf.getLong();
         return new UUID(mostSigBits, leastSigBits);
     }
-```
-
-### PointlessBitwiseExpression
-`ret ^ -1L` can be replaced with '\~ret'
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/ptobject/EncodingUtils.java`
-#### Snippet
-```java
-        }
-        if (isNegative) {
-            return ret ^ -1L;
-        }
-        return ret;
 ```
 
 ## RuleId[id=FuseStreamOperations]
@@ -16120,18 +16132,6 @@ in `atlasdb-service/src/main/java/com/palantir/atlasdb/jackson/RangeTokenDeseria
 ```
 
 ### UnusedAssignment
-Variable `extension` initializer `null` is redundant
-in `atlasdb-service/src/main/java/com/palantir/atlasdb/proto/fork/ForkedJsonFormat.java`
-#### Snippet
-```java
-        FieldDescriptor field;
-        Descriptor type = builder.getDescriptorForType();
-        ExtensionRegistry.ExtensionInfo extension = null;
-        boolean unknown = false;
-
-```
-
-### UnusedAssignment
 Variable `value` initializer `null` is redundant
 in `atlasdb-service/src/main/java/com/palantir/atlasdb/proto/fork/ForkedJsonFormat.java`
 #### Snippet
@@ -16141,6 +16141,18 @@ in `atlasdb-service/src/main/java/com/palantir/atlasdb/proto/fork/ForkedJsonForm
         Object value = null;
         if (field.getJavaType() == FieldDescriptor.JavaType.MESSAGE) {
             value = handleObject(tokenizer, extensionRegistry, builder, field, extension, unknown);
+```
+
+### UnusedAssignment
+Variable `extension` initializer `null` is redundant
+in `atlasdb-service/src/main/java/com/palantir/atlasdb/proto/fork/ForkedJsonFormat.java`
+#### Snippet
+```java
+        FieldDescriptor field;
+        Descriptor type = builder.getDescriptorForType();
+        ExtensionRegistry.ExtensionInfo extension = null;
+        boolean unknown = false;
+
 ```
 
 ### UnusedAssignment
@@ -16197,11 +16209,11 @@ in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/Sweep
 in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/InvalidationRunner.java`
 #### Snippet
 ```java
-
-            if (tableStatus == TableStatus.POISONED) {
-                return limits.legacyUpperLimit().get().value();
-            }
-            return poisonStoreAndGetLastAllocatedTimestamp(connection, limits, tableStatus);
+        long lastAllocated = tableStatus == TableStatus.NO_DATA
+                ? AtlasDbFactory.NO_OP_FAST_FORWARD_TIMESTAMP
+                : limits.upperLimit().get().value();
+        poisonTable(connection);
+        return lastAllocated;
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -16209,11 +16221,11 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/Invalidation
 in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/InvalidationRunner.java`
 #### Snippet
 ```java
-        long lastAllocated = tableStatus == TableStatus.NO_DATA
-                ? AtlasDbFactory.NO_OP_FAST_FORWARD_TIMESTAMP
-                : limits.upperLimit().get().value();
-        poisonTable(connection);
-        return lastAllocated;
+
+            if (tableStatus == TableStatus.POISONED) {
+                return limits.legacyUpperLimit().get().value();
+            }
+            return poisonStoreAndGetLastAllocatedTimestamp(connection, limits, tableStatus);
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -16226,42 +16238,6 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/cache/DefaultTimestampCach
         evictionPolicy = startToCommitTimestampCache.policy().eviction().get();
         AtlasDbMetrics.registerCache(
                 metricRegistry,
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `atlasdb-conjure/src/main/java/com/palantir/atlasdb/http/v2/FastFailoverProxy.java`
-#### Snippet
-```java
-        ResultOrThrowable attempt = singleInvocation(method, args);
-        while (clock.instant().isBefore(lastRetryInstant) && !attempt.isSuccessful()) {
-            Throwable cause = attempt.throwable().get();
-            ResultOrThrowable fastFailoverCheck = isRetriable(cause);
-            if (!fastFailoverCheck.isSuccessful()) {
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `atlasdb-conjure/src/main/java/com/palantir/atlasdb/http/v2/FastFailoverProxy.java`
-#### Snippet
-```java
-            ResultOrThrowable fastFailoverCheck = isRetriable(cause);
-            if (!fastFailoverCheck.isSuccessful()) {
-                throw fastFailoverCheck.throwable().get();
-            }
-            attempt = singleInvocation(method, args);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `atlasdb-conjure/src/main/java/com/palantir/atlasdb/http/v2/FastFailoverProxy.java`
-#### Snippet
-```java
-            return attempt.result().orElse(null);
-        }
-        throw Throwables.unwrapIfPossible(attempt.throwable().get());
-    }
-
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -16302,6 +16278,42 @@ in `atlasdb-conjure/src/main/java/com/palantir/atlasdb/http/v2/RetryOnSocketTime
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
+in `atlasdb-conjure/src/main/java/com/palantir/atlasdb/http/v2/FastFailoverProxy.java`
+#### Snippet
+```java
+        ResultOrThrowable attempt = singleInvocation(method, args);
+        while (clock.instant().isBefore(lastRetryInstant) && !attempt.isSuccessful()) {
+            Throwable cause = attempt.throwable().get();
+            ResultOrThrowable fastFailoverCheck = isRetriable(cause);
+            if (!fastFailoverCheck.isSuccessful()) {
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `atlasdb-conjure/src/main/java/com/palantir/atlasdb/http/v2/FastFailoverProxy.java`
+#### Snippet
+```java
+            ResultOrThrowable fastFailoverCheck = isRetriable(cause);
+            if (!fastFailoverCheck.isSuccessful()) {
+                throw fastFailoverCheck.throwable().get();
+            }
+            attempt = singleInvocation(method, args);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `atlasdb-conjure/src/main/java/com/palantir/atlasdb/http/v2/FastFailoverProxy.java`
+#### Snippet
+```java
+            return attempt.result().orElse(null);
+        }
+        throw Throwables.unwrapIfPossible(attempt.throwable().get());
+    }
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
 in `lock-api-objects/src/main/java/com/palantir/lock/v2/LockResponse.java`
 #### Snippet
 ```java
@@ -16326,18 +16338,6 @@ in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/Cell
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/sweep/queue/WriteInfoPartitioner.java`
-#### Snippet
-```java
-    private Map<PartitionInfo, List<WriteInfo>> filterAndPartitionForSingleTimestamp(List<WriteInfo> writes) {
-        if (writes.stream().allMatch(writeInfo -> getStrategy(writeInfo) == SweeperStrategy.NON_SWEEPABLE)) {
-            long startTs = writes.stream().findFirst().get().timestamp();
-            return SweepQueueUtils.partitioningForNonSweepable(startTs);
-        }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
 in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/sweep/BackgroundSweepThread.java`
 #### Snippet
 ```java
@@ -16346,6 +16346,18 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/sweep/BackgroundSweep
         currentTable.get().setProgress(progress);
         currentTable.get().refreshLock();
     }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/sweep/queue/WriteInfoPartitioner.java`
+#### Snippet
+```java
+    private Map<PartitionInfo, List<WriteInfo>> filterAndPartitionForSingleTimestamp(List<WriteInfo> writes) {
+        if (writes.stream().allMatch(writeInfo -> getStrategy(writeInfo) == SweeperStrategy.NON_SWEEPABLE)) {
+            long startTs = writes.stream().findFirst().get().timestamp();
+            return SweepQueueUtils.partitioningForNonSweepable(startTs);
+        }
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -16410,6 +16422,42 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/sweep/queue/id/NamesT
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/sweep/queue/SweepableCells.java`
+#### Snippet
+```java
+                .filter(write -> write.writeRef().isPresent())
+                .forEach(write ->
+                        writesToSweepFor.putIfAbsent(write.writeRef().get().cellReference(), write));
+        return writesToSweepFor.values();
+    }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/sweep/queue/SweepableCells.java`
+#### Snippet
+```java
+                        .filter(info -> info.writeRef().isPresent())
+                        .forEach(write -> cellsToDelete
+                                .computeIfAbsent(write.writeRef().get().tableRef(), ignore -> HashMultimap.create())
+                                .put(write.writeRef().get().cell(), write.timestamp()));
+            } else if (commitTs < sweepTs) {
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/sweep/queue/SweepableCells.java`
+#### Snippet
+```java
+                        .forEach(write -> cellsToDelete
+                                .computeIfAbsent(write.writeRef().get().tableRef(), ignore -> HashMultimap.create())
+                                .put(write.writeRef().get().cell(), write.timestamp()));
+            } else if (commitTs < sweepTs) {
+                lastSweptTs = startTs;
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
 in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/sweep/queue/clear/DefaultTableClearer.java`
 #### Snippet
 ```java
@@ -16470,38 +16518,14 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/sweep/queue/SweepQueu
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/sweep/queue/SweepableCells.java`
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/sweep/progress/SweepProgressStoreImpl.java`
 #### Snippet
 ```java
-                        .filter(info -> info.writeRef().isPresent())
-                        .forEach(write -> cellsToDelete
-                                .computeIfAbsent(write.writeRef().get().tableRef(), ignore -> HashMultimap.create())
-                                .put(write.writeRef().get().cell(), write.timestamp()));
-            } else if (commitTs < sweepTs) {
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/sweep/queue/SweepableCells.java`
-#### Snippet
-```java
-                        .forEach(write -> cellsToDelete
-                                .computeIfAbsent(write.writeRef().get().tableRef(), ignore -> HashMultimap.create())
-                                .put(write.writeRef().get().cell(), write.timestamp()));
-            } else if (commitTs < sweepTs) {
-                lastSweptTs = startTs;
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/sweep/queue/SweepableCells.java`
-#### Snippet
-```java
-                .filter(write -> write.writeRef().isPresent())
-                .forEach(write ->
-                        writesToSweepFor.putIfAbsent(write.writeRef().get().cellReference(), write));
-        return writesToSweepFor.values();
-    }
+                    AtlasDbConstants.SWEEP_PROGRESS_TABLE,
+                    cell,
+                    progressToBytes(hydrateProgress(storedProgress).get()),
+                    progressToBytes(newProgress));
+        }
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -16526,18 +16550,6 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/sweep/priority/SweepP
                 System.currentTimeMillis() - newPriority.lastSweepTimeMillis().getAsLong();
 
         if (tooFewWritesToBother(writeCount, cellTsPairsExamined, millisSinceSweep)) {
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/sweep/progress/SweepProgressStoreImpl.java`
-#### Snippet
-```java
-                    AtlasDbConstants.SWEEP_PROGRESS_TABLE,
-                    cell,
-                    progressToBytes(hydrateProgress(storedProgress).get()),
-                    progressToBytes(newProgress));
-        }
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -16581,11 +16593,23 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/api/watch/Lo
 in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/api/watch/LockWatchEventLog.java`
 #### Snippet
 ```java
-        if (startVersion.isEmpty()
-                || differentLeaderOrTooFarBehind(
-                        currentVersion, versionBounds.startVersion().get(), startVersion.get())) {
-            long snapshotVersion = versionBounds.snapshotVersion() + 1;
-            Collection<LockWatchEvent> afterSnapshotEvents;
+        }
+
+        if (success.lastKnownVersion() > latestVersion.get().version()) {
+            LockWatchEvents events =
+                    LockWatchEvents.builder().events(success.events()).build();
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/api/watch/LockWatchEventLog.java`
+#### Snippet
+```java
+    private LockWatchVersion getLatestVersionAndVerify(LockWatchVersion endVersion) {
+        Preconditions.checkState(latestVersion.isPresent(), "Cannot get events when log does not know its version");
+        LockWatchVersion currentVersion = latestVersion.get();
+        Preconditions.checkArgument(
+                endVersion.version() <= currentVersion.version(),
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -16605,23 +16629,11 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/api/watch/Lo
 in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/api/watch/LockWatchEventLog.java`
 #### Snippet
 ```java
-        }
-
-        if (success.lastKnownVersion() > latestVersion.get().version()) {
-            LockWatchEvents events =
-                    LockWatchEvents.builder().events(success.events()).build();
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/api/watch/LockWatchEventLog.java`
-#### Snippet
-```java
-    private LockWatchVersion getLatestVersionAndVerify(LockWatchVersion endVersion) {
-        Preconditions.checkState(latestVersion.isPresent(), "Cannot get events when log does not know its version");
-        LockWatchVersion currentVersion = latestVersion.get();
-        Preconditions.checkArgument(
-                endVersion.version() <= currentVersion.version(),
+        if (startVersion.isEmpty()
+                || differentLeaderOrTooFarBehind(
+                        currentVersion, versionBounds.startVersion().get(), startVersion.get())) {
+            long snapshotVersion = versionBounds.snapshotVersion() + 1;
+            Collection<LockWatchEvent> afterSnapshotEvents;
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -16665,18 +16677,6 @@ in `atlasdb-dbkvs-hikari/src/main/java/com/palantir/nexus/db/pool/config/OracleC
 in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/sweep/AbstractSweepTaskRunnerTest.java`
 #### Snippet
 ```java
-
-        Optional<SweepResults> results = completeSweep(TABLE_NAME, 100_000, 1);
-        assertThat(results.get().getStaleValuesDeleted()).isEqualTo(1_000 - 1);
-    }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/sweep/AbstractSweepTaskRunnerTest.java`
-#### Snippet
-```java
         putIntoDefaultColumn("foo", "bar", 50);
         putUncommitted("foo", "baz", 100);
         SweepResults results = completeSweep(175).get();
@@ -16713,11 +16713,11 @@ in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/sweep/AbstractSweepT
 in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/sweep/AbstractSweepTaskRunnerTest.java`
 #### Snippet
 ```java
-        putIntoDefaultColumn("foo", "buzz", 125);
-        putUncommitted("foo", "foo", 150);
-        SweepResults results = completeSweep(175).get();
-        assertThat(results.getStaleValuesDeleted()).isEqualTo(4);
-        assertThat(results.getCellTsPairsExamined()).isGreaterThanOrEqualTo(5);
+
+        Optional<SweepResults> results = completeSweep(TABLE_NAME, 100_000, 1);
+        assertThat(results.get().getStaleValuesDeleted()).isEqualTo(1_000 - 1);
+    }
+
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -16725,23 +16725,11 @@ in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/sweep/AbstractSweepT
 in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/sweep/AbstractSweepTaskRunnerTest.java`
 #### Snippet
 ```java
-        putIntoDefaultColumn("foo3", "baz", 100);
-        putIntoDefaultColumn("foo4", "buzz", 125);
-        byte[] nextStartRow = partialSweep(150).getNextStartRow().get();
-
-        kvs.dropTable(TABLE_NAME);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/sweep/AbstractSweepTaskRunnerTest.java`
-#### Snippet
-```java
-        putIntoDefaultColumn("foo", "buzz", 125);
-        putUncommitted("foo", "foo", 150);
+        putIntoDefaultColumn("foo", "bar", 50);
+        putUncommitted("foo", "baz", 100);
         SweepResults results = completeSweep(175).get();
-        assertThat(results.getStaleValuesDeleted()).isEqualTo(4);
-        assertThat(results.getCellTsPairsExamined()).isGreaterThanOrEqualTo(5);
+        assertThat(results.getStaleValuesDeleted()).isEqualTo(1);
+        assertThat(results.getCellTsPairsExamined()).isGreaterThanOrEqualTo(2);
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -16773,11 +16761,35 @@ in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/sweep/AbstractSweepT
 in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/sweep/AbstractSweepTaskRunnerTest.java`
 #### Snippet
 ```java
-        putIntoDefaultColumn("foo", "bar", 50);
-        putUncommitted("foo", "baz", 100);
+        putIntoDefaultColumn("foo3", "baz", 100);
+        putIntoDefaultColumn("foo4", "buzz", 125);
+        byte[] nextStartRow = partialSweep(150).getNextStartRow().get();
+
+        kvs.dropTable(TABLE_NAME);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/sweep/AbstractSweepTaskRunnerTest.java`
+#### Snippet
+```java
+        putIntoDefaultColumn("foo", "buzz", 125);
+        putUncommitted("foo", "foo", 150);
         SweepResults results = completeSweep(175).get();
-        assertThat(results.getStaleValuesDeleted()).isEqualTo(1);
-        assertThat(results.getCellTsPairsExamined()).isGreaterThanOrEqualTo(2);
+        assertThat(results.getStaleValuesDeleted()).isEqualTo(4);
+        assertThat(results.getCellTsPairsExamined()).isGreaterThanOrEqualTo(5);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/sweep/AbstractSweepTaskRunnerTest.java`
+#### Snippet
+```java
+        putIntoDefaultColumn("foo", "buzz", 125);
+        putUncommitted("foo", "foo", 150);
+        SweepResults results = completeSweep(175).get();
+        assertThat(results.getStaleValuesDeleted()).isEqualTo(4);
+        assertThat(results.getCellTsPairsExamined()).isGreaterThanOrEqualTo(5);
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -16818,18 +16830,6 @@ in `leader-election-impl/src/main/java/com/palantir/leader/PaxosLeaderElectionSe
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `atlasdb-coordination-impl/src/main/java/com/palantir/atlasdb/coordination/keyvalue/KeyValueServiceCoordinationStore.java`
-#### Snippet
-```java
-        if (reuseExtantValue(oldState, targetValue)) {
-            // Safe as we're only on this branch if the value is present
-            CoordinationStoreState<T> extantState = oldState.get();
-            sequenceNumber = extantState.sequence();
-            long freshSequenceNumber = sequenceNumberSupplier.getAsLong();
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
 in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/AbstractKeyValueServiceTest.java`
 #### Snippet
 ```java
@@ -16841,15 +16841,15 @@ in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/Abstra
 ```
 
 ### OptionalGetWithoutIsPresent
-`Optional::get` without 'isPresent()' check
-in `timelock-corruption-detection/src/main/java/com/palantir/timelock/corruption/detection/HistoryAnalyzer.java`
+`Optional.get()` without 'isPresent()' check
+in `atlasdb-coordination-impl/src/main/java/com/palantir/atlasdb/coordination/keyvalue/KeyValueServiceCoordinationStore.java`
 #### Snippet
 ```java
-                .filter(optionalPaxosValue -> optionalPaxosValue.isPresent()
-                        && optionalPaxosValue.get().equals(learnedValue))
-                .map(Optional::get)
-                .collect(Collectors.toList());
-    }
+        if (reuseExtantValue(oldState, targetValue)) {
+            // Safe as we're only on this branch if the value is present
+            CoordinationStoreState<T> extantState = oldState.get();
+            sequenceNumber = extantState.sequence();
+            long freshSequenceNumber = sequenceNumberSupplier.getAsLong();
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -16861,6 +16861,18 @@ in `timelock-corruption-detection/src/main/java/com/palantir/timelock/corruption
                 .filter(paxosValue -> getPaxosValueData(paxosValue) != null)
                 .map(Optional::get)
                 .max(Comparator.comparingLong(paxosValue -> PtBytes.toLong(paxosValue.getData())));
+    }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional::get` without 'isPresent()' check
+in `timelock-corruption-detection/src/main/java/com/palantir/timelock/corruption/detection/HistoryAnalyzer.java`
+#### Snippet
+```java
+                .filter(optionalPaxosValue -> optionalPaxosValue.isPresent()
+                        && optionalPaxosValue.get().equals(learnedValue))
+                .map(Optional::get)
+                .collect(Collectors.toList());
     }
 ```
 
@@ -16890,18 +16902,6 @@ in `timelock-server-benchmark-client/src/main/java/com/palantir/atlasdb/timelock
 
 ## RuleId[id=ConstantValue]
 ### ConstantValue
-Condition `varcharType == null` is always `false`
-in `commons-db/src/main/java/com/palantir/nexus/db/pool/RetriableTransactions.java`
-#### Snippet
-```java
-                throw new IllegalStateException();
-        }
-        if (varcharType == null) {
-            throw new IllegalStateException();
-        }
-```
-
-### ConstantValue
 Value `ret` is always 'true'
 in `commons-db/src/main/java/com/palantir/nexus/db/pool/RetriableTransactions.java`
 #### Snippet
@@ -16911,6 +16911,18 @@ in `commons-db/src/main/java/com/palantir/nexus/db/pool/RetriableTransactions.ja
                         return ret;
                     }
                     throw e;
+```
+
+### ConstantValue
+Condition `varcharType == null` is always `false`
+in `commons-db/src/main/java/com/palantir/nexus/db/pool/RetriableTransactions.java`
+#### Snippet
+```java
+                throw new IllegalStateException();
+        }
+        if (varcharType == null) {
+            throw new IllegalStateException();
+        }
 ```
 
 ### ConstantValue
@@ -17063,7 +17075,7 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/timestamp/In
 #### Snippet
 ```java
                 connManager,
-                new MultiSequencePhysicalBoundStoreStrategy(timestampTable, series),
+                new LegacyPhysicalBoundStoreStrategy(timestampTable, tablePrefixString),
                 AtlasDbConstants.DEFAULT_INITIALIZE_ASYNC);
     }
 
@@ -17075,7 +17087,7 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/timestamp/In
 #### Snippet
 ```java
                 connManager,
-                new LegacyPhysicalBoundStoreStrategy(timestampTable, tablePrefixString),
+                new MultiSequencePhysicalBoundStoreStrategy(timestampTable, series),
                 AtlasDbConstants.DEFAULT_INITIALIZE_ASYNC);
     }
 
@@ -17147,8 +17159,8 @@ in `timestamp-impl/src/main/java/com/palantir/timestamp/PersistentTimestampServi
 #### Snippet
 ```java
 
-    public static PersistentTimestampService create(TimestampBoundStore store) {
-        return create(new ErrorCheckingTimestampBoundStore(store), AtlasDbConstants.DEFAULT_INITIALIZE_ASYNC);
+    public static PersistentTimestampService create(ErrorCheckingTimestampBoundStore store) {
+        return create(store, AtlasDbConstants.DEFAULT_INITIALIZE_ASYNC);
     }
 
 ```
@@ -17159,20 +17171,8 @@ in `timestamp-impl/src/main/java/com/palantir/timestamp/PersistentTimestampServi
 #### Snippet
 ```java
 
-    public static PersistentTimestampService create(ErrorCheckingTimestampBoundStore store) {
-        return create(store, AtlasDbConstants.DEFAULT_INITIALIZE_ASYNC);
-    }
-
-```
-
-### ConstantValue
-Value `ret` is always 'true'
-in `atlasdb-commons/src/main/java/com/palantir/util/AssertUtils.java`
-#### Snippet
-```java
-        assert (ret = true) == true;
-
-        return ret;
+    public static PersistentTimestampService create(TimestampBoundStore store) {
+        return create(new ErrorCheckingTimestampBoundStore(store), AtlasDbConstants.DEFAULT_INITIALIZE_ASYNC);
     }
 
 ```
@@ -17187,6 +17187,18 @@ in `atlasdb-commons/src/main/java/com/palantir/util/AssertUtils.java`
             assertAndLogWithException(log, cheapTest, msg, t, new Object[] {});
         }
     }
+```
+
+### ConstantValue
+Value `ret` is always 'true'
+in `atlasdb-commons/src/main/java/com/palantir/util/AssertUtils.java`
+#### Snippet
+```java
+        assert (ret = true) == true;
+
+        return ret;
+    }
+
 ```
 
 ### ConstantValue
@@ -17226,18 +17238,6 @@ in `atlasdb-commons/src/main/java/com/palantir/util/debug/StackTraceUtils.java`
 ```
 
 ### ConstantValue
-Condition `c >= 0x0000` is always `true`
-in `atlasdb-service/src/main/java/com/palantir/atlasdb/proto/fork/ForkedJsonFormat.java`
-#### Snippet
-```java
-                default:
-                    // Check for other control characters
-                    if (c >= 0x0000 && c <= 0x001F) {
-                        appendEscapedUnicode(builder, c);
-                    } else if (Character.isHighSurrogate(c)) {
-```
-
-### ConstantValue
 Value `value` is always 'null'
 in `atlasdb-service/src/main/java/com/palantir/atlasdb/proto/fork/ForkedJsonFormat.java`
 #### Snippet
@@ -17247,6 +17247,18 @@ in `atlasdb-service/src/main/java/com/palantir/atlasdb/proto/fork/ForkedJsonForm
             return value;
         }
         switch (field.getType()) {
+```
+
+### ConstantValue
+Condition `c >= 0x0000` is always `true`
+in `atlasdb-service/src/main/java/com/palantir/atlasdb/proto/fork/ForkedJsonFormat.java`
+#### Snippet
+```java
+                default:
+                    // Check for other control characters
+                    if (c >= 0x0000 && c <= 0x001F) {
+                        appendEscapedUnicode(builder, c);
+                    } else if (Character.isHighSurrogate(c)) {
 ```
 
 ### ConstantValue
@@ -17315,18 +17327,6 @@ in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/Cass
 #### Snippet
 ```java
                 mutationTimestampProvider,
-                log,
-                AtlasDbConstants.DEFAULT_INITIALIZE_ASYNC);
-    }
-
-```
-
-### ConstantValue
-Value `AtlasDbConstants.DEFAULT_INITIALIZE_ASYNC` is always 'false'
-in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/CassandraKeyValueServiceImpl.java`
-#### Snippet
-```java
-                CassandraMutationTimestampProviders.legacyModeForTestsOnly(),
                 LoggerFactory.getLogger(CassandraKeyValueService.class),
                 AtlasDbConstants.DEFAULT_INITIALIZE_ASYNC);
     }
@@ -17351,6 +17351,18 @@ in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/Cass
 #### Snippet
 ```java
                 mutationTimestampProvider,
+                log,
+                AtlasDbConstants.DEFAULT_INITIALIZE_ASYNC);
+    }
+
+```
+
+### ConstantValue
+Value `AtlasDbConstants.DEFAULT_INITIALIZE_ASYNC` is always 'false'
+in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/CassandraKeyValueServiceImpl.java`
+#### Snippet
+```java
+                CassandraMutationTimestampProviders.legacyModeForTestsOnly(),
                 LoggerFactory.getLogger(CassandraKeyValueService.class),
                 AtlasDbConstants.DEFAULT_INITIALIZE_ASYNC);
     }
@@ -17382,13 +17394,13 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/cleaner/KeyValueServi
 ```
 
 ### ConstantValue
-Condition `promisedId == null` is always `false` when reached
-in `leader-election-api/src/main/java/com/palantir/paxos/PaxosPromise.java`
+Condition `proposerUuid == null` is always `false` when reached
+in `leader-election-api/src/main/java/com/palantir/paxos/PaxosProposalId.java`
 #### Snippet
 ```java
-        result = prime * result + ((lastAcceptedId == null) ? 0 : lastAcceptedId.hashCode());
-        result = prime * result + ((lastAcceptedValue == null) ? 0 : lastAcceptedValue.hashCode());
-        result = prime * result + ((promisedId == null) ? 0 : promisedId.hashCode());
+        int result = 1;
+        result = prime * result + (int) (number ^ (number >>> 32));
+        result = prime * result + ((proposerUuid == null) ? 0 : proposerUuid.hashCode());
         return result;
     }
 ```
@@ -17406,13 +17418,13 @@ in `leader-election-api/src/main/java/com/palantir/paxos/PaxosProposalId.java`
 ```
 
 ### ConstantValue
-Condition `proposerUuid == null` is always `false` when reached
-in `leader-election-api/src/main/java/com/palantir/paxos/PaxosProposalId.java`
+Condition `promisedId == null` is always `false` when reached
+in `leader-election-api/src/main/java/com/palantir/paxos/PaxosPromise.java`
 #### Snippet
 ```java
-        int result = 1;
-        result = prime * result + (int) (number ^ (number >>> 32));
-        result = prime * result + ((proposerUuid == null) ? 0 : proposerUuid.hashCode());
+        result = prime * result + ((lastAcceptedId == null) ? 0 : lastAcceptedId.hashCode());
+        result = prime * result + ((lastAcceptedValue == null) ? 0 : lastAcceptedValue.hashCode());
+        result = prime * result + ((promisedId == null) ? 0 : promisedId.hashCode());
         return result;
     }
 ```
@@ -17430,18 +17442,6 @@ in `leader-election-api/src/main/java/com/palantir/paxos/PaxosPromise.java`
 ```
 
 ### ConstantValue
-Condition `val == null` is always `false`
-in `leader-election-api/src/main/java/com/palantir/paxos/PaxosProposal.java`
-#### Snippet
-```java
-            return false;
-        }
-        if (val == null) {
-            if (other.val != null) {
-                return false;
-```
-
-### ConstantValue
 Condition `val == null` is always `false` when reached
 in `leader-election-api/src/main/java/com/palantir/paxos/PaxosProposal.java`
 #### Snippet
@@ -17451,6 +17451,18 @@ in `leader-election-api/src/main/java/com/palantir/paxos/PaxosProposal.java`
         result = prime * result + ((val == null) ? 0 : val.hashCode());
         return result;
     }
+```
+
+### ConstantValue
+Condition `val == null` is always `false`
+in `leader-election-api/src/main/java/com/palantir/paxos/PaxosProposal.java`
+#### Snippet
+```java
+            return false;
+        }
+        if (val == null) {
+            if (other.val != null) {
+                return false;
 ```
 
 ## RuleId[id=NonAtomicOperationOnVolatileField]
@@ -17679,18 +17691,6 @@ Unchecked cast: 'java.lang.Iterable\>' to 'java.util.List'
 in `atlasdb-commons/src/main/java/com/palantir/common/collect/IterableView.java`
 #### Snippet
 ```java
-             * without allocating new lists for the returned partitions.
-             */
-            return of(Lists.partition((List<T>) delegate(), size));
-        }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Iterable\>' to 'java.util.List'
-in `atlasdb-commons/src/main/java/com/palantir/common/collect/IterableView.java`
-#### Snippet
-```java
          */
         if (delegate() instanceof List) {
             return of(Lists.transform((List<T>) delegate(), function));
@@ -17708,6 +17708,18 @@ in `atlasdb-commons/src/main/java/com/palantir/common/collect/IterableView.java`
             return of(Collections2.transform((Collection<T>) delegate(), function));
         }
         return of(Iterables.transform(delegate(), function));
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Iterable\>' to 'java.util.List'
+in `atlasdb-commons/src/main/java/com/palantir/common/collect/IterableView.java`
+#### Snippet
+```java
+             * without allocating new lists for the returned partitions.
+             */
+            return of(Lists.partition((List<T>) delegate(), size));
+        }
+
 ```
 
 ### UNCHECKED_WARNING
@@ -17771,6 +17783,18 @@ in `timelock-server/src/testCommon/java/com/palantir/atlasdb/timelock/util/TestP
 ```
 
 ### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'com.google.common.util.concurrent.ListenableFuture'
+in `leader-election-impl/src/main/java/com/palantir/leader/proxy/AwaitingLeadershipProxy.java`
+#### Snippet
+```java
+                            delegate -> Tracers.wrapListenableFuture("execute-on-delegate-async", () -> {
+                                try {
+                                    return (ListenableFuture<Object>) method.invoke(delegate, args);
+                                } catch (IllegalAccessException | InvocationTargetException e) {
+                                    return Futures.immediateFailedFuture(e);
+```
+
+### UNCHECKED_WARNING
 Unchecked cast: 'java.lang.Object' to 'U'
 in `leader-election-impl/src/main/java/com/palantir/leader/proxy/AwaitingLeadershipProxy.java`
 #### Snippet
@@ -17781,18 +17805,6 @@ in `leader-election-impl/src/main/java/com/palantir/leader/proxy/AwaitingLeaders
                 interfaceClass.getClassLoader(), new Class<?>[] {interfaceClass, Closeable.class}, proxy);
     }
 
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'com.google.common.util.concurrent.ListenableFuture'
-in `leader-election-impl/src/main/java/com/palantir/leader/proxy/AwaitingLeadershipProxy.java`
-#### Snippet
-```java
-                            delegate -> Tracers.wrapListenableFuture("execute-on-delegate-async", () -> {
-                                try {
-                                    return (ListenableFuture<Object>) method.invoke(delegate, args);
-                                } catch (IllegalAccessException | InvocationTargetException e) {
-                                    return Futures.immediateFailedFuture(e);
 ```
 
 ### UNCHECKED_WARNING
@@ -17870,18 +17882,6 @@ in `commons-db/src/main/java/com/palantir/nexus/db/sql/BasicSQLUtils.java`
 ```
 
 ### JavadocReference
-Cannot resolve symbol `addVarbindsForLimitQuery`
-in `commons-db/src/main/java/com/palantir/nexus/db/sql/BasicSQLUtils.java`
-#### Snippet
-```java
-     * resulting String.
-     *
-     * @see addVarbindsForLimitQuery
-     */
-    public static String formatLimitQuery(String query, BasicSQL.OffsetInclusion offset, DBType dbType) {
-```
-
-### JavadocReference
 Cannot resolve symbol `formatLimitQuery(String)`
 in `commons-db/src/main/java/com/palantir/nexus/db/sql/BasicSQLUtils.java`
 #### Snippet
@@ -17891,6 +17891,18 @@ in `commons-db/src/main/java/com/palantir/nexus/db/sql/BasicSQLUtils.java`
      * @see SQL#formatLimitQuery(String)
      */
     public static void addVarbindsForLimitQuery(int maxRows, long offset, List<Object> varbinds, DBType dbType) {
+```
+
+### JavadocReference
+Cannot resolve symbol `addVarbindsForLimitQuery`
+in `commons-db/src/main/java/com/palantir/nexus/db/sql/BasicSQLUtils.java`
+#### Snippet
+```java
+     * resulting String.
+     *
+     * @see addVarbindsForLimitQuery
+     */
+    public static String formatLimitQuery(String query, BasicSQL.OffsetInclusion offset, DBType dbType) {
 ```
 
 ### JavadocReference
@@ -18086,18 +18098,6 @@ in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/ServiceCreator.jav
 ```
 
 ### JavadocReference
-Cannot resolve symbol `allAsMap(Map, ExecutorService)`
-in `atlasdb-commons/src/main/java/com/palantir/atlasdb/futures/FuturesCombiner.java`
-#### Snippet
-```java
-
-    /**
-     * Wraps the {@link AtlasFutures#allAsMap(Map, ExecutorService)}.
-     */
-    <T, R> ListenableFuture<Map<T, R>> allAsMap(Map<T, ListenableFuture<Optional<R>>> inputToListenableFutureMap);
-```
-
-### JavadocReference
 Cannot resolve symbol `equal(Object, Object)`
 in `atlasdb-commons/src/main/java/com/palantir/common/base/BatchingVisitables.java`
 #### Snippet
@@ -18107,6 +18107,18 @@ in `atlasdb-commons/src/main/java/com/palantir/common/base/BatchingVisitables.ja
      * This uses {@link Objects#equal(Object, Object)} to do comparisons.
      * <p>
      * null is supported bug discouraged
+```
+
+### JavadocReference
+Cannot resolve symbol `allAsMap(Map, ExecutorService)`
+in `atlasdb-commons/src/main/java/com/palantir/atlasdb/futures/FuturesCombiner.java`
+#### Snippet
+```java
+
+    /**
+     * Wraps the {@link AtlasFutures#allAsMap(Map, ExecutorService)}.
+     */
+    <T, R> ListenableFuture<Map<T, R>> allAsMap(Map<T, ListenableFuture<Optional<R>>> inputToListenableFutureMap);
 ```
 
 ### JavadocReference
@@ -18143,6 +18155,30 @@ in `atlasdb-service/src/main/java/com/palantir/atlasdb/proto/fork/ForkedJsonForm
      * {@link #escapeBytes(com.googlecode.protobuf.format.ByteString)}. Two-digit hex escapes (starting with
      * "\x") are also recognized.
      */
+```
+
+### JavadocReference
+Symbol `LockService` is inaccessible from here
+in `lock-api-objects/src/main/java/com/palantir/lock/LockResponse.java`
+#### Snippet
+```java
+
+/**
+ * Represents the result of calling {@link LockService#lockWithFullLockResponse(LockClient, LockRequest)} on
+ * the lock server. If locks were successfully acquired, then {@link #success()}
+ * returns <code>true</code> and {@link #getToken()} returns the token which
+```
+
+### JavadocReference
+Symbol `lockWithFullLockResponse(LockClient, LockRequest)` is inaccessible from here
+in `lock-api-objects/src/main/java/com/palantir/lock/LockResponse.java`
+#### Snippet
+```java
+
+/**
+ * Represents the result of calling {@link LockService#lockWithFullLockResponse(LockClient, LockRequest)} on
+ * the lock server. If locks were successfully acquired, then {@link #success()}
+ * returns <code>true</code> and {@link #getToken()} returns the token which
 ```
 
 ### JavadocReference
@@ -18195,30 +18231,6 @@ in `lock-api-objects/src/main/java/com/palantir/lock/HeldLocksGrant.java`
 
 ### JavadocReference
 Symbol `LockService` is inaccessible from here
-in `lock-api-objects/src/main/java/com/palantir/lock/LockResponse.java`
-#### Snippet
-```java
-
-/**
- * Represents the result of calling {@link LockService#lockWithFullLockResponse(LockClient, LockRequest)} on
- * the lock server. If locks were successfully acquired, then {@link #success()}
- * returns <code>true</code> and {@link #getToken()} returns the token which
-```
-
-### JavadocReference
-Symbol `lockWithFullLockResponse(LockClient, LockRequest)` is inaccessible from here
-in `lock-api-objects/src/main/java/com/palantir/lock/LockResponse.java`
-#### Snippet
-```java
-
-/**
- * Represents the result of calling {@link LockService#lockWithFullLockResponse(LockClient, LockRequest)} on
- * the lock server. If locks were successfully acquired, then {@link #success()}
- * returns <code>true</code> and {@link #getToken()} returns the token which
-```
-
-### JavadocReference
-Symbol `LockService` is inaccessible from here
 in `lock-api-objects/src/main/java/com/palantir/lock/LockRequest.java`
 #### Snippet
 ```java
@@ -18263,6 +18275,18 @@ in `lock-api-objects/src/main/java/com/palantir/lock/LockRequest.java`
      * @see LockService#getMinLockedInVersionId()
      */
     @Nullable
+```
+
+### JavadocReference
+Cannot resolve symbol `TRANSACTIONS_TABLE_SCHEMA_VERSION`
+in `atlasdb-ete-tests/src/main/java/com/palantir/atlasdb/coordination/CoordinationResource.java`
+#### Snippet
+```java
+     * {@link CoordinationResource} should be reset. The latest value of the
+     * {@link InternalSchemaMetadata#timestampToTransactionsTableSchemaVersion()} should be
+     * {@link com.palantir.atlasdb.transaction.impl.TransactionConstants#TRANSACTIONS_TABLE_SCHEMA_VERSION},
+     * and that version of the transaction schema should already be in effect, with no pending installs.
+     *
 ```
 
 ### JavadocReference
@@ -18287,18 +18311,6 @@ in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/cassandra/CassandraKeyV
      * Obsolete value, replaced by {@link SweepConfig#readLimit}.
      *
      * @deprecated this parameter is unused and should be removed from the configuration
-```
-
-### JavadocReference
-Cannot resolve symbol `TRANSACTIONS_TABLE_SCHEMA_VERSION`
-in `atlasdb-ete-tests/src/main/java/com/palantir/atlasdb/coordination/CoordinationResource.java`
-#### Snippet
-```java
-     * {@link CoordinationResource} should be reset. The latest value of the
-     * {@link InternalSchemaMetadata#timestampToTransactionsTableSchemaVersion()} should be
-     * {@link com.palantir.atlasdb.transaction.impl.TransactionConstants#TRANSACTIONS_TABLE_SCHEMA_VERSION},
-     * and that version of the transaction schema should already be in effect, with no pending installs.
-     *
 ```
 
 ### JavadocReference
@@ -18338,259 +18350,6 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/Abstrac
             }
 ```
 
-## RuleId[id=UnnecessarySemicolon]
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `lock-api/src/main/java/com/palantir/lock/client/TimestampCorroboratingTimelockService.java`
-#### Snippet
-```java
-        FRESH_TIMESTAMP,
-        COMMIT_TIMESTAMP,
-        TRANSACTION;
-    }
-}
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `commons-db/src/main/java/com/palantir/nexus/db/pool/RetriableTransactions.java`
-#### Snippet
-```java
-        SUCCESSFUL,
-        FAILED,
-        UNKNOWN;
-    }
-
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `commons-db/src/main/java/com/palantir/nexus/db/sql/BasicSQL.java`
-#### Snippet
-```java
-    public enum OffsetInclusion {
-        INCLUDE_OFFSET,
-        EXCLUDE_OFFSET;
-    }
-
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `commons-api/src/main/java/com/palantir/common/concurrent/ThreadNamingCallable.java`
-#### Snippet
-```java
-        PREPEND,
-        REPLACE,
-        APPEND;
-    }
-
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/CaseSensitivity.java`
-#### Snippet
-```java
-public enum CaseSensitivity {
-    CASE_SENSITIVE,
-    CASE_INSENSITIVE;
-}
-
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/OverflowMigrationState.java`
-#### Snippet
-```java
-    IN_PROGRESS,
-    FINISHING,
-    FINISHED;
-}
-
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/InMemoryKeyValueService.java`
-#### Snippet
-```java
-        DO_NOT_OVERWRITE,
-        OVERWRITE_SAME_VALUE,
-        OVERWRITE;
-    }
-
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/transaction/impl/SweepStrategyManagers.java`
-#### Snippet
-```java
-        FULL,
-        NONE,
-        ;
-    }
-
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `atlasdb-commons/src/main/java/com/palantir/common/proxy/CancelDelegate.java`
-#### Snippet
-```java
-public enum CancelDelegate {
-    CANCEL,
-    ALLOW_TO_FINISH;
-}
-
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `lock-api-objects/src/main/java/com/palantir/lock/BlockingMode.java`
-#### Snippet
-```java
-     * server if you just have to wait for someone to release the lock before you perform a task.
-     */
-    BLOCK_INDEFINITELY_THEN_RELEASE;
-}
-
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `lock-api-objects/src/main/java/com/palantir/lock/LockGroupBehavior.java`
-#### Snippet
-```java
-     * all be acquired. This is the default behavior.
-     */
-    LOCK_ALL_OR_NONE;
-}
-
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/atomic/AtomicState.java`
-#### Snippet
-```java
-public enum AtomicState {
-    STAGING,
-    COMMITTED;
-}
-
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/atomic/ResilientCommitTimestampAtomicTable.java`
-#### Snippet
-```java
-    private enum FollowUpAction {
-        PUT,
-        NONE;
-    }
-}
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/table/common/TableTasks.java`
-#### Snippet
-```java
-    private enum DiffStrategy {
-        RANGE,
-        ROWS;
-    }
-
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/api/cache/TransactionCacheValueStoreImpl.java`
-#### Snippet
-```java
-            READ,
-            WRITE,
-            HIT;
-        }
-    }
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/knowledge/KnownConcludedTransactions.java`
-#### Snippet
-```java
-         * Perform a remote read against the underlying database if necessary.
-         */
-        REMOTE_READ;
-    }
-}
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/knowledge/AbandonedTransactionSoftCache.java`
-#### Snippet
-```java
-        PENDING_LOAD_FROM_RELIABLE,
-        IS_ABORTED,
-        IS_NOT_ABORTED;
-    }
-
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `atlasdb-dbkvs-hikari/src/main/java/com/palantir/nexus/db/pool/HikariCPConnectionManager.java`
-#### Snippet
-```java
-
-        // Closed state.  closeTrace is set.
-        CLOSED;
-    }
-
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/SnapshotTransaction.java`
-#### Snippet
-```java
-    private enum SentinelType {
-        DEFINITE_ORPHANED,
-        INDETERMINATE;
-    }
-
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `atlasdb-workload-server/src/main/java/com/palantir/atlasdb/workload/workflow/ring/RingValidationException.java`
-#### Snippet
-```java
-        // Detected a reference to a node that does not exist,
-        // indicating the integrity of our ring has been compromised.
-        MISSING_ENTRIES;
-    }
-}
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `atlasdb-workload-server-api/src/main/java/com/palantir/atlasdb/workload/store/IsolationLevel.java`
-#### Snippet
-```java
-    SERIALIZABLE,
-    SNAPSHOT,
-    NONE;
-}
-
-```
-
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
 Argument `lock` might be null
@@ -18614,42 +18373,6 @@ in `lock-api/src/main/java/com/palantir/lock/client/AsyncTimeLockUnlocker.java`
                             .flatMap(Collection::stream)
                             .collect(Collectors.toSet());
                     try {
-```
-
-### DataFlowIssue
-Method invocation `startTs` may produce `NullPointerException`
-in `lock-api/src/main/java/com/palantir/lock/client/BatchingCommitTimestampGetter.java`
-#### Snippet
-```java
-        List<TransactionUpdate> transactionUpdates = Streams.zip(
-                        timestamps.stream(), requests.stream(), (commitTs, batchElement) -> TransactionUpdate.builder()
-                                .startTs(batchElement.argument().startTs())
-                                .commitTs(commitTs)
-                                .writesToken(batchElement.argument().commitLocksToken())
-```
-
-### DataFlowIssue
-Method invocation `commitLocksToken` may produce `NullPointerException`
-in `lock-api/src/main/java/com/palantir/lock/client/BatchingCommitTimestampGetter.java`
-#### Snippet
-```java
-                                .startTs(batchElement.argument().startTs())
-                                .commitTs(commitTs)
-                                .writesToken(batchElement.argument().commitLocksToken())
-                                .build())
-                .collect(Collectors.toList());
-```
-
-### DataFlowIssue
-Method invocation `lockSet` may produce `NullPointerException`
-in `lock-api/src/main/java/com/palantir/lock/client/MultiClientTimeLockUnlocker.java`
-#### Snippet
-```java
-            for (BatchElement<UnlockRequest, Set<ConjureLockTokenV2>> batchElement : requests) {
-                UnlockRequest lockSet = batchElement.argument();
-                lockTokens.addAll(lockSet.lockSet());
-            }
-            return ConjureUnlockRequestV2.of(lockTokens);
 ```
 
 ### DataFlowIssue
@@ -18677,27 +18400,39 @@ in `lock-api/src/main/java/com/palantir/lock/client/MultiClientTimeLockUnlocker.
 ```
 
 ### DataFlowIssue
-Method invocation `startTs` may produce `NullPointerException`
-in `lock-api/src/main/java/com/palantir/lock/client/MultiClientCommitTimestampGetter.java`
+Method invocation `lockSet` may produce `NullPointerException`
+in `lock-api/src/main/java/com/palantir/lock/client/MultiClientTimeLockUnlocker.java`
 #### Snippet
 ```java
-                            pendingRequestQueue.stream(),
-                            (commitTs, batchElement) -> TransactionUpdate.builder()
-                                    .startTs(batchElement.argument().startTs())
-                                    .commitTs(commitTs)
-                                    .writesToken(batchElement.argument().commitLocksToken())
+            for (BatchElement<UnlockRequest, Set<ConjureLockTokenV2>> batchElement : requests) {
+                UnlockRequest lockSet = batchElement.argument();
+                lockTokens.addAll(lockSet.lockSet());
+            }
+            return ConjureUnlockRequestV2.of(lockTokens);
+```
+
+### DataFlowIssue
+Method invocation `startTs` may produce `NullPointerException`
+in `lock-api/src/main/java/com/palantir/lock/client/BatchingCommitTimestampGetter.java`
+#### Snippet
+```java
+        List<TransactionUpdate> transactionUpdates = Streams.zip(
+                        timestamps.stream(), requests.stream(), (commitTs, batchElement) -> TransactionUpdate.builder()
+                                .startTs(batchElement.argument().startTs())
+                                .commitTs(commitTs)
+                                .writesToken(batchElement.argument().commitLocksToken())
 ```
 
 ### DataFlowIssue
 Method invocation `commitLocksToken` may produce `NullPointerException`
-in `lock-api/src/main/java/com/palantir/lock/client/MultiClientCommitTimestampGetter.java`
+in `lock-api/src/main/java/com/palantir/lock/client/BatchingCommitTimestampGetter.java`
 #### Snippet
 ```java
-                                    .startTs(batchElement.argument().startTs())
-                                    .commitTs(commitTs)
-                                    .writesToken(batchElement.argument().commitLocksToken())
-                                    .build())
-                    .collect(Collectors.toList());
+                                .startTs(batchElement.argument().startTs())
+                                .commitTs(commitTs)
+                                .writesToken(batchElement.argument().commitLocksToken())
+                                .build())
+                .collect(Collectors.toList());
 ```
 
 ### DataFlowIssue
@@ -18725,6 +18460,30 @@ in `lock-api/src/main/java/com/palantir/lock/client/MultiClientCommitTimestampGe
 ```
 
 ### DataFlowIssue
+Method invocation `startTs` may produce `NullPointerException`
+in `lock-api/src/main/java/com/palantir/lock/client/MultiClientCommitTimestampGetter.java`
+#### Snippet
+```java
+                            pendingRequestQueue.stream(),
+                            (commitTs, batchElement) -> TransactionUpdate.builder()
+                                    .startTs(batchElement.argument().startTs())
+                                    .commitTs(commitTs)
+                                    .writesToken(batchElement.argument().commitLocksToken())
+```
+
+### DataFlowIssue
+Method invocation `commitLocksToken` may produce `NullPointerException`
+in `lock-api/src/main/java/com/palantir/lock/client/MultiClientCommitTimestampGetter.java`
+#### Snippet
+```java
+                                    .startTs(batchElement.argument().startTs())
+                                    .commitTs(commitTs)
+                                    .writesToken(batchElement.argument().commitLocksToken())
+                                    .build())
+                    .collect(Collectors.toList());
+```
+
+### DataFlowIssue
 Unboxing of `batchElement.argument()` may produce `NullPointerException`
 in `lock-api/src/main/java/com/palantir/lock/client/BatchingIdentifiedAtlasDbTransactionStarter.java`
 #### Snippet
@@ -18734,6 +18493,30 @@ in `lock-api/src/main/java/com/palantir/lock/client/BatchingIdentifiedAtlasDbTra
                 int end = start + batchElement.argument();
                 batchElement.result().set(ImmutableList.copyOf(startTransactionResponses.subList(start, end)));
                 start = end;
+```
+
+### DataFlowIssue
+Argument `params` might be null
+in `lock-api/src/main/java/com/palantir/lock/client/MultiClientTransactionStarter.java`
+#### Snippet
+```java
+        private void updatePendingStartTransactionsCount(Namespace namespace, int startedTransactionsCount) {
+            requestMap.compute(
+                    namespace, (_unused, params) -> remainingRequestsForNamespace(params, startedTransactionsCount));
+        }
+
+```
+
+### DataFlowIssue
+Method invocation `startTransactionsFuture` may produce `NullPointerException`
+in `lock-api/src/main/java/com/palantir/lock/client/MultiClientTransactionStarter.java`
+#### Snippet
+```java
+                    builder.add(Preconditions.checkNotNull(transientResponseList.poll()));
+                }
+                pendingFutures.poll().startTransactionsFuture().set(builder.build());
+            }
+        }
 ```
 
 ### DataFlowIssue
@@ -18761,54 +18544,6 @@ in `lock-api/src/main/java/com/palantir/lock/client/MultiClientTransactionStarte
 ```
 
 ### DataFlowIssue
-Method invocation `startTransactionsFuture` may produce `NullPointerException`
-in `lock-api/src/main/java/com/palantir/lock/client/MultiClientTransactionStarter.java`
-#### Snippet
-```java
-                    builder.add(Preconditions.checkNotNull(transientResponseList.poll()));
-                }
-                pendingFutures.poll().startTransactionsFuture().set(builder.build());
-            }
-        }
-```
-
-### DataFlowIssue
-Argument `params` might be null
-in `lock-api/src/main/java/com/palantir/lock/client/MultiClientTransactionStarter.java`
-#### Snippet
-```java
-        private void updatePendingStartTransactionsCount(Namespace namespace, int startedTransactionsCount) {
-            requestMap.compute(
-                    namespace, (_unused, params) -> remainingRequestsForNamespace(params, startedTransactionsCount));
-        }
-
-```
-
-### DataFlowIssue
-Argument `LockClient.ANONYMOUS.getClientId()` might be null
-in `lock-impl/src/main/java/com/palantir/lock/impl/LegacyTimelockService.java`
-#### Snippet
-```java
-    private LockRefreshToken lockAnonymous(com.palantir.lock.LockRequest request) {
-        try {
-            return lockService.lock(LockClient.ANONYMOUS.getClientId(), request);
-        } catch (InterruptedException ex) {
-            Thread.currentThread().interrupt();
-```
-
-### DataFlowIssue
-Argument `immutableTsLockClient.getClientId()` might be null
-in `lock-impl/src/main/java/com/palantir/lock/impl/LegacyTimelockService.java`
-#### Snippet
-```java
-
-    private long getImmutableTimestampInternal(long ts) {
-        Long minLocked = lockService.getMinLockedInVersionId(immutableTsLockClient.getClientId());
-        return minLocked == null ? ts : minLocked;
-    }
-```
-
-### DataFlowIssue
 Argument `immutableTsLockClient.getClientId()` might be null
 in `lock-impl/src/main/java/com/palantir/lock/impl/LegacyTimelockService.java`
 #### Snippet
@@ -18830,6 +18565,30 @@ in `lock-impl/src/main/java/com/palantir/lock/impl/LegacyTimelockService.java`
                     getImmutableTimestampInternal(immutableLockTs), LockTokenConverter.toTokenV2(lock));
         } catch (Throwable e) {
             if (lock != null) {
+```
+
+### DataFlowIssue
+Argument `immutableTsLockClient.getClientId()` might be null
+in `lock-impl/src/main/java/com/palantir/lock/impl/LegacyTimelockService.java`
+#### Snippet
+```java
+
+    private long getImmutableTimestampInternal(long ts) {
+        Long minLocked = lockService.getMinLockedInVersionId(immutableTsLockClient.getClientId());
+        return minLocked == null ? ts : minLocked;
+    }
+```
+
+### DataFlowIssue
+Argument `LockClient.ANONYMOUS.getClientId()` might be null
+in `lock-impl/src/main/java/com/palantir/lock/impl/LegacyTimelockService.java`
+#### Snippet
+```java
+    private LockRefreshToken lockAnonymous(com.palantir.lock.LockRequest request) {
+        try {
+            return lockService.lock(LockClient.ANONYMOUS.getClientId(), request);
+        } catch (InterruptedException ex) {
+            Thread.currentThread().interrupt();
 ```
 
 ### DataFlowIssue
@@ -18869,18 +18628,6 @@ in `commons-db/src/main/java/com/palantir/nexus/db/sql/BasicSQLUtils.java`
 ```
 
 ### DataFlowIssue
-Method invocation `startsWith` may produce `NullPointerException`
-in `lock-impl/src/main/java/com/palantir/lock/impl/LockServiceImpl.java`
-#### Snippet
-```java
-    private boolean isFromAtlasTransactionWithLockedImmutable(ExpiringToken token) {
-        return token.getClient() != null
-                && token.getClient().getClientId().startsWith(ATLAS_LOCK_PREFIX)
-                && token.getVersionId() != null;
-    }
-```
-
-### DataFlowIssue
 Method invocation `isAnonymous` may produce `NullPointerException`
 in `lock-impl/src/main/java/com/palantir/lock/impl/LockServiceImpl.java`
 #### Snippet
@@ -18902,6 +18649,18 @@ in `lock-impl/src/main/java/com/palantir/lock/impl/LockServiceImpl.java`
                     logSlowLockAcquisition(entry.getKey().toString(), currentHolder, responseTimeMillis);
                 }
                 if (currentHolder == null) {
+```
+
+### DataFlowIssue
+Method invocation `startsWith` may produce `NullPointerException`
+in `lock-impl/src/main/java/com/palantir/lock/impl/LockServiceImpl.java`
+#### Snippet
+```java
+    private boolean isFromAtlasTransactionWithLockedImmutable(ExpiringToken token) {
+        return token.getClient() != null
+                && token.getClient().getClientId().startsWith(ATLAS_LOCK_PREFIX)
+                && token.getVersionId() != null;
+    }
 ```
 
 ### DataFlowIssue
@@ -19126,9 +18885,9 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/ColumnMe
 #### Snippet
 ```java
         }
-        ImmutableList.Builder<ColumnValueDescription> ret = ImmutableList.builder();
+        int max = 0;
         for (NamedColumnDescription col : namedColumns) {
-            ret.add(col.value);
+            max = Math.max(max, col.getValue().getMaxValueSize());
         }
 ```
 
@@ -19138,9 +18897,9 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/ColumnMe
 #### Snippet
 ```java
         }
-        int max = 0;
+        ImmutableList.Builder<ColumnValueDescription> ret = ImmutableList.builder();
         for (NamedColumnDescription col : namedColumns) {
-            max = Math.max(max, col.getValue().getMaxValueSize());
+            ret.add(col.value);
         }
 ```
 
@@ -19169,6 +18928,18 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/render/C
 ```
 
 ### DataFlowIssue
+Argument `value` might be null
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/ValueType.java`
+#### Snippet
+```java
+        public byte[] convertFromJava(Object value) {
+            com.palantir.logsafe.Preconditions.checkArgument(value == null || value instanceof java.util.UUID);
+            return EncodingUtils.encodeUUID((java.util.UUID) value);
+        }
+
+```
+
+### DataFlowIssue
 Argument `tableMetadata.getColumns().getNamedColumns()` might be null
 in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/Schema.java`
 #### Snippet
@@ -19181,15 +18952,15 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/Schema.j
 ```
 
 ### DataFlowIssue
-Argument `value` might be null
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/ValueType.java`
+Variable is already assigned to this value
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/render/TableClassRendererV2.java`
 #### Snippet
 ```java
-        public byte[] convertFromJava(Object value) {
-            com.palantir.logsafe.Preconditions.checkArgument(value == null || value instanceof java.util.UUID);
-            return EncodingUtils.encodeUUID((java.util.UUID) value);
-        }
+                .addJavadoc("Delete the value at column $L (if it exists) for the specified row-key.", VarName(col));
 
+        deleteColumnBuilder = addParametersFromRowComponents(deleteColumnBuilder, tableMetadata);
+
+        return deleteColumnBuilder
 ```
 
 ### DataFlowIssue
@@ -19211,21 +18982,9 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/render/T
 ```java
                 .addModifiers(Modifier.PUBLIC);
 
-        putColumnBuilder = addParametersFromRowComponents(putColumnBuilder, tableMetadata);
-
-        TypeName columnValueType = tableType.nestedClass(VarName(col));
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/render/TableClassRendererV2.java`
-#### Snippet
-```java
-                .addJavadoc("Delete the value at column $L (if it exists) for the specified row-key.", VarName(col));
-
-        deleteColumnBuilder = addParametersFromRowComponents(deleteColumnBuilder, tableMetadata);
-
-        return deleteColumnBuilder
+        updateColumnIfExistsBuilder = addParametersFromRowComponents(updateColumnIfExistsBuilder, tableMetadata);
+        updateColumnIfExistsBuilder.addParameter(
+                ParameterizedTypeName.get(
 ```
 
 ### DataFlowIssue
@@ -19235,9 +18994,9 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/render/T
 ```java
                 .addModifiers(Modifier.PUBLIC);
 
-        updateColumnIfExistsBuilder = addParametersFromRowComponents(updateColumnIfExistsBuilder, tableMetadata);
-        updateColumnIfExistsBuilder.addParameter(
-                ParameterizedTypeName.get(
+        putColumnBuilder = addParametersFromRowComponents(putColumnBuilder, tableMetadata);
+
+        TypeName columnValueType = tableType.nestedClass(VarName(col));
 ```
 
 ### DataFlowIssue
@@ -19265,18 +19024,6 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/render/T
 ```
 
 ### DataFlowIssue
-Method invocation `getValue` may produce `NullPointerException`
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/render/TableRenderer.java`
-#### Snippet
-```java
-                                ".BYTES_HYDRATOR.hydrateFromBytes(e.getKey().getColumnName());");
-                        line(
-                                table.getColumns().getDynamicColumn().getValue().getJavaObjectTypeName(),
-                                " val = ",
-                                ColumnValue,
-```
-
-### DataFlowIssue
 Dereference of `table.getColumns().getNamedColumns()` may produce `NullPointerException`
 in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/render/TableRenderer.java`
 #### Snippet
@@ -19301,42 +19048,6 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/render/T
 ```
 
 ### DataFlowIssue
-Method invocation `getValue` may produce `NullPointerException`
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/render/TableRenderer.java`
-#### Snippet
-```java
-                                    table.getColumns()
-                                            .getDynamicColumn()
-                                            .getValue()
-                                            .getJavaObjectTypeName(),
-                                    " val = ",
-```
-
-### DataFlowIssue
-Method invocation `getValue` may produce `NullPointerException`
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/render/TableRenderer.java`
-#### Snippet
-```java
-                                    table.getColumns()
-                                            .getDynamicColumn()
-                                            .getValue()
-                                            .getJavaObjectTypeName(),
-                                    " val = ",
-```
-
-### DataFlowIssue
-Method invocation `getValue` may produce `NullPointerException`
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/render/TableRenderer.java`
-#### Snippet
-```java
-                                    table.getColumns()
-                                            .getDynamicColumn()
-                                            .getValue()
-                                            .getJavaObjectTypeName(),
-                                    " val = ",
-```
-
-### DataFlowIssue
 Method invocation `getColumnNameDesc` may produce `NullPointerException`
 in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/render/TableRenderer.java`
 #### Snippet
@@ -19346,6 +19057,54 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/render/T
                             this, Column, table.getColumns().getDynamicColumn().getColumnNameDesc(), false, true)
                     .run();
             line();
+```
+
+### DataFlowIssue
+Method invocation `getValue` may produce `NullPointerException`
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/render/TableRenderer.java`
+#### Snippet
+```java
+                                    table.getColumns()
+                                            .getDynamicColumn()
+                                            .getValue()
+                                            .getJavaObjectTypeName(),
+                                    " val = ",
+```
+
+### DataFlowIssue
+Method invocation `getValue` may produce `NullPointerException`
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/render/TableRenderer.java`
+#### Snippet
+```java
+                                ".BYTES_HYDRATOR.hydrateFromBytes(e.getKey().getColumnName());");
+                        line(
+                                table.getColumns().getDynamicColumn().getValue().getJavaObjectTypeName(),
+                                " val = ",
+                                ColumnValue,
+```
+
+### DataFlowIssue
+Method invocation `getValue` may produce `NullPointerException`
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/render/TableRenderer.java`
+#### Snippet
+```java
+                                    table.getColumns()
+                                            .getDynamicColumn()
+                                            .getValue()
+                                            .getJavaObjectTypeName(),
+                                    " val = ",
+```
+
+### DataFlowIssue
+Method invocation `getValue` may produce `NullPointerException`
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/render/TableRenderer.java`
+#### Snippet
+```java
+                                    table.getColumns()
+                                            .getDynamicColumn()
+                                            .getValue()
+                                            .getJavaObjectTypeName(),
+                                    " val = ",
 ```
 
 ### DataFlowIssue
@@ -19385,18 +19144,6 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/KeyValueServ
 ```
 
 ### DataFlowIssue
-Method invocation `toString` may produce `NullPointerException`
-in `atlasdb-commons/src/main/java/com/palantir/util/SoftCache.java`
-#### Snippet
-```java
-        @Override
-        public String toString() {
-            return (valueRef.get() != null) ? valueRef.get().toString() : "null";
-        }
-    }
-```
-
-### DataFlowIssue
 The call to 'checkState' always fails, according to its method contracts
 in `atlasdb-commons/src/main/java/com/palantir/util/SoftCache.java`
 #### Snippet
@@ -19406,6 +19153,18 @@ in `atlasdb-commons/src/main/java/com/palantir/util/SoftCache.java`
             Preconditions.checkState(
                     false,
                     "All references should be of type KeyedReference",
+```
+
+### DataFlowIssue
+Method invocation `toString` may produce `NullPointerException`
+in `atlasdb-commons/src/main/java/com/palantir/util/SoftCache.java`
+#### Snippet
+```java
+        @Override
+        public String toString() {
+            return (valueRef.get() != null) ? valueRef.get().toString() : "null";
+        }
+    }
 ```
 
 ### DataFlowIssue
@@ -19430,90 +19189,6 @@ in `atlasdb-commons/src/main/java/com/palantir/util/debug/StackTraceUtils.java`
                         stackDepths[j] = ((Integer) getLockedStackDepthMethod.invoke(lockedMonitors[j])).intValue();
                     }
                 } catch (InvocationTargetException e) {
-```
-
-### DataFlowIssue
-Method invocation `getColumnNameDesc` may produce `NullPointerException`
-in `atlasdb-service/src/main/java/com/palantir/atlasdb/jackson/AtlasSerializers.java`
-#### Snippet
-```java
-        if (colDescription.hasDynamicColumns()) {
-            DynamicColumnDescription dynMetadata = colDescription.getDynamicColumn();
-            NameMetadataDescription description = dynMetadata.getColumnNameDesc();
-            jgen.writeRawValue(description.renderToJson(col));
-        } else {
-```
-
-### DataFlowIssue
-Dereference of `namedColumns` may produce `NullPointerException`
-in `atlasdb-service/src/main/java/com/palantir/atlasdb/jackson/AtlasSerializers.java`
-#### Snippet
-```java
-        } else {
-            Set<NamedColumnDescription> namedColumns = colDescription.getNamedColumns();
-            for (NamedColumnDescription description : namedColumns) {
-                if (UnsignedBytes.lexicographicalComparator()
-                                .compare(col, PtBytes.toCachedBytes(description.getShortName()))
-```
-
-### DataFlowIssue
-Dereference of `colDescription.getNamedColumns()` may produce `NullPointerException`
-in `atlasdb-service/src/main/java/com/palantir/atlasdb/jackson/TableCellSerializer.java`
-#### Snippet
-```java
-
-    private static String getLongColumnName(ColumnMetadataDescription colDescription, String shortName) {
-        for (NamedColumnDescription description : colDescription.getNamedColumns()) {
-            if (shortName.equals(description.getShortName())) {
-                return description.getLongName();
-```
-
-### DataFlowIssue
-Argument `dynamicColumn` might be null
-in `atlasdb-service/src/main/java/com/palantir/atlasdb/jackson/TableCellSerializer.java`
-#### Snippet
-```java
-        if (columns.hasDynamicColumns()) {
-            DynamicColumnDescription dynamicColumn = columns.getDynamicColumn();
-            AtlasSerializers.serializeDynamicColumn(jgen, dynamicColumn, col);
-        } else {
-            String shortName = PtBytes.toString(col);
-```
-
-### DataFlowIssue
-Method invocation `getRowMetadata` may produce `NullPointerException`
-in `atlasdb-service/src/main/java/com/palantir/atlasdb/jackson/TableRowResultDeserializer.java`
-#### Snippet
-```java
-        TableMetadata metadata = metadataCache.getMetadata(tableName);
-        for (JsonNode rowResult : node.get("data")) {
-            byte[] row = AtlasDeserializers.deserializeRow(metadata.getRowMetadata(), rowResult.get("row"));
-            ImmutableSortedMap.Builder<byte[], byte[]> cols =
-                    ImmutableSortedMap.orderedBy(UnsignedBytes.lexicographicalComparator());
-```
-
-### DataFlowIssue
-Method invocation `getValue` may produce `NullPointerException`
-in `atlasdb-service/src/main/java/com/palantir/atlasdb/jackson/TableRowResultDeserializer.java`
-#### Snippet
-```java
-                    byte[] col = AtlasDeserializers.deserializeCol(metadata.getColumns(), colVal.get("col"));
-                    byte[] val = AtlasDeserializers.deserializeVal(
-                            metadata.getColumns().getDynamicColumn().getValue(), colVal.get("val"));
-                    cols.put(col, val);
-                }
-```
-
-### DataFlowIssue
-Dereference of `metadata.getColumns().getNamedColumns()` may produce `NullPointerException`
-in `atlasdb-service/src/main/java/com/palantir/atlasdb/jackson/TableRowResultDeserializer.java`
-#### Snippet
-```java
-            } else {
-                JsonNode namedCols = rowResult.get("cols");
-                for (NamedColumnDescription namedCol : metadata.getColumns().getNamedColumns()) {
-                    JsonNode valNode = namedCols.get(namedCol.getLongName());
-                    if (valNode != null) {
 ```
 
 ### DataFlowIssue
@@ -19553,6 +19228,30 @@ in `atlasdb-service/src/main/java/com/palantir/atlasdb/jackson/TableCellValSeria
 ```
 
 ### DataFlowIssue
+Argument `dynamicColumn` might be null
+in `atlasdb-service/src/main/java/com/palantir/atlasdb/jackson/TableCellSerializer.java`
+#### Snippet
+```java
+        if (columns.hasDynamicColumns()) {
+            DynamicColumnDescription dynamicColumn = columns.getDynamicColumn();
+            AtlasSerializers.serializeDynamicColumn(jgen, dynamicColumn, col);
+        } else {
+            String shortName = PtBytes.toString(col);
+```
+
+### DataFlowIssue
+Dereference of `colDescription.getNamedColumns()` may produce `NullPointerException`
+in `atlasdb-service/src/main/java/com/palantir/atlasdb/jackson/TableCellSerializer.java`
+#### Snippet
+```java
+
+    private static String getLongColumnName(ColumnMetadataDescription colDescription, String shortName) {
+        for (NamedColumnDescription description : colDescription.getNamedColumns()) {
+            if (shortName.equals(description.getShortName())) {
+                return description.getLongName();
+```
+
+### DataFlowIssue
 Method invocation `getColumns` may produce `NullPointerException`
 in `atlasdb-service/src/main/java/com/palantir/atlasdb/jackson/TableRangeSerializer.java`
 #### Snippet
@@ -19562,6 +19261,66 @@ in `atlasdb-service/src/main/java/com/palantir/atlasdb/jackson/TableRangeSeriali
                 AtlasSerializers.serializeCol(jgen, metadata.getColumns(), column);
             }
             jgen.writeEndArray();
+```
+
+### DataFlowIssue
+Method invocation `getColumnNameDesc` may produce `NullPointerException`
+in `atlasdb-service/src/main/java/com/palantir/atlasdb/jackson/AtlasSerializers.java`
+#### Snippet
+```java
+        if (colDescription.hasDynamicColumns()) {
+            DynamicColumnDescription dynMetadata = colDescription.getDynamicColumn();
+            NameMetadataDescription description = dynMetadata.getColumnNameDesc();
+            jgen.writeRawValue(description.renderToJson(col));
+        } else {
+```
+
+### DataFlowIssue
+Dereference of `namedColumns` may produce `NullPointerException`
+in `atlasdb-service/src/main/java/com/palantir/atlasdb/jackson/AtlasSerializers.java`
+#### Snippet
+```java
+        } else {
+            Set<NamedColumnDescription> namedColumns = colDescription.getNamedColumns();
+            for (NamedColumnDescription description : namedColumns) {
+                if (UnsignedBytes.lexicographicalComparator()
+                                .compare(col, PtBytes.toCachedBytes(description.getShortName()))
+```
+
+### DataFlowIssue
+Method invocation `getRowMetadata` may produce `NullPointerException`
+in `atlasdb-service/src/main/java/com/palantir/atlasdb/jackson/TableRowResultDeserializer.java`
+#### Snippet
+```java
+        TableMetadata metadata = metadataCache.getMetadata(tableName);
+        for (JsonNode rowResult : node.get("data")) {
+            byte[] row = AtlasDeserializers.deserializeRow(metadata.getRowMetadata(), rowResult.get("row"));
+            ImmutableSortedMap.Builder<byte[], byte[]> cols =
+                    ImmutableSortedMap.orderedBy(UnsignedBytes.lexicographicalComparator());
+```
+
+### DataFlowIssue
+Method invocation `getValue` may produce `NullPointerException`
+in `atlasdb-service/src/main/java/com/palantir/atlasdb/jackson/TableRowResultDeserializer.java`
+#### Snippet
+```java
+                    byte[] col = AtlasDeserializers.deserializeCol(metadata.getColumns(), colVal.get("col"));
+                    byte[] val = AtlasDeserializers.deserializeVal(
+                            metadata.getColumns().getDynamicColumn().getValue(), colVal.get("val"));
+                    cols.put(col, val);
+                }
+```
+
+### DataFlowIssue
+Dereference of `metadata.getColumns().getNamedColumns()` may produce `NullPointerException`
+in `atlasdb-service/src/main/java/com/palantir/atlasdb/jackson/TableRowResultDeserializer.java`
+#### Snippet
+```java
+            } else {
+                JsonNode namedCols = rowResult.get("cols");
+                for (NamedColumnDescription namedCol : metadata.getColumns().getNamedColumns()) {
+                    JsonNode valNode = namedCols.get(namedCol.getLongName());
+                    if (valNode != null) {
 ```
 
 ### DataFlowIssue
@@ -19601,6 +19360,18 @@ in `atlasdb-service/src/main/java/com/palantir/atlasdb/jackson/TableRowResultSer
 ```
 
 ### DataFlowIssue
+Argument `value.getProtoDescriptor()` might be null
+in `atlasdb-service/src/main/java/com/palantir/atlasdb/jackson/TableMetadataSerializer.java`
+#### Snippet
+```java
+            case PROTO:
+                jgen.writeObjectFieldStart("type");
+                serialize(jgen, value.getProtoDescriptor());
+                jgen.writeEndObject();
+                break;
+```
+
+### DataFlowIssue
 Method invocation `getColumnNameDesc` may produce `NullPointerException`
 in `atlasdb-service/src/main/java/com/palantir/atlasdb/jackson/TableMetadataSerializer.java`
 #### Snippet
@@ -19625,18 +19396,6 @@ in `atlasdb-service/src/main/java/com/palantir/atlasdb/jackson/TableMetadataSeri
 ```
 
 ### DataFlowIssue
-Argument `value.getProtoDescriptor()` might be null
-in `atlasdb-service/src/main/java/com/palantir/atlasdb/jackson/TableMetadataSerializer.java`
-#### Snippet
-```java
-            case PROTO:
-                jgen.writeObjectFieldStart("type");
-                serialize(jgen, value.getProtoDescriptor());
-                jgen.writeEndObject();
-                break;
-```
-
-### DataFlowIssue
 Argument `colDescription.getDynamicColumn()` might be null
 in `atlasdb-service/src/main/java/com/palantir/atlasdb/jackson/AtlasDeserializers.java`
 #### Snippet
@@ -19646,18 +19405,6 @@ in `atlasdb-service/src/main/java/com/palantir/atlasdb/jackson/AtlasDeserializer
             return deserializeDynamicCol(colDescription.getDynamicColumn(), node);
         } else {
             return deserializeNamedCol(colDescription, node);
-```
-
-### DataFlowIssue
-Argument `colDescription.getDynamicColumn()` might be null
-in `atlasdb-service/src/main/java/com/palantir/atlasdb/jackson/AtlasDeserializers.java`
-#### Snippet
-```java
-        ColumnMetadataDescription colDescription = metadata.getColumns();
-        if (colDescription.hasDynamicColumns()) {
-            byte[] col = deserializeDynamicCol(colDescription.getDynamicColumn(), node.get("col"));
-            byte[] val = deserializeVal(colDescription.getDynamicColumn().getValue(), node.get("val"));
-            return ImmutableList.of(Maps.immutableEntry(Cell.create(row, col), val));
 ```
 
 ### DataFlowIssue
@@ -19682,6 +19429,18 @@ in `atlasdb-service/src/main/java/com/palantir/atlasdb/jackson/AtlasDeserializer
         for (NamedColumnDescription description : colDescription.getNamedColumns()) {
             if (longName.equals(description.getLongName())) {
                 return description;
+```
+
+### DataFlowIssue
+Argument `colDescription.getDynamicColumn()` might be null
+in `atlasdb-service/src/main/java/com/palantir/atlasdb/jackson/AtlasDeserializers.java`
+#### Snippet
+```java
+        ColumnMetadataDescription colDescription = metadata.getColumns();
+        if (colDescription.hasDynamicColumns()) {
+            byte[] col = deserializeDynamicCol(colDescription.getDynamicColumn(), node.get("col"));
+            byte[] val = deserializeVal(colDescription.getDynamicColumn().getValue(), node.get("val"));
+            return ImmutableList.of(Maps.immutableEntry(Cell.create(row, col), val));
 ```
 
 ### DataFlowIssue
@@ -19745,30 +19504,6 @@ in `lock-api-objects/src/main/java/com/palantir/lock/HeldLocksGrant.java`
 ```
 
 ### DataFlowIssue
-Method invocation `size` may produce `NullPointerException`
-in `lock-api-objects/src/main/java/com/palantir/lock/LockRequest.java`
-#### Snippet
-```java
-                    + ", versionId=" + versionId //
-                    + ", lockGroupBehavior=" + lockGroupBehavior //
-                    + ", lockCount=" + lockMap.size() //
-                    + ", firstLock=" + Iterables.getFirst(lockMap.entries(), "") //
-                    + '}';
-```
-
-### DataFlowIssue
-Argument `blockingDuration` might be null
-in `lock-api-objects/src/main/java/com/palantir/lock/LockRequest.java`
-#### Snippet
-```java
-                builder.doNotBlock();
-            } else if (blockingMode == BlockingMode.BLOCK_UNTIL_TIMEOUT) {
-                builder.blockForAtMost(blockingDuration);
-            } else if (blockingMode == BlockingMode.BLOCK_INDEFINITELY_THEN_RELEASE) {
-                builder.lockAndRelease();
-```
-
-### DataFlowIssue
 Unboxing of `element.argument()` may produce `NullPointerException`
 in `timestamp-client/src/main/java/com/palantir/timestamp/RequestBatchingTimestampService.java`
 #### Snippet
@@ -19790,6 +19525,30 @@ in `timestamp-client/src/main/java/com/palantir/timestamp/RequestBatchingTimesta
                 if (element.argument() <= endExclusive - startInclusive) {
                     element.result().set(createExclusiveRange(startInclusive, startInclusive + timestampsRequired));
                     startInclusive += timestampsRequired;
+```
+
+### DataFlowIssue
+Argument `blockingDuration` might be null
+in `lock-api-objects/src/main/java/com/palantir/lock/LockRequest.java`
+#### Snippet
+```java
+                builder.doNotBlock();
+            } else if (blockingMode == BlockingMode.BLOCK_UNTIL_TIMEOUT) {
+                builder.blockForAtMost(blockingDuration);
+            } else if (blockingMode == BlockingMode.BLOCK_INDEFINITELY_THEN_RELEASE) {
+                builder.lockAndRelease();
+```
+
+### DataFlowIssue
+Method invocation `size` may produce `NullPointerException`
+in `lock-api-objects/src/main/java/com/palantir/lock/LockRequest.java`
+#### Snippet
+```java
+                    + ", versionId=" + versionId //
+                    + ", lockGroupBehavior=" + lockGroupBehavior //
+                    + ", lockCount=" + lockMap.size() //
+                    + ", firstLock=" + Iterables.getFirst(lockMap.entries(), "") //
+                    + '}';
 ```
 
 ### DataFlowIssue
@@ -19929,6 +19688,18 @@ Method invocation `cell` may produce `NullPointerException`
 in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/atomic/mcas/MarkAndCasConsensusForgettingStore.java`
 #### Snippet
 ```java
+        List<CasRequestBatch> pendingBatchedRequests = KeyedStream.stream(pendingUpdates.stream()
+                        .collect(Collectors.groupingBy(
+                                elem -> ByteBuffer.wrap(elem.argument().cell().getRowName()))))
+                .map((row, requests) -> new CasRequestBatch(tableRef, row.array(), requests))
+                .values()
+```
+
+### DataFlowIssue
+Method invocation `cell` may produce `NullPointerException`
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/atomic/mcas/MarkAndCasConsensusForgettingStore.java`
+#### Snippet
+```java
 
         Map<Cell, List<BatchElement<CasRequest, Void>>> partitionedElems = batch.stream()
                 .collect(Collectors.groupingBy(elem -> elem.argument().cell()));
@@ -19958,18 +19729,6 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/atomic/mcas/MarkAndCa
         Cell cell = casRequest.cell();
 
         if (!ex.getActualValues().containsKey(cell)) {
-```
-
-### DataFlowIssue
-Method invocation `cell` may produce `NullPointerException`
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/atomic/mcas/MarkAndCasConsensusForgettingStore.java`
-#### Snippet
-```java
-        List<CasRequestBatch> pendingBatchedRequests = KeyedStream.stream(pendingUpdates.stream()
-                        .collect(Collectors.groupingBy(
-                                elem -> ByteBuffer.wrap(elem.argument().cell().getRowName()))))
-                .map((row, requests) -> new CasRequestBatch(tableRef, row.array(), requests))
-                .values()
 ```
 
 ### DataFlowIssue
@@ -20037,18 +19796,6 @@ Method invocation `startTimestamp` may produce `NullPointerException`
 in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/service/WriteBatchingTransactionService.java`
 #### Snippet
 ```java
-            EncodingTransactionService delegate, BatchElement<TimestampPair, Void> batchElem) {
-        Cell cell = delegate.getCellEncodingStrategy()
-                .encodeStartTimestampAsCell(batchElem.argument().startTimestamp());
-        KeyAlreadyExistsException exception = new KeyAlreadyExistsException(
-                "Failed because other client-side element succeeded", ImmutableList.of(cell));
-```
-
-### DataFlowIssue
-Method invocation `startTimestamp` may produce `NullPointerException`
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/service/WriteBatchingTransactionService.java`
-#### Snippet
-```java
                 MultimapBuilder.hashKeys().hashSetValues().build();
         batchElements.forEach(batchElement ->
                 startTimestampKeyedBatchElements.put(batchElement.argument().startTimestamp(), batchElement));
@@ -20066,6 +19813,18 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/service/W
                         .map(batchElement -> batchElement.argument().commitTimestamp())
                         .collectToMap());
                 markBatchSuccessful(startTimestampKeyedBatchElements, batch);
+```
+
+### DataFlowIssue
+Method invocation `startTimestamp` may produce `NullPointerException`
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/service/WriteBatchingTransactionService.java`
+#### Snippet
+```java
+            EncodingTransactionService delegate, BatchElement<TimestampPair, Void> batchElem) {
+        Cell cell = delegate.getCellEncodingStrategy()
+                .encodeStartTimestampAsCell(batchElem.argument().startTimestamp());
+        KeyAlreadyExistsException exception = new KeyAlreadyExistsException(
+                "Failed because other client-side element succeeded", ImmutableList.of(cell));
 ```
 
 ### DataFlowIssue
@@ -20229,6 +19988,18 @@ The call to 'isTrue' always fails, according to its method contracts
 in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/SnapshotTransaction.java`
 #### Snippet
 ```java
+        long storedCommit = commitTimestamps.get(getStartTimestamp());
+        if (storedCommit != commitTs && storedCommit != TransactionConstants.FAILED_COMMIT_TS) {
+            Validate.isTrue(false, "Commit value is wrong. startTs %s  commitTs: %s", getStartTimestamp(), commitTs);
+        }
+        return storedCommit == commitTs;
+```
+
+### DataFlowIssue
+The call to 'isTrue' always fails, according to its method contracts
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/SnapshotTransaction.java`
+#### Snippet
+```java
             Cell cell = cellEntry.getKey();
             if (!writes.containsKey(cell)) {
                 Validate.isTrue(false, "Missing write for cell: %s for table %s", cellToConflict.get(cell), table);
@@ -20258,18 +20029,6 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/Snap
                 Validate.isTrue(
                         false,
                         "Wrong timestamp for cell in table %s Expected: %s Actual: %s",
-```
-
-### DataFlowIssue
-The call to 'isTrue' always fails, according to its method contracts
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/SnapshotTransaction.java`
-#### Snippet
-```java
-        long storedCommit = commitTimestamps.get(getStartTimestamp());
-        if (storedCommit != commitTs && storedCommit != TransactionConstants.FAILED_COMMIT_TS) {
-            Validate.isTrue(false, "Commit value is wrong. startTs %s  commitTs: %s", getStartTimestamp(), commitTs);
-        }
-        return storedCommit == commitTs;
 ```
 
 ### DataFlowIssue
@@ -20342,6 +20101,259 @@ in `atlasdb-container-test-utils/src/main/java/com/palantir/atlasdb/containers/C
             IOUtils.copy(Containers.class.getResourceAsStream(configResource), new FileOutputStream(configFile));
             return configFile.getPath();
         } catch (IOException e) {
+```
+
+## RuleId[id=UnnecessarySemicolon]
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `lock-api/src/main/java/com/palantir/lock/client/TimestampCorroboratingTimelockService.java`
+#### Snippet
+```java
+        FRESH_TIMESTAMP,
+        COMMIT_TIMESTAMP,
+        TRANSACTION;
+    }
+}
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `commons-db/src/main/java/com/palantir/nexus/db/pool/RetriableTransactions.java`
+#### Snippet
+```java
+        SUCCESSFUL,
+        FAILED,
+        UNKNOWN;
+    }
+
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `commons-db/src/main/java/com/palantir/nexus/db/sql/BasicSQL.java`
+#### Snippet
+```java
+    public enum OffsetInclusion {
+        INCLUDE_OFFSET,
+        EXCLUDE_OFFSET;
+    }
+
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `commons-api/src/main/java/com/palantir/common/concurrent/ThreadNamingCallable.java`
+#### Snippet
+```java
+        PREPEND,
+        REPLACE,
+        APPEND;
+    }
+
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/CaseSensitivity.java`
+#### Snippet
+```java
+public enum CaseSensitivity {
+    CASE_SENSITIVE,
+    CASE_INSENSITIVE;
+}
+
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/OverflowMigrationState.java`
+#### Snippet
+```java
+    IN_PROGRESS,
+    FINISHING,
+    FINISHED;
+}
+
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/transaction/impl/SweepStrategyManagers.java`
+#### Snippet
+```java
+        FULL,
+        NONE,
+        ;
+    }
+
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/InMemoryKeyValueService.java`
+#### Snippet
+```java
+        DO_NOT_OVERWRITE,
+        OVERWRITE_SAME_VALUE,
+        OVERWRITE;
+    }
+
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `atlasdb-commons/src/main/java/com/palantir/common/proxy/CancelDelegate.java`
+#### Snippet
+```java
+public enum CancelDelegate {
+    CANCEL,
+    ALLOW_TO_FINISH;
+}
+
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `lock-api-objects/src/main/java/com/palantir/lock/BlockingMode.java`
+#### Snippet
+```java
+     * server if you just have to wait for someone to release the lock before you perform a task.
+     */
+    BLOCK_INDEFINITELY_THEN_RELEASE;
+}
+
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `lock-api-objects/src/main/java/com/palantir/lock/LockGroupBehavior.java`
+#### Snippet
+```java
+     * all be acquired. This is the default behavior.
+     */
+    LOCK_ALL_OR_NONE;
+}
+
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/atomic/AtomicState.java`
+#### Snippet
+```java
+public enum AtomicState {
+    STAGING,
+    COMMITTED;
+}
+
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/table/common/TableTasks.java`
+#### Snippet
+```java
+    private enum DiffStrategy {
+        RANGE,
+        ROWS;
+    }
+
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/atomic/ResilientCommitTimestampAtomicTable.java`
+#### Snippet
+```java
+    private enum FollowUpAction {
+        PUT,
+        NONE;
+    }
+}
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/api/cache/TransactionCacheValueStoreImpl.java`
+#### Snippet
+```java
+            READ,
+            WRITE,
+            HIT;
+        }
+    }
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/knowledge/KnownConcludedTransactions.java`
+#### Snippet
+```java
+         * Perform a remote read against the underlying database if necessary.
+         */
+        REMOTE_READ;
+    }
+}
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/knowledge/AbandonedTransactionSoftCache.java`
+#### Snippet
+```java
+        PENDING_LOAD_FROM_RELIABLE,
+        IS_ABORTED,
+        IS_NOT_ABORTED;
+    }
+
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `atlasdb-dbkvs-hikari/src/main/java/com/palantir/nexus/db/pool/HikariCPConnectionManager.java`
+#### Snippet
+```java
+
+        // Closed state.  closeTrace is set.
+        CLOSED;
+    }
+
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/SnapshotTransaction.java`
+#### Snippet
+```java
+    private enum SentinelType {
+        DEFINITE_ORPHANED,
+        INDETERMINATE;
+    }
+
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `atlasdb-workload-server/src/main/java/com/palantir/atlasdb/workload/workflow/ring/RingValidationException.java`
+#### Snippet
+```java
+        // Detected a reference to a node that does not exist,
+        // indicating the integrity of our ring has been compromised.
+        MISSING_ENTRIES;
+    }
+}
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `atlasdb-workload-server-api/src/main/java/com/palantir/atlasdb/workload/store/IsolationLevel.java`
+#### Snippet
+```java
+    SERIALIZABLE,
+    SNAPSHOT,
+    NONE;
+}
+
 ```
 
 ## RuleId[id=SimplifyStreamApiCallChains]
@@ -20432,39 +20444,15 @@ in `commons-db/src/main/java/com/palantir/nexus/db/sql/AbstractAgnosticResultRow
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'getLongObject' is still used
+Deprecated member 'getLong' is still used
 in `commons-db/src/main/java/com/palantir/nexus/db/sql/AbstractAgnosticResultRow.java`
 #### Snippet
 ```java
-
-    @Deprecated // use the get by colname variant instead
-    protected abstract Long getLongObject(int col) throws PalantirSqlException;
-
-    @Override
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getBlob' is still used
-in `commons-db/src/main/java/com/palantir/nexus/db/sql/AbstractAgnosticResultRow.java`
-#### Snippet
-```java
-    @Override
     @Deprecated
-    public abstract byte[] getBlob(int col, int blobLength) throws PalantirSqlException;
-
-    @Override
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getDouble' is still used
-in `commons-db/src/main/java/com/palantir/nexus/db/sql/AbstractAgnosticResultRow.java`
-#### Snippet
-```java
-
-    @Deprecated // use the get by colname variant instead
-    protected abstract double getDouble(int col) throws PalantirSqlException;
-
-    @Override
+    // use the get by colname variant instead
+    long getLong(int col) throws PalantirSqlException {
+        return getLong(col, 0);
+    }
 ```
 
 ### DeprecatedIsStillUsed
@@ -20492,15 +20480,39 @@ in `commons-db/src/main/java/com/palantir/nexus/db/sql/AbstractAgnosticResultRow
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'getLong' is still used
+Deprecated member 'getBlob' is still used
 in `commons-db/src/main/java/com/palantir/nexus/db/sql/AbstractAgnosticResultRow.java`
 #### Snippet
 ```java
+    @Override
     @Deprecated
-    // use the get by colname variant instead
-    long getLong(int col) throws PalantirSqlException {
-        return getLong(col, 0);
-    }
+    public abstract byte[] getBlob(int col, int blobLength) throws PalantirSqlException;
+
+    @Override
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getDouble' is still used
+in `commons-db/src/main/java/com/palantir/nexus/db/sql/AbstractAgnosticResultRow.java`
+#### Snippet
+```java
+
+    @Deprecated // use the get by colname variant instead
+    protected abstract double getDouble(int col) throws PalantirSqlException;
+
+    @Override
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getLongObject' is still used
+in `commons-db/src/main/java/com/palantir/nexus/db/sql/AbstractAgnosticResultRow.java`
+#### Snippet
+```java
+
+    @Deprecated // use the get by colname variant instead
+    protected abstract Long getLongObject(int col) throws PalantirSqlException;
+
+    @Override
 ```
 
 ### DeprecatedIsStillUsed
@@ -20528,18 +20540,6 @@ in `commons-db/src/main/java/com/palantir/nexus/db/sql/AgnosticLightResultRowImp
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'registerOrGetMeter' is still used
-in `atlasdb-api/src/main/java/com/palantir/atlasdb/util/MetricsManager.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public Meter registerOrGetMeter(Class<?> clazz, String metricPrefix, String meterName) {
-        return registerOrGetTaggedMeter(clazz, MetricRegistry.name(metricPrefix, meterName), Map.of());
-    }
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'fromInternalTableName' is still used
 in `atlasdb-api/src/main/java/com/palantir/atlasdb/keyvalue/api/TableReference.java`
 #### Snippet
@@ -20549,6 +20549,42 @@ in `atlasdb-api/src/main/java/com/palantir/atlasdb/keyvalue/api/TableReference.j
     public static TableReference fromInternalTableName(String tableName) {
         if (tableName.startsWith("_")) {
             return createWithEmptyNamespace(tableName);
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'cellBatchSize' is still used
+in `atlasdb-cli/src/main/java/com/palantir/atlasdb/cli/command/SweepCommand.java`
+#### Snippet
+```java
+            name = {"--cell-batch-size"},
+            description = "Sweeper cell batch size. This option has been deprecated " + "in favor of --read-limit")
+    Integer cellBatchSize;
+
+    @Option(
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'batchSize' is still used
+in `atlasdb-cli/src/main/java/com/palantir/atlasdb/cli/command/SweepCommand.java`
+#### Snippet
+```java
+            description =
+                    "Sweeper row batch size. This option has been deprecated " + "in favor of --candidate-batch-hint")
+    Integer batchSize;
+
+    /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'registerOrGetMeter' is still used
+in `atlasdb-api/src/main/java/com/palantir/atlasdb/util/MetricsManager.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public Meter registerOrGetMeter(Class<?> clazz, String metricPrefix, String meterName) {
+        return registerOrGetTaggedMeter(clazz, MetricRegistry.name(metricPrefix, meterName), Map.of());
+    }
 ```
 
 ### DeprecatedIsStillUsed
@@ -20585,30 +20621,6 @@ in `atlasdb-api/src/main/java/com/palantir/atlasdb/transaction/api/TransactionMa
     default <T, E extends Exception> T runTaskWithLocksWithRetry(
             com.google.common.base.Supplier<LockRequest> guavaSupplier, LockAwareTransactionTask<T, E> task)
             throws E, InterruptedException, LockAcquisitionException {
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'cellBatchSize' is still used
-in `atlasdb-cli/src/main/java/com/palantir/atlasdb/cli/command/SweepCommand.java`
-#### Snippet
-```java
-            name = {"--cell-batch-size"},
-            description = "Sweeper cell batch size. This option has been deprecated " + "in favor of --read-limit")
-    Integer cellBatchSize;
-
-    @Option(
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'batchSize' is still used
-in `atlasdb-cli/src/main/java/com/palantir/atlasdb/cli/command/SweepCommand.java`
-#### Snippet
-```java
-            description =
-                    "Sweeper row batch size. This option has been deprecated " + "in favor of --candidate-batch-hint")
-    Integer batchSize;
-
-    /**
 ```
 
 ### DeprecatedIsStillUsed
@@ -20678,7 +20690,7 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/FullQue
 ```java
      */
     @Deprecated
-    public FullQuery withArgs(Object arg1, Object arg2, Object arg3) {
+    public FullQuery withArgs(Object arg1, Object arg2) {
         this.args.add(arg1);
         this.args.add(arg2);
 ```
@@ -20702,9 +20714,21 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/FullQue
 ```java
      */
     @Deprecated
-    public FullQuery withArgs(Object arg1, Object arg2) {
+    public FullQuery withArgs(Object arg1, Object arg2, Object arg3) {
         this.args.add(arg1);
         this.args.add(arg2);
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'forPersister' is still used
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/ColumnValueDescription.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static ColumnValueDescription forPersister(Class<? extends Persister<?>> clazz) {
+        return forPersister(clazz, Compression.NONE);
+    }
 ```
 
 ### DeprecatedIsStillUsed
@@ -20726,33 +20750,9 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/ColumnVa
 ```java
      */
     @Deprecated
-    public static ColumnValueDescription forPersister(Class<? extends Persister<?>> clazz) {
-        return forPersister(clazz, Compression.NONE);
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'forPersister' is still used
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/ColumnValueDescription.java`
-#### Snippet
-```java
-     */
-    @Deprecated
     public static ColumnValueDescription forPersister(Class<? extends Persister<?>> clazz, Compression compression) {
         return new ColumnValueDescription(
                 Format.PERSISTER, clazz.getName(), clazz.getCanonicalName(), compression, null);
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'loadStream' is still used
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/stream/GenericStreamStore.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    InputStream loadStream(Transaction tx, ID id);
-
-    /**
 ```
 
 ### DeprecatedIsStillUsed
@@ -20768,25 +20768,13 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/schema/stream/StreamStoreD
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'getSweepDeleteBatchHint' is still used
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/config/AtlasDbConfig.java`
+Deprecated member 'loadStream' is still used
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/stream/GenericStreamStore.java`
 #### Snippet
 ```java
+     */
     @Deprecated
-    @Nullable
-    public abstract Integer getSweepDeleteBatchHint();
-
-    /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getSweepReadLimit' is still used
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/config/AtlasDbConfig.java`
-#### Snippet
-```java
-    @Deprecated
-    @Nullable
-    public abstract Integer getSweepReadLimit();
+    InputStream loadStream(Transaction tx, ID id);
 
     /**
 ```
@@ -20804,13 +20792,13 @@ in `atlasdb-config/src/main/java/com/palantir/atlasdb/config/AtlasDbConfig.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'getSweepCellBatchSize' is still used
+Deprecated member 'getSweepDeleteBatchHint' is still used
 in `atlasdb-config/src/main/java/com/palantir/atlasdb/config/AtlasDbConfig.java`
 #### Snippet
 ```java
     @Deprecated
     @Nullable
-    public abstract Integer getSweepCellBatchSize();
+    public abstract Integer getSweepDeleteBatchHint();
 
     /**
 ```
@@ -20823,6 +20811,30 @@ in `atlasdb-config/src/main/java/com/palantir/atlasdb/config/AtlasDbConfig.java`
     @Deprecated
     @Nullable
     public abstract Integer getSweepBatchSize();
+
+    /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getSweepReadLimit' is still used
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/config/AtlasDbConfig.java`
+#### Snippet
+```java
+    @Deprecated
+    @Nullable
+    public abstract Integer getSweepReadLimit();
+
+    /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getSweepCellBatchSize' is still used
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/config/AtlasDbConfig.java`
+#### Snippet
+```java
+    @Deprecated
+    @Nullable
+    public abstract Integer getSweepCellBatchSize();
 
     /**
 ```
@@ -20882,18 +20894,6 @@ in `atlasdb-commons/src/main/java/com/palantir/util/MutuallyExclusiveSetLock.jav
 ```java
      */
     @Deprecated
-    public MutuallyExclusiveSetLock(boolean fair, Comparator<? super T> comparator) {
-        this.fair = fair;
-        this.comparator = comparator;
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'MutuallyExclusiveSetLock' is still used
-in `atlasdb-commons/src/main/java/com/palantir/util/MutuallyExclusiveSetLock.java`
-#### Snippet
-```java
-     */
-    @Deprecated
     public MutuallyExclusiveSetLock() {
         this(false);
     }
@@ -20912,6 +20912,18 @@ in `atlasdb-commons/src/main/java/com/palantir/util/MutuallyExclusiveSetLock.jav
 ```
 
 ### DeprecatedIsStillUsed
+Deprecated member 'MutuallyExclusiveSetLock' is still used
+in `atlasdb-commons/src/main/java/com/palantir/util/MutuallyExclusiveSetLock.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public MutuallyExclusiveSetLock(boolean fair, Comparator<? super T> comparator) {
+        this.fair = fair;
+        this.comparator = comparator;
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'registerForCleanup' is still used
 in `atlasdb-commons/src/main/java/com/palantir/util/SoftCache.java`
 #### Snippet
@@ -20921,6 +20933,30 @@ in `atlasdb-commons/src/main/java/com/palantir/util/SoftCache.java`
     private static void registerForCleanup(SoftCache<?, ?> cache) {
         cacheQueue.add(new WeakReference<SoftCache<?, ?>>(cache));
     }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'LockDiagnosticConjureTimelockService' is still used
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/debug/LockDiagnosticConjureTimelockService.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public class LockDiagnosticConjureTimelockService implements ConjureTimelockService {
+    private final ConjureTimelockService conjureDelegate;
+    private final ClientLockDiagnosticCollector lockDiagnosticCollector;
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'LockDiagnosticComponents' is still used
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/debug/LockDiagnosticComponents.java`
+#### Snippet
+```java
+@Deprecated
+@Value.Immutable
+public interface LockDiagnosticComponents {
+    ClientLockDiagnosticCollector clientLockDiagnosticCollector();
+
 ```
 
 ### DeprecatedIsStillUsed
@@ -20957,30 +20993,6 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/debug/LockDiagnosticC
 public interface LockDiagnosticConfig {
 
     @JsonProperty("maximum-size")
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'LockDiagnosticConjureTimelockService' is still used
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/debug/LockDiagnosticConjureTimelockService.java`
-#### Snippet
-```java
- */
-@Deprecated
-public class LockDiagnosticConjureTimelockService implements ConjureTimelockService {
-    private final ConjureTimelockService conjureDelegate;
-    private final ClientLockDiagnosticCollector lockDiagnosticCollector;
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'LockDiagnosticComponents' is still used
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/debug/LockDiagnosticComponents.java`
-#### Snippet
-```java
-@Deprecated
-@Value.Immutable
-public interface LockDiagnosticComponents {
-    ClientLockDiagnosticCollector clientLockDiagnosticCollector();
-
 ```
 
 ## RuleId[id=RedundantComparatorComparing]
@@ -22647,10 +22659,10 @@ in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/paxos/LocalPaxosCo
 #### Snippet
 ```java
                 .resolve(client.value());
-        Path learnerLogDir = Paths.get(legacyDir.toString(), PaxosTimeLockConstants.LEARNER_SUBDIRECTORY_PATH);
-        String learnerUseCase = String.format("%s!learner", paxosUseCase.toString());
+        Path acceptorLogDir = Paths.get(legacyDir.toString(), PaxosTimeLockConstants.ACCEPTOR_SUBDIRECTORY_PATH);
+        String acceptorUseCase = String.format("%s!acceptor", paxosUseCase.toString());
         return ImmutablePaxosStorageParameters.builder()
-                .fileBasedLogDirectory(learnerLogDir.toString())
+                .fileBasedLogDirectory(acceptorLogDir.toString())
 ```
 
 ### UnnecessaryToStringCall
@@ -22659,10 +22671,10 @@ in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/paxos/LocalPaxosCo
 #### Snippet
 ```java
                 .resolve(client.value());
-        Path acceptorLogDir = Paths.get(legacyDir.toString(), PaxosTimeLockConstants.ACCEPTOR_SUBDIRECTORY_PATH);
-        String acceptorUseCase = String.format("%s!acceptor", paxosUseCase.toString());
+        Path learnerLogDir = Paths.get(legacyDir.toString(), PaxosTimeLockConstants.LEARNER_SUBDIRECTORY_PATH);
+        String learnerUseCase = String.format("%s!learner", paxosUseCase.toString());
         return ImmutablePaxosStorageParameters.builder()
-                .fileBasedLogDirectory(acceptorLogDir.toString())
+                .fileBasedLogDirectory(learnerLogDir.toString())
 ```
 
 ### UnnecessaryToStringCall
@@ -22964,18 +22976,6 @@ in `commons-db/src/main/java/com/palantir/nexus/db/sql/ExceptionCheck.java`
 #### Snippet
 ```java
      */
-    public static boolean isForeignKeyConstraintViolation(Throwable e) {
-        if (throwableContainsMessage(
-                        e,
-                        "ORA-02291") // Oracle "ORA-02291: integrity constraint <constraint name> violated - parent key
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `commons-db/src/main/java/com/palantir/nexus/db/sql/ExceptionCheck.java`
-#### Snippet
-```java
-     */
     public static boolean isUniqueConstraintViolation(Throwable e) {
         if (throwableContainsMessage(e, "ORA-00001") // Oracle "ORA-00001: unique constraint <constraint name> violated"
                 || throwableContainsMessage(
@@ -22996,11 +22996,23 @@ in `commons-db/src/main/java/com/palantir/nexus/db/sql/ExceptionCheck.java`
 
 ### TrivialIf
 `if` statement can be simplified
+in `commons-db/src/main/java/com/palantir/nexus/db/sql/ExceptionCheck.java`
+#### Snippet
+```java
+     */
+    public static boolean isForeignKeyConstraintViolation(Throwable e) {
+        if (throwableContainsMessage(
+                        e,
+                        "ORA-02291") // Oracle "ORA-02291: integrity constraint <constraint name> violated - parent key
+```
+
+### TrivialIf
+`if` statement can be simplified
 in `commons-db/src/main/java/com/palantir/nexus/db/sql/BasicSQLUtils.java`
 #### Snippet
 ```java
-    public static boolean getBoolean(AgnosticResultRow row, String colName) throws PalantirSqlException {
-        long ret = row.getLong(colName);
+            return null;
+        }
         if (ret == 0) {
             return false;
         }
@@ -23011,8 +23023,8 @@ in `commons-db/src/main/java/com/palantir/nexus/db/sql/BasicSQLUtils.java`
 in `commons-db/src/main/java/com/palantir/nexus/db/sql/BasicSQLUtils.java`
 #### Snippet
 ```java
-            return null;
-        }
+    public static boolean getBoolean(AgnosticResultRow row, String colName) throws PalantirSqlException {
+        long ret = row.getLong(colName);
         if (ret == 0) {
             return false;
         }
@@ -23116,18 +23128,6 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/ColumnMe
 
 ### TrivialIf
 `if` statement can be simplified
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/UniformRowNamePartitioner.java`
-#### Snippet
-```java
-        }
-        UniformRowNamePartitioner other = (UniformRowNamePartitioner) obj;
-        if (valueType != other.valueType) {
-            return false;
-        }
-```
-
-### TrivialIf
-`if` statement can be simplified
 in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/DynamicColumnDescription.java`
 #### Snippet
 ```java
@@ -23152,6 +23152,30 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/DynamicC
 
 ### TrivialIf
 `if` statement can be simplified
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/UniformRowNamePartitioner.java`
+#### Snippet
+```java
+        }
+        UniformRowNamePartitioner other = (UniformRowNamePartitioner) obj;
+        if (valueType != other.valueType) {
+            return false;
+        }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/ExplicitRowNamePartitioner.java`
+#### Snippet
+```java
+                return false;
+            }
+            if (!Arrays.equals(prefix, other.prefix)) {
+                return false;
+            }
+```
+
+### TrivialIf
+`if` statement can be simplified
 in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/ExplicitRowNamePartitioner.java`
 #### Snippet
 ```java
@@ -23172,18 +23196,6 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/Explicit
         } else if (!values.equals(other.values)) {
             return false;
         }
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/ExplicitRowNamePartitioner.java`
-#### Snippet
-```java
-                return false;
-            }
-            if (!Arrays.equals(prefix, other.prefix)) {
-                return false;
-            }
 ```
 
 ### TrivialIf
@@ -23284,18 +23296,6 @@ in `atlasdb-commons/src/main/java/com/palantir/util/Pair.java`
 
 ### TrivialIf
 `if` statement can be simplified
-in `atlasdb-commons/src/main/java/com/palantir/util/paging/SimpleResultsPage.java`
-#### Snippet
-```java
-            return false;
-        }
-        if (moreAvailable != other.moreAvailable) {
-            return false;
-        }
-```
-
-### TrivialIf
-`if` statement can be simplified
 in `atlasdb-commons/src/main/java/com/palantir/util/paging/SimpleTokenBackedResultsPage.java`
 #### Snippet
 ```java
@@ -23314,6 +23314,18 @@ in `atlasdb-commons/src/main/java/com/palantir/util/paging/SimpleTokenBackedResu
                 return false;
             }
         } else if (!tokenForNextPage.equals(other.tokenForNextPage)) {
+            return false;
+        }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `atlasdb-commons/src/main/java/com/palantir/util/paging/SimpleResultsPage.java`
+#### Snippet
+```java
+            return false;
+        }
+        if (moreAvailable != other.moreAvailable) {
             return false;
         }
 ```
@@ -23443,9 +23455,9 @@ in `lock-api-objects/src/main/java/com/palantir/lock/LockCollection.java`
 in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/ColumnFamilyDefinitions.java`
 #### Snippet
 ```java
-
-        // consider null and empty map equivalent
-        if ((client == null && cluster.isEmpty()) || (cluster == null && client.isEmpty())) {
+            return false;
+        }
+        if (getLastElementOfClasspath(class1).equals(getLastElementOfClasspath(class2))) {
             return true;
         }
 ```
@@ -23455,9 +23467,9 @@ in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/Colu
 in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/ColumnFamilyDefinitions.java`
 #### Snippet
 ```java
-            return false;
-        }
-        if (getLastElementOfClasspath(class1).equals(getLastElementOfClasspath(class2))) {
+
+        // consider null and empty map equivalent
+        if ((client == null && cluster.isEmpty()) || (cluster == null && client.isEmpty())) {
             return true;
         }
 ```
@@ -23656,18 +23668,6 @@ in `lock-api/src/main/java/com/palantir/lock/watch/NoOpLockWatchEventCache.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'maybeRequestBatchers'
-in `lock-api/src/main/java/com/palantir/lock/client/RequestBatchersFactory.java`
-#### Snippet
-```java
-
-    private RequestBatchersFactory(
-            LockWatchCache cache, Namespace namespace, Optional<MultiClientRequestBatchers> maybeRequestBatchers) {
-        this.cache = cache;
-        this.namespace = namespace;
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'maybeRequestBatchers'
 in `lock-api/src/main/java/com/palantir/lock/client/RequestBatchersFactory.java`
 #### Snippet
@@ -23692,15 +23692,15 @@ in `lock-api/src/main/java/com/palantir/lock/client/RequestBatchersFactory.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'failure'
-in `lock-api/src/main/java/com/palantir/lock/client/ProfilingTimelockService.java`
+`Optional` used as type for parameter 'maybeRequestBatchers'
+in `lock-api/src/main/java/com/palantir/lock/client/RequestBatchersFactory.java`
 #### Snippet
 ```java
-    }
 
-    private void accumulateSlowOperationTracking(String actionName, Stopwatch stopwatch, Optional<Exception> failure) {
-        if (stopwatchDescribesSlowOperation(stopwatch)) {
-            slowestOperation.accumulateAndGet(
+    private RequestBatchersFactory(
+            LockWatchCache cache, Namespace namespace, Optional<MultiClientRequestBatchers> maybeRequestBatchers) {
+        this.cache = cache;
+        this.namespace = namespace;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -23713,6 +23713,18 @@ in `lock-api/src/main/java/com/palantir/lock/client/ProfilingTimelockService.jav
     private void trackActionAndMaybeLog(String actionName, Stopwatch stopwatch, Optional<Exception> failure) {
         stopwatch.stop();
         accumulateSlowOperationTracking(actionName, stopwatch, failure);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'failure'
+in `lock-api/src/main/java/com/palantir/lock/client/ProfilingTimelockService.java`
+#### Snippet
+```java
+    }
+
+    private void accumulateSlowOperationTracking(String actionName, Stopwatch stopwatch, Optional<Exception> failure) {
+        if (stopwatchDescribesSlowOperation(stopwatch)) {
+            slowestOperation.accumulateAndGet(
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -23800,6 +23812,18 @@ in `lock-api/src/main/java/com/palantir/lock/client/metrics/TimeLockFeedbackBack
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'tableReferenceOverride'
+in `atlasdb-api/src/main/java/com/palantir/atlasdb/spi/AtlasDbFactory.java`
+#### Snippet
+```java
+
+    default TimestampStoreInvalidator createTimestampStoreInvalidator(
+            KeyValueService rawKvs, Optional<TableReference> tableReferenceOverride) {
+        return () -> {
+            log.warn(
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'runtimeConfigSnapshot'
 in `atlasdb-api/src/main/java/com/palantir/atlasdb/spi/AtlasDbFactory.java`
 #### Snippet
@@ -23841,34 +23865,10 @@ in `atlasdb-api/src/main/java/com/palantir/atlasdb/spi/AtlasDbFactory.java`
 #### Snippet
 ```java
 
-    default TimestampStoreInvalidator createTimestampStoreInvalidator(
-            KeyValueService rawKvs, Optional<TableReference> tableReferenceOverride) {
-        return () -> {
-            log.warn(
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'tableReferenceOverride'
-in `atlasdb-api/src/main/java/com/palantir/atlasdb/spi/AtlasDbFactory.java`
-#### Snippet
-```java
-
     ManagedTimestampService createManagedTimestampService(
             KeyValueService rawKvs, Optional<TableReference> tableReferenceOverride, boolean initializeAsync);
 
     default TimestampStoreInvalidator createTimestampStoreInvalidator(
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'error'
-in `commons-db/src/main/java/com/palantir/nexus/db/pool/RetriableTransactions.java`
-#### Snippet
-```java
-        private final TransactionStatus status;
-        private final @Nullable T resultValue;
-        private final Optional<Throwable> error;
-
-        private TransactionResult(TransactionStatus status, @Nullable T resultValue, Optional<Throwable> error) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -23884,6 +23884,18 @@ in `commons-db/src/main/java/com/palantir/nexus/db/pool/RetriableTransactions.ja
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'error'
+in `commons-db/src/main/java/com/palantir/nexus/db/pool/RetriableTransactions.java`
+#### Snippet
+```java
+        private final TransactionStatus status;
+        private final @Nullable T resultValue;
+        private final Optional<Throwable> error;
+
+        private TransactionResult(TransactionStatus status, @Nullable T resultValue, Optional<Throwable> error) {
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'oldValue'
 in `atlasdb-api/src/main/java/com/palantir/atlasdb/keyvalue/api/CheckAndSetRequest.java`
 #### Snippet
@@ -23892,6 +23904,18 @@ in `atlasdb-api/src/main/java/com/palantir/atlasdb/keyvalue/api/CheckAndSetReque
     public static class Builder extends ImmutableCheckAndSetRequest.Builder {
         public Builder oldValue(Optional<byte[]> oldValue) {
             return this.oldValueNullable(oldValue.orElse(null));
+        }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'previousStartRow'
+in `atlasdb-api/src/main/java/com/palantir/atlasdb/keyvalue/api/SweepResults.java`
+#### Snippet
+```java
+
+    public static class Builder extends ImmutableSweepResults.Builder {
+        public Builder previousStartRow(Optional<byte[]> previousStartRow) {
+            return this.previousStartRowNullable(previousStartRow.orElse(null));
         }
 ```
 
@@ -23944,30 +23968,6 @@ in `atlasdb-api/src/main/java/com/palantir/atlasdb/keyvalue/api/SweepResults.jav
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'previousStartRow'
-in `atlasdb-api/src/main/java/com/palantir/atlasdb/keyvalue/api/SweepResults.java`
-#### Snippet
-```java
-
-    public static class Builder extends ImmutableSweepResults.Builder {
-        public Builder previousStartRow(Optional<byte[]> previousStartRow) {
-            return this.previousStartRowNullable(previousStartRow.orElse(null));
-        }
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'version'
-in `atlasdb-api/src/main/java/com/palantir/atlasdb/keyvalue/api/watch/LockWatchManager.java`
-#### Snippet
-```java
-     */
-    abstract TransactionsLockWatchUpdate getUpdateForTransactions(
-            Set<Long> startTimestamps, Optional<LockWatchVersion> version);
-}
-
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'value'
 in `atlasdb-api/src/main/java/com/palantir/atlasdb/keyvalue/api/cache/CacheValue.java`
 #### Snippet
@@ -23992,15 +23992,15 @@ in `atlasdb-api/src/main/java/com/palantir/atlasdb/keyvalue/api/cache/CacheValue
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'rowBytes'
-in `atlasdb-cli/src/main/java/com/palantir/atlasdb/cli/command/SweepCommand.java`
+`Optional` used as type for parameter 'version'
+in `atlasdb-api/src/main/java/com/palantir/atlasdb/keyvalue/api/watch/LockWatchManager.java`
 #### Snippet
 ```java
-    }
+     */
+    abstract TransactionsLockWatchUpdate getUpdateForTransactions(
+            Set<Long> startTimestamps, Optional<LockWatchVersion> version);
+}
 
-    private String encodeEndRow(Optional<byte[]> rowBytes) {
-        if (rowBytes.isPresent() && !Arrays.equals(rowBytes.get(), FIRST_ROW)) {
-            return BaseEncoding.base16().encode(rowBytes.get());
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -24016,6 +24016,18 @@ in `atlasdb-cli/src/main/java/com/palantir/atlasdb/cli/command/SweepCommand.java
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'rowBytes'
+in `atlasdb-cli/src/main/java/com/palantir/atlasdb/cli/command/SweepCommand.java`
+#### Snippet
+```java
+    }
+
+    private String encodeEndRow(Optional<byte[]> rowBytes) {
+        if (rowBytes.isPresent() && !Arrays.equals(rowBytes.get(), FIRST_ROW)) {
+            return BaseEncoding.base16().encode(rowBytes.get());
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'uriSuffix'
 in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/PerformanceResults.java`
 #### Snippet
@@ -24028,18 +24040,6 @@ in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/PerformanceResul
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'tableReference'
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/DbAtlasDbFactory.java`
-#### Snippet
-```java
-
-    private TimestampStoreInvalidator timestampStoreInvalidator(
-            ConnectionManagerAwareDbKvs dbKvs, Optional<TableReference> tableReference) {
-        return tableReference
-                .map(ref -> DbTimestampStoreInvalidator.create(dbKvs, ref, EMPTY_TABLE_PREFIX))
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'tableRef'
 in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/DbAtlasDbFactory.java`
 #### Snippet
@@ -24049,6 +24049,18 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/DbAtlasDbFac
             Optional<TableReference> tableRef, ConnectionManagerAwareDbKvs dbkvs, boolean initializeAsync) {
         // Not using the table prefix here, as the tableRef should contain any necessary prefix.
         return tableRef.map(reference ->
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'tableReference'
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/DbAtlasDbFactory.java`
+#### Snippet
+```java
+
+    private TimestampStoreInvalidator timestampStoreInvalidator(
+            ConnectionManagerAwareDbKvs dbKvs, Optional<TableReference> tableReference) {
+        return tableReference
+                .map(ref -> DbTimestampStoreInvalidator.create(dbKvs, ref, EMPTY_TABLE_PREFIX))
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -24112,18 +24124,6 @@ in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/LockLog.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'lastKnownVersion'
-in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/watch/LockEventLog.java`
-#### Snippet
-```java
-    LockWatchStateUpdate getLogDiff(Optional<LockWatchVersion> fromVersion);
-
-    <T> ValueAndLockWatchStateUpdate<T> runTask(Optional<LockWatchVersion> lastKnownVersion, Supplier<T> task);
-
-    void logLock(Set<LockDescriptor> locksTakenOut, LockToken lockToken);
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'fromVersion'
 in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/watch/LockEventLog.java`
 #### Snippet
@@ -24137,14 +24137,14 @@ public interface LockEventLog {
 
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'lastKnownVersion'
-in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/watch/LockWatchingService.java`
+in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/watch/LockEventLog.java`
 #### Snippet
 ```java
-
-public interface LockWatchingService extends LockWatchStarter {
-    LockWatchStateUpdate getWatchStateUpdate(Optional<LockWatchVersion> lastKnownVersion);
+    LockWatchStateUpdate getLogDiff(Optional<LockWatchVersion> fromVersion);
 
     <T> ValueAndLockWatchStateUpdate<T> runTask(Optional<LockWatchVersion> lastKnownVersion, Supplier<T> task);
+
+    void logLock(Set<LockDescriptor> locksTakenOut, LockToken lockToken);
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -24160,6 +24160,18 @@ in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/watch/LockWat
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'lastKnownVersion'
+in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/watch/LockWatchingService.java`
+#### Snippet
+```java
+
+public interface LockWatchingService extends LockWatchStarter {
+    LockWatchStateUpdate getWatchStateUpdate(Optional<LockWatchVersion> lastKnownVersion);
+
+    <T> ValueAndLockWatchStateUpdate<T> runTask(Optional<LockWatchVersion> lastKnownVersion, Supplier<T> task);
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'fromVersion'
 in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/watch/LockEventLogImpl.java`
 #### Snippet
@@ -24172,18 +24184,6 @@ in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/watch/LockEve
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'cacheKey'
-in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/paxos/BatchPaxosAcceptor.java`
-#### Snippet
-```java
-     * @return digest containing next cacheKey and updates since provided {@code cacheKey}
-     */
-    AcceptorCacheDigest latestSequencesPreparedOrAccepted(Optional<AcceptorCacheKey> cacheKey, Set<Client> clients)
-            throws InvalidAcceptorCacheKeyException;
-
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'sharedResourcesConfig'
 in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/DbKvs.java`
 #### Snippet
@@ -24193,6 +24193,18 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/DbKvs.j
             Optional<SharedResourcesConfig> sharedResourcesConfig) {
         ExecutorService executor = SharedFixedExecutors.createOrGetShared(
                 "Atlas Relational KVS",
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'cacheKey'
+in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/paxos/BatchPaxosAcceptor.java`
+#### Snippet
+```java
+     * @return digest containing next cacheKey and updates since provided {@code cacheKey}
+     */
+    AcceptorCacheDigest latestSequencesPreparedOrAccepted(Optional<AcceptorCacheKey> cacheKey, Set<Client> clients)
+            throws InvalidAcceptorCacheKeyException;
+
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -24220,18 +24232,6 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/util/TaggedMetricsInvocati
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'sweeperStrategy'
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/SweepStrategy.java`
-#### Snippet
-```java
-    public static final SweepStrategy THOROUGH = new SweepStrategy(Optional.of(SweeperStrategy.THOROUGH), true);
-
-    private final Optional<SweeperStrategy> sweeperStrategy;
-    private final boolean mustCheckImmutableLockAfterReads;
-
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'sweeperStrategy'
 in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/SweepStrategy.java`
 #### Snippet
@@ -24241,6 +24241,18 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/SweepStr
     private SweepStrategy(Optional<SweeperStrategy> sweeperStrategy, boolean mustCheckImmutableLockAfterReads) {
         this.sweeperStrategy = sweeperStrategy;
         this.mustCheckImmutableLockAfterReads = mustCheckImmutableLockAfterReads;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'sweeperStrategy'
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/SweepStrategy.java`
+#### Snippet
+```java
+    public static final SweepStrategy THOROUGH = new SweepStrategy(Optional.of(SweeperStrategy.THOROUGH), true);
+
+    private final Optional<SweeperStrategy> sweeperStrategy;
+    private final boolean mustCheckImmutableLockAfterReads;
+
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -24316,50 +24328,38 @@ in `atlasdb-config/src/main/java/com/palantir/atlasdb/http/AtlasDbHttpClients.ja
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'timelockLockInfo'
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/debug/TransactionPostMortemRunner.java`
-#### Snippet
-```java
-            long startTimestamp,
-            WritesDigest<T> writesDigest,
-            Optional<LockDiagnosticInfo> timelockLockInfo,
-            ClientLockDiagnosticDigest clientLockDigest) {
-        Map<UUID, Set<ConjureLockDescriptor>> lockRequests = ImmutableMap.<UUID, Set<ConjureLockDescriptor>>builder()
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for parameter 'maybeLockStates'
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/debug/TransactionPostMortemRunner.java`
-#### Snippet
-```java
-
-    private static LockDigest lockDigest(
-            Set<ConjureLockDescriptor> lockDescriptors, Optional<Map<LockState, Instant>> maybeLockStates) {
-        Map<LockState, Instant> lockStates =
-                maybeLockStates.orElseGet(() -> ImmutableMap.of(LockState.NOT_PRESENT_ON_TIMELOCK, Instant.EPOCH));
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'primary'
+`Optional` used as type for parameter 'sslConfiguration'
 in `atlasdb-config/src/main/java/com/palantir/atlasdb/config/AtlasDbConfigs.java`
 #### Snippet
 ```java
 
-    // this behavior mimics guava's "public abstract Optional<T> or(Optional<? extends T> secondChoice)" method
-    private static <T> Optional<T> getFirstPresentOptional(Optional<T> primary, Optional<T> secondary) {
-        return primary.isPresent() ? primary : secondary;
+    public static AtlasDbConfig addFallbackSslConfigurationToAtlasDbConfig(
+            AtlasDbConfig config, Optional<SslConfiguration> sslConfiguration) {
+        return ImmutableAtlasDbConfig.builder()
+                .from(config)
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'config'
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/config/AtlasDbConfigs.java`
+#### Snippet
+```java
+
+    private static Optional<ServerListConfig> addFallbackSslConfigurationToServerList(
+            Optional<ServerListConfig> config, Optional<SslConfiguration> sslConfiguration) {
+        return config.map(addSslConfigurationToServerListFunction(sslConfiguration));
     }
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'secondary'
+`Optional` used as type for parameter 'sslConfiguration'
 in `atlasdb-config/src/main/java/com/palantir/atlasdb/config/AtlasDbConfigs.java`
 #### Snippet
 ```java
 
-    // this behavior mimics guava's "public abstract Optional<T> or(Optional<? extends T> secondChoice)" method
-    private static <T> Optional<T> getFirstPresentOptional(Optional<T> primary, Optional<T> secondary) {
-        return primary.isPresent() ? primary : secondary;
+    private static Optional<ServerListConfig> addFallbackSslConfigurationToServerList(
+            Optional<ServerListConfig> config, Optional<SslConfiguration> sslConfiguration) {
+        return config.map(addSslConfigurationToServerListFunction(sslConfiguration));
     }
 ```
 
@@ -24400,6 +24400,30 @@ in `atlasdb-config/src/main/java/com/palantir/atlasdb/config/AtlasDbConfigs.java
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'primary'
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/config/AtlasDbConfigs.java`
+#### Snippet
+```java
+
+    // this behavior mimics guava's "public abstract Optional<T> or(Optional<? extends T> secondChoice)" method
+    private static <T> Optional<T> getFirstPresentOptional(Optional<T> primary, Optional<T> secondary) {
+        return primary.isPresent() ? primary : secondary;
+    }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'secondary'
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/config/AtlasDbConfigs.java`
+#### Snippet
+```java
+
+    // this behavior mimics guava's "public abstract Optional<T> or(Optional<? extends T> secondChoice)" method
+    private static <T> Optional<T> getFirstPresentOptional(Optional<T> primary, Optional<T> secondary) {
+        return primary.isPresent() ? primary : secondary;
+    }
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'config'
 in `atlasdb-config/src/main/java/com/palantir/atlasdb/config/AtlasDbConfigs.java`
 #### Snippet
@@ -24424,39 +24448,27 @@ in `atlasdb-config/src/main/java/com/palantir/atlasdb/config/AtlasDbConfigs.java
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'config'
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/config/AtlasDbConfigs.java`
+`Optional` used as type for parameter 'timelockLockInfo'
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/debug/TransactionPostMortemRunner.java`
 #### Snippet
 ```java
-
-    private static Optional<ServerListConfig> addFallbackSslConfigurationToServerList(
-            Optional<ServerListConfig> config, Optional<SslConfiguration> sslConfiguration) {
-        return config.map(addSslConfigurationToServerListFunction(sslConfiguration));
-    }
+            long startTimestamp,
+            WritesDigest<T> writesDigest,
+            Optional<LockDiagnosticInfo> timelockLockInfo,
+            ClientLockDiagnosticDigest clientLockDigest) {
+        Map<UUID, Set<ConjureLockDescriptor>> lockRequests = ImmutableMap.<UUID, Set<ConjureLockDescriptor>>builder()
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'sslConfiguration'
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/config/AtlasDbConfigs.java`
+`Optional`> used as type for parameter 'maybeLockStates'
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/debug/TransactionPostMortemRunner.java`
 #### Snippet
 ```java
 
-    private static Optional<ServerListConfig> addFallbackSslConfigurationToServerList(
-            Optional<ServerListConfig> config, Optional<SslConfiguration> sslConfiguration) {
-        return config.map(addSslConfigurationToServerListFunction(sslConfiguration));
-    }
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'sslConfiguration'
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/config/AtlasDbConfigs.java`
-#### Snippet
-```java
-
-    public static AtlasDbConfig addFallbackSslConfigurationToAtlasDbConfig(
-            AtlasDbConfig config, Optional<SslConfiguration> sslConfiguration) {
-        return ImmutableAtlasDbConfig.builder()
-                .from(config)
+    private static LockDigest lockDigest(
+            Set<ConjureLockDescriptor> lockDescriptors, Optional<Map<LockState, Instant>> maybeLockStates) {
+        Map<LockState, Instant> lockStates =
+                maybeLockStates.orElseGet(() -> ImmutableMap.of(LockState.NOT_PRESENT_ON_TIMELOCK, Instant.EPOCH));
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -24520,27 +24532,15 @@ in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/ServiceDiscovering
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'trustContext'
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/Leaders.java`
+`Optional` used as type for parameter 'timelockRequestBatcherProviders'
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/DefaultLockAndTimestampServiceFactory.java`
 #### Snippet
 ```java
-            Set<String> remoteUris,
-            Supplier<RemotingClientConfig> remotingClientConfig,
-            Optional<TrustContext> trustContext,
-            Class<T> clazz,
-            UserAgent userAgent) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'trustContext'
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/Leaders.java`
-#### Snippet
-```java
-            Collection<String> remoteEndpoints,
-            Supplier<RemotingClientConfig> remotingClientConfig,
-            Optional<TrustContext> trustContext,
-            UserAgent userAgent) {
-        return KeyedStream.of(remoteEndpoints)
+    private static LockTokenUnlocker getTimeLockUnlocker(
+            String timelockNamespace,
+            Optional<TimeLockRequestBatcherProviders> timelockRequestBatcherProviders,
+            NamespacedConjureTimelockService namespacedConjureTimelockService,
+            Supplier<InternalMultiClientConjureTimelockService> multiClientTimelockServiceSupplier) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -24553,6 +24553,90 @@ in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/DefaultLockAndTime
     private final Optional<TimeLockRequestBatcherProviders> timelockRequestBatcherProviders;
     private final Set<Schema> schemas;
 
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'lockDiagnosticComponents'
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/DefaultLockAndTimestampServiceFactory.java`
+#### Snippet
+```java
+            UserAgent userAgent,
+            String timelockNamespace,
+            Optional<LockDiagnosticComponents> lockDiagnosticComponents,
+            ReloadingFactory reloadingFactory,
+            Optional<TimeLockFeedbackBackgroundTask> timeLockFeedbackBackgroundTask,
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'timeLockFeedbackBackgroundTask'
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/DefaultLockAndTimestampServiceFactory.java`
+#### Snippet
+```java
+            Optional<LockDiagnosticComponents> lockDiagnosticComponents,
+            ReloadingFactory reloadingFactory,
+            Optional<TimeLockFeedbackBackgroundTask> timeLockFeedbackBackgroundTask,
+            Optional<TimeLockRequestBatcherProviders> timelockRequestBatcherProviders,
+            Set<Schema> schemas,
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'timelockRequestBatcherProviders'
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/DefaultLockAndTimestampServiceFactory.java`
+#### Snippet
+```java
+            ReloadingFactory reloadingFactory,
+            Optional<TimeLockFeedbackBackgroundTask> timeLockFeedbackBackgroundTask,
+            Optional<TimeLockRequestBatcherProviders> timelockRequestBatcherProviders,
+            Set<Schema> schemas,
+            LockWatchCachingConfig cachingConfig) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'timelockRequestBatcherProviders'
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/DefaultLockAndTimestampServiceFactory.java`
+#### Snippet
+```java
+    private static LeaderTimeGetter getLeaderTimeGetter(
+            String timelockNamespace,
+            Optional<TimeLockRequestBatcherProviders> timelockRequestBatcherProviders,
+            NamespacedConjureTimelockService namespacedConjureTimelockService,
+            Supplier<InternalMultiClientConjureTimelockService> multiClientTimelockServiceSupplier) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'lockDiagnosticComponents'
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/DefaultLockAndTimestampServiceFactory.java`
+#### Snippet
+```java
+            TimestampStoreInvalidator invalidator,
+            UserAgent userAgent,
+            Optional<LockDiagnosticComponents> lockDiagnosticComponents,
+            ReloadingFactory reloadingFactory,
+            Optional<TimeLockFeedbackBackgroundTask> timeLockFeedbackBackgroundTask,
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'timeLockFeedbackBackgroundTask'
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/DefaultLockAndTimestampServiceFactory.java`
+#### Snippet
+```java
+            Optional<LockDiagnosticComponents> lockDiagnosticComponents,
+            ReloadingFactory reloadingFactory,
+            Optional<TimeLockFeedbackBackgroundTask> timeLockFeedbackBackgroundTask,
+            Optional<TimeLockRequestBatcherProviders> timelockRequestBatcherProviders,
+            Set<Schema> schemas) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'timelockRequestBatcherProviders'
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/DefaultLockAndTimestampServiceFactory.java`
+#### Snippet
+```java
+            ReloadingFactory reloadingFactory,
+            Optional<TimeLockFeedbackBackgroundTask> timeLockFeedbackBackgroundTask,
+            Optional<TimeLockRequestBatcherProviders> timelockRequestBatcherProviders,
+            Set<Schema> schemas) {
+        this.metricsManager = metricsManager;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -24628,6 +24712,54 @@ in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/DefaultLockAndTime
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'timelockRequestBatcherProviders'
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/DefaultLockAndTimestampServiceFactory.java`
+#### Snippet
+```java
+            ReloadingFactory reloadingFactory,
+            Optional<TimeLockFeedbackBackgroundTask> timeLockFeedbackBackgroundTask,
+            Optional<TimeLockRequestBatcherProviders> timelockRequestBatcherProviders,
+            Set<Schema> knownSchemas) {
+        AtlasDbRuntimeConfig initialRuntimeConfig = runtimeConfig.get();
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'timeLockFeedbackBackgroundTask'
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/DefaultLockAndTimestampServiceFactory.java`
+#### Snippet
+```java
+    private final Optional<LockDiagnosticComponents> lockDiagnosticComponents;
+    private final ReloadingFactory reloadingFactory;
+    private final Optional<TimeLockFeedbackBackgroundTask> timeLockFeedbackBackgroundTask;
+    private final Optional<TimeLockRequestBatcherProviders> timelockRequestBatcherProviders;
+    private final Set<Schema> schemas;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'trustContext'
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/Leaders.java`
+#### Snippet
+```java
+            Collection<String> remoteEndpoints,
+            Supplier<RemotingClientConfig> remotingClientConfig,
+            Optional<TrustContext> trustContext,
+            UserAgent userAgent) {
+        return KeyedStream.of(remoteEndpoints)
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'trustContext'
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/Leaders.java`
+#### Snippet
+```java
+            Set<String> remoteUris,
+            Supplier<RemotingClientConfig> remotingClientConfig,
+            Optional<TrustContext> trustContext,
+            Class<T> clazz,
+            UserAgent userAgent) {
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'immutableTs'
 in `atlasdb-dagger/src/main/java/com/palantir/atlasdb/services/test/TestSweeperModule.java`
 #### Snippet
@@ -24673,126 +24805,6 @@ in `atlasdb-dagger/src/main/java/com/palantir/atlasdb/services/test/TestSweeperM
     private TestSweeperModule(Optional<LongSupplier> unreadableTs, Optional<LongSupplier> immutableTs) {
         this.unreadableTs = unreadableTs;
         this.immutableTs = immutableTs;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'timelockRequestBatcherProviders'
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/DefaultLockAndTimestampServiceFactory.java`
-#### Snippet
-```java
-            ReloadingFactory reloadingFactory,
-            Optional<TimeLockFeedbackBackgroundTask> timeLockFeedbackBackgroundTask,
-            Optional<TimeLockRequestBatcherProviders> timelockRequestBatcherProviders,
-            Set<Schema> knownSchemas) {
-        AtlasDbRuntimeConfig initialRuntimeConfig = runtimeConfig.get();
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'timelockRequestBatcherProviders'
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/DefaultLockAndTimestampServiceFactory.java`
-#### Snippet
-```java
-    private static LeaderTimeGetter getLeaderTimeGetter(
-            String timelockNamespace,
-            Optional<TimeLockRequestBatcherProviders> timelockRequestBatcherProviders,
-            NamespacedConjureTimelockService namespacedConjureTimelockService,
-            Supplier<InternalMultiClientConjureTimelockService> multiClientTimelockServiceSupplier) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'timelockRequestBatcherProviders'
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/DefaultLockAndTimestampServiceFactory.java`
-#### Snippet
-```java
-    private static LockTokenUnlocker getTimeLockUnlocker(
-            String timelockNamespace,
-            Optional<TimeLockRequestBatcherProviders> timelockRequestBatcherProviders,
-            NamespacedConjureTimelockService namespacedConjureTimelockService,
-            Supplier<InternalMultiClientConjureTimelockService> multiClientTimelockServiceSupplier) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'lockDiagnosticComponents'
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/DefaultLockAndTimestampServiceFactory.java`
-#### Snippet
-```java
-            TimestampStoreInvalidator invalidator,
-            UserAgent userAgent,
-            Optional<LockDiagnosticComponents> lockDiagnosticComponents,
-            ReloadingFactory reloadingFactory,
-            Optional<TimeLockFeedbackBackgroundTask> timeLockFeedbackBackgroundTask,
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'timeLockFeedbackBackgroundTask'
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/DefaultLockAndTimestampServiceFactory.java`
-#### Snippet
-```java
-            Optional<LockDiagnosticComponents> lockDiagnosticComponents,
-            ReloadingFactory reloadingFactory,
-            Optional<TimeLockFeedbackBackgroundTask> timeLockFeedbackBackgroundTask,
-            Optional<TimeLockRequestBatcherProviders> timelockRequestBatcherProviders,
-            Set<Schema> schemas) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'timelockRequestBatcherProviders'
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/DefaultLockAndTimestampServiceFactory.java`
-#### Snippet
-```java
-            ReloadingFactory reloadingFactory,
-            Optional<TimeLockFeedbackBackgroundTask> timeLockFeedbackBackgroundTask,
-            Optional<TimeLockRequestBatcherProviders> timelockRequestBatcherProviders,
-            Set<Schema> schemas) {
-        this.metricsManager = metricsManager;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'timeLockFeedbackBackgroundTask'
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/DefaultLockAndTimestampServiceFactory.java`
-#### Snippet
-```java
-    private final Optional<LockDiagnosticComponents> lockDiagnosticComponents;
-    private final ReloadingFactory reloadingFactory;
-    private final Optional<TimeLockFeedbackBackgroundTask> timeLockFeedbackBackgroundTask;
-    private final Optional<TimeLockRequestBatcherProviders> timelockRequestBatcherProviders;
-    private final Set<Schema> schemas;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'lockDiagnosticComponents'
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/DefaultLockAndTimestampServiceFactory.java`
-#### Snippet
-```java
-            UserAgent userAgent,
-            String timelockNamespace,
-            Optional<LockDiagnosticComponents> lockDiagnosticComponents,
-            ReloadingFactory reloadingFactory,
-            Optional<TimeLockFeedbackBackgroundTask> timeLockFeedbackBackgroundTask,
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'timeLockFeedbackBackgroundTask'
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/DefaultLockAndTimestampServiceFactory.java`
-#### Snippet
-```java
-            Optional<LockDiagnosticComponents> lockDiagnosticComponents,
-            ReloadingFactory reloadingFactory,
-            Optional<TimeLockFeedbackBackgroundTask> timeLockFeedbackBackgroundTask,
-            Optional<TimeLockRequestBatcherProviders> timelockRequestBatcherProviders,
-            Set<Schema> schemas,
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'timelockRequestBatcherProviders'
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/DefaultLockAndTimestampServiceFactory.java`
-#### Snippet
-```java
-            ReloadingFactory reloadingFactory,
-            Optional<TimeLockFeedbackBackgroundTask> timeLockFeedbackBackgroundTask,
-            Optional<TimeLockRequestBatcherProviders> timelockRequestBatcherProviders,
-            Set<Schema> schemas,
-            LockWatchCachingConfig cachingConfig) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -24940,30 +24952,6 @@ in `atlasdb-autobatch/src/main/java/com/palantir/atlasdb/autobatch/DisruptorAuto
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'batchFunctionTimeout'
-in `atlasdb-autobatch/src/main/java/com/palantir/atlasdb/autobatch/Autobatchers.java`
-#### Snippet
-```java
-        private Observability observability = Observability.UNDECIDED;
-        private OptionalInt bufferSize = OptionalInt.empty();
-        private Optional<Duration> batchFunctionTimeout = Optional.empty();
-        private Optional<TimeoutHandler> timeoutHandler = Optional.empty();
-        private Optional<WaitStrategy> waitStrategy = Optional.empty();
-```
-
-### OptionalUsedAsFieldOrParameterType
-`OptionalInt` used as type for parameter 'bufferSizeParam'
-in `atlasdb-autobatch/src/main/java/com/palantir/atlasdb/autobatch/Autobatchers.java`
-#### Snippet
-```java
-        }
-
-        public AutobatcherBuilder<I, O> bufferSize(OptionalInt bufferSizeParam) {
-            this.bufferSize = bufferSizeParam;
-            return this;
-```
-
-### OptionalUsedAsFieldOrParameterType
 `OptionalInt` used as type for field 'bufferSize'
 in `atlasdb-autobatch/src/main/java/com/palantir/atlasdb/autobatch/Autobatchers.java`
 #### Snippet
@@ -24988,6 +24976,18 @@ in `atlasdb-autobatch/src/main/java/com/palantir/atlasdb/autobatch/Autobatchers.
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'batchFunctionTimeout'
+in `atlasdb-autobatch/src/main/java/com/palantir/atlasdb/autobatch/Autobatchers.java`
+#### Snippet
+```java
+        private Observability observability = Observability.UNDECIDED;
+        private OptionalInt bufferSize = OptionalInt.empty();
+        private Optional<Duration> batchFunctionTimeout = Optional.empty();
+        private Optional<TimeoutHandler> timeoutHandler = Optional.empty();
+        private Optional<WaitStrategy> waitStrategy = Optional.empty();
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'waitStrategy'
 in `atlasdb-autobatch/src/main/java/com/palantir/atlasdb/autobatch/Autobatchers.java`
 #### Snippet
@@ -24997,6 +24997,18 @@ in `atlasdb-autobatch/src/main/java/com/palantir/atlasdb/autobatch/Autobatchers.
         private Optional<WaitStrategy> waitStrategy = Optional.empty();
 
         @Nullable
+```
+
+### OptionalUsedAsFieldOrParameterType
+`OptionalInt` used as type for parameter 'bufferSizeParam'
+in `atlasdb-autobatch/src/main/java/com/palantir/atlasdb/autobatch/Autobatchers.java`
+#### Snippet
+```java
+        }
+
+        public AutobatcherBuilder<I, O> bufferSize(OptionalInt bufferSizeParam) {
+            this.bufferSize = bufferSizeParam;
+            return this;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -25042,9 +25054,9 @@ in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/Cell
 ```java
             final TableReference tableRef,
             final Iterable<Map.Entry<Cell, Value>> values,
-            Optional<Long> overrideTimestamp)
-            throws Exception {
-        clientPool.runWithRetryOnServer(server, new FunctionCheckedException<CassandraClient, Void, Exception>() {
+            Optional<Long> overrideTimestamp) {
+        Map<CassandraServer, Map<Cell, Value>> cellsByHost = HostPartitioner.partitionMapByHost(clientPool, values);
+        List<Callable<Void>> tasks = new ArrayList<>(cellsByHost.size());
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -25054,9 +25066,9 @@ in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/Cell
 ```java
             final TableReference tableRef,
             final Iterable<Map.Entry<Cell, Value>> values,
-            Optional<Long> overrideTimestamp) {
-        Map<CassandraServer, Map<Cell, Value>> cellsByHost = HostPartitioner.partitionMapByHost(clientPool, values);
-        List<Callable<Void>> tasks = new ArrayList<>(cellsByHost.size());
+            Optional<Long> overrideTimestamp)
+            throws Exception {
+        clientPool.runWithRetryOnServer(server, new FunctionCheckedException<CassandraClient, Void, Exception>() {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -25072,18 +25084,6 @@ in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/pool
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'overrideLocation'
-in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/pool/HostLocationSupplier.java`
-#### Snippet
-```java
-            Supplier<Optional<String>> snitchSupplier,
-            Supplier<Optional<HostLocation>> ec2Supplier,
-            Optional<HostLocation> overrideLocation) {
-        this.snitchSupplier = Suppliers.memoize(snitchSupplier::get);
-        this.ec2Supplier = Suppliers.memoize(ec2Supplier::get);
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'overrideLocation'
 in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/pool/HostLocationSupplier.java`
 #### Snippet
@@ -25093,6 +25093,18 @@ in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/pool
     private final Optional<HostLocation> overrideLocation;
 
     @VisibleForTesting
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'overrideLocation'
+in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/pool/HostLocationSupplier.java`
+#### Snippet
+```java
+            Supplier<Optional<String>> snitchSupplier,
+            Supplier<Optional<HostLocation>> ec2Supplier,
+            Optional<HostLocation> overrideLocation) {
+        this.snitchSupplier = Suppliers.memoize(snitchSupplier::get);
+        this.ec2Supplier = Suppliers.memoize(ec2Supplier::get);
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -25156,18 +25168,6 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/sweep/TableToSweep.ja
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'metricsManager'
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/sweep/SweepTaskRunner.java`
-#### Snippet
-```java
-    private final SpecialTimestampsSupplier specialTimestampsSupplier;
-    private final CellsSweeper cellsSweeper;
-    private final Optional<LegacySweepMetrics> metricsManager;
-    private final CommitTsCache commitTsCache;
-
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'maybeOutcome'
 in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/sweep/BackgroundSweepThread.java`
 #### Snippet
@@ -25177,6 +25177,18 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/sweep/BackgroundSweep
     private void sleepUntilNextRun(Optional<SweepOutcome> maybeOutcome) throws InterruptedException {
         sleepFor(getSleepDuration(maybeOutcome));
     }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'maybeOutcome'
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/sweep/BackgroundSweepThread.java`
+#### Snippet
+```java
+    }
+
+    private Duration getSleepDuration(Optional<SweepOutcome> maybeOutcome) {
+        return maybeOutcome
+                .flatMap(outcome -> {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -25192,15 +25204,15 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/sweep/BackgroundSweep
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'maybeOutcome'
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/sweep/BackgroundSweepThread.java`
+`Optional` used as type for field 'metricsManager'
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/sweep/SweepTaskRunner.java`
 #### Snippet
 ```java
-    }
+    private final SpecialTimestampsSupplier specialTimestampsSupplier;
+    private final CellsSweeper cellsSweeper;
+    private final Optional<LegacySweepMetrics> metricsManager;
+    private final CommitTsCache commitTsCache;
 
-    private Duration getSleepDuration(Optional<SweepOutcome> maybeOutcome) {
-        return maybeOutcome
-                .flatMap(outcome -> {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -25294,9 +25306,9 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/atomic/mcas/CasReques
 ```java
     }
 
-    static Exception failure(CasRequest req, Optional<byte[]> actual) {
-        return failureInternal(req, actual);
-    }
+    private static Exception failureInternal(CasRequest req, Optional<byte[]> actual) {
+        return req.rank().equals(UpdateRank.TOUCH)
+                ? new CheckAndSetException(
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -25306,21 +25318,21 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/atomic/mcas/CasReques
 ```java
     }
 
-    private static Exception failureInternal(CasRequest req, Optional<byte[]> actual) {
-        return req.rank().equals(UpdateRank.TOUCH)
-                ? new CheckAndSetException(
+    static Exception failure(CasRequest req, Optional<byte[]> actual) {
+        return failureInternal(req, actual);
+    }
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`OptionalLong` used as type for field 'startTimestamp'
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/restore/V1TransactionsTableRangeDeleter.java`
+`Optional` used as type for parameter 'lowerBoundTimestamp'
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/cleaner/KeyValueServicePuncherStore.java`
 #### Snippet
 ```java
-public class V1TransactionsTableRangeDeleter implements TransactionTableRangeDeleter {
-    private final KeyValueService kvs;
-    private final OptionalLong startTimestamp;
-    private final boolean skipStartTimestampCheck;
-    private final OutputStateLogger stateLogger;
+     */
+    private static BoundsOrMillis getBoundsForRangeScan(
+            KeyValueService kvs, long timestamp, Bounds initialBounds, Optional<Long> lowerBoundTimestamp) {
+        MillisAndMaybeTimestamp upperBound = ImmutableMillisAndMaybeTimestamp.builder()
+                .millis(initialBounds.upper())
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -25336,15 +25348,15 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/restore/V1Transaction
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'lowerBoundTimestamp'
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/cleaner/KeyValueServicePuncherStore.java`
+`OptionalLong` used as type for field 'startTimestamp'
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/restore/V1TransactionsTableRangeDeleter.java`
 #### Snippet
 ```java
-     */
-    private static BoundsOrMillis getBoundsForRangeScan(
-            KeyValueService kvs, long timestamp, Bounds initialBounds, Optional<Long> lowerBoundTimestamp) {
-        MillisAndMaybeTimestamp upperBound = ImmutableMillisAndMaybeTimestamp.builder()
-                .millis(initialBounds.upper())
+public class V1TransactionsTableRangeDeleter implements TransactionTableRangeDeleter {
+    private final KeyValueService kvs;
+    private final OptionalLong startTimestamp;
+    private final boolean skipStartTimestampCheck;
+    private final OutputStateLogger stateLogger;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -25372,75 +25384,27 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/api/cache/Tr
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'version'
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/api/watch/CacheUpdate.java`
+`Optional` used as type for field 'commitRequestId'
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/api/watch/ClientLogEvents.java`
 #### Snippet
 ```java
-    private final Optional<LockWatchVersion> version;
 
-    CacheUpdate(boolean shouldClearCache, Optional<LockWatchVersion> version) {
-        this.shouldClearCache = shouldClearCache;
-        this.version = version;
+    final class LockEventVisitor implements LockWatchEvent.Visitor<Set<LockDescriptor>> {
+        private final Optional<UUID> commitRequestId;
+
+        private LockEventVisitor(Optional<LockToken> commitLocksToken) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'version'
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/api/watch/CacheUpdate.java`
+`Optional` used as type for parameter 'commitInfo'
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/api/watch/ClientLogEvents.java`
 #### Snippet
 ```java
 
-    private final boolean shouldClearCache;
-    private final Optional<LockWatchVersion> version;
-
-    CacheUpdate(boolean shouldClearCache, Optional<LockWatchVersion> version) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'latestVersionFromUpdate'
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/api/cache/LockWatchValueScopingCacheImpl.java`
-#### Snippet
-```java
-
-    private void registerAllClearEventAndMaybeLog(
-            Optional<LockWatchVersion> latestVersionFromUpdate, LockWatchEvent firstEvent, LockWatchEvent lastEvent) {
-        cacheMetrics.increaseCacheStateAllClear();
-        rateLimitedLogger.log(logger -> logger.info(
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'latestVersionFromUpdate'
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/api/cache/LockWatchValueScopingCacheImpl.java`
-#### Snippet
-```java
-
-    private synchronized void clearCache(
-            TransactionsLockWatchUpdate updateForTransactions, Optional<LockWatchVersion> latestVersionFromUpdate) {
-        LockWatchEvent firstEvent = null;
-        LockWatchEvent lastEvent = null;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'maybeUpdateVersion'
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/api/cache/LockWatchValueScopingCacheImpl.java`
-#### Snippet
-```java
-    }
-
-    private synchronized void updateCurrentVersion(Optional<LockWatchVersion> maybeUpdateVersion) {
-        maybeUpdateVersion
-                .filter(this::shouldUpdateVersion)
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'currentVersion'
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/api/cache/LockWatchValueScopingCacheImpl.java`
-#### Snippet
-```java
-    private final SnapshotStore snapshotStore;
-
-    private volatile Optional<LockWatchVersion> currentVersion = Optional.empty();
-
-    private final CacheMetrics cacheMetrics;
+    default CommitUpdate toCommitUpdate(
+            LockWatchVersion startVersion, LockWatchVersion endVersion, Optional<CommitInfo> commitInfo) {
+        if (clearCache()) {
+            return CommitUpdate.invalidateAll();
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -25468,27 +25432,51 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/api/watch/Cl
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'commitRequestId'
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/api/watch/ClientLogEvents.java`
+`Optional` used as type for parameter 'version'
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/api/watch/CacheUpdate.java`
 #### Snippet
 ```java
+    private final Optional<LockWatchVersion> version;
 
-    final class LockEventVisitor implements LockWatchEvent.Visitor<Set<LockDescriptor>> {
-        private final Optional<UUID> commitRequestId;
-
-        private LockEventVisitor(Optional<LockToken> commitLocksToken) {
+    CacheUpdate(boolean shouldClearCache, Optional<LockWatchVersion> version) {
+        this.shouldClearCache = shouldClearCache;
+        this.version = version;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'commitInfo'
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/api/watch/ClientLogEvents.java`
+`Optional` used as type for field 'version'
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/api/watch/CacheUpdate.java`
 #### Snippet
 ```java
 
-    default CommitUpdate toCommitUpdate(
-            LockWatchVersion startVersion, LockWatchVersion endVersion, Optional<CommitInfo> commitInfo) {
-        if (clearCache()) {
-            return CommitUpdate.invalidateAll();
+    private final boolean shouldClearCache;
+    private final Optional<LockWatchVersion> version;
+
+    CacheUpdate(boolean shouldClearCache, Optional<LockWatchVersion> version) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'snapshotVersion'
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/api/watch/ClientLockWatchSnapshot.java`
+#### Snippet
+```java
+    private final Set<LockDescriptor> locked;
+    private final EventVisitor visitor;
+    private Optional<LockWatchVersion> snapshotVersion;
+
+    static ClientLockWatchSnapshot create() {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'latestVersion'
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/api/watch/LockWatchEvents.java`
+#### Snippet
+```java
+    }
+
+    default void assertNoEventsAreMissingAfterLatestVersion(Optional<LockWatchVersion> latestVersion) {
+        if (events().isEmpty()) {
+            return;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -25516,27 +25504,51 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/api/watch/Ve
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'snapshotVersion'
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/api/watch/ClientLockWatchSnapshot.java`
+`Optional` used as type for parameter 'latestVersionFromUpdate'
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/api/cache/LockWatchValueScopingCacheImpl.java`
 #### Snippet
 ```java
-    private final Set<LockDescriptor> locked;
-    private final EventVisitor visitor;
-    private Optional<LockWatchVersion> snapshotVersion;
 
-    static ClientLockWatchSnapshot create() {
+    private void registerAllClearEventAndMaybeLog(
+            Optional<LockWatchVersion> latestVersionFromUpdate, LockWatchEvent firstEvent, LockWatchEvent lastEvent) {
+        cacheMetrics.increaseCacheStateAllClear();
+        rateLimitedLogger.log(logger -> logger.info(
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'latestVersion'
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/api/watch/LockWatchEvents.java`
+`Optional` used as type for parameter 'maybeUpdateVersion'
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/api/cache/LockWatchValueScopingCacheImpl.java`
 #### Snippet
 ```java
     }
 
-    default void assertNoEventsAreMissingAfterLatestVersion(Optional<LockWatchVersion> latestVersion) {
-        if (events().isEmpty()) {
-            return;
+    private synchronized void updateCurrentVersion(Optional<LockWatchVersion> maybeUpdateVersion) {
+        maybeUpdateVersion
+                .filter(this::shouldUpdateVersion)
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'currentVersion'
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/api/cache/LockWatchValueScopingCacheImpl.java`
+#### Snippet
+```java
+    private final SnapshotStore snapshotStore;
+
+    private volatile Optional<LockWatchVersion> currentVersion = Optional.empty();
+
+    private final CacheMetrics cacheMetrics;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'latestVersionFromUpdate'
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/api/cache/LockWatchValueScopingCacheImpl.java`
+#### Snippet
+```java
+
+    private synchronized void clearCache(
+            TransactionsLockWatchUpdate updateForTransactions, Optional<LockWatchVersion> latestVersionFromUpdate) {
+        LockWatchEvent firstEvent = null;
+        LockWatchEvent lastEvent = null;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -25608,6 +25620,18 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/Seri
             MetricsFilterEvaluationContext metricsFilterEvaluationContext,
             Optional<Integer> sharedGetRangesPoolSize,
             TransactionKnowledgeComponents knowledge) {
+        return create(
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'sharedGetRangesPoolSize'
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/SerializableTransactionManager.java`
+#### Snippet
+```java
+            ConflictTracer conflictTracer,
+            MetricsFilterEvaluationContext metricsFilterEvaluationContext,
+            Optional<Integer> sharedGetRangesPoolSize,
+            TransactionKnowledgeComponents knowledge) {
         super(
 ```
 
@@ -25637,18 +25661,6 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/Seri
 
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'sharedGetRangesPoolSize'
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/SerializableTransactionManager.java`
-#### Snippet
-```java
-            ConflictTracer conflictTracer,
-            MetricsFilterEvaluationContext metricsFilterEvaluationContext,
-            Optional<Integer> sharedGetRangesPoolSize,
-            TransactionKnowledgeComponents knowledge) {
-        return create(
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'sharedGetRangesPoolSize'
 in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/SnapshotTransactionManager.java`
 #### Snippet
 ```java
@@ -25660,14 +25672,14 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/Snap
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'maybeSnapshot'
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/knowledge/AbandonedTransactionSoftCache.java`
+`Optional` used as type for parameter 'oldValue'
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/knowledge/KnownConcludedTransactionsStore.java`
 #### Snippet
 ```java
 
-    private PatchyCache refreshPatchyCache(
-            Optional<PatchyCache> maybeSnapshot, long latestTsSeenSoFar, Bucket latestBucketSeenSoFar) {
-        PatchyCache refreshedPatchyCache;
+    private CheckAndSetRequest getCheckAndSetRequest(
+            Optional<ReadResult> oldValue, ConcludedRangeState concludedRangeState) {
+        byte[] serializedTargetSet = serializeTimestampRangeSet(concludedRangeState);
 
 ```
 
@@ -25684,14 +25696,14 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/knowledge
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'oldValue'
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/knowledge/KnownConcludedTransactionsStore.java`
+`Optional` used as type for parameter 'maybeSnapshot'
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/knowledge/AbandonedTransactionSoftCache.java`
 #### Snippet
 ```java
 
-    private CheckAndSetRequest getCheckAndSetRequest(
-            Optional<ReadResult> oldValue, ConcludedRangeState concludedRangeState) {
-        byte[] serializedTargetSet = serializeTimestampRangeSet(concludedRangeState);
+    private PatchyCache refreshPatchyCache(
+            Optional<PatchyCache> maybeSnapshot, long latestTsSeenSoFar, Bucket latestBucketSeenSoFar) {
+        PatchyCache refreshedPatchyCache;
 
 ```
 
@@ -25744,18 +25756,6 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/Seri
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'protocolVersion'
-in `atlasdb-remoting-api/src/main/java/com/palantir/atlasdb/http/AtlasDbHttpProtocolVersion.java`
-#### Snippet
-```java
-    }
-
-    public static AtlasDbHttpProtocolVersion inferFromString(Optional<String> protocolVersion) {
-        return protocolVersion.map(KNOWN_VERSION_STRINGS::get).orElse(LEGACY_OR_UNKNOWN);
-    }
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'trustContext'
 in `atlasdb-remoting-api/src/main/java/com/palantir/atlasdb/http/TargetFactory.java`
 #### Snippet
@@ -25765,6 +25765,18 @@ public interface TargetFactory {
             Optional<TrustContext> trustContext, String uri, Class<T> type, AuxiliaryRemotingParameters parameters);
 
     /**
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'protocolVersion'
+in `atlasdb-remoting-api/src/main/java/com/palantir/atlasdb/http/AtlasDbHttpProtocolVersion.java`
+#### Snippet
+```java
+    }
+
+    public static AtlasDbHttpProtocolVersion inferFromString(Optional<String> protocolVersion) {
+        return protocolVersion.map(KNOWN_VERSION_STRINGS::get).orElse(LEGACY_OR_UNKNOWN);
+    }
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -25828,6 +25840,18 @@ in `leader-election-impl/src/main/java/com/palantir/paxos/SplittingPaxosStateLog
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'timeLockVersion'
+in `leader-election-impl/src/main/java/com/palantir/paxos/PersistedRateLimitingLeadershipPrioritiser.java`
+#### Snippet
+```java
+    @VisibleForTesting
+    PersistedRateLimitingLeadershipPrioritiser(
+            Optional<OrderableSlsVersion> timeLockVersion,
+            Supplier<Duration> leadershipAttemptBackoff,
+            GreenNodeLeadershipAttemptHistory greenNodeLeadershipAttemptHistory,
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'timeLockVersion'
 in `leader-election-impl/src/main/java/com/palantir/paxos/PersistedRateLimitingLeadershipPrioritiser.java`
 #### Snippet
@@ -25852,18 +25876,6 @@ in `leader-election-impl/src/main/java/com/palantir/paxos/PersistedRateLimitingL
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'timeLockVersion'
-in `leader-election-impl/src/main/java/com/palantir/paxos/PersistedRateLimitingLeadershipPrioritiser.java`
-#### Snippet
-```java
-    @VisibleForTesting
-    PersistedRateLimitingLeadershipPrioritiser(
-            Optional<OrderableSlsVersion> timeLockVersion,
-            Supplier<Duration> leadershipAttemptBackoff,
-            GreenNodeLeadershipAttemptHistory greenNodeLeadershipAttemptHistory,
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'migrateFrom'
 in `leader-election-impl/src/main/java/com/palantir/paxos/PaxosAcceptorImpl.java`
 #### Snippet
@@ -25880,11 +25892,11 @@ in `leader-election-impl/src/main/java/com/palantir/paxos/PaxosAcceptorImpl.java
 in `leader-election-impl/src/main/java/com/palantir/paxos/SingleLeaderPinger.java`
 #### Snippet
 ```java
-    }
-
-    private static boolean isAtLeastOurVersion(PingResult pingResult, Optional<OrderableSlsVersion> timeLockVersion) {
-        return (pingResult.timeLockVersion().isPresent() && timeLockVersion.isPresent())
-                ? VersionComparator.INSTANCE.compare(
+            UUID localUuid,
+            boolean cancelRemainingCalls,
+            Optional<OrderableSlsVersion> timeLockVersion,
+            GreenNodeLeadershipPrioritiser greenNodeLeadershipPrioritiser) {
+        this.leaderPingExecutors = otherPingableExecutors;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -25907,32 +25919,8 @@ in `leader-election-impl/src/main/java/com/palantir/paxos/SingleLeaderPinger.jav
             UUID localUuid,
             boolean cancelRemainingCalls,
             Optional<OrderableSlsVersion> timeLockVersion) {
-        GreenNodeLeadershipPrioritiser greenNodeLeadershipPrioritiser =
-                PersistedRateLimitingLeadershipPrioritiser.create(
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'timeLockVersion'
-in `leader-election-impl/src/main/java/com/palantir/paxos/SingleLeaderPinger.java`
-#### Snippet
-```java
-            UUID localUuid,
-            boolean cancelRemainingCalls,
-            Optional<OrderableSlsVersion> timeLockVersion) {
         GreenNodeLeadershipPrioritiser greenNodeLeadershipPrioritiser = new RateLimitedGreenNodeLeadershipPrioritiser();
         return new SingleLeaderPinger(
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'timeLockVersion'
-in `leader-election-impl/src/main/java/com/palantir/paxos/SingleLeaderPinger.java`
-#### Snippet
-```java
-            UUID localUuid,
-            boolean cancelRemainingCalls,
-            Optional<OrderableSlsVersion> timeLockVersion,
-            GreenNodeLeadershipPrioritiser greenNodeLeadershipPrioritiser) {
-        this.leaderPingExecutors = otherPingableExecutors;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -25948,6 +25936,30 @@ in `leader-election-impl/src/main/java/com/palantir/paxos/SingleLeaderPinger.jav
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'timeLockVersion'
+in `leader-election-impl/src/main/java/com/palantir/paxos/SingleLeaderPinger.java`
+#### Snippet
+```java
+            UUID localUuid,
+            boolean cancelRemainingCalls,
+            Optional<OrderableSlsVersion> timeLockVersion) {
+        GreenNodeLeadershipPrioritiser greenNodeLeadershipPrioritiser =
+                PersistedRateLimitingLeadershipPrioritiser.create(
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'timeLockVersion'
+in `leader-election-impl/src/main/java/com/palantir/paxos/SingleLeaderPinger.java`
+#### Snippet
+```java
+    }
+
+    private static boolean isAtLeastOurVersion(PingResult pingResult, Optional<OrderableSlsVersion> timeLockVersion) {
+        return (pingResult.timeLockVersion().isPresent() && timeLockVersion.isPresent())
+                ? VersionComparator.INSTANCE.compare(
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'timeLockVersion'
 in `leader-election-impl/src/main/java/com/palantir/leader/LocalPingableLeader.java`
 #### Snippet
@@ -25960,18 +25972,6 @@ in `leader-election-impl/src/main/java/com/palantir/leader/LocalPingableLeader.j
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'leadershipObserver'
-in `leader-election-impl/src/main/java/com/palantir/leader/PaxosLeadershipEventRecorder.java`
-#### Snippet
-```java
-    private final String leaderId;
-    private final LeadershipEvents events;
-    private final Optional<LeadershipObserver> leadershipObserver;
-
-    @GuardedBy("this")
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'observer'
 in `leader-election-impl/src/main/java/com/palantir/leader/PaxosLeadershipEventRecorder.java`
 #### Snippet
@@ -25981,6 +25981,18 @@ in `leader-election-impl/src/main/java/com/palantir/leader/PaxosLeadershipEventR
     PaxosLeadershipEventRecorder(LeadershipEvents events, String leaderUuid, Optional<LeadershipObserver> observer) {
         this.events = events;
         this.leaderId = leaderUuid;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'leadershipObserver'
+in `leader-election-impl/src/main/java/com/palantir/leader/PaxosLeadershipEventRecorder.java`
+#### Snippet
+```java
+    private final String leaderId;
+    private final LeadershipEvents events;
+    private final Optional<LeadershipObserver> leadershipObserver;
+
+    @GuardedBy("this")
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -26000,11 +26012,11 @@ in `leader-election-impl/src/main/java/com/palantir/leader/proxy/LeadershipCoord
 in `leader-election-impl/src/main/java/com/palantir/leader/PaxosLeaderElectionService.java`
 #### Snippet
 ```java
-    }
+        }
 
-    private void proposeLeadershipAfter(Optional<PaxosValue> value) {
-        lock.lock();
-        try {
+        static LeadershipState of(Optional<PaxosValue> value, StillLeadingStatus status) {
+            return ImmutableLeadershipState.of(value, status);
+        }
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -26020,6 +26032,30 @@ in `leader-election-impl/src/main/java/com/palantir/leader/PaxosLeaderElectionSe
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'value'
+in `leader-election-impl/src/main/java/com/palantir/leader/PaxosLeaderElectionService.java`
+#### Snippet
+```java
+    }
+
+    private void proposeLeadershipAfter(Optional<PaxosValue> value) {
+        lock.lock();
+        try {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'maybeGreatestLearnedValue'
+in `leader-election-impl/src/main/java/com/palantir/leader/PaxosLeaderElectionService.java`
+#### Snippet
+```java
+    }
+
+    private static Optional<UUID> extractLeaderUuid(Optional<PaxosValue> maybeGreatestLearnedValue) {
+        return maybeGreatestLearnedValue.map(PaxosValue::getLeaderUUID).map(UUID::fromString);
+    }
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'valueIfAny'
 in `leader-election-impl/src/main/java/com/palantir/leader/PaxosLeaderElectionService.java`
 #### Snippet
@@ -26028,42 +26064,6 @@ in `leader-election-impl/src/main/java/com/palantir/leader/PaxosLeaderElectionSe
 
     private boolean isLatestRound(Optional<PaxosValue> valueIfAny) {
         return valueIfAny.equals(knowledge.getGreatestLearnedValue());
-    }
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'value'
-in `leader-election-impl/src/main/java/com/palantir/leader/PaxosLeaderElectionService.java`
-#### Snippet
-```java
-    }
-
-    private StillLeadingStatus determineLeadershipStatus(Optional<PaxosValue> value) {
-        return value.map(this::determineLeadershipStatus)
-                .map(Futures::getUnchecked)
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'value'
-in `leader-election-impl/src/main/java/com/palantir/leader/PaxosLeaderElectionService.java`
-#### Snippet
-```java
-        }
-
-        static LeadershipState of(Optional<PaxosValue> value, StillLeadingStatus status) {
-            return ImmutableLeadershipState.of(value, status);
-        }
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'paxosValue'
-in `leader-election-impl/src/main/java/com/palantir/leader/PaxosLeaderElectionService.java`
-#### Snippet
-```java
-    }
-
-    private static long getNextSequenceNumber(Optional<PaxosValue> paxosValue) {
-        return paxosValue.map(PaxosValue::getRound).orElse(PaxosAcceptor.NO_LOG_ENTRY) + 1;
     }
 ```
 
@@ -26080,15 +26080,27 @@ in `leader-election-impl/src/main/java/com/palantir/leader/PaxosLeaderElectionSe
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'maybeGreatestLearnedValue'
+`Optional` used as type for parameter 'paxosValue'
 in `leader-election-impl/src/main/java/com/palantir/leader/PaxosLeaderElectionService.java`
 #### Snippet
 ```java
     }
 
-    private static Optional<UUID> extractLeaderUuid(Optional<PaxosValue> maybeGreatestLearnedValue) {
-        return maybeGreatestLearnedValue.map(PaxosValue::getLeaderUUID).map(UUID::fromString);
+    private static long getNextSequenceNumber(Optional<PaxosValue> paxosValue) {
+        return paxosValue.map(PaxosValue::getRound).orElse(PaxosAcceptor.NO_LOG_ENTRY) + 1;
     }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'value'
+in `leader-election-impl/src/main/java/com/palantir/leader/PaxosLeaderElectionService.java`
+#### Snippet
+```java
+    }
+
+    private StillLeadingStatus determineLeadershipStatus(Optional<PaxosValue> value) {
+        return value.map(this::determineLeadershipStatus)
+                .map(Futures::getUnchecked)
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -26104,18 +26116,6 @@ in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/Abs
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'maybeNamespace'
-in `atlasdb-workload-server/src/main/java/com/palantir/atlasdb/workload/store/AtlasDbTransactionStoreFactory.java`
-#### Snippet
-```java
-
-    private final TransactionManager transactionManager;
-    private final Optional<Namespace> maybeNamespace;
-
-    public AtlasDbTransactionStoreFactory(TransactionManager transactionManager, Optional<String> maybeNamespace) {
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'maybeNamespace'
 in `atlasdb-workload-server/src/main/java/com/palantir/atlasdb/workload/store/AtlasDbTransactionStoreFactory.java`
 #### Snippet
@@ -26125,6 +26125,18 @@ in `atlasdb-workload-server/src/main/java/com/palantir/atlasdb/workload/store/At
     public AtlasDbTransactionStoreFactory(TransactionManager transactionManager, Optional<String> maybeNamespace) {
         this.transactionManager = transactionManager;
         this.maybeNamespace = maybeNamespace.map(Namespace::create);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'maybeNamespace'
+in `atlasdb-workload-server/src/main/java/com/palantir/atlasdb/workload/store/AtlasDbTransactionStoreFactory.java`
+#### Snippet
+```java
+
+    private final TransactionManager transactionManager;
+    private final Optional<Namespace> maybeNamespace;
+
+    public AtlasDbTransactionStoreFactory(TransactionManager transactionManager, Optional<String> maybeNamespace) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -26279,8 +26291,32 @@ in `commons-api/src/main/java/com/palantir/common/io/ForwardingInputStream.java`
 #### Snippet
 ```java
     @Override
-    public int read(byte[] bytes, int off, int len) throws IOException {
-        return delegate().read(bytes, off, len);
+    public int hashCode() {
+        return delegate().hashCode();
+    }
+
+```
+
+### AutoCloseableResource
+'InputStream' used without 'try'-with-resources statement
+in `commons-api/src/main/java/com/palantir/common/io/ForwardingInputStream.java`
+#### Snippet
+```java
+    @Override
+    public void mark(int readlimit) {
+        delegate().mark(readlimit);
+    }
+
+```
+
+### AutoCloseableResource
+'InputStream' used without 'try'-with-resources statement
+in `commons-api/src/main/java/com/palantir/common/io/ForwardingInputStream.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        return delegate().toString();
     }
 
 ```
@@ -26315,66 +26351,6 @@ in `commons-api/src/main/java/com/palantir/common/io/ForwardingInputStream.java`
 #### Snippet
 ```java
     @Override
-    public int read() throws IOException {
-        return delegate().read();
-    }
-
-```
-
-### AutoCloseableResource
-'InputStream' used without 'try'-with-resources statement
-in `commons-api/src/main/java/com/palantir/common/io/ForwardingInputStream.java`
-#### Snippet
-```java
-    @Override
-    public void mark(int readlimit) {
-        delegate().mark(readlimit);
-    }
-
-```
-
-### AutoCloseableResource
-'InputStream' used without 'try'-with-resources statement
-in `commons-api/src/main/java/com/palantir/common/io/ForwardingInputStream.java`
-#### Snippet
-```java
-    @Override
-    public int available() throws IOException {
-        return delegate().available();
-    }
-
-```
-
-### AutoCloseableResource
-'InputStream' used without 'try'-with-resources statement
-in `commons-api/src/main/java/com/palantir/common/io/ForwardingInputStream.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        return delegate().toString();
-    }
-
-```
-
-### AutoCloseableResource
-'InputStream' used without 'try'-with-resources statement
-in `commons-api/src/main/java/com/palantir/common/io/ForwardingInputStream.java`
-#### Snippet
-```java
-    @Override
-    public int read(byte[] bytes) throws IOException {
-        return delegate().read(bytes);
-    }
-
-```
-
-### AutoCloseableResource
-'InputStream' used without 'try'-with-resources statement
-in `commons-api/src/main/java/com/palantir/common/io/ForwardingInputStream.java`
-#### Snippet
-```java
-    @Override
     public long skip(long num) throws IOException {
         return delegate().skip(num);
     }
@@ -26399,8 +26375,44 @@ in `commons-api/src/main/java/com/palantir/common/io/ForwardingInputStream.java`
 #### Snippet
 ```java
     @Override
-    public int hashCode() {
-        return delegate().hashCode();
+    public int read(byte[] bytes, int off, int len) throws IOException {
+        return delegate().read(bytes, off, len);
+    }
+
+```
+
+### AutoCloseableResource
+'InputStream' used without 'try'-with-resources statement
+in `commons-api/src/main/java/com/palantir/common/io/ForwardingInputStream.java`
+#### Snippet
+```java
+    @Override
+    public int read(byte[] bytes) throws IOException {
+        return delegate().read(bytes);
+    }
+
+```
+
+### AutoCloseableResource
+'InputStream' used without 'try'-with-resources statement
+in `commons-api/src/main/java/com/palantir/common/io/ForwardingInputStream.java`
+#### Snippet
+```java
+    @Override
+    public int available() throws IOException {
+        return delegate().available();
+    }
+
+```
+
+### AutoCloseableResource
+'InputStream' used without 'try'-with-resources statement
+in `commons-api/src/main/java/com/palantir/common/io/ForwardingInputStream.java`
+#### Snippet
+```java
+    @Override
+    public int read() throws IOException {
+        return delegate().read();
     }
 
 ```
@@ -26418,18 +26430,6 @@ in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/backend/Cassandr
 ```
 
 ### AutoCloseableResource
-'ConnectionSupplier' used without 'try'-with-resources statement
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/cleaner/OracleNamespaceDeleter.java`
-#### Snippet
-```java
-    private Set<String> getAllTablesWithPrefix(String prefix) {
-        return parameters
-                .connectionSupplier()
-                .get()
-                .selectResultSetUnregisteredQuery(
-```
-
-### AutoCloseableResource
 'OracleDbTableFactory' used without 'try'-with-resources statement
 in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/cleaner/DbKvsNamespaceDeleterFactory.java`
 #### Snippet
@@ -26439,6 +26439,18 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/cleaner/DbKv
                 new OracleDbTableFactory(ddlConfig, tableNameGetter, prefixedTableNames, cache, executorService);
         ConnectionSupplier connectionSupplier = createConnectionSupplier(config, runtimeConfig, connectionConfig);
 
+```
+
+### AutoCloseableResource
+'ConnectionSupplier' used without 'try'-with-resources statement
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/cleaner/OracleNamespaceDeleter.java`
+#### Snippet
+```java
+    private Set<String> getAllTablesWithPrefix(String prefix) {
+        return parameters
+                .connectionSupplier()
+                .get()
+                .selectResultSetUnregisteredQuery(
 ```
 
 ### AutoCloseableResource
@@ -26458,69 +26470,9 @@ in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/ConjureLockWatchin
 in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/ConjureTimelockResource.java`
 #### Snippet
 ```java
-            String namespace, Set<LockToken> tokens, Function<Set<LockToken>, T> userTokenTranslator) {
-        return handleExceptions(() -> Futures.transform(
-                forNamespace(namespace).unlock(tokens), userTokenTranslator::apply, MoreExecutors.directExecutor()));
-    }
-
-```
-
-### AutoCloseableResource
-'AsyncTimelockService' used without 'try'-with-resources statement
-in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/ConjureTimelockResource.java`
-#### Snippet
-```java
-                    .build();
-            ListenableFuture<LockResponseV2> tokenFuture =
-                    forNamespace(namespace).lock(lockRequest);
-            return Futures.transform(
-                    tokenFuture,
-```
-
-### AutoCloseableResource
-'AsyncTimelockService' used without 'try'-with-resources statement
-in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/ConjureTimelockResource.java`
-#### Snippet
-```java
-                    .build();
-            ListenableFuture<WaitForLocksResponse> tokenFuture =
-                    forNamespace(namespace).waitForLocks(lockRequest);
-            return Futures.transform(
-                    tokenFuture,
-```
-
-### AutoCloseableResource
-'AsyncTimelockService' used without 'try'-with-resources statement
-in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/ConjureTimelockResource.java`
-#### Snippet
-```java
-        return handleExceptions(() -> {
-            ListenableFuture<TimestampRange> rangeFuture =
-                    forNamespace(namespace).getFreshTimestampsAsync(timestampsToRetrieve);
-            return Futures.transform(rangeFuture, responseWrappingFunction::apply, MoreExecutors.directExecutor());
-        });
-```
-
-### AutoCloseableResource
-'AsyncTimelockService' used without 'try'-with-resources statement
-in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/ConjureTimelockResource.java`
-#### Snippet
-```java
     public ListenableFuture<ConjureStartTransactionsResponse> startTransactions(
             AuthHeader authHeader, String namespace, ConjureStartTransactionsRequest request) {
         return handleExceptions(() -> forNamespace(namespace).startTransactionsWithWatches(request));
-    }
-
-```
-
-### AutoCloseableResource
-'AsyncTimelockService' used without 'try'-with-resources statement
-in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/ConjureTimelockResource.java`
-#### Snippet
-```java
-    @Override
-    public ListenableFuture<LeaderTime> leaderTime(AuthHeader authHeader, String namespace) {
-        return handleExceptions(() -> forNamespace(namespace).leaderTime());
     }
 
 ```
@@ -26542,6 +26494,66 @@ in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/ConjureTimelockRes
 in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/ConjureTimelockResource.java`
 #### Snippet
 ```java
+            String namespace, Set<LockToken> tokens, Function<Set<LockToken>, T> userTokenTranslator) {
+        return handleExceptions(() -> Futures.transform(
+                forNamespace(namespace).unlock(tokens), userTokenTranslator::apply, MoreExecutors.directExecutor()));
+    }
+
+```
+
+### AutoCloseableResource
+'AsyncTimelockService' used without 'try'-with-resources statement
+in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/ConjureTimelockResource.java`
+#### Snippet
+```java
+                    .build();
+            ListenableFuture<WaitForLocksResponse> tokenFuture =
+                    forNamespace(namespace).waitForLocks(lockRequest);
+            return Futures.transform(
+                    tokenFuture,
+```
+
+### AutoCloseableResource
+'AsyncTimelockService' used without 'try'-with-resources statement
+in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/ConjureTimelockResource.java`
+#### Snippet
+```java
+    @Override
+    public ListenableFuture<LeaderTime> leaderTime(AuthHeader authHeader, String namespace) {
+        return handleExceptions(() -> forNamespace(namespace).leaderTime());
+    }
+
+```
+
+### AutoCloseableResource
+'AsyncTimelockService' used without 'try'-with-resources statement
+in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/ConjureTimelockResource.java`
+#### Snippet
+```java
+                    .build();
+            ListenableFuture<LockResponseV2> tokenFuture =
+                    forNamespace(namespace).lock(lockRequest);
+            return Futures.transform(
+                    tokenFuture,
+```
+
+### AutoCloseableResource
+'AsyncTimelockService' used without 'try'-with-resources statement
+in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/ConjureTimelockResource.java`
+#### Snippet
+```java
+        return handleExceptions(() -> {
+            ListenableFuture<TimestampRange> rangeFuture =
+                    forNamespace(namespace).getFreshTimestampsAsync(timestampsToRetrieve);
+            return Futures.transform(rangeFuture, responseWrappingFunction::apply, MoreExecutors.directExecutor());
+        });
+```
+
+### AutoCloseableResource
+'AsyncTimelockService' used without 'try'-with-resources statement
+in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/ConjureTimelockResource.java`
+#### Snippet
+```java
             String namespace, Set<LockToken> tokens, Function<RefreshLockResponseV2, T> userTokenTranslator) {
         return handleExceptions(() -> Futures.transform(
                 forNamespace(namespace).refreshLockLeases(tokens),
@@ -26555,10 +26567,10 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/SweepStatsKe
 #### Snippet
 ```java
     @Override
-    public void putWithTimestamps(TableReference tableRef, Multimap<Cell, Value> cellValues) {
-        delegate().putWithTimestamps(tableRef, cellValues);
+    public void truncateTable(TableReference tableRef) {
+        delegate().truncateTable(tableRef);
         if (isEnabled.get()) {
-            writesByTable.add(tableRef, cellValues.size());
+            recordClear(tableRef);
 ```
 
 ### AutoCloseableResource
@@ -26579,10 +26591,70 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/SweepStatsKe
 #### Snippet
 ```java
     @Override
-    public void deleteRange(TableReference tableRef, RangeRequest range) {
-        delegate().deleteRange(tableRef, range);
+    public void multiPut(Map<TableReference, ? extends Map<Cell, byte[]>> valuesByTable, long timestamp) {
+        delegate().multiPut(valuesByTable, timestamp);
         if (isEnabled.get()) {
-            if (RangeRequest.all().equals(range)) {
+            int newWrites = 0;
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/SweepStatsKeyValueService.java`
+#### Snippet
+```java
+    @Override
+    public void dropTable(TableReference tableRef) {
+        delegate().dropTable(tableRef);
+        if (isEnabled.get()) {
+            recordClear(tableRef);
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/SweepStatsKeyValueService.java`
+#### Snippet
+```java
+    @Override
+    public void putWithTimestamps(TableReference tableRef, Multimap<Cell, Value> cellValues) {
+        delegate().putWithTimestamps(tableRef, cellValues);
+        if (isEnabled.get()) {
+            writesByTable.add(tableRef, cellValues.size());
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/SweepStatsKeyValueService.java`
+#### Snippet
+```java
+    @Override
+    public void truncateTables(Set<TableReference> tableRefs) {
+        delegate().truncateTables(tableRefs);
+        if (isEnabled.get()) {
+            clearedTables.addAll(tableRefs);
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/SweepStatsKeyValueService.java`
+#### Snippet
+```java
+    @Override
+    public void put(TableReference tableRef, Map<Cell, byte[]> values, long timestamp) {
+        delegate().put(tableRef, values, timestamp);
+        if (isEnabled.get()) {
+            writesByTable.add(tableRef, values.size());
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/SweepStatsKeyValueService.java`
+#### Snippet
+```java
+                TransactionConstants.getValueForTimestamp(timestamp), TransactionConstants.COMMIT_TS_COLUMN);
+        byte[] value = TransactionConstants.getValueForTimestamp(timestamp);
+        delegate().putUnlessExists(TransactionConstants.TRANSACTION_TABLE, ImmutableMap.of(cell, value));
+    }
+}
 ```
 
 ### AutoCloseableResource
@@ -26627,70 +26699,10 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/SweepStatsKe
 #### Snippet
 ```java
     @Override
-    public void truncateTable(TableReference tableRef) {
-        delegate().truncateTable(tableRef);
+    public void deleteRange(TableReference tableRef, RangeRequest range) {
+        delegate().deleteRange(tableRef, range);
         if (isEnabled.get()) {
-            recordClear(tableRef);
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/SweepStatsKeyValueService.java`
-#### Snippet
-```java
-    @Override
-    public void multiPut(Map<TableReference, ? extends Map<Cell, byte[]>> valuesByTable, long timestamp) {
-        delegate().multiPut(valuesByTable, timestamp);
-        if (isEnabled.get()) {
-            int newWrites = 0;
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/SweepStatsKeyValueService.java`
-#### Snippet
-```java
-    @Override
-    public void dropTable(TableReference tableRef) {
-        delegate().dropTable(tableRef);
-        if (isEnabled.get()) {
-            recordClear(tableRef);
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/SweepStatsKeyValueService.java`
-#### Snippet
-```java
-    @Override
-    public void truncateTables(Set<TableReference> tableRefs) {
-        delegate().truncateTables(tableRefs);
-        if (isEnabled.get()) {
-            clearedTables.addAll(tableRefs);
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/SweepStatsKeyValueService.java`
-#### Snippet
-```java
-                TransactionConstants.getValueForTimestamp(timestamp), TransactionConstants.COMMIT_TS_COLUMN);
-        byte[] value = TransactionConstants.getValueForTimestamp(timestamp);
-        delegate().putUnlessExists(TransactionConstants.TRANSACTION_TABLE, ImmutableMap.of(cell, value));
-    }
-}
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/SweepStatsKeyValueService.java`
-#### Snippet
-```java
-    @Override
-    public void put(TableReference tableRef, Map<Cell, byte[]> values, long timestamp) {
-        delegate().put(tableRef, values, timestamp);
-        if (isEnabled.get()) {
-            writesByTable.add(tableRef, values.size());
+            if (RangeRequest.all().equals(range)) {
 ```
 
 ### AutoCloseableResource
@@ -26698,23 +26710,11 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/SweepStatsKe
 in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
 #### Snippet
 ```java
-            sink.timestamp(timestamp);
-        })) {
-            return delegate().getRowsColumnRange(tableRef, rows, columnRangeSelection, timestamp);
+        //noinspection unused - try-with-resources closes trace
+        try (CloseableTracer trace = startLocalTrace("atlasdb-kvs.truncateTable", tableRef)) {
+            delegate().truncateTable(tableRef);
         }
     }
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
-#### Snippet
-```java
-        @SuppressWarnings("MustBeClosedChecker")
-        ClosableIterator<RowResult<Set<Long>>> result =
-                delegate().getRangeOfTimestamps(tableRef, rangeRequest, timestamp);
-
-        return attachDetachedSpanCompletion(detachedSpan, result, sink -> sink.tableRef(tableRef));
 ```
 
 ### AutoCloseableResource
@@ -26725,102 +26725,6 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyVa
         //noinspection unused - try-with-resources closes trace
         try (CloseableTracer trace = startLocalTrace("atlasdb-kvs.getAllTableNames")) {
             return delegate().getAllTableNames();
-        }
-    }
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
-#### Snippet
-```java
-            sink.timestamp(timestamp);
-        })) {
-            return delegate().getAllTimestamps(tableRef, keys, timestamp);
-        }
-    }
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
-#### Snippet
-```java
-        try (CloseableTracer trace =
-                startLocalTrace("atlasdb-kvs.multiCheckAndSet", multiCheckAndSetRequest.tableRef())) {
-            delegate().multiCheckAndSet(multiCheckAndSetRequest);
-        }
-    }
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
-#### Snippet
-```java
-            sink.size("cells", cells);
-        })) {
-            delegate().addGarbageCollectionSentinelValues(tableRef, cells);
-        }
-    }
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
-#### Snippet
-```java
-            long timestamp) {
-        // No tracing, as we just return a lazy iterator and don't perform any calls to the backing KVS.
-        return delegate().getRowsColumnRange(tableRef, rows, columnRangeSelection, cellBatchHint, timestamp);
-    }
-
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
-#### Snippet
-```java
-    @Override
-    public boolean isInitialized() {
-        return delegate().isInitialized();
-    }
-
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
-#### Snippet
-```java
-    @Override
-    public boolean shouldTriggerCompactions() {
-        return delegate().shouldTriggerCompactions();
-    }
-
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
-#### Snippet
-```java
-        //noinspection unused - try-with-resources closes trace
-        try (CloseableTracer trace = startLocalTrace("atlasdb-kvs.checkAndSet", checkAndSetRequest.table())) {
-            delegate().checkAndSet(checkAndSetRequest);
-        }
-    }
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
-#### Snippet
-```java
-            sink.size("values", values);
-        })) {
-            delegate().setOnce(tableRef, values);
         }
     }
 ```
@@ -26842,69 +26746,9 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyVa
 in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
 #### Snippet
 ```java
-        try (CloseableTracer trace = startLocalTrace("atlasdb-kvs.getDelegates")) {
-            return ImmutableList.copyOf(
-                    Iterables.concat(ImmutableList.of(delegate()), delegate().getDelegates()));
-        }
-    }
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
-#### Snippet
-```java
-        //noinspection unused - try-with-resources closes trace
-        try (CloseableTracer trace = startLocalTrace("atlasdb-kvs.truncateTable", tableRef)) {
-            delegate().truncateTable(tableRef);
-        }
-    }
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
-#### Snippet
-```java
-        //noinspection unused - try-with-resources closes trace
-        try (CloseableTracer trace = startLocalTrace("atlasdb-kvs.getClusterAvailabilityStatus")) {
-            return delegate().getClusterAvailabilityStatus();
-        }
-    }
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
-#### Snippet
-```java
-        //noinspection unused - try-with-resources closes trace
-        try (CloseableTracer trace = startLocalTrace("atlasdb-kvs.getMetadataForTable", tableRef)) {
-            return delegate().getMetadataForTable(tableRef);
-        }
-    }
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
-#### Snippet
-```java
-            sink.size("cells", timestampByCell);
+            sink.timestamp(timestamp);
         })) {
-            return delegate().get(tableRef, timestampByCell);
-        }
-    }
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
-#### Snippet
-```java
-        //noinspection unused - try-with-resources closes trace
-        try (CloseableTracer trace = startLocalTrace("atlasdb-kvs.putMetadataForTables", tableRefToMetadata.keySet())) {
-            delegate().putMetadataForTables(tableRefToMetadata);
+            return delegate().getAllTimestamps(tableRef, keys, timestamp);
         }
     }
 ```
@@ -26926,30 +26770,6 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyVa
 in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
 #### Snippet
 ```java
-            sink.size("keys", keys);
-        })) {
-            delegate().delete(tableRef, keys);
-        }
-    }
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
-#### Snippet
-```java
-            sink.size("cells", timestampByCell);
-        })) {
-            return delegate().getLatestTimestamps(tableRef, timestampByCell);
-        }
-    }
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
-#### Snippet
-```java
             sink.timestamp(timestamp);
         })) {
             delegate().multiPut(valuesByTable, timestamp);
@@ -26962,9 +26782,9 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyVa
 in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
 #### Snippet
 ```java
-            sink.timestamp(timestamp);
-        })) {
-            return delegate().getFirstBatchForRanges(tableRef, rangeRequests, timestamp);
+        try (CloseableTracer trace = startLocalTrace("atlasdb-kvs.getDelegates")) {
+            return ImmutableList.copyOf(
+                    Iterables.concat(ImmutableList.of(delegate()), delegate().getDelegates()));
         }
     }
 ```
@@ -26975,8 +26795,56 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyVa
 #### Snippet
 ```java
         //noinspection unused - try-with-resources closes trace
-        try (CloseableTracer trace = startLocalTrace("atlasdb-kvs.deleteAllTimestamps", tableRef)) {
-            delegate().deleteAllTimestamps(tableRef, deletes);
+        try (CloseableTracer trace = startLocalTrace("atlasdb-kvs.dropTable", tableRef)) {
+            delegate().dropTable(tableRef);
+        }
+    }
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
+#### Snippet
+```java
+            sink.integer("bytes", size);
+        })) {
+            delegate().putMetadataForTable(tableRef, metadata);
+        }
+    }
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
+#### Snippet
+```java
+        //noinspection unused - try-with-resources closes trace
+        try (CloseableTracer trace = startLocalTrace("atlasdb-kvs.dropTables", tableRefs)) {
+            delegate().dropTables(tableRefs);
+        }
+    }
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
+#### Snippet
+```java
+    @Override
+    public boolean isInitialized() {
+        return delegate().isInitialized();
+    }
+
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
+#### Snippet
+```java
+        //noinspection unused - try-with-resources closes trace
+        try (CloseableTracer trace = startLocalTrace("atlasdb-kvs.truncateTables", tableRefs)) {
+            delegate().truncateTables(tableRefs);
         }
     }
 ```
@@ -26991,54 +26859,6 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyVa
         ListenableFuture<Map<Cell, Value>> future = delegate().getAsync(tableRef, timestampByCell);
 
         return attachDetachedSpanCompletion(detachedSpan, future, tracingExecutorService, sink -> {
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
-#### Snippet
-```java
-            sink.integer("maxResults", maxResults);
-        })) {
-            return delegate().getRowKeysInRange(tableRef, startRow, endRow, maxResults);
-        }
-    }
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
-#### Snippet
-```java
-        //noinspection unused - try-with-resources closes trace
-        try (CloseableTracer trace = startLocalTrace("atlasdb-kvs.deleteRows", tableRef)) {
-            delegate().deleteRows(tableRef, rows);
-        }
-    }
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
-#### Snippet
-```java
-            sink.timestamp(timestamp);
-        })) {
-            delegate().put(tableRef, values, timestamp);
-        }
-    }
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
-#### Snippet
-```java
-        //noinspection unused - try-with-resources closes trace
-        try (CloseableTracer trace = startLocalTrace("atlasdb-kvs.truncateTables", tableRefs)) {
-            delegate().truncateTables(tableRefs);
-        }
-    }
 ```
 
 ### AutoCloseableResource
@@ -27070,9 +26890,189 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyVa
 in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
 #### Snippet
 ```java
+            sink.timestamp(timestamp);
+        })) {
+            delegate().put(tableRef, values, timestamp);
+        }
+    }
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
+#### Snippet
+```java
+            long timestamp) {
+        // No tracing, as we just return a lazy iterator and don't perform any calls to the backing KVS.
+        return delegate().getRowsColumnRange(tableRef, rows, columnRangeSelection, cellBatchHint, timestamp);
+    }
+
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
+#### Snippet
+```java
+            sink.timestamp(timestamp);
+        })) {
+            return delegate().getRowsColumnRange(tableRef, rows, columnRangeSelection, timestamp);
+        }
+    }
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
+#### Snippet
+```java
+            sink.size("cells", timestampByCell);
+        })) {
+            return delegate().get(tableRef, timestampByCell);
+        }
+    }
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
+#### Snippet
+```java
+            sink.size("values", values);
+        })) {
+            delegate().putWithTimestamps(tableRef, values);
+        }
+    }
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
+#### Snippet
+```java
+            sink.size("cells", cells);
+        })) {
+            delegate().addGarbageCollectionSentinelValues(tableRef, cells);
+        }
+    }
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
+#### Snippet
+```java
+        @SuppressWarnings("MustBeClosedChecker")
+        ClosableIterator<RowResult<Set<Long>>> result =
+                delegate().getRangeOfTimestamps(tableRef, rangeRequest, timestamp);
+
+        return attachDetachedSpanCompletion(detachedSpan, result, sink -> sink.tableRef(tableRef));
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
+#### Snippet
+```java
+        @SuppressWarnings("MustBeClosedChecker")
+        ClosableIterator<List<CandidateCellForSweeping>> result =
+                delegate().getCandidateCellsForSweeping(tableRef, request);
+
+        return attachDetachedSpanCompletion(detachedSpan, result, sink -> sink.tableRef(tableRef));
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
+#### Snippet
+```java
+            sink.integer("maxResults", maxResults);
+        })) {
+            return delegate().getRowKeysInRange(tableRef, startRow, endRow, maxResults);
+        }
+    }
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
+#### Snippet
+```java
         //noinspection unused - try-with-resources closes trace
-        try (CloseableTracer trace = startLocalTrace("atlasdb-kvs.dropTables", tableRefs)) {
-            delegate().dropTables(tableRefs);
+        try (CloseableTracer trace = startLocalTrace("atlasdb-kvs.deleteAllTimestamps", tableRef)) {
+            delegate().deleteAllTimestamps(tableRef, deletes);
+        }
+    }
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
+#### Snippet
+```java
+            sink.size("values", values);
+        })) {
+            delegate().setOnce(tableRef, values);
+        }
+    }
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
+#### Snippet
+```java
+            sink.timestamp(timestamp);
+        })) {
+            return delegate().getRows(tableRef, rows, columnSelection, timestamp);
+        }
+    }
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
+#### Snippet
+```java
+            sink.timestamp(timestamp);
+        })) {
+            return delegate().getFirstBatchForRanges(tableRef, rangeRequests, timestamp);
+        }
+    }
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
+#### Snippet
+```java
+    @Override
+    public CheckAndSetCompatibility getCheckAndSetCompatibility() {
+        return delegate().getCheckAndSetCompatibility();
+    }
+
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
+#### Snippet
+```java
+            sink.size("cells", timestampByCell);
+        })) {
+            return delegate().getLatestTimestamps(tableRef, timestampByCell);
+        }
+    }
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
+#### Snippet
+```java
+            sink.size("keys", keys);
+        })) {
+            delegate().delete(tableRef, keys);
         }
     }
 ```
@@ -27095,8 +27095,56 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyVa
 #### Snippet
 ```java
         //noinspection unused - try-with-resources closes trace
-        try (CloseableTracer trace = startLocalTrace("atlasdb-kvs.dropTable", tableRef)) {
-            delegate().dropTable(tableRef);
+        try (CloseableTracer trace = startLocalTrace("atlasdb-kvs.getClusterAvailabilityStatus")) {
+            return delegate().getClusterAvailabilityStatus();
+        }
+    }
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
+#### Snippet
+```java
+        //noinspection unused - try-with-resources closes trace
+        try (CloseableTracer trace = startLocalTrace("atlasdb-kvs.deleteRows", tableRef)) {
+            delegate().deleteRows(tableRef, rows);
+        }
+    }
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
+#### Snippet
+```java
+        //noinspection unused - try-with-resources closes trace
+        try (CloseableTracer trace = startLocalTrace("atlasdb-kvs.putMetadataForTables", tableRefToMetadata.keySet())) {
+            delegate().putMetadataForTables(tableRefToMetadata);
+        }
+    }
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
+#### Snippet
+```java
+        try (CloseableTracer trace =
+                startLocalTrace("atlasdb-kvs.multiCheckAndSet", multiCheckAndSetRequest.tableRef())) {
+            delegate().multiCheckAndSet(multiCheckAndSetRequest);
+        }
+    }
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
+#### Snippet
+```java
+        //noinspection unused - try-with-resources closes trace
+        try (CloseableTracer trace = startLocalTrace("atlasdb-kvs.checkAndSet", checkAndSetRequest.table())) {
+            delegate().checkAndSet(checkAndSetRequest);
         }
     }
 ```
@@ -27119,68 +27167,8 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyVa
 #### Snippet
 ```java
         //noinspection unused - try-with-resources closes trace
-        try (CloseableTracer trace = startLocalTrace("atlasdb-kvs.compactInternally", tableRef)) {
-            delegate().compactInternally(tableRef);
-        }
-    }
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
-#### Snippet
-```java
-    @Override
-    public CheckAndSetCompatibility getCheckAndSetCompatibility() {
-        return delegate().getCheckAndSetCompatibility();
-    }
-
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
-#### Snippet
-```java
-            sink.size("values", values);
-        })) {
-            delegate().putWithTimestamps(tableRef, values);
-        }
-    }
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
-#### Snippet
-```java
-        @SuppressWarnings("MustBeClosedChecker")
-        ClosableIterator<List<CandidateCellForSweeping>> result =
-                delegate().getCandidateCellsForSweeping(tableRef, request);
-
-        return attachDetachedSpanCompletion(detachedSpan, result, sink -> sink.tableRef(tableRef));
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
-#### Snippet
-```java
-            sink.integer("bytes", size);
-        })) {
-            delegate().putMetadataForTable(tableRef, metadata);
-        }
-    }
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
-#### Snippet
-```java
-            sink.timestamp(timestamp);
-        })) {
-            return delegate().getRows(tableRef, rows, columnSelection, timestamp);
+        try (CloseableTracer trace = startLocalTrace("atlasdb-kvs.getMetadataForTable", tableRef)) {
+            return delegate().getMetadataForTable(tableRef);
         }
     }
 ```
@@ -27198,6 +27186,30 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyVa
 ```
 
 ### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
+#### Snippet
+```java
+    @Override
+    public boolean shouldTriggerCompactions() {
+        return delegate().shouldTriggerCompactions();
+    }
+
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/TracingKeyValueService.java`
+#### Snippet
+```java
+        //noinspection unused - try-with-resources closes trace
+        try (CloseableTracer trace = startLocalTrace("atlasdb-kvs.compactInternally", tableRef)) {
+            delegate().compactInternally(tableRef);
+        }
+    }
+```
+
+### AutoCloseableResource
 'AutobatchingPaxosAcceptorNetworkClientFactory' used without 'try'-with-resources statement
 in `timelock-agent/src/main/java/com/palantir/atlasdb/timelock/paxos/BatchingNetworkClientFactories.java`
 #### Snippet
@@ -27205,18 +27217,6 @@ in `timelock-agent/src/main/java/com/palantir/atlasdb/timelock/paxos/BatchingNet
                 .instrument(
                         PaxosAcceptorNetworkClient.class,
                         acceptorNetworkClientFactory().paxosAcceptorForClient(client),
-                        client);
-    }
-```
-
-### AutoCloseableResource
-'AutobatchingPaxosLearnerNetworkClientFactory' used without 'try'-with-resources statement
-in `timelock-agent/src/main/java/com/palantir/atlasdb/timelock/paxos/BatchingNetworkClientFactories.java`
-#### Snippet
-```java
-                .instrument(
-                        PaxosLearnerNetworkClient.class,
-                        learnerNetworkClientFactory().paxosLearnerForClient(client),
                         client);
     }
 ```
@@ -27231,6 +27231,18 @@ in `timelock-agent/src/main/java/com/palantir/atlasdb/timelock/paxos/Factories.j
             return pingableLeaderFactory()::leaderPingerFor;
         }
 
+```
+
+### AutoCloseableResource
+'AutobatchingPaxosLearnerNetworkClientFactory' used without 'try'-with-resources statement
+in `timelock-agent/src/main/java/com/palantir/atlasdb/timelock/paxos/BatchingNetworkClientFactories.java`
+#### Snippet
+```java
+                .instrument(
+                        PaxosLearnerNetworkClient.class,
+                        learnerNetworkClientFactory().paxosLearnerForClient(client),
+                        client);
+    }
 ```
 
 ### AutoCloseableResource
@@ -27277,7 +27289,7 @@ in `atlasdb-commons/src/main/java/com/palantir/common/io/ConcatenatedInputStream
         if (read == -1) {
             stream.close();
             streams.poll();
-            return read(b, off, len);
+            return read();
         }
 ```
 
@@ -27289,7 +27301,7 @@ in `atlasdb-commons/src/main/java/com/palantir/common/io/ConcatenatedInputStream
         if (read == -1) {
             stream.close();
             streams.poll();
-            return read();
+            return read(b, off, len);
         }
 ```
 
@@ -27354,462 +27366,6 @@ in `atlasdb-dbkvs-tests/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/DbKvsT
 ```
 
 ### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
-#### Snippet
-```java
-    public List<byte[]> getRowKeysInRange(TableReference tableRef, byte[] startRow, byte[] endRow, int maxResults) {
-        try {
-            return delegate().getRowKeysInRange(tableMapper.getMappedTableName(tableRef), startRow, endRow, maxResults);
-        } catch (TableMappingNotFoundException e) {
-            throw new IllegalArgumentException(e);
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
-#### Snippet
-```java
-            }
-        }
-        delegate().truncateTables(tablesToTruncate);
-    }
-
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
-#### Snippet
-```java
-    public void dropTables(Set<TableReference> tableRefs) {
-        Set<TableReference> tableNames = getShortTableReferencesForExistingTables(tableRefs);
-        delegate().dropTables(tableNames);
-
-        // We're purposely updating the table mappings after all drops are complete
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
-#### Snippet
-```java
-            TableReference tableRef, Iterable<RangeRequest> rangeRequests, long timestamp) {
-        try {
-            return delegate()
-                    .getFirstBatchForRanges(tableMapper.getMappedTableName(tableRef), rangeRequests, timestamp);
-        } catch (TableMappingNotFoundException e) {
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
-#### Snippet
-```java
-                    .tableRef(tableMapper.getMappedTableName(multiCheckAndSetRequest.tableRef()))
-                    .build();
-            delegate().multiCheckAndSet(request);
-        } catch (TableMappingNotFoundException e) {
-            throw new IllegalArgumentException(e);
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
-#### Snippet
-```java
-            }
-        }
-        delegate().putMetadataForTables(tableNameToMetadata);
-    }
-
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
-#### Snippet
-```java
-    public void truncateTable(TableReference tableRef) {
-        try {
-            delegate().truncateTable(tableMapper.getMappedTableName(tableRef));
-        } catch (TableMappingNotFoundException e) {
-            throw new IllegalArgumentException(e);
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
-#### Snippet
-```java
-            long timestamp) {
-        try {
-            return delegate()
-                    .getRowsColumnRange(
-                            tableMapper.getMappedTableName(tableRef), rows, columnRangeSelection, timestamp);
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
-#### Snippet
-```java
-    public Map<Cell, Value> get(TableReference tableRef, Map<Cell, Long> timestampByCell) {
-        try {
-            return delegate().get(tableMapper.getMappedTableName(tableRef), timestampByCell);
-        } catch (TableMappingNotFoundException e) {
-            throw new IllegalArgumentException(e);
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
-#### Snippet
-```java
-    public Map<Cell, Long> getLatestTimestamps(TableReference tableRef, Map<Cell, Long> timestampByCell) {
-        try {
-            return delegate().getLatestTimestamps(tableMapper.getMappedTableName(tableRef), timestampByCell);
-        } catch (TableMappingNotFoundException e) {
-            throw new IllegalArgumentException(e);
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
-#### Snippet
-```java
-    public void deleteRange(TableReference tableRef, RangeRequest range) {
-        try {
-            delegate().deleteRange(tableMapper.getMappedTableName(tableRef), range);
-        } catch (TableMappingNotFoundException e) {
-            throw new IllegalArgumentException(e);
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
-#### Snippet
-```java
-    public void putMetadataForTable(TableReference tableRef, byte[] metadata) {
-        try {
-            delegate().putMetadataForTable(tableMapper.getMappedTableName(tableRef), metadata);
-        } catch (TableMappingNotFoundException e) {
-            throw new IllegalArgumentException(e);
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
-#### Snippet
-```java
-    public void multiPut(Map<TableReference, ? extends Map<Cell, byte[]>> valuesByTable, long timestamp) {
-        try {
-            delegate().multiPut(tableMapper.mapToShortTableNames(valuesByTable), timestamp);
-        } catch (TableMappingNotFoundException e) {
-            throw new IllegalArgumentException(e);
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
-#### Snippet
-```java
-            TableReference tableRef, CandidateCellForSweepingRequest request) {
-        try {
-            return delegate().getCandidateCellsForSweeping(tableMapper.getMappedTableName(tableRef), request);
-        } catch (TableMappingNotFoundException e) {
-            throw new IllegalArgumentException(e);
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
-#### Snippet
-```java
-            TableReference tableRef, RangeRequest rangeRequest, long timestamp) {
-        try {
-            return delegate().getRange(tableMapper.getMappedTableName(tableRef), rangeRequest, timestamp);
-        } catch (TableMappingNotFoundException e) {
-            throw new IllegalArgumentException(e);
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
-#### Snippet
-```java
-            TableReference tableRef, RangeRequest rangeRequest, long timestamp) {
-        try {
-            return delegate().getRangeOfTimestamps(tableMapper.getMappedTableName(tableRef), rangeRequest, timestamp);
-        } catch (TableMappingNotFoundException e) {
-            throw new IllegalArgumentException(e);
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
-#### Snippet
-```java
-    public void createTable(TableReference tableRef, byte[] tableMetadata) {
-        TableReference shortName = tableMapper.addTable(tableRef);
-        delegate().createTable(shortName, tableMetadata);
-    }
-
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
-#### Snippet
-```java
-    public void putWithTimestamps(TableReference tableRef, Multimap<Cell, Value> values) {
-        try {
-            delegate().putWithTimestamps(tableMapper.getMappedTableName(tableRef), values);
-        } catch (TableMappingNotFoundException e) {
-            throw new IllegalArgumentException(e);
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
-#### Snippet
-```java
-    public byte[] getMetadataForTable(TableReference tableRef) {
-        try {
-            return delegate().getMetadataForTable(tableMapper.getMappedTableName(tableRef));
-        } catch (TableMappingNotFoundException e) { // table does not exist.
-            return AtlasDbConstants.EMPTY_TABLE_METADATA;
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
-#### Snippet
-```java
-    @Override
-    public ClusterAvailabilityStatus getClusterAvailabilityStatus() {
-        return delegate().getClusterAvailabilityStatus();
-    }
-
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
-#### Snippet
-```java
-    public void compactInternally(TableReference tableRef) {
-        try {
-            delegate().compactInternally(tableMapper.getMappedTableName(tableRef));
-        } catch (TableMappingNotFoundException e) {
-            throw new IllegalArgumentException(e);
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
-#### Snippet
-```java
-            long timestamp) {
-        try {
-            return delegate()
-                    .getRowsColumnRange(
-                            tableMapper.getMappedTableName(tableRef),
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
-#### Snippet
-```java
-    public void setOnce(TableReference tableRef, Map<Cell, byte[]> values) {
-        try {
-            delegate().setOnce(tableMapper.getMappedTableName(tableRef), values);
-        } catch (TableMappingNotFoundException e) {
-            throw new IllegalArgumentException(e);
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
-#### Snippet
-```java
-    public void deleteAllTimestamps(TableReference tableRef, Map<Cell, TimestampRangeDelete> deletes) {
-        try {
-            delegate().deleteAllTimestamps(tableMapper.getMappedTableName(tableRef), deletes);
-        } catch (TableMappingNotFoundException e) {
-            throw new IllegalArgumentException(e);
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
-#### Snippet
-```java
-    public void compactInternally(TableReference tableRef, boolean inMaintenanceMode) {
-        try {
-            delegate().compactInternally(tableMapper.getMappedTableName(tableRef), inMaintenanceMode);
-        } catch (TableMappingNotFoundException e) {
-            throw new IllegalArgumentException(e);
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
-#### Snippet
-```java
-    @Override
-    public Map<TableReference, byte[]> getMetadataForTables() {
-        Map<TableReference, byte[]> tableMetadata = delegate().getMetadataForTables();
-        Map<TableReference, TableReference> metadataNamesToFullTableNames =
-                tableMapper.generateMapToFullTableNames(tableMetadata.keySet());
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
-#### Snippet
-```java
-    public void addGarbageCollectionSentinelValues(TableReference tableRef, Iterable<Cell> cells) {
-        try {
-            delegate().addGarbageCollectionSentinelValues(tableMapper.getMappedTableName(tableRef), cells);
-        } catch (TableMappingNotFoundException e) {
-            throw new IllegalArgumentException(e);
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
-#### Snippet
-```java
-    public ListenableFuture<Map<Cell, Value>> getAsync(TableReference tableRef, Map<Cell, Long> timestampByCell) {
-        try {
-            return delegate().getAsync(tableMapper.getMappedTableName(tableRef), timestampByCell);
-        } catch (TableMappingNotFoundException e) {
-            throw new IllegalArgumentException(e);
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
-#### Snippet
-```java
-            TableReference tableRef, Iterable<byte[]> rows, ColumnSelection columnSelection, long timestamp) {
-        try {
-            return delegate().getRows(tableMapper.getMappedTableName(tableRef), rows, columnSelection, timestamp);
-        } catch (TableMappingNotFoundException e) {
-            throw new IllegalArgumentException(e);
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
-#### Snippet
-```java
-    public Set<TableReference> getAllTableNames() {
-        return ImmutableSet.copyOf(tableMapper
-                .generateMapToFullTableNames(delegate().getAllTableNames())
-                .values());
-    }
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
-#### Snippet
-```java
-            tableNameToTableMetadata.put(tableMapper.addTable(tableEntry.getKey()), tableEntry.getValue());
-        }
-        delegate().createTables(tableNameToTableMetadata);
-    }
-
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
-#### Snippet
-```java
-    public void deleteRows(TableReference tableRef, Iterable<byte[]> rows) {
-        try {
-            delegate().deleteRows(tableMapper.getMappedTableName(tableRef), rows);
-        } catch (TableMappingNotFoundException e) {
-            throw new IllegalArgumentException(e);
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
-#### Snippet
-```java
-    public void put(TableReference tableRef, Map<Cell, byte[]> values, long timestamp) {
-        try {
-            delegate().put(tableMapper.getMappedTableName(tableRef), values, timestamp);
-        } catch (TableMappingNotFoundException e) {
-            throw new IllegalArgumentException(e);
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
-#### Snippet
-```java
-    @Override
-    public CheckAndSetCompatibility getCheckAndSetCompatibility() {
-        return delegate().getCheckAndSetCompatibility();
-    }
-
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
-#### Snippet
-```java
-                    .table(tableMapper.getMappedTableName(checkAndSetRequest.table()))
-                    .build();
-            delegate().checkAndSet(request);
-        } catch (TableMappingNotFoundException e) {
-            throw new IllegalArgumentException(e);
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
-#### Snippet
-```java
-    public void putUnlessExists(TableReference tableRef, Map<Cell, byte[]> values) throws KeyAlreadyExistsException {
-        try {
-            delegate().putUnlessExists(tableMapper.getMappedTableName(tableRef), values);
-        } catch (TableMappingNotFoundException e) {
-            throw new IllegalArgumentException(e);
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
-#### Snippet
-```java
-    public Multimap<Cell, Long> getAllTimestamps(TableReference tableRef, Set<Cell> keys, long timestamp) {
-        try {
-            return delegate().getAllTimestamps(tableMapper.getMappedTableName(tableRef), keys, timestamp);
-        } catch (TableMappingNotFoundException e) {
-            throw new IllegalArgumentException(e);
-```
-
-### AutoCloseableResource
-'KeyValueService' used without 'try'-with-resources statement
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
-#### Snippet
-```java
-    public void delete(TableReference tableRef, Multimap<Cell, Long> keys) {
-        try {
-            delegate().delete(tableMapper.getMappedTableName(tableRef), keys);
-        } catch (TableMappingNotFoundException e) {
-            throw new IllegalArgumentException(e);
-```
-
-### AutoCloseableResource
 'Context' used without 'try'-with-resources statement
 in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/CommitTimestampLoader.java`
 #### Snippet
@@ -27819,18 +27375,6 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/Comm
         Timer.Context timer = getTimer("waitForCommitTsMillis").time();
         waitForCommitToComplete(startTimestamps);
         long waitForCommitTsMillis = TimeUnit.NANOSECONDS.toMillis(timer.stop());
-```
-
-### AutoCloseableResource
-'TransactionManager' used without 'try'-with-resources statement
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/WrappingTransactionManager.java`
-#### Snippet
-```java
-    public <T, C extends PreCommitCondition, E extends Exception> T runTaskWithConditionWithRetry(
-            Supplier<C> conditionSupplier, ConditionAwareTransactionTask<T, C, E> task) throws E {
-        return delegate().runTaskWithConditionWithRetry(conditionSupplier, wrapTask(task));
-    }
-
 ```
 
 ### AutoCloseableResource
@@ -27886,9 +27430,9 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/Wrap
 in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/WrappingTransactionManager.java`
 #### Snippet
 ```java
-            LockAwareTransactionTask<T, E> task)
-            throws E, InterruptedException {
-        return delegate().runTaskWithLocksWithRetry(lockTokens, lockSupplier, wrapTask(task));
+            Iterable<HeldLocksToken> lockTokens, LockAwareTransactionTask<T, E> task)
+            throws E, TransactionConflictException {
+        return delegate().runTaskWithLocksThrowOnConflict(lockTokens, wrapTask(task));
     }
 
 ```
@@ -27922,11 +27466,479 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/Wrap
 in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/WrappingTransactionManager.java`
 #### Snippet
 ```java
-            Iterable<HeldLocksToken> lockTokens, LockAwareTransactionTask<T, E> task)
-            throws E, TransactionConflictException {
-        return delegate().runTaskWithLocksThrowOnConflict(lockTokens, wrapTask(task));
+            LockAwareTransactionTask<T, E> task)
+            throws E, InterruptedException {
+        return delegate().runTaskWithLocksWithRetry(lockTokens, lockSupplier, wrapTask(task));
     }
 
+```
+
+### AutoCloseableResource
+'TransactionManager' used without 'try'-with-resources statement
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/WrappingTransactionManager.java`
+#### Snippet
+```java
+    public <T, C extends PreCommitCondition, E extends Exception> T runTaskWithConditionWithRetry(
+            Supplier<C> conditionSupplier, ConditionAwareTransactionTask<T, C, E> task) throws E {
+        return delegate().runTaskWithConditionWithRetry(conditionSupplier, wrapTask(task));
+    }
+
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
+#### Snippet
+```java
+    public ListenableFuture<Map<Cell, Value>> getAsync(TableReference tableRef, Map<Cell, Long> timestampByCell) {
+        try {
+            return delegate().getAsync(tableMapper.getMappedTableName(tableRef), timestampByCell);
+        } catch (TableMappingNotFoundException e) {
+            throw new IllegalArgumentException(e);
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
+#### Snippet
+```java
+    public Set<TableReference> getAllTableNames() {
+        return ImmutableSet.copyOf(tableMapper
+                .generateMapToFullTableNames(delegate().getAllTableNames())
+                .values());
+    }
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
+#### Snippet
+```java
+    public Multimap<Cell, Long> getAllTimestamps(TableReference tableRef, Set<Cell> keys, long timestamp) {
+        try {
+            return delegate().getAllTimestamps(tableMapper.getMappedTableName(tableRef), keys, timestamp);
+        } catch (TableMappingNotFoundException e) {
+            throw new IllegalArgumentException(e);
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
+#### Snippet
+```java
+    @Override
+    public Map<TableReference, byte[]> getMetadataForTables() {
+        Map<TableReference, byte[]> tableMetadata = delegate().getMetadataForTables();
+        Map<TableReference, TableReference> metadataNamesToFullTableNames =
+                tableMapper.generateMapToFullTableNames(tableMetadata.keySet());
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
+#### Snippet
+```java
+    public void compactInternally(TableReference tableRef, boolean inMaintenanceMode) {
+        try {
+            delegate().compactInternally(tableMapper.getMappedTableName(tableRef), inMaintenanceMode);
+        } catch (TableMappingNotFoundException e) {
+            throw new IllegalArgumentException(e);
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
+#### Snippet
+```java
+    public List<byte[]> getRowKeysInRange(TableReference tableRef, byte[] startRow, byte[] endRow, int maxResults) {
+        try {
+            return delegate().getRowKeysInRange(tableMapper.getMappedTableName(tableRef), startRow, endRow, maxResults);
+        } catch (TableMappingNotFoundException e) {
+            throw new IllegalArgumentException(e);
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
+#### Snippet
+```java
+                    .table(tableMapper.getMappedTableName(checkAndSetRequest.table()))
+                    .build();
+            delegate().checkAndSet(request);
+        } catch (TableMappingNotFoundException e) {
+            throw new IllegalArgumentException(e);
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
+#### Snippet
+```java
+    public void dropTables(Set<TableReference> tableRefs) {
+        Set<TableReference> tableNames = getShortTableReferencesForExistingTables(tableRefs);
+        delegate().dropTables(tableNames);
+
+        // We're purposely updating the table mappings after all drops are complete
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
+#### Snippet
+```java
+            tableNameToTableMetadata.put(tableMapper.addTable(tableEntry.getKey()), tableEntry.getValue());
+        }
+        delegate().createTables(tableNameToTableMetadata);
+    }
+
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
+#### Snippet
+```java
+    public void putUnlessExists(TableReference tableRef, Map<Cell, byte[]> values) throws KeyAlreadyExistsException {
+        try {
+            delegate().putUnlessExists(tableMapper.getMappedTableName(tableRef), values);
+        } catch (TableMappingNotFoundException e) {
+            throw new IllegalArgumentException(e);
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
+#### Snippet
+```java
+            long timestamp) {
+        try {
+            return delegate()
+                    .getRowsColumnRange(
+                            tableMapper.getMappedTableName(tableRef),
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
+#### Snippet
+```java
+            TableReference tableRef, RangeRequest rangeRequest, long timestamp) {
+        try {
+            return delegate().getRange(tableMapper.getMappedTableName(tableRef), rangeRequest, timestamp);
+        } catch (TableMappingNotFoundException e) {
+            throw new IllegalArgumentException(e);
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
+#### Snippet
+```java
+    public void deleteRows(TableReference tableRef, Iterable<byte[]> rows) {
+        try {
+            delegate().deleteRows(tableMapper.getMappedTableName(tableRef), rows);
+        } catch (TableMappingNotFoundException e) {
+            throw new IllegalArgumentException(e);
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
+#### Snippet
+```java
+            TableReference tableRef, Iterable<byte[]> rows, ColumnSelection columnSelection, long timestamp) {
+        try {
+            return delegate().getRows(tableMapper.getMappedTableName(tableRef), rows, columnSelection, timestamp);
+        } catch (TableMappingNotFoundException e) {
+            throw new IllegalArgumentException(e);
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
+#### Snippet
+```java
+    public void putMetadataForTable(TableReference tableRef, byte[] metadata) {
+        try {
+            delegate().putMetadataForTable(tableMapper.getMappedTableName(tableRef), metadata);
+        } catch (TableMappingNotFoundException e) {
+            throw new IllegalArgumentException(e);
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
+#### Snippet
+```java
+            TableReference tableRef, CandidateCellForSweepingRequest request) {
+        try {
+            return delegate().getCandidateCellsForSweeping(tableMapper.getMappedTableName(tableRef), request);
+        } catch (TableMappingNotFoundException e) {
+            throw new IllegalArgumentException(e);
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
+#### Snippet
+```java
+    public void putWithTimestamps(TableReference tableRef, Multimap<Cell, Value> values) {
+        try {
+            delegate().putWithTimestamps(tableMapper.getMappedTableName(tableRef), values);
+        } catch (TableMappingNotFoundException e) {
+            throw new IllegalArgumentException(e);
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
+#### Snippet
+```java
+    public Map<Cell, Long> getLatestTimestamps(TableReference tableRef, Map<Cell, Long> timestampByCell) {
+        try {
+            return delegate().getLatestTimestamps(tableMapper.getMappedTableName(tableRef), timestampByCell);
+        } catch (TableMappingNotFoundException e) {
+            throw new IllegalArgumentException(e);
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
+#### Snippet
+```java
+    public void compactInternally(TableReference tableRef) {
+        try {
+            delegate().compactInternally(tableMapper.getMappedTableName(tableRef));
+        } catch (TableMappingNotFoundException e) {
+            throw new IllegalArgumentException(e);
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
+#### Snippet
+```java
+            }
+        }
+        delegate().truncateTables(tablesToTruncate);
+    }
+
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
+#### Snippet
+```java
+    public void truncateTable(TableReference tableRef) {
+        try {
+            delegate().truncateTable(tableMapper.getMappedTableName(tableRef));
+        } catch (TableMappingNotFoundException e) {
+            throw new IllegalArgumentException(e);
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
+#### Snippet
+```java
+    public byte[] getMetadataForTable(TableReference tableRef) {
+        try {
+            return delegate().getMetadataForTable(tableMapper.getMappedTableName(tableRef));
+        } catch (TableMappingNotFoundException e) { // table does not exist.
+            return AtlasDbConstants.EMPTY_TABLE_METADATA;
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
+#### Snippet
+```java
+    public void put(TableReference tableRef, Map<Cell, byte[]> values, long timestamp) {
+        try {
+            delegate().put(tableMapper.getMappedTableName(tableRef), values, timestamp);
+        } catch (TableMappingNotFoundException e) {
+            throw new IllegalArgumentException(e);
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
+#### Snippet
+```java
+    public void deleteRange(TableReference tableRef, RangeRequest range) {
+        try {
+            delegate().deleteRange(tableMapper.getMappedTableName(tableRef), range);
+        } catch (TableMappingNotFoundException e) {
+            throw new IllegalArgumentException(e);
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
+#### Snippet
+```java
+    public void addGarbageCollectionSentinelValues(TableReference tableRef, Iterable<Cell> cells) {
+        try {
+            delegate().addGarbageCollectionSentinelValues(tableMapper.getMappedTableName(tableRef), cells);
+        } catch (TableMappingNotFoundException e) {
+            throw new IllegalArgumentException(e);
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
+#### Snippet
+```java
+            long timestamp) {
+        try {
+            return delegate()
+                    .getRowsColumnRange(
+                            tableMapper.getMappedTableName(tableRef), rows, columnRangeSelection, timestamp);
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
+#### Snippet
+```java
+                    .tableRef(tableMapper.getMappedTableName(multiCheckAndSetRequest.tableRef()))
+                    .build();
+            delegate().multiCheckAndSet(request);
+        } catch (TableMappingNotFoundException e) {
+            throw new IllegalArgumentException(e);
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
+#### Snippet
+```java
+            TableReference tableRef, RangeRequest rangeRequest, long timestamp) {
+        try {
+            return delegate().getRangeOfTimestamps(tableMapper.getMappedTableName(tableRef), rangeRequest, timestamp);
+        } catch (TableMappingNotFoundException e) {
+            throw new IllegalArgumentException(e);
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
+#### Snippet
+```java
+            }
+        }
+        delegate().putMetadataForTables(tableNameToMetadata);
+    }
+
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
+#### Snippet
+```java
+    public void createTable(TableReference tableRef, byte[] tableMetadata) {
+        TableReference shortName = tableMapper.addTable(tableRef);
+        delegate().createTable(shortName, tableMetadata);
+    }
+
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
+#### Snippet
+```java
+    public Map<Cell, Value> get(TableReference tableRef, Map<Cell, Long> timestampByCell) {
+        try {
+            return delegate().get(tableMapper.getMappedTableName(tableRef), timestampByCell);
+        } catch (TableMappingNotFoundException e) {
+            throw new IllegalArgumentException(e);
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
+#### Snippet
+```java
+    public void multiPut(Map<TableReference, ? extends Map<Cell, byte[]>> valuesByTable, long timestamp) {
+        try {
+            delegate().multiPut(tableMapper.mapToShortTableNames(valuesByTable), timestamp);
+        } catch (TableMappingNotFoundException e) {
+            throw new IllegalArgumentException(e);
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
+#### Snippet
+```java
+            TableReference tableRef, Iterable<RangeRequest> rangeRequests, long timestamp) {
+        try {
+            return delegate()
+                    .getFirstBatchForRanges(tableMapper.getMappedTableName(tableRef), rangeRequests, timestamp);
+        } catch (TableMappingNotFoundException e) {
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
+#### Snippet
+```java
+    public void delete(TableReference tableRef, Multimap<Cell, Long> keys) {
+        try {
+            delegate().delete(tableMapper.getMappedTableName(tableRef), keys);
+        } catch (TableMappingNotFoundException e) {
+            throw new IllegalArgumentException(e);
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
+#### Snippet
+```java
+    @Override
+    public ClusterAvailabilityStatus getClusterAvailabilityStatus() {
+        return delegate().getClusterAvailabilityStatus();
+    }
+
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
+#### Snippet
+```java
+    public void deleteAllTimestamps(TableReference tableRef, Map<Cell, TimestampRangeDelete> deletes) {
+        try {
+            delegate().deleteAllTimestamps(tableMapper.getMappedTableName(tableRef), deletes);
+        } catch (TableMappingNotFoundException e) {
+            throw new IllegalArgumentException(e);
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
+#### Snippet
+```java
+    @Override
+    public CheckAndSetCompatibility getCheckAndSetCompatibility() {
+        return delegate().getCheckAndSetCompatibility();
+    }
+
+```
+
+### AutoCloseableResource
+'KeyValueService' used without 'try'-with-resources statement
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/TableRemappingKeyValueService.java`
+#### Snippet
+```java
+    public void setOnce(TableReference tableRef, Map<Cell, byte[]> values) {
+        try {
+            delegate().setOnce(tableMapper.getMappedTableName(tableRef), values);
+        } catch (TableMappingNotFoundException e) {
+            throw new IllegalArgumentException(e);
 ```
 
 ### AutoCloseableResource
@@ -27994,6 +28006,18 @@ in `atlasdb-dbkvs-hikari/src/main/java/com/palantir/nexus/db/pool/HikariCPConnec
 in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/SnapshotTransaction.java`
 #### Snippet
 ```java
+            AsyncKeyValueService asyncKeyValueService,
+            AsyncTransactionService asyncTransactionService) {
+        Timer.Context timer = getTimer(operationName).time();
+        checkGetPreconditions(tableRef);
+        if (Iterables.isEmpty(cells)) {
+```
+
+### AutoCloseableResource
+'Context' used without 'try'-with-resources statement
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/SnapshotTransaction.java`
+#### Snippet
+```java
     private NavigableMap<byte[], RowResult<byte[]>> getRowsInternal(
             TableReference tableRef, Iterable<byte[]> rows, ColumnSelection columnSelection) {
         Timer.Context timer = getTimer("getRows").time();
@@ -28011,18 +28035,6 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/Snap
                     Timer.Context timer = getTimer("processedRangeMillis").time();
                     Map<RangeRequest, TokenBackedBasicResultsPage<RowResult<Value>, byte[]>> firstPages =
                             keyValueService.getFirstBatchForRanges(tableRef, input, getStartTimestamp());
-```
-
-### AutoCloseableResource
-'Context' used without 'try'-with-resources statement
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/SnapshotTransaction.java`
-#### Snippet
-```java
-            AsyncKeyValueService asyncKeyValueService,
-            AsyncTransactionService asyncTransactionService) {
-        Timer.Context timer = getTimer(operationName).time();
-        checkGetPreconditions(tableRef);
-        if (Iterables.isEmpty(cells)) {
 ```
 
 ### AutoCloseableResource
@@ -28055,6 +28067,18 @@ in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/Abs
 #### Snippet
 ```java
     @Test
+    public void testShouldNotReadValuesAtSuccessorTimestamp() {
+        TransactionManager manager = createManager();
+
+        manager.runTaskThrowOnConflict(tx -> {
+```
+
+### AutoCloseableResource
+'TransactionManager' used without 'try'-with-resources statement
+in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/AbstractSerializableTransactionTest.java`
+#### Snippet
+```java
+    @Test
     public void testReadMyOwnWritesShouldNotConflict() {
         createManager().runTaskThrowOnConflict(tx -> {
             tx.get(TEST_TABLE_SERIALIZABLE, ImmutableSet.of(CELL_ONE));
@@ -28074,15 +28098,15 @@ in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/Abs
 ```
 
 ### AutoCloseableResource
-'TransactionManager' used without 'try'-with-resources statement
-in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/AbstractSerializableTransactionTest.java`
+'CassandraKeyValueService' used without 'try'-with-resources statement
+in `atlasdb-container-test-utils/src/main/java/com/palantir/atlasdb/containers/ThreeNodeCassandraCluster.java`
 #### Snippet
 ```java
-    @Test
-    public void testShouldNotReadValuesAtSuccessorTimestamp() {
-        TransactionManager manager = createManager();
 
-        manager.runTaskThrowOnConflict(tx -> {
+    private static boolean canCreateCassandraKeyValueService() {
+        return CassandraKeyValueServiceImpl.createForTesting(KVS_CONFIG, KVS_RUNTIME_CONFIG)
+                .isInitialized();
+    }
 ```
 
 ### AutoCloseableResource
@@ -28107,18 +28131,6 @@ in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/Abs
         createAndRegisterManager().runTaskWithRetry((TransactionTask<Void, RuntimeException>) tx -> {
             put(tx, TEST_TABLE, "row1", "col1", "v1");
             assertThat(get(tx, "row1", "col1")).isEqualTo("v1");
-```
-
-### AutoCloseableResource
-'CassandraKeyValueService' used without 'try'-with-resources statement
-in `atlasdb-container-test-utils/src/main/java/com/palantir/atlasdb/containers/ThreeNodeCassandraCluster.java`
-#### Snippet
-```java
-
-    private static boolean canCreateCassandraKeyValueService() {
-        return CassandraKeyValueServiceImpl.createForTesting(KVS_CONFIG, KVS_RUNTIME_CONFIG)
-                .isInitialized();
-    }
 ```
 
 ## RuleId[id=ConditionCoveredByFurtherCondition]
@@ -28236,6 +28248,18 @@ in `lock-api-objects/src/main/java/com/palantir/lock/v2/ClientLockingOptions.jav
 
 ## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
+Field `leadershipUpperBound` may be 'final'
+in `lock-api/src/main/java/com/palantir/lock/client/LeaderElectionReportingTimelockService.java`
+#### Snippet
+```java
+    private volatile UUID leaderId = null;
+    private volatile LeaderElectionDuration lastComputedDuration = null;
+    private Map<UUID, Instant> leadershipUpperBound = new ConcurrentHashMap<>();
+    private Map<UUID, Instant> leadershipLowerBound = new ConcurrentHashMap<>();
+
+```
+
+### FieldMayBeFinal
 Field `leadershipLowerBound` may be 'final'
 in `lock-api/src/main/java/com/palantir/lock/client/LeaderElectionReportingTimelockService.java`
 #### Snippet
@@ -28248,14 +28272,14 @@ in `lock-api/src/main/java/com/palantir/lock/client/LeaderElectionReportingTimel
 ```
 
 ### FieldMayBeFinal
-Field `leadershipUpperBound` may be 'final'
-in `lock-api/src/main/java/com/palantir/lock/client/LeaderElectionReportingTimelockService.java`
+Field `mapper` may be 'final'
+in `lock-impl/src/main/java/com/palantir/lock/logger/LockDescriptorMapper.java`
 #### Snippet
 ```java
-    private volatile UUID leaderId = null;
-    private volatile LeaderElectionDuration lastComputedDuration = null;
-    private Map<UUID, Instant> leadershipUpperBound = new ConcurrentHashMap<>();
-    private Map<UUID, Instant> leadershipLowerBound = new ConcurrentHashMap<>();
+    private static final String LOCK_PREFIX = "Lock-";
+
+    private Map<LockDescriptor, ObfuscatedLockDescriptor> mapper = new ConcurrentHashMap<>();
+    private AtomicInteger lockCounter = new AtomicInteger();
 
 ```
 
@@ -28269,18 +28293,6 @@ in `lock-impl/src/main/java/com/palantir/lock/logger/LockDescriptorMapper.java`
     private AtomicInteger lockCounter = new AtomicInteger();
 
     ObfuscatedLockDescriptor getDescriptorMapping(LockDescriptor descriptor) {
-```
-
-### FieldMayBeFinal
-Field `mapper` may be 'final'
-in `lock-impl/src/main/java/com/palantir/lock/logger/LockDescriptorMapper.java`
-#### Snippet
-```java
-    private static final String LOCK_PREFIX = "Lock-";
-
-    private Map<LockDescriptor, ObfuscatedLockDescriptor> mapper = new ConcurrentHashMap<>();
-    private AtomicInteger lockCounter = new AtomicInteger();
-
 ```
 
 ### FieldMayBeFinal
@@ -28368,6 +28380,18 @@ in `atlasdb-cli/src/main/java/com/palantir/atlasdb/cli/command/AbstractCommand.j
 ```
 
 ### FieldMayBeFinal
+Field `runtimeConfigRoot` may be 'final'
+in `atlasdb-cli/src/main/java/com/palantir/atlasdb/cli/command/AbstractCommand.java`
+#### Snippet
+```java
+            type = OptionType.GLOBAL,
+            description = "field in the runtime config yaml file that contains the atlasdb configuration root")
+    private String runtimeConfigRoot = AtlasDbConfigs.ATLASDB_CONFIG_OBJECT_PATH;
+
+    @Option(
+```
+
+### FieldMayBeFinal
 Field `configRoot` may be 'final'
 in `atlasdb-cli/src/main/java/com/palantir/atlasdb/cli/command/AbstractCommand.java`
 #### Snippet
@@ -28380,13 +28404,73 @@ in `atlasdb-cli/src/main/java/com/palantir/atlasdb/cli/command/AbstractCommand.j
 ```
 
 ### FieldMayBeFinal
+Field `threads` may be 'final'
+in `atlasdb-cli/src/main/java/com/palantir/atlasdb/cli/command/KvsMigrationCommand.java`
+#### Snippet
+```java
+            required = false,
+            arity = 1)
+    private int threads = 16;
+
+    @Option(
+```
+
+### FieldMayBeFinal
+Field `migrate` may be 'final'
+in `atlasdb-cli/src/main/java/com/palantir/atlasdb/cli/command/KvsMigrationCommand.java`
+#### Snippet
+```java
+            name = {"-m", "--migrate"},
+            description = "Start or continue migration.")
+    private boolean migrate = false;
+
+    @Option(
+```
+
+### FieldMayBeFinal
+Field `configRoot` may be 'final'
+in `atlasdb-cli/src/main/java/com/palantir/atlasdb/cli/command/KvsMigrationCommand.java`
+#### Snippet
+```java
+            type = OptionType.GLOBAL,
+            description = "field in the config yaml file that contains the atlasdb configuration root")
+    private String configRoot = AtlasDbConfigs.ATLASDB_CONFIG_OBJECT_PATH;
+
+    @Option(
+```
+
+### FieldMayBeFinal
+Field `batchSize` may be 'final'
+in `atlasdb-cli/src/main/java/com/palantir/atlasdb/cli/command/KvsMigrationCommand.java`
+#### Snippet
+```java
+            required = false,
+            arity = 1)
+    private int batchSize = 100;
+
+    @Option(
+```
+
+### FieldMayBeFinal
 Field `runtimeConfigRoot` may be 'final'
-in `atlasdb-cli/src/main/java/com/palantir/atlasdb/cli/command/AbstractCommand.java`
+in `atlasdb-cli/src/main/java/com/palantir/atlasdb/cli/command/KvsMigrationCommand.java`
 #### Snippet
 ```java
             type = OptionType.GLOBAL,
             description = "field in the runtime config yaml file that contains the atlasdb configuration root")
     private String runtimeConfigRoot = AtlasDbConfigs.ATLASDB_CONFIG_OBJECT_PATH;
+
+    @Option(
+```
+
+### FieldMayBeFinal
+Field `validate` may be 'final'
+in `atlasdb-cli/src/main/java/com/palantir/atlasdb/cli/command/KvsMigrationCommand.java`
+#### Snippet
+```java
+            name = {"-v", "--validate"},
+            description = "Validate migration.")
+    private boolean validate = false;
 
     @Option(
 ```
@@ -28413,78 +28497,6 @@ in `atlasdb-cli/src/main/java/com/palantir/atlasdb/cli/command/KvsMigrationComma
     private boolean offline = false;
 
     // TODO(bgrabham): Hide this argument once https://github.com/airlift/airline/issues/51 is fixed
-```
-
-### FieldMayBeFinal
-Field `migrate` may be 'final'
-in `atlasdb-cli/src/main/java/com/palantir/atlasdb/cli/command/KvsMigrationCommand.java`
-#### Snippet
-```java
-            name = {"-m", "--migrate"},
-            description = "Start or continue migration.")
-    private boolean migrate = false;
-
-    @Option(
-```
-
-### FieldMayBeFinal
-Field `runtimeConfigRoot` may be 'final'
-in `atlasdb-cli/src/main/java/com/palantir/atlasdb/cli/command/KvsMigrationCommand.java`
-#### Snippet
-```java
-            type = OptionType.GLOBAL,
-            description = "field in the runtime config yaml file that contains the atlasdb configuration root")
-    private String runtimeConfigRoot = AtlasDbConfigs.ATLASDB_CONFIG_OBJECT_PATH;
-
-    @Option(
-```
-
-### FieldMayBeFinal
-Field `threads` may be 'final'
-in `atlasdb-cli/src/main/java/com/palantir/atlasdb/cli/command/KvsMigrationCommand.java`
-#### Snippet
-```java
-            required = false,
-            arity = 1)
-    private int threads = 16;
-
-    @Option(
-```
-
-### FieldMayBeFinal
-Field `configRoot` may be 'final'
-in `atlasdb-cli/src/main/java/com/palantir/atlasdb/cli/command/KvsMigrationCommand.java`
-#### Snippet
-```java
-            type = OptionType.GLOBAL,
-            description = "field in the config yaml file that contains the atlasdb configuration root")
-    private String configRoot = AtlasDbConfigs.ATLASDB_CONFIG_OBJECT_PATH;
-
-    @Option(
-```
-
-### FieldMayBeFinal
-Field `validate` may be 'final'
-in `atlasdb-cli/src/main/java/com/palantir/atlasdb/cli/command/KvsMigrationCommand.java`
-#### Snippet
-```java
-            name = {"-v", "--validate"},
-            description = "Validate migration.")
-    private boolean validate = false;
-
-    @Option(
-```
-
-### FieldMayBeFinal
-Field `batchSize` may be 'final'
-in `atlasdb-cli/src/main/java/com/palantir/atlasdb/cli/command/KvsMigrationCommand.java`
-#### Snippet
-```java
-            required = false,
-            arity = 1)
-    private int batchSize = 100;
-
-    @Option(
 ```
 
 ### FieldMayBeFinal
@@ -28524,18 +28536,6 @@ in `atlasdb-perf/src/main/java/com/palantir/atlasdb/performance/benchmarks/table
 ```
 
 ### FieldMayBeFinal
-Field `iterator` may be 'final'
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/TimestampsByCellResultWithToken.java`
-#### Snippet
-```java
-    private byte[] currentRow = null;
-    private byte[] currentCol = null;
-    private PeekingIterator<AgnosticLightResultRow> iterator;
-
-    final SetMultimap<Cell, Long> entries;
-```
-
-### FieldMayBeFinal
 Field `rowBuffer` may be 'final'
 in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/TimestampsByCellResultWithToken.java`
 #### Snippet
@@ -28545,6 +28545,18 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/Timesta
     private SetMultimap<Cell, Long> rowBuffer;
     private boolean moreResults = false;
     private Token token = Tokens.INITIAL;
+```
+
+### FieldMayBeFinal
+Field `iterator` may be 'final'
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/TimestampsByCellResultWithToken.java`
+#### Snippet
+```java
+    private byte[] currentRow = null;
+    private byte[] currentCol = null;
+    private PeekingIterator<AgnosticLightResultRow> iterator;
+
+    final SetMultimap<Cell, Long> entries;
 ```
 
 ### FieldMayBeFinal
@@ -28620,18 +28632,6 @@ public class ServiceFeedback {
 ```
 
 ### FieldMayBeFinal
-Field `allocator` may be 'final'
-in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/transaction/timestamp/DelegatingClientAwareManagedTimestampService.java`
-#### Snippet
-```java
-    static final int NUM_PARTITIONS = TransactionConstants.V2_TRANSACTION_NUM_PARTITIONS;
-
-    private NumericPartitionAllocator<UUID> allocator;
-    private ManagedTimestampService delegate;
-
-```
-
-### FieldMayBeFinal
 Field `delegate` may be 'final'
 in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/transaction/timestamp/DelegatingClientAwareManagedTimestampService.java`
 #### Snippet
@@ -28641,6 +28641,18 @@ in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/transaction/timest
     private ManagedTimestampService delegate;
 
     @VisibleForTesting
+```
+
+### FieldMayBeFinal
+Field `allocator` may be 'final'
+in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/transaction/timestamp/DelegatingClientAwareManagedTimestampService.java`
+#### Snippet
+```java
+    static final int NUM_PARTITIONS = TransactionConstants.V2_TRANSACTION_NUM_PARTITIONS;
+
+    private NumericPartitionAllocator<UUID> allocator;
+    private ManagedTimestampService delegate;
+
 ```
 
 ### FieldMayBeFinal
@@ -28680,18 +28692,6 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/IndexMet
 ```
 
 ### FieldMayBeFinal
-Field `rowComponents` may be 'final'
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/IndexDefinition.java`
-#### Snippet
-```java
-    private String sourceTableName = null;
-    private String javaIndexTableName = null;
-    private List<IndexComponent> rowComponents = new ArrayList<>();
-    private List<IndexComponent> colComponents = new ArrayList<>();
-    private IndexCondition indexCondition = null;
-```
-
-### FieldMayBeFinal
 Field `colComponents` may be 'final'
 in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/IndexDefinition.java`
 #### Snippet
@@ -28701,6 +28701,18 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/IndexDef
     private List<IndexComponent> colComponents = new ArrayList<>();
     private IndexCondition indexCondition = null;
     private final IndexType indexType;
+```
+
+### FieldMayBeFinal
+Field `rowComponents` may be 'final'
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/IndexDefinition.java`
+#### Snippet
+```java
+    private String sourceTableName = null;
+    private String javaIndexTableName = null;
+    private List<IndexComponent> rowComponents = new ArrayList<>();
+    private List<IndexComponent> colComponents = new ArrayList<>();
+    private IndexCondition indexCondition = null;
 ```
 
 ### FieldMayBeFinal
@@ -28728,18 +28740,6 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/TableDef
 ```
 
 ### FieldMayBeFinal
-Field `rowNameComponents` may be 'final'
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/TableDefinition.java`
-#### Snippet
-```java
-    private String javaTableName = null;
-    private int numberOfComponentsHashed = 0;
-    private List<NameComponentDescription> rowNameComponents = new ArrayList<>();
-    private List<NamedColumnDescription> fixedColumns = new ArrayList<>();
-    private List<NameComponentDescription> dynamicColumnNameComponents = new ArrayList<>();
-```
-
-### FieldMayBeFinal
 Field `fixedColumns` may be 'final'
 in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/TableDefinition.java`
 #### Snippet
@@ -28749,18 +28749,6 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/TableDef
     private List<NamedColumnDescription> fixedColumns = new ArrayList<>();
     private List<NameComponentDescription> dynamicColumnNameComponents = new ArrayList<>();
     private ColumnValueDescription dynamicColumnValue = null;
-```
-
-### FieldMayBeFinal
-Field `dynamicColumnNameComponents` may be 'final'
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/TableDefinition.java`
-#### Snippet
-```java
-    private List<NameComponentDescription> rowNameComponents = new ArrayList<>();
-    private List<NamedColumnDescription> fixedColumns = new ArrayList<>();
-    private List<NameComponentDescription> dynamicColumnNameComponents = new ArrayList<>();
-    private ColumnValueDescription dynamicColumnValue = null;
-    private ConstraintMetadata.Builder constraintBuilder = ConstraintMetadata.builder();
 ```
 
 ### FieldMayBeFinal
@@ -28785,6 +28773,30 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/TableDef
     private ConstraintMetadata.Builder constraintBuilder = ConstraintMetadata.builder();
     private Set<String> fixedColumnShortNames = new HashSet<>();
     private Set<String> fixedColumnLongNames = new HashSet<>();
+```
+
+### FieldMayBeFinal
+Field `dynamicColumnNameComponents` may be 'final'
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/TableDefinition.java`
+#### Snippet
+```java
+    private List<NameComponentDescription> rowNameComponents = new ArrayList<>();
+    private List<NamedColumnDescription> fixedColumns = new ArrayList<>();
+    private List<NameComponentDescription> dynamicColumnNameComponents = new ArrayList<>();
+    private ColumnValueDescription dynamicColumnValue = null;
+    private ConstraintMetadata.Builder constraintBuilder = ConstraintMetadata.builder();
+```
+
+### FieldMayBeFinal
+Field `rowNameComponents` may be 'final'
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/table/description/TableDefinition.java`
+#### Snippet
+```java
+    private String javaTableName = null;
+    private int numberOfComponentsHashed = 0;
+    private List<NameComponentDescription> rowNameComponents = new ArrayList<>();
+    private List<NamedColumnDescription> fixedColumns = new ArrayList<>();
+    private List<NameComponentDescription> dynamicColumnNameComponents = new ArrayList<>();
 ```
 
 ### FieldMayBeFinal
@@ -28860,18 +28872,6 @@ in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/TransactionManager
 ```
 
 ### FieldMayBeFinal
-Field `useLocalServiceFuture` may be 'final'
-in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/LocalOrRemoteProxy.java`
-#### Snippet
-```java
-    private T localService;
-    private T remoteService;
-    private Future<Boolean> useLocalServiceFuture;
-
-    private LocalOrRemoteProxy(T localService, T remoteService, Future<Boolean> useLocalServiceFuture) {
-```
-
-### FieldMayBeFinal
 Field `remoteService` may be 'final'
 in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/LocalOrRemoteProxy.java`
 #### Snippet
@@ -28881,6 +28881,18 @@ in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/LocalOrRemoteProxy
     private T remoteService;
     private Future<Boolean> useLocalServiceFuture;
 
+```
+
+### FieldMayBeFinal
+Field `useLocalServiceFuture` may be 'final'
+in `atlasdb-config/src/main/java/com/palantir/atlasdb/factory/LocalOrRemoteProxy.java`
+#### Snippet
+```java
+    private T localService;
+    private T remoteService;
+    private Future<Boolean> useLocalServiceFuture;
+
+    private LocalOrRemoteProxy(T localService, T remoteService, Future<Boolean> useLocalServiceFuture) {
 ```
 
 ### FieldMayBeFinal
@@ -28956,18 +28968,6 @@ in `atlasdb-commons/src/main/java/com/palantir/util/debug/StackTraceUtils.java`
 ```
 
 ### FieldMayBeFinal
-Field `lockMode` may be 'final'
-in `lock-api-objects/src/main/java/com/palantir/lock/LockWithMode.java`
-#### Snippet
-```java
-public class LockWithMode {
-    private LockDescriptor lockDescriptor;
-    private LockMode lockMode;
-
-    public LockWithMode(
-```
-
-### FieldMayBeFinal
 Field `lockDescriptor` may be 'final'
 in `lock-api-objects/src/main/java/com/palantir/lock/LockWithMode.java`
 #### Snippet
@@ -28977,6 +28977,18 @@ public class LockWithMode {
     private LockDescriptor lockDescriptor;
     private LockMode lockMode;
 
+```
+
+### FieldMayBeFinal
+Field `lockMode` may be 'final'
+in `lock-api-objects/src/main/java/com/palantir/lock/LockWithMode.java`
+#### Snippet
+```java
+public class LockWithMode {
+    private LockDescriptor lockDescriptor;
+    private LockMode lockMode;
+
+    public LockWithMode(
 ```
 
 ### FieldMayBeFinal
@@ -29064,18 +29076,6 @@ in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/swee
 ```
 
 ### FieldMayBeFinal
-Field `consistency` may be 'final'
-in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/paging/RowGetter.java`
-#### Snippet
-```java
-    private CassandraClientPool clientPool;
-    private TracingQueryRunner queryRunner;
-    private ConsistencyLevel consistency;
-    private TableReference tableRef;
-
-```
-
-### FieldMayBeFinal
 Field `tableRef` may be 'final'
 in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/paging/RowGetter.java`
 #### Snippet
@@ -29085,6 +29085,18 @@ in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/pagi
     private TableReference tableRef;
 
     public RowGetter(
+```
+
+### FieldMayBeFinal
+Field `consistency` may be 'final'
+in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/paging/RowGetter.java`
+#### Snippet
+```java
+    private CassandraClientPool clientPool;
+    private TracingQueryRunner queryRunner;
+    private ConsistencyLevel consistency;
+    private TableReference tableRef;
+
 ```
 
 ### FieldMayBeFinal
@@ -29160,18 +29172,6 @@ public final class CommitTsCache {
 ```
 
 ### FieldMayBeFinal
-Field `sweepableTimestamps` may be 'final'
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/sweep/queue/SweepQueueCleaner.java`
-#### Snippet
-```java
-    private static final SafeLogger log = SafeLoggerFactory.get(SweepQueueCleaner.class);
-    private SweepableCells sweepableCells;
-    private SweepableTimestamps sweepableTimestamps;
-    private ShardProgress progress;
-
-```
-
-### FieldMayBeFinal
 Field `progress` may be 'final'
 in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/sweep/queue/SweepQueueCleaner.java`
 #### Snippet
@@ -29181,6 +29181,18 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/sweep/queue/SweepQueu
     private ShardProgress progress;
 
     public SweepQueueCleaner(SweepableCells cells, SweepableTimestamps timestamps, ShardProgress progress) {
+```
+
+### FieldMayBeFinal
+Field `sweepableTimestamps` may be 'final'
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/sweep/queue/SweepQueueCleaner.java`
+#### Snippet
+```java
+    private static final SafeLogger log = SafeLoggerFactory.get(SweepQueueCleaner.class);
+    private SweepableCells sweepableCells;
+    private SweepableTimestamps sweepableTimestamps;
+    private ShardProgress progress;
+
 ```
 
 ### FieldMayBeFinal
@@ -29196,18 +29208,6 @@ public class SweepQueueCleaner {
 ```
 
 ### FieldMayBeFinal
-Field `delegate` may be 'final'
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/sweep/priority/StreamStoreRemappingSweepPriorityCalculator.java`
-#### Snippet
-```java
-public class StreamStoreRemappingSweepPriorityCalculator {
-    public static final long INDEX_TO_VALUE_TABLE_SLEEP_TIME = TimeUnit.MINUTES.toMillis(65);
-    private SweepPriorityCalculator delegate;
-    private SweepPriorityStore sweepPriorityStore;
-
-```
-
-### FieldMayBeFinal
 Field `sweepPriorityStore` may be 'final'
 in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/sweep/priority/StreamStoreRemappingSweepPriorityCalculator.java`
 #### Snippet
@@ -29217,6 +29217,18 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/sweep/priority/Stream
     private SweepPriorityStore sweepPriorityStore;
 
     public StreamStoreRemappingSweepPriorityCalculator(
+```
+
+### FieldMayBeFinal
+Field `delegate` may be 'final'
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/sweep/priority/StreamStoreRemappingSweepPriorityCalculator.java`
+#### Snippet
+```java
+public class StreamStoreRemappingSweepPriorityCalculator {
+    public static final long INDEX_TO_VALUE_TABLE_SLEEP_TIME = TimeUnit.MINUTES.toMillis(65);
+    private SweepPriorityCalculator delegate;
+    private SweepPriorityStore sweepPriorityStore;
+
 ```
 
 ### FieldMayBeFinal
@@ -29465,6 +29477,18 @@ public class SlaVerifier extends BenchmarkRunnerBase {
 
 ## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
+Local variable `name` is redundant
+in `commons-api/src/main/java/com/palantir/util/sql/SqlStats.java`
+#### Snippet
+```java
+
+    private String getNameForUnregisteredQuery(String rawSql) {
+        String name = namesByUnregisteredSql.computeIfAbsent(
+                rawSql,
+                k -> String.format(
+```
+
+### UnnecessaryLocalVariable
 Local variable `javaSupplier` is redundant
 in `atlasdb-api/src/main/java/com/palantir/atlasdb/transaction/api/TransactionManager.java`
 #### Snippet
@@ -29498,18 +29522,6 @@ in `atlasdb-api/src/main/java/com/palantir/atlasdb/transaction/api/TransactionMa
         Supplier<LockRequest> javaSupplier = guavaSupplier;
         return runTaskWithLocksWithRetry(javaSupplier, task);
     }
-```
-
-### UnnecessaryLocalVariable
-Local variable `name` is redundant
-in `commons-api/src/main/java/com/palantir/util/sql/SqlStats.java`
-#### Snippet
-```java
-
-    private String getNameForUnregisteredQuery(String rawSql) {
-        String name = namesByUnregisteredSql.computeIfAbsent(
-                rawSql,
-                k -> String.format(
 ```
 
 ### UnnecessaryLocalVariable
@@ -29856,18 +29868,6 @@ in `lock-api/src/main/java/com/palantir/lock/client/BatchingCommitTimestampGette
 ```
 
 ### UnstableApiUsage
-'zip(java.util.stream.Stream, java.util.stream.Stream**, java.util.function.BiFunction)' is marked unstable with @Beta**
-in `lock-api/src/main/java/com/palantir/lock/client/MultiClientCommitTimestampGetter.java`
-#### Snippet
-```java
-
-        private void processLockWatchUpdate(List<Long> timestamps, LockWatchStateUpdate lockWatchUpdate) {
-            List<TransactionUpdate> transactionUpdates = Streams.zip(
-                            timestamps.stream(),
-                            pendingRequestQueue.stream(),
-```
-
-### UnstableApiUsage
 'copyOf(java.lang.Iterable\>)' is marked unstable with @Beta
 in `lock-api/src/main/java/com/palantir/lock/client/LeaderElectionReportingTimelockService.java`
 #### Snippet
@@ -29889,6 +29889,18 @@ in `lock-api/src/main/java/com/palantir/lock/client/LeaderElectionReportingTimel
         Map<UUID, Instant> upperBounds = ImmutableMap.copyOf(leadershipUpperBound.entrySet());
 
         Set<UUID> leaders = leadersWithBothBounds(lowerBounds, upperBounds);
+```
+
+### UnstableApiUsage
+'zip(java.util.stream.Stream, java.util.stream.Stream**, java.util.function.BiFunction)' is marked unstable with @Beta**
+in `lock-api/src/main/java/com/palantir/lock/client/MultiClientCommitTimestampGetter.java`
+#### Snippet
+```java
+
+        private void processLockWatchUpdate(List<Long> timestamps, LockWatchStateUpdate lockWatchUpdate) {
+            List<TransactionUpdate> transactionUpdates = Streams.zip(
+                            timestamps.stream(),
+                            pendingRequestQueue.stream(),
 ```
 
 ### UnstableApiUsage
@@ -29944,11 +29956,23 @@ in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/RowsCol
 in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/AsyncTimelockService.java`
 #### Snippet
 ```java
-                .numTransactions(request.numTransactions())
-                .build();
+
+    default ListenableFuture<Set<LockToken>> deprecatedRefreshLockLeases(Set<LockToken> tokens) {
         return Futures.transform(
-                startTransactionsWithWatches(conjureRequest),
-                newResponse -> ImmutableStartTransactionResponseV4.builder()
+                refreshLockLeases(tokens), RefreshLockResponseV2::refreshedTokens, MoreExecutors.directExecutor());
+    }
+```
+
+### UnstableApiUsage
+'transform(com.google.common.util.concurrent.ListenableFuture*, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta*
+in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/AsyncTimelockService.java`
+#### Snippet
+```java
+
+    default ListenableFuture<LockResponse> deprecatedLock(IdentifiedLockRequest request) {
+        return Futures.transform(
+                lock(request),
+                result -> result.accept(LockResponseV2.Visitor.of(
 ```
 
 ### UnstableApiUsage
@@ -29961,6 +29985,18 @@ in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/AsyncTimelockServi
         return Futures.transform(
                 getFreshTimestampsAsync(1), TimestampRange::getLowerBound, MoreExecutors.directExecutor());
     }
+```
+
+### UnstableApiUsage
+'transform(com.google.common.util.concurrent.ListenableFuture*, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta*
+in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/AsyncTimelockService.java`
+#### Snippet
+```java
+                .numTransactions(request.numTransactions())
+                .build();
+        return Futures.transform(
+                startTransactionsWithWatches(conjureRequest),
+                newResponse -> ImmutableStartTransactionResponseV4.builder()
 ```
 
 ### UnstableApiUsage
@@ -30025,30 +30061,6 @@ in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/ConjureResourceExc
 
 ### UnstableApiUsage
 'transform(com.google.common.util.concurrent.ListenableFuture*, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta*
-in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/AsyncTimelockService.java`
-#### Snippet
-```java
-
-    default ListenableFuture<Set<LockToken>> deprecatedRefreshLockLeases(Set<LockToken> tokens) {
-        return Futures.transform(
-                refreshLockLeases(tokens), RefreshLockResponseV2::refreshedTokens, MoreExecutors.directExecutor());
-    }
-```
-
-### UnstableApiUsage
-'transform(com.google.common.util.concurrent.ListenableFuture*, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta*
-in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/AsyncTimelockService.java`
-#### Snippet
-```java
-
-    default ListenableFuture<LockResponse> deprecatedLock(IdentifiedLockRequest request) {
-        return Futures.transform(
-                lock(request),
-                result -> result.accept(LockResponseV2.Visitor.of(
-```
-
-### UnstableApiUsage
-'transform(com.google.common.util.concurrent.ListenableFuture*, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta*
 in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/ConjureTimelockResource.java`
 #### Snippet
 ```java
@@ -30056,42 +30068,6 @@ in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/ConjureTimelockRes
             String namespace, Set<LockToken> tokens, Function<Set<LockToken>, T> userTokenTranslator) {
         return handleExceptions(() -> Futures.transform(
                 forNamespace(namespace).unlock(tokens), userTokenTranslator::apply, MoreExecutors.directExecutor()));
-    }
-```
-
-### UnstableApiUsage
-'transform(com.google.common.util.concurrent.ListenableFuture*, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta*
-in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/ConjureTimelockResource.java`
-#### Snippet
-```java
-            ListenableFuture<LockResponseV2> tokenFuture =
-                    forNamespace(namespace).lock(lockRequest);
-            return Futures.transform(
-                    tokenFuture,
-                    token -> token.accept(Visitor.of(
-```
-
-### UnstableApiUsage
-'transform(com.google.common.util.concurrent.ListenableFuture*, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta*
-in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/ConjureTimelockResource.java`
-#### Snippet
-```java
-            ListenableFuture<WaitForLocksResponse> tokenFuture =
-                    forNamespace(namespace).waitForLocks(lockRequest);
-            return Futures.transform(
-                    tokenFuture,
-                    token -> ConjureWaitForLocksResponse.of(token.wasSuccessful()),
-```
-
-### UnstableApiUsage
-'transform(com.google.common.util.concurrent.ListenableFuture*, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta*
-in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/ConjureTimelockResource.java`
-#### Snippet
-```java
-            ListenableFuture<TimestampRange> rangeFuture =
-                    forNamespace(namespace).getFreshTimestampsAsync(timestampsToRetrieve);
-            return Futures.transform(rangeFuture, responseWrappingFunction::apply, MoreExecutors.directExecutor());
-        });
     }
 ```
 
@@ -30112,6 +30088,42 @@ in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/ConjureTimelockRes
 in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/ConjureTimelockResource.java`
 #### Snippet
 ```java
+            ListenableFuture<WaitForLocksResponse> tokenFuture =
+                    forNamespace(namespace).waitForLocks(lockRequest);
+            return Futures.transform(
+                    tokenFuture,
+                    token -> ConjureWaitForLocksResponse.of(token.wasSuccessful()),
+```
+
+### UnstableApiUsage
+'transform(com.google.common.util.concurrent.ListenableFuture*, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta*
+in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/ConjureTimelockResource.java`
+#### Snippet
+```java
+            ListenableFuture<LockResponseV2> tokenFuture =
+                    forNamespace(namespace).lock(lockRequest);
+            return Futures.transform(
+                    tokenFuture,
+                    token -> token.accept(Visitor.of(
+```
+
+### UnstableApiUsage
+'transform(com.google.common.util.concurrent.ListenableFuture*, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta*
+in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/ConjureTimelockResource.java`
+#### Snippet
+```java
+            ListenableFuture<TimestampRange> rangeFuture =
+                    forNamespace(namespace).getFreshTimestampsAsync(timestampsToRetrieve);
+            return Futures.transform(rangeFuture, responseWrappingFunction::apply, MoreExecutors.directExecutor());
+        });
+    }
+```
+
+### UnstableApiUsage
+'transform(com.google.common.util.concurrent.ListenableFuture*, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta*
+in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/ConjureTimelockResource.java`
+#### Snippet
+```java
     private <T> ListenableFuture<T> refreshLocksInternal(
             String namespace, Set<LockToken> tokens, Function<RefreshLockResponseV2, T> userTokenTranslator) {
         return handleExceptions(() -> Futures.transform(
@@ -30120,15 +30132,27 @@ in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/ConjureTimelockRes
 ```
 
 ### UnstableApiUsage
-'transform(com.google.common.util.concurrent.ListenableFuture*, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta*
-in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/v1/ConjureLockV1Resource.java`
+'com.google.common.collect.RangeSet' is marked unstable with @Beta
+in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/watch/LockEventLogImpl.java`
 #### Snippet
 ```java
-                    .refreshLockRefreshTokens(Collections2.transform(
-                            request, token -> new LockRefreshToken(token.getTokenId(), token.getExpirationDateMs()))));
-            return Futures.transform(
-                    serviceTokens,
-                    tokens -> ImmutableSet.copyOf(Collections2.transform(tokens, ConjureLockV1Tokens::getConjureToken)),
+     * NOT guaranteed to return a consistent snapshot of the world.
+     */
+    private Set<LockDescriptor> calculateOpenLocks(RangeSet<LockDescriptor> watchedRanges) {
+        return heldLocksCollection.locksHeld().stream()
+                .flatMap(locksHeld -> locksHeld.getLocks().stream().map(AsyncLock::getDescriptor))
+```
+
+### UnstableApiUsage
+'contains(C)' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
+in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/watch/LockEventLogImpl.java`
+#### Snippet
+```java
+        return heldLocksCollection.locksHeld().stream()
+                .flatMap(locksHeld -> locksHeld.getLocks().stream().map(AsyncLock::getDescriptor))
+                .filter(watchedRanges::contains)
+                .collect(Collectors.toSet());
+    }
 ```
 
 ### UnstableApiUsage
@@ -30136,11 +30160,11 @@ in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/v1/ConjureLoc
 in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/BlockingTimeLimitedLockService.java`
 #### Snippet
 ```java
-    @VisibleForTesting
-    BlockingTimeLimitedLockService(
-            CloseableLockService delegate, TimeLimiter timeLimiter, long blockingTimeLimitMillis) {
-        this.delegate = delegate;
-        this.timeLimiter = timeLimiter;
+
+    private final CloseableLockService delegate;
+    private final TimeLimiter timeLimiter;
+    private final long blockingTimeLimitMillis;
+
 ```
 
 ### UnstableApiUsage
@@ -30184,35 +30208,35 @@ in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/BlockingTimeL
 in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/BlockingTimeLimitedLockService.java`
 #### Snippet
 ```java
-
-    private final CloseableLockService delegate;
-    private final TimeLimiter timeLimiter;
-    private final long blockingTimeLimitMillis;
-
+    @VisibleForTesting
+    BlockingTimeLimitedLockService(
+            CloseableLockService delegate, TimeLimiter timeLimiter, long blockingTimeLimitMillis) {
+        this.delegate = delegate;
+        this.timeLimiter = timeLimiter;
 ```
 
 ### UnstableApiUsage
-'com.google.common.collect.RangeSet' is marked unstable with @Beta
-in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/watch/LockEventLogImpl.java`
+'transform(com.google.common.util.concurrent.ListenableFuture*, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta*
+in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/v1/ConjureLockV1Resource.java`
 #### Snippet
 ```java
-     * NOT guaranteed to return a consistent snapshot of the world.
-     */
-    private Set<LockDescriptor> calculateOpenLocks(RangeSet<LockDescriptor> watchedRanges) {
-        return heldLocksCollection.locksHeld().stream()
-                .flatMap(locksHeld -> locksHeld.getLocks().stream().map(AsyncLock::getDescriptor))
+                    .refreshLockRefreshTokens(Collections2.transform(
+                            request, token -> new LockRefreshToken(token.getTokenId(), token.getExpirationDateMs()))));
+            return Futures.transform(
+                    serviceTokens,
+                    tokens -> ImmutableSet.copyOf(Collections2.transform(tokens, ConjureLockV1Tokens::getConjureToken)),
 ```
 
 ### UnstableApiUsage
-'contains(C)' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
-in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/lock/watch/LockEventLogImpl.java`
+'asMap(com.google.common.collect.SetMultimap)' is marked unstable with @Beta
+in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/DbKvs.java`
 #### Snippet
 ```java
-        return heldLocksCollection.locksHeld().stream()
-                .flatMap(locksHeld -> locksHeld.getLocks().stream().map(AsyncLock::getDescriptor))
-                .filter(watchedRanges::contains)
-                .collect(Collectors.toSet());
-    }
+
+        NavigableMap<byte[], NavigableMap<byte[], Set<Long>>> cellsByRow =
+                Cells.breakCellsUpByRow(Multimaps.asMap(result.entries));
+        if (range.isReverse()) {
+            cellsByRow = cellsByRow.descendingMap();
 ```
 
 ### UnstableApiUsage
@@ -30252,18 +30276,6 @@ in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/paxos/LearnCoalesc
 ```
 
 ### UnstableApiUsage
-'asMap(com.google.common.collect.SetMultimap)' is marked unstable with @Beta
-in `atlasdb-dbkvs/src/main/java/com/palantir/atlasdb/keyvalue/dbkvs/impl/DbKvs.java`
-#### Snippet
-```java
-
-        NavigableMap<byte[], NavigableMap<byte[], Set<Long>>> cellsByRow =
-                Cells.breakCellsUpByRow(Multimaps.asMap(result.entries));
-        if (range.isReverse()) {
-            cellsByRow = cellsByRow.descendingMap();
-```
-
-### UnstableApiUsage
 'copyOf(java.lang.Iterable\>)' is marked unstable with @Beta
 in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/paxos/PrepareCoalescingFunction.java`
 #### Snippet
@@ -30273,102 +30285,6 @@ in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/paxos/PrepareCoale
         SetMultimap<Client, WithSeq<PaxosProposalId>> requests = ImmutableSetMultimap.copyOf(requestEntries);
 
         SetMultimap<Client, WithSeq<PaxosPromise>> prepareResult = delegate.prepare(requests);
-```
-
-### UnstableApiUsage
-'transform(com.google.common.util.concurrent.ListenableFuture*, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta*
-in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/batch/MultiClientConjureTimelockResource.java`
-#### Snippet
-```java
-    public ListenableFuture<Map<Namespace, ConjureStartTransactionsResponse>> startTransactionsForClients(
-            AuthHeader authHeader, Map<Namespace, ConjureStartTransactionsRequest> requests) {
-        return handleExceptions(() -> Futures.transform(
-                Futures.allAsList(Collections2.transform(
-                        requests.entrySet(), e -> startTransactionsForSingleNamespace(e.getKey(), e.getValue()))),
-```
-
-### UnstableApiUsage
-'allAsList(java.lang.Iterable\>)' is marked unstable with @Beta
-in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/batch/MultiClientConjureTimelockResource.java`
-#### Snippet
-```java
-            AuthHeader authHeader, Map<Namespace, ConjureStartTransactionsRequest> requests) {
-        return handleExceptions(() -> Futures.transform(
-                Futures.allAsList(Collections2.transform(
-                        requests.entrySet(), e -> startTransactionsForSingleNamespace(e.getKey(), e.getValue()))),
-                ImmutableMap::copyOf,
-```
-
-### UnstableApiUsage
-'transform(com.google.common.util.concurrent.ListenableFuture*, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta*
-in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/batch/MultiClientConjureTimelockResource.java`
-#### Snippet
-```java
-        ListenableFuture<LeaderTime> leaderTimeListenableFuture =
-                getServiceForNamespace(namespace).leaderTime();
-        return Futures.transform(
-                leaderTimeListenableFuture,
-                leaderTime -> Maps.immutableEntry(namespace, leaderTime),
-```
-
-### UnstableApiUsage
-'transform(com.google.common.util.concurrent.ListenableFuture*, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta*
-in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/batch/MultiClientConjureTimelockResource.java`
-#### Snippet
-```java
-                        request.getNumTimestamps(),
-                        request.getLastKnownVersion().map(this::toIdentifiedVersion));
-        return Futures.transform(
-                commitTimestampsResponseListenableFuture,
-                response -> Maps.immutableEntry(namespace, response),
-```
-
-### UnstableApiUsage
-'transform(com.google.common.util.concurrent.ListenableFuture*, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta*
-in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/batch/MultiClientConjureTimelockResource.java`
-#### Snippet
-```java
-    public ListenableFuture<Map<Namespace, GetCommitTimestampsResponse>> getCommitTimestampsForClients(
-            AuthHeader authHeader, Map<Namespace, GetCommitTimestampsRequest> requests) {
-        return handleExceptions(() -> Futures.transform(
-                Futures.allAsList(Collections2.transform(
-                        requests.entrySet(), e -> getCommitTimestampsForSingleNamespace(e.getKey(), e.getValue()))),
-```
-
-### UnstableApiUsage
-'allAsList(java.lang.Iterable\>)' is marked unstable with @Beta
-in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/batch/MultiClientConjureTimelockResource.java`
-#### Snippet
-```java
-            AuthHeader authHeader, Map<Namespace, GetCommitTimestampsRequest> requests) {
-        return handleExceptions(() -> Futures.transform(
-                Futures.allAsList(Collections2.transform(
-                        requests.entrySet(), e -> getCommitTimestampsForSingleNamespace(e.getKey(), e.getValue()))),
-                ImmutableMap::copyOf,
-```
-
-### UnstableApiUsage
-'transform(com.google.common.util.concurrent.ListenableFuture*, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta*
-in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/batch/MultiClientConjureTimelockResource.java`
-#### Snippet
-```java
-    private ListenableFuture<Entry<Namespace, ConjureUnlockResponseV2>> unlockForSingleNamespace(
-            Namespace namespace, ConjureUnlockRequestV2 request) {
-        ListenableFuture<ConjureUnlockResponseV2> unlockResponseFuture = Futures.transform(
-                getServiceForNamespace(namespace).unlock(toServerLockTokens(request.get())),
-                response -> ConjureUnlockResponseV2.of(fromServerLockTokens(response)),
-```
-
-### UnstableApiUsage
-'transform(com.google.common.util.concurrent.ListenableFuture*, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta*
-in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/batch/MultiClientConjureTimelockResource.java`
-#### Snippet
-```java
-                response -> ConjureUnlockResponseV2.of(fromServerLockTokens(response)),
-                MoreExecutors.directExecutor());
-        return Futures.transform(
-                unlockResponseFuture,
-                response -> Maps.immutableEntry(namespace, response),
 ```
 
 ### UnstableApiUsage
@@ -30400,18 +30316,6 @@ in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/batch/MultiClientC
 in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/batch/MultiClientConjureTimelockResource.java`
 #### Snippet
 ```java
-        ListenableFuture<ConjureStartTransactionsResponse> conjureStartTransactionsResponseListenableFuture =
-                getServiceForNamespace(namespace).startTransactionsWithWatches(request);
-        return Futures.transform(
-                conjureStartTransactionsResponseListenableFuture,
-                startTransactionsResponse -> Maps.immutableEntry(namespace, startTransactionsResponse),
-```
-
-### UnstableApiUsage
-'transform(com.google.common.util.concurrent.ListenableFuture*, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta*
-in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/batch/MultiClientConjureTimelockResource.java`
-#### Snippet
-```java
     public ListenableFuture<Map<Namespace, ConjureUnlockResponseV2>> unlock(
             AuthHeader authHeader, Map<Namespace, ConjureUnlockRequestV2> requests) {
         return handleExceptions(() -> Futures.transform(
@@ -30429,6 +30333,114 @@ in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/batch/MultiClientC
                 Futures.allAsList(Collections2.transform(
                         requests.entrySet(), e -> unlockForSingleNamespace(e.getKey(), e.getValue()))),
                 ImmutableMap::copyOf,
+```
+
+### UnstableApiUsage
+'transform(com.google.common.util.concurrent.ListenableFuture*, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta*
+in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/batch/MultiClientConjureTimelockResource.java`
+#### Snippet
+```java
+    public ListenableFuture<Map<Namespace, GetCommitTimestampsResponse>> getCommitTimestampsForClients(
+            AuthHeader authHeader, Map<Namespace, GetCommitTimestampsRequest> requests) {
+        return handleExceptions(() -> Futures.transform(
+                Futures.allAsList(Collections2.transform(
+                        requests.entrySet(), e -> getCommitTimestampsForSingleNamespace(e.getKey(), e.getValue()))),
+```
+
+### UnstableApiUsage
+'allAsList(java.lang.Iterable\>)' is marked unstable with @Beta
+in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/batch/MultiClientConjureTimelockResource.java`
+#### Snippet
+```java
+            AuthHeader authHeader, Map<Namespace, GetCommitTimestampsRequest> requests) {
+        return handleExceptions(() -> Futures.transform(
+                Futures.allAsList(Collections2.transform(
+                        requests.entrySet(), e -> getCommitTimestampsForSingleNamespace(e.getKey(), e.getValue()))),
+                ImmutableMap::copyOf,
+```
+
+### UnstableApiUsage
+'transform(com.google.common.util.concurrent.ListenableFuture*, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta*
+in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/batch/MultiClientConjureTimelockResource.java`
+#### Snippet
+```java
+        ListenableFuture<LeaderTime> leaderTimeListenableFuture =
+                getServiceForNamespace(namespace).leaderTime();
+        return Futures.transform(
+                leaderTimeListenableFuture,
+                leaderTime -> Maps.immutableEntry(namespace, leaderTime),
+```
+
+### UnstableApiUsage
+'transform(com.google.common.util.concurrent.ListenableFuture*, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta*
+in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/batch/MultiClientConjureTimelockResource.java`
+#### Snippet
+```java
+        ListenableFuture<ConjureStartTransactionsResponse> conjureStartTransactionsResponseListenableFuture =
+                getServiceForNamespace(namespace).startTransactionsWithWatches(request);
+        return Futures.transform(
+                conjureStartTransactionsResponseListenableFuture,
+                startTransactionsResponse -> Maps.immutableEntry(namespace, startTransactionsResponse),
+```
+
+### UnstableApiUsage
+'transform(com.google.common.util.concurrent.ListenableFuture*, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta*
+in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/batch/MultiClientConjureTimelockResource.java`
+#### Snippet
+```java
+                        request.getNumTimestamps(),
+                        request.getLastKnownVersion().map(this::toIdentifiedVersion));
+        return Futures.transform(
+                commitTimestampsResponseListenableFuture,
+                response -> Maps.immutableEntry(namespace, response),
+```
+
+### UnstableApiUsage
+'transform(com.google.common.util.concurrent.ListenableFuture*, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta*
+in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/batch/MultiClientConjureTimelockResource.java`
+#### Snippet
+```java
+    public ListenableFuture<Map<Namespace, ConjureStartTransactionsResponse>> startTransactionsForClients(
+            AuthHeader authHeader, Map<Namespace, ConjureStartTransactionsRequest> requests) {
+        return handleExceptions(() -> Futures.transform(
+                Futures.allAsList(Collections2.transform(
+                        requests.entrySet(), e -> startTransactionsForSingleNamespace(e.getKey(), e.getValue()))),
+```
+
+### UnstableApiUsage
+'allAsList(java.lang.Iterable\>)' is marked unstable with @Beta
+in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/batch/MultiClientConjureTimelockResource.java`
+#### Snippet
+```java
+            AuthHeader authHeader, Map<Namespace, ConjureStartTransactionsRequest> requests) {
+        return handleExceptions(() -> Futures.transform(
+                Futures.allAsList(Collections2.transform(
+                        requests.entrySet(), e -> startTransactionsForSingleNamespace(e.getKey(), e.getValue()))),
+                ImmutableMap::copyOf,
+```
+
+### UnstableApiUsage
+'transform(com.google.common.util.concurrent.ListenableFuture*, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta*
+in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/batch/MultiClientConjureTimelockResource.java`
+#### Snippet
+```java
+    private ListenableFuture<Entry<Namespace, ConjureUnlockResponseV2>> unlockForSingleNamespace(
+            Namespace namespace, ConjureUnlockRequestV2 request) {
+        ListenableFuture<ConjureUnlockResponseV2> unlockResponseFuture = Futures.transform(
+                getServiceForNamespace(namespace).unlock(toServerLockTokens(request.get())),
+                response -> ConjureUnlockResponseV2.of(fromServerLockTokens(response)),
+```
+
+### UnstableApiUsage
+'transform(com.google.common.util.concurrent.ListenableFuture*, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta*
+in `timelock-impl/src/main/java/com/palantir/atlasdb/timelock/batch/MultiClientConjureTimelockResource.java`
+#### Snippet
+```java
+                response -> ConjureUnlockResponseV2.of(fromServerLockTokens(response)),
+                MoreExecutors.directExecutor());
+        return Futures.transform(
+                unlockResponseFuture,
+                response -> Maps.immutableEntry(namespace, response),
 ```
 
 ### UnstableApiUsage
@@ -30532,18 +30544,6 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/stream/AbstractPersistentS
 in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/GetCandidateCellsForSweepingShim.java`
 #### Snippet
 ```java
-                return candidateBatch;
-            });
-            Closer closer = createCloserAndRelease(valueResults, tsResults);
-            return ClosableIterators.wrap(candidates, closer);
-        }
-```
-
-### UnstableApiUsage
-'com.google.common.io.Closer' is marked unstable with @Beta
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/GetCandidateCellsForSweepingShim.java`
-#### Snippet
-```java
     }
 
     private static Closer createCloserAndRelease(ReleasableCloseable<?>... closeables) {
@@ -30600,6 +30600,30 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/GetCandidate
 ```
 
 ### UnstableApiUsage
+'com.google.common.io.Closer' is marked unstable with @Beta
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/keyvalue/impl/GetCandidateCellsForSweepingShim.java`
+#### Snippet
+```java
+                return candidateBatch;
+            });
+            Closer closer = createCloserAndRelease(valueResults, tsResults);
+            return ClosableIterators.wrap(candidates, closer);
+        }
+```
+
+### UnstableApiUsage
+'withRetryListener(com.github.rholder.retry.RetryListener)' is unstable because its signature references unstable interface 'com.github.rholder.retry.RetryListener' marked with @Beta
+in `atlasdb-client/src/main/java/com/palantir/atlasdb/transaction/impl/TransactionRetryStrategy.java`
+#### Snippet
+```java
+                .withStopStrategy(
+                        failedAttempt -> shouldStopRetrying.test(Ints.checkedCast(failedAttempt.getAttemptNumber())))
+                .withRetryListener(new RetryListener() {
+                    @Override
+                    public <V> void onRetry(Attempt<V> attempt) {
+```
+
+### UnstableApiUsage
 Overridden method 'onRetry(com.github.rholder.retry.Attempt)' is declared in unstable interface 'com.github.rholder.retry.RetryListener' marked with @Beta
 in `atlasdb-client/src/main/java/com/palantir/atlasdb/transaction/impl/TransactionRetryStrategy.java`
 #### Snippet
@@ -30613,18 +30637,6 @@ in `atlasdb-client/src/main/java/com/palantir/atlasdb/transaction/impl/Transacti
 
 ### UnstableApiUsage
 'com.github.rholder.retry.RetryListener' is marked unstable with @Beta
-in `atlasdb-client/src/main/java/com/palantir/atlasdb/transaction/impl/TransactionRetryStrategy.java`
-#### Snippet
-```java
-                .withStopStrategy(
-                        failedAttempt -> shouldStopRetrying.test(Ints.checkedCast(failedAttempt.getAttemptNumber())))
-                .withRetryListener(new RetryListener() {
-                    @Override
-                    public <V> void onRetry(Attempt<V> attempt) {
-```
-
-### UnstableApiUsage
-'withRetryListener(com.github.rholder.retry.RetryListener)' is unstable because its signature references unstable interface 'com.github.rholder.retry.RetryListener' marked with @Beta
 in `atlasdb-client/src/main/java/com/palantir/atlasdb/transaction/impl/TransactionRetryStrategy.java`
 #### Snippet
 ```java
@@ -30708,18 +30720,6 @@ in `timelock-agent/src/main/java/com/palantir/atlasdb/timelock/paxos/LeadershipC
 ```
 
 ### UnstableApiUsage
-'register(C)' is declared in unstable class 'com.google.common.io.Closer' marked with @Beta
-in `timelock-agent/src/main/java/com/palantir/atlasdb/timelock/paxos/LeadershipComponents.java`
-#### Snippet
-```java
-                throw new NotCurrentLeaderException("This timelock node is being shutdown");
-            } else {
-                closeables.forEach(closer::register);
-            }
-        }
-```
-
-### UnstableApiUsage
 'close()' is declared in unstable class 'com.google.common.io.Closer' marked with @Beta
 in `timelock-agent/src/main/java/com/palantir/atlasdb/timelock/paxos/LeadershipComponents.java`
 #### Snippet
@@ -30729,6 +30729,18 @@ in `timelock-agent/src/main/java/com/palantir/atlasdb/timelock/paxos/LeadershipC
                 closer.close();
             } catch (IOException e) {
                 log.warn("Received exceptions whilst trying to shutdown this timelock node.", e);
+```
+
+### UnstableApiUsage
+'register(C)' is declared in unstable class 'com.google.common.io.Closer' marked with @Beta
+in `timelock-agent/src/main/java/com/palantir/atlasdb/timelock/paxos/LeadershipComponents.java`
+#### Snippet
+```java
+                throw new NotCurrentLeaderException("This timelock node is being shutdown");
+            } else {
+                closeables.forEach(closer::register);
+            }
+        }
 ```
 
 ### UnstableApiUsage
@@ -30816,42 +30828,6 @@ in `atlasdb-commons/src/main/java/com/palantir/common/compression/BufferedDelega
 ```
 
 ### UnstableApiUsage
-'read(java.io.InputStream, byte\[\], int, int)' is marked unstable with @Beta
-in `atlasdb-commons/src/main/java/com/palantir/common/compression/LZ4CompressingInputStream.java`
-#### Snippet
-```java
-
-        // Read a block of data from the delegate input stream.
-        int bytesRead = ByteStreams.read(delegate, uncompressedBuffer, BUFFER_START, blockSize);
-        if (bytesRead == 0) {
-            // The delegate input stream has been exhausted, so we notify
-```
-
-### UnstableApiUsage
-'com.google.common.io.Closeables' is marked unstable with @Beta
-in `atlasdb-commons/src/main/java/com/palantir/common/compression/StreamCompression.java`
-#### Snippet
-```java
-            }
-        } catch (IOException e) {
-            Closeables.closeQuietly(unbuffered);
-            // This avoids awkward cases of us having to close many returned InputStreams in wrapping code.
-            return new ThrowingInputStream(e);
-```
-
-### UnstableApiUsage
-'closeQuietly(java.io.InputStream)' is declared in unstable class 'com.google.common.io.Closeables' marked with @Beta
-in `atlasdb-commons/src/main/java/com/palantir/common/compression/StreamCompression.java`
-#### Snippet
-```java
-            }
-        } catch (IOException e) {
-            Closeables.closeQuietly(unbuffered);
-            // This avoids awkward cases of us having to close many returned InputStreams in wrapping code.
-            return new ThrowingInputStream(e);
-```
-
-### UnstableApiUsage
 'com.google.common.io.CountingInputStream' is marked unstable with @Beta
 in `atlasdb-commons/src/main/java/com/palantir/common/compression/GzipCompressingInputStream.java`
 #### Snippet
@@ -30900,51 +30876,27 @@ in `atlasdb-commons/src/main/java/com/palantir/common/compression/GzipCompressin
 ```
 
 ### UnstableApiUsage
-'whenAllSucceed(java.lang.Iterable\>)' is marked unstable with @Beta
-in `atlasdb-commons/src/main/java/com/palantir/atlasdb/futures/AtlasFutures.java`
+'read(java.io.InputStream, byte\[\], int, int)' is marked unstable with @Beta
+in `atlasdb-commons/src/main/java/com/palantir/common/compression/LZ4CompressingInputStream.java`
 #### Snippet
 ```java
-        Executor tracingExecutor = traceRestoringExecutor(executor, "AtlasFutures: allAsMap");
 
-        return Futures.whenAllSucceed(inputToListenableFutureMap.values())
-                .call(
-                        () -> KeyedStream.stream(inputToListenableFutureMap)
+        // Read a block of data from the delegate input stream.
+        int bytesRead = ByteStreams.read(delegate, uncompressedBuffer, BUFFER_START, blockSize);
+        if (bytesRead == 0) {
+            // The delegate input stream has been exhausted, so we notify
 ```
 
 ### UnstableApiUsage
-'call(java.util.concurrent.Callable, java.util.concurrent.Executor)' is declared in unstable class 'com.google.common.util.concurrent.Futures.FutureCombiner' marked with @Beta
-in `atlasdb-commons/src/main/java/com/palantir/atlasdb/futures/AtlasFutures.java`
+'transformAsync(com.google.common.util.concurrent.ListenableFuture*, com.google.common.util.concurrent.AsyncFunction, java.util.concurrent.Executor)' is marked unstable with @Beta*
+in `atlasdb-commons/src/main/java/com/palantir/common/concurrent/CoalescingSupplier.java`
 #### Snippet
 ```java
-
-        return Futures.whenAllSucceed(inputToListenableFutureMap.values())
-                .call(
-                        () -> KeyedStream.stream(inputToListenableFutureMap)
-                                .map(AtlasFutures::getDone)
-```
-
-### UnstableApiUsage
-'whenAllSucceed(java.lang.Iterable\>)' is marked unstable with @Beta
-in `atlasdb-commons/src/main/java/com/palantir/atlasdb/futures/AtlasFutures.java`
-#### Snippet
-```java
-        Executor tracingExecutor = traceRestoringExecutor(executor, "AtlasFutures: allOptionalsAsMap");
-
-        return Futures.whenAllSucceed(inputToListenableFutureMap.values())
-                .call(
-                        () -> KeyedStream.stream(inputToListenableFutureMap)
-```
-
-### UnstableApiUsage
-'call(java.util.concurrent.Callable, java.util.concurrent.Executor)' is declared in unstable class 'com.google.common.util.concurrent.Futures.FutureCombiner' marked with @Beta
-in `atlasdb-commons/src/main/java/com/palantir/atlasdb/futures/AtlasFutures.java`
-#### Snippet
-```java
-
-        return Futures.whenAllSucceed(inputToListenableFutureMap.values())
-                .call(
-                        () -> KeyedStream.stream(inputToListenableFutureMap)
-                                .map(AtlasFutures::getDone)
+                    executor);
+        }
+        return Futures.transformAsync(
+                present.done(),
+                next -> {
 ```
 
 ### UnstableApiUsage
@@ -30972,15 +30924,87 @@ in `atlasdb-commons/src/main/java/com/palantir/common/concurrent/CoalescingSuppl
 ```
 
 ### UnstableApiUsage
-'transformAsync(com.google.common.util.concurrent.ListenableFuture*, com.google.common.util.concurrent.AsyncFunction, java.util.concurrent.Executor)' is marked unstable with @Beta*
-in `atlasdb-commons/src/main/java/com/palantir/common/concurrent/CoalescingSupplier.java`
+'com.google.common.io.Closeables' is marked unstable with @Beta
+in `atlasdb-commons/src/main/java/com/palantir/common/compression/StreamCompression.java`
 #### Snippet
 ```java
-                    executor);
-        }
-        return Futures.transformAsync(
-                present.done(),
-                next -> {
+            }
+        } catch (IOException e) {
+            Closeables.closeQuietly(unbuffered);
+            // This avoids awkward cases of us having to close many returned InputStreams in wrapping code.
+            return new ThrowingInputStream(e);
+```
+
+### UnstableApiUsage
+'closeQuietly(java.io.InputStream)' is declared in unstable class 'com.google.common.io.Closeables' marked with @Beta
+in `atlasdb-commons/src/main/java/com/palantir/common/compression/StreamCompression.java`
+#### Snippet
+```java
+            }
+        } catch (IOException e) {
+            Closeables.closeQuietly(unbuffered);
+            // This avoids awkward cases of us having to close many returned InputStreams in wrapping code.
+            return new ThrowingInputStream(e);
+```
+
+### UnstableApiUsage
+'whenAllSucceed(java.lang.Iterable\>)' is marked unstable with @Beta
+in `atlasdb-commons/src/main/java/com/palantir/atlasdb/futures/AtlasFutures.java`
+#### Snippet
+```java
+        Executor tracingExecutor = traceRestoringExecutor(executor, "AtlasFutures: allOptionalsAsMap");
+
+        return Futures.whenAllSucceed(inputToListenableFutureMap.values())
+                .call(
+                        () -> KeyedStream.stream(inputToListenableFutureMap)
+```
+
+### UnstableApiUsage
+'call(java.util.concurrent.Callable, java.util.concurrent.Executor)' is declared in unstable class 'com.google.common.util.concurrent.Futures.FutureCombiner' marked with @Beta
+in `atlasdb-commons/src/main/java/com/palantir/atlasdb/futures/AtlasFutures.java`
+#### Snippet
+```java
+
+        return Futures.whenAllSucceed(inputToListenableFutureMap.values())
+                .call(
+                        () -> KeyedStream.stream(inputToListenableFutureMap)
+                                .map(AtlasFutures::getDone)
+```
+
+### UnstableApiUsage
+'whenAllSucceed(java.lang.Iterable\>)' is marked unstable with @Beta
+in `atlasdb-commons/src/main/java/com/palantir/atlasdb/futures/AtlasFutures.java`
+#### Snippet
+```java
+        Executor tracingExecutor = traceRestoringExecutor(executor, "AtlasFutures: allAsMap");
+
+        return Futures.whenAllSucceed(inputToListenableFutureMap.values())
+                .call(
+                        () -> KeyedStream.stream(inputToListenableFutureMap)
+```
+
+### UnstableApiUsage
+'call(java.util.concurrent.Callable, java.util.concurrent.Executor)' is declared in unstable class 'com.google.common.util.concurrent.Futures.FutureCombiner' marked with @Beta
+in `atlasdb-commons/src/main/java/com/palantir/atlasdb/futures/AtlasFutures.java`
+#### Snippet
+```java
+
+        return Futures.whenAllSucceed(inputToListenableFutureMap.values())
+                .call(
+                        () -> KeyedStream.stream(inputToListenableFutureMap)
+                                .map(AtlasFutures::getDone)
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
+in `atlasdb-conjure/src/main/java/com/palantir/atlasdb/http/v2/UnknownRemoteDebuggingProxy.java`
+#### Snippet
+```java
+    private static final SafeLogger log = SafeLoggerFactory.get(UnknownRemoteDebuggingProxy.class);
+    private final Refreshable<SafeArg<T>> safeLoggableRefreshable;
+    private final RateLimiter rateLimiter;
+    private final V delegate;
+
 ```
 
 ### UnstableApiUsage
@@ -31008,18 +31032,6 @@ in `atlasdb-conjure/src/main/java/com/palantir/atlasdb/http/v2/UnknownRemoteDebu
 ```
 
 ### UnstableApiUsage
-'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
-in `atlasdb-conjure/src/main/java/com/palantir/atlasdb/http/v2/UnknownRemoteDebuggingProxy.java`
-#### Snippet
-```java
-    private static final SafeLogger log = SafeLoggerFactory.get(UnknownRemoteDebuggingProxy.class);
-    private final Refreshable<SafeArg<T>> safeLoggableRefreshable;
-    private final RateLimiter rateLimiter;
-    private final V delegate;
-
-```
-
-### UnstableApiUsage
 'tryAcquire()' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
 in `atlasdb-conjure/src/main/java/com/palantir/atlasdb/http/v2/UnknownRemoteDebuggingProxy.java`
 #### Snippet
@@ -31029,6 +31041,30 @@ in `atlasdb-conjure/src/main/java/com/palantir/atlasdb/http/v2/UnknownRemoteDebu
             if (ex instanceof UnknownRemoteException && rateLimiter.tryAcquire()) {
                 log.warn(
                         "Encountered UnknownRemoteException; logging current state of refreshable",
+```
+
+### UnstableApiUsage
+'allAsList(java.lang.Iterable\>)' is marked unstable with @Beta
+in `timelock-server/src/testCommon/java/com/palantir/atlasdb/timelock/TestableTimelockCluster.java`
+#### Snippet
+```java
+                .collect(Collectors.toSet());
+
+        Futures.getDone(Futures.allAsList(shutdownFutures));
+    }
+
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeSet' is marked unstable with @Beta
+in `lock-api-objects/src/main/java/com/palantir/lock/watch/VersionedLockWatchStateImpl.java`
+#### Snippet
+```java
+    public VersionedLockWatchStateImpl(
+            OptionalLong version,
+            RangeSet<LockDescriptor> watchedRanges,
+            Map<LockDescriptor, LockWatchInfo> locks,
+            UUID leaderId,
 ```
 
 ### UnstableApiUsage
@@ -31048,35 +31084,11 @@ in `lock-api-objects/src/main/java/com/palantir/lock/watch/VersionedLockWatchSta
 in `lock-api-objects/src/main/java/com/palantir/lock/watch/VersionedLockWatchStateImpl.java`
 #### Snippet
 ```java
-    public VersionedLockWatchStateImpl(
-            OptionalLong version,
-            RangeSet<LockDescriptor> watchedRanges,
-            Map<LockDescriptor, LockWatchInfo> locks,
-            UUID leaderId,
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeSet' is marked unstable with @Beta
-in `lock-api-objects/src/main/java/com/palantir/lock/watch/VersionedLockWatchStateImpl.java`
-#### Snippet
-```java
 public class VersionedLockWatchStateImpl implements VersionedLockWatchState {
     private final OptionalLong version;
     private final RangeSet<LockDescriptor> watchedRanges;
     private final Map<LockDescriptor, LockWatchInfo> locks;
     private final UUID leaderId;
-```
-
-### UnstableApiUsage
-'allAsList(java.lang.Iterable\>)' is marked unstable with @Beta
-in `timelock-server/src/testCommon/java/com/palantir/atlasdb/timelock/TestableTimelockCluster.java`
-#### Snippet
-```java
-                .collect(Collectors.toSet());
-
-        Futures.getDone(Futures.allAsList(shutdownFutures));
-    }
-
 ```
 
 ### UnstableApiUsage
@@ -31176,18 +31188,6 @@ in `atlasdb-autobatch/src/main/java/com/palantir/atlasdb/autobatch/Autobatchers.
 ```
 
 ### UnstableApiUsage
-'com.google.common.collect.RangeMap' is marked unstable with @Beta
-in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/CassandraClientPoolImpl.java`
-#### Snippet
-```java
-
-    @VisibleForTesting
-    RangeMap<LightweightOppToken, ImmutableSet<CassandraServer>> getTokenMap() {
-        return cassandra.getTokenMap();
-    }
-```
-
-### UnstableApiUsage
 'asMap(com.google.common.collect.ListMultimap)' is marked unstable with @Beta
 in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/CellLoadingBatcher.java`
 #### Snippet
@@ -31197,6 +31197,18 @@ in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/Cell
                 Multimaps.asMap(cellsByColumn).entrySet()) {
             if (shouldExplicitlyAllocateBatchToColumn(config, cellColumnPair.getValue())) {
                 batches.addAll(partitionBySingleQueryLoadBatchLimit(
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeMap' is marked unstable with @Beta
+in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/CassandraClientPoolImpl.java`
+#### Snippet
+```java
+
+    @VisibleForTesting
+    RangeMap<LightweightOppToken, ImmutableSet<CassandraServer>> getTokenMap() {
+        return cassandra.getTokenMap();
+    }
 ```
 
 ### UnstableApiUsage
@@ -31240,11 +31252,11 @@ in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/Cass
 in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/async/CqlClientImpl.java`
 #### Snippet
 ```java
-    private <V> ListenableFuture<V> execute(
-            Statement executableStatement, Executor executor, RowStreamAccumulator<V> rowStreamAccumulator) {
-        return Futures.transformAsync(
-                session.executeAsync(executableStatement), iterate(executor, rowStreamAccumulator), executor);
-    }
+            } else {
+                ListenableFuture<ResultSet> future = resultSet.fetchMoreResults();
+                return Futures.transformAsync(future, iterate(executor, rowStreamAccumulator), executor);
+            }
+        };
 ```
 
 ### UnstableApiUsage
@@ -31252,11 +31264,11 @@ in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/asyn
 in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/async/CqlClientImpl.java`
 #### Snippet
 ```java
-            } else {
-                ListenableFuture<ResultSet> future = resultSet.fetchMoreResults();
-                return Futures.transformAsync(future, iterate(executor, rowStreamAccumulator), executor);
-            }
-        };
+    private <V> ListenableFuture<V> execute(
+            Statement executableStatement, Executor executor, RowStreamAccumulator<V> rowStreamAccumulator) {
+        return Futures.transformAsync(
+                session.executeAsync(executableStatement), iterate(executor, rowStreamAccumulator), executor);
+    }
 ```
 
 ### UnstableApiUsage
@@ -31269,6 +31281,18 @@ in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/pool
         return tokenMap.get(new LightweightOppToken(key));
     }
 
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeMap' is marked unstable with @Beta
+in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/pool/CassandraService.java`
+#### Snippet
+```java
+    }
+
+    public RangeMap<LightweightOppToken, ImmutableSet<CassandraServer>> getTokenMap() {
+        return tokenMap;
+    }
 ```
 
 ### UnstableApiUsage
@@ -31305,42 +31329,6 @@ in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/pool
             ImmutableRangeMap.of();
     private final Map<CassandraServer, CassandraClientPoolingContainer> currentPools = new ConcurrentHashMap<>();
     private volatile ImmutableMap<CassandraServer, String> hostToDatacenter = ImmutableMap.of();
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeMap' is marked unstable with @Beta
-in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/pool/CassandraService.java`
-#### Snippet
-```java
-    }
-
-    public RangeMap<LightweightOppToken, ImmutableSet<CassandraServer>> getTokenMap() {
-        return tokenMap;
-    }
-```
-
-### UnstableApiUsage
-'catching(com.google.common.util.concurrent.ListenableFuture, java.lang.Class, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta
-in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/CassandraKeyValueServiceImpl.java`
-#### Snippet
-```java
-        if (asyncKeyValueService.isValid()) {
-            try {
-                return Futures.catching(
-                        asyncKeyValueService.getAsync(tableRef, timestampByCell),
-                        IllegalStateException.class,
-```
-
-### UnstableApiUsage
-'asMap(com.google.common.collect.ListMultimap)' is marked unstable with @Beta
-in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/CassandraKeyValueServiceImpl.java`
-#### Snippet
-```java
-
-        ValueExtractor extractor = new ValueExtractor(metricsManager, Maps.newHashMapWithExpectedSize(result.size()));
-        extractor.extractResults(Multimaps.asMap(result), startTs, ColumnSelection.all());
-        return extractor.asMap();
-    }
 ```
 
 ### UnstableApiUsage
@@ -31476,27 +31464,27 @@ public class CassandraService implements AutoCloseable {
 ```
 
 ### UnstableApiUsage
-'com.google.common.collect.EvictingQueue' is marked unstable with @Beta
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/debug/LocalLockTracker.java`
+'asMap(com.google.common.collect.ListMultimap)' is marked unstable with @Beta
+in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/CassandraKeyValueServiceImpl.java`
 #### Snippet
 ```java
 
-    public LocalLockTracker(int sizeLimit) {
-        eventBuffer = Queues.synchronizedQueue(EvictingQueue.create(sizeLimit));
+        ValueExtractor extractor = new ValueExtractor(metricsManager, Maps.newHashMapWithExpectedSize(result.size()));
+        extractor.extractResults(Multimaps.asMap(result), startTs, ColumnSelection.all());
+        return extractor.asMap();
     }
-
 ```
 
 ### UnstableApiUsage
-'create(int)' is declared in unstable class 'com.google.common.collect.EvictingQueue' marked with @Beta
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/debug/LocalLockTracker.java`
+'catching(com.google.common.util.concurrent.ListenableFuture, java.lang.Class, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta
+in `atlasdb-cassandra/src/main/java/com/palantir/atlasdb/keyvalue/cassandra/CassandraKeyValueServiceImpl.java`
 #### Snippet
 ```java
-
-    public LocalLockTracker(int sizeLimit) {
-        eventBuffer = Queues.synchronizedQueue(EvictingQueue.create(sizeLimit));
-    }
-
+        if (asyncKeyValueService.isValid()) {
+            try {
+                return Futures.catching(
+                        asyncKeyValueService.getAsync(tableRef, timestampByCell),
+                        IllegalStateException.class,
 ```
 
 ### UnstableApiUsage
@@ -31521,6 +31509,30 @@ in `commons-executors/src/main/java/com/palantir/common/concurrent/PTExecutors.j
         String threadName = factory.newThread(Runnables.doNothing()).getName();
         if (!Strings.isNullOrEmpty(threadName)) {
             String trimmed = THREAD_NAME_TRIMMED_CHARS.trimTrailingFrom(threadName);
+```
+
+### UnstableApiUsage
+'com.google.common.collect.EvictingQueue' is marked unstable with @Beta
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/debug/LocalLockTracker.java`
+#### Snippet
+```java
+
+    public LocalLockTracker(int sizeLimit) {
+        eventBuffer = Queues.synchronizedQueue(EvictingQueue.create(sizeLimit));
+    }
+
+```
+
+### UnstableApiUsage
+'create(int)' is declared in unstable class 'com.google.common.collect.EvictingQueue' marked with @Beta
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/debug/LocalLockTracker.java`
+#### Snippet
+```java
+
+    public LocalLockTracker(int sizeLimit) {
+        eventBuffer = Queues.synchronizedQueue(EvictingQueue.create(sizeLimit));
+    }
+
 ```
 
 ### UnstableApiUsage
@@ -31597,6 +31609,18 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/atomic/KnowledgeableT
 
 ### UnstableApiUsage
 'transform(com.google.common.util.concurrent.ListenableFuture*, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta*
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/atomic/TimestampExtractingAtomicTable.java`
+#### Snippet
+```java
+    @Override
+    public ListenableFuture<Map<Long, Long>> get(Iterable<Long> keys) {
+        return Futures.transform(
+                delegate.get(keys),
+                statuses -> {
+```
+
+### UnstableApiUsage
+'transform(com.google.common.util.concurrent.ListenableFuture*, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta*
 in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/atomic/ReadableConsensusForgettingStoreImpl.java`
 #### Snippet
 ```java
@@ -31617,18 +31641,6 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/atomic/ReadableConsen
         return Futures.transform(
                 getMultiple(ImmutableList.of(cell)),
                 result -> Optional.ofNullable(result.get(cell)),
-```
-
-### UnstableApiUsage
-'transform(com.google.common.util.concurrent.ListenableFuture*, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta*
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/atomic/TimestampExtractingAtomicTable.java`
-#### Snippet
-```java
-    @Override
-    public ListenableFuture<Map<Long, Long>> get(Iterable<Long> keys) {
-        return Futures.transform(
-                delegate.get(keys),
-                statuses -> {
 ```
 
 ### UnstableApiUsage
@@ -31740,18 +31752,6 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/api/cache/Va
 ```
 
 ### UnstableApiUsage
-'tryAcquire()' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/api/watch/LockWatchEventCacheImpl.java`
-#### Snippet
-```java
-    public void removeTransactionStateFromCache(long startTimestamp) {
-        timestampStateStore.remove(startTimestamp);
-        if (rateLimiter.tryAcquire()) {
-            retentionEvents();
-        }
-```
-
-### UnstableApiUsage
 'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
 in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/api/watch/LockWatchEventCacheImpl.java`
 #### Snippet
@@ -31785,6 +31785,18 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/api/watch/Lo
     private final RateLimiter rateLimiter = RateLimiter.create(1.0);
 
     public static LockWatchEventCache create(CacheMetrics metrics, int maxEvents) {
+```
+
+### UnstableApiUsage
+'tryAcquire()' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/api/watch/LockWatchEventCacheImpl.java`
+#### Snippet
+```java
+    public void removeTransactionStateFromCache(long startTimestamp) {
+        timestampStateStore.remove(startTimestamp);
+        if (rateLimiter.tryAcquire()) {
+            retentionEvents();
+        }
 ```
 
 ### UnstableApiUsage
@@ -31836,18 +31848,6 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/GetR
 ```
 
 ### UnstableApiUsage
-'transform(com.google.common.util.concurrent.ListenableFuture*, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta*
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/service/PreStartHandlingTransactionService.java`
-#### Snippet
-```java
-        List<Long> validTimestamps = classifiedTimestamps.get(true);
-        if (!validTimestamps.isEmpty()) {
-            return Futures.transform(
-                    getter.apply(validTimestamps),
-                    timestampMap -> {
-```
-
-### UnstableApiUsage
 'zip(java.util.stream.Stream, java.util.stream.Stream**, java.util.function.BiFunction)' is marked unstable with @Beta**
 in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/SnapshotTransactionManager.java`
 #### Snippet
@@ -31869,6 +31869,18 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/expe
         return Futures.transform(
                 delegate.getAsync(tableRef, timestampByCell),
                 result -> {
+```
+
+### UnstableApiUsage
+'transform(com.google.common.util.concurrent.ListenableFuture*, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta*
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/service/PreStartHandlingTransactionService.java`
+#### Snippet
+```java
+        List<Long> validTimestamps = classifiedTimestamps.get(true);
+        if (!validTimestamps.isEmpty()) {
+            return Futures.transform(
+                    getter.apply(validTimestamps),
+                    timestampMap -> {
 ```
 
 ### UnstableApiUsage
@@ -31905,18 +31917,6 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/service/W
                 Multimaps.asMap(requests).entrySet()) {
             result.put(entry.getKey(), entry.getValue().iterator().next());
         }
-```
-
-### UnstableApiUsage
-'asMapOfRanges()' is declared in unstable interface 'com.google.common.collect.RangeMap' marked with @Beta
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/knowledge/coordinated/CoordinationAwareKnownConcludedTransactionsStore.java`
-#### Snippet
-```java
-                .apply(lastSweptTimestamp)
-                .rangeMapView()
-                .asMapOfRanges();
-    }
-}
 ```
 
 ### UnstableApiUsage
@@ -31980,111 +31980,63 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/internalschema/Intern
 ```
 
 ### UnstableApiUsage
-'getEntry(K)' is declared in unstable interface 'com.google.common.collect.RangeMap' marked with @Beta
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/internalschema/TransactionSchemaManager.java`
+'asMapOfRanges()' is declared in unstable interface 'com.google.common.collect.RangeMap' marked with @Beta
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/knowledge/coordinated/CoordinationAwareKnownConcludedTransactionsStore.java`
 #### Snippet
 ```java
-                .timestampToTransactionsTableSchemaVersion()
+                .apply(lastSweptTimestamp)
                 .rangeMapView()
-                .getEntry(valueAndBound.bound());
+                .asMapOfRanges();
+    }
+}
+```
+
+### UnstableApiUsage
+'asDescendingMapOfRanges()' is declared in unstable interface 'com.google.common.collect.RangeMap' marked with @Beta
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/internalschema/TimestampPartitioningMap.java`
+#### Snippet
+```java
+    private RangeAndValue<T> getLatestEntry() {
+        return RangeAndValue.fromMapEntry(
+                rangeMapView().asDescendingMapOfRanges().entrySet().iterator().next());
     }
 
 ```
 
 ### UnstableApiUsage
-'com.google.common.collect.RangeMap' is marked unstable with @Beta
+'com.google.common.collect.ImmutableRangeMap' is marked unstable with @Beta
 in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/internalschema/TimestampPartitioningMap.java`
 #### Snippet
 ```java
+
+    private void copyOldRangesFromPreviousMap(
+            RangeAndValue<T> latestRangeAndValue, @Output ImmutableRangeMap.Builder<Long, T> builder) {
+        timestampMappings().stream()
+                .filter(rangeAndValue -> !rangeAndValue.equals(latestRangeAndValue))
+```
+
+### UnstableApiUsage
+'com.google.common.collect.ImmutableRangeMap.Builder' is declared in unstable class 'com.google.common.collect.ImmutableRangeMap' marked with @Beta
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/internalschema/TimestampPartitioningMap.java`
+#### Snippet
+```java
+
+    private void copyOldRangesFromPreviousMap(
+            RangeAndValue<T> latestRangeAndValue, @Output ImmutableRangeMap.Builder<Long, T> builder) {
+        timestampMappings().stream()
+                .filter(rangeAndValue -> !rangeAndValue.equals(latestRangeAndValue))
+```
+
+### UnstableApiUsage
+'put(com.google.common.collect.Range, V)' is declared in unstable class 'com.google.common.collect.ImmutableRangeMap' marked with @Beta
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/internalschema/TimestampPartitioningMap.java`
+#### Snippet
+```java
+        timestampMappings().stream()
+                .filter(rangeAndValue -> !rangeAndValue.equals(latestRangeAndValue))
+                .forEach(rangeAndValue -> builder.put(rangeAndValue.longRange(), rangeAndValue.value()));
     }
 
-    private static <T> void validateCoversPreciselyAllTimestamps(RangeMap<Long, T> timestampRangeMap) {
-        if (timestampRangeMap.asMapOfRanges().isEmpty()
-                || !timestampRangeMap.span().equals(ALL_TIMESTAMPS)) {
-```
-
-### UnstableApiUsage
-'asMapOfRanges()' is declared in unstable interface 'com.google.common.collect.RangeMap' marked with @Beta
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/internalschema/TimestampPartitioningMap.java`
-#### Snippet
-```java
-
-    private static <T> void validateCoversPreciselyAllTimestamps(RangeMap<Long, T> timestampRangeMap) {
-        if (timestampRangeMap.asMapOfRanges().isEmpty()
-                || !timestampRangeMap.span().equals(ALL_TIMESTAMPS)) {
-            throw new SafeIllegalArgumentException(
-```
-
-### UnstableApiUsage
-'span()' is declared in unstable interface 'com.google.common.collect.RangeMap' marked with @Beta
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/internalschema/TimestampPartitioningMap.java`
-#### Snippet
-```java
-    private static <T> void validateCoversPreciselyAllTimestamps(RangeMap<Long, T> timestampRangeMap) {
-        if (timestampRangeMap.asMapOfRanges().isEmpty()
-                || !timestampRangeMap.span().equals(ALL_TIMESTAMPS)) {
-            throw new SafeIllegalArgumentException(
-                    "Attempted to initialize a timestamp partitioning map, but its span does not cover precisely all "
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeSet' is marked unstable with @Beta
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/internalschema/TimestampPartitioningMap.java`
-#### Snippet
-```java
-        }
-
-        RangeSet<Long> rangesCovered =
-                TreeRangeSet.create(timestampRangeMap.asMapOfRanges().keySet());
-        if (rangesCovered.asRanges().size() != 1) {
-```
-
-### UnstableApiUsage
-'com.google.common.collect.TreeRangeSet' is marked unstable with @Beta
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/internalschema/TimestampPartitioningMap.java`
-#### Snippet
-```java
-
-        RangeSet<Long> rangesCovered =
-                TreeRangeSet.create(timestampRangeMap.asMapOfRanges().keySet());
-        if (rangesCovered.asRanges().size() != 1) {
-            throw new SafeIllegalArgumentException(
-```
-
-### UnstableApiUsage
-'create(java.lang.Iterable\>)' is declared in unstable class 'com.google.common.collect.TreeRangeSet' marked with @Beta
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/internalschema/TimestampPartitioningMap.java`
-#### Snippet
-```java
-
-        RangeSet<Long> rangesCovered =
-                TreeRangeSet.create(timestampRangeMap.asMapOfRanges().keySet());
-        if (rangesCovered.asRanges().size() != 1) {
-            throw new SafeIllegalArgumentException(
-```
-
-### UnstableApiUsage
-'asMapOfRanges()' is declared in unstable interface 'com.google.common.collect.RangeMap' marked with @Beta
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/internalschema/TimestampPartitioningMap.java`
-#### Snippet
-```java
-
-        RangeSet<Long> rangesCovered =
-                TreeRangeSet.create(timestampRangeMap.asMapOfRanges().keySet());
-        if (rangesCovered.asRanges().size() != 1) {
-            throw new SafeIllegalArgumentException(
-```
-
-### UnstableApiUsage
-'asRanges()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/internalschema/TimestampPartitioningMap.java`
-#### Snippet
-```java
-        RangeSet<Long> rangesCovered =
-                TreeRangeSet.create(timestampRangeMap.asMapOfRanges().keySet());
-        if (rangesCovered.asRanges().size() != 1) {
-            throw new SafeIllegalArgumentException(
-                    "Attempted to initialize a timestamp partitioning map."
 ```
 
 ### UnstableApiUsage
@@ -32256,90 +32208,6 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/internalschema/Timest
 ```
 
 ### UnstableApiUsage
-'com.google.common.collect.RangeMap' is marked unstable with @Beta
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/internalschema/TimestampPartitioningMap.java`
-#### Snippet
-```java
-    }
-
-    public static <T> TimestampPartitioningMap<T> of(RangeMap<Long, T> initialState) {
-        return ImmutableTimestampPartitioningMap.of(initialState.asMapOfRanges().entrySet().stream()
-                .map(entry -> RangeAndValue.of(entry.getKey(), entry.getValue()))
-```
-
-### UnstableApiUsage
-'asMapOfRanges()' is declared in unstable interface 'com.google.common.collect.RangeMap' marked with @Beta
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/internalschema/TimestampPartitioningMap.java`
-#### Snippet
-```java
-
-    public static <T> TimestampPartitioningMap<T> of(RangeMap<Long, T> initialState) {
-        return ImmutableTimestampPartitioningMap.of(initialState.asMapOfRanges().entrySet().stream()
-                .map(entry -> RangeAndValue.of(entry.getKey(), entry.getValue()))
-                .collect(Collectors.toSet()));
-```
-
-### UnstableApiUsage
-'get(K)' is declared in unstable interface 'com.google.common.collect.RangeMap' marked with @Beta
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/internalschema/TimestampPartitioningMap.java`
-#### Snippet
-```java
-
-    public T getValueForTimestamp(long timestamp) {
-        return rangeMapView().get(timestamp);
-    }
-
-```
-
-### UnstableApiUsage
-'asDescendingMapOfRanges()' is declared in unstable interface 'com.google.common.collect.RangeMap' marked with @Beta
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/internalschema/TimestampPartitioningMap.java`
-#### Snippet
-```java
-    private RangeAndValue<T> getLatestEntry() {
-        return RangeAndValue.fromMapEntry(
-                rangeMapView().asDescendingMapOfRanges().entrySet().iterator().next());
-    }
-
-```
-
-### UnstableApiUsage
-'com.google.common.collect.ImmutableRangeMap' is marked unstable with @Beta
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/internalschema/TimestampPartitioningMap.java`
-#### Snippet
-```java
-
-    private void copyOldRangesFromPreviousMap(
-            RangeAndValue<T> latestRangeAndValue, @Output ImmutableRangeMap.Builder<Long, T> builder) {
-        timestampMappings().stream()
-                .filter(rangeAndValue -> !rangeAndValue.equals(latestRangeAndValue))
-```
-
-### UnstableApiUsage
-'com.google.common.collect.ImmutableRangeMap.Builder' is declared in unstable class 'com.google.common.collect.ImmutableRangeMap' marked with @Beta
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/internalschema/TimestampPartitioningMap.java`
-#### Snippet
-```java
-
-    private void copyOldRangesFromPreviousMap(
-            RangeAndValue<T> latestRangeAndValue, @Output ImmutableRangeMap.Builder<Long, T> builder) {
-        timestampMappings().stream()
-                .filter(rangeAndValue -> !rangeAndValue.equals(latestRangeAndValue))
-```
-
-### UnstableApiUsage
-'put(com.google.common.collect.Range, V)' is declared in unstable class 'com.google.common.collect.ImmutableRangeMap' marked with @Beta
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/internalschema/TimestampPartitioningMap.java`
-#### Snippet
-```java
-        timestampMappings().stream()
-                .filter(rangeAndValue -> !rangeAndValue.equals(latestRangeAndValue))
-                .forEach(rangeAndValue -> builder.put(rangeAndValue.longRange(), rangeAndValue.value()));
-    }
-
-```
-
-### UnstableApiUsage
 'com.google.common.collect.ImmutableRangeMap' is marked unstable with @Beta
 in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/internalschema/TimestampPartitioningMap.java`
 #### Snippet
@@ -32397,6 +32265,150 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/internalschema/Timest
             builder.put(Range.atLeast(lowerBoundForNewVersion), newValue);
         }
     }
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeMap' is marked unstable with @Beta
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/internalschema/TimestampPartitioningMap.java`
+#### Snippet
+```java
+    }
+
+    private static <T> void validateCoversPreciselyAllTimestamps(RangeMap<Long, T> timestampRangeMap) {
+        if (timestampRangeMap.asMapOfRanges().isEmpty()
+                || !timestampRangeMap.span().equals(ALL_TIMESTAMPS)) {
+```
+
+### UnstableApiUsage
+'asMapOfRanges()' is declared in unstable interface 'com.google.common.collect.RangeMap' marked with @Beta
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/internalschema/TimestampPartitioningMap.java`
+#### Snippet
+```java
+
+    private static <T> void validateCoversPreciselyAllTimestamps(RangeMap<Long, T> timestampRangeMap) {
+        if (timestampRangeMap.asMapOfRanges().isEmpty()
+                || !timestampRangeMap.span().equals(ALL_TIMESTAMPS)) {
+            throw new SafeIllegalArgumentException(
+```
+
+### UnstableApiUsage
+'span()' is declared in unstable interface 'com.google.common.collect.RangeMap' marked with @Beta
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/internalschema/TimestampPartitioningMap.java`
+#### Snippet
+```java
+    private static <T> void validateCoversPreciselyAllTimestamps(RangeMap<Long, T> timestampRangeMap) {
+        if (timestampRangeMap.asMapOfRanges().isEmpty()
+                || !timestampRangeMap.span().equals(ALL_TIMESTAMPS)) {
+            throw new SafeIllegalArgumentException(
+                    "Attempted to initialize a timestamp partitioning map, but its span does not cover precisely all "
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeSet' is marked unstable with @Beta
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/internalschema/TimestampPartitioningMap.java`
+#### Snippet
+```java
+        }
+
+        RangeSet<Long> rangesCovered =
+                TreeRangeSet.create(timestampRangeMap.asMapOfRanges().keySet());
+        if (rangesCovered.asRanges().size() != 1) {
+```
+
+### UnstableApiUsage
+'com.google.common.collect.TreeRangeSet' is marked unstable with @Beta
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/internalschema/TimestampPartitioningMap.java`
+#### Snippet
+```java
+
+        RangeSet<Long> rangesCovered =
+                TreeRangeSet.create(timestampRangeMap.asMapOfRanges().keySet());
+        if (rangesCovered.asRanges().size() != 1) {
+            throw new SafeIllegalArgumentException(
+```
+
+### UnstableApiUsage
+'create(java.lang.Iterable\>)' is declared in unstable class 'com.google.common.collect.TreeRangeSet' marked with @Beta
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/internalschema/TimestampPartitioningMap.java`
+#### Snippet
+```java
+
+        RangeSet<Long> rangesCovered =
+                TreeRangeSet.create(timestampRangeMap.asMapOfRanges().keySet());
+        if (rangesCovered.asRanges().size() != 1) {
+            throw new SafeIllegalArgumentException(
+```
+
+### UnstableApiUsage
+'asMapOfRanges()' is declared in unstable interface 'com.google.common.collect.RangeMap' marked with @Beta
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/internalschema/TimestampPartitioningMap.java`
+#### Snippet
+```java
+
+        RangeSet<Long> rangesCovered =
+                TreeRangeSet.create(timestampRangeMap.asMapOfRanges().keySet());
+        if (rangesCovered.asRanges().size() != 1) {
+            throw new SafeIllegalArgumentException(
+```
+
+### UnstableApiUsage
+'asRanges()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/internalschema/TimestampPartitioningMap.java`
+#### Snippet
+```java
+        RangeSet<Long> rangesCovered =
+                TreeRangeSet.create(timestampRangeMap.asMapOfRanges().keySet());
+        if (rangesCovered.asRanges().size() != 1) {
+            throw new SafeIllegalArgumentException(
+                    "Attempted to initialize a timestamp partitioning map."
+```
+
+### UnstableApiUsage
+'get(K)' is declared in unstable interface 'com.google.common.collect.RangeMap' marked with @Beta
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/internalschema/TimestampPartitioningMap.java`
+#### Snippet
+```java
+
+    public T getValueForTimestamp(long timestamp) {
+        return rangeMapView().get(timestamp);
+    }
+
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeMap' is marked unstable with @Beta
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/internalschema/TimestampPartitioningMap.java`
+#### Snippet
+```java
+    }
+
+    public static <T> TimestampPartitioningMap<T> of(RangeMap<Long, T> initialState) {
+        return ImmutableTimestampPartitioningMap.of(initialState.asMapOfRanges().entrySet().stream()
+                .map(entry -> RangeAndValue.of(entry.getKey(), entry.getValue()))
+```
+
+### UnstableApiUsage
+'asMapOfRanges()' is declared in unstable interface 'com.google.common.collect.RangeMap' marked with @Beta
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/internalschema/TimestampPartitioningMap.java`
+#### Snippet
+```java
+
+    public static <T> TimestampPartitioningMap<T> of(RangeMap<Long, T> initialState) {
+        return ImmutableTimestampPartitioningMap.of(initialState.asMapOfRanges().entrySet().stream()
+                .map(entry -> RangeAndValue.of(entry.getKey(), entry.getValue()))
+                .collect(Collectors.toSet()));
+```
+
+### UnstableApiUsage
+'getEntry(K)' is declared in unstable interface 'com.google.common.collect.RangeMap' marked with @Beta
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/internalschema/TransactionSchemaManager.java`
+#### Snippet
+```java
+                .timestampToTransactionsTableSchemaVersion()
+                .rangeMapView()
+                .getEntry(valueAndBound.bound());
+    }
+
 ```
 
 ### UnstableApiUsage
@@ -32544,30 +32556,6 @@ in `atlasdb-jepsen-tests/src/main/java/com/palantir/atlasdb/jepsen/lock/RefreshC
 ```
 
 ### UnstableApiUsage
-'add(com.google.common.collect.Range)' is declared in unstable class 'com.google.common.collect.TreeRangeSet' marked with @Beta
-in `atlasdb-jepsen-tests/src/main/java/com/palantir/atlasdb/jepsen/lock/LockCorrectnessChecker.java`
-#### Snippet
-```java
-                        long lastLockTime = lastHeldLock.get(process).time();
-                        if (lastLockTime < invokeEvent.time()) {
-                            locksHeld.add(Range.open(lastLockTime, invokeEvent.time()));
-                        }
-                    }
-```
-
-### UnstableApiUsage
-'encloses(com.google.common.collect.Range)' is declared in unstable class 'com.google.common.collect.TreeRangeSet' marked with @Beta
-in `atlasdb-jepsen-tests/src/main/java/com/palantir/atlasdb/jepsen/lock/LockCorrectnessChecker.java`
-#### Snippet
-```java
-        private boolean intervalCovered(InvokeEvent invokeEvent, OkEvent okEvent) {
-            Range<Long> interval = Range.closed(invokeEvent.time(), okEvent.time());
-            return locksHeld.encloses(interval);
-        }
-
-```
-
-### UnstableApiUsage
 'com.google.common.collect.TreeRangeSet' is marked unstable with @Beta
 in `atlasdb-jepsen-tests/src/main/java/com/palantir/atlasdb/jepsen/lock/LockCorrectnessChecker.java`
 #### Snippet
@@ -32604,6 +32592,30 @@ in `atlasdb-jepsen-tests/src/main/java/com/palantir/atlasdb/jepsen/lock/LockCorr
 ```
 
 ### UnstableApiUsage
+'add(com.google.common.collect.Range)' is declared in unstable class 'com.google.common.collect.TreeRangeSet' marked with @Beta
+in `atlasdb-jepsen-tests/src/main/java/com/palantir/atlasdb/jepsen/lock/LockCorrectnessChecker.java`
+#### Snippet
+```java
+                        long lastLockTime = lastHeldLock.get(process).time();
+                        if (lastLockTime < invokeEvent.time()) {
+                            locksHeld.add(Range.open(lastLockTime, invokeEvent.time()));
+                        }
+                    }
+```
+
+### UnstableApiUsage
+'encloses(com.google.common.collect.Range)' is declared in unstable class 'com.google.common.collect.TreeRangeSet' marked with @Beta
+in `atlasdb-jepsen-tests/src/main/java/com/palantir/atlasdb/jepsen/lock/LockCorrectnessChecker.java`
+#### Snippet
+```java
+        private boolean intervalCovered(InvokeEvent invokeEvent, OkEvent okEvent) {
+            Range<Long> interval = Range.closed(invokeEvent.time(), okEvent.time());
+            return locksHeld.encloses(interval);
+        }
+
+```
+
+### UnstableApiUsage
 'transformAsync(com.google.common.util.concurrent.ListenableFuture*, com.google.common.util.concurrent.AsyncFunction, java.util.concurrent.Executor)' is marked unstable with @Beta*
 in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/SnapshotTransaction.java`
 #### Snippet
@@ -32611,44 +32623,8 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/Snap
         }
 
         return Futures.transformAsync(
-                getWithPostFilteringInternal(
-                        tableReference,
-```
-
-### UnstableApiUsage
-'copyOf(java.lang.Iterable\>)' is marked unstable with @Beta
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/SnapshotTransaction.java`
-#### Snippet
-```java
-    private Map<Cell, Value> validateBatch(TableReference tableRef, List<Map.Entry<Cell, Value>> batch) {
-        validatePreCommitRequirementsOnReadIfNecessary(tableRef, getStartTimestamp());
-        return ImmutableMap.copyOf(batch);
-    }
-
-```
-
-### UnstableApiUsage
-'copyOf(java.lang.Iterable\>, java.util.Comparator)' is marked unstable with @Beta
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/SnapshotTransaction.java`
-#### Snippet
-```java
-                return Collections.emptyIterator();
-            }
-            SortedMap<Cell, Value> postFiltered = ImmutableSortedMap.copyOf(
-                    getWithPostFilteringSync(tableRef, raw, x -> x), preserveInputRowOrder(batch));
-            return postFiltered.entrySet().iterator();
-```
-
-### UnstableApiUsage
-'close()' is declared in unstable class 'com.google.common.io.Closer' marked with @Beta
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/SnapshotTransaction.java`
-#### Snippet
-```java
-    private void close() {
-        try {
-            closer.close();
-        } catch (Exception | Error e) {
-            log.warn("Error while closing transaction resources", e);
+                Futures.immediateFuture(rawResults),
+                remainingResultsToPostFilter -> getWithPostFilteringIterate(
 ```
 
 ### UnstableApiUsage
@@ -32661,6 +32637,30 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/Snap
         return Futures.transform(
                 getFromKeyValueService(
                         tableRef,
+```
+
+### UnstableApiUsage
+'copyOf(java.lang.Iterable\>)' is marked unstable with @Beta
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/SnapshotTransaction.java`
+#### Snippet
+```java
+        }
+
+        return ImmutableSortedMap.copyOf(getWithPostFilteringSync(tableRef, rawResults, transformer));
+    }
+
+```
+
+### UnstableApiUsage
+'copyOf(java.lang.Iterable\>, java.util.Comparator)' is marked unstable with @Beta
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/SnapshotTransaction.java`
+#### Snippet
+```java
+
+            SortedMap<Cell, Value> postFiltered =
+                    ImmutableSortedMap.copyOf(getWithPostFilteringSync(tableRef, raw, x -> x), cellComparator);
+            return postFiltered.entrySet().iterator();
+        }));
 ```
 
 ### UnstableApiUsage
@@ -32700,6 +32700,18 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/Snap
 ```
 
 ### UnstableApiUsage
+'register(C)' is declared in unstable class 'com.google.common.io.Closer' marked with @Beta
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/SnapshotTransaction.java`
+#### Snippet
+```java
+                    RowColumnRangeIterator rawIterator = rawResults.get(row);
+                    if (rawIterator != null) {
+                        entryIterator = closer.register(
+                                getPostFilteredColumns(tableRef, columnRangeSelection, row, rawIterator));
+                    } else {
+```
+
+### UnstableApiUsage
 'transformAsync(com.google.common.util.concurrent.ListenableFuture*, com.google.common.util.concurrent.AsyncFunction, java.util.concurrent.Executor)' is marked unstable with @Beta*
 in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/SnapshotTransaction.java`
 #### Snippet
@@ -32712,27 +32724,51 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/Snap
 ```
 
 ### UnstableApiUsage
-'transformAsync(com.google.common.util.concurrent.ListenableFuture*, com.google.common.util.concurrent.AsyncFunction, java.util.concurrent.Executor)' is marked unstable with @Beta*
+'copyOf(java.lang.Iterable\>)' is marked unstable with @Beta
 in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/SnapshotTransaction.java`
 #### Snippet
 ```java
-        }
+    private Map<Cell, Value> validateBatch(TableReference tableRef, List<Map.Entry<Cell, Value>> batch) {
+        validatePreCommitRequirementsOnReadIfNecessary(tableRef, getStartTimestamp());
+        return ImmutableMap.copyOf(batch);
+    }
 
-        return Futures.transformAsync(
-                Futures.immediateFuture(rawResults),
-                remainingResultsToPostFilter -> getWithPostFilteringIterate(
 ```
 
 ### UnstableApiUsage
-'transform(com.google.common.util.concurrent.ListenableFuture*, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta*
+'copyOf(java.lang.Iterable\>, java.util.Comparator)' is marked unstable with @Beta
 in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/SnapshotTransaction.java`
 #### Snippet
 ```java
+                return Collections.emptyIterator();
+            }
+            SortedMap<Cell, Value> postFiltered = ImmutableSortedMap.copyOf(
+                    getWithPostFilteringSync(tableRef, raw, x -> x), preserveInputRowOrder(batch));
+            return postFiltered.entrySet().iterator();
+```
 
-        if (!keysToReload.isEmpty()) {
-            return Futures.transform(
-                    asyncKeyValueService.getAsync(tableRef, keysToReload),
-                    nextRawResults -> {
+### UnstableApiUsage
+'close()' is declared in unstable class 'com.google.common.io.Closer' marked with @Beta
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/SnapshotTransaction.java`
+#### Snippet
+```java
+    private void close() {
+        try {
+            closer.close();
+        } catch (Exception | Error e) {
+            log.warn("Error while closing transaction resources", e);
+```
+
+### UnstableApiUsage
+'mergeSorted(java.lang.Iterable\>, java.util.Comparator)' is marked unstable with @Beta
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/SnapshotTransaction.java`
+#### Snippet
+```java
+    protected static <V> Iterator<Map.Entry<Cell, V>> mergeByComparator(
+            Iterable<? extends Iterator<Map.Entry<Cell, V>>> iterators, Comparator<Cell> cellComparator) {
+        return Iterators.mergeSorted(iterators, Map.Entry.comparingByKey(cellComparator));
+    }
+
 ```
 
 ### UnstableApiUsage
@@ -32772,18 +32808,6 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/Snap
 ```
 
 ### UnstableApiUsage
-'putAll(java.lang.Iterable\>)' is marked unstable with @Beta
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/SnapshotTransaction.java`
-#### Snippet
-```java
-            TableReference tableRef, Map<Cell, Value> rawResults, ImmutableMap.Builder<Cell, byte[]> resultCollector) {
-        ImmutableMap<Cell, byte[]> collected = resultCollector
-                .putAll(getWithPostFilteringSync(tableRef, rawResults, Value.GET_VALUE))
-                .buildOrThrow();
-        Map<Cell, byte[]> filterDeletedValues = removeEmptyColumns(collected, tableRef);
-```
-
-### UnstableApiUsage
 'builderWithExpectedSize(int)' is marked unstable with @Beta
 in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/SnapshotTransaction.java`
 #### Snippet
@@ -32793,42 +32817,6 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/Snap
         return filterRowResults(tableRef, rawResults, ImmutableMap.builderWithExpectedSize(rawResults.size()));
     }
 
-```
-
-### UnstableApiUsage
-'copyOf(java.lang.Iterable\>, java.util.Comparator)' is marked unstable with @Beta
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/SnapshotTransaction.java`
-#### Snippet
-```java
-
-            SortedMap<Cell, Value> postFiltered =
-                    ImmutableSortedMap.copyOf(getWithPostFilteringSync(tableRef, raw, x -> x), cellComparator);
-            return postFiltered.entrySet().iterator();
-        }));
-```
-
-### UnstableApiUsage
-'mergeSorted(java.lang.Iterable\>, java.util.Comparator)' is marked unstable with @Beta
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/SnapshotTransaction.java`
-#### Snippet
-```java
-    protected static <V> Iterator<Map.Entry<Cell, V>> mergeByComparator(
-            Iterable<? extends Iterator<Map.Entry<Cell, V>>> iterators, Comparator<Cell> cellComparator) {
-        return Iterators.mergeSorted(iterators, Map.Entry.comparingByKey(cellComparator));
-    }
-
-```
-
-### UnstableApiUsage
-'register(C)' is declared in unstable class 'com.google.common.io.Closer' marked with @Beta
-in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/SnapshotTransaction.java`
-#### Snippet
-```java
-                    RowColumnRangeIterator rawIterator = rawResults.get(row);
-                    if (rawIterator != null) {
-                        entryIterator = closer.register(
-                                getPostFilteredColumns(tableRef, columnRangeSelection, row, rawIterator));
-                    } else {
 ```
 
 ### UnstableApiUsage
@@ -32844,15 +32832,39 @@ in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/Snap
 ```
 
 ### UnstableApiUsage
-'copyOf(java.lang.Iterable\>)' is marked unstable with @Beta
+'transform(com.google.common.util.concurrent.ListenableFuture*, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta*
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/SnapshotTransaction.java`
+#### Snippet
+```java
+
+        if (!keysToReload.isEmpty()) {
+            return Futures.transform(
+                    asyncKeyValueService.getAsync(tableRef, keysToReload),
+                    nextRawResults -> {
+```
+
+### UnstableApiUsage
+'putAll(java.lang.Iterable\>)' is marked unstable with @Beta
+in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/SnapshotTransaction.java`
+#### Snippet
+```java
+            TableReference tableRef, Map<Cell, Value> rawResults, ImmutableMap.Builder<Cell, byte[]> resultCollector) {
+        ImmutableMap<Cell, byte[]> collected = resultCollector
+                .putAll(getWithPostFilteringSync(tableRef, rawResults, Value.GET_VALUE))
+                .buildOrThrow();
+        Map<Cell, byte[]> filterDeletedValues = removeEmptyColumns(collected, tableRef);
+```
+
+### UnstableApiUsage
+'transformAsync(com.google.common.util.concurrent.ListenableFuture*, com.google.common.util.concurrent.AsyncFunction, java.util.concurrent.Executor)' is marked unstable with @Beta*
 in `atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/transaction/impl/SnapshotTransaction.java`
 #### Snippet
 ```java
         }
 
-        return ImmutableSortedMap.copyOf(getWithPostFilteringSync(tableRef, rawResults, transformer));
-    }
-
+        return Futures.transformAsync(
+                getWithPostFilteringInternal(
+                        tableReference,
 ```
 
 ### UnstableApiUsage
@@ -32892,6 +32904,18 @@ in `leader-election-impl/src/main/java/com/palantir/paxos/PaxosStateLogBatchRead
 ```
 
 ### UnstableApiUsage
+'tryAcquire()' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
+in `leader-election-impl/src/main/java/com/palantir/paxos/RateLimitedGreenNodeLeadershipPrioritiser.java`
+#### Snippet
+```java
+    @Override
+    public boolean shouldGreeningNodeBecomeLeader() {
+        return greeningNodeShouldBecomeLeaderRateLimiter.tryAcquire();
+    }
+}
+```
+
+### UnstableApiUsage
 'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
 in `leader-election-impl/src/main/java/com/palantir/paxos/RateLimitedGreenNodeLeadershipPrioritiser.java`
 #### Snippet
@@ -32925,18 +32949,6 @@ class RateLimitedGreenNodeLeadershipPrioritiser implements GreenNodeLeadershipPr
     private final RateLimiter greeningNodeShouldBecomeLeaderRateLimiter = RateLimiter.create(1.0 / (10 * 60));
 
     @Override
-```
-
-### UnstableApiUsage
-'tryAcquire()' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
-in `leader-election-impl/src/main/java/com/palantir/paxos/RateLimitedGreenNodeLeadershipPrioritiser.java`
-#### Snippet
-```java
-    @Override
-    public boolean shouldGreeningNodeBecomeLeader() {
-        return greeningNodeShouldBecomeLeaderRateLimiter.tryAcquire();
-    }
-}
 ```
 
 ### UnstableApiUsage
@@ -32961,54 +32973,6 @@ in `leader-election-impl/src/main/java/com/palantir/paxos/PaxosLatestRoundVerifi
         return Futures.transform(
                 collectResponses(round), PaxosResponses::getQuorumResult, MoreExecutors.directExecutor());
     }
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
-in `leader-election-impl/src/main/java/com/palantir/paxos/SingleLeaderPinger.java`
-#### Snippet
-```java
-    private final boolean cancelRemainingCalls;
-    private final Optional<OrderableSlsVersion> timeLockVersion;
-    private final RateLimiter pingV2RateLimiter = RateLimiter.create(1.0 / (5 * 60));
-    private final GreenNodeLeadershipPrioritiser greenNodeLeadershipPrioritiser;
-
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
-in `leader-election-impl/src/main/java/com/palantir/paxos/SingleLeaderPinger.java`
-#### Snippet
-```java
-    private final boolean cancelRemainingCalls;
-    private final Optional<OrderableSlsVersion> timeLockVersion;
-    private final RateLimiter pingV2RateLimiter = RateLimiter.create(1.0 / (5 * 60));
-    private final GreenNodeLeadershipPrioritiser greenNodeLeadershipPrioritiser;
-
-```
-
-### UnstableApiUsage
-'create(double)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
-in `leader-election-impl/src/main/java/com/palantir/paxos/SingleLeaderPinger.java`
-#### Snippet
-```java
-    private final boolean cancelRemainingCalls;
-    private final Optional<OrderableSlsVersion> timeLockVersion;
-    private final RateLimiter pingV2RateLimiter = RateLimiter.create(1.0 / (5 * 60));
-    private final GreenNodeLeadershipPrioritiser greenNodeLeadershipPrioritiser;
-
-```
-
-### UnstableApiUsage
-'tryAcquire()' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
-in `leader-election-impl/src/main/java/com/palantir/paxos/SingleLeaderPinger.java`
-#### Snippet
-```java
-
-    private boolean shouldUsePingV2(LeaderPingerContext<PingableLeader> leader) {
-        return pingV2StatusOnRemotes.getOrDefault(leader, true) || pingV2RateLimiter.tryAcquire();
-    }
-
 ```
 
 ### UnstableApiUsage
@@ -33060,6 +33024,54 @@ in `leader-election-impl/src/main/java/com/palantir/leader/LeadershipEvents.java
 ```
 
 ### UnstableApiUsage
+'tryAcquire()' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
+in `leader-election-impl/src/main/java/com/palantir/paxos/SingleLeaderPinger.java`
+#### Snippet
+```java
+
+    private boolean shouldUsePingV2(LeaderPingerContext<PingableLeader> leader) {
+        return pingV2StatusOnRemotes.getOrDefault(leader, true) || pingV2RateLimiter.tryAcquire();
+    }
+
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
+in `leader-election-impl/src/main/java/com/palantir/paxos/SingleLeaderPinger.java`
+#### Snippet
+```java
+    private final boolean cancelRemainingCalls;
+    private final Optional<OrderableSlsVersion> timeLockVersion;
+    private final RateLimiter pingV2RateLimiter = RateLimiter.create(1.0 / (5 * 60));
+    private final GreenNodeLeadershipPrioritiser greenNodeLeadershipPrioritiser;
+
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
+in `leader-election-impl/src/main/java/com/palantir/paxos/SingleLeaderPinger.java`
+#### Snippet
+```java
+    private final boolean cancelRemainingCalls;
+    private final Optional<OrderableSlsVersion> timeLockVersion;
+    private final RateLimiter pingV2RateLimiter = RateLimiter.create(1.0 / (5 * 60));
+    private final GreenNodeLeadershipPrioritiser greenNodeLeadershipPrioritiser;
+
+```
+
+### UnstableApiUsage
+'create(double)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
+in `leader-election-impl/src/main/java/com/palantir/paxos/SingleLeaderPinger.java`
+#### Snippet
+```java
+    private final boolean cancelRemainingCalls;
+    private final Optional<OrderableSlsVersion> timeLockVersion;
+    private final RateLimiter pingV2RateLimiter = RateLimiter.create(1.0 / (5 * 60));
+    private final GreenNodeLeadershipPrioritiser greenNodeLeadershipPrioritiser;
+
+```
+
+### UnstableApiUsage
 'transformAsync(com.google.common.util.concurrent.ListenableFuture*, com.google.common.util.concurrent.AsyncFunction, java.util.concurrent.Executor)' is marked unstable with @Beta*
 in `leader-election-impl/src/main/java/com/palantir/leader/proxy/AsyncRetrier.java`
 #### Snippet
@@ -33081,6 +33093,30 @@ in `leader-election-impl/src/main/java/com/palantir/leader/proxy/AsyncRetrier.ja
                         return Futures.transformAsync(
                                 schedulingExecutor.schedule(
                                         () -> {}, delayBetweenAttempts.toMillis(), TimeUnit.MILLISECONDS),
+```
+
+### UnstableApiUsage
+'transform(com.google.common.util.concurrent.ListenableFuture*, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta*
+in `leader-election-impl/src/main/java/com/palantir/leader/PaxosLeaderElectionService.java`
+#### Snippet
+```java
+        }
+
+        return Futures.transform(
+                latestRoundVerifier.isLatestRoundAsync(value.getRound()),
+                PaxosQuorumStatus::toStillLeadingStatus,
+```
+
+### UnstableApiUsage
+'transform(com.google.common.util.concurrent.ListenableFuture*, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta*
+in `leader-election-impl/src/main/java/com/palantir/leader/PaxosLeaderElectionService.java`
+#### Snippet
+```java
+    private ListenableFuture<StillLeadingStatus> determineAndRecordLeadershipStatus(PaxosLeadershipToken paxosToken) {
+        ListenableFuture<StillLeadingStatus> statusFuture = determineLeadershipStatus(paxosToken.value);
+        return Futures.transform(
+                statusFuture,
+                status -> {
 ```
 
 ### UnstableApiUsage
@@ -33120,78 +33156,6 @@ in `leader-election-impl/src/main/java/com/palantir/leader/proxy/AwaitingLeaders
 ```
 
 ### UnstableApiUsage
-'transform(com.google.common.util.concurrent.ListenableFuture*, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta*
-in `leader-election-impl/src/main/java/com/palantir/leader/PaxosLeaderElectionService.java`
-#### Snippet
-```java
-    private ListenableFuture<StillLeadingStatus> determineAndRecordLeadershipStatus(PaxosLeadershipToken paxosToken) {
-        ListenableFuture<StillLeadingStatus> statusFuture = determineLeadershipStatus(paxosToken.value);
-        return Futures.transform(
-                statusFuture,
-                status -> {
-```
-
-### UnstableApiUsage
-'transform(com.google.common.util.concurrent.ListenableFuture*, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta*
-in `leader-election-impl/src/main/java/com/palantir/leader/PaxosLeaderElectionService.java`
-#### Snippet
-```java
-        }
-
-        return Futures.transform(
-                latestRoundVerifier.isLatestRoundAsync(value.getRound()),
-                PaxosQuorumStatus::toStillLeadingStatus,
-```
-
-### UnstableApiUsage
-'stream(java.util.Iterator)' is marked unstable with @Beta
-in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/AbstractSerializableTransactionTest.java`
-#### Snippet
-```java
-                BatchColumnRangeSelection.create(
-                        PtBytes.EMPTY_BYTE_ARRAY, PtBytes.EMPTY_BYTE_ARRAY, DEFAULT_BATCH_HINT));
-        List<Cell> cells = Streams.stream(sortedColumns).map(Map.Entry::getKey).collect(Collectors.toList());
-        sanityCheckOnSortedCells(rows, cells, cellsWrittenOriginally);
-    }
-```
-
-### UnstableApiUsage
-'stream(java.util.Iterator)' is marked unstable with @Beta
-in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/AbstractSerializableTransactionTest.java`
-#### Snippet
-```java
-                        PtBytes.EMPTY_BYTE_ARRAY, PtBytes.EMPTY_BYTE_ARRAY, DEFAULT_BATCH_HINT));
-
-        List<Cell> cells = Streams.stream(sortedColumns).map(Map.Entry::getKey).collect(Collectors.toList());
-        sanityCheckOnSortedCells(rows, cells, cellsWrittenOriginally);
-
-```
-
-### UnstableApiUsage
-'stream(java.util.Iterator)' is marked unstable with @Beta
-in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/AbstractSerializableTransactionTest.java`
-#### Snippet
-```java
-                        PtBytes.EMPTY_BYTE_ARRAY, PtBytes.EMPTY_BYTE_ARRAY, DEFAULT_BATCH_HINT));
-
-        List<Cell> cells = Streams.stream(sortedColumns).map(Map.Entry::getKey).collect(Collectors.toList());
-        sanityCheckOnSortedCells(rows, cells, cellsWrittenOriginally);
-
-```
-
-### UnstableApiUsage
-'stream(java.util.Iterator)' is marked unstable with @Beta
-in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/AbstractSerializableTransactionTest.java`
-#### Snippet
-```java
-
-        List<Map.Entry<Cell, byte[]>> sortedColumnValues =
-                Streams.stream(sortedColumns).collect(Collectors.toList());
-        List<Cell> sortedCellsRead =
-                sortedColumnValues.stream().map(Map.Entry::getKey).collect(Collectors.toList());
-```
-
-### UnstableApiUsage
 'stream(java.util.Iterator)' is marked unstable with @Beta
 in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/AbstractSerializableTransactionTest.java`
 #### Snippet
@@ -33220,6 +33184,42 @@ in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/Abs
 in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/AbstractSerializableTransactionTest.java`
 #### Snippet
 ```java
+                        PtBytes.EMPTY_BYTE_ARRAY, PtBytes.EMPTY_BYTE_ARRAY, DEFAULT_BATCH_HINT));
+
+        List<Cell> cells = Streams.stream(sortedColumns).map(Map.Entry::getKey).collect(Collectors.toList());
+        sanityCheckOnSortedCells(rows, cells, cellsWrittenOriginally);
+
+```
+
+### UnstableApiUsage
+'stream(java.util.Iterator)' is marked unstable with @Beta
+in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/AbstractSerializableTransactionTest.java`
+#### Snippet
+```java
+
+        List<Map.Entry<Cell, byte[]>> sortedColumnValues =
+                Streams.stream(sortedColumns).collect(Collectors.toList());
+        List<Cell> sortedCellsRead =
+                sortedColumnValues.stream().map(Map.Entry::getKey).collect(Collectors.toList());
+```
+
+### UnstableApiUsage
+'stream(java.util.Iterator)' is marked unstable with @Beta
+in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/AbstractSerializableTransactionTest.java`
+#### Snippet
+```java
+                        PtBytes.EMPTY_BYTE_ARRAY, PtBytes.EMPTY_BYTE_ARRAY, DEFAULT_BATCH_HINT));
+
+        List<Cell> cells = Streams.stream(sortedColumns).map(Map.Entry::getKey).collect(Collectors.toList());
+        sanityCheckOnSortedCells(rows, cells, cellsWrittenOriginally);
+
+```
+
+### UnstableApiUsage
+'stream(java.util.Iterator)' is marked unstable with @Beta
+in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/AbstractSerializableTransactionTest.java`
+#### Snippet
+```java
 
         List<Map.Entry<Cell, byte[]>> sortedColumnValues =
                 Streams.stream(sortedColumns).collect(Collectors.toList());
@@ -33249,6 +33249,30 @@ in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/Abs
         List<Cell> cells = Streams.stream(sortedColumns).map(Map.Entry::getKey).collect(Collectors.toList());
         sanityCheckOnSortedCells(rows, cells, cellsWrittenOriginally);
 
+```
+
+### UnstableApiUsage
+'stream(java.util.Iterator)' is marked unstable with @Beta
+in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/transaction/impl/AbstractSerializableTransactionTest.java`
+#### Snippet
+```java
+                BatchColumnRangeSelection.create(
+                        PtBytes.EMPTY_BYTE_ARRAY, PtBytes.EMPTY_BYTE_ARRAY, DEFAULT_BATCH_HINT));
+        List<Cell> cells = Streams.stream(sortedColumns).map(Map.Entry::getKey).collect(Collectors.toList());
+        sanityCheckOnSortedCells(rows, cells, cellsWrittenOriginally);
+    }
+```
+
+### UnstableApiUsage
+'stream(java.util.Iterator)' is marked unstable with @Beta
+in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/AbstractKeyValueServiceTest.java`
+#### Snippet
+```java
+                .get()
+                .getValue();
+        List<ByteBuffer> columns = Streams.stream(iterator)
+                .map(entry -> entry.getKey().getColumnName())
+                .map(ByteBuffer::wrap)
 ```
 
 ### UnstableApiUsage
@@ -33297,6 +33321,18 @@ in `atlasdb-workload-server/src/main/java/com/palantir/atlasdb/workload/runner/A
             List<WorkflowHistoryValidator> workflowHistoryValidators = Futures.allAsList(
                             submitWorkflowValidators(workflowAndInvariants))
                     .get();
+```
+
+### UnstableApiUsage
+'acquire()' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
+in `atlasdb-workload-server/src/main/java/com/palantir/atlasdb/workload/workflow/SingleRowTwoCellsWorkflows.java`
+#### Snippet
+```java
+    private static Optional<WitnessedTransaction> run(
+            TransactionStore store, int taskIndex, SingleRowTwoCellsWorkflowConfiguration workflowConfiguration) {
+        workflowConfiguration.transactionRateLimiter().acquire();
+
+        List<TransactionAction> transactionActions = createTransactionActions(
 ```
 
 ### UnstableApiUsage
@@ -33361,18 +33397,6 @@ in `atlasdb-workload-server/src/main/java/com/palantir/atlasdb/workload/workflow
 
 ### UnstableApiUsage
 'acquire()' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
-in `atlasdb-workload-server/src/main/java/com/palantir/atlasdb/workload/workflow/SingleRowTwoCellsWorkflows.java`
-#### Snippet
-```java
-    private static Optional<WitnessedTransaction> run(
-            TransactionStore store, int taskIndex, SingleRowTwoCellsWorkflowConfiguration workflowConfiguration) {
-        workflowConfiguration.transactionRateLimiter().acquire();
-
-        List<TransactionAction> transactionActions = createTransactionActions(
-```
-
-### UnstableApiUsage
-'acquire()' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
 in `atlasdb-workload-server/src/main/java/com/palantir/atlasdb/workload/workflow/ring/RingWorkflows.java`
 #### Snippet
 ```java
@@ -33381,17 +33405,5 @@ in `atlasdb-workload-server/src/main/java/com/palantir/atlasdb/workload/workflow
         workflowConfiguration.transactionRateLimiter().acquire();
         String table = workflowConfiguration.tableConfiguration().tableName();
         Integer ringSize = workflowConfiguration.ringSize();
-```
-
-### UnstableApiUsage
-'stream(java.util.Iterator)' is marked unstable with @Beta
-in `atlasdb-tests-shared/src/main/java/com/palantir/atlasdb/keyvalue/impl/AbstractKeyValueServiceTest.java`
-#### Snippet
-```java
-                .get()
-                .getValue();
-        List<ByteBuffer> columns = Streams.stream(iterator)
-                .map(entry -> entry.getKey().getColumnName())
-                .map(ByteBuffer::wrap)
 ```
 
