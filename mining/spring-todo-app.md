@@ -1,36 +1,22 @@
 # spring-todo-app 
  
 # Bad smells
-I found 3 bad smells with 1 repairable:
+I found 2 bad smells with 0 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| UtilityClassWithoutPrivateConstructor | 1 | true |
-| ConstantValue | 1 | false |
+| FieldMayBeFinal | 1 | false |
 | OptionalGetWithoutIsPresent | 1 | false |
-## RuleId[id=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `TodoApplication` has only 'static' members, and lacks a 'private' constructor
-in `src/main/java/com/azure/spring/samples/TodoApplication.java`
-#### Snippet
-```java
-
-@SpringBootApplication
-public class TodoApplication {
-
-    public static void main(String[] args) {
-```
-
-## RuleId[id=ConstantValue]
-### ConstantValue
-Condition `iterable != null` is always `true`
+## RuleId[id=FieldMayBeFinal]
+### FieldMayBeFinal
+Field `logger` may be 'final'
 in `src/main/java/com/azure/spring/samples/controller/TodoListController.java`
 #### Snippet
 ```java
-            List<TodoItem> todoItems = new ArrayList<>();
-            Iterable<TodoItem> iterable = todoItemRepository.findAll();
-            if (iterable != null) {
-                iterable.forEach(todoItems::add);
-            }
+public class TodoListController {
+
+    private static Logger logger = LoggerFactory.getLogger(TodoListController.class);
+
+    @Autowired
 ```
 
 ## RuleId[id=OptionalGetWithoutIsPresent]
