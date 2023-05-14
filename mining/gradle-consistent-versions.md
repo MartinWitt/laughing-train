@@ -11,8 +11,8 @@ I found 43 bad smells with 1 repairable:
 | JavadocReference | 5 | false |
 | JavadocLinkAsPlainText | 2 | false |
 | UnnecessaryToStringCall | 1 | true |
-| SimplifyStreamApiCallChains | 1 | false |
 | TrivialStringConcatenation | 1 | false |
+| SimplifyStreamApiCallChains | 1 | false |
 | SuspiciousMethodCalls | 1 | false |
 | RegExpRedundantEscape | 1 | false |
 ## RuleId[id=JavadocReference]
@@ -26,6 +26,18 @@ in `src/main/java/com/palantir/gradle/versions/GradleConfigurations.java`
      * see {@link org.gradle.api.internal.tasks.DefaultSourceSet#configurationNameOf}.
      */
     private static final ImmutableList<String> DEPRECATED_SOURCESET_SUFFIXES = ImmutableList.of("Compile", "Runtime");
+```
+
+### JavadocReference
+Cannot resolve symbol `platform`
+in `src/main/java/com/palantir/gradle/versions/GradleWorkarounds.java`
+#### Snippet
+```java
+    /**
+     * Returns whether a dependency / component is a non-enforced platform, i.e. what you create with
+     * {@link DependencyHandler#platform} or {@link DependencyConstraintHandler#platform}.
+     */
+    static boolean isPlatform(AttributeContainer attributes) {
 ```
 
 ### JavadocReference
@@ -50,18 +62,6 @@ in `src/main/java/com/palantir/gradle/versions/GradleWorkarounds.java`
      * Allow a {@link ListProperty} to be used with {@link DomainObjectCollection#addAllLater}.
      *
      * <p>Pending fix: https://github.com/gradle/gradle/pull/10288
-```
-
-### JavadocReference
-Cannot resolve symbol `platform`
-in `src/main/java/com/palantir/gradle/versions/GradleWorkarounds.java`
-#### Snippet
-```java
-    /**
-     * Returns whether a dependency / component is a non-enforced platform, i.e. what you create with
-     * {@link DependencyHandler#platform} or {@link DependencyConstraintHandler#platform}.
-     */
-    static boolean isPlatform(AttributeContainer attributes) {
 ```
 
 ### JavadocReference
@@ -259,19 +259,6 @@ in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
         return builder.toString();
 ```
 
-## RuleId[id=SimplifyStreamApiCallChains]
-### SimplifyStreamApiCallChains
-Can be replaced with '.values().stream()'
-in `src/main/java/com/palantir/gradle/versions/VerifyLocksTask.java`
-#### Snippet
-```java
-    private static String formatDependencyDifferences(Map<MyModuleIdentifier, ValueDifference<Line>> differing) {
-        return differing.entrySet().stream()
-                .map(diff -> String.format(
-                        "" // to align strings
-                                + "-%s\n"
-```
-
 ## RuleId[id=TrivialStringConcatenation]
 ### TrivialStringConcatenation
 Empty string used in concatenation
@@ -283,6 +270,19 @@ in `src/main/java/com/palantir/gradle/versions/VerifyLocksTask.java`
                         "" // to align strings
                                 + "-%s\n"
                                 + "+%s",
+```
+
+## RuleId[id=SimplifyStreamApiCallChains]
+### SimplifyStreamApiCallChains
+Can be replaced with '.values().stream()'
+in `src/main/java/com/palantir/gradle/versions/VerifyLocksTask.java`
+#### Snippet
+```java
+    private static String formatDependencyDifferences(Map<MyModuleIdentifier, ValueDifference<Line>> differing) {
+        return differing.entrySet().stream()
+                .map(diff -> String.format(
+                        "" // to align strings
+                                + "-%s\n"
 ```
 
 ## RuleId[id=SuspiciousMethodCalls]
@@ -330,7 +330,7 @@ in `src/main/java/com/palantir/gradle/versions/internal/MyModuleVersionIdentifie
 ```java
     @Override
     @Parameter
-    public abstract String getName();
+    public abstract String getGroup();
 
     @Override
 ```
@@ -340,9 +340,21 @@ Not annotated method overrides method annotated with @NonNullApi
 in `src/main/java/com/palantir/gradle/versions/internal/MyModuleVersionIdentifier.java`
 #### Snippet
 ```java
+
+    @Override
+    public final ModuleIdentifier getModule() {
+        return MyModuleIdentifier.of(getGroup(), getName());
+    }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NonNullApi
+in `src/main/java/com/palantir/gradle/versions/internal/MyModuleVersionIdentifier.java`
+#### Snippet
+```java
     @Override
     @Parameter
-    public abstract String getGroup();
+    public abstract String getName();
 
     @Override
 ```
@@ -361,14 +373,26 @@ in `src/main/java/com/palantir/gradle/versions/internal/MyModuleVersionIdentifie
 
 ### NullableProblems
 Not annotated method overrides method annotated with @NonNullApi
-in `src/main/java/com/palantir/gradle/versions/internal/MyModuleVersionIdentifier.java`
+in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
 #### Snippet
 ```java
+        /** Must match the enum name exactly, so you can pass this into {@link #valueOf(String)}. */
+        @Override
+        public String getName() {
+            return this.name();
+        }
+```
 
-    @Override
-    public final ModuleIdentifier getModule() {
-        return MyModuleIdentifier.of(getGroup(), getName());
-    }
+### NullableProblems
+Not annotated method overrides method annotated with @NonNullApi
+in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
+#### Snippet
+```java
+        /** Must match the enum name exactly, so you can pass this into {@link #valueOf(String)}. */
+        @Override
+        public String getName() {
+            return this.name();
+        }
 ```
 
 ### NullableProblems
@@ -381,30 +405,6 @@ in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
     public final void apply(Project project) {
         checkPreconditions(project);
         project.getPluginManager().apply(LifecycleBasePlugin.class);
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NonNullApi
-in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
-#### Snippet
-```java
-        /** Must match the enum name exactly, so you can pass this into {@link #valueOf(String)}. */
-        @Override
-        public String getName() {
-            return this.name();
-        }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NonNullApi
-in `src/main/java/com/palantir/gradle/versions/VersionsLockPlugin.java`
-#### Snippet
-```java
-        /** Must match the enum name exactly, so you can pass this into {@link #valueOf(String)}. */
-        @Override
-        public String getName() {
-            return this.name();
-        }
 ```
 
 ## RuleId[id=JavadocLinkAsPlainText]
@@ -459,18 +459,6 @@ in `src/main/java/com/palantir/gradle/versions/TaskNameMatcher.java`
 ```
 
 ### UnstableApiUsage
-'isConfigureOnDemand()' is marked unstable with @Incubating
-in `src/main/java/com/palantir/gradle/versions/VersionsPropsPlugin.java`
-#### Snippet
-```java
-            TaskProvider<CheckUnusedConstraintsTask> checkNoUnusedConstraints = project.getTasks()
-                    .register("checkUnusedConstraints", CheckUnusedConstraintsTask.class, task -> {
-                        if (project.getGradle().getStartParameter().isConfigureOnDemand()
-                                && project.getAllprojects().stream()
-                                        .anyMatch(p -> !p.getState().getExecuted())) {
-```
-
-### UnstableApiUsage
 'com.google.common.hash.Hasher' is marked unstable with @Beta
 in `src/main/java/com/palantir/gradle/versions/lockstate/LockStates.java`
 #### Snippet
@@ -516,6 +504,18 @@ in `src/main/java/com/palantir/gradle/versions/lockstate/LockStates.java`
         HashCode hash = hasher.hash();
 
         Line line = ImmutableLine.of(
+```
+
+### UnstableApiUsage
+'isConfigureOnDemand()' is marked unstable with @Incubating
+in `src/main/java/com/palantir/gradle/versions/VersionsPropsPlugin.java`
+#### Snippet
+```java
+            TaskProvider<CheckUnusedConstraintsTask> checkNoUnusedConstraints = project.getTasks()
+                    .register("checkUnusedConstraints", CheckUnusedConstraintsTask.class, task -> {
+                        if (project.getGradle().getStartParameter().isConfigureOnDemand()
+                                && project.getAllprojects().stream()
+                                        .anyMatch(p -> !p.getState().getExecuted())) {
 ```
 
 ### UnstableApiUsage
