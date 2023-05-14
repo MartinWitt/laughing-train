@@ -75,14 +75,14 @@ in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
 ## RuleId[id=ConditionalBreakInInfiniteLoop]
 ### ConditionalBreakInInfiniteLoop
 Conditional break inside loop
-in `src/main/java/io/reactivex/rxjava3/internal/util/OpenHashSet.java`
+in `src/main/java/io/reactivex/rxjava3/internal/util/QueueDrainHelper.java`
 #### Snippet
 ```java
-            int pos = mix(a[i].hashCode()) & m;
-            if (b[pos] != null) {
-                for (;;) {
-                    pos = (pos + 1) & m;
-                    if (b[pos] == null) {
+        int missed = 1;
+
+        for (;;) {
+            for (;;) {
+                boolean d = qd.done();
 ```
 
 ### ConditionalBreakInInfiniteLoop
@@ -99,14 +99,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/util/QueueDrainHelper.java`
 
 ### ConditionalBreakInInfiniteLoop
 Conditional break inside loop
-in `src/main/java/io/reactivex/rxjava3/internal/util/QueueDrainHelper.java`
+in `src/main/java/io/reactivex/rxjava3/internal/util/OpenHashSet.java`
 #### Snippet
 ```java
-        int missed = 1;
-
-        for (;;) {
-            for (;;) {
-                boolean d = qd.done();
+            int pos = mix(a[i].hashCode()) & m;
+            if (b[pos] != null) {
+                for (;;) {
+                    pos = (pos + 1) & m;
+                    if (b[pos] == null) {
 ```
 
 ### ConditionalBreakInInfiniteLoop
@@ -147,18 +147,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeMergeArray.
 
 ### ConditionalBreakInInfiniteLoop
 Conditional break inside loop
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeConcatArray.java`
-#### Snippet
-```java
-            Disposable cancelled = disposables;
-
-            for (;;) {
-                if (cancelled.isDisposed()) {
-                    c.lazySet(null);
-```
-
-### ConditionalBreakInInfiniteLoop
-Conditional break inside loop
 in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeConcatIterable.java`
 #### Snippet
 ```java
@@ -171,26 +159,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeConcatItera
 
 ### ConditionalBreakInInfiniteLoop
 Conditional break inside loop
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableSwitchMapMaybe.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeConcatArray.java`
 #### Snippet
 ```java
-            long emitted = this.emitted;
+            Disposable cancelled = disposables;
 
             for (;;) {
-
-                for (;;) {
-```
-
-### ConditionalBreakInInfiniteLoop
-Conditional break inside loop
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableSwitchMapSingle.java`
-#### Snippet
-```java
-            AtomicReference<SwitchMapSingleObserver<R>> inner = this.inner;
-
-            for (;;) {
-
-                for (;;) {
+                if (cancelled.isDisposed()) {
+                    c.lazySet(null);
 ```
 
 ### ConditionalBreakInInfiniteLoop
@@ -199,6 +175,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableSwitch
 #### Snippet
 ```java
             AtomicReference<SwitchMapMaybeObserver<R>> inner = this.inner;
+
+            for (;;) {
+
+                for (;;) {
+```
+
+### ConditionalBreakInInfiniteLoop
+Conditional break inside loop
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableSwitchMapMaybe.java`
+#### Snippet
+```java
+            long emitted = this.emitted;
 
             for (;;) {
 
@@ -219,6 +207,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableConcatMa
 
 ### ConditionalBreakInInfiniteLoop
 Conditional break inside loop
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableSwitchMapSingle.java`
+#### Snippet
+```java
+            AtomicReference<SwitchMapSingleObserver<R>> inner = this.inner;
+
+            for (;;) {
+
+                for (;;) {
+```
+
+### ConditionalBreakInInfiniteLoop
+Conditional break inside loop
 in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableSwitchMapSingle.java`
 #### Snippet
 ```java
@@ -231,7 +231,7 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableSwitchMa
 
 ### ConditionalBreakInInfiniteLoop
 Conditional break inside loop
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableConcatMapSingle.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableConcatMapMaybe.java`
 #### Snippet
 ```java
             AtomicThrowable errors = this.errors;
@@ -243,7 +243,7 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableConcat
 
 ### ConditionalBreakInInfiniteLoop
 Conditional break inside loop
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableConcatMapMaybe.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableConcatMapSingle.java`
 #### Snippet
 ```java
             AtomicThrowable errors = this.errors;
@@ -291,30 +291,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableScanS
 
 ### ConditionalBreakInInfiniteLoop
 Conditional break inside loop
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableJoin.java`
-#### Snippet
-```java
-            Subscriber<? super R> a = downstream;
-
-            for (;;) {
-                for (;;) {
-                    if (cancelled) {
-```
-
-### ConditionalBreakInInfiniteLoop
-Conditional break inside loop
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCombineLatest.java`
-#### Snippet
-```java
-            int missed = 1;
-
-            for (;;) {
-
-                long r = requested.get();
-```
-
-### ConditionalBreakInInfiniteLoop
-Conditional break inside loop
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCombineLatest.java`
 #### Snippet
 ```java
@@ -327,14 +303,26 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCombi
 
 ### ConditionalBreakInInfiniteLoop
 Conditional break inside loop
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableMergeWithMaybe.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCombineLatest.java`
 #### Snippet
 ```java
-            int c = consumed;
-            int lim = limit;
+            int missed = 1;
+
             for (;;) {
 
                 long r = requested.get();
+```
+
+### ConditionalBreakInInfiniteLoop
+Conditional break inside loop
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableJoin.java`
+#### Snippet
+```java
+            Subscriber<? super R> a = downstream;
+
+            for (;;) {
+                for (;;) {
+                    if (cancelled) {
 ```
 
 ### ConditionalBreakInInfiniteLoop
@@ -351,6 +339,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRepea
 
 ### ConditionalBreakInInfiniteLoop
 Conditional break inside loop
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableMergeWithMaybe.java`
+#### Snippet
+```java
+            int c = consumed;
+            int lim = limit;
+            for (;;) {
+
+                long r = requested.get();
+```
+
+### ConditionalBreakInInfiniteLoop
+Conditional break inside loop
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRetryBiPredicate.java`
 #### Snippet
 ```java
@@ -359,18 +359,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRetry
                 for (;;) {
                     if (sa.isCancelled()) {
                         return;
-```
-
-### ConditionalBreakInInfiniteLoop
-Conditional break inside loop
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSequenceEqual.java`
-#### Snippet
-```java
-            int missed = 1;
-
-            for (;;) {
-                SimpleQueue<T> q1 = first.queue;
-                SimpleQueue<T> q2 = second.queue;
 ```
 
 ### ConditionalBreakInInfiniteLoop
@@ -387,6 +375,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableThrot
 
 ### ConditionalBreakInInfiniteLoop
 Conditional break inside loop
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSequenceEqual.java`
+#### Snippet
+```java
+            int missed = 1;
+
+            for (;;) {
+                SimpleQueue<T> q1 = first.queue;
+                SimpleQueue<T> q2 = second.queue;
+```
+
+### ConditionalBreakInInfiniteLoop
+Conditional break inside loop
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFlatMapMaybe.java`
 #### Snippet
 ```java
@@ -395,54 +395,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFlatM
             for (;;) {
                 long r = requested.get();
                 long e = 0L;
-```
-
-### ConditionalBreakInInfiniteLoop
-Conditional break inside loop
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableConcatMap.java`
-#### Snippet
-```java
-        void drain() {
-            if (wip.getAndIncrement() == 0) {
-                for (;;) {
-                    if (cancelled) {
-                        return;
-```
-
-### ConditionalBreakInInfiniteLoop
-Conditional break inside loop
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableConcatMap.java`
-#### Snippet
-```java
-            if (getAndIncrement() == 0) {
-
-                for (;;) {
-                    if (cancelled) {
-                        return;
-```
-
-### ConditionalBreakInInfiniteLoop
-Conditional break inside loop
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSkipLastTimed.java`
-#### Snippet
-```java
-            final long time = this.time;
-
-            for (;;) {
-
-                long r = requested.get();
-```
-
-### ConditionalBreakInInfiniteLoop
-Conditional break inside loop
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableMergeWithSingle.java`
-#### Snippet
-```java
-            int c = consumed;
-            int lim = limit;
-            for (;;) {
-
-                long r = requested.get();
 ```
 
 ### ConditionalBreakInInfiniteLoop
@@ -483,11 +435,47 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCreat
 
 ### ConditionalBreakInInfiniteLoop
 Conditional break inside loop
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableZip.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSkipLastTimed.java`
 #### Snippet
 ```java
-            int missed = 1;
+            final long time = this.time;
 
+            for (;;) {
+
+                long r = requested.get();
+```
+
+### ConditionalBreakInInfiniteLoop
+Conditional break inside loop
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableConcatMap.java`
+#### Snippet
+```java
+            if (getAndIncrement() == 0) {
+
+                for (;;) {
+                    if (cancelled) {
+                        return;
+```
+
+### ConditionalBreakInInfiniteLoop
+Conditional break inside loop
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableConcatMap.java`
+#### Snippet
+```java
+        void drain() {
+            if (wip.getAndIncrement() == 0) {
+                for (;;) {
+                    if (cancelled) {
+                        return;
+```
+
+### ConditionalBreakInInfiniteLoop
+Conditional break inside loop
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableMergeWithSingle.java`
+#### Snippet
+```java
+            int c = consumed;
+            int lim = limit;
             for (;;) {
 
                 long r = requested.get();
@@ -503,6 +491,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFlatM
             for (;;) {
                 if (checkTerminate()) {
                     return;
+```
+
+### ConditionalBreakInInfiniteLoop
+Conditional break inside loop
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableZip.java`
+#### Snippet
+```java
+            int missed = 1;
+
+            for (;;) {
+
+                long r = requested.get();
 ```
 
 ### ConditionalBreakInInfiniteLoop
@@ -543,18 +543,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableOnBac
 
 ### ConditionalBreakInInfiniteLoop
 Conditional break inside loop
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSequenceEqualSingle.java`
-#### Snippet
-```java
-            int missed = 1;
-
-            for (;;) {
-                SimpleQueue<T> q1 = first.queue;
-                SimpleQueue<T> q2 = second.queue;
-```
-
-### ConditionalBreakInInfiniteLoop
-Conditional break inside loop
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFlatMapSingle.java`
 #### Snippet
 ```java
@@ -563,6 +551,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFlatM
             for (;;) {
                 long r = requested.get();
                 long e = 0L;
+```
+
+### ConditionalBreakInInfiniteLoop
+Conditional break inside loop
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSequenceEqualSingle.java`
+#### Snippet
+```java
+            int missed = 1;
+
+            for (;;) {
+                SimpleQueue<T> q1 = first.queue;
+                SimpleQueue<T> q2 = second.queue;
 ```
 
 ### ConditionalBreakInInfiniteLoop
@@ -606,6 +606,30 @@ Conditional break inside loop
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableObserveOn.java`
 #### Snippet
 ```java
+            long polled = consumed;
+
+            for (;;) {
+
+                long r = requested.get();
+```
+
+### ConditionalBreakInInfiniteLoop
+Conditional break inside loop
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableObserveOn.java`
+#### Snippet
+```java
+            long e = produced;
+
+            for (;;) {
+
+                long r = requested.get();
+```
+
+### ConditionalBreakInInfiniteLoop
+Conditional break inside loop
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableObserveOn.java`
+#### Snippet
+```java
             long e = produced;
 
             for (;;) {
@@ -623,30 +647,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableObser
             for (;;) {
 
                 if (cancelled) {
-```
-
-### ConditionalBreakInInfiniteLoop
-Conditional break inside loop
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableObserveOn.java`
-#### Snippet
-```java
-            long e = produced;
-
-            for (;;) {
-
-                long r = requested.get();
-```
-
-### ConditionalBreakInInfiniteLoop
-Conditional break inside loop
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableObserveOn.java`
-#### Snippet
-```java
-            long polled = consumed;
-
-            for (;;) {
-
-                long r = requested.get();
 ```
 
 ### ConditionalBreakInInfiniteLoop
@@ -759,30 +759,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelSorte
 
 ### ConditionalBreakInInfiniteLoop
 Conditional break inside loop
-in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelFromPublisher.java`
-#### Snippet
-```java
-                int notReady = 0;
-
-                for (;;) {
-                    if (cancelled) {
-                        q.clear();
-```
-
-### ConditionalBreakInInfiniteLoop
-Conditional break inside loop
-in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelRunOn.java`
-#### Snippet
-```java
-            int lim = limit;
-
-            for (;;) {
-
-                long r = requested.get();
-```
-
-### ConditionalBreakInInfiniteLoop
-Conditional break inside loop
 in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelJoin.java`
 #### Snippet
 ```java
@@ -815,6 +791,30 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableR
                 for (;;) {
                     source.subscribe(this);
 
+```
+
+### ConditionalBreakInInfiniteLoop
+Conditional break inside loop
+in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelFromPublisher.java`
+#### Snippet
+```java
+                int notReady = 0;
+
+                for (;;) {
+                    if (cancelled) {
+                        q.clear();
+```
+
+### ConditionalBreakInInfiniteLoop
+Conditional break inside loop
+in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelRunOn.java`
+#### Snippet
+```java
+            int lim = limit;
+
+            for (;;) {
+
+                long r = requested.get();
 ```
 
 ### ConditionalBreakInInfiniteLoop
@@ -855,18 +855,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableR
 
 ### ConditionalBreakInInfiniteLoop
 Conditional break inside loop
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSequenceEqualSingle.java`
-#### Snippet
-```java
-            final SpscLinkedArrayQueue<T> q2 = observer2.queue;
-
-            for (;;) {
-
-                for (;;) {
-```
-
-### ConditionalBreakInInfiniteLoop
-Conditional break inside loop
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRepeat.java`
 #### Snippet
 ```java
@@ -879,14 +867,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableR
 
 ### ConditionalBreakInInfiniteLoop
 Conditional break inside loop
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSwitchMap.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSequenceEqualSingle.java`
 #### Snippet
 ```java
-            int missing = 1;
+            final SpscLinkedArrayQueue<T> q2 = observer2.queue;
 
             for (;;) {
 
-                if (cancelled) {
+                for (;;) {
 ```
 
 ### ConditionalBreakInInfiniteLoop
@@ -915,6 +903,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableO
 
 ### ConditionalBreakInInfiniteLoop
 Conditional break inside loop
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSwitchMap.java`
+#### Snippet
+```java
+            int missing = 1;
+
+            for (;;) {
+
+                if (cancelled) {
+```
+
+### ConditionalBreakInInfiniteLoop
+Conditional break inside loop
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMap.java`
 #### Snippet
 ```java
@@ -939,14 +939,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableT
 
 ### ConditionalBreakInInfiniteLoop
 Conditional break inside loop
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableReplay.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCombineLatest.java`
 #### Snippet
 ```java
-            int missed = 1;
 
+            int missed = 1;
             for (;;) {
-                if (output.isDisposed()) {
-                    return;
+
+                for (;;) {
 ```
 
 ### ConditionalBreakInInfiniteLoop
@@ -963,26 +963,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableR
 
 ### ConditionalBreakInInfiniteLoop
 Conditional break inside loop
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCombineLatest.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableReplay.java`
 #### Snippet
 ```java
-
             int missed = 1;
-            for (;;) {
-
-                for (;;) {
-```
-
-### ConditionalBreakInInfiniteLoop
-Conditional break inside loop
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableGroupJoin.java`
-#### Snippet
-```java
-            Observer<? super R> a = downstream;
 
             for (;;) {
-                for (;;) {
-                    if (cancelled) {
+                if (output.isDisposed()) {
+                    return;
 ```
 
 ### ConditionalBreakInInfiniteLoop
@@ -999,6 +987,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableS
 
 ### ConditionalBreakInInfiniteLoop
 Conditional break inside loop
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferBoundary.java`
+#### Snippet
+```java
+            SpscLinkedArrayQueue<C> q = queue;
+
+            for (;;) {
+                for (;;) {
+                    if (cancelled) {
+```
+
+### ConditionalBreakInInfiniteLoop
+Conditional break inside loop
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableMergeWithSingle.java`
 #### Snippet
 ```java
@@ -1011,10 +1011,10 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableM
 
 ### ConditionalBreakInInfiniteLoop
 Conditional break inside loop
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferBoundary.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableGroupJoin.java`
 #### Snippet
 ```java
-            SpscLinkedArrayQueue<C> q = queue;
+            Observer<? super R> a = downstream;
 
             for (;;) {
                 for (;;) {
@@ -1071,18 +1071,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableC
 
 ### ConditionalBreakInInfiniteLoop
 Conditional break inside loop
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapSingle.java`
-#### Snippet
-```java
-            AtomicReference<SpscLinkedArrayQueue<R>> qr = queue;
-
-            for (;;) {
-                for (;;) {
-                    if (cancelled) {
-```
-
-### ConditionalBreakInInfiniteLoop
-Conditional break inside loop
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableJoin.java`
 #### Snippet
 ```java
@@ -1095,7 +1083,7 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableJ
 
 ### ConditionalBreakInInfiniteLoop
 Conditional break inside loop
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapMaybe.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapSingle.java`
 #### Snippet
 ```java
             AtomicReference<SpscLinkedArrayQueue<R>> qr = queue;
@@ -1119,6 +1107,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableW
 
 ### ConditionalBreakInInfiniteLoop
 Conditional break inside loop
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapMaybe.java`
+#### Snippet
+```java
+            AtomicReference<SpscLinkedArrayQueue<R>> qr = queue;
+
+            for (;;) {
+                for (;;) {
+                    if (cancelled) {
+```
+
+### ConditionalBreakInInfiniteLoop
+Conditional break inside loop
 in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableConcat.java`
 #### Snippet
 ```java
@@ -1131,18 +1131,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/Completabl
 
 ### ConditionalBreakInInfiniteLoop
 Conditional break inside loop
-in `src/main/java/io/reactivex/rxjava3/internal/schedulers/TrampolineScheduler.java`
-#### Snippet
-```java
-            if (wip.getAndIncrement() == 0) {
-                int missed = 1;
-                for (;;) {
-                    for (;;) {
-                        if (disposed) {
-```
-
-### ConditionalBreakInInfiniteLoop
-Conditional break inside loop
 in `src/main/java/io/reactivex/rxjava3/internal/schedulers/ScheduledRunnable.java`
 #### Snippet
 ```java
@@ -1151,6 +1139,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/schedulers/ScheduledRunnable.jav
             for (;;) {
                 o = get(FUTURE_INDEX);
                 if (o == SYNC_DISPOSED || o == ASYNC_DISPOSED || compareAndSet(FUTURE_INDEX, o, DONE)) {
+```
+
+### ConditionalBreakInInfiniteLoop
+Conditional break inside loop
+in `src/main/java/io/reactivex/rxjava3/internal/schedulers/TrampolineScheduler.java`
+#### Snippet
+```java
+            if (wip.getAndIncrement() == 0) {
+                int missed = 1;
+                for (;;) {
+                    for (;;) {
+                        if (disposed) {
 ```
 
 ### ConditionalBreakInInfiniteLoop
@@ -1456,14 +1456,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDemateria
 
 ### DataFlowIssue
 Passing `null` argument to parameter annotated as @NotNull
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableMap.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableOnBackpressureBuffer.java`
 #### Snippet
 ```java
-
-            if (sourceMode != NONE) {
-                downstream.onNext(null);
-                return;
             }
+            if (outputFused) {
+                downstream.onNext(null);
+            } else {
+                drain();
 ```
 
 ### DataFlowIssue
@@ -1492,14 +1492,38 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableMap.j
 
 ### DataFlowIssue
 Passing `null` argument to parameter annotated as @NotNull
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableOnBackpressureBuffer.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableMap.java`
 #### Snippet
 ```java
-            }
-            if (outputFused) {
+
+            if (sourceMode != NONE) {
                 downstream.onNext(null);
-            } else {
-                drain();
+                return;
+            }
+```
+
+### DataFlowIssue
+Passing `null` argument to parameter annotated as @NotNull
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCombineLatest.java`
+#### Snippet
+```java
+
+                if (!empty) {
+                    a.onNext(null);
+                }
+
+```
+
+### DataFlowIssue
+Dereference of `iterable` may produce `NullPointerException`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCombineLatest.java`
+#### Snippet
+```java
+
+            try {
+                for (Publisher<? extends T> p : iterable) {
+                    if (count == sources.length) {
+                        Publisher<? extends T>[] b = new Publisher[count + (count >> 2)];
 ```
 
 ### DataFlowIssue
@@ -1527,26 +1551,26 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableJoin.
 ```
 
 ### DataFlowIssue
-Dereference of `iterable` may produce `NullPointerException`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCombineLatest.java`
+Passing `null` argument to parameter annotated as @NotNull
+in `src/main/java/io/reactivex/rxjava3/core/Observable.java`
 #### Snippet
 ```java
+            @NonNull ObservableSource<? extends T> fallback) {
+        Objects.requireNonNull(fallback, "fallback is null");
+        return timeout0(null, itemTimeoutIndicator, fallback);
+    }
 
-            try {
-                for (Publisher<? extends T> p : iterable) {
-                    if (count == sources.length) {
-                        Publisher<? extends T>[] b = new Publisher[count + (count >> 2)];
 ```
 
 ### DataFlowIssue
 Passing `null` argument to parameter annotated as @NotNull
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCombineLatest.java`
+in `src/main/java/io/reactivex/rxjava3/core/Observable.java`
 #### Snippet
 ```java
-
-                if (!empty) {
-                    a.onNext(null);
-                }
+    @NonNull
+    public final <@NonNull V> Observable<T> timeout(@NonNull Function<? super T, ? extends ObservableSource<V>> itemTimeoutIndicator) {
+        return timeout0(null, itemTimeoutIndicator, null);
+    }
 
 ```
 
@@ -1816,30 +1840,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableS
 
 ### DataFlowIssue
 Passing `null` argument to parameter annotated as @NotNull
-in `src/main/java/io/reactivex/rxjava3/core/Observable.java`
-#### Snippet
-```java
-            @NonNull ObservableSource<? extends T> fallback) {
-        Objects.requireNonNull(fallback, "fallback is null");
-        return timeout0(null, itemTimeoutIndicator, fallback);
-    }
-
-```
-
-### DataFlowIssue
-Passing `null` argument to parameter annotated as @NotNull
-in `src/main/java/io/reactivex/rxjava3/core/Observable.java`
-#### Snippet
-```java
-    @NonNull
-    public final <@NonNull V> Observable<T> timeout(@NonNull Function<? super T, ? extends ObservableSource<V>> itemTimeoutIndicator) {
-        return timeout0(null, itemTimeoutIndicator, null);
-    }
-
-```
-
-### DataFlowIssue
-Passing `null` argument to parameter annotated as @NotNull
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableObserveOn.java`
 #### Snippet
 ```java
@@ -1935,18 +1935,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableW
 ```
 
 ### DataFlowIssue
-Argument `o` might be null
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTakeLastTimed.java`
-#### Snippet
-```java
-                }
-
-                a.onNext(o);
-            }
-        }
-```
-
-### DataFlowIssue
 Unboxing of `q.peek()` may produce `NullPointerException`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTakeLastTimed.java`
 #### Snippet
@@ -1956,6 +1944,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableT
                 long ts = (Long)q.peek();
                 if (ts <= now - time || (!unbounded && (q.size() >> 1) > c)) {
                     q.poll();
+```
+
+### DataFlowIssue
+Argument `o` might be null
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTakeLastTimed.java`
+#### Snippet
+```java
+                }
+
+                a.onNext(o);
+            }
+        }
 ```
 
 ### DataFlowIssue
@@ -2093,14 +2093,50 @@ in `src/main/java/io/reactivex/rxjava3/processors/UnicastProcessor.java`
 ## RuleId[id=EmptyStatementBody]
 ### EmptyStatementBody
 `while` statement has empty body
-in `src/jmh/java/io/reactivex/rxjava3/core/TakeUntilPerf.java`
+in `src/jmh/java/io/reactivex/rxjava3/core/PerfAsyncConsumer.java`
 #### Snippet
 ```java
-            public Object call() {
-                int c = count;
-                while (items < c) { }
-                return 1;
-            }
+    public PerfAsyncConsumer await(int count) {
+        if (count <= 1000) {
+            while (getCount() != 0) { }
+        } else {
+            try {
+```
+
+### EmptyStatementBody
+`while` statement has empty body
+in `src/jmh/java/io/reactivex/rxjava3/core/OperatorFlatMapPerf.java`
+#### Snippet
+```java
+        }).subscribe(latchedObserver);
+        if (input.size == 1) {
+            while (latchedObserver.latch.getCount() != 0) { }
+        } else {
+            latchedObserver.latch.await();
+```
+
+### EmptyStatementBody
+`while` statement has empty body
+in `src/jmh/java/io/reactivex/rxjava3/core/RangePerf.java`
+#### Snippet
+```java
+
+        if (times == 1) {
+            while (lo.latch.getCount() != 0) { }
+        } else {
+            lo.latch.await();
+```
+
+### EmptyStatementBody
+`while` statement has empty body
+in `src/jmh/java/io/reactivex/rxjava3/core/RangePerf.java`
+#### Snippet
+```java
+
+        if (times == 1) {
+            while (lo.latch.getCount() != 0) { }
+        } else {
+            lo.latch.await();
 ```
 
 ### EmptyStatementBody
@@ -2141,50 +2177,26 @@ in `src/jmh/java/io/reactivex/rxjava3/core/TakeUntilPerf.java`
 
 ### EmptyStatementBody
 `while` statement has empty body
-in `src/jmh/java/io/reactivex/rxjava3/core/RangePerf.java`
+in `src/jmh/java/io/reactivex/rxjava3/core/TakeUntilPerf.java`
 #### Snippet
 ```java
-
-        if (times == 1) {
-            while (lo.latch.getCount() != 0) { }
-        } else {
-            lo.latch.await();
+            public Object call() {
+                int c = count;
+                while (items < c) { }
+                return 1;
+            }
 ```
 
 ### EmptyStatementBody
 `while` statement has empty body
-in `src/jmh/java/io/reactivex/rxjava3/core/RangePerf.java`
+in `src/jmh/java/io/reactivex/rxjava3/core/OperatorMergePerf.java`
 #### Snippet
 ```java
-
-        if (times == 1) {
-            while (lo.latch.getCount() != 0) { }
-        } else {
-            lo.latch.await();
-```
-
-### EmptyStatementBody
-`while` statement has empty body
-in `src/jmh/java/io/reactivex/rxjava3/core/OperatorFlatMapPerf.java`
-#### Snippet
-```java
-        }).subscribe(latchedObserver);
+        Flowable.merge(input.observables).subscribe(o);
         if (input.size == 1) {
-            while (latchedObserver.latch.getCount() != 0) { }
+            while (o.latch.getCount() != 0) { }
         } else {
-            latchedObserver.latch.await();
-```
-
-### EmptyStatementBody
-`while` statement has empty body
-in `src/jmh/java/io/reactivex/rxjava3/core/PerfAsyncConsumer.java`
-#### Snippet
-```java
-    public PerfAsyncConsumer await(int count) {
-        if (count <= 1000) {
-            while (getCount() != 0) { }
-        } else {
-            try {
+            o.latch.await();
 ```
 
 ### EmptyStatementBody
@@ -2193,6 +2205,18 @@ in `src/jmh/java/io/reactivex/rxjava3/core/OperatorMergePerf.java`
 #### Snippet
 ```java
         Flowable.merge(os).subscribe(o);
+        if (input.size == 1) {
+            while (o.latch.getCount() != 0) { }
+        } else {
+            o.latch.await();
+```
+
+### EmptyStatementBody
+`while` statement has empty body
+in `src/jmh/java/io/reactivex/rxjava3/core/OperatorMergePerf.java`
+#### Snippet
+```java
+
         if (input.size == 1) {
             while (o.latch.getCount() != 0) { }
         } else {
@@ -2229,30 +2253,6 @@ in `src/jmh/java/io/reactivex/rxjava3/core/OperatorMergePerf.java`
 #### Snippet
 ```java
         Flowable.merge(ob, ob).subscribe(o);
-        if (input.size == 1) {
-            while (o.latch.getCount() != 0) { }
-        } else {
-            o.latch.await();
-```
-
-### EmptyStatementBody
-`while` statement has empty body
-in `src/jmh/java/io/reactivex/rxjava3/core/OperatorMergePerf.java`
-#### Snippet
-```java
-        Flowable.merge(input.observables).subscribe(o);
-        if (input.size == 1) {
-            while (o.latch.getCount() != 0) { }
-        } else {
-            o.latch.await();
-```
-
-### EmptyStatementBody
-`while` statement has empty body
-in `src/jmh/java/io/reactivex/rxjava3/core/OperatorMergePerf.java`
-#### Snippet
-```java
-
         if (input.size == 1) {
             while (o.latch.getCount() != 0) { }
         } else {
@@ -2396,110 +2396,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableGroup
 ## RuleId[id=ReactiveStreamsUnusedPublisher]
 ### ReactiveStreamsUnusedPublisher
 Value is never used as Publisher
-in `src/jmh/java/io/reactivex/rxjava3/core/BinaryFlatMapPerf.java`
-#### Snippet
-```java
-
-        final Flowable<Integer> arrayFlowable = Flowable.fromArray(array);
-        final Flowable<Integer> arrayFlowableHide = Flowable.fromArray(array).hide();
-        final Flowable<Integer> listFlowable = Flowable.fromIterable(list);
-
-```
-
-### ReactiveStreamsUnusedPublisher
-Value is never used as Publisher
-in `src/jmh/java/io/reactivex/rxjava3/core/BinaryFlatMapPerf.java`
-#### Snippet
-```java
-
-        final Observable<Integer> arrayObservable = Observable.fromArray(array);
-        final Observable<Integer> arrayObservableHide = Observable.fromArray(array).hide();
-        final Observable<Integer> listObservable = Observable.fromIterable(list);
-
-```
-
-### ReactiveStreamsUnusedPublisher
-Value is never used as Publisher
 in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
 #### Snippet
 ```java
             @Override
             public Object call() {
-                return io.reactivex.rxjava3.core.Observable.just(1);
+                return io.reactivex.rxjava3.core.Flowable.range(1, 10);
             }
-        }, "just", "Rx2Observable");
-```
-
-### ReactiveStreamsUnusedPublisher
-Value is never used as Publisher
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-            @Override
-            public Object call() {
-                return io.reactivex.rxjava3.core.Observable.empty();
-            }
-        }, "empty", "Rx2Observable");
-```
-
-### ReactiveStreamsUnusedPublisher
-Value is never used as Publisher
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-            @Override
-            public Object call() {
-                return io.reactivex.rxjava3.core.Flowable.fromCallable(new Callable<Object>() {
-                    @Override
-                    public Object call() {
-```
-
-### ReactiveStreamsUnusedPublisher
-Value is never used as Publisher
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-            @Override
-            public Object call() {
-                return io.reactivex.rxjava3.core.Observable.fromCallable(new Callable<Object>() {
-                    @Override
-                    public Object call() {
-```
-
-### ReactiveStreamsUnusedPublisher
-Value is never used as Publisher
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-            @Override
-            public Object call() {
-                return io.reactivex.rxjava3.core.Flowable.empty();
-            }
-        }, "empty", "Rx2Flowable", 10000000);
-```
-
-### ReactiveStreamsUnusedPublisher
-Value is never used as Publisher
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-            @Override
-            public Object call() {
-                return io.reactivex.rxjava3.core.Flowable.empty();
-            }
-        }, "empty", "Rx2Flowable");
-```
-
-### ReactiveStreamsUnusedPublisher
-Value is never used as Publisher
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
-#### Snippet
-```java
-            @Override
-            public Object call() {
-                return io.reactivex.rxjava3.core.Observable.range(1, 10);
-            }
-        }, "range", "Rx2Observable");
+        }, "range", "Rx2Flowable");
 ```
 
 ### ReactiveStreamsUnusedPublisher
@@ -2521,9 +2425,105 @@ in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
 ```java
             @Override
             public Object call() {
-                return io.reactivex.rxjava3.core.Flowable.range(1, 10);
+                return io.reactivex.rxjava3.core.Flowable.fromCallable(new Callable<Object>() {
+                    @Override
+                    public Object call() {
+```
+
+### ReactiveStreamsUnusedPublisher
+Value is never used as Publisher
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+            @Override
+            public Object call() {
+                return io.reactivex.rxjava3.core.Observable.range(1, 10);
             }
-        }, "range", "Rx2Flowable");
+        }, "range", "Rx2Observable");
+```
+
+### ReactiveStreamsUnusedPublisher
+Value is never used as Publisher
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+            @Override
+            public Object call() {
+                return io.reactivex.rxjava3.core.Flowable.empty();
+            }
+        }, "empty", "Rx2Flowable");
+```
+
+### ReactiveStreamsUnusedPublisher
+Value is never used as Publisher
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+            @Override
+            public Object call() {
+                return io.reactivex.rxjava3.core.Observable.fromCallable(new Callable<Object>() {
+                    @Override
+                    public Object call() {
+```
+
+### ReactiveStreamsUnusedPublisher
+Value is never used as Publisher
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+            @Override
+            public Object call() {
+                return io.reactivex.rxjava3.core.Observable.empty();
+            }
+        }, "empty", "Rx2Observable");
+```
+
+### ReactiveStreamsUnusedPublisher
+Value is never used as Publisher
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+            @Override
+            public Object call() {
+                return io.reactivex.rxjava3.core.Flowable.empty();
+            }
+        }, "empty", "Rx2Flowable", 10000000);
+```
+
+### ReactiveStreamsUnusedPublisher
+Value is never used as Publisher
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+            @Override
+            public Object call() {
+                return io.reactivex.rxjava3.core.Observable.just(1);
+            }
+        }, "just", "Rx2Observable");
+```
+
+### ReactiveStreamsUnusedPublisher
+Value is never used as Publisher
+in `src/jmh/java/io/reactivex/rxjava3/core/BinaryFlatMapPerf.java`
+#### Snippet
+```java
+
+        final Flowable<Integer> arrayFlowable = Flowable.fromArray(array);
+        final Flowable<Integer> arrayFlowableHide = Flowable.fromArray(array).hide();
+        final Flowable<Integer> listFlowable = Flowable.fromIterable(list);
+
+```
+
+### ReactiveStreamsUnusedPublisher
+Value is never used as Publisher
+in `src/jmh/java/io/reactivex/rxjava3/core/BinaryFlatMapPerf.java`
+#### Snippet
+```java
+
+        final Observable<Integer> arrayObservable = Observable.fromArray(array);
+        final Observable<Integer> arrayObservableHide = Observable.fromArray(array).hide();
+        final Observable<Integer> listObservable = Observable.fromIterable(list);
+
 ```
 
 ### ReactiveStreamsUnusedPublisher
@@ -9562,24 +9562,24 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCache
 
 ### NumberEquality
 Number objects are compared using `==`, not 'equals()'
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowablePublish.java`
-#### Snippet
-```java
-                int j = -1;
-                for (int i = 0; i < len; i++) {
-                    if (c[i] == inner) {
-                        j = i;
-                        break;
-```
-
-### NumberEquality
-Number objects are compared using `==`, not 'equals()'
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowablePublishMulticast.java`
 #### Snippet
 ```java
 
                 for (int i = 0; i < n; i++) {
                     if (current[i] == s) {
+                        j = i;
+                        break;
+```
+
+### NumberEquality
+Number objects are compared using `==`, not 'equals()'
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowablePublish.java`
+#### Snippet
+```java
+                int j = -1;
+                for (int i = 0; i < len; i++) {
+                    if (c[i] == inner) {
                         j = i;
                         break;
 ```
@@ -9718,6 +9718,18 @@ in `src/main/java/io/reactivex/rxjava3/subjects/AsyncSubject.java`
 
 ### NumberEquality
 Number objects are compared using `==`, not 'equals()'
+in `src/main/java/io/reactivex/rxjava3/processors/AsyncProcessor.java`
+#### Snippet
+```java
+            int j = -1;
+            for (int i = 0; i < n; i++) {
+                if (a[i] == ps) {
+                    j = i;
+                    break;
+```
+
+### NumberEquality
+Number objects are compared using `==`, not 'equals()'
 in `src/main/java/io/reactivex/rxjava3/subjects/ReplaySubject.java`
 #### Snippet
 ```java
@@ -9742,12 +9754,12 @@ in `src/main/java/io/reactivex/rxjava3/processors/BehaviorProcessor.java`
 
 ### NumberEquality
 Number objects are compared using `==`, not 'equals()'
-in `src/main/java/io/reactivex/rxjava3/processors/AsyncProcessor.java`
+in `src/main/java/io/reactivex/rxjava3/processors/MulticastProcessor.java`
 #### Snippet
 ```java
             int j = -1;
             for (int i = 0; i < n; i++) {
-                if (a[i] == ps) {
+                if (a[i] == inner) {
                     j = i;
                     break;
 ```
@@ -9760,18 +9772,6 @@ in `src/main/java/io/reactivex/rxjava3/processors/PublishProcessor.java`
             int j = -1;
             for (int i = 0; i < n; i++) {
                 if (a[i] == ps) {
-                    j = i;
-                    break;
-```
-
-### NumberEquality
-Number objects are compared using `==`, not 'equals()'
-in `src/main/java/io/reactivex/rxjava3/processors/MulticastProcessor.java`
-#### Snippet
-```java
-            int j = -1;
-            for (int i = 0; i < n; i++) {
-                if (a[i] == inner) {
                     j = i;
                     break;
 ```
@@ -9815,18 +9815,6 @@ in `src/main/java/io/reactivex/rxjava3/core/Maybe.java`
 
 ### RedundantTypeArguments
 Explicit type arguments can be inferred
-in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
-#### Snippet
-```java
-    public final Flowable<T> startWith(@NonNull CompletableSource other) {
-        Objects.requireNonNull(other, "other is null");
-        return Flowable.concat(Completable.wrap(other).<T>toFlowable(), this);
-    }
-
-```
-
-### RedundantTypeArguments
-Explicit type arguments can be inferred
 in `src/main/java/io/reactivex/rxjava3/core/Observable.java`
 #### Snippet
 ```java
@@ -9837,43 +9825,19 @@ in `src/main/java/io/reactivex/rxjava3/core/Observable.java`
 
 ```
 
+### RedundantTypeArguments
+Explicit type arguments can be inferred
+in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
+#### Snippet
+```java
+    public final Flowable<T> startWith(@NonNull CompletableSource other) {
+        Objects.requireNonNull(other, "other is null");
+        return Flowable.concat(Completable.wrap(other).<T>toFlowable(), this);
+    }
+
+```
+
 ## RuleId[id=NullableProblems]
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/jmh/java/io/reactivex/rxjava3/core/PerfObserver.java`
-#### Snippet
-```java
-
-    @Override
-    public void onSubscribe(Disposable d) {
-
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/jmh/java/io/reactivex/rxjava3/core/PerfObserver.java`
-#### Snippet
-```java
-
-    @Override
-    public void onNext(Object value) {
-        bh.consume(value);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/jmh/java/io/reactivex/rxjava3/core/PerfConsumer.java`
-#### Snippet
-```java
-
-    @Override
-    public void onSubscribe(Disposable d) {
-    }
-
-```
-
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
 in `src/jmh/java/io/reactivex/rxjava3/core/PerfConsumer.java`
@@ -9893,9 +9857,9 @@ in `src/jmh/java/io/reactivex/rxjava3/core/PerfConsumer.java`
 ```java
 
     @Override
-    public void onSuccess(Object value) {
-        bh.consume(value);
+    public void onSubscribe(Disposable d) {
     }
+
 ```
 
 ### NullableProblems
@@ -9920,6 +9884,18 @@ in `src/jmh/java/io/reactivex/rxjava3/core/LatchedSingleObserver.java`
     public void onSuccess(T value) {
         bh.consume(value);
         cdl.countDown();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/jmh/java/io/reactivex/rxjava3/core/PerfConsumer.java`
+#### Snippet
+```java
+
+    @Override
+    public void onSuccess(Object value) {
+        bh.consume(value);
+    }
 ```
 
 ### NullableProblems
@@ -9959,15 +9935,39 @@ in `src/jmh/java/io/reactivex/rxjava3/core/PerfAsyncConsumer.java`
 ```
 
 ### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+Not annotated method overrides method annotated with @NotNull
+in `src/jmh/java/io/reactivex/rxjava3/core/InputWithIncrementingInteger.java`
 #### Snippet
 ```java
 
         @Override
-        public void onSubscribe(Subscription s) {
-            this.upstream = s;
+        public Iterator<Integer> iterator() {
+            return new IncrementingIterator();
         }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/jmh/java/io/reactivex/rxjava3/core/PerfObserver.java`
+#### Snippet
+```java
+
+    @Override
+    public void onNext(Object value) {
+        bh.consume(value);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/jmh/java/io/reactivex/rxjava3/core/PerfObserver.java`
+#### Snippet
+```java
+
+    @Override
+    public void onSubscribe(Disposable d) {
+
+    }
 ```
 
 ### NullableProblems
@@ -9979,6 +9979,18 @@ in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
         @Override
         public void onSubscribe(Disposable d) {
             this.upstream = d;
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            this.upstream = s;
         }
 ```
 
@@ -10019,15 +10031,15 @@ in `src/jmh/java/io/reactivex/rxjava3/core/MemoryPerf.java`
 ```
 
 ### NullableProblems
-Not annotated method overrides method annotated with @NotNull
-in `src/jmh/java/io/reactivex/rxjava3/core/InputWithIncrementingInteger.java`
+Not annotated parameter overrides @NonNull parameter
+in `src/jmh/java/io/reactivex/rxjava3/core/PerfInteropConsumer.java`
 #### Snippet
 ```java
 
-        @Override
-        public Iterator<Integer> iterator() {
-            return new IncrementingIterator();
-        }
+    @Override
+    public void onSubscribe(Disposable d) {
+    }
+
 ```
 
 ### NullableProblems
@@ -10040,18 +10052,6 @@ in `src/jmh/java/io/reactivex/rxjava3/core/PerfInteropConsumer.java`
     public void onSuccess(Object value) {
         bh.consume(value);
     }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/jmh/java/io/reactivex/rxjava3/core/PerfInteropConsumer.java`
-#### Snippet
-```java
-
-    @Override
-    public void onSubscribe(Disposable d) {
-    }
-
 ```
 
 ### NullableProblems
@@ -10091,6 +10091,30 @@ in `src/main/java/io/reactivex/rxjava3/core/SingleTransformer.java`
 ```
 
 ### NullableProblems
+Overridden method parameters are not annotated
+in `src/main/java/io/reactivex/rxjava3/core/Emitter.java`
+#### Snippet
+```java
+     * @param error the {@code Throwable} to signal, not {@code null}
+     */
+    void onError(@NonNull Throwable error);
+
+    /**
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `src/main/java/io/reactivex/rxjava3/core/Emitter.java`
+#### Snippet
+```java
+     * @param value the value to signal, not {@code null}
+     */
+    void onNext(@NonNull T value);
+
+    /**
+```
+
+### NullableProblems
 Overridden methods are not annotated
 in `src/main/java/io/reactivex/rxjava3/core/ObservableTransformer.java`
 #### Snippet
@@ -10127,30 +10151,6 @@ in `src/main/java/io/reactivex/rxjava3/core/SingleOnSubscribe.java`
 ```
 
 ### NullableProblems
-Overridden method parameters are not annotated
-in `src/main/java/io/reactivex/rxjava3/core/Emitter.java`
-#### Snippet
-```java
-     * @param error the {@code Throwable} to signal, not {@code null}
-     */
-    void onError(@NonNull Throwable error);
-
-    /**
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `src/main/java/io/reactivex/rxjava3/core/Emitter.java`
-#### Snippet
-```java
-     * @param value the value to signal, not {@code null}
-     */
-    void onNext(@NonNull T value);
-
-    /**
-```
-
-### NullableProblems
 Overridden methods are not annotated
 in `src/main/java/io/reactivex/rxjava3/core/SingleOperator.java`
 #### Snippet
@@ -10176,12 +10176,12 @@ in `src/main/java/io/reactivex/rxjava3/core/SingleOperator.java`
 
 ### NullableProblems
 Overridden method parameters are not annotated
-in `src/main/java/io/reactivex/rxjava3/core/FlowableEmitter.java`
+in `src/main/java/io/reactivex/rxjava3/core/ObservableOnSubscribe.java`
 #### Snippet
 ```java
-     * @since 2.2
+     * @throws Throwable on error
      */
-    boolean tryOnError(@NonNull Throwable t);
+    void subscribe(@NonNull ObservableEmitter<T> emitter) throws Throwable;
 }
 
 ```
@@ -10200,48 +10200,12 @@ in `src/main/java/io/reactivex/rxjava3/core/FlowableEmitter.java`
 
 ### NullableProblems
 Overridden method parameters are not annotated
-in `src/main/java/io/reactivex/rxjava3/core/ObservableOnSubscribe.java`
+in `src/main/java/io/reactivex/rxjava3/core/FlowableEmitter.java`
 #### Snippet
 ```java
-     * @throws Throwable on error
+     * @since 2.2
      */
-    void subscribe(@NonNull ObservableEmitter<T> emitter) throws Throwable;
-}
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `src/main/java/io/reactivex/rxjava3/core/SingleConverter.java`
-#### Snippet
-```java
-     * @return the converted value
-     */
-    R apply(@NonNull Single<T> upstream);
-}
-
-```
-
-### NullableProblems
-Overridden methods are not annotated
-in `src/main/java/io/reactivex/rxjava3/core/MaybeOperator.java`
-#### Snippet
-```java
-     * @throws Throwable on failure
-     */
-    @NonNull
-    MaybeObserver<? super Upstream> apply(@NonNull MaybeObserver<? super Downstream> observer) throws Throwable;
-}
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `src/main/java/io/reactivex/rxjava3/core/MaybeOperator.java`
-#### Snippet
-```java
-     */
-    @NonNull
-    MaybeObserver<? super Upstream> apply(@NonNull MaybeObserver<? super Downstream> observer) throws Throwable;
+    boolean tryOnError(@NonNull Throwable t);
 }
 
 ```
@@ -10254,6 +10218,18 @@ in `src/main/java/io/reactivex/rxjava3/core/MaybeOnSubscribe.java`
      * @throws Throwable on error
      */
     void subscribe(@NonNull MaybeEmitter<T> emitter) throws Throwable;
+}
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `src/main/java/io/reactivex/rxjava3/core/SingleConverter.java`
+#### Snippet
+```java
+     * @return the converted value
+     */
+    R apply(@NonNull Single<T> upstream);
 }
 
 ```
@@ -10295,6 +10271,42 @@ in `src/main/java/io/reactivex/rxjava3/core/FlowableOperator.java`
 ```
 
 ### NullableProblems
+Overridden methods are not annotated
+in `src/main/java/io/reactivex/rxjava3/core/MaybeOperator.java`
+#### Snippet
+```java
+     * @throws Throwable on failure
+     */
+    @NonNull
+    MaybeObserver<? super Upstream> apply(@NonNull MaybeObserver<? super Downstream> observer) throws Throwable;
+}
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `src/main/java/io/reactivex/rxjava3/core/MaybeOperator.java`
+#### Snippet
+```java
+     */
+    @NonNull
+    MaybeObserver<? super Upstream> apply(@NonNull MaybeObserver<? super Downstream> observer) throws Throwable;
+}
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `src/main/java/io/reactivex/rxjava3/core/SingleEmitter.java`
+#### Snippet
+```java
+     * @param t the exception, not {@code null}
+     */
+    void onError(@NonNull Throwable t);
+
+    /**
+```
+
+### NullableProblems
 Overridden method parameters are not annotated
 in `src/main/java/io/reactivex/rxjava3/core/SingleEmitter.java`
 #### Snippet
@@ -10314,18 +10326,6 @@ in `src/main/java/io/reactivex/rxjava3/core/SingleEmitter.java`
      * @param t the value, not null
      */
     void onSuccess(@NonNull T t);
-
-    /**
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `src/main/java/io/reactivex/rxjava3/core/SingleEmitter.java`
-#### Snippet
-```java
-     * @param t the exception, not {@code null}
-     */
-    void onError(@NonNull Throwable t);
 
     /**
 ```
@@ -10451,231 +10451,15 @@ in `src/main/java/io/reactivex/rxjava3/core/SingleSource.java`
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@io.reactivex.rxjava3.annotations.NonNull'
-in `src/main/java/io/reactivex/rxjava3/core/Scheduler.java`
-#### Snippet
-```java
-            @NonNull
-            final Runnable decoratedRun;
-            @NonNull
-            final SequentialDisposable sd;
-            final long periodInNanoseconds;
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NonNull
-in `src/main/java/io/reactivex/rxjava3/core/Scheduler.java`
-#### Snippet
-```java
-
-        @Override
-        public Runnable getWrappedRunnable() {
-            return run;
-        }
-```
-
-### NullableProblems
 Overridden method parameters are not annotated
-in `src/main/java/io/reactivex/rxjava3/core/Scheduler.java`
+in `src/main/java/io/reactivex/rxjava3/core/MaybeEmitter.java`
 #### Snippet
 ```java
-         * @since 2.0
-         */
-        public long now(@NonNull TimeUnit unit) {
-            return computeNow(unit);
-        }
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@io.reactivex.rxjava3.annotations.NonNull'
-in `src/main/java/io/reactivex/rxjava3/core/Scheduler.java`
-#### Snippet
-```java
-    implements Disposable, Runnable, SchedulerRunnableIntrospection {
-
-        @NonNull
-        final Runnable run;
-
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NonNull
-in `src/main/java/io/reactivex/rxjava3/core/Scheduler.java`
-#### Snippet
-```java
-
-            @Override
-            public Runnable getWrappedRunnable() {
-                return this.decoratedRun;
-            }
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `src/main/java/io/reactivex/rxjava3/core/Scheduler.java`
-#### Snippet
-```java
-     * @since 2.0
+     * @param t the exception, not {@code null}
      */
-    public long now(@NonNull TimeUnit unit) {
-        return computeNow(unit);
-    }
-```
+    void onError(@NonNull Throwable t);
 
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@io.reactivex.rxjava3.annotations.NonNull'
-in `src/main/java/io/reactivex/rxjava3/core/Scheduler.java`
-#### Snippet
-```java
-         */
-        final class PeriodicTask implements Runnable, SchedulerRunnableIntrospection {
-            @NonNull
-            final Runnable decoratedRun;
-            @NonNull
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NonNull
-in `src/main/java/io/reactivex/rxjava3/core/Scheduler.java`
-#### Snippet
-```java
-
-        @Override
-        public Runnable getWrappedRunnable() {
-            return this.decoratedRun;
-        }
-```
-
-### NullableProblems
-Overridden methods are not annotated
-in `src/main/java/io/reactivex/rxjava3/core/Scheduler.java`
-#### Snippet
-```java
-     * @return a Worker representing a serial queue of actions to be executed
-     */
-    @NonNull
-    public abstract Worker createWorker();
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
-in `src/main/java/io/reactivex/rxjava3/core/Scheduler.java`
-#### Snippet
-```java
-        final Worker w;
-
-        @Nullable
-        Thread runner;
-
-```
-
-### NullableProblems
-Overridden methods are not annotated
-in `src/main/java/io/reactivex/rxjava3/core/Scheduler.java`
-#### Snippet
-```java
-         * @throws NullPointerException if {@code run} or {@code unit} is {@code null}
-         */
-        @NonNull
-        public abstract Disposable schedule(@NonNull Runnable run, long delay, @NonNull TimeUnit unit);
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `src/main/java/io/reactivex/rxjava3/core/Scheduler.java`
-#### Snippet
-```java
-         */
-        @NonNull
-        public abstract Disposable schedule(@NonNull Runnable run, long delay, @NonNull TimeUnit unit);
-
-        /**
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `src/main/java/io/reactivex/rxjava3/core/Scheduler.java`
-#### Snippet
-```java
-         */
-        @NonNull
-        public abstract Disposable schedule(@NonNull Runnable run, long delay, @NonNull TimeUnit unit);
-
-        /**
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `src/main/java/io/reactivex/rxjava3/core/Scheduler.java`
-#### Snippet
-```java
-     */
-    @NonNull
-    public Disposable schedulePeriodicallyDirect(@NonNull Runnable run, long initialDelay, long period, @NonNull TimeUnit unit) {
-        final Worker w = createWorker();
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@io.reactivex.rxjava3.annotations.NonNull'
-in `src/main/java/io/reactivex/rxjava3/core/Scheduler.java`
-#### Snippet
-```java
-        final Runnable run;
-
-        @NonNull
-        final Worker worker;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@io.reactivex.rxjava3.annotations.NonNull'
-in `src/main/java/io/reactivex/rxjava3/core/Scheduler.java`
-#### Snippet
-```java
-    static final class DisposeTask implements Disposable, Runnable, SchedulerRunnableIntrospection {
-
-        @NonNull
-        final Runnable decoratedRun;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@io.reactivex.rxjava3.annotations.NonNull'
-in `src/main/java/io/reactivex/rxjava3/core/Scheduler.java`
-#### Snippet
-```java
-        final Runnable decoratedRun;
-
-        @NonNull
-        final Worker w;
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `src/main/java/io/reactivex/rxjava3/core/Scheduler.java`
-#### Snippet
-```java
-     */
-    @NonNull
-    public Disposable scheduleDirect(@NonNull Runnable run, long delay, @NonNull TimeUnit unit) {
-        final Worker w = createWorker();
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `src/main/java/io/reactivex/rxjava3/core/Scheduler.java`
-#### Snippet
-```java
-         */
-        @NonNull
-        public Disposable schedulePeriodically(@NonNull Runnable run, final long initialDelay, final long period, @NonNull final TimeUnit unit) {
-            final SequentialDisposable first = new SequentialDisposable();
-
+    /**
 ```
 
 ### NullableProblems
@@ -10704,26 +10488,74 @@ in `src/main/java/io/reactivex/rxjava3/core/MaybeEmitter.java`
 
 ### NullableProblems
 Overridden method parameters are not annotated
-in `src/main/java/io/reactivex/rxjava3/core/MaybeEmitter.java`
+in `src/main/java/io/reactivex/rxjava3/core/MaybeObserver.java`
 #### Snippet
 ```java
-     * @param t the exception, not {@code null}
+     *          the exception encountered by the {@code Maybe}
      */
-    void onError(@NonNull Throwable t);
+    void onError(@NonNull Throwable e);
 
     /**
 ```
 
 ### NullableProblems
 Overridden method parameters are not annotated
-in `src/main/java/io/reactivex/rxjava3/core/ObservableConverter.java`
+in `src/main/java/io/reactivex/rxjava3/core/MaybeObserver.java`
 #### Snippet
 ```java
-     * @return the converted value
+     * be called anytime to cancel the connection
      */
-    R apply(@NonNull Observable<T> upstream);
-}
+    void onSubscribe(@NonNull Disposable d);
 
+    /**
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `src/main/java/io/reactivex/rxjava3/core/MaybeObserver.java`
+#### Snippet
+```java
+     *          the item emitted by the {@code Maybe}
+     */
+    void onSuccess(@NonNull T t);
+
+    /**
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `src/main/java/io/reactivex/rxjava3/core/Observer.java`
+#### Snippet
+```java
+     *          the exception encountered by the Observable
+     */
+    void onError(@NonNull Throwable e);
+
+    /**
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `src/main/java/io/reactivex/rxjava3/core/Observer.java`
+#### Snippet
+```java
+     *          the item emitted by the Observable
+     */
+    void onNext(@NonNull T t);
+
+    /**
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `src/main/java/io/reactivex/rxjava3/core/Observer.java`
+#### Snippet
+```java
+     * @since 2.0
+     */
+    void onSubscribe(@NonNull Disposable d);
+
+    /**
 ```
 
 ### NullableProblems
@@ -10752,38 +10584,26 @@ in `src/main/java/io/reactivex/rxjava3/core/MaybeTransformer.java`
 
 ### NullableProblems
 Overridden method parameters are not annotated
-in `src/main/java/io/reactivex/rxjava3/core/MaybeObserver.java`
+in `src/main/java/io/reactivex/rxjava3/core/CompletableConverter.java`
 #### Snippet
 ```java
-     * be called anytime to cancel the connection
+     * @return the converted value
      */
-    void onSubscribe(@NonNull Disposable d);
+    R apply(@NonNull Completable upstream);
+}
 
-    /**
 ```
 
 ### NullableProblems
 Overridden method parameters are not annotated
-in `src/main/java/io/reactivex/rxjava3/core/MaybeObserver.java`
+in `src/main/java/io/reactivex/rxjava3/core/ObservableConverter.java`
 #### Snippet
 ```java
-     *          the exception encountered by the {@code Maybe}
+     * @return the converted value
      */
-    void onError(@NonNull Throwable e);
+    R apply(@NonNull Observable<T> upstream);
+}
 
-    /**
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `src/main/java/io/reactivex/rxjava3/core/MaybeObserver.java`
-#### Snippet
-```java
-     *          the item emitted by the {@code Maybe}
-     */
-    void onSuccess(@NonNull T t);
-
-    /**
 ```
 
 ### NullableProblems
@@ -10824,48 +10644,36 @@ in `src/main/java/io/reactivex/rxjava3/core/SingleObserver.java`
 
 ### NullableProblems
 Overridden method parameters are not annotated
-in `src/main/java/io/reactivex/rxjava3/core/Observer.java`
+in `src/main/java/io/reactivex/rxjava3/core/ObservableEmitter.java`
 #### Snippet
 ```java
-     *          the item emitted by the Observable
+     * @since 2.2
      */
-    void onNext(@NonNull T t);
+    boolean tryOnError(@NonNull Throwable t);
+}
 
-    /**
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `src/main/java/io/reactivex/rxjava3/core/ObservableEmitter.java`
+#### Snippet
+```java
+     * @return the serialized {@link ObservableEmitter}
+     */
+    @NonNull
+    ObservableEmitter<T> serialize();
+
 ```
 
 ### NullableProblems
 Overridden method parameters are not annotated
-in `src/main/java/io/reactivex/rxjava3/core/Observer.java`
+in `src/main/java/io/reactivex/rxjava3/core/CompletableSource.java`
 #### Snippet
 ```java
-     *          the exception encountered by the Observable
+     * @throws NullPointerException if {@code observer} is {@code null}
      */
-    void onError(@NonNull Throwable e);
-
-    /**
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `src/main/java/io/reactivex/rxjava3/core/Observer.java`
-#### Snippet
-```java
-     * @since 2.0
-     */
-    void onSubscribe(@NonNull Disposable d);
-
-    /**
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `src/main/java/io/reactivex/rxjava3/core/CompletableConverter.java`
-#### Snippet
-```java
-     * @return the converted value
-     */
-    R apply(@NonNull Completable upstream);
+    void subscribe(@NonNull CompletableObserver observer);
 }
 
 ```
@@ -10896,30 +10704,6 @@ in `src/main/java/io/reactivex/rxjava3/core/FlowableTransformer.java`
 
 ### NullableProblems
 Overridden methods are not annotated
-in `src/main/java/io/reactivex/rxjava3/core/ObservableEmitter.java`
-#### Snippet
-```java
-     * @return the serialized {@link ObservableEmitter}
-     */
-    @NonNull
-    ObservableEmitter<T> serialize();
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `src/main/java/io/reactivex/rxjava3/core/ObservableEmitter.java`
-#### Snippet
-```java
-     * @since 2.2
-     */
-    boolean tryOnError(@NonNull Throwable t);
-}
-
-```
-
-### NullableProblems
-Overridden methods are not annotated
 in `src/main/java/io/reactivex/rxjava3/core/CompletableTransformer.java`
 #### Snippet
 ```java
@@ -10944,18 +10728,6 @@ in `src/main/java/io/reactivex/rxjava3/core/CompletableTransformer.java`
 
 ### NullableProblems
 Overridden method parameters are not annotated
-in `src/main/java/io/reactivex/rxjava3/core/CompletableSource.java`
-#### Snippet
-```java
-     * @throws NullPointerException if {@code observer} is {@code null}
-     */
-    void subscribe(@NonNull CompletableObserver observer);
-}
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
 in `src/main/java/io/reactivex/rxjava3/core/FlowableConverter.java`
 #### Snippet
 ```java
@@ -10964,6 +10736,234 @@ in `src/main/java/io/reactivex/rxjava3/core/FlowableConverter.java`
     R apply(@NonNull Flowable<T> upstream);
 }
 
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NonNull
+in `src/main/java/io/reactivex/rxjava3/core/Scheduler.java`
+#### Snippet
+```java
+
+            @Override
+            public Runnable getWrappedRunnable() {
+                return this.decoratedRun;
+            }
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@io.reactivex.rxjava3.annotations.NonNull'
+in `src/main/java/io/reactivex/rxjava3/core/Scheduler.java`
+#### Snippet
+```java
+            @NonNull
+            final Runnable decoratedRun;
+            @NonNull
+            final SequentialDisposable sd;
+            final long periodInNanoseconds;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@io.reactivex.rxjava3.annotations.NonNull'
+in `src/main/java/io/reactivex/rxjava3/core/Scheduler.java`
+#### Snippet
+```java
+        final Runnable run;
+
+        @NonNull
+        final Worker worker;
+
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `src/main/java/io/reactivex/rxjava3/core/Scheduler.java`
+#### Snippet
+```java
+     * @return a Worker representing a serial queue of actions to be executed
+     */
+    @NonNull
+    public abstract Worker createWorker();
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `src/main/java/io/reactivex/rxjava3/core/Scheduler.java`
+#### Snippet
+```java
+     */
+    @NonNull
+    public Disposable schedulePeriodicallyDirect(@NonNull Runnable run, long initialDelay, long period, @NonNull TimeUnit unit) {
+        final Worker w = createWorker();
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `src/main/java/io/reactivex/rxjava3/core/Scheduler.java`
+#### Snippet
+```java
+         */
+        @NonNull
+        public Disposable schedulePeriodically(@NonNull Runnable run, final long initialDelay, final long period, @NonNull final TimeUnit unit) {
+            final SequentialDisposable first = new SequentialDisposable();
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `src/main/java/io/reactivex/rxjava3/core/Scheduler.java`
+#### Snippet
+```java
+         * @since 2.0
+         */
+        public long now(@NonNull TimeUnit unit) {
+            return computeNow(unit);
+        }
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `src/main/java/io/reactivex/rxjava3/core/Scheduler.java`
+#### Snippet
+```java
+     * @since 2.0
+     */
+    public long now(@NonNull TimeUnit unit) {
+        return computeNow(unit);
+    }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NonNull
+in `src/main/java/io/reactivex/rxjava3/core/Scheduler.java`
+#### Snippet
+```java
+
+        @Override
+        public Runnable getWrappedRunnable() {
+            return this.decoratedRun;
+        }
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@io.reactivex.rxjava3.annotations.NonNull'
+in `src/main/java/io/reactivex/rxjava3/core/Scheduler.java`
+#### Snippet
+```java
+    static final class DisposeTask implements Disposable, Runnable, SchedulerRunnableIntrospection {
+
+        @NonNull
+        final Runnable decoratedRun;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@io.reactivex.rxjava3.annotations.NonNull'
+in `src/main/java/io/reactivex/rxjava3/core/Scheduler.java`
+#### Snippet
+```java
+         */
+        final class PeriodicTask implements Runnable, SchedulerRunnableIntrospection {
+            @NonNull
+            final Runnable decoratedRun;
+            @NonNull
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
+in `src/main/java/io/reactivex/rxjava3/core/Scheduler.java`
+#### Snippet
+```java
+        final Worker w;
+
+        @Nullable
+        Thread runner;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@io.reactivex.rxjava3.annotations.NonNull'
+in `src/main/java/io/reactivex/rxjava3/core/Scheduler.java`
+#### Snippet
+```java
+        final Runnable decoratedRun;
+
+        @NonNull
+        final Worker w;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@io.reactivex.rxjava3.annotations.NonNull'
+in `src/main/java/io/reactivex/rxjava3/core/Scheduler.java`
+#### Snippet
+```java
+    implements Disposable, Runnable, SchedulerRunnableIntrospection {
+
+        @NonNull
+        final Runnable run;
+
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NonNull
+in `src/main/java/io/reactivex/rxjava3/core/Scheduler.java`
+#### Snippet
+```java
+
+        @Override
+        public Runnable getWrappedRunnable() {
+            return run;
+        }
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `src/main/java/io/reactivex/rxjava3/core/Scheduler.java`
+#### Snippet
+```java
+     */
+    @NonNull
+    public Disposable scheduleDirect(@NonNull Runnable run, long delay, @NonNull TimeUnit unit) {
+        final Worker w = createWorker();
+
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `src/main/java/io/reactivex/rxjava3/core/Scheduler.java`
+#### Snippet
+```java
+         * @throws NullPointerException if {@code run} or {@code unit} is {@code null}
+         */
+        @NonNull
+        public abstract Disposable schedule(@NonNull Runnable run, long delay, @NonNull TimeUnit unit);
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `src/main/java/io/reactivex/rxjava3/core/Scheduler.java`
+#### Snippet
+```java
+         */
+        @NonNull
+        public abstract Disposable schedule(@NonNull Runnable run, long delay, @NonNull TimeUnit unit);
+
+        /**
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `src/main/java/io/reactivex/rxjava3/core/Scheduler.java`
+#### Snippet
+```java
+         */
+        @NonNull
+        public abstract Disposable schedule(@NonNull Runnable run, long delay, @NonNull TimeUnit unit);
+
+        /**
 ```
 
 ### NullableProblems
@@ -10995,18 +10995,6 @@ Overridden method parameters are not annotated
 in `src/main/java/io/reactivex/rxjava3/core/CompletableEmitter.java`
 #### Snippet
 ```java
-     * @since 2.2
-     */
-    boolean tryOnError(@NonNull Throwable t);
-}
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `src/main/java/io/reactivex/rxjava3/core/CompletableEmitter.java`
-#### Snippet
-```java
      * @param t the exception, not null
      */
     void onError(@NonNull Throwable t);
@@ -11016,12 +11004,12 @@ in `src/main/java/io/reactivex/rxjava3/core/CompletableEmitter.java`
 
 ### NullableProblems
 Overridden method parameters are not annotated
-in `src/main/java/io/reactivex/rxjava3/core/FlowableSubscriber.java`
+in `src/main/java/io/reactivex/rxjava3/core/CompletableEmitter.java`
 #### Snippet
 ```java
+     * @since 2.2
      */
-    @Override
-    void onSubscribe(@NonNull Subscription s);
+    boolean tryOnError(@NonNull Throwable t);
 }
 
 ```
@@ -11036,6 +11024,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ObservableSingleStageObserv
     public void onNext(T t) {
         if (value != null) {
             value = null;
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `src/main/java/io/reactivex/rxjava3/core/FlowableSubscriber.java`
+#### Snippet
+```java
+     */
+    @Override
+    void onSubscribe(@NonNull Subscription s);
+}
+
 ```
 
 ### NullableProblems
@@ -11064,38 +11064,26 @@ in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ObservableFromCompletionSta
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/jdk8/FlowableFromCompletionStage.java`
+in `src/main/java/io/reactivex/rxjava3/internal/jdk8/MaybeMapOptional.java`
 #### Snippet
 ```java
 
-    @Override
-    protected void subscribeActual(Subscriber<? super T> s) {
-        // We need an indirection because one can't detach from a whenComplete
-        // and cancellation should not hold onto the stage.
+        @Override
+        public void onSuccess(T value) {
+            Optional<? extends R> v;
+
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ObservableStageObserver.java`
+in `src/main/java/io/reactivex/rxjava3/internal/jdk8/MaybeMapOptional.java`
 #### Snippet
 ```java
 
-    @Override
-    public final void onError(Throwable t) {
-        clear();
-        if (!completeExceptionally(t)) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/jdk8/SingleFromCompletionStage.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(SingleObserver<? super T> observer) {
-        // We need an indirection because one can't detach from a whenComplete
-        // and cancellation should not hold onto the stage.
+        @Override
+        public void onError(Throwable e) {
+            downstream.onError(e);
+        }
 ```
 
 ### NullableProblems
@@ -11124,38 +11112,50 @@ in `src/main/java/io/reactivex/rxjava3/internal/jdk8/MaybeMapOptional.java`
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/jdk8/MaybeMapOptional.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            downstream.onError(e);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/jdk8/MaybeMapOptional.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(T value) {
-            Optional<? extends R> v;
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/jdk8/MaybeFromCompletionStage.java`
+in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ObservableStageObserver.java`
 #### Snippet
 ```java
 
     @Override
-    protected void subscribeActual(MaybeObserver<? super T> observer) {
+    public final void onError(Throwable t) {
+        clear();
+        if (!completeExceptionally(t)) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/jdk8/FlowableFromCompletionStage.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Subscriber<? super T> s) {
         // We need an indirection because one can't detach from a whenComplete
         // and cancellation should not hold onto the stage.
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/jdk8/SingleFromCompletionStage.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(SingleObserver<? super T> observer) {
+        // We need an indirection because one can't detach from a whenComplete
+        // and cancellation should not hold onto the stage.
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/jdk8/FlowableMapOptional.java`
+#### Snippet
+```java
+
+        @Override
+        public boolean tryOnNext(T t) {
+            if (done) {
+                return true;
 ```
 
 ### NullableProblems
@@ -11184,26 +11184,362 @@ in `src/main/java/io/reactivex/rxjava3/internal/jdk8/FlowableMapOptional.java`
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/jdk8/FlowableMapOptional.java`
+in `src/main/java/io/reactivex/rxjava3/internal/jdk8/MaybeFromCompletionStage.java`
 #### Snippet
 ```java
 
-        @Override
-        public boolean tryOnNext(T t) {
-            if (done) {
-                return true;
+    @Override
+    protected void subscribeActual(MaybeObserver<? super T> observer) {
+        // We need an indirection because one can't detach from a whenComplete
+        // and cancellation should not hold onto the stage.
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
+in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
+#### Snippet
+```java
+
+    @SuppressWarnings("rawtypes")
+    @Nullable
+    static volatile Function<? super ConnectableObservable, ? extends ConnectableObservable> onConnectableObservableAssembly;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
+in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
+#### Snippet
+```java
+
+    @SuppressWarnings("rawtypes")
+    @Nullable
+    static volatile BiFunction<? super Single, @NonNull ? super SingleObserver, @NonNull ? extends SingleObserver> onSingleSubscribe;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
+in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
+#### Snippet
+```java
+    static volatile Function<? super Supplier<Scheduler>, ? extends Scheduler> onInitSingleHandler;
+
+    @Nullable
+    static volatile Function<? super Supplier<Scheduler>, ? extends Scheduler> onInitIoHandler;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
+in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
+#### Snippet
+```java
+ */
+public final class RxJavaPlugins {
+    @Nullable
+    static volatile Consumer<? super Throwable> errorHandler;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
+in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
+#### Snippet
+```java
+
+    @SuppressWarnings("rawtypes")
+    @Nullable
+    static volatile BiFunction<? super Flowable, @NonNull ? super Subscriber, @NonNull ? extends Subscriber> onFlowableSubscribe;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
+in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
+#### Snippet
+```java
+
+    @SuppressWarnings("rawtypes")
+    @Nullable
+    static volatile Function<? super Maybe, ? extends Maybe> onMaybeAssembly;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
+in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
+#### Snippet
+```java
+
+    @SuppressWarnings("rawtypes")
+    @Nullable
+    static volatile BiFunction<? super Maybe, @NonNull ? super MaybeObserver, @NonNull ? extends MaybeObserver> onMaybeSubscribe;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
+in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
+#### Snippet
+```java
+    static volatile BiFunction<? super ParallelFlowable, @NonNull ? super Subscriber[], @NonNull ? extends Subscriber[]> onParallelSubscribe;
+
+    @Nullable
+    static volatile BooleanSupplier onBeforeBlocking;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
+in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
+#### Snippet
+```java
+    static volatile Function<? super Scheduler, ? extends Scheduler> onSingleHandler;
+
+    @Nullable
+    static volatile Function<? super Scheduler, ? extends Scheduler> onIoHandler;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
+in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
+#### Snippet
+```java
+    static volatile Function<? super Supplier<Scheduler>, ? extends Scheduler> onInitNewThreadHandler;
+
+    @Nullable
+    static volatile Function<? super Scheduler, ? extends Scheduler> onComputationHandler;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
+in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
+#### Snippet
+```java
+    static volatile Consumer<? super Throwable> errorHandler;
+
+    @Nullable
+    static volatile Function<? super Runnable, ? extends Runnable> onScheduleHandler;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
+in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
+#### Snippet
+```java
+    static volatile Function<? super Supplier<Scheduler>, ? extends Scheduler> onInitComputationHandler;
+
+    @Nullable
+    static volatile Function<? super Supplier<Scheduler>, ? extends Scheduler> onInitSingleHandler;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
+in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
+#### Snippet
+```java
+    static volatile Function<? super Runnable, ? extends Runnable> onScheduleHandler;
+
+    @Nullable
+    static volatile Function<? super Supplier<Scheduler>, ? extends Scheduler> onInitComputationHandler;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
+in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
+#### Snippet
+```java
+
+    @SuppressWarnings("rawtypes")
+    @Nullable
+    static volatile BiFunction<? super ParallelFlowable, @NonNull ? super Subscriber[], @NonNull ? extends Subscriber[]> onParallelSubscribe;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
+in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
+#### Snippet
+```java
+    static volatile Function<? super Scheduler, ? extends Scheduler> onComputationHandler;
+
+    @Nullable
+    static volatile Function<? super Scheduler, ? extends Scheduler> onSingleHandler;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
+in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
+#### Snippet
+```java
+
+    @SuppressWarnings("rawtypes")
+    @Nullable
+    static volatile Function<? super Observable, ? extends Observable> onObservableAssembly;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
+in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
+#### Snippet
+```java
+
+    @SuppressWarnings("rawtypes")
+    @Nullable
+    static volatile Function<? super ParallelFlowable, ? extends ParallelFlowable> onParallelAssembly;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
+in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
+#### Snippet
+```java
+
+    @SuppressWarnings("rawtypes")
+    @Nullable
+    static volatile Function<? super Flowable, ? extends Flowable> onFlowableAssembly;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
+in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
+#### Snippet
+```java
+
+    @SuppressWarnings("rawtypes")
+    @Nullable
+    static volatile BiFunction<? super Observable, @NonNull ? super Observer, @NonNull ? extends Observer> onObservableSubscribe;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
+in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
+#### Snippet
+```java
+
+    @SuppressWarnings("rawtypes")
+    @Nullable
+    static volatile Function<? super Single, ? extends Single> onSingleAssembly;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
+in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
+#### Snippet
+```java
+    static volatile Function<? super Scheduler, ? extends Scheduler> onIoHandler;
+
+    @Nullable
+    static volatile Function<? super Scheduler, ? extends Scheduler> onNewThreadHandler;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
+in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
+#### Snippet
+```java
+    static volatile Function<? super Single, ? extends Single> onSingleAssembly;
+
+    @Nullable
+    static volatile Function<? super Completable, ? extends Completable> onCompletableAssembly;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
+in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
+#### Snippet
+```java
+
+    @SuppressWarnings("rawtypes")
+    @Nullable
+    static volatile Function<? super ConnectableFlowable, ? extends ConnectableFlowable> onConnectableFlowableAssembly;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
+in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
+#### Snippet
+```java
+    static volatile Function<? super Supplier<Scheduler>, ? extends Scheduler> onInitIoHandler;
+
+    @Nullable
+    static volatile Function<? super Supplier<Scheduler>, ? extends Scheduler> onInitNewThreadHandler;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
+in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
+#### Snippet
+```java
+    static volatile BiFunction<? super Single, @NonNull ? super SingleObserver, @NonNull ? extends SingleObserver> onSingleSubscribe;
+
+    @Nullable
+    static volatile BiFunction<? super Completable, @NonNull ? super CompletableObserver, @NonNull ? extends CompletableObserver> onCompletableSubscribe;
+
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NonNull
+in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ObservableCollectWithCollectorSingle.java`
+#### Snippet
+```java
+
+    @Override
+    public Observable<R> fuseToObservable() {
+        return new ObservableCollectWithCollector<>(source, collector);
+    }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/jdk8/SingleMapOptional.java`
+in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ObservableCollectWithCollectorSingle.java`
 #### Snippet
 ```java
 
         @Override
-        public void onSuccess(T value) {
-            Optional<? extends R> v;
+        public void onError(Throwable t) {
+            if (done) {
+                RxJavaPlugins.onError(t);
+```
 
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ObservableCollectWithCollectorSingle.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            if (done) {
+                return;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ObservableFirstStageObserver.java`
+#### Snippet
+```java
+
+    @Override
+    public void onNext(T t) {
+        complete(t);
+    }
 ```
 
 ### NullableProblems
@@ -11244,50 +11580,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/jdk8/SingleMapOptional.java`
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ObservableFirstStageObserver.java`
-#### Snippet
-```java
-
-    @Override
-    public void onNext(T t) {
-        complete(t);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ObservableCollectWithCollectorSingle.java`
+in `src/main/java/io/reactivex/rxjava3/internal/jdk8/SingleMapOptional.java`
 #### Snippet
 ```java
 
         @Override
-        public void onNext(T t) {
-            if (done) {
-                return;
-```
+        public void onSuccess(T value) {
+            Optional<? extends R> v;
 
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ObservableCollectWithCollectorSingle.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            if (done) {
-                RxJavaPlugins.onError(t);
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NonNull
-in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ObservableCollectWithCollectorSingle.java`
-#### Snippet
-```java
-
-    @Override
-    public Observable<R> fuseToObservable() {
-        return new ObservableCollectWithCollector<>(source, collector);
-    }
 ```
 
 ### NullableProblems
@@ -11309,6 +11609,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ParallelMapTryOptional.java
 ```java
 
         @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ParallelMapTryOptional.java`
+#### Snippet
+```java
+
+        @Override
         public boolean tryOnNext(T t) {
             if (done) {
                 return false;
@@ -11333,321 +11645,9 @@ in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ParallelMapTryOptional.java
 ```java
 
         @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ParallelMapTryOptional.java`
-#### Snippet
-```java
-
-        @Override
         public boolean tryOnNext(T t) {
             if (done) {
                 return false;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
-in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
-#### Snippet
-```java
-    static volatile Function<? super Supplier<Scheduler>, ? extends Scheduler> onInitNewThreadHandler;
-
-    @Nullable
-    static volatile Function<? super Scheduler, ? extends Scheduler> onComputationHandler;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
-in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
-#### Snippet
-```java
-    static volatile BiFunction<? super Single, @NonNull ? super SingleObserver, @NonNull ? extends SingleObserver> onSingleSubscribe;
-
-    @Nullable
-    static volatile BiFunction<? super Completable, @NonNull ? super CompletableObserver, @NonNull ? extends CompletableObserver> onCompletableSubscribe;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
-in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
-#### Snippet
-```java
-
-    @SuppressWarnings("rawtypes")
-    @Nullable
-    static volatile BiFunction<? super Single, @NonNull ? super SingleObserver, @NonNull ? extends SingleObserver> onSingleSubscribe;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
-in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
-#### Snippet
-```java
-
-    @SuppressWarnings("rawtypes")
-    @Nullable
-    static volatile BiFunction<? super ParallelFlowable, @NonNull ? super Subscriber[], @NonNull ? extends Subscriber[]> onParallelSubscribe;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
-in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
-#### Snippet
-```java
-
-    @SuppressWarnings("rawtypes")
-    @Nullable
-    static volatile Function<? super Single, ? extends Single> onSingleAssembly;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
-in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
-#### Snippet
-```java
-
-    @SuppressWarnings("rawtypes")
-    @Nullable
-    static volatile Function<? super ConnectableObservable, ? extends ConnectableObservable> onConnectableObservableAssembly;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
-in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
-#### Snippet
-```java
-
-    @SuppressWarnings("rawtypes")
-    @Nullable
-    static volatile Function<? super ConnectableFlowable, ? extends ConnectableFlowable> onConnectableFlowableAssembly;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
-in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
-#### Snippet
-```java
-    static volatile Function<? super Scheduler, ? extends Scheduler> onComputationHandler;
-
-    @Nullable
-    static volatile Function<? super Scheduler, ? extends Scheduler> onSingleHandler;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
-in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
-#### Snippet
-```java
-
-    @SuppressWarnings("rawtypes")
-    @Nullable
-    static volatile Function<? super ParallelFlowable, ? extends ParallelFlowable> onParallelAssembly;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
-in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
-#### Snippet
-```java
-    static volatile Function<? super Supplier<Scheduler>, ? extends Scheduler> onInitIoHandler;
-
-    @Nullable
-    static volatile Function<? super Supplier<Scheduler>, ? extends Scheduler> onInitNewThreadHandler;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
-in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
-#### Snippet
-```java
-    static volatile Function<? super Runnable, ? extends Runnable> onScheduleHandler;
-
-    @Nullable
-    static volatile Function<? super Supplier<Scheduler>, ? extends Scheduler> onInitComputationHandler;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
-in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
-#### Snippet
-```java
-    static volatile BiFunction<? super ParallelFlowable, @NonNull ? super Subscriber[], @NonNull ? extends Subscriber[]> onParallelSubscribe;
-
-    @Nullable
-    static volatile BooleanSupplier onBeforeBlocking;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
-in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
-#### Snippet
-```java
-
-    @SuppressWarnings("rawtypes")
-    @Nullable
-    static volatile Function<? super Maybe, ? extends Maybe> onMaybeAssembly;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
-in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
-#### Snippet
-```java
-    static volatile Function<? super Supplier<Scheduler>, ? extends Scheduler> onInitSingleHandler;
-
-    @Nullable
-    static volatile Function<? super Supplier<Scheduler>, ? extends Scheduler> onInitIoHandler;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
-in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
-#### Snippet
-```java
-    static volatile Function<? super Single, ? extends Single> onSingleAssembly;
-
-    @Nullable
-    static volatile Function<? super Completable, ? extends Completable> onCompletableAssembly;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
-in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
-#### Snippet
-```java
-    static volatile Consumer<? super Throwable> errorHandler;
-
-    @Nullable
-    static volatile Function<? super Runnable, ? extends Runnable> onScheduleHandler;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
-in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
-#### Snippet
-```java
-
-    @SuppressWarnings("rawtypes")
-    @Nullable
-    static volatile Function<? super Flowable, ? extends Flowable> onFlowableAssembly;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
-in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
-#### Snippet
-```java
- */
-public final class RxJavaPlugins {
-    @Nullable
-    static volatile Consumer<? super Throwable> errorHandler;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
-in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
-#### Snippet
-```java
-
-    @SuppressWarnings("rawtypes")
-    @Nullable
-    static volatile BiFunction<? super Flowable, @NonNull ? super Subscriber, @NonNull ? extends Subscriber> onFlowableSubscribe;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
-in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
-#### Snippet
-```java
-
-    @SuppressWarnings("rawtypes")
-    @Nullable
-    static volatile BiFunction<? super Maybe, @NonNull ? super MaybeObserver, @NonNull ? extends MaybeObserver> onMaybeSubscribe;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
-in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
-#### Snippet
-```java
-
-    @SuppressWarnings("rawtypes")
-    @Nullable
-    static volatile BiFunction<? super Observable, @NonNull ? super Observer, @NonNull ? extends Observer> onObservableSubscribe;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
-in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
-#### Snippet
-```java
-    static volatile Function<? super Scheduler, ? extends Scheduler> onSingleHandler;
-
-    @Nullable
-    static volatile Function<? super Scheduler, ? extends Scheduler> onIoHandler;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
-in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
-#### Snippet
-```java
-    static volatile Function<? super Scheduler, ? extends Scheduler> onIoHandler;
-
-    @Nullable
-    static volatile Function<? super Scheduler, ? extends Scheduler> onNewThreadHandler;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
-in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
-#### Snippet
-```java
-
-    @SuppressWarnings("rawtypes")
-    @Nullable
-    static volatile Function<? super Observable, ? extends Observable> onObservableAssembly;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
-in `src/main/java/io/reactivex/rxjava3/plugins/RxJavaPlugins.java`
-#### Snippet
-```java
-    static volatile Function<? super Supplier<Scheduler>, ? extends Scheduler> onInitComputationHandler;
-
-    @Nullable
-    static volatile Function<? super Supplier<Scheduler>, ? extends Scheduler> onInitSingleHandler;
-
 ```
 
 ### NullableProblems
@@ -11668,18 +11668,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ObservableMapOptional.java`
 #### Snippet
 ```java
 
-    @Override
-    protected void subscribeActual(Observer<? super R> observer) {
-        source.subscribe(new MapOptionalObserver<>(observer, mapper));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ObservableMapOptional.java`
-#### Snippet
-```java
-
         @Override
         public void onNext(T t) {
             if (done) {
@@ -11688,37 +11676,13 @@ in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ObservableMapOptional.java`
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ParallelCollector.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            SubscriptionHelper.setOnce(this, s, Long.MAX_VALUE);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ParallelCollector.java`
+in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ObservableMapOptional.java`
 #### Snippet
 ```java
 
     @Override
-    protected void subscribeActual(Subscriber<? super R> s) {
-        ParallelCollectorSubscriber<T, A, R> parent;
-        try {
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NonNull
-in `src/main/java/io/reactivex/rxjava3/internal/jdk8/FlowableCollectWithCollectorSingle.java`
-#### Snippet
-```java
-
-    @Override
-    public Flowable<R> fuseToFlowable() {
-        return new FlowableCollectWithCollector<>(source, collector);
+    protected void subscribeActual(Observer<? super R> observer) {
+        source.subscribe(new MapOptionalObserver<>(observer, mapper));
     }
 ```
 
@@ -11744,6 +11708,42 @@ in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ObservableCollectWithCollec
         public void onError(Throwable t) {
             if (done) {
                 RxJavaPlugins.onError(t);
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NonNull
+in `src/main/java/io/reactivex/rxjava3/internal/jdk8/FlowableCollectWithCollectorSingle.java`
+#### Snippet
+```java
+
+    @Override
+    public Flowable<R> fuseToFlowable() {
+        return new FlowableCollectWithCollector<>(source, collector);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ParallelCollector.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Subscriber<? super R> s) {
+        ParallelCollectorSubscriber<T, A, R> parent;
+        try {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ParallelCollector.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            SubscriptionHelper.setOnce(this, s, Long.MAX_VALUE);
+        }
 ```
 
 ### NullableProblems
@@ -11831,6 +11831,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/jdk8/ObservableFlatMapStream.jav
 ```
 
 ### NullableProblems
+Overridden method parameters are not annotated
+in `src/main/java/io/reactivex/rxjava3/core/Completable.java`
+#### Snippet
+```java
+     * @param observer the {@code CompletableObserver} instance, never {@code null}
+     */
+    protected abstract void subscribeActual(@NonNull CompletableObserver observer);
+
+    /**
+```
+
+### NullableProblems
 Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/jdk8/FlowableFlatMapStream.java`
 #### Snippet
@@ -11849,8 +11861,8 @@ in `src/main/java/io/reactivex/rxjava3/internal/util/EmptyComponent.java`
 ```java
 
     @Override
-    public void onError(Throwable t) {
-        RxJavaPlugins.onError(t);
+    public void onNext(Object t) {
+        // deliberately no-op
     }
 ```
 
@@ -11873,8 +11885,8 @@ in `src/main/java/io/reactivex/rxjava3/internal/util/EmptyComponent.java`
 ```java
 
     @Override
-    public void onNext(Object t) {
-        // deliberately no-op
+    public void onError(Throwable t) {
+        RxJavaPlugins.onError(t);
     }
 ```
 
@@ -11899,6 +11911,114 @@ in `src/main/java/io/reactivex/rxjava3/internal/fuseable/HasUpstreamPublisher.ja
      */
     @NonNull
     Publisher<T> source();
+}
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/queue/MpscLinkedQueue.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean offer(T v1, T v2) {
+        offer(v1);
+        offer(v2);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/queue/MpscLinkedQueue.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean offer(T v1, T v2) {
+        offer(v1);
+        offer(v2);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/queue/MpscLinkedQueue.java`
+#### Snippet
+```java
+     */
+    @Override
+    public boolean offer(final T e) {
+        if (null == e) {
+            throw new NullPointerException("Null is not a valid element");
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `src/main/java/io/reactivex/rxjava3/internal/fuseable/HasUpstreamObservableSource.java`
+#### Snippet
+```java
+     * @return the source ObservableSource
+     */
+    @NonNull
+    ObservableSource<T> source();
+}
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `src/main/java/io/reactivex/rxjava3/internal/fuseable/FuseToFlowable.java`
+#### Snippet
+```java
+     * @return the Flowable instance
+     */
+    @NonNull
+    Flowable<T> fuseToFlowable();
+}
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `src/main/java/io/reactivex/rxjava3/internal/fuseable/HasUpstreamSingleSource.java`
+#### Snippet
+```java
+     * @return the source SingleSource
+     */
+    @NonNull
+    SingleSource<T> source();
+}
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `src/main/java/io/reactivex/rxjava3/internal/fuseable/FuseToObservable.java`
+#### Snippet
+```java
+     * @return the Observable instance
+     */
+    @NonNull
+    Observable<T> fuseToObservable();
+}
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `src/main/java/io/reactivex/rxjava3/internal/fuseable/HasUpstreamCompletableSource.java`
+#### Snippet
+```java
+     * @return the source CompletableSource
+     */
+    @NonNull
+    CompletableSource source();
+}
+```
+
+### NullableProblems
+Overridden methods are not annotated
+in `src/main/java/io/reactivex/rxjava3/internal/fuseable/FuseToMaybe.java`
+#### Snippet
+```java
+     * @return the Maybe instance
+     */
+    @NonNull
+    Maybe<T> fuseToMaybe();
 }
 ```
 
@@ -11987,126 +12107,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/util/VolatileSizeArrayList.java`
 ```
 
 ### NullableProblems
-Overridden methods are not annotated
-in `src/main/java/io/reactivex/rxjava3/internal/fuseable/HasUpstreamObservableSource.java`
-#### Snippet
-```java
-     * @return the source ObservableSource
-     */
-    @NonNull
-    ObservableSource<T> source();
-}
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/queue/MpscLinkedQueue.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean offer(T v1, T v2) {
-        offer(v1);
-        offer(v2);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/queue/MpscLinkedQueue.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean offer(T v1, T v2) {
-        offer(v1);
-        offer(v2);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/queue/MpscLinkedQueue.java`
-#### Snippet
-```java
-     */
-    @Override
-    public boolean offer(final T e) {
-        if (null == e) {
-            throw new NullPointerException("Null is not a valid element");
-```
-
-### NullableProblems
-Overridden methods are not annotated
-in `src/main/java/io/reactivex/rxjava3/internal/fuseable/FuseToFlowable.java`
-#### Snippet
-```java
-     * @return the Flowable instance
-     */
-    @NonNull
-    Flowable<T> fuseToFlowable();
-}
-```
-
-### NullableProblems
-Overridden methods are not annotated
-in `src/main/java/io/reactivex/rxjava3/internal/fuseable/HasUpstreamSingleSource.java`
-#### Snippet
-```java
-     * @return the source SingleSource
-     */
-    @NonNull
-    SingleSource<T> source();
-}
-```
-
-### NullableProblems
-Overridden methods are not annotated
-in `src/main/java/io/reactivex/rxjava3/internal/fuseable/FuseToObservable.java`
-#### Snippet
-```java
-     * @return the Observable instance
-     */
-    @NonNull
-    Observable<T> fuseToObservable();
-}
-```
-
-### NullableProblems
-Overridden methods are not annotated
-in `src/main/java/io/reactivex/rxjava3/internal/fuseable/HasUpstreamCompletableSource.java`
-#### Snippet
-```java
-     * @return the source CompletableSource
-     */
-    @NonNull
-    CompletableSource source();
-}
-```
-
-### NullableProblems
-Overridden methods are not annotated
-in `src/main/java/io/reactivex/rxjava3/internal/fuseable/FuseToMaybe.java`
-#### Snippet
-```java
-     * @return the Maybe instance
-     */
-    @NonNull
-    Maybe<T> fuseToMaybe();
-}
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `src/main/java/io/reactivex/rxjava3/core/Completable.java`
-#### Snippet
-```java
-     * @param observer the {@code CompletableObserver} instance, never {@code null}
-     */
-    protected abstract void subscribeActual(@NonNull CompletableObserver observer);
-
-    /**
-```
-
-### NullableProblems
 Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/functions/ObjectHelper.java`
 #### Snippet
@@ -12128,54 +12128,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/functions/ObjectHelper.java`
         public boolean test(Object o1, Object o2) {
             return Objects.equals(o1, o2);
         }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/observers/BiConsumerSingleObserver.java`
-#### Snippet
-```java
-
-    @Override
-    public void onError(Throwable e) {
-        try {
-            lazySet(DisposableHelper.DISPOSED);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/observers/BiConsumerSingleObserver.java`
-#### Snippet
-```java
-
-    @Override
-    public void onSuccess(T value) {
-        try {
-            lazySet(DisposableHelper.DISPOSED);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/observers/BiConsumerSingleObserver.java`
-#### Snippet
-```java
-
-    @Override
-    public void onSubscribe(Disposable d) {
-        DisposableHelper.setOnce(this, d);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/observers/DisposableAutoReleaseMultiObserver.java`
-#### Snippet
-```java
-
-    @Override
-    public void onSuccess(T t) {
-        if (get() != DisposableHelper.DISPOSED) {
-            lazySet(DisposableHelper.DISPOSED);
 ```
 
 ### NullableProblems
@@ -12216,6 +12168,54 @@ implements SingleObserver<T>, MaybeObserver<T>, CompletableObserver {
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/observers/DisposableAutoReleaseMultiObserver.java`
+#### Snippet
+```java
+
+    @Override
+    public void onSuccess(T t) {
+        if (get() != DisposableHelper.DISPOSED) {
+            lazySet(DisposableHelper.DISPOSED);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/observers/BiConsumerSingleObserver.java`
+#### Snippet
+```java
+
+    @Override
+    public void onError(Throwable e) {
+        try {
+            lazySet(DisposableHelper.DISPOSED);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/observers/BiConsumerSingleObserver.java`
+#### Snippet
+```java
+
+    @Override
+    public void onSuccess(T value) {
+        try {
+            lazySet(DisposableHelper.DISPOSED);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/observers/BiConsumerSingleObserver.java`
+#### Snippet
+```java
+
+    @Override
+    public void onSubscribe(Disposable d) {
+        DisposableHelper.setOnce(this, d);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/observers/BlockingFirstObserver.java`
 #### Snippet
 ```java
@@ -12240,50 +12240,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/observers/BlockingFirstObserver.
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/observers/FutureObserver.java`
+in `src/main/java/io/reactivex/rxjava3/internal/observers/ResumeSingleObserver.java`
 #### Snippet
 ```java
 
     @Override
-    public void onError(Throwable t) {
-        if (error == null) {
-            Disposable a = upstream.get();
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/observers/FutureObserver.java`
-#### Snippet
-```java
-
-    @Override
-    public void onSubscribe(Disposable d) {
-        DisposableHelper.setOnce(this.upstream, d);
+    public void onError(Throwable e) {
+        downstream.onError(e);
     }
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `src/main/java/io/reactivex/rxjava3/core/Single.java`
-#### Snippet
-```java
-     * @param observer the {@code SingleObserver} to handle, not {@code null}
-     */
-    protected abstract void subscribeActual(@NonNull SingleObserver<? super T> observer);
-
-    /**
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/observers/FutureObserver.java`
-#### Snippet
-```java
-
-    @Override
-    public void onNext(T t) {
-        if (value != null) {
-            upstream.get().dispose();
 ```
 
 ### NullableProblems
@@ -12312,13 +12276,73 @@ in `src/main/java/io/reactivex/rxjava3/internal/observers/ResumeSingleObserver.j
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/observers/ResumeSingleObserver.java`
+in `src/main/java/io/reactivex/rxjava3/internal/observers/FutureObserver.java`
 #### Snippet
 ```java
 
     @Override
-    public void onError(Throwable e) {
-        downstream.onError(e);
+    public void onSubscribe(Disposable d) {
+        DisposableHelper.setOnce(this.upstream, d);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/observers/FutureObserver.java`
+#### Snippet
+```java
+
+    @Override
+    public void onError(Throwable t) {
+        if (error == null) {
+            Disposable a = upstream.get();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/observers/FutureObserver.java`
+#### Snippet
+```java
+
+    @Override
+    public void onNext(T t) {
+        if (value != null) {
+            upstream.get().dispose();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/observers/FutureMultiObserver.java`
+#### Snippet
+```java
+
+    @Override
+    public void onError(Throwable t) {
+        for (;;) {
+            Disposable a = upstream.get();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/observers/FutureMultiObserver.java`
+#### Snippet
+```java
+
+    @Override
+    public void onSuccess(T t) {
+        Disposable a = upstream.get();
+        if (a == DisposableHelper.DISPOSED) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/observers/FutureMultiObserver.java`
+#### Snippet
+```java
+
+    @Override
+    public void onSubscribe(Disposable d) {
+        DisposableHelper.setOnce(this.upstream, d);
     }
 ```
 
@@ -12348,38 +12372,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/observers/EmptyCompletableObserv
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/observers/FutureMultiObserver.java`
+in `src/main/java/io/reactivex/rxjava3/internal/observers/LambdaObserver.java`
 #### Snippet
 ```java
 
     @Override
-    public void onSuccess(T t) {
-        Disposable a = upstream.get();
-        if (a == DisposableHelper.DISPOSED) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/observers/FutureMultiObserver.java`
-#### Snippet
-```java
-
-    @Override
-    public void onError(Throwable t) {
-        for (;;) {
-            Disposable a = upstream.get();
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/observers/FutureMultiObserver.java`
-#### Snippet
-```java
-
-    @Override
-    public void onSubscribe(Disposable d) {
-        DisposableHelper.setOnce(this.upstream, d);
-    }
+    public void onNext(T t) {
+        if (!isDisposed()) {
+            try {
 ```
 
 ### NullableProblems
@@ -12408,14 +12408,62 @@ in `src/main/java/io/reactivex/rxjava3/internal/observers/LambdaObserver.java`
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/observers/LambdaObserver.java`
+in `src/main/java/io/reactivex/rxjava3/internal/observers/ConsumerSingleObserver.java`
 #### Snippet
 ```java
 
     @Override
-    public void onNext(T t) {
-        if (!isDisposed()) {
-            try {
+    public void onError(Throwable e) {
+        lazySet(DisposableHelper.DISPOSED);
+        try {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/observers/ConsumerSingleObserver.java`
+#### Snippet
+```java
+
+    @Override
+    public void onSuccess(T value) {
+        lazySet(DisposableHelper.DISPOSED);
+        try {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/observers/ConsumerSingleObserver.java`
+#### Snippet
+```java
+
+    @Override
+    public void onSubscribe(Disposable d) {
+        DisposableHelper.setOnce(this, d);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/observers/DeferredScalarObserver.java`
+#### Snippet
+```java
+
+    @Override
+    public void onError(Throwable t) {
+        value = null;
+        error(t);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/observers/DeferredScalarObserver.java`
+#### Snippet
+```java
+
+    @Override
+    public void onSubscribe(Disposable d) {
+        if (DisposableHelper.validate(this.upstream, d)) {
+            this.upstream = d;
 ```
 
 ### NullableProblems
@@ -12425,9 +12473,9 @@ in `src/main/java/io/reactivex/rxjava3/internal/observers/BasicFuseableObserver.
 ```java
 
     @Override
-    public final boolean offer(R e) {
-        throw new UnsupportedOperationException("Should not be called!");
-    }
+    public void onError(Throwable t) {
+        if (done) {
+            RxJavaPlugins.onError(t);
 ```
 
 ### NullableProblems
@@ -12473,69 +12521,9 @@ in `src/main/java/io/reactivex/rxjava3/internal/observers/BasicFuseableObserver.
 ```java
 
     @Override
-    public void onError(Throwable t) {
-        if (done) {
-            RxJavaPlugins.onError(t);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/observers/ConsumerSingleObserver.java`
-#### Snippet
-```java
-
-    @Override
-    public void onError(Throwable e) {
-        lazySet(DisposableHelper.DISPOSED);
-        try {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/observers/ConsumerSingleObserver.java`
-#### Snippet
-```java
-
-    @Override
-    public void onSubscribe(Disposable d) {
-        DisposableHelper.setOnce(this, d);
+    public final boolean offer(R e) {
+        throw new UnsupportedOperationException("Should not be called!");
     }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/observers/ConsumerSingleObserver.java`
-#### Snippet
-```java
-
-    @Override
-    public void onSuccess(T value) {
-        lazySet(DisposableHelper.DISPOSED);
-        try {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/observers/DeferredScalarObserver.java`
-#### Snippet
-```java
-
-    @Override
-    public void onSubscribe(Disposable d) {
-        if (DisposableHelper.validate(this.upstream, d)) {
-            this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/observers/DeferredScalarObserver.java`
-#### Snippet
-```java
-
-    @Override
-    public void onError(Throwable t) {
-        value = null;
-        error(t);
 ```
 
 ### NullableProblems
@@ -12557,8 +12545,8 @@ in `src/main/java/io/reactivex/rxjava3/internal/observers/BlockingMultiObserver.
 ```java
 
     @Override
-    public void onSuccess(T value) {
-        this.value = value;
+    public void onError(Throwable e) {
+        error = e;
         countDown();
 ```
 
@@ -12569,9 +12557,33 @@ in `src/main/java/io/reactivex/rxjava3/internal/observers/BlockingMultiObserver.
 ```java
 
     @Override
-    public void onError(Throwable e) {
-        error = e;
+    public void onSuccess(T value) {
+        this.value = value;
         countDown();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/observers/CallbackCompletableObserver.java`
+#### Snippet
+```java
+
+    @Override
+    public void onError(Throwable e) {
+        try {
+            onError.accept(e);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/observers/CallbackCompletableObserver.java`
+#### Snippet
+```java
+
+    @Override
+    public void onSubscribe(Disposable d) {
+        DisposableHelper.setOnce(this, d);
+    }
 ```
 
 ### NullableProblems
@@ -12593,9 +12605,9 @@ in `src/main/java/io/reactivex/rxjava3/internal/observers/InnerQueuedObserver.ja
 ```java
 
     @Override
-    public void onError(Throwable t) {
-        parent.innerError(this, t);
-    }
+    public void onSubscribe(Disposable d) {
+        if (DisposableHelper.setOnce(this, d)) {
+            if (d instanceof QueueDisposable) {
 ```
 
 ### NullableProblems
@@ -12605,33 +12617,9 @@ in `src/main/java/io/reactivex/rxjava3/internal/observers/InnerQueuedObserver.ja
 ```java
 
     @Override
-    public void onSubscribe(Disposable d) {
-        if (DisposableHelper.setOnce(this, d)) {
-            if (d instanceof QueueDisposable) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/observers/CallbackCompletableObserver.java`
-#### Snippet
-```java
-
-    @Override
-    public void onSubscribe(Disposable d) {
-        DisposableHelper.setOnce(this, d);
+    public void onError(Throwable t) {
+        parent.innerError(this, t);
     }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/observers/CallbackCompletableObserver.java`
-#### Snippet
-```java
-
-    @Override
-    public void onError(Throwable e) {
-        try {
-            onError.accept(e);
 ```
 
 ### NullableProblems
@@ -12668,6 +12656,42 @@ in `src/main/java/io/reactivex/rxjava3/internal/observers/BasicIntQueueDisposabl
     public final boolean offer(T v1, T v2) {
         throw new UnsupportedOperationException("Should not be called");
     }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/observers/DisposableLambdaObserver.java`
+#### Snippet
+```java
+
+    @Override
+    public void onSubscribe(Disposable d) {
+        // this way, multiple calls to onSubscribe can show up in tests that use doOnSubscribe to validate behavior
+        try {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/observers/DisposableLambdaObserver.java`
+#### Snippet
+```java
+
+    @Override
+    public void onNext(T t) {
+        downstream.onNext(t);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/observers/DisposableLambdaObserver.java`
+#### Snippet
+```java
+
+    @Override
+    public void onError(Throwable t) {
+        if (upstream != DisposableHelper.DISPOSED) {
+            upstream = DisposableHelper.DISPOSED;
 ```
 
 ### NullableProblems
@@ -12725,9 +12749,9 @@ in `src/main/java/io/reactivex/rxjava3/internal/observers/ForEachWhileObserver.j
 ```java
 
     @Override
-    public void onSubscribe(Disposable d) {
-        DisposableHelper.setOnce(this, d);
-    }
+    public void onNext(T t) {
+        if (done) {
+            return;
 ```
 
 ### NullableProblems
@@ -12737,69 +12761,9 @@ in `src/main/java/io/reactivex/rxjava3/internal/observers/ForEachWhileObserver.j
 ```java
 
     @Override
-    public void onNext(T t) {
-        if (done) {
-            return;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/observers/DisposableLambdaObserver.java`
-#### Snippet
-```java
-
-    @Override
-    public void onError(Throwable t) {
-        if (upstream != DisposableHelper.DISPOSED) {
-            upstream = DisposableHelper.DISPOSED;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/observers/DisposableLambdaObserver.java`
-#### Snippet
-```java
-
-    @Override
-    public void onNext(T t) {
-        downstream.onNext(t);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/observers/DisposableLambdaObserver.java`
-#### Snippet
-```java
-
-    @Override
     public void onSubscribe(Disposable d) {
-        // this way, multiple calls to onSubscribe can show up in tests that use doOnSubscribe to validate behavior
-        try {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/observers/DisposableAutoReleaseObserver.java`
-#### Snippet
-```java
-
-    @Override
-    public void onNext(T t) {
-        if (get() != DisposableHelper.DISPOSED) {
-            try {
-```
-
-### NullableProblems
-Non-annotated parameter 'd' in method 'onSubscribe' from 'AbstractDisposableAutoRelease' should not override non-null parameter from 'Observer'
-in `src/main/java/io/reactivex/rxjava3/internal/observers/DisposableAutoReleaseObserver.java`
-#### Snippet
-```java
-public final class DisposableAutoReleaseObserver<T>
-extends AbstractDisposableAutoRelease
-implements Observer<T> {
-
-    private static final long serialVersionUID = 8924480688481408726L;
+        DisposableHelper.setOnce(this, d);
+    }
 ```
 
 ### NullableProblems
@@ -12839,6 +12803,30 @@ in `src/main/java/io/reactivex/rxjava3/internal/observers/BlockingLastObserver.j
 ```
 
 ### NullableProblems
+Non-annotated parameter 'd' in method 'onSubscribe' from 'AbstractDisposableAutoRelease' should not override non-null parameter from 'Observer'
+in `src/main/java/io/reactivex/rxjava3/internal/observers/DisposableAutoReleaseObserver.java`
+#### Snippet
+```java
+public final class DisposableAutoReleaseObserver<T>
+extends AbstractDisposableAutoRelease
+implements Observer<T> {
+
+    private static final long serialVersionUID = 8924480688481408726L;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/observers/DisposableAutoReleaseObserver.java`
+#### Snippet
+```java
+
+    @Override
+    public void onNext(T t) {
+        if (get() != DisposableHelper.DISPOSED) {
+            try {
+```
+
+### NullableProblems
 Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/observers/BlockingObserver.java`
 #### Snippet
@@ -12875,15 +12863,39 @@ in `src/main/java/io/reactivex/rxjava3/internal/observers/BlockingObserver.java`
 ```
 
 ### NullableProblems
+Overridden method parameters are not annotated
+in `src/main/java/io/reactivex/rxjava3/core/Single.java`
+#### Snippet
+```java
+     * @param observer the {@code SingleObserver} to handle, not {@code null}
+     */
+    protected abstract void subscribeActual(@NonNull SingleObserver<? super T> observer);
+
+    /**
+```
+
+### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDefer.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapCompletable.java`
 #### Snippet
 ```java
 
     @Override
-    protected void subscribeActual(MaybeObserver<? super T> observer) {
-        MaybeSource<? extends T> source;
+    protected void subscribeActual(CompletableObserver observer) {
+        FlatMapCompletableObserver<T> parent = new FlatMapCompletableObserver<>(observer, mapper);
+        observer.onSubscribe(parent);
+```
 
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapCompletable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            downstream.onError(e);
+        }
 ```
 
 ### NullableProblems
@@ -12905,18 +12917,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapComp
 ```java
 
         @Override
-        public void onError(Throwable e) {
-            downstream.onError(e);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapCompletable.java`
-#### Snippet
-```java
-
-        @Override
         public void onSuccess(T value) {
             CompletableSource cs;
 
@@ -12924,26 +12924,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapComp
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapCompletable.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDefer.java`
 #### Snippet
 ```java
 
     @Override
-    protected void subscribeActual(CompletableObserver observer) {
-        FlatMapCompletableObserver<T> parent = new FlatMapCompletableObserver<>(observer, mapper);
-        observer.onSubscribe(parent);
-```
+    protected void subscribeActual(MaybeObserver<? super T> observer) {
+        MaybeSource<? extends T> source;
 
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapBiSelector.java`
-#### Snippet
-```java
-
-            @Override
-            public void onError(Throwable e) {
-                downstream.onError(e);
-            }
 ```
 
 ### NullableProblems
@@ -12953,9 +12941,9 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapBiSe
 ```java
 
         @Override
-        public void onError(Throwable e) {
-            inner.downstream.onError(e);
-        }
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.setOnce(inner, d)) {
+                inner.downstream.onSubscribe(this);
 ```
 
 ### NullableProblems
@@ -12977,9 +12965,9 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapBiSe
 ```java
 
             @Override
-            public void onSuccess(U value) {
-                T t = this.value;
-                this.value = null;
+            public void onError(Throwable e) {
+                downstream.onError(e);
+            }
 ```
 
 ### NullableProblems
@@ -13001,6 +12989,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapBiSe
 ```java
 
         @Override
+        public void onError(Throwable e) {
+            inner.downstream.onError(e);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapBiSelector.java`
+#### Snippet
+```java
+
+        @Override
         public void onSuccess(T value) {
             MaybeSource<? extends U> next;
 
@@ -13012,154 +13012,10 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapBiSe
 #### Snippet
 ```java
 
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.setOnce(inner, d)) {
-                inner.downstream.onSubscribe(this);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDematerialize.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(T t) {
-            Notification<R> notification;
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDematerialize.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(MaybeObserver<? super R> observer) {
-        source.subscribe(new DematerializeObserver<>(observer, selector));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDematerialize.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            downstream.onError(e);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDoOnEvent.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(MaybeObserver<? super T> observer) {
-        source.subscribe(new DoOnEventMaybeObserver<>(observer, onEvent));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDematerialize.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(upstream, d)) {
-                upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDoOnEvent.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(T value) {
-            upstream = DisposableHelper.DISPOSED;
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDoOnEvent.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            upstream = DisposableHelper.DISPOSED;
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDoOnEvent.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeTimeoutPublisher.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(T value) {
-            downstream.onSuccess(value);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeTimeoutPublisher.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(T value) {
-            SubscriptionHelper.cancel(other);
-            if (getAndSet(DisposableHelper.DISPOSED) != DisposableHelper.DISPOSED) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeTimeoutPublisher.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            DisposableHelper.setOnce(this, d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeTimeoutPublisher.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(MaybeObserver<? super T> observer) {
-        TimeoutMainMaybeObserver<T, U> parent = new TimeoutMainMaybeObserver<>(observer, fallback);
-        observer.onSubscribe(parent);
+            @Override
+            public void onSuccess(U value) {
+                T t = this.value;
+                this.value = null;
 ```
 
 ### NullableProblems
@@ -13193,8 +13049,44 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeTimeoutPubl
 ```java
 
         @Override
+        public void onSuccess(T value) {
+            downstream.onSuccess(value);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeTimeoutPublisher.java`
+#### Snippet
+```java
+
+        @Override
         public void onError(Throwable e) {
             downstream.onError(e);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeTimeoutPublisher.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(MaybeObserver<? super T> observer) {
+        TimeoutMainMaybeObserver<T, U> parent = new TimeoutMainMaybeObserver<>(observer, fallback);
+        observer.onSubscribe(parent);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeTimeoutPublisher.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            DisposableHelper.setOnce(this, d);
         }
 ```
 
@@ -13212,14 +13104,62 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeTimeoutPubl
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeToSingle.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeTimeoutPublisher.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T value) {
+            SubscriptionHelper.cancel(other);
+            if (getAndSet(DisposableHelper.DISPOSED) != DisposableHelper.DISPOSED) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDoOnEvent.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T value) {
+            upstream = DisposableHelper.DISPOSED;
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDoOnEvent.java`
 #### Snippet
 ```java
 
         @Override
         public void onError(Throwable e) {
             upstream = DisposableHelper.DISPOSED;
-            downstream.onError(e);
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDoOnEvent.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(MaybeObserver<? super T> observer) {
+        source.subscribe(new DoOnEventMaybeObserver<>(observer, onEvent));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDoOnEvent.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
 ```
 
 ### NullableProblems
@@ -13232,6 +13172,30 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeToSingle.ja
     protected void subscribeActual(SingleObserver<? super T> observer) {
         source.subscribe(new ToSingleMaybeSubscriber<>(observer, defaultValue));
     }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeToSingle.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeToSingle.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T value) {
+            upstream = DisposableHelper.DISPOSED;
+            downstream.onSuccess(value);
 ```
 
 ### NullableProblems
@@ -13253,21 +13217,9 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeToSingle.ja
 ```java
 
         @Override
-        public void onSuccess(T value) {
+        public void onError(Throwable e) {
             upstream = DisposableHelper.DISPOSED;
-            downstream.onSuccess(value);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeToSingle.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
+            downstream.onError(e);
 ```
 
 ### NullableProblems
@@ -13332,26 +13284,50 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeToObservabl
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeSwitchIfEmpty.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDematerialize.java`
 #### Snippet
 ```java
 
-            @Override
-            public void onSuccess(T value) {
-                downstream.onSuccess(value);
-            }
+        @Override
+        public void onError(Throwable e) {
+            downstream.onError(e);
+        }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeSwitchIfEmpty.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDematerialize.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(MaybeObserver<? super R> observer) {
+        source.subscribe(new DematerializeObserver<>(observer, selector));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDematerialize.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T t) {
+            Notification<R> notification;
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDematerialize.java`
 #### Snippet
 ```java
 
         @Override
         public void onSubscribe(Disposable d) {
-            if (DisposableHelper.setOnce(this, d)) {
-                downstream.onSubscribe(this);
+            if (DisposableHelper.validate(upstream, d)) {
+                upstream = d;
 ```
 
 ### NullableProblems
@@ -13364,30 +13340,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeSwitchIfEmp
     protected void subscribeActual(MaybeObserver<? super T> observer) {
         source.subscribe(new SwitchIfEmptyMaybeObserver<>(observer, other));
     }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeSwitchIfEmpty.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            downstream.onError(e);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeSwitchIfEmpty.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(T value) {
-            downstream.onSuccess(value);
-        }
 ```
 
 ### NullableProblems
@@ -13409,26 +13361,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeSwitchIfEmp
 ```java
 
             @Override
-            public void onSubscribe(Disposable d) {
-                DisposableHelper.setOnce(parent, d);
+            public void onSuccess(T value) {
+                downstream.onSuccess(value);
             }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeHide.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeHide.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeSwitchIfEmpty.java`
 #### Snippet
 ```java
 
@@ -13440,19 +13380,67 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeHide.java`
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeHide.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeSwitchIfEmpty.java`
 #### Snippet
 ```java
 
-    @Override
-    protected void subscribeActual(MaybeObserver<? super T> observer) {
-        source.subscribe(new HideMaybeObserver<>(observer));
-    }
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.setOnce(this, d)) {
+                downstream.onSubscribe(this);
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeHide.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeSwitchIfEmpty.java`
+#### Snippet
+```java
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                DisposableHelper.setOnce(parent, d);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeSwitchIfEmpty.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            downstream.onError(e);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapSingle.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(final Throwable e) {
+            downstream.onError(e);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapSingle.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(final Disposable d) {
+            DisposableHelper.replace(parent, d);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapSingle.java`
 #### Snippet
 ```java
 
@@ -13472,66 +13460,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapSing
         public void onSubscribe(Disposable d) {
             if (DisposableHelper.setOnce(this, d)) {
                 downstream.onSubscribe(this);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapSingle.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(final Disposable d) {
-            DisposableHelper.replace(parent, d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFromCompletable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFromCompletable.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(MaybeObserver<? super T> observer) {
-        source.subscribe(new FromCompletableObserver<T>(observer));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFromCompletable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            upstream = DisposableHelper.DISPOSED;
-            downstream.onError(e);
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NonNull
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFromCompletable.java`
-#### Snippet
-```java
-
-    @Override
-    public CompletableSource source() {
-        return source;
-    }
 ```
 
 ### NullableProblems
@@ -13564,18 +13492,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapSing
 #### Snippet
 ```java
 
-        @Override
-        public void onError(Throwable e) {
-            downstream.onError(e);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapSingle.java`
-#### Snippet
-```java
-
     @Override
     protected void subscribeActual(MaybeObserver<? super R> downstream) {
         source.subscribe(new FlatMapMaybeObserver<>(downstream, mapper));
@@ -13584,14 +13500,122 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapSing
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapSingle.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeHide.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(MaybeObserver<? super T> observer) {
+        source.subscribe(new HideMaybeObserver<>(observer));
+    }
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `src/main/java/io/reactivex/rxjava3/core/Maybe.java`
+#### Snippet
+```java
+     * @param observer the {@code MaybeObserver} to handle, not {@code null}
+     */
+    protected abstract void subscribeActual(@NonNull MaybeObserver<? super T> observer);
+
+    /**
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeHide.java`
 #### Snippet
 ```java
 
         @Override
-        public void onError(final Throwable e) {
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeHide.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
             downstream.onError(e);
         }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeHide.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T value) {
+            downstream.onSuccess(value);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeContains.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(Object value) {
+            upstream = DisposableHelper.DISPOSED;
+            downstream.onSuccess(Objects.equals(value, this.value));
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NonNull
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeContains.java`
+#### Snippet
+```java
+
+    @Override
+    public MaybeSource<T> source() {
+        return source;
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeContains.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            upstream = DisposableHelper.DISPOSED;
+            downstream.onError(e);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeContains.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(SingleObserver<? super Boolean> observer) {
+        source.subscribe(new ContainsMaybeObserver(observer, value));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeContains.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
 ```
 
 ### NullableProblems
@@ -13604,6 +13628,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapIter
         public void onError(Throwable e) {
             upstream = DisposableHelper.DISPOSED;
             downstream.onError(e);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapIterableFlowable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T value) {
+            Iterator<? extends R> iterator;
+            boolean has;
 ```
 
 ### NullableProblems
@@ -13625,141 +13661,9 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapIter
 ```java
 
         @Override
-        public void onSuccess(T value) {
-            Iterator<? extends R> iterator;
-            boolean has;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapIterableFlowable.java`
-#### Snippet
-```java
-
-        @Override
         public void onSubscribe(Disposable d) {
             if (DisposableHelper.validate(this.upstream, d)) {
                 this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeContains.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(SingleObserver<? super Boolean> observer) {
-        source.subscribe(new ContainsMaybeObserver(observer, value));
-    }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NonNull
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeContains.java`
-#### Snippet
-```java
-
-    @Override
-    public MaybeSource<T> source() {
-        return source;
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeContains.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(Object value) {
-            upstream = DisposableHelper.DISPOSED;
-            downstream.onSuccess(Objects.equals(value, this.value));
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeContains.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeContains.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            upstream = DisposableHelper.DISPOSED;
-            downstream.onError(e);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeCount.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeCount.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            upstream = DisposableHelper.DISPOSED;
-            downstream.onError(e);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeCount.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(SingleObserver<? super Long> observer) {
-        source.subscribe(new CountMaybeObserver(observer));
-    }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NonNull
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeCount.java`
-#### Snippet
-```java
-
-    @Override
-    public MaybeSource<T> source() {
-        return source;
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeCount.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(Object value) {
-            upstream = DisposableHelper.DISPOSED;
-            downstream.onSuccess(1L);
 ```
 
 ### NullableProblems
@@ -13769,9 +13673,9 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeUnsubscribe
 ```java
 
         @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.setOnce(this, d)) {
-                downstream.onSubscribe(this);
+        public void onSuccess(T value) {
+            downstream.onSuccess(value);
+        }
 ```
 
 ### NullableProblems
@@ -13805,21 +13709,165 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeUnsubscribe
 ```java
 
         @Override
-        public void onSuccess(T value) {
-            downstream.onSuccess(value);
-        }
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.setOnce(this, d)) {
+                downstream.onSubscribe(this);
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeObserveOn.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFromCompletable.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(MaybeObserver<? super T> observer) {
+        source.subscribe(new FromCompletableObserver<T>(observer));
+    }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NonNull
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFromCompletable.java`
+#### Snippet
+```java
+
+    @Override
+    public CompletableSource source() {
+        return source;
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFromCompletable.java`
 #### Snippet
 ```java
 
         @Override
         public void onError(Throwable e) {
-            this.error = e;
-            DisposableHelper.replace(this, scheduler.scheduleDirect(this));
+            upstream = DisposableHelper.DISPOSED;
+            downstream.onError(e);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFromCompletable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeCount.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            upstream = DisposableHelper.DISPOSED;
+            downstream.onError(e);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeCount.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(Object value) {
+            upstream = DisposableHelper.DISPOSED;
+            downstream.onSuccess(1L);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeCount.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeCount.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(SingleObserver<? super Long> observer) {
+        source.subscribe(new CountMaybeObserver(observer));
+    }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NonNull
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeCount.java`
+#### Snippet
+```java
+
+    @Override
+    public MaybeSource<T> source() {
+        return source;
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDoOnTerminate.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            downstream.onSubscribe(d);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDoOnTerminate.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(MaybeObserver<? super T> observer) {
+        source.subscribe(new DoOnTerminate(observer));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDoOnTerminate.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            try {
+                onTerminate.run();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDoOnTerminate.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T value) {
+            try {
+                onTerminate.run();
 ```
 
 ### NullableProblems
@@ -13852,6 +13900,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeObserveOn.j
 #### Snippet
 ```java
 
+        @Override
+        public void onError(Throwable e) {
+            this.error = e;
+            DisposableHelper.replace(this, scheduler.scheduleDirect(this));
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeObserveOn.java`
+#### Snippet
+```java
+
     @Override
     protected void subscribeActual(MaybeObserver<? super T> observer) {
         source.subscribe(new ObserveOnMaybeObserver<>(observer, scheduler));
@@ -13860,50 +13920,74 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeObserveOn.j
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDoOnTerminate.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            downstream.onSubscribe(d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDoOnTerminate.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            try {
-                onTerminate.run();
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDoOnTerminate.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDoOnLifecycle.java`
 #### Snippet
 ```java
 
     @Override
     protected void subscribeActual(MaybeObserver<? super T> observer) {
-        source.subscribe(new DoOnTerminate(observer));
+        source.subscribe(new MaybeLifecycleObserver<>(observer, onSubscribe, onDispose));
     }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDoOnTerminate.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeIgnoreElement.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeIgnoreElement.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(MaybeObserver<? super T> observer) {
+        source.subscribe(new IgnoreMaybeObserver<>(observer));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeIgnoreElement.java`
 #### Snippet
 ```java
 
         @Override
         public void onSuccess(T value) {
-            try {
-                onTerminate.run();
+            upstream = DisposableHelper.DISPOSED;
+            downstream.onComplete();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeIgnoreElement.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            upstream = DisposableHelper.DISPOSED;
+            downstream.onError(e);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFilterSingle.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            downstream.onError(e);
+        }
 ```
 
 ### NullableProblems
@@ -13936,18 +14020,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFilterSingl
 #### Snippet
 ```java
 
-        @Override
-        public void onError(Throwable e) {
-            downstream.onError(e);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFilterSingle.java`
-#### Snippet
-```java
-
     @Override
     protected void subscribeActual(MaybeObserver<? super T> observer) {
         source.subscribe(new FilterMaybeObserver<>(observer, predicate));
@@ -13964,126 +14036,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeEmpty.java`
     protected void subscribeActual(MaybeObserver<? super Object> observer) {
         EmptyDisposable.complete(observer);
     }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDoOnLifecycle.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(MaybeObserver<? super T> observer) {
-        source.subscribe(new MaybeLifecycleObserver<>(observer, onSubscribe, onDispose));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeIgnoreElement.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(T value) {
-            upstream = DisposableHelper.DISPOSED;
-            downstream.onComplete();
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeIgnoreElement.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            upstream = DisposableHelper.DISPOSED;
-            downstream.onError(e);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeIgnoreElement.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeIgnoreElement.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(MaybeObserver<? super T> observer) {
-        source.subscribe(new IgnoreMaybeObserver<>(observer));
-    }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NonNull
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeIgnoreElementCompletable.java`
-#### Snippet
-```java
-
-    @Override
-    public Maybe<T> fuseToMaybe() {
-        return RxJavaPlugins.onAssembly(new MaybeIgnoreElement<>(source));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeIgnoreElementCompletable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            upstream = DisposableHelper.DISPOSED;
-            downstream.onError(e);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeIgnoreElementCompletable.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(CompletableObserver observer) {
-        source.subscribe(new IgnoreMaybeObserver<>(observer));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeIgnoreElementCompletable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(T value) {
-            upstream = DisposableHelper.DISPOSED;
-            downstream.onComplete();
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeIgnoreElementCompletable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
 ```
 
 ### NullableProblems
@@ -14177,9 +14129,21 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeConcatArray
 ```java
 
         @Override
-        public void onError(Throwable e) {
-            current.lazySet(NotificationLite.COMPLETE);
-            if (errors.tryAddThrowableOrReport(e)) {
+        public void onSuccess(T value) {
+            current.lazySet(value);
+            drain();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeConcatArrayDelayError.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            disposables.replace(d);
+        }
 ```
 
 ### NullableProblems
@@ -14201,20 +14165,92 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeConcatArray
 ```java
 
         @Override
-        public void onSuccess(T value) {
-            current.lazySet(value);
-            drain();
+        public void onError(Throwable e) {
+            current.lazySet(NotificationLite.COMPLETE);
+            if (errors.tryAddThrowableOrReport(e)) {
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeConcatArrayDelayError.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeIgnoreElementCompletable.java`
 #### Snippet
 ```java
 
         @Override
         public void onSubscribe(Disposable d) {
-            disposables.replace(d);
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NonNull
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeIgnoreElementCompletable.java`
+#### Snippet
+```java
+
+    @Override
+    public Maybe<T> fuseToMaybe() {
+        return RxJavaPlugins.onAssembly(new MaybeIgnoreElement<>(source));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeIgnoreElementCompletable.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(CompletableObserver observer) {
+        source.subscribe(new IgnoreMaybeObserver<>(observer));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeIgnoreElementCompletable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            upstream = DisposableHelper.DISPOSED;
+            downstream.onError(e);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeIgnoreElementCompletable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T value) {
+            upstream = DisposableHelper.DISPOSED;
+            downstream.onComplete();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeSubscribeOn.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T value) {
+            downstream.onSuccess(value);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeSubscribeOn.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            DisposableHelper.setOnce(this, d);
         }
 ```
 
@@ -14244,74 +14280,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeSubscribeOn
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeSubscribeOn.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(T value) {
-            downstream.onSuccess(value);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeSubscribeOn.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeUsing.java`
 #### Snippet
 ```java
 
         @Override
         public void onSubscribe(Disposable d) {
-            DisposableHelper.setOnce(this, d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeCreate.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(T value) {
-            if (get() != DisposableHelper.DISPOSED) {
-                Disposable d = getAndSet(DisposableHelper.DISPOSED);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeCreate.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(MaybeObserver<? super T> observer) {
-        Emitter<T> parent = new Emitter<>(observer);
-        observer.onSubscribe(parent);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeCreate.java`
-#### Snippet
-```java
-
-        @Override
-        public boolean tryOnError(Throwable t) {
-            if (t == null) {
-                t = ExceptionHelper.createNullPointerException("onError called with a null Throwable.");
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeCreate.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            if (!tryOnError(t)) {
-                RxJavaPlugins.onError(t);
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
 ```
 
 ### NullableProblems
@@ -14324,18 +14300,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeUsing.java`
         public void onError(Throwable e) {
             upstream = DisposableHelper.DISPOSED;
             if (eager) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeUsing.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
 ```
 
 ### NullableProblems
@@ -14360,6 +14324,102 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeUsing.java`
     protected void subscribeActual(MaybeObserver<? super T> observer) {
         D resource;
 
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeCreate.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            if (!tryOnError(t)) {
+                RxJavaPlugins.onError(t);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeCreate.java`
+#### Snippet
+```java
+
+        @Override
+        public boolean tryOnError(Throwable t) {
+            if (t == null) {
+                t = ExceptionHelper.createNullPointerException("onError called with a null Throwable.");
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeCreate.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(MaybeObserver<? super T> observer) {
+        Emitter<T> parent = new Emitter<>(observer);
+        observer.onSubscribe(parent);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeCreate.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T value) {
+            if (get() != DisposableHelper.DISPOSED) {
+                Disposable d = getAndSet(DisposableHelper.DISPOSED);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeZipArray.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T value) {
+            parent.innerSuccess(value, index);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeZipArray.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            parent.innerError(e, index);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeZipArray.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            DisposableHelper.setOnce(this, d);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeZipArray.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(MaybeObserver<? super R> observer) {
+        MaybeSource<? extends T>[] sources = this.sources;
+        int n = sources.length;
 ```
 
 ### NullableProblems
@@ -14412,66 +14472,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeOnErrorComp
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDelay.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.setOnce(this, d)) {
-                downstream.onSubscribe(this);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDelay.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            this.error = e;
-            schedule(delayError ? delay : 0);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDelay.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(MaybeObserver<? super T> observer) {
-        source.subscribe(new DelayMaybeObserver<>(observer, delay, unit, scheduler, delayError));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDelay.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(T value) {
-            this.value = value;
-            schedule(delay);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeOnErrorReturn.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeOnErrorReturn.java`
 #### Snippet
 ```java
@@ -14500,10 +14500,70 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeOnErrorRetu
 #### Snippet
 ```java
 
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeOnErrorReturn.java`
+#### Snippet
+```java
+
     @Override
     protected void subscribeActual(MaybeObserver<? super T> observer) {
         source.subscribe(new OnErrorReturnMaybeObserver<>(observer, itemSupplier));
     }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDelay.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(MaybeObserver<? super T> observer) {
+        source.subscribe(new DelayMaybeObserver<>(observer, delay, unit, scheduler, delayError));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDelay.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            this.error = e;
+            schedule(delayError ? delay : 0);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDelay.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.setOnce(this, d)) {
+                downstream.onSubscribe(this);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDelay.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T value) {
+            this.value = value;
+            schedule(delay);
 ```
 
 ### NullableProblems
@@ -14536,10 +14596,10 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeTakeUntilPu
 #### Snippet
 ```java
 
-            @Override
-            public void onSubscribe(Subscription s) {
-                SubscriptionHelper.setOnce(this, s, Long.MAX_VALUE);
-            }
+        @Override
+        public void onSubscribe(Disposable d) {
+            DisposableHelper.setOnce(this, d);
+        }
 ```
 
 ### NullableProblems
@@ -14548,10 +14608,10 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeTakeUntilPu
 #### Snippet
 ```java
 
-        @Override
-        public void onSubscribe(Disposable d) {
-            DisposableHelper.setOnce(this, d);
-        }
+            @Override
+            public void onSubscribe(Subscription s) {
+                SubscriptionHelper.setOnce(this, s, Long.MAX_VALUE);
+            }
 ```
 
 ### NullableProblems
@@ -14568,49 +14628,13 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeTakeUntilPu
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeZipArray.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDelaySubscriptionOtherPublisher.java`
 #### Snippet
 ```java
 
         @Override
         public void onSuccess(T value) {
-            parent.innerSuccess(value, index);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeZipArray.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            DisposableHelper.setOnce(this, d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeZipArray.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(MaybeObserver<? super R> observer) {
-        MaybeSource<? extends T>[] sources = this.sources;
-        int n = sources.length;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeZipArray.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            parent.innerError(e, index);
+            downstream.onSuccess(value);
         }
 ```
 
@@ -14633,8 +14657,8 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDelaySubscr
 ```java
 
         @Override
-        public void onSuccess(T value) {
-            downstream.onSuccess(value);
+        public void onSubscribe(Disposable d) {
+            DisposableHelper.setOnce(this, d);
         }
 ```
 
@@ -14645,9 +14669,9 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDelaySubscr
 ```java
 
         @Override
-        public void onSubscribe(Disposable d) {
-            DisposableHelper.setOnce(this, d);
-        }
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
 ```
 
 ### NullableProblems
@@ -14664,14 +14688,38 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDelaySubscr
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDelaySubscriptionOtherPublisher.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeCallbackObserver.java`
 #### Snippet
 ```java
 
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
+    @Override
+    public void onSuccess(T value) {
+        lazySet(DisposableHelper.DISPOSED);
+        try {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeCallbackObserver.java`
+#### Snippet
+```java
+
+    @Override
+    public void onError(Throwable e) {
+        lazySet(DisposableHelper.DISPOSED);
+        try {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeCallbackObserver.java`
+#### Snippet
+```java
+
+    @Override
+    public void onSubscribe(Disposable d) {
+        DisposableHelper.setOnce(this, d);
+    }
 ```
 
 ### NullableProblems
@@ -14700,49 +14748,13 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/AbstractMaybeWit
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeCallbackObserver.java`
-#### Snippet
-```java
-
-    @Override
-    public void onSuccess(T value) {
-        lazySet(DisposableHelper.DISPOSED);
-        try {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeCallbackObserver.java`
-#### Snippet
-```java
-
-    @Override
-    public void onSubscribe(Disposable d) {
-        DisposableHelper.setOnce(this, d);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeCallbackObserver.java`
-#### Snippet
-```java
-
-    @Override
-    public void onError(Throwable e) {
-        lazySet(DisposableHelper.DISPOSED);
-        try {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeSwitchIfEmptySingle.java`
 #### Snippet
 ```java
 
             @Override
-            public void onSubscribe(Disposable d) {
-                DisposableHelper.setOnce(parent, d);
+            public void onSuccess(T value) {
+                downstream.onSuccess(value);
             }
 ```
 
@@ -14752,10 +14764,22 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeSwitchIfEmp
 #### Snippet
 ```java
 
-    @Override
-    protected void subscribeActual(SingleObserver<? super T> observer) {
-        source.subscribe(new SwitchIfEmptyMaybeObserver<>(observer, other));
-    }
+            @Override
+            public void onError(Throwable e) {
+                downstream.onError(e);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeSwitchIfEmptySingle.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.setOnce(this, d)) {
+                downstream.onSubscribe(this);
 ```
 
 ### NullableProblems
@@ -14768,6 +14792,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeSwitchIfEmp
     public MaybeSource<T> source() {
         return source;
     }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeSwitchIfEmptySingle.java`
+#### Snippet
+```java
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                DisposableHelper.setOnce(parent, d);
+            }
 ```
 
 ### NullableProblems
@@ -14789,30 +14825,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeSwitchIfEmp
 ```java
 
         @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.setOnce(this, d)) {
-                downstream.onSubscribe(this);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeSwitchIfEmptySingle.java`
-#### Snippet
-```java
-
-            @Override
-            public void onError(Throwable e) {
-                downstream.onError(e);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeSwitchIfEmptySingle.java`
-#### Snippet
-```java
-
-        @Override
         public void onSuccess(T value) {
             downstream.onSuccess(value);
         }
@@ -14824,10 +14836,22 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeSwitchIfEmp
 #### Snippet
 ```java
 
-            @Override
-            public void onSuccess(T value) {
-                downstream.onSuccess(value);
-            }
+    @Override
+    protected void subscribeActual(SingleObserver<? super T> observer) {
+        source.subscribe(new SwitchIfEmptyMaybeObserver<>(observer, other));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeUnsafeCreate.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(MaybeObserver<? super T> observer) {
+        source.subscribe(observer);
+    }
 ```
 
 ### NullableProblems
@@ -14844,90 +14868,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeLift.java`
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapNotification.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(T value) {
-            MaybeSource<? extends R> source;
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapNotification.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(MaybeObserver<? super R> observer) {
-        source.subscribe(new FlatMapMaybeObserver<>(observer, onSuccessMapper, onErrorMapper, onCompleteSupplier));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapNotification.java`
-#### Snippet
-```java
-
-            @Override
-            public void onError(Throwable e) {
-                downstream.onError(e);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapNotification.java`
-#### Snippet
-```java
-
-            @Override
-            public void onSuccess(R value) {
-                downstream.onSuccess(value);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapNotification.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            MaybeSource<? extends R> source;
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapNotification.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapNotification.java`
-#### Snippet
-```java
-
-            @Override
-            public void onSubscribe(Disposable d) {
-                DisposableHelper.setOnce(FlatMapMaybeObserver.this, d);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFilter.java`
 #### Snippet
 ```java
@@ -14936,18 +14876,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFilter.java
         public void onSubscribe(Disposable d) {
             if (DisposableHelper.validate(this.upstream, d)) {
                 this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFilter.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(MaybeObserver<? super T> observer) {
-        source.subscribe(new FilterMaybeObserver<>(observer, predicate));
-    }
 ```
 
 ### NullableProblems
@@ -14976,6 +14904,198 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFilter.java
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFilter.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(MaybeObserver<? super T> observer) {
+        source.subscribe(new FilterMaybeObserver<>(observer, predicate));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapNotification.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            MaybeSource<? extends R> source;
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapNotification.java`
+#### Snippet
+```java
+
+            @Override
+            public void onError(Throwable e) {
+                downstream.onError(e);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapNotification.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(MaybeObserver<? super R> observer) {
+        source.subscribe(new FlatMapMaybeObserver<>(observer, onSuccessMapper, onErrorMapper, onCompleteSupplier));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapNotification.java`
+#### Snippet
+```java
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                DisposableHelper.setOnce(FlatMapMaybeObserver.this, d);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapNotification.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T value) {
+            MaybeSource<? extends R> source;
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapNotification.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapNotification.java`
+#### Snippet
+```java
+
+            @Override
+            public void onSuccess(R value) {
+                downstream.onSuccess(value);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeZipIterable.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(MaybeObserver<? super R> observer) {
+        @SuppressWarnings("unchecked")
+        MaybeSource<? extends T>[] a = new MaybeSource[8];
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeEqualSingle.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T value) {
+            this.value = value;
+            parent.done();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeEqualSingle.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            DisposableHelper.setOnce(this, d);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeEqualSingle.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(SingleObserver<? super Boolean> observer) {
+        EqualCoordinator<T> parent = new EqualCoordinator<>(observer, isEqual);
+        observer.onSubscribe(parent);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeEqualSingle.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            parent.error(this, e);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeMergeArray.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Subscriber<? super T> s) {
+        MaybeSource<? extends T>[] maybes = sources;
+        int n = maybes.length;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeMergeArray.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T value) {
+            queue.offer(value);
+            drain();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeMergeArray.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            if (errors.tryAddThrowableOrReport(e)) {
+                set.dispose();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeMergeArray.java`
 #### Snippet
 ```java
@@ -14993,9 +15113,33 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeMergeArray.
 ```java
 
         @Override
-        public void onError(Throwable e) {
-            if (errors.tryAddThrowableOrReport(e)) {
-                set.dispose();
+        public void onSubscribe(Disposable d) {
+            set.add(d);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeMergeArray.java`
+#### Snippet
+```java
+
+        @Override
+        public boolean offer(T v1, T v2) {
+            throw new UnsupportedOperationException();
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeMergeArray.java`
+#### Snippet
+```java
+
+        @Override
+        public boolean offer(T v1, T v2) {
+            throw new UnsupportedOperationException();
+        }
 ```
 
 ### NullableProblems
@@ -15036,103 +15180,7 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeMergeArray.
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeUnsafeCreate.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(MaybeObserver<? super T> observer) {
-        source.subscribe(observer);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeMergeArray.java`
-#### Snippet
-```java
-
-        @Override
-        public boolean offer(T v1, T v2) {
-            throw new UnsupportedOperationException();
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeMergeArray.java`
-#### Snippet
-```java
-
-        @Override
-        public boolean offer(T v1, T v2) {
-            throw new UnsupportedOperationException();
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeMergeArray.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            set.add(d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeMergeArray.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(T value) {
-            queue.offer(value);
-            drain();
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeMergeArray.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Subscriber<? super T> s) {
-        MaybeSource<? extends T>[] maybes = sources;
-        int n = maybes.length;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeZipIterable.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(MaybeObserver<? super R> observer) {
-        @SuppressWarnings("unchecked")
-        MaybeSource<? extends T>[] a = new MaybeSource[8];
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeEqualSingle.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            parent.error(this, e);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeEqualSingle.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeTakeUntilMaybe.java`
 #### Snippet
 ```java
 
@@ -15144,38 +15192,194 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeEqualSingle
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeEqualSingle.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(SingleObserver<? super Boolean> observer) {
-        EqualCoordinator<T> parent = new EqualCoordinator<>(observer, isEqual);
-        observer.onSubscribe(parent);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeEqualSingle.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(T value) {
-            this.value = value;
-            parent.done();
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeOnErrorNext.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeTakeUntilMaybe.java`
 #### Snippet
 ```java
 
     @Override
     protected void subscribeActual(MaybeObserver<? super T> observer) {
-        source.subscribe(new OnErrorNextMaybeObserver<>(observer, resumeFunction));
+        TakeUntilMainMaybeObserver<T, U> parent = new TakeUntilMainMaybeObserver<>(observer);
+        observer.onSubscribe(parent);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeTakeUntilMaybe.java`
+#### Snippet
+```java
+
+            @Override
+            public void onError(Throwable e) {
+                parent.otherError(e);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeTakeUntilMaybe.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T value) {
+            DisposableHelper.dispose(other);
+            if (getAndSet(DisposableHelper.DISPOSED) != DisposableHelper.DISPOSED) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeTakeUntilMaybe.java`
+#### Snippet
+```java
+
+            @Override
+            public void onSuccess(Object value) {
+                parent.otherComplete();
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeTakeUntilMaybe.java`
+#### Snippet
+```java
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                DisposableHelper.setOnce(this, d);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeTakeUntilMaybe.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            DisposableHelper.dispose(other);
+            if (getAndSet(DisposableHelper.DISPOSED) != DisposableHelper.DISPOSED) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDelayWithCompletable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T value) {
+            downstream.onSuccess(value);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDelayWithCompletable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            downstream.onError(e);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDelayWithCompletable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            downstream.onError(e);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDelayWithCompletable.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(MaybeObserver<? super T> observer) {
+        other.subscribe(new OtherObserver<>(observer, source));
     }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDelayWithCompletable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            DisposableHelper.replace(parent, d);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDelayWithCompletable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.setOnce(this, d)) {
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeIsEmpty.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T value) {
+            downstream.onSuccess(false);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeIsEmpty.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(MaybeObserver<? super Boolean> observer) {
+        source.subscribe(new IsEmptyMaybeObserver<>(observer));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeIsEmpty.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            downstream.onError(e);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeIsEmpty.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
 ```
 
 ### NullableProblems
@@ -15200,102 +15404,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeOnErrorNext
         public void onSuccess(T value) {
             downstream.onSuccess(value);
         }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeOnErrorNext.java`
-#### Snippet
-```java
-
-            @Override
-            public void onError(Throwable e) {
-                downstream.onError(e);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeOnErrorNext.java`
-#### Snippet
-```java
-
-            @Override
-            public void onSubscribe(Disposable d) {
-                DisposableHelper.setOnce(this.upstream, d);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeOnErrorNext.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            MaybeSource<? extends T> m;
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeOnErrorNext.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.setOnce(this, d)) {
-                downstream.onSubscribe(this);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDelayWithCompletable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            DisposableHelper.replace(parent, d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDelayWithCompletable.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(MaybeObserver<? super T> observer) {
-        other.subscribe(new OtherObserver<>(observer, source));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDelayWithCompletable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            downstream.onError(e);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDelayWithCompletable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.setOnce(this, d)) {
-
 ```
 
 ### NullableProblems
@@ -15348,110 +15456,74 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybePeek.java`
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDelayWithCompletable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            downstream.onError(e);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDelayWithCompletable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(T value) {
-            downstream.onSuccess(value);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeTakeUntilMaybe.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(T value) {
-            DisposableHelper.dispose(other);
-            if (getAndSet(DisposableHelper.DISPOSED) != DisposableHelper.DISPOSED) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeTakeUntilMaybe.java`
-#### Snippet
-```java
-
-            @Override
-            public void onSuccess(Object value) {
-                parent.otherComplete();
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeTakeUntilMaybe.java`
-#### Snippet
-```java
-
-            @Override
-            public void onSubscribe(Disposable d) {
-                DisposableHelper.setOnce(this, d);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeTakeUntilMaybe.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeOnErrorNext.java`
 #### Snippet
 ```java
 
             @Override
             public void onError(Throwable e) {
-                parent.otherError(e);
+                downstream.onError(e);
             }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeTakeUntilMaybe.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeOnErrorNext.java`
 #### Snippet
 ```java
 
-        @Override
-        public void onError(Throwable e) {
-            DisposableHelper.dispose(other);
-            if (getAndSet(DisposableHelper.DISPOSED) != DisposableHelper.DISPOSED) {
+            @Override
+            public void onSubscribe(Disposable d) {
+                DisposableHelper.setOnce(this.upstream, d);
+            }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeTakeUntilMaybe.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            DisposableHelper.setOnce(this, d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeTakeUntilMaybe.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeOnErrorNext.java`
 #### Snippet
 ```java
 
     @Override
     protected void subscribeActual(MaybeObserver<? super T> observer) {
-        TakeUntilMainMaybeObserver<T, U> parent = new TakeUntilMainMaybeObserver<>(observer);
-        observer.onSubscribe(parent);
+        source.subscribe(new OnErrorNextMaybeObserver<>(observer, resumeFunction));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeOnErrorNext.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.setOnce(this, d)) {
+                downstream.onSubscribe(this);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeOnErrorNext.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            MaybeSource<? extends T> m;
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDelayOtherPublisher.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T value) {
+            upstream = DisposableHelper.DISPOSED;
+            other.value = value;
 ```
 
 ### NullableProblems
@@ -15485,18 +15557,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDelayOtherP
 ```java
 
         @Override
-        public void onSuccess(T value) {
-            upstream = DisposableHelper.DISPOSED;
-            other.value = value;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDelayOtherPublisher.java`
-#### Snippet
-```java
-
-        @Override
         public void onError(Throwable e) {
             upstream = DisposableHelper.DISPOSED;
             other.error = e;
@@ -15516,19 +15576,7 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDelayOtherP
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeIsEmpty.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            downstream.onError(e);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeIsEmpty.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFromSingle.java`
 #### Snippet
 ```java
 
@@ -15536,102 +15584,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeIsEmpty.jav
         public void onSubscribe(Disposable d) {
             if (DisposableHelper.validate(this.upstream, d)) {
                 this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeIsEmpty.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(T value) {
-            downstream.onSuccess(false);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeIsEmpty.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(MaybeObserver<? super Boolean> observer) {
-        source.subscribe(new IsEmptyMaybeObserver<>(observer));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeAmb.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            if (winner.compareAndSet(false, true)) {
-                set.delete(upstream);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeAmb.java`
-#### Snippet
-```java
-    @Override
-    @SuppressWarnings("unchecked")
-    protected void subscribeActual(MaybeObserver<? super T> observer) {
-        MaybeSource<? extends T>[] sources = this.sources;
-        int count = 0;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeAmb.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(T value) {
-            if (winner.compareAndSet(false, true)) {
-                set.delete(upstream);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeAmb.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            upstream = d;
-            set.add(d);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFromSingle.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(MaybeObserver<? super T> observer) {
-        source.subscribe(new FromSingleObserver<>(observer));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFromSingle.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            upstream = DisposableHelper.DISPOSED;
-            downstream.onError(e);
 ```
 
 ### NullableProblems
@@ -15653,9 +15605,9 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFromSingle.
 ```java
 
         @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
+        public void onError(Throwable e) {
+            upstream = DisposableHelper.DISPOSED;
+            downstream.onError(e);
 ```
 
 ### NullableProblems
@@ -15672,13 +15624,13 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFromSingle.
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeMap.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFromSingle.java`
 #### Snippet
 ```java
 
     @Override
-    protected void subscribeActual(MaybeObserver<? super R> observer) {
-        source.subscribe(new MapMaybeObserver<T, R>(observer, mapper));
+    protected void subscribeActual(MaybeObserver<? super T> observer) {
+        source.subscribe(new FromSingleObserver<>(observer));
     }
 ```
 
@@ -15701,6 +15653,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeMap.java`
 ```java
 
         @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeMap.java`
+#### Snippet
+```java
+
+        @Override
         public void onError(Throwable e) {
             downstream.onError(e);
         }
@@ -15712,34 +15676,10 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeMap.java`
 #### Snippet
 ```java
 
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDoFinally.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDoFinally.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            downstream.onError(t);
-            runFinally();
+    @Override
+    protected void subscribeActual(MaybeObserver<? super R> observer) {
+        source.subscribe(new MapMaybeObserver<T, R>(observer, mapper));
+    }
 ```
 
 ### NullableProblems
@@ -15761,21 +15701,33 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDoFinally.j
 ```java
 
         @Override
-        public void onSuccess(T t) {
-            downstream.onSuccess(t);
+        public void onError(Throwable t) {
+            downstream.onError(t);
             runFinally();
 ```
 
 ### NullableProblems
-Overridden method parameters are not annotated
-in `src/main/java/io/reactivex/rxjava3/core/Maybe.java`
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDoFinally.java`
 #### Snippet
 ```java
-     * @param observer the {@code MaybeObserver} to handle, not {@code null}
-     */
-    protected abstract void subscribeActual(@NonNull MaybeObserver<? super T> observer);
 
-    /**
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDoFinally.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T t) {
+            downstream.onSuccess(t);
+            runFinally();
 ```
 
 ### NullableProblems
@@ -15833,18 +15785,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeToFlowable.
 ```java
 
         @Override
-        public void onSuccess(T value) {
-            complete(value);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeToFlowable.java`
-#### Snippet
-```java
-
-        @Override
         public void onSubscribe(Disposable d) {
             if (DisposableHelper.validate(this.upstream, d)) {
                 this.upstream = d;
@@ -15880,6 +15820,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeToFlowable.
 #### Snippet
 ```java
 
+        @Override
+        public void onSuccess(T value) {
+            complete(value);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeToFlowable.java`
+#### Snippet
+```java
+
     @Override
     protected void subscribeActual(Subscriber<? super T> s) {
         source.subscribe(new MaybeToFlowableSubscriber<>(s));
@@ -15888,26 +15840,62 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeToFlowable.
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDetach.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeAmb.java`
+#### Snippet
+```java
+    @Override
+    @SuppressWarnings("unchecked")
+    protected void subscribeActual(MaybeObserver<? super T> observer) {
+        MaybeSource<? extends T>[] sources = this.sources;
+        int count = 0;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeAmb.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T value) {
+            if (winner.compareAndSet(false, true)) {
+                set.delete(upstream);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeAmb.java`
 #### Snippet
 ```java
 
         @Override
         public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
+            upstream = d;
+            set.add(d);
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDetach.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeAmb.java`
 #### Snippet
 ```java
 
-    @Override
-    protected void subscribeActual(MaybeObserver<? super T> observer) {
-        source.subscribe(new DetachMaybeObserver<>(observer));
-    }
+        @Override
+        public void onError(Throwable e) {
+            if (winner.compareAndSet(false, true)) {
+                set.delete(upstream);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatten.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T value) {
+            MaybeSource<? extends R> source;
+
 ```
 
 ### NullableProblems
@@ -15920,30 +15908,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDetach.java
         public void onError(Throwable e) {
             upstream = DisposableHelper.DISPOSED;
             MaybeObserver<? super T> a = downstream;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDetach.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(T value) {
-            upstream = DisposableHelper.DISPOSED;
-            MaybeObserver<? super T> a = downstream;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatten.java`
-#### Snippet
-```java
-
-            @Override
-            public void onSuccess(R value) {
-                downstream.onSuccess(value);
-            }
 ```
 
 ### NullableProblems
@@ -15960,6 +15924,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatten.jav
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDetach.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(MaybeObserver<? super T> observer) {
+        source.subscribe(new DetachMaybeObserver<>(observer));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatten.java`
 #### Snippet
 ```java
@@ -15968,6 +15944,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatten.jav
         public void onError(Throwable e) {
             downstream.onError(e);
         }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDetach.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T value) {
+            upstream = DisposableHelper.DISPOSED;
+            MaybeObserver<? super T> a = downstream;
 ```
 
 ### NullableProblems
@@ -15988,6 +15976,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatten.jav
 #### Snippet
 ```java
 
+    @Override
+    protected void subscribeActual(MaybeObserver<? super R> observer) {
+        source.subscribe(new FlatMapMaybeObserver<>(observer, mapper));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeDetach.java`
+#### Snippet
+```java
+
         @Override
         public void onSubscribe(Disposable d) {
             if (DisposableHelper.validate(this.upstream, d)) {
@@ -16000,10 +16000,10 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatten.jav
 #### Snippet
 ```java
 
-    @Override
-    protected void subscribeActual(MaybeObserver<? super R> observer) {
-        source.subscribe(new FlatMapMaybeObserver<>(observer, mapper));
-    }
+            @Override
+            public void onSuccess(R value) {
+                downstream.onSuccess(value);
+            }
 ```
 
 ### NullableProblems
@@ -16013,81 +16013,9 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatten.jav
 ```java
 
         @Override
-        public void onSuccess(T value) {
-            MaybeSource<? extends R> source;
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeConcatArray.java`
-#### Snippet
-```java
-
-        @Override
         public void onSubscribe(Disposable d) {
-            disposables.replace(d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeConcatArray.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Subscriber<? super T> s) {
-        ConcatMaybeObserver<T> parent = new ConcatMaybeObserver<>(s, sources);
-        s.onSubscribe(parent);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeConcatArray.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            downstream.onError(e);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeConcatArray.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(T value) {
-            current.lazySet(value);
-            drain();
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeConcatIterable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            downstream.onError(e);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeConcatIterable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            disposables.replace(d);
-        }
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
 ```
 
 ### NullableProblems
@@ -16116,61 +16044,73 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeConcatItera
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapIterableObservable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(T value) {
-            Observer<? super R> a = downstream;
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapIterableObservable.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeConcatIterable.java`
 #### Snippet
 ```java
 
         @Override
         public void onError(Throwable e) {
-            upstream = DisposableHelper.DISPOSED;
             downstream.onError(e);
+        }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapIterableObservable.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeConcatIterable.java`
 #### Snippet
 ```java
 
         @Override
         public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
+            disposables.replace(d);
+        }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapIterableObservable.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeConcatArray.java`
 #### Snippet
 ```java
 
     @Override
-    protected void subscribeActual(Observer<? super R> observer) {
-        source.subscribe(new FlatMapIterableObserver<>(observer, mapper));
-    }
+    protected void subscribeActual(Subscriber<? super T> s) {
+        ConcatMaybeObserver<T> parent = new ConcatMaybeObserver<>(s, sources);
+        s.onSubscribe(parent);
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/CompletableAndThenPublisher.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeConcatArray.java`
 #### Snippet
 ```java
 
         @Override
-        public void onSubscribe(Subscription s) {
-            SubscriptionHelper.deferredSetOnce(this, requested, s);
+        public void onSubscribe(Disposable d) {
+            disposables.replace(d);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeConcatArray.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T value) {
+            current.lazySet(value);
+            drain();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeConcatArray.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            downstream.onError(e);
         }
 ```
 
@@ -16192,6 +16132,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/CompletableAndTh
 #### Snippet
 ```java
 
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/CompletableAndThenPublisher.java`
+#### Snippet
+```java
+
     @Override
     protected void subscribeActual(Subscriber<? super R> s) {
         source.subscribe(new AndThenPublisherSubscriber<R>(s, other));
@@ -16205,20 +16157,128 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/CompletableAndTh
 ```java
 
         @Override
+        public void onSubscribe(Subscription s) {
+            SubscriptionHelper.deferredSetOnce(this, requested, s);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/SingleFlatMapObservable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            downstream.onError(t);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/SingleFlatMapObservable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(R t) {
+            downstream.onNext(t);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/SingleFlatMapObservable.java`
+#### Snippet
+```java
+
+        @Override
         public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(upstream, d)) {
+            DisposableHelper.replace(this, d);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/SingleFlatMapObservable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T t) {
+            ObservableSource<? extends R> o;
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/SingleFlatMapObservable.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Observer<? super R> observer) {
+        FlatMapObserver<T, R> parent = new FlatMapObserver<>(observer, mapper);
+        observer.onSubscribe(parent);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapIterableObservable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
                 this.upstream = d;
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/MaterializeSingleObserver.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapIterableObservable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T value) {
+            Observer<? super R> a = downstream;
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapIterableObservable.java`
 #### Snippet
 ```java
 
     @Override
-    public void onError(Throwable e) {
-        downstream.onSuccess(Notification.createOnError(e));
+    protected void subscribeActual(Observer<? super R> observer) {
+        source.subscribe(new FlatMapIterableObserver<>(observer, mapper));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeFlatMapIterableObservable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            upstream = DisposableHelper.DISPOSED;
+            downstream.onError(e);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableConcatMapMaybePublisher.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Subscriber<? super R> s) {
+        source.subscribe(new ConcatMapMaybeSubscriber<>(s, mapper, prefetch, errorMode));
     }
 ```
 
@@ -16248,13 +16308,13 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/MaterializeSingl
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableConcatMapMaybePublisher.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/MaterializeSingleObserver.java`
 #### Snippet
 ```java
 
     @Override
-    protected void subscribeActual(Subscriber<? super R> s) {
-        source.subscribe(new ConcatMapMaybeSubscriber<>(s, mapper, prefetch, errorMode));
+    public void onError(Throwable e) {
+        downstream.onSuccess(Notification.createOnError(e));
     }
 ```
 
@@ -16268,6 +16328,66 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableSwitchMa
     protected void subscribeActual(Subscriber<? super R> s) {
         source.subscribe(new FlowableSwitchMapSingle.SwitchMapSingleSubscriber<>(s, mapper, delayErrors));
     }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeTimeoutMaybe.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T value) {
+            DisposableHelper.dispose(other);
+            if (getAndSet(DisposableHelper.DISPOSED) != DisposableHelper.DISPOSED) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeTimeoutMaybe.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T value) {
+            downstream.onSuccess(value);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeTimeoutMaybe.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(Object value) {
+            parent.otherComplete();
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeTimeoutMaybe.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            DisposableHelper.setOnce(this, d);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeTimeoutMaybe.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            DisposableHelper.setOnce(this, d);
+        }
 ```
 
 ### NullableProblems
@@ -16301,66 +16421,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeTimeoutMayb
 ```java
 
         @Override
-        public void onSubscribe(Disposable d) {
-            DisposableHelper.setOnce(this, d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeTimeoutMaybe.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(T value) {
-            downstream.onSuccess(value);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeTimeoutMaybe.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            DisposableHelper.setOnce(this, d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeTimeoutMaybe.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            DisposableHelper.setOnce(this, d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeTimeoutMaybe.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(Object value) {
-            parent.otherComplete();
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeTimeoutMaybe.java`
-#### Snippet
-```java
-
-        @Override
         public void onError(Throwable e) {
             downstream.onError(e);
         }
@@ -16385,69 +16445,9 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeTimeoutMayb
 ```java
 
         @Override
-        public void onSuccess(T value) {
-            DisposableHelper.dispose(other);
-            if (getAndSet(DisposableHelper.DISPOSED) != DisposableHelper.DISPOSED) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/SingleFlatMapObservable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            downstream.onError(t);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/SingleFlatMapObservable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(R t) {
-            downstream.onNext(t);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/SingleFlatMapObservable.java`
-#### Snippet
-```java
-
-        @Override
         public void onSubscribe(Disposable d) {
-            DisposableHelper.replace(this, d);
+            DisposableHelper.setOnce(this, d);
         }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/SingleFlatMapObservable.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Observer<? super R> observer) {
-        FlatMapObserver<T, R> parent = new FlatMapObserver<>(observer, mapper);
-        observer.onSubscribe(parent);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/SingleFlatMapObservable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(T t) {
-            ObservableSource<? extends R> o;
-
 ```
 
 ### NullableProblems
@@ -16460,6 +16460,78 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeCache.java`
     public void onSubscribe(Disposable d) {
         // deliberately ignored
     }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeCache.java`
+#### Snippet
+```java
+    @SuppressWarnings("unchecked")
+    @Override
+    public void onSuccess(T value) {
+        this.value = value;
+        for (CacheDisposable<T> inner : observers.getAndSet(TERMINATED)) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/MaybeFlatMapPublisher.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            downstream.onError(t);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/MaybeFlatMapPublisher.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            SubscriptionHelper.deferredSetOnce(this, requested, s);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/MaybeFlatMapPublisher.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Subscriber<? super R> s) {
+        source.subscribe(new FlatMapPublisherSubscriber<>(s, mapper));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/MaybeFlatMapPublisher.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T t) {
+            Publisher<? extends R> p;
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/MaybeFlatMapPublisher.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(upstream, d)) {
+                this.upstream = d;
 ```
 
 ### NullableProblems
@@ -16488,67 +16560,7 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeCache.java`
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/maybe/MaybeCache.java`
-#### Snippet
-```java
-    @SuppressWarnings("unchecked")
-    @Override
-    public void onSuccess(T value) {
-        this.value = value;
-        for (CacheDisposable<T> inner : observers.getAndSet(TERMINATED)) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/MaybeFlatMapPublisher.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Subscriber<? super R> s) {
-        source.subscribe(new FlatMapPublisherSubscriber<>(s, mapper));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/MaybeFlatMapPublisher.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/MaybeFlatMapPublisher.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(T t) {
-            Publisher<? extends R> p;
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/MaybeFlatMapPublisher.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            SubscriptionHelper.deferredSetOnce(this, requested, s);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/MaybeFlatMapPublisher.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/MaybeFlatMapObservable.java`
 #### Snippet
 ```java
 
@@ -16576,18 +16588,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/MaybeFlatMapObse
 #### Snippet
 ```java
 
-        @Override
-        public void onError(Throwable t) {
-            downstream.onError(t);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/MaybeFlatMapObservable.java`
-#### Snippet
-```java
-
     @Override
     protected void subscribeActual(Observer<? super R> observer) {
         FlatMapObserver<T, R> parent = new FlatMapObserver<>(observer, mapper);
@@ -16601,8 +16601,8 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/MaybeFlatMapObse
 ```java
 
         @Override
-        public void onNext(R t) {
-            downstream.onNext(t);
+        public void onSubscribe(Disposable d) {
+            DisposableHelper.replace(this, d);
         }
 ```
 
@@ -16613,8 +16613,8 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/MaybeFlatMapObse
 ```java
 
         @Override
-        public void onSubscribe(Disposable d) {
-            DisposableHelper.replace(this, d);
+        public void onNext(R t) {
+            downstream.onNext(t);
         }
 ```
 
@@ -16668,174 +16668,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableConcatMa
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableSwitchMapMaybe.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Subscriber<? super R> s) {
-        source.subscribe(new SwitchMapMaybeSubscriber<>(s, mapper, delayErrors));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableSwitchMapMaybe.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(upstream, s)) {
-                upstream = s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableSwitchMapMaybe.java`
-#### Snippet
-```java
-
-            @Override
-            public void onSuccess(R t) {
-                item = t;
-                parent.drain();
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableSwitchMapMaybe.java`
-#### Snippet
-```java
-
-            @Override
-            public void onError(Throwable e) {
-                parent.innerError(this, e);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableSwitchMapMaybe.java`
-#### Snippet
-```java
-
-            @Override
-            public void onSubscribe(Disposable d) {
-                DisposableHelper.setOnce(this, d);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableSwitchMapSingle.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            if (errors.tryAddThrowableOrReport(t)) {
-                if (!delayErrors) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableSwitchMapSingle.java`
-#### Snippet
-```java
-        @Override
-        @SuppressWarnings({ "unchecked", "rawtypes" })
-        public void onNext(T t) {
-            SwitchMapSingleObserver<R> current = inner.get();
-            if (current != null) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableSwitchMapSingle.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(upstream, d)) {
-                upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableSwitchMapSingle.java`
-#### Snippet
-```java
-
-            @Override
-            public void onSubscribe(Disposable d) {
-                DisposableHelper.setOnce(this, d);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableSwitchMapSingle.java`
-#### Snippet
-```java
-
-            @Override
-            public void onSuccess(R t) {
-                item = t;
-                parent.drain();
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableSwitchMapSingle.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Observer<? super R> observer) {
-        if (!ScalarXMapZHelper.tryAsSingle(source, mapper, observer)) {
-            source.subscribe(new SwitchMapSingleMainObserver<>(observer, mapper, delayErrors));
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableSwitchMapSingle.java`
-#### Snippet
-```java
-
-            @Override
-            public void onError(Throwable e) {
-                parent.innerError(this, e);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableConcatMapSinglePublisher.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Subscriber<? super R> s) {
-        source.subscribe(new ConcatMapSingleSubscriber<>(s, mapper, prefetch, errorMode));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableSwitchMapMaybe.java`
-#### Snippet
-```java
-
-            @Override
-            public void onSuccess(R t) {
-                item = t;
-                parent.drain();
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableSwitchMapMaybe.java`
 #### Snippet
 ```java
@@ -16844,6 +16676,42 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableSwitch
         public void onNext(T t) {
             SwitchMapMaybeObserver<R> current = inner.get();
             if (current != null) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableSwitchMapMaybe.java`
+#### Snippet
+```java
+
+            @Override
+            public void onSuccess(R t) {
+                item = t;
+                parent.drain();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableSwitchMapMaybe.java`
+#### Snippet
+```java
+
+            @Override
+            public void onError(Throwable e) {
+                parent.innerError(this, e);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableSwitchMapMaybe.java`
+#### Snippet
+```java
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                DisposableHelper.setOnce(this, d);
+            }
 ```
 
 ### NullableProblems
@@ -16864,10 +16732,10 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableSwitch
 #### Snippet
 ```java
 
-            @Override
-            public void onSubscribe(Disposable d) {
-                DisposableHelper.setOnce(this, d);
-            }
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(upstream, d)) {
+                upstream = d;
 ```
 
 ### NullableProblems
@@ -16884,7 +16752,31 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableSwitch
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableSwitchMapMaybe.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableSwitchMapMaybe.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Subscriber<? super R> s) {
+        source.subscribe(new SwitchMapMaybeSubscriber<>(s, mapper, delayErrors));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableSwitchMapMaybe.java`
+#### Snippet
+```java
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                DisposableHelper.setOnce(this, d);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableSwitchMapMaybe.java`
 #### Snippet
 ```java
 
@@ -16896,14 +16788,38 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableSwitch
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableSwitchMapMaybe.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableSwitchMapMaybe.java`
+#### Snippet
+```java
+
+            @Override
+            public void onSuccess(R t) {
+                item = t;
+                parent.drain();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableSwitchMapMaybe.java`
 #### Snippet
 ```java
 
         @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(upstream, d)) {
-                upstream = d;
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(upstream, s)) {
+                upstream = s;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableConcatMapSinglePublisher.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Subscriber<? super R> s) {
+        source.subscribe(new ConcatMapSingleSubscriber<>(s, mapper, prefetch, errorMode));
+    }
 ```
 
 ### NullableProblems
@@ -16912,10 +16828,10 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableSwitchMa
 #### Snippet
 ```java
 
-            @Override
-            public void onError(Throwable e) {
-                parent.innerError(this, e);
-            }
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(upstream, s)) {
+                this.upstream = s;
 ```
 
 ### NullableProblems
@@ -16948,81 +16864,9 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableSwitchMa
 #### Snippet
 ```java
 
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(upstream, s)) {
-                this.upstream = s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/CompletableAndThenObservable.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Observer<? super R> observer) {
-        AndThenObservableObserver<R> parent = new AndThenObservableObserver<>(observer, other);
-        observer.onSubscribe(parent);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/CompletableAndThenObservable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(R t) {
-            downstream.onNext(t);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/CompletableAndThenObservable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            DisposableHelper.replace(this, d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/CompletableAndThenObservable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            downstream.onError(t);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableConcatMapMaybe.java`
-#### Snippet
-```java
-
             @Override
-            public void onSuccess(R t) {
-                parent.innerSuccess(t);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableConcatMapMaybe.java`
-#### Snippet
-```java
-
-            @Override
-            public void onSubscribe(Disposable d) {
-                DisposableHelper.replace(this, d);
+            public void onError(Throwable e) {
+                parent.innerError(this, e);
             }
 ```
 
@@ -17045,9 +16889,165 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableConcatMa
 ```java
 
             @Override
+            public void onSubscribe(Disposable d) {
+                DisposableHelper.replace(this, d);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableConcatMapMaybe.java`
+#### Snippet
+```java
+
+            @Override
             public void onError(Throwable e) {
                 parent.innerError(e);
             }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableConcatMapMaybe.java`
+#### Snippet
+```java
+
+            @Override
+            public void onSuccess(R t) {
+                parent.innerSuccess(t);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableSwitchMapSingle.java`
+#### Snippet
+```java
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                DisposableHelper.setOnce(this, d);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableSwitchMapSingle.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            if (errors.tryAddThrowableOrReport(t)) {
+                if (!delayErrors) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableSwitchMapSingle.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(upstream, d)) {
+                upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableSwitchMapSingle.java`
+#### Snippet
+```java
+
+            @Override
+            public void onError(Throwable e) {
+                parent.innerError(this, e);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableSwitchMapSingle.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Observer<? super R> observer) {
+        if (!ScalarXMapZHelper.tryAsSingle(source, mapper, observer)) {
+            source.subscribe(new SwitchMapSingleMainObserver<>(observer, mapper, delayErrors));
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableSwitchMapSingle.java`
+#### Snippet
+```java
+
+            @Override
+            public void onSuccess(R t) {
+                item = t;
+                parent.drain();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableSwitchMapSingle.java`
+#### Snippet
+```java
+        @Override
+        @SuppressWarnings({ "unchecked", "rawtypes" })
+        public void onNext(T t) {
+            SwitchMapSingleObserver<R> current = inner.get();
+            if (current != null) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/CompletableAndThenObservable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            downstream.onError(t);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/CompletableAndThenObservable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            DisposableHelper.replace(this, d);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/CompletableAndThenObservable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(R t) {
+            downstream.onNext(t);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/CompletableAndThenObservable.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Observer<? super R> observer) {
+        AndThenObservableObserver<R> parent = new AndThenObservableObserver<>(observer, other);
+        observer.onSubscribe(parent);
 ```
 
 ### NullableProblems
@@ -17064,14 +17064,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableSwitchMa
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableSwitchMapCompletablePublisher.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableSwitchMapSingle.java`
 #### Snippet
 ```java
 
-    @Override
-    protected void subscribeActual(CompletableObserver observer) {
-        source.subscribe(new FlowableSwitchMapCompletable.SwitchMapCompletableObserver<>(observer, mapper, delayErrors));
-    }
+            @Override
+            public void onSuccess(R t) {
+                item = t;
+                parent.drain();
 ```
 
 ### NullableProblems
@@ -17084,18 +17084,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableSwitchMa
         public void onSubscribe(Subscription s) {
             if (SubscriptionHelper.validate(upstream, s)) {
                 upstream = s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableSwitchMapSingle.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Subscriber<? super R> s) {
-        source.subscribe(new SwitchMapSingleSubscriber<>(s, mapper, delayErrors));
-    }
 ```
 
 ### NullableProblems
@@ -17128,10 +17116,58 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableSwitchMa
 #### Snippet
 ```java
 
+    @Override
+    protected void subscribeActual(Subscriber<? super R> s) {
+        source.subscribe(new SwitchMapSingleSubscriber<>(s, mapper, delayErrors));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableSwitchMapCompletablePublisher.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(CompletableObserver observer) {
+        source.subscribe(new FlowableSwitchMapCompletable.SwitchMapCompletableObserver<>(observer, mapper, delayErrors));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableConcatMapCompletable.java`
+#### Snippet
+```java
+
             @Override
-            public void onSuccess(R t) {
-                item = t;
-                parent.drain();
+            public void onSubscribe(Disposable d) {
+                DisposableHelper.replace(this, d);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableConcatMapCompletable.java`
+#### Snippet
+```java
+
+            @Override
+            public void onError(Throwable e) {
+                parent.innerError(e);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableConcatMapCompletable.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(CompletableObserver observer) {
+        if (!ScalarXMapZHelper.tryAsCompletable(source, mapper, observer)) {
+            source.subscribe(new ConcatMapCompletableObserver<>(observer, mapper, errorMode, prefetch));
 ```
 
 ### NullableProblems
@@ -17184,42 +17220,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFromUnsaf
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableConcatMapCompletable.java`
-#### Snippet
-```java
-
-            @Override
-            public void onSubscribe(Disposable d) {
-                DisposableHelper.replace(this, d);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableConcatMapCompletable.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(CompletableObserver observer) {
-        if (!ScalarXMapZHelper.tryAsCompletable(source, mapper, observer)) {
-            source.subscribe(new ConcatMapCompletableObserver<>(observer, mapper, errorMode, prefetch));
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableConcatMapCompletable.java`
-#### Snippet
-```java
-
-            @Override
-            public void onError(Throwable e) {
-                parent.innerError(e);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableSwitchMapCompletable.java`
 #### Snippet
 ```java
@@ -17228,30 +17228,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableSwitch
         public void onError(Throwable t) {
             if (errors.tryAddThrowableOrReport(t)) {
                 if (delayErrors) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableSwitchMapCompletable.java`
-#### Snippet
-```java
-
-            @Override
-            public void onError(Throwable e) {
-                parent.innerError(this, e);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableSwitchMapCompletable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(upstream, d)) {
-                this.upstream = d;
 ```
 
 ### NullableProblems
@@ -17273,9 +17249,33 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableSwitch
 ```java
 
             @Override
+            public void onError(Throwable e) {
+                parent.innerError(this, e);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableSwitchMapCompletable.java`
+#### Snippet
+```java
+
+            @Override
             public void onSubscribe(Disposable d) {
                 DisposableHelper.setOnce(this, d);
             }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableSwitchMapCompletable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(upstream, d)) {
+                this.upstream = d;
 ```
 
 ### NullableProblems
@@ -17292,26 +17292,86 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableSwitch
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleResumeNext.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleTimeout.java`
 #### Snippet
 ```java
 
         @Override
         public void onError(Throwable e) {
-            SingleSource<? extends T> source;
-
+            Disposable d = get();
+            if (d != DisposableHelper.DISPOSED && compareAndSet(d, DisposableHelper.DISPOSED)) {
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleResumeNext.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleTimeout.java`
+#### Snippet
+```java
+
+            @Override
+            public void onSuccess(T t) {
+                downstream.onSuccess(t);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleTimeout.java`
 #### Snippet
 ```java
 
         @Override
-        public void onSuccess(T value) {
-            downstream.onSuccess(value);
+        public void onSubscribe(Disposable d) {
+            DisposableHelper.setOnce(this, d);
         }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleTimeout.java`
+#### Snippet
+```java
+
+            @Override
+            public void onError(Throwable e) {
+                downstream.onError(e);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleTimeout.java`
+#### Snippet
+```java
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                DisposableHelper.setOnce(this, d);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleTimeout.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T t) {
+            Disposable d = get();
+            if (d != DisposableHelper.DISPOSED && compareAndSet(d, DisposableHelper.DISPOSED)) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleTimeout.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(final SingleObserver<? super T> observer) {
+
+        TimeoutMainObserver<T> parent = new TimeoutMainObserver<>(observer, other, timeout, unit);
 ```
 
 ### NullableProblems
@@ -17333,6 +17393,30 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleResumeNex
 ```java
 
         @Override
+        public void onSuccess(T value) {
+            downstream.onSuccess(value);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleResumeNext.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            SingleSource<? extends T> source;
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleResumeNext.java`
+#### Snippet
+```java
+
+        @Override
         public void onSubscribe(Disposable d) {
             if (DisposableHelper.setOnce(this, d)) {
                 downstream.onSubscribe(this);
@@ -17340,199 +17424,7 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleResumeNex
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnSuccess.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            downstream.onSubscribe(d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnSuccess.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            downstream.onError(e);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnSuccess.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(T value) {
-            try {
-                onSuccess.accept(value);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnSuccess.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(final SingleObserver<? super T> observer) {
-
-        source.subscribe(new DoOnSuccess(observer));
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleTimeout.java`
-#### Snippet
-```java
-
-            @Override
-            public void onSuccess(T t) {
-                downstream.onSuccess(t);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleTimeout.java`
-#### Snippet
-```java
-
-            @Override
-            public void onSubscribe(Disposable d) {
-                DisposableHelper.setOnce(this, d);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleTimeout.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            DisposableHelper.setOnce(this, d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleTimeout.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(T t) {
-            Disposable d = get();
-            if (d != DisposableHelper.DISPOSED && compareAndSet(d, DisposableHelper.DISPOSED)) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleTimeout.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            Disposable d = get();
-            if (d != DisposableHelper.DISPOSED && compareAndSet(d, DisposableHelper.DISPOSED)) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleTimeout.java`
-#### Snippet
-```java
-
-            @Override
-            public void onError(Throwable e) {
-                downstream.onError(e);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleTimeout.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(final SingleObserver<? super T> observer) {
-
-        TimeoutMainObserver<T> parent = new TimeoutMainObserver<>(observer, other, timeout, unit);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoFinally.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(T t) {
-            downstream.onSuccess(t);
-            runFinally();
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoFinally.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(SingleObserver<? super T> observer) {
-        source.subscribe(new DoFinallyObserver<>(observer, onFinally));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoFinally.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            downstream.onError(t);
-            runFinally();
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoFinally.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableConcatMapSingle.java`
-#### Snippet
-```java
-
-            @Override
-            public void onSuccess(R t) {
-                parent.innerSuccess(t);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableConcatMapSingle.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableConcatMapMaybe.java`
 #### Snippet
 ```java
 
@@ -17540,90 +17432,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableConcat
             public void onSubscribe(Disposable d) {
                 DisposableHelper.replace(this, d);
             }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableConcatMapSingle.java`
-#### Snippet
-```java
-
-            @Override
-            public void onError(Throwable e) {
-                parent.innerError(e);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleTakeUntil.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            DisposableHelper.setOnce(this, d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableConcatMapSingle.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Observer<? super R> observer) {
-        if (!ScalarXMapZHelper.tryAsSingle(source, mapper, observer)) {
-            source.subscribe(new ConcatMapSingleMainObserver<>(observer, mapper, prefetch, errorMode));
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleTakeUntil.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(SingleObserver<? super T> observer) {
-        TakeUntilMainObserver<T> parent = new TakeUntilMainObserver<>(observer);
-        observer.onSubscribe(parent);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleTakeUntil.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            other.dispose();
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleTakeUntil.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(T value) {
-            other.dispose();
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleTakeUntil.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            SubscriptionHelper.setOnce(this, s, Long.MAX_VALUE);
-        }
 ```
 
 ### NullableProblems
@@ -17636,6 +17444,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableConcat
             public void onSuccess(R t) {
                 parent.innerSuccess(t);
             }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoFinally.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            downstream.onError(t);
+            runFinally();
 ```
 
 ### NullableProblems
@@ -17664,7 +17484,67 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableConcat
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableConcatMapMaybe.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoFinally.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoFinally.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T t) {
+            downstream.onSuccess(t);
+            runFinally();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoFinally.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(SingleObserver<? super T> observer) {
+        source.subscribe(new DoFinallyObserver<>(observer, onFinally));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableConcatMapSingle.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Observer<? super R> observer) {
+        if (!ScalarXMapZHelper.tryAsSingle(source, mapper, observer)) {
+            source.subscribe(new ConcatMapSingleMainObserver<>(observer, mapper, prefetch, errorMode));
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableConcatMapSingle.java`
+#### Snippet
+```java
+
+            @Override
+            public void onSuccess(R t) {
+                parent.innerSuccess(t);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableConcatMapSingle.java`
 #### Snippet
 ```java
 
@@ -17672,6 +17552,138 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableConcat
             public void onSubscribe(Disposable d) {
                 DisposableHelper.replace(this, d);
             }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/ObservableConcatMapSingle.java`
+#### Snippet
+```java
+
+            @Override
+            public void onError(Throwable e) {
+                parent.innerError(e);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnSuccess.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T value) {
+            try {
+                onSuccess.accept(value);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnSuccess.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            downstream.onError(e);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnSuccess.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            downstream.onSubscribe(d);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnSuccess.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(final SingleObserver<? super T> observer) {
+
+        source.subscribe(new DoOnSuccess(observer));
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleTakeUntil.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T value) {
+            other.dispose();
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleTakeUntil.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            other.dispose();
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleTakeUntil.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            SubscriptionHelper.setOnce(this, s, Long.MAX_VALUE);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleTakeUntil.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(SingleObserver<? super T> observer) {
+        TakeUntilMainObserver<T> parent = new TakeUntilMainObserver<>(observer);
+        observer.onSubscribe(parent);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleTakeUntil.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            DisposableHelper.setOnce(this, d);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapCompletable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            DisposableHelper.replace(this, d);
+        }
 ```
 
 ### NullableProblems
@@ -17712,62 +17724,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapCo
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapCompletable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            DisposableHelper.replace(this, d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDetach.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(T value) {
-            upstream = DisposableHelper.DISPOSED;
-            SingleObserver<? super T> a = downstream;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDetach.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableConcatMapSingle.java`
 #### Snippet
 ```java
 
     @Override
-    protected void subscribeActual(SingleObserver<? super T> observer) {
-        source.subscribe(new DetachSingleObserver<>(observer));
+    protected void subscribeActual(Subscriber<? super R> s) {
+        source.subscribe(new ConcatMapSingleSubscriber<>(s, mapper, prefetch, errorMode));
     }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDetach.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDetach.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            upstream = DisposableHelper.DISPOSED;
-            SingleObserver<? super T> a = downstream;
 ```
 
 ### NullableProblems
@@ -17788,10 +17752,10 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableConcatMa
 #### Snippet
 ```java
 
-    @Override
-    protected void subscribeActual(Subscriber<? super R> s) {
-        source.subscribe(new ConcatMapSingleSubscriber<>(s, mapper, prefetch, errorMode));
-    }
+            @Override
+            public void onSubscribe(Disposable d) {
+                DisposableHelper.replace(this, d);
+            }
 ```
 
 ### NullableProblems
@@ -17808,14 +17772,50 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableConcatMa
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/mixed/FlowableConcatMapSingle.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDetach.java`
 #### Snippet
 ```java
 
-            @Override
-            public void onSubscribe(Disposable d) {
-                DisposableHelper.replace(this, d);
-            }
+        @Override
+        public void onSuccess(T value) {
+            upstream = DisposableHelper.DISPOSED;
+            SingleObserver<? super T> a = downstream;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDetach.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            upstream = DisposableHelper.DISPOSED;
+            SingleObserver<? super T> a = downstream;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDetach.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDetach.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(SingleObserver<? super T> observer) {
+        source.subscribe(new DetachSingleObserver<>(observer));
+    }
 ```
 
 ### NullableProblems
@@ -17844,14 +17844,26 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFromPubli
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFromPublisher.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDelayWithObservable.java`
 #### Snippet
 ```java
 
-    @Override
-    protected void subscribeActual(final SingleObserver<? super T> observer) {
-        publisher.subscribe(new ToSingleObserver<T>(observer));
-    }
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.setOnce(this, d)) {
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDelayWithObservable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            if (done) {
+                RxJavaPlugins.onError(e);
 ```
 
 ### NullableProblems
@@ -17873,14 +17885,26 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDelayWith
 ```java
 
         @Override
-        public void onError(Throwable e) {
-            if (done) {
-                RxJavaPlugins.onError(e);
+        public void onNext(U value) {
+            get().dispose();
+            onComplete();
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDelayWithObservable.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFromPublisher.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(final SingleObserver<? super T> observer) {
+        publisher.subscribe(new ToSingleObserver<T>(observer));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDelayWithSingle.java`
 #### Snippet
 ```java
 
@@ -17892,14 +17916,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDelayWith
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDelayWithObservable.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDelayWithSingle.java`
 #### Snippet
 ```java
 
         @Override
-        public void onNext(U value) {
-            get().dispose();
-            onComplete();
+        public void onSuccess(U value) {
+            source.subscribe(new ResumeSingleObserver<>(this, downstream));
+        }
 ```
 
 ### NullableProblems
@@ -17920,18 +17944,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDelayWith
 #### Snippet
 ```java
 
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.setOnce(this, d)) {
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDelayWithSingle.java`
-#### Snippet
-```java
-
     @Override
     protected void subscribeActual(SingleObserver<? super T> observer) {
         other.subscribe(new OtherObserver<>(observer, source));
@@ -17940,14 +17952,158 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDelayWith
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDelayWithSingle.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapMaybe.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(MaybeObserver<? super R> downstream) {
+        source.subscribe(new FlatMapSingleObserver<T, R>(downstream, mapper));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapMaybe.java`
 #### Snippet
 ```java
 
         @Override
-        public void onSuccess(U value) {
-            source.subscribe(new ResumeSingleObserver<>(this, downstream));
+        public void onSuccess(final R value) {
+            downstream.onSuccess(value);
         }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapMaybe.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(final Disposable d) {
+            DisposableHelper.replace(parent, d);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapMaybe.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            downstream.onError(e);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapMaybe.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.setOnce(this, d)) {
+                downstream.onSubscribe(this);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapMaybe.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T value) {
+            MaybeSource<? extends R> ms;
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapMaybe.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(final Throwable e) {
+            downstream.onError(e);
+        }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NotNull
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleInternalHelper.java`
+#### Snippet
+```java
+
+        @Override
+        public Iterator<Flowable<T>> iterator() {
+            return new ToFlowableIterator<>(sources.iterator());
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleToObservable.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(final Observer<? super T> observer) {
+        source.subscribe(create(observer));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleToObservable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            error(e);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleToObservable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T value) {
+            complete(value);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleToObservable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleTimer.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(final SingleObserver<? super Long> observer) {
+        TimerDisposable parent = new TimerDisposable(observer);
+        observer.onSubscribe(parent);
 ```
 
 ### NullableProblems
@@ -17971,198 +18127,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleToFlowabl
     @Override
     public void subscribeActual(final Subscriber<? super T> s) {
         source.subscribe(new SingleToFlowableObserver<T>(s));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleToFlowable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(T value) {
-            complete(value);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleToFlowable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NotNull
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleInternalHelper.java`
-#### Snippet
-```java
-
-        @Override
-        public Iterator<Flowable<T>> iterator() {
-            return new ToFlowableIterator<>(sources.iterator());
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapMaybe.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.setOnce(this, d)) {
-                downstream.onSubscribe(this);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapMaybe.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(final Disposable d) {
-            DisposableHelper.replace(parent, d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapMaybe.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(MaybeObserver<? super R> downstream) {
-        source.subscribe(new FlatMapSingleObserver<T, R>(downstream, mapper));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapMaybe.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(T value) {
-            MaybeSource<? extends R> ms;
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapMaybe.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(final R value) {
-            downstream.onSuccess(value);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapMaybe.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(final Throwable e) {
-            downstream.onError(e);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapMaybe.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            downstream.onError(e);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleToObservable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            error(e);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleToObservable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleToObservable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(T value) {
-            complete(value);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleToObservable.java`
-#### Snippet
-```java
-
-    @Override
-    public void subscribeActual(final Observer<? super T> observer) {
-        source.subscribe(create(observer));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapIterableObservable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapIterableObservable.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Observer<? super R> observer) {
-        source.subscribe(new FlatMapIterableObserver<>(observer, mapper));
     }
 ```
 
@@ -18192,26 +18156,110 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapIt
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleTimer.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapIterableObservable.java`
 #### Snippet
 ```java
 
-    @Override
-    protected void subscribeActual(final SingleObserver<? super Long> observer) {
-        TimerDisposable parent = new TimerDisposable(observer);
-        observer.onSubscribe(parent);
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleZipIterable.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapIterableObservable.java`
 #### Snippet
 ```java
 
     @Override
-    protected void subscribeActual(SingleObserver<? super R> observer) {
-        @SuppressWarnings("unchecked")
-        SingleSource<? extends T>[] a = new SingleSource[8];
+    protected void subscribeActual(Observer<? super R> observer) {
+        source.subscribe(new FlatMapIterableObserver<>(observer, mapper));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleToFlowable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T value) {
+            complete(value);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleToFlowable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleObserveOn.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T value) {
+            this.value = value;
+            Disposable d = scheduler.scheduleDirect(this);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleObserveOn.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.setOnce(this, d)) {
+                downstream.onSubscribe(this);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleObserveOn.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(final SingleObserver<? super T> observer) {
+        source.subscribe(new ObserveOnSingleObserver<>(observer, scheduler));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleObserveOn.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            this.error = e;
+            Disposable d = scheduler.scheduleDirect(this);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleHide.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(SingleObserver<? super T> observer) {
+        source.subscribe(new HideSingleObserver<T>(observer));
+    }
 ```
 
 ### NullableProblems
@@ -18252,62 +18300,38 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleHide.java
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleHide.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleZipIterable.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(SingleObserver<? super R> observer) {
+        @SuppressWarnings("unchecked")
+        SingleSource<? extends T>[] a = new SingleSource[8];
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnLifecycle.java`
 #### Snippet
 ```java
 
     @Override
     protected void subscribeActual(SingleObserver<? super T> observer) {
-        source.subscribe(new HideSingleObserver<T>(observer));
+        source.subscribe(new SingleLifecycleObserver<>(observer, onSubscribe, onDispose));
     }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleObserveOn.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleMap.java`
 #### Snippet
 ```java
 
         @Override
         public void onSubscribe(Disposable d) {
-            if (DisposableHelper.setOnce(this, d)) {
-                downstream.onSubscribe(this);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleObserveOn.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(T value) {
-            this.value = value;
-            Disposable d = scheduler.scheduleDirect(this);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleObserveOn.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            this.error = e;
-            Disposable d = scheduler.scheduleDirect(this);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleObserveOn.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(final SingleObserver<? super T> observer) {
-        source.subscribe(new ObserveOnSingleObserver<>(observer, scheduler));
-    }
+            t.onSubscribe(d);
+        }
 ```
 
 ### NullableProblems
@@ -18348,170 +18372,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleMap.java`
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleMap.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnSubscribe.java`
 #### Snippet
 ```java
 
         @Override
         public void onSubscribe(Disposable d) {
-            t.onSubscribe(d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnLifecycle.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(SingleObserver<? super T> observer) {
-        source.subscribe(new SingleLifecycleObserver<>(observer, onSubscribe, onDispose));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnTerminate.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(T value) {
             try {
-                onTerminate.run();
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnTerminate.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            downstream.onSubscribe(d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnTerminate.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            try {
-                onTerminate.run();
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnTerminate.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(final SingleObserver<? super T> observer) {
-        source.subscribe(new DoOnTerminate(observer));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleZipArray.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            parent.innerError(e, index);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleZipArray.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(SingleObserver<? super R> observer) {
-        SingleSource<? extends T>[] sources = this.sources;
-        int n = sources.length;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleZipArray.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            DisposableHelper.setOnce(this, d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleZipArray.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(T value) {
-            parent.innerSuccess(value, index);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleUsing.java`
-#### Snippet
-```java
-        @SuppressWarnings("unchecked")
-        @Override
-        public void onError(Throwable e) {
-            upstream = DisposableHelper.DISPOSED;
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleUsing.java`
-#### Snippet
-```java
-        @SuppressWarnings("unchecked")
-        @Override
-        public void onSuccess(T value) {
-            upstream = DisposableHelper.DISPOSED;
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleUsing.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(final SingleObserver<? super T> observer) {
-
-        final U resource; // NOPMD
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleUsing.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
+                onSubscribe.accept(d);
 ```
 
 ### NullableProblems
@@ -18521,9 +18389,9 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnSubsc
 ```java
 
         @Override
-        public void onSubscribe(Disposable d) {
-            try {
-                onSubscribe.accept(d);
+        public void onError(Throwable e) {
+            if (done) {
+                RxJavaPlugins.onError(e);
 ```
 
 ### NullableProblems
@@ -18552,74 +18420,158 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnSubsc
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnSubscribe.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            if (done) {
-                RxJavaPlugins.onError(e);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleAmb.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(T value) {
-            if (winner.compareAndSet(false, true)) {
-                set.delete(upstream);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleAmb.java`
-#### Snippet
-```java
-    @Override
-    @SuppressWarnings("unchecked")
-    protected void subscribeActual(final SingleObserver<? super T> observer) {
-        SingleSource<? extends T>[] sources = this.sources;
-        int count = 0;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleAmb.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            if (winner.compareAndSet(false, true)) {
-                set.delete(upstream);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleAmb.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleZipArray.java`
 #### Snippet
 ```java
 
         @Override
         public void onSubscribe(Disposable d) {
-            this.upstream = d;
-            set.add(d);
+            DisposableHelper.setOnce(this, d);
+        }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleOnErrorComplete.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleZipArray.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            parent.innerError(e, index);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleZipArray.java`
 #### Snippet
 ```java
 
     @Override
-    protected void subscribeActual(MaybeObserver<? super T> observer) {
-        source.subscribe(new MaybeOnErrorComplete.OnErrorCompleteMultiObserver<T>(observer, predicate));
+    protected void subscribeActual(SingleObserver<? super R> observer) {
+        SingleSource<? extends T>[] sources = this.sources;
+        int n = sources.length;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnTerminate.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T value) {
+            try {
+                onTerminate.run();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnTerminate.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(final SingleObserver<? super T> observer) {
+        source.subscribe(new DoOnTerminate(observer));
     }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnTerminate.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            try {
+                onTerminate.run();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnTerminate.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            downstream.onSubscribe(d);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleZipArray.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T value) {
+            parent.innerSuccess(value, index);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleUsing.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(final SingleObserver<? super T> observer) {
+
+        final U resource; // NOPMD
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleUsing.java`
+#### Snippet
+```java
+        @SuppressWarnings("unchecked")
+        @Override
+        public void onSuccess(T value) {
+            upstream = DisposableHelper.DISPOSED;
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleUsing.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleUsing.java`
+#### Snippet
+```java
+        @SuppressWarnings("unchecked")
+        @Override
+        public void onError(Throwable e) {
+            upstream = DisposableHelper.DISPOSED;
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapIterableFlowable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T value) {
+            Iterator<? extends R> iterator;
+            boolean has;
 ```
 
 ### NullableProblems
@@ -18660,74 +18612,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapIt
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapIterableFlowable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(T value) {
-            Iterator<? extends R> iterator;
-            boolean has;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleError.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleOnErrorComplete.java`
 #### Snippet
 ```java
 
     @Override
-    protected void subscribeActual(SingleObserver<? super T> observer) {
-        Throwable error;
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleCreate.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(T value) {
-            if (get() != DisposableHelper.DISPOSED) {
-                Disposable d = getAndSet(DisposableHelper.DISPOSED);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleCreate.java`
-#### Snippet
-```java
-
-        @Override
-        public boolean tryOnError(Throwable t) {
-            if (t == null) {
-                t = ExceptionHelper.createNullPointerException("onError called with a null Throwable.");
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleCreate.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(SingleObserver<? super T> observer) {
-        Emitter<T> parent = new Emitter<>(observer);
-        observer.onSubscribe(parent);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleCreate.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            if (!tryOnError(t)) {
-                RxJavaPlugins.onError(t);
+    protected void subscribeActual(MaybeObserver<? super T> observer) {
+        source.subscribe(new MaybeOnErrorComplete.OnErrorCompleteMultiObserver<T>(observer, predicate));
+    }
 ```
 
 ### NullableProblems
@@ -18756,74 +18648,62 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDelayWith
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDelayWithCompletable.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleAmb.java`
 #### Snippet
 ```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.setOnce(this, d)) {
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDelayWithCompletable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            downstream.onError(e);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDelayWithCompletable.java`
-#### Snippet
-```java
-
     @Override
-    protected void subscribeActual(SingleObserver<? super T> observer) {
-        other.subscribe(new OtherObserver<>(observer, source));
-    }
+    @SuppressWarnings("unchecked")
+    protected void subscribeActual(final SingleObserver<? super T> observer) {
+        SingleSource<? extends T>[] sources = this.sources;
+        int count = 0;
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapNotification.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleAmb.java`
 #### Snippet
 ```java
 
         @Override
         public void onSuccess(T value) {
-            SingleSource<? extends R> source;
-
+            if (winner.compareAndSet(false, true)) {
+                set.delete(upstream);
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapNotification.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleAmb.java`
 #### Snippet
 ```java
 
         @Override
         public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
+            this.upstream = d;
+            set.add(d);
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapNotification.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleAmb.java`
 #### Snippet
 ```java
 
-            @Override
-            public void onError(Throwable e) {
-                downstream.onError(e);
-            }
+        @Override
+        public void onError(Throwable e) {
+            if (winner.compareAndSet(false, true)) {
+                set.delete(upstream);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleError.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(SingleObserver<? super T> observer) {
+        Throwable error;
+
 ```
 
 ### NullableProblems
@@ -18856,10 +18736,10 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapNo
 #### Snippet
 ```java
 
-            @Override
-            public void onSubscribe(Disposable d) {
-                DisposableHelper.setOnce(FlatMapSingleObserver.this, d);
-            }
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
 ```
 
 ### NullableProblems
@@ -18876,14 +18756,86 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapNo
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleUnsubscribeOn.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapNotification.java`
+#### Snippet
+```java
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                DisposableHelper.setOnce(FlatMapSingleObserver.this, d);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapNotification.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T value) {
+            SingleSource<? extends R> source;
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapNotification.java`
+#### Snippet
+```java
+
+            @Override
+            public void onError(Throwable e) {
+                downstream.onError(e);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDelayWithCompletable.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(SingleObserver<? super T> observer) {
+        other.subscribe(new OtherObserver<>(observer, source));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDelayWithCompletable.java`
 #### Snippet
 ```java
 
         @Override
         public void onSubscribe(Disposable d) {
             if (DisposableHelper.setOnce(this, d)) {
-                downstream.onSubscribe(this);
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDelayWithCompletable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            downstream.onError(e);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleUnsubscribeOn.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(SingleObserver<? super T> observer) {
+        source.subscribe(new UnsubscribeOnSingleObserver<>(observer, scheduler));
+    }
 ```
 
 ### NullableProblems
@@ -18916,10 +18868,250 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleUnsubscri
 #### Snippet
 ```java
 
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.setOnce(this, d)) {
+                downstream.onSubscribe(this);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleCreate.java`
+#### Snippet
+```java
+
     @Override
     protected void subscribeActual(SingleObserver<? super T> observer) {
-        source.subscribe(new UnsubscribeOnSingleObserver<>(observer, scheduler));
+        Emitter<T> parent = new Emitter<>(observer);
+        observer.onSubscribe(parent);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleCreate.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            if (!tryOnError(t)) {
+                RxJavaPlugins.onError(t);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleCreate.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T value) {
+            if (get() != DisposableHelper.DISPOSED) {
+                Disposable d = getAndSet(DisposableHelper.DISPOSED);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleCreate.java`
+#### Snippet
+```java
+
+        @Override
+        public boolean tryOnError(Throwable t) {
+            if (t == null) {
+                t = ExceptionHelper.createNullPointerException("onError called with a null Throwable.");
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapBiSelector.java`
+#### Snippet
+```java
+
+            @Override
+            public void onSuccess(U value) {
+                T t = this.value;
+                this.value = null;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapBiSelector.java`
+#### Snippet
+```java
+
+            @Override
+            public void onError(Throwable e) {
+                downstream.onError(e);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapBiSelector.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(SingleObserver<? super R> observer) {
+        source.subscribe(new FlatMapBiMainObserver<T, U, R>(observer, mapper, resultSelector));
     }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapBiSelector.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            inner.downstream.onError(e);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapBiSelector.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T value) {
+            SingleSource<? extends U> next;
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapBiSelector.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.setOnce(inner, d)) {
+                inner.downstream.onSubscribe(this);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapBiSelector.java`
+#### Snippet
+```java
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                DisposableHelper.setOnce(this, d);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleCache.java`
+#### Snippet
+```java
+    @SuppressWarnings("unchecked")
+    @Override
+    public void onSuccess(T value) {
+        this.value = value;
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleCache.java`
+#### Snippet
+```java
+    @SuppressWarnings("unchecked")
+    @Override
+    public void onError(Throwable e) {
+        this.error = e;
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleCache.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(final SingleObserver<? super T> observer) {
+        CacheDisposable<T> d = new CacheDisposable<>(observer, this);
+        observer.onSubscribe(d);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleCache.java`
+#### Snippet
+```java
+
+    @Override
+    public void onSubscribe(Disposable d) {
+        // not supported by this operator
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnError.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(final SingleObserver<? super T> observer) {
+
+        source.subscribe(new DoOnError(observer));
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnError.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            try {
+                onError.accept(e);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnError.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T value) {
+            downstream.onSuccess(value);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnError.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            downstream.onSubscribe(d);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleOnErrorReturn.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            T v;
+
 ```
 
 ### NullableProblems
@@ -18960,102 +19152,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleOnErrorRe
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnError.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            downstream.onSubscribe(d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleOnErrorReturn.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            T v;
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnError.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(T value) {
-            downstream.onSuccess(value);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnError.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(final SingleObserver<? super T> observer) {
-
-        source.subscribe(new DoOnError(observer));
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnError.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            try {
-                onError.accept(e);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoAfterSuccess.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(T t) {
-            downstream.onSuccess(t);
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleContains.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            downstream.onSubscribe(d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleContains.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(final SingleObserver<? super Boolean> observer) {
-
-        source.subscribe(new ContainsSingleObserver(observer));
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleContains.java`
 #### Snippet
 ```java
@@ -19073,6 +19169,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleContains.
 ```java
 
         @Override
+        public void onSubscribe(Disposable d) {
+            downstream.onSubscribe(d);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleContains.java`
+#### Snippet
+```java
+
+        @Override
         public void onError(Throwable e) {
             downstream.onError(e);
         }
@@ -19080,7 +19188,55 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleContains.
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoAfterSuccess.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleContains.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(final SingleObserver<? super Boolean> observer) {
+
+        source.subscribe(new ContainsSingleObserver(observer));
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoAfterTerminate.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T t) {
+            downstream.onSuccess(t);
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoAfterTerminate.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(SingleObserver<? super T> observer) {
+        source.subscribe(new DoAfterTerminateObserver<>(observer, onAfterTerminate));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoAfterTerminate.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            downstream.onError(e);
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoAfterTerminate.java`
 #### Snippet
 ```java
 
@@ -19088,162 +19244,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoAfterSu
         public void onSubscribe(Disposable d) {
             if (DisposableHelper.validate(this.upstream, d)) {
                 this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoAfterSuccess.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            downstream.onError(e);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleCache.java`
-#### Snippet
-```java
-    @SuppressWarnings("unchecked")
-    @Override
-    public void onError(Throwable e) {
-        this.error = e;
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoAfterSuccess.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(SingleObserver<? super T> observer) {
-        source.subscribe(new DoAfterObserver<>(observer, onAfterSuccess));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleCache.java`
-#### Snippet
-```java
-
-    @Override
-    public void onSubscribe(Disposable d) {
-        // not supported by this operator
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleCache.java`
-#### Snippet
-```java
-    @SuppressWarnings("unchecked")
-    @Override
-    public void onSuccess(T value) {
-        this.value = value;
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleCache.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(final SingleObserver<? super T> observer) {
-        CacheDisposable<T> d = new CacheDisposable<>(observer, this);
-        observer.onSubscribe(d);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapBiSelector.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(T value) {
-            SingleSource<? extends U> next;
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapBiSelector.java`
-#### Snippet
-```java
-
-            @Override
-            public void onSuccess(U value) {
-                T t = this.value;
-                this.value = null;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapBiSelector.java`
-#### Snippet
-```java
-
-            @Override
-            public void onSubscribe(Disposable d) {
-                DisposableHelper.setOnce(this, d);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapBiSelector.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.setOnce(inner, d)) {
-                inner.downstream.onSubscribe(this);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapBiSelector.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(SingleObserver<? super R> observer) {
-        source.subscribe(new FlatMapBiMainObserver<T, U, R>(observer, mapper, resultSelector));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapBiSelector.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            inner.downstream.onError(e);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapBiSelector.java`
-#### Snippet
-```java
-
-            @Override
-            public void onError(Throwable e) {
-                downstream.onError(e);
-            }
 ```
 
 ### NullableProblems
@@ -19256,18 +19256,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDefer.jav
     protected void subscribeActual(SingleObserver<? super T> observer) {
         SingleSource<? extends T> next;
 
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDelay.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(final Throwable e) {
-            sd.replace(scheduler.scheduleDirect(new OnError(e), delayError ? time : 0, unit));
-        }
 ```
 
 ### NullableProblems
@@ -19296,31 +19284,43 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDelay.jav
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoAfterTerminate.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDelay.java`
 #### Snippet
 ```java
 
         @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
+        public void onError(final Throwable e) {
+            sd.replace(scheduler.scheduleDirect(new OnError(e), delayError ? time : 0, unit));
+        }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoAfterTerminate.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoAfterSuccess.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            downstream.onError(e);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoAfterSuccess.java`
 #### Snippet
 ```java
 
     @Override
     protected void subscribeActual(SingleObserver<? super T> observer) {
-        source.subscribe(new DoAfterTerminateObserver<>(observer, onAfterTerminate));
+        source.subscribe(new DoAfterObserver<>(observer, onAfterSuccess));
     }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoAfterTerminate.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoAfterSuccess.java`
 #### Snippet
 ```java
 
@@ -19332,26 +19332,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoAfterTe
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoAfterTerminate.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            downstream.onError(e);
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleEquals.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoAfterSuccess.java`
 #### Snippet
 ```java
 
         @Override
         public void onSubscribe(Disposable d) {
-            set.add(d);
-        }
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
 ```
 
 ### NullableProblems
@@ -19364,6 +19352,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleEquals.ja
         public void onError(Throwable e) {
             int state = count.getAndSet(-1);
             if (state == 0 || state == 1) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleEquals.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            set.add(d);
+        }
 ```
 
 ### NullableProblems
@@ -19392,14 +19392,110 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleLift.java
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMap.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnDispose.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            downstream.onError(e);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnDispose.java`
 #### Snippet
 ```java
 
     @Override
-    protected void subscribeActual(SingleObserver<? super R> downstream) {
-        source.subscribe(new SingleFlatMapCallback<T, R>(downstream, mapper));
-    }
+    protected void subscribeActual(final SingleObserver<? super T> observer) {
+
+        source.subscribe(new DoOnDisposeObserver<>(observer, onDispose));
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnDispose.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T value) {
+            downstream.onSuccess(value);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnDispose.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleSubscribeOn.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            downstream.onError(e);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleSubscribeOn.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T value) {
+            downstream.onSuccess(value);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleSubscribeOn.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            DisposableHelper.setOnce(this, d);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleSubscribeOn.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(final SingleObserver<? super T> observer) {
+        final SubscribeOnObserver<T> parent = new SubscribeOnObserver<>(observer, source);
+        observer.onSubscribe(parent);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMap.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.setOnce(this, d)) {
+                downstream.onSubscribe(this);
 ```
 
 ### NullableProblems
@@ -19412,18 +19508,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMap.j
             public void onSubscribe(final Disposable d) {
                 DisposableHelper.replace(parent, d);
             }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMap.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            downstream.onError(e);
-        }
 ```
 
 ### NullableProblems
@@ -19457,9 +19541,21 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMap.j
 ```java
 
         @Override
-        public void onSuccess(T value) {
-            SingleSource<? extends R> o;
+        public void onError(Throwable e) {
+            downstream.onError(e);
+        }
+```
 
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMap.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(SingleObserver<? super R> downstream) {
+        source.subscribe(new SingleFlatMapCallback<T, R>(downstream, mapper));
+    }
 ```
 
 ### NullableProblems
@@ -19469,38 +19565,98 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMap.j
 ```java
 
         @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.setOnce(this, d)) {
-                downstream.onSubscribe(this);
+        public void onSuccess(T value) {
+            SingleSource<? extends R> o;
+
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnDispose.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnEvent.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            try {
+                onEvent.accept(null, e);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnEvent.java`
 #### Snippet
 ```java
 
         @Override
         public void onSuccess(T value) {
-            downstream.onSuccess(value);
-        }
+            try {
+                onEvent.accept(value, null);
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnDispose.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnEvent.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(final SingleObserver<? super T> observer) {
+
+        source.subscribe(new DoOnEvent(observer));
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnEvent.java`
 #### Snippet
 ```java
 
         @Override
         public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
+            downstream.onSubscribe(d);
+        }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnDispose.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDematerialize.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T t) {
+            Notification<R> notification;
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDematerialize.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(upstream, d)) {
+                upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDematerialize.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(MaybeObserver<? super R> observer) {
+        source.subscribe(new DematerializeObserver<>(observer, selector));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDematerialize.java`
 #### Snippet
 ```java
 
@@ -19512,61 +19668,13 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnDispo
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleSubscribeOn.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(final SingleObserver<? super T> observer) {
-        final SubscribeOnObserver<T> parent = new SubscribeOnObserver<>(observer, source);
-        observer.onSubscribe(parent);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnDispose.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(final SingleObserver<? super T> observer) {
-
-        source.subscribe(new DoOnDisposeObserver<>(observer, onDispose));
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleSubscribeOn.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapPublisher.java`
 #### Snippet
 ```java
 
         @Override
-        public void onSubscribe(Disposable d) {
-            DisposableHelper.setOnce(this, d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleSubscribeOn.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            downstream.onError(e);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleSubscribeOn.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(T value) {
-            downstream.onSuccess(value);
+        public void onSubscribe(Subscription s) {
+            SubscriptionHelper.deferredSetOnce(parent, this, s);
         }
 ```
 
@@ -19580,18 +19688,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapPu
         public void onSuccess(S value) {
             Publisher<? extends T> f;
             try {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapPublisher.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            SubscriptionHelper.deferredSetOnce(parent, this, s);
-        }
 ```
 
 ### NullableProblems
@@ -19632,50 +19728,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleFlatMapPu
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnEvent.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            downstream.onSubscribe(d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnEvent.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            try {
-                onEvent.accept(null, e);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnEvent.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableInterval.java`
 #### Snippet
 ```java
 
     @Override
-    protected void subscribeActual(final SingleObserver<? super T> observer) {
-
-        source.subscribe(new DoOnEvent(observer));
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDoOnEvent.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(T value) {
-            try {
-                onEvent.accept(value, null);
+    public void subscribeActual(Subscriber<? super Long> s) {
+        IntervalSubscriber is = new IntervalSubscriber(s);
+        s.onSubscribe(is);
 ```
 
 ### NullableProblems
@@ -19692,62 +19752,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFromC
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDematerialize.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(MaybeObserver<? super R> observer) {
-        source.subscribe(new DematerializeObserver<>(observer, selector));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDematerialize.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableTake.java`
 #### Snippet
 ```java
 
         @Override
-        public void onSuccess(T t) {
-            Notification<R> notification;
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDematerialize.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(upstream, d)) {
-                upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/single/SingleDematerialize.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            downstream.onError(e);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableInterval.java`
-#### Snippet
-```java
-
-    @Override
-    public void subscribeActual(Subscriber<? super Long> s) {
-        IntervalSubscriber is = new IntervalSubscriber(s);
-        s.onSubscribe(is);
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                if (remaining == 0L) {
 ```
 
 ### NullableProblems
@@ -19764,14 +19776,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableTake.
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableTake.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableAny.java`
 #### Snippet
 ```java
 
         @Override
         public void onSubscribe(Subscription s) {
             if (SubscriptionHelper.validate(this.upstream, s)) {
-                if (remaining == 0L) {
+                this.upstream = s;
 ```
 
 ### NullableProblems
@@ -19783,54 +19795,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableAny.j
     @Override
     protected void subscribeActual(Subscriber<? super Boolean> s) {
         source.subscribe(new AnySubscriber<>(s, predicate));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableAny.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableToListSingle.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableToListSingle.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(SingleObserver<? super U> observer) {
-        U coll;
-        try {
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NonNull
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableToListSingle.java`
-#### Snippet
-```java
-
-    @Override
-    public Flowable<U> fuseToFlowable() {
-        return RxJavaPlugins.onAssembly(new FlowableToList<>(source, collectionSupplier));
     }
 ```
 
@@ -19859,6 +19823,66 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableConca
 ```
 
 ### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableOnBackpressureBuffer.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableOnBackpressureBuffer.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Subscriber<? super T> s) {
+        source.subscribe(new BackpressureBufferSubscriber<>(s, bufferSize, unbounded, delayError, onOverflow));
+    }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NonNull
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableToListSingle.java`
+#### Snippet
+```java
+
+    @Override
+    public Flowable<U> fuseToFlowable() {
+        return RxJavaPlugins.onAssembly(new FlowableToList<>(source, collectionSupplier));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableToListSingle.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(SingleObserver<? super U> observer) {
+        U coll;
+        try {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableToListSingle.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
+```
+
+### NullableProblems
 Not annotated method overrides method annotated with @NonNull
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCollectSingle.java`
 #### Snippet
@@ -19876,10 +19900,10 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableColle
 #### Snippet
 ```java
 
-    @Override
-    protected void subscribeActual(SingleObserver<? super U> observer) {
-        U u;
-        try {
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
 ```
 
 ### NullableProblems
@@ -19888,10 +19912,10 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableColle
 #### Snippet
 ```java
 
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
+    @Override
+    protected void subscribeActual(SingleObserver<? super U> observer) {
+        U u;
+        try {
 ```
 
 ### NullableProblems
@@ -19932,30 +19956,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableOnBac
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableOnBackpressureBuffer.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableOnBackpressureBuffer.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Subscriber<? super T> s) {
-        source.subscribe(new BackpressureBufferSubscriber<>(s, bufferSize, unbounded, delayError, onOverflow));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableReduce.java`
 #### Snippet
 ```java
@@ -19969,30 +19969,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableReduc
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableReduce.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableUsing.java`
-#### Snippet
-```java
-
-    @Override
-    public void subscribeActual(Subscriber<? super T> s) {
-        D resource;
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableUsing.java`
 #### Snippet
 ```java
 
@@ -20024,42 +20000,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableScanS
         public void onSubscribe(Subscription s) {
             if (SubscriptionHelper.validate(this.upstream, s)) {
                 this.upstream = s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableTakePublisher.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Subscriber<? super T> s) {
-        source.subscribe(new TakeSubscriber<>(s, limit));
-    }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NotNull
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/BlockingFlowableMostRecent.java`
-#### Snippet
-```java
-
-    @Override
-    public Iterator<T> iterator() {
-        MostRecentSubscriber<T> mostRecentSubscriber = new MostRecentSubscriber<>(initialValue);
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableJoin.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Subscriber<? super R> s) {
-
-        JoinSubscription<TLeft, TRight, TLeftEnd, TRightEnd, R> parent =
 ```
 
 ### NullableProblems
@@ -20099,6 +20039,54 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCombi
 ```
 
 ### NullableProblems
+Not annotated method overrides method annotated with @NotNull
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/BlockingFlowableMostRecent.java`
+#### Snippet
+```java
+
+    @Override
+    public Iterator<T> iterator() {
+        MostRecentSubscriber<T> mostRecentSubscriber = new MostRecentSubscriber<>(initialValue);
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableJoin.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Subscriber<? super R> s) {
+
+        JoinSubscription<TLeft, TRight, TLeftEnd, TRightEnd, R> parent =
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableUsing.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableUsing.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(Subscriber<? super T> s) {
+        D resource;
+
+```
+
+### NullableProblems
 Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFlatMapSinglePublisher.java`
 #### Snippet
@@ -20108,6 +20096,54 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFlatM
     protected void subscribeActual(Subscriber<? super R> s) {
         source.subscribe(new FlatMapSingleSubscriber<>(s, mapper, delayErrors, maxConcurrency));
     }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableTakePublisher.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Subscriber<? super T> s) {
+        source.subscribe(new TakeSubscriber<>(s, limit));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRangeLong.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(Subscriber<? super Long> s) {
+        if (s instanceof ConditionalSubscriber) {
+            s.onSubscribe(new RangeConditionalSubscription(
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `src/main/java/io/reactivex/rxjava3/core/Observable.java`
+#### Snippet
+```java
+     * @param observer the incoming {@code Observer}, never {@code null}
+     */
+    protected abstract void subscribeActual(@NonNull Observer<? super T> observer);
+
+    /**
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRepeat.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            sa.setSubscription(s);
+        }
 ```
 
 ### NullableProblems
@@ -20136,14 +20172,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableTimeI
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableMergeWithMaybe.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFlatMapMaybePublisher.java`
 #### Snippet
 ```java
 
-        @Override
-        public void onSubscribe(Subscription s) {
-            SubscriptionHelper.setOnce(mainSubscription, s, prefetch);
-        }
+    @Override
+    protected void subscribeActual(Subscriber<? super R> s) {
+        source.subscribe(new FlatMapMaybeSubscriber<>(s, mapper, delayErrors, maxConcurrency));
+    }
 ```
 
 ### NullableProblems
@@ -20156,18 +20192,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableMerge
             public void onError(Throwable e) {
                 parent.otherError(e);
             }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableMergeWithMaybe.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Subscriber<? super T> subscriber) {
-        MergeWithObserver<T> parent = new MergeWithObserver<>(subscriber);
-        subscriber.onSubscribe(parent);
 ```
 
 ### NullableProblems
@@ -20196,38 +20220,26 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableMerge
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRangeLong.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableMergeWithMaybe.java`
 #### Snippet
 ```java
 
     @Override
-    public void subscribeActual(Subscriber<? super Long> s) {
-        if (s instanceof ConditionalSubscriber) {
-            s.onSubscribe(new RangeConditionalSubscription(
+    protected void subscribeActual(Subscriber<? super T> subscriber) {
+        MergeWithObserver<T> parent = new MergeWithObserver<>(subscriber);
+        subscriber.onSubscribe(parent);
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRepeat.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableMergeWithMaybe.java`
 #### Snippet
 ```java
 
         @Override
         public void onSubscribe(Subscription s) {
-            sa.setSubscription(s);
+            SubscriptionHelper.setOnce(mainSubscription, s, prefetch);
         }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFlatMapMaybePublisher.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Subscriber<? super R> s) {
-        source.subscribe(new FlatMapMaybeSubscriber<>(s, mapper, delayErrors, maxConcurrency));
-    }
 ```
 
 ### NullableProblems
@@ -20268,6 +20280,42 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRetry
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableLift.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(Subscriber<? super R> s) {
+        try {
+            Subscriber<? super T> st = operator.apply(s);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableThrottleLatest.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Subscriber<? super T> s) {
+        source.subscribe(new ThrottleLatestSubscriber<>(s, timeout, unit, scheduler.createWorker(), emitLast, onDropped));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableThrottleLatest.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(upstream, s)) {
+                upstream = s;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSequenceEqual.java`
 #### Snippet
 ```java
@@ -20292,30 +20340,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSeque
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCache.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Subscriber<? super T> t) {
-        CacheSubscription<T> consumer = new CacheSubscription<>(t, this);
-        t.onSubscribe(consumer);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableLift.java`
-#### Snippet
-```java
-
-    @Override
-    public void subscribeActual(Subscriber<? super R> s) {
-        try {
-            Subscriber<? super T> st = operator.apply(s);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableElementAtMaybePublisher.java`
 #### Snippet
 ```java
@@ -20328,74 +20352,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableEleme
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableThrottleLatest.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(upstream, s)) {
-                upstream = s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableThrottleLatest.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCache.java`
 #### Snippet
 ```java
 
     @Override
-    protected void subscribeActual(Subscriber<? super T> s) {
-        source.subscribe(new ThrottleLatestSubscriber<>(s, timeout, unit, scheduler.createWorker(), emitLast, onDropped));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableConcatMapEagerPublisher.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Subscriber<? super R> s) {
-        source.subscribe(new ConcatMapEagerDelayErrorSubscriber<>(
-                s, mapper, maxConcurrency, prefetch, errorMode));
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCountSingle.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NonNull
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCountSingle.java`
-#### Snippet
-```java
-
-    @Override
-    public Flowable<Long> fuseToFlowable() {
-        return RxJavaPlugins.onAssembly(new FlowableCount<>(source));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCountSingle.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(SingleObserver<? super Long> observer) {
-        source.subscribe(new CountSubscriber(observer));
-    }
+    protected void subscribeActual(Subscriber<? super T> t) {
+        CacheSubscription<T> consumer = new CacheSubscription<>(t, this);
+        t.onSubscribe(consumer);
 ```
 
 ### NullableProblems
@@ -20424,55 +20388,19 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/BlockingFlowa
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWindowBoundarySelector.java`
-#### Snippet
-```java
-
-            @Override
-            protected void subscribeActual(Subscriber<? super T> s) {
-                window.subscribe(s);
-                once.set(true);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWindowBoundarySelector.java`
-#### Snippet
-```java
-
-            @Override
-            public void onSubscribe(Subscription s) {
-                if (SubscriptionHelper.setOnce(this, s)) {
-                    s.request(Long.MAX_VALUE);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWindowBoundarySelector.java`
-#### Snippet
-```java
-
-            @Override
-            public void onSubscribe(Subscription s) {
-                if (SubscriptionHelper.setOnce(upstream, s)) {
-                    s.request(Long.MAX_VALUE);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWindowBoundarySelector.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCountSingle.java`
 #### Snippet
 ```java
 
     @Override
-    protected void subscribeActual(Subscriber<? super Flowable<T>> s) {
-        source.subscribe(new WindowBoundaryMainSubscriber<>(
-                s, open, closingIndicator, bufferSize));
+    protected void subscribeActual(SingleObserver<? super Long> observer) {
+        source.subscribe(new CountSubscriber(observer));
+    }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWindowBoundarySelector.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCountSingle.java`
 #### Snippet
 ```java
 
@@ -20484,14 +20412,38 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWindo
 
 ### NullableProblems
 Not annotated method overrides method annotated with @NonNull
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/AbstractFlowableWithUpstream.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCountSingle.java`
 #### Snippet
 ```java
 
     @Override
-    public final Publisher<T> source() {
-        return source;
+    public Flowable<Long> fuseToFlowable() {
+        return RxJavaPlugins.onAssembly(new FlowableCount<>(source));
     }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFromIterable.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(Subscriber<? super T> s) {
+        Iterator<? extends T> it;
+        try {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableTakeLast.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
 ```
 
 ### NullableProblems
@@ -20507,74 +20459,38 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableTakeL
 ```
 
 ### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableTakeLast.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDistinct.java`
+Not annotated method overrides method annotated with @NonNull
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/AbstractFlowableWithUpstream.java`
 #### Snippet
 ```java
 
     @Override
-    protected void subscribeActual(Subscriber<? super T> subscriber) {
-        Collection<? super K> collection;
-
+    public final Publisher<T> source() {
+        return source;
+    }
 ```
 
 ### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableConcatWithSingle.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(T t) {
-            complete(t);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableConcatWithSingle.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            downstream.onError(t);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableConcatWithSingle.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            DisposableHelper.setOnce(otherDisposable, d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableConcatWithSingle.java`
+Not annotated method overrides method annotated with @NonNull
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableReduceMaybe.java`
 #### Snippet
 ```java
 
     @Override
-    protected void subscribeActual(Subscriber<? super T> s) {
-        source.subscribe(new ConcatWithSubscriber<>(s, other));
+    public Flowable<T> fuseToFlowable() {
+        return RxJavaPlugins.onAssembly(new FlowableReduce<>(source, reducer));
+    }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NonNull
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableReduceMaybe.java`
+#### Snippet
+```java
+
+    @Override
+    public Publisher<T> source() {
+        return source;
     }
 ```
 
@@ -20603,56 +20519,44 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableReduc
 ```
 
 ### NullableProblems
-Not annotated method overrides method annotated with @NonNull
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableReduceMaybe.java`
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableConcatMapEagerPublisher.java`
 #### Snippet
 ```java
 
     @Override
-    public Publisher<T> source() {
-        return source;
-    }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NonNull
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableReduceMaybe.java`
-#### Snippet
-```java
-
-    @Override
-    public Flowable<T> fuseToFlowable() {
-        return RxJavaPlugins.onAssembly(new FlowableReduce<>(source, reducer));
-    }
+    protected void subscribeActual(Subscriber<? super R> s) {
+        source.subscribe(new ConcatMapEagerDelayErrorSubscriber<>(
+                s, mapper, maxConcurrency, prefetch, errorMode));
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFromIterable.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWindowBoundarySelector.java`
 #### Snippet
 ```java
 
-    @Override
-    public void subscribeActual(Subscriber<? super T> s) {
-        Iterator<? extends T> it;
-        try {
+            @Override
+            protected void subscribeActual(Subscriber<? super T> s) {
+                window.subscribe(s);
+                once.set(true);
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableElementAtSingle.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWindowBoundarySelector.java`
 #### Snippet
 ```java
 
-    @Override
-    protected void subscribeActual(SingleObserver<? super T> observer) {
-        source.subscribe(new ElementAtSubscriber<>(observer, index, defaultValue));
-    }
+            @Override
+            public void onSubscribe(Subscription s) {
+                if (SubscriptionHelper.setOnce(upstream, s)) {
+                    s.request(Long.MAX_VALUE);
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableElementAtSingle.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWindowBoundarySelector.java`
 #### Snippet
 ```java
 
@@ -20663,15 +20567,87 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableEleme
 ```
 
 ### NullableProblems
-Not annotated method overrides method annotated with @NonNull
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableElementAtSingle.java`
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWindowBoundarySelector.java`
 #### Snippet
 ```java
 
     @Override
-    public Flowable<T> fuseToFlowable() {
-        return RxJavaPlugins.onAssembly(new FlowableElementAt<>(source, index, defaultValue, true));
+    protected void subscribeActual(Subscriber<? super Flowable<T>> s) {
+        source.subscribe(new WindowBoundaryMainSubscriber<>(
+                s, open, closingIndicator, bufferSize));
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWindowBoundarySelector.java`
+#### Snippet
+```java
+
+            @Override
+            public void onSubscribe(Subscription s) {
+                if (SubscriptionHelper.setOnce(this, s)) {
+                    s.request(Long.MAX_VALUE);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableConcatWithSingle.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T t) {
+            complete(t);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableConcatWithSingle.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            DisposableHelper.setOnce(otherDisposable, d);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableConcatWithSingle.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            downstream.onError(t);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableConcatWithSingle.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Subscriber<? super T> s) {
+        source.subscribe(new ConcatWithSubscriber<>(s, other));
     }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDistinct.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Subscriber<? super T> subscriber) {
+        Collection<? super K> collection;
+
 ```
 
 ### NullableProblems
@@ -20696,18 +20672,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableIgnor
         public boolean offer(T v1, T v2) {
             throw new UnsupportedOperationException("Should not be called!");
         }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableIgnoreElements.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
 ```
 
 ### NullableProblems
@@ -20729,6 +20693,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableIgnor
 ```java
 
         @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableIgnoreElements.java`
+#### Snippet
+```java
+
+        @Override
         public boolean offer(T e) {
             throw new UnsupportedOperationException("Should not be called!");
         }
@@ -20736,31 +20712,31 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableIgnor
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWindow.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWindow.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableElementAtSingle.java`
 #### Snippet
 ```java
 
     @Override
-    public void subscribeActual(Subscriber<? super Flowable<T>> s) {
-        if (skip == size) {
-            source.subscribe(new WindowExactSubscriber<>(s, size, bufferSize));
+    protected void subscribeActual(SingleObserver<? super T> observer) {
+        source.subscribe(new ElementAtSubscriber<>(observer, index, defaultValue));
+    }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NonNull
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableElementAtSingle.java`
+#### Snippet
+```java
+
+    @Override
+    public Flowable<T> fuseToFlowable() {
+        return RxJavaPlugins.onAssembly(new FlowableElementAt<>(source, index, defaultValue, true));
+    }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWindow.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableElementAtSingle.java`
 #### Snippet
 ```java
 
@@ -20772,14 +20748,38 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWindo
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWindow.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDoAfterNext.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Subscriber<? super T> s) {
+        if (s instanceof ConditionalSubscriber) {
+            source.subscribe(new DoAfterConditionalSubscriber<>((ConditionalSubscriber<? super T>) s, onAfterNext));
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDoAfterNext.java`
 #### Snippet
 ```java
 
         @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
+        public boolean tryOnNext(T t) {
+            boolean b = downstream.tryOnNext(t);
+            try {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFlatMapMaybe.java`
+#### Snippet
+```java
+
+            @Override
+            public void onSuccess(R value) {
+                innerSuccess(this, value);
+            }
 ```
 
 ### NullableProblems
@@ -20832,49 +20832,229 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFlatM
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFlatMapMaybe.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFromFuture.java`
 #### Snippet
 ```java
 
-            @Override
-            public void onSuccess(R value) {
-                innerSuccess(this, value);
-            }
+    @Override
+    public void subscribeActual(Subscriber<? super T> s) {
+        DeferredScalarSubscription<T> deferred = new DeferredScalarSubscription<>(s);
+        s.onSubscribe(deferred);
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDoAfterNext.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCreate.java`
+#### Snippet
+```java
+
+        @Override
+        public final void onNext(T t) {
+            if (isCancelled()) {
+                return;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCreate.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            if (isCancelled()) {
+                return;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCreate.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            if (!tryOnError(t)) {
+                RxJavaPlugins.onError(t);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCreate.java`
+#### Snippet
+```java
+
+        @Override
+        public final boolean tryOnError(Throwable e) {
+            if (e == null) {
+                e = ExceptionHelper.createNullPointerException("tryOnError called with a null Throwable.");
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NonNull
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCreate.java`
+#### Snippet
+```java
+
+        @Override
+        public FlowableEmitter<T> serialize() {
+            return this;
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCreate.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(Subscriber<? super T> t) {
+        BaseEmitter<T> emitter;
+
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NonNull
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCreate.java`
+#### Snippet
+```java
+
+        @Override
+        public final FlowableEmitter<T> serialize() {
+            return new SerializedEmitter<>(this);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCreate.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            if (emitter.isCancelled() || done) {
+                return;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCreate.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            if (done || isCancelled()) {
+                return;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCreate.java`
+#### Snippet
+```java
+
+        @Override
+        public boolean tryOnError(Throwable t) {
+           if (emitter.isCancelled() || done) {
+               return false;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCreate.java`
+#### Snippet
+```java
+
+        @Override
+        public final void onError(Throwable e) {
+            if (e == null) {
+                e = ExceptionHelper.createNullPointerException("onError called with a null Throwable.");
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCreate.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            if (done || isCancelled()) {
+                return;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWindow.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWindow.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWindow.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWindow.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(Subscriber<? super Flowable<T>> s) {
+        if (skip == size) {
+            source.subscribe(new WindowExactSubscriber<>(s, size, bufferSize));
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSkipLastTimed.java`
 #### Snippet
 ```java
 
     @Override
     protected void subscribeActual(Subscriber<? super T> s) {
-        if (s instanceof ConditionalSubscriber) {
-            source.subscribe(new DoAfterConditionalSubscriber<>((ConditionalSubscriber<? super T>) s, onAfterNext));
+        source.subscribe(new SkipLastTimedSubscriber<>(s, time, unit, scheduler, bufferSize, delayError));
+    }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDoAfterNext.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSkipLastTimed.java`
 #### Snippet
 ```java
 
         @Override
-        public boolean tryOnNext(T t) {
-            boolean b = downstream.tryOnNext(t);
-            try {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableConcatMap.java`
-#### Snippet
-```java
-
-        @Override
-        public final void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s))  {
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
                 this.upstream = s;
 ```
 
@@ -20904,14 +21084,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableConca
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFromFuture.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableConcatMap.java`
 #### Snippet
 ```java
 
-    @Override
-    public void subscribeActual(Subscriber<? super T> s) {
-        DeferredScalarSubscription<T> deferred = new DeferredScalarSubscription<>(s);
-        s.onSubscribe(deferred);
+        @Override
+        public final void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s))  {
+                this.upstream = s;
 ```
 
 ### NullableProblems
@@ -20940,19 +21120,7 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableScan.
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSkipLastTimed.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Subscriber<? super T> s) {
-        source.subscribe(new SkipLastTimedSubscriber<>(s, time, unit, scheduler, bufferSize, delayError));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSkipLastTimed.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableOnBackpressureError.java`
 #### Snippet
 ```java
 
@@ -20960,90 +21128,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSkipL
         public void onSubscribe(Subscription s) {
             if (SubscriptionHelper.validate(this.upstream, s)) {
                 this.upstream = s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRefCount.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Subscriber<? super T> s) {
-
-        RefConnection conn;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRefCount.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(upstream, s)) {
-                this.upstream = s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableMergeWithSingle.java`
-#### Snippet
-```java
-
-            @Override
-            public void onSubscribe(Disposable d) {
-                DisposableHelper.setOnce(this, d);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableMergeWithSingle.java`
-#### Snippet
-```java
-
-            @Override
-            public void onSuccess(T t) {
-                parent.otherSuccess(t);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableMergeWithSingle.java`
-#### Snippet
-```java
-
-            @Override
-            public void onError(Throwable e) {
-                parent.otherError(e);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableMergeWithSingle.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Subscriber<? super T> subscriber) {
-        MergeWithObserver<T> parent = new MergeWithObserver<>(subscriber);
-        subscriber.onSubscribe(parent);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableMergeWithSingle.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            SubscriptionHelper.setOnce(mainSubscription, s, prefetch);
-        }
 ```
 
 ### NullableProblems
@@ -21056,18 +21140,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableOnBac
     protected void subscribeActual(Subscriber<? super T> s) {
         this.source.subscribe(new BackpressureErrorSubscriber<>(s));
     }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableOnBackpressureError.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
 ```
 
 ### NullableProblems
@@ -21120,146 +21192,182 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFromC
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCreate.java`
-#### Snippet
-```java
-
-        @Override
-        public final void onError(Throwable e) {
-            if (e == null) {
-                e = ExceptionHelper.createNullPointerException("onError called with a null Throwable.");
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCreate.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRefCount.java`
 #### Snippet
 ```java
 
     @Override
-    public void subscribeActual(Subscriber<? super T> t) {
-        BaseEmitter<T> emitter;
+    protected void subscribeActual(Subscriber<? super T> s) {
 
+        RefConnection conn;
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCreate.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRefCount.java`
 #### Snippet
 ```java
 
         @Override
-        public void onNext(T t) {
-            if (done || isCancelled()) {
-                return;
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(upstream, s)) {
+                this.upstream = s;
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCreate.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableMergeWithSingle.java`
+#### Snippet
+```java
+
+            @Override
+            public void onSuccess(T t) {
+                parent.otherSuccess(t);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableMergeWithSingle.java`
+#### Snippet
+```java
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                DisposableHelper.setOnce(this, d);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableMergeWithSingle.java`
 #### Snippet
 ```java
 
         @Override
-        public void onNext(T t) {
-            if (emitter.isCancelled() || done) {
-                return;
+        public void onSubscribe(Subscription s) {
+            SubscriptionHelper.setOnce(mainSubscription, s, prefetch);
+        }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCreate.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableMergeWithSingle.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Subscriber<? super T> subscriber) {
+        MergeWithObserver<T> parent = new MergeWithObserver<>(subscriber);
+        subscriber.onSubscribe(parent);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableMergeWithSingle.java`
+#### Snippet
+```java
+
+            @Override
+            public void onError(Throwable e) {
+                parent.otherError(e);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableConcatWithCompletable.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Subscriber<? super T> s) {
+        source.subscribe(new ConcatWithSubscriber<>(s, other));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableConcatWithCompletable.java`
 #### Snippet
 ```java
 
         @Override
         public void onError(Throwable t) {
-            if (!tryOnError(t)) {
-                RxJavaPlugins.onError(t);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCreate.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            if (done || isCancelled()) {
-                return;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCreate.java`
-#### Snippet
-```java
-
-        @Override
-        public boolean tryOnError(Throwable t) {
-           if (emitter.isCancelled() || done) {
-               return false;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCreate.java`
-#### Snippet
-```java
-
-        @Override
-        public final boolean tryOnError(Throwable e) {
-            if (e == null) {
-                e = ExceptionHelper.createNullPointerException("tryOnError called with a null Throwable.");
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCreate.java`
-#### Snippet
-```java
-
-        @Override
-        public final void onNext(T t) {
-            if (isCancelled()) {
-                return;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCreate.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            if (isCancelled()) {
-                return;
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NonNull
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCreate.java`
-#### Snippet
-```java
-
-        @Override
-        public final FlowableEmitter<T> serialize() {
-            return new SerializedEmitter<>(this);
+            downstream.onError(t);
         }
 ```
 
 ### NullableProblems
-Not annotated method overrides method annotated with @NonNull
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCreate.java`
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableConcatWithCompletable.java`
 #### Snippet
 ```java
 
         @Override
-        public FlowableEmitter<T> serialize() {
-            return this;
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(upstream, s)) {
+                this.upstream = s;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableConcatWithCompletable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            DisposableHelper.setOnce(this, d);
         }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDoFinally.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Subscriber<? super T> s) {
+        if (s instanceof ConditionalSubscriber) {
+            source.subscribe(new DoFinallyConditionalSubscriber<>((ConditionalSubscriber<? super T>) s, onFinally));
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDoFinally.java`
+#### Snippet
+```java
+        @SuppressWarnings("unchecked")
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDoFinally.java`
+#### Snippet
+```java
+
+        @Override
+        public boolean tryOnNext(T t) {
+            return downstream.tryOnNext(t);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDoFinally.java`
+#### Snippet
+```java
+        @SuppressWarnings("unchecked")
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
 ```
 
 ### NullableProblems
@@ -21300,102 +21408,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableTakeU
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableConcatWithCompletable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(upstream, s)) {
-                this.upstream = s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableConcatWithCompletable.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Subscriber<? super T> s) {
-        source.subscribe(new ConcatWithSubscriber<>(s, other));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableConcatWithCompletable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            DisposableHelper.setOnce(this, d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableConcatWithCompletable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            downstream.onError(t);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDoFinally.java`
-#### Snippet
-```java
-
-        @Override
-        public boolean tryOnNext(T t) {
-            return downstream.tryOnNext(t);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDoFinally.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Subscriber<? super T> s) {
-        if (s instanceof ConditionalSubscriber) {
-            source.subscribe(new DoFinallyConditionalSubscriber<>((ConditionalSubscriber<? super T>) s, onFinally));
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDoFinally.java`
-#### Snippet
-```java
-        @SuppressWarnings("unchecked")
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDoFinally.java`
-#### Snippet
-```java
-        @SuppressWarnings("unchecked")
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFromPublisher.java`
 #### Snippet
 ```java
@@ -21408,66 +21420,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFromP
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableZip.java`
-#### Snippet
-```java
-    @Override
-    @SuppressWarnings("unchecked")
-    public void subscribeActual(Subscriber<? super R> s) {
-        Publisher<? extends T>[] sources = this.sources;
-        int count = 0;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableZip.java`
-#### Snippet
-```java
-        @SuppressWarnings("unchecked")
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.setOnce(this, s)) {
-                if (s instanceof QueueSubscription) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableTakeWhile.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Subscriber<? super T> s) {
-        source.subscribe(new TakeWhileSubscriber<>(s, predicate));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableTakeWhile.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFlatMap.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.setOnce(this, s)) {
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFlatMap.java`
 #### Snippet
 ```java
@@ -21476,42 +21428,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFlatM
         public void onSubscribe(Subscription s) {
             if (SubscriptionHelper.validate(this.upstream, s)) {
                 this.upstream = s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFlatMap.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Subscriber<? super U> s) {
-        if (FlowableScalarXMap.tryScalarXMapSubscribe(source, s, mapper)) {
-            return;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableHide.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableHide.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Subscriber<? super T> s) {
-        source.subscribe(new HideSubscriber<>(s));
-    }
 ```
 
 ### NullableProblems
@@ -21540,14 +21456,50 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableThrot
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferExactBoundary.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFlatMap.java`
 #### Snippet
 ```java
 
         @Override
         public void onSubscribe(Subscription s) {
-            if (!SubscriptionHelper.validate(this.upstream, s)) {
-                return;
+            if (SubscriptionHelper.setOnce(this, s)) {
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFlatMap.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Subscriber<? super U> s) {
+        if (FlowableScalarXMap.tryScalarXMapSubscribe(source, s, mapper)) {
+            return;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableTakeWhile.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableTakeWhile.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Subscriber<? super T> s) {
+        source.subscribe(new TakeWhileSubscriber<>(s, predicate));
+    }
 ```
 
 ### NullableProblems
@@ -21560,6 +21512,66 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBuffe
     protected void subscribeActual(Subscriber<? super U> s) {
         source.subscribe(new BufferExactBoundarySubscriber<>(new SerializedSubscriber<>(s), bufferSupplier, boundary));
     }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferExactBoundary.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (!SubscriptionHelper.validate(this.upstream, s)) {
+                return;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableZip.java`
+#### Snippet
+```java
+    @Override
+    @SuppressWarnings("unchecked")
+    public void subscribeActual(Subscriber<? super R> s) {
+        Publisher<? extends T>[] sources = this.sources;
+        int count = 0;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableZip.java`
+#### Snippet
+```java
+        @SuppressWarnings("unchecked")
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.setOnce(this, s)) {
+                if (s instanceof QueueSubscription) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableHide.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Subscriber<? super T> s) {
+        source.subscribe(new HideSubscriber<>(s));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableHide.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
 ```
 
 ### NullableProblems
@@ -21592,10 +21604,10 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRepea
 #### Snippet
 ```java
 
-    @Override
-    public void subscribeActual(Subscriber<? super T> s) {
-
-        SerializedSubscriber<T> z = new SerializedSubscriber<>(s);
+        @Override
+        public final void onSubscribe(Subscription s) {
+            setSubscription(s);
+        }
 ```
 
 ### NullableProblems
@@ -21604,10 +21616,10 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRepea
 #### Snippet
 ```java
 
-        @Override
-        public final void onSubscribe(Subscription s) {
-            setSubscription(s);
-        }
+    @Override
+    public void subscribeActual(Subscriber<? super T> s) {
+
+        SerializedSubscriber<T> z = new SerializedSubscriber<>(s);
 ```
 
 ### NullableProblems
@@ -21628,10 +21640,10 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSkip.
 #### Snippet
 ```java
 
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                long n = remaining;
+    @Override
+    protected void subscribeActual(Subscriber<? super T> s) {
+        source.subscribe(new SkipSubscriber<>(s, n));
+    }
 ```
 
 ### NullableProblems
@@ -21640,9 +21652,81 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSkip.
 #### Snippet
 ```java
 
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                long n = remaining;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableMergeWithCompletable.java`
+#### Snippet
+```java
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                DisposableHelper.setOnce(this, d);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableMergeWithCompletable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            SubscriptionHelper.deferredSetOnce(mainSubscription, requested, s);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableMergeWithCompletable.java`
+#### Snippet
+```java
+
+            @Override
+            public void onError(Throwable e) {
+                parent.otherError(e);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableReduceSeedSingle.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableMergeWithCompletable.java`
+#### Snippet
+```java
+
     @Override
-    protected void subscribeActual(Subscriber<? super T> s) {
-        source.subscribe(new SkipSubscriber<>(s, n));
+    protected void subscribeActual(Subscriber<? super T> subscriber) {
+        MergeWithSubscriber<T> parent = new MergeWithSubscriber<>(subscriber);
+        subscriber.onSubscribe(parent);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableReduceSeedSingle.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(SingleObserver<? super R> observer) {
+        source.subscribe(new ReduceSeedObserver<>(observer, reducer, seed));
     }
 ```
 
@@ -21672,54 +21756,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableOnBac
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableMergeWithCompletable.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Subscriber<? super T> subscriber) {
-        MergeWithSubscriber<T> parent = new MergeWithSubscriber<>(subscriber);
-        subscriber.onSubscribe(parent);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableMergeWithCompletable.java`
-#### Snippet
-```java
-
-            @Override
-            public void onError(Throwable e) {
-                parent.otherError(e);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableMergeWithCompletable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            SubscriptionHelper.deferredSetOnce(mainSubscription, requested, s);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableMergeWithCompletable.java`
-#### Snippet
-```java
-
-            @Override
-            public void onSubscribe(Disposable d) {
-                DisposableHelper.setOnce(this, d);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSkipLast.java`
 #### Snippet
 ```java
@@ -21744,7 +21780,7 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSkipL
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableReduceSeedSingle.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDetach.java`
 #### Snippet
 ```java
 
@@ -21756,14 +21792,38 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableReduc
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableReduceSeedSingle.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDetach.java`
 #### Snippet
 ```java
 
     @Override
-    protected void subscribeActual(SingleObserver<? super R> observer) {
-        source.subscribe(new ReduceSeedObserver<>(observer, reducer, seed));
+    protected void subscribeActual(Subscriber<? super T> s) {
+        source.subscribe(new DetachSubscriber<>(s));
     }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableLastMaybe.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(MaybeObserver<? super T> observer) {
+        source.subscribe(new LastSubscriber<>(observer));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableLastMaybe.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
 ```
 
 ### NullableProblems
@@ -21788,6 +21848,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDoOnE
     protected void subscribeActual(Subscriber<? super T> s) {
         if (s instanceof ConditionalSubscriber) {
             source.subscribe(new DoOnEachConditionalSubscriber<>(
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableAllSingle.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
 ```
 
 ### NullableProblems
@@ -21816,62 +21888,50 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableAllSi
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableAllSingle.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferBoundary.java`
 #### Snippet
 ```java
 
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
+            @Override
+            public void onSubscribe(Subscription s) {
+                SubscriptionHelper.setOnce(this, s, Long.MAX_VALUE);
+            }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDetach.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferBoundary.java`
 #### Snippet
 ```java
 
     @Override
-    protected void subscribeActual(Subscriber<? super T> s) {
-        source.subscribe(new DetachSubscriber<>(s));
-    }
+    protected void subscribeActual(Subscriber<? super U> s) {
+        BufferBoundarySubscriber<T, U, Open, Close> parent =
+            new BufferBoundarySubscriber<>(
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDetach.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferBoundary.java`
 #### Snippet
 ```java
 
         @Override
         public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
+            if (SubscriptionHelper.setOnce(this.upstream, s)) {
+
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableLastMaybe.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferBoundary.java`
 #### Snippet
 ```java
 
         @Override
         public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableLastMaybe.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(MaybeObserver<? super T> observer) {
-        source.subscribe(new LastSubscriber<>(observer));
-    }
+            SubscriptionHelper.setOnce(this, s, Long.MAX_VALUE);
+        }
 ```
 
 ### NullableProblems
@@ -21924,50 +21984,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableConca
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferBoundary.java`
-#### Snippet
-```java
-
-            @Override
-            public void onSubscribe(Subscription s) {
-                SubscriptionHelper.setOnce(this, s, Long.MAX_VALUE);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferBoundary.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Subscriber<? super U> s) {
-        BufferBoundarySubscriber<T, U, Open, Close> parent =
-            new BufferBoundarySubscriber<>(
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferBoundary.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableTimeout.java`
 #### Snippet
 ```java
 
         @Override
         public void onSubscribe(Subscription s) {
-            SubscriptionHelper.setOnce(this, s, Long.MAX_VALUE);
+            SubscriptionHelper.deferredSetOnce(upstream, requested, s);
         }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferBoundary.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.setOnce(this.upstream, s)) {
-
 ```
 
 ### NullableProblems
@@ -21980,18 +22004,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableTimeo
         public void onSubscribe(Subscription s) {
             SubscriptionHelper.setOnce(this, s, Long.MAX_VALUE);
         }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Subscriber<? super U> s) {
-        if (timespan == timeskip && maxSize == Integer.MAX_VALUE) {
-            source.subscribe(new BufferExactUnboundedSubscriber<>(
 ```
 
 ### NullableProblems
@@ -22008,42 +22020,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableTimeo
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (!SubscriptionHelper.validate(this.upstream, s)) {
-                return;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableTimeout.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            SubscriptionHelper.deferredSetOnce(upstream, requested, s);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (!SubscriptionHelper.validate(this.upstream, s)) {
-                return;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableTimeout.java`
 #### Snippet
 ```java
@@ -22056,38 +22032,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableTimeo
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableOnBackpressureBufferStrategy.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDefer.java`
 #### Snippet
 ```java
 
     @Override
-    protected void subscribeActual(Subscriber<? super T> s) {
-        source.subscribe(new OnBackpressureBufferStrategySubscriber<>(s, onOverflow, strategy, bufferSize));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableOnBackpressureBufferStrategy.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
+    public void subscribeActual(Subscriber<? super T> s) {
+        Publisher<? extends T> pub;
+        try {
 ```
 
 ### NullableProblems
@@ -22116,6 +22068,66 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWindo
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (!SubscriptionHelper.validate(this.upstream, s)) {
+                return;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (!SubscriptionHelper.validate(this.upstream, s)) {
+                return;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBufferTimed.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Subscriber<? super U> s) {
+        if (timespan == timeskip && maxSize == Integer.MAX_VALUE) {
+            source.subscribe(new BufferExactUnboundedSubscriber<>(
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableTakeLastOne.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableTakeLastOne.java`
 #### Snippet
 ```java
@@ -22124,90 +22136,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableTakeL
     protected void subscribeActual(Subscriber<? super T> s) {
         source.subscribe(new TakeLastOneSubscriber<>(s));
     }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableTakeLastOne.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDefer.java`
-#### Snippet
-```java
-
-    @Override
-    public void subscribeActual(Subscriber<? super T> s) {
-        Publisher<? extends T> pub;
-        try {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableGroupBy.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableGroupBy.java`
-#### Snippet
-```java
-
-        @Override
-        protected void subscribeActual(Subscriber<? super T> s) {
-            state.subscribe(s);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableGroupBy.java`
-#### Snippet
-```java
-    @Override
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-    protected void subscribeActual(Subscriber<? super GroupedFlowable<K, V>> s) {
-
-        final Map<Object, GroupedUnicast<K, V>> groups;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableOnErrorNext.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            setSubscription(s);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableOnErrorNext.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Subscriber<? super T> s) {
-        OnErrorNextSubscriber<T> parent = new OnErrorNextSubscriber<>(s, nextSupplier);
-        s.onSubscribe(parent);
 ```
 
 ### NullableProblems
@@ -22236,7 +22164,103 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFlatt
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDebounce.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableGroupBy.java`
+#### Snippet
+```java
+    @Override
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    protected void subscribeActual(Subscriber<? super GroupedFlowable<K, V>> s) {
+
+        final Map<Object, GroupedUnicast<K, V>> groups;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableGroupBy.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableGroupBy.java`
+#### Snippet
+```java
+
+        @Override
+        protected void subscribeActual(Subscriber<? super T> s) {
+            state.subscribe(s);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableOnBackpressureBufferStrategy.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Subscriber<? super T> s) {
+        source.subscribe(new OnBackpressureBufferStrategySubscriber<>(s, onOverflow, strategy, bufferSize));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableOnBackpressureBufferStrategy.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableOnErrorNext.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            setSubscription(s);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableOnErrorNext.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Subscriber<? super T> s) {
+        OnErrorNextSubscriber<T> parent = new OnErrorNextSubscriber<>(s, nextSupplier);
+        s.onSubscribe(parent);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableAll.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Subscriber<? super Boolean> s) {
+        source.subscribe(new AllSubscriber<>(s, predicate));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableAll.java`
 #### Snippet
 ```java
 
@@ -22260,7 +22284,7 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDebou
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableAll.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDebounce.java`
 #### Snippet
 ```java
 
@@ -22272,38 +22296,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableAll.j
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableAll.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFlatMapSingle.java`
 #### Snippet
 ```java
 
-    @Override
-    protected void subscribeActual(Subscriber<? super Boolean> s) {
-        source.subscribe(new AllSubscriber<>(s, predicate));
-    }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NonNull
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSequenceEqualSingle.java`
-#### Snippet
-```java
-
-    @Override
-    public Flowable<Boolean> fuseToFlowable() {
-        return RxJavaPlugins.onAssembly(new FlowableSequenceEqual<>(first, second, comparer, prefetch));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSequenceEqualSingle.java`
-#### Snippet
-```java
-
-    @Override
-    public void subscribeActual(SingleObserver<? super Boolean> observer) {
-        EqualCoordinator<T> parent = new EqualCoordinator<>(observer, prefetch, comparer);
-        observer.onSubscribe(parent);
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
 ```
 
 ### NullableProblems
@@ -22356,7 +22356,7 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFlatM
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFlatMapSingle.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableAnySingle.java`
 #### Snippet
 ```java
 
@@ -22368,38 +22368,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFlatM
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDistinctUntilChanged.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableAnySingle.java`
 #### Snippet
 ```java
 
     @Override
-    protected void subscribeActual(Subscriber<? super T> s) {
-        if (s instanceof ConditionalSubscriber) {
-            ConditionalSubscriber<? super T> cs = (ConditionalSubscriber<? super T>) s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDistinctUntilChanged.java`
-#### Snippet
-```java
-
-        @Override
-        public boolean tryOnNext(T t) {
-            if (done) {
-                return false;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDistinctUntilChanged.java`
-#### Snippet
-```java
-
-        @Override
-        public boolean tryOnNext(T t) {
-            if (done) {
-                return false;
+    protected void subscribeActual(SingleObserver<? super Boolean> observer) {
+        source.subscribe(new AnySubscriber<>(observer, predicate));
+    }
 ```
 
 ### NullableProblems
@@ -22416,26 +22392,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableAnySi
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableAnySingle.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableAmb.java`
 #### Snippet
 ```java
-
     @Override
-    protected void subscribeActual(SingleObserver<? super Boolean> observer) {
-        source.subscribe(new AnySubscriber<>(observer, predicate));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableAnySingle.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
+    @SuppressWarnings("unchecked")
+    public void subscribeActual(Subscriber<? super T> s) {
+        Publisher<? extends T>[] sources = this.sources;
+        int count = 0;
 ```
 
 ### NullableProblems
@@ -22452,18 +22416,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableAmb.j
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableAmb.java`
-#### Snippet
-```java
-    @Override
-    @SuppressWarnings("unchecked")
-    public void subscribeActual(Subscriber<? super T> s) {
-        Publisher<? extends T>[] sources = this.sources;
-        int count = 0;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableOnErrorReturn.java`
 #### Snippet
 ```java
@@ -22475,27 +22427,39 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableOnErr
 ```
 
 ### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSampleTimed.java`
+Not annotated method overrides method annotated with @NonNull
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSequenceEqualSingle.java`
 #### Snippet
 ```java
 
     @Override
-    protected void subscribeActual(Subscriber<? super T> s) {
-        SerializedSubscriber<T> serial = new SerializedSubscriber<>(s);
-        if (emitLast) {
+    public Flowable<Boolean> fuseToFlowable() {
+        return RxJavaPlugins.onAssembly(new FlowableSequenceEqual<>(first, second, comparer, prefetch));
+    }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSampleTimed.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSequenceEqualSingle.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(SingleObserver<? super Boolean> observer) {
+        EqualCoordinator<T> parent = new EqualCoordinator<>(observer, prefetch, comparer);
+        observer.onSubscribe(parent);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSwitchMap.java`
 #### Snippet
 ```java
 
         @Override
         public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
+            if (SubscriptionHelper.setOnce(this, s)) {
+                if (s instanceof QueueSubscription) {
 ```
 
 ### NullableProblems
@@ -22524,18 +22488,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSwitc
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSwitchMap.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.setOnce(this, s)) {
-                if (s instanceof QueueSubscription) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSerialized.java`
 #### Snippet
 ```java
@@ -22552,10 +22504,10 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSkipW
 #### Snippet
 ```java
 
-    @Override
-    protected void subscribeActual(Subscriber<? super T> s) {
-        source.subscribe(new SkipWhileSubscriber<>(s, predicate));
-    }
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
 ```
 
 ### NullableProblems
@@ -22564,10 +22516,70 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSkipW
 #### Snippet
 ```java
 
+    @Override
+    protected void subscribeActual(Subscriber<? super T> s) {
+        source.subscribe(new SkipWhileSubscriber<>(s, predicate));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDistinctUntilChanged.java`
+#### Snippet
+```java
+
         @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
+        public boolean tryOnNext(T t) {
+            if (done) {
+                return false;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDistinctUntilChanged.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Subscriber<? super T> s) {
+        if (s instanceof ConditionalSubscriber) {
+            ConditionalSubscriber<? super T> cs = (ConditionalSubscriber<? super T>) s;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDistinctUntilChanged.java`
+#### Snippet
+```java
+
+        @Override
+        public boolean tryOnNext(T t) {
+            if (done) {
+                return false;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFromSupplier.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(Subscriber<? super T> s) {
+        DeferredScalarSubscription<T> deferred = new DeferredScalarSubscription<>(s);
+        s.onSubscribe(deferred);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFlatMapCompletable.java`
+#### Snippet
+```java
+
+            @Override
+            public void onError(Throwable e) {
+                innerError(this, e);
+            }
 ```
 
 ### NullableProblems
@@ -22600,18 +22612,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFlatM
 #### Snippet
 ```java
 
-            @Override
-            public void onError(Throwable e) {
-                innerError(this, e);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFlatMapCompletable.java`
-#### Snippet
-```java
-
         @Override
         public void onSubscribe(Subscription s) {
             if (SubscriptionHelper.validate(this.upstream, s)) {
@@ -22632,14 +22632,26 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRepea
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFromSupplier.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSampleTimed.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSampleTimed.java`
 #### Snippet
 ```java
 
     @Override
-    public void subscribeActual(Subscriber<? super T> s) {
-        DeferredScalarSubscription<T> deferred = new DeferredScalarSubscription<>(s);
-        s.onSubscribe(deferred);
+    protected void subscribeActual(Subscriber<? super T> s) {
+        SerializedSubscriber<T> serial = new SerializedSubscriber<>(s);
+        if (emitLast) {
 ```
 
 ### NullableProblems
@@ -22680,14 +22692,146 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSingl
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWithLatestFrom.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFromArray.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(Subscriber<? super T> s) {
+        if (s instanceof ConditionalSubscriber) {
+            s.onSubscribe(new ArrayConditionalSubscription<>(
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableTimer.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(Subscriber<? super Long> s) {
+        TimerSubscriber ios = new TimerSubscriber(s);
+        s.onSubscribe(ios);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFilter.java`
 #### Snippet
 ```java
 
         @Override
         public boolean tryOnNext(T t) {
-            U u = get();
-            if (u != null) {
+            if (done) {
+                return false;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFilter.java`
+#### Snippet
+```java
+
+        @Override
+        public boolean tryOnNext(T t) {
+            if (done) {
+                return false;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFilter.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Subscriber<? super T> s) {
+        if (s instanceof ConditionalSubscriber) {
+            source.subscribe(new FilterConditionalSubscriber<>(
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSwitchIfEmpty.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Subscriber<? super T> s) {
+        SwitchIfEmptySubscriber<T> parent = new SwitchIfEmptySubscriber<>(s, other);
+        s.onSubscribe(parent.arbiter);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSwitchIfEmpty.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            arbiter.setSubscription(s);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableIntervalRange.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(Subscriber<? super Long> s) {
+        IntervalRangeSubscriber is = new IntervalRangeSubscriber(s, start, end);
+        s.onSubscribe(is);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableZipIterable.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(Subscriber<? super V> t) {
+        Iterator<U> it;
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableZipIterable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCollect.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCollect.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Subscriber<? super U> s) {
+        U u;
+        try {
 ```
 
 ### NullableProblems
@@ -22720,6 +22864,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWithL
 #### Snippet
 ```java
 
+        @Override
+        public boolean tryOnNext(T t) {
+            U u = get();
+            if (u != null) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWithLatestFrom.java`
+#### Snippet
+```java
+
     @Override
     protected void subscribeActual(Subscriber<? super R> s) {
         final SerializedSubscriber<R> serial = new SerializedSubscriber<>(s);
@@ -22727,116 +22883,20 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWithL
 ```
 
 ### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFromArray.java`
+Not annotated method overrides method annotated with @NonNull
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableIgnoreElementsCompletable.java`
 #### Snippet
 ```java
 
     @Override
-    public void subscribeActual(Subscriber<? super T> s) {
-        if (s instanceof ConditionalSubscriber) {
-            s.onSubscribe(new ArrayConditionalSubscription<>(
+    public Flowable<T> fuseToFlowable() {
+        return RxJavaPlugins.onAssembly(new FlowableIgnoreElements<>(source));
+    }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFilter.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Subscriber<? super T> s) {
-        if (s instanceof ConditionalSubscriber) {
-            source.subscribe(new FilterConditionalSubscriber<>(
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFilter.java`
-#### Snippet
-```java
-
-        @Override
-        public boolean tryOnNext(T t) {
-            if (done) {
-                return false;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFilter.java`
-#### Snippet
-```java
-
-        @Override
-        public boolean tryOnNext(T t) {
-            if (done) {
-                return false;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableTimer.java`
-#### Snippet
-```java
-
-    @Override
-    public void subscribeActual(Subscriber<? super Long> s) {
-        TimerSubscriber ios = new TimerSubscriber(s);
-        s.onSubscribe(ios);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSwitchIfEmpty.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            arbiter.setSubscription(s);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSwitchIfEmpty.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Subscriber<? super T> s) {
-        SwitchIfEmptySubscriber<T> parent = new SwitchIfEmptySubscriber<>(s, other);
-        s.onSubscribe(parent.arbiter);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableIntervalRange.java`
-#### Snippet
-```java
-
-    @Override
-    public void subscribeActual(Subscriber<? super Long> s) {
-        IntervalRangeSubscriber is = new IntervalRangeSubscriber(s, start, end);
-        s.onSubscribe(is);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCollect.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Subscriber<? super U> s) {
-        U u;
-        try {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCollect.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableIgnoreElementsCompletable.java`
 #### Snippet
 ```java
 
@@ -22848,38 +22908,38 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableColle
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowablePublish.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableIgnoreElementsCompletable.java`
 #### Snippet
 ```java
 
     @Override
-    public void connect(Consumer<? super Disposable> connection) {
-        PublishConnection<T> conn;
-        boolean doConnect = false;
+    protected void subscribeActual(final CompletableObserver t) {
+        source.subscribe(new IgnoreElementsSubscriber<>(t));
+    }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowablePublish.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDebounceTimed.java`
 #### Snippet
 ```java
 
     @Override
     protected void subscribeActual(Subscriber<? super T> s) {
-        PublishConnection<T> conn;
-
+        source.subscribe(new DebounceTimedSubscriber<>(
+                new SerializedSubscriber<>(s), timeout, unit, scheduler.createWorker(), onDropped));
 ```
 
 ### NullableProblems
-Not annotated method overrides method annotated with @NonNull
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowablePublish.java`
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDebounceTimed.java`
 #### Snippet
 ```java
 
-    @Override
-    public Publisher<T> source() {
-        return source;
-    }
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
 ```
 
 ### NullableProblems
@@ -22889,21 +22949,21 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowablePubli
 ```java
 
         @Override
-        protected void subscribeActual(Subscriber<? super T> s) {
-            MulticastSubscription<T> ms = new MulticastSubscription<>(s, this);
-            s.onSubscribe(ms);
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.setOnce(this.upstream, s)) {
+                if (s instanceof QueueSubscription) {
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowablePublish.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowablePublishMulticast.java`
 #### Snippet
 ```java
 
         @Override
         public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.setOnce(this.upstream, s)) {
-                if (s instanceof QueueSubscription) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
 ```
 
 ### NullableProblems
@@ -22925,45 +22985,21 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowablePubli
 ```java
 
         @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.setOnce(this.upstream, s)) {
-                if (s instanceof QueueSubscription) {
+        protected void subscribeActual(Subscriber<? super T> s) {
+            MulticastSubscription<T> ms = new MulticastSubscription<>(s, this);
+            s.onSubscribe(ms);
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowablePublishMulticast.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableZipIterable.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableElementAt.java`
 #### Snippet
 ```java
 
     @Override
-    public void subscribeActual(Subscriber<? super V> t) {
-        Iterator<U> it;
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableZipIterable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
+    protected void subscribeActual(Subscriber<? super T> s) {
+        source.subscribe(new ElementAtSubscriber<>(s, index, defaultValue, errorOnFewer));
+    }
 ```
 
 ### NullableProblems
@@ -22980,30 +23016,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableEmpty
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDebounceTimed.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDebounceTimed.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Subscriber<? super T> s) {
-        source.subscribe(new DebounceTimedSubscriber<>(
-                new SerializedSubscriber<>(s), timeout, unit, scheduler.createWorker(), onDropped));
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableElementAt.java`
 #### Snippet
 ```java
@@ -23016,14 +23028,26 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableEleme
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableElementAt.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableMapPublisher.java`
 #### Snippet
 ```java
 
     @Override
-    protected void subscribeActual(Subscriber<? super T> s) {
-        source.subscribe(new ElementAtSubscriber<>(s, index, defaultValue, errorOnFewer));
+    protected void subscribeActual(Subscriber<? super U> s) {
+        source.subscribe(new MapSubscriber<T, U>(s, mapper));
     }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWindowSubscribeIntercept.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Subscriber<? super T> s) {
+        window.subscribe(s);
+        once.set(true);
 ```
 
 ### NullableProblems
@@ -23052,62 +23076,50 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableToLis
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableIgnoreElementsCompletable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableIgnoreElementsCompletable.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowablePublish.java`
 #### Snippet
 ```java
 
     @Override
-    protected void subscribeActual(final CompletableObserver t) {
-        source.subscribe(new IgnoreElementsSubscriber<>(t));
-    }
+    public void connect(Consumer<? super Disposable> connection) {
+        PublishConnection<T> conn;
+        boolean doConnect = false;
 ```
 
 ### NullableProblems
 Not annotated method overrides method annotated with @NonNull
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableIgnoreElementsCompletable.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowablePublish.java`
 #### Snippet
 ```java
 
     @Override
-    public Flowable<T> fuseToFlowable() {
-        return RxJavaPlugins.onAssembly(new FlowableIgnoreElements<>(source));
+    public Publisher<T> source() {
+        return source;
     }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWindowSubscribeIntercept.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowablePublish.java`
 #### Snippet
 ```java
 
     @Override
     protected void subscribeActual(Subscriber<? super T> s) {
-        window.subscribe(s);
-        once.set(true);
+        PublishConnection<T> conn;
+
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableMapPublisher.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowablePublish.java`
 #### Snippet
 ```java
 
-    @Override
-    protected void subscribeActual(Subscriber<? super U> s) {
-        source.subscribe(new MapSubscriber<T, U>(s, mapper));
-    }
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.setOnce(this.upstream, s)) {
+                if (s instanceof QueueSubscription) {
 ```
 
 ### NullableProblems
@@ -23120,6 +23132,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFromO
         public void onSubscribe(Disposable d) {
             this.upstream = d;
             downstream.onSubscribe(this);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFromObservable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T value) {
+            downstream.onNext(value);
+        }
 ```
 
 ### NullableProblems
@@ -23147,15 +23171,39 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFromO
 ```
 
 ### NullableProblems
+Not annotated method overrides method annotated with @NonNull
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableElementAtMaybe.java`
+#### Snippet
+```java
+
+    @Override
+    public Flowable<T> fuseToFlowable() {
+        return RxJavaPlugins.onAssembly(new FlowableElementAt<>(source, index, null, false));
+    }
+```
+
+### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableReplay.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableElementAtMaybe.java`
 #### Snippet
 ```java
 
         @Override
-        public void onSubscribe(Subscription p) {
-            if (SubscriptionHelper.setOnce(this, p)) {
-                manageRequests();
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableElementAtMaybe.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(MaybeObserver<? super T> observer) {
+        source.subscribe(new ElementAtSubscriber<>(observer, index));
+    }
 ```
 
 ### NullableProblems
@@ -23164,10 +23212,10 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRepla
 #### Snippet
 ```java
 
-    @Override
-    public void connect(Consumer<? super Disposable> connection) {
-        boolean doConnect;
-        ReplaySubscriber<T> ps;
+        @Override
+        protected void subscribeActual(Subscriber<? super R> child) {
+            ConnectableFlowable<U> cf;
+            try {
 ```
 
 ### NullableProblems
@@ -23200,34 +23248,22 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRepla
 #### Snippet
 ```java
 
-        @Override
-        protected void subscribeActual(Subscriber<? super R> child) {
-            ConnectableFlowable<U> cf;
-            try {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFromObservable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T value) {
-            downstream.onNext(value);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDoOnLifecycle.java`
-#### Snippet
-```java
-
     @Override
-    protected void subscribeActual(Subscriber<? super T> s) {
-        source.subscribe(new SubscriptionLambdaSubscriber<>(s, onSubscribe, onRequest, onCancel));
-    }
+    public void connect(Consumer<? super Disposable> connection) {
+        boolean doConnect;
+        ReplaySubscriber<T> ps;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableReplay.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription p) {
+            if (SubscriptionHelper.setOnce(this, p)) {
+                manageRequests();
 ```
 
 ### NullableProblems
@@ -23244,110 +23280,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDoOnL
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDematerialize.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDematerialize.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Subscriber<? super R> subscriber) {
-        source.subscribe(new DematerializeSubscriber<>(subscriber, selector));
-    }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NonNull
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableElementAtMaybe.java`
-#### Snippet
-```java
-
-    @Override
-    public Flowable<T> fuseToFlowable() {
-        return RxJavaPlugins.onAssembly(new FlowableElementAt<>(source, index, null, false));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableElementAtMaybe.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(MaybeObserver<? super T> observer) {
-        source.subscribe(new ElementAtSubscriber<>(observer, index));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableElementAtMaybe.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableTakeUntilPredicate.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableTakeUntilPredicate.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDoOnLifecycle.java`
 #### Snippet
 ```java
 
     @Override
     protected void subscribeActual(Subscriber<? super T> s) {
-        source.subscribe(new InnerSubscriber<>(s, predicate));
+        source.subscribe(new SubscriptionLambdaSubscriber<>(s, onSubscribe, onRequest, onCancel));
     }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableError.java`
-#### Snippet
-```java
-
-    @Override
-    public void subscribeActual(Subscriber<? super T> s) {
-        Throwable error;
-        try {
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NotNull
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/BlockingFlowableLatest.java`
-#### Snippet
-```java
-
-    @Override
-    public Iterator<T> iterator() {
-        LatestSubscriberIterator<T> lio = new LatestSubscriberIterator<>();
-        Flowable.<T>fromPublisher(source).materialize().subscribe(lio);
 ```
 
 ### NullableProblems
@@ -23400,6 +23340,78 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableTimeo
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableTakeUntilPredicate.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableTakeUntilPredicate.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Subscriber<? super T> s) {
+        source.subscribe(new InnerSubscriber<>(s, predicate));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableError.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(Subscriber<? super T> s) {
+        Throwable error;
+        try {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDematerialize.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDematerialize.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Subscriber<? super R> subscriber) {
+        source.subscribe(new DematerializeSubscriber<>(subscriber, selector));
+    }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NotNull
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/BlockingFlowableLatest.java`
+#### Snippet
+```java
+
+    @Override
+    public Iterator<T> iterator() {
+        LatestSubscriberIterator<T> lio = new LatestSubscriberIterator<>();
+        Flowable.<T>fromPublisher(source).materialize().subscribe(lio);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableOnErrorComplete.java`
 #### Snippet
 ```java
@@ -23440,6 +23452,30 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBuffe
 #### Snippet
 ```java
 
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBuffer.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBuffer.java`
+#### Snippet
+```java
+
     @Override
     public void subscribeActual(Subscriber<? super C> s) {
         if (size == skip) {
@@ -23460,26 +23496,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBuffe
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBuffer.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSubscribeOn.java`
 #### Snippet
 ```java
 
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableBuffer.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
+    @Override
+    public void subscribeActual(final Subscriber<? super T> s) {
+        Scheduler.Worker w = scheduler.createWorker();
+        final SubscribeOnSubscriber<T> sos = new SubscribeOnSubscriber<>(s, w, source, nonScheduledRequests);
 ```
 
 ### NullableProblems
@@ -23496,31 +23520,55 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSubsc
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSubscribeOn.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableUnsubscribeOn.java`
 #### Snippet
 ```java
 
-    @Override
-    public void subscribeActual(final Subscriber<? super T> s) {
-        Scheduler.Worker w = scheduler.createWorker();
-        final SubscribeOnSubscriber<T> sos = new SubscribeOnSubscriber<>(s, w, source, nonScheduledRequests);
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWithLatestFromMany.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableUnsubscribeOn.java`
 #### Snippet
 ```java
 
     @Override
-    protected void subscribeActual(Subscriber<? super R> s) {
-        Publisher<?>[] others = otherArray;
-        int n = 0;
+    protected void subscribeActual(Subscriber<? super T> s) {
+        source.subscribe(new UnsubscribeSubscriber<>(s, scheduler));
+    }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWithLatestFromMany.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSkipUntil.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Subscriber<? super T> child) {
+        SkipUntilMainSubscriber<T> parent = new SkipUntilMainSubscriber<>(child);
+        child.onSubscribe(parent);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSkipUntil.java`
+#### Snippet
+```java
+
+        @Override
+        public boolean tryOnNext(T t) {
+            if (gate) {
+                HalfSerializer.onNext(downstream, t, this, error);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSkipUntil.java`
 #### Snippet
 ```java
 
@@ -23532,38 +23580,26 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWithL
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWithLatestFromMany.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSkipUntil.java`
 #### Snippet
 ```java
 
-        @Override
-        public void onSubscribe(Subscription s) {
-            SubscriptionHelper.setOnce(this, s, Long.MAX_VALUE);
-        }
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWithLatestFromMany.java`
-#### Snippet
-```java
-    final Publisher<?>[] otherArray;
-
-    @Nullable
-    final Iterable<? extends Publisher<?>> otherIterable;
-
+            @Override
+            public void onSubscribe(Subscription s) {
+                SubscriptionHelper.setOnce(this, s, Long.MAX_VALUE);
+            }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWithLatestFromMany.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableGenerate.java`
 #### Snippet
 ```java
 
-        @Override
-        public boolean tryOnNext(T t) {
-            if (done) {
-                return false;
+    @Override
+    public void subscribeActual(Subscriber<? super T> s) {
+        S state;
+
 ```
 
 ### NullableProblems
@@ -23592,13 +23628,61 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableGener
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableGenerate.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWithLatestFromMany.java`
+#### Snippet
+```java
+
+        @Override
+        public boolean tryOnNext(T t) {
+            if (done) {
+                return false;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWithLatestFromMany.java`
 #### Snippet
 ```java
 
     @Override
-    public void subscribeActual(Subscriber<? super T> s) {
-        S state;
+    protected void subscribeActual(Subscriber<? super R> s) {
+        Publisher<?>[] others = otherArray;
+        int n = 0;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWithLatestFromMany.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            SubscriptionHelper.setOnce(this, s, Long.MAX_VALUE);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWithLatestFromMany.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            SubscriptionHelper.deferredSetOnce(this.upstream, requested, s);
+        }
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWithLatestFromMany.java`
+#### Snippet
+```java
+    final Publisher<?>[] otherArray;
+
+    @Nullable
+    final Iterable<? extends Publisher<?>> otherIterable;
 
 ```
 
@@ -23640,50 +23724,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableObser
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSkipUntil.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            SubscriptionHelper.deferredSetOnce(this.upstream, requested, s);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSkipUntil.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/AbstractBackpressureThrottlingSubscriber.java`
 #### Snippet
 ```java
 
     @Override
-    protected void subscribeActual(Subscriber<? super T> child) {
-        SkipUntilMainSubscriber<T> parent = new SkipUntilMainSubscriber<>(child);
-        child.onSubscribe(parent);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSkipUntil.java`
-#### Snippet
-```java
-
-        @Override
-        public boolean tryOnNext(T t) {
-            if (gate) {
-                HalfSerializer.onNext(downstream, t, this, error);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSkipUntil.java`
-#### Snippet
-```java
-
-            @Override
-            public void onSubscribe(Subscription s) {
-                SubscriptionHelper.setOnce(this, s, Long.MAX_VALUE);
-            }
+    public void onSubscribe(Subscription s) {
+        if (SubscriptionHelper.validate(this.upstream, s)) {
+            this.upstream = s;
 ```
 
 ### NullableProblems
@@ -23700,30 +23748,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableAutoC
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableUnsubscribeOn.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Subscriber<? super T> s) {
-        source.subscribe(new UnsubscribeSubscriber<>(s, scheduler));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableUnsubscribeOn.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableMaterialize.java`
 #### Snippet
 ```java
@@ -23736,50 +23760,74 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableMater
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/AbstractBackpressureThrottlingSubscriber.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableLastSingle.java`
 #### Snippet
 ```java
 
     @Override
-    public void onSubscribe(Subscription s) {
-        if (SubscriptionHelper.validate(this.upstream, s)) {
-            this.upstream = s;
+    protected void subscribeActual(SingleObserver<? super T> observer) {
+        source.subscribe(new LastSubscriber<>(observer, defaultItem));
+    }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDelaySubscriptionOther.java`
-#### Snippet
-```java
-
-    @Override
-    public void subscribeActual(final Subscriber<? super T> child) {
-        MainSubscriber<T> parent = new MainSubscriber<>(child, main);
-        child.onSubscribe(parent);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDelaySubscriptionOther.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableLastSingle.java`
 #### Snippet
 ```java
 
         @Override
         public void onSubscribe(Subscription s) {
-            SubscriptionHelper.deferredSetOnce(upstream, this, s);
-        }
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDelaySubscriptionOther.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSamplePublisher.java`
 #### Snippet
 ```java
 
-            @Override
-            public void onSubscribe(Subscription s) {
-                if (SubscriptionHelper.setOnce(this, s)) {
-                    s.request(Long.MAX_VALUE);
+    @Override
+    protected void subscribeActual(Subscriber<? super T> s) {
+        SerializedSubscriber<T> serial = new SerializedSubscriber<>(s);
+        if (emitLast) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSamplePublisher.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSamplePublisher.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            parent.setOther(s);
+        }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NotNull
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/BlockingFlowableNext.java`
+#### Snippet
+```java
+
+    @Override
+    public Iterator<T> iterator() {
+        NextSubscriber<T> nextSubscriber = new NextSubscriber<>();
+        return new NextIterator<>(source, nextSubscriber);
 ```
 
 ### NullableProblems
@@ -23820,74 +23868,38 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableGroup
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSamplePublisher.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDelaySubscriptionOther.java`
 #### Snippet
 ```java
 
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
+    @Override
+    public void subscribeActual(final Subscriber<? super T> child) {
+        MainSubscriber<T> parent = new MainSubscriber<>(child, main);
+        child.onSubscribe(parent);
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSamplePublisher.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDelaySubscriptionOther.java`
 #### Snippet
 ```java
 
         @Override
         public void onSubscribe(Subscription s) {
-            parent.setOther(s);
+            SubscriptionHelper.deferredSetOnce(upstream, this, s);
         }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSamplePublisher.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableDelaySubscriptionOther.java`
 #### Snippet
 ```java
 
-    @Override
-    protected void subscribeActual(Subscriber<? super T> s) {
-        SerializedSubscriber<T> serial = new SerializedSubscriber<>(s);
-        if (emitLast) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableLastSingle.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableLastSingle.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(SingleObserver<? super T> observer) {
-        source.subscribe(new LastSubscriber<>(observer, defaultItem));
-    }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NotNull
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/BlockingFlowableNext.java`
-#### Snippet
-```java
-
-    @Override
-    public Iterator<T> iterator() {
-        NextSubscriber<T> nextSubscriber = new NextSubscriber<>();
-        return new NextIterator<>(source, nextSubscriber);
+            @Override
+            public void onSubscribe(Subscription s) {
+                if (SubscriptionHelper.setOnce(this, s)) {
+                    s.request(Long.MAX_VALUE);
 ```
 
 ### NullableProblems
@@ -23904,18 +23916,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableScala
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRetryPredicate.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            sa.setSubscription(s);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableReduceWithSingle.java`
 #### Snippet
 ```java
@@ -23928,38 +23928,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableReduc
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRange.java`
-#### Snippet
-```java
-
-    @Override
-    public void subscribeActual(Subscriber<? super Integer> s) {
-        if (s instanceof ConditionalSubscriber) {
-            s.onSubscribe(new RangeConditionalSubscription(
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableConcatMapEager.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRetryPredicate.java`
 #### Snippet
 ```java
 
         @Override
         public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableConcatMapEager.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Subscriber<? super R> s) {
-        source.subscribe(new ConcatMapEagerDelayErrorSubscriber<>(
-                s, mapper, maxConcurrency, prefetch, errorMode));
+            sa.setSubscription(s);
+        }
 ```
 
 ### NullableProblems
@@ -23988,6 +23964,90 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableCount
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableTakeLastTimed.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Subscriber<? super T> s) {
+        source.subscribe(new TakeLastTimedSubscriber<>(s, count, time, unit, scheduler, bufferSize, delayError));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableTakeLastTimed.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRange.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(Subscriber<? super Integer> s) {
+        if (s instanceof ConditionalSubscriber) {
+            s.onSubscribe(new RangeConditionalSubscription(
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NonNull
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSingleSingle.java`
+#### Snippet
+```java
+
+    @Override
+    public Flowable<T> fuseToFlowable() {
+        return RxJavaPlugins.onAssembly(new FlowableSingle<>(source, defaultValue, true));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSingleSingle.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSingleSingle.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(SingleObserver<? super T> observer) {
+        source.subscribe(new SingleElementSubscriber<>(observer, defaultValue));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRetryWhen.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(Subscriber<? super T> s) {
+        SerializedSubscriber<T> z = new SerializedSubscriber<>(s);
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFlatMapCompletableCompletable.java`
 #### Snippet
 ```java
@@ -23999,14 +24059,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFlatM
 ```
 
 ### NullableProblems
-Not annotated parameter overrides @NonNull parameter
+Not annotated method overrides method annotated with @NonNull
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFlatMapCompletableCompletable.java`
 #### Snippet
 ```java
 
     @Override
-    protected void subscribeActual(CompletableObserver observer) {
-        source.subscribe(new FlatMapCompletableMainSubscriber<>(observer, mapper, delayErrors, maxConcurrency));
+    public Flowable<T> fuseToFlowable() {
+        return RxJavaPlugins.onAssembly(new FlowableFlatMapCompletable<>(source, mapper, delayErrors, maxConcurrency));
     }
 ```
 
@@ -24028,106 +24088,22 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFlatM
 #### Snippet
 ```java
 
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
+    @Override
+    protected void subscribeActual(CompletableObserver observer) {
+        source.subscribe(new FlatMapCompletableMainSubscriber<>(observer, mapper, delayErrors, maxConcurrency));
+    }
 ```
 
 ### NullableProblems
-Not annotated method overrides method annotated with @NonNull
+Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableFlatMapCompletableCompletable.java`
 #### Snippet
 ```java
 
-    @Override
-    public Flowable<T> fuseToFlowable() {
-        return RxJavaPlugins.onAssembly(new FlowableFlatMapCompletable<>(source, mapper, delayErrors, maxConcurrency));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRetryWhen.java`
-#### Snippet
-```java
-
-    @Override
-    public void subscribeActual(Subscriber<? super T> s) {
-        SerializedSubscriber<T> z = new SerializedSubscriber<>(s);
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableTakeLastTimed.java`
-#### Snippet
-```java
-
         @Override
         public void onSubscribe(Subscription s) {
             if (SubscriptionHelper.validate(this.upstream, s)) {
                 this.upstream = s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableTakeLastTimed.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Subscriber<? super T> s) {
-        source.subscribe(new TakeLastTimedSubscriber<>(s, count, time, unit, scheduler, bufferSize, delayError));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSingleSingle.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NonNull
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSingleSingle.java`
-#### Snippet
-```java
-
-    @Override
-    public Flowable<T> fuseToFlowable() {
-        return RxJavaPlugins.onAssembly(new FlowableSingle<>(source, defaultValue, true));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableSingleSingle.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(SingleObserver<? super T> observer) {
-        source.subscribe(new SingleElementSubscriber<>(observer, defaultValue));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWindowBoundary.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            SubscriptionHelper.setOnce(upstream, s, Long.MAX_VALUE);
-        }
 ```
 
 ### NullableProblems
@@ -24144,6 +24120,66 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWindo
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableWindowBoundary.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            SubscriptionHelper.setOnce(upstream, s, Long.MAX_VALUE);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableConcatMapEager.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableConcatMapEager.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Subscriber<? super R> s) {
+        source.subscribe(new ConcatMapEagerDelayErrorSubscriber<>(
+                s, mapper, maxConcurrency, prefetch, errorMode));
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
+#### Snippet
+```java
+     * @param subscriber the incoming {@code Subscriber}, never {@code null}
+     */
+    protected abstract void subscribeActual(@NonNull Subscriber<? super T> subscriber);
+
+    /**
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelPeek.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelFilter.java`
 #### Snippet
 ```java
@@ -24173,6 +24209,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelFilte
 ```java
 
         @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelFilter.java`
+#### Snippet
+```java
+
+        @Override
         public boolean tryOnNext(T t) {
             if (!done) {
                 boolean b;
@@ -24180,7 +24228,79 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelFilte
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelFilter.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelDoOnNextTry.java`
+#### Snippet
+```java
+
+        @Override
+        public boolean tryOnNext(T t) {
+            if (done) {
+                return false;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelDoOnNextTry.java`
+#### Snippet
+```java
+
+        @Override
+        public boolean tryOnNext(T t) {
+            if (done) {
+                return false;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelDoOnNextTry.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelDoOnNextTry.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelMap.java`
+#### Snippet
+```java
+
+        @Override
+        public boolean tryOnNext(T t) {
+            if (done) {
+                return false;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelMap.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelMap.java`
 #### Snippet
 ```java
 
@@ -24216,150 +24336,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableConca
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelMap.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelMap.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelMap.java`
-#### Snippet
-```java
-
-        @Override
-        public boolean tryOnNext(T t) {
-            if (done) {
-                return false;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelPeek.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelDoOnNextTry.java`
-#### Snippet
-```java
-
-        @Override
-        public boolean tryOnNext(T t) {
-            if (done) {
-                return false;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelDoOnNextTry.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelDoOnNextTry.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelDoOnNextTry.java`
-#### Snippet
-```java
-
-        @Override
-        public boolean tryOnNext(T t) {
-            if (done) {
-                return false;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelFilterTry.java`
-#### Snippet
-```java
-
-        @Override
-        public boolean tryOnNext(T t) {
-            if (!done) {
-                long retries = 0L;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelFilterTry.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelFilterTry.java`
-#### Snippet
-```java
-
-        @Override
-        public boolean tryOnNext(T t) {
-            if (!done) {
-                long retries = 0L;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelFilterTry.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelSortedJoin.java`
 #### Snippet
 ```java
@@ -24384,7 +24360,7 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelSorte
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelFromPublisher.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelFilterTry.java`
 #### Snippet
 ```java
 
@@ -24396,7 +24372,7 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelFromP
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelRunOn.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelFilterTry.java`
 #### Snippet
 ```java
 
@@ -24408,74 +24384,98 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelRunOn
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelRunOn.java`
-#### Snippet
-```java
-
-        @Override
-        public void onWorker(int i, Worker w) {
-            createSubscriber(i, subscribers, parents, w);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelRunOn.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelMapTry.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelMapTry.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelFilterTry.java`
 #### Snippet
 ```java
 
         @Override
         public boolean tryOnNext(T t) {
-            if (done) {
-                return false;
+            if (!done) {
+                long retries = 0L;
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelMapTry.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelFilterTry.java`
 #### Snippet
 ```java
 
         @Override
         public boolean tryOnNext(T t) {
-            if (done) {
-                return false;
+            if (!done) {
+                long retries = 0L;
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelMapTry.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableAllSingle.java`
 #### Snippet
 ```java
 
         @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
+        public void onError(Throwable t) {
+            if (done) {
+                RxJavaPlugins.onError(t);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableAllSingle.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            if (done) {
+                return;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableAllSingle.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(SingleObserver<? super Boolean> t) {
+        source.subscribe(new AllObserver<>(t, predicate));
+    }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NonNull
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableAllSingle.java`
+#### Snippet
+```java
+
+    @Override
+    public Observable<Boolean> fuseToObservable() {
+        return RxJavaPlugins.onAssembly(new ObservableAll<>(source, predicate));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableAllSingle.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelReduceFull.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Subscriber<? super T> s) {
+        ParallelReduceFullMainSubscriber<T> parent = new ParallelReduceFullMainSubscriber<>(s, source.parallelism(), reducer);
+        s.onSubscribe(parent);
 ```
 
 ### NullableProblems
@@ -24492,14 +24492,50 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelReduc
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelReduceFull.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelMapTry.java`
 #### Snippet
 ```java
 
-    @Override
-    protected void subscribeActual(Subscriber<? super T> s) {
-        ParallelReduceFullMainSubscriber<T> parent = new ParallelReduceFullMainSubscriber<>(s, source.parallelism(), reducer);
-        s.onSubscribe(parent);
+        @Override
+        public boolean tryOnNext(T t) {
+            if (done) {
+                return false;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelMapTry.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelMapTry.java`
+#### Snippet
+```java
+
+        @Override
+        public boolean tryOnNext(T t) {
+            if (done) {
+                return false;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelMapTry.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
 ```
 
 ### NullableProblems
@@ -24539,78 +24575,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableF
 ```
 
 ### NullableProblems
-Not annotated method overrides method annotated with @NonNull
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableAllSingle.java`
-#### Snippet
-```java
-
-    @Override
-    public Observable<Boolean> fuseToObservable() {
-        return RxJavaPlugins.onAssembly(new ObservableAll<>(source, predicate));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableAllSingle.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            if (done) {
-                RxJavaPlugins.onError(t);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableAllSingle.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            if (done) {
-                return;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableIntervalRange.java`
-#### Snippet
-```java
-
-    @Override
-    public void subscribeActual(Observer<? super Long> observer) {
-        IntervalRangeObserver is = new IntervalRangeObserver(observer, start, end);
-        observer.onSubscribe(is);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableAllSingle.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableAllSingle.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(SingleObserver<? super Boolean> t) {
-        source.subscribe(new AllObserver<>(t, predicate));
-    }
-```
-
-### NullableProblems
 Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelJoin.java`
 #### Snippet
@@ -24631,6 +24595,30 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelJoin.
         @Override
         public void onSubscribe(Subscription s) {
             SubscriptionHelper.setOnce(this, s, prefetch);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableIntervalRange.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(Observer<? super Long> observer) {
+        IntervalRangeObserver is = new IntervalRangeObserver(observer, start, end);
+        observer.onSubscribe(is);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRepeatUntil.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            downstream.onNext(t);
         }
 ```
 
@@ -24660,26 +24648,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableR
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRepeatUntil.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            downstream.onNext(t);
-        }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NonNull
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCountSingle.java`
 #### Snippet
 ```java
 
-    @Override
-    public Observable<Long> fuseToObservable() {
-        return RxJavaPlugins.onAssembly(new ObservableCount<>(source));
-    }
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
 ```
 
 ### NullableProblems
@@ -24701,21 +24677,21 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableC
 ```java
 
         @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
+        public void onError(Throwable t) {
+            upstream = DisposableHelper.DISPOSED;
+            downstream.onError(t);
 ```
 
 ### NullableProblems
-Not annotated parameter overrides @NonNull parameter
+Not annotated method overrides method annotated with @NonNull
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCountSingle.java`
 #### Snippet
 ```java
 
-        @Override
-        public void onError(Throwable t) {
-            upstream = DisposableHelper.DISPOSED;
-            downstream.onError(t);
+    @Override
+    public Observable<Long> fuseToObservable() {
+        return RxJavaPlugins.onAssembly(new ObservableCount<>(source));
+    }
 ```
 
 ### NullableProblems
@@ -24732,50 +24708,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableC
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableReduceMaybe.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(MaybeObserver<? super T> observer) {
-        source.subscribe(new ReduceObserver<>(observer, reducer));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableReduceMaybe.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelFromPublisher.java`
 #### Snippet
 ```java
 
         @Override
-        public void onError(Throwable e) {
-            if (done) {
-                RxJavaPlugins.onError(e);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableReduceMaybe.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T value) {
-            if (!done) {
-                T v = this.value;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableReduceMaybe.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
 ```
 
 ### NullableProblems
@@ -24792,14 +24732,170 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableF
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableAny.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelRunOn.java`
+#### Snippet
+```java
+
+        @Override
+        public void onWorker(int i, Worker w) {
+            createSubscriber(i, subscribers, parents, w);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelRunOn.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelRunOn.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatMapEager.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Observer<? super R> observer) {
+        source.subscribe(new ConcatMapEagerMainObserver<>(observer, mapper, maxConcurrency, prefetch, errorMode));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatMapEager.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            if (errors.tryAddThrowableOrReport(e)) {
+                done = true;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatMapEager.java`
+#### Snippet
+```java
+        @SuppressWarnings("unchecked")
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatMapEager.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T value) {
+            if (sourceMode == QueueDisposable.NONE) {
+                queue.offer(value);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableGroupBy.java`
+#### Snippet
+```java
+
+        @Override
+        protected void subscribeActual(Observer<? super T> observer) {
+            state.subscribe(observer);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableGroupBy.java`
 #### Snippet
 ```java
 
         @Override
         public void onNext(T t) {
-            if (done) {
-                return;
+            K key;
+            try {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableGroupBy.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            List<GroupedUnicast<K, V>> list = new ArrayList<>(groups.values());
+            groups.clear();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableGroupBy.java`
+#### Snippet
+```java
+
+        @Override
+        public void subscribe(Observer<? super T> observer) {
+            for (;;) {
+                int s = once.get();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableGroupBy.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableGroupBy.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(Observer<? super GroupedObservable<K, V>> t) {
+        source.subscribe(new GroupByObserver<>(t, keySelector, valueSelector, bufferSize, delayError));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableAny.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
 ```
 
 ### NullableProblems
@@ -24833,153 +24929,9 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableA
 ```java
 
         @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableGroupBy.java`
-#### Snippet
-```java
-
-        @Override
-        public void subscribe(Observer<? super T> observer) {
-            for (;;) {
-                int s = once.get();
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableGroupBy.java`
-#### Snippet
-```java
-
-        @Override
         public void onNext(T t) {
-            K key;
-            try {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableGroupBy.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            List<GroupedUnicast<K, V>> list = new ArrayList<>(groups.values());
-            groups.clear();
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableGroupBy.java`
-#### Snippet
-```java
-
-    @Override
-    public void subscribeActual(Observer<? super GroupedObservable<K, V>> t) {
-        source.subscribe(new GroupByObserver<>(t, keySelector, valueSelector, bufferSize, delayError));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableGroupBy.java`
-#### Snippet
-```java
-
-        @Override
-        protected void subscribeActual(Observer<? super T> observer) {
-            state.subscribe(observer);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableGroupBy.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatMapEager.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T value) {
-            if (sourceMode == QueueDisposable.NONE) {
-                queue.offer(value);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatMapEager.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            if (errors.tryAddThrowableOrReport(e)) {
-                done = true;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatMapEager.java`
-#### Snippet
-```java
-        @SuppressWarnings("unchecked")
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatMapEager.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Observer<? super R> observer) {
-        source.subscribe(new ConcatMapEagerMainObserver<>(observer, mapper, maxConcurrency, prefetch, errorMode));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableMergeWithMaybe.java`
-#### Snippet
-```java
-
-            @Override
-            public void onSuccess(T t) {
-                parent.otherSuccess(t);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableMergeWithMaybe.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Observer<? super T> observer) {
-        MergeWithObserver<T> parent = new MergeWithObserver<>(observer);
-        observer.onSubscribe(parent);
+            if (done) {
+                return;
 ```
 
 ### NullableProblems
@@ -25001,9 +24953,9 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableM
 ```java
 
         @Override
-        public void onError(Throwable ex) {
-            if (errors.tryAddThrowableOrReport(ex)) {
-                DisposableHelper.dispose(otherObserver);
+        public void onNext(T t) {
+            if (compareAndSet(0, 1)) {
+                downstream.onNext(t);
 ```
 
 ### NullableProblems
@@ -25012,10 +24964,34 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableM
 #### Snippet
 ```java
 
-        @Override
-        public void onNext(T t) {
-            if (compareAndSet(0, 1)) {
-                downstream.onNext(t);
+            @Override
+            public void onSuccess(T t) {
+                parent.otherSuccess(t);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableMergeWithMaybe.java`
+#### Snippet
+```java
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                DisposableHelper.setOnce(this, d);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableMergeWithMaybe.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Observer<? super T> observer) {
+        MergeWithObserver<T> parent = new MergeWithObserver<>(observer);
+        observer.onSubscribe(parent);
 ```
 
 ### NullableProblems
@@ -25036,274 +25012,82 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableM
 #### Snippet
 ```java
 
-            @Override
-            public void onSubscribe(Disposable d) {
-                DisposableHelper.setOnce(this, d);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowBoundarySelector.java`
-#### Snippet
-```java
-
-            @Override
-            protected void subscribeActual(Observer<? super T> o) {
-                window.subscribe(o);
-                once.set(true);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowBoundarySelector.java`
-#### Snippet
-```java
-
-            @Override
-            public void onError(Throwable t) {
-                if (isDisposed()) {
-                    RxJavaPlugins.onError(t);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowBoundarySelector.java`
-#### Snippet
-```java
-
         @Override
-        public void onError(Throwable t) {
-            startObserver.dispose();
-            resources.dispose();
+        public void onError(Throwable ex) {
+            if (errors.tryAddThrowableOrReport(ex)) {
+                DisposableHelper.dispose(otherObserver);
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowBoundarySelector.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            queue.offer(t);
-            drain();
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowBoundarySelector.java`
-#### Snippet
-```java
-
-            @Override
-            public void onSubscribe(Disposable d) {
-                DisposableHelper.setOnce(this, d);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowBoundarySelector.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowBoundarySelector.java`
-#### Snippet
-```java
-
-            @Override
-            public void onNext(B t) {
-                parent.open(t);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowBoundarySelector.java`
-#### Snippet
-```java
-
-            @Override
-            public void onError(Throwable t) {
-                parent.openError(t);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowBoundarySelector.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableGenerate.java`
 #### Snippet
 ```java
 
     @Override
-    public void subscribeActual(Observer<? super Observable<T>> t) {
-        source.subscribe(new WindowBoundaryMainObserver<>(
-                t, open, closingIndicator, bufferSize));
+    public void subscribeActual(Observer<? super T> observer) {
+        S state;
+
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowBoundarySelector.java`
-#### Snippet
-```java
-
-            @Override
-            public void onSubscribe(Disposable d) {
-                DisposableHelper.setOnce(upstream, d);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowBoundarySelector.java`
-#### Snippet
-```java
-
-            @Override
-            public void onNext(V t) {
-                if (DisposableHelper.dispose(upstream)) {
-                    parent.close(this);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatWithMaybe.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableReduceMaybe.java`
 #### Snippet
 ```java
 
     @Override
-    protected void subscribeActual(Observer<? super T> observer) {
-        source.subscribe(new ConcatWithObserver<>(observer, other));
+    protected void subscribeActual(MaybeObserver<? super T> observer) {
+        source.subscribe(new ReduceObserver<>(observer, reducer));
     }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatWithMaybe.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableReduceMaybe.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableReduceMaybe.java`
 #### Snippet
 ```java
 
         @Override
         public void onError(Throwable e) {
-            downstream.onError(e);
-        }
+            if (done) {
+                RxJavaPlugins.onError(e);
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatWithMaybe.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableReduceMaybe.java`
 #### Snippet
 ```java
 
         @Override
-        public void onNext(T t) {
-            downstream.onNext(t);
-        }
+        public void onNext(T value) {
+            if (!done) {
+                T v = this.value;
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatWithMaybe.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.setOnce(this, d) && !inMaybe) {
-                downstream.onSubscribe(this);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatWithMaybe.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSuccess(T t) {
-            downstream.onNext(t);
-            downstream.onComplete();
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSkipUntil.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSkipUntil.java`
-#### Snippet
-```java
-
-    @Override
-    public void subscribeActual(Observer<? super T> child) {
-
-        final SerializedObserver<T> serial = new SerializedObserver<>(child);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSkipUntil.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableLastMaybe.java`
 #### Snippet
 ```java
 
         @Override
         public void onError(Throwable t) {
-            frc.dispose();
-            serial.onError(t);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSkipUntil.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            if (notSkippingLocal) {
-                downstream.onNext(t);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSkipUntil.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSkipUntil.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(U t) {
-            upstream.dispose();
-            sus.notSkipping = true;
+            upstream = DisposableHelper.DISPOSED;
+            item = null;
 ```
 
 ### NullableProblems
@@ -25328,30 +25112,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableG
         public void onNext(T t) {
             if (!terminate) {
                 if (hasNext) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableGenerate.java`
-#### Snippet
-```java
-
-    @Override
-    public void subscribeActual(Observer<? super T> observer) {
-        S state;
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSkipUntil.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            frc.dispose();
-            downstream.onError(t);
 ```
 
 ### NullableProblems
@@ -25392,79 +25152,79 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableL
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableLastMaybe.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatWithMaybe.java`
 #### Snippet
 ```java
 
         @Override
-        public void onError(Throwable t) {
-            upstream = DisposableHelper.DISPOSED;
-            item = null;
+        public void onSuccess(T t) {
+            downstream.onNext(t);
+            downstream.onComplete();
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTakeLast.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatWithMaybe.java`
 #### Snippet
 ```java
 
         @Override
         public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
+            if (DisposableHelper.setOnce(this, d) && !inMaybe) {
+                downstream.onSubscribe(this);
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTakeLast.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatWithMaybe.java`
 #### Snippet
 ```java
 
         @Override
         public void onNext(T t) {
-            if (count == size()) {
-                poll();
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTakeLast.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            downstream.onError(t);
+            downstream.onNext(t);
         }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTakeLast.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatWithMaybe.java`
 #### Snippet
 ```java
 
     @Override
-    public void subscribeActual(Observer<? super T> t) {
-        source.subscribe(new TakeLastObserver<>(t, count));
+    protected void subscribeActual(Observer<? super T> observer) {
+        source.subscribe(new ConcatWithObserver<>(observer, other));
     }
 ```
 
 ### NullableProblems
-Overridden method parameters are not annotated
-in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatWithMaybe.java`
 #### Snippet
 ```java
-     * @param subscriber the incoming {@code Subscriber}, never {@code null}
-     */
-    protected abstract void subscribeActual(@NonNull Subscriber<? super T> subscriber);
 
-    /**
+        @Override
+        public void onError(Throwable e) {
+            downstream.onError(e);
+        }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSkipLastTimed.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSkipUntil.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            frc.dispose();
+            downstream.onError(t);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSkipUntil.java`
 #### Snippet
 ```java
 
@@ -25476,55 +25236,19 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableS
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSkipLastTimed.java`
-#### Snippet
-```java
-
-    @Override
-    public void subscribeActual(Observer<? super T> t) {
-        source.subscribe(new SkipLastTimedObserver<>(t, time, unit, scheduler, bufferSize, delayError));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSkipLastTimed.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSkipUntil.java`
 #### Snippet
 ```java
 
         @Override
-        public void onNext(T t) {
-            final SpscLinkedArrayQueue<Object> q = queue;
-
+        public void onNext(U t) {
+            upstream.dispose();
+            sus.notSkipping = true;
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSkipLastTimed.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            error = t;
-            done = true;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableElementAtSingle.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            if (done) {
-                return;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableElementAtSingle.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSkipUntil.java`
 #### Snippet
 ```java
 
@@ -25536,43 +25260,151 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableE
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableElementAtSingle.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSkipUntil.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(Observer<? super T> child) {
+
+        final SerializedObserver<T> serial = new SerializedObserver<>(child);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSkipUntil.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            if (notSkippingLocal) {
+                downstream.onNext(t);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSkipUntil.java`
 #### Snippet
 ```java
 
         @Override
         public void onError(Throwable t) {
-            if (done) {
-                RxJavaPlugins.onError(t);
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NonNull
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableElementAtSingle.java`
-#### Snippet
-```java
-
-    @Override
-    public Observable<T> fuseToObservable() {
-        return RxJavaPlugins.onAssembly(new ObservableElementAt<>(source, index, defaultValue, true));
-    }
+            frc.dispose();
+            serial.onError(t);
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableElementAtSingle.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowBoundarySelector.java`
 #### Snippet
 ```java
 
-    @Override
-    public void subscribeActual(SingleObserver<? super T> t) {
-        source.subscribe(new ElementAtObserver<>(t, index, defaultValue));
-    }
+            @Override
+            protected void subscribeActual(Observer<? super T> o) {
+                window.subscribe(o);
+                once.set(true);
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapCompletableCompletable.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowBoundarySelector.java`
+#### Snippet
+```java
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                DisposableHelper.setOnce(upstream, d);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowBoundarySelector.java`
+#### Snippet
+```java
+
+            @Override
+            public void onNext(B t) {
+                parent.open(t);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowBoundarySelector.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            startObserver.dispose();
+            resources.dispose();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowBoundarySelector.java`
+#### Snippet
+```java
+
+            @Override
+            public void onError(Throwable t) {
+                if (isDisposed()) {
+                    RxJavaPlugins.onError(t);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowBoundarySelector.java`
+#### Snippet
+```java
+
+            @Override
+            public void onError(Throwable t) {
+                parent.openError(t);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowBoundarySelector.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(Observer<? super Observable<T>> t) {
+        source.subscribe(new WindowBoundaryMainObserver<>(
+                t, open, closingIndicator, bufferSize));
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowBoundarySelector.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            queue.offer(t);
+            drain();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowBoundarySelector.java`
+#### Snippet
+```java
+
+            @Override
+            public void onNext(V t) {
+                if (DisposableHelper.dispose(upstream)) {
+                    parent.close(this);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowBoundarySelector.java`
 #### Snippet
 ```java
 
@@ -25584,14 +25416,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableF
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapCompletableCompletable.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowBoundarySelector.java`
 #### Snippet
 ```java
 
-    @Override
-    protected void subscribeActual(CompletableObserver observer) {
-        source.subscribe(new FlatMapCompletableMainObserver<>(observer, mapper, delayErrors));
-    }
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
 ```
 
 ### NullableProblems
@@ -25604,18 +25436,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableF
             public void onError(Throwable e) {
                 innerError(this, e);
             }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapCompletableCompletable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T value) {
-            CompletableSource cs;
-
 ```
 
 ### NullableProblems
@@ -25655,6 +25475,150 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableF
 ```
 
 ### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapCompletableCompletable.java`
+#### Snippet
+```java
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                DisposableHelper.setOnce(this, d);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapCompletableCompletable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T value) {
+            CompletableSource cs;
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapCompletableCompletable.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(CompletableObserver observer) {
+        source.subscribe(new FlatMapCompletableMainObserver<>(observer, mapper, delayErrors));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSkipLastTimed.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            final SpscLinkedArrayQueue<Object> q = queue;
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSkipLastTimed.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            error = t;
+            done = true;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSkipLastTimed.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(Observer<? super T> t) {
+        source.subscribe(new SkipLastTimedObserver<>(t, time, unit, scheduler, bufferSize, delayError));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSkipLastTimed.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTakeLast.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            downstream.onError(t);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTakeLast.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            if (count == size()) {
+                poll();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTakeLast.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTakeLast.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(Observer<? super T> t) {
+        source.subscribe(new TakeLastObserver<>(t, count));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/BlockingObservableMostRecent.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T args) {
+            value = NotificationLite.next(args);
+        }
+```
+
+### NullableProblems
 Not annotated method overrides method annotated with @NotNull
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/BlockingObservableMostRecent.java`
 #### Snippet
@@ -25680,13 +25644,49 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/BlockingObs
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/BlockingObservableMostRecent.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableUsing.java`
 #### Snippet
 ```java
 
         @Override
-        public void onNext(T args) {
-            value = NotificationLite.next(args);
+        public void onError(Throwable t) {
+            if (eager) {
+                if (compareAndSet(false, true)) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableUsing.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableUsing.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(Observer<? super T> observer) {
+        D resource;
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableUsing.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            downstream.onNext(t);
         }
 ```
 
@@ -25745,9 +25745,21 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableT
 ```java
 
         @Override
-        public void onError(Throwable t) {
-            downstream.onError(t);
-            worker.dispose();
+        public void onNext(T t) {
+            if (!gate) {
+                gate = true;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableThrottleFirstTimed.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(Observer<? super T> t) {
+        source.subscribe(new DebounceTimedObserver<>(
+                new SerializedObserver<>(t),
 ```
 
 ### NullableProblems
@@ -25757,9 +25769,9 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableT
 ```java
 
         @Override
-        public void onNext(T t) {
-            if (!gate) {
-                gate = true;
+        public void onError(Throwable t) {
+            downstream.onError(t);
+            worker.dispose();
 ```
 
 ### NullableProblems
@@ -25775,15 +25787,87 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableT
 ```
 
 ### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableThrottleFirstTimed.java`
+Not annotated method overrides method annotated with @NonNull
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservablePublish.java`
 #### Snippet
 ```java
 
     @Override
-    public void subscribeActual(Observer<? super T> t) {
-        source.subscribe(new DebounceTimedObserver<>(
-                new SerializedObserver<>(t),
+    public ObservableSource<T> source() {
+        return source;
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservablePublish.java`
+#### Snippet
+```java
+        @Override
+        @SuppressWarnings("unchecked")
+        public void onError(Throwable e) {
+            if (upstream.get() != DisposableHelper.DISPOSED) {
+                error = e;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservablePublish.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            DisposableHelper.setOnce(upstream, d);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservablePublish.java`
+#### Snippet
+```java
+
+    @Override
+    public void connect(Consumer<? super Disposable> connection) {
+        boolean doConnect = false;
+        PublishConnection<T> conn;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservablePublish.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            for (InnerDisposable<T> inner : get()) {
+                inner.downstream.onNext(t);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservablePublish.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Observer<? super T> observer) {
+        PublishConnection<T> conn;
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRetryBiPredicate.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            upstream.replace(d);
+        }
 ```
 
 ### NullableProblems
@@ -25812,19 +25896,43 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableR
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRetryBiPredicate.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableElementAtSingle.java`
 #### Snippet
 ```java
 
         @Override
-        public void onSubscribe(Disposable d) {
-            upstream.replace(d);
-        }
+        public void onError(Throwable t) {
+            if (done) {
+                RxJavaPlugins.onError(t);
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableUsing.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableElementAtSingle.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            if (done) {
+                return;
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NonNull
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableElementAtSingle.java`
+#### Snippet
+```java
+
+    @Override
+    public Observable<T> fuseToObservable() {
+        return RxJavaPlugins.onAssembly(new ObservableElementAt<>(source, index, defaultValue, true));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableElementAtSingle.java`
 #### Snippet
 ```java
 
@@ -25836,50 +25944,62 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableU
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableUsing.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableElementAtSingle.java`
 #### Snippet
 ```java
 
-        @Override
-        public void onNext(T t) {
-            downstream.onNext(t);
-        }
+    @Override
+    public void subscribeActual(SingleObserver<? super T> t) {
+        source.subscribe(new ElementAtObserver<>(t, index, defaultValue));
+    }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableUsing.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableUnsubscribeOn.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableUnsubscribeOn.java`
 #### Snippet
 ```java
 
         @Override
         public void onError(Throwable t) {
-            if (eager) {
-                if (compareAndSet(false, true)) {
+            if (get()) {
+                RxJavaPlugins.onError(t);
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableUsing.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableUnsubscribeOn.java`
 #### Snippet
 ```java
 
-    @Override
-    public void subscribeActual(Observer<? super T> observer) {
-        D resource;
-
+        @Override
+        public void onNext(T t) {
+            if (!get()) {
+                downstream.onNext(t);
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFromFuture.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableUnsubscribeOn.java`
 #### Snippet
 ```java
 
     @Override
-    public void subscribeActual(Observer<? super T> observer) {
-        DeferredScalarDisposable<T> d = new DeferredScalarDisposable<>(observer);
-        observer.onSubscribe(d);
+    public void subscribeActual(Observer<? super T> t) {
+        source.subscribe(new UnsubscribeObserver<>(t, scheduler));
+    }
 ```
 
 ### NullableProblems
@@ -25888,10 +26008,10 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableS
 #### Snippet
 ```java
 
-    @Override
-    public void subscribeActual(Observer<? super T> observer) {
-        source.subscribe(new SkipWhileObserver<>(observer, predicate));
-    }
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
 ```
 
 ### NullableProblems
@@ -25924,58 +26044,22 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableS
 #### Snippet
 ```java
 
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
+    @Override
+    public void subscribeActual(Observer<? super T> observer) {
+        source.subscribe(new SkipWhileObserver<>(observer, predicate));
+    }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableUnsubscribeOn.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            if (get()) {
-                RxJavaPlugins.onError(t);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableUnsubscribeOn.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableUnsubscribeOn.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            if (!get()) {
-                downstream.onNext(t);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableUnsubscribeOn.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFromFuture.java`
 #### Snippet
 ```java
 
     @Override
-    public void subscribeActual(Observer<? super T> t) {
-        source.subscribe(new UnsubscribeObserver<>(t, scheduler));
-    }
+    public void subscribeActual(Observer<? super T> observer) {
+        DeferredScalarDisposable<T> d = new DeferredScalarDisposable<>(observer);
+        observer.onSubscribe(d);
 ```
 
 ### NullableProblems
@@ -26032,10 +26116,10 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableT
 #### Snippet
 ```java
 
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
+    @Override
+    public void subscribeActual(Observer<? super T> observer) {
+        source.subscribe(new TakeUntilPredicateObserver<>(observer, predicate));
+    }
 ```
 
 ### NullableProblems
@@ -26044,10 +26128,34 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableT
 #### Snippet
 ```java
 
-    @Override
-    public void subscribeActual(Observer<? super T> observer) {
-        source.subscribe(new TakeUntilPredicateObserver<>(observer, predicate));
-    }
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservablePublishSelector.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            DisposableHelper.dispose(this);
+            downstream.onError(e);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservablePublishSelector.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            DisposableHelper.setOnce(target, d);
+        }
 ```
 
 ### NullableProblems
@@ -26070,8 +26178,8 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableP
 
         @Override
         public void onError(Throwable e) {
-            DisposableHelper.dispose(this);
-            downstream.onError(e);
+            subject.onError(e);
+        }
 ```
 
 ### NullableProblems
@@ -26106,13 +26214,85 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableP
 
         @Override
         public void onSubscribe(Disposable d) {
-            DisposableHelper.setOnce(target, d);
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRepeat.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            sd.replace(d);
         }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservablePublishSelector.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRepeat.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            downstream.onError(t);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRepeat.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            downstream.onNext(t);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableReduceSeedSingle.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            R v = value;
+            if (v != null) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableReduceSeedSingle.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(SingleObserver<? super R> observer) {
+        source.subscribe(new ReduceSeedObserver<>(observer, reducer, seed));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableReduceSeedSingle.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T value) {
+            R v = this.value;
+            if (v != null) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableReduceSeedSingle.java`
 #### Snippet
 ```java
 
@@ -26123,99 +26303,15 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableP
 ```
 
 ### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservablePublishSelector.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            subject.onError(e);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservablePublish.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            DisposableHelper.setOnce(upstream, d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservablePublish.java`
-#### Snippet
-```java
-        @Override
-        @SuppressWarnings("unchecked")
-        public void onError(Throwable e) {
-            if (upstream.get() != DisposableHelper.DISPOSED) {
-                error = e;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservablePublish.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Observer<? super T> observer) {
-        PublishConnection<T> conn;
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservablePublish.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            for (InnerDisposable<T> inner : get()) {
-                inner.downstream.onNext(t);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservablePublish.java`
-#### Snippet
-```java
-
-    @Override
-    public void connect(Consumer<? super Disposable> connection) {
-        boolean doConnect = false;
-        PublishConnection<T> conn;
-```
-
-### NullableProblems
 Not annotated method overrides method annotated with @NonNull
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservablePublish.java`
-#### Snippet
-```java
-
-    @Override
-    public ObservableSource<T> source() {
-        return source;
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSequenceEqualSingle.java`
 #### Snippet
 ```java
 
-        @Override
-        public void onNext(T t) {
-            queue.offer(t);
-            parent.drain();
+    @Override
+    public Observable<Boolean> fuseToObservable() {
+        return RxJavaPlugins.onAssembly(new ObservableSequenceEqual<>(first, second, comparer, bufferSize));
+    }
 ```
 
 ### NullableProblems
@@ -26243,18 +26339,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableS
 ```
 
 ### NullableProblems
-Not annotated method overrides method annotated with @NonNull
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSequenceEqualSingle.java`
-#### Snippet
-```java
-
-    @Override
-    public Observable<Boolean> fuseToObservable() {
-        return RxJavaPlugins.onAssembly(new ObservableSequenceEqual<>(first, second, comparer, bufferSize));
-    }
-```
-
-### NullableProblems
 Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSequenceEqualSingle.java`
 #### Snippet
@@ -26268,86 +26352,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableS
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRepeat.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSequenceEqualSingle.java`
 #### Snippet
 ```java
 
         @Override
         public void onNext(T t) {
-            downstream.onNext(t);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRepeat.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            downstream.onError(t);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRepeat.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            sd.replace(d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableReduceSeedSingle.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T value) {
-            R v = this.value;
-            if (v != null) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableReduceSeedSingle.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(SingleObserver<? super R> observer) {
-        source.subscribe(new ReduceSeedObserver<>(observer, reducer, seed));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableReduceSeedSingle.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            R v = value;
-            if (v != null) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableReduceSeedSingle.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
+            queue.offer(t);
+            parent.drain();
 ```
 
 ### NullableProblems
@@ -26363,231 +26375,15 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableW
 ```
 
 ### NullableProblems
-Overridden method parameters are not annotated
-in `src/main/java/io/reactivex/rxjava3/core/Observable.java`
-#### Snippet
-```java
-     * @param observer the incoming {@code Observer}, never {@code null}
-     */
-    protected abstract void subscribeActual(@NonNull Observer<? super T> observer);
-
-    /**
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableInterval.java`
-#### Snippet
-```java
-
-    @Override
-    public void subscribeActual(Observer<? super Long> observer) {
-        IntervalObserver is = new IntervalObserver(observer);
-        observer.onSubscribe(is);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableAnySingle.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            if (done) {
-                return;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableAnySingle.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableAnySingle.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            if (done) {
-                RxJavaPlugins.onError(t);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableAnySingle.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(SingleObserver<? super Boolean> t) {
-        source.subscribe(new AnyObserver<>(t, predicate));
-    }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NonNull
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableAnySingle.java`
-#### Snippet
-```java
-
-    @Override
-    public Observable<Boolean> fuseToObservable() {
-        return RxJavaPlugins.onAssembly(new ObservableAny<>(source, predicate));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSwitchMap.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSwitchMap.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            long c = unique + 1;
-            unique = c;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSwitchMap.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(R t) {
-            if (index == parent.unique) {
-                if (t != null) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSwitchMap.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.setOnce(this, d)) {
-                if (d instanceof QueueDisposable) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSwitchMap.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            if (!done && errors.tryAddThrowable(t)) {
-                if (!delayErrors) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSwitchMap.java`
-#### Snippet
-```java
-
-    @Override
-    public void subscribeActual(Observer<? super R> t) {
-
-        if (ObservableScalarXMap.tryScalarXMapSubscribe(source, t, mapper)) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSwitchMap.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            parent.innerError(this, t);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableLastSingle.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            upstream = DisposableHelper.DISPOSED;
-            item = null;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableLastSingle.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(SingleObserver<? super T> observer) {
-        source.subscribe(new LastObserver<>(observer, defaultItem));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableLastSingle.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableLastSingle.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            item = t;
-        }
-```
-
-### NullableProblems
 Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTakeLastOne.java`
 #### Snippet
 ```java
 
-    @Override
-    public void subscribeActual(Observer<? super T> observer) {
-        source.subscribe(new TakeLastOneObserver<>(observer));
-    }
+        @Override
+        public void onNext(T t) {
+            value = t;
+        }
 ```
 
 ### NullableProblems
@@ -26620,15 +26416,39 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableT
 #### Snippet
 ```java
 
-        @Override
-        public void onNext(T t) {
-            value = t;
-        }
+    @Override
+    public void subscribeActual(Observer<? super T> observer) {
+        source.subscribe(new TakeLastOneObserver<>(observer));
+    }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableObserveOn.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableAnySingle.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(SingleObserver<? super Boolean> t) {
+        source.subscribe(new AnyObserver<>(t, predicate));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableAnySingle.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            if (done) {
+                return;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableAnySingle.java`
 #### Snippet
 ```java
 
@@ -26639,20 +26459,20 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableO
 ```
 
 ### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableObserveOn.java`
+Not annotated method overrides method annotated with @NonNull
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableAnySingle.java`
 #### Snippet
 ```java
 
     @Override
-    protected void subscribeActual(Observer<? super T> observer) {
-        if (scheduler instanceof TrampolineScheduler) {
-            source.subscribe(observer);
+    public Observable<Boolean> fuseToObservable() {
+        return RxJavaPlugins.onAssembly(new ObservableAny<>(source, predicate));
+    }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableObserveOn.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableAnySingle.java`
 #### Snippet
 ```java
 
@@ -26664,14 +26484,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableO
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableObserveOn.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableIgnoreElements.java`
 #### Snippet
 ```java
 
         @Override
-        public void onNext(T t) {
-            if (done) {
-                return;
+        public void onError(Throwable e) {
+            downstream.onError(e);
+        }
 ```
 
 ### NullableProblems
@@ -26693,9 +26513,9 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableI
 ```java
 
         @Override
-        public void onError(Throwable e) {
-            downstream.onError(e);
-        }
+        public void onSubscribe(Disposable d) {
+            this.upstream = d;
+            downstream.onSubscribe(this);
 ```
 
 ### NullableProblems
@@ -26712,14 +26532,194 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableI
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableIgnoreElements.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableLastSingle.java`
 #### Snippet
 ```java
 
         @Override
         public void onSubscribe(Disposable d) {
-            this.upstream = d;
-            downstream.onSubscribe(this);
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableLastSingle.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(SingleObserver<? super T> observer) {
+        source.subscribe(new LastObserver<>(observer, defaultItem));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableLastSingle.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            item = t;
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableLastSingle.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            upstream = DisposableHelper.DISPOSED;
+            item = null;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableObserveOn.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Observer<? super T> observer) {
+        if (scheduler instanceof TrampolineScheduler) {
+            source.subscribe(observer);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableObserveOn.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            if (done) {
+                return;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableObserveOn.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableObserveOn.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            if (done) {
+                RxJavaPlugins.onError(t);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSwitchMap.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.setOnce(this, d)) {
+                if (d instanceof QueueDisposable) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSwitchMap.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(Observer<? super R> t) {
+
+        if (ObservableScalarXMap.tryScalarXMapSubscribe(source, t, mapper)) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSwitchMap.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(R t) {
+            if (index == parent.unique) {
+                if (t != null) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSwitchMap.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            long c = unique + 1;
+            unique = c;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSwitchMap.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            parent.innerError(this, t);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSwitchMap.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSwitchMap.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            if (!done && errors.tryAddThrowable(t)) {
+                if (!delayErrors) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableInterval.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(Observer<? super Long> observer) {
+        IntervalObserver is = new IntervalObserver(observer);
+        observer.onSubscribe(is);
 ```
 
 ### NullableProblems
@@ -26776,10 +26776,10 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableT
 #### Snippet
 ```java
 
-    @Override
-    public void subscribeActual(Observer<? super Timed<T>> t) {
-        source.subscribe(new TimeIntervalObserver<>(t, unit, scheduler));
-    }
+        @Override
+        public void onError(Throwable t) {
+            downstream.onError(t);
+        }
 ```
 
 ### NullableProblems
@@ -26788,10 +26788,10 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableT
 #### Snippet
 ```java
 
-        @Override
-        public void onError(Throwable t) {
-            downstream.onError(t);
-        }
+    @Override
+    public void subscribeActual(Observer<? super Timed<T>> t) {
+        source.subscribe(new TimeIntervalObserver<>(t, unit, scheduler));
+    }
 ```
 
 ### NullableProblems
@@ -26836,42 +26836,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableB
 #### Snippet
 ```java
 
-    @Override
-    protected void subscribeActual(Observer<? super U> t) {
-        source.subscribe(new BufferExactBoundaryObserver<>(new SerializedObserver<>(t), bufferSupplier, boundary));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferExactBoundary.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            dispose();
-            downstream.onError(t);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferExactBoundary.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            synchronized (this) {
-                U b = buffer;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferExactBoundary.java`
-#### Snippet
-```java
-
         @Override
         public void onError(Throwable t) {
             parent.onError(t);
@@ -26897,6 +26861,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableB
 ```java
 
         @Override
+        public void onError(Throwable t) {
+            dispose();
+            downstream.onError(t);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferExactBoundary.java`
+#### Snippet
+```java
+
+        @Override
         public void onNext(B t) {
             parent.next();
         }
@@ -26904,14 +26880,26 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableB
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFilter.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferExactBoundary.java`
 #### Snippet
 ```java
 
         @Override
         public void onNext(T t) {
-            if (sourceMode == NONE) {
-                boolean b;
+            synchronized (this) {
+                U b = buffer;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferExactBoundary.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Observer<? super U> t) {
+        source.subscribe(new BufferExactBoundaryObserver<>(new SerializedObserver<>(t), bufferSupplier, boundary));
+    }
 ```
 
 ### NullableProblems
@@ -26928,122 +26916,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableF
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMap.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFilter.java`
 #### Snippet
 ```java
 
         @Override
         public void onNext(T t) {
-            // safeguard against misbehaving sources
-            if (done) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMap.java`
-#### Snippet
-```java
-
-    @Override
-    public void subscribeActual(Observer<? super U> t) {
-
-        if (ObservableScalarXMap.tryScalarXMapSubscribe(source, t, mapper)) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMap.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            if (parent.errors.tryAddThrowableOrReport(t)) {
-                if (!parent.delayErrors) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMap.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(U t) {
-            if (fusionMode == QueueDisposable.NONE) {
-                parent.tryEmit(t, this);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMap.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            if (done) {
-                RxJavaPlugins.onError(t);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMap.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMap.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.setOnce(this, d)) {
-                if (d instanceof QueueDisposable) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSampleWithObservable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSampleWithObservable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            parent.setOther(d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSampleWithObservable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            lazySet(t);
-        }
+            if (sourceMode == NONE) {
+                boolean b;
 ```
 
 ### NullableProblems
@@ -27077,9 +26957,9 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableS
 ```java
 
         @Override
-        public void onError(Throwable t) {
-            DisposableHelper.dispose(other);
-            downstream.onError(t);
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
 ```
 
 ### NullableProblems
@@ -27096,7 +26976,79 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableS
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFromCompletable.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSampleWithObservable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            lazySet(t);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSampleWithObservable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            parent.setOther(d);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSampleWithObservable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            DisposableHelper.dispose(other);
+            downstream.onError(t);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMap.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            if (done) {
+                RxJavaPlugins.onError(t);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMap.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.setOnce(this, d)) {
+                if (d instanceof QueueDisposable) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMap.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(U t) {
+            if (fusionMode == QueueDisposable.NONE) {
+                parent.tryEmit(t, this);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMap.java`
 #### Snippet
 ```java
 
@@ -27108,14 +27060,86 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableF
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFromCompletable.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMap.java`
 #### Snippet
 ```java
 
         @Override
-        public void onError(Throwable e) {
-            upstream = DisposableHelper.DISPOSED;
-            downstream.onError(e);
+        public void onError(Throwable t) {
+            if (parent.errors.tryAddThrowableOrReport(t)) {
+                if (!parent.delayErrors) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMap.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            // safeguard against misbehaving sources
+            if (done) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMap.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(Observer<? super U> t) {
+
+        if (ObservableScalarXMap.tryScalarXMapSubscribe(source, t, mapper)) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableThrottleLatest.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            T old = latest.getAndSet(t);
+            if (onDropped != null && old != null) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableThrottleLatest.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            error = t;
+            done = true;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableThrottleLatest.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Observer<? super T> observer) {
+        source.subscribe(new ThrottleLatestObserver<>(observer, timeout, unit, scheduler.createWorker(), emitLast, onDropped));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableThrottleLatest.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(upstream, d)) {
+                upstream = d;
 ```
 
 ### NullableProblems
@@ -27144,50 +27168,74 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableF
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableThrottleLatest.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFromCompletable.java`
 #### Snippet
 ```java
 
         @Override
         public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(upstream, d)) {
-                upstream = d;
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableThrottleLatest.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFromCompletable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            upstream = DisposableHelper.DISPOSED;
+            downstream.onError(e);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableLift.java`
 #### Snippet
 ```java
 
     @Override
-    protected void subscribeActual(Observer<? super T> observer) {
-        source.subscribe(new ThrottleLatestObserver<>(observer, timeout, unit, scheduler.createWorker(), emitLast, onDropped));
-    }
+    public void subscribeActual(Observer<? super R> observer) {
+        Observer<? super T> liftedObserver;
+        try {
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableThrottleLatest.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTimeoutTimed.java`
 #### Snippet
 ```java
 
         @Override
         public void onError(Throwable t) {
-            error = t;
-            done = true;
+            if (index.getAndSet(Long.MAX_VALUE) != Long.MAX_VALUE) {
+                task.dispose();
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableThrottleLatest.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTimeoutTimed.java`
 #### Snippet
 ```java
 
         @Override
         public void onNext(T t) {
-            T old = latest.getAndSet(t);
-            if (onDropped != null && old != null) {
+            downstream.onNext(t);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTimeoutTimed.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Observer<? super T> observer) {
+        if (other == null) {
+            TimeoutObserver<T> parent = new TimeoutObserver<>(observer, timeout, unit, scheduler.createWorker());
 ```
 
 ### NullableProblems
@@ -27234,8 +27282,8 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableT
 
         @Override
         public void onNext(T t) {
-            long idx = index.get();
-            if (idx == Long.MAX_VALUE || !index.compareAndSet(idx, idx + 1)) {
+            long idx = get();
+            if (idx == Long.MAX_VALUE || !compareAndSet(idx, idx + 1)) {
 ```
 
 ### NullableProblems
@@ -27258,32 +27306,8 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableT
 
         @Override
         public void onNext(T t) {
-            downstream.onNext(t);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTimeoutTimed.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            if (index.getAndSet(Long.MAX_VALUE) != Long.MAX_VALUE) {
-                task.dispose();
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTimeoutTimed.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            long idx = get();
-            if (idx == Long.MAX_VALUE || !compareAndSet(idx, idx + 1)) {
+            long idx = index.get();
+            if (idx == Long.MAX_VALUE || !index.compareAndSet(idx, idx + 1)) {
 ```
 
 ### NullableProblems
@@ -27295,30 +27319,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableT
         @Override
         public void onSubscribe(Disposable d) {
             DisposableHelper.setOnce(upstream, d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTimeoutTimed.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Observer<? super T> observer) {
-        if (other == null) {
-            TimeoutObserver<T> parent = new TimeoutObserver<>(observer, timeout, unit, scheduler.createWorker());
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCombineLatest.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            parent.innerNext(index, t);
         }
 ```
 
@@ -27356,6 +27356,66 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableC
     public void subscribeActual(Observer<? super R> observer) {
         ObservableSource<? extends T>[] sources = this.sources;
         int count = 0;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCombineLatest.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            parent.innerNext(index, t);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTake.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            if (done) {
+                RxJavaPlugins.onError(t);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTake.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTake.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Observer<? super T> observer) {
+        source.subscribe(new TakeObserver<>(observer, limit));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTake.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            if (!done && remaining-- > 0) {
+                boolean stop = remaining == 0;
 ```
 
 ### NullableProblems
@@ -27400,10 +27460,10 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableR
 #### Snippet
 ```java
 
-    @Override
-    protected void subscribeActual(Observer<? super T> observer) {
-        onSubscribe.subscribe(observer);
-    }
+        @Override
+        public void onNext(T t) {
+            if (!done) {
+                buffer.next(t);
 ```
 
 ### NullableProblems
@@ -27416,30 +27476,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableR
         public void onSubscribe(Disposable p) {
             if (DisposableHelper.setOnce(this, p)) {
                 replay();
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NonNull
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableReplay.java`
-#### Snippet
-```java
-
-    @Override
-    public ObservableSource<T> source() {
-        return source;
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableReplay.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            if (!done) {
-                buffer.next(t);
 ```
 
 ### NullableProblems
@@ -27456,266 +27492,50 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableR
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableLift.java`
-#### Snippet
-```java
-
-    @Override
-    public void subscribeActual(Observer<? super R> observer) {
-        Observer<? super T> liftedObserver;
-        try {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTake.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            if (!done && remaining-- > 0) {
-                boolean stop = remaining == 0;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTake.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTake.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableReplay.java`
 #### Snippet
 ```java
 
     @Override
     protected void subscribeActual(Observer<? super T> observer) {
-        source.subscribe(new TakeObserver<>(observer, limit));
+        onSubscribe.subscribe(observer);
+    }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NonNull
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableReplay.java`
+#### Snippet
+```java
+
+    @Override
+    public ObservableSource<T> source() {
+        return source;
     }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTake.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSequenceEqual.java`
 #### Snippet
 ```java
 
         @Override
         public void onError(Throwable t) {
-            if (done) {
-                RxJavaPlugins.onError(t);
+            error = t;
+            done = true;
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDelay.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSequenceEqual.java`
 #### Snippet
 ```java
 
         @Override
         public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDelay.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(final Throwable t) {
-            w.schedule(new OnError(t), delayError ? delay : 0, unit);
+            parent.setDisposable(d, index);
         }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDelay.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(final T t) {
-            w.schedule(new OnNext(t), delay, unit);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDelay.java`
-#### Snippet
-```java
-    @Override
-    @SuppressWarnings("unchecked")
-    public void subscribeActual(Observer<? super T> t) {
-        Observer<T> observer;
-        if (delayError) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableReduceWithSingle.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(SingleObserver<? super R> observer) {
-        R seed;
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableGroupJoin.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            parent.innerError(t);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableGroupJoin.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            DisposableHelper.setOnce(this, d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableGroupJoin.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            parent.innerCloseError(t);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableGroupJoin.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            DisposableHelper.setOnce(this, d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableGroupJoin.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(Object t) {
-            if (DisposableHelper.dispose(this)) {
-                parent.innerClose(isLeft, this);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableGroupJoin.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(Object t) {
-            parent.innerValue(isLeft, t);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableGroupJoin.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Observer<? super R> observer) {
-
-        GroupJoinDisposable<TLeft, TRight, TLeftEnd, TRightEnd, R> parent =
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableZipIterable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableZipIterable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            if (done) {
-                RxJavaPlugins.onError(t);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableZipIterable.java`
-#### Snippet
-```java
-
-    @Override
-    public void subscribeActual(Observer<? super V> t) {
-        Iterator<U> it;
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableZipIterable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            if (done) {
-                return;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDoOnLifecycle.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Observer<? super T> observer) {
-        source.subscribe(new DisposableLambdaObserver<>(observer, onSubscribe, onDispose));
-    }
 ```
 
 ### NullableProblems
@@ -27744,26 +27564,122 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableS
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSequenceEqual.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableReduceWithSingle.java`
 #### Snippet
 ```java
 
-        @Override
-        public void onSubscribe(Disposable d) {
-            parent.setDisposable(d, index);
-        }
+    @Override
+    protected void subscribeActual(SingleObserver<? super R> observer) {
+        R seed;
+
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSequenceEqual.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableZipIterable.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(Observer<? super V> t) {
+        Iterator<U> it;
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableZipIterable.java`
 #### Snippet
 ```java
 
         @Override
         public void onError(Throwable t) {
-            error = t;
-            done = true;
+            if (done) {
+                RxJavaPlugins.onError(t);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableZipIterable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableZipIterable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            if (done) {
+                return;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDelay.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(final T t) {
+            w.schedule(new OnNext(t), delay, unit);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDelay.java`
+#### Snippet
+```java
+    @Override
+    @SuppressWarnings("unchecked")
+    public void subscribeActual(Observer<? super T> t) {
+        Observer<T> observer;
+        if (delayError) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDelay.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(final Throwable t) {
+            w.schedule(new OnError(t), delayError ? delay : 0, unit);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDelay.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDoOnLifecycle.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Observer<? super T> observer) {
+        source.subscribe(new DisposableLambdaObserver<>(observer, onSubscribe, onDispose));
+    }
 ```
 
 ### NullableProblems
@@ -27816,67 +27732,127 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableD
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRetryWhen.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferBoundary.java`
 #### Snippet
 ```java
 
         @Override
-        public void onNext(T t) {
-            HalfSerializer.onNext(downstream, t, this, error);
+        public void onError(Throwable t) {
+            if (get() != DisposableHelper.DISPOSED) {
+                lazySet(DisposableHelper.DISPOSED);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWithLatestFrom.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            parent.otherError(t);
         }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRetryWhen.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Observer<? super T> observer) {
-        Subject<Throwable> signaller = PublishSubject.<Throwable>create().toSerialized();
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRetryWhen.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWithLatestFrom.java`
 #### Snippet
 ```java
 
         @Override
         public void onSubscribe(Disposable d) {
-            DisposableHelper.replace(this.upstream, d);
+            parent.setOther(d);
         }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRetryWhen.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWithLatestFrom.java`
 #### Snippet
 ```java
 
         @Override
-        public void onError(Throwable e) {
-            DisposableHelper.replace(upstream, null);
-            active = false;
+        public void onSubscribe(Disposable d) {
+            DisposableHelper.setOnce(this.upstream, d);
+        }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRetryWhen.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWithLatestFrom.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(Observer<? super R> t) {
+        final SerializedObserver<R> serial = new SerializedObserver<>(t);
+        final WithLatestFromObserver<T, U, R> wlf = new WithLatestFromObserver<>(serial, combiner);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWithLatestFrom.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            DisposableHelper.dispose(other);
+            downstream.onError(t);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWithLatestFrom.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(U t) {
+            parent.lazySet(t);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWithLatestFrom.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            U u = get();
+            if (u != null) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferBoundary.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(Object t) {
+            Disposable upstream = get();
+            if (upstream != DisposableHelper.DISPOSED) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferBoundary.java`
 #### Snippet
 ```java
 
             @Override
-            public void onError(Throwable e) {
-                innerError(e);
-            }
+            public void onError(Throwable t) {
+                lazySet(DisposableHelper.DISPOSED);
+                parent.boundaryError(this, t);
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRetryWhen.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferBoundary.java`
 #### Snippet
 ```java
 
@@ -27888,26 +27864,74 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableR
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRetryWhen.java`
-#### Snippet
-```java
-
-            @Override
-            public void onNext(Object t) {
-                innerNext();
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableMergeWithSingle.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferBoundary.java`
 #### Snippet
 ```java
 
         @Override
         public void onSubscribe(Disposable d) {
-            DisposableHelper.setOnce(mainDisposable, d);
+            DisposableHelper.setOnce(this, d);
         }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferBoundary.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            if (errors.tryAddThrowableOrReport(t)) {
+                observers.dispose();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferBoundary.java`
+#### Snippet
+```java
+
+            @Override
+            public void onNext(Open t) {
+                parent.open(t);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferBoundary.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            synchronized (this) {
+                Map<Long, C> bufs = buffers;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferBoundary.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.setOnce(this.upstream, d)) {
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferBoundary.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Observer<? super U> t) {
+        BufferBoundaryObserver<T, U, Open, Close> parent =
+            new BufferBoundaryObserver<>(
 ```
 
 ### NullableProblems
@@ -27920,18 +27944,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableM
     protected void subscribeActual(Observer<? super T> observer) {
         MergeWithObserver<T> parent = new MergeWithObserver<>(observer);
         observer.onSubscribe(parent);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableMergeWithSingle.java`
-#### Snippet
-```java
-
-            @Override
-            public void onError(Throwable e) {
-                parent.otherError(e);
-            }
 ```
 
 ### NullableProblems
@@ -27984,145 +27996,13 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableM
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferBoundary.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            if (errors.tryAddThrowableOrReport(t)) {
-                observers.dispose();
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferBoundary.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(Object t) {
-            Disposable upstream = get();
-            if (upstream != DisposableHelper.DISPOSED) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferBoundary.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            if (get() != DisposableHelper.DISPOSED) {
-                lazySet(DisposableHelper.DISPOSED);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferBoundary.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Observer<? super U> t) {
-        BufferBoundaryObserver<T, U, Open, Close> parent =
-            new BufferBoundaryObserver<>(
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferBoundary.java`
-#### Snippet
-```java
-
-            @Override
-            public void onNext(Open t) {
-                parent.open(t);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferBoundary.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            synchronized (this) {
-                Map<Long, C> bufs = buffers;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferBoundary.java`
-#### Snippet
-```java
-
-            @Override
-            public void onSubscribe(Disposable d) {
-                DisposableHelper.setOnce(this, d);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferBoundary.java`
-#### Snippet
-```java
-
-            @Override
-            public void onError(Throwable t) {
-                lazySet(DisposableHelper.DISPOSED);
-                parent.boundaryError(this, t);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferBoundary.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableMergeWithSingle.java`
 #### Snippet
 ```java
 
         @Override
         public void onSubscribe(Disposable d) {
-            if (DisposableHelper.setOnce(this.upstream, d)) {
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferBoundary.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            DisposableHelper.setOnce(this, d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/BlockingObservableNext.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(Notification<T> args) {
-
-            if (waiting.getAndSet(0) == 1 || !args.isOnNext()) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/BlockingObservableNext.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            RxJavaPlugins.onError(e);
+            DisposableHelper.setOnce(mainDisposable, d);
         }
 ```
 
@@ -28140,37 +28020,205 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/BlockingObs
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/BlockingObservableLatest.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableMergeWithSingle.java`
 #### Snippet
 ```java
 
-        @Override
-        public void onNext(Notification<T> args) {
-            boolean wasNotAvailable = value.getAndSet(args) == null;
-            if (wasNotAvailable) {
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NotNull
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/BlockingObservableLatest.java`
-#### Snippet
-```java
-
-    @Override
-    public Iterator<T> iterator() {
-        BlockingObservableLatestIterator<T> lio = new BlockingObservableLatestIterator<>();
-
+            @Override
+            public void onError(Throwable e) {
+                parent.otherError(e);
+            }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/BlockingObservableLatest.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/BlockingObservableNext.java`
 #### Snippet
 ```java
 
         @Override
         public void onError(Throwable e) {
             RxJavaPlugins.onError(e);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/BlockingObservableNext.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(Notification<T> args) {
+
+            if (waiting.getAndSet(0) == 1 || !args.isOnNext()) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableGroupJoin.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(Object t) {
+            if (DisposableHelper.dispose(this)) {
+                parent.innerClose(isLeft, this);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableGroupJoin.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            DisposableHelper.setOnce(this, d);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableGroupJoin.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(Object t) {
+            parent.innerValue(isLeft, t);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableGroupJoin.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            parent.innerError(t);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableGroupJoin.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Observer<? super R> observer) {
+
+        GroupJoinDisposable<TLeft, TRight, TLeftEnd, TRightEnd, R> parent =
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableGroupJoin.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            parent.innerCloseError(t);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableGroupJoin.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            DisposableHelper.setOnce(this, d);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRetryWhen.java`
+#### Snippet
+```java
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                DisposableHelper.setOnce(this, d);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRetryWhen.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            DisposableHelper.replace(upstream, null);
+            active = false;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRetryWhen.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Observer<? super T> observer) {
+        Subject<Throwable> signaller = PublishSubject.<Throwable>create().toSerialized();
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRetryWhen.java`
+#### Snippet
+```java
+
+            @Override
+            public void onNext(Object t) {
+                innerNext();
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRetryWhen.java`
+#### Snippet
+```java
+
+            @Override
+            public void onError(Throwable e) {
+                innerError(e);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRetryWhen.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            HalfSerializer.onNext(downstream, t, this, error);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRetryWhen.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            DisposableHelper.replace(this.upstream, d);
         }
 ```
 
@@ -28224,86 +28272,38 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableS
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWithLatestFrom.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/BlockingObservableLatest.java`
 #### Snippet
 ```java
 
         @Override
-        public void onError(Throwable t) {
-            parent.otherError(t);
+        public void onError(Throwable e) {
+            RxJavaPlugins.onError(e);
         }
 ```
 
 ### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWithLatestFrom.java`
+Not annotated method overrides method annotated with @NotNull
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/BlockingObservableLatest.java`
 #### Snippet
 ```java
 
     @Override
-    public void subscribeActual(Observer<? super R> t) {
-        final SerializedObserver<R> serial = new SerializedObserver<>(t);
-        final WithLatestFromObserver<T, U, R> wlf = new WithLatestFromObserver<>(serial, combiner);
+    public Iterator<T> iterator() {
+        BlockingObservableLatestIterator<T> lio = new BlockingObservableLatestIterator<>();
+
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWithLatestFrom.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/BlockingObservableLatest.java`
 #### Snippet
 ```java
 
         @Override
-        public void onSubscribe(Disposable d) {
-            parent.setOther(d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWithLatestFrom.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            DisposableHelper.dispose(other);
-            downstream.onError(t);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWithLatestFrom.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(U t) {
-            parent.lazySet(t);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWithLatestFrom.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            U u = get();
-            if (u != null) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWithLatestFrom.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            DisposableHelper.setOnce(this.upstream, d);
-        }
+        public void onNext(Notification<T> args) {
+            boolean wasNotAvailable = value.getAndSet(args) == null;
+            if (wasNotAvailable) {
 ```
 
 ### NullableProblems
@@ -28325,8 +28325,8 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableM
 ```java
 
         @Override
-        public void onNext(T t) {
-            HalfSerializer.onNext(downstream, t, this, errors);
+        public void onSubscribe(Disposable d) {
+            DisposableHelper.setOnce(mainDisposable, d);
         }
 ```
 
@@ -28361,8 +28361,8 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableM
 ```java
 
         @Override
-        public void onSubscribe(Disposable d) {
-            DisposableHelper.setOnce(mainDisposable, d);
+        public void onNext(T t) {
+            HalfSerializer.onNext(downstream, t, this, errors);
         }
 ```
 
@@ -28380,31 +28380,31 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableM
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDematerialize.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableScan.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(Observer<? super T> t) {
+        source.subscribe(new ScanObserver<>(t, accumulator));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableScan.java`
 #### Snippet
 ```java
 
         @Override
-        public void onNext(T item) {
+        public void onNext(T t) {
             if (done) {
-                if (item instanceof Notification) {
+                return;
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDematerialize.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDematerialize.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableScan.java`
 #### Snippet
 ```java
 
@@ -28416,14 +28416,86 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableD
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDematerialize.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableScan.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSerialized.java`
 #### Snippet
 ```java
 
     @Override
-    public void subscribeActual(Observer<? super R> observer) {
-        source.subscribe(new DematerializeObserver<>(observer, selector));
+    protected void subscribeActual(Observer<? super T> observer) {
+        source.subscribe(new SerializedObserver<>(observer));
     }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableElementAtMaybe.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(MaybeObserver<? super T> t) {
+        source.subscribe(new ElementAtObserver<>(t, index));
+    }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NonNull
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableElementAtMaybe.java`
+#### Snippet
+```java
+
+    @Override
+    public Observable<T> fuseToObservable() {
+        return RxJavaPlugins.onAssembly(new ObservableElementAt<>(source, index, null, false));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableElementAtMaybe.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            if (done) {
+                RxJavaPlugins.onError(t);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableElementAtMaybe.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableElementAtMaybe.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            if (done) {
+                return;
 ```
 
 ### NullableProblems
@@ -28469,21 +28541,9 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableB
 ```java
 
         @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBuffer.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Observer<? super U> t) {
-        if (skip == count) {
-            BufferExactObserver<T, U> bes = new BufferExactObserver<>(t, count, bufferSupplier);
+        public void onError(Throwable t) {
+            buffers.clear();
+            downstream.onError(t);
 ```
 
 ### NullableProblems
@@ -28493,9 +28553,9 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableB
 ```java
 
         @Override
-        public void onError(Throwable t) {
-            buffers.clear();
-            downstream.onError(t);
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
 ```
 
 ### NullableProblems
@@ -28512,134 +28572,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableB
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSerialized.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBuffer.java`
 #### Snippet
 ```java
 
     @Override
-    protected void subscribeActual(Observer<? super T> observer) {
-        source.subscribe(new SerializedObserver<>(observer));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableScan.java`
-#### Snippet
-```java
-
-    @Override
-    public void subscribeActual(Observer<? super T> t) {
-        source.subscribe(new ScanObserver<>(t, accumulator));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableScan.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableScan.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            if (done) {
-                return;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableScan.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            if (done) {
-                RxJavaPlugins.onError(t);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableElementAtMaybe.java`
-#### Snippet
-```java
-
-    @Override
-    public void subscribeActual(MaybeObserver<? super T> t) {
-        source.subscribe(new ElementAtObserver<>(t, index));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableElementAtMaybe.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NonNull
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableElementAtMaybe.java`
-#### Snippet
-```java
-
-    @Override
-    public Observable<T> fuseToObservable() {
-        return RxJavaPlugins.onAssembly(new ObservableElementAt<>(source, index, null, false));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableElementAtMaybe.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            if (done) {
-                RxJavaPlugins.onError(t);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableElementAtMaybe.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            if (done) {
-                return;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDefer.java`
-#### Snippet
-```java
-
-    @Override
-    public void subscribeActual(Observer<? super T> observer) {
-        ObservableSource<? extends T> pub;
-        try {
+    protected void subscribeActual(Observer<? super U> t) {
+        if (skip == count) {
+            BufferExactObserver<T, U> bes = new BufferExactObserver<>(t, count, bufferSupplier);
 ```
 
 ### NullableProblems
@@ -28656,26 +28596,110 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableR
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDistinct.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDefer.java`
 #### Snippet
 ```java
 
     @Override
-    protected void subscribeActual(Observer<? super T> observer) {
-        Collection<? super K> collection;
-
+    public void subscribeActual(Observer<? super T> observer) {
+        ObservableSource<? extends T> pub;
+        try {
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDistinct.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableAmb.java`
 #### Snippet
 ```java
 
         @Override
-        public void onNext(T value) {
+        public void onNext(T t) {
+            if (won) {
+                downstream.onNext(t);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableAmb.java`
+#### Snippet
+```java
+    @Override
+    @SuppressWarnings("unchecked")
+    public void subscribeActual(Observer<? super T> observer) {
+        ObservableSource<? extends T>[] sources = this.sources;
+        int count = 0;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableAmb.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            DisposableHelper.setOnce(this, d);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableAmb.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            if (won) {
+                downstream.onError(t);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDematerialize.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDematerialize.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T item) {
             if (done) {
-                return;
+                if (item instanceof Notification) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDematerialize.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            if (done) {
+                RxJavaPlugins.onError(t);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDematerialize.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(Observer<? super R> observer) {
+        source.subscribe(new DematerializeObserver<>(observer, selector));
+    }
 ```
 
 ### NullableProblems
@@ -28704,6 +28728,66 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableD
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObserverResourceWrapper.java`
+#### Snippet
+```java
+
+    @Override
+    public void onNext(T t) {
+        downstream.onNext(t);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableAll.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            if (done) {
+                return;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObserverResourceWrapper.java`
+#### Snippet
+```java
+
+    @Override
+    public void onError(Throwable t) {
+        dispose();
+        downstream.onError(t);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableAll.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            if (done) {
+                RxJavaPlugins.onError(t);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObserverResourceWrapper.java`
+#### Snippet
+```java
+
+    @Override
+    public void onSubscribe(Disposable d) {
+        if (DisposableHelper.setOnce(upstream, d)) {
+            downstream.onSubscribe(this);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableAll.java`
 #### Snippet
 ```java
@@ -28721,14 +28805,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableA
 ```java
 
         @Override
-        public void onNext(T t) {
-            if (done) {
-                return;
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableAll.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSingleSingle.java`
 #### Snippet
 ```java
 
@@ -28740,7 +28824,7 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableA
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableAll.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSingleSingle.java`
 #### Snippet
 ```java
 
@@ -28752,134 +28836,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableA
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableAmb.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            DisposableHelper.setOnce(this, d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableAmb.java`
-#### Snippet
-```java
-    @Override
-    @SuppressWarnings("unchecked")
-    public void subscribeActual(Observer<? super T> observer) {
-        ObservableSource<? extends T>[] sources = this.sources;
-        int count = 0;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableAmb.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            if (won) {
-                downstream.onError(t);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableAmb.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSingleSingle.java`
 #### Snippet
 ```java
 
         @Override
         public void onNext(T t) {
-            if (won) {
-                downstream.onNext(t);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObserverResourceWrapper.java`
-#### Snippet
-```java
-
-    @Override
-    public void onSubscribe(Disposable d) {
-        if (DisposableHelper.setOnce(upstream, d)) {
-            downstream.onSubscribe(this);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObserverResourceWrapper.java`
-#### Snippet
-```java
-
-    @Override
-    public void onError(Throwable t) {
-        dispose();
-        downstream.onError(t);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObserverResourceWrapper.java`
-#### Snippet
-```java
-
-    @Override
-    public void onNext(T t) {
-        downstream.onNext(t);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowTimed.java`
-#### Snippet
-```java
-
-        @Override
-        public final void onNext(T t) {
-            queue.offer(t);
-            drain();
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowTimed.java`
-#### Snippet
-```java
-
-        @Override
-        public final void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowTimed.java`
-#### Snippet
-```java
-
-        @Override
-        public final void onError(Throwable t) {
-            error = t;
-            done = true;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowTimed.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Observer<? super Observable<T>> downstream) {
-        if (timespan == timeskip) {
-            if (maxSize == Long.MAX_VALUE) {
+            if (done) {
+                return;
 ```
 
 ### NullableProblems
@@ -28896,61 +28860,13 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableS
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSingleSingle.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            if (done) {
-                RxJavaPlugins.onError(t);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSingleSingle.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            if (done) {
-                return;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSingleSingle.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDoAfterNext.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            downstream.onNext(t);
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDoAfterNext.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatWithCompletable.java`
 #### Snippet
 ```java
 
     @Override
     protected void subscribeActual(Observer<? super T> observer) {
-        source.subscribe(new DoAfterObserver<>(observer, onAfterNext));
+        source.subscribe(new ConcatWithObserver<>(observer, other));
     }
 ```
 
@@ -28960,10 +28876,10 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableC
 #### Snippet
 ```java
 
-    @Override
-    protected void subscribeActual(Observer<? super T> observer) {
-        source.subscribe(new ConcatWithObserver<>(observer, other));
-    }
+        @Override
+        public void onError(Throwable e) {
+            downstream.onError(e);
+        }
 ```
 
 ### NullableProblems
@@ -28992,14 +28908,158 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableC
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatWithCompletable.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDistinct.java`
 #### Snippet
 ```java
 
         @Override
-        public void onError(Throwable e) {
-            downstream.onError(e);
-        }
+        public void onNext(T value) {
+            if (done) {
+                return;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDistinct.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Observer<? super T> observer) {
+        Collection<? super K> collection;
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDoAfterNext.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Observer<? super T> observer) {
+        source.subscribe(new DoAfterObserver<>(observer, onAfterNext));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDoAfterNext.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            downstream.onNext(t);
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTimer.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(Observer<? super Long> observer) {
+        TimerObserver ios = new TimerObserver(observer);
+        observer.onSubscribe(ios);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindow.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            final ArrayDeque<UnicastSubject<T>> ws = windows;
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindow.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            UnicastSubject<T> w = window;
+            ObservableWindowSubscribeIntercept<T> intercept = null;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindow.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindow.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindow.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(Observer<? super Observable<T>> t) {
+        if (count == skip) {
+            source.subscribe(new WindowExactObserver<>(t, count, capacityHint));
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindow.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            final ArrayDeque<UnicastSubject<T>> ws = windows;
+            while (!ws.isEmpty()) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindow.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            UnicastSubject<T> w = window;
+            if (w != null) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTakeLastTimed.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            final SpscLinkedArrayQueue<Object> q = queue;
+
 ```
 
 ### NullableProblems
@@ -29040,114 +29100,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableT
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindow.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            UnicastSubject<T> w = window;
-            if (w != null) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTakeLastTimed.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            final SpscLinkedArrayQueue<Object> q = queue;
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindow.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            final ArrayDeque<UnicastSubject<T>> ws = windows;
-            while (!ws.isEmpty()) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindow.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindow.java`
-#### Snippet
-```java
-
-    @Override
-    public void subscribeActual(Observer<? super Observable<T>> t) {
-        if (count == skip) {
-            source.subscribe(new WindowExactObserver<>(t, count, capacityHint));
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindow.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindow.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            UnicastSubject<T> w = window;
-            ObservableWindowSubscribeIntercept<T> intercept = null;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindow.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            final ArrayDeque<UnicastSubject<T>> ws = windows;
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTimer.java`
-#### Snippet
-```java
-
-    @Override
-    public void subscribeActual(Observer<? super Long> observer) {
-        TimerObserver ios = new TimerObserver(observer);
-        observer.onSubscribe(ios);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableAutoConnect.java`
 #### Snippet
 ```java
@@ -29176,10 +29128,10 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableS
 #### Snippet
 ```java
 
-        @Override
-        public void onNext(T t) {
-            if (skip == size()) {
-                downstream.onNext(poll());
+    @Override
+    public void subscribeActual(Observer<? super T> observer) {
+        source.subscribe(new SkipLastObserver<>(observer, skip));
+    }
 ```
 
 ### NullableProblems
@@ -29196,18 +29148,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableS
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSkipLast.java`
-#### Snippet
-```java
-
-    @Override
-    public void subscribeActual(Observer<? super T> observer) {
-        source.subscribe(new SkipLastObserver<>(observer, skip));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableEmpty.java`
 #### Snippet
 ```java
@@ -29220,6 +29160,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableE
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSkipLast.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            if (skip == size()) {
+                downstream.onNext(poll());
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableError.java`
 #### Snippet
 ```java
@@ -29228,18 +29180,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableE
     public void subscribeActual(Observer<? super T> observer) {
         Throwable error;
         try {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableMapNotification.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            ObservableSource<? extends R> p;
-
 ```
 
 ### NullableProblems
@@ -29272,10 +29212,70 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableM
 #### Snippet
 ```java
 
+        @Override
+        public void onNext(T t) {
+            ObservableSource<? extends R> p;
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableMapNotification.java`
+#### Snippet
+```java
+
     @Override
     public void subscribeActual(Observer<? super ObservableSource<? extends R>> t) {
         source.subscribe(new MapNotificationObserver<>(t, onNextMapper, onErrorMapper, onCompleteSupplier));
     }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowTimed.java`
+#### Snippet
+```java
+
+        @Override
+        public final void onError(Throwable t) {
+            error = t;
+            done = true;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowTimed.java`
+#### Snippet
+```java
+
+        @Override
+        public final void onNext(T t) {
+            queue.offer(t);
+            drain();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowTimed.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Observer<? super Observable<T>> downstream) {
+        if (timespan == timeskip) {
+            if (maxSize == Long.MAX_VALUE) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowTimed.java`
+#### Snippet
+```java
+
+        @Override
+        public final void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
 ```
 
 ### NullableProblems
@@ -29292,6 +29292,78 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableF
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDoOnEach.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDoOnEach.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(Observer<? super T> t) {
+        source.subscribe(new DoOnEachObserver<>(t, onNext, onError, onComplete, onAfterTerminate));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDoOnEach.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            if (done) {
+                RxJavaPlugins.onError(t);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDoOnEach.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            if (done) {
+                return;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFromUnsafeSource.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Observer<? super T> observer) {
+        source.subscribe(observer);
+    }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NonNull
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCreate.java`
+#### Snippet
+```java
+
+        @Override
+        public ObservableEmitter<T> serialize() {
+            return this;
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCreate.java`
 #### Snippet
 ```java
@@ -29300,6 +29372,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableC
         public void onNext(T t) {
             if (t == null) {
                 onError(ExceptionHelper.createNullPointerException("onNext called with a null value."));
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCreate.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            if (!tryOnError(t)) {
+                RxJavaPlugins.onError(t);
 ```
 
 ### NullableProblems
@@ -29333,21 +29417,9 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableC
 ```java
 
         @Override
-        public void onError(Throwable t) {
-            if (!tryOnError(t)) {
-                RxJavaPlugins.onError(t);
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NonNull
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCreate.java`
-#### Snippet
-```java
-
-        @Override
-        public ObservableEmitter<T> serialize() {
-            return this;
-        }
+        public void onNext(T t) {
+            if (done || emitter.isDisposed()) {
+                return;
 ```
 
 ### NullableProblems
@@ -29360,18 +29432,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableC
         public ObservableEmitter<T> serialize() {
             return new SerializedEmitter<>(this);
         }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCreate.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            if (done || emitter.isDisposed()) {
-                return;
 ```
 
 ### NullableProblems
@@ -29400,6 +29460,54 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableC
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/BlockingObservableIterable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            queue.offer(t);
+            signalConsumer();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/BlockingObservableIterable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            DisposableHelper.setOnce(this, d);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/BlockingObservableIterable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            error = t;
+            done = true;
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NotNull
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/BlockingObservableIterable.java`
+#### Snippet
+```java
+
+    @Override
+    public Iterator<T> iterator() {
+        BlockingObservableIterator<T> it = new BlockingObservableIterator<>(bufferSize);
+        source.subscribe(it);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatMapScheduler.java`
 #### Snippet
 ```java
@@ -29416,10 +29524,10 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableC
 #### Snippet
 ```java
 
-            @Override
-            public void onSubscribe(Disposable d) {
-                DisposableHelper.replace(this, d);
-            }
+        @Override
+        public void onError(Throwable t) {
+            if (done) {
+                RxJavaPlugins.onError(t);
 ```
 
 ### NullableProblems
@@ -29432,42 +29540,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableC
             public void onError(Throwable e) {
                 ConcatMapDelayErrorObserver<?, R> p = parent;
                 if (p.errors.tryAddThrowableOrReport(e)) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatMapScheduler.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            if (errors.tryAddThrowableOrReport(e)) {
-                done = true;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatMapScheduler.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T value) {
-            if (sourceMode == QueueDisposable.NONE) {
-                queue.offer(value);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatMapScheduler.java`
-#### Snippet
-```java
-
-            @Override
-            public void onSubscribe(Disposable d) {
-                DisposableHelper.replace(this, d);
-            }
 ```
 
 ### NullableProblems
@@ -29500,10 +29572,10 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableC
 #### Snippet
 ```java
 
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
+            @Override
+            public void onSubscribe(Disposable d) {
+                DisposableHelper.replace(this, d);
+            }
 ```
 
 ### NullableProblems
@@ -29525,6 +29597,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableC
 ```java
 
             @Override
+            public void onSubscribe(Disposable d) {
+                DisposableHelper.replace(this, d);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatMapScheduler.java`
+#### Snippet
+```java
+
+            @Override
             public void onError(Throwable t) {
                 parent.dispose();
                 downstream.onError(t);
@@ -29537,9 +29621,9 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableC
 ```java
 
         @Override
-        public void onError(Throwable t) {
+        public void onNext(T t) {
             if (done) {
-                RxJavaPlugins.onError(t);
+                return;
 ```
 
 ### NullableProblems
@@ -29549,30 +29633,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableC
 ```java
 
         @Override
-        public void onNext(T t) {
-            if (done) {
-                return;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFromUnsafeSource.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Observer<? super T> observer) {
-        source.subscribe(observer);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDoOnEach.java`
-#### Snippet
-```java
-
-        @Override
         public void onSubscribe(Disposable d) {
             if (DisposableHelper.validate(this.upstream, d)) {
                 this.upstream = d;
@@ -29580,50 +29640,26 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableD
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDoOnEach.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatMapScheduler.java`
 #### Snippet
 ```java
 
         @Override
-        public void onError(Throwable t) {
-            if (done) {
-                RxJavaPlugins.onError(t);
+        public void onError(Throwable e) {
+            if (errors.tryAddThrowableOrReport(e)) {
+                done = true;
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDoOnEach.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatMapScheduler.java`
 #### Snippet
 ```java
 
         @Override
-        public void onNext(T t) {
-            if (done) {
-                return;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDoOnEach.java`
-#### Snippet
-```java
-
-    @Override
-    public void subscribeActual(Observer<? super T> t) {
-        source.subscribe(new DoOnEachObserver<>(t, onNext, onError, onComplete, onAfterTerminate));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDoFinally.java`
-#### Snippet
-```java
-        @SuppressWarnings("unchecked")
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
+        public void onNext(T value) {
+            if (sourceMode == QueueDisposable.NONE) {
+                queue.offer(value);
 ```
 
 ### NullableProblems
@@ -29664,86 +29700,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableD
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRetryPredicate.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDoFinally.java`
 #### Snippet
 ```java
-
-        @Override
-        public void onError(Throwable t) {
-            long r = remaining;
-            if (r != Long.MAX_VALUE) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRetryPredicate.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            downstream.onNext(t);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRetryPredicate.java`
-#### Snippet
-```java
-
+        @SuppressWarnings("unchecked")
         @Override
         public void onSubscribe(Disposable d) {
-            upstream.replace(d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/BlockingObservableIterable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            DisposableHelper.setOnce(this, d);
-        }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NotNull
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/BlockingObservableIterable.java`
-#### Snippet
-```java
-
-    @Override
-    public Iterator<T> iterator() {
-        BlockingObservableIterator<T> it = new BlockingObservableIterator<>(bufferSize);
-        source.subscribe(it);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/BlockingObservableIterable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            queue.offer(t);
-            signalConsumer();
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/BlockingObservableIterable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            error = t;
-            done = true;
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
 ```
 
 ### NullableProblems
@@ -29753,9 +29717,9 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableT
 ```java
 
         @Override
-        public void onError(Throwable e) {
-            DisposableHelper.dispose(otherObserver);
-            HalfSerializer.onError(downstream, e, this, error);
+        public void onNext(T t) {
+            HalfSerializer.onNext(downstream, t, this, error);
+        }
 ```
 
 ### NullableProblems
@@ -29765,45 +29729,9 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableT
 ```java
 
             @Override
-            public void onNext(U t) {
-                DisposableHelper.dispose(this);
-                otherComplete();
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableMaterialize.java`
-#### Snippet
-```java
-
-    @Override
-    public void subscribeActual(Observer<? super Notification<T>> t) {
-        source.subscribe(new MaterializeObserver<>(t));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTakeUntil.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            DisposableHelper.setOnce(upstream, d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableMaterialize.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            Notification<T> v = Notification.createOnError(t);
-            downstream.onNext(v);
+            public void onSubscribe(Disposable d) {
+                DisposableHelper.setOnce(this, d);
+            }
 ```
 
 ### NullableProblems
@@ -29824,22 +29752,46 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableT
 #### Snippet
 ```java
 
+    @Override
+    public void subscribeActual(Observer<? super T> child) {
+        TakeUntilMainObserver<T, U> parent = new TakeUntilMainObserver<>(child);
+        child.onSubscribe(parent);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRetryPredicate.java`
+#### Snippet
+```java
+
         @Override
-        public void onNext(T t) {
-            HalfSerializer.onNext(downstream, t, this, error);
+        public void onSubscribe(Disposable d) {
+            upstream.replace(d);
         }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableMaterialize.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTakeUntil.java`
 #### Snippet
 ```java
 
         @Override
-        public void onNext(T t) {
-            downstream.onNext(Notification.createOnNext(t));
+        public void onSubscribe(Disposable d) {
+            DisposableHelper.setOnce(upstream, d);
         }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRetryPredicate.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            long r = remaining;
+            if (r != Long.MAX_VALUE) {
 ```
 
 ### NullableProblems
@@ -29849,21 +29801,9 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableT
 ```java
 
             @Override
-            public void onSubscribe(Disposable d) {
-                DisposableHelper.setOnce(this, d);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableMaterialize.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
+            public void onNext(U t) {
+                DisposableHelper.dispose(this);
+                otherComplete();
 ```
 
 ### NullableProblems
@@ -29872,22 +29812,70 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableT
 #### Snippet
 ```java
 
-    @Override
-    public void subscribeActual(Observer<? super T> child) {
-        TakeUntilMainObserver<T, U> parent = new TakeUntilMainObserver<>(child);
-        child.onSubscribe(parent);
+        @Override
+        public void onError(Throwable e) {
+            DisposableHelper.dispose(otherObserver);
+            HalfSerializer.onError(downstream, e, this, error);
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableScanSeed.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRetryPredicate.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            downstream.onNext(t);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableZip.java`
 #### Snippet
 ```java
 
         @Override
         public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
+            DisposableHelper.setOnce(this.upstream, d);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableZip.java`
+#### Snippet
+```java
+    @Override
+    @SuppressWarnings("unchecked")
+    public void subscribeActual(Observer<? super R> observer) {
+        ObservableSource<? extends T>[] sources = this.sources;
+        int count = 0;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableZip.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            queue.offer(t);
+            parent.drain();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableZip.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            error = t;
+            done = true;
 ```
 
 ### NullableProblems
@@ -29921,6 +29909,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableS
 ```java
 
         @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableScanSeed.java`
+#### Snippet
+```java
+
+        @Override
         public void onError(Throwable t) {
             if (done) {
                 RxJavaPlugins.onError(t);
@@ -29928,91 +29928,7 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableS
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableZip.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            error = t;
-            done = true;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableZip.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            queue.offer(t);
-            parent.drain();
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableZip.java`
-#### Snippet
-```java
-    @Override
-    @SuppressWarnings("unchecked")
-    public void subscribeActual(Observer<? super R> observer) {
-        ObservableSource<? extends T>[] sources = this.sources;
-        int count = 0;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableZip.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            DisposableHelper.setOnce(this.upstream, d);
-        }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NonNull
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCollectSingle.java`
-#### Snippet
-```java
-
-    @Override
-    public Observable<U> fuseToObservable() {
-        return RxJavaPlugins.onAssembly(new ObservableCollect<>(source, initialSupplier, collector));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCollectSingle.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(SingleObserver<? super U> t) {
-        U u;
-        try {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCollectSingle.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            if (done) {
-                return;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCollectSingle.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableMaterialize.java`
 #### Snippet
 ```java
 
@@ -30024,14 +29940,38 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableC
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCollectSingle.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableMaterialize.java`
 #### Snippet
 ```java
 
         @Override
         public void onError(Throwable t) {
-            if (done) {
-                RxJavaPlugins.onError(t);
+            Notification<T> v = Notification.createOnError(t);
+            downstream.onNext(v);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableMaterialize.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            downstream.onNext(Notification.createOnNext(t));
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableHide.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
 ```
 
 ### NullableProblems
@@ -30053,9 +29993,9 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableH
 ```java
 
         @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
+        public void onNext(T t) {
+            downstream.onNext(t);
+        }
 ```
 
 ### NullableProblems
@@ -30072,26 +30012,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableH
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableHide.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSampleTimed.java`
 #### Snippet
 ```java
 
         @Override
         public void onNext(T t) {
-            downstream.onNext(t);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableIgnoreElementsCompletable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T v) {
-            // deliberately ignored
-        }
+            T oldValue = getAndSet(t);
+            if (oldValue != null && onDropped != null) {
 ```
 
 ### NullableProblems
@@ -30125,21 +30053,237 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableS
 ```java
 
         @Override
-        public void onNext(T t) {
-            T oldValue = getAndSet(t);
-            if (oldValue != null && onDropped != null) {
+        public void onError(Throwable t) {
+            cancelTimer();
+            downstream.onError(t);
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSampleTimed.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableMaterialize.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(Observer<? super Notification<T>> t) {
+        source.subscribe(new MaterializeObserver<>(t));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCollectSingle.java`
 #### Snippet
 ```java
 
         @Override
         public void onError(Throwable t) {
-            cancelTimer();
-            downstream.onError(t);
+            if (done) {
+                RxJavaPlugins.onError(t);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCollectSingle.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            if (done) {
+                return;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCollectSingle.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(SingleObserver<? super U> t) {
+        U u;
+        try {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCollectSingle.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NonNull
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCollectSingle.java`
+#### Snippet
+```java
+
+    @Override
+    public Observable<U> fuseToObservable() {
+        return RxJavaPlugins.onAssembly(new ObservableCollect<>(source, initialSupplier, collector));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatMap.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            if (errors.tryAddThrowableOrReport(e)) {
+                done = true;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatMap.java`
+#### Snippet
+```java
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                DisposableHelper.replace(this, d);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatMap.java`
+#### Snippet
+```java
+
+            @Override
+            public void onNext(U t) {
+                downstream.onNext(t);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatMap.java`
+#### Snippet
+```java
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                DisposableHelper.replace(this, d);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatMap.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatMap.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            if (done) {
+                RxJavaPlugins.onError(t);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatMap.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatMap.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T value) {
+            if (sourceMode == QueueDisposable.NONE) {
+                queue.offer(value);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatMap.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(Observer<? super U> observer) {
+
+        if (ObservableScalarXMap.tryScalarXMapSubscribe(source, observer, mapper)) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatMap.java`
+#### Snippet
+```java
+
+            @Override
+            public void onNext(R value) {
+                downstream.onNext(value);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatMap.java`
+#### Snippet
+```java
+
+            @Override
+            public void onError(Throwable t) {
+                parent.dispose();
+                downstream.onError(t);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatMap.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            if (done) {
+                return;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatMap.java`
+#### Snippet
+```java
+
+            @Override
+            public void onError(Throwable e) {
+                ConcatMapDelayErrorObserver<?, R> p = parent;
+                if (p.errors.tryAddThrowableOrReport(e)) {
 ```
 
 ### NullableProblems
@@ -30148,9 +30292,21 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableI
 #### Snippet
 ```java
 
+        @Override
+        public void onNext(T v) {
+            // deliberately ignored
+        }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NonNull
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableIgnoreElementsCompletable.java`
+#### Snippet
+```java
+
     @Override
-    public void subscribeActual(final CompletableObserver t) {
-        source.subscribe(new IgnoreObservable<>(t));
+    public Observable<T> fuseToObservable() {
+        return RxJavaPlugins.onAssembly(new ObservableIgnoreElements<>(source));
     }
 ```
 
@@ -30172,22 +30328,22 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableI
 #### Snippet
 ```java
 
-        @Override
-        public void onSubscribe(Disposable d) {
-            this.upstream = d;
-            downstream.onSubscribe(this);
+    @Override
+    public void subscribeActual(final CompletableObserver t) {
+        source.subscribe(new IgnoreObservable<>(t));
+    }
 ```
 
 ### NullableProblems
-Not annotated method overrides method annotated with @NonNull
+Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableIgnoreElementsCompletable.java`
 #### Snippet
 ```java
 
-    @Override
-    public Observable<T> fuseToObservable() {
-        return RxJavaPlugins.onAssembly(new ObservableIgnoreElements<>(source));
-    }
+        @Override
+        public void onSubscribe(Disposable d) {
+            this.upstream = d;
+            downstream.onSubscribe(this);
 ```
 
 ### NullableProblems
@@ -30200,6 +30356,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableO
     protected void subscribeActual(Observer<? super T> observer) {
         source.subscribe(new OnErrorCompleteObserver<>(observer, predicate));
     }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableOnErrorComplete.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
 ```
 
 ### NullableProblems
@@ -30228,7 +30396,19 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableO
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableOnErrorComplete.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableJust.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Observer<? super T> observer) {
+        ScalarDisposable<T> sd = new ScalarDisposable<>(observer, value);
+        observer.onSubscribe(sd);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferTimed.java`
 #### Snippet
 ```java
 
@@ -30240,14 +30420,38 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableO
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableJust.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferTimed.java`
 #### Snippet
 ```java
 
-    @Override
-    protected void subscribeActual(Observer<? super T> observer) {
-        ScalarDisposable<T> sd = new ScalarDisposable<>(observer, value);
-        observer.onSubscribe(sd);
+        @Override
+        public void onError(Throwable t) {
+            synchronized (this) {
+                buffer = null;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferTimed.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            synchronized (this) {
+                U b = buffer;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferTimed.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
 ```
 
 ### NullableProblems
@@ -30269,9 +30473,33 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableB
 ```java
 
         @Override
-        public void onNext(T t) {
+        public void onError(Throwable t) {
             synchronized (this) {
-                U b = buffer;
+                buffer = null;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferTimed.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            U b;
+            synchronized (this) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferTimed.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
 ```
 
 ### NullableProblems
@@ -30300,31 +30528,79 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableB
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferTimed.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableToList.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(Observer<? super U> t) {
+        U coll;
+        try {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableToList.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableToList.java`
 #### Snippet
 ```java
 
         @Override
         public void onNext(T t) {
-            U b;
-            synchronized (this) {
+            collection.add(t);
+        }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferTimed.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableToList.java`
 #### Snippet
 ```java
 
         @Override
         public void onError(Throwable t) {
-            synchronized (this) {
-                buffer = null;
+            collection = null;
+            downstream.onError(t);
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferTimed.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSkip.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            if (remaining != 0L) {
+                remaining--;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSkip.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(Observer<? super T> observer) {
+        source.subscribe(new SkipObserver<>(observer, n));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSkip.java`
 #### Snippet
 ```java
 
@@ -30336,19 +30612,19 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableB
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferTimed.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSkip.java`
 #### Snippet
 ```java
 
         @Override
         public void onError(Throwable t) {
-            synchronized (this) {
-                buffer = null;
+            downstream.onError(t);
+        }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferTimed.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDebounce.java`
 #### Snippet
 ```java
 
@@ -30360,7 +30636,127 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableB
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableBufferTimed.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDebounce.java`
+#### Snippet
+```java
+
+            @Override
+            public void onNext(U t) {
+                if (done) {
+                    return;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDebounce.java`
+#### Snippet
+```java
+
+            @Override
+            public void onError(Throwable t) {
+                if (done) {
+                    RxJavaPlugins.onError(t);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDebounce.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(Observer<? super T> t) {
+        source.subscribe(new DebounceObserver<>(new SerializedObserver<>(t), debounceSelector));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDebounce.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            DisposableHelper.dispose(debouncer);
+            downstream.onError(t);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDebounce.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            if (done) {
+                return;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapCompletable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T value) {
+            CompletableSource cs;
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapCompletable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            if (errors.tryAddThrowableOrReport(e)) {
+                if (delayErrors) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapCompletable.java`
+#### Snippet
+```java
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                DisposableHelper.setOnce(this, d);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapCompletable.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Observer<? super T> observer) {
+        source.subscribe(new FlatMapCompletableMainObserver<>(observer, mapper, delayErrors));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapCompletable.java`
+#### Snippet
+```java
+
+            @Override
+            public void onError(Throwable e) {
+                innerError(this, e);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapCompletable.java`
 #### Snippet
 ```java
 
@@ -30408,162 +30804,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableC
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatMap.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            if (errors.tryAddThrowableOrReport(e)) {
-                done = true;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatMap.java`
-#### Snippet
-```java
-
-            @Override
-            public void onNext(R value) {
-                downstream.onNext(value);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatMap.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatMap.java`
-#### Snippet
-```java
-
-            @Override
-            public void onSubscribe(Disposable d) {
-                DisposableHelper.replace(this, d);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatMap.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatMap.java`
-#### Snippet
-```java
-
-            @Override
-            public void onError(Throwable e) {
-                ConcatMapDelayErrorObserver<?, R> p = parent;
-                if (p.errors.tryAddThrowableOrReport(e)) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatMap.java`
-#### Snippet
-```java
-
-            @Override
-            public void onSubscribe(Disposable d) {
-                DisposableHelper.replace(this, d);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatMap.java`
-#### Snippet
-```java
-
-    @Override
-    public void subscribeActual(Observer<? super U> observer) {
-
-        if (ObservableScalarXMap.tryScalarXMapSubscribe(source, observer, mapper)) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatMap.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T value) {
-            if (sourceMode == QueueDisposable.NONE) {
-                queue.offer(value);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatMap.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            if (done) {
-                return;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatMap.java`
-#### Snippet
-```java
-
-            @Override
-            public void onNext(U t) {
-                downstream.onNext(t);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatMap.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            if (done) {
-                RxJavaPlugins.onError(t);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatMap.java`
-#### Snippet
-```java
-
-            @Override
-            public void onError(Throwable t) {
-                parent.dispose();
-                downstream.onError(t);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCache.java`
 #### Snippet
 ```java
@@ -30576,457 +30816,25 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableC
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapCompletable.java`
-#### Snippet
-```java
-
-            @Override
-            public void onSubscribe(Disposable d) {
-                DisposableHelper.setOnce(this, d);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapCompletable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            if (errors.tryAddThrowableOrReport(e)) {
-                if (delayErrors) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapCompletable.java`
-#### Snippet
-```java
-
-            @Override
-            public void onError(Throwable e) {
-                innerError(this, e);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapCompletable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapCompletable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T value) {
-            CompletableSource cs;
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapCompletable.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Observer<? super T> observer) {
-        source.subscribe(new FlatMapCompletableMainObserver<>(observer, mapper, delayErrors));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDebounce.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            if (done) {
-                return;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDebounce.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            DisposableHelper.dispose(debouncer);
-            downstream.onError(t);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDebounce.java`
-#### Snippet
-```java
-
-    @Override
-    public void subscribeActual(Observer<? super T> t) {
-        source.subscribe(new DebounceObserver<>(new SerializedObserver<>(t), debounceSelector));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDebounce.java`
-#### Snippet
-```java
-
-            @Override
-            public void onError(Throwable t) {
-                if (done) {
-                    RxJavaPlugins.onError(t);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDebounce.java`
-#### Snippet
-```java
-
-            @Override
-            public void onNext(U t) {
-                if (done) {
-                    return;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDebounce.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableToList.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            collection = null;
-            downstream.onError(t);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableToList.java`
-#### Snippet
-```java
-
-    @Override
-    public void subscribeActual(Observer<? super U> t) {
-        U coll;
-        try {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableToList.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableToList.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            collection.add(t);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSkip.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            if (remaining != 0L) {
-                remaining--;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSkip.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSkip.java`
-#### Snippet
-```java
-
-    @Override
-    public void subscribeActual(Observer<? super T> observer) {
-        source.subscribe(new SkipObserver<>(observer, n));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSkip.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            downstream.onError(t);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableOnErrorReturn.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            T v;
-            try {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableOnErrorReturn.java`
-#### Snippet
-```java
-
-    @Override
-    public void subscribeActual(Observer<? super T> t) {
-        source.subscribe(new OnErrorReturnObserver<>(t, valueSupplier));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableOnErrorReturn.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            downstream.onNext(t);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableOnErrorReturn.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFromSupplier.java`
-#### Snippet
-```java
-
-    @Override
-    public void subscribeActual(Observer<? super T> observer) {
-        DeferredScalarDisposable<T> d = new DeferredScalarDisposable<>(observer);
-        observer.onSubscribe(d);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlattenIterable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T value) {
-            if (upstream == DisposableHelper.DISPOSED) {
-                return;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlattenIterable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            if (upstream == DisposableHelper.DISPOSED) {
-                RxJavaPlugins.onError(e);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlattenIterable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlattenIterable.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Observer<? super R> observer) {
-        source.subscribe(new FlattenIterableObserver<>(observer, mapper));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapSingle.java`
-#### Snippet
-```java
-
-            @Override
-            public void onError(Throwable e) {
-                innerError(this, e);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapSingle.java`
-#### Snippet
-```java
-
-            @Override
-            public void onSuccess(R value) {
-                innerSuccess(this, value);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapSingle.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            SingleSource<? extends R> ms;
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapSingle.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapSingle.java`
-#### Snippet
-```java
-
-            @Override
-            public void onSubscribe(Disposable d) {
-                DisposableHelper.setOnce(this, d);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapSingle.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            active.decrementAndGet();
-            if (errors.tryAddThrowableOrReport(t)) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapSingle.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Observer<? super R> observer) {
-        source.subscribe(new FlatMapSingleObserver<>(observer, mapper, delayErrors));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWithLatestFromMany.java`
 #### Snippet
 ```java
 
         @Override
-        public void onNext(T t) {
-            if (done) {
-                return;
+        public void onSubscribe(Disposable d) {
+            DisposableHelper.setOnce(this, d);
+        }
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@io.reactivex.rxjava3.annotations.NonNull'
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWithLatestFromMany.java`
 #### Snippet
 ```java
-    final ObservableSource<?>[] otherArray;
-
-    @Nullable
     final Iterable<? extends ObservableSource<?>> otherIterable;
+
+    @NonNull
+    final Function<? super Object[], R> combiner;
 
 ```
 
@@ -31049,9 +30857,9 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableW
 ```java
 
         @Override
-        public void onSubscribe(Disposable d) {
-            DisposableHelper.setOnce(this.upstream, d);
-        }
+        public void onError(Throwable t) {
+            if (done) {
+                RxJavaPlugins.onError(t);
 ```
 
 ### NullableProblems
@@ -31060,22 +30868,10 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableW
 #### Snippet
 ```java
 
-    @Override
-    protected void subscribeActual(Observer<? super R> observer) {
-        ObservableSource<?>[] others = otherArray;
-        int n = 0;
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@io.reactivex.rxjava3.annotations.NonNull'
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWithLatestFromMany.java`
-#### Snippet
-```java
-    final Iterable<? extends ObservableSource<?>> otherIterable;
-
-    @NonNull
-    final Function<? super Object[], R> combiner;
-
+        @Override
+        public void onNext(T t) {
+            if (done) {
+                return;
 ```
 
 ### NullableProblems
@@ -31096,10 +30892,22 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableW
 #### Snippet
 ```java
 
-        @Override
-        public void onSubscribe(Disposable d) {
-            DisposableHelper.setOnce(this, d);
-        }
+    @Override
+    protected void subscribeActual(Observer<? super R> observer) {
+        ObservableSource<?>[] others = otherArray;
+        int n = 0;
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@io.reactivex.rxjava3.annotations.Nullable'
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWithLatestFromMany.java`
+#### Snippet
+```java
+    final ObservableSource<?>[] otherArray;
+
+    @Nullable
+    final Iterable<? extends ObservableSource<?>> otherIterable;
+
 ```
 
 ### NullableProblems
@@ -31109,9 +30917,57 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableW
 ```java
 
         @Override
+        public void onSubscribe(Disposable d) {
+            DisposableHelper.setOnce(this.upstream, d);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableOnErrorReturn.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            downstream.onNext(t);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableOnErrorReturn.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableOnErrorReturn.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(Observer<? super T> t) {
+        source.subscribe(new OnErrorReturnObserver<>(t, valueSupplier));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableOnErrorReturn.java`
+#### Snippet
+```java
+
+        @Override
         public void onError(Throwable t) {
-            if (done) {
-                RxJavaPlugins.onError(t);
+            T v;
+            try {
 ```
 
 ### NullableProblems
@@ -31128,14 +30984,146 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableJ
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDetach.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRepeatWhen.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            DisposableHelper.setOnce(this.upstream, d);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRepeatWhen.java`
+#### Snippet
+```java
+
+            @Override
+            public void onError(Throwable e) {
+                innerError(e);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRepeatWhen.java`
+#### Snippet
+```java
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                DisposableHelper.setOnce(this, d);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlattenIterable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRepeatWhen.java`
 #### Snippet
 ```java
 
         @Override
         public void onNext(T t) {
-            downstream.onNext(t);
+            HalfSerializer.onNext(downstream, t, this, error);
         }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlattenIterable.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Observer<? super R> observer) {
+        source.subscribe(new FlattenIterableObserver<>(observer, mapper));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRepeatWhen.java`
+#### Snippet
+```java
+
+            @Override
+            public void onNext(Object t) {
+                innerNext();
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlattenIterable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            if (upstream == DisposableHelper.DISPOSED) {
+                RxJavaPlugins.onError(e);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRepeatWhen.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            DisposableHelper.dispose(inner);
+            HalfSerializer.onError(downstream, e, this, error);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlattenIterable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T value) {
+            if (upstream == DisposableHelper.DISPOSED) {
+                return;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRepeatWhen.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Observer<? super T> observer) {
+        Subject<Object> signaller = PublishSubject.create().toSerialized();
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFromSupplier.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(Observer<? super T> observer) {
+        DeferredScalarDisposable<T> d = new DeferredScalarDisposable<>(observer);
+        observer.onSubscribe(d);
 ```
 
 ### NullableProblems
@@ -31169,69 +31157,21 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableD
 ```java
 
         @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NonNull
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableToListSingle.java`
-#### Snippet
-```java
-
-    @Override
-    public Observable<U> fuseToObservable() {
-        return RxJavaPlugins.onAssembly(new ObservableToList<>(source, collectionSupplier));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableToListSingle.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableToListSingle.java`
-#### Snippet
-```java
-
-        @Override
         public void onNext(T t) {
-            collection.add(t);
+            downstream.onNext(t);
         }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableToListSingle.java`
-#### Snippet
-```java
-
-    @Override
-    public void subscribeActual(SingleObserver<? super U> t) {
-        U coll;
-        try {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableToListSingle.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDetach.java`
 #### Snippet
 ```java
 
         @Override
-        public void onError(Throwable t) {
-            collection = null;
-            downstream.onError(t);
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
 ```
 
 ### NullableProblems
@@ -31248,86 +31188,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableR
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRepeatWhen.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCount.java`
 #### Snippet
 ```java
 
         @Override
-        public void onNext(T t) {
-            HalfSerializer.onNext(downstream, t, this, error);
+        public void onNext(Object t) {
+            count++;
         }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRepeatWhen.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Observer<? super T> observer) {
-        Subject<Object> signaller = PublishSubject.create().toSerialized();
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRepeatWhen.java`
-#### Snippet
-```java
-
-            @Override
-            public void onError(Throwable e) {
-                innerError(e);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRepeatWhen.java`
-#### Snippet
-```java
-
-            @Override
-            public void onSubscribe(Disposable d) {
-                DisposableHelper.setOnce(this, d);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRepeatWhen.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            DisposableHelper.setOnce(this.upstream, d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRepeatWhen.java`
-#### Snippet
-```java
-
-            @Override
-            public void onNext(Object t) {
-                innerNext();
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRepeatWhen.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            DisposableHelper.dispose(inner);
-            HalfSerializer.onError(downstream, e, this, error);
 ```
 
 ### NullableProblems
@@ -31348,27 +31216,15 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableC
 #### Snippet
 ```java
 
-        @Override
-        public void onNext(Object t) {
-            count++;
-        }
+    @Override
+    public void subscribeActual(Observer<? super Long> t) {
+        source.subscribe(new CountObserver(t));
+    }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSingleMaybe.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            if (done) {
-                RxJavaPlugins.onError(t);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSingleMaybe.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCount.java`
 #### Snippet
 ```java
 
@@ -31380,50 +31236,50 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableS
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSingleMaybe.java`
-#### Snippet
-```java
-
-    @Override
-    public void subscribeActual(MaybeObserver<? super T> t) {
-        source.subscribe(new SingleElementObserver<>(t));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSingleMaybe.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSwitchIfEmpty.java`
 #### Snippet
 ```java
 
         @Override
         public void onNext(T t) {
-            if (done) {
-                return;
+            if (empty) {
+                empty = false;
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatWithSingle.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Observer<? super T> observer) {
-        source.subscribe(new ConcatWithObserver<>(observer, other));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatWithSingle.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSwitchIfEmpty.java`
 #### Snippet
 ```java
 
         @Override
         public void onSubscribe(Disposable d) {
-            if (DisposableHelper.setOnce(this, d) && !inSingle) {
-                downstream.onSubscribe(this);
+            arbiter.update(d);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSwitchIfEmpty.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(Observer<? super T> t) {
+        SwitchIfEmptyObserver<T> parent = new SwitchIfEmptyObserver<>(t, other);
+        t.onSubscribe(parent.arbiter);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSwitchIfEmpty.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            downstream.onError(t);
+        }
 ```
 
 ### NullableProblems
@@ -31464,126 +31320,30 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableC
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCount.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatWithSingle.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.setOnce(this, d) && !inSingle) {
+                downstream.onSubscribe(this);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableConcatWithSingle.java`
 #### Snippet
 ```java
 
     @Override
-    public void subscribeActual(Observer<? super Long> t) {
-        source.subscribe(new CountObserver(t));
+    protected void subscribeActual(Observer<? super T> observer) {
+        source.subscribe(new ConcatWithObserver<>(observer, other));
     }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCount.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSwitchIfEmpty.java`
-#### Snippet
-```java
-
-    @Override
-    public void subscribeActual(Observer<? super T> t) {
-        SwitchIfEmptyObserver<T> parent = new SwitchIfEmptyObserver<>(t, other);
-        t.onSubscribe(parent.arbiter);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSwitchIfEmpty.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            arbiter.update(d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSwitchIfEmpty.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            downstream.onError(t);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSwitchIfEmpty.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            if (empty) {
-                empty = false;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCollect.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            if (done) {
-                RxJavaPlugins.onError(t);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCollect.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            if (done) {
-                return;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCollect.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCollect.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Observer<? super U> t) {
-        U u;
-        try {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTakeWhile.java`
 #### Snippet
 ```java
@@ -31592,30 +31352,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableT
         public void onSubscribe(Disposable d) {
             if (DisposableHelper.validate(this.upstream, d)) {
                 this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTakeWhile.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            if (done) {
-                return;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTakeWhile.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            if (done) {
-                RxJavaPlugins.onError(t);
 ```
 
 ### NullableProblems
@@ -31632,14 +31368,314 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableT
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableDefer.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSingleMaybe.java`
 #### Snippet
 ```java
 
     @Override
-    protected void subscribeActual(CompletableObserver observer) {
-        CompletableSource c;
+    public void subscribeActual(MaybeObserver<? super T> t) {
+        source.subscribe(new SingleElementObserver<>(t));
+    }
+```
 
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSingleMaybe.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            if (done) {
+                return;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSingleMaybe.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            if (done) {
+                RxJavaPlugins.onError(t);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableSingleMaybe.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTakeWhile.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            if (done) {
+                return;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTakeWhile.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            if (done) {
+                RxJavaPlugins.onError(t);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableToListSingle.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            collection = null;
+            downstream.onError(t);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableToListSingle.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(SingleObserver<? super U> t) {
+        U coll;
+        try {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableToListSingle.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            collection.add(t);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableToListSingle.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NonNull
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableToListSingle.java`
+#### Snippet
+```java
+
+    @Override
+    public Observable<U> fuseToObservable() {
+        return RxJavaPlugins.onAssembly(new ObservableToList<>(source, collectionSupplier));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapSingle.java`
+#### Snippet
+```java
+
+            @Override
+            public void onError(Throwable e) {
+                innerError(this, e);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapSingle.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Observer<? super R> observer) {
+        source.subscribe(new FlatMapSingleObserver<>(observer, mapper, delayErrors));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapSingle.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            SingleSource<? extends R> ms;
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapSingle.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapSingle.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            active.decrementAndGet();
+            if (errors.tryAddThrowableOrReport(t)) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapSingle.java`
+#### Snippet
+```java
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                DisposableHelper.setOnce(this, d);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapSingle.java`
+#### Snippet
+```java
+
+            @Override
+            public void onSuccess(R value) {
+                innerSuccess(this, value);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowBoundary.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.setOnce(upstream, d)) {
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowBoundary.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(Observer<? super Observable<T>> observer) {
+        WindowBoundaryMainObserver<T, B> parent = new WindowBoundaryMainObserver<>(observer, capacityHint);
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowBoundary.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            if (done) {
+                RxJavaPlugins.onError(t);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowBoundary.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(B t) {
+            if (done) {
+                return;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowBoundary.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            queue.offer(t);
+            drain();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowBoundary.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            boundaryObserver.dispose();
+            if (errors.tryAddThrowableOrReport(e)) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDelaySubscriptionOther.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(U t) {
+            onComplete();
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDelaySubscriptionOther.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            if (done) {
+                RxJavaPlugins.onError(e);
 ```
 
 ### NullableProblems
@@ -31651,6 +31687,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableD
             @Override
             public void onError(Throwable e) {
                 child.onError(e);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDelaySubscriptionOther.java`
+#### Snippet
+```java
+        final class OnComplete implements Observer<T> {
+            @Override
+            public void onSubscribe(Disposable d) {
+                serial.update(d);
             }
 ```
 
@@ -31673,18 +31721,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableD
 ```java
 
         @Override
-        public void onNext(U t) {
-            onComplete();
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDelaySubscriptionOther.java`
-#### Snippet
-```java
-
-        @Override
         public void onSubscribe(Disposable d) {
             serial.update(d);
         }
@@ -31692,26 +31728,98 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableD
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDelaySubscriptionOther.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableDefer.java`
 #### Snippet
 ```java
 
-        @Override
-        public void onError(Throwable e) {
-            if (done) {
-                RxJavaPlugins.onError(e);
+    @Override
+    protected void subscribeActual(CompletableObserver observer) {
+        CompletableSource c;
+
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableDelaySubscriptionOther.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapMaybe.java`
 #### Snippet
 ```java
-        final class OnComplete implements Observer<T> {
+
             @Override
             public void onSubscribe(Disposable d) {
-                serial.update(d);
+                DisposableHelper.setOnce(this, d);
             }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapMaybe.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Observer<? super R> observer) {
+        source.subscribe(new FlatMapMaybeObserver<>(observer, mapper, delayErrors));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapMaybe.java`
+#### Snippet
+```java
+
+            @Override
+            public void onError(Throwable e) {
+                innerError(this, e);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapMaybe.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            MaybeSource<? extends R> ms;
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapMaybe.java`
+#### Snippet
+```java
+
+            @Override
+            public void onSuccess(R value) {
+                innerSuccess(this, value);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapMaybe.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapMaybe.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            active.decrementAndGet();
+            if (errors.tryAddThrowableOrReport(t)) {
 ```
 
 ### NullableProblems
@@ -31788,43 +31896,7 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/Completabl
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapMaybe.java`
-#### Snippet
-```java
-
-            @Override
-            public void onSubscribe(Disposable d) {
-                DisposableHelper.setOnce(this, d);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapMaybe.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Observer<? super R> observer) {
-        source.subscribe(new FlatMapMaybeObserver<>(observer, mapper, delayErrors));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapMaybe.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            active.decrementAndGet();
-            if (errors.tryAddThrowableOrReport(t)) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapMaybe.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCollect.java`
 #### Snippet
 ```java
 
@@ -31836,38 +31908,110 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableF
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapMaybe.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCollect.java`
 #### Snippet
 ```java
 
-            @Override
-            public void onError(Throwable e) {
-                innerError(this, e);
-            }
+        @Override
+        public void onError(Throwable t) {
+            if (done) {
+                RxJavaPlugins.onError(t);
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapMaybe.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableTimer.java`
 #### Snippet
 ```java
 
-            @Override
-            public void onSuccess(R value) {
-                innerSuccess(this, value);
-            }
+    @Override
+    protected void subscribeActual(final CompletableObserver observer) {
+        TimerDisposable parent = new TimerDisposable(observer);
+        observer.onSubscribe(parent);
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapMaybe.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCollect.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Observer<? super U> t) {
+        U u;
+        try {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableCollect.java`
 #### Snippet
 ```java
 
         @Override
         public void onNext(T t) {
-            MaybeSource<? extends R> ms;
+            if (done) {
+                return;
+```
 
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRefCount.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(upstream, d)) {
+                this.upstream = d;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRefCount.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            if (compareAndSet(false, true)) {
+                parent.terminated(connection);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRefCount.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Observer<? super T> observer) {
+
+        RefConnection conn;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRefCount.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            downstream.onNext(t);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableOnErrorComplete.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            downstream.onSubscribe(d);
+        }
 ```
 
 ### NullableProblems
@@ -31896,26 +32040,38 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/Completabl
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableOnErrorComplete.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableDetach.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(CompletableObserver observer) {
+        source.subscribe(new DetachCompletableObserver(observer));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableDetach.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            upstream = DisposableHelper.DISPOSED;
+            CompletableObserver a = downstream;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableDetach.java`
 #### Snippet
 ```java
 
         @Override
         public void onSubscribe(Disposable d) {
-            downstream.onSubscribe(d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableTimer.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(final CompletableObserver observer) {
-        TimerDisposable parent = new TimerDisposable(observer);
-        observer.onSubscribe(parent);
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
 ```
 
 ### NullableProblems
@@ -31956,38 +32112,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/Completabl
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableDetach.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableConcatArray.java`
 #### Snippet
 ```java
 
         @Override
         public void onError(Throwable e) {
-            upstream = DisposableHelper.DISPOSED;
-            CompletableObserver a = downstream;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableDetach.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableDetach.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(CompletableObserver observer) {
-        source.subscribe(new DetachCompletableObserver(observer));
-    }
+            downstream.onError(e);
+        }
 ```
 
 ### NullableProblems
@@ -32009,20 +32141,140 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/Completabl
 ```java
 
         @Override
-        public void onError(Throwable e) {
-            downstream.onError(e);
+        public void onSubscribe(Disposable d) {
+            sd.replace(d);
         }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableConcatArray.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTimeout.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Observer<? super T> observer) {
+        if (other == null) {
+            TimeoutObserver<T> parent = new TimeoutObserver<>(observer, itemTimeoutIndicator);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTimeout.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            long idx = index.get();
+            if (idx == Long.MAX_VALUE || !index.compareAndSet(idx, idx + 1)) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTimeout.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T t) {
+            long idx = get();
+            if (idx == Long.MAX_VALUE || !compareAndSet(idx, idx + 1)) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTimeout.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            if (index.getAndSet(Long.MAX_VALUE) != Long.MAX_VALUE) {
+                task.dispose();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTimeout.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(Object t) {
+            Disposable upstream = get();
+            if (upstream != DisposableHelper.DISPOSED) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTimeout.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            if (get() != DisposableHelper.DISPOSED) {
+                lazySet(DisposableHelper.DISPOSED);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTimeout.java`
 #### Snippet
 ```java
 
         @Override
         public void onSubscribe(Disposable d) {
-            sd.replace(d);
+            DisposableHelper.setOnce(this, d);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTimeout.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            DisposableHelper.setOnce(upstream, d);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTimeout.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            DisposableHelper.setOnce(upstream, d);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTimeout.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable t) {
+            if (getAndSet(Long.MAX_VALUE) != Long.MAX_VALUE) {
+                task.dispose();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableResumeNext.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            DisposableHelper.replace(this, d);
         }
 ```
 
@@ -32052,122 +32304,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/Completabl
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableResumeNext.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableTakeUntilCompletable.java`
 #### Snippet
 ```java
 
         @Override
         public void onSubscribe(Disposable d) {
-            DisposableHelper.replace(this, d);
+            DisposableHelper.setOnce(this, d);
         }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowBoundary.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            queue.offer(t);
-            drain();
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowBoundary.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            if (done) {
-                RxJavaPlugins.onError(t);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRefCount.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRefCount.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            if (compareAndSet(false, true)) {
-                parent.terminated(connection);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRefCount.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            downstream.onNext(t);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRefCount.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Observer<? super T> observer) {
-
-        RefConnection conn;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableCreate.java`
-#### Snippet
-```java
-
-        @Override
-        public boolean tryOnError(Throwable t) {
-            if (t == null) {
-                t = ExceptionHelper.createNullPointerException("onError called with a null Throwable.");
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableCreate.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(CompletableObserver observer) {
-        Emitter parent = new Emitter(observer);
-        observer.onSubscribe(parent);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableCreate.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            if (!tryOnError(t)) {
-                RxJavaPlugins.onError(t);
 ```
 
 ### NullableProblems
@@ -32180,66 +32324,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/Completabl
         public void onError(Throwable e) {
             if (once.compareAndSet(false, true)) {
                 DisposableHelper.dispose(other);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowBoundary.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.setOnce(upstream, d)) {
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowBoundary.java`
-#### Snippet
-```java
-
-    @Override
-    public void subscribeActual(Observer<? super Observable<T>> observer) {
-        WindowBoundaryMainObserver<T, B> parent = new WindowBoundaryMainObserver<>(observer, capacityHint);
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowBoundary.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(B t) {
-            if (done) {
-                return;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableWindowBoundary.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            boundaryObserver.dispose();
-            if (errors.tryAddThrowableOrReport(e)) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableTakeUntilCompletable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            DisposableHelper.setOnce(this, d);
-        }
 ```
 
 ### NullableProblems
@@ -32280,146 +32364,74 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/Completabl
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTimeout.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableCreate.java`
 #### Snippet
 ```java
 
         @Override
         public void onError(Throwable t) {
-            if (getAndSet(Long.MAX_VALUE) != Long.MAX_VALUE) {
-                task.dispose();
+            if (!tryOnError(t)) {
+                RxJavaPlugins.onError(t);
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTimeout.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            long idx = index.get();
-            if (idx == Long.MAX_VALUE || !index.compareAndSet(idx, idx + 1)) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTimeout.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(T t) {
-            long idx = get();
-            if (idx == Long.MAX_VALUE || !compareAndSet(idx, idx + 1)) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTimeout.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(Object t) {
-            Disposable upstream = get();
-            if (upstream != DisposableHelper.DISPOSED) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTimeout.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            DisposableHelper.setOnce(upstream, d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTimeout.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            if (get() != DisposableHelper.DISPOSED) {
-                lazySet(DisposableHelper.DISPOSED);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTimeout.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable t) {
-            if (index.getAndSet(Long.MAX_VALUE) != Long.MAX_VALUE) {
-                task.dispose();
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTimeout.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            DisposableHelper.setOnce(this, d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTimeout.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            DisposableHelper.setOnce(upstream, d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableTimeout.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableCreate.java`
 #### Snippet
 ```java
 
     @Override
-    protected void subscribeActual(Observer<? super T> observer) {
-        if (other == null) {
-            TimeoutObserver<T> parent = new TimeoutObserver<>(observer, itemTimeoutIndicator);
+    protected void subscribeActual(CompletableObserver observer) {
+        Emitter parent = new Emitter(observer);
+        observer.onSubscribe(parent);
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableFromObservable.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableCreate.java`
 #### Snippet
 ```java
 
         @Override
-        public void onNext(T value) {
-            // Deliberately ignored.
-        }
+        public boolean tryOnError(Throwable t) {
+            if (t == null) {
+                t = ExceptionHelper.createNullPointerException("onError called with a null Throwable.");
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableFromObservable.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableOnErrorReturn.java`
 #### Snippet
 ```java
 
         @Override
         public void onError(Throwable e) {
-            co.onError(e);
-        }
+            T v;
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableOnErrorReturn.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(MaybeObserver<? super T> observer) {
+        source.subscribe(new OnErrorReturnMaybeObserver<>(observer, valueSupplier));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableOnErrorReturn.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
 ```
 
 ### NullableProblems
@@ -32448,73 +32460,109 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/Completabl
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableOnErrorReturn.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableFromObservable.java`
 #### Snippet
 ```java
 
         @Override
-        public void onSubscribe(Disposable d) {
+        public void onError(Throwable e) {
+            co.onError(e);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableFromObservable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(T value) {
+            // Deliberately ignored.
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableDisposeOn.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(final CompletableObserver observer) {
+        source.subscribe(new DisposeOnObserver(observer, scheduler));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableDisposeOn.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(final Disposable d) {
             if (DisposableHelper.validate(this.upstream, d)) {
                 this.upstream = d;
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableOnErrorReturn.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(MaybeObserver<? super T> observer) {
-        source.subscribe(new OnErrorReturnMaybeObserver<>(observer, valueSupplier));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableOnErrorReturn.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableDisposeOn.java`
 #### Snippet
 ```java
 
         @Override
         public void onError(Throwable e) {
-            T v;
-
+            if (disposed) {
+                RxJavaPlugins.onError(e);
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableMergeIterable.java`
-#### Snippet
-```java
-
-    @Override
-    public void subscribeActual(final CompletableObserver observer) {
-        final CompositeDisposable set = new CompositeDisposable();
-        final AtomicInteger wip = new AtomicInteger(1);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableMergeIterable.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableSubscribeOn.java`
 #### Snippet
 ```java
 
         @Override
         public void onError(Throwable e) {
-            set.dispose();
-            if (compareAndSet(false, true)) {
+            downstream.onError(e);
+        }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableMergeIterable.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableSubscribeOn.java`
 #### Snippet
 ```java
 
         @Override
         public void onSubscribe(Disposable d) {
-            set.add(d);
+            DisposableHelper.setOnce(this, d);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableSubscribeOn.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(final CompletableObserver observer) {
+
+        final SubscribeOnObserver parent = new SubscribeOnObserver(observer, source);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableDoOnEvent.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(final Disposable d) {
+            observer.onSubscribe(d);
         }
 ```
 
@@ -32548,18 +32596,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/Completabl
 #### Snippet
 ```java
 
-        @Override
-        public void onSubscribe(final Disposable d) {
-            observer.onSubscribe(d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableDoOnEvent.java`
-#### Snippet
-```java
-
     @Override
     protected void subscribeActual(final CompletableObserver observer) {
         source.subscribe(new DoOnEvent(observer));
@@ -32568,146 +32604,38 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/Completabl
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableDisposeOn.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(final Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableDisposeOn.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            if (disposed) {
-                RxJavaPlugins.onError(e);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableDisposeOn.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(final CompletableObserver observer) {
-        source.subscribe(new DisposeOnObserver(observer, scheduler));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableAmb.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableMergeIterable.java`
 #### Snippet
 ```java
 
         @Override
         public void onSubscribe(Disposable d) {
-            upstream = d;
             set.add(d);
+        }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableAmb.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableMergeIterable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            set.dispose();
+            if (compareAndSet(false, true)) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableMergeIterable.java`
 #### Snippet
 ```java
 
     @Override
     public void subscribeActual(final CompletableObserver observer) {
-        CompletableSource[] sources = this.sources;
-        int count = 0;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableAmb.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            if (once.compareAndSet(false, true)) {
-                set.delete(upstream);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableSubscribeOn.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(final CompletableObserver observer) {
-
-        final SubscribeOnObserver parent = new SubscribeOnObserver(observer, source);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableSubscribeOn.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            downstream.onError(e);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableSubscribeOn.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            DisposableHelper.setOnce(this, d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableToObservable.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Observer<? super T> observer) {
-        source.subscribe(new ObservableFromCompletable.FromCompletableObserver<>(observer));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableMaterialize.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(SingleObserver<? super Notification<T>> observer) {
-        source.subscribe(new MaterializeSingleObserver<>(observer));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableTimeout.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            if (once.compareAndSet(false, true)) {
-                set.dispose();
+        final CompositeDisposable set = new CompositeDisposable();
+        final AtomicInteger wip = new AtomicInteger(1);
 ```
 
 ### NullableProblems
@@ -32748,61 +32676,61 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/Completabl
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableToFlowable.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Subscriber<? super T> s) {
-        source.subscribe(new FlowableFromCompletable.FromCompletableObserver<>(s));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableConcat.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableTimeout.java`
 #### Snippet
 ```java
 
         @Override
-        public void onSubscribe(Subscription s) {
-            if (SubscriptionHelper.validate(this.upstream, s)) {
-                this.upstream = s;
+        public void onError(Throwable e) {
+            if (once.compareAndSet(false, true)) {
+                set.dispose();
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableConcat.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableAmb.java`
 #### Snippet
 ```java
 
-            @Override
-            public void onError(Throwable e) {
-                parent.innerError(e);
-            }
+        @Override
+        public void onSubscribe(Disposable d) {
+            upstream = d;
+            set.add(d);
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableConcat.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableAmb.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            if (once.compareAndSet(false, true)) {
+                set.delete(upstream);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableAmb.java`
 #### Snippet
 ```java
 
     @Override
-    public void subscribeActual(CompletableObserver observer) {
-        sources.subscribe(new CompletableConcatSubscriber(observer, prefetch));
-    }
+    public void subscribeActual(final CompletableObserver observer) {
+        CompletableSource[] sources = this.sources;
+        int count = 0;
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableToSingle.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableMaterialize.java`
 #### Snippet
 ```java
 
     @Override
-    protected void subscribeActual(final SingleObserver<? super T> observer) {
-        source.subscribe(new ToSingle(observer));
+    protected void subscribeActual(SingleObserver<? super Notification<T>> observer) {
+        source.subscribe(new MaterializeSingleObserver<>(observer));
     }
 ```
 
@@ -32832,62 +32760,62 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/Completabl
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableConcat.java`
-#### Snippet
-```java
-
-            @Override
-            public void onSubscribe(Disposable d) {
-                DisposableHelper.replace(this, d);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableFromSingle.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            co.onError(e);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableFromSingle.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableToSingle.java`
 #### Snippet
 ```java
 
     @Override
-    protected void subscribeActual(final CompletableObserver observer) {
-        single.subscribe(new CompletableFromSingleObserver<>(observer));
+    protected void subscribeActual(final SingleObserver<? super T> observer) {
+        source.subscribe(new ToSingle(observer));
     }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableFromSingle.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableToObservable.java`
 #### Snippet
 ```java
 
-        @Override
-        public void onSuccess(T value) {
-            co.onComplete();
-        }
+    @Override
+    protected void subscribeActual(Observer<? super T> observer) {
+        source.subscribe(new ObservableFromCompletable.FromCompletableObserver<>(observer));
+    }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableFromSingle.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableLift.java`
 #### Snippet
 ```java
 
-        @Override
-        public void onSubscribe(Disposable d) {
-            co.onSubscribe(d);
-        }
+    @Override
+    protected void subscribeActual(CompletableObserver observer) {
+        try {
+            // TODO plugin wrapping
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableToFlowable.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Subscriber<? super T> s) {
+        source.subscribe(new FlowableFromCompletable.FromCompletableObserver<>(s));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableErrorSupplier.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(CompletableObserver observer) {
+        Throwable error;
+
 ```
 
 ### NullableProblems
@@ -32908,18 +32836,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/Completabl
 #### Snippet
 ```java
 
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.validate(this.upstream, d)) {
-                this.upstream = d;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableHide.java`
-#### Snippet
-```java
-
     @Override
     protected void subscribeActual(CompletableObserver observer) {
         source.subscribe(new HideCompletableObserver(observer));
@@ -32928,14 +32844,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/Completabl
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableErrorSupplier.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableHide.java`
 #### Snippet
 ```java
 
-    @Override
-    protected void subscribeActual(CompletableObserver observer) {
-        Throwable error;
-
+        @Override
+        public void onSubscribe(Disposable d) {
+            if (DisposableHelper.validate(this.upstream, d)) {
+                this.upstream = d;
 ```
 
 ### NullableProblems
@@ -32945,9 +32861,21 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/Completabl
 ```java
 
         @Override
-        public void onError(Throwable e) {
-            set.dispose();
-            if (once.compareAndSet(false, true)) {
+        public void onSubscribe(Disposable d) {
+            set.add(d);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableFromSingle.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(final CompletableObserver observer) {
+        single.subscribe(new CompletableFromSingleObserver<>(observer));
+    }
 ```
 
 ### NullableProblems
@@ -32964,7 +32892,151 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/Completabl
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableFromSingle.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            co.onError(e);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableMergeArray.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            set.dispose();
+            if (once.compareAndSet(false, true)) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableFromSingle.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            co.onSubscribe(d);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableFromSingle.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSuccess(T value) {
+            co.onComplete();
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletablePeek.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(final Disposable d) {
+            try {
+                onSubscribe.accept(d);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletablePeek.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            if (upstream == DisposableHelper.DISPOSED) {
+                RxJavaPlugins.onError(e);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletablePeek.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(final CompletableObserver observer) {
+
+        source.subscribe(new CompletableObserverImplementation(observer));
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableError.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(CompletableObserver observer) {
+        EmptyDisposable.error(error, observer);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableConcat.java`
+#### Snippet
+```java
+
+            @Override
+            public void onError(Throwable e) {
+                parent.innerError(e);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableConcat.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+            if (SubscriptionHelper.validate(this.upstream, s)) {
+                this.upstream = s;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableConcat.java`
+#### Snippet
+```java
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                DisposableHelper.replace(this, d);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableConcat.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(CompletableObserver observer) {
+        sources.subscribe(new CompletableConcatSubscriber(observer, prefetch));
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableMergeArrayDelayError.java`
 #### Snippet
 ```java
 
@@ -32972,54 +33044,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/Completabl
         public void onSubscribe(Disposable d) {
             set.add(d);
         }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableLift.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(CompletableObserver observer) {
-        try {
-            // TODO plugin wrapping
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableObserveOn.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            if (DisposableHelper.setOnce(this, d)) {
-                downstream.onSubscribe(this);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableObserveOn.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            this.error = e;
-            DisposableHelper.replace(this, scheduler.scheduleDirect(this));
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableObserveOn.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(final CompletableObserver observer) {
-        source.subscribe(new ObserveOnCompletableObserver(observer, scheduler));
-    }
 ```
 
 ### NullableProblems
@@ -33036,25 +33060,25 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/Completabl
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableMergeArrayDelayError.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableObserveOn.java`
 #### Snippet
 ```java
 
         @Override
-        public void onSubscribe(Disposable d) {
-            set.add(d);
-        }
+        public void onError(Throwable e) {
+            this.error = e;
+            DisposableHelper.replace(this, scheduler.scheduleDirect(this));
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableError.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableDelay.java`
 #### Snippet
 ```java
 
     @Override
-    protected void subscribeActual(CompletableObserver observer) {
-        EmptyDisposable.error(error, observer);
+    protected void subscribeActual(final CompletableObserver observer) {
+        source.subscribe(new Delay(observer, delay, unit, scheduler, delayError));
     }
 ```
 
@@ -33084,38 +33108,26 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/Completabl
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableDelay.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableObserveOn.java`
 #### Snippet
 ```java
 
     @Override
     protected void subscribeActual(final CompletableObserver observer) {
-        source.subscribe(new Delay(observer, delay, unit, scheduler, delayError));
+        source.subscribe(new ObserveOnCompletableObserver(observer, scheduler));
     }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableFromUnsafeSource.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(CompletableObserver observer) {
-        source.subscribe(observer);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableAndThenCompletable.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableObserveOn.java`
 #### Snippet
 ```java
 
         @Override
         public void onSubscribe(Disposable d) {
-            DisposableHelper.replace(parent, d);
-        }
+            if (DisposableHelper.setOnce(this, d)) {
+                downstream.onSubscribe(this);
 ```
 
 ### NullableProblems
@@ -33126,7 +33138,7 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/Completabl
 
         @Override
         public void onError(Throwable e) {
-            downstream.onError(e);
+            actualObserver.onError(e);
         }
 ```
 
@@ -33149,8 +33161,8 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/Completabl
 ```java
 
         @Override
-        public void onError(Throwable e) {
-            actualObserver.onError(e);
+        public void onSubscribe(Disposable d) {
+            DisposableHelper.replace(parent, d);
         }
 ```
 
@@ -33168,19 +33180,7 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/Completabl
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableConcatIterable.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Disposable d) {
-            sd.replace(d);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableConcatIterable.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableAndThenCompletable.java`
 #### Snippet
 ```java
 
@@ -33192,50 +33192,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/Completabl
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableConcatIterable.java`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableFromUnsafeSource.java`
 #### Snippet
 ```java
 
     @Override
-    public void subscribeActual(CompletableObserver observer) {
-
-        Iterator<? extends CompletableSource> it;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletablePeek.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(final CompletableObserver observer) {
-
-        source.subscribe(new CompletableObserverImplementation(observer));
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletablePeek.java`
-#### Snippet
-```java
-
-        @Override
-        public void onError(Throwable e) {
-            if (upstream == DisposableHelper.DISPOSED) {
-                RxJavaPlugins.onError(e);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletablePeek.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(final Disposable d) {
-            try {
-                onSubscribe.accept(d);
+    protected void subscribeActual(CompletableObserver observer) {
+        source.subscribe(observer);
+    }
 ```
 
 ### NullableProblems
@@ -33276,14 +33240,122 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/Completabl
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableConcatIterable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+            sd.replace(d);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableConcatIterable.java`
+#### Snippet
+```java
+
+    @Override
+    public void subscribeActual(CompletableObserver observer) {
+
+        Iterator<? extends CompletableSource> it;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableConcatIterable.java`
+#### Snippet
+```java
+
+        @Override
+        public void onError(Throwable e) {
+            downstream.onError(e);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/schedulers/ImmediateThinScheduler.java`
+#### Snippet
+```java
+    @NonNull
+    @Override
+    public Disposable schedulePeriodicallyDirect(@NonNull Runnable run, long initialDelay, long period, TimeUnit unit) {
+        throw new UnsupportedOperationException("This scheduler doesn't support periodic execution");
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/schedulers/ImmediateThinScheduler.java`
+#### Snippet
+```java
+    @NonNull
+    @Override
+    public Disposable scheduleDirect(@NonNull Runnable run, long delay, TimeUnit unit) {
+        throw new UnsupportedOperationException("This scheduler doesn't support delayed execution");
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/schedulers/ImmediateThinScheduler.java`
+#### Snippet
+```java
+        @NonNull
+        @Override
+        public Disposable schedulePeriodically(@NonNull Runnable run, long initialDelay, long period, TimeUnit unit) {
+            throw new UnsupportedOperationException("This scheduler doesn't support periodic execution");
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableCache.java`
+#### Snippet
+```java
+
+    @Override
+    public void onError(Throwable e) {
+        error = e;
+        for (InnerCompletableCache inner : observers.getAndSet(TERMINATED)) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableCache.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(CompletableObserver observer) {
+        InnerCompletableCache inner = new InnerCompletableCache(observer);
+        observer.onSubscribe(inner);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableCache.java`
+#### Snippet
+```java
+
+    @Override
+    public void onSubscribe(Disposable d) {
+        // not used
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableMerge.java`
 #### Snippet
 ```java
 
-            @Override
-            public void onSubscribe(Disposable d) {
-                DisposableHelper.setOnce(this, d);
-            }
+    @Override
+    public void subscribeActual(CompletableObserver observer) {
+        CompletableMergeSubscriber parent = new CompletableMergeSubscriber(observer, maxConcurrency, delayErrors);
+        source.subscribe(parent);
 ```
 
 ### NullableProblems
@@ -33316,82 +33388,10 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/Completabl
 #### Snippet
 ```java
 
-    @Override
-    public void subscribeActual(CompletableObserver observer) {
-        CompletableMergeSubscriber parent = new CompletableMergeSubscriber(observer, maxConcurrency, delayErrors);
-        source.subscribe(parent);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableCache.java`
-#### Snippet
-```java
-
-    @Override
-    public void onSubscribe(Disposable d) {
-        // not used
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableCache.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(CompletableObserver observer) {
-        InnerCompletableCache inner = new InnerCompletableCache(observer);
-        observer.onSubscribe(inner);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/operators/completable/CompletableCache.java`
-#### Snippet
-```java
-
-    @Override
-    public void onError(Throwable e) {
-        error = e;
-        for (InnerCompletableCache inner : observers.getAndSet(TERMINATED)) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/schedulers/ImmediateThinScheduler.java`
-#### Snippet
-```java
-    @NonNull
-    @Override
-    public Disposable scheduleDirect(@NonNull Runnable run, long delay, TimeUnit unit) {
-        throw new UnsupportedOperationException("This scheduler doesn't support delayed execution");
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/schedulers/ImmediateThinScheduler.java`
-#### Snippet
-```java
-        @NonNull
-        @Override
-        public Disposable schedulePeriodically(@NonNull Runnable run, long initialDelay, long period, TimeUnit unit) {
-            throw new UnsupportedOperationException("This scheduler doesn't support periodic execution");
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/schedulers/ImmediateThinScheduler.java`
-#### Snippet
-```java
-    @NonNull
-    @Override
-    public Disposable schedulePeriodicallyDirect(@NonNull Runnable run, long initialDelay, long period, TimeUnit unit) {
-        throw new UnsupportedOperationException("This scheduler doesn't support periodic execution");
-    }
+            @Override
+            public void onSubscribe(Disposable d) {
+                DisposableHelper.setOnce(this, d);
+            }
 ```
 
 ### NullableProblems
@@ -33411,11 +33411,11 @@ Overridden method parameters are not annotated
 in `src/main/java/io/reactivex/rxjava3/internal/schedulers/SchedulerMultiWorkerSupport.java`
 #### Snippet
 ```java
-     * @param callback the callback to send worker instances to
-     */
-    void createWorkers(int number, @NonNull WorkerCallback callback);
-
-    /**
+         * @param worker the worker instance
+         */
+        void onWorker(int index, @NonNull Scheduler.Worker worker);
+    }
+}
 ```
 
 ### NullableProblems
@@ -33423,11 +33423,11 @@ Overridden method parameters are not annotated
 in `src/main/java/io/reactivex/rxjava3/internal/schedulers/SchedulerMultiWorkerSupport.java`
 #### Snippet
 ```java
-         * @param worker the worker instance
-         */
-        void onWorker(int index, @NonNull Scheduler.Worker worker);
-    }
-}
+     * @param callback the callback to send worker instances to
+     */
+    void createWorkers(int number, @NonNull WorkerCallback callback);
+
+    /**
 ```
 
 ### NullableProblems
@@ -33464,18 +33464,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/disposables/EmptyDisposable.java
     public boolean offer(Object v1, Object v2) {
         throw new UnsupportedOperationException("Should not be called!");
     }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/schedulers/ComputationScheduler.java`
-#### Snippet
-```java
-    @NonNull
-    @Override
-    public Disposable schedulePeriodicallyDirect(@NonNull Runnable run, long initialDelay, long period, TimeUnit unit) {
-        PoolWorker w = pool.get().getEventLoop();
-        return w.schedulePeriodicallyDirect(run, initialDelay, period, unit);
 ```
 
 ### NullableProblems
@@ -33507,35 +33495,23 @@ Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/schedulers/ComputationScheduler.java`
 #### Snippet
 ```java
+    @NonNull
+    @Override
+    public Disposable schedulePeriodicallyDirect(@NonNull Runnable run, long initialDelay, long period, TimeUnit unit) {
+        PoolWorker w = pool.get().getEventLoop();
+        return w.schedulePeriodicallyDirect(run, initialDelay, period, unit);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/schedulers/ComputationScheduler.java`
+#### Snippet
+```java
 
         @Override
         public void createWorkers(int number, WorkerCallback callback) {
             int c = cores;
             if (c == 0) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/subscribers/BoundedSubscriber.java`
-#### Snippet
-```java
-
-    @Override
-    public void onSubscribe(Subscription s) {
-        if (SubscriptionHelper.setOnce(this, s)) {
-            try {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/schedulers/SingleScheduler.java`
-#### Snippet
-```java
-    @NonNull
-    @Override
-    public Disposable schedulePeriodicallyDirect(@NonNull Runnable run, long initialDelay, long period, TimeUnit unit) {
-        final Runnable decoratedRun = RxJavaPlugins.onSchedule(run);
-        if (period <= 0L) {
 ```
 
 ### NullableProblems
@@ -33552,14 +33528,62 @@ in `src/main/java/io/reactivex/rxjava3/internal/schedulers/SingleScheduler.java`
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/subscribers/InnerQueuedSubscriber.java`
+in `src/main/java/io/reactivex/rxjava3/internal/schedulers/SingleScheduler.java`
+#### Snippet
+```java
+    @NonNull
+    @Override
+    public Disposable schedulePeriodicallyDirect(@NonNull Runnable run, long initialDelay, long period, TimeUnit unit) {
+        final Runnable decoratedRun = RxJavaPlugins.onSchedule(run);
+        if (period <= 0L) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/subscribers/BasicFuseableSubscriber.java`
 #### Snippet
 ```java
 
     @Override
-    public void onSubscribe(Subscription s) {
-        if (SubscriptionHelper.setOnce(this, s)) {
-            if (s instanceof QueueSubscription) {
+    public final boolean offer(R v1, R v2) {
+        throw new UnsupportedOperationException("Should not be called!");
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/subscribers/BasicFuseableSubscriber.java`
+#### Snippet
+```java
+
+    @Override
+    public final boolean offer(R v1, R v2) {
+        throw new UnsupportedOperationException("Should not be called!");
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/subscribers/BasicFuseableSubscriber.java`
+#### Snippet
+```java
+
+    @Override
+    public final boolean offer(R e) {
+        throw new UnsupportedOperationException("Should not be called!");
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/subscribers/BasicFuseableSubscriber.java`
+#### Snippet
+```java
+    @SuppressWarnings("unchecked")
+    @Override
+    public final void onSubscribe(Subscription s) {
+        if (SubscriptionHelper.validate(this.upstream, s)) {
+
 ```
 
 ### NullableProblems
@@ -33588,133 +33612,25 @@ in `src/main/java/io/reactivex/rxjava3/internal/subscribers/DeferredScalarSubscr
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/subscribers/BasicFuseableSubscriber.java`
-#### Snippet
-```java
-
-    @Override
-    public final boolean offer(R v1, R v2) {
-        throw new UnsupportedOperationException("Should not be called!");
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/subscribers/BasicFuseableSubscriber.java`
-#### Snippet
-```java
-
-    @Override
-    public final boolean offer(R v1, R v2) {
-        throw new UnsupportedOperationException("Should not be called!");
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/subscribers/BasicFuseableSubscriber.java`
-#### Snippet
-```java
-
-    @Override
-    public final boolean offer(R e) {
-        throw new UnsupportedOperationException("Should not be called!");
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/subscribers/BasicFuseableSubscriber.java`
-#### Snippet
-```java
-    @SuppressWarnings("unchecked")
-    @Override
-    public final void onSubscribe(Subscription s) {
-        if (SubscriptionHelper.validate(this.upstream, s)) {
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/subscribers/SubscriberResourceWrapper.java`
+in `src/main/java/io/reactivex/rxjava3/internal/subscribers/BoundedSubscriber.java`
 #### Snippet
 ```java
 
     @Override
     public void onSubscribe(Subscription s) {
-        if (SubscriptionHelper.setOnce(upstream, s)) {
-            downstream.onSubscribe(this);
+        if (SubscriptionHelper.setOnce(this, s)) {
+            try {
 ```
 
 ### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/subscribers/SinglePostCompleteSubscriber.java`
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@io.reactivex.rxjava3.annotations.NonNull'
+in `src/main/java/io/reactivex/rxjava3/internal/schedulers/ExecutorScheduler.java`
 #### Snippet
 ```java
+    final boolean fair;
 
-    @Override
-    public void onSubscribe(Subscription s) {
-        if (SubscriptionHelper.validate(this.upstream, s)) {
-            this.upstream = s;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/subscribers/BasicFuseableConditionalSubscriber.java`
-#### Snippet
-```java
-
-    @Override
-    public final boolean offer(R e) {
-        throw new UnsupportedOperationException("Should not be called!");
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/subscribers/BasicFuseableConditionalSubscriber.java`
-#### Snippet
-```java
-
-    @Override
-    public final boolean offer(R v1, R v2) {
-        throw new UnsupportedOperationException("Should not be called!");
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/subscribers/BasicFuseableConditionalSubscriber.java`
-#### Snippet
-```java
-
-    @Override
-    public final boolean offer(R v1, R v2) {
-        throw new UnsupportedOperationException("Should not be called!");
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/subscribers/BasicFuseableConditionalSubscriber.java`
-#### Snippet
-```java
-    @SuppressWarnings("unchecked")
-    @Override
-    public final void onSubscribe(Subscription s) {
-        if (SubscriptionHelper.validate(this.upstream, s)) {
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/subscribers/StrictSubscriber.java`
-#### Snippet
-```java
-
-    @Override
-    public void onSubscribe(Subscription s) {
-        if (once.compareAndSet(false, true)) {
+    @NonNull
+    final Executor executor;
 
 ```
 
@@ -33728,18 +33644,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/schedulers/ExecutorScheduler.jav
     public Disposable scheduleDirect(@NonNull Runnable run, final long delay, final TimeUnit unit) {
         final Runnable decoratedRun = RxJavaPlugins.onSchedule(run);
         if (executor instanceof ScheduledExecutorService) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@io.reactivex.rxjava3.annotations.NonNull'
-in `src/main/java/io/reactivex/rxjava3/internal/schedulers/ExecutorScheduler.java`
-#### Snippet
-```java
-    final boolean fair;
-
-    @NonNull
-    final Executor executor;
-
 ```
 
 ### NullableProblems
@@ -33768,14 +33672,50 @@ in `src/main/java/io/reactivex/rxjava3/internal/schedulers/ExecutorScheduler.jav
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/subscribers/ForEachWhileSubscriber.java`
+in `src/main/java/io/reactivex/rxjava3/internal/subscribers/BasicFuseableConditionalSubscriber.java`
 #### Snippet
 ```java
 
     @Override
-    public void onSubscribe(Subscription s) {
-        SubscriptionHelper.setOnce(this, s, Long.MAX_VALUE);
+    public final boolean offer(R v1, R v2) {
+        throw new UnsupportedOperationException("Should not be called!");
     }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/subscribers/BasicFuseableConditionalSubscriber.java`
+#### Snippet
+```java
+
+    @Override
+    public final boolean offer(R v1, R v2) {
+        throw new UnsupportedOperationException("Should not be called!");
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/subscribers/BasicFuseableConditionalSubscriber.java`
+#### Snippet
+```java
+
+    @Override
+    public final boolean offer(R e) {
+        throw new UnsupportedOperationException("Should not be called!");
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/subscribers/BasicFuseableConditionalSubscriber.java`
+#### Snippet
+```java
+    @SuppressWarnings("unchecked")
+    @Override
+    public final void onSubscribe(Subscription s) {
+        if (SubscriptionHelper.validate(this.upstream, s)) {
+
 ```
 
 ### NullableProblems
@@ -33792,50 +33732,14 @@ in `src/main/java/io/reactivex/rxjava3/internal/subscribers/FutureSubscriber.jav
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/subscriptions/BasicQueueSubscription.java`
-#### Snippet
-```java
-
-    @Override
-    public final boolean offer(T v1, T v2) {
-        throw new UnsupportedOperationException("Should not be called!");
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/subscriptions/BasicQueueSubscription.java`
-#### Snippet
-```java
-
-    @Override
-    public final boolean offer(T v1, T v2) {
-        throw new UnsupportedOperationException("Should not be called!");
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/subscriptions/BasicQueueSubscription.java`
-#### Snippet
-```java
-
-    @Override
-    public final boolean offer(T e) {
-        throw new UnsupportedOperationException("Should not be called!");
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/subscribers/BlockingSubscriber.java`
+in `src/main/java/io/reactivex/rxjava3/internal/subscribers/SubscriberResourceWrapper.java`
 #### Snippet
 ```java
 
     @Override
     public void onSubscribe(Subscription s) {
-        if (SubscriptionHelper.setOnce(this, s)) {
-            queue.offer(NotificationLite.subscription(this));
+        if (SubscriptionHelper.setOnce(upstream, s)) {
+            downstream.onSubscribe(this);
 ```
 
 ### NullableProblems
@@ -33852,38 +33756,50 @@ in `src/main/java/io/reactivex/rxjava3/internal/subscribers/DisposableAutoReleas
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/subscriptions/BasicIntQueueSubscription.java`
+in `src/main/java/io/reactivex/rxjava3/internal/subscribers/ForEachWhileSubscriber.java`
 #### Snippet
 ```java
 
     @Override
-    public final boolean offer(T e) {
-        throw new UnsupportedOperationException("Should not be called!");
+    public void onSubscribe(Subscription s) {
+        SubscriptionHelper.setOnce(this, s, Long.MAX_VALUE);
     }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/subscriptions/BasicIntQueueSubscription.java`
+in `src/main/java/io/reactivex/rxjava3/internal/subscribers/InnerQueuedSubscriber.java`
 #### Snippet
 ```java
 
     @Override
-    public final boolean offer(T v1, T v2) {
-        throw new UnsupportedOperationException("Should not be called!");
-    }
+    public void onSubscribe(Subscription s) {
+        if (SubscriptionHelper.setOnce(this, s)) {
+            if (s instanceof QueueSubscription) {
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/internal/subscriptions/BasicIntQueueSubscription.java`
+in `src/main/java/io/reactivex/rxjava3/internal/subscribers/BlockingSubscriber.java`
 #### Snippet
 ```java
 
     @Override
-    public final boolean offer(T v1, T v2) {
-        throw new UnsupportedOperationException("Should not be called!");
-    }
+    public void onSubscribe(Subscription s) {
+        if (SubscriptionHelper.setOnce(this, s)) {
+            queue.offer(NotificationLite.subscription(this));
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/subscribers/SinglePostCompleteSubscriber.java`
+#### Snippet
+```java
+
+    @Override
+    public void onSubscribe(Subscription s) {
+        if (SubscriptionHelper.validate(this.upstream, s)) {
+            this.upstream = s;
 ```
 
 ### NullableProblems
@@ -33924,6 +33840,54 @@ in `src/main/java/io/reactivex/rxjava3/internal/subscriptions/EmptySubscription.
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/subscribers/StrictSubscriber.java`
+#### Snippet
+```java
+
+    @Override
+    public void onSubscribe(Subscription s) {
+        if (once.compareAndSet(false, true)) {
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/subscriptions/BasicQueueSubscription.java`
+#### Snippet
+```java
+
+    @Override
+    public final boolean offer(T v1, T v2) {
+        throw new UnsupportedOperationException("Should not be called!");
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/subscriptions/BasicQueueSubscription.java`
+#### Snippet
+```java
+
+    @Override
+    public final boolean offer(T v1, T v2) {
+        throw new UnsupportedOperationException("Should not be called!");
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/subscriptions/BasicQueueSubscription.java`
+#### Snippet
+```java
+
+    @Override
+    public final boolean offer(T e) {
+        throw new UnsupportedOperationException("Should not be called!");
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/internal/subscribers/LambdaSubscriber.java`
 #### Snippet
 ```java
@@ -33935,27 +33899,39 @@ in `src/main/java/io/reactivex/rxjava3/internal/subscribers/LambdaSubscriber.jav
 ```
 
 ### NullableProblems
-Overridden methods are not annotated
-in `src/main/java/io/reactivex/rxjava3/parallel/ParallelFlowableConverter.java`
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/subscriptions/BasicIntQueueSubscription.java`
 #### Snippet
 ```java
-     * @return the converted value
-     */
-    @NonNull
-    R apply(@NonNull ParallelFlowable<T> upstream);
-}
+
+    @Override
+    public final boolean offer(T v1, T v2) {
+        throw new UnsupportedOperationException("Should not be called!");
+    }
 ```
 
 ### NullableProblems
-Overridden method parameters are not annotated
-in `src/main/java/io/reactivex/rxjava3/parallel/ParallelFlowableConverter.java`
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/subscriptions/BasicIntQueueSubscription.java`
 #### Snippet
 ```java
-     */
-    @NonNull
-    R apply(@NonNull ParallelFlowable<T> upstream);
-}
 
+    @Override
+    public final boolean offer(T v1, T v2) {
+        throw new UnsupportedOperationException("Should not be called!");
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/internal/subscriptions/BasicIntQueueSubscription.java`
+#### Snippet
+```java
+
+    @Override
+    public final boolean offer(T e) {
+        throw new UnsupportedOperationException("Should not be called!");
+    }
 ```
 
 ### NullableProblems
@@ -33996,6 +33972,30 @@ in `src/main/java/io/reactivex/rxjava3/internal/subscriptions/ScalarSubscription
 
 ### NullableProblems
 Overridden methods are not annotated
+in `src/main/java/io/reactivex/rxjava3/parallel/ParallelFlowableConverter.java`
+#### Snippet
+```java
+     * @return the converted value
+     */
+    @NonNull
+    R apply(@NonNull ParallelFlowable<T> upstream);
+}
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `src/main/java/io/reactivex/rxjava3/parallel/ParallelFlowableConverter.java`
+#### Snippet
+```java
+     */
+    @NonNull
+    R apply(@NonNull ParallelFlowable<T> upstream);
+}
+
+```
+
+### NullableProblems
+Overridden methods are not annotated
 in `src/main/java/io/reactivex/rxjava3/parallel/ParallelTransformer.java`
 #### Snippet
 ```java
@@ -34016,18 +34016,6 @@ in `src/main/java/io/reactivex/rxjava3/parallel/ParallelTransformer.java`
     ParallelFlowable<Downstream> apply(@NonNull ParallelFlowable<Upstream> upstream);
 }
 
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/subjects/SerializedSubject.java`
-#### Snippet
-```java
-
-    @Override
-    public void onSubscribe(Disposable d) {
-        boolean cancel;
-        if (!done) {
 ```
 
 ### NullableProblems
@@ -34068,50 +34056,14 @@ in `src/main/java/io/reactivex/rxjava3/subjects/SerializedSubject.java`
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/subjects/AsyncSubject.java`
-#### Snippet
-```java
-
-    @Override
-    public void onNext(T t) {
-        ExceptionHelper.nullCheck(t, "onNext called with a null value.");
-        if (subscribers.get() == TERMINATED) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/subjects/AsyncSubject.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Observer<? super T> observer) {
-        AsyncDisposable<T> as = new AsyncDisposable<>(observer, this);
-        observer.onSubscribe(as);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/subjects/AsyncSubject.java`
-#### Snippet
-```java
-    @SuppressWarnings("unchecked")
-    @Override
-    public void onError(Throwable t) {
-        ExceptionHelper.nullCheck(t, "onError called with a null Throwable.");
-        if (subscribers.get() == TERMINATED) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/subjects/AsyncSubject.java`
+in `src/main/java/io/reactivex/rxjava3/subjects/SerializedSubject.java`
 #### Snippet
 ```java
 
     @Override
     public void onSubscribe(Disposable d) {
-        if (subscribers.get() == TERMINATED) {
-            d.dispose();
+        boolean cancel;
+        if (!done) {
 ```
 
 ### NullableProblems
@@ -34145,9 +34097,9 @@ in `src/main/java/io/reactivex/rxjava3/subjects/PublishSubject.java`
 ```java
 
     @Override
-    public void onNext(T t) {
-        ExceptionHelper.nullCheck(t, "onNext called with a null value.");
-        for (PublishDisposable<T> pd : subscribers.get()) {
+    public void onSubscribe(Disposable d) {
+        if (subscribers.get() == TERMINATED) {
+            d.dispose();
 ```
 
 ### NullableProblems
@@ -34157,93 +34109,21 @@ in `src/main/java/io/reactivex/rxjava3/subjects/PublishSubject.java`
 ```java
 
     @Override
-    public void onSubscribe(Disposable d) {
-        if (subscribers.get() == TERMINATED) {
-            d.dispose();
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/subjects/BehaviorSubject.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Observer<? super T> observer) {
-        BehaviorDisposable<T> bs = new BehaviorDisposable<>(observer, this);
-        observer.onSubscribe(bs);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/subjects/BehaviorSubject.java`
-#### Snippet
-```java
-
-    @Override
     public void onNext(T t) {
         ExceptionHelper.nullCheck(t, "onNext called with a null value.");
-
+        for (PublishDisposable<T> pd : subscribers.get()) {
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/subjects/BehaviorSubject.java`
+in `src/main/java/io/reactivex/rxjava3/subjects/MaybeSubject.java`
 #### Snippet
 ```java
-
+    @SuppressWarnings("unchecked")
     @Override
-    public void onSubscribe(Disposable d) {
-        if (terminalEvent.get() != null) {
-            d.dispose();
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/subjects/BehaviorSubject.java`
-#### Snippet
-```java
-
-    @Override
-    public void onError(Throwable t) {
-        ExceptionHelper.nullCheck(t, "onError called with a null Throwable.");
-        if (!terminalEvent.compareAndSet(null, t)) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/subjects/CompletableSubject.java`
-#### Snippet
-```java
-
-    @Override
-    public void onError(Throwable e) {
-        ExceptionHelper.nullCheck(e, "onError called with a null Throwable.");
+    public void onSuccess(T value) {
+        ExceptionHelper.nullCheck(value, "onSuccess called with a null value.");
         if (once.compareAndSet(false, true)) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/subjects/CompletableSubject.java`
-#### Snippet
-```java
-
-    @Override
-    public void onSubscribe(Disposable d) {
-        if (observers.get() == TERMINATED) {
-            d.dispose();
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/subjects/CompletableSubject.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(CompletableObserver observer) {
-        CompletableDisposable md = new CompletableDisposable(observer, this);
-        observer.onSubscribe(md);
 ```
 
 ### NullableProblems
@@ -34284,74 +34164,38 @@ in `src/main/java/io/reactivex/rxjava3/subjects/MaybeSubject.java`
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/subjects/MaybeSubject.java`
+in `src/main/java/io/reactivex/rxjava3/subjects/CompletableSubject.java`
 #### Snippet
 ```java
-    @SuppressWarnings("unchecked")
+
     @Override
-    public void onSuccess(T value) {
-        ExceptionHelper.nullCheck(value, "onSuccess called with a null value.");
+    public void onSubscribe(Disposable d) {
+        if (observers.get() == TERMINATED) {
+            d.dispose();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/subjects/CompletableSubject.java`
+#### Snippet
+```java
+
+    @Override
+    public void onError(Throwable e) {
+        ExceptionHelper.nullCheck(e, "onError called with a null Throwable.");
         if (once.compareAndSet(false, true)) {
 ```
 
 ### NullableProblems
-Overridden method parameters are not annotated
-in `src/main/java/io/reactivex/rxjava3/functions/BiPredicate.java`
-#### Snippet
-```java
-     * @throws Throwable if the implementation wishes to throw any type of exception
-     */
-    boolean test(@NonNull T1 t1, @NonNull T2 t2) throws Throwable;
-}
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `src/main/java/io/reactivex/rxjava3/flowables/ConnectableFlowable.java`
-#### Snippet
-```java
-     */
-    @SchedulerSupport(SchedulerSupport.NONE)
-    public abstract void connect(@NonNull Consumer<? super Disposable> connection);
-
-    /**
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `src/main/java/io/reactivex/rxjava3/functions/BiPredicate.java`
-#### Snippet
-```java
-     * @throws Throwable if the implementation wishes to throw any type of exception
-     */
-    boolean test(@NonNull T1 t1, @NonNull T2 t2) throws Throwable;
-}
-
-```
-
-### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/subjects/UnicastSubject.java`
+in `src/main/java/io/reactivex/rxjava3/subjects/CompletableSubject.java`
 #### Snippet
 ```java
 
     @Override
-    public void onError(Throwable t) {
-        ExceptionHelper.nullCheck(t, "onError called with a null Throwable.");
-        if (done || disposed) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/subjects/UnicastSubject.java`
-#### Snippet
-```java
-
-    @Override
-    public void onNext(T t) {
-        ExceptionHelper.nullCheck(t, "onNext called with a null value.");
-        if (done || disposed) {
+    protected void subscribeActual(CompletableObserver observer) {
+        CompletableDisposable md = new CompletableDisposable(observer, this);
+        observer.onSubscribe(md);
 ```
 
 ### NullableProblems
@@ -34380,6 +34224,162 @@ in `src/main/java/io/reactivex/rxjava3/subjects/UnicastSubject.java`
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/subjects/UnicastSubject.java`
+#### Snippet
+```java
+
+    @Override
+    public void onError(Throwable t) {
+        ExceptionHelper.nullCheck(t, "onError called with a null Throwable.");
+        if (done || disposed) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/subjects/UnicastSubject.java`
+#### Snippet
+```java
+
+    @Override
+    public void onNext(T t) {
+        ExceptionHelper.nullCheck(t, "onNext called with a null value.");
+        if (done || disposed) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/subjects/AsyncSubject.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Observer<? super T> observer) {
+        AsyncDisposable<T> as = new AsyncDisposable<>(observer, this);
+        observer.onSubscribe(as);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/subjects/AsyncSubject.java`
+#### Snippet
+```java
+    @SuppressWarnings("unchecked")
+    @Override
+    public void onError(Throwable t) {
+        ExceptionHelper.nullCheck(t, "onError called with a null Throwable.");
+        if (subscribers.get() == TERMINATED) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/subjects/AsyncSubject.java`
+#### Snippet
+```java
+
+    @Override
+    public void onNext(T t) {
+        ExceptionHelper.nullCheck(t, "onNext called with a null value.");
+        if (subscribers.get() == TERMINATED) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/subjects/AsyncSubject.java`
+#### Snippet
+```java
+
+    @Override
+    public void onSubscribe(Disposable d) {
+        if (subscribers.get() == TERMINATED) {
+            d.dispose();
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `src/main/java/io/reactivex/rxjava3/functions/BiPredicate.java`
+#### Snippet
+```java
+     * @throws Throwable if the implementation wishes to throw any type of exception
+     */
+    boolean test(@NonNull T1 t1, @NonNull T2 t2) throws Throwable;
+}
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `src/main/java/io/reactivex/rxjava3/functions/BiPredicate.java`
+#### Snippet
+```java
+     * @throws Throwable if the implementation wishes to throw any type of exception
+     */
+    boolean test(@NonNull T1 t1, @NonNull T2 t2) throws Throwable;
+}
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `src/main/java/io/reactivex/rxjava3/flowables/ConnectableFlowable.java`
+#### Snippet
+```java
+     */
+    @SchedulerSupport(SchedulerSupport.NONE)
+    public abstract void connect(@NonNull Consumer<? super Disposable> connection);
+
+    /**
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/subjects/BehaviorSubject.java`
+#### Snippet
+```java
+
+    @Override
+    public void onError(Throwable t) {
+        ExceptionHelper.nullCheck(t, "onError called with a null Throwable.");
+        if (!terminalEvent.compareAndSet(null, t)) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/subjects/BehaviorSubject.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Observer<? super T> observer) {
+        BehaviorDisposable<T> bs = new BehaviorDisposable<>(observer, this);
+        observer.onSubscribe(bs);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/subjects/BehaviorSubject.java`
+#### Snippet
+```java
+
+    @Override
+    public void onNext(T t) {
+        ExceptionHelper.nullCheck(t, "onNext called with a null value.");
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/subjects/BehaviorSubject.java`
+#### Snippet
+```java
+
+    @Override
+    public void onSubscribe(Disposable d) {
+        if (terminalEvent.get() != null) {
+            d.dispose();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/observers/ResourceObserver.java`
 #### Snippet
 ```java
@@ -34388,42 +34388,6 @@ in `src/main/java/io/reactivex/rxjava3/observers/ResourceObserver.java`
     public final void onSubscribe(Disposable d) {
         if (EndConsumerHelper.setOnce(this.upstream, d, getClass())) {
             onStart();
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/operators/SpscArrayQueue.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean offer(E e) {
-        if (null == e) {
-            throw new NullPointerException("Null is not a valid element");
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/operators/SpscArrayQueue.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean offer(E v1, E v2) {
-        // FIXME
-        return offer(v1) && offer(v2);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/operators/SpscArrayQueue.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean offer(E v1, E v2) {
-        // FIXME
-        return offer(v1) && offer(v2);
 ```
 
 ### NullableProblems
@@ -34439,6 +34403,42 @@ in `src/main/java/io/reactivex/rxjava3/operators/ConditionalSubscriber.java`
 ```
 
 ### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/operators/SpscArrayQueue.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean offer(E v1, E v2) {
+        // FIXME
+        return offer(v1) && offer(v2);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/operators/SpscArrayQueue.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean offer(E v1, E v2) {
+        // FIXME
+        return offer(v1) && offer(v2);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/operators/SpscArrayQueue.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean offer(E e) {
+        if (null == e) {
+            throw new NullPointerException("Null is not a valid element");
+```
+
+### NullableProblems
 Overridden method parameters are not annotated
 in `src/main/java/io/reactivex/rxjava3/observers/TestObserver.java`
 #### Snippet
@@ -34448,6 +34448,30 @@ in `src/main/java/io/reactivex/rxjava3/observers/TestObserver.java`
     public void onError(@NonNull Throwable t) {
         if (!checkSubscriptionOnce) {
             checkSubscriptionOnce = true;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/observers/TestObserver.java`
+#### Snippet
+```java
+
+        @Override
+        public void onNext(Object t) {
+        }
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/observers/TestObserver.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Disposable d) {
+        }
+
 ```
 
 ### NullableProblems
@@ -34469,93 +34493,9 @@ in `src/main/java/io/reactivex/rxjava3/observers/TestObserver.java`
 ```java
 
         @Override
-        public void onSubscribe(Disposable d) {
-        }
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/observers/TestObserver.java`
-#### Snippet
-```java
-
-        @Override
         public void onError(Throwable t) {
         }
 
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/observers/TestObserver.java`
-#### Snippet
-```java
-
-        @Override
-        public void onNext(Object t) {
-        }
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `src/main/java/io/reactivex/rxjava3/operators/SimpleQueue.java`
-#### Snippet
-```java
-     * likely due to reaching the queue capacity)
-     */
-    boolean offer(@NonNull T value);
-
-    /**
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `src/main/java/io/reactivex/rxjava3/operators/SimpleQueue.java`
-#### Snippet
-```java
-     * likely due to reaching the queue capacity)
-     */
-    boolean offer(@NonNull T v1, @NonNull T v2);
-
-    /**
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `src/main/java/io/reactivex/rxjava3/operators/SimpleQueue.java`
-#### Snippet
-```java
-     * likely due to reaching the queue capacity)
-     */
-    boolean offer(@NonNull T v1, @NonNull T v2);
-
-    /**
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/processors/SerializedProcessor.java`
-#### Snippet
-```java
-
-    @Override
-    public void onSubscribe(Subscription s) {
-        boolean cancel;
-        if (!done) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/processors/SerializedProcessor.java`
-#### Snippet
-```java
-
-    @Override
-    protected void subscribeActual(Subscriber<? super T> s) {
-        actual.subscribe(s);
-    }
 ```
 
 ### NullableProblems
@@ -34595,6 +34535,66 @@ in `src/main/java/io/reactivex/rxjava3/operators/SpscLinkedArrayQueue.java`
 ```
 
 ### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/processors/SerializedProcessor.java`
+#### Snippet
+```java
+
+    @Override
+    protected void subscribeActual(Subscriber<? super T> s) {
+        actual.subscribe(s);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/processors/SerializedProcessor.java`
+#### Snippet
+```java
+
+    @Override
+    public void onSubscribe(Subscription s) {
+        boolean cancel;
+        if (!done) {
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `src/main/java/io/reactivex/rxjava3/operators/SimpleQueue.java`
+#### Snippet
+```java
+     * likely due to reaching the queue capacity)
+     */
+    boolean offer(@NonNull T value);
+
+    /**
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `src/main/java/io/reactivex/rxjava3/operators/SimpleQueue.java`
+#### Snippet
+```java
+     * likely due to reaching the queue capacity)
+     */
+    boolean offer(@NonNull T v1, @NonNull T v2);
+
+    /**
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `src/main/java/io/reactivex/rxjava3/operators/SimpleQueue.java`
+#### Snippet
+```java
+     * likely due to reaching the queue capacity)
+     */
+    boolean offer(@NonNull T v1, @NonNull T v2);
+
+    /**
+```
+
+### NullableProblems
 Overridden methods are not annotated
 in `src/main/java/io/reactivex/rxjava3/observers/BaseTestConsumer.java`
 #### Snippet
@@ -34607,15 +34607,15 @@ in `src/main/java/io/reactivex/rxjava3/observers/BaseTestConsumer.java`
 ```
 
 ### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/subjects/ReplaySubject.java`
+Overridden methods are not annotated
+in `src/main/java/io/reactivex/rxjava3/schedulers/SchedulerRunnableIntrospection.java`
 #### Snippet
 ```java
-
-    @Override
-    public void onSubscribe(Disposable d) {
-        if (done) {
-            d.dispose();
+     * @return the wrapped action. Cannot be null.
+     */
+    @NonNull
+    Runnable getWrappedRunnable();
+}
 ```
 
 ### NullableProblems
@@ -34656,6 +34656,18 @@ in `src/main/java/io/reactivex/rxjava3/subjects/ReplaySubject.java`
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/subjects/ReplaySubject.java`
+#### Snippet
+```java
+
+    @Override
+    public void onSubscribe(Disposable d) {
+        if (done) {
+            d.dispose();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/processors/UnicastProcessor.java`
 #### Snippet
 ```java
@@ -34679,42 +34691,6 @@ in `src/main/java/io/reactivex/rxjava3/processors/UnicastProcessor.java`
 ```
 
 ### NullableProblems
-Overridden methods are not annotated
-in `src/main/java/io/reactivex/rxjava3/schedulers/SchedulerRunnableIntrospection.java`
-#### Snippet
-```java
-     * @return the wrapped action. Cannot be null.
-     */
-    @NonNull
-    Runnable getWrappedRunnable();
-}
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@io.reactivex.rxjava3.annotations.NonNull'
-in `src/main/java/io/reactivex/rxjava3/schedulers/Schedulers.java`
-#### Snippet
-```java
-    static final Scheduler COMPUTATION;
-
-    @NonNull
-    static final Scheduler IO;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@io.reactivex.rxjava3.annotations.NonNull'
-in `src/main/java/io/reactivex/rxjava3/schedulers/Schedulers.java`
-#### Snippet
-```java
-    static final Scheduler IO;
-
-    @NonNull
-    static final Scheduler TRAMPOLINE;
-
-```
-
-### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@io.reactivex.rxjava3.annotations.NonNull'
 in `src/main/java/io/reactivex/rxjava3/schedulers/Schedulers.java`
 #### Snippet
@@ -34723,6 +34699,18 @@ in `src/main/java/io/reactivex/rxjava3/schedulers/Schedulers.java`
 
     @NonNull
     static final Scheduler COMPUTATION;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@io.reactivex.rxjava3.annotations.NonNull'
+in `src/main/java/io/reactivex/rxjava3/schedulers/Schedulers.java`
+#### Snippet
+```java
+    static final Scheduler COMPUTATION;
+
+    @NonNull
+    static final Scheduler IO;
 
 ```
 
@@ -34735,6 +34723,18 @@ in `src/main/java/io/reactivex/rxjava3/schedulers/Schedulers.java`
 public final class Schedulers {
     @NonNull
     static final Scheduler SINGLE;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@io.reactivex.rxjava3.annotations.NonNull'
+in `src/main/java/io/reactivex/rxjava3/schedulers/Schedulers.java`
+#### Snippet
+```java
+    static final Scheduler IO;
+
+    @NonNull
+    static final Scheduler TRAMPOLINE;
 
 ```
 
@@ -34787,66 +34787,6 @@ in `src/main/java/io/reactivex/rxjava3/subscribers/ResourceSubscriber.java`
 ```
 
 ### NullableProblems
-Overridden method parameters are not annotated
-in `src/main/java/io/reactivex/rxjava3/observables/ConnectableObservable.java`
-#### Snippet
-```java
-     */
-    @SchedulerSupport(SchedulerSupport.NONE)
-    public abstract void connect(@NonNull Consumer<? super Disposable> connection);
-
-    /**
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `src/main/java/io/reactivex/rxjava3/subscribers/TestSubscriber.java`
-#### Snippet
-```java
-
-        @Override
-        public void onSubscribe(Subscription s) {
-        }
-
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `src/main/java/io/reactivex/rxjava3/subscribers/TestSubscriber.java`
-#### Snippet
-```java
-
-    @Override
-    public void onNext(@NonNull T t) {
-        if (!checkSubscriptionOnce) {
-            checkSubscriptionOnce = true;
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `src/main/java/io/reactivex/rxjava3/subscribers/TestSubscriber.java`
-#### Snippet
-```java
-
-    @Override
-    public void onError(@NonNull Throwable t) {
-        if (!checkSubscriptionOnce) {
-            checkSubscriptionOnce = true;
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NonNull
-in `src/main/java/io/reactivex/rxjava3/subscribers/TestSubscriber.java`
-#### Snippet
-```java
-     */
-    @Override
-    protected final TestSubscriber<T> assertSubscribed() {
-        if (upstream.get() == null) {
-            throw fail("Not subscribed!");
-```
-
-### NullableProblems
 Not annotated parameter overrides @NonNull parameter
 in `src/main/java/io/reactivex/rxjava3/processors/ReplayProcessor.java`
 #### Snippet
@@ -34868,6 +34808,66 @@ in `src/main/java/io/reactivex/rxjava3/processors/ReplayProcessor.java`
     public void onSubscribe(Subscription s) {
         if (done) {
             s.cancel();
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NonNull
+in `src/main/java/io/reactivex/rxjava3/subscribers/TestSubscriber.java`
+#### Snippet
+```java
+     */
+    @Override
+    protected final TestSubscriber<T> assertSubscribed() {
+        if (upstream.get() == null) {
+            throw fail("Not subscribed!");
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `src/main/java/io/reactivex/rxjava3/subscribers/TestSubscriber.java`
+#### Snippet
+```java
+
+        @Override
+        public void onSubscribe(Subscription s) {
+        }
+
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `src/main/java/io/reactivex/rxjava3/subscribers/TestSubscriber.java`
+#### Snippet
+```java
+
+    @Override
+    public void onError(@NonNull Throwable t) {
+        if (!checkSubscriptionOnce) {
+            checkSubscriptionOnce = true;
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `src/main/java/io/reactivex/rxjava3/subscribers/TestSubscriber.java`
+#### Snippet
+```java
+
+    @Override
+    public void onNext(@NonNull T t) {
+        if (!checkSubscriptionOnce) {
+            checkSubscriptionOnce = true;
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `src/main/java/io/reactivex/rxjava3/observables/ConnectableObservable.java`
+#### Snippet
+```java
+     */
+    @SchedulerSupport(SchedulerSupport.NONE)
+    public abstract void connect(@NonNull Consumer<? super Disposable> connection);
+
+    /**
 ```
 
 ## RuleId[id=JavadocLinkAsPlainText]
@@ -34960,18 +34960,6 @@ in `src/main/java/io/reactivex/rxjava3/core/Maybe.java`
 
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'optional'
-in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
-#### Snippet
-```java
-    @SchedulerSupport(SchedulerSupport.NONE)
-    @NonNull
-    public static <@NonNull T> Flowable<@NonNull T> fromOptional(@NonNull Optional<T> optional) {
-        Objects.requireNonNull(optional, "optional is null");
-        return optional.map(Flowable::just).orElseGet(Flowable::empty);
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'optional'
 in `src/main/java/io/reactivex/rxjava3/core/Observable.java`
 #### Snippet
 ```java
@@ -34982,10 +34970,22 @@ in `src/main/java/io/reactivex/rxjava3/core/Observable.java`
         return optional.map(Observable::just).orElseGet(Observable::empty);
 ```
 
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'optional'
+in `src/main/java/io/reactivex/rxjava3/core/Flowable.java`
+#### Snippet
+```java
+    @SchedulerSupport(SchedulerSupport.NONE)
+    @NonNull
+    public static <@NonNull T> Flowable<@NonNull T> fromOptional(@NonNull Optional<T> optional) {
+        Objects.requireNonNull(optional, "optional is null");
+        return optional.map(Flowable::just).orElseGet(Flowable::empty);
+```
+
 ## RuleId[id=DefaultAnnotationParam]
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `src/jmh/java/io/reactivex/rxjava3/core/BlockingPerf.java`
+in `src/jmh/java/io/reactivex/rxjava3/core/PublishProcessorPerf.java`
 #### Snippet
 ```java
 @BenchmarkMode(Mode.Throughput)
@@ -34997,7 +34997,43 @@ in `src/jmh/java/io/reactivex/rxjava3/core/BlockingPerf.java`
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `src/jmh/java/io/reactivex/rxjava3/core/StrictPerf.java`
+in `src/jmh/java/io/reactivex/rxjava3/core/RangePerf.java`
+#### Snippet
+```java
+@BenchmarkMode(Mode.Throughput)
+@Warmup(iterations = 5)
+@Measurement(iterations = 5, time = 5, timeUnit = TimeUnit.SECONDS)
+@OutputTimeUnit(TimeUnit.SECONDS)
+@Fork(value = 1)
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/jmh/java/io/reactivex/rxjava3/core/FlowableFlatMapCompletableAsyncPerf.java`
+#### Snippet
+```java
+@BenchmarkMode(Mode.Throughput)
+@Warmup(iterations = 5)
+@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
+@OutputTimeUnit(TimeUnit.SECONDS)
+@Fork(value = 1)
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/jmh/java/io/reactivex/rxjava3/core/EachTypeFlatMapPerf.java`
+#### Snippet
+```java
+@BenchmarkMode(Mode.Throughput)
+@Warmup(iterations = 5)
+@Measurement(iterations = 5, time = 5, timeUnit = TimeUnit.SECONDS)
+@OutputTimeUnit(TimeUnit.SECONDS)
+@Fork(value = 1)
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/jmh/java/io/reactivex/rxjava3/core/FlattenJustPerf.java`
 #### Snippet
 ```java
 @BenchmarkMode(Mode.Throughput)
@@ -35015,30 +35051,6 @@ in `src/jmh/java/io/reactivex/rxjava3/core/BlockingGetPerf.java`
 @BenchmarkMode(Mode.Throughput)
 @Warmup(iterations = 5)
 @Measurement(iterations = 5, time = 5, timeUnit = TimeUnit.SECONDS)
-@OutputTimeUnit(TimeUnit.SECONDS)
-@Fork(value = 1)
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/jmh/java/io/reactivex/rxjava3/core/TakeUntilPerf.java`
-#### Snippet
-```java
-@BenchmarkMode(Mode.Throughput)
-@Warmup(iterations = 5)
-@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
-@OutputTimeUnit(TimeUnit.SECONDS)
-@Fork(value = 1)
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/jmh/java/io/reactivex/rxjava3/core/FlattenJustPerf.java`
-#### Snippet
-```java
-@BenchmarkMode(Mode.Throughput)
-@Warmup(iterations = 5)
-@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
 @OutputTimeUnit(TimeUnit.SECONDS)
 @Fork(value = 1)
 ```
@@ -35069,18 +35081,6 @@ in `src/jmh/java/io/reactivex/rxjava3/core/JustAsyncPerf.java`
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `src/jmh/java/io/reactivex/rxjava3/core/BinaryFlatMapPerf.java`
-#### Snippet
-```java
-@BenchmarkMode(Mode.Throughput)
-@Warmup(iterations = 5)
-@Measurement(iterations = 5, time = 5, timeUnit = TimeUnit.SECONDS)
-@OutputTimeUnit(TimeUnit.SECONDS)
-@Fork(value = 1)
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
 in `src/jmh/java/io/reactivex/rxjava3/core/FlattenRangePerf.java`
 #### Snippet
 ```java
@@ -35093,31 +35093,7 @@ in `src/jmh/java/io/reactivex/rxjava3/core/FlattenRangePerf.java`
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `src/jmh/java/io/reactivex/rxjava3/core/RangePerf.java`
-#### Snippet
-```java
-@BenchmarkMode(Mode.Throughput)
-@Warmup(iterations = 5)
-@Measurement(iterations = 5, time = 5, timeUnit = TimeUnit.SECONDS)
-@OutputTimeUnit(TimeUnit.SECONDS)
-@Fork(value = 1)
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/jmh/java/io/reactivex/rxjava3/core/EachTypeFlatMapPerf.java`
-#### Snippet
-```java
-@BenchmarkMode(Mode.Throughput)
-@Warmup(iterations = 5)
-@Measurement(iterations = 5, time = 5, timeUnit = TimeUnit.SECONDS)
-@OutputTimeUnit(TimeUnit.SECONDS)
-@Fork(value = 1)
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/jmh/java/io/reactivex/rxjava3/core/FlowableFlatMapCompletableAsyncPerf.java`
+in `src/jmh/java/io/reactivex/rxjava3/core/TakeUntilPerf.java`
 #### Snippet
 ```java
 @BenchmarkMode(Mode.Throughput)
@@ -35129,12 +35105,24 @@ in `src/jmh/java/io/reactivex/rxjava3/core/FlowableFlatMapCompletableAsyncPerf.j
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `src/jmh/java/io/reactivex/rxjava3/core/PublishProcessorPerf.java`
+in `src/jmh/java/io/reactivex/rxjava3/core/BlockingPerf.java`
 #### Snippet
 ```java
 @BenchmarkMode(Mode.Throughput)
 @Warmup(iterations = 5)
 @Measurement(iterations = 5, time = 5, timeUnit = TimeUnit.SECONDS)
+@OutputTimeUnit(TimeUnit.SECONDS)
+@Fork(value = 1)
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/jmh/java/io/reactivex/rxjava3/core/StrictPerf.java`
+#### Snippet
+```java
+@BenchmarkMode(Mode.Throughput)
+@Warmup(iterations = 5)
+@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
 @OutputTimeUnit(TimeUnit.SECONDS)
 @Fork(value = 1)
 ```
@@ -35153,12 +35141,36 @@ in `src/jmh/java/io/reactivex/rxjava3/core/FlatMapJustPerf.java`
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
+in `src/jmh/java/io/reactivex/rxjava3/core/RxVsStreamPerf.java`
 #### Snippet
 ```java
 @BenchmarkMode(Mode.Throughput)
 @Warmup(iterations = 5)
 @Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
+@OutputTimeUnit(TimeUnit.SECONDS)
+@Fork(value = 1)
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/jmh/java/io/reactivex/rxjava3/core/BinaryFlatMapPerf.java`
+#### Snippet
+```java
+@BenchmarkMode(Mode.Throughput)
+@Warmup(iterations = 5)
+@Measurement(iterations = 5, time = 5, timeUnit = TimeUnit.SECONDS)
+@OutputTimeUnit(TimeUnit.SECONDS)
+@Fork(value = 1)
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/jmh/java/io/reactivex/rxjava3/core/CallableAsyncPerf.java`
+#### Snippet
+```java
+@BenchmarkMode(Mode.Throughput)
+@Warmup(iterations = 5)
+@Measurement(iterations = 5, time = 5, timeUnit = TimeUnit.SECONDS)
 @OutputTimeUnit(TimeUnit.SECONDS)
 @Fork(value = 1)
 ```
@@ -35189,30 +35201,6 @@ in `src/jmh/java/io/reactivex/rxjava3/core/ObservableFlatMapPerf.java`
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `src/jmh/java/io/reactivex/rxjava3/core/FlattenCrossMapPerf.java`
-#### Snippet
-```java
-@BenchmarkMode(Mode.Throughput)
-@Warmup(iterations = 5)
-@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
-@OutputTimeUnit(TimeUnit.SECONDS)
-@Fork(value = 1)
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/jmh/java/io/reactivex/rxjava3/core/RxVsStreamPerf.java`
-#### Snippet
-```java
-@BenchmarkMode(Mode.Throughput)
-@Warmup(iterations = 5)
-@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
-@OutputTimeUnit(TimeUnit.SECONDS)
-@Fork(value = 1)
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
 in `src/jmh/java/io/reactivex/rxjava3/core/FlowableFlatMapCompletableSyncPerf.java`
 #### Snippet
 ```java
@@ -35225,7 +35213,7 @@ in `src/jmh/java/io/reactivex/rxjava3/core/FlowableFlatMapCompletableSyncPerf.ja
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapMaybeEmptyPerf.java`
+in `src/jmh/java/io/reactivex/rxjava3/core/FlattenCrossMapPerf.java`
 #### Snippet
 ```java
 @BenchmarkMode(Mode.Throughput)
@@ -35237,19 +35225,19 @@ in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapMaybeEmptyPerf.java
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `src/jmh/java/io/reactivex/rxjava3/core/CallableAsyncPerf.java`
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableSwitchMapMaybePerf.java`
 #### Snippet
 ```java
 @BenchmarkMode(Mode.Throughput)
 @Warmup(iterations = 5)
-@Measurement(iterations = 5, time = 5, timeUnit = TimeUnit.SECONDS)
+@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
 @OutputTimeUnit(TimeUnit.SECONDS)
 @Fork(value = 1)
 ```
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableSwitchMapMaybePerf.java`
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapMaybeEmptyPerf.java`
 #### Snippet
 ```java
 @BenchmarkMode(Mode.Throughput)
@@ -35285,6 +35273,18 @@ in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableConcatMapSinglePerf.java`
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableConcatMapCompletablePerf.java`
+#### Snippet
+```java
+@BenchmarkMode(Mode.Throughput)
+@Warmup(iterations = 5)
+@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
+@OutputTimeUnit(TimeUnit.SECONDS)
+@Fork(value = 1)
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
 in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableSwitchMapMaybeEmptyPerf.java`
 #### Snippet
 ```java
@@ -35297,7 +35297,7 @@ in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableSwitchMapMaybeEmptyPerf.ja
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableConcatMapCompletablePerf.java`
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableConcatMapCompletablePerf.java`
 #### Snippet
 ```java
 @BenchmarkMode(Mode.Throughput)
@@ -35322,18 +35322,6 @@ in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableConcatMapMaybePerf.java`
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
 in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapSinglePerf.java`
-#### Snippet
-```java
-@BenchmarkMode(Mode.Throughput)
-@Warmup(iterations = 5)
-@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
-@OutputTimeUnit(TimeUnit.SECONDS)
-@Fork(value = 1)
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableConcatMapCompletablePerf.java`
 #### Snippet
 ```java
 @BenchmarkMode(Mode.Throughput)
@@ -35393,19 +35381,7 @@ in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapCompletablePerf.jav
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableConcatMapMaybePerf.java`
-#### Snippet
-```java
-@BenchmarkMode(Mode.Throughput)
-@Warmup(iterations = 5)
-@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
-@OutputTimeUnit(TimeUnit.SECONDS)
-@Fork(value = 1)
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapMaybeEmptyPerf.java`
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableConcatMapMaybeEmptyPerf.java`
 #### Snippet
 ```java
 @BenchmarkMode(Mode.Throughput)
@@ -35429,7 +35405,7 @@ in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableConcatMapMaybeEmptyPerf.java
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapSinglePerf.java`
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableConcatMapMaybePerf.java`
 #### Snippet
 ```java
 @BenchmarkMode(Mode.Throughput)
@@ -35441,7 +35417,7 @@ in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapSinglePerf.java`
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableConcatMapMaybeEmptyPerf.java`
+in `src/jmh/java/io/reactivex/rxjava3/core/XMapYPerf.java`
 #### Snippet
 ```java
 @BenchmarkMode(Mode.Throughput)
@@ -35465,6 +35441,18 @@ in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapCompletablePerf.jav
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapMaybeEmptyPerf.java`
+#### Snippet
+```java
+@BenchmarkMode(Mode.Throughput)
+@Warmup(iterations = 5)
+@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
+@OutputTimeUnit(TimeUnit.SECONDS)
+@Fork(value = 1)
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
 in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableSwitchMapSinglePerf.java`
 #### Snippet
 ```java
@@ -35477,7 +35465,7 @@ in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableSwitchMapSinglePerf.java`
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapMaybePerf.java`
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapSinglePerf.java`
 #### Snippet
 ```java
 @BenchmarkMode(Mode.Throughput)
@@ -35501,7 +35489,7 @@ in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableFlatMapMaybePerf.java`
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableFlatMapCompletablePerf.java`
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/ObservableFlatMapMaybePerf.java`
 #### Snippet
 ```java
 @BenchmarkMode(Mode.Throughput)
@@ -35514,6 +35502,18 @@ in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableFlatMapCompletablePerf.java`
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
 in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableSwitchMapMaybePerf.java`
+#### Snippet
+```java
+@BenchmarkMode(Mode.Throughput)
+@Warmup(iterations = 5)
+@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
+@OutputTimeUnit(TimeUnit.SECONDS)
+@Fork(value = 1)
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/jmh/java/io/reactivex/rxjava3/xmapz/FlowableFlatMapCompletablePerf.java`
 #### Snippet
 ```java
 @BenchmarkMode(Mode.Throughput)
@@ -35566,9 +35566,9 @@ Javadoc pointing to itself
 in `src/main/java/io/reactivex/rxjava3/core/Single.java`
 #### Snippet
 ```java
-     * If the current {@code Single} fails, the resulting {@code Single} will
-     * pass along the signal to the downstream. To measure the time to error,
-     * use {@link #materialize()} and apply {@link #timeInterval(Scheduler)}.
+     * If the current {@code Single} is empty or fails, the resulting {@code Single} will
+     * pass along the signals to the downstream. To get the timestamp of the error,
+     * use {@link #materialize()} and apply {@link #timestamp()}.
      * <dl>
      *  <dt><b>Scheduler:</b></dt>
 ```
@@ -35580,7 +35580,7 @@ in `src/main/java/io/reactivex/rxjava3/core/Single.java`
 ```java
      * If the current {@code Single} fails, the resulting {@code Single} will
      * pass along the signal to the downstream. To measure the time to error,
-     * use {@link #materialize()} and apply {@link #timeInterval()}.
+     * use {@link #materialize()} and apply {@link #timeInterval(Scheduler)}.
      * <dl>
      *  <dt><b>Scheduler:</b></dt>
 ```
@@ -35614,21 +35614,9 @@ Javadoc pointing to itself
 in `src/main/java/io/reactivex/rxjava3/core/Single.java`
 #### Snippet
 ```java
-     * If the current {@code Single} is empty or fails, the resulting {@code Single} will
-     * pass along the signals to the downstream. To get the timestamp of the error,
-     * use {@link #materialize()} and apply {@link #timestamp(Scheduler)}.
-     * <dl>
-     *  <dt><b>Scheduler:</b></dt>
-```
-
-### JavadocDeclaration
-Javadoc pointing to itself
-in `src/main/java/io/reactivex/rxjava3/core/Single.java`
-#### Snippet
-```java
-     * If the current {@code Single} is empty or fails, the resulting {@code Single} will
-     * pass along the signals to the downstream. To get the timestamp of the error,
-     * use {@link #materialize()} and apply {@link #timestamp()}.
+     * If the current {@code Single} fails, the resulting {@code Single} will
+     * pass along the signal to the downstream. To measure the time to error,
+     * use {@link #materialize()} and apply {@link #timeInterval()}.
      * <dl>
      *  <dt><b>Scheduler:</b></dt>
 ```
@@ -35641,6 +35629,18 @@ in `src/main/java/io/reactivex/rxjava3/core/Single.java`
      * If the current {@code Single} is empty or fails, the resulting {@code Single} will
      * pass along the signals to the downstream. To get the timestamp of the error,
      * use {@link #materialize()} and apply {@link #timestamp(TimeUnit, Scheduler)}.
+     * <dl>
+     *  <dt><b>Scheduler:</b></dt>
+```
+
+### JavadocDeclaration
+Javadoc pointing to itself
+in `src/main/java/io/reactivex/rxjava3/core/Single.java`
+#### Snippet
+```java
+     * If the current {@code Single} is empty or fails, the resulting {@code Single} will
+     * pass along the signals to the downstream. To get the timestamp of the error,
+     * use {@link #materialize()} and apply {@link #timestamp(Scheduler)}.
      * <dl>
      *  <dt><b>Scheduler:</b></dt>
 ```
@@ -35884,7 +35884,7 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRange
         @Override
         void fastPath() {
             long f = end;
-            ConditionalSubscriber<? super Long> a = downstream;
+            Subscriber<? super Long> a = downstream;
 
 ```
 
@@ -35896,7 +35896,7 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRange
         @Override
         void fastPath() {
             long f = end;
-            Subscriber<? super Long> a = downstream;
+            ConditionalSubscriber<? super Long> a = downstream;
 
 ```
 
@@ -35965,11 +35965,11 @@ Local variable `q` is redundant
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableGroupBy.java`
 #### Snippet
 ```java
-            int missed = 1;
-
-            final SpscLinkedArrayQueue<T> q = this.queue;
-            Subscriber<? super T> a = this.actual.get();
-
+        @Override
+        public void clear() {
+            SpscLinkedArrayQueue<T> q = queue;
+            // queue.clear() would drop submitted items and not replenish, possibly hanging other groups
+            while (q.poll() != null) {
 ```
 
 ### UnnecessaryLocalVariable
@@ -35977,11 +35977,11 @@ Local variable `q` is redundant
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableGroupBy.java`
 #### Snippet
 ```java
-        @Override
-        public void clear() {
-            SpscLinkedArrayQueue<T> q = queue;
-            // queue.clear() would drop submitted items and not replenish, possibly hanging other groups
-            while (q.poll() != null) {
+            int missed = 1;
+
+            final SpscLinkedArrayQueue<T> q = this.queue;
+            Subscriber<? super T> a = this.actual.get();
+
 ```
 
 ### UnnecessaryLocalVariable
@@ -36062,7 +36062,7 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelRunOn
 #### Snippet
 ```java
             SpscArrayQueue<T> q = queue;
-            ConditionalSubscriber<? super T> a = downstream;
+            Subscriber<? super T> a = downstream;
             int lim = limit;
 
             for (;;) {
@@ -36074,7 +36074,7 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/parallel/ParallelRunOn
 #### Snippet
 ```java
             SpscArrayQueue<T> q = queue;
-            Subscriber<? super T> a = downstream;
+            ConditionalSubscriber<? super T> a = downstream;
             int lim = limit;
 
             for (;;) {
@@ -36165,6 +36165,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableF
 ```
 
 ### UnnecessaryLocalVariable
+Local variable `e` is redundant
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRange.java`
+#### Snippet
+```java
+            }
+            Observer<? super Integer> actual = this.downstream;
+            long e = end;
+            for (long i = index; i != e && get() == 0; i++) {
+                actual.onNext((int)i);
+```
+
+### UnnecessaryLocalVariable
 Local variable `n` is redundant
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableFlatMapSingle.java`
 #### Snippet
@@ -36186,18 +36198,6 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableF
             AtomicReference<SpscLinkedArrayQueue<R>> qr = queue;
 
             for (;;) {
-```
-
-### UnnecessaryLocalVariable
-Local variable `e` is redundant
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableRange.java`
-#### Snippet
-```java
-            }
-            Observer<? super Integer> actual = this.downstream;
-            long e = end;
-            for (long i = index; i != e && get() == 0; i++) {
-                actual.onNext((int)i);
 ```
 
 ### UnnecessaryLocalVariable
@@ -36265,11 +36265,11 @@ Local variable `b` is redundant
 in `src/main/java/io/reactivex/rxjava3/processors/ReplayProcessor.java`
 #### Snippet
 ```java
+                return array;
+            }
+            List<T> b = buffer;
 
-            int missed = 1;
-            final List<T> b = buffer;
-            final Subscriber<? super T> a = rs.downstream;
-
+            if (array.length < s) {
 ```
 
 ### UnnecessaryLocalVariable
@@ -36277,11 +36277,11 @@ Local variable `b` is redundant
 in `src/main/java/io/reactivex/rxjava3/processors/ReplayProcessor.java`
 #### Snippet
 ```java
-                return array;
-            }
-            List<T> b = buffer;
 
-            if (array.length < s) {
+            int missed = 1;
+            final List<T> b = buffer;
+            final Subscriber<? super T> a = rs.downstream;
+
 ```
 
 ## RuleId[id=BusyWait]
@@ -36524,8 +36524,8 @@ in `src/main/java/io/reactivex/rxjava3/observers/SafeObserver.java`
         }
 
         if (t == null) {
-            t = ExceptionHelper.createNullPointerException("onError called with a null Throwable.");
-        }
+            Throwable ex = ExceptionHelper.createNullPointerException("onNext called with a null value.");
+            try {
 ```
 
 ### ConstantValue
@@ -36536,8 +36536,8 @@ in `src/main/java/io/reactivex/rxjava3/observers/SafeObserver.java`
         }
 
         if (t == null) {
-            Throwable ex = ExceptionHelper.createNullPointerException("onNext called with a null value.");
-            try {
+            t = ExceptionHelper.createNullPointerException("onError called with a null Throwable.");
+        }
 ```
 
 ### ConstantValue
@@ -36565,18 +36565,6 @@ in `src/main/java/io/reactivex/rxjava3/observers/TestObserver.java`
 ```
 
 ### ConstantValue
-Condition `t == null` is always `false`
-in `src/main/java/io/reactivex/rxjava3/observers/TestObserver.java`
-#### Snippet
-```java
-        values.add(t);
-
-        if (t == null) {
-            errors.add(new NullPointerException("onNext received a null value"));
-        }
-```
-
-### ConstantValue
 Condition `d == null` is always `false`
 in `src/main/java/io/reactivex/rxjava3/observers/TestObserver.java`
 #### Snippet
@@ -36586,6 +36574,18 @@ in `src/main/java/io/reactivex/rxjava3/observers/TestObserver.java`
         if (d == null) {
             errors.add(new NullPointerException("onSubscribe received a null Subscription"));
             return;
+```
+
+### ConstantValue
+Condition `t == null` is always `false`
+in `src/main/java/io/reactivex/rxjava3/observers/TestObserver.java`
+#### Snippet
+```java
+        values.add(t);
+
+        if (t == null) {
+            errors.add(new NullPointerException("onNext received a null value"));
+        }
 ```
 
 ### ConstantValue
@@ -36620,8 +36620,8 @@ in `src/main/java/io/reactivex/rxjava3/subscribers/SafeSubscriber.java`
         }
 
         if (t == null) {
-            Throwable ex = ExceptionHelper.createNullPointerException("onNext called with a null Throwable.");
-            try {
+            t = ExceptionHelper.createNullPointerException("onError called with a null Throwable.");
+        }
 ```
 
 ### ConstantValue
@@ -36632,20 +36632,8 @@ in `src/main/java/io/reactivex/rxjava3/subscribers/SafeSubscriber.java`
         }
 
         if (t == null) {
-            t = ExceptionHelper.createNullPointerException("onError called with a null Throwable.");
-        }
-```
-
-### ConstantValue
-Condition `t == null` is always `false`
-in `src/main/java/io/reactivex/rxjava3/subscribers/TestSubscriber.java`
-#### Snippet
-```java
-        values.add(t);
-
-        if (t == null) {
-            errors.add(new NullPointerException("onNext received a null value"));
-        }
+            Throwable ex = ExceptionHelper.createNullPointerException("onNext called with a null Throwable.");
+            try {
 ```
 
 ### ConstantValue
@@ -36670,6 +36658,18 @@ in `src/main/java/io/reactivex/rxjava3/subscribers/TestSubscriber.java`
         if (s == null) {
             errors.add(new NullPointerException("onSubscribe received a null Subscription"));
             return;
+```
+
+### ConstantValue
+Condition `t == null` is always `false`
+in `src/main/java/io/reactivex/rxjava3/subscribers/TestSubscriber.java`
+#### Snippet
+```java
+        values.add(t);
+
+        if (t == null) {
+            errors.add(new NullPointerException("onNext received a null value"));
+        }
 ```
 
 ## RuleId[id=NonAtomicOperationOnVolatileField]
@@ -36726,6 +36726,18 @@ Non-atomic operation on volatile field `size`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableReplay.java`
 #### Snippet
 ```java
+        public void error(Throwable e) {
+            add(NotificationLite.error(e));
+            size++;
+        }
+
+```
+
+### NonAtomicOperationOnVolatileField
+Non-atomic operation on volatile field `size`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableReplay.java`
+#### Snippet
+```java
         public void next(T value) {
             add(NotificationLite.next(value));
             size++;
@@ -36747,35 +36759,11 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableRepla
 
 ### NonAtomicOperationOnVolatileField
 Non-atomic operation on volatile field `size`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/flowable/FlowableReplay.java`
-#### Snippet
-```java
-        public void error(Throwable e) {
-            add(NotificationLite.error(e));
-            size++;
-        }
-
-```
-
-### NonAtomicOperationOnVolatileField
-Non-atomic operation on volatile field `size`
 in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableReplay.java`
 #### Snippet
 ```java
         public void error(Throwable e) {
             add(NotificationLite.error(e));
-            size++;
-        }
-
-```
-
-### NonAtomicOperationOnVolatileField
-Non-atomic operation on volatile field `size`
-in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableReplay.java`
-#### Snippet
-```java
-        public void complete() {
-            add(NotificationLite.complete());
             size++;
         }
 
@@ -36788,6 +36776,18 @@ in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableR
 ```java
         public void next(T value) {
             add(NotificationLite.next(value));
+            size++;
+        }
+
+```
+
+### NonAtomicOperationOnVolatileField
+Non-atomic operation on volatile field `size`
+in `src/main/java/io/reactivex/rxjava3/internal/operators/observable/ObservableReplay.java`
+#### Snippet
+```java
+        public void complete() {
+            add(NotificationLite.complete());
             size++;
         }
 
