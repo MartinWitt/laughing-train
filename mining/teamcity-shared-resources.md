@@ -1,297 +1,427 @@
 # teamcity-shared-resources 
  
 # Bad smells
-I found 52 bad smells with 2 repairable:
+I found 30 bad smells with 0 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| ReturnNull | 18 | false |
-| BoundedWildcard | 16 | false |
-| StringEqualsEmptyString | 4 | false |
-| RedundantSuppression | 4 | false |
+| SpringBeanConstructorArgInspection | 16 | false |
+| UNCHECKED_WARNING | 3 | false |
 | SuspiciousMethodCalls | 3 | false |
-| UtilityClassWithoutPrivateConstructor | 2 | true |
-| UnnecessaryFullyQualifiedName | 2 | false |
-| DoubleBraceInitialization | 1 | false |
+| SpringXmlModelInspection | 3 | false |
+| JavadocDeclaration | 2 | false |
+| SpringXmlAutowireExplicitlyInspection | 1 | false |
+| JavadocReference | 1 | false |
 | CStyleArrayDeclaration | 1 | false |
-| MissortedModifiers | 1 | false |
-## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
-in `server/src/jetbrains/buildServer/sharedResources/model/resources/ResourceType.java`
+## RuleId[id=SpringBeanConstructorArgInspection]
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'SharedResourcesBuildFeature'#treeend
+
+*** ** * ** ***
+
+|---------------------------------------|---|------------------------------------|
+| **SharedResourcesBuildFeature(...):** |   | **Bean:**                          |
+| PluginDescriptor descriptor           |   | **???**                            |
+| FeatureParams featureParams           |   | Autowired: null(FeatureParamsImpl) |
+in `server/src/META-INF/build-server-plugin-shared-resources.xml`
 #### Snippet
 ```java
-  public static ResourceType fromString(@Nullable final String str) {
-    if (str == null) {
-      return null;
-    } else {
-      for (ResourceType type: values()) {
+
+  <!-- ===  BUILD FEATURE ===-->
+  <bean class="jetbrains.buildServer.sharedResources.server.SharedResourcesBuildFeature"/>
+  <bean class="jetbrains.buildServer.sharedResources.server.BuildFeatureParametersProvider"/>
+  <bean class="jetbrains.buildServer.sharedResources.server.SharedResourcesAgentsFilter"/>
 ```
 
-### ReturnNull
-Return of `null`
-in `server/src/jetbrains/buildServer/sharedResources/model/resources/ResourceType.java`
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'SharedResourcesAgentsFilter'#treeend
+
+*** ** * ** ***
+
+|---------------------------------------------|---|----------------------------------------------|
+| **SharedResourcesAgentsFilter(...):**       |   | **Bean:**                                    |
+| SharedResourcesFeatures features            |   | Autowired: null(SharedResourcesFeaturesImpl) |
+| Locks locks                                 |   | Autowired: null(LocksImpl)                   |
+| TakenLocks takenLocks                       |   | Autowired: null(TakenLocksImpl)              |
+| RunningBuildsManagerEx runningBuildsManager |   | **???**                                      |
+| ConfigurationInspector inspector            |   | Autowired: null(ConfigurationInspector)      |
+| LocksStorage locksStorage                   |   | Autowired: null(LocksStorageImpl)            |
+| Resources resources                         |   | Autowired: null(ResourcesImpl)               |
+in `server/src/META-INF/build-server-plugin-shared-resources.xml`
 #### Snippet
 ```java
-      }
-    }
-    return null;
-  }
+  <bean class="jetbrains.buildServer.sharedResources.server.SharedResourcesBuildFeature"/>
+  <bean class="jetbrains.buildServer.sharedResources.server.BuildFeatureParametersProvider"/>
+  <bean class="jetbrains.buildServer.sharedResources.server.SharedResourcesAgentsFilter"/>
+  <bean class="jetbrains.buildServer.sharedResources.server.SharedResourcesContextProcessor"/>
 
 ```
 
-### ReturnNull
-Return of `null`
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'InvalidLocksReport'#treeend
+
+*** ** * ** ***
+
+|-----------------------------------|---|-----------------------------------------|
+| **InvalidLocksReport(...):**      |   | **Bean:**                               |
+| PluginDescriptor pluginDescriptor |   | **???**                                 |
+| PagePlaces pagePlaces             |   | **???**                                 |
+| ConfigurationInspector inspector  |   | Autowired: null(ConfigurationInspector) |
+in `server/src/META-INF/build-server-plugin-shared-resources.xml`
+#### Snippet
+```java
+  <!-- === HEALTH === -->
+  <bean class="jetbrains.buildServer.sharedResources.server.ConfigurationInspector"/>
+  <bean class="jetbrains.buildServer.sharedResources.server.health.InvalidLocksReport"/>
+  <bean class="jetbrains.buildServer.sharedResources.server.health.DuplicateResourcesHealthReport"/>
+  <bean class="jetbrains.buildServer.sharedResources.server.health.InvalidResourcesHealthReport"/>
+```
+
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'DuplicateResourcesHealthReport'#treeend
+
+*** ** * ** ***
+
+|------------------------------------------|---|-----------------------------------------|
+| **DuplicateResourcesHealthReport(...):** |   | **Bean:**                               |
+| PluginDescriptor pluginDescriptor        |   | **???**                                 |
+| PagePlaces pagePlaces                    |   | **???**                                 |
+| ConfigurationInspector inspector         |   | Autowired: null(ConfigurationInspector) |
+in `server/src/META-INF/build-server-plugin-shared-resources.xml`
+#### Snippet
+```java
+  <bean class="jetbrains.buildServer.sharedResources.server.ConfigurationInspector"/>
+  <bean class="jetbrains.buildServer.sharedResources.server.health.InvalidLocksReport"/>
+  <bean class="jetbrains.buildServer.sharedResources.server.health.DuplicateResourcesHealthReport"/>
+  <bean class="jetbrains.buildServer.sharedResources.server.health.InvalidResourcesHealthReport"/>
+  <bean class="jetbrains.buildServer.sharedResources.server.analysis.ResourceUsageAnalyzer"/>
+```
+
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'InvalidResourcesHealthReport'#treeend
+
+*** ** * ** ***
+
+|----------------------------------------|---|-----------------------------------------|
+| **InvalidResourcesHealthReport(...):** |   | **Bean:**                               |
+| PluginDescriptor pluginDescriptor      |   | **???**                                 |
+| PagePlaces pagePlaces                  |   | **???**                                 |
+| ConfigurationInspector inspector       |   | Autowired: null(ConfigurationInspector) |
+in `server/src/META-INF/build-server-plugin-shared-resources.xml`
+#### Snippet
+```java
+  <bean class="jetbrains.buildServer.sharedResources.server.health.InvalidLocksReport"/>
+  <bean class="jetbrains.buildServer.sharedResources.server.health.DuplicateResourcesHealthReport"/>
+  <bean class="jetbrains.buildServer.sharedResources.server.health.InvalidResourcesHealthReport"/>
+  <bean class="jetbrains.buildServer.sharedResources.server.analysis.ResourceUsageAnalyzer"/>
+
+```
+
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'BuildUsedResourcesReportPage'#treeend
+
+*** ** * ** ***
+
+|----------------------------------------|---|-------------------------------------------|
+| **BuildUsedResourcesReportPage(...):** |   | **Bean:**                                 |
+| PagePlaces pagePlaces                  |   | **???**                                   |
+| SBuildServer server                    |   | **???**                                   |
+| PluginDescriptor descriptor            |   | **???**                                   |
+| BuildUsedResourcesReport report        |   | Autowired: null(BuildUsedResourcesReport) |
+| Locks locks                            |   | Autowired: null(LocksImpl)                |
+in `server/src/META-INF/build-server-plugin-shared-resources.xml`
+#### Snippet
+```java
+  <bean class="jetbrains.buildServer.sharedResources.server.report.UsedResourcesSerializer"/>
+  <bean class="jetbrains.buildServer.sharedResources.server.report.BuildUsedResourcesReport"/>
+  <bean class="jetbrains.buildServer.sharedResources.pages.usage.BuildUsedResourcesReportPage"/>
+  <bean class="jetbrains.buildServer.sharedResources.pages.usage.ResourceUsages"/>
+
+```
+
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'ResourceUsages'#treeend
+
+*** ** * ** ***
+
+|-----------------------------------|---|----------------------------------------|
+| **ResourceUsages(...):**          |   | **Bean:**                              |
+| PagePlaces pagePlaces             |   | **???**                                |
+| PluginDescriptor pluginDescriptor |   | **???**                                |
+| ProjectManager projectManager     |   | **???**                                |
+| Resources resources               |   | Autowired: null(ResourcesImpl)         |
+| ResourceUsageAnalyzer analyzer    |   | Autowired: null(ResourceUsageAnalyzer) |
+in `server/src/META-INF/build-server-plugin-shared-resources.xml`
+#### Snippet
+```java
+  <bean class="jetbrains.buildServer.sharedResources.server.report.BuildUsedResourcesReport"/>
+  <bean class="jetbrains.buildServer.sharedResources.pages.usage.BuildUsedResourcesReportPage"/>
+  <bean class="jetbrains.buildServer.sharedResources.pages.usage.ResourceUsages"/>
+
+  <!-- === Actions === -->
+```
+
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'AddResourceAction'#treeend
+
+*** ** * ** ***
+
+|-----------------------------------------|---|----------------------------------------------|
+| **AddResourceAction(...):**             |   | **Bean:**                                    |
+| ProjectManager projectManager           |   | **???**                                      |
+| ResourceProjectFeatures projectFeatures |   | Autowired: null(ResourceProjectFeaturesImpl) |
+| ResourceHelper resourceHelper           |   | Autowired: null(ResourceHelper)              |
+| Messages messages                       |   | Autowired: null(Messages)                    |
+| ConfigActionFactory configActionFactory |   | **???**                                      |
+| Resources resources                     |   | Autowired: null(ResourcesImpl)               |
+in `server/src/META-INF/build-server-plugin-shared-resources.xml`
+#### Snippet
+```java
+
+  <!-- === Actions === -->
+  <bean class="jetbrains.buildServer.sharedResources.pages.actions.AddResourceAction"/>
+  <bean class="jetbrains.buildServer.sharedResources.pages.actions.DeleteResourceAction"/>
+  <bean class="jetbrains.buildServer.sharedResources.pages.actions.EditResourceAction"/>
+```
+
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'DeleteResourceAction'#treeend
+
+*** ** * ** ***
+
+|-----------------------------------------|---|----------------------------------------------|
+| **DeleteResourceAction(...):**          |   | **Bean:**                                    |
+| ProjectManager projectManager           |   | **???**                                      |
+| ResourceProjectFeatures projectFeatures |   | Autowired: null(ResourceProjectFeaturesImpl) |
+| ResourceHelper resourceHelper           |   | Autowired: null(ResourceHelper)              |
+| Messages messages                       |   | Autowired: null(Messages)                    |
+| ConfigActionFactory configActionFactory |   | **???**                                      |
+| Resources resources                     |   | Autowired: null(ResourcesImpl)               |
+in `server/src/META-INF/build-server-plugin-shared-resources.xml`
+#### Snippet
+```java
+  <!-- === Actions === -->
+  <bean class="jetbrains.buildServer.sharedResources.pages.actions.AddResourceAction"/>
+  <bean class="jetbrains.buildServer.sharedResources.pages.actions.DeleteResourceAction"/>
+  <bean class="jetbrains.buildServer.sharedResources.pages.actions.EditResourceAction"/>
+  <bean class="jetbrains.buildServer.sharedResources.pages.actions.EnableDisableResourceAction"/>
+```
+
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'EditResourceAction'#treeend
+
+*** ** * ** ***
+
+|-----------------------------------------|---|----------------------------------------------|
+| **EditResourceAction(...):**            |   | **Bean:**                                    |
+| ProjectManager projectManager           |   | **???**                                      |
+| ResourceProjectFeatures projectFeatures |   | Autowired: null(ResourceProjectFeaturesImpl) |
+| SharedResourcesFeatures buildFeatures   |   | Autowired: null(SharedResourcesFeaturesImpl) |
+| ResourceHelper resourceHelper           |   | Autowired: null(ResourceHelper)              |
+| Messages messages                       |   | Autowired: null(Messages)                    |
+| ConfigActionFactory configActionFactory |   | **???**                                      |
+| Resources resources                     |   | Autowired: null(ResourcesImpl)               |
+in `server/src/META-INF/build-server-plugin-shared-resources.xml`
+#### Snippet
+```java
+  <bean class="jetbrains.buildServer.sharedResources.pages.actions.AddResourceAction"/>
+  <bean class="jetbrains.buildServer.sharedResources.pages.actions.DeleteResourceAction"/>
+  <bean class="jetbrains.buildServer.sharedResources.pages.actions.EditResourceAction"/>
+  <bean class="jetbrains.buildServer.sharedResources.pages.actions.EnableDisableResourceAction"/>
+  <bean class="jetbrains.buildServer.sharedResources.pages.SharedResourcesActionsController"/>
+```
+
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'EnableDisableResourceAction'#treeend
+
+*** ** * ** ***
+
+|-----------------------------------------|---|----------------------------------------------|
+| **EnableDisableResourceAction(...):**   |   | **Bean:**                                    |
+| ProjectManager projectManager           |   | **???**                                      |
+| ResourceProjectFeatures projectFeatures |   | Autowired: null(ResourceProjectFeaturesImpl) |
+| ResourceHelper resourceHelper           |   | Autowired: null(ResourceHelper)              |
+| Messages messages                       |   | Autowired: null(Messages)                    |
+| ConfigActionFactory configActionFactory |   | **???**                                      |
+| Resources resources                     |   | Autowired: null(ResourcesImpl)               |
+in `server/src/META-INF/build-server-plugin-shared-resources.xml`
+#### Snippet
+```java
+  <bean class="jetbrains.buildServer.sharedResources.pages.actions.DeleteResourceAction"/>
+  <bean class="jetbrains.buildServer.sharedResources.pages.actions.EditResourceAction"/>
+  <bean class="jetbrains.buildServer.sharedResources.pages.actions.EnableDisableResourceAction"/>
+  <bean class="jetbrains.buildServer.sharedResources.pages.SharedResourcesActionsController"/>
+
+```
+
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'SharedResourcesActionsController'#treeend
+
+*** ** * ** ***
+
+|---------------------------------------------------------|---|----------------------------------------------|
+| **SharedResourcesActionsController(...):**              |   | **Bean:**                                    |
+| WebControllerManager controllerManager                  |   | **???**                                      |
+| AddResourceAction addResourceAction                     |   | Autowired: null(AddResourceAction)           |
+| DeleteResourceAction deleteResourceAction               |   | Autowired: null(DeleteResourceAction)        |
+| EditResourceAction editResourceAction                   |   | Autowired: null(EditResourceAction)          |
+| EnableDisableResourceAction enableDisableResourceAction |   | Autowired: null(EnableDisableResourceAction) |
+in `server/src/META-INF/build-server-plugin-shared-resources.xml`
+#### Snippet
+```java
+  <bean class="jetbrains.buildServer.sharedResources.pages.actions.EditResourceAction"/>
+  <bean class="jetbrains.buildServer.sharedResources.pages.actions.EnableDisableResourceAction"/>
+  <bean class="jetbrains.buildServer.sharedResources.pages.SharedResourcesActionsController"/>
+
+  <!-- === PAGES === -->
+```
+
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'EditFeatureController'#treeend
+
+*** ** * ** ***
+
+|---------------------------------------|---|----------------------------------------------------|
+| **EditFeatureController(...):**       |   | **Bean:**                                          |
+| PluginDescriptor descriptor           |   | **???**                                            |
+| WebControllerManager web              |   | **???**                                            |
+| EditBuildTypeFormFactory formFactory  |   | **???**                                            |
+| Resources resources                   |   | Autowired: null(ResourcesImpl)                     |
+| SharedResourcesFeatureFactory factory |   | Autowired: null(SharedResourcesFeatureFactoryImpl) |
+| ConfigurationInspector inspector      |   | Autowired: null(ConfigurationInspector)            |
+| ProjectManager projectManager         |   | **???**                                            |
+| BeansFactory beansFactory             |   | Autowired: null(BeansFactory)                      |
+in `server/src/META-INF/build-server-plugin-shared-resources.xml`
+#### Snippet
+```java
+  <!-- === PAGES === -->
+  <bean class="jetbrains.buildServer.sharedResources.pages.beans.BeansFactory"/>
+  <bean class="jetbrains.buildServer.sharedResources.pages.EditFeatureController"/>
+  <bean class="jetbrains.buildServer.sharedResources.pages.SharedResourcesPage"/>
+
+```
+
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'SharedResourcesPage'#treeend
+
+*** ** * ** ***
+
+|----------------------------------|---|-----------------------------------------|
+| **SharedResourcesPage(...):**    |   | **Bean:**                               |
+| PagePlaces pagePlaces            |   | **???**                                 |
+| PluginDescriptor descriptor      |   | **???**                                 |
+| Resources resources              |   | Autowired: null(ResourcesImpl)          |
+| SecurityContext securityContext  |   | **???**                                 |
+| ConfigurationInspector inspector |   | Autowired: null(ConfigurationInspector) |
+| ResourceUsageAnalyzer analyzer   |   | Autowired: null(ResourceUsageAnalyzer)  |
+| BeansFactory beansFactory        |   | Autowired: null(BeansFactory)           |
+in `server/src/META-INF/build-server-plugin-shared-resources.xml`
+#### Snippet
+```java
+  <bean class="jetbrains.buildServer.sharedResources.pages.beans.BeansFactory"/>
+  <bean class="jetbrains.buildServer.sharedResources.pages.EditFeatureController"/>
+  <bean class="jetbrains.buildServer.sharedResources.pages.SharedResourcesPage"/>
+
+  <!-- ===  INTERNALS  === -->
+```
+
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'LocksStorageImpl'#treeend
+
+*** ** * ** ***
+
+|---------------------------------------------------|---|-----------|
+| **LocksStorageImpl(...):**                        |   | **Bean:** |
+| EventDispatcher\<BuildServerListener\> dispatcher |   | **???**   |
+in `server/src/META-INF/build-server-plugin-shared-resources.xml`
+#### Snippet
+```java
+  <!-- ===  INTERNALS  === -->
+  <bean class="jetbrains.buildServer.sharedResources.server.project.ResourceProjectFeaturesImpl"/>
+  <bean class="jetbrains.buildServer.sharedResources.server.runtime.LocksStorageImpl"/>
+  <bean class="jetbrains.buildServer.sharedResources.server.runtime.TakenLocksImpl"/>
+  <bean class="jetbrains.buildServer.sharedResources.server.feature.LocksImpl"/>
+```
+
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'ResourcesImpl'#treeend
+
+*** ** * ** ***
+
+|-------------------------------------------------|---|----------------------------------------------|
+| **ResourcesImpl(...):**                         |   | **Bean:**                                    |
+| ProjectManager projectManager                   |   | **???**                                      |
+| ResourceProjectFeatures resourceProjectFeatures |   | Autowired: null(ResourceProjectFeaturesImpl) |
+in `server/src/META-INF/build-server-plugin-shared-resources.xml`
+#### Snippet
+```java
+  <bean class="jetbrains.buildServer.sharedResources.server.runtime.TakenLocksImpl"/>
+  <bean class="jetbrains.buildServer.sharedResources.server.feature.LocksImpl"/>
+  <bean class="jetbrains.buildServer.sharedResources.server.feature.ResourcesImpl"/>
+  <bean class="jetbrains.buildServer.sharedResources.server.feature.SharedResourcesFeatureFactoryImpl"/>
+  <bean class="jetbrains.buildServer.sharedResources.server.feature.FeatureParamsImpl"/>
+```
+
+## RuleId[id=SpringXmlAutowireExplicitlyInspection]
+### SpringXmlAutowireExplicitlyInspection
+Make autowired dependency explicit
+in `server/fake-teamcity-server-plugin-context.xml`
+#### Snippet
+```java
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+       default-autowire="constructor">
+  <!-- this is a fake spring context xml to make IDEA know all implicit beans that are available for plugin -->
+  <bean class="jetbrains.buildServer.web.openapi.PluginDescriptor"/>
+```
+
+## RuleId[id=UNCHECKED_WARNING]
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.HashMap' to 'java.util.Map'
+in `server/src/jetbrains/buildServer/sharedResources/server/feature/SharedResourcesFeatureImpl.java`
+#### Snippet
+```java
+      final String locksAsString = myLocks.asFeatureParameter(myLockedResources.values());
+      // update build feature parameters
+      final Map<String, String> newParams = new HashMap<>(myDescriptor.getParameters());
+      newParams.put(LOCKS_FEATURE_PARAM_KEY, locksAsString);
+      // update build feature
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.TreeMap' to 'java.util.Map\>'
 in `server/src/jetbrains/buildServer/sharedResources/pages/usage/ResourceUsages.java`
 #### Snippet
 ```java
-  private SProject findProject(@Nullable final String currentProjectId) {
-    if (StringUtil.isEmptyOrSpaces(currentProjectId)) {
-      return null;
-    }
-    try {
+    final String currentProjectId = request.getParameter("resourceProjectId");
+    int totalUsagesNum = 0;
+    final Map<SBuildType, List<Lock>> buildTypes = new TreeMap<>(new BuildTypeComparator(myProjectManager));
+    final Map<BuildTypeTemplate, List<Lock>> templates = new TreeMap<>(new TemplateComparator(myProjectManager.getProjectsComparator()));
+    final SProject project = findProject(currentProjectId);
 ```
 
-### ReturnNull
-Return of `null`
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.TreeMap' to 'java.util.Map\>'
 in `server/src/jetbrains/buildServer/sharedResources/pages/usage/ResourceUsages.java`
 #### Snippet
 ```java
-      return myProjectManager.findProjectByExternalId(currentProjectId);
-    } catch (AccessDeniedException ignored) {}
-    return null;
-  }
-
+    int totalUsagesNum = 0;
+    final Map<SBuildType, List<Lock>> buildTypes = new TreeMap<>(new BuildTypeComparator(myProjectManager));
+    final Map<BuildTypeTemplate, List<Lock>> templates = new TreeMap<>(new TemplateComparator(myProjectManager.getProjectsComparator()));
+    final SProject project = findProject(currentProjectId);
+    if (project != null) {
 ```
 
-### ReturnNull
-Return of `null`
-in `server/src/jetbrains/buildServer/sharedResources/model/resources/ResourceFactory.java`
+## RuleId[id=JavadocReference]
+### JavadocReference
+Cannot resolve symbol `SProject`
+in `server/src/jetbrains/buildServer/sharedResources/server/feature/Resources.java`
 #### Snippet
 ```java
-    final String name = parameters.get(NAME);
-    if (isEmptyOrSpaces(name)) {
-      return null;
-    }
-    if (type == ResourceType.QUOTED) {
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/jetbrains/buildServer/sharedResources/server/report/UsedResourcesSerializer.java`
-#### Snippet
-```java
-    public <T> TypeAdapter<T> create(final Gson gson, final TypeToken<T> type) {
-      if (type.getRawType() != Resource.class) {
-        return null;
-      }
-
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/jetbrains/buildServer/sharedResources/model/LockType.java`
-#### Snippet
-```java
-      return WRITE;
-    } else {
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/jetbrains/buildServer/sharedResources/pages/ResourceHelper.java`
-#### Snippet
-```java
-    Resource resource = null;
-    if (isEmptyOrSpaces(resourceId)) {
-      return null;
-    }
-    if (ResourceType.QUOTED.equals(resourceType)) {
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/jetbrains/buildServer/sharedResources/pages/ResourceHelper.java`
-#### Snippet
-```java
-  private Map<String, String> validate(@NotNull final Map<String, String> params) {
-    if (params.values().stream().anyMatch(StringUtil::isEmptyOrSpaces)) {
-      return null;
-    } else {
-      return params;
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/jetbrains/buildServer/sharedResources/pages/ResourceHelper.java`
-#### Snippet
-```java
-        } catch (IllegalArgumentException e) {
-          LOG.warn("Illegal argument supplied in quota for resource [" + resourceName + "]");
-          return null;
-        }
-      } else {
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/jetbrains/buildServer/sharedResources/pages/ResourceHelper.java`
-#### Snippet
-```java
-      }
-    } else {
-      return null;
-    }
-    return null;
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/jetbrains/buildServer/sharedResources/pages/ResourceHelper.java`
-#### Snippet
-```java
-      return null;
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/jetbrains/buildServer/sharedResources/server/runtime/LocksStorageImpl.java`
-#### Snippet
-```java
-                              myLocksCache.invalidate(build.getBuildPromotion());
-                              existsSet.remove(build.getBuildPromotion().getId());
-                              return null;
-                            });
-                   return null;
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/jetbrains/buildServer/sharedResources/server/runtime/LocksStorageImpl.java`
-#### Snippet
-```java
-                              return null;
-                            });
-                   return null;
-                 });
-      }
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/jetbrains/buildServer/sharedResources/server/runtime/LocksStorageImpl.java`
-#### Snippet
-```java
-              myLocksCache.put(buildPromotion, locksToStore);
-              existsSet.add(buildPromotion.getId());
-              return null;
-            });
-          } else {
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/jetbrains/buildServer/sharedResources/server/runtime/LocksStorageImpl.java`
-#### Snippet
-```java
-          log.warn("Failed to store taken locks for build [" + buildPromotion + "]; Message is: " + e.getMessage());
-        }
-        return null;
-      });
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesAgentsFilter.java`
-#### Snippet
-```java
-    } catch (BuildTypeNotFoundException ignored) {
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `server/src/jetbrains/buildServer/sharedResources/server/runtime/TakenLocksImpl.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-}
-```
-
-## RuleId[id=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `ResourceFactory` has only 'static' members, and lacks a 'private' constructor
-in `server/src/jetbrains/buildServer/sharedResources/model/resources/ResourceFactory.java`
-#### Snippet
-```java
- * @author Oleg Rybak (oleg.rybak@jetbrains.com)
- */
-public class ResourceFactory {
-
-  /**
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SharedResourcesPluginConstants` has only 'static' members, and lacks a 'private' constructor
-in `server/src/jetbrains/buildServer/sharedResources/SharedResourcesPluginConstants.java`
-#### Snippet
-```java
- * @author Oleg Rybak
- */
-public class SharedResourcesPluginConstants {
-
-  /**
-```
-
-## RuleId[id=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `jetbrains.buildServer.sharedResources.server` is unnecessary and can be removed
-in `server/src/jetbrains/buildServer/sharedResources/server/BuildFeatureParametersProvider.java`
-#### Snippet
-```java
- * Exposes {@code SharedResourcesBuildFeature} parameters to build
- *
- * @see jetbrains.buildServer.sharedResources.server.SharedResourcesBuildFeature
- * @author Oleg Rybak (oleg.rybak@jetbrains.com)
- */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `jetbrains.buildServer.sharedResources.model` is unnecessary and can be removed
-in `server/src/jetbrains/buildServer/sharedResources/server/feature/Locks.java`
-#### Snippet
-```java
- * Defines operations tha deal with locks
- *
- * @see jetbrains.buildServer.sharedResources.model.Lock
- * @see jetbrains.buildServer.sharedResources.model.LockType
- *
-```
-
-## RuleId[id=DoubleBraceInitialization]
-### DoubleBraceInitialization
-Double brace initialization
-in `server/src/jetbrains/buildServer/sharedResources/server/health/InvalidLocksReport.java`
-#### Snippet
-```java
-        resultConsumer.consumeForBuildType(
-                type,
-                new HealthStatusItem(myCategory.getId() + "_" + type.getInternalId(), myCategory, new HashMap<String, Object>() {{
-          put("invalid_locks", invalidLocks);
-          put("build_type", type);
+   * Gets all resources for project with given {@code projectId} and all its ancestors
+   *
+   * {@link #getResources(SProject)} cannot be used in runtime, as it requires project to be present,
+   * which makes this method a convenient single point, where we acquire project by project id
+   *
 ```
 
 ## RuleId[id=SuspiciousMethodCalls]
@@ -331,197 +461,29 @@ in `server/src/jetbrains/buildServer/sharedResources/server/runtime/TakenLocksIm
         result.put(rc, tl);
 ```
 
-## RuleId[id=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends Lock`
-in `server/src/jetbrains/buildServer/sharedResources/server/feature/LocksImpl.java`
+## RuleId[id=JavadocDeclaration]
+### JavadocDeclaration
+`@param request` tag description is missing
+in `server/src/jetbrains/buildServer/sharedResources/pages/ResourceHelper.java`
 #### Snippet
 ```java
-  @NotNull
-  @Override
-  public Map<String, String> asBuildParameters(@NotNull final Collection<Lock> locks) {
-    final Map<String, String> buildParams = new HashMap<>();
-    for (Lock lock: locks) {
+  /**
+   * Gets parameters from request, that are necessary to create a new resource
+   * @param request
+   * @return
+   */
 ```
 
-### BoundedWildcard
-Can generalize to `? extends SharedResourcesFeature`
-in `server/src/jetbrains/buildServer/sharedResources/server/feature/LocksImpl.java`
+### JavadocDeclaration
+`@return` tag description is missing
+in `server/src/jetbrains/buildServer/sharedResources/pages/ResourceHelper.java`
 #### Snippet
 ```java
-  @NotNull
-  @Override
-  public Map<String, Lock> fromBuildFeaturesAsMap(@NotNull final Collection<SharedResourcesFeature> features) {
-    final Map<String, Lock> result = new LinkedHashMap<>();       // enforced -> my -> template
-    features.stream()
-```
-
-### BoundedWildcard
-Can generalize to `? extends Resource`
-in `server/src/jetbrains/buildServer/sharedResources/server/ConfigurationInspector.java`
-#### Snippet
-```java
-
-  @NotNull
-  private Map<String, String> resolveStep(@NotNull final List<Resource> resources,
-                                          @NotNull final Map<String, Lock> locks) {
-    Map<String, String> result = new HashMap<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Lock`
-in `server/src/jetbrains/buildServer/sharedResources/server/ConfigurationInspector.java`
-#### Snippet
-```java
-  @NotNull
-  private Map<String, String> resolveStep(@NotNull final List<Resource> resources,
-                                          @NotNull final Map<String, Lock> locks) {
-    Map<String, String> result = new HashMap<>();
-    resources.forEach(rc -> {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Resource`
-in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesContextProcessor.java`
-#### Snippet
-```java
-
-  private Map<String, CustomResource> getCustomResources(@NotNull final String projectId,
-                                                         @NotNull final Map<String, Resource> projectResources,
-                                                         @NotNull final Map<String, Map<String, CustomResource>> projectTreeCustomResources) {
-    return projectTreeCustomResources.computeIfAbsent(projectId,
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesContextProcessor.java`
-#### Snippet
-```java
-  private Map<String, CustomResource> getCustomResources(@NotNull final String projectId,
-                                                         @NotNull final Map<String, Resource> projectResources,
-                                                         @NotNull final Map<String, Map<String, CustomResource>> projectTreeCustomResources) {
-    return projectTreeCustomResources.computeIfAbsent(projectId,
-                                                      id -> projectResources.values().stream()
-```
-
-### BoundedWildcard
-Can generalize to `? extends Lock`
-in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesContextProcessor.java`
-#### Snippet
-```java
-
-  @NotNull
-  private Map<Lock, String> initTakenValues(@NotNull final Collection<Lock> myLocks) {
-    return myLocks.stream()
-                  .collect(Collectors.toMap(Function.identity(), val -> ""));
-```
-
-### BoundedWildcard
-Can generalize to `? extends CustomResource`
-in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesContextProcessor.java`
-#### Snippet
-```java
-  }
-
-  private Map<String, CustomResource> matchCustomResources(@NotNull final Map<String, CustomResource> resources,
-                                                           @NotNull final Map<String, Lock> locks) {
-    final Map<String, CustomResource> result = new HashMap<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `server/src/jetbrains/buildServer/sharedResources/pages/beans/BeansFactory.java`
-#### Snippet
-```java
-
-  private void checkOverrides(final Resource resource,
-                              final Map<String, List<Resource>> result,
-                              final Map<String, Resource> overridesMap) {
-    result.forEach((projectId, resources) -> {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `server/src/jetbrains/buildServer/sharedResources/pages/beans/BeansFactory.java`
-#### Snippet
-```java
-  private void checkOverrides(final Resource resource,
-                              final Map<String, List<Resource>> result,
-                              final Map<String, Resource> overridesMap) {
-    result.forEach((projectId, resources) -> {
-      for (Resource rc: resources) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Resource`
-in `server/src/jetbrains/buildServer/sharedResources/pages/beans/BeansFactory.java`
-#### Snippet
-```java
-  private void checkOverrides(final Resource resource,
-                              final Map<String, List<Resource>> result,
-                              final Map<String, Resource> overridesMap) {
-    result.forEach((projectId, resources) -> {
-      for (Resource rc: resources) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends TakenLock`
-in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesAgentsFilter.java`
-#### Snippet
-```java
-
-  private String getNextAvailableValue(@NotNull final CustomResource resource,
-                                       @NotNull final Map<Resource, TakenLock> takenLocks,
-                                       @NotNull final BuildPromotion promotion,
-                                       @NotNull final DistributionDataAccessor accessor) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Map`
-in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesAgentsFilter.java`
-#### Snippet
-```java
-  private void gatherRuntimeInfo(@NotNull final List<RunningBuildEx> runningBuilds,
-                                 @NotNull final Map<QueuedBuildInfo, SBuildAgent> canBeStarted,
-                                 @NotNull final AtomicReference<Map<Resource, TakenLock>> takenLocks) {
-    if (takenLocks.get() == null) {
-      takenLocks.set(myTakenLocks.collectTakenLocks(runningBuilds, canBeStarted.keySet()));
-```
-
-### BoundedWildcard
-Can generalize to `? extends Lock`
-in `server/src/jetbrains/buildServer/sharedResources/server/runtime/TakenLocksImpl.java`
-#### Snippet
-```java
-
-  @Override
-  public Map<Resource, String> getUnavailableLocks(@NotNull final Map<String, Lock> locksToTake,
-                                                   @NotNull final Map<Resource, TakenLock> takenLocks,
-                                                   @NotNull final DistributionDataAccessor distributionDataAccessor,
-```
-
-### BoundedWildcard
-Can generalize to `? extends Resource`
-in `server/src/jetbrains/buildServer/sharedResources/server/runtime/TakenLocksImpl.java`
-#### Snippet
-```java
-                                                   @NotNull final Map<Resource, TakenLock> takenLocks,
-                                                   @NotNull final DistributionDataAccessor distributionDataAccessor,
-                                                   @NotNull final Map<String, Resource> chainNodeResources,
-                                                   @NotNull final Map<Resource, Map<BuildPromotionEx, Lock>> chainLocks,
-                                                   @NotNull final BuildPromotion promotion) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Lock`
-in `server/src/jetbrains/buildServer/sharedResources/server/runtime/TakenLocksImpl.java`
-#### Snippet
-```java
-
-  @Override
-  public Map<Resource, String> getUnavailableLocks(@NotNull final Collection<Lock> locksToTake,
-                                                   @NotNull final Map<Resource, TakenLock> takenLocks,
-                                                   @NotNull final String projectId,
+   * Gets parameters from request, that are necessary to create a new resource
+   * @param request
+   * @return
+   */
+  @Nullable
 ```
 
 ## RuleId[id=CStyleArrayDeclaration]
@@ -537,114 +499,40 @@ in `server/src/jetbrains/buildServer/sharedResources/server/report/UsedResources
       return new String(c);
 ```
 
-## RuleId[id=MissortedModifiers]
-### MissortedModifiers
-Missorted modifiers `final @NotNull`
-in `server/src/jetbrains/buildServer/sharedResources/server/analysis/ResourceUsageAnalyzer.java`
+## RuleId[id=SpringXmlModelInspection]
+### SpringXmlModelInspection
+Cannot resolve class or package 'web'
+in `server/fake-teamcity-server-plugin-context.xml`
 #### Snippet
 ```java
-
-  @NotNull
-  private List<BuildTypeSettings> getLookupScope(final @NotNull SProject project) {
-    final List<BuildTypeSettings> lookupScope = new ArrayList<>();
-    lookupScope.addAll(project.getBuildTypes());
-```
-
-## RuleId[id=StringEqualsEmptyString]
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `server/src/jetbrains/buildServer/sharedResources/server/feature/LocksImpl.java`
-#### Snippet
-```java
-    final String locksString = featureParameters.get(LOCKS_FEATURE_PARAM_KEY);
-    final Map<String, Lock> result = new LinkedHashMap<>();
-    if (locksString != null && !"".equals(locksString)) {
-      final List<String> serializedLocks = StringUtil.split(locksString, true, '\n');
-      for (String str: serializedLocks) {
-```
-
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesContextProcessor.java`
-#### Snippet
-```java
-            String currentValue;
-            if (LockType.READ.equals(currentLock.getType())) {
-              if (currentLock.getValue().equals("")) { // ANY lock
-                currentValue = (String)((BuildPromotionEx)currentBuildPromotion).getAttribute(getReservedResourceAttributeKey(entry.getValue().getId()));
-                if (currentValue == null) {
-```
-
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `server/src/jetbrains/buildServer/sharedResources/server/runtime/LocksStorageImpl.java`
-#### Snippet
-```java
-  @NotNull
-  private String serializeTakenLock(@NotNull final Lock lock, @NotNull final String value) {
-    return StringUtil.join("\t", lock.getName(), lock.getType(), value.equals("") ? " " : value);
-  }
+       default-autowire="constructor">
+  <!-- this is a fake spring context xml to make IDEA know all implicit beans that are available for plugin -->
+  <bean class="jetbrains.buildServer.web.openapi.PluginDescriptor"/>
+</beans>
 
 ```
 
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `server/src/jetbrains/buildServer/sharedResources/server/runtime/TakenLocksImpl.java`
+### SpringXmlModelInspection
+Cannot resolve class or package 'openapi'
+in `server/fake-teamcity-server-plugin-context.xml`
 #### Snippet
 ```java
-            if (resource instanceof CustomResource
-                && lock.getType() == LockType.READ
-                && lock.getValue().equals("")) { // ANY LOCK
-              String reservedValue = (String)bpEx.getAttribute(getReservedResourceAttributeKey(resource.getId()));
-              if (reservedValue != null) {
+       default-autowire="constructor">
+  <!-- this is a fake spring context xml to make IDEA know all implicit beans that are available for plugin -->
+  <bean class="jetbrains.buildServer.web.openapi.PluginDescriptor"/>
+</beans>
+
 ```
 
-## RuleId[id=RedundantSuppression]
-### RedundantSuppression
-Redundant suppression
-in `server/src/jetbrains/buildServer/sharedResources/server/SharedResourcesAgentsFilter.java`
+### SpringXmlModelInspection
+Cannot resolve class 'PluginDescriptor'
+in `server/fake-teamcity-server-plugin-context.xml`
 #### Snippet
 ```java
-  @Nullable
-  @SuppressWarnings("StringBufferReplaceableByString")
-  private WaitReason checkForInvalidLocks(@NotNull final SBuildType buildType) {
-    WaitReason result = null;
-    final Map<Lock, String> invalidLocks = myInspector.inspect(buildType);
-```
+       default-autowire="constructor">
+  <!-- this is a fake spring context xml to make IDEA know all implicit beans that are available for plugin -->
+  <bean class="jetbrains.buildServer.web.openapi.PluginDescriptor"/>
+</beans>
 
-### RedundantSuppression
-Redundant suppression
-in `server/src/jetbrains/buildServer/sharedResources/server/report/UsedResourcesSerializer.java`
-#### Snippet
-```java
-        @SuppressWarnings("unchecked")
-        @Override
-        public T read(final JsonReader jsonReader) throws JsonParseException {
-          JsonElement tree = Streams.parse(jsonReader);
-          JsonObject object = tree.getAsJsonObject();
-```
-
-### RedundantSuppression
-Redundant suppression
-in `server/src/jetbrains/buildServer/sharedResources/server/runtime/LocksStorageImpl.java`
-#### Snippet
-```java
-  @SuppressWarnings("UnstableApiUsage")
-  @NotNull
-  private final LoadingCache<BuildPromotion, Map<String, Lock>> myLocksCache;
-
-  @SuppressWarnings("UnstableApiUsage")
-```
-
-### RedundantSuppression
-Redundant suppression
-in `server/src/jetbrains/buildServer/sharedResources/server/runtime/LocksStorageImpl.java`
-#### Snippet
-```java
-  @SuppressWarnings("UnstableApiUsage")
-  @NotNull
-  private final Striped<java.util.concurrent.locks.Lock> myGuards = Striped.lazyWeakLock(TeamCityProperties.getInteger("teamcity.sharedResources.locksStorage.stripedSize", 300));
-
-  public LocksStorageImpl(@NotNull final EventDispatcher<BuildServerListener> dispatcher) {
 ```
 
