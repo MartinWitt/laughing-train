@@ -126,18 +126,6 @@ in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/SymmetricK
 ```
 
 ### Deprecation
-'propagate(java.lang.Throwable)' is deprecated
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV2.java`
-#### Snippet
-```java
-            return byteStream.toByteArray();
-        } catch (IOException | InvalidKeyException | IllegalBlockSizeException e) {
-            throw Throwables.propagate(e);
-        }
-    }
-```
-
-### Deprecation
 'com.palantir.crypto2.keys.serialization.KeySerializerV1' is deprecated
 in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV2.java`
 #### Snippet
@@ -150,6 +138,18 @@ in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySeriali
 ```
 
 ### Deprecation
+'propagate(java.lang.Throwable)' is deprecated
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV2.java`
+#### Snippet
+```java
+            return byteStream.toByteArray();
+        } catch (IOException | InvalidKeyException | IllegalBlockSizeException e) {
+            throw Throwables.propagate(e);
+        }
+    }
+```
+
+### Deprecation
 'com.palantir.crypto2.keys.serialization.SymmetricKeySerializerV3' is deprecated
 in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializers.java`
 #### Snippet
@@ -171,6 +171,30 @@ in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySeriali
             SymmetricKeySerializerV3.INSTANCE.getVersion(), SymmetricKeySerializerV3.INSTANCE,
             SymmetricKeySerializerV4.INSTANCE.getVersion(), SymmetricKeySerializerV4.INSTANCE);
 
+```
+
+### Deprecation
+'com.palantir.crypto2.keys.serialization.KeySerializerV1' is deprecated
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializers.java`
+#### Snippet
+```java
+
+    private static final Map<Integer, ? extends KeySerializer> SERIALIZERS = ImmutableMap.of(
+            KeySerializerV1.INSTANCE.getVersion(), KeySerializerV1.INSTANCE,
+            KeySerializerV2.INSTANCE.getVersion(), KeySerializerV2.INSTANCE);
+    private static final Map<Integer, ? extends SymmetricKeySerializer> SYMMETRIC_SERIALIZERS = ImmutableMap.of(
+```
+
+### Deprecation
+'com.palantir.crypto2.keys.serialization.KeySerializerV1' is deprecated
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializers.java`
+#### Snippet
+```java
+
+    private static final Map<Integer, ? extends KeySerializer> SERIALIZERS = ImmutableMap.of(
+            KeySerializerV1.INSTANCE.getVersion(), KeySerializerV1.INSTANCE,
+            KeySerializerV2.INSTANCE.getVersion(), KeySerializerV2.INSTANCE);
+    private static final Map<Integer, ? extends SymmetricKeySerializer> SYMMETRIC_SERIALIZERS = ImmutableMap.of(
 ```
 
 ### Deprecation
@@ -186,39 +210,15 @@ in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySeriali
 ```
 
 ### Deprecation
-'com.palantir.crypto2.keys.serialization.KeySerializerV1' is deprecated
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializers.java`
+'propagate(java.lang.Throwable)' is deprecated
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/PublicKeys.java`
 #### Snippet
 ```java
-
-    private static final Map<Integer, ? extends KeySerializer> SERIALIZERS = ImmutableMap.of(
-            KeySerializerV1.INSTANCE.getVersion(), KeySerializerV1.INSTANCE,
-            KeySerializerV2.INSTANCE.getVersion(), KeySerializerV2.INSTANCE);
-    private static final Map<Integer, ? extends SymmetricKeySerializer> SYMMETRIC_SERIALIZERS = ImmutableMap.of(
-```
-
-### Deprecation
-'com.palantir.crypto2.keys.serialization.KeySerializerV1' is deprecated
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializers.java`
-#### Snippet
-```java
-
-    private static final Map<Integer, ? extends KeySerializer> SERIALIZERS = ImmutableMap.of(
-            KeySerializerV1.INSTANCE.getVersion(), KeySerializerV1.INSTANCE,
-            KeySerializerV2.INSTANCE.getVersion(), KeySerializerV2.INSTANCE);
-    private static final Map<Integer, ? extends SymmetricKeySerializer> SYMMETRIC_SERIALIZERS = ImmutableMap.of(
-```
-
-### Deprecation
-'isFile(org.apache.hadoop.fs.Path)' is deprecated
-in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/StandaloneEncryptedFileSystem.java`
-#### Snippet
-```java
-        // deletes both the payload files and the adjacent encryption materials. For files we can
-        // rely on the EncryptedFileSystem handling removal of both the file and the key material.
-        if (fs.isFile(path)) {
-            return fs.delete(path, false);
-        } else {
+            return keyFactory.generatePublic(keySpec);
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+            throw Throwables.propagate(e);
+        }
+    }
 ```
 
 ### Deprecation
@@ -234,12 +234,24 @@ in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/StandaloneEncryptedF
 ```
 
 ### Deprecation
-'propagate(java.lang.Throwable)' is deprecated
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/PublicKeys.java`
+'isFile(org.apache.hadoop.fs.Path)' is deprecated
+in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/StandaloneEncryptedFileSystem.java`
 #### Snippet
 ```java
-            return keyFactory.generatePublic(keySpec);
-        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+        // deletes both the payload files and the adjacent encryption materials. For files we can
+        // rely on the EncryptedFileSystem handling removal of both the file and the key material.
+        if (fs.isFile(path)) {
+            return fs.delete(path, false);
+        } else {
+```
+
+### Deprecation
+'propagate(java.lang.Throwable)' is deprecated
+in `crypto-core/src/main/java/com/palantir/crypto2/cipher/AesCtrCipher.java`
+#### Snippet
+```java
+            return cipher;
+        } catch (InvalidKeyException | InvalidAlgorithmParameterException e) {
             throw Throwables.propagate(e);
         }
     }
@@ -250,8 +262,8 @@ in `crypto-keys/src/main/java/com/palantir/crypto2/keys/PublicKeys.java`
 in `crypto-core/src/main/java/com/palantir/crypto2/cipher/AesCtrCipher.java`
 #### Snippet
 ```java
-            return cipher;
-        } catch (InvalidKeyException | InvalidAlgorithmParameterException e) {
+            return Cipher.getInstance(ALGORITHM, PROVIDER);
+        } catch (NoSuchAlgorithmException | NoSuchProviderException | NoSuchPaddingException e) {
             throw Throwables.propagate(e);
         }
     }
@@ -271,11 +283,11 @@ in `crypto-core/src/main/java/com/palantir/crypto2/cipher/AesCtrCipher.java`
 
 ### Deprecation
 'propagate(java.lang.Throwable)' is deprecated
-in `crypto-core/src/main/java/com/palantir/crypto2/cipher/AesCtrCipher.java`
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/KeyPairs.java`
 #### Snippet
 ```java
-            return Cipher.getInstance(ALGORITHM, PROVIDER);
-        } catch (NoSuchAlgorithmException | NoSuchProviderException | NoSuchPaddingException e) {
+            return new KeyPair(keyFactory.generatePublic(publicKs), privateKey.orElse(null));
+        } catch (GeneralSecurityException e) {
             throw Throwables.propagate(e);
         }
     }
@@ -307,11 +319,11 @@ in `crypto-core/src/main/java/com/palantir/crypto2/cipher/AesCbcCipher.java`
 
 ### Deprecation
 'propagate(java.lang.Throwable)' is deprecated
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/KeyPairs.java`
+in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/FileKeyStorageStrategy.java`
 #### Snippet
 ```java
-            return new KeyPair(keyFactory.generatePublic(publicKs), privateKey.orElse(null));
-        } catch (GeneralSecurityException e) {
+            return KeyMaterials.unwrap(wrappedKey, privateKey.get());
+        } catch (IOException e) {
             throw Throwables.propagate(e);
         }
     }
@@ -335,18 +347,6 @@ in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/FileKeyStorageStrate
 #### Snippet
 ```java
             fs.delete(getKeyPath(fileKey), false);
-        } catch (IOException e) {
-            throw Throwables.propagate(e);
-        }
-    }
-```
-
-### Deprecation
-'propagate(java.lang.Throwable)' is deprecated
-in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/FileKeyStorageStrategy.java`
-#### Snippet
-```java
-            return KeyMaterials.unwrap(wrappedKey, privateKey.get());
         } catch (IOException e) {
             throw Throwables.propagate(e);
         }
@@ -410,8 +410,8 @@ in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/cipher/FsCipherOutpu
 ```java
 
     @Override
-    public void write(byte[] bytes) throws IOException {
-        out.write(bytes);
+    public void write(byte[] bytes, int off, int len) throws IOException {
+        out.write(bytes, off, len);
     }
 ```
 
@@ -422,8 +422,8 @@ in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/cipher/FsCipherOutpu
 ```java
 
     @Override
-    public void write(byte[] bytes, int off, int len) throws IOException {
-        out.write(bytes, off, len);
+    public void write(byte[] bytes) throws IOException {
+        out.write(bytes);
     }
 ```
 
@@ -514,18 +514,6 @@ enum SymmetricKeySerializerV3 implements SymmetricKeySerializer {
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'KeySerializerV1' is still used
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV1.java`
-#### Snippet
-```java
- */
-@Deprecated
-enum KeySerializerV1 implements KeySerializer {
-    INSTANCE;
-
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'DEPRECATED_CIPHER_ALGORITHM_KEY' is still used
 in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/EncryptedFileSystem.java`
 #### Snippet
@@ -535,6 +523,18 @@ in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/EncryptedFileSystem.
     public static final String DEPRECATED_CIPHER_ALGORITHM_KEY = "fs.cipher";
 
     public static final String CIPHER_ALGORITHM_KEY = "fs.efs.cipher";
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'KeySerializerV1' is still used
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV1.java`
+#### Snippet
+```java
+ */
+@Deprecated
+enum KeySerializerV1 implements KeySerializer {
+    INSTANCE;
+
 ```
 
 ### DeprecatedIsStillUsed
@@ -619,10 +619,10 @@ in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/cipher/FsCipherOutpu
 #### Snippet
 ```java
     @Override
-    public void write(byte[] bytes) throws IOException {
-        out.write(bytes);
+    public void write(byte[] bytes, int off, int len) throws IOException {
+        out.write(bytes, off, len);
     }
-}
+
 ```
 
 ### BlockingMethodInNonBlockingContext
@@ -631,10 +631,10 @@ in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/cipher/FsCipherOutpu
 #### Snippet
 ```java
     @Override
-    public void write(byte[] bytes, int off, int len) throws IOException {
-        out.write(bytes, off, len);
+    public void write(byte[] bytes) throws IOException {
+        out.write(bytes);
     }
-
+}
 ```
 
 ### BlockingMethodInNonBlockingContext
@@ -659,6 +659,54 @@ in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/cipher/FsCipherInput
             input.close();
         }
     }
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV1.java`
+#### Snippet
+```java
+            String keyAlgorithm = secretKey.getAlgorithm();
+            stream.write(keyAlgorithm.length());
+            stream.write(keyAlgorithm.getBytes(StandardCharsets.UTF_8));
+
+            byte[] encryptedKey = keyWrappingCipher.wrap(secretKey);
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV1.java`
+#### Snippet
+```java
+            byte[] encryptedKey = keyWrappingCipher.wrap(secretKey);
+            stream.write(encryptedKey.length);
+            stream.write(encryptedKey);
+
+            byte[] iv = keyMaterial.getIv();
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV1.java`
+#### Snippet
+```java
+            byte[] iv = keyMaterial.getIv();
+            stream.write(iv.length);
+            stream.write(iv);
+
+            stream.close();
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV1.java`
+#### Snippet
+```java
+            stream.write(iv);
+
+            stream.close();
+            return stream.toByteArray();
+        } catch (IOException | InvalidKeyException | IllegalBlockSizeException e) {
 ```
 
 ### BlockingMethodInNonBlockingContext
@@ -747,50 +795,86 @@ in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySeriali
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV1.java`
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV2.java`
 #### Snippet
 ```java
-            String keyAlgorithm = secretKey.getAlgorithm();
-            stream.write(keyAlgorithm.length());
-            stream.write(keyAlgorithm.getBytes(StandardCharsets.UTF_8));
 
-            byte[] encryptedKey = keyWrappingCipher.wrap(secretKey);
+        try {
+            int version = stream.read();
+            Preconditions.checkArgument(
+                    VERSION == version,
 ```
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV1.java`
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV2.java`
 #### Snippet
 ```java
-            byte[] encryptedKey = keyWrappingCipher.wrap(secretKey);
-            stream.write(encryptedKey.length);
-            stream.write(encryptedKey);
+                    version);
 
-            byte[] iv = keyMaterial.getIv();
+            int algorithmLength = stream.readInt();
+            byte[] algorithmBytes = new byte[algorithmLength];
+            stream.readFully(algorithmBytes);
 ```
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV1.java`
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV2.java`
 #### Snippet
 ```java
-            byte[] iv = keyMaterial.getIv();
-            stream.write(iv.length);
-            stream.write(iv);
+            int algorithmLength = stream.readInt();
+            byte[] algorithmBytes = new byte[algorithmLength];
+            stream.readFully(algorithmBytes);
 
-            stream.close();
+            int keyLength = stream.readInt();
 ```
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV1.java`
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV2.java`
 #### Snippet
 ```java
-            stream.write(iv);
+            stream.readFully(algorithmBytes);
 
-            stream.close();
-            return stream.toByteArray();
-        } catch (IOException | InvalidKeyException | IllegalBlockSizeException e) {
+            int keyLength = stream.readInt();
+            byte[] secretKeyBytes = new byte[keyLength];
+            stream.readFully(secretKeyBytes);
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV2.java`
+#### Snippet
+```java
+            int keyLength = stream.readInt();
+            byte[] secretKeyBytes = new byte[keyLength];
+            stream.readFully(secretKeyBytes);
+
+            int ivLength = stream.readInt();
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV2.java`
+#### Snippet
+```java
+            stream.readFully(secretKeyBytes);
+
+            int ivLength = stream.readInt();
+            byte[] iv = new byte[ivLength];
+            stream.readFully(iv);
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV2.java`
+#### Snippet
+```java
+            int ivLength = stream.readInt();
+            byte[] iv = new byte[ivLength];
+            stream.readFully(iv);
+
+            String algorithm = new String(algorithmBytes, StandardCharsets.UTF_8);
 ```
 
 ### BlockingMethodInNonBlockingContext
@@ -887,90 +971,6 @@ in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySeriali
             stream.close();
             return byteStream.toByteArray();
         } catch (IOException | InvalidKeyException | IllegalBlockSizeException e) {
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV2.java`
-#### Snippet
-```java
-
-        try {
-            int version = stream.read();
-            Preconditions.checkArgument(
-                    VERSION == version,
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV2.java`
-#### Snippet
-```java
-                    version);
-
-            int algorithmLength = stream.readInt();
-            byte[] algorithmBytes = new byte[algorithmLength];
-            stream.readFully(algorithmBytes);
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV2.java`
-#### Snippet
-```java
-            int algorithmLength = stream.readInt();
-            byte[] algorithmBytes = new byte[algorithmLength];
-            stream.readFully(algorithmBytes);
-
-            int keyLength = stream.readInt();
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV2.java`
-#### Snippet
-```java
-            stream.readFully(algorithmBytes);
-
-            int keyLength = stream.readInt();
-            byte[] secretKeyBytes = new byte[keyLength];
-            stream.readFully(secretKeyBytes);
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV2.java`
-#### Snippet
-```java
-            int keyLength = stream.readInt();
-            byte[] secretKeyBytes = new byte[keyLength];
-            stream.readFully(secretKeyBytes);
-
-            int ivLength = stream.readInt();
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV2.java`
-#### Snippet
-```java
-            stream.readFully(secretKeyBytes);
-
-            int ivLength = stream.readInt();
-            byte[] iv = new byte[ivLength];
-            stream.readFully(iv);
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `crypto-keys/src/main/java/com/palantir/crypto2/keys/serialization/KeySerializerV2.java`
-#### Snippet
-```java
-            int ivLength = stream.readInt();
-            byte[] iv = new byte[ivLength];
-            stream.readFully(iv);
-
-            String algorithm = new String(algorithmBytes, StandardCharsets.UTF_8);
 ```
 
 ### BlockingMethodInNonBlockingContext
@@ -1231,18 +1231,6 @@ in `crypto-core/src/main/java/com/palantir/crypto2/io/CryptoStreamFactory.java`
 #### Snippet
 ```java
         @Override
-        public void close() throws IOException {
-            input.close();
-        }
-    }
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `crypto-core/src/main/java/com/palantir/crypto2/io/CryptoStreamFactory.java`
-#### Snippet
-```java
-        @Override
         public int read(byte[] bytes, int offset, int length) throws IOException {
             return input.read(bytes, offset, length);
         }
@@ -1251,7 +1239,7 @@ in `crypto-core/src/main/java/com/palantir/crypto2/io/CryptoStreamFactory.java`
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
-in `crypto-core/src/main/java/com/palantir/crypto2/io/ApacheCtrDecryptingSeekableInput.java`
+in `crypto-core/src/main/java/com/palantir/crypto2/io/CryptoStreamFactory.java`
 #### Snippet
 ```java
         @Override
@@ -1271,6 +1259,18 @@ in `hadoop-crypto/src/main/java/com/palantir/crypto2/hadoop/FileKeyStorageStrate
             stream.write(wrappedKey);
         } catch (IOException e) {
             throw Throwables.propagate(e);
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `crypto-core/src/main/java/com/palantir/crypto2/io/ApacheCtrDecryptingSeekableInput.java`
+#### Snippet
+```java
+        @Override
+        public void close() throws IOException {
+            input.close();
+        }
+    }
 ```
 
 ### BlockingMethodInNonBlockingContext
