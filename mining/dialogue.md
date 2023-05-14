@@ -27,8 +27,8 @@ I found 326 bad smells with 4 repairable:
 | StringOperationCanBeSimplified | 1 | false |
 | CommentedOutCode | 1 | false |
 | DuplicatedCode | 1 | false |
-| DanglingJavadoc | 1 | false |
 | SuspiciousMethodCalls | 1 | false |
+| DanglingJavadoc | 1 | false |
 | RedundantMethodOverride | 1 | false |
 ## RuleId[id=SuspiciousNameCombination]
 ### SuspiciousNameCombination
@@ -98,9 +98,9 @@ Unchecked cast: 'java.lang.Object' to 'V'
 in `dialogue-target/src/main/java/com/palantir/dialogue/Attachments.java`
 #### Snippet
 ```java
-        Preconditions.checkNotNull(value, "value");
-        key.checkIsInstance(value);
-        return (V) attachments.put(key, value);
+    <V> V getOrDefault(AttachmentKey<V> key, @Nullable V defaultValue) {
+        Preconditions.checkNotNull(key, "key");
+        return (V) attachments.getOrDefault(key, defaultValue);
     }
 
 ```
@@ -110,9 +110,9 @@ Unchecked cast: 'java.lang.Object' to 'V'
 in `dialogue-target/src/main/java/com/palantir/dialogue/Attachments.java`
 #### Snippet
 ```java
-    <V> V getOrDefault(AttachmentKey<V> key, @Nullable V defaultValue) {
-        Preconditions.checkNotNull(key, "key");
-        return (V) attachments.getOrDefault(key, defaultValue);
+        Preconditions.checkNotNull(value, "value");
+        key.checkIsInstance(value);
+        return (V) attachments.put(key, value);
     }
 
 ```
@@ -276,18 +276,6 @@ in `dialogue-test-common/src/main/java/com/palantir/dialogue/AbstractProxyConfig
 
 ## RuleId[id=Deprecation]
 ### Deprecation
-'setValidateAfterInactivity(org.apache.hc.core5.util.TimeValue)' is deprecated
-in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/InactivityValidationAwareConnectionKeepAliveStrategy.java`
-#### Snippet
-```java
-            // Simple volatile write, no need to protect this in the getAndSet check. The getAndSet may race this call
-            // so it's best to completely decouple the two.
-            connectionManager.setValidateAfterInactivity(newInterval);
-        }
-    }
-```
-
-### Deprecation
 'getValidateAfterInactivity()' is deprecated
 in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/InactivityValidationAwareConnectionKeepAliveStrategy.java`
 #### Snippet
@@ -304,11 +292,35 @@ in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/Inactivit
 in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/InactivityValidationAwareConnectionKeepAliveStrategy.java`
 #### Snippet
 ```java
+            // Simple volatile write, no need to protect this in the getAndSet check. The getAndSet may race this call
+            // so it's best to completely decouple the two.
+            connectionManager.setValidateAfterInactivity(newInterval);
+        }
+    }
+```
+
+### Deprecation
+'setValidateAfterInactivity(org.apache.hc.core5.util.TimeValue)' is deprecated
+in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/InactivityValidationAwareConnectionKeepAliveStrategy.java`
+#### Snippet
+```java
  * An {@link ConnectionKeepAliveStrategy} implementation based on the
  * {@link org.apache.hc.client5.http.impl.DefaultConnectionKeepAliveStrategy} which
  * updates {@link PoolingHttpClientConnectionManager#setValidateAfterInactivity(TimeValue)}
  * based on server {@code Keep-Alive} response headers to avoid unnecessary checks when
  * the server advertises a persistent connection timeout.
+```
+
+### Deprecation
+'execute(org.apache.hc.core5.http.ClassicHttpRequest, org.apache.hc.core5.http.protocol.HttpContext)' is deprecated
+in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientBlockingChannel.java`
+#### Snippet
+```java
+        try {
+            HttpClientContext context = HttpClientContext.create();
+            CloseableHttpResponse httpClientResponse = client.apacheClient().execute(builder.build(), context);
+            // Defensively ensure that resources are closed if failures occur within this block,
+            // for example HttpClientResponse allocation may throw an OutOfMemoryError.
 ```
 
 ### Deprecation
@@ -336,18 +348,6 @@ in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHtt
 ```
 
 ### Deprecation
-'execute(org.apache.hc.core5.http.ClassicHttpRequest, org.apache.hc.core5.http.protocol.HttpContext)' is deprecated
-in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientBlockingChannel.java`
-#### Snippet
-```java
-        try {
-            HttpClientContext context = HttpClientContext.create();
-            CloseableHttpResponse httpClientResponse = client.apacheClient().execute(builder.build(), context);
-            // Defensively ensure that resources are closed if failures occur within this block,
-            // for example HttpClientResponse allocation may throw an OutOfMemoryError.
-```
-
-### Deprecation
 'getCause()' is deprecated
 in `dialogue-test-common/src/main/java/com/palantir/dialogue/AbstractSampleServiceClientTest.java`
 #### Snippet
@@ -357,19 +357,6 @@ in `dialogue-test-common/src/main/java/com/palantir/dialogue/AbstractSampleServi
                 .getCause()
                 .isInstanceOf(ConnectException.class)
                 .hasMessageMatching(".*((Connection refused)|(Failed to connect)).*");
-```
-
-## RuleId[id=DanglingJavadoc]
-### DanglingJavadoc
-Dangling Javadoc comment
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/PinUntilErrorNodeSelectionStrategyChannel.java`
-#### Snippet
-```java
-                .collect(ImmutableList.toImmutableList());
-
-        /**
-         * The *initial* list is shuffled to ensure that clients across the fleet don't all traverse the in the
-         * same order.  If they did, then restarting one upstream node n would shift all its traffic (from all
 ```
 
 ## RuleId[id=SuspiciousMethodCalls]
@@ -383,6 +370,19 @@ in `dialogue-core/src/main/java/com/palantir/dialogue/core/PinUntilErrorNodeSele
                 .map(limitedChannel -> Math.max(0, initialShuffle.indexOf(limitedChannel)))
                 .orElse(0);
 
+```
+
+## RuleId[id=DanglingJavadoc]
+### DanglingJavadoc
+Dangling Javadoc comment
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/PinUntilErrorNodeSelectionStrategyChannel.java`
+#### Snippet
+```java
+                .collect(ImmutableList.toImmutableList());
+
+        /**
+         * The *initial* list is shuffled to ensure that clients across the fleet don't all traverse the in the
+         * same order.  If they did, then restarting one upstream node n would shift all its traffic (from all
 ```
 
 ## RuleId[id=NullableProblems]
@@ -411,27 +411,15 @@ in `dialogue-core/src/main/java/com/palantir/dialogue/core/TimingEndpointChannel
 ```
 
 ### NullableProblems
-Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/TracedChannel.java`
+Not annotated parameter overrides @NotNull parameter
+in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientBlockingChannel.java`
 #### Snippet
 ```java
 
-                @Override
-                public void onFailure(Throwable throwable) {
-                    span.complete(throwableTranslator, throwable);
-                }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/PinUntilErrorNodeSelectionStrategyChannel.java`
-#### Snippet
-```java
-
-            @Override
-            public void onFailure(Throwable throwable) {
-                OptionalInt next = incrementHostIfNecessary(pin);
-                instrumentation.receivedThrowable(pin, channel, throwable, next);
+        @Override
+        public int read(byte[] buffer, int off, int len) throws IOException {
+            checkOpen();
+            return super.read(buffer, off, len);
 ```
 
 ### NullableProblems
@@ -453,21 +441,33 @@ in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHtt
 ```java
 
         @Override
-        public int read(byte[] buffer, int off, int len) throws IOException {
-            checkOpen();
-            return super.read(buffer, off, len);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientBlockingChannel.java`
-#### Snippet
-```java
-
-        @Override
         public int read(byte[] buffer) throws IOException {
             checkOpen();
             return super.read(buffer);
+```
+
+### NullableProblems
+Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/TracedChannel.java`
+#### Snippet
+```java
+
+                @Override
+                public void onFailure(Throwable throwable) {
+                    span.complete(throwableTranslator, throwable);
+                }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/PinUntilErrorNodeSelectionStrategyChannel.java`
+#### Snippet
+```java
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                OptionalInt next = incrementHostIfNecessary(pin);
+                instrumentation.receivedThrowable(pin, channel, throwable, next);
 ```
 
 ### NullableProblems
@@ -508,18 +508,6 @@ in `dialogue-core/src/main/java/com/palantir/dialogue/core/ContentDecodingChanne
 
 ### NullableProblems
 Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/TraceEnrichingChannel.java`
-#### Snippet
-```java
-
-                @Override
-                public void onFailure(Throwable throwable) {
-                    span.complete(throwableTranslator, throwable);
-                }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
 in `dialogue-core/src/main/java/com/palantir/dialogue/core/CautiousIncreaseAggressiveDecreaseConcurrencyLimiter.java`
 #### Snippet
 ```java
@@ -528,30 +516,6 @@ in `dialogue-core/src/main/java/com/palantir/dialogue/core/CautiousIncreaseAggre
         public void onFailure(Throwable throwable) {
             behavior.onFailure(throwable, this);
         }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/StickyEndpointChannels2.java`
-#### Snippet
-```java
-
-                        @Override
-                        public void onFailure(Throwable throwable) {
-                            failed();
-                            result.setException(throwable);
-```
-
-### NullableProblems
-Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/StickyEndpointChannels2.java`
-#### Snippet
-```java
-
-                                @Override
-                                public void onFailure(Throwable throwable) {
-                                    result.setException(throwable);
-                                }
 ```
 
 ### NullableProblems
@@ -579,27 +543,39 @@ in `dialogue-core/src/main/java/com/palantir/dialogue/core/RetryOtherValidatingC
 ```
 
 ### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/SafeDirectExecutor.java`
+Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/TraceEnrichingChannel.java`
 #### Snippet
 ```java
 
-    @Override
-    public void execute(Runnable command) {
-        try {
-            command.run();
+                @Override
+                public void onFailure(Throwable throwable) {
+                    span.complete(throwableTranslator, throwable);
+                }
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
-in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueFutures.java`
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/StickyEndpointChannels2.java`
 #### Snippet
 ```java
 
-            @Override
-            public void onFailure(Throwable _throwable) {}
-        };
-    }
+                                @Override
+                                public void onFailure(Throwable throwable) {
+                                    result.setException(throwable);
+                                }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/StickyEndpointChannels2.java`
+#### Snippet
+```java
+
+                        @Override
+                        public void onFailure(Throwable throwable) {
+                            failed();
+                            result.setException(throwable);
 ```
 
 ### NullableProblems
@@ -616,6 +592,42 @@ in `dialogue-core/src/main/java/com/palantir/dialogue/core/NodeSelectionStrategy
 
 ### NullableProblems
 Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueFutures.java`
+#### Snippet
+```java
+
+            @Override
+            public void onFailure(Throwable _throwable) {}
+        };
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/SafeDirectExecutor.java`
+#### Snippet
+```java
+
+    @Override
+    public void execute(Runnable command) {
+        try {
+            command.run();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueDirectAsyncTransformationFuture.java`
+#### Snippet
+```java
+
+    @Override
+    public O get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
+        return output.get(timeout, unit);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
 in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueDirectAsyncTransformationFuture.java`
 #### Snippet
 ```java
@@ -635,18 +647,6 @@ in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueDirectA
     @Override
     public void addListener(Runnable listener, Executor executor) {
         output.addListener(listener, executor);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueDirectAsyncTransformationFuture.java`
-#### Snippet
-```java
-
-    @Override
-    public O get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
-        return output.get(timeout, unit);
     }
 ```
 
@@ -664,26 +664,38 @@ in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueDirectT
 
 ### NullableProblems
 Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
-in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueDirectTransformationFuture.java`
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/BalancedScoreTracker.java`
 #### Snippet
 ```java
 
-    @Override
-    public void addListener(Runnable listener, Executor executor) {
-        output.addListener(listener, executor);
-    }
+        @Override
+        public void onFailure(Throwable throwable) {
+            inflight.decrementAndGet();
+            recentFailuresReservoir.update(FAILURE_WEIGHT);
 ```
 
 ### NullableProblems
-Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+Constructor parameter for @Nullable field might be annotated @Nullable itself
 in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueDirectTransformationFuture.java`
 #### Snippet
 ```java
+    private final SettableFuture<O> output;
 
-    @Override
-    public void addListener(Runnable listener, Executor executor) {
-        output.addListener(listener, executor);
-    }
+    DialogueDirectTransformationFuture(ListenableFuture<I> input, Function<? super I, ? extends O> function) {
+        this.input = input;
+        this.function = function;
+```
+
+### NullableProblems
+Constructor parameter for @Nullable field might be annotated @Nullable itself
+in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueDirectTransformationFuture.java`
+#### Snippet
+```java
+    private final SettableFuture<O> output;
+
+    DialogueDirectTransformationFuture(ListenableFuture<I> input, Function<? super I, ? extends O> function) {
+        this.input = input;
+        this.function = function;
 ```
 
 ### NullableProblems
@@ -699,56 +711,8 @@ in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueDirectT
 ```
 
 ### NullableProblems
-Constructor parameter for @Nullable field might be annotated @Nullable itself
-in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueDirectTransformationFuture.java`
-#### Snippet
-```java
-    private final SettableFuture<O> output;
-
-    DialogueDirectTransformationFuture(ListenableFuture<I> input, Function<? super I, ? extends O> function) {
-        this.input = input;
-        this.function = function;
-```
-
-### NullableProblems
-Constructor parameter for @Nullable field might be annotated @Nullable itself
-in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueDirectTransformationFuture.java`
-#### Snippet
-```java
-    private final SettableFuture<O> output;
-
-    DialogueDirectTransformationFuture(ListenableFuture<I> input, Function<? super I, ? extends O> function) {
-        this.input = input;
-        this.function = function;
-```
-
-### NullableProblems
 Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/BalancedScoreTracker.java`
-#### Snippet
-```java
-
-        @Override
-        public void onFailure(Throwable throwable) {
-            inflight.decrementAndGet();
-            recentFailuresReservoir.update(FAILURE_WEIGHT);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueDirectAsyncCatchingFuture.java`
-#### Snippet
-```java
-
-    @Override
-    public T get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
-        return output.get(timeout, unit);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
-in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueDirectAsyncCatchingFuture.java`
+in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueDirectTransformationFuture.java`
 #### Snippet
 ```java
 
@@ -760,7 +724,7 @@ in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueDirectA
 
 ### NullableProblems
 Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
-in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueDirectAsyncCatchingFuture.java`
+in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueDirectTransformationFuture.java`
 #### Snippet
 ```java
 
@@ -780,6 +744,42 @@ in `dialogue-core/src/main/java/com/palantir/dialogue/core/QueuedChannel.java`
         public void onFailure(Throwable throwable) {
             if (!response.setException(throwable)) {
                 if (throwable instanceof CancellationException) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueDirectAsyncCatchingFuture.java`
+#### Snippet
+```java
+
+    @Override
+    public void addListener(Runnable listener, Executor executor) {
+        output.addListener(listener, executor);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueDirectAsyncCatchingFuture.java`
+#### Snippet
+```java
+
+    @Override
+    public void addListener(Runnable listener, Executor executor) {
+        output.addListener(listener, executor);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueDirectAsyncCatchingFuture.java`
+#### Snippet
+```java
+
+    @Override
+    public T get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
+        return output.get(timeout, unit);
+    }
 ```
 
 ### NullableProblems
@@ -819,210 +819,6 @@ in `dialogue-test-common/src/main/java/com/palantir/dialogue/CloseRecordingInput
 ```
 
 ### NullableProblems
-Not annotated method overrides method annotated with @NotNull
-in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicScheduler.java`
-#### Snippet
-```java
-
-    @Override
-    public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
-            throws InterruptedException {
-        return delegate.invokeAll(tasks, timeout, unit);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicScheduler.java`
-#### Snippet
-```java
-
-    @Override
-    public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
-            throws InterruptedException {
-        return delegate.invokeAll(tasks, timeout, unit);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicScheduler.java`
-#### Snippet
-```java
-
-    @Override
-    public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
-            throws InterruptedException {
-        return delegate.invokeAll(tasks, timeout, unit);
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NotNull
-in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicScheduler.java`
-#### Snippet
-```java
-
-    @Override
-    public ListenableScheduledFuture<?> schedule(Runnable command, long delay, TimeUnit unit) {
-        return schedule(
-                () -> {
-```
-
-### NullableProblems
-Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
-in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicScheduler.java`
-#### Snippet
-```java
-
-    @Override
-    public ListenableScheduledFuture<?> schedule(Runnable command, long delay, TimeUnit unit) {
-        return schedule(
-                () -> {
-```
-
-### NullableProblems
-Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
-in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicScheduler.java`
-#### Snippet
-```java
-
-    @Override
-    public ListenableScheduledFuture<?> schedule(Runnable command, long delay, TimeUnit unit) {
-        return schedule(
-                () -> {
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NotNull
-in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicScheduler.java`
-#### Snippet
-```java
-
-    @Override
-    public <T> ListenableFuture<T> submit(Runnable task, T result) {
-        return delegate.submit(task, result);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
-in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicScheduler.java`
-#### Snippet
-```java
-
-    @Override
-    public <T> ListenableFuture<T> submit(Runnable task, T result) {
-        return delegate.submit(task, result);
-    }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NotNull
-in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicScheduler.java`
-#### Snippet
-```java
-
-    @Override
-    public <V> ListenableScheduledFuture<V> schedule(Callable<V> command, long delay, TimeUnit unit) {
-        deterministicExecutor.tick(0, TimeUnit.NANOSECONDS);
-        long scheduleTime = ticker.read();
-```
-
-### NullableProblems
-Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
-in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicScheduler.java`
-#### Snippet
-```java
-
-    @Override
-    public <V> ListenableScheduledFuture<V> schedule(Callable<V> command, long delay, TimeUnit unit) {
-        deterministicExecutor.tick(0, TimeUnit.NANOSECONDS);
-        long scheduleTime = ticker.read();
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NotNull
-in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicScheduler.java`
-#### Snippet
-```java
-
-    @Override
-    public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks) throws InterruptedException {
-        return delegate.invokeAll(tasks);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicScheduler.java`
-#### Snippet
-```java
-
-    @Override
-    public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks) throws InterruptedException {
-        return delegate.invokeAll(tasks);
-    }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NotNull
-in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicScheduler.java`
-#### Snippet
-```java
-
-    @Override
-    public <T> ListenableFuture<T> submit(Callable<T> task) {
-        return delegate.submit(task);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
-in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicScheduler.java`
-#### Snippet
-```java
-
-    @Override
-    public <T> ListenableFuture<T> submit(Callable<T> task) {
-        return delegate.submit(task);
-    }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NotNull
-in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicScheduler.java`
-#### Snippet
-```java
-
-    @Override
-    public <T> T invokeAny(Collection<? extends Callable<T>> tasks) throws InterruptedException, ExecutionException {
-        return delegate.invokeAny(tasks);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicScheduler.java`
-#### Snippet
-```java
-
-    @Override
-    public <T> T invokeAny(Collection<? extends Callable<T>> tasks) throws InterruptedException, ExecutionException {
-        return delegate.invokeAny(tasks);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicScheduler.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean awaitTermination(long timeout, TimeUnit unit) throws InterruptedException {
-        return delegate.awaitTermination(timeout, unit);
-    }
-```
-
-### NullableProblems
 Not annotated parameter overrides @NotNull parameter
 in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicScheduler.java`
 #### Snippet
@@ -1035,15 +831,15 @@ in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicSch
 ```
 
 ### NullableProblems
-Not annotated parameter overrides @NotNull parameter
+Not annotated method overrides method annotated with @NotNull
 in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicScheduler.java`
 #### Snippet
 ```java
 
     @Override
-    public <T> T invokeAny(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
-            throws InterruptedException, ExecutionException, TimeoutException {
-        return delegate.invokeAny(tasks, timeout, unit);
+    public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
+            throws InterruptedException {
+        return delegate.invokeAll(tasks, timeout, unit);
 ```
 
 ### NullableProblems
@@ -1053,9 +849,81 @@ in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicSch
 ```java
 
     @Override
-    public <T> T invokeAny(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
-            throws InterruptedException, ExecutionException, TimeoutException {
-        return delegate.invokeAny(tasks, timeout, unit);
+    public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
+            throws InterruptedException {
+        return delegate.invokeAll(tasks, timeout, unit);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicScheduler.java`
+#### Snippet
+```java
+
+    @Override
+    public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
+            throws InterruptedException {
+        return delegate.invokeAll(tasks, timeout, unit);
+```
+
+### NullableProblems
+Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicScheduler.java`
+#### Snippet
+```java
+    @Override
+    public ListenableScheduledFuture<?> scheduleAtFixedRate(
+            Runnable _command, long _initialDelay, long _period, TimeUnit _unit) {
+        throw new UnsupportedOperationException("not implemented");
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicScheduler.java`
+#### Snippet
+```java
+    @Override
+    public ListenableScheduledFuture<?> scheduleAtFixedRate(
+            Runnable _command, long _initialDelay, long _period, TimeUnit _unit) {
+        throw new UnsupportedOperationException("not implemented");
+    }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NotNull
+in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicScheduler.java`
+#### Snippet
+```java
+
+    @Override
+    public ListenableScheduledFuture<?> schedule(Runnable command, long delay, TimeUnit unit) {
+        return schedule(
+                () -> {
+```
+
+### NullableProblems
+Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicScheduler.java`
+#### Snippet
+```java
+
+    @Override
+    public ListenableScheduledFuture<?> schedule(Runnable command, long delay, TimeUnit unit) {
+        return schedule(
+                () -> {
+```
+
+### NullableProblems
+Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicScheduler.java`
+#### Snippet
+```java
+
+    @Override
+    public ListenableScheduledFuture<?> schedule(Runnable command, long delay, TimeUnit unit) {
+        return schedule(
+                () -> {
 ```
 
 ### NullableProblems
@@ -1083,14 +951,14 @@ in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicSch
 ```
 
 ### NullableProblems
-Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+Not annotated method overrides method annotated with @NotNull
 in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicScheduler.java`
 #### Snippet
 ```java
+
     @Override
-    public ListenableScheduledFuture<?> scheduleAtFixedRate(
-            Runnable _command, long _initialDelay, long _period, TimeUnit _unit) {
-        throw new UnsupportedOperationException("not implemented");
+    public <T> ListenableFuture<T> submit(Runnable task, T result) {
+        return delegate.submit(task, result);
     }
 ```
 
@@ -1099,10 +967,82 @@ Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
 in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicScheduler.java`
 #### Snippet
 ```java
+
     @Override
-    public ListenableScheduledFuture<?> scheduleAtFixedRate(
-            Runnable _command, long _initialDelay, long _period, TimeUnit _unit) {
-        throw new UnsupportedOperationException("not implemented");
+    public <T> ListenableFuture<T> submit(Runnable task, T result) {
+        return delegate.submit(task, result);
+    }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NotNull
+in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicScheduler.java`
+#### Snippet
+```java
+
+    @Override
+    public <V> ListenableScheduledFuture<V> schedule(Callable<V> command, long delay, TimeUnit unit) {
+        deterministicExecutor.tick(0, TimeUnit.NANOSECONDS);
+        long scheduleTime = ticker.read();
+```
+
+### NullableProblems
+Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicScheduler.java`
+#### Snippet
+```java
+
+    @Override
+    public <V> ListenableScheduledFuture<V> schedule(Callable<V> command, long delay, TimeUnit unit) {
+        deterministicExecutor.tick(0, TimeUnit.NANOSECONDS);
+        long scheduleTime = ticker.read();
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NotNull
+in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicScheduler.java`
+#### Snippet
+```java
+
+    @Override
+    public <T> ListenableFuture<T> submit(Callable<T> task) {
+        return delegate.submit(task);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicScheduler.java`
+#### Snippet
+```java
+
+    @Override
+    public <T> ListenableFuture<T> submit(Callable<T> task) {
+        return delegate.submit(task);
+    }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NotNull
+in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicScheduler.java`
+#### Snippet
+```java
+
+    @Override
+    public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks) throws InterruptedException {
+        return delegate.invokeAll(tasks);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicScheduler.java`
+#### Snippet
+```java
+
+    @Override
+    public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks) throws InterruptedException {
+        return delegate.invokeAll(tasks);
     }
 ```
 
@@ -1131,14 +1071,62 @@ in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicSch
 ```
 
 ### NullableProblems
-Not annotated method overrides method annotated with @Nonnull
-in `simulation/src/main/java/com/palantir/dialogue/core/TaggedMetrics.java`
+Not annotated method overrides method annotated with @NotNull
+in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicScheduler.java`
 #### Snippet
 ```java
 
     @Override
-    protected Supplier<Timer> timerSupplier() {
-        return () -> new Timer(createReservoir(), clock);
+    public <T> T invokeAny(Collection<? extends Callable<T>> tasks) throws InterruptedException, ExecutionException {
+        return delegate.invokeAny(tasks);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicScheduler.java`
+#### Snippet
+```java
+
+    @Override
+    public <T> T invokeAny(Collection<? extends Callable<T>> tasks) throws InterruptedException, ExecutionException {
+        return delegate.invokeAny(tasks);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicScheduler.java`
+#### Snippet
+```java
+
+    @Override
+    public <T> T invokeAny(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
+            throws InterruptedException, ExecutionException, TimeoutException {
+        return delegate.invokeAny(tasks, timeout, unit);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicScheduler.java`
+#### Snippet
+```java
+
+    @Override
+    public <T> T invokeAny(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
+            throws InterruptedException, ExecutionException, TimeoutException {
+        return delegate.invokeAny(tasks, timeout, unit);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicScheduler.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean awaitTermination(long timeout, TimeUnit unit) throws InterruptedException {
+        return delegate.awaitTermination(timeout, unit);
     }
 ```
 
@@ -1155,26 +1143,14 @@ in `simulation/src/main/java/com/palantir/dialogue/core/TaggedMetrics.java`
 ```
 
 ### NullableProblems
-Not annotated method overrides method annotated with @NotNull
-in `simulation/src/main/java/com/palantir/dialogue/core/NanosecondPrecisionDeterministicScheduler.java`
+Not annotated method overrides method annotated with @Nonnull
+in `simulation/src/main/java/com/palantir/dialogue/core/TaggedMetrics.java`
 #### Snippet
 ```java
 
     @Override
-    public Future<?> submit(Runnable command) {
-        return submit(command, null);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `simulation/src/main/java/com/palantir/dialogue/core/NanosecondPrecisionDeterministicScheduler.java`
-#### Snippet
-```java
-
-    @Override
-    public Future<?> submit(Runnable command) {
-        return submit(command, null);
+    protected Supplier<Timer> timerSupplier() {
+        return () -> new Timer(createReservoir(), clock);
     }
 ```
 
@@ -1221,8 +1197,8 @@ in `simulation/src/main/java/com/palantir/dialogue/core/NanosecondPrecisionDeter
 ```java
 
     @Override
-    public <T> Future<T> submit(Callable<T> callable) {
-        return schedule(callable, 0, TimeUnit.SECONDS);
+    public <T> Future<T> submit(Runnable command, T result) {
+        return submit(new CallableRunnableAdapter<T>(command, result));
     }
 ```
 
@@ -1233,8 +1209,8 @@ in `simulation/src/main/java/com/palantir/dialogue/core/NanosecondPrecisionDeter
 ```java
 
     @Override
-    public <T> Future<T> submit(Callable<T> callable) {
-        return schedule(callable, 0, TimeUnit.SECONDS);
+    public <T> Future<T> submit(Runnable command, T result) {
+        return submit(new CallableRunnableAdapter<T>(command, result));
     }
 ```
 
@@ -1293,8 +1269,8 @@ in `simulation/src/main/java/com/palantir/dialogue/core/NanosecondPrecisionDeter
 ```java
 
     @Override
-    public ScheduledFuture<?> scheduleAtFixedRate(Runnable command, long initialDelay, long period, TimeUnit unit) {
-        return scheduleWithFixedDelay(command, initialDelay, period, unit);
+    public Future<?> submit(Runnable command) {
+        return submit(command, null);
     }
 ```
 
@@ -1305,8 +1281,8 @@ in `simulation/src/main/java/com/palantir/dialogue/core/NanosecondPrecisionDeter
 ```java
 
     @Override
-    public ScheduledFuture<?> scheduleAtFixedRate(Runnable command, long initialDelay, long period, TimeUnit unit) {
-        return scheduleWithFixedDelay(command, initialDelay, period, unit);
+    public Future<?> submit(Runnable command) {
+        return submit(command, null);
     }
 ```
 
@@ -1317,21 +1293,9 @@ in `simulation/src/main/java/com/palantir/dialogue/core/NanosecondPrecisionDeter
 ```java
 
     @Override
-    public ScheduledFuture<?> scheduleAtFixedRate(Runnable command, long initialDelay, long period, TimeUnit unit) {
-        return scheduleWithFixedDelay(command, initialDelay, period, unit);
+    public boolean awaitTermination(long _timeout, TimeUnit _unit) {
+        throw blockingOperationsNotSupported();
     }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `simulation/src/main/java/com/palantir/dialogue/core/NanosecondPrecisionDeterministicScheduler.java`
-#### Snippet
-```java
-
-        @Override
-        public T get(long _timeout, TimeUnit _unit) throws InterruptedException, ExecutionException, TimeoutException {
-            return get();
-        }
 ```
 
 ### NullableProblems
@@ -1351,130 +1315,166 @@ Not annotated parameter overrides @NotNull parameter
 in `simulation/src/main/java/com/palantir/dialogue/core/NanosecondPrecisionDeterministicScheduler.java`
 #### Snippet
 ```java
+
+        @Override
+        public T get(long _timeout, TimeUnit _unit) throws InterruptedException, ExecutionException, TimeoutException {
+            return get();
+        }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NotNull
+in `simulation/src/main/java/com/palantir/dialogue/core/NanosecondPrecisionDeterministicScheduler.java`
+#### Snippet
+```java
+
+    @Override
+    public ScheduledFuture<?> scheduleAtFixedRate(Runnable command, long initialDelay, long period, TimeUnit unit) {
+        return scheduleWithFixedDelay(command, initialDelay, period, unit);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `simulation/src/main/java/com/palantir/dialogue/core/NanosecondPrecisionDeterministicScheduler.java`
+#### Snippet
+```java
+
+    @Override
+    public ScheduledFuture<?> scheduleAtFixedRate(Runnable command, long initialDelay, long period, TimeUnit unit) {
+        return scheduleWithFixedDelay(command, initialDelay, period, unit);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `simulation/src/main/java/com/palantir/dialogue/core/NanosecondPrecisionDeterministicScheduler.java`
+#### Snippet
+```java
+
+    @Override
+    public ScheduledFuture<?> scheduleAtFixedRate(Runnable command, long initialDelay, long period, TimeUnit unit) {
+        return scheduleWithFixedDelay(command, initialDelay, period, unit);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `simulation/src/main/java/com/palantir/dialogue/core/NanosecondPrecisionDeterministicScheduler.java`
+#### Snippet
+```java
+
+    @Override
+    public <T> T invokeAny(Collection<? extends Callable<T>> _tasks, long _timeout, TimeUnit _unit) {
+        throw blockingOperationsNotSupported();
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `simulation/src/main/java/com/palantir/dialogue/core/NanosecondPrecisionDeterministicScheduler.java`
+#### Snippet
+```java
+
+    @Override
+    public <T> T invokeAny(Collection<? extends Callable<T>> _tasks, long _timeout, TimeUnit _unit) {
+        throw blockingOperationsNotSupported();
+    }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NotNull
+in `simulation/src/main/java/com/palantir/dialogue/core/NanosecondPrecisionDeterministicScheduler.java`
+#### Snippet
+```java
+
+    @Override
+    public <T> Future<T> submit(Callable<T> callable) {
+        return schedule(callable, 0, TimeUnit.SECONDS);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `simulation/src/main/java/com/palantir/dialogue/core/NanosecondPrecisionDeterministicScheduler.java`
+#### Snippet
+```java
+
+    @Override
+    public <T> Future<T> submit(Callable<T> callable) {
+        return schedule(callable, 0, TimeUnit.SECONDS);
+    }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NotNull
+in `simulation/src/main/java/com/palantir/dialogue/core/NanosecondPrecisionDeterministicScheduler.java`
+#### Snippet
+```java
+
+    @Override
+    public ScheduledFuture<?> schedule(Runnable command, long delay, TimeUnit unit) {
+        ScheduledTask<Void> task = new ScheduledTask<>(command);
+        deltaQueue.add(toTicks(delay, unit), task);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `simulation/src/main/java/com/palantir/dialogue/core/NanosecondPrecisionDeterministicScheduler.java`
+#### Snippet
+```java
+
+    @Override
+    public ScheduledFuture<?> schedule(Runnable command, long delay, TimeUnit unit) {
+        ScheduledTask<Void> task = new ScheduledTask<>(command);
+        deltaQueue.add(toTicks(delay, unit), task);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `simulation/src/main/java/com/palantir/dialogue/core/NanosecondPrecisionDeterministicScheduler.java`
+#### Snippet
+```java
+
+    @Override
+    public ScheduledFuture<?> schedule(Runnable command, long delay, TimeUnit unit) {
+        ScheduledTask<Void> task = new ScheduledTask<>(command);
+        deltaQueue.add(toTicks(delay, unit), task);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `simulation/src/main/java/com/palantir/dialogue/core/NanosecondPrecisionDeterministicScheduler.java`
+#### Snippet
+```java
+
+    @Override
+    public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> _tasks, long _timeout, TimeUnit _unit)
+            throws InterruptedException {
+        throw blockingOperationsNotSupported();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `simulation/src/main/java/com/palantir/dialogue/core/NanosecondPrecisionDeterministicScheduler.java`
+#### Snippet
+```java
+
+    @Override
+    public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> _tasks, long _timeout, TimeUnit _unit)
+            throws InterruptedException {
+        throw blockingOperationsNotSupported();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `simulation/src/main/java/com/palantir/dialogue/core/NanosecondPrecisionDeterministicScheduler.java`
+#### Snippet
+```java
     @Override
     @SuppressWarnings("FutureReturnValueIgnored")
     public void execute(Runnable command) {
         schedule(command, 0, TimeUnit.SECONDS);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `simulation/src/main/java/com/palantir/dialogue/core/NanosecondPrecisionDeterministicScheduler.java`
-#### Snippet
-```java
-
-    @Override
-    public <T> T invokeAny(Collection<? extends Callable<T>> _tasks, long _timeout, TimeUnit _unit) {
-        throw blockingOperationsNotSupported();
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `simulation/src/main/java/com/palantir/dialogue/core/NanosecondPrecisionDeterministicScheduler.java`
-#### Snippet
-```java
-
-    @Override
-    public <T> T invokeAny(Collection<? extends Callable<T>> _tasks, long _timeout, TimeUnit _unit) {
-        throw blockingOperationsNotSupported();
-    }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NotNull
-in `simulation/src/main/java/com/palantir/dialogue/core/NanosecondPrecisionDeterministicScheduler.java`
-#### Snippet
-```java
-
-    @Override
-    public ScheduledFuture<?> schedule(Runnable command, long delay, TimeUnit unit) {
-        ScheduledTask<Void> task = new ScheduledTask<>(command);
-        deltaQueue.add(toTicks(delay, unit), task);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `simulation/src/main/java/com/palantir/dialogue/core/NanosecondPrecisionDeterministicScheduler.java`
-#### Snippet
-```java
-
-    @Override
-    public ScheduledFuture<?> schedule(Runnable command, long delay, TimeUnit unit) {
-        ScheduledTask<Void> task = new ScheduledTask<>(command);
-        deltaQueue.add(toTicks(delay, unit), task);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `simulation/src/main/java/com/palantir/dialogue/core/NanosecondPrecisionDeterministicScheduler.java`
-#### Snippet
-```java
-
-    @Override
-    public ScheduledFuture<?> schedule(Runnable command, long delay, TimeUnit unit) {
-        ScheduledTask<Void> task = new ScheduledTask<>(command);
-        deltaQueue.add(toTicks(delay, unit), task);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `simulation/src/main/java/com/palantir/dialogue/core/NanosecondPrecisionDeterministicScheduler.java`
-#### Snippet
-```java
-
-    @Override
-    public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> _tasks, long _timeout, TimeUnit _unit)
-            throws InterruptedException {
-        throw blockingOperationsNotSupported();
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `simulation/src/main/java/com/palantir/dialogue/core/NanosecondPrecisionDeterministicScheduler.java`
-#### Snippet
-```java
-
-    @Override
-    public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> _tasks, long _timeout, TimeUnit _unit)
-            throws InterruptedException {
-        throw blockingOperationsNotSupported();
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NotNull
-in `simulation/src/main/java/com/palantir/dialogue/core/NanosecondPrecisionDeterministicScheduler.java`
-#### Snippet
-```java
-
-    @Override
-    public <T> Future<T> submit(Runnable command, T result) {
-        return submit(new CallableRunnableAdapter<T>(command, result));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `simulation/src/main/java/com/palantir/dialogue/core/NanosecondPrecisionDeterministicScheduler.java`
-#### Snippet
-```java
-
-    @Override
-    public <T> Future<T> submit(Runnable command, T result) {
-        return submit(new CallableRunnableAdapter<T>(command, result));
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `simulation/src/main/java/com/palantir/dialogue/core/NanosecondPrecisionDeterministicScheduler.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean awaitTermination(long _timeout, TimeUnit _unit) {
-        throw blockingOperationsNotSupported();
     }
 ```
 
@@ -1614,18 +1614,6 @@ in `dialogue-annotations/src/main/java/com/palantir/dialogue/annotations/PathCon
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
-in `dialogue-annotations/src/main/java/com/palantir/dialogue/annotations/InputStreamContentBody.java`
-#### Snippet
-```java
-    public void close() {
-        try {
-            inputStream.close();
-        } catch (IOException e) {
-            log.warn("Failed to close InputStreamContentBody {}", UnsafeArg.of("body", inputStream), e);
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
 in `dialogue-annotations/src/main/java/com/palantir/dialogue/annotations/FormUrlEncodedRequestBody.java`
 #### Snippet
 ```java
@@ -1698,6 +1686,18 @@ in `dialogue-annotations/src/main/java/com/palantir/dialogue/annotations/FormUrl
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
+in `dialogue-annotations/src/main/java/com/palantir/dialogue/annotations/InputStreamContentBody.java`
+#### Snippet
+```java
+    public void close() {
+        try {
+            inputStream.close();
+        } catch (IOException e) {
+            log.warn("Failed to close InputStreamContentBody {}", UnsafeArg.of("body", inputStream), e);
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
 in `dialogue-blocking-channels/src/main/java/com/palantir/dialogue/blocking/DefaultCallingThreadExecutor.java`
 #### Snippet
 ```java
@@ -1734,54 +1734,6 @@ in `dialogue-clients/src/main/java/com/palantir/dialogue/clients/ChannelCache.ja
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
-in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientChannels.java`
-#### Snippet
-```java
-        @Override
-        public void close() throws IOException {
-            delegate.close();
-        }
-
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientBlockingChannel.java`
-#### Snippet
-```java
-        public long skip(long num) throws IOException {
-            checkOpen();
-            return super.skip(num);
-        }
-
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientBlockingChannel.java`
-#### Snippet
-```java
-            // Fast check: The stream has been fully exhausted in the expected case,
-            // no need to create buffers for drainage unless we know there's data to drain.
-            if (stream.read() == -1) {
-                return false;
-            }
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientBlockingChannel.java`
-#### Snippet
-```java
-            while (remaining > 0) {
-                int toWrite = Math.min(remaining, BLOCK_SIZE);
-                out.write(buffer, currentOffset, toWrite);
-                currentOffset += toWrite;
-                remaining -= toWrite;
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
 in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientBlockingChannel.java`
 #### Snippet
 ```java
@@ -1809,11 +1761,23 @@ Possibly blocking call in non-blocking context could lead to thread starvation
 in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientBlockingChannel.java`
 #### Snippet
 ```java
-        public int read() throws IOException {
-            checkOpen();
-            return super.read();
-        }
+            while (remaining > 0) {
+                int toWrite = Math.min(remaining, BLOCK_SIZE);
+                out.write(buffer, currentOffset, toWrite);
+                currentOffset += toWrite;
+                remaining -= toWrite;
+```
 
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientBlockingChannel.java`
+#### Snippet
+```java
+            // Fast check: The stream has been fully exhausted in the expected case,
+            // no need to create buffers for drainage unless we know there's data to drain.
+            if (stream.read() == -1) {
+                return false;
+            }
 ```
 
 ### BlockingMethodInNonBlockingContext
@@ -1830,24 +1794,36 @@ in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHtt
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/ContentDecodingChannel.java`
+in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientBlockingChannel.java`
 #### Snippet
 ```java
-        @Override
-        public int available() throws IOException {
-            return getDelegate().available();
+        public int read() throws IOException {
+            checkOpen();
+            return super.read();
         }
 
 ```
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/ContentDecodingChannel.java`
+in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientBlockingChannel.java`
+#### Snippet
+```java
+        public long skip(long num) throws IOException {
+            checkOpen();
+            return super.skip(num);
+        }
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientChannels.java`
 #### Snippet
 ```java
         @Override
-        public void reset() throws IOException {
-            getDelegate().reset();
+        public void close() throws IOException {
+            delegate.close();
         }
 
 ```
@@ -1862,18 +1838,6 @@ in `dialogue-core/src/main/java/com/palantir/dialogue/core/ContentDecodingChanne
                 body.close();
             } catch (IOException e) {
                 log.warn("Failed to close encoded body", e);
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/ContentDecodingChannel.java`
-#### Snippet
-```java
-        @Override
-        public int read() throws IOException {
-            return getDelegate().read();
-        }
-
 ```
 
 ### BlockingMethodInNonBlockingContext
@@ -1906,6 +1870,42 @@ in `dialogue-core/src/main/java/com/palantir/dialogue/core/ContentDecodingChanne
 #### Snippet
 ```java
         @Override
+        public long skip(long requested) throws IOException {
+            return getDelegate().skip(requested);
+        }
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/ContentDecodingChannel.java`
+#### Snippet
+```java
+        @Override
+        public int read() throws IOException {
+            return getDelegate().read();
+        }
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/ContentDecodingChannel.java`
+#### Snippet
+```java
+        @Override
+        public int available() throws IOException {
+            return getDelegate().available();
+        }
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/ContentDecodingChannel.java`
+#### Snippet
+```java
+        @Override
         public int read(byte[] buffer, int off, int len) throws IOException {
             return getDelegate().read(buffer, off, len);
         }
@@ -1930,21 +1930,9 @@ in `dialogue-core/src/main/java/com/palantir/dialogue/core/ContentDecodingChanne
 #### Snippet
 ```java
         @Override
-        public long skip(long requested) throws IOException {
-            return getDelegate().skip(requested);
+        public void reset() throws IOException {
+            getDelegate().reset();
         }
-
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueDirectAsyncTransformationFuture.java`
-#### Snippet
-```java
-    @Override
-    public O get() throws InterruptedException, ExecutionException {
-        return output.get();
-    }
 
 ```
 
@@ -1956,6 +1944,18 @@ in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueDirectA
     @Override
     public O get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
         return output.get(timeout, unit);
+    }
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueDirectAsyncTransformationFuture.java`
+#### Snippet
+```java
+    @Override
+    public O get() throws InterruptedException, ExecutionException {
+        return output.get();
     }
 
 ```
@@ -2046,6 +2046,18 @@ in `dialogue-serde/src/main/java/com/palantir/conjure/java/dialogue/serde/Defaul
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
+in `dialogue-serde/src/main/java/com/palantir/conjure/java/dialogue/serde/ConjureBodySerDe.java`
+#### Snippet
+```java
+                public T deserialize(InputStream input) {
+                    try {
+                        input.close();
+                    } catch (RuntimeException | IOException e) {
+                        log.warn("Failed to close InputStream", e);
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
 in `dialogue-test-common/src/main/java/com/palantir/dialogue/CloseRecordingInputStream.java`
 #### Snippet
 ```java
@@ -2061,45 +2073,9 @@ Possibly blocking call in non-blocking context could lead to thread starvation
 in `dialogue-test-common/src/main/java/com/palantir/dialogue/CloseRecordingInputStream.java`
 #### Snippet
 ```java
-    public void close() throws IOException {
-        closeCalled = true;
-        delegate.close();
-    }
-}
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `dialogue-test-common/src/main/java/com/palantir/dialogue/CloseRecordingInputStream.java`
-#### Snippet
-```java
     public void reset() throws IOException {
         assertNotClosed();
         delegate.reset();
-    }
-
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `dialogue-test-common/src/main/java/com/palantir/dialogue/CloseRecordingInputStream.java`
-#### Snippet
-```java
-    public long skip(long num) throws IOException {
-        assertNotClosed();
-        return delegate.skip(num);
-    }
-
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `dialogue-test-common/src/main/java/com/palantir/dialogue/CloseRecordingInputStream.java`
-#### Snippet
-```java
-    public int read() throws IOException {
-        assertNotClosed();
-        return delegate.read();
     }
 
 ```
@@ -2121,59 +2097,47 @@ Possibly blocking call in non-blocking context could lead to thread starvation
 in `dialogue-test-common/src/main/java/com/palantir/dialogue/CloseRecordingInputStream.java`
 #### Snippet
 ```java
-    public int read(byte[] bytes, int off, int len) throws IOException {
+    public int read() throws IOException {
         assertNotClosed();
-        return delegate.read(bytes, off, len);
+        return delegate.read();
     }
 
 ```
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
-in `dialogue-serde/src/main/java/com/palantir/conjure/java/dialogue/serde/ConjureBodySerDe.java`
+in `dialogue-test-common/src/main/java/com/palantir/dialogue/CloseRecordingInputStream.java`
 #### Snippet
 ```java
-                public T deserialize(InputStream input) {
-                    try {
-                        input.close();
-                    } catch (RuntimeException | IOException e) {
-                        log.warn("Failed to close InputStream", e);
+    public void close() throws IOException {
+        closeCalled = true;
+        delegate.close();
+    }
+}
 ```
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
-in `dialogue-test-common/src/main/java/com/palantir/dialogue/AbstractProxyConfigTest.java`
+in `dialogue-test-common/src/main/java/com/palantir/dialogue/CloseRecordingInputStream.java`
 #### Snippet
 ```java
+    public long skip(long num) throws IOException {
+        assertNotClosed();
+        return delegate.skip(num);
+    }
 
-        try (Response response =
-                proxiedChannel.execute(TestEndpoint.POST, request).get()) {
-            assertThat(response.code()).isEqualTo(200);
-            assertThat(response.body()).hasContent("proxyServer");
 ```
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
-in `dialogue-test-common/src/main/java/com/palantir/dialogue/AbstractProxyConfigTest.java`
+in `dialogue-test-common/src/main/java/com/palantir/dialogue/CloseRecordingInputStream.java`
 #### Snippet
 ```java
+    public int read(byte[] bytes, int off, int len) throws IOException {
+        assertNotClosed();
+        return delegate.read(bytes, off, len);
+    }
 
-        try (Response response =
-                directChannel.execute(TestEndpoint.POST, request).get()) {
-            assertThat(response.code()).isEqualTo(200);
-            assertThat(response.body()).hasContent("server");
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `dialogue-test-common/src/main/java/com/palantir/dialogue/AbstractProxyConfigTest.java`
-#### Snippet
-```java
-        }
-        try (Response response =
-                proxiedChannel.execute(TestEndpoint.POST, request).get()) {
-            assertThat(response.code()).isEqualTo(200);
-            assertThat(response.body()).hasContent("proxyServer");
 ```
 
 ### BlockingMethodInNonBlockingContext
@@ -2190,7 +2154,7 @@ in `dialogue-test-common/src/main/java/com/palantir/dialogue/AbstractProxyConfig
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
-in `dialogue-test-common/src/main/java/com/palantir/dialogue/AbstractProxyConfigTlsTest.java`
+in `dialogue-test-common/src/main/java/com/palantir/dialogue/AbstractProxyConfigTest.java`
 #### Snippet
 ```java
 
@@ -2202,7 +2166,7 @@ in `dialogue-test-common/src/main/java/com/palantir/dialogue/AbstractProxyConfig
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
-in `dialogue-test-common/src/main/java/com/palantir/dialogue/AbstractProxyConfigTlsTest.java`
+in `dialogue-test-common/src/main/java/com/palantir/dialogue/AbstractProxyConfigTest.java`
 #### Snippet
 ```java
 
@@ -2214,26 +2178,14 @@ in `dialogue-test-common/src/main/java/com/palantir/dialogue/AbstractProxyConfig
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
-in `dialogue-test-common/src/main/java/com/palantir/dialogue/AbstractProxyConfigTlsTest.java`
+in `dialogue-test-common/src/main/java/com/palantir/dialogue/AbstractProxyConfigTest.java`
 #### Snippet
 ```java
         }
         try (Response response =
                 proxiedChannel.execute(TestEndpoint.POST, request).get()) {
             assertThat(response.code()).isEqualTo(200);
-            assertThat(response.body()).hasContent("server");
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `dialogue-test-common/src/main/java/com/palantir/dialogue/AbstractProxyConfigTlsTest.java`
-#### Snippet
-```java
-                @Override
-                public void writeTo(OutputStream output) throws IOException {
-                    output.write(REQUEST_BODY.getBytes(StandardCharsets.UTF_8));
-                }
-
+            assertThat(response.body()).hasContent("proxyServer");
 ```
 
 ### BlockingMethodInNonBlockingContext
@@ -2253,18 +2205,6 @@ Possibly blocking call in non-blocking context could lead to thread starvation
 in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicScheduler.java`
 #### Snippet
 ```java
-    @Override
-    public boolean awaitTermination(long timeout, TimeUnit unit) throws InterruptedException {
-        return delegate.awaitTermination(timeout, unit);
-    }
-
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicScheduler.java`
-#### Snippet
-```java
     public <T> T invokeAny(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit)
             throws InterruptedException, ExecutionException, TimeoutException {
         return delegate.invokeAny(tasks, timeout, unit);
@@ -2274,98 +2214,74 @@ in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicSch
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
+in `simulation/src/main/java/com/palantir/dialogue/core/ExternalDeterministicScheduler.java`
+#### Snippet
+```java
+    @Override
+    public boolean awaitTermination(long timeout, TimeUnit unit) throws InterruptedException {
+        return delegate.awaitTermination(timeout, unit);
+    }
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `dialogue-test-common/src/main/java/com/palantir/dialogue/AbstractProxyConfigTlsTest.java`
+#### Snippet
+```java
+
+        try (Response response =
+                proxiedChannel.execute(TestEndpoint.POST, request).get()) {
+            assertThat(response.code()).isEqualTo(200);
+            assertThat(response.body()).hasContent("proxyServer");
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `dialogue-test-common/src/main/java/com/palantir/dialogue/AbstractProxyConfigTlsTest.java`
+#### Snippet
+```java
+                @Override
+                public void writeTo(OutputStream output) throws IOException {
+                    output.write(REQUEST_BODY.getBytes(StandardCharsets.UTF_8));
+                }
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `dialogue-test-common/src/main/java/com/palantir/dialogue/AbstractProxyConfigTlsTest.java`
+#### Snippet
+```java
+
+        try (Response response =
+                directChannel.execute(TestEndpoint.POST, request).get()) {
+            assertThat(response.code()).isEqualTo(200);
+            assertThat(response.body()).hasContent("server");
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `dialogue-test-common/src/main/java/com/palantir/dialogue/AbstractProxyConfigTlsTest.java`
+#### Snippet
+```java
+        }
+        try (Response response =
+                proxiedChannel.execute(TestEndpoint.POST, request).get()) {
+            assertThat(response.code()).isEqualTo(200);
+            assertThat(response.body()).hasContent("server");
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
 in `dialogue-test-common/src/main/java/com/palantir/dialogue/AbstractChannelTest.java`
 #### Snippet
 ```java
         assertThat(recorded.getMethod()).isEqualTo("DELETE");
-        assertThat(recorded.getBodySize()).isZero();
+        assertThat(recorded.getBodySize()).isEqualTo(CONTENT.length);
         assertThat(result.get().code()).isEqualTo(200);
     }
 
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `dialogue-test-common/src/main/java/com/palantir/dialogue/AbstractChannelTest.java`
-#### Snippet
-```java
-        endpoint.method = HttpMethod.GET;
-        request = Request.builder().from(request).body(body).build();
-        assertThatThrownBy(() -> channel.execute(endpoint, request).get())
-                .hasMessageContaining("GET endpoints must not have a request body");
-    }
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `dialogue-test-common/src/main/java/com/palantir/dialogue/AbstractChannelTest.java`
-#### Snippet
-```java
-    public void head_failsWhenBodyReturned() throws ExecutionException, InterruptedException {
-        endpoint.method = HttpMethod.HEAD;
-        Response response = channel.execute(endpoint, request).get();
-        assertThat(response.body()).hasContent("");
-    }
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `dialogue-test-common/src/main/java/com/palantir/dialogue/AbstractChannelTest.java`
-#### Snippet
-```java
-        assertThat(recorded.getMethod()).isEqualTo("GET");
-        assertThat(recorded.getPath()).isEqualTo("/foo/");
-        assertThat(result.get().code()).isEqualTo(200);
-    }
-
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `dialogue-test-common/src/main/java/com/palantir/dialogue/AbstractChannelTest.java`
-#### Snippet
-```java
-        RecordedRequest recorded = server.takeRequest();
-        assertThat(recorded.getHeader("X-B3-TraceId")).isNotEmpty();
-        assertThat(result.get().code()).isEqualTo(200);
-    }
-
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `dialogue-test-common/src/main/java/com/palantir/dialogue/AbstractChannelTest.java`
-#### Snippet
-```java
-        assertThat(recorded.getMethod()).isEqualTo("GET");
-        assertThat(recorded.getPath()).isEqualTo("/a//b");
-        assertThat(result.get().code()).isEqualTo(200);
-    }
-
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `dialogue-test-common/src/main/java/com/palantir/dialogue/AbstractChannelTest.java`
-#### Snippet
-```java
-        endpoint.method = HttpMethod.OPTIONS;
-        request = Request.builder().from(request).body(body).build();
-        assertThatThrownBy(() -> channel.execute(endpoint, request).get())
-                .hasMessageContaining("OPTIONS endpoints must not have a request body");
-    }
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `dialogue-test-common/src/main/java/com/palantir/dialogue/AbstractChannelTest.java`
-#### Snippet
-```java
-        endpoint.method = HttpMethod.HEAD;
-        request = Request.builder().from(request).body(body).build();
-        assertThatThrownBy(() -> channel.execute(endpoint, request).get())
-                .hasMessageContaining("HEAD endpoints must not have a request body");
-    }
 ```
 
 ### BlockingMethodInNonBlockingContext
@@ -2390,6 +2306,78 @@ in `dialogue-test-common/src/main/java/com/palantir/dialogue/AbstractChannelTest
         Response response = channel.execute(endpoint, request).get();
         assertThat(response.body()).hasContent("foo");
         assertThat(server.takeRequest().getHeaders().get("accept-encoding")).isEqualTo("gzip");
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `dialogue-test-common/src/main/java/com/palantir/dialogue/AbstractChannelTest.java`
+#### Snippet
+```java
+        assertThat(recorded.getMethod()).isEqualTo("DELETE");
+        assertThat(recorded.getBodySize()).isZero();
+        assertThat(result.get().code()).isEqualTo(200);
+    }
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `dialogue-test-common/src/main/java/com/palantir/dialogue/AbstractChannelTest.java`
+#### Snippet
+```java
+    public void head_failsWhenBodyReturned() throws ExecutionException, InterruptedException {
+        endpoint.method = HttpMethod.HEAD;
+        Response response = channel.execute(endpoint, request).get();
+        assertThat(response.body()).hasContent("");
+    }
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `dialogue-test-common/src/main/java/com/palantir/dialogue/AbstractChannelTest.java`
+#### Snippet
+```java
+        endpoint.method = HttpMethod.HEAD;
+        request = Request.builder().from(request).body(body).build();
+        assertThatThrownBy(() -> channel.execute(endpoint, request).get())
+                .hasMessageContaining("HEAD endpoints must not have a request body");
+    }
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `dialogue-test-common/src/main/java/com/palantir/dialogue/AbstractChannelTest.java`
+#### Snippet
+```java
+        RecordedRequest recorded = server.takeRequest();
+        assertThat(recorded.getHeader("X-B3-TraceId")).isNotEmpty();
+        assertThat(result.get().code()).isEqualTo(200);
+    }
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `dialogue-test-common/src/main/java/com/palantir/dialogue/AbstractChannelTest.java`
+#### Snippet
+```java
+        assertThat(recorded.getMethod()).isEqualTo("GET");
+        assertThat(recorded.getPath()).isEqualTo("/foo/");
+        assertThat(result.get().code()).isEqualTo(200);
+    }
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `dialogue-test-common/src/main/java/com/palantir/dialogue/AbstractChannelTest.java`
+#### Snippet
+```java
+        assertThat(recorded.getMethod()).isEqualTo("GET");
+        assertThat(recorded.getPath()).isEqualTo("/a//b");
+        assertThat(result.get().code()).isEqualTo(200);
+    }
+
 ```
 
 ### BlockingMethodInNonBlockingContext
@@ -2433,11 +2421,11 @@ Possibly blocking call in non-blocking context could lead to thread starvation
 in `dialogue-test-common/src/main/java/com/palantir/dialogue/AbstractChannelTest.java`
 #### Snippet
 ```java
-        assertThat(recorded.getMethod()).isEqualTo("DELETE");
-        assertThat(recorded.getBodySize()).isEqualTo(CONTENT.length);
-        assertThat(result.get().code()).isEqualTo(200);
+        endpoint.method = HttpMethod.GET;
+        request = Request.builder().from(request).body(body).build();
+        assertThatThrownBy(() -> channel.execute(endpoint, request).get())
+                .hasMessageContaining("GET endpoints must not have a request body");
     }
-
 ```
 
 ### BlockingMethodInNonBlockingContext
@@ -2462,6 +2450,18 @@ in `dialogue-test-common/src/main/java/com/palantir/dialogue/AbstractChannelTest
         Thread.sleep(1000);
         server.enqueue(new MockResponse());
 
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `dialogue-test-common/src/main/java/com/palantir/dialogue/AbstractChannelTest.java`
+#### Snippet
+```java
+        endpoint.method = HttpMethod.OPTIONS;
+        request = Request.builder().from(request).body(body).build();
+        assertThatThrownBy(() -> channel.execute(endpoint, request).get())
+                .hasMessageContaining("OPTIONS endpoints must not have a request body");
+    }
 ```
 
 ## RuleId[id=OptionalUsedAsFieldOrParameterType]
@@ -2506,11 +2506,11 @@ in `dialogue-annotations-example/src/main/java/com/palantir/myservice/example/My
 in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/data/ParameterType.java`
 #### Snippet
 ```java
-        R body(TypeName serializerFactory, String serializerFieldName);
-
-        R header(String headerName, Optional<ParameterEncoderType> paramEncoderType);
-
         R path(Optional<ParameterEncoderType> paramEncoderType);
+
+        R query(String paramName, Optional<ParameterEncoderType> paramEncoderType);
+
+        R queryMap(ParameterEncoderType parameterEncoderType);
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -2518,11 +2518,11 @@ in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotatio
 in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/data/ParameterType.java`
 #### Snippet
 ```java
+        R body(TypeName serializerFactory, String serializerFieldName);
+
+        R header(String headerName, Optional<ParameterEncoderType> paramEncoderType);
+
         R path(Optional<ParameterEncoderType> paramEncoderType);
-
-        R query(String paramName, Optional<ParameterEncoderType> paramEncoderType);
-
-        R queryMap(ParameterEncoderType parameterEncoderType);
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -2562,6 +2562,18 @@ in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotatio
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'paramEncoder'
+in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/generate/ServiceImplementationGenerator.java`
+#### Snippet
+```java
+
+    private CodeBlock generateQueryParam(
+            ArgumentDefinition param, String paramName, Optional<ParameterEncoderType> paramEncoder) {
+        return generatePlainSerializer(
+                "putQueryParams",
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'headerParamEncoder'
 in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/generate/ServiceImplementationGenerator.java`
 #### Snippet
@@ -2571,18 +2583,6 @@ in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotatio
             ArgumentDefinition param, String headerName, Optional<ParameterEncoderType> headerParamEncoder) {
         return generatePlainSerializer(
                 "putHeaderParams",
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'maybeParameterEncoderType'
-in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/generate/ServiceImplementationGenerator.java`
-#### Snippet
-```java
-            CodeBlock argName,
-            ArgumentType type,
-            Optional<ParameterEncoderType> maybeParameterEncoderType) {
-        return type.match(new ArgumentType.Cases<>() {
-            @Override
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -2598,15 +2598,15 @@ in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotatio
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'paramEncoder'
+`Optional` used as type for parameter 'maybeParameterEncoderType'
 in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/generate/ServiceImplementationGenerator.java`
 #### Snippet
 ```java
-
-    private CodeBlock generateQueryParam(
-            ArgumentDefinition param, String paramName, Optional<ParameterEncoderType> paramEncoder) {
-        return generatePlainSerializer(
-                "putQueryParams",
+            CodeBlock argName,
+            ArgumentType type,
+            Optional<ParameterEncoderType> maybeParameterEncoderType) {
+        return type.match(new ArgumentType.Cases<>() {
+            @Override
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -2658,18 +2658,6 @@ in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHtt
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`OptionalLong` used as type for field 'contentLength'
-in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientBlockingChannel.java`
-#### Snippet
-```java
-        private final RequestBody requestBody;
-        private final Header contentType;
-        private final OptionalLong contentLength;
-
-        RequestBodyEntity(RequestBody requestBody, OptionalLong contentLength) {
-```
-
-### OptionalUsedAsFieldOrParameterType
 `OptionalInt` used as type for field 'uriIndexForInstrumentation'
 in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientBlockingChannel.java`
 #### Snippet
@@ -2679,6 +2667,18 @@ in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHtt
     private final OptionalInt uriIndexForInstrumentation;
 
     ApacheHttpClientBlockingChannel(
+```
+
+### OptionalUsedAsFieldOrParameterType
+`OptionalLong` used as type for field 'contentLength'
+in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientBlockingChannel.java`
+#### Snippet
+```java
+        private final RequestBody requestBody;
+        private final Header contentType;
+        private final OptionalLong contentLength;
+
+        RequestBodyEntity(RequestBody requestBody, OptionalLong contentLength) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -2694,6 +2694,18 @@ in `dialogue-core/src/main/java/com/palantir/dialogue/core/PinUntilErrorNodeSele
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'initialChannel'
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/PinUntilErrorNodeSelectionStrategyChannel.java`
+#### Snippet
+```java
+
+    static PinUntilErrorNodeSelectionStrategyChannel of(
+            Optional<LimitedChannel> initialChannel,
+            DialogueNodeSelectionStrategy strategy,
+            List<LimitedChannel> channels,
+```
+
+### OptionalUsedAsFieldOrParameterType
 `OptionalInt` used as type for parameter 'next'
 in `dialogue-core/src/main/java/com/palantir/dialogue/core/PinUntilErrorNodeSelectionStrategyChannel.java`
 #### Snippet
@@ -2706,15 +2718,15 @@ in `dialogue-core/src/main/java/com/palantir/dialogue/core/PinUntilErrorNodeSele
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'initialChannel'
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/PinUntilErrorNodeSelectionStrategyChannel.java`
+`Optional` used as type for parameter 'callsiteStacktrace'
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/RetryingChannel.java`
 #### Snippet
 ```java
 
-    static PinUntilErrorNodeSelectionStrategyChannel of(
-            Optional<LimitedChannel> initialChannel,
-            DialogueNodeSelectionStrategy strategy,
-            List<LimitedChannel> channels,
+        private RetryingCallback(
+                Endpoint endpoint, Request request, Optional<SafeRuntimeException> callsiteStacktrace) {
+            this.endpoint = endpoint;
+            this.request = request;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -2742,18 +2754,6 @@ in `dialogue-core/src/main/java/com/palantir/dialogue/core/RetryingChannel.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'callsiteStacktrace'
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/RetryingChannel.java`
-#### Snippet
-```java
-
-        private RetryingCallback(
-                Endpoint endpoint, Request request, Optional<SafeRuntimeException> callsiteStacktrace) {
-            this.endpoint = endpoint;
-            this.request = request;
-```
-
-### OptionalUsedAsFieldOrParameterType
 `OptionalInt` used as type for parameter 'maybeUriIndex'
 in `dialogue-core/src/main/java/com/palantir/dialogue/core/DialogueChannel.java`
 #### Snippet
@@ -2778,18 +2778,6 @@ in `dialogue-serde/src/main/java/com/palantir/conjure/java/dialogue/serde/Conjur
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'body'
-in `dialogue-target/src/main/java/com/palantir/dialogue/Request.java`
-#### Snippet
-```java
-    private final ListMultimap<String, String> queryParams;
-    private final ListMultimap<String, String> pathParams;
-    private final Optional<RequestBody> body;
-    private final RequestAttachments attachments;
-
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'value'
 in `dialogue-target/src/main/java/com/palantir/dialogue/Request.java`
 #### Snippet
@@ -2799,6 +2787,18 @@ in `dialogue-target/src/main/java/com/palantir/dialogue/Request.java`
         public Request.Builder body(Optional<? extends RequestBody> value) {
             body = (Optional<RequestBody>) value;
             return this;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'body'
+in `dialogue-target/src/main/java/com/palantir/dialogue/Request.java`
+#### Snippet
+```java
+    private final ListMultimap<String, String> queryParams;
+    private final ListMultimap<String, String> pathParams;
+    private final Optional<RequestBody> body;
+    private final RequestAttachments attachments;
+
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -2950,18 +2950,6 @@ in `dialogue-core/src/main/java/com/palantir/dialogue/core/DeprecationWarningCha
 
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
-in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientChannels.java`
-#### Snippet
-```java
-            Preconditions.checkArgument(
-                    !conf.fallbackToCommonNameVerification(), "fallback-to-common-name-verification is not supported");
-            Preconditions.checkArgument(!conf.meshProxy().isPresent(), "Mesh proxy is not supported");
-
-            Timeout socketTimeout = getSocketTimeout(conf, name);
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
 in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientBlockingChannel.java`
 #### Snippet
 ```java
@@ -2998,6 +2986,18 @@ in `dialogue-core/src/main/java/com/palantir/dialogue/core/HostMetricsChannel.ja
 
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
+in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientChannels.java`
+#### Snippet
+```java
+            Preconditions.checkArgument(
+                    !conf.fallbackToCommonNameVerification(), "fallback-to-common-name-verification is not supported");
+            Preconditions.checkArgument(!conf.meshProxy().isPresent(), "Mesh proxy is not supported");
+
+            Timeout socketTimeout = getSocketTimeout(conf, name);
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
 in `dialogue-core/src/main/java/com/palantir/dialogue/core/RetryingChannel.java`
 #### Snippet
 ```java
@@ -3013,11 +3013,11 @@ Can be replaced with 'isEmpty()'
 in `dialogue-core/src/main/java/com/palantir/dialogue/core/NodeSelectionStrategyChannel.java`
 #### Snippet
 ```java
-            Optional<DialogueNodeSelectionStrategy> maybeStrategy =
-                    strategySelector.updateAndGet(DialogueNodeSelectionStrategy.fromHeader(strategy));
-            if (!maybeStrategy.isPresent()) {
-                return;
-            }
+        Optional<ListenableFuture<Response>> maybe =
+                StickyChannelHandler.maybeExecute(delegate, endpoint, request, limitEnforcement);
+        if (!maybe.isPresent()) {
+            return Optional.empty();
+        }
 ```
 
 ### SimplifyOptionalCallChains
@@ -3025,11 +3025,11 @@ Can be replaced with 'isEmpty()'
 in `dialogue-core/src/main/java/com/palantir/dialogue/core/NodeSelectionStrategyChannel.java`
 #### Snippet
 ```java
-        Optional<ListenableFuture<Response>> maybe =
-                StickyChannelHandler.maybeExecute(delegate, endpoint, request, limitEnforcement);
-        if (!maybe.isPresent()) {
-            return Optional.empty();
-        }
+            Optional<DialogueNodeSelectionStrategy> maybeStrategy =
+                    strategySelector.updateAndGet(DialogueNodeSelectionStrategy.fromHeader(strategy));
+            if (!maybeStrategy.isPresent()) {
+                return;
+            }
 ```
 
 ### SimplifyOptionalCallChains
@@ -3119,18 +3119,6 @@ in `dialogue-annotations/src/main/java/com/palantir/dialogue/annotations/Multipa
 ```
 
 ### FieldMayBeFinal
-Field `empty` may be 'final'
-in `dialogue-jmh/src/main/java/com/palantir/dialogue/core/RequestBuilderBenchmark.java`
-#### Snippet
-```java
-public class RequestBuilderBenchmark {
-
-    private Request empty = Request.builder().build();
-    private Request nonEmpty = Request.builder()
-            .putHeaderParams("Authorization", "whatever")
-```
-
-### FieldMayBeFinal
 Field `nonEmpty` may be 'final'
 in `dialogue-jmh/src/main/java/com/palantir/dialogue/core/RequestBuilderBenchmark.java`
 #### Snippet
@@ -3140,6 +3128,18 @@ in `dialogue-jmh/src/main/java/com/palantir/dialogue/core/RequestBuilderBenchmar
     private Request nonEmpty = Request.builder()
             .putHeaderParams("Authorization", "whatever")
             .putHeaderParams("header1", "header")
+```
+
+### FieldMayBeFinal
+Field `empty` may be 'final'
+in `dialogue-jmh/src/main/java/com/palantir/dialogue/core/RequestBuilderBenchmark.java`
+#### Snippet
+```java
+public class RequestBuilderBenchmark {
+
+    private Request empty = Request.builder().build();
+    private Request nonEmpty = Request.builder()
+            .putHeaderParams("Authorization", "whatever")
 ```
 
 ### FieldMayBeFinal
@@ -3206,18 +3206,6 @@ in `simulation/src/main/java/com/palantir/dialogue/core/RefreshingChannelFactory
 ## RuleId[id=OptionalGetWithoutIsPresent]
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/data/InstanceVariables.java`
-#### Snippet
-```java
-                            String segment = segments[i];
-                            CaseFormat caseFormat =
-                                    CaseFormats.estimate(segment).get();
-                            if (i == 0) {
-                                return caseFormat.to(CaseFormat.LOWER_CAMEL, segment);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
 in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/data/EndpointDefinitions.java`
 #### Snippet
 ```java
@@ -3229,15 +3217,15 @@ in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotatio
 ```
 
 ### OptionalGetWithoutIsPresent
-`Optional::get` without 'isPresent()' check
-in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/DialogueRequestAnnotationsProcessor.java`
+`Optional.get()` without 'isPresent()' check
+in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/data/InstanceVariables.java`
 #### Snippet
 ```java
-                            .isEmpty(),
-                    "Failed validation");
-            return maybeEndpoints.stream().map(Optional::get).collect(Collectors.toList());
-        });
-
+                            String segment = segments[i];
+                            CaseFormat caseFormat =
+                                    CaseFormats.estimate(segment).get();
+                            if (i == 0) {
+                                return caseFormat.to(CaseFormat.LOWER_CAMEL, segment);
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -3274,6 +3262,18 @@ in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotatio
                                     .get())
                             .build()));
         }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional::get` without 'isPresent()' check
+in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/DialogueRequestAnnotationsProcessor.java`
+#### Snippet
+```java
+                            .isEmpty(),
+                    "Failed validation");
+            return maybeEndpoints.stream().map(Optional::get).collect(Collectors.toList());
+        });
+
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -3351,30 +3351,6 @@ in `dialogue-annotations/src/main/java/com/palantir/dialogue/annotations/Multipa
 
 ### UnstableApiUsage
 'com.google.auto.common.MoreElements' is marked unstable with @Beta
-in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/data/ReturnTypesResolver.java`
-#### Snippet
-```java
-
-        boolean hasMustBeClosed =
-                MoreElements.getAnnotationMirror(element, MustBeClosed.class).isPresent();
-
-        Optional<TypeMirror> maybeListenableFutureInnerType = getListenableFutureInnerType(returnType);
-```
-
-### UnstableApiUsage
-'getAnnotationMirror(javax.lang.model.element.Element, java.lang.Class)' is declared in unstable class 'com.google.auto.common.MoreElements' marked with @Beta
-in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/data/ReturnTypesResolver.java`
-#### Snippet
-```java
-
-        boolean hasMustBeClosed =
-                MoreElements.getAnnotationMirror(element, MustBeClosed.class).isPresent();
-
-        Optional<TypeMirror> maybeListenableFutureInnerType = getListenableFutureInnerType(returnType);
-```
-
-### UnstableApiUsage
-'com.google.auto.common.MoreElements' is marked unstable with @Beta
 in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/data/AnnotationReflector.java`
 #### Snippet
 ```java
@@ -3431,6 +3407,30 @@ in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotatio
             List<HttpPathSegment> pathSegments = SPLITTER.splitToStream(path)
                     .map(HttpPathParser::toHttpPathSegment)
                     .collect(Collectors.toList());
+```
+
+### UnstableApiUsage
+'com.google.auto.common.MoreElements' is marked unstable with @Beta
+in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/data/ReturnTypesResolver.java`
+#### Snippet
+```java
+
+        boolean hasMustBeClosed =
+                MoreElements.getAnnotationMirror(element, MustBeClosed.class).isPresent();
+
+        Optional<TypeMirror> maybeListenableFutureInnerType = getListenableFutureInnerType(returnType);
+```
+
+### UnstableApiUsage
+'getAnnotationMirror(javax.lang.model.element.Element, java.lang.Class)' is declared in unstable class 'com.google.auto.common.MoreElements' marked with @Beta
+in `dialogue-annotations-processor/src/main/java/com/palantir/dialogue/annotations/processor/data/ReturnTypesResolver.java`
+#### Snippet
+```java
+
+        boolean hasMustBeClosed =
+                MoreElements.getAnnotationMirror(element, MustBeClosed.class).isPresent();
+
+        Optional<TypeMirror> maybeListenableFutureInnerType = getListenableFutureInnerType(returnType);
 ```
 
 ### UnstableApiUsage
@@ -3578,6 +3578,18 @@ in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/Inactivit
 ```
 
 ### UnstableApiUsage
+'tryAcquire()' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/TimingEndpointChannel.java`
+#### Snippet
+```java
+                    updateTimer(failureTimer);
+                } else {
+                    if (unknownThrowableLoggingRateLimiter.tryAcquire()) {
+                        log.info(
+                                "Unknown failure",
+```
+
+### UnstableApiUsage
 'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
 in `dialogue-core/src/main/java/com/palantir/dialogue/core/TimingEndpointChannel.java`
 #### Snippet
@@ -3614,15 +3626,39 @@ in `dialogue-core/src/main/java/com/palantir/dialogue/core/TimingEndpointChannel
 ```
 
 ### UnstableApiUsage
-'tryAcquire()' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/TimingEndpointChannel.java`
+'exhaust(java.io.InputStream)' is marked unstable with @Beta
+in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientBlockingChannel.java`
 #### Snippet
 ```java
-                    updateTimer(failureTimer);
-                } else {
-                    if (unknownThrowableLoggingRateLimiter.tryAcquire()) {
-                        log.info(
-                                "Unknown failure",
+            }
+            return REMAINING_CONTENT_CONNECTION_DISCARD_THRESHOLD
+                    == ByteStreams.exhaust(ByteStreams.limit(stream, REMAINING_CONTENT_CONNECTION_DISCARD_THRESHOLD));
+        } catch (Throwable ignored) {
+            return false;
+```
+
+### UnstableApiUsage
+'limit(java.io.InputStream, long)' is marked unstable with @Beta
+in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientBlockingChannel.java`
+#### Snippet
+```java
+            }
+            return REMAINING_CONTENT_CONNECTION_DISCARD_THRESHOLD
+                    == ByteStreams.exhaust(ByteStreams.limit(stream, REMAINING_CONTENT_CONNECTION_DISCARD_THRESHOLD));
+        } catch (Throwable ignored) {
+            return false;
+```
+
+### UnstableApiUsage
+'saturatedMultiply(int, int)' is marked unstable with @Beta
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/BalancedNodeSelectionStrategyChannel.java`
+#### Snippet
+```java
+            }
+            if (snapshot.getInflight() > INFLIGHT_COMPARISON_THRESHOLD) {
+                int newThreshold = IntMath.saturatedMultiply(snapshot.getScore(), UNHEALTHY_SCORE_MULTIPLIER);
+                if (log.isDebugEnabled()) {
+                    log.debug(
 ```
 
 ### UnstableApiUsage
@@ -3638,15 +3674,15 @@ in `dialogue-core/src/main/java/com/palantir/dialogue/core/TracedChannel.java`
 ```
 
 ### UnstableApiUsage
-'saturatedMultiply(int, int)' is marked unstable with @Beta
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/BalancedNodeSelectionStrategyChannel.java`
+'appendTo(java.lang.StringBuilder, java.lang.Iterable\>)' is marked unstable with @Beta
+in `dialogue-core/src/main/java/com/palantir/dialogue/core/BaseUrl.java`
 #### Snippet
 ```java
+                result.append('?');
             }
-            if (snapshot.getInflight() > INFLIGHT_COMPARISON_THRESHOLD) {
-                int newThreshold = IntMath.saturatedMultiply(snapshot.getScore(), UNHEALTHY_SCORE_MULTIPLIER);
-                if (log.isDebugEnabled()) {
-                    log.debug(
+            QUERY_JOINER.appendTo(result, queryParams.entries());
+        }
+
 ```
 
 ### UnstableApiUsage
@@ -3746,42 +3782,6 @@ in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHtt
 ```
 
 ### UnstableApiUsage
-'appendTo(java.lang.StringBuilder, java.lang.Iterable\>)' is marked unstable with @Beta
-in `dialogue-core/src/main/java/com/palantir/dialogue/core/BaseUrl.java`
-#### Snippet
-```java
-                result.append('?');
-            }
-            QUERY_JOINER.appendTo(result, queryParams.entries());
-        }
-
-```
-
-### UnstableApiUsage
-'exhaust(java.io.InputStream)' is marked unstable with @Beta
-in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientBlockingChannel.java`
-#### Snippet
-```java
-            }
-            return REMAINING_CONTENT_CONNECTION_DISCARD_THRESHOLD
-                    == ByteStreams.exhaust(ByteStreams.limit(stream, REMAINING_CONTENT_CONNECTION_DISCARD_THRESHOLD));
-        } catch (Throwable ignored) {
-            return false;
-```
-
-### UnstableApiUsage
-'limit(java.io.InputStream, long)' is marked unstable with @Beta
-in `dialogue-apache-hc5-client/src/main/java/com/palantir/dialogue/hc5/ApacheHttpClientBlockingChannel.java`
-#### Snippet
-```java
-            }
-            return REMAINING_CONTENT_CONNECTION_DISCARD_THRESHOLD
-                    == ByteStreams.exhaust(ByteStreams.limit(stream, REMAINING_CONTENT_CONNECTION_DISCARD_THRESHOLD));
-        } catch (Throwable ignored) {
-            return false;
-```
-
-### UnstableApiUsage
 'tryAcquire()' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
 in `dialogue-core/src/main/java/com/palantir/dialogue/core/RetryOtherValidatingChannel.java`
 #### Snippet
@@ -3870,18 +3870,6 @@ in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueDirectT
 in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueDirectAsyncCatchingFuture.java`
 #### Snippet
 ```java
-    DialogueDirectAsyncCatchingFuture(ListenableFuture<T> input, AsyncFunction<? super Throwable, T> function) {
-        this.currentFuture = input;
-        this.output = Futures.catchingAsync(
-                input,
-                Throwable.class,
-```
-
-### UnstableApiUsage
-'catchingAsync(com.google.common.util.concurrent.ListenableFuture, java.lang.Class, com.google.common.util.concurrent.AsyncFunction, java.util.concurrent.Executor)' is marked unstable with @Beta
-in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueDirectAsyncCatchingFuture.java`
-#### Snippet
-```java
 /**
  * This {@link ListenableFuture} implementation differs from
  * {@link Futures#catchingAsync(ListenableFuture, Class, AsyncFunction, Executor)}
@@ -3890,15 +3878,15 @@ in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueDirectA
 ```
 
 ### UnstableApiUsage
-'putAll(java.lang.Iterable\>)' is marked unstable with @Beta
-in `dialogue-target/src/main/java/com/palantir/dialogue/Endpoint.java`
+'catchingAsync(com.google.common.util.concurrent.ListenableFuture, java.lang.Class, com.google.common.util.concurrent.AsyncFunction, java.util.concurrent.Executor)' is marked unstable with @Beta
+in `dialogue-futures/src/main/java/com/palantir/dialogue/futures/DialogueDirectAsyncCatchingFuture.java`
 #### Snippet
 ```java
-                        ? ImmutableListMultimap.of()
-                        : ImmutableListMultimap.<String, String>builder()
-                                .putAll(params.entrySet())
-                                .build(),
-                url);
+    DialogueDirectAsyncCatchingFuture(ListenableFuture<T> input, AsyncFunction<? super Throwable, T> function) {
+        this.currentFuture = input;
+        this.output = Futures.catchingAsync(
+                input,
+                Throwable.class,
 ```
 
 ### UnstableApiUsage
@@ -3923,6 +3911,18 @@ in `dialogue-jmh/src/main/java/com/palantir/dialogue/core/EndToEndBenchmark.java
         MoreExecutors.shutdownAndAwaitTermination(blockingExecutor, 1, TimeUnit.SECONDS);
         closeableApache.close();
     }
+```
+
+### UnstableApiUsage
+'putAll(java.lang.Iterable\>)' is marked unstable with @Beta
+in `dialogue-target/src/main/java/com/palantir/dialogue/Endpoint.java`
+#### Snippet
+```java
+                        ? ImmutableListMultimap.of()
+                        : ImmutableListMultimap.<String, String>builder()
+                                .putAll(params.entrySet())
+                                .build(),
+                url);
 ```
 
 ### UnstableApiUsage
