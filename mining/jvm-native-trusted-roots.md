@@ -32,6 +32,18 @@ in `src/main/java/org/jetbrains/nativecerts/linux/LinuxTrustedCertificatesUtil.j
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
+in `src/main/java/org/jetbrains/nativecerts/NativeTrustedRootsDebugMain.java`
+#### Snippet
+```java
+
+    public static void main(String[] args) throws Exception {
+        File logFile = File.createTempFile("nativecerts-", ".log");
+        setupLogging(logFile);
+
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
 in `src/main/java/org/jetbrains/nativecerts/linux/PemReaderUtil.java`
 #### Snippet
 ```java
@@ -52,17 +64,5 @@ in `src/main/java/org/jetbrains/nativecerts/linux/PemReaderUtil.java`
                         line = reader.readLine();
                         if (line == null) {
                             throw new IllegalStateException("Non-closed '" + BEGIN_CERT + "' block at line " +
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `src/main/java/org/jetbrains/nativecerts/NativeTrustedRootsDebugMain.java`
-#### Snippet
-```java
-
-    public static void main(String[] args) throws Exception {
-        File logFile = File.createTempFile("nativecerts-", ".log");
-        setupLogging(logFile);
-
 ```
 
