@@ -445,15 +445,15 @@ in `assertj-swing/src/main/java/org/assertj/swing/util/SystemPropertyWriter.java
 ```
 
 ### DataFlowIssue
-Unboxing of `selectedTab` may produce `NullPointerException`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneSelectTabQuery.java`
+Argument `invokerAndCenterOfInvoker.second` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
 #### Snippet
 ```java
-  static Index selectedTabIndexOf(final @Nonnull JTabbedPane tabbedPane) {
-    Integer selectedTab = execute(() -> tabbedPane.getSelectedIndex());
-    return atIndex(selectedTab);
-  }
-
+        Component invoker = invokerAndCenterOfInvoker.first;
+        if (invoker instanceof JMenu) {
+          jitter(invoker, invokerAndCenterOfInvoker.second);
+        }
+      }
 ```
 
 ### DataFlowIssue
@@ -469,27 +469,15 @@ in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
 ```
 
 ### DataFlowIssue
-Argument `invokerAndCenterOfInvoker.second` might be null
-in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
+Unboxing of `selectedTab` may produce `NullPointerException`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneSelectTabQuery.java`
 #### Snippet
 ```java
-        Component invoker = invokerAndCenterOfInvoker.first;
-        if (invoker instanceof JMenu) {
-          jitter(invoker, invokerAndCenterOfInvoker.second);
-        }
-      }
-```
+  static Index selectedTabIndexOf(final @Nonnull JTabbedPane tabbedPane) {
+    Integer selectedTab = execute(() -> tabbedPane.getSelectedIndex());
+    return atIndex(selectedTab);
+  }
 
-### DataFlowIssue
-@Nullable method 'executeInEDT' always returns a non-null value
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameDriver.java`
-#### Snippet
-```java
-    Pair<Container, Point> result = execute(new GuiQuery<Pair<Container, Point>>() {
-      @Override
-      @Nullable protected Pair<Container, Point> executeInEDT() {
-        checkCanMaximize(internalFrame);
-        return findMaximizeLocation(internalFrame);
 ```
 
 ### DataFlowIssue
@@ -517,26 +505,26 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameDriver.ja
 ```
 
 ### DataFlowIssue
-Unboxing of `deiconifyInfo.first` may produce `NullPointerException`
+Argument `toMoveMouseTo.first` might be null
 in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameDriver.java`
 #### Snippet
 ```java
-  public void deiconify(@Nonnull JInternalFrame internalFrame) {
-    Triple<Boolean, Container, Point> deiconifyInfo = validateAndfindDeiconifyInfo(internalFrame);
-    if (deiconifyInfo.first) {
-      return; // internal frame is already de-iconified
-    }
+  private void maximizeOrNormalize(@Nonnull JInternalFrame internalFrame, @Nonnull JInternalFrameAction action,
+                                   @Nonnull Pair<Container, Point> toMoveMouseTo) {
+    moveMouseIgnoringAnyError(toMoveMouseTo.first, toMoveMouseTo.second);
+    setMaximumProperty(internalFrame, action);
+  }
 ```
 
 ### DataFlowIssue
-Argument `deiconifyInfo.second` might be null
+Argument `toMoveMouseTo.second` might be null
 in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameDriver.java`
 #### Snippet
 ```java
-      return; // internal frame is already de-iconified
-    }
-    moveMouseIgnoringAnyError(deiconifyInfo.second, deiconifyInfo.third);
-    setIconProperty(internalFrame, DEICONIFY);
+  private void maximizeOrNormalize(@Nonnull JInternalFrame internalFrame, @Nonnull JInternalFrameAction action,
+                                   @Nonnull Pair<Container, Point> toMoveMouseTo) {
+    moveMouseIgnoringAnyError(toMoveMouseTo.first, toMoveMouseTo.second);
+    setMaximumProperty(internalFrame, action);
   }
 ```
 
@@ -565,27 +553,39 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameDriver.ja
 ```
 
 ### DataFlowIssue
-Argument `toMoveMouseTo.first` might be null
+Unboxing of `deiconifyInfo.first` may produce `NullPointerException`
 in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameDriver.java`
 #### Snippet
 ```java
-  private void maximizeOrNormalize(@Nonnull JInternalFrame internalFrame, @Nonnull JInternalFrameAction action,
-                                   @Nonnull Pair<Container, Point> toMoveMouseTo) {
-    moveMouseIgnoringAnyError(toMoveMouseTo.first, toMoveMouseTo.second);
-    setMaximumProperty(internalFrame, action);
+  public void deiconify(@Nonnull JInternalFrame internalFrame) {
+    Triple<Boolean, Container, Point> deiconifyInfo = validateAndfindDeiconifyInfo(internalFrame);
+    if (deiconifyInfo.first) {
+      return; // internal frame is already de-iconified
+    }
+```
+
+### DataFlowIssue
+Argument `deiconifyInfo.second` might be null
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameDriver.java`
+#### Snippet
+```java
+      return; // internal frame is already de-iconified
+    }
+    moveMouseIgnoringAnyError(deiconifyInfo.second, deiconifyInfo.third);
+    setIconProperty(internalFrame, DEICONIFY);
   }
 ```
 
 ### DataFlowIssue
-Argument `toMoveMouseTo.second` might be null
+@Nullable method 'executeInEDT' always returns a non-null value
 in `assertj-swing/src/main/java/org/assertj/swing/driver/JInternalFrameDriver.java`
 #### Snippet
 ```java
-  private void maximizeOrNormalize(@Nonnull JInternalFrame internalFrame, @Nonnull JInternalFrameAction action,
-                                   @Nonnull Pair<Container, Point> toMoveMouseTo) {
-    moveMouseIgnoringAnyError(toMoveMouseTo.first, toMoveMouseTo.second);
-    setMaximumProperty(internalFrame, action);
-  }
+    Pair<Container, Point> result = execute(new GuiQuery<Pair<Container, Point>>() {
+      @Override
+      @Nullable protected Pair<Container, Point> executeInEDT() {
+        checkCanMaximize(internalFrame);
+        return findMaximizeLocation(internalFrame);
 ```
 
 ### DataFlowIssue
@@ -613,18 +613,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
 ```
 
 ### DataFlowIssue
-Unboxing of `scrollInfo.second` may produce `NullPointerException`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
-#### Snippet
-```java
-    // For now, do it programmatically, faking the mouse movement and clicking
-    robot.moveMouse(scrollBar, checkNotNull(scrollInfo.first));
-    setValueProperty(scrollBar, scrollInfo.second);
-  }
-
-```
-
-### DataFlowIssue
 Unboxing of `scrollInfo.first` may produce `NullPointerException`
 in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
 #### Snippet
@@ -637,6 +625,78 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
 ```
 
 ### DataFlowIssue
+Unboxing of `scrollInfo.second` may produce `NullPointerException`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JScrollBarDriver.java`
+#### Snippet
+```java
+    // For now, do it programmatically, faking the mouse movement and clicking
+    robot.moveMouse(scrollBar, checkNotNull(scrollInfo.first));
+    setValueProperty(scrollBar, scrollInfo.second);
+  }
+
+```
+
+### DataFlowIssue
+Dereference of `locationAndAncestor` may produce `NullPointerException`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JToolBarDriver.java`
+#### Snippet
+```java
+    drag(toolBar, checkNotNull(floatInfo.first));
+    Pair<Window, Point> locationAndAncestor = floatInfo.second;
+    Point ancestorLocation = locationAndAncestor.second;
+    drop(checkNotNull(locationAndAncestor.first), new Point(x - ancestorLocation.x, y - ancestorLocation.y));
+    checkFloated(toolBar);
+```
+
+### DataFlowIssue
+Dereference of `ancestorLocation` may produce `NullPointerException`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JToolBarDriver.java`
+#### Snippet
+```java
+    Pair<Window, Point> locationAndAncestor = floatInfo.second;
+    Point ancestorLocation = locationAndAncestor.second;
+    drop(checkNotNull(locationAndAncestor.first), new Point(x - ancestorLocation.x, y - ancestorLocation.y));
+    checkFloated(toolBar);
+  }
+```
+
+### DataFlowIssue
+Dereference of `floatInfo.second` may produce `NullPointerException`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JToolBarDriver.java`
+#### Snippet
+```java
+  public void makeFloat(@Nonnull JToolBar toolBar) {
+    Pair<Point, Pair<Window, Point>> floatInfo = floatInfo(toolBar, location());
+    Point p = floatInfo.second.second; // ancestor location
+    doFloat(toolBar, p.x, p.y, floatInfo);
+  }
+```
+
+### DataFlowIssue
+Dereference of `p` may produce `NullPointerException`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JToolBarDriver.java`
+#### Snippet
+```java
+    Pair<Point, Pair<Window, Point>> floatInfo = floatInfo(toolBar, location());
+    Point p = floatInfo.second.second; // ancestor location
+    doFloat(toolBar, p.x, p.y, floatInfo);
+  }
+
+```
+
+### DataFlowIssue
+Method invocation `from` may produce `NullPointerException`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JToolBarDriver.java`
+#### Snippet
+```java
+    Pair<GenericRange<Point>, Container> unfloatInfo = unfloatInfo(toolBar, constraint, location());
+    GenericRange<Point> fromAndTo = unfloatInfo.first;
+    drag(toolBar, fromAndTo.from());
+    drop(checkNotNull(unfloatInfo.second), fromAndTo.to());
+    validateIsNotFloating(toolBar, constraint);
+```
+
+### DataFlowIssue
 Unboxing of `info.first` may produce `NullPointerException`
 in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
 #### Snippet
@@ -645,18 +705,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
     Triple<Boolean, Point, Integer> info = scrollToMatchingPathAndGetToggleInfo(tree, path, pathFinder(), location());
     if (!info.first) {
       return; // already collapsed
-    }
-```
-
-### DataFlowIssue
-Unboxing of `info.first` may produce `NullPointerException`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
-#### Snippet
-```java
-    Triple<Boolean, Point, Integer> info = scrollToRowAndGetToggleInfo(tree, row, location());
-    robot.waitForIdle();
-    if (info.first) {
-      return; // already expanded
     }
 ```
 
@@ -689,18 +737,6 @@ Unboxing of `info.first` may produce `NullPointerException`
 in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
 #### Snippet
 ```java
-    Pair<Boolean, Point> info = scrollToRow(tree, row, location(), singleSelectRequired);
-    Point p = checkNotNull(info.second);
-    if (info.first != select) {
-      robot.click(tree, p);
-    }
-```
-
-### DataFlowIssue
-Unboxing of `info.first` may produce `NullPointerException`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
-#### Snippet
-```java
   public void expandPath(@Nonnull JTree tree, @Nonnull String path) {
     Triple<Boolean, Point, Integer> info = scrollToMatchingPathAndGetToggleInfo(tree, path, pathFinder(), location());
     if (info.first) {
@@ -709,63 +745,27 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
 ```
 
 ### DataFlowIssue
-Method invocation `from` may produce `NullPointerException`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JToolBarDriver.java`
+Unboxing of `info.first` may produce `NullPointerException`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
 #### Snippet
 ```java
-    Pair<GenericRange<Point>, Container> unfloatInfo = unfloatInfo(toolBar, constraint, location());
-    GenericRange<Point> fromAndTo = unfloatInfo.first;
-    drag(toolBar, fromAndTo.from());
-    drop(checkNotNull(unfloatInfo.second), fromAndTo.to());
-    validateIsNotFloating(toolBar, constraint);
+    Triple<Boolean, Point, Integer> info = scrollToRowAndGetToggleInfo(tree, row, location());
+    robot.waitForIdle();
+    if (info.first) {
+      return; // already expanded
+    }
 ```
 
 ### DataFlowIssue
-Dereference of `floatInfo.second` may produce `NullPointerException`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JToolBarDriver.java`
+Unboxing of `info.first` may produce `NullPointerException`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JTreeDriver.java`
 #### Snippet
 ```java
-  public void makeFloat(@Nonnull JToolBar toolBar) {
-    Pair<Point, Pair<Window, Point>> floatInfo = floatInfo(toolBar, location());
-    Point p = floatInfo.second.second; // ancestor location
-    doFloat(toolBar, p.x, p.y, floatInfo);
-  }
-```
-
-### DataFlowIssue
-Dereference of `p` may produce `NullPointerException`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JToolBarDriver.java`
-#### Snippet
-```java
-    Pair<Point, Pair<Window, Point>> floatInfo = floatInfo(toolBar, location());
-    Point p = floatInfo.second.second; // ancestor location
-    doFloat(toolBar, p.x, p.y, floatInfo);
-  }
-
-```
-
-### DataFlowIssue
-Dereference of `locationAndAncestor` may produce `NullPointerException`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JToolBarDriver.java`
-#### Snippet
-```java
-    drag(toolBar, checkNotNull(floatInfo.first));
-    Pair<Window, Point> locationAndAncestor = floatInfo.second;
-    Point ancestorLocation = locationAndAncestor.second;
-    drop(checkNotNull(locationAndAncestor.first), new Point(x - ancestorLocation.x, y - ancestorLocation.y));
-    checkFloated(toolBar);
-```
-
-### DataFlowIssue
-Dereference of `ancestorLocation` may produce `NullPointerException`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JToolBarDriver.java`
-#### Snippet
-```java
-    Pair<Window, Point> locationAndAncestor = floatInfo.second;
-    Point ancestorLocation = locationAndAncestor.second;
-    drop(checkNotNull(locationAndAncestor.first), new Point(x - ancestorLocation.x, y - ancestorLocation.y));
-    checkFloated(toolBar);
-  }
+    Pair<Boolean, Point> info = scrollToRow(tree, row, location(), singleSelectRequired);
+    Point p = checkNotNull(info.second);
+    if (info.first != select) {
+      robot.click(tree, p);
+    }
 ```
 
 ### DataFlowIssue
@@ -778,90 +778,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableCheckBoxEditorCel
     if (editingInfo.first == realValue) {
       return; // JCheckBox already has value to set.
     }
-```
-
-### DataFlowIssue
-Dereference of `size` may produce `NullPointerException`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/ContainerDriver.java`
-#### Snippet
-```java
-    Pair<Dimension, Insets> resizeInfo = resizeInfo(c);
-    Dimension size = resizeInfo.first;
-    resizeBy(c, resizeInfo, width - size.width, 0);
-  }
-
-```
-
-### DataFlowIssue
-Dereference of `size` may produce `NullPointerException`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/ContainerDriver.java`
-#### Snippet
-```java
-    simulateResizeStarted(c, resizeInfo, x, y);
-    Dimension size = resizeInfo.first;
-    setComponentSize(c, size.width + x, size.height + y);
-    robot.waitForIdle();
-  }
-```
-
-### DataFlowIssue
-Dereference of `size` may produce `NullPointerException`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/ContainerDriver.java`
-#### Snippet
-```java
-    Pair<Dimension, Insets> resizeInfo = resizeInfo(c);
-    Dimension size = resizeInfo.first;
-    resizeBy(c, resizeInfo, 0, height - size.height);
-  }
-
-```
-
-### DataFlowIssue
-@Nullable method 'executeInEDT' always returns a non-null value
-in `assertj-swing/src/main/java/org/assertj/swing/driver/ContainerDriver.java`
-#### Snippet
-```java
-    Triple<Dimension, Insets, Point> result = execute(new GuiQuery<Triple<Dimension, Insets, Point>>() {
-      @Override
-      @Nullable protected Triple<Dimension, Insets, Point> executeInEDT() {
-        checkCanMove(c);
-        Point locationOnScreen = null;
-```
-
-### DataFlowIssue
-@Nullable method 'executeInEDT' always returns a non-null value
-in `assertj-swing/src/main/java/org/assertj/swing/driver/ContainerDriver.java`
-#### Snippet
-```java
-    Pair<Dimension, Insets> result = execute(new GuiQuery<Pair<Dimension, Insets>>() {
-      @Override
-      @Nullable protected Pair<Dimension, Insets> executeInEDT() {
-        checkCanResize(c);
-        return Pair.of(c.getSize(), c.getInsets());
-```
-
-### DataFlowIssue
-Dereference of `size` may produce `NullPointerException`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/ContainerDriver.java`
-#### Snippet
-```java
-    Pair<Dimension, Insets> resizeInfo = resizeInfo(c);
-    Dimension size = resizeInfo.first;
-    resizeBy(c, resizeInfo, width - size.width, height - size.height);
-  }
-
-```
-
-### DataFlowIssue
-Unboxing of `slideInfo.first` may produce `NullPointerException`
-in `assertj-swing/src/main/java/org/assertj/swing/driver/JSliderDriver.java`
-#### Snippet
-```java
-  @RunsInEDT
-  private void slide(@Nonnull JSlider slider, @Nonnull Pair<Integer, GenericRange<Point>> slideInfo) {
-    slide(slider, slideInfo.first, checkNotNull(slideInfo.second));
-  }
-
 ```
 
 ### DataFlowIssue
@@ -896,6 +812,90 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JTabbedPaneDriver.java`
       return;
     }
     setTabDirectly(tabbedPane, tabToSelectInfo.first);
+  }
+
+```
+
+### DataFlowIssue
+Unboxing of `slideInfo.first` may produce `NullPointerException`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/JSliderDriver.java`
+#### Snippet
+```java
+  @RunsInEDT
+  private void slide(@Nonnull JSlider slider, @Nonnull Pair<Integer, GenericRange<Point>> slideInfo) {
+    slide(slider, slideInfo.first, checkNotNull(slideInfo.second));
+  }
+
+```
+
+### DataFlowIssue
+@Nullable method 'executeInEDT' always returns a non-null value
+in `assertj-swing/src/main/java/org/assertj/swing/driver/ContainerDriver.java`
+#### Snippet
+```java
+    Triple<Dimension, Insets, Point> result = execute(new GuiQuery<Triple<Dimension, Insets, Point>>() {
+      @Override
+      @Nullable protected Triple<Dimension, Insets, Point> executeInEDT() {
+        checkCanMove(c);
+        Point locationOnScreen = null;
+```
+
+### DataFlowIssue
+Dereference of `size` may produce `NullPointerException`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/ContainerDriver.java`
+#### Snippet
+```java
+    Pair<Dimension, Insets> resizeInfo = resizeInfo(c);
+    Dimension size = resizeInfo.first;
+    resizeBy(c, resizeInfo, width - size.width, height - size.height);
+  }
+
+```
+
+### DataFlowIssue
+Dereference of `size` may produce `NullPointerException`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/ContainerDriver.java`
+#### Snippet
+```java
+    Pair<Dimension, Insets> resizeInfo = resizeInfo(c);
+    Dimension size = resizeInfo.first;
+    resizeBy(c, resizeInfo, 0, height - size.height);
+  }
+
+```
+
+### DataFlowIssue
+@Nullable method 'executeInEDT' always returns a non-null value
+in `assertj-swing/src/main/java/org/assertj/swing/driver/ContainerDriver.java`
+#### Snippet
+```java
+    Pair<Dimension, Insets> result = execute(new GuiQuery<Pair<Dimension, Insets>>() {
+      @Override
+      @Nullable protected Pair<Dimension, Insets> executeInEDT() {
+        checkCanResize(c);
+        return Pair.of(c.getSize(), c.getInsets());
+```
+
+### DataFlowIssue
+Dereference of `size` may produce `NullPointerException`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/ContainerDriver.java`
+#### Snippet
+```java
+    simulateResizeStarted(c, resizeInfo, x, y);
+    Dimension size = resizeInfo.first;
+    setComponentSize(c, size.width + x, size.height + y);
+    robot.waitForIdle();
+  }
+```
+
+### DataFlowIssue
+Dereference of `size` may produce `NullPointerException`
+in `assertj-swing/src/main/java/org/assertj/swing/driver/ContainerDriver.java`
+#### Snippet
+```java
+    Pair<Dimension, Insets> resizeInfo = resizeInfo(c);
+    Dimension size = resizeInfo.first;
+    resizeBy(c, resizeInfo, width - size.width, 0);
   }
 
 ```
@@ -1026,18 +1026,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/util/Arrays.java`
 ## RuleId[id=RedundantArrayCreation]
 ### RedundantArrayCreation
 Redundant array creation for calling varargs method
-in `assertj-swing-junit/src/main/java/org/assertj/swing/junit/ant/Tests.java`
-#### Snippet
-```java
-  private static Method methodInType(Class<?> type, String name) {
-    try {
-      return type.getMethod(name, new Class[0]);
-    } catch (Exception e) {
-      return null;
-```
-
-### RedundantArrayCreation
-Redundant array creation for calling varargs method
 in `assertj-swing-junit/src/main/java/org/assertj/swing/junit/ant/GUITestRecognizer.java`
 #### Snippet
 ```java
@@ -1046,6 +1034,18 @@ in `assertj-swing-junit/src/main/java/org/assertj/swing/junit/ant/GUITestRecogni
       Method testMethod = testClass.getDeclaredMethod(methodName, new Class<?>[0]);
       return GUITestFinder.isGUITest(testClass, testMethod);
     } catch (Exception e) {
+```
+
+### RedundantArrayCreation
+Redundant array creation for calling varargs method
+in `assertj-swing-junit/src/main/java/org/assertj/swing/junit/ant/Tests.java`
+#### Snippet
+```java
+  private static Method methodInType(Class<?> type, String name) {
+    try {
+      return type.getMethod(name, new Class[0]);
+    } catch (Exception e) {
+      return null;
 ```
 
 ## RuleId[id=FinalMethodInFinalClass]
@@ -1391,10 +1391,10 @@ in `assertj-swing/src/main/java/org/assertj/swing/monitor/WindowStatus.java`
 #### Snippet
 ```java
     try {
-      checkSafelyIfReady(w);
-    } catch (Exception ignored) {
-      // TODO We are getting InterruptedException in Xwnc
-      // http://groups.google.com/group/easytesting/browse_frm/thread/116cc070ab7b22e6
+      r = robotFactory.newRobotInLeftScreen();
+    } catch (AWTException ignored) {
+      logger.log(WARNING, "Error ocurred when creating a new Robot", ignored);
+    }
 ```
 
 ### CatchMayIgnoreException
@@ -1403,10 +1403,10 @@ in `assertj-swing/src/main/java/org/assertj/swing/monitor/WindowStatus.java`
 #### Snippet
 ```java
     try {
-      r = robotFactory.newRobotInLeftScreen();
-    } catch (AWTException ignored) {
-      logger.log(WARNING, "Error ocurred when creating a new Robot", ignored);
-    }
+      checkSafelyIfReady(w);
+    } catch (Exception ignored) {
+      // TODO We are getting InterruptedException in Xwnc
+      // http://groups.google.com/group/easytesting/browse_frm/thread/116cc070ab7b22e6
 ```
 
 ### CatchMayIgnoreException
@@ -1463,11 +1463,11 @@ Class member declared `protected` in 'final' class
 in `assertj-swing/src/main/java/org/assertj/swing/core/BasicComponentFinder.java`
 #### Snippet
 ```java
-   * @param settings the configuration settings to use. It can be {@code null}.
+   * @param hierarchy the component hierarchy to use.
    */
-  protected BasicComponentFinder(@Nonnull ComponentHierarchy hierarchy, @Nullable Settings settings) {
-    this.hierarchy = hierarchy;
-    this.settings = settings;
+  protected BasicComponentFinder(@Nonnull ComponentHierarchy hierarchy) {
+    this(hierarchy, null);
+  }
 ```
 
 ### ProtectedMemberInFinalClass
@@ -1475,11 +1475,11 @@ Class member declared `protected` in 'final' class
 in `assertj-swing/src/main/java/org/assertj/swing/core/BasicComponentFinder.java`
 #### Snippet
 ```java
-   * @param hierarchy the component hierarchy to use.
+   * @param settings the configuration settings to use. It can be {@code null}.
    */
-  protected BasicComponentFinder(@Nonnull ComponentHierarchy hierarchy) {
-    this(hierarchy, null);
-  }
+  protected BasicComponentFinder(@Nonnull ComponentHierarchy hierarchy, @Nullable Settings settings) {
+    this.hierarchy = hierarchy;
+    this.settings = settings;
 ```
 
 ## RuleId[id=Deprecation]
@@ -1498,18 +1498,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/format/JListFormatter.java`
 ## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `assertj-swing/src/main/java/org/assertj/swing/core/BasicComponentFinder.java`
-#### Snippet
-```java
-    StringBuilder message = new StringBuilder();
-    String format = "Found more than one component using matcher %s. %n%nFound:";
-    message.append(String.format(format, m.toString()));
-    appendComponents(message, found);
-    if (!found.isEmpty()) {
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
 in `assertj-swing/src/main/java/org/assertj/swing/lock/ScreenLock.java`
 #### Snippet
 ```java
@@ -1518,6 +1506,18 @@ in `assertj-swing/src/main/java/org/assertj/swing/lock/ScreenLock.java`
         throw new ScreenLockException(String.format("%s is not the lock owner", currentOwner.toString()));
       }
       acquired = false;
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `assertj-swing/src/main/java/org/assertj/swing/core/BasicComponentFinder.java`
+#### Snippet
+```java
+    StringBuilder message = new StringBuilder();
+    String format = "Found more than one component using matcher %s. %n%nFound:";
+    message.append(String.format(format, m.toString()));
+    appendComponents(message, found);
+    if (!found.isEmpty()) {
 ```
 
 ### UnnecessaryToStringCall
@@ -1940,18 +1940,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/driver/JTableDriver.java`
 ## RuleId[id=CharsetObjectCanBeUsed]
 ### CharsetObjectCanBeUsed
 StandardCharsets.UTF_8 can be used instead
-in `assertj-swing-junit/src/main/java/org/assertj/swing/junit/ant/ImageDecoder.java`
-#### Snippet
-```java
-  BufferedImage decodeBase64(String encoded) throws IOException {
-    ByteArrayInputStream in = null;
-    byte[] toDecode = encoded.getBytes(UTF_8);
-    in = new ByteArrayInputStream(Base64.decodeBase64(toDecode));
-    return ImageIO.read(in);
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
 in `assertj-swing-junit/src/main/java/org/assertj/swing/junit/ant/ImageEncoder.java`
 #### Snippet
 ```java
@@ -1960,6 +1948,18 @@ in `assertj-swing-junit/src/main/java/org/assertj/swing/junit/ant/ImageEncoder.j
       return new String(encoded, UTF_8);
     }
   }
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `assertj-swing-junit/src/main/java/org/assertj/swing/junit/ant/ImageDecoder.java`
+#### Snippet
+```java
+  BufferedImage decodeBase64(String encoded) throws IOException {
+    ByteArrayInputStream in = null;
+    byte[] toDecode = encoded.getBytes(UTF_8);
+    in = new ByteArrayInputStream(Base64.decodeBase64(toDecode));
+    return ImageIO.read(in);
 ```
 
 ## RuleId[id=MalformedFormatString]
@@ -2102,36 +2102,72 @@ in `assertj-swing/src/main/java/org/assertj/swing/core/Robot.java`
 
 ### JavadocDeclaration
 Javadoc pointing to itself
-in `assertj-swing/src/main/java/org/assertj/swing/core/matcher/JTextComponentMatcher.java`
+in `assertj-swing/src/main/java/org/assertj/swing/core/matcher/JButtonMatcher.java`
 #### Snippet
 ```java
    *
    * <pre>
-   * JTextComponentMatcher m = {@link #withText(Pattern) withText}(Pattern.compile("W.*"));
+   * JButtonMatcher m = {@link #withText(Pattern) withText}(Pattern.compile("O.*"));
    * </pre>
    *
 ```
 
 ### JavadocDeclaration
 Javadoc pointing to itself
-in `assertj-swing/src/main/java/org/assertj/swing/core/matcher/JLabelMatcher.java`
+in `assertj-swing/src/main/java/org/assertj/swing/core/matcher/JButtonMatcher.java`
 #### Snippet
 ```java
    *
    * <pre>
-   * JLabelMatcher m = {@link #withText(Pattern) withText}(Pattern.compile("F.*");
+   * JButtonMatcher m = {@link #withText(Pattern) withText}(Pattern.compile("O.*")).{@link #andShowing() andShowing}();
    * </pre>
    *
 ```
 
 ### JavadocDeclaration
 Javadoc pointing to itself
-in `assertj-swing/src/main/java/org/assertj/swing/core/matcher/JLabelMatcher.java`
+in `assertj-swing/src/main/java/org/assertj/swing/core/matcher/JButtonMatcher.java`
 #### Snippet
 ```java
    *
    * <pre>
-   * JLabelMatcher m = {@link #withText(Pattern) withText}(Pattern.compile("F.*").{@link #andShowing() andShowing}();
+   * JButtonMatcher m = {@link #withName(String) withName}("ok").{@link #andText(String) andText}("OK");
+   * </pre>
+   *
+```
+
+### JavadocDeclaration
+Javadoc pointing to itself
+in `assertj-swing/src/main/java/org/assertj/swing/core/matcher/JButtonMatcher.java`
+#### Snippet
+```java
+   *
+   * <pre>
+   * JButtonMatcher m = {@link #withName(String) withName}("ok").{@link #andText(String) andText}("OK").{@link #andShowing() andShowing}();
+   * </pre>
+   *
+```
+
+### JavadocDeclaration
+Javadoc pointing to itself
+in `assertj-swing/src/main/java/org/assertj/swing/core/matcher/JButtonMatcher.java`
+#### Snippet
+```java
+   *
+   * <pre>
+   * JButtonMatcher m = {@link #withText(String) withText}("OK");
+   * </pre>
+   *
+```
+
+### JavadocDeclaration
+Javadoc pointing to itself
+in `assertj-swing/src/main/java/org/assertj/swing/core/matcher/JButtonMatcher.java`
+#### Snippet
+```java
+   *
+   * <pre>
+   * JButtonMatcher m = {@link #withText(String) withText}("OK").{@link #andShowing() andShowing}();
    * </pre>
    *
 ```
@@ -2167,6 +2203,30 @@ in `assertj-swing/src/main/java/org/assertj/swing/core/matcher/JLabelMatcher.jav
 ```java
    *
    * <pre>
+   * JLabelMatcher m = {@link #withText(Pattern) withText}(Pattern.compile("F.*");
+   * </pre>
+   *
+```
+
+### JavadocDeclaration
+Javadoc pointing to itself
+in `assertj-swing/src/main/java/org/assertj/swing/core/matcher/JLabelMatcher.java`
+#### Snippet
+```java
+   *
+   * <pre>
+   * JLabelMatcher m = {@link #withText(Pattern) withText}(Pattern.compile("F.*").{@link #andShowing() andShowing}();
+   * </pre>
+   *
+```
+
+### JavadocDeclaration
+Javadoc pointing to itself
+in `assertj-swing/src/main/java/org/assertj/swing/core/matcher/JLabelMatcher.java`
+#### Snippet
+```java
+   *
+   * <pre>
    * JLabelMatcher m = {@link #withText(String) withText}("First Name:");
    * </pre>
    *
@@ -2180,138 +2240,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/core/matcher/JLabelMatcher.jav
    *
    * <pre>
    * JLabelMatcher m = {@link #withText(String) withText}("First Name:").{@link #andShowing() andShowing}();
-   * </pre>
-   *
-```
-
-### JavadocDeclaration
-Javadoc pointing to itself
-in `assertj-swing/src/main/java/org/assertj/swing/core/matcher/JTextComponentMatcher.java`
-#### Snippet
-```java
-   *
-   * <pre>
-   * JTextComponentMatcher m = {@link #withText(Pattern) withText}(Pattern.compile("W.*")).{@link #andShowing() andShowing}();
-   * </pre>
-   *
-```
-
-### JavadocDeclaration
-Javadoc pointing to itself
-in `assertj-swing/src/main/java/org/assertj/swing/core/matcher/JTextComponentMatcher.java`
-#### Snippet
-```java
-   *
-   * <pre>
-   * JTextComponentMatcher m = {@link #withName(String) withName}("lastName").{@link #andText(String) andText}("Wang");
-   * </pre>
-   *
-```
-
-### JavadocDeclaration
-Javadoc pointing to itself
-in `assertj-swing/src/main/java/org/assertj/swing/core/matcher/JTextComponentMatcher.java`
-#### Snippet
-```java
-   *
-   * <pre>
-   * JTextComponentMatcher m = {@link #withName(String) withName}("lastName").{@link #andText(String) andText}("Wang").{@link #andShowing() andShowing}();
-   * </pre>
-   *
-```
-
-### JavadocDeclaration
-Javadoc pointing to itself
-in `assertj-swing/src/main/java/org/assertj/swing/core/matcher/JTextComponentMatcher.java`
-#### Snippet
-```java
-   *
-   * <pre>
-   * JTextComponentMatcher m = {@link #withText(String) withText}("Wang");
-   * </pre>
-   *
-```
-
-### JavadocDeclaration
-Javadoc pointing to itself
-in `assertj-swing/src/main/java/org/assertj/swing/core/matcher/JTextComponentMatcher.java`
-#### Snippet
-```java
-   *
-   * <pre>
-   * JTextComponentMatcher m = {@link #withText(String) withText}("Wang").{@link #andShowing() andShowing}();
-   * </pre>
-   *
-```
-
-### JavadocDeclaration
-Javadoc pointing to itself
-in `assertj-swing/src/main/java/org/assertj/swing/core/matcher/JButtonMatcher.java`
-#### Snippet
-```java
-   *
-   * <pre>
-   * JButtonMatcher m = {@link #withText(Pattern) withText}(Pattern.compile("O.*"));
-   * </pre>
-   *
-```
-
-### JavadocDeclaration
-Javadoc pointing to itself
-in `assertj-swing/src/main/java/org/assertj/swing/core/matcher/JButtonMatcher.java`
-#### Snippet
-```java
-   *
-   * <pre>
-   * JButtonMatcher m = {@link #withText(Pattern) withText}(Pattern.compile("O.*")).{@link #andShowing() andShowing}();
-   * </pre>
-   *
-```
-
-### JavadocDeclaration
-Javadoc pointing to itself
-in `assertj-swing/src/main/java/org/assertj/swing/core/matcher/JButtonMatcher.java`
-#### Snippet
-```java
-   *
-   * <pre>
-   * JButtonMatcher m = {@link #withText(String) withText}("OK");
-   * </pre>
-   *
-```
-
-### JavadocDeclaration
-Javadoc pointing to itself
-in `assertj-swing/src/main/java/org/assertj/swing/core/matcher/JButtonMatcher.java`
-#### Snippet
-```java
-   *
-   * <pre>
-   * JButtonMatcher m = {@link #withText(String) withText}("OK").{@link #andShowing() andShowing}();
-   * </pre>
-   *
-```
-
-### JavadocDeclaration
-Javadoc pointing to itself
-in `assertj-swing/src/main/java/org/assertj/swing/core/matcher/JButtonMatcher.java`
-#### Snippet
-```java
-   *
-   * <pre>
-   * JButtonMatcher m = {@link #withName(String) withName}("ok").{@link #andText(String) andText}("OK");
-   * </pre>
-   *
-```
-
-### JavadocDeclaration
-Javadoc pointing to itself
-in `assertj-swing/src/main/java/org/assertj/swing/core/matcher/JButtonMatcher.java`
-#### Snippet
-```java
-   *
-   * <pre>
-   * JButtonMatcher m = {@link #withName(String) withName}("ok").{@link #andText(String) andText}("OK").{@link #andShowing() andShowing}();
    * </pre>
    *
 ```
@@ -2462,6 +2390,78 @@ in `assertj-swing/src/main/java/org/assertj/swing/core/matcher/DialogMatcher.jav
 
 ### JavadocDeclaration
 Javadoc pointing to itself
+in `assertj-swing/src/main/java/org/assertj/swing/core/matcher/JTextComponentMatcher.java`
+#### Snippet
+```java
+   *
+   * <pre>
+   * JTextComponentMatcher m = {@link #withText(String) withText}("Wang");
+   * </pre>
+   *
+```
+
+### JavadocDeclaration
+Javadoc pointing to itself
+in `assertj-swing/src/main/java/org/assertj/swing/core/matcher/JTextComponentMatcher.java`
+#### Snippet
+```java
+   *
+   * <pre>
+   * JTextComponentMatcher m = {@link #withText(String) withText}("Wang").{@link #andShowing() andShowing}();
+   * </pre>
+   *
+```
+
+### JavadocDeclaration
+Javadoc pointing to itself
+in `assertj-swing/src/main/java/org/assertj/swing/core/matcher/JTextComponentMatcher.java`
+#### Snippet
+```java
+   *
+   * <pre>
+   * JTextComponentMatcher m = {@link #withText(Pattern) withText}(Pattern.compile("W.*"));
+   * </pre>
+   *
+```
+
+### JavadocDeclaration
+Javadoc pointing to itself
+in `assertj-swing/src/main/java/org/assertj/swing/core/matcher/JTextComponentMatcher.java`
+#### Snippet
+```java
+   *
+   * <pre>
+   * JTextComponentMatcher m = {@link #withText(Pattern) withText}(Pattern.compile("W.*")).{@link #andShowing() andShowing}();
+   * </pre>
+   *
+```
+
+### JavadocDeclaration
+Javadoc pointing to itself
+in `assertj-swing/src/main/java/org/assertj/swing/core/matcher/JTextComponentMatcher.java`
+#### Snippet
+```java
+   *
+   * <pre>
+   * JTextComponentMatcher m = {@link #withName(String) withName}("lastName").{@link #andText(String) andText}("Wang");
+   * </pre>
+   *
+```
+
+### JavadocDeclaration
+Javadoc pointing to itself
+in `assertj-swing/src/main/java/org/assertj/swing/core/matcher/JTextComponentMatcher.java`
+#### Snippet
+```java
+   *
+   * <pre>
+   * JTextComponentMatcher m = {@link #withName(String) withName}("lastName").{@link #andText(String) andText}("Wang").{@link #andShowing() andShowing}();
+   * </pre>
+   *
+```
+
+### JavadocDeclaration
+Javadoc pointing to itself
 in `assertj-swing/src/main/java/org/assertj/swing/lock/ScreenLock.java`
 #### Snippet
 ```java
@@ -2522,18 +2522,6 @@ in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
 ```
 
 ### FieldMayBeFinal
-Field `inputState` may be 'final'
-in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
-#### Snippet
-```java
-  private static Toolkit toolkit = ToolkitProvider.instance().defaultToolkit();
-  private static WindowMonitor windowMonitor = WindowMonitor.instance();
-  private static InputState inputState = new InputState(toolkit);
-
-  private final ComponentHierarchy hierarchy;
-```
-
-### FieldMayBeFinal
 Field `toolkit` may be 'final'
 in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
 #### Snippet
@@ -2543,6 +2531,18 @@ in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
   private static Toolkit toolkit = ToolkitProvider.instance().defaultToolkit();
   private static WindowMonitor windowMonitor = WindowMonitor.instance();
   private static InputState inputState = new InputState(toolkit);
+```
+
+### FieldMayBeFinal
+Field `inputState` may be 'final'
+in `assertj-swing/src/main/java/org/assertj/swing/core/BasicRobot.java`
+#### Snippet
+```java
+  private static Toolkit toolkit = ToolkitProvider.instance().defaultToolkit();
+  private static WindowMonitor windowMonitor = WindowMonitor.instance();
+  private static InputState inputState = new InputState(toolkit);
+
+  private final ComponentHierarchy hierarchy;
 ```
 
 ### FieldMayBeFinal
@@ -2654,6 +2654,30 @@ in `assertj-swing-junit/src/main/java/org/assertj/swing/junit/ant/Tests.java`
 ```
 
 ### FieldMayBeFinal
+Field `imageDecoder` may be 'final'
+in `assertj-swing-junit/src/main/java/org/assertj/swing/junit/ant/ImageHandler.java`
+#### Snippet
+```java
+
+  private static ImageEncoder imageEncoder = new ImageEncoder();
+  private static ImageDecoder imageDecoder = new ImageDecoder();
+  private static ImageFileWriter imageFileWriter = new ImageFileWriter();
+
+```
+
+### FieldMayBeFinal
+Field `imageFileWriter` may be 'final'
+in `assertj-swing-junit/src/main/java/org/assertj/swing/junit/ant/ImageHandler.java`
+#### Snippet
+```java
+  private static ImageEncoder imageEncoder = new ImageEncoder();
+  private static ImageDecoder imageDecoder = new ImageDecoder();
+  private static ImageFileWriter imageFileWriter = new ImageFileWriter();
+
+  /**
+```
+
+### FieldMayBeFinal
 Field `logger` may be 'final'
 in `assertj-swing-junit/src/main/java/org/assertj/swing/junit/ant/ImageHandler.java`
 #### Snippet
@@ -2675,30 +2699,6 @@ in `assertj-swing-junit/src/main/java/org/assertj/swing/junit/ant/ImageHandler.j
   private static ImageEncoder imageEncoder = new ImageEncoder();
   private static ImageDecoder imageDecoder = new ImageDecoder();
   private static ImageFileWriter imageFileWriter = new ImageFileWriter();
-```
-
-### FieldMayBeFinal
-Field `imageFileWriter` may be 'final'
-in `assertj-swing-junit/src/main/java/org/assertj/swing/junit/ant/ImageHandler.java`
-#### Snippet
-```java
-  private static ImageEncoder imageEncoder = new ImageEncoder();
-  private static ImageDecoder imageDecoder = new ImageDecoder();
-  private static ImageFileWriter imageFileWriter = new ImageFileWriter();
-
-  /**
-```
-
-### FieldMayBeFinal
-Field `imageDecoder` may be 'final'
-in `assertj-swing-junit/src/main/java/org/assertj/swing/junit/ant/ImageHandler.java`
-#### Snippet
-```java
-
-  private static ImageEncoder imageEncoder = new ImageEncoder();
-  private static ImageDecoder imageDecoder = new ImageDecoder();
-  private static ImageFileWriter imageFileWriter = new ImageFileWriter();
-
 ```
 
 ### FieldMayBeFinal
