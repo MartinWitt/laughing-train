@@ -157,18 +157,6 @@ in `src/main/java/com/microsoft/dhalion/events/EventManager.java`
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'java.util.Map'
-in `src/main/java/com/microsoft/dhalion/conf/ConfigBuilder.java`
-#### Snippet
-```java
-    Map<String, Object> ret = loadFile(policyConfigFile);
-    getListOfStrings(ret.get(Key.POLICIES.value()))
-        .forEach(id -> policyConf.add(new PolicyConfig(id, (Map<String, Object>) ret.get(id))));
-    return this;
-  }
-```
-
-### UNCHECKED_WARNING
 Unchecked cast: 'java.lang.Object' to 'java.util.List'
 in `src/main/java/com/microsoft/dhalion/conf/ConfigBuilder.java`
 #### Snippet
@@ -178,6 +166,18 @@ in `src/main/java/com/microsoft/dhalion/conf/ConfigBuilder.java`
       return (List<String>) o;
     } else {
       throw new IllegalArgumentException("Failed to convert " + o + " to List<String>");
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `src/main/java/com/microsoft/dhalion/conf/ConfigBuilder.java`
+#### Snippet
+```java
+    Map<String, Object> ret = loadFile(policyConfigFile);
+    getListOfStrings(ret.get(Key.POLICIES.value()))
+        .forEach(id -> policyConf.add(new PolicyConfig(id, (Map<String, Object>) ret.get(id))));
+    return this;
+  }
 ```
 
 ### UNCHECKED_WARNING
@@ -232,18 +232,6 @@ in `src/main/java/com/microsoft/dhalion/detectors/ScarceMemoryDetector.java`
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `src/main/java/com/microsoft/dhalion/detectors/ExcessMemoryDetector.java`
-#### Snippet
-```java
-    super(policyConfig, CONFIG_KEY_PREFIX, SymptomName.EXCESS_MEMORY.text());
-    thresholdRatio = (double) policyConfig.getConfig(CONFIG_KEY_PREFIX + THRESHOLD_RATIO_CONFIG_KEY, 2.0);
-    LOG.info("Detector created: " + this.toString());
-  }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
 in `src/main/java/com/microsoft/dhalion/examples/UncommonUtilizationDiagnoser.java`
 #### Snippet
 ```java
@@ -264,6 +252,18 @@ in `src/main/java/com/microsoft/dhalion/examples/UncommonUtilizationDiagnoser.ja
       LOG.fine(String.format("Underutilized nodes found: %s", underUtilizedNodes.toString()));
       Diagnosis diagnosis = new Diagnosis(DIAGNOSIS_UNDER_UTILIZED_NODE, context.checkpoint(),
                                           underUtilizedNodes);
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/dhalion/detectors/ResourceAvailabilityDetector.java`
+#### Snippet
+```java
+    Symptom symptom = new Symptom(symptomType, now, assignments);
+    if (LOG.isLoggable(Level.FINE)) {
+      LOG.fine(String.format("Symptom (%s) created for %s", symptom, toString()));
+    }
+    return Collections.singletonList(symptom);
 ```
 
 ### UnnecessaryToStringCall
@@ -292,14 +292,14 @@ in `src/main/java/com/microsoft/dhalion/policy/PoliciesExecutor.java`
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `src/main/java/com/microsoft/dhalion/detectors/ResourceAvailabilityDetector.java`
+in `src/main/java/com/microsoft/dhalion/detectors/ExcessMemoryDetector.java`
 #### Snippet
 ```java
-    Symptom symptom = new Symptom(symptomType, now, assignments);
-    if (LOG.isLoggable(Level.FINE)) {
-      LOG.fine(String.format("Symptom (%s) created for %s", symptom, toString()));
-    }
-    return Collections.singletonList(symptom);
+    super(policyConfig, CONFIG_KEY_PREFIX, SymptomName.EXCESS_MEMORY.text());
+    thresholdRatio = (double) policyConfig.getConfig(CONFIG_KEY_PREFIX + THRESHOLD_RATIO_CONFIG_KEY, 2.0);
+    LOG.info("Detector created: " + this.toString());
+  }
+
 ```
 
 ### UnnecessaryToStringCall
@@ -341,75 +341,15 @@ import tech.tablesaw.api.IntColumn;
 
 ## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
-Field `text` may be 'final'
-in `src/main/java/com/microsoft/dhalion/detectors/SymptomName.java`
-#### Snippet
-```java
-  SCARCE_MEMORY(ScarceMemoryDetector.class.getSimpleName());
-
-  private String text;
-
-  SymptomName(String name) {
-```
-
-### FieldMayBeFinal
-Field `nodeStat` may be 'final'
-in `src/main/java/com/microsoft/dhalion/examples/CSVMetricsProvider.java`
-#### Snippet
-```java
-  private static final Logger LOG = Logger.getLogger(CSVMetricsProvider.class.getSimpleName());
-
-  private NodeStat nodeStat;
-  Config sysConf;
-
-```
-
-### FieldMayBeFinal
-Field `metricName` may be 'final'
-in `src/main/java/com/microsoft/dhalion/detectors/BelowThresholdDetector.java`
-#### Snippet
-```java
-
-  private final double lowThreshold;
-  private String metricName;
-  private double noCheckpoints;
-
-```
-
-### FieldMayBeFinal
-Field `noCheckpoints` may be 'final'
-in `src/main/java/com/microsoft/dhalion/detectors/BelowThresholdDetector.java`
-#### Snippet
-```java
-  private final double lowThreshold;
-  private String metricName;
-  private double noCheckpoints;
-
-  private static final Logger LOG = Logger.getLogger(BelowThresholdDetector.class.getSimpleName());
-```
-
-### FieldMayBeFinal
-Field `policy` may be 'final'
-in `src/main/java/com/microsoft/dhalion/policy/PoliciesExecutor.java`
-#### Snippet
-```java
-    private Instant checkpoint;
-    private Instant previousCheckpoint;
-    private IHealthPolicy policy;
-
-    private ExecutionContext(IHealthPolicy policy) {
-```
-
-### FieldMayBeFinal
-Field `type` may be 'final'
+Field `timeStamps` may be 'final'
 in `src/main/java/com/microsoft/dhalion/core/MeasurementsTable.java`
 #### Snippet
 ```java
-  private CategoryColumn component;
   private CategoryColumn instance;
   private CategoryColumn type;
   private LongColumn timeStamps;
   private DoubleColumn value;
+  private MeasurementsTable() {
 ```
 
 ### FieldMayBeFinal
@@ -437,15 +377,15 @@ in `src/main/java/com/microsoft/dhalion/core/MeasurementsTable.java`
 ```
 
 ### FieldMayBeFinal
-Field `timeStamps` may be 'final'
+Field `type` may be 'final'
 in `src/main/java/com/microsoft/dhalion/core/MeasurementsTable.java`
 #### Snippet
 ```java
+  private CategoryColumn component;
   private CategoryColumn instance;
   private CategoryColumn type;
   private LongColumn timeStamps;
   private DoubleColumn value;
-  private MeasurementsTable() {
 ```
 
 ### FieldMayBeFinal
@@ -462,6 +402,66 @@ in `src/main/java/com/microsoft/dhalion/core/MeasurementsTable.java`
 
 ### FieldMayBeFinal
 Field `text` may be 'final'
+in `src/main/java/com/microsoft/dhalion/detectors/SymptomName.java`
+#### Snippet
+```java
+  SCARCE_MEMORY(ScarceMemoryDetector.class.getSimpleName());
+
+  private String text;
+
+  SymptomName(String name) {
+```
+
+### FieldMayBeFinal
+Field `nodeStat` may be 'final'
+in `src/main/java/com/microsoft/dhalion/examples/CSVMetricsProvider.java`
+#### Snippet
+```java
+  private static final Logger LOG = Logger.getLogger(CSVMetricsProvider.class.getSimpleName());
+
+  private NodeStat nodeStat;
+  Config sysConf;
+
+```
+
+### FieldMayBeFinal
+Field `policy` may be 'final'
+in `src/main/java/com/microsoft/dhalion/policy/PoliciesExecutor.java`
+#### Snippet
+```java
+    private Instant checkpoint;
+    private Instant previousCheckpoint;
+    private IHealthPolicy policy;
+
+    private ExecutionContext(IHealthPolicy policy) {
+```
+
+### FieldMayBeFinal
+Field `noCheckpoints` may be 'final'
+in `src/main/java/com/microsoft/dhalion/detectors/BelowThresholdDetector.java`
+#### Snippet
+```java
+  private final double lowThreshold;
+  private String metricName;
+  private double noCheckpoints;
+
+  private static final Logger LOG = Logger.getLogger(BelowThresholdDetector.class.getSimpleName());
+```
+
+### FieldMayBeFinal
+Field `metricName` may be 'final'
+in `src/main/java/com/microsoft/dhalion/detectors/BelowThresholdDetector.java`
+#### Snippet
+```java
+
+  private final double lowThreshold;
+  private String metricName;
+  private double noCheckpoints;
+
+```
+
+### FieldMayBeFinal
+Field `text` may be 'final'
 in `src/main/java/com/microsoft/dhalion/examples/MetricName.java`
 #### Snippet
 ```java
@@ -470,18 +470,6 @@ in `src/main/java/com/microsoft/dhalion/examples/MetricName.java`
   private String text;
 
   MetricName(String name) {
-```
-
-### FieldMayBeFinal
-Field `metricName` may be 'final'
-in `src/main/java/com/microsoft/dhalion/detectors/AboveThresholdDetector.java`
-#### Snippet
-```java
-
-  private final double highThreshold;
-  private String metricName;
-  private double noCheckpoints;
-
 ```
 
 ### FieldMayBeFinal
@@ -497,6 +485,18 @@ in `src/main/java/com/microsoft/dhalion/detectors/AboveThresholdDetector.java`
 ```
 
 ### FieldMayBeFinal
+Field `metricName` may be 'final'
+in `src/main/java/com/microsoft/dhalion/detectors/AboveThresholdDetector.java`
+#### Snippet
+```java
+
+  private final double highThreshold;
+  private String metricName;
+  private double noCheckpoints;
+
+```
+
+### FieldMayBeFinal
 Field `healthPolicies` may be 'final'
 in `src/main/java/com/microsoft/dhalion/HealthManager.java`
 #### Snippet
@@ -506,18 +506,6 @@ in `src/main/java/com/microsoft/dhalion/HealthManager.java`
   private List<IHealthPolicy> healthPolicies = new ArrayList<>();
   private final MetricsProvider metricsProvider;
 
-```
-
-### FieldMayBeFinal
-Field `text` may be 'final'
-in `src/main/java/com/microsoft/dhalion/HealthManager.java`
-#### Snippet
-```java
-    CONFIG_DIR("config_dir");
-
-    private String text;
-
-    CliArgs(String name) {
 ```
 
 ### FieldMayBeFinal
@@ -532,17 +520,16 @@ in `src/main/java/com/microsoft/dhalion/HealthManager.java`
   private final MetricsProvider metricsProvider;
 ```
 
-## RuleId[id=ConstantValue]
-### ConstantValue
-Condition `matcher != null` is always `true`
-in `src/main/java/com/microsoft/dhalion/examples/AlertPolicy.java`
+### FieldMayBeFinal
+Field `text` may be 'final'
+in `src/main/java/com/microsoft/dhalion/HealthManager.java`
 #### Snippet
 ```java
+    CONFIG_DIR("config_dir");
 
-    Matcher matcher = getDataMatcher("2018-01-08T01:34:36.934Z").get();
-    if (matcher != null) {
-      currentCheckPoint = getTimestamp(matcher).get();
-    }
+    private String text;
+
+    CliArgs(String name) {
 ```
 
 ## RuleId[id=OptionalGetWithoutIsPresent]
@@ -592,6 +579,19 @@ in `src/main/java/com/microsoft/dhalion/examples/NodeStat.java`
     if (matcher.group(metric) != null && getTimestamp(matcher).get().equals(instant)) {
       switch (metric) {
         case MEMORY_UTILIZATION:
+```
+
+## RuleId[id=ConstantValue]
+### ConstantValue
+Condition `matcher != null` is always `true`
+in `src/main/java/com/microsoft/dhalion/examples/AlertPolicy.java`
+#### Snippet
+```java
+
+    Matcher matcher = getDataMatcher("2018-01-08T01:34:36.934Z").get();
+    if (matcher != null) {
+      currentCheckPoint = getTimestamp(matcher).get();
+    }
 ```
 
 ## RuleId[id=RegExpRedundantEscape]
