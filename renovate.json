@@ -1,12 +1,19 @@
 {
   "extends": [
-    "config:base"
+    "config:base",
+    "helpers:pinGitHubActionDigests"
   ],
-   "semanticCommitType": ":arrow_up:",
-   "semanticCommits": true,
-   "packageRules": [
+  "semanticCommitType": "deps: :arrow_up:",
+  "semanticCommits": true,
+  "packageRules": [
     {
-      "matchUpdateTypes": ["minor", "patch", "pin", "digest","fix"],
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "pin",
+        "digest",
+        "fix"
+      ],
       "automerge": true,
       "semanticCommitType": ":arrow_up:"
     },
@@ -15,20 +22,20 @@
         "lockFileMaintenance",
         "pin"
       ],
-      "semanticCommitType": ":pushpin:"
+      "semanticCommitType": "pin: :pushpin:"
     },
     {
       "updateTypes": [
         "rollback"
       ],
-      "semanticCommitType": ":arrow_down:"
+      "semanticCommitType": "deps: :arrow_down:"
     },
     {
       "updateTypes": [
         "digest",
         "bump"
       ],
-      "semanticCommitType": ":bookmark:"
+      "semanticCommitType": "deps: :bookmark:"
     }
   ]
 }
