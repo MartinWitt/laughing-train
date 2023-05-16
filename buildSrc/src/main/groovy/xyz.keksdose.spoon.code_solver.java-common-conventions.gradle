@@ -86,6 +86,6 @@ jar {
 		dependsOn("jandex")
 }
 group 'io.github.martinwitt'
-/*x-release-please-version*/ 
+// x-release-please-start-version
 version '0.0.5'
-/*x-release-please-end*/
+// x-release-please-end
