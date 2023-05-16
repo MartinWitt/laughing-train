@@ -2,5 +2,3 @@ plugins {
 	id "xyz.keksdose.spoon.code_solver.java-library-conventions"
 	id "java"
 }
-dependencies {
-}

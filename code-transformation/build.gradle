@@ -3,7 +3,6 @@ plugins {
 	id 'application'
 	id 'xyz.keksdose.spoon.code_solver.java-common-conventions'
 }
-version = "0.0.5"
 
 jar {
 	manifest {
