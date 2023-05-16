@@ -85,3 +85,5 @@ compileTestJava {
 jar {
 		dependsOn("jandex")
 }
+group 'io.github.martinwitt'
+version /*x-release-please-version*/ '0.0.1' /*x-release-please-version*/

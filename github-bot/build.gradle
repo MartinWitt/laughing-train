@@ -29,8 +29,6 @@ dependencies {
 	implementation("io.quarkus:quarkus-opentelemetry")
 }
 
-group 'io.github.martinwitt'
-version '0.0.1'
 
 quarkusDependenciesBuild {
 	dependsOn("jandex")
