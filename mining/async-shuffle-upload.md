@@ -21,6 +21,18 @@ I found 113 bad smells with 2 repairable:
 | FieldCanBeLocal | 1 | false |
 ## RuleId[id=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'customUploadExecutorService'
+in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/ShuffleClients.java`
+#### Snippet
+```java
+
+    private static ExecutorService resolveUploadExecutor(
+            Optional<ExecutorService> customUploadExecutorService,
+            BaseHadoopShuffleClientConfiguration baseConfig) {
+        return customUploadExecutorService.orElseGet(
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'customDownloadExecutorService'
 in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/ShuffleClients.java`
 #### Snippet
@@ -66,42 +78,6 @@ in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/
             Optional<ScheduledExecutorService> customUploadCoordinatorExecutorService,
             S3AsyncShuffleMetrics metrics) {
         BaseHadoopShuffleClientConfiguration baseConfig = BaseHadoopShuffleClientConfiguration.of(sparkConf);
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'customUploadExecutorService'
-in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/ShuffleClients.java`
-#### Snippet
-```java
-
-    private static ExecutorService resolveUploadExecutor(
-            Optional<ExecutorService> customUploadExecutorService,
-            BaseHadoopShuffleClientConfiguration baseConfig) {
-        return customUploadExecutorService.orElseGet(
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'dataSizedInput'
-in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/basic/HadoopShuffleClient.java`
-#### Snippet
-```java
-
-    private Optional<ShuffleUploadTaskMetrics> doWriteFilesAndClose(
-            Optional<SizedInput> dataSizedInput,
-            SizedInput indexSizedInput,
-            int shuffleId,
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'dataSizedInput'
-in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/basic/HadoopShuffleClient.java`
-#### Snippet
-```java
-
-    private void doSubmitUpload(
-            Optional<SizedInput> dataSizedInput,
-            SizedInput indexSizedInput,
-            int shuffleId,
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -165,18 +141,6 @@ in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'customUploadCoordinatorExecutorService'
-in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/io/S3AsyncShuffleExecutorComponents.java`
-#### Snippet
-```java
-    private final Optional<ExecutorService> customUploadExecutorService;
-    private final Optional<ExecutorService> customDownloadExecutorService;
-    private final Optional<ScheduledExecutorService> customUploadCoordinatorExecutorService;
-    private final Supplier<SparkEnv> sparkEnvSupplier;
-    private final Supplier<ShuffleFileLocator> shuffleFileLocatorSupplier;
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'customUploadExecutorService'
 in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/io/S3AsyncShuffleExecutorComponents.java`
 #### Snippet
@@ -186,18 +150,6 @@ in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/
     private final Optional<ExecutorService> customUploadExecutorService;
     private final Optional<ExecutorService> customDownloadExecutorService;
     private final Optional<ScheduledExecutorService> customUploadCoordinatorExecutorService;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'maybeReadSupport'
-in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/io/S3AsyncShuffleExecutorComponents.java`
-#### Snippet
-```java
-
-    // Read support is split off primarily to reduce the number of lines in the class.
-    private Optional<S3AsyncShuffleReadSupport> maybeReadSupport;
-
-    public S3AsyncShuffleExecutorComponents(
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -213,15 +165,27 @@ in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'customClock'
+`Optional` used as type for field 'customUploadCoordinatorExecutorService'
 in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/io/S3AsyncShuffleExecutorComponents.java`
 #### Snippet
 ```java
-    private final ExecutorService enqueuerExecutorService;
-    private final ScheduledExecutorService timeoutExecutorService;
-    private final Optional<Clock> customClock;
     private final Optional<ExecutorService> customUploadExecutorService;
     private final Optional<ExecutorService> customDownloadExecutorService;
+    private final Optional<ScheduledExecutorService> customUploadCoordinatorExecutorService;
+    private final Supplier<SparkEnv> sparkEnvSupplier;
+    private final Supplier<ShuffleFileLocator> shuffleFileLocatorSupplier;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'maybeReadSupport'
+in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/io/S3AsyncShuffleExecutorComponents.java`
+#### Snippet
+```java
+
+    // Read support is split off primarily to reduce the number of lines in the class.
+    private Optional<S3AsyncShuffleReadSupport> maybeReadSupport;
+
+    public S3AsyncShuffleExecutorComponents(
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -234,6 +198,42 @@ in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/
     private Optional<ShuffleClient> maybeClient;
     private boolean shouldCompressShuffle;
 
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'customClock'
+in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/io/S3AsyncShuffleExecutorComponents.java`
+#### Snippet
+```java
+    private final ExecutorService enqueuerExecutorService;
+    private final ScheduledExecutorService timeoutExecutorService;
+    private final Optional<Clock> customClock;
+    private final Optional<ExecutorService> customUploadExecutorService;
+    private final Optional<ExecutorService> customDownloadExecutorService;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'dataSizedInput'
+in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/basic/HadoopShuffleClient.java`
+#### Snippet
+```java
+
+    private Optional<ShuffleUploadTaskMetrics> doWriteFilesAndClose(
+            Optional<SizedInput> dataSizedInput,
+            SizedInput indexSizedInput,
+            int shuffleId,
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'dataSizedInput'
+in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/basic/HadoopShuffleClient.java`
+#### Snippet
+```java
+
+    private void doSubmitUpload(
+            Optional<SizedInput> dataSizedInput,
+            SizedInput indexSizedInput,
+            int shuffleId,
 ```
 
 ## RuleId[id=JavadocReference]
@@ -313,13 +313,13 @@ in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/
 ```
 
 ### PlaceholderCountMatchesArgumentCount
-More arguments provided (5) than placeholders specified (0)
-in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/metrics/slf4j/Slf4jBasicShuffleClientMetrics.java`
+More arguments provided (6) than placeholders specified (0)
+in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/metrics/slf4j/Slf4jMergingShuffleClientMetrics.java`
 #### Snippet
 ```java
     @Override
-    public void markDownloadStarted(int shuffleId, int mapId, int reduceId, long attemptId) {
-        LOGGER.info("Started downloading shuffle block from remote storage.",
+    public void markDownloadStarted(int shuffleId, int mapId, long attemptId, long mergeId, String type) {
+        LOGGER.info("Started download of merged shuffle file.",
                 sparkAppNameArg,
                 Args.shuffleIdArg(shuffleId),
 ```
@@ -332,42 +332,6 @@ in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/
     @Override
     public void markUploadStarted(int shuffleId, long mergeId, String type) {
         LOGGER.info("Started merged shuffle file upload.",
-                sparkAppNameArg,
-                Args.shuffleIdArg(shuffleId),
-```
-
-### PlaceholderCountMatchesArgumentCount
-More arguments provided (5) than placeholders specified (0)
-in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/metrics/slf4j/Slf4jBasicShuffleClientMetrics.java`
-#### Snippet
-```java
-    @Override
-    public void markUploadFailed(int shuffleId, int mapId, long attemptId, long numRunningOrPendingUploads) {
-        LOGGER.info("Failed to upload shuffle file.",
-                sparkAppNameArg,
-                Args.shuffleIdArg(shuffleId),
-```
-
-### PlaceholderCountMatchesArgumentCount
-More arguments provided (4) than placeholders specified (0)
-in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/metrics/slf4j/Slf4jBasicShuffleClientMetrics.java`
-#### Snippet
-```java
-    @Override
-    public void markUploadStarted(int shuffleId, int mapId, long attemptId) {
-        LOGGER.info("Beginning to upload shuffle file.",
-                sparkAppNameArg,
-                Args.shuffleIdArg(shuffleId),
-```
-
-### PlaceholderCountMatchesArgumentCount
-More arguments provided (5) than placeholders specified (0)
-in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/metrics/slf4j/Slf4jBasicShuffleClientMetrics.java`
-#### Snippet
-```java
-            long attemptId,
-            long requestSubmissionLatencyMillis) {
-        LOGGER.info("Requested to upload map output file was submitted to the thread pool.",
                 sparkAppNameArg,
                 Args.shuffleIdArg(shuffleId),
 ```
@@ -390,20 +354,44 @@ in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/
 #### Snippet
 ```java
     @Override
-    public void markDownloadStarted(int shuffleId, int mapId, long attemptId, long mergeId, String type) {
-        LOGGER.info("Started download of merged shuffle file.",
+    public void markDownloadRequested(int shuffleId, int mapId, long attemptId, long mergeId, String type) {
+        LOGGER.info("Requested download of merged shuffle file.",
                 sparkAppNameArg,
                 Args.shuffleIdArg(shuffleId),
 ```
 
 ### PlaceholderCountMatchesArgumentCount
-More arguments provided (5) than placeholders specified (0)
-in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/metrics/slf4j/Slf4jBasicShuffleClientMetrics.java`
+More arguments provided (7) than placeholders specified (0)
+in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/metrics/slf4j/Slf4jMergingShuffleClientMetrics.java`
+#### Snippet
+```java
+    public void markUploadCompleted(
+            int shuffleId, long mergeId, String type, long batchSizeBytes, long durationMillis, long latencyMillis) {
+        LOGGER.info("Successfully uploaded merged shuffle file.",
+                sparkAppNameArg,
+                Args.shuffleIdArg(shuffleId),
+```
+
+### PlaceholderCountMatchesArgumentCount
+More arguments provided (4) than placeholders specified (0)
+in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/metrics/slf4j/Slf4jMergingShuffleClientMetrics.java`
 #### Snippet
 ```java
     @Override
-    public void markUploadRequested(int shuffleId, int mapId, long attemptId, long numRunningOrPendingUploads) {
-        LOGGER.info("Requested to upload map output file.",
+    public void markUploadFailed(int shuffleId, long mergeId, String type) {
+        LOGGER.info("Failed to upload merged shuffle file.",
+                sparkAppNameArg,
+                Args.shuffleIdArg(shuffleId),
+```
+
+### PlaceholderCountMatchesArgumentCount
+More arguments provided (7) than placeholders specified (0)
+in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/metrics/slf4j/Slf4jMergingShuffleClientMetrics.java`
+#### Snippet
+```java
+    public void markDownloadCompleted(
+            int shuffleId, int mapId, long attemptId, long mergeId, String type, long durationMillis) {
+        LOGGER.info("Finished download of merged shuffle file.",
                 sparkAppNameArg,
                 Args.shuffleIdArg(shuffleId),
 ```
@@ -433,51 +421,75 @@ in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/
 ```
 
 ### PlaceholderCountMatchesArgumentCount
-More arguments provided (6) than placeholders specified (0)
-in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/metrics/slf4j/Slf4jMergingShuffleClientMetrics.java`
+More arguments provided (5) than placeholders specified (0)
+in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/metrics/slf4j/Slf4jBasicShuffleClientMetrics.java`
 #### Snippet
 ```java
     @Override
-    public void markDownloadRequested(int shuffleId, int mapId, long attemptId, long mergeId, String type) {
-        LOGGER.info("Requested download of merged shuffle file.",
+    public void markUploadRequested(int shuffleId, int mapId, long attemptId, long numRunningOrPendingUploads) {
+        LOGGER.info("Requested to upload map output file.",
+                sparkAppNameArg,
+                Args.shuffleIdArg(shuffleId),
+```
+
+### PlaceholderCountMatchesArgumentCount
+More arguments provided (5) than placeholders specified (0)
+in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/metrics/slf4j/Slf4jBasicShuffleClientMetrics.java`
+#### Snippet
+```java
+            long attemptId,
+            long requestSubmissionLatencyMillis) {
+        LOGGER.info("Requested to upload map output file was submitted to the thread pool.",
+                sparkAppNameArg,
+                Args.shuffleIdArg(shuffleId),
+```
+
+### PlaceholderCountMatchesArgumentCount
+More arguments provided (5) than placeholders specified (0)
+in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/metrics/slf4j/Slf4jBasicShuffleClientMetrics.java`
+#### Snippet
+```java
+    @Override
+    public void markUploadFailed(int shuffleId, int mapId, long attemptId, long numRunningOrPendingUploads) {
+        LOGGER.info("Failed to upload shuffle file.",
+                sparkAppNameArg,
+                Args.shuffleIdArg(shuffleId),
+```
+
+### PlaceholderCountMatchesArgumentCount
+More arguments provided (5) than placeholders specified (0)
+in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/metrics/slf4j/Slf4jBasicShuffleClientMetrics.java`
+#### Snippet
+```java
+    @Override
+    public void markDownloadStarted(int shuffleId, int mapId, int reduceId, long attemptId) {
+        LOGGER.info("Started downloading shuffle block from remote storage.",
                 sparkAppNameArg,
                 Args.shuffleIdArg(shuffleId),
 ```
 
 ### PlaceholderCountMatchesArgumentCount
 More arguments provided (4) than placeholders specified (0)
-in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/metrics/slf4j/Slf4jMergingShuffleClientMetrics.java`
+in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/metrics/slf4j/Slf4jBasicShuffleClientMetrics.java`
 #### Snippet
 ```java
     @Override
-    public void markUploadFailed(int shuffleId, long mergeId, String type) {
-        LOGGER.info("Failed to upload merged shuffle file.",
+    public void markUploadStarted(int shuffleId, int mapId, long attemptId) {
+        LOGGER.info("Beginning to upload shuffle file.",
                 sparkAppNameArg,
                 Args.shuffleIdArg(shuffleId),
 ```
 
 ### PlaceholderCountMatchesArgumentCount
-More arguments provided (7) than placeholders specified (0)
-in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/metrics/slf4j/Slf4jMergingShuffleClientMetrics.java`
+More arguments provided (1) than placeholders specified (0)
+in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/ShuffleClients.java`
 #### Snippet
 ```java
-    public void markUploadCompleted(
-            int shuffleId, long mergeId, String type, long batchSizeBytes, long durationMillis, long latencyMillis) {
-        LOGGER.info("Successfully uploaded merged shuffle file.",
-                sparkAppNameArg,
-                Args.shuffleIdArg(shuffleId),
-```
-
-### PlaceholderCountMatchesArgumentCount
-More arguments provided (7) than placeholders specified (0)
-in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/metrics/slf4j/Slf4jMergingShuffleClientMetrics.java`
-#### Snippet
-```java
-    public void markDownloadCompleted(
-            int shuffleId, int mapId, long attemptId, long mergeId, String type, long durationMillis) {
-        LOGGER.info("Finished download of merged shuffle file.",
-                sparkAppNameArg,
-                Args.shuffleIdArg(shuffleId),
+        }
+        return baseConfig.baseUri().map(baseUri -> {
+            LOGGER.info("Setting up shuffle hadoop client.", UnsafeArg.of("baseUri", baseUri));
+            ExecutorService resolvedUploadExecutor = resolveUploadExecutor(customUploadExecutorService, baseConfig);
+            ExecutorService resolvedDownloadExecutor =
 ```
 
 ### PlaceholderCountMatchesArgumentCount
@@ -498,8 +510,8 @@ in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/
 #### Snippet
 ```java
     @Override
-    public void markFetchFromExecutorFailed(int shuffleId, int mapId, int reduceId, long attemptId) {
-        LOGGER.info("Failed to fetch shuffle blocks from other executors in the application.",
+    public void markFetchFromRemoteFailed(int shuffleId, int mapId, int reduceId, long attemptId) {
+        LOGGER.info("Failed to fetch shuffle blocks from remote storage.",
                 sparkAppNameArg,
                 Args.shuffleIdArg(shuffleId),
 ```
@@ -510,8 +522,8 @@ in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/
 #### Snippet
 ```java
     @Override
-    public void markFetchFromRemoteFailed(int shuffleId, int mapId, int reduceId, long attemptId) {
-        LOGGER.info("Failed to fetch shuffle blocks from remote storage.",
+    public void markFetchFromExecutorFailed(int shuffleId, int mapId, int reduceId, long attemptId) {
+        LOGGER.info("Failed to fetch shuffle blocks from other executors in the application.",
                 sparkAppNameArg,
                 Args.shuffleIdArg(shuffleId),
 ```
@@ -527,18 +539,6 @@ in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/
                             + " accidentally downloaded the same data.",
                             SafeArg.of("mapOutputFilePath", outputFile.getAbsolutePath()),
                             e);
-```
-
-### PlaceholderCountMatchesArgumentCount
-More arguments provided (1) than placeholders specified (0)
-in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/ShuffleClients.java`
-#### Snippet
-```java
-        }
-        return baseConfig.baseUri().map(baseUri -> {
-            LOGGER.info("Setting up shuffle hadoop client.", UnsafeArg.of("baseUri", baseUri));
-            ExecutorService resolvedUploadExecutor = resolveUploadExecutor(customUploadExecutorService, baseConfig);
-            ExecutorService resolvedDownloadExecutor =
 ```
 
 ### PlaceholderCountMatchesArgumentCount
@@ -578,79 +578,6 @@ in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/
 ```
 
 ### PlaceholderCountMatchesArgumentCount
-More arguments provided (4) than placeholders specified (0)
-in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/basic/HadoopShuffleClient.java`
-#### Snippet
-```java
-            if (!shuffleDriverEndpointRef.isShuffleRegistered(shuffleId)) {
-                LOGGER.info(
-                        "Shuffle is no longer active; skipping file upload",
-                        SafeArg.of("appId", appId),
-                        SafeArg.of("shuffleId", shuffleId),
-```
-
-### PlaceholderCountMatchesArgumentCount
-More arguments provided (4) than placeholders specified (0)
-in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/basic/HadoopShuffleClient.java`
-#### Snippet
-```java
-            }
-        } catch (RuntimeException e) {
-            LOGGER.error("Exception encountered while checking for existence of shuffle.",
-                    SafeArg.of("appId", appId),
-                    SafeArg.of("shuffleId", shuffleId),
-```
-
-### PlaceholderCountMatchesArgumentCount
-More arguments provided (4) than placeholders specified (0)
-in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/basic/HadoopShuffleClient.java`
-#### Snippet
-```java
-        } catch (IOException e) {
-            LOGGER.error(
-                    "Exception encountered while uploading data file.",
-                    SafeArg.of("appId", appId),
-                    SafeArg.of("shuffleId", shuffleId),
-```
-
-### PlaceholderCountMatchesArgumentCount
-More arguments provided (1) than placeholders specified (0)
-in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/basic/HadoopShuffleClient.java`
-#### Snippet
-```java
-            fileSystem.delete(new Path(baseUri.toString(), String.format("%s/%s", DATA_PREFIX, appId)), true);
-        } catch (IOException e) {
-            LOGGER.error("Encountered error deleting application data",
-                    SafeArg.of("appId", appId),
-                    e);
-```
-
-### PlaceholderCountMatchesArgumentCount
-More arguments provided (4) than placeholders specified (0)
-in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/io/S3AsyncShuffleExecutorComponents.java`
-#### Snippet
-```java
-    public ShuffleMapOutputWriter createMapOutputWriter(
-            int shuffleId, int mapId, long mapTaskAttemptId, int numPartitions) throws IOException {
-        LOG.debug("Created MapOutputWriter for shuffle partition with numPartitions",
-                SafeArg.of("shuffleId", shuffleId),
-                SafeArg.of("mapId", mapId),
-```
-
-### PlaceholderCountMatchesArgumentCount
-More arguments provided (2) than placeholders specified (0)
-in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/io/S3AsyncShuffleExecutorComponents.java`
-#### Snippet
-```java
-                    .newInstance();
-        } catch (Exception e) {
-            LOG.error("Failed to load async shuffle plugin's metrics factory specified by the Spark configuration."
-                            + " Falling back to SLF4J-logging based implementation.",
-                    SafeArg.of("confKey", SparkShuffleApiConstants.METRICS_FACTORY_CLASS_CONF),
-                    SafeArg.of("metricsFactoryClass", factoryClassName),
-```
-
-### PlaceholderCountMatchesArgumentCount
 More arguments provided (1) than placeholders specified (0)
 in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/metrics/slf4j/Slf4jS3AsyncShuffleMetrics.java`
 #### Snippet
@@ -660,18 +587,6 @@ in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/
         LOGGER.info("Using the async shuffle upload plugin.", Args.sparkAppNameArg(sparkAppName));
     }
 
-```
-
-### PlaceholderCountMatchesArgumentCount
-More arguments provided (1) than placeholders specified (0)
-in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/BaseHadoopShuffleClientConfiguration.java`
-#### Snippet
-```java
-            return SparkShuffleAwsCredentials.fromBytes(Files.readAllBytes(Paths.get(credentialsFilename.get())));
-        } catch (FileNotFoundException e) {
-            LOGGER.error("Expected aws credentials file to be there",
-                    SafeArg.of("credentialsFile", credentialsFilename.get()),
-                    e);
 ```
 
 ### PlaceholderCountMatchesArgumentCount
@@ -697,6 +612,91 @@ in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/
             LOGGER.debug("Finished uploading batch of map task files.",
                     SafeArg.of("appId", appId),
                     SafeArg.of("uploadedMapOutputs", Arrays.asList(batch.mapOutputIds())),
+```
+
+### PlaceholderCountMatchesArgumentCount
+More arguments provided (2) than placeholders specified (0)
+in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/io/S3AsyncShuffleExecutorComponents.java`
+#### Snippet
+```java
+                    .newInstance();
+        } catch (Exception e) {
+            LOG.error("Failed to load async shuffle plugin's metrics factory specified by the Spark configuration."
+                            + " Falling back to SLF4J-logging based implementation.",
+                    SafeArg.of("confKey", SparkShuffleApiConstants.METRICS_FACTORY_CLASS_CONF),
+                    SafeArg.of("metricsFactoryClass", factoryClassName),
+```
+
+### PlaceholderCountMatchesArgumentCount
+More arguments provided (4) than placeholders specified (0)
+in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/io/S3AsyncShuffleExecutorComponents.java`
+#### Snippet
+```java
+    public ShuffleMapOutputWriter createMapOutputWriter(
+            int shuffleId, int mapId, long mapTaskAttemptId, int numPartitions) throws IOException {
+        LOG.debug("Created MapOutputWriter for shuffle partition with numPartitions",
+                SafeArg.of("shuffleId", shuffleId),
+                SafeArg.of("mapId", mapId),
+```
+
+### PlaceholderCountMatchesArgumentCount
+More arguments provided (1) than placeholders specified (0)
+in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/BaseHadoopShuffleClientConfiguration.java`
+#### Snippet
+```java
+            return SparkShuffleAwsCredentials.fromBytes(Files.readAllBytes(Paths.get(credentialsFilename.get())));
+        } catch (FileNotFoundException e) {
+            LOGGER.error("Expected aws credentials file to be there",
+                    SafeArg.of("credentialsFile", credentialsFilename.get()),
+                    e);
+```
+
+### PlaceholderCountMatchesArgumentCount
+More arguments provided (4) than placeholders specified (0)
+in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/basic/HadoopShuffleClient.java`
+#### Snippet
+```java
+            if (!shuffleDriverEndpointRef.isShuffleRegistered(shuffleId)) {
+                LOGGER.info(
+                        "Shuffle is no longer active; skipping file upload",
+                        SafeArg.of("appId", appId),
+                        SafeArg.of("shuffleId", shuffleId),
+```
+
+### PlaceholderCountMatchesArgumentCount
+More arguments provided (4) than placeholders specified (0)
+in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/basic/HadoopShuffleClient.java`
+#### Snippet
+```java
+            }
+        } catch (RuntimeException e) {
+            LOGGER.error("Exception encountered while checking for existence of shuffle.",
+                    SafeArg.of("appId", appId),
+                    SafeArg.of("shuffleId", shuffleId),
+```
+
+### PlaceholderCountMatchesArgumentCount
+More arguments provided (1) than placeholders specified (0)
+in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/basic/HadoopShuffleClient.java`
+#### Snippet
+```java
+            fileSystem.delete(new Path(baseUri.toString(), String.format("%s/%s", DATA_PREFIX, appId)), true);
+        } catch (IOException e) {
+            LOGGER.error("Encountered error deleting application data",
+                    SafeArg.of("appId", appId),
+                    e);
+```
+
+### PlaceholderCountMatchesArgumentCount
+More arguments provided (4) than placeholders specified (0)
+in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/basic/HadoopShuffleClient.java`
+#### Snippet
+```java
+        } catch (IOException e) {
+            LOGGER.error(
+                    "Exception encountered while uploading data file.",
+                    SafeArg.of("appId", appId),
+                    SafeArg.of("shuffleId", shuffleId),
 ```
 
 ## RuleId[id=MismatchedCollectionQueryUpdate]
@@ -750,18 +750,6 @@ in `async-shuffle-upload-data-generator/src/main/java/com/palantir/spark/shuffle
 
 ## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
-Local variable `readThrougputBytesPerSec` is redundant
-in `async-shuffle-upload-data-generator/src/main/java/com/palantir/spark/shuffle/async/s3/client/AsyncShuffleBenchmark.java`
-#### Snippet
-```java
-        }
-        double totalBytes = numBytesInPartition * numFiles * numPartitions;
-        double readThrougputBytesPerSec =
-                totalBytes / Duration.ofMillis(System.currentTimeMillis() - startMillis).getSeconds();
-
-```
-
-### UnnecessaryLocalVariable
 Local variable `writeThrougputBytesPerSec` is redundant
 in `async-shuffle-upload-data-generator/src/main/java/com/palantir/spark/shuffle/async/s3/client/AsyncShuffleBenchmark.java`
 #### Snippet
@@ -769,6 +757,18 @@ in `async-shuffle-upload-data-generator/src/main/java/com/palantir/spark/shuffle
 
         double totalBytes = numBytesInPartition * numFiles * numPartitions;
         double writeThrougputBytesPerSec =
+                totalBytes / Duration.ofMillis(System.currentTimeMillis() - startMillis).getSeconds();
+
+```
+
+### UnnecessaryLocalVariable
+Local variable `readThrougputBytesPerSec` is redundant
+in `async-shuffle-upload-data-generator/src/main/java/com/palantir/spark/shuffle/async/s3/client/AsyncShuffleBenchmark.java`
+#### Snippet
+```java
+        }
+        double totalBytes = numBytesInPartition * numFiles * numPartitions;
+        double readThrougputBytesPerSec =
                 totalBytes / Duration.ofMillis(System.currentTimeMillis() - startMillis).getSeconds();
 
 ```
@@ -837,18 +837,6 @@ in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/
 
 ### NullableProblems
 Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/basic/HadoopShuffleClient.java`
-#### Snippet
-```java
-
-        @Override
-        public void onFailure(Throwable error) {
-            metrics.markUploadFailed(shuffleId, mapId, attemptId, pendingOrRunningUploadsCounter.decrementAndGet());
-            LOGGER.error("Failed to upload shuffle files.", error);
-```
-
-### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
 in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/merging/DefaultShuffleFileBatchUploader.java`
 #### Snippet
 ```java
@@ -857,6 +845,18 @@ in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/
         public void onFailure(Throwable error) {
             LOGGER.error("Failed to upload shuffle files to the backing file system. If this executor fails, shuffle"
                             + " data will need to be recomputed.",
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/basic/HadoopShuffleClient.java`
+#### Snippet
+```java
+
+        @Override
+        public void onFailure(Throwable error) {
+            metrics.markUploadFailed(shuffleId, mapId, attemptId, pendingOrRunningUploadsCounter.decrementAndGet());
+            LOGGER.error("Failed to upload shuffle files.", error);
 ```
 
 ## RuleId[id=OptionalGetWithoutIsPresent]
@@ -960,102 +960,6 @@ in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/
 
 ## RuleId[id=UnstableApiUsage]
 ### UnstableApiUsage
-'com.google.common.io.ByteStreams' is marked unstable with @Beta
-in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/merger/FileMerger.java`
-#### Snippet
-```java
-                        LimitedInputStream limitedInput = new LimitedInputStream(
-                                mergedInput, mapFileSize, false)) {
-                    ByteStreams.copy(limitedInput, mapOut);
-                }
-            } else {
-```
-
-### UnstableApiUsage
-'com.google.common.io.ByteStreams' is marked unstable with @Beta
-in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/merger/FileMerger.java`
-#### Snippet
-```java
-            if (stream.getStreamSizeInBytes() > 0L) {
-                try (InputStream inputStream = stream.openStream()) {
-                    ByteStreams.copy(inputStream, mergedOutput);
-                }
-            }
-```
-
-### UnstableApiUsage
-'copy(java.io.InputStream, java.io.OutputStream)' is declared in unstable class 'com.google.common.io.ByteStreams' marked with @Beta
-in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/merger/FileMerger.java`
-#### Snippet
-```java
-            if (stream.getStreamSizeInBytes() > 0L) {
-                try (InputStream inputStream = stream.openStream()) {
-                    ByteStreams.copy(inputStream, mergedOutput);
-                }
-            }
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.ListeningScheduledExecutorService' is marked unstable with @Beta
-in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/merging/MergingShuffleUploadCoordinator.java`
-#### Snippet
-```java
-            long pollingIntervalMillis,
-            ShuffleDriverEndpointRef shuffleDriverEndpointRef,
-            ListeningScheduledExecutorService uploadCoordinatorExecutor,
-            Clock clock,
-            ShuffleFileBatchUploader batchUploader) {
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.ListenableScheduledFuture' is marked unstable with @Beta
-in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/merging/MergingShuffleUploadCoordinator.java`
-#### Snippet
-```java
-    private final ShuffleFileBatchUploader batchUploader;
-
-    private ListenableScheduledFuture<?> uploadCoordinatorTask;
-    private int totalStagedInputs;
-
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.ListeningScheduledExecutorService' is marked unstable with @Beta
-in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/merging/MergingShuffleUploadCoordinator.java`
-#### Snippet
-```java
-    private final ShuffleDriverEndpointRef shuffleDriverEndpointRef;
-    private final Map<Integer, ShuffleMapInputBatch> stagedBatches;
-    private final ListeningScheduledExecutorService uploadCoordinatorExecutor;
-    private final Clock clock;
-    private final ShuffleFileBatchUploader batchUploader;
-```
-
-### UnstableApiUsage
-'scheduleWithFixedDelay(java.lang.Runnable, long, long, java.util.concurrent.TimeUnit)' is declared in unstable interface 'com.google.common.util.concurrent.ListeningScheduledExecutorService' marked with @Beta
-in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/merging/MergingShuffleUploadCoordinator.java`
-#### Snippet
-```java
-    public void start() {
-        if (uploadCoordinatorTask == null) {
-            uploadCoordinatorTask = uploadCoordinatorExecutor.scheduleWithFixedDelay(
-                    this::uploadEligibleBatches,
-                    pollingIntervalMillis,
-```
-
-### UnstableApiUsage
-'listeningDecorator(java.util.concurrent.ScheduledExecutorService)' is unstable because its signature references unstable interface 'com.google.common.util.concurrent.ListeningScheduledExecutorService' marked with @Beta
-in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/ShuffleClients.java`
-#### Snippet
-```java
-                            mergingConf.pollingIntervalMillis(),
-                            driverEndpointRef,
-                            MoreExecutors.listeningDecorator(resolvedUploadCoordinatorExecutor),
-                            clock,
-                            batchUploader);
-```
-
-### UnstableApiUsage
 'com.google.common.util.concurrent.FluentFuture' is marked unstable with @Beta
 in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/MergingHadoopShuffleClient.java`
 #### Snippet
@@ -1113,6 +1017,102 @@ in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/
                         .transform(
                                 ignored -> getDownloadedBlockDataChecked(
                                         shuffleId, mapId, reduceId, attemptId),
+```
+
+### UnstableApiUsage
+'listeningDecorator(java.util.concurrent.ScheduledExecutorService)' is unstable because its signature references unstable interface 'com.google.common.util.concurrent.ListeningScheduledExecutorService' marked with @Beta
+in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/ShuffleClients.java`
+#### Snippet
+```java
+                            mergingConf.pollingIntervalMillis(),
+                            driverEndpointRef,
+                            MoreExecutors.listeningDecorator(resolvedUploadCoordinatorExecutor),
+                            clock,
+                            batchUploader);
+```
+
+### UnstableApiUsage
+'com.google.common.io.ByteStreams' is marked unstable with @Beta
+in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/merger/FileMerger.java`
+#### Snippet
+```java
+            if (stream.getStreamSizeInBytes() > 0L) {
+                try (InputStream inputStream = stream.openStream()) {
+                    ByteStreams.copy(inputStream, mergedOutput);
+                }
+            }
+```
+
+### UnstableApiUsage
+'copy(java.io.InputStream, java.io.OutputStream)' is declared in unstable class 'com.google.common.io.ByteStreams' marked with @Beta
+in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/merger/FileMerger.java`
+#### Snippet
+```java
+            if (stream.getStreamSizeInBytes() > 0L) {
+                try (InputStream inputStream = stream.openStream()) {
+                    ByteStreams.copy(inputStream, mergedOutput);
+                }
+            }
+```
+
+### UnstableApiUsage
+'com.google.common.io.ByteStreams' is marked unstable with @Beta
+in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/merger/FileMerger.java`
+#### Snippet
+```java
+                        LimitedInputStream limitedInput = new LimitedInputStream(
+                                mergedInput, mapFileSize, false)) {
+                    ByteStreams.copy(limitedInput, mapOut);
+                }
+            } else {
+```
+
+### UnstableApiUsage
+'scheduleWithFixedDelay(java.lang.Runnable, long, long, java.util.concurrent.TimeUnit)' is declared in unstable interface 'com.google.common.util.concurrent.ListeningScheduledExecutorService' marked with @Beta
+in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/merging/MergingShuffleUploadCoordinator.java`
+#### Snippet
+```java
+    public void start() {
+        if (uploadCoordinatorTask == null) {
+            uploadCoordinatorTask = uploadCoordinatorExecutor.scheduleWithFixedDelay(
+                    this::uploadEligibleBatches,
+                    pollingIntervalMillis,
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.ListeningScheduledExecutorService' is marked unstable with @Beta
+in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/merging/MergingShuffleUploadCoordinator.java`
+#### Snippet
+```java
+    private final ShuffleDriverEndpointRef shuffleDriverEndpointRef;
+    private final Map<Integer, ShuffleMapInputBatch> stagedBatches;
+    private final ListeningScheduledExecutorService uploadCoordinatorExecutor;
+    private final Clock clock;
+    private final ShuffleFileBatchUploader batchUploader;
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.ListenableScheduledFuture' is marked unstable with @Beta
+in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/merging/MergingShuffleUploadCoordinator.java`
+#### Snippet
+```java
+    private final ShuffleFileBatchUploader batchUploader;
+
+    private ListenableScheduledFuture<?> uploadCoordinatorTask;
+    private int totalStagedInputs;
+
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.ListeningScheduledExecutorService' is marked unstable with @Beta
+in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/merging/MergingShuffleUploadCoordinator.java`
+#### Snippet
+```java
+            long pollingIntervalMillis,
+            ShuffleDriverEndpointRef shuffleDriverEndpointRef,
+            ListeningScheduledExecutorService uploadCoordinatorExecutor,
+            Clock clock,
+            ShuffleFileBatchUploader batchUploader) {
 ```
 
 ### UnstableApiUsage
@@ -1212,78 +1212,6 @@ in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/
 ```
 
 ### UnstableApiUsage
-'com.google.common.io.ByteStreams' is marked unstable with @Beta
-in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/basic/HadoopShuffleClient.java`
-#### Snippet
-```java
-        try (InputStream openInputStream = sizedInput.openStream();
-                OutputStream dataOutput = createRemoteFsOutputStream(hadoopFilePath)) {
-            ByteStreams.copy(openInputStream, dataOutput);
-        } catch (IOException e) {
-            LOGGER.error(
-```
-
-### UnstableApiUsage
-'copy(java.io.InputStream, java.io.OutputStream)' is declared in unstable class 'com.google.common.io.ByteStreams' marked with @Beta
-in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/basic/HadoopShuffleClient.java`
-#### Snippet
-```java
-        try (InputStream openInputStream = sizedInput.openStream();
-                OutputStream dataOutput = createRemoteFsOutputStream(hadoopFilePath)) {
-            ByteStreams.copy(openInputStream, dataOutput);
-        } catch (IOException e) {
-            LOGGER.error(
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.Futures' is marked unstable with @Beta
-in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/basic/HadoopShuffleClient.java`
-#### Snippet
-```java
-                        attemptId,
-                        timeSubmitted));
-        Futures.addCallback(
-                uploadTask,
-                new ShuffleUploadFinishedListener(
-```
-
-### UnstableApiUsage
-'addCallback(com.google.common.util.concurrent.ListenableFuture, com.google.common.util.concurrent.FutureCallback, java.util.concurrent.Executor)' is declared in unstable class 'com.google.common.util.concurrent.Futures' marked with @Beta
-in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/basic/HadoopShuffleClient.java`
-#### Snippet
-```java
-                        attemptId,
-                        timeSubmitted));
-        Futures.addCallback(
-                uploadTask,
-                new ShuffleUploadFinishedListener(
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.Futures' is marked unstable with @Beta
-in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/merging/DefaultShuffleFileBatchUploader.java`
-#### Snippet
-```java
-            }
-        });
-        Futures.addCallback(uploadTask, new UploadBatchFinishedListener(appId, batch), uploadExecutor);
-    }
-
-```
-
-### UnstableApiUsage
-'addCallback(com.google.common.util.concurrent.ListenableFuture, com.google.common.util.concurrent.FutureCallback, java.util.concurrent.Executor)' is declared in unstable class 'com.google.common.util.concurrent.Futures' marked with @Beta
-in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/merging/DefaultShuffleFileBatchUploader.java`
-#### Snippet
-```java
-            }
-        });
-        Futures.addCallback(uploadTask, new UploadBatchFinishedListener(appId, batch), uploadExecutor);
-    }
-
-```
-
-### UnstableApiUsage
 'com.google.common.io.CountingOutputStream' is marked unstable with @Beta
 in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/merging/DefaultShuffleFileBatchUploader.java`
 #### Snippet
@@ -1344,6 +1272,30 @@ in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/
 ```
 
 ### UnstableApiUsage
+'com.google.common.util.concurrent.Futures' is marked unstable with @Beta
+in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/merging/DefaultShuffleFileBatchUploader.java`
+#### Snippet
+```java
+            }
+        });
+        Futures.addCallback(uploadTask, new UploadBatchFinishedListener(appId, batch), uploadExecutor);
+    }
+
+```
+
+### UnstableApiUsage
+'addCallback(com.google.common.util.concurrent.ListenableFuture, com.google.common.util.concurrent.FutureCallback, java.util.concurrent.Executor)' is declared in unstable class 'com.google.common.util.concurrent.Futures' marked with @Beta
+in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/merging/DefaultShuffleFileBatchUploader.java`
+#### Snippet
+```java
+            }
+        });
+        Futures.addCallback(uploadTask, new UploadBatchFinishedListener(appId, batch), uploadExecutor);
+    }
+
+```
+
+### UnstableApiUsage
 'com.google.common.io.CountingOutputStream' is marked unstable with @Beta
 in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/merging/DefaultShuffleFileBatchUploader.java`
 #### Snippet
@@ -1401,5 +1353,53 @@ in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/
             bytesWritten = resolvedCountingIndexOut == null ? 0L : resolvedCountingIndexOut.getCount();
         }
         long now = clock.millis();
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.Futures' is marked unstable with @Beta
+in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/basic/HadoopShuffleClient.java`
+#### Snippet
+```java
+                        attemptId,
+                        timeSubmitted));
+        Futures.addCallback(
+                uploadTask,
+                new ShuffleUploadFinishedListener(
+```
+
+### UnstableApiUsage
+'addCallback(com.google.common.util.concurrent.ListenableFuture, com.google.common.util.concurrent.FutureCallback, java.util.concurrent.Executor)' is declared in unstable class 'com.google.common.util.concurrent.Futures' marked with @Beta
+in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/basic/HadoopShuffleClient.java`
+#### Snippet
+```java
+                        attemptId,
+                        timeSubmitted));
+        Futures.addCallback(
+                uploadTask,
+                new ShuffleUploadFinishedListener(
+```
+
+### UnstableApiUsage
+'com.google.common.io.ByteStreams' is marked unstable with @Beta
+in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/basic/HadoopShuffleClient.java`
+#### Snippet
+```java
+        try (InputStream openInputStream = sizedInput.openStream();
+                OutputStream dataOutput = createRemoteFsOutputStream(hadoopFilePath)) {
+            ByteStreams.copy(openInputStream, dataOutput);
+        } catch (IOException e) {
+            LOGGER.error(
+```
+
+### UnstableApiUsage
+'copy(java.io.InputStream, java.io.OutputStream)' is declared in unstable class 'com.google.common.io.ByteStreams' marked with @Beta
+in `async-shuffle-upload-core/src/main/java/com/palantir/spark/shuffle/async/s3/client/basic/HadoopShuffleClient.java`
+#### Snippet
+```java
+        try (InputStream openInputStream = sizedInput.openStream();
+                OutputStream dataOutput = createRemoteFsOutputStream(hadoopFilePath)) {
+            ByteStreams.copy(openInputStream, dataOutput);
+        } catch (IOException e) {
+            LOGGER.error(
 ```
 
