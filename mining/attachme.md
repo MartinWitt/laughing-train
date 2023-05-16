@@ -49,19 +49,20 @@ in `agent/src/main/java/com/attachme/agent/Agent.java`
             e.printStackTrace();
 ```
 
-## RuleId[id=TrivialStringConcatenation]
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `plugin/src/main/java/com/attachme/plugin/AttachmeSettingsEditor.java`
+## RuleId[id=DialogTitleCapitalization]
+### DialogTitleCapitalization
+String 'Attachme debugger registry' is not properly capitalized. It should have title capitalization
+in `plugin/src/main/java/com/attachme/plugin/AttachmeRunConfType.java`
 #### Snippet
 ```java
   @Override
-  protected void resetEditorFrom(@NotNull AttachmeRunConfig s) {
-    portField.setText(s.getPort() + "");
+  public String getDisplayName() {
+    return "Attachme debugger registry";
   }
 
 ```
 
+## RuleId[id=TrivialStringConcatenation]
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `plugin/src/main/java/com/attachme/plugin/AttachmeRunner.java`
@@ -74,15 +75,14 @@ in `plugin/src/main/java/com/attachme/plugin/AttachmeRunner.java`
   }
 ```
 
-## RuleId[id=DialogTitleCapitalization]
-### DialogTitleCapitalization
-String 'Attachme debugger registry' is not properly capitalized. It should have title capitalization
-in `plugin/src/main/java/com/attachme/plugin/AttachmeRunConfType.java`
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `plugin/src/main/java/com/attachme/plugin/AttachmeSettingsEditor.java`
 #### Snippet
 ```java
   @Override
-  public String getDisplayName() {
-    return "Attachme debugger registry";
+  protected void resetEditorFrom(@NotNull AttachmeRunConfig s) {
+    portField.setText(s.getPort() + "");
   }
 
 ```
