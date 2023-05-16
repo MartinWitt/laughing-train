@@ -2,7 +2,10 @@
 
 Laughing-Train is a code refactoring tool using [Spoon](https://github.com/INRIA/spoon) and static analyzers to refactor Java code.
 This includes the analysis of the code, the refactoring of the code and the generation of pull requests on GitHub.
-For this, we leverage many existing tools and libraries, like quarkus, Hub4J, spoon, Qodana.
+We analyze projects with qodana, a static code analyzer from JetBrains, and use the results to refactor the code.
+The refactoring is done with Spoon, a Java parser and transformer. The results are then pushed to GitHub as pull requests.
+For GitHub integration, we use the GitHub API and the GitHub CLI.
+The website is built with react and the backend is written with Quarkus.
 
 ## Features:
 
@@ -14,7 +17,7 @@ For this, we leverage many existing tools and libraries, like quarkus, Hub4J, sp
 ## Examples:
 - See [website](https://laughing-train.keksdose.xyz/) for an overview of mining results.
 - See [mining](https://github.com/MartinWitt/laughing-train/wiki/Mining) for bad smell examples.
-- See [refactoring](https://github.com/MartinWitt/laughing-train/wiki/Created-pullrequests) for created pull requests.
+- See [refactoring](https://github.com/MartinWitt/laughing-train/issues/125) for created pull requests.
 - See [Qodana-Rules](https://github.com/MartinWitt/laughing-train/blob/master/code-transformation/src/main/java/xyz/keksdose/spoon/code_solver/analyzer/qodana/QodanaRules.java#L22)
 ## GraphQL
 Use [http://www.keksdose.xyz:8080/graphql/](http://www.keksdose.xyz:8080/graphql/)to get mining results by GraphQL. See 
@@ -29,7 +32,9 @@ I contribute to spoon on a regular schedule, and writing code for spoon helped m
 
 ### Why use Qodana?
 
-I use vscode as IDE, but I'm impressed by the tooling JetBrains provides. Qodana seems way ahead of the competition and is a impressive tool to use. There exists abstraction for further analyzers, but I'm uncertain if I will ever implement them.
+I use vscode as IDE, but I'm impressed by the tooling JetBrains provides. 
+Qodana seems way ahead of the competition and is an impressive tool to use.
+There exists abstraction for further analyzers, but I'm uncertain if I will ever implement them.
 
 ### Why not help an existing tool?
 Existing tools have either pretty long release schedules, are not using spoon, or I see no value in the tool. Here I can merge, break and change things as I like without too much hassle.
