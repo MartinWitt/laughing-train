@@ -242,7 +242,7 @@ public class QodanaAnalyzer {
         return results;
     }
 
-    private final class ResultCallbackImplementation implements ResultCallback<Frame> {
+    private static final class ResultCallbackImplementation implements ResultCallback<Frame> {
         private final StringBuilder sb;
 
         private ResultCallbackImplementation(StringBuilder sb) {
