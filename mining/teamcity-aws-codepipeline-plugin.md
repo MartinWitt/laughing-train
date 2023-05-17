@@ -1,123 +1,92 @@
 # teamcity-aws-codepipeline-plugin 
  
 # Bad smells
-I found 11 bad smells with 3 repairable:
+I found 6 bad smells with 0 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| StaticCallOnSubclass | 6 | false |
-| UtilityClassWithoutPrivateConstructor | 2 | true |
-| SizeReplaceableByIsEmpty | 1 | true |
+| SpringBeanConstructorArgInspection | 3 | false |
+| SpringXmlAutowireExplicitlyInspection | 2 | false |
 | DataFlowIssue | 1 | false |
-| BoundedWildcard | 1 | false |
-## RuleId[id=SizeReplaceableByIsEmpty]
-### SizeReplaceableByIsEmpty
-`jobs.size() > 0` can be replaced with '!jobs.isEmpty()'
-in `aws-codepipeline-server/src/main/java/jetbrains/buildServer/buildTriggers/codepipeline/CodePipelineAsyncPolledBuildTrigger.java`
+## RuleId[id=SpringBeanConstructorArgInspection]
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'CodePipelineAsyncPolledBuildTrigger'#treeend
+
+*** ** * ** ***
+
+|-----------------------------------------------|---|-----------|
+| **CodePipelineAsyncPolledBuildTrigger(...):** |   | **Bean:** |
+| BuildCustomizerFactory buildCustomizerFactory |   | **???**   |
+in `aws-codepipeline-server/src/main/resources/META-INF/build-server-plugin-aws-codepipeline-plugin.xml`
 #### Snippet
 ```java
-        final List<Job> jobs = codePipelineClient.pollForJobs(request).getJobs();
+       default-autowire="constructor">
 
-        if (jobs.size() > 0) {
-          if (jobs.size() > 1) {
-            LOG.warn(msgForBt("Received " + jobs.size() + ", but only one was expected. Will process only the first job", context.getBuildType()));
+    <bean id="codePipelineAsyncPolledBuildTrigger" class="jetbrains.buildServer.buildTriggers.codepipeline.CodePipelineAsyncPolledBuildTrigger"/>
+    <bean id="codePipelineBuildTriggerService" class="jetbrains.buildServer.buildTriggers.codepipeline.CodePipelineBuildTriggerService"/>
+</beans>
 ```
 
-## RuleId[id=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `ParametersValidator` has only 'static' members, and lacks a 'private' constructor
-in `aws-codepipeline-server/src/main/java/jetbrains/buildServer/buildTriggers/codepipeline/ParametersValidator.java`
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'CodePipelineBuildListener'#treeend
+
+*** ** * ** ***
+
+|-----------------------------------------------------------|---|-----------|
+| **CodePipelineBuildListener(...):**                       |   | **Bean:** |
+| EventDispatcher\<AgentLifeCycleListener\> agentDispatcher |   | **???**   |
+in `aws-codepipeline-agent/src/main/resources/META-INF/build-agent-plugin-aws-codepipeline-plugin.xml`
 #### Snippet
 ```java
- * @author vbedrosova
- */
-public class ParametersValidator {
-  @NotNull
-  public static Map<String, String> validateSettings(@NotNull Map<String, String> params, boolean acceptReferences) {
+       default-autowire="constructor">
+
+    <bean class="jetbrains.buildServer.codepipeline.CodePipelineBuildListener"/>
+</beans>
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `CodePipelineUtil` has only 'static' members, and lacks a 'private' constructor
-in `aws-codepipeline-common/src/main/java/jetbrains/buildServer/codepipeline/CodePipelineUtil.java`
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'CodePipelineBuildTriggerService'#treeend
+
+*** ** * ** ***
+
+|-----------------------------------------------|---|-------------------------------------------------------------------------------------|
+| **CodePipelineBuildTriggerService(...):**     |   | **Bean:**                                                                           |
+| PluginDescriptor pluginDescriptor             |   | **???**                                                                             |
+| ServerSettings serverSettings                 |   | **???**                                                                             |
+| CodePipelineAsyncPolledBuildTrigger trigger   |   | Autowired: codePipelineAsyncPolledBuildTrigger(CodePipelineAsyncPolledBuildTrigger) |
+| AsyncPolledBuildTriggerFactory triggerFactory |   | **???**                                                                             |
+in `aws-codepipeline-server/src/main/resources/META-INF/build-server-plugin-aws-codepipeline-plugin.xml`
 #### Snippet
 ```java
- * @author vbedrosova
- */
-public final class CodePipelineUtil {
-  @NotNull
-  public static String printStrings(@NotNull Collection<String> strings) {
-```
 
-## RuleId[id=StaticCallOnSubclass]
-### StaticCallOnSubclass
-Static method `isEmptyOrSpaces()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `aws-codepipeline-server/src/main/java/jetbrains/buildServer/buildTriggers/codepipeline/ParametersValidator.java`
-#### Snippet
-```java
-    final Map<String, String> invalids = new HashMap<String, String>(AWSCommonParams.validate(params, acceptReferences));
-
-    if (StringUtil.isEmptyOrSpaces(CodePipelineUtil.getActionToken(params))) {
-      invalids.put(CodePipelineConstants.ACTION_TOKEN_PARAM, CodePipelineConstants.ACTION_TOKEN_LABEL + " parameter must not be empty");
-    }
-```
-
-### StaticCallOnSubclass
-Static method `isNotEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `aws-codepipeline-server/src/main/java/jetbrains/buildServer/buildTriggers/codepipeline/CodePipelineAsyncPolledBuildTrigger.java`
-#### Snippet
-```java
-    final AWSException awse = new AWSException(e);
-    final String details = awse.getDetails();
-    if (StringUtil.isNotEmpty(details)) LOG.error(details);
-    LOG.error(awse.getMessage(), awse);
+    <bean id="codePipelineAsyncPolledBuildTrigger" class="jetbrains.buildServer.buildTriggers.codepipeline.CodePipelineAsyncPolledBuildTrigger"/>
+    <bean id="codePipelineBuildTriggerService" class="jetbrains.buildServer.buildTriggers.codepipeline.CodePipelineBuildTriggerService"/>
+</beans>
 
 ```
 
-### StaticCallOnSubclass
-Static method `toSystemIndependentName()` declared in class 'com.intellij.openapi.util.io.FileUtil' but referenced via subclass 'jetbrains.buildServer.util.FileUtil'
-in `aws-codepipeline-agent/src/main/java/jetbrains/buildServer/codepipeline/CodePipelineBuildListener.java`
+## RuleId[id=SpringXmlAutowireExplicitlyInspection]
+### SpringXmlAutowireExplicitlyInspection
+Make autowired dependency explicit
+in `aws-codepipeline-server/src/main/resources/META-INF/build-server-plugin-aws-codepipeline-plugin.xml`
 #### Snippet
 ```java
-  private String removePaths(@Nullable String message, @NotNull AgentRunningBuild build) {
-    if (message == null) return null;
-    final String checkoutDir = FileUtil.toSystemIndependentName(build.getCheckoutDirectory().getAbsolutePath());
-    return FileUtil.toSystemIndependentName(message).replace(checkoutDir + "/", StringUtil.EMPTY).replace(checkoutDir, StringUtil.EMPTY);
-  }
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+       default-autowire="constructor">
+
+    <bean id="codePipelineAsyncPolledBuildTrigger" class="jetbrains.buildServer.buildTriggers.codepipeline.CodePipelineAsyncPolledBuildTrigger"/>
 ```
 
-### StaticCallOnSubclass
-Static method `toSystemIndependentName()` declared in class 'com.intellij.openapi.util.io.FileUtil' but referenced via subclass 'jetbrains.buildServer.util.FileUtil'
-in `aws-codepipeline-agent/src/main/java/jetbrains/buildServer/codepipeline/CodePipelineBuildListener.java`
+### SpringXmlAutowireExplicitlyInspection
+Make autowired dependency explicit
+in `aws-codepipeline-agent/src/main/resources/META-INF/build-agent-plugin-aws-codepipeline-plugin.xml`
 #### Snippet
 ```java
-    if (message == null) return null;
-    final String checkoutDir = FileUtil.toSystemIndependentName(build.getCheckoutDirectory().getAbsolutePath());
-    return FileUtil.toSystemIndependentName(message).replace(checkoutDir + "/", StringUtil.EMPTY).replace(checkoutDir, StringUtil.EMPTY);
-  }
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"
+       default-autowire="constructor">
 
-```
-
-### StaticCallOnSubclass
-Static method `isNotEmpty()` declared in class 'com.intellij.openapi.util.text.StringUtil' but referenced via subclass 'jetbrains.buildServer.util.StringUtil'
-in `aws-codepipeline-agent/src/main/java/jetbrains/buildServer/codepipeline/CodePipelineBuildListener.java`
-#### Snippet
-```java
-
-    final String details = e.getDetails();
-    if (StringUtil.isNotEmpty(details)) {
-      LOG.error(details);
-      build.getBuildLogger().error(details);
-```
-
-### StaticCallOnSubclass
-Static method `createParentDirs()` declared in class 'com.intellij.openapi.util.io.FileUtil' but referenced via subclass 'jetbrains.buildServer.util.FileUtil'
-in `aws-codepipeline-agent/src/main/java/jetbrains/buildServer/codepipeline/CodePipelineBuildListener.java`
-#### Snippet
-```java
-  private void makeArtifactCopy(@NotNull File inputFolder, @NotNull File artifactFile, @NotNull String path, @NotNull AgentRunningBuild build) {
-    final File dest = new File(inputFolder, path);
-    FileUtil.createParentDirs(dest);
-    try {
-      FileUtil.copy(artifactFile, dest);
+    <bean class="jetbrains.buildServer.codepipeline.CodePipelineBuildListener"/>
 ```
 
 ## RuleId[id=DataFlowIssue]
@@ -131,18 +100,5 @@ in `aws-codepipeline-agent/src/main/java/jetbrains/buildServer/codepipeline/Code
     return AWSClients.fromBasicSessionCredentials(artifactCredentials.getAccessKeyId(), artifactCredentials.getSecretAccessKey(), artifactCredentials.getSessionToken(), AWSCommonParams.getRegionName(params)).createS3Client();
   }
 
-```
-
-## RuleId[id=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? super AgentLifeCycleListener`
-in `aws-codepipeline-agent/src/main/java/jetbrains/buildServer/codepipeline/CodePipelineBuildListener.java`
-#### Snippet
-```java
-  private String myJobID;
-
-  public CodePipelineBuildListener(@NotNull final EventDispatcher<AgentLifeCycleListener> agentDispatcher) {
-    agentDispatcher.addListener(this);
-  }
 ```
 
