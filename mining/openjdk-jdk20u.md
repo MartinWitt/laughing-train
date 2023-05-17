@@ -85,18 +85,6 @@ in `test/jaxp/javax/xml/jaxp/unittest/validation/tck/Bug6970890_1.xsd`
 ```
 
 ### RegExpSimplifiable
-`[\w]` can be simplified to '\\w'
-in `test/jaxp/javax/xml/jaxp/unittest/validation/tck/reZ003.xsd`
-#### Snippet
-```java
- <xs:simpleType>
-  <xs:restriction base="xs:string">
-   <xs:pattern value="[\w]"/>
-  </xs:restriction>
- </xs:simpleType>
-```
-
-### RegExpSimplifiable
 `[-]` can be simplified to '-'
 in `test/jaxp/javax/xml/jaxp/unittest/validation/tck/Bug6970890.xsd`
 #### Snippet
@@ -106,6 +94,18 @@ in `test/jaxp/javax/xml/jaxp/unittest/validation/tck/Bug6970890.xsd`
       <xs:pattern value='a[-]?c'/>
     </xs:restriction>
   </xs:simpleType>
+```
+
+### RegExpSimplifiable
+`[\w]` can be simplified to '\\w'
+in `test/jaxp/javax/xml/jaxp/unittest/validation/tck/reZ003.xsd`
+#### Snippet
+```java
+ <xs:simpleType>
+  <xs:restriction base="xs:string">
+   <xs:pattern value="[\w]"/>
+  </xs:restriction>
+ </xs:simpleType>
 ```
 
 ## RuleId[id=RegExpRedundantNestedCharacterClass]
