@@ -823,11 +823,11 @@ Call to `asList()` with only one argument
 in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
 #### Snippet
 ```java
-      final CommandLineSetup cmdLineSetup = new CommandLineSetup(
-        new File(pathToRunAsPlugin, runAsToolPath).getAbsolutePath(),
-        Arrays.asList(new CommandLineArgument("-t", CommandLineArgument.Type.PARAMETER)),
-        Collections.<CommandLineResource>emptyList());
-
+    new CommandLineSetup(ICACLS_TOOL_NAME, Collections.<CommandLineArgument>emptyList(), Collections.<CommandLineResource>emptyList());
+  private static final CommandLineSetup OurChmodHelpCmdLineSetup =
+    new CommandLineSetup(CHMOD_TOOL_NAME, Arrays.asList(new CommandLineArgument("--help", CommandLineArgument.Type.PARAMETER)), Collections.<CommandLineResource>emptyList());
+  private static final CommandLineSetup OurSuCmdLineSetup =
+    new CommandLineSetup(SU_TOOL_NAME, Arrays.asList(new CommandLineArgument("--help", CommandLineArgument.Type.PARAMETER)), Collections.<CommandLineResource>emptyList());
 ```
 
 ### ArraysAsListWithZeroOrOneArgument
@@ -847,11 +847,11 @@ Call to `asList()` with only one argument
 in `runAs-agent/src/main/java/jetbrains/buildServer/runAs/agent/RunAsPropertiesExtension.java`
 #### Snippet
 ```java
-    new CommandLineSetup(ICACLS_TOOL_NAME, Collections.<CommandLineArgument>emptyList(), Collections.<CommandLineResource>emptyList());
-  private static final CommandLineSetup OurChmodHelpCmdLineSetup =
-    new CommandLineSetup(CHMOD_TOOL_NAME, Arrays.asList(new CommandLineArgument("--help", CommandLineArgument.Type.PARAMETER)), Collections.<CommandLineResource>emptyList());
-  private static final CommandLineSetup OurSuCmdLineSetup =
-    new CommandLineSetup(SU_TOOL_NAME, Arrays.asList(new CommandLineArgument("--help", CommandLineArgument.Type.PARAMETER)), Collections.<CommandLineResource>emptyList());
+      final CommandLineSetup cmdLineSetup = new CommandLineSetup(
+        new File(pathToRunAsPlugin, runAsToolPath).getAbsolutePath(),
+        Arrays.asList(new CommandLineArgument("-t", CommandLineArgument.Type.PARAMETER)),
+        Collections.<CommandLineResource>emptyList());
+
 ```
 
 ## RuleId[id=UnusedAssignment]
