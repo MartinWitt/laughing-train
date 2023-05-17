@@ -177,19 +177,6 @@ in `src/main/java/com/uber/cadence/samples/hello/HelloDataConverter.java`
     @Override
 ```
 
-## RuleId[id=CommentedOutCode]
-### CommentedOutCode
-Commented out code (5 lines)
-in `src/main/java/com/uber/cadence/samples/fileprocessing/FileProcessingStarter.java`
-#### Snippet
-```java
-
-    // Use this code instead of the above blocking call to start workflow asynchronously.
-    //        WorkflowExecution workflowExecution = WorkflowClient.start(workflow::processFile,
-    // source, destination);
-    //        System.out.println("Started periodic workflow with workflowId=\"" +
-```
-
 ## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
 Field `scope` may be 'final'
@@ -213,6 +200,19 @@ public class WorkflowMethodsImpl implements WorkflowMethods {
   private static Logger LOGGER = Workflow.getLogger(WorkflowMethodsImpl.class);
 
   private final ActivityOptions options =
+```
+
+## RuleId[id=CommentedOutCode]
+### CommentedOutCode
+Commented out code (5 lines)
+in `src/main/java/com/uber/cadence/samples/fileprocessing/FileProcessingStarter.java`
+#### Snippet
+```java
+
+    // Use this code instead of the above blocking call to start workflow asynchronously.
+    //        WorkflowExecution workflowExecution = WorkflowClient.start(workflow::processFile,
+    // source, destination);
+    //        System.out.println("Started periodic workflow with workflowId=\"" +
 ```
 
 ## RuleId[id=DuplicatedCode]
@@ -434,18 +434,6 @@ in `src/main/java/com/uber/cadence/samples/hello/HelloCron.java`
 
 ### ThrowablePrintedToSystemOut
 'Throwable' argument `e` to 'System.out.println()' call
-in `src/main/java/com/uber/cadence/samples/shadowing/ShadowTraffic.java`
-#### Snippet
-```java
-          } catch (Exception e) {
-            System.out.println("Failed to start shadowing workflow");
-            System.out.println(e);
-            latch.countDown();
-          }
-```
-
-### ThrowablePrintedToSystemOut
-'Throwable' argument `e` to 'System.out.println()' call
 in `src/main/java/com/uber/cadence/samples/hello/HelloSearchAttributes.java`
 #### Snippet
 ```java
@@ -454,5 +442,17 @@ in `src/main/java/com/uber/cadence/samples/hello/HelloSearchAttributes.java`
       System.out.println(e);
     }
 
+```
+
+### ThrowablePrintedToSystemOut
+'Throwable' argument `e` to 'System.out.println()' call
+in `src/main/java/com/uber/cadence/samples/shadowing/ShadowTraffic.java`
+#### Snippet
+```java
+          } catch (Exception e) {
+            System.out.println("Failed to start shadowing workflow");
+            System.out.println(e);
+            latch.countDown();
+          }
 ```
 
