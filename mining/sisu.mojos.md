@@ -9,6 +9,31 @@ I found 16 bad smells with 2 repairable:
 | CastCanBeRemovedNarrowingVariableType | 2 | false |
 | SynchronizeOnNonFinalField | 1 | false |
 | Deprecation | 1 | false |
+## RuleId[id=ToArrayCallWithZeroLengthArrayArgument]
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new URL\[indexPath.size()\]'
+in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
+#### Snippet
+```java
+            dumpEntries( "indexPath", indexPath );
+        }
+        return indexPath.toArray( new URL[indexPath.size()] );
+    }
+
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new URL\[classPath.size()\]'
+in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
+#### Snippet
+```java
+            dumpEntries( "classPath", classPath );
+        }
+        return URLClassLoader.newInstance( classPath.toArray( new URL[classPath.size()] ) );
+    }
+
+```
+
 ## RuleId[id=SynchronizeOnNonFinalField]
 ### SynchronizeOnNonFinalField
 Synchronization on a non-final field `project`
@@ -22,32 +47,19 @@ in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
             new SisuIndex( outputDirectory )
 ```
 
-## RuleId[id=ToArrayCallWithZeroLengthArrayArgument]
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new URL\[classPath.size()\]'
-in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
-#### Snippet
-```java
-            dumpEntries( "classPath", classPath );
-        }
-        return URLClassLoader.newInstance( classPath.toArray( new URL[classPath.size()] ) );
-    }
-
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new URL\[indexPath.size()\]'
-in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
-#### Snippet
-```java
-            dumpEntries( "indexPath", indexPath );
-        }
-        return indexPath.toArray( new URL[indexPath.size()] );
-    }
-
-```
-
 ## RuleId[id=DefaultAnnotationParam]
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
+#### Snippet
+```java
+     * Comma Separated list of Types to include when indexing.
+     */
+    @Parameter( property = "includeTypes", defaultValue = "" )
+    protected String includeTypes;
+
+```
+
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
 in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
@@ -65,10 +77,70 @@ Redundant default parameter value assignment
 in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
 #### Snippet
 ```java
+     * Scope to include. Empty string indicates all scopes (default).
+     */
+    @Parameter( property = "includeScope", defaultValue = "" )
+    protected String includeScope;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
+#### Snippet
+```java
+     * Scope to exclude. Empty string indicates no scopes (default).
+     */
+    @Parameter( property = "excludeScope", defaultValue = "" )
+    protected String excludeScope;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
+#### Snippet
+```java
+     * Comma separated list of GroupIds to exclude when indexing.
+     */
+    @Parameter( property = "excludeGroupIds", defaultValue = "" )
+    protected String excludeGroupIds;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
+#### Snippet
+```java
      * Comma separated list of ArtifactIds to exclude when indexing.
      */
     @Parameter( property = "excludeArtifactIds", defaultValue = "" )
     protected String excludeArtifactIds;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
+#### Snippet
+```java
+     * Comma Separated list of Classifiers to include when indexing.
+     */
+    @Parameter( property = "includeClassifiers", defaultValue = "" )
+    protected String includeClassifiers;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
+#### Snippet
+```java
+     * Comma separated list of GroupIds to include when indexing.
+     */
+    @Parameter( property = "includeGroupIds", defaultValue = "" )
+    protected String includeGroupIds;
 
 ```
 
@@ -96,78 +168,6 @@ in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
 
 ```
 
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
-#### Snippet
-```java
-     * Comma Separated list of Types to include when indexing.
-     */
-    @Parameter( property = "includeTypes", defaultValue = "" )
-    protected String includeTypes;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
-#### Snippet
-```java
-     * Comma separated list of GroupIds to exclude when indexing.
-     */
-    @Parameter( property = "excludeGroupIds", defaultValue = "" )
-    protected String excludeGroupIds;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
-#### Snippet
-```java
-     * Comma Separated list of Classifiers to include when indexing.
-     */
-    @Parameter( property = "includeClassifiers", defaultValue = "" )
-    protected String includeClassifiers;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
-#### Snippet
-```java
-     * Scope to include. Empty string indicates all scopes (default).
-     */
-    @Parameter( property = "includeScope", defaultValue = "" )
-    protected String includeScope;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
-#### Snippet
-```java
-     * Comma separated list of GroupIds to include when indexing.
-     */
-    @Parameter( property = "includeGroupIds", defaultValue = "" )
-    protected String includeGroupIds;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
-#### Snippet
-```java
-     * Scope to exclude. Empty string indicates no scopes (default).
-     */
-    @Parameter( property = "excludeScope", defaultValue = "" )
-    protected String excludeScope;
-
-```
-
 ## RuleId[id=Deprecation]
 ### Deprecation
 'getDependencyArtifacts()' is deprecated
@@ -187,11 +187,11 @@ Cast may be removed by changing the type of 'artifact' to 'Artifact'
 in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
 #### Snippet
 ```java
-        for ( final Object artifact : project.getArtifacts() )
-        {
-            appendFileToClassPath( classPath, ( (Artifact) artifact ).getFile() );
-        }
-        if ( getLog().isDebugEnabled() )
+                for ( final Object artifact : filter.filter( project.getArtifacts() ) )
+                {
+                    appendFileToClassPath( indexPath, ( (Artifact) artifact ).getFile() );
+                }
+            }
 ```
 
 ### CastCanBeRemovedNarrowingVariableType
@@ -199,10 +199,10 @@ Cast may be removed by changing the type of 'artifact' to 'Artifact'
 in `src/main/java/org/eclipse/sisu/mojos/IndexMojo.java`
 #### Snippet
 ```java
-                for ( final Object artifact : filter.filter( project.getArtifacts() ) )
-                {
-                    appendFileToClassPath( indexPath, ( (Artifact) artifact ).getFile() );
-                }
-            }
+        for ( final Object artifact : project.getArtifacts() )
+        {
+            appendFileToClassPath( classPath, ( (Artifact) artifact ).getFile() );
+        }
+        if ( getLog().isDebugEnabled() )
 ```
 
