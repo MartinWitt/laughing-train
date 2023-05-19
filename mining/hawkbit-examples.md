@@ -51,6 +51,30 @@ in `hawkbit-example-mgmt-simulator/src/main/java/org/eclipse/hawkbit/mgmt/client
 
 ## RuleId[id=JavadocReference]
 ### JavadocReference
+Cannot resolve symbol `MgmtRolloutRestRequestBody`
+in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/RolloutBuilder.java`
+#### Snippet
+```java
+/**
+ * 
+ * Builder pattern for building {@link MgmtRolloutRestRequestBody}.
+ *
+ */
+```
+
+### JavadocReference
+Cannot resolve symbol `MgmtSoftwareModuleAssigment`
+in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/SoftwareModuleAssigmentBuilder.java`
+#### Snippet
+```java
+/**
+ * 
+ * Builder pattern for building {@link MgmtSoftwareModuleAssigment}.
+ *
+ */
+```
+
+### JavadocReference
 Cannot resolve symbol `MgmtSoftwareModuleAssigment`
 in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/SoftwareModuleAssigmentBuilder.java`
 #### Snippet
@@ -72,90 +96,6 @@ in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/cli
      * @return a single entry list of {@link MgmtSoftwareModuleAssigment}
      */
     public List<MgmtSoftwareModuleAssigment> build() {
-```
-
-### JavadocReference
-Cannot resolve symbol `MgmtSoftwareModuleAssigment`
-in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/SoftwareModuleAssigmentBuilder.java`
-#### Snippet
-```java
-/**
- * 
- * Builder pattern for building {@link MgmtSoftwareModuleAssigment}.
- *
- */
-```
-
-### JavadocReference
-Cannot resolve symbol `MgmtSoftwareModuleTypeRequestBodyPost`
-in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/SoftwareModuleTypeBuilder.java`
-#### Snippet
-```java
-
-    /**
-     * Builds a list of multiple {@link MgmtSoftwareModuleTypeRequestBodyPost}
-     * to create multiple software module types at once. An increasing number
-     * will be added to the name and key of the software module type.
-```
-
-### JavadocReference
-Cannot resolve symbol `MgmtSoftwareModuleTypeRequestBodyPost`
-in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/SoftwareModuleTypeBuilder.java`
-#### Snippet
-```java
-     *            the amount of software module type bodies which should be
-     *            created
-     * @return a list of {@link MgmtSoftwareModuleTypeRequestBodyPost}
-     */
-    public List<MgmtSoftwareModuleTypeRequestBodyPost> buildAsList(final int count) {
-```
-
-### JavadocReference
-Cannot resolve symbol `MgmtSoftwareModuleTypeRequestBodyPost`
-in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/SoftwareModuleTypeBuilder.java`
-#### Snippet
-```java
-    /**
-     * Builds a list with a single entry of
-     * {@link MgmtSoftwareModuleTypeRequestBodyPost} which can directly be used
-     * in the RESTful-API.
-     * 
-```
-
-### JavadocReference
-Cannot resolve symbol `MgmtSoftwareModuleTypeRequestBodyPost`
-in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/SoftwareModuleTypeBuilder.java`
-#### Snippet
-```java
-     * 
-     * @return a single entry list of
-     *         {@link MgmtSoftwareModuleTypeRequestBodyPost}
-     */
-    public List<MgmtSoftwareModuleTypeRequestBodyPost> build() {
-```
-
-### JavadocReference
-Cannot resolve symbol `MgmtSoftwareModuleRequestBodyPost`
-in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/SoftwareModuleTypeBuilder.java`
-#### Snippet
-```java
-/**
- * 
- * Builder pattern for building {@link MgmtSoftwareModuleRequestBodyPost}.
- *
- */
-```
-
-### JavadocReference
-Cannot resolve symbol `MgmtSoftwareModuleRequestBodyPost`
-in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/SoftwareModuleBuilder.java`
-#### Snippet
-```java
-/**
- * 
- * Builder pattern for building {@link MgmtSoftwareModuleRequestBodyPost}.
- *
- */
 ```
 
 ### JavadocReference
@@ -187,11 +127,35 @@ Cannot resolve symbol `MgmtSoftwareModuleRequestBodyPost`
 in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/SoftwareModuleBuilder.java`
 #### Snippet
 ```java
+/**
+ * 
+ * Builder pattern for building {@link MgmtSoftwareModuleRequestBodyPost}.
+ *
+ */
+```
+
+### JavadocReference
+Cannot resolve symbol `MgmtSoftwareModuleRequestBodyPost`
+in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/SoftwareModuleBuilder.java`
+#### Snippet
+```java
 
     /**
      * Builds a list of multiple {@link MgmtSoftwareModuleRequestBodyPost} to
      * create multiple software module at once. An increasing number will be
      * added to the version of the software module. The name and type will
+```
+
+### JavadocReference
+Cannot resolve symbol `MgmtSoftwareModuleTypeRequestBodyPost`
+in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/SoftwareModuleTypeBuilder.java`
+#### Snippet
+```java
+
+    /**
+     * Builds a list of multiple {@link MgmtSoftwareModuleTypeRequestBodyPost}
+     * to create multiple software module types at once. An increasing number
+     * will be added to the name and key of the software module type.
 ```
 
 ### JavadocReference
@@ -204,6 +168,126 @@ in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/cli
      * @return a list of {@link MgmtDistributionSetTypeRequestBodyPost}
      */
     public List<MgmtSoftwareModuleRequestBodyPost> buildAsList(final int count) {
+```
+
+### JavadocReference
+Cannot resolve symbol `MgmtDistributionSetRequestBodyPost`
+in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/DistributionSetBuilder.java`
+#### Snippet
+```java
+
+/**
+ * Builder pattern for building {@link MgmtDistributionSetRequestBodyPost}.
+ */
+// Exception squid:S1701 - builder pattern
+```
+
+### JavadocReference
+Cannot resolve symbol `MgmtDistributionSetTypeRequestBodyPost`
+in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/DistributionSetTypeBuilder.java`
+#### Snippet
+```java
+    /**
+     * Builds a list with a single entry of
+     * {@link MgmtDistributionSetTypeRequestBodyPost} which can directly be used
+     * in the RESTful-API.
+     * 
+```
+
+### JavadocReference
+Cannot resolve symbol `MgmtDistributionSetRequestBodyPost`
+in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/DistributionSetBuilder.java`
+#### Snippet
+```java
+
+    /**
+     * Builds a list of multiple {@link MgmtDistributionSetRequestBodyPost} to
+     * create multiple distribution sets at once. An increasing number will be
+     * used for version of the distribution set starting from given offset. The
+```
+
+### JavadocReference
+Cannot resolve symbol `MgmtSoftwareModuleTypeRequestBodyPost`
+in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/SoftwareModuleTypeBuilder.java`
+#### Snippet
+```java
+     *            the amount of software module type bodies which should be
+     *            created
+     * @return a list of {@link MgmtSoftwareModuleTypeRequestBodyPost}
+     */
+    public List<MgmtSoftwareModuleTypeRequestBodyPost> buildAsList(final int count) {
+```
+
+### JavadocReference
+Cannot resolve symbol `MgmtDistributionSetRequestBodyPost`
+in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/DistributionSetBuilder.java`
+#### Snippet
+```java
+     * @param offset
+     *            for for index start
+     * @return a list of {@link MgmtDistributionSetRequestBodyPost}
+     */
+    public List<MgmtDistributionSetRequestBodyPost> buildAsList(final int offset, final int count) {
+```
+
+### JavadocReference
+Cannot resolve symbol `MgmtDistributionSetTypeRequestBodyPost`
+in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/DistributionSetTypeBuilder.java`
+#### Snippet
+```java
+     * 
+     * @return a single entry list of
+     *         {@link MgmtDistributionSetTypeRequestBodyPost}
+     */
+    public List<MgmtDistributionSetTypeRequestBodyPost> build() {
+```
+
+### JavadocReference
+Cannot resolve symbol `MgmtTargetRequestBody`
+in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/TargetBuilder.java`
+#### Snippet
+```java
+
+    /**
+     * Builds a list of multiple {@link MgmtTargetRequestBody} to create
+     * multiple targets at once. An increasing number will be added to the
+     * controllerId and name of the target starting from the provided offset.
+```
+
+### JavadocReference
+Cannot resolve symbol `MgmtDistributionSetTypeRequestBodyPost`
+in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/DistributionSetTypeBuilder.java`
+#### Snippet
+```java
+/**
+ * 
+ * Builder pattern for building {@link MgmtDistributionSetTypeRequestBodyPost}.
+ *
+ */
+```
+
+### JavadocReference
+Cannot resolve symbol `MgmtSoftwareModuleTypeRequestBodyPost`
+in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/TargetBuilder.java`
+#### Snippet
+```java
+     * @param offset
+     *            for for index start
+     * @return a list of {@link MgmtSoftwareModuleTypeRequestBodyPost}
+     */
+    public List<MgmtTargetRequestBody> buildAsList(final int offset, final int count) {
+```
+
+### JavadocReference
+Cannot resolve symbol `MgmtSoftwareModuleRequestBodyPost`
+in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/SoftwareModuleTypeBuilder.java`
+#### Snippet
+```java
+/**
+ * 
+ * Builder pattern for building {@link MgmtSoftwareModuleRequestBodyPost}.
+ *
+ */
 ```
 
 ### JavadocReference
@@ -223,23 +307,11 @@ Cannot resolve symbol `MgmtDistributionSetTypeRequestBodyPost`
 in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/DistributionSetTypeBuilder.java`
 #### Snippet
 ```java
-/**
- * 
- * Builder pattern for building {@link MgmtDistributionSetTypeRequestBodyPost}.
- *
- */
-```
 
-### JavadocReference
-Cannot resolve symbol `MgmtDistributionSetTypeRequestBodyPost`
-in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/DistributionSetTypeBuilder.java`
-#### Snippet
-```java
     /**
-     * Builds a list with a single entry of
-     * {@link MgmtDistributionSetTypeRequestBodyPost} which can directly be used
-     * in the RESTful-API.
-     * 
+     * Builds a list of multiple {@link MgmtDistributionSetTypeRequestBodyPost}
+     * to create multiple distribution set types at once. An increasing number
+     * will be added to the name and key of the distribution set type. The
 ```
 
 ### JavadocReference
@@ -255,39 +327,15 @@ in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/cli
 ```
 
 ### JavadocReference
-Cannot resolve symbol `MgmtDistributionSetTypeRequestBodyPost`
-in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/DistributionSetTypeBuilder.java`
+Cannot resolve symbol `MgmtDistributionSetRequestBodyPost`
+in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/DistributionSetBuilder.java`
 #### Snippet
 ```java
-     * 
-     * @return a single entry list of
-     *         {@link MgmtDistributionSetTypeRequestBodyPost}
-     */
-    public List<MgmtDistributionSetTypeRequestBodyPost> build() {
-```
-
-### JavadocReference
-Cannot resolve symbol `MgmtSoftwareModuleTypeRequestBodyPost`
-in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/TargetBuilder.java`
-#### Snippet
-```java
-     * @param count
-     *            the amount of target bodies which should be created
-     * @return a list of {@link MgmtSoftwareModuleTypeRequestBodyPost}
-     */
-    public List<MgmtTargetRequestBody> buildAsList(final int count) {
-```
-
-### JavadocReference
-Cannot resolve symbol `MgmtDistributionSetTypeRequestBodyPost`
-in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/DistributionSetTypeBuilder.java`
-#### Snippet
-```java
-
     /**
-     * Builds a list of multiple {@link MgmtDistributionSetTypeRequestBodyPost}
-     * to create multiple distribution set types at once. An increasing number
-     * will be added to the name and key of the distribution set type. The
+     * Builds a list with a single entry of
+     * {@link MgmtDistributionSetRequestBodyPost} which can directly be used to
+     * post on the RESTful-API.
+     * 
 ```
 
 ### JavadocReference
@@ -303,15 +351,15 @@ in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/cli
 ```
 
 ### JavadocReference
-Cannot resolve symbol `MgmtTargetRequestBody`
-in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/TargetBuilder.java`
+Cannot resolve symbol `MgmtDistributionSetRequestBodyPost`
+in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/DistributionSetBuilder.java`
 #### Snippet
 ```java
-
-    /**
-     * Builds a list of multiple {@link MgmtTargetRequestBody} to create
-     * multiple targets at once. An increasing number will be added to the
-     * controllerId and name of the target starting from the provided offset.
+     * post on the RESTful-API.
+     * 
+     * @return a single entry list of {@link MgmtDistributionSetRequestBodyPost}
+     */
+    public List<MgmtDistributionSetRequestBodyPost> build() {
 ```
 
 ### JavadocReference
@@ -319,11 +367,11 @@ Cannot resolve symbol `MgmtSoftwareModuleTypeRequestBodyPost`
 in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/TargetBuilder.java`
 #### Snippet
 ```java
-     * @param offset
-     *            for for index start
+     * @param count
+     *            the amount of target bodies which should be created
      * @return a list of {@link MgmtSoftwareModuleTypeRequestBodyPost}
      */
-    public List<MgmtTargetRequestBody> buildAsList(final int offset, final int count) {
+    public List<MgmtTargetRequestBody> buildAsList(final int count) {
 ```
 
 ### JavadocReference
@@ -339,6 +387,18 @@ in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/cli
 ```
 
 ### JavadocReference
+Cannot resolve symbol `MgmtDistributionSetRequestBodyPost`
+in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/DistributionSetBuilder.java`
+#### Snippet
+```java
+
+    /**
+     * Builds a list of multiple {@link MgmtDistributionSetRequestBodyPost} to
+     * create multiple distribution sets at once. An increasing number will be
+     * used for version of the distribution set. The name and type will remain
+```
+
+### JavadocReference
 Cannot resolve symbol `MgmtTargetRequestBody`
 in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/TargetBuilder.java`
 #### Snippet
@@ -348,6 +408,186 @@ in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/cli
      * @return a single entry list of {@link MgmtTargetRequestBody}
      */
     public List<MgmtTargetRequestBody> build() {
+```
+
+### JavadocReference
+Cannot resolve symbol `MgmtDistributionSetRequestBodyPost`
+in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/DistributionSetBuilder.java`
+#### Snippet
+```java
+     * @param count
+     *            the amount of distribution sets body which should be created
+     * @return a list of {@link MgmtDistributionSetRequestBodyPost}
+     */
+    public List<MgmtDistributionSetRequestBodyPost> buildAsList(final int count) {
+```
+
+### JavadocReference
+Cannot resolve symbol `MgmtSoftwareModuleTypeRequestBodyPost`
+in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/SoftwareModuleTypeBuilder.java`
+#### Snippet
+```java
+    /**
+     * Builds a list with a single entry of
+     * {@link MgmtSoftwareModuleTypeRequestBodyPost} which can directly be used
+     * in the RESTful-API.
+     * 
+```
+
+### JavadocReference
+Cannot resolve symbol `MgmtSoftwareModuleTypeRequestBodyPost`
+in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/SoftwareModuleTypeBuilder.java`
+#### Snippet
+```java
+     * 
+     * @return a single entry list of
+     *         {@link MgmtSoftwareModuleTypeRequestBodyPost}
+     */
+    public List<MgmtSoftwareModuleTypeRequestBodyPost> build() {
+```
+
+### JavadocReference
+Cannot resolve symbol `MgmtTargetFilterQueryRequestBody`
+in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/TargetFilterQueryBuilder.java`
+#### Snippet
+```java
+
+/**
+ * Builder pattern for building {@link MgmtTargetFilterQueryRequestBody}.
+ */
+// Exception squid:S1701 - builder pattern
+```
+
+### JavadocReference
+Cannot resolve symbol `MgmtTargetFilterQueryRequestBody`
+in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/TargetFilterQueryBuilder.java`
+#### Snippet
+```java
+
+    /**
+     * Builds a single entry of {@link MgmtTargetFilterQueryRequestBody} which
+     * can directly be used to post on the RESTful-API.
+     * 
+```
+
+### JavadocReference
+Cannot resolve symbol `MgmtTargetFilterQueryRequestBody`
+in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/TargetFilterQueryBuilder.java`
+#### Snippet
+```java
+     * can directly be used to post on the RESTful-API.
+     * 
+     * @return a single entry of {@link MgmtTargetFilterQueryRequestBody}
+     */
+    public MgmtTargetFilterQueryRequestBody build() {
+```
+
+### JavadocReference
+Cannot resolve symbol `SpringMvcContract`
+in `hawkbit-example-core-feign-client/src/main/java/org/eclipse/hawkbit/feign/core/client/IgnoreMultipleConsumersProducersSpringMvcContract.java`
+#### Snippet
+```java
+
+/**
+ * Own implementation of the {@link SpringMvcContract} which catches the
+ * {@link IllegalStateException} which occurs due multiple produces and consumes
+ * values in the request-mapping
+```
+
+### JavadocReference
+Cannot resolve symbol `MgmtSystemManagementRestApi`
+in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/MgmtSystemManagementClientResource.java`
+#### Snippet
+```java
+
+/**
+ * Client binding for the {@link MgmtSystemManagementRestApi}.
+ *
+ */
+```
+
+### JavadocReference
+Cannot resolve symbol `SpringBootApplication`
+in `hawkbit-custom-theme-example/src/main/java/org/eclipse/hawkbit/app/Start.java`
+#### Snippet
+```java
+
+/**
+ * A {@link SpringBootApplication} annotated class with a main method to start.
+ * The minimal configuration for the stand alone hawkBit server.
+ *
+```
+
+### JavadocReference
+Cannot resolve symbol `AbstractHawkbitLoginUI`
+in `hawkbit-custom-theme-example/src/main/java/org/eclipse/hawkbit/app/MyLoginUI.java`
+#### Snippet
+```java
+ * A {@link SpringUI} annotated class must be present in the classpath for the
+ * login path. The easiest way to get an hawkBit login UI running is to extend
+ * the {@link AbstractHawkbitLoginUI} and to annotated it with {@link SpringUI}
+ * as in this example to the defined {@link HawkbitTheme#LOGIN_UI_PATH}.
+ * 
+```
+
+### JavadocReference
+Cannot resolve symbol `HawkbitTheme`
+in `hawkbit-custom-theme-example/src/main/java/org/eclipse/hawkbit/app/MyLoginUI.java`
+#### Snippet
+```java
+ * login path. The easiest way to get an hawkBit login UI running is to extend
+ * the {@link AbstractHawkbitLoginUI} and to annotated it with {@link SpringUI}
+ * as in this example to the defined {@link HawkbitTheme#LOGIN_UI_PATH}.
+ * 
+ */
+```
+
+### JavadocReference
+Cannot resolve symbol `LOGIN_UI_PATH`
+in `hawkbit-custom-theme-example/src/main/java/org/eclipse/hawkbit/app/MyLoginUI.java`
+#### Snippet
+```java
+ * login path. The easiest way to get an hawkBit login UI running is to extend
+ * the {@link AbstractHawkbitLoginUI} and to annotated it with {@link SpringUI}
+ * as in this example to the defined {@link HawkbitTheme#LOGIN_UI_PATH}.
+ * 
+ */
+```
+
+### JavadocReference
+Cannot resolve symbol `MgmtTenantManagementRestApi`
+in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/MgmtTenantManagementClientResource.java`
+#### Snippet
+```java
+
+/**
+ * Client binding for the {@link MgmtTenantManagementRestApi}.
+ *
+ */
+```
+
+### JavadocReference
+Cannot resolve symbol `AbstractHawkbitUI`
+in `hawkbit-custom-theme-example/src/main/java/org/eclipse/hawkbit/app/MyUI.java`
+#### Snippet
+```java
+ * A {@link SpringUI} annotated class must be present in the classpath. The
+ * easiest way to get an hawkBit UI running is to extend the
+ * {@link AbstractHawkbitUI} and to annotated it with {@link SpringUI} as in
+ * this example.
+ *
+```
+
+### JavadocReference
+Cannot resolve symbol `MultipartFile`
+in `hawkbit-example-mgmt-simulator/src/main/java/org/eclipse/hawkbit/mgmt/client/scenarios/upload/FeignMultipartEncoder.java`
+#### Snippet
+```java
+
+/**
+ * A feign encoder implementation which handles {@link MultipartFile} body.
+ */
+public class FeignMultipartEncoder implements Encoder {
 ```
 
 ### JavadocReference
@@ -411,222 +651,6 @@ in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/cli
 ```
 
 ### JavadocReference
-Cannot resolve symbol `MgmtSystemManagementRestApi`
-in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/MgmtSystemManagementClientResource.java`
-#### Snippet
-```java
-
-/**
- * Client binding for the {@link MgmtSystemManagementRestApi}.
- *
- */
-```
-
-### JavadocReference
-Cannot resolve symbol `MultipartFile`
-in `hawkbit-example-mgmt-simulator/src/main/java/org/eclipse/hawkbit/mgmt/client/scenarios/upload/ArtifactFile.java`
-#### Snippet
-```java
-
-/**
- * Implementation for {@link MultipartFile} for hawkBit artifact upload.
- *
- */
-```
-
-### JavadocReference
-Cannot resolve symbol `MgmtDistributionSetRequestBodyPost`
-in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/DistributionSetBuilder.java`
-#### Snippet
-```java
-
-/**
- * Builder pattern for building {@link MgmtDistributionSetRequestBodyPost}.
- */
-// Exception squid:S1701 - builder pattern
-```
-
-### JavadocReference
-Cannot resolve symbol `MgmtDistributionSetRequestBodyPost`
-in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/DistributionSetBuilder.java`
-#### Snippet
-```java
-    /**
-     * Builds a list with a single entry of
-     * {@link MgmtDistributionSetRequestBodyPost} which can directly be used to
-     * post on the RESTful-API.
-     * 
-```
-
-### JavadocReference
-Cannot resolve symbol `MgmtDistributionSetRequestBodyPost`
-in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/DistributionSetBuilder.java`
-#### Snippet
-```java
-     * post on the RESTful-API.
-     * 
-     * @return a single entry list of {@link MgmtDistributionSetRequestBodyPost}
-     */
-    public List<MgmtDistributionSetRequestBodyPost> build() {
-```
-
-### JavadocReference
-Cannot resolve symbol `MgmtDistributionSetRequestBodyPost`
-in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/DistributionSetBuilder.java`
-#### Snippet
-```java
-
-    /**
-     * Builds a list of multiple {@link MgmtDistributionSetRequestBodyPost} to
-     * create multiple distribution sets at once. An increasing number will be
-     * used for version of the distribution set starting from given offset. The
-```
-
-### JavadocReference
-Cannot resolve symbol `MgmtDistributionSetRequestBodyPost`
-in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/DistributionSetBuilder.java`
-#### Snippet
-```java
-     * @param offset
-     *            for for index start
-     * @return a list of {@link MgmtDistributionSetRequestBodyPost}
-     */
-    public List<MgmtDistributionSetRequestBodyPost> buildAsList(final int offset, final int count) {
-```
-
-### JavadocReference
-Cannot resolve symbol `MgmtDistributionSetRequestBodyPost`
-in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/DistributionSetBuilder.java`
-#### Snippet
-```java
-
-    /**
-     * Builds a list of multiple {@link MgmtDistributionSetRequestBodyPost} to
-     * create multiple distribution sets at once. An increasing number will be
-     * used for version of the distribution set. The name and type will remain
-```
-
-### JavadocReference
-Cannot resolve symbol `MgmtDistributionSetRequestBodyPost`
-in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/DistributionSetBuilder.java`
-#### Snippet
-```java
-     * @param count
-     *            the amount of distribution sets body which should be created
-     * @return a list of {@link MgmtDistributionSetRequestBodyPost}
-     */
-    public List<MgmtDistributionSetRequestBodyPost> buildAsList(final int count) {
-```
-
-### JavadocReference
-Cannot resolve symbol `MgmtTenantManagementRestApi`
-in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/MgmtTenantManagementClientResource.java`
-#### Snippet
-```java
-
-/**
- * Client binding for the {@link MgmtTenantManagementRestApi}.
- *
- */
-```
-
-### JavadocReference
-Cannot resolve symbol `AbstractHawkbitUI`
-in `hawkbit-custom-theme-example/src/main/java/org/eclipse/hawkbit/app/MyUI.java`
-#### Snippet
-```java
- * A {@link SpringUI} annotated class must be present in the classpath. The
- * easiest way to get an hawkBit UI running is to extend the
- * {@link AbstractHawkbitUI} and to annotated it with {@link SpringUI} as in
- * this example.
- *
-```
-
-### JavadocReference
-Cannot resolve symbol `AbstractHawkbitLoginUI`
-in `hawkbit-custom-theme-example/src/main/java/org/eclipse/hawkbit/app/MyLoginUI.java`
-#### Snippet
-```java
- * A {@link SpringUI} annotated class must be present in the classpath for the
- * login path. The easiest way to get an hawkBit login UI running is to extend
- * the {@link AbstractHawkbitLoginUI} and to annotated it with {@link SpringUI}
- * as in this example to the defined {@link HawkbitTheme#LOGIN_UI_PATH}.
- * 
-```
-
-### JavadocReference
-Cannot resolve symbol `HawkbitTheme`
-in `hawkbit-custom-theme-example/src/main/java/org/eclipse/hawkbit/app/MyLoginUI.java`
-#### Snippet
-```java
- * login path. The easiest way to get an hawkBit login UI running is to extend
- * the {@link AbstractHawkbitLoginUI} and to annotated it with {@link SpringUI}
- * as in this example to the defined {@link HawkbitTheme#LOGIN_UI_PATH}.
- * 
- */
-```
-
-### JavadocReference
-Cannot resolve symbol `LOGIN_UI_PATH`
-in `hawkbit-custom-theme-example/src/main/java/org/eclipse/hawkbit/app/MyLoginUI.java`
-#### Snippet
-```java
- * login path. The easiest way to get an hawkBit login UI running is to extend
- * the {@link AbstractHawkbitLoginUI} and to annotated it with {@link SpringUI}
- * as in this example to the defined {@link HawkbitTheme#LOGIN_UI_PATH}.
- * 
- */
-```
-
-### JavadocReference
-Cannot resolve symbol `MgmtTargetFilterQueryRequestBody`
-in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/TargetFilterQueryBuilder.java`
-#### Snippet
-```java
-
-/**
- * Builder pattern for building {@link MgmtTargetFilterQueryRequestBody}.
- */
-// Exception squid:S1701 - builder pattern
-```
-
-### JavadocReference
-Cannot resolve symbol `MgmtTargetFilterQueryRequestBody`
-in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/TargetFilterQueryBuilder.java`
-#### Snippet
-```java
-
-    /**
-     * Builds a single entry of {@link MgmtTargetFilterQueryRequestBody} which
-     * can directly be used to post on the RESTful-API.
-     * 
-```
-
-### JavadocReference
-Cannot resolve symbol `MgmtTargetFilterQueryRequestBody`
-in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/TargetFilterQueryBuilder.java`
-#### Snippet
-```java
-     * can directly be used to post on the RESTful-API.
-     * 
-     * @return a single entry of {@link MgmtTargetFilterQueryRequestBody}
-     */
-    public MgmtTargetFilterQueryRequestBody build() {
-```
-
-### JavadocReference
-Cannot resolve symbol `MgmtRolloutRestRequestBody`
-in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/RolloutBuilder.java`
-#### Snippet
-```java
-/**
- * 
- * Builder pattern for building {@link MgmtRolloutRestRequestBody}.
- *
- */
-```
-
-### JavadocReference
 Cannot resolve symbol `receiverConnectorQueueFromHawkBit()`
 in `hawkbit-device-simulator/src/main/java/org/eclipse/hawkbit/simulator/amqp/AmqpConfiguration.java`
 #### Snippet
@@ -652,38 +676,14 @@ in `hawkbit-device-simulator/src/main/java/org/eclipse/hawkbit/simulator/amqp/Am
 
 ### JavadocReference
 Cannot resolve symbol `MultipartFile`
-in `hawkbit-example-mgmt-simulator/src/main/java/org/eclipse/hawkbit/mgmt/client/scenarios/upload/FeignMultipartEncoder.java`
+in `hawkbit-example-mgmt-simulator/src/main/java/org/eclipse/hawkbit/mgmt/client/scenarios/upload/ArtifactFile.java`
 #### Snippet
 ```java
 
 /**
- * A feign encoder implementation which handles {@link MultipartFile} body.
- */
-public class FeignMultipartEncoder implements Encoder {
-```
-
-### JavadocReference
-Cannot resolve symbol `SpringMvcContract`
-in `hawkbit-example-core-feign-client/src/main/java/org/eclipse/hawkbit/feign/core/client/IgnoreMultipleConsumersProducersSpringMvcContract.java`
-#### Snippet
-```java
-
-/**
- * Own implementation of the {@link SpringMvcContract} which catches the
- * {@link IllegalStateException} which occurs due multiple produces and consumes
- * values in the request-mapping
-```
-
-### JavadocReference
-Cannot resolve symbol `SpringBootApplication`
-in `hawkbit-custom-theme-example/src/main/java/org/eclipse/hawkbit/app/Start.java`
-#### Snippet
-```java
-
-/**
- * A {@link SpringBootApplication} annotated class with a main method to start.
- * The minimal configuration for the stand alone hawkBit server.
+ * Implementation for {@link MultipartFile} for hawkBit artifact upload.
  *
+ */
 ```
 
 ## RuleId[id=SimplifyOptionalCallChains]
@@ -1278,18 +1278,6 @@ spring.main.allow-bean-definition-overriding=true
 
 ## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
-Field `startCacheTime` may be 'final'
-in `hawkbit-device-simulator/src/main/java/org/eclipse/hawkbit/simulator/amqp/SimulatedUpdate.java`
-#### Snippet
-```java
-    private final String thingId;
-    private final Long actionId;
-    private transient LocalDateTime startCacheTime;
-
-    /**
-```
-
-### FieldMayBeFinal
 Field `basicAuthProperties` may be 'final'
 in `hawkbit-device-simulator/src/main/java/org/eclipse/hawkbit/simulator/http/BasicAuthSecurityConfiguration.java`
 #### Snippet
@@ -1299,6 +1287,18 @@ public class BasicAuthSecurityConfiguration extends WebSecurityConfigurerAdapter
     private BasicAuthProperties basicAuthProperties;
 
     protected BasicAuthSecurityConfiguration(BasicAuthProperties basicAuthProperties) {
+```
+
+### FieldMayBeFinal
+Field `startCacheTime` may be 'final'
+in `hawkbit-device-simulator/src/main/java/org/eclipse/hawkbit/simulator/amqp/SimulatedUpdate.java`
+#### Snippet
+```java
+    private final String thingId;
+    private final Long actionId;
+    private transient LocalDateTime startCacheTime;
+
+    /**
 ```
 
 ## RuleId[id=DuplicateExpressions]
@@ -1364,6 +1364,54 @@ in `hawkbit-example-mgmt-simulator/src/main/java/org/eclipse/hawkbit/mgmt/client
 ```
 
 ### Deprecation
+'divide(java.math.BigDecimal, int)' is deprecated
+in `hawkbit-example-mgmt-simulator/src/main/java/org/eclipse/hawkbit/mgmt/client/scenarios/ConfigurableScenario.java`
+#### Snippet
+```java
+        LOGGER.info("Creating {} distribution sets", scenario.getDistributionSets());
+        final BigDecimal pages = new BigDecimal(scenario.getDistributionSets())
+                .divide(new BigDecimal(PAGE_SIZE), BigDecimal.ROUND_UP).max(new BigDecimal(1));
+
+        IntStream.range(0, pages.intValue()).parallel().forEach(i -> createDistributionSetPage(scenario, i));
+```
+
+### Deprecation
+'ROUND_UP' is deprecated
+in `hawkbit-example-mgmt-simulator/src/main/java/org/eclipse/hawkbit/mgmt/client/scenarios/ConfigurableScenario.java`
+#### Snippet
+```java
+        LOGGER.info("Creating {} distribution sets", scenario.getDistributionSets());
+        final BigDecimal pages = new BigDecimal(scenario.getDistributionSets())
+                .divide(new BigDecimal(PAGE_SIZE), BigDecimal.ROUND_UP).max(new BigDecimal(1));
+
+        IntStream.range(0, pages.intValue()).parallel().forEach(i -> createDistributionSetPage(scenario, i));
+```
+
+### Deprecation
+'divide(java.math.BigDecimal, int)' is deprecated
+in `hawkbit-example-mgmt-simulator/src/main/java/org/eclipse/hawkbit/mgmt/client/scenarios/ConfigurableScenario.java`
+#### Snippet
+```java
+        LOGGER.info("Creating {} targets", scenario.getTargets());
+        final BigDecimal pages = new BigDecimal(scenario.getTargets())
+                .divide(new BigDecimal(PAGE_SIZE), BigDecimal.ROUND_UP).max(new BigDecimal(1));
+
+        IntStream.range(0, pages.intValue()).parallel().forEach(i -> createTargetPage(scenario, i, deviceGroupTags));
+```
+
+### Deprecation
+'ROUND_UP' is deprecated
+in `hawkbit-example-mgmt-simulator/src/main/java/org/eclipse/hawkbit/mgmt/client/scenarios/ConfigurableScenario.java`
+#### Snippet
+```java
+        LOGGER.info("Creating {} targets", scenario.getTargets());
+        final BigDecimal pages = new BigDecimal(scenario.getTargets())
+                .divide(new BigDecimal(PAGE_SIZE), BigDecimal.ROUND_UP).max(new BigDecimal(1));
+
+        IntStream.range(0, pages.intValue()).parallel().forEach(i -> createTargetPage(scenario, i, deviceGroupTags));
+```
+
+### Deprecation
 'decode404()' is deprecated
 in `hawkbit-device-simulator/src/main/java/org/eclipse/hawkbit/simulator/SimulatedDeviceFactory.java`
 #### Snippet
@@ -1375,90 +1423,7 @@ in `hawkbit-device-simulator/src/main/java/org/eclipse/hawkbit/simulator/Simulat
 
 ```
 
-### Deprecation
-'divide(java.math.BigDecimal, int)' is deprecated
-in `hawkbit-example-mgmt-simulator/src/main/java/org/eclipse/hawkbit/mgmt/client/scenarios/ConfigurableScenario.java`
-#### Snippet
-```java
-        LOGGER.info("Creating {} targets", scenario.getTargets());
-        final BigDecimal pages = new BigDecimal(scenario.getTargets())
-                .divide(new BigDecimal(PAGE_SIZE), BigDecimal.ROUND_UP).max(new BigDecimal(1));
-
-        IntStream.range(0, pages.intValue()).parallel().forEach(i -> createTargetPage(scenario, i, deviceGroupTags));
-```
-
-### Deprecation
-'ROUND_UP' is deprecated
-in `hawkbit-example-mgmt-simulator/src/main/java/org/eclipse/hawkbit/mgmt/client/scenarios/ConfigurableScenario.java`
-#### Snippet
-```java
-        LOGGER.info("Creating {} targets", scenario.getTargets());
-        final BigDecimal pages = new BigDecimal(scenario.getTargets())
-                .divide(new BigDecimal(PAGE_SIZE), BigDecimal.ROUND_UP).max(new BigDecimal(1));
-
-        IntStream.range(0, pages.intValue()).parallel().forEach(i -> createTargetPage(scenario, i, deviceGroupTags));
-```
-
-### Deprecation
-'divide(java.math.BigDecimal, int)' is deprecated
-in `hawkbit-example-mgmt-simulator/src/main/java/org/eclipse/hawkbit/mgmt/client/scenarios/ConfigurableScenario.java`
-#### Snippet
-```java
-        LOGGER.info("Creating {} distribution sets", scenario.getDistributionSets());
-        final BigDecimal pages = new BigDecimal(scenario.getDistributionSets())
-                .divide(new BigDecimal(PAGE_SIZE), BigDecimal.ROUND_UP).max(new BigDecimal(1));
-
-        IntStream.range(0, pages.intValue()).parallel().forEach(i -> createDistributionSetPage(scenario, i));
-```
-
-### Deprecation
-'ROUND_UP' is deprecated
-in `hawkbit-example-mgmt-simulator/src/main/java/org/eclipse/hawkbit/mgmt/client/scenarios/ConfigurableScenario.java`
-#### Snippet
-```java
-        LOGGER.info("Creating {} distribution sets", scenario.getDistributionSets());
-        final BigDecimal pages = new BigDecimal(scenario.getDistributionSets())
-                .divide(new BigDecimal(PAGE_SIZE), BigDecimal.ROUND_UP).max(new BigDecimal(1));
-
-        IntStream.range(0, pages.intValue()).parallel().forEach(i -> createDistributionSetPage(scenario, i));
-```
-
-## RuleId[id=DanglingJavadoc]
-### DanglingJavadoc
-Dangling Javadoc comment
-in `hawkbit-custom-theme-example/src/main/java/org/eclipse/hawkbit/app/MyUI.java`
-#### Snippet
-```java
-package org.eclipse.hawkbit.app;
-/**
- * Copyright (c) 2015 Bosch Software Innovations GmbH and others.
- *
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `hawkbit-custom-theme-example/src/main/java/org/eclipse/hawkbit/app/Start.java`
-#### Snippet
-```java
-package org.eclipse.hawkbit.app;
-/**
- * Copyright (c) 2015 Bosch Software Innovations GmbH and others.
- *
-```
-
 ## RuleId[id=ArraysAsListWithZeroOrOneArgument]
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
-in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/SoftwareModuleTypeBuilder.java`
-#### Snippet
-```java
-     */
-    public List<MgmtSoftwareModuleTypeRequestBodyPost> build() {
-        return Arrays.asList(doBuild(""));
-    }
-
-```
-
 ### ArraysAsListWithZeroOrOneArgument
 Call to `asList()` with only one argument
 in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/SoftwareModuleBuilder.java`
@@ -1466,18 +1431,6 @@ in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/cli
 ```java
      */
     public List<MgmtSoftwareModuleRequestBodyPost> build() {
-        return Arrays.asList(doBuild(""));
-    }
-
-```
-
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
-in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/TargetBuilder.java`
-#### Snippet
-```java
-     */
-    public List<MgmtTargetRequestBody> build() {
         return Arrays.asList(doBuild(""));
     }
 
@@ -1497,6 +1450,42 @@ in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/cli
 
 ### ArraysAsListWithZeroOrOneArgument
 Call to `asList()` with only one argument
+in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/DistributionSetBuilder.java`
+#### Snippet
+```java
+     */
+    public List<MgmtDistributionSetRequestBodyPost> build() {
+        return Arrays.asList(doBuild(""));
+    }
+
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/TargetBuilder.java`
+#### Snippet
+```java
+     */
+    public List<MgmtTargetRequestBody> build() {
+        return Arrays.asList(doBuild(""));
+    }
+
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/SoftwareModuleTypeBuilder.java`
+#### Snippet
+```java
+     */
+    public List<MgmtSoftwareModuleTypeRequestBodyPost> build() {
+        return Arrays.asList(doBuild(""));
+    }
+
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
 in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/TagBuilder.java`
 #### Snippet
 ```java
@@ -1507,16 +1496,27 @@ in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/cli
 
 ```
 
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
-in `hawkbit-example-mgmt-feign-client/src/main/java/org/eclipse/hawkbit/mgmt/client/resource/builder/DistributionSetBuilder.java`
+## RuleId[id=DanglingJavadoc]
+### DanglingJavadoc
+Dangling Javadoc comment
+in `hawkbit-custom-theme-example/src/main/java/org/eclipse/hawkbit/app/Start.java`
 #### Snippet
 ```java
-     */
-    public List<MgmtDistributionSetRequestBodyPost> build() {
-        return Arrays.asList(doBuild(""));
-    }
+package org.eclipse.hawkbit.app;
+/**
+ * Copyright (c) 2015 Bosch Software Innovations GmbH and others.
+ *
+```
 
+### DanglingJavadoc
+Dangling Javadoc comment
+in `hawkbit-custom-theme-example/src/main/java/org/eclipse/hawkbit/app/MyUI.java`
+#### Snippet
+```java
+package org.eclipse.hawkbit.app;
+/**
+ * Copyright (c) 2015 Bosch Software Innovations GmbH and others.
+ *
 ```
 
 ## RuleId[id=UnusedAssignment]
