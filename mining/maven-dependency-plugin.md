@@ -1,10 +1,10 @@
 # maven-dependency-plugin 
  
 # Bad smells
-I found 274 bad smells with 2 repairable:
+I found 270 bad smells with 2 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| JavadocReference | 166 | false |
+| JavadocReference | 162 | false |
 | UNCHECKED_WARNING | 32 | false |
 | JavadocDeclaration | 18 | false |
 | FieldMayBeFinal | 13 | false |
@@ -27,6 +27,150 @@ I found 274 bad smells with 2 repairable:
 ## RuleId[id=UNCHECKED_WARNING]
 ### UNCHECKED_WARNING
 Unchecked assignment: 'java.util.LinkedHashSet' to 'java.util.Set'
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyStatusSets.java`
+#### Snippet
+```java
+    public DependencyStatusSets(Set<Artifact> resolved, Set<Artifact> unResolved, Set<Artifact> skipped) {
+        if (resolved != null) {
+            this.resolvedDependencies = new LinkedHashSet<>(resolved);
+        }
+        if (unResolved != null) {
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'LinkedHashSet(Collection)' as a member of raw type 'java.util.LinkedHashSet'
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyStatusSets.java`
+#### Snippet
+```java
+    public DependencyStatusSets(Set<Artifact> resolved, Set<Artifact> unResolved, Set<Artifact> skipped) {
+        if (resolved != null) {
+            this.resolvedDependencies = new LinkedHashSet<>(resolved);
+        }
+        if (unResolved != null) {
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.LinkedHashSet' to 'java.util.Set'
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyStatusSets.java`
+#### Snippet
+```java
+        }
+        if (unResolved != null) {
+            this.unResolvedDependencies = new LinkedHashSet<>(unResolved);
+        }
+        if (skipped != null) {
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'LinkedHashSet(Collection)' as a member of raw type 'java.util.LinkedHashSet'
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyStatusSets.java`
+#### Snippet
+```java
+        }
+        if (unResolved != null) {
+            this.unResolvedDependencies = new LinkedHashSet<>(unResolved);
+        }
+        if (skipped != null) {
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.LinkedHashSet' to 'java.util.Set'
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyStatusSets.java`
+#### Snippet
+```java
+        }
+        if (skipped != null) {
+            this.skippedDependencies = new LinkedHashSet<>(skipped);
+        }
+    }
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'LinkedHashSet(Collection)' as a member of raw type 'java.util.LinkedHashSet'
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyStatusSets.java`
+#### Snippet
+```java
+        }
+        if (skipped != null) {
+            this.skippedDependencies = new LinkedHashSet<>(skipped);
+        }
+    }
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.LinkedHashSet' to 'java.util.Set'
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyStatusSets.java`
+#### Snippet
+```java
+    public void setUnResolvedDependencies(Set<Artifact> unResolvedDependencies) {
+        if (unResolvedDependencies != null) {
+            this.unResolvedDependencies = new LinkedHashSet<>(unResolvedDependencies);
+        } else {
+            this.unResolvedDependencies = null;
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'LinkedHashSet(Collection)' as a member of raw type 'java.util.LinkedHashSet'
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyStatusSets.java`
+#### Snippet
+```java
+    public void setUnResolvedDependencies(Set<Artifact> unResolvedDependencies) {
+        if (unResolvedDependencies != null) {
+            this.unResolvedDependencies = new LinkedHashSet<>(unResolvedDependencies);
+        } else {
+            this.unResolvedDependencies = null;
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.LinkedHashSet' to 'java.util.Set'
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyStatusSets.java`
+#### Snippet
+```java
+    public void setSkippedDependencies(Set<Artifact> skippedDependencies) {
+        if (skippedDependencies != null) {
+            this.skippedDependencies = new LinkedHashSet<>(skippedDependencies);
+        } else {
+            this.skippedDependencies = null;
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'LinkedHashSet(Collection)' as a member of raw type 'java.util.LinkedHashSet'
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyStatusSets.java`
+#### Snippet
+```java
+    public void setSkippedDependencies(Set<Artifact> skippedDependencies) {
+        if (skippedDependencies != null) {
+            this.skippedDependencies = new LinkedHashSet<>(skippedDependencies);
+        } else {
+            this.skippedDependencies = null;
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.LinkedHashSet' to 'java.util.Set'
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyStatusSets.java`
+#### Snippet
+```java
+    public void setResolvedDependencies(Set<Artifact> resolvedDependencies) {
+        if (resolvedDependencies != null) {
+            this.resolvedDependencies = new LinkedHashSet<>(resolvedDependencies);
+        } else {
+            this.resolvedDependencies = null;
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'LinkedHashSet(Collection)' as a member of raw type 'java.util.LinkedHashSet'
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyStatusSets.java`
+#### Snippet
+```java
+    public void setResolvedDependencies(Set<Artifact> resolvedDependencies) {
+        if (resolvedDependencies != null) {
+            this.resolvedDependencies = new LinkedHashSet<>(resolvedDependencies);
+        } else {
+            this.resolvedDependencies = null;
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.LinkedHashSet' to 'java.util.Set'
 in `src/main/java/org/apache/maven/plugins/dependency/analyze/AnalyzeDuplicateMojo.java`
 #### Snippet
 ```java
@@ -35,246 +179,6 @@ in `src/main/java/org/apache/maven/plugins/dependency/analyze/AnalyzeDuplicateMo
         return new LinkedHashSet<>(
                 CollectionUtils.disjunction(modelDependencies2, new LinkedHashSet<>(modelDependencies2)));
         // @formatter:on
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.LinkedHashSet' to 'java.util.Set'
-in `src/main/java/org/apache/maven/plugins/dependency/analyze/AnalyzeDepMgt.java`
-#### Snippet
-```java
-
-            // get dependencies for the project (including transitive)
-            Set<Artifact> allDependencyArtifacts = new LinkedHashSet<>(project.getArtifacts());
-
-            // don't warn if a dependency that is directly listed overrides
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.LinkedHashSet' to 'java.util.Set'
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyStatusSets.java`
-#### Snippet
-```java
-    public void setUnResolvedDependencies(Set<Artifact> unResolvedDependencies) {
-        if (unResolvedDependencies != null) {
-            this.unResolvedDependencies = new LinkedHashSet<>(unResolvedDependencies);
-        } else {
-            this.unResolvedDependencies = null;
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'LinkedHashSet(Collection)' as a member of raw type 'java.util.LinkedHashSet'
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyStatusSets.java`
-#### Snippet
-```java
-    public void setUnResolvedDependencies(Set<Artifact> unResolvedDependencies) {
-        if (unResolvedDependencies != null) {
-            this.unResolvedDependencies = new LinkedHashSet<>(unResolvedDependencies);
-        } else {
-            this.unResolvedDependencies = null;
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.LinkedHashSet' to 'java.util.Set'
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyStatusSets.java`
-#### Snippet
-```java
-    public void setResolvedDependencies(Set<Artifact> resolvedDependencies) {
-        if (resolvedDependencies != null) {
-            this.resolvedDependencies = new LinkedHashSet<>(resolvedDependencies);
-        } else {
-            this.resolvedDependencies = null;
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'LinkedHashSet(Collection)' as a member of raw type 'java.util.LinkedHashSet'
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyStatusSets.java`
-#### Snippet
-```java
-    public void setResolvedDependencies(Set<Artifact> resolvedDependencies) {
-        if (resolvedDependencies != null) {
-            this.resolvedDependencies = new LinkedHashSet<>(resolvedDependencies);
-        } else {
-            this.resolvedDependencies = null;
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.LinkedHashSet' to 'java.util.Set'
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyStatusSets.java`
-#### Snippet
-```java
-    public DependencyStatusSets(Set<Artifact> resolved, Set<Artifact> unResolved, Set<Artifact> skipped) {
-        if (resolved != null) {
-            this.resolvedDependencies = new LinkedHashSet<>(resolved);
-        }
-        if (unResolved != null) {
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'LinkedHashSet(Collection)' as a member of raw type 'java.util.LinkedHashSet'
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyStatusSets.java`
-#### Snippet
-```java
-    public DependencyStatusSets(Set<Artifact> resolved, Set<Artifact> unResolved, Set<Artifact> skipped) {
-        if (resolved != null) {
-            this.resolvedDependencies = new LinkedHashSet<>(resolved);
-        }
-        if (unResolved != null) {
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.LinkedHashSet' to 'java.util.Set'
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyStatusSets.java`
-#### Snippet
-```java
-        }
-        if (unResolved != null) {
-            this.unResolvedDependencies = new LinkedHashSet<>(unResolved);
-        }
-        if (skipped != null) {
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'LinkedHashSet(Collection)' as a member of raw type 'java.util.LinkedHashSet'
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyStatusSets.java`
-#### Snippet
-```java
-        }
-        if (unResolved != null) {
-            this.unResolvedDependencies = new LinkedHashSet<>(unResolved);
-        }
-        if (skipped != null) {
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.LinkedHashSet' to 'java.util.Set'
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyStatusSets.java`
-#### Snippet
-```java
-        }
-        if (skipped != null) {
-            this.skippedDependencies = new LinkedHashSet<>(skipped);
-        }
-    }
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'LinkedHashSet(Collection)' as a member of raw type 'java.util.LinkedHashSet'
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyStatusSets.java`
-#### Snippet
-```java
-        }
-        if (skipped != null) {
-            this.skippedDependencies = new LinkedHashSet<>(skipped);
-        }
-    }
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.LinkedHashSet' to 'java.util.Set'
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyStatusSets.java`
-#### Snippet
-```java
-    public void setSkippedDependencies(Set<Artifact> skippedDependencies) {
-        if (skippedDependencies != null) {
-            this.skippedDependencies = new LinkedHashSet<>(skippedDependencies);
-        } else {
-            this.skippedDependencies = null;
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'LinkedHashSet(Collection)' as a member of raw type 'java.util.LinkedHashSet'
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyStatusSets.java`
-#### Snippet
-```java
-    public void setSkippedDependencies(Set<Artifact> skippedDependencies) {
-        if (skippedDependencies != null) {
-            this.skippedDependencies = new LinkedHashSet<>(skippedDependencies);
-        } else {
-            this.skippedDependencies = null;
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'LinkedHashSet(Collection)' as a member of raw type 'java.util.LinkedHashSet'
-in `src/main/java/org/apache/maven/plugins/dependency/resolvers/ResolvePluginsMojo.java`
-#### Snippet
-```java
-
-        // final ArtifactFilter filter = getPluginFilter();
-        for (final Artifact artifact : new LinkedHashSet<>(artifacts)) {
-            // if ( !filter.include( artifact ) )
-            // {
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Set' to 'java.util.Set'
-in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractDependencyFilterMojo.java`
-#### Snippet
-```java
-
-            // resolve the rest of the artifacts
-            resolvedArtifacts = resolve(new LinkedHashSet<>(coordinates), stopOnFailure);
-
-            // calculate the artifacts not resolved.
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.LinkedHashSet' to 'java.util.Set'
-in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractDependencyFilterMojo.java`
-#### Snippet
-```java
-
-            // resolve the rest of the artifacts
-            resolvedArtifacts = resolve(new LinkedHashSet<>(coordinates), stopOnFailure);
-
-            // calculate the artifacts not resolved.
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'LinkedHashSet(Collection)' as a member of raw type 'java.util.LinkedHashSet'
-in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractDependencyFilterMojo.java`
-#### Snippet
-```java
-
-            // resolve the rest of the artifacts
-            resolvedArtifacts = resolve(new LinkedHashSet<>(coordinates), stopOnFailure);
-
-            // calculate the artifacts not resolved.
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'ArrayList(Collection)' as a member of raw type 'java.util.ArrayList'
-in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractDependencyFilterMojo.java`
-#### Snippet
-```java
-        if (includeParents) {
-            // add dependencies parents
-            for (Artifact dep : new ArrayList<>(artifacts)) {
-                addParentArtifacts(buildProjectFromArtifact(dep), artifacts);
-            }
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.LinkedHashSet' to 'java.util.Set'
-in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractDependencyFilterMojo.java`
-#### Snippet
-```java
-
-        // calculate the skipped artifacts
-        Set<Artifact> skippedArtifacts = new LinkedHashSet<>(artifacts);
-        skippedArtifacts.removeAll(unMarkedArtifacts);
-
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'LinkedHashSet(Collection)' as a member of raw type 'java.util.LinkedHashSet'
-in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractDependencyFilterMojo.java`
-#### Snippet
-```java
-
-        // calculate the skipped artifacts
-        Set<Artifact> skippedArtifacts = new LinkedHashSet<>(artifacts);
-        skippedArtifacts.removeAll(unMarkedArtifacts);
-
 ```
 
 ### UNCHECKED_WARNING
@@ -326,6 +230,150 @@ in `src/main/java/org/apache/maven/plugins/dependency/analyze/AbstractAnalyzeMoj
 ```
 
 ### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Set'
+in `src/main/java/org/apache/maven/plugins/dependency/resolvers/ResolveDependenciesMojo.java`
+#### Snippet
+```java
+
+            Method findAllMethod = moduleFinderClass.getMethod("findAll");
+            Set<Object> moduleReferences = (Set<Object>) findAllMethod.invoke(moduleFinderInstance);
+
+            // moduleReferences can be empty when referring to target/classes without module-info.class
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.LinkedHashSet' to 'java.util.Set'
+in `src/main/java/org/apache/maven/plugins/dependency/resolvers/ResolveDependenciesMojo.java`
+#### Snippet
+```java
+            sb.append("The following files were skipped:");
+            sb.append(System.lineSeparator());
+            Set<Artifact> skippedDependencies = new LinkedHashSet<>(results.getSkippedDependencies());
+            sb.append(buildArtifactListOutput(
+                    skippedDependencies, outputAbsoluteArtifactFilename, theOutputScope, theSort));
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'LinkedHashSet(Collection)' as a member of raw type 'java.util.LinkedHashSet'
+in `src/main/java/org/apache/maven/plugins/dependency/resolvers/ResolveDependenciesMojo.java`
+#### Snippet
+```java
+            sb.append("The following files were skipped:");
+            sb.append(System.lineSeparator());
+            Set<Artifact> skippedDependencies = new LinkedHashSet<>(results.getSkippedDependencies());
+            sb.append(buildArtifactListOutput(
+                    skippedDependencies, outputAbsoluteArtifactFilename, theOutputScope, theSort));
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.LinkedHashSet' to 'java.util.Set'
+in `src/main/java/org/apache/maven/plugins/dependency/resolvers/ResolveDependenciesMojo.java`
+#### Snippet
+```java
+            sb.append("The following files have NOT been resolved:");
+            sb.append(System.lineSeparator());
+            Set<Artifact> unResolvedDependencies = new LinkedHashSet<>(results.getUnResolvedDependencies());
+            sb.append(buildArtifactListOutput(
+                    unResolvedDependencies, outputAbsoluteArtifactFilename, theOutputScope, theSort));
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'LinkedHashSet(Collection)' as a member of raw type 'java.util.LinkedHashSet'
+in `src/main/java/org/apache/maven/plugins/dependency/resolvers/ResolveDependenciesMojo.java`
+#### Snippet
+```java
+            sb.append("The following files have NOT been resolved:");
+            sb.append(System.lineSeparator());
+            Set<Artifact> unResolvedDependencies = new LinkedHashSet<>(results.getUnResolvedDependencies());
+            sb.append(buildArtifactListOutput(
+                    unResolvedDependencies, outputAbsoluteArtifactFilename, theOutputScope, theSort));
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.LinkedHashSet' to 'java.util.Set'
+in `src/main/java/org/apache/maven/plugins/dependency/analyze/AnalyzeDepMgt.java`
+#### Snippet
+```java
+
+            // get dependencies for the project (including transitive)
+            Set<Artifact> allDependencyArtifacts = new LinkedHashSet<>(project.getArtifacts());
+
+            // don't warn if a dependency that is directly listed overrides
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'ArrayList(Collection)' as a member of raw type 'java.util.ArrayList'
+in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractDependencyFilterMojo.java`
+#### Snippet
+```java
+        if (includeParents) {
+            // add dependencies parents
+            for (Artifact dep : new ArrayList<>(artifacts)) {
+                addParentArtifacts(buildProjectFromArtifact(dep), artifacts);
+            }
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.LinkedHashSet' to 'java.util.Set'
+in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractDependencyFilterMojo.java`
+#### Snippet
+```java
+
+        // calculate the skipped artifacts
+        Set<Artifact> skippedArtifacts = new LinkedHashSet<>(artifacts);
+        skippedArtifacts.removeAll(unMarkedArtifacts);
+
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'LinkedHashSet(Collection)' as a member of raw type 'java.util.LinkedHashSet'
+in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractDependencyFilterMojo.java`
+#### Snippet
+```java
+
+        // calculate the skipped artifacts
+        Set<Artifact> skippedArtifacts = new LinkedHashSet<>(artifacts);
+        skippedArtifacts.removeAll(unMarkedArtifacts);
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Set' to 'java.util.Set'
+in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractDependencyFilterMojo.java`
+#### Snippet
+```java
+
+            // resolve the rest of the artifacts
+            resolvedArtifacts = resolve(new LinkedHashSet<>(coordinates), stopOnFailure);
+
+            // calculate the artifacts not resolved.
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.LinkedHashSet' to 'java.util.Set'
+in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractDependencyFilterMojo.java`
+#### Snippet
+```java
+
+            // resolve the rest of the artifacts
+            resolvedArtifacts = resolve(new LinkedHashSet<>(coordinates), stopOnFailure);
+
+            // calculate the artifacts not resolved.
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'LinkedHashSet(Collection)' as a member of raw type 'java.util.LinkedHashSet'
+in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractDependencyFilterMojo.java`
+#### Snippet
+```java
+
+            // resolve the rest of the artifacts
+            resolvedArtifacts = resolve(new LinkedHashSet<>(coordinates), stopOnFailure);
+
+            // calculate the artifacts not resolved.
+```
+
+### UNCHECKED_WARNING
 Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
 in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/BuildClasspathMojo.java`
 #### Snippet
@@ -350,63 +398,15 @@ in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/BuildClas
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.LinkedHashSet' to 'java.util.Set'
-in `src/main/java/org/apache/maven/plugins/dependency/resolvers/ResolveDependenciesMojo.java`
-#### Snippet
-```java
-            sb.append("The following files were skipped:");
-            sb.append(System.lineSeparator());
-            Set<Artifact> skippedDependencies = new LinkedHashSet<>(results.getSkippedDependencies());
-            sb.append(buildArtifactListOutput(
-                    skippedDependencies, outputAbsoluteArtifactFilename, theOutputScope, theSort));
-```
-
-### UNCHECKED_WARNING
 Unchecked call to 'LinkedHashSet(Collection)' as a member of raw type 'java.util.LinkedHashSet'
-in `src/main/java/org/apache/maven/plugins/dependency/resolvers/ResolveDependenciesMojo.java`
-#### Snippet
-```java
-            sb.append("The following files were skipped:");
-            sb.append(System.lineSeparator());
-            Set<Artifact> skippedDependencies = new LinkedHashSet<>(results.getSkippedDependencies());
-            sb.append(buildArtifactListOutput(
-                    skippedDependencies, outputAbsoluteArtifactFilename, theOutputScope, theSort));
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.LinkedHashSet' to 'java.util.Set'
-in `src/main/java/org/apache/maven/plugins/dependency/resolvers/ResolveDependenciesMojo.java`
-#### Snippet
-```java
-            sb.append("The following files have NOT been resolved:");
-            sb.append(System.lineSeparator());
-            Set<Artifact> unResolvedDependencies = new LinkedHashSet<>(results.getUnResolvedDependencies());
-            sb.append(buildArtifactListOutput(
-                    unResolvedDependencies, outputAbsoluteArtifactFilename, theOutputScope, theSort));
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'LinkedHashSet(Collection)' as a member of raw type 'java.util.LinkedHashSet'
-in `src/main/java/org/apache/maven/plugins/dependency/resolvers/ResolveDependenciesMojo.java`
-#### Snippet
-```java
-            sb.append("The following files have NOT been resolved:");
-            sb.append(System.lineSeparator());
-            Set<Artifact> unResolvedDependencies = new LinkedHashSet<>(results.getUnResolvedDependencies());
-            sb.append(buildArtifactListOutput(
-                    unResolvedDependencies, outputAbsoluteArtifactFilename, theOutputScope, theSort));
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'java.util.Set'
-in `src/main/java/org/apache/maven/plugins/dependency/resolvers/ResolveDependenciesMojo.java`
+in `src/main/java/org/apache/maven/plugins/dependency/resolvers/ResolvePluginsMojo.java`
 #### Snippet
 ```java
 
-            Method findAllMethod = moduleFinderClass.getMethod("findAll");
-            Set<Object> moduleReferences = (Set<Object>) findAllMethod.invoke(moduleFinderInstance);
-
-            // moduleReferences can be empty when referring to target/classes without module-info.class
+        // final ArtifactFilter filter = getPluginFilter();
+        for (final Artifact artifact : new LinkedHashSet<>(artifacts)) {
+            // if ( !filter.include( artifact ) )
+            // {
 ```
 
 ## RuleId[id=IfStatementWithIdenticalBranches]
@@ -436,6 +436,18 @@ public interface ArtifactTranslator {
 ```
 
 ### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/markers/MarkerHandler.java`
+#### Snippet
+```java
+    /**
+     * @return true/false.
+     * @throws MojoExecutionException in case of an error.
+     */
+    boolean clearMarker() throws MojoExecutionException;
+```
+
+### JavadocReference
 Cannot resolve symbol `Log`
 in `src/main/java/org/apache/maven/plugins/dependency/utils/translators/ArtifactTranslator.java`
 #### Snippet
@@ -445,18 +457,6 @@ in `src/main/java/org/apache/maven/plugins/dependency/utils/translators/Artifact
      * @param log {@link Log}
      * @return {@link ArtifactCoordinate}
      */
-```
-
-### JavadocReference
-Cannot resolve symbol `ArtifactCoordinate`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/translators/ArtifactTranslator.java`
-#### Snippet
-```java
-     * @param artifacts set of {@link Artifact}s.
-     * @param log {@link Log}
-     * @return {@link ArtifactCoordinate}
-     */
-    Set<ArtifactCoordinate> translate(Set<Artifact> artifacts, Log log);
 ```
 
 ### JavadocReference
@@ -472,27 +472,15 @@ in `src/main/java/org/apache/maven/plugins/dependency/utils/markers/MarkerHandle
 ```
 
 ### JavadocReference
-Cannot resolve symbol `MojoExecutionException`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/markers/MarkerHandler.java`
+Cannot resolve symbol `ArtifactCoordinate`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/translators/ArtifactTranslator.java`
 #### Snippet
 ```java
-    /**
-     * @return true/false.
-     * @throws MojoExecutionException in case of an error.
+     * @param artifacts set of {@link Artifact}s.
+     * @param log {@link Log}
+     * @return {@link ArtifactCoordinate}
      */
-    boolean clearMarker() throws MojoExecutionException;
-```
-
-### JavadocReference
-Cannot resolve symbol `MojoExecutionException`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/markers/MarkerHandler.java`
-#### Snippet
-```java
-
-    /**
-     * @throws MojoExecutionException in case of an error.
-     */
-    void setMarker() throws MojoExecutionException;
+    Set<ArtifactCoordinate> translate(Set<Artifact> artifacts, Log log);
 ```
 
 ### JavadocReference
@@ -532,27 +520,27 @@ in `src/main/java/org/apache/maven/plugins/dependency/utils/markers/MarkerHandle
 ```
 
 ### JavadocReference
-Cannot resolve symbol `ArtifactHandlerManager`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/translators/ClassifierTypeTranslator.java`
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/markers/MarkerHandler.java`
 #### Snippet
 ```java
 
     /**
-     * @param artifactHanderManager {@link ArtifactHandlerManager}.
-     * @param theClassifier The classifier to use.
-     * @param theType The type.
+     * @throws MojoExecutionException in case of an error.
+     */
+    void setMarker() throws MojoExecutionException;
 ```
 
 ### JavadocReference
-Cannot resolve symbol `MojoExecutionException`
-in `src/main/java/org/apache/maven/plugins/dependency/resolvers/ResolveDependencySourcesMojo.java`
+Cannot resolve symbol `Artifact`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/markers/SourcesFileMarkerHandler.java`
 #### Snippet
 ```java
-     * Main entry into mojo. Gets the list of dependencies and iterates through resolving the source jars.
-     *
-     * @throws MojoExecutionException with a message if an error occurs.
-     */
-    @Override
+
+    /**
+     * @param artifact {@link Artifact}
+     * @param markerFilesDirectory marker files directory.
+     * @param isResolved true/false.
 ```
 
 ### JavadocReference
@@ -569,14 +557,194 @@ in `src/main/java/org/apache/maven/plugins/dependency/utils/markers/SourcesFileM
 
 ### JavadocReference
 Cannot resolve symbol `Artifact`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/markers/SourcesFileMarkerHandler.java`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/markers/DefaultFileMarkerHandler.java`
 #### Snippet
 ```java
 
     /**
-     * @param artifact {@link Artifact}
-     * @param markerFilesDirectory marker files directory.
-     * @param isResolved true/false.
+     * @param theArtifact {@link Artifact}
+     * @param theMarkerFilesDirectory The marker directory.
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `ArtifactFilterException`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/filters/DestFileFilter.java`
+#### Snippet
+```java
+     * @param file {@link File}
+     * @return the last modification time in milliseconds.
+     * @throws ArtifactFilterException in case of a IO Exception.
+     */
+    private long getLastModified(File file) throws ArtifactFilterException {
+```
+
+### JavadocReference
+Cannot resolve symbol `ArtifactFilterException`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/filters/ArtifactItemFilter.java`
+#### Snippet
+```java
+     * @param item {@link ArtifactItem}
+     * @return true/false.
+     * @throws ArtifactFilterException in case of an error.
+     */
+    boolean isArtifactIncluded(ArtifactItem item) throws ArtifactFilterException;
+```
+
+### JavadocReference
+Cannot resolve symbol `Artifact`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyStatusSets.java`
+#### Snippet
+```java
+
+    /**
+     * @param resolved set of {@link Artifact}
+     * @param unResolved set of {@link Artifact}
+     * @param skipped set of {@link Artifact}
+```
+
+### JavadocReference
+Cannot resolve symbol `FileMapper`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/UnpackUtil.java`
+#### Snippet
+```java
+     * @param encoding          the encoding.
+     * @param ignorePermissions ignore permissions
+     * @param fileMappers       {@link FileMapper}s to be used for rewriting each target path, or {@code null} if no
+     *                          rewriting
+     *                          shall happen.
+```
+
+### JavadocReference
+Cannot resolve symbol `Artifact`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyStatusSets.java`
+#### Snippet
+```java
+    /**
+     * @param resolved set of {@link Artifact}
+     * @param unResolved set of {@link Artifact}
+     * @param skipped set of {@link Artifact}
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `Artifact`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyStatusSets.java`
+#### Snippet
+```java
+     * @param resolved set of {@link Artifact}
+     * @param unResolved set of {@link Artifact}
+     * @param skipped set of {@link Artifact}
+     */
+    public DependencyStatusSets(Set<Artifact> resolved, Set<Artifact> unResolved, Set<Artifact> skipped) {
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/UnpackUtil.java`
+#### Snippet
+```java
+     *                          shall happen.
+     * @param logger            a Mojo logger
+     * @throws MojoExecutionException in case of an error.
+     */
+    public void unpack(
+```
+
+### JavadocReference
+Cannot resolve symbol `ArchiverManager`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/UnpackUtil.java`
+#### Snippet
+```java
+     * Default constructor.
+     *
+     * @param archiverManager an archiver {@link ArchiverManager} to use
+     * @param buildContext    a build context
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `DependencyResolverException`
+in `src/main/java/org/apache/maven/plugins/dependency/resolvers/AbstractResolveMojo.java`
+#### Snippet
+```java
+     * @param artifact the artifact used to retrieve dependencies
+     * @return resolved set of dependencies
+     * @throws DependencyResolverException in case of error while resolving artifacts.
+     */
+    protected Set<Artifact> resolveArtifactDependencies(final DependableCoordinate artifact)
+```
+
+### JavadocReference
+Cannot resolve symbol `FilterArtifacts`
+in `src/main/java/org/apache/maven/plugins/dependency/resolvers/AbstractResolveMojo.java`
+#### Snippet
+```java
+
+    /**
+     * @return {@link FilterArtifacts}
+     */
+    protected FilterArtifacts getArtifactsFilter() {
+```
+
+### JavadocReference
+Cannot resolve symbol `DependencyResolverException`
+in `src/main/java/org/apache/maven/plugins/dependency/resolvers/GoOfflineMojo.java`
+#### Snippet
+```java
+     *
+     * @return set of resolved plugin artifacts.
+     * @throws DependencyResolverException in case of an error while resolving the artifacts.
+     */
+    protected Set<Artifact> resolvePluginArtifacts() throws DependencyResolverException {
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/dependency/resolvers/GoOfflineMojo.java`
+#### Snippet
+```java
+     * through displaying the resolved versions.
+     *
+     * @throws MojoExecutionException with a message if an error occurs.
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `DependencyResolverException`
+in `src/main/java/org/apache/maven/plugins/dependency/resolvers/GoOfflineMojo.java`
+#### Snippet
+```java
+     *
+     * @return set of resolved dependency artifacts.
+     * @throws DependencyResolverException in case of an error while resolving the artifacts.
+     */
+    protected Set<Artifact> resolveDependencyArtifacts() throws DependencyResolverException {
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/dependency/resolvers/ResolveDependencySourcesMojo.java`
+#### Snippet
+```java
+     * Main entry into mojo. Gets the list of dependencies and iterates through resolving the source jars.
+     *
+     * @throws MojoExecutionException with a message if an error occurs.
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `Artifact`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyUtil.java`
+#### Snippet
+```java
+     * @param removeVersion Specifies if the version should be removed from the file name.
+     * @return Formatted file name in the format artifactId-[version]-[classifier].[type]
+     * @see #getFormattedFileName(Artifact, boolean, boolean)
+     */
+    public static String getFormattedFileName(Artifact artifact, boolean removeVersion) {
 ```
 
 ### JavadocReference
@@ -592,39 +760,75 @@ in `src/main/java/org/apache/maven/plugins/dependency/resolvers/ExcludeReactorPr
 ```
 
 ### JavadocReference
-Cannot resolve symbol `Artifact`
-in `src/main/java/org/apache/maven/plugins/dependency/analyze/AnalyzeDepMgt.java`
+Cannot resolve symbol `ProjectDependencyAnalyzer`
+in `src/main/java/org/apache/maven/plugins/dependency/analyze/AbstractAnalyzeMojo.java`
 #### Snippet
 ```java
 
     /**
-     * @param artifact {@link Artifact}
-     * @return The resulting GA.
+     * The plexus context to look-up the right {@link ProjectDependencyAnalyzer} implementation depending on the mojo
+     * configuration.
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `ProjectDependencyAnalyzer`
+in `src/main/java/org/apache/maven/plugins/dependency/analyze/AbstractAnalyzeMojo.java`
+#### Snippet
+```java
+
+    /**
+     * @return {@link ProjectDependencyAnalyzer}
+     * @throws MojoExecutionException in case of an error.
      */
 ```
 
 ### JavadocReference
 Cannot resolve symbol `MojoExecutionException`
-in `src/main/java/org/apache/maven/plugins/dependency/analyze/AnalyzeDepMgt.java`
+in `src/main/java/org/apache/maven/plugins/dependency/analyze/AbstractAnalyzeMojo.java`
 #### Snippet
 ```java
-     * @param dependencyArtifact the artifact that was resolved.
-     * @param dependencyFromDepMgt the dependency listed in the DependencyManagement section.
-     * @throws MojoExecutionException in case of errors.
+    /**
+     * @return {@link ProjectDependencyAnalyzer}
+     * @throws MojoExecutionException in case of an error.
      */
-    public void logMismatch(Artifact dependencyArtifact, Dependency dependencyFromDepMgt)
+    protected ProjectDependencyAnalyzer createProjectDependencyAnalyzer() throws MojoExecutionException {
 ```
 
 ### JavadocReference
 Cannot resolve symbol `MojoExecutionException`
-in `src/main/java/org/apache/maven/plugins/dependency/analyze/AnalyzeDepMgt.java`
+in `src/main/java/org/apache/maven/plugins/dependency/PropertiesMojo.java`
 #### Snippet
 ```java
+     * Main entry into mojo. Gets the list of dependencies and iterates through setting a property for each artifact.
      *
-     * @return true if errors are found.
-     * @throws MojoExecutionException
+     * @throws MojoExecutionException with a message if an error occurs.
      */
-    private boolean checkDependencyManagement() throws MojoExecutionException {
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.maven.plugin.logging.Log`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.CharSequence, java.lang.Throwable)
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `debug(java.lang.CharSequence, java.lang.Throwable)`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.CharSequence, java.lang.Throwable)
+     */
+    @Override
 ```
 
 ### JavadocReference
@@ -647,6 +851,318 @@ in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.
      * By default, do nothing.
      *
      * @see org.codehaus.plexus.logging.Logger#debug(java.lang.String, java.lang.Throwable)
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `org.codehaus.plexus.logging.Logger`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.codehaus.plexus.logging.Logger#error(java.lang.String, java.lang.Throwable)
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `error(java.lang.String, java.lang.Throwable)`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.codehaus.plexus.logging.Logger#error(java.lang.String, java.lang.Throwable)
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.maven.plugin.logging.Log`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.apache.maven.plugin.logging.Log#isWarnEnabled()
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `isWarnEnabled()`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.apache.maven.plugin.logging.Log#isWarnEnabled()
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `org.codehaus.plexus.logging.Logger`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.codehaus.plexus.logging.Logger#info(java.lang.String)
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `info(java.lang.String)`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.codehaus.plexus.logging.Logger#info(java.lang.String)
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.maven.plugin.logging.Log`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.CharSequence)
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `debug(java.lang.CharSequence)`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.CharSequence)
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.maven.plugin.logging.Log`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+    /**
+     * @return <code>false</code>
+     * @see org.apache.maven.plugin.logging.Log#isErrorEnabled()
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `isErrorEnabled()`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+    /**
+     * @return <code>false</code>
+     * @see org.apache.maven.plugin.logging.Log#isErrorEnabled()
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.maven.plugin.logging.Log`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.Throwable)
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `debug(java.lang.Throwable)`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.Throwable)
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.maven.plugin.logging.Log`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.CharSequence)
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `warn(java.lang.CharSequence)`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.CharSequence)
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `org.codehaus.plexus.logging.Logger`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.codehaus.plexus.logging.Logger#info(java.lang.String, java.lang.Throwable)
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `info(java.lang.String, java.lang.Throwable)`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.codehaus.plexus.logging.Logger#info(java.lang.String, java.lang.Throwable)
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.maven.plugin.logging.Log`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.apache.maven.plugin.logging.Log#info(java.lang.Throwable)
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `info(java.lang.Throwable)`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.apache.maven.plugin.logging.Log#info(java.lang.Throwable)
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `org.codehaus.plexus.logging.Logger`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+    /**
+     * @return <code>null</code>
+     * @see org.codehaus.plexus.logging.Logger#getName()
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `getName()`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+    /**
+     * @return <code>null</code>
+     * @see org.codehaus.plexus.logging.Logger#getName()
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.maven.plugin.logging.Log`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.CharSequence, java.lang.Throwable)
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `warn(java.lang.CharSequence, java.lang.Throwable)`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.CharSequence, java.lang.Throwable)
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.maven.plugin.logging.Log`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.apache.maven.plugin.logging.Log#error(java.lang.Throwable)
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `error(java.lang.Throwable)`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.apache.maven.plugin.logging.Log#error(java.lang.Throwable)
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.maven.plugin.logging.Log`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.apache.maven.plugin.logging.Log#info(java.lang.CharSequence, java.lang.Throwable)
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `info(java.lang.CharSequence, java.lang.Throwable)`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.apache.maven.plugin.logging.Log#info(java.lang.CharSequence, java.lang.Throwable)
      */
     @Override
 ```
@@ -680,21 +1196,21 @@ Cannot resolve symbol `org.codehaus.plexus.logging.Logger`
 in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
 #### Snippet
 ```java
-    /**
-     * @return <code>null</code>
-     * @see org.codehaus.plexus.logging.Logger#getName()
+     * By default, do nothing.
+     *
+     * @see org.codehaus.plexus.logging.Logger#fatalError(java.lang.String, java.lang.Throwable)
      */
     @Override
 ```
 
 ### JavadocReference
-Cannot resolve symbol `getName()`
+Cannot resolve symbol `fatalError(java.lang.String, java.lang.Throwable)`
 in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
 #### Snippet
 ```java
-    /**
-     * @return <code>null</code>
-     * @see org.codehaus.plexus.logging.Logger#getName()
+     * By default, do nothing.
+     *
+     * @see org.codehaus.plexus.logging.Logger#fatalError(java.lang.String, java.lang.Throwable)
      */
     @Override
 ```
@@ -706,19 +1222,91 @@ in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.
 ```java
      * By default, do nothing.
      *
-     * @see org.codehaus.plexus.logging.Logger#info(java.lang.String)
+     * @see org.codehaus.plexus.logging.Logger#warn(java.lang.String, java.lang.Throwable)
      */
     @Override
 ```
 
 ### JavadocReference
-Cannot resolve symbol `info(java.lang.String)`
+Cannot resolve symbol `warn(java.lang.String, java.lang.Throwable)`
 in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
 #### Snippet
 ```java
      * By default, do nothing.
      *
-     * @see org.codehaus.plexus.logging.Logger#info(java.lang.String)
+     * @see org.codehaus.plexus.logging.Logger#warn(java.lang.String, java.lang.Throwable)
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.maven.plugin.logging.Log`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+    /**
+     * @return <code>false</code>
+     * @see org.apache.maven.plugin.logging.Log#isInfoEnabled()
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `isInfoEnabled()`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+    /**
+     * @return <code>false</code>
+     * @see org.apache.maven.plugin.logging.Log#isInfoEnabled()
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `org.codehaus.plexus.logging.Logger`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.codehaus.plexus.logging.Logger#debug(java.lang.String)
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `debug(java.lang.String)`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.codehaus.plexus.logging.Logger#debug(java.lang.String)
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.maven.plugin.logging.Log`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+    /**
+     * @return <code>false</code>
+     * @see org.apache.maven.plugin.logging.Log#isDebugEnabled()
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `isDebugEnabled()`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+    /**
+     * @return <code>false</code>
+     * @see org.apache.maven.plugin.logging.Log#isDebugEnabled()
      */
     @Override
 ```
@@ -777,6 +1365,54 @@ in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.
 #### Snippet
 ```java
     /**
+     * @return <code>null</code>
+     * @see org.codehaus.plexus.logging.Logger#getChildLogger(java.lang.String)
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `getChildLogger(java.lang.String)`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+    /**
+     * @return <code>null</code>
+     * @see org.codehaus.plexus.logging.Logger#getChildLogger(java.lang.String)
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `org.codehaus.plexus.logging.Logger`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.codehaus.plexus.logging.Logger#error(java.lang.String)
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `error(java.lang.String)`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+     * By default, do nothing.
+     *
+     * @see org.codehaus.plexus.logging.Logger#error(java.lang.String)
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `org.codehaus.plexus.logging.Logger`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+#### Snippet
+```java
+    /**
      * @return <code>false</code>
      * @see org.codehaus.plexus.logging.Logger#isFatalErrorEnabled()
      */
@@ -820,30 +1456,6 @@ in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.
 ```
 
 ### JavadocReference
-Cannot resolve symbol `org.apache.maven.plugin.logging.Log`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.apache.maven.plugin.logging.Log#info(java.lang.Throwable)
-     */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `info(java.lang.Throwable)`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.apache.maven.plugin.logging.Log#info(java.lang.Throwable)
-     */
-    @Override
-```
-
-### JavadocReference
 Cannot resolve symbol `org.codehaus.plexus.logging.Logger`
 in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
 #### Snippet
@@ -863,366 +1475,6 @@ in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.
      * By default, do nothing.
      *
      * @see org.codehaus.plexus.logging.Logger#warn(java.lang.String)
-     */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `org.apache.maven.plugin.logging.Log`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.CharSequence, java.lang.Throwable)
-     */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `debug(java.lang.CharSequence, java.lang.Throwable)`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.CharSequence, java.lang.Throwable)
-     */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `org.codehaus.plexus.logging.Logger`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.codehaus.plexus.logging.Logger#error(java.lang.String, java.lang.Throwable)
-     */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `error(java.lang.String, java.lang.Throwable)`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.codehaus.plexus.logging.Logger#error(java.lang.String, java.lang.Throwable)
-     */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `org.apache.maven.plugin.logging.Log`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.apache.maven.plugin.logging.Log#info(java.lang.CharSequence, java.lang.Throwable)
-     */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `info(java.lang.CharSequence, java.lang.Throwable)`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.apache.maven.plugin.logging.Log#info(java.lang.CharSequence, java.lang.Throwable)
-     */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `org.codehaus.plexus.logging.Logger`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.codehaus.plexus.logging.Logger#debug(java.lang.String)
-     */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `debug(java.lang.String)`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.codehaus.plexus.logging.Logger#debug(java.lang.String)
-     */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `org.apache.maven.plugin.logging.Log`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-    /**
-     * @return <code>false</code>
-     * @see org.apache.maven.plugin.logging.Log#isInfoEnabled()
-     */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `isInfoEnabled()`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-    /**
-     * @return <code>false</code>
-     * @see org.apache.maven.plugin.logging.Log#isInfoEnabled()
-     */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `org.apache.maven.plugin.logging.Log`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.Throwable)
-     */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `debug(java.lang.Throwable)`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.Throwable)
-     */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `org.apache.maven.plugin.logging.Log`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.CharSequence)
-     */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `debug(java.lang.CharSequence)`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.apache.maven.plugin.logging.Log#debug(java.lang.CharSequence)
-     */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `org.apache.maven.plugin.logging.Log`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.apache.maven.plugin.logging.Log#error(java.lang.CharSequence)
-     */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `error(java.lang.CharSequence)`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.apache.maven.plugin.logging.Log#error(java.lang.CharSequence)
-     */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `org.apache.maven.plugin.logging.Log`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.CharSequence)
-     */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `warn(java.lang.CharSequence)`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.CharSequence)
-     */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `org.apache.maven.plugin.logging.Log`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.apache.maven.plugin.logging.Log#error(java.lang.Throwable)
-     */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `error(java.lang.Throwable)`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.apache.maven.plugin.logging.Log#error(java.lang.Throwable)
-     */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `org.codehaus.plexus.logging.Logger`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.codehaus.plexus.logging.Logger#info(java.lang.String, java.lang.Throwable)
-     */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `info(java.lang.String, java.lang.Throwable)`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.codehaus.plexus.logging.Logger#info(java.lang.String, java.lang.Throwable)
-     */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `org.codehaus.plexus.logging.Logger`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.codehaus.plexus.logging.Logger#error(java.lang.String)
-     */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `error(java.lang.String)`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.codehaus.plexus.logging.Logger#error(java.lang.String)
-     */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `org.apache.maven.plugin.logging.Log`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-    /**
-     * @return <code>false</code>
-     * @see org.apache.maven.plugin.logging.Log#isDebugEnabled()
-     */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `isDebugEnabled()`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-    /**
-     * @return <code>false</code>
-     * @see org.apache.maven.plugin.logging.Log#isDebugEnabled()
-     */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `org.apache.maven.plugin.logging.Log`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.CharSequence, java.lang.Throwable)
-     */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `warn(java.lang.CharSequence, java.lang.Throwable)`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.apache.maven.plugin.logging.Log#warn(java.lang.CharSequence, java.lang.Throwable)
-     */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `org.apache.maven.plugin.logging.Log`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-    /**
-     * @return <code>false</code>
-     * @see org.apache.maven.plugin.logging.Log#isErrorEnabled()
-     */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `isErrorEnabled()`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-    /**
-     * @return <code>false</code>
-     * @see org.apache.maven.plugin.logging.Log#isErrorEnabled()
      */
     @Override
 ```
@@ -1258,369 +1510,105 @@ in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.
 ```java
      * By default, do nothing.
      *
-     * @see org.apache.maven.plugin.logging.Log#isWarnEnabled()
+     * @see org.apache.maven.plugin.logging.Log#error(java.lang.CharSequence)
      */
     @Override
 ```
 
 ### JavadocReference
-Cannot resolve symbol `isWarnEnabled()`
+Cannot resolve symbol `error(java.lang.CharSequence)`
 in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
 #### Snippet
 ```java
      * By default, do nothing.
      *
-     * @see org.apache.maven.plugin.logging.Log#isWarnEnabled()
+     * @see org.apache.maven.plugin.logging.Log#error(java.lang.CharSequence)
      */
     @Override
 ```
 
 ### JavadocReference
-Cannot resolve symbol `org.codehaus.plexus.logging.Logger`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+Cannot resolve symbol `StrictPatternExcludesArtifactFilter`
+in `src/main/java/org/apache/maven/plugins/dependency/tree/TreeMojo.java`
+#### Snippet
+```java
+     * </p>
+     *
+     * @see StrictPatternExcludesArtifactFilter
+     * @since 2.0-alpha-6
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `DependencyNodeVisitor`
+in `src/main/java/org/apache/maven/plugins/dependency/tree/TreeMojo.java`
 #### Snippet
 ```java
     /**
-     * @return <code>null</code>
-     * @see org.codehaus.plexus.logging.Logger#getChildLogger(java.lang.String)
+     * @param writer {@link Writer}
+     * @return {@link DependencyNodeVisitor}
      */
-    @Override
+    public DependencyNodeVisitor getSerializingDependencyNodeVisitor(Writer writer) {
 ```
 
 ### JavadocReference
-Cannot resolve symbol `getChildLogger(java.lang.String)`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+Cannot resolve symbol `StrictPatternIncludesArtifactFilter`
+in `src/main/java/org/apache/maven/plugins/dependency/tree/TreeMojo.java`
 #### Snippet
 ```java
-    /**
-     * @return <code>null</code>
-     * @see org.codehaus.plexus.logging.Logger#getChildLogger(java.lang.String)
-     */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `org.codehaus.plexus.logging.Logger`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
+     * </p>
      *
-     * @see org.codehaus.plexus.logging.Logger#warn(java.lang.String, java.lang.Throwable)
+     * @see StrictPatternIncludesArtifactFilter
+     * @since 2.0-alpha-6
      */
-    @Override
 ```
 
 ### JavadocReference
-Cannot resolve symbol `warn(java.lang.String, java.lang.Throwable)`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/UnpackDependenciesMojo.java`
 #### Snippet
 ```java
-     * By default, do nothing.
+     * DependencyUtil.unpackFile().
      *
-     * @see org.codehaus.plexus.logging.Logger#warn(java.lang.String, java.lang.Throwable)
+     * @throws MojoExecutionException with a message if an error occurs.
+     * @see #getDependencySets(boolean)
      */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `org.codehaus.plexus.logging.Logger`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.codehaus.plexus.logging.Logger#fatalError(java.lang.String, java.lang.Throwable)
-     */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `fatalError(java.lang.String, java.lang.Throwable)`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencySilentLog.java`
-#### Snippet
-```java
-     * By default, do nothing.
-     *
-     * @see org.codehaus.plexus.logging.Logger#fatalError(java.lang.String, java.lang.Throwable)
-     */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `TransformableFilter`
-in `src/main/java/org/apache/maven/plugins/dependency/resolvers/ExcludeReactorProjectsDependencyFilter.java`
-#### Snippet
-```java
-
-/**
- * {@link TransformableFilter} implementation that excludes artifacts found in the Reactor.
- *
- * @author Maarten Mulders
 ```
 
 ### JavadocReference
 Cannot resolve symbol `FileMapper`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/UnpackUtil.java`
-#### Snippet
-```java
-     * @param encoding          the encoding.
-     * @param ignorePermissions ignore permissions
-     * @param fileMappers       {@link FileMapper}s to be used for rewriting each target path, or {@code null} if no
-     *                          rewriting
-     *                          shall happen.
-```
-
-### JavadocReference
-Cannot resolve symbol `MojoExecutionException`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/UnpackUtil.java`
-#### Snippet
-```java
-     *                          shall happen.
-     * @param logger            a Mojo logger
-     * @throws MojoExecutionException in case of an error.
-     */
-    public void unpack(
-```
-
-### JavadocReference
-Cannot resolve symbol `ArchiverManager`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/UnpackUtil.java`
-#### Snippet
-```java
-     * Default constructor.
-     *
-     * @param archiverManager an archiver {@link ArchiverManager} to use
-     * @param buildContext    a build context
-     */
-```
-
-### JavadocReference
-Cannot resolve symbol `ArtifactFilterException`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/filters/ArtifactItemFilter.java`
-#### Snippet
-```java
-     * @param item {@link ArtifactItem}
-     * @return true/false.
-     * @throws ArtifactFilterException in case of an error.
-     */
-    boolean isArtifactIncluded(ArtifactItem item) throws ArtifactFilterException;
-```
-
-### JavadocReference
-Cannot resolve symbol `ArtifactFilterException`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/filters/DestFileFilter.java`
-#### Snippet
-```java
-     * @param file {@link File}
-     * @return the last modification time in milliseconds.
-     * @throws ArtifactFilterException in case of a IO Exception.
-     */
-    private long getLastModified(File file) throws ArtifactFilterException {
-```
-
-### JavadocReference
-Cannot resolve symbol `Artifact`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyUtil.java`
-#### Snippet
-```java
-     * @param removeVersion Specifies if the version should be removed from the file name.
-     * @return Formatted file name in the format artifactId-[version]-[classifier].[type]
-     * @see #getFormattedFileName(Artifact, boolean, boolean)
-     */
-    public static String getFormattedFileName(Artifact artifact, boolean removeVersion) {
-```
-
-### JavadocReference
-Cannot resolve symbol `Artifact`
-in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/CopyDependenciesMojo.java`
+in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/UnpackDependenciesMojo.java`
 #### Snippet
 ```java
 
     /**
-     * @param artifact {@link Artifact}
-     * @return {@link Artifact}
-     */
+     * {@link FileMapper}s to be used for rewriting each target path, or {@code null} if no rewriting shall happen.
+     *
+     * @since 3.1.2
 ```
 
 ### JavadocReference
-Cannot resolve symbol `Artifact`
-in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/CopyDependenciesMojo.java`
+Cannot resolve symbol `FileMapper`
+in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/UnpackDependenciesMojo.java`
 #### Snippet
 ```java
+
     /**
-     * @param artifact {@link Artifact}
-     * @return {@link Artifact}
-     */
-    protected Artifact getResolvedPomArtifact(Artifact artifact) {
-```
-
-### JavadocReference
-Cannot resolve symbol `MojoExecutionException`
-in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/CopyDependenciesMojo.java`
-#### Snippet
-```java
-     * @param theUseBaseVersion specifies if the baseVersion of the artifact should be used instead of the version.
-     * @param removeClassifier specifies if the classifier should be removed from the file name when copying.
-     * @throws MojoExecutionException with a message if an error occurs.
-     * @see #copyFile(File, File)
-     * @see DependencyUtil#getFormattedOutputDirectory(boolean, boolean, boolean, boolean, boolean, boolean, File, Artifact)
-```
-
-### JavadocReference
-Cannot resolve symbol `Artifact`
-in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/CopyDependenciesMojo.java`
-#### Snippet
-```java
-     * @throws MojoExecutionException with a message if an error occurs.
-     * @see #copyFile(File, File)
-     * @see DependencyUtil#getFormattedOutputDirectory(boolean, boolean, boolean, boolean, boolean, boolean, File, Artifact)
-     */
-    protected void copyArtifact(
-```
-
-### JavadocReference
-Cannot resolve symbol `MojoExecutionException`
-in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/CopyDependenciesMojo.java`
-#### Snippet
-```java
-     * @param prependGroupId specifies if the groupId should be prepend to the file while copying.
-     * @param theUseBaseVersion specifies if the baseVersion of the artifact should be used instead of the version.
-     * @throws MojoExecutionException with a message if an error occurs.
-     * @see #copyArtifact(Artifact, boolean, boolean, boolean, boolean)
-     */
-```
-
-### JavadocReference
-Cannot resolve symbol `Artifact`
-in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/CopyDependenciesMojo.java`
-#### Snippet
-```java
-     * @param theUseBaseVersion specifies if the baseVersion of the artifact should be used instead of the version.
-     * @throws MojoExecutionException with a message if an error occurs.
-     * @see #copyArtifact(Artifact, boolean, boolean, boolean, boolean)
-     */
-    protected void copyArtifact(
-```
-
-### JavadocReference
-Cannot resolve symbol `Artifact`
-in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/CopyDependenciesMojo.java`
-#### Snippet
-```java
+     * @return {@link FileMapper}s to be used for rewriting each target path, or {@code null} if no rewriting shall
+     *         happen.
      *
-     * @param destDir The destination directory {@link File}.
-     * @param artifacts The artifacts {@link Artifact}.
-     * @param removeVersion remove version or not.
-     * @throws MojoExecutionException in case of errors.
 ```
 
 ### JavadocReference
-Cannot resolve symbol `MojoExecutionException`
-in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/CopyDependenciesMojo.java`
+Cannot resolve symbol `FileMapper`
+in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/UnpackDependenciesMojo.java`
 #### Snippet
 ```java
-     * @param artifacts The artifacts {@link Artifact}.
-     * @param removeVersion remove version or not.
-     * @throws MojoExecutionException in case of errors.
-     */
-    public void copyPoms(File destDir, Set<Artifact> artifacts, boolean removeVersion) throws MojoExecutionException {
-```
 
-### JavadocReference
-Cannot resolve symbol `MojoExecutionException`
-in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/CopyDependenciesMojo.java`
-#### Snippet
-```java
-     * Main entry into mojo. Gets the list of dependencies and iterates through calling copyArtifact.
+    /**
+     * @param fileMappers {@link FileMapper}s to be used for rewriting each target path, or {@code null} if no
+     *                   rewriting shall happen.
      *
-     * @throws MojoExecutionException with a message if an error occurs.
-     * @see #getDependencySets(boolean, boolean)
-     * @see #copyArtifact(Artifact, boolean, boolean, boolean, boolean)
-```
-
-### JavadocReference
-Cannot resolve symbol `Artifact`
-in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/CopyDependenciesMojo.java`
-#### Snippet
-```java
-     * @throws MojoExecutionException with a message if an error occurs.
-     * @see #getDependencySets(boolean, boolean)
-     * @see #copyArtifact(Artifact, boolean, boolean, boolean, boolean)
-     */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `Artifact`
-in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/CopyDependenciesMojo.java`
-#### Snippet
-```java
-     *
-     * @param destDir The destination directory {@link File}.
-     * @param artifacts The artifacts {@link Artifact}.
-     * @param removeVersion remove version or not.
-     * @param removeClassifier remove the classifier or not.
-```
-
-### JavadocReference
-Cannot resolve symbol `MojoExecutionException`
-in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/CopyDependenciesMojo.java`
-#### Snippet
-```java
-     * @param removeVersion remove version or not.
-     * @param removeClassifier remove the classifier or not.
-     * @throws MojoExecutionException in case of errors.
-     */
-    public void copyPoms(File destDir, Set<Artifact> artifacts, boolean removeVersion, boolean removeClassifier)
-```
-
-### JavadocReference
-Cannot resolve symbol `DependencyResolverException`
-in `src/main/java/org/apache/maven/plugins/dependency/resolvers/GoOfflineMojo.java`
-#### Snippet
-```java
-     *
-     * @return set of resolved dependency artifacts.
-     * @throws DependencyResolverException in case of an error while resolving the artifacts.
-     */
-    protected Set<Artifact> resolveDependencyArtifacts() throws DependencyResolverException {
-```
-
-### JavadocReference
-Cannot resolve symbol `DependencyResolverException`
-in `src/main/java/org/apache/maven/plugins/dependency/resolvers/GoOfflineMojo.java`
-#### Snippet
-```java
-     *
-     * @return set of resolved plugin artifacts.
-     * @throws DependencyResolverException in case of an error while resolving the artifacts.
-     */
-    protected Set<Artifact> resolvePluginArtifacts() throws DependencyResolverException {
-```
-
-### JavadocReference
-Cannot resolve symbol `MojoExecutionException`
-in `src/main/java/org/apache/maven/plugins/dependency/resolvers/GoOfflineMojo.java`
-#### Snippet
-```java
-     * through displaying the resolved versions.
-     *
-     * @throws MojoExecutionException with a message if an error occurs.
-     */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `MojoExecutionException`
-in `src/main/java/org/apache/maven/plugins/dependency/PropertiesMojo.java`
-#### Snippet
-```java
-     * Main entry into mojo. Gets the list of dependencies and iterates through setting a property for each artifact.
-     *
-     * @throws MojoExecutionException with a message if an error occurs.
-     */
-    @Override
 ```
 
 ### JavadocReference
@@ -1630,9 +1618,9 @@ in `src/main/java/org/apache/maven/plugins/dependency/fromConfiguration/Artifact
 ```java
 
     /**
-     * @return {@link FileMapper}s to be used for rewriting each target path, or {@code null} if no rewriting shall
-     *         happen.
+     * {@link FileMapper}s to be used for rewriting each target path, or {@code null} if no rewriting shall happen.
      *
+     * @since 3.1.2
 ```
 
 ### JavadocReference
@@ -1654,9 +1642,9 @@ in `src/main/java/org/apache/maven/plugins/dependency/fromConfiguration/Artifact
 ```java
 
     /**
-     * {@link FileMapper}s to be used for rewriting each target path, or {@code null} if no rewriting shall happen.
+     * @return {@link FileMapper}s to be used for rewriting each target path, or {@code null} if no rewriting shall
+     *         happen.
      *
-     * @since 3.1.2
 ```
 
 ### JavadocReference
@@ -1673,230 +1661,110 @@ in `src/main/java/org/apache/maven/plugins/dependency/fromConfiguration/Artifact
 
 ### JavadocReference
 Cannot resolve symbol `MojoExecutionException`
-in `src/main/java/org/apache/maven/plugins/dependency/fromConfiguration/CopyMojo.java`
+in `src/main/java/org/apache/maven/plugins/dependency/AbstractDependencyMojo.java`
 #### Snippet
 ```java
-     *
-     * @param artifactItem containing the information about the Artifact to copy.
+
+    /**
+     * @throws MojoExecutionException {@link MojoExecutionException}
+     * @throws MojoFailureException {@link MojoFailureException}
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/dependency/AbstractDependencyMojo.java`
+#### Snippet
+```java
+
+    /**
+     * @throws MojoExecutionException {@link MojoExecutionException}
+     * @throws MojoFailureException {@link MojoFailureException}
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoFailureException`
+in `src/main/java/org/apache/maven/plugins/dependency/AbstractDependencyMojo.java`
+#### Snippet
+```java
+    /**
+     * @throws MojoExecutionException {@link MojoExecutionException}
+     * @throws MojoFailureException {@link MojoFailureException}
+     */
+    protected abstract void doExecute() throws MojoExecutionException, MojoFailureException;
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoFailureException`
+in `src/main/java/org/apache/maven/plugins/dependency/AbstractDependencyMojo.java`
+#### Snippet
+```java
+    /**
+     * @throws MojoExecutionException {@link MojoExecutionException}
+     * @throws MojoFailureException {@link MojoFailureException}
+     */
+    protected abstract void doExecute() throws MojoExecutionException, MojoFailureException;
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/dependency/AbstractDependencyMojo.java`
+#### Snippet
+```java
+     * @param artifact represents the file to copy.
+     * @param destFile file name of destination file.
      * @throws MojoExecutionException with a message if an error occurs.
-     * @see #copyFile(File, File)
      */
+    protected void copyFile(File artifact, File destFile) throws MojoExecutionException {
 ```
 
 ### JavadocReference
 Cannot resolve symbol `MojoExecutionException`
-in `src/main/java/org/apache/maven/plugins/dependency/fromConfiguration/CopyMojo.java`
-#### Snippet
-```java
-     * copyArtifact.
-     *
-     * @throws MojoExecutionException with a message if an error occurs.
-     * @see ArtifactItem
-     * @see #getArtifactItems
-```
-
-### JavadocReference
-Symbol `artifactItems` is inaccessible from here
-in `src/main/java/org/apache/maven/plugins/dependency/fromConfiguration/CopyMojo.java`
-#### Snippet
-```java
-    /**
-     * The artifact to copy from command line. A string of the form groupId:artifactId:version[:packaging[:classifier]].
-     * Use {@link #artifactItems} within the POM configuration.
-     */
-    @SuppressWarnings("unused") // marker-field, setArtifact(String) does the magic
-```
-
-### JavadocReference
-Cannot resolve symbol `FileMapper`
-in `src/main/java/org/apache/maven/plugins/dependency/fromConfiguration/UnpackMojo.java`
-#### Snippet
-```java
-
-    /**
-     * {@link FileMapper} to be used for rewriting each target path, or {@code null} if no rewriting shall happen.
-     *
-     * @since 3.1.2
-```
-
-### JavadocReference
-Cannot resolve symbol `MojoExecutionException`
-in `src/main/java/org/apache/maven/plugins/dependency/fromConfiguration/UnpackMojo.java`
-#### Snippet
-```java
-     * unpackArtifact.
-     *
-     * @throws MojoExecutionException with a message if an error occurs.
-     * @see ArtifactItem
-     * @see #getArtifactItems
-```
-
-### JavadocReference
-Cannot resolve symbol `FileMapper`
-in `src/main/java/org/apache/maven/plugins/dependency/fromConfiguration/UnpackMojo.java`
-#### Snippet
-```java
-
-    /**
-     * @param fileMappers {@link FileMapper}s to be used for rewriting each target path, or {@code null} if no
-     * rewriting shall happen.
-     *
-```
-
-### JavadocReference
-Cannot resolve symbol `FileMapper`
-in `src/main/java/org/apache/maven/plugins/dependency/fromConfiguration/UnpackMojo.java`
-#### Snippet
-```java
-
-    /**
-     * @return {@link FileMapper}s to be used for rewriting each target path, or {@code null} if no rewriting shall
-     *         happen.
-     *
-```
-
-### JavadocReference
-Cannot resolve symbol `MojoExecutionException`
-in `src/main/java/org/apache/maven/plugins/dependency/fromConfiguration/UnpackMojo.java`
-#### Snippet
-```java
-     *
-     * @param artifactItem containing the information about the Artifact to unpack.
-     * @throws MojoExecutionException with a message if an error occurs.
-     * @see #getArtifact
-     */
-```
-
-### JavadocReference
-Symbol `artifactItems` is inaccessible from here
-in `src/main/java/org/apache/maven/plugins/dependency/fromConfiguration/UnpackMojo.java`
-#### Snippet
-```java
-    /**
-     * The artifact to unpack from command line. A string of the form
-     * <code>groupId:artifactId:version[:packaging[:classifier]]</code>. Use {@link #artifactItems} within the POM
-     * configuration.
-     */
-```
-
-### JavadocReference
-Cannot resolve symbol `MojoExecutionException`
-in `src/main/java/org/apache/maven/plugins/dependency/fromConfiguration/UnpackMojo.java`
-#### Snippet
-```java
-     * @param removeVersion removeVersion.
-     * @return list of {@link ArtifactItem}
-     * @throws MojoExecutionException in case of an error.
-     */
-    protected List<ArtifactItem> getProcessedArtifactItems(boolean removeVersion) throws MojoExecutionException {
-```
-
-### JavadocReference
-Cannot resolve symbol `MojoExecutionException`
-in `src/main/java/org/apache/maven/plugins/dependency/resolvers/ResolvePluginsMojo.java`
+in `src/main/java/org/apache/maven/plugins/dependency/resolvers/ResolveDependenciesMojo.java`
 #### Snippet
 ```java
      * Main entry into mojo. Gets the list of dependencies and iterates through displaying the resolved version.
      *
-     * @throws MojoExecutionException with a message if an error occurs.
+     * @throws MojoExecutionException with a message if an error occurs
      */
     @Override
 ```
 
 ### JavadocReference
-Cannot resolve symbol `ArtifactFilterException`
-in `src/main/java/org/apache/maven/plugins/dependency/resolvers/ResolvePluginsMojo.java`
-#### Snippet
-```java
-     *
-     * @return set of resolved plugin artifacts
-     * @throws ArtifactFilterException in case of an error
-     * @throws ArtifactResolverException in case of an error
-     */
-```
-
-### JavadocReference
-Cannot resolve symbol `ArtifactResolverException`
-in `src/main/java/org/apache/maven/plugins/dependency/resolvers/ResolvePluginsMojo.java`
-#### Snippet
-```java
-     * @return set of resolved plugin artifacts
-     * @throws ArtifactFilterException in case of an error
-     * @throws ArtifactResolverException in case of an error
-     */
-    protected Set<Artifact> resolvePluginArtifacts() throws ArtifactFilterException, ArtifactResolverException {
-```
-
-### JavadocReference
 Cannot resolve symbol `Artifact`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyStatusSets.java`
+in `src/main/java/org/apache/maven/plugins/dependency/analyze/AnalyzeDepMgt.java`
 #### Snippet
 ```java
 
     /**
-     * @param resolved set of {@link Artifact}
-     * @param unResolved set of {@link Artifact}
-     * @param skipped set of {@link Artifact}
-```
-
-### JavadocReference
-Cannot resolve symbol `Artifact`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyStatusSets.java`
-#### Snippet
-```java
-    /**
-     * @param resolved set of {@link Artifact}
-     * @param unResolved set of {@link Artifact}
-     * @param skipped set of {@link Artifact}
+     * @param artifact {@link Artifact}
+     * @return The resulting GA.
      */
-```
-
-### JavadocReference
-Cannot resolve symbol `Artifact`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyStatusSets.java`
-#### Snippet
-```java
-     * @param resolved set of {@link Artifact}
-     * @param unResolved set of {@link Artifact}
-     * @param skipped set of {@link Artifact}
-     */
-    public DependencyStatusSets(Set<Artifact> resolved, Set<Artifact> unResolved, Set<Artifact> skipped) {
-```
-
-### JavadocReference
-Cannot resolve symbol `Artifact`
-in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractDependencyFilterMojo.java`
-#### Snippet
-```java
-     * Transform artifacts
-     *
-     * @param artifacts set of artifacts {@link Artifact}.
-     * @param stopOnFailure true/false.
-     * @return DependencyStatusSets - Bean of TreeSets that contains information on the projects dependencies
 ```
 
 ### JavadocReference
 Cannot resolve symbol `MojoExecutionException`
-in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractDependencyFilterMojo.java`
+in `src/main/java/org/apache/maven/plugins/dependency/analyze/AnalyzeDepMgt.java`
 #### Snippet
 ```java
-     * @param stopOnFailure true/false.
-     * @return DependencyStatusSets - Bean of TreeSets that contains information on the projects dependencies
-     * @throws MojoExecutionException in case of an error.
-     */
-    protected DependencyStatusSets getClassifierTranslatedDependencies(Set<Artifact> artifacts, boolean stopOnFailure)
-```
-
-### JavadocReference
-Cannot resolve symbol `MojoExecutionException`
-in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractDependencyFilterMojo.java`
-#### Snippet
-```java
-     * @param stopOnFailure true to fail if resolution does not work or false not to fail.
-     * @return A set of artifacts
+     * @param dependencyArtifact the artifact that was resolved.
+     * @param dependencyFromDepMgt the dependency listed in the DependencyManagement section.
      * @throws MojoExecutionException in case of errors.
      */
-    protected Set<Artifact> getResolvedDependencies(boolean stopOnFailure) throws MojoExecutionException {
+    public void logMismatch(Artifact dependencyArtifact, Dependency dependencyFromDepMgt)
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/dependency/analyze/AnalyzeDepMgt.java`
+#### Snippet
+```java
+     *
+     * @return true if errors are found.
+     * @throws MojoExecutionException
+     */
+    private boolean checkDependencyManagement() throws MojoExecutionException {
 ```
 
 ### JavadocReference
@@ -1964,11 +1832,11 @@ Cannot resolve symbol `MojoExecutionException`
 in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractDependencyFilterMojo.java`
 #### Snippet
 ```java
-     * @param stopOnFailure true/false.
-     * @return {@link DependencyStatusSets}
-     * @throws MojoExecutionException in case of an error.
+     * @param includeParents <code>true</code> if parents should be included or not <code>false</code>.
+     * @return DependencyStatusSets - Bean of TreeSets that contains information on the projects dependencies
+     * @throws MojoExecutionException in case of errors.
      */
-    protected DependencyStatusSets getDependencySets(boolean stopOnFailure) throws MojoExecutionException {
+    protected DependencyStatusSets getDependencySets(boolean stopOnFailure, boolean includeParents)
 ```
 
 ### JavadocReference
@@ -1976,11 +1844,11 @@ Cannot resolve symbol `MojoExecutionException`
 in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractDependencyFilterMojo.java`
 #### Snippet
 ```java
-     * @param includeParents <code>true</code> if parents should be included or not <code>false</code>.
-     * @return DependencyStatusSets - Bean of TreeSets that contains information on the projects dependencies
-     * @throws MojoExecutionException in case of errors.
+     * @param stopOnFailure true/false.
+     * @return {@link DependencyStatusSets}
+     * @throws MojoExecutionException in case of an error.
      */
-    protected DependencyStatusSets getDependencySets(boolean stopOnFailure, boolean includeParents)
+    protected DependencyStatusSets getDependencySets(boolean stopOnFailure) throws MojoExecutionException {
 ```
 
 ### JavadocReference
@@ -2009,62 +1877,38 @@ in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractD
 
 ### JavadocReference
 Cannot resolve symbol `Artifact`
-in `src/main/java/org/apache/maven/plugins/dependency/utils/markers/DefaultFileMarkerHandler.java`
+in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractDependencyFilterMojo.java`
 #### Snippet
 ```java
-
-    /**
-     * @param theArtifact {@link Artifact}
-     * @param theMarkerFilesDirectory The marker directory.
-     */
-```
-
-### JavadocReference
-Cannot resolve symbol `ProjectDependencyAnalyzer`
-in `src/main/java/org/apache/maven/plugins/dependency/analyze/AbstractAnalyzeMojo.java`
-#### Snippet
-```java
-
-    /**
-     * @return {@link ProjectDependencyAnalyzer}
-     * @throws MojoExecutionException in case of an error.
-     */
+     * Transform artifacts
+     *
+     * @param artifacts set of artifacts {@link Artifact}.
+     * @param stopOnFailure true/false.
+     * @return DependencyStatusSets - Bean of TreeSets that contains information on the projects dependencies
 ```
 
 ### JavadocReference
 Cannot resolve symbol `MojoExecutionException`
-in `src/main/java/org/apache/maven/plugins/dependency/analyze/AbstractAnalyzeMojo.java`
+in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractDependencyFilterMojo.java`
 #### Snippet
 ```java
-    /**
-     * @return {@link ProjectDependencyAnalyzer}
+     * @param stopOnFailure true/false.
+     * @return DependencyStatusSets - Bean of TreeSets that contains information on the projects dependencies
      * @throws MojoExecutionException in case of an error.
      */
-    protected ProjectDependencyAnalyzer createProjectDependencyAnalyzer() throws MojoExecutionException {
-```
-
-### JavadocReference
-Cannot resolve symbol `ProjectDependencyAnalyzer`
-in `src/main/java/org/apache/maven/plugins/dependency/analyze/AbstractAnalyzeMojo.java`
-#### Snippet
-```java
-
-    /**
-     * The plexus context to look-up the right {@link ProjectDependencyAnalyzer} implementation depending on the mojo
-     * configuration.
-     */
+    protected DependencyStatusSets getClassifierTranslatedDependencies(Set<Artifact> artifacts, boolean stopOnFailure)
 ```
 
 ### JavadocReference
 Cannot resolve symbol `MojoExecutionException`
-in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/BuildClasspathMojo.java`
+in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/AbstractDependencyFilterMojo.java`
 #### Snippet
 ```java
-    /**
-     * @param cpString The classpath.
-     * @throws MojoExecutionException in case of an error.
+     * @param stopOnFailure true to fail if resolution does not work or false not to fail.
+     * @return A set of artifacts
+     * @throws MojoExecutionException in case of errors.
      */
-    protected void attachFile(String cpString) throws MojoExecutionException {
+    protected Set<Artifact> getResolvedDependencies(boolean stopOnFailure) throws MojoExecutionException {
 ```
 
 ### JavadocReference
@@ -2092,140 +1936,80 @@ in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/BuildClas
 ```
 
 ### JavadocReference
-Cannot resolve symbol `MojoFailureException`
-in `src/main/java/org/apache/maven/plugins/dependency/PurgeLocalRepositoryMojo.java`
-#### Snippet
-```java
-     * @param theProject Maven project.
-     * @param purgedArtifacts The artifacts that were already purged.
-     * @throws MojoFailureException in case of errors during the purge.
-     */
-    private void purgeLocalRepository(MavenProject theProject, Set<Artifact> purgedArtifacts)
-```
-
-### JavadocReference
 Cannot resolve symbol `MojoExecutionException`
-in `src/main/java/org/apache/maven/plugins/dependency/PurgeLocalRepositoryMojo.java`
+in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/BuildClasspathMojo.java`
 #### Snippet
 ```java
-     *
-     * @param theIncludes The includes.
+    /**
+     * @param cpString The classpath.
      * @throws MojoExecutionException in case of an error.
      */
-    private void manualPurge(List<String> theIncludes) throws MojoExecutionException {
+    protected void attachFile(String cpString) throws MojoExecutionException {
 ```
 
 ### JavadocReference
 Cannot resolve symbol `MojoExecutionException`
-in `src/main/java/org/apache/maven/plugins/dependency/resolvers/ResolveDependenciesMojo.java`
+in `src/main/java/org/apache/maven/plugins/dependency/fromConfiguration/CopyMojo.java`
 #### Snippet
 ```java
-     * Main entry into mojo. Gets the list of dependencies and iterates through displaying the resolved version.
      *
-     * @throws MojoExecutionException with a message if an error occurs
-     */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `FilterArtifacts`
-in `src/main/java/org/apache/maven/plugins/dependency/resolvers/AbstractResolveMojo.java`
-#### Snippet
-```java
-
-    /**
-     * @return {@link FilterArtifacts}
-     */
-    protected FilterArtifacts getArtifactsFilter() {
-```
-
-### JavadocReference
-Cannot resolve symbol `DependencyResolverException`
-in `src/main/java/org/apache/maven/plugins/dependency/resolvers/AbstractResolveMojo.java`
-#### Snippet
-```java
-     * @param artifact the artifact used to retrieve dependencies
-     * @return resolved set of dependencies
-     * @throws DependencyResolverException in case of error while resolving artifacts.
-     */
-    protected Set<Artifact> resolveArtifactDependencies(final DependableCoordinate artifact)
-```
-
-### JavadocReference
-Cannot resolve symbol `MojoExecutionException`
-in `src/main/java/org/apache/maven/plugins/dependency/AbstractDependencyMojo.java`
-#### Snippet
-```java
-     * @param artifact represents the file to copy.
-     * @param destFile file name of destination file.
+     * @param artifactItem containing the information about the Artifact to copy.
      * @throws MojoExecutionException with a message if an error occurs.
+     * @see #copyFile(File, File)
      */
-    protected void copyFile(File artifact, File destFile) throws MojoExecutionException {
+```
+
+### JavadocReference
+Symbol `artifactItems` is inaccessible from here
+in `src/main/java/org/apache/maven/plugins/dependency/fromConfiguration/CopyMojo.java`
+#### Snippet
+```java
+    /**
+     * The artifact to copy from command line. A string of the form groupId:artifactId:version[:packaging[:classifier]].
+     * Use {@link #artifactItems} within the POM configuration.
+     */
+    @SuppressWarnings("unused") // marker-field, setArtifact(String) does the magic
 ```
 
 ### JavadocReference
 Cannot resolve symbol `MojoExecutionException`
-in `src/main/java/org/apache/maven/plugins/dependency/AbstractDependencyMojo.java`
+in `src/main/java/org/apache/maven/plugins/dependency/fromConfiguration/CopyMojo.java`
 #### Snippet
 ```java
-
-    /**
-     * @throws MojoExecutionException {@link MojoExecutionException}
-     * @throws MojoFailureException {@link MojoFailureException}
-     */
-```
-
-### JavadocReference
-Cannot resolve symbol `MojoExecutionException`
-in `src/main/java/org/apache/maven/plugins/dependency/AbstractDependencyMojo.java`
-#### Snippet
-```java
-
-    /**
-     * @throws MojoExecutionException {@link MojoExecutionException}
-     * @throws MojoFailureException {@link MojoFailureException}
-     */
-```
-
-### JavadocReference
-Cannot resolve symbol `MojoFailureException`
-in `src/main/java/org/apache/maven/plugins/dependency/AbstractDependencyMojo.java`
-#### Snippet
-```java
-    /**
-     * @throws MojoExecutionException {@link MojoExecutionException}
-     * @throws MojoFailureException {@link MojoFailureException}
-     */
-    protected abstract void doExecute() throws MojoExecutionException, MojoFailureException;
-```
-
-### JavadocReference
-Cannot resolve symbol `MojoFailureException`
-in `src/main/java/org/apache/maven/plugins/dependency/AbstractDependencyMojo.java`
-#### Snippet
-```java
-    /**
-     * @throws MojoExecutionException {@link MojoExecutionException}
-     * @throws MojoFailureException {@link MojoFailureException}
-     */
-    protected abstract void doExecute() throws MojoExecutionException, MojoFailureException;
-```
-
-### JavadocReference
-Cannot resolve symbol `FileMapper`
-in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/UnpackDependenciesMojo.java`
-#### Snippet
-```java
-
-    /**
-     * @param fileMappers {@link FileMapper}s to be used for rewriting each target path, or {@code null} if no
-     *                   rewriting shall happen.
+     * copyArtifact.
      *
+     * @throws MojoExecutionException with a message if an error occurs.
+     * @see ArtifactItem
+     * @see #getArtifactItems
+```
+
+### JavadocReference
+Symbol `artifactItems` is inaccessible from here
+in `src/main/java/org/apache/maven/plugins/dependency/fromConfiguration/UnpackMojo.java`
+#### Snippet
+```java
+    /**
+     * The artifact to unpack from command line. A string of the form
+     * <code>groupId:artifactId:version[:packaging[:classifier]]</code>. Use {@link #artifactItems} within the POM
+     * configuration.
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/dependency/fromConfiguration/UnpackMojo.java`
+#### Snippet
+```java
+     * unpackArtifact.
+     *
+     * @throws MojoExecutionException with a message if an error occurs.
+     * @see ArtifactItem
+     * @see #getArtifactItems
 ```
 
 ### JavadocReference
 Cannot resolve symbol `FileMapper`
-in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/UnpackDependenciesMojo.java`
+in `src/main/java/org/apache/maven/plugins/dependency/fromConfiguration/UnpackMojo.java`
 #### Snippet
 ```java
 
@@ -2237,74 +2021,74 @@ in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/UnpackDep
 
 ### JavadocReference
 Cannot resolve symbol `MojoExecutionException`
-in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/UnpackDependenciesMojo.java`
+in `src/main/java/org/apache/maven/plugins/dependency/fromConfiguration/UnpackMojo.java`
 #### Snippet
 ```java
-     * DependencyUtil.unpackFile().
      *
+     * @param artifactItem containing the information about the Artifact to unpack.
      * @throws MojoExecutionException with a message if an error occurs.
-     * @see #getDependencySets(boolean)
+     * @see #getArtifact
      */
 ```
 
 ### JavadocReference
 Cannot resolve symbol `FileMapper`
-in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/UnpackDependenciesMojo.java`
+in `src/main/java/org/apache/maven/plugins/dependency/fromConfiguration/UnpackMojo.java`
 #### Snippet
 ```java
 
     /**
-     * {@link FileMapper}s to be used for rewriting each target path, or {@code null} if no rewriting shall happen.
+     * {@link FileMapper} to be used for rewriting each target path, or {@code null} if no rewriting shall happen.
      *
      * @since 3.1.2
 ```
 
 ### JavadocReference
-Cannot resolve symbol `Sink`
-in `src/main/java/org/apache/maven/plugins/dependency/analyze/AnalyzeReportView.java`
+Cannot resolve symbol `FileMapper`
+in `src/main/java/org/apache/maven/plugins/dependency/fromConfiguration/UnpackMojo.java`
 #### Snippet
 ```java
-     * Generate a table for the given dependencies iterator.
+
+    /**
+     * @param fileMappers {@link FileMapper}s to be used for rewriting each target path, or {@code null} if no
+     * rewriting shall happen.
      *
-     * @param sink {@link Sink}
-     * @param iter {@link Artifact}
-     */
 ```
 
 ### JavadocReference
-Cannot resolve symbol `Artifact`
-in `src/main/java/org/apache/maven/plugins/dependency/analyze/AnalyzeReportView.java`
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/dependency/fromConfiguration/UnpackMojo.java`
 #### Snippet
 ```java
-     *
-     * @param sink {@link Sink}
-     * @param iter {@link Artifact}
+     * @param removeVersion removeVersion.
+     * @return list of {@link ArtifactItem}
+     * @throws MojoExecutionException in case of an error.
      */
-    public void generateDependenciesTable(Sink sink, Iterator<Artifact> iter) {
+    protected List<ArtifactItem> getProcessedArtifactItems(boolean removeVersion) throws MojoExecutionException {
 ```
 
 ### JavadocReference
-Cannot resolve symbol `ProjectDependencyAnalysis`
-in `src/main/java/org/apache/maven/plugins/dependency/analyze/AnalyzeReportView.java`
+Cannot resolve symbol `TransformableFilter`
+in `src/main/java/org/apache/maven/plugins/dependency/resolvers/ExcludeReactorProjectsDependencyFilter.java`
 #### Snippet
 ```java
-     * Generates the HTML report.
-     *
-     * @param analysis {@link ProjectDependencyAnalysis}
-     * @param sink {@link Sink}
-     * @param bundle {@link ResourceBundle}
+
+/**
+ * {@link TransformableFilter} implementation that excludes artifacts found in the Reactor.
+ *
+ * @author Maarten Mulders
 ```
 
 ### JavadocReference
-Cannot resolve symbol `Sink`
-in `src/main/java/org/apache/maven/plugins/dependency/analyze/AnalyzeReportView.java`
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/dependency/fromConfiguration/AbstractFromConfigurationMojo.java`
 #### Snippet
 ```java
-     *
-     * @param analysis {@link ProjectDependencyAnalysis}
-     * @param sink {@link Sink}
-     * @param bundle {@link ResourceBundle}
+     * @param artifactItem containing information about artifact from plugin configuration.
+     * @return Artifact object representing the specified file.
+     * @throws MojoExecutionException with a message if the version can't be found in DependencyManagement.
      */
+    protected Artifact getArtifact(ArtifactItem artifactItem) throws MojoExecutionException {
 ```
 
 ### JavadocReference
@@ -2317,6 +2101,18 @@ in `src/main/java/org/apache/maven/plugins/dependency/fromConfiguration/Abstract
      * @throws MojoExecutionException with a message if an error occurs.
      * @see ArtifactItem
      */
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoFailureException`
+in `src/main/java/org/apache/maven/plugins/dependency/fromConfiguration/AbstractFromConfigurationMojo.java`
+#### Snippet
+```java
+     * artifactItems is filled by either field injection or by setArtifact().
+     *
+     * @throws MojoFailureException in case of an error.
+     */
+    protected void verifyRequirements() throws MojoFailureException {
 ```
 
 ### JavadocReference
@@ -2336,71 +2132,11 @@ Cannot resolve symbol `MojoFailureException`
 in `src/main/java/org/apache/maven/plugins/dependency/fromConfiguration/AbstractFromConfigurationMojo.java`
 #### Snippet
 ```java
-     * artifactItems is filled by either field injection or by setArtifact().
-     *
-     * @throws MojoFailureException in case of an error.
-     */
-    protected void verifyRequirements() throws MojoFailureException {
-```
-
-### JavadocReference
-Cannot resolve symbol `MojoFailureException`
-in `src/main/java/org/apache/maven/plugins/dependency/fromConfiguration/AbstractFromConfigurationMojo.java`
-#### Snippet
-```java
     /**
      * @param artifact The artifact.
      * @throws MojoFailureException in case of an error.
      */
     public void setArtifact(String artifact) throws MojoFailureException {
-```
-
-### JavadocReference
-Cannot resolve symbol `MojoExecutionException`
-in `src/main/java/org/apache/maven/plugins/dependency/fromConfiguration/AbstractFromConfigurationMojo.java`
-#### Snippet
-```java
-     * @param artifactItem containing information about artifact from plugin configuration.
-     * @return Artifact object representing the specified file.
-     * @throws MojoExecutionException with a message if the version can't be found in DependencyManagement.
-     */
-    protected Artifact getArtifact(ArtifactItem artifactItem) throws MojoExecutionException {
-```
-
-### JavadocReference
-Cannot resolve symbol `DependencyNodeVisitor`
-in `src/main/java/org/apache/maven/plugins/dependency/tree/TreeMojo.java`
-#### Snippet
-```java
-    /**
-     * @param writer {@link Writer}
-     * @return {@link DependencyNodeVisitor}
-     */
-    public DependencyNodeVisitor getSerializingDependencyNodeVisitor(Writer writer) {
-```
-
-### JavadocReference
-Cannot resolve symbol `StrictPatternExcludesArtifactFilter`
-in `src/main/java/org/apache/maven/plugins/dependency/tree/TreeMojo.java`
-#### Snippet
-```java
-     * </p>
-     *
-     * @see StrictPatternExcludesArtifactFilter
-     * @since 2.0-alpha-6
-     */
-```
-
-### JavadocReference
-Cannot resolve symbol `StrictPatternIncludesArtifactFilter`
-in `src/main/java/org/apache/maven/plugins/dependency/tree/TreeMojo.java`
-#### Snippet
-```java
-     * </p>
-     *
-     * @see StrictPatternIncludesArtifactFilter
-     * @since 2.0-alpha-6
-     */
 ```
 
 ### JavadocReference
@@ -2415,7 +2151,235 @@ in `src/main/java/org/apache/maven/plugins/dependency/ListRepositoriesMojo.java`
     @Override
 ```
 
+### JavadocReference
+Cannot resolve symbol `ArtifactFilterException`
+in `src/main/java/org/apache/maven/plugins/dependency/resolvers/ResolvePluginsMojo.java`
+#### Snippet
+```java
+     *
+     * @return set of resolved plugin artifacts
+     * @throws ArtifactFilterException in case of an error
+     * @throws ArtifactResolverException in case of an error
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `ArtifactResolverException`
+in `src/main/java/org/apache/maven/plugins/dependency/resolvers/ResolvePluginsMojo.java`
+#### Snippet
+```java
+     * @return set of resolved plugin artifacts
+     * @throws ArtifactFilterException in case of an error
+     * @throws ArtifactResolverException in case of an error
+     */
+    protected Set<Artifact> resolvePluginArtifacts() throws ArtifactFilterException, ArtifactResolverException {
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/dependency/resolvers/ResolvePluginsMojo.java`
+#### Snippet
+```java
+     * Main entry into mojo. Gets the list of dependencies and iterates through displaying the resolved version.
+     *
+     * @throws MojoExecutionException with a message if an error occurs.
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/CopyDependenciesMojo.java`
+#### Snippet
+```java
+     * Main entry into mojo. Gets the list of dependencies and iterates through calling copyArtifact.
+     *
+     * @throws MojoExecutionException with a message if an error occurs.
+     * @see #getDependencySets(boolean, boolean)
+     * @see #copyArtifact(Artifact, boolean, boolean, boolean, boolean)
+```
+
+### JavadocReference
+Cannot resolve symbol `Artifact`
+in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/CopyDependenciesMojo.java`
+#### Snippet
+```java
+     * @throws MojoExecutionException with a message if an error occurs.
+     * @see #getDependencySets(boolean, boolean)
+     * @see #copyArtifact(Artifact, boolean, boolean, boolean, boolean)
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/CopyDependenciesMojo.java`
+#### Snippet
+```java
+     * @param prependGroupId specifies if the groupId should be prepend to the file while copying.
+     * @param theUseBaseVersion specifies if the baseVersion of the artifact should be used instead of the version.
+     * @throws MojoExecutionException with a message if an error occurs.
+     * @see #copyArtifact(Artifact, boolean, boolean, boolean, boolean)
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `Artifact`
+in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/CopyDependenciesMojo.java`
+#### Snippet
+```java
+     * @param theUseBaseVersion specifies if the baseVersion of the artifact should be used instead of the version.
+     * @throws MojoExecutionException with a message if an error occurs.
+     * @see #copyArtifact(Artifact, boolean, boolean, boolean, boolean)
+     */
+    protected void copyArtifact(
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/CopyDependenciesMojo.java`
+#### Snippet
+```java
+     * @param theUseBaseVersion specifies if the baseVersion of the artifact should be used instead of the version.
+     * @param removeClassifier specifies if the classifier should be removed from the file name when copying.
+     * @throws MojoExecutionException with a message if an error occurs.
+     * @see #copyFile(File, File)
+     * @see DependencyUtil#getFormattedOutputDirectory(boolean, boolean, boolean, boolean, boolean, boolean, File, Artifact)
+```
+
+### JavadocReference
+Cannot resolve symbol `Artifact`
+in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/CopyDependenciesMojo.java`
+#### Snippet
+```java
+     * @throws MojoExecutionException with a message if an error occurs.
+     * @see #copyFile(File, File)
+     * @see DependencyUtil#getFormattedOutputDirectory(boolean, boolean, boolean, boolean, boolean, boolean, File, Artifact)
+     */
+    protected void copyArtifact(
+```
+
+### JavadocReference
+Cannot resolve symbol `Artifact`
+in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/CopyDependenciesMojo.java`
+#### Snippet
+```java
+     *
+     * @param destDir The destination directory {@link File}.
+     * @param artifacts The artifacts {@link Artifact}.
+     * @param removeVersion remove version or not.
+     * @param removeClassifier remove the classifier or not.
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/CopyDependenciesMojo.java`
+#### Snippet
+```java
+     * @param removeVersion remove version or not.
+     * @param removeClassifier remove the classifier or not.
+     * @throws MojoExecutionException in case of errors.
+     */
+    public void copyPoms(File destDir, Set<Artifact> artifacts, boolean removeVersion, boolean removeClassifier)
+```
+
+### JavadocReference
+Cannot resolve symbol `Artifact`
+in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/CopyDependenciesMojo.java`
+#### Snippet
+```java
+
+    /**
+     * @param artifact {@link Artifact}
+     * @return {@link Artifact}
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `Artifact`
+in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/CopyDependenciesMojo.java`
+#### Snippet
+```java
+    /**
+     * @param artifact {@link Artifact}
+     * @return {@link Artifact}
+     */
+    protected Artifact getResolvedPomArtifact(Artifact artifact) {
+```
+
+### JavadocReference
+Cannot resolve symbol `Artifact`
+in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/CopyDependenciesMojo.java`
+#### Snippet
+```java
+     *
+     * @param destDir The destination directory {@link File}.
+     * @param artifacts The artifacts {@link Artifact}.
+     * @param removeVersion remove version or not.
+     * @throws MojoExecutionException in case of errors.
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/CopyDependenciesMojo.java`
+#### Snippet
+```java
+     * @param artifacts The artifacts {@link Artifact}.
+     * @param removeVersion remove version or not.
+     * @throws MojoExecutionException in case of errors.
+     */
+    public void copyPoms(File destDir, Set<Artifact> artifacts, boolean removeVersion) throws MojoExecutionException {
+```
+
+### JavadocReference
+Cannot resolve symbol `ArtifactHandlerManager`
+in `src/main/java/org/apache/maven/plugins/dependency/utils/translators/ClassifierTypeTranslator.java`
+#### Snippet
+```java
+
+    /**
+     * @param artifactHanderManager {@link ArtifactHandlerManager}.
+     * @param theClassifier The classifier to use.
+     * @param theType The type.
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/dependency/PurgeLocalRepositoryMojo.java`
+#### Snippet
+```java
+     *
+     * @param theIncludes The includes.
+     * @throws MojoExecutionException in case of an error.
+     */
+    private void manualPurge(List<String> theIncludes) throws MojoExecutionException {
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoFailureException`
+in `src/main/java/org/apache/maven/plugins/dependency/PurgeLocalRepositoryMojo.java`
+#### Snippet
+```java
+     * @param theProject Maven project.
+     * @param purgedArtifacts The artifacts that were already purged.
+     * @throws MojoFailureException in case of errors during the purge.
+     */
+    private void purgeLocalRepository(MavenProject theProject, Set<Artifact> purgedArtifacts)
+```
+
 ## RuleId[id=DataFlowIssue]
+### DataFlowIssue
+Argument `artifacts` might be null
+in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/BuildClasspathMojo.java`
+#### Snippet
+```java
+        }
+
+        List<Artifact> artList = new ArrayList<>(artifacts);
+
+        StringBuilder sb = new StringBuilder();
+```
+
 ### DataFlowIssue
 Variable is already assigned to this value
 in `src/main/java/org/apache/maven/plugins/dependency/resolvers/ResolvePluginsMojo.java`
@@ -2440,65 +2404,17 @@ in `src/main/java/org/apache/maven/plugins/dependency/resolvers/ResolvePluginsMo
                             }
 ```
 
-### DataFlowIssue
-Argument `artifacts` might be null
-in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/BuildClasspathMojo.java`
-#### Snippet
-```java
-        }
-
-        List<Artifact> artList = new ArrayList<>(artifacts);
-
-        StringBuilder sb = new StringBuilder();
-```
-
 ## RuleId[id=JavadocDeclaration]
-### JavadocDeclaration
-`@throws` tag description is missing
-in `src/main/java/org/apache/maven/plugins/dependency/analyze/AnalyzeDepMgt.java`
-#### Snippet
-```java
-     *
-     * @return true if errors are found.
-     * @throws MojoExecutionException
-     */
-    private boolean checkDependencyManagement() throws MojoExecutionException {
-```
-
-### JavadocDeclaration
-`@param artifact` tag description is missing
-in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/CopyDependenciesMojo.java`
-#### Snippet
-```java
-     * install the artifact and the corresponding pom if copyPoms=true
-     *
-     * @param artifact
-     * @param buildingRequest
-     */
-```
-
-### JavadocDeclaration
-`@param buildingRequest` tag description is missing
-in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/CopyDependenciesMojo.java`
-#### Snippet
-```java
-     *
-     * @param artifact
-     * @param buildingRequest
-     */
-    private void installArtifact(Artifact artifact, ProjectBuildingRequest buildingRequest) {
-```
-
 ### JavadocDeclaration
 Wrong tag `parameter`
 in `src/main/java/org/apache/maven/plugins/dependency/fromConfiguration/ArtifactItem.java`
 #### Snippet
 ```java
-     * Classifier for Artifact (tests,sources,etc)
+     * @since 3.1.2
      *
      * @parameter
      */
-    private String classifier;
+    private FileMapper[] fileMappers;
 ```
 
 ### JavadocDeclaration
@@ -2518,23 +2434,23 @@ Wrong tag `parameter`
 in `src/main/java/org/apache/maven/plugins/dependency/fromConfiguration/ArtifactItem.java`
 #### Snippet
 ```java
-     * Type of Artifact (War,Jar,etc)
+     * Encoding of artifact. Overrides default encoding.
      *
      * @parameter
-     * @required
      */
+    private String encoding;
 ```
 
 ### JavadocDeclaration
-Wrong tag `required`
+Wrong tag `parameter`
 in `src/main/java/org/apache/maven/plugins/dependency/fromConfiguration/ArtifactItem.java`
 #### Snippet
 ```java
+     * Version of Artifact
      *
      * @parameter
-     * @required
      */
-    private String type = "jar";
+    private String version = null;
 ```
 
 ### JavadocDeclaration
@@ -2566,47 +2482,11 @@ Wrong tag `parameter`
 in `src/main/java/org/apache/maven/plugins/dependency/fromConfiguration/ArtifactItem.java`
 #### Snippet
 ```java
-     * Name of Artifact
-     *
-     * @parameter
-     * @required
-     */
-```
-
-### JavadocDeclaration
-Wrong tag `required`
-in `src/main/java/org/apache/maven/plugins/dependency/fromConfiguration/ArtifactItem.java`
-#### Snippet
-```java
-     *
-     * @parameter
-     * @required
-     */
-    private String artifactId;
-```
-
-### JavadocDeclaration
-Wrong tag `parameter`
-in `src/main/java/org/apache/maven/plugins/dependency/fromConfiguration/ArtifactItem.java`
-#### Snippet
-```java
-     * @since 3.1.2
+     * Classifier for Artifact (tests,sources,etc)
      *
      * @parameter
      */
-    private FileMapper[] fileMappers;
-```
-
-### JavadocDeclaration
-Wrong tag `parameter`
-in `src/main/java/org/apache/maven/plugins/dependency/fromConfiguration/ArtifactItem.java`
-#### Snippet
-```java
-     * Encoding of artifact. Overrides default encoding.
-     *
-     * @parameter
-     */
-    private String encoding;
+    private String classifier;
 ```
 
 ### JavadocDeclaration
@@ -2626,11 +2506,47 @@ Wrong tag `parameter`
 in `src/main/java/org/apache/maven/plugins/dependency/fromConfiguration/ArtifactItem.java`
 #### Snippet
 ```java
-     * Version of Artifact
+     * Type of Artifact (War,Jar,etc)
      *
      * @parameter
+     * @required
      */
-    private String version = null;
+```
+
+### JavadocDeclaration
+Wrong tag `required`
+in `src/main/java/org/apache/maven/plugins/dependency/fromConfiguration/ArtifactItem.java`
+#### Snippet
+```java
+     *
+     * @parameter
+     * @required
+     */
+    private String type = "jar";
+```
+
+### JavadocDeclaration
+Wrong tag `parameter`
+in `src/main/java/org/apache/maven/plugins/dependency/fromConfiguration/ArtifactItem.java`
+#### Snippet
+```java
+     * Name of Artifact
+     *
+     * @parameter
+     * @required
+     */
+```
+
+### JavadocDeclaration
+Wrong tag `required`
+in `src/main/java/org/apache/maven/plugins/dependency/fromConfiguration/ArtifactItem.java`
+#### Snippet
+```java
+     *
+     * @parameter
+     * @required
+     */
+    private String artifactId;
 ```
 
 ### JavadocDeclaration
@@ -2659,6 +2575,18 @@ in `src/main/java/org/apache/maven/plugins/dependency/AbstractDependencyMojo.jav
 
 ### JavadocDeclaration
 `@throws` tag description is missing
+in `src/main/java/org/apache/maven/plugins/dependency/analyze/AnalyzeDepMgt.java`
+#### Snippet
+```java
+     *
+     * @return true if errors are found.
+     * @throws MojoExecutionException
+     */
+    private boolean checkDependencyManagement() throws MojoExecutionException {
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
 in `src/main/java/org/apache/maven/plugins/dependency/fromConfiguration/AbstractFromConfigurationMojo.java`
 #### Snippet
 ```java
@@ -2667,6 +2595,55 @@ in `src/main/java/org/apache/maven/plugins/dependency/fromConfiguration/Abstract
      * @throws MojoExecutionException
      */
     private void fillMissingArtifactVersion(ArtifactItem artifact) throws MojoExecutionException {
+```
+
+### JavadocDeclaration
+`@param artifact` tag description is missing
+in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/CopyDependenciesMojo.java`
+#### Snippet
+```java
+     * install the artifact and the corresponding pom if copyPoms=true
+     *
+     * @param artifact
+     * @param buildingRequest
+     */
+```
+
+### JavadocDeclaration
+`@param buildingRequest` tag description is missing
+in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/CopyDependenciesMojo.java`
+#### Snippet
+```java
+     *
+     * @param artifact
+     * @param buildingRequest
+     */
+    private void installArtifact(Artifact artifact, ProjectBuildingRequest buildingRequest) {
+```
+
+## RuleId[id=CommentedOutCode]
+### CommentedOutCode
+Commented out code (13 lines)
+in `src/main/java/org/apache/maven/plugins/dependency/resolvers/ResolvePluginsMojo.java`
+#### Snippet
+```java
+        // final ArtifactFilter filter = getPluginFilter();
+        for (final Artifact artifact : new LinkedHashSet<>(artifacts)) {
+            // if ( !filter.include( artifact ) )
+            // {
+            // final String logStr =
+```
+
+### CommentedOutCode
+Commented out code (15 lines)
+in `src/main/java/org/apache/maven/plugins/dependency/utils/translators/ClassifierTypeTranslator.java`
+#### Snippet
+```java
+            coordinate.setExtension(extension);
+
+            // // Create a new artifact
+            // Artifact newArtifact = factory.createArtifactWithClassifier( artifact.getGroupId(), artifact
+            // .getArtifactId(), artifact.getVersion(), useType, useClassifier );
 ```
 
 ## RuleId[id=DeprecatedIsStillUsed]
@@ -2684,39 +2661,15 @@ in `src/main/java/org/apache/maven/plugins/dependency/tree/TreeMojo.java`
 
 ## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
-Field `prependGroupId` may be 'final'
-in `src/main/java/org/apache/maven/plugins/dependency/fromConfiguration/CopyMojo.java`
+Field `ignoredPackagings` may be 'final'
+in `src/main/java/org/apache/maven/plugins/dependency/analyze/AbstractAnalyzeMojo.java`
 #### Snippet
 ```java
-     */
-    @Parameter(property = "mdep.prependGroupId", defaultValue = "false")
-    private boolean prependGroupId = false;
+    // When is set defaultValue always win, and there is no possibility to override by plugin configuration.
+    @Parameter
+    private List<String> ignoredPackagings = Arrays.asList("pom", "ear");
 
-    /**
-```
-
-### FieldMayBeFinal
-Field `transitive` may be 'final'
-in `src/main/java/org/apache/maven/plugins/dependency/GetMojo.java`
-#### Snippet
-```java
-     */
-    @Parameter(property = "transitive", defaultValue = "true")
-    private boolean transitive = true;
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `coordinate` may be 'final'
-in `src/main/java/org/apache/maven/plugins/dependency/GetMojo.java`
-#### Snippet
-```java
-    private RepositorySystem repositorySystem;
-
-    private DefaultDependableCoordinate coordinate = new DefaultDependableCoordinate();
-
-    /**
+    // Mojo methods -----------------------------------------------------------
 ```
 
 ### FieldMayBeFinal
@@ -2727,6 +2680,18 @@ in `src/main/java/org/apache/maven/plugins/dependency/analyze/AbstractAnalyzeMoj
      */
     @Parameter
     private String[] ignoredUnusedDeclaredDependencies = new String[0];
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `ignoredDependencies` may be 'final'
+in `src/main/java/org/apache/maven/plugins/dependency/analyze/AbstractAnalyzeMojo.java`
+#### Snippet
+```java
+     */
+    @Parameter
+    private String[] ignoredDependencies = new String[0];
 
     /**
 ```
@@ -2756,37 +2721,25 @@ in `src/main/java/org/apache/maven/plugins/dependency/analyze/AbstractAnalyzeMoj
 ```
 
 ### FieldMayBeFinal
-Field `ignoredPackagings` may be 'final'
-in `src/main/java/org/apache/maven/plugins/dependency/analyze/AbstractAnalyzeMojo.java`
+Field `coordinate` may be 'final'
+in `src/main/java/org/apache/maven/plugins/dependency/GetMojo.java`
 #### Snippet
 ```java
-    // When is set defaultValue always win, and there is no possibility to override by plugin configuration.
-    @Parameter
-    private List<String> ignoredPackagings = Arrays.asList("pom", "ear");
+    private RepositorySystem repositorySystem;
 
-    // Mojo methods -----------------------------------------------------------
-```
-
-### FieldMayBeFinal
-Field `ignoredDependencies` may be 'final'
-in `src/main/java/org/apache/maven/plugins/dependency/analyze/AbstractAnalyzeMojo.java`
-#### Snippet
-```java
-     */
-    @Parameter
-    private String[] ignoredDependencies = new String[0];
+    private DefaultDependableCoordinate coordinate = new DefaultDependableCoordinate();
 
     /**
 ```
 
 ### FieldMayBeFinal
-Field `useBaseVersion` may be 'final'
-in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/BuildClasspathMojo.java`
+Field `transitive` may be 'final'
+in `src/main/java/org/apache/maven/plugins/dependency/GetMojo.java`
 #### Snippet
 ```java
      */
-    @Parameter(property = "mdep.useBaseVersion", defaultValue = "true")
-    private boolean useBaseVersion = true;
+    @Parameter(property = "transitive", defaultValue = "true")
+    private boolean transitive = true;
 
     /**
 ```
@@ -2804,6 +2757,30 @@ in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/BuildClas
 ```
 
 ### FieldMayBeFinal
+Field `useBaseVersion` may be 'final'
+in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/BuildClasspathMojo.java`
+#### Snippet
+```java
+     */
+    @Parameter(property = "mdep.useBaseVersion", defaultValue = "true")
+    private boolean useBaseVersion = true;
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `prependGroupId` may be 'final'
+in `src/main/java/org/apache/maven/plugins/dependency/fromConfiguration/CopyMojo.java`
+#### Snippet
+```java
+     */
+    @Parameter(property = "mdep.prependGroupId", defaultValue = "false")
+    private boolean prependGroupId = false;
+
+    /**
+```
+
+### FieldMayBeFinal
 Field `transitive` may be 'final'
 in `src/main/java/org/apache/maven/plugins/dependency/ListClassesMojo.java`
 #### Snippet
@@ -2811,18 +2788,6 @@ in `src/main/java/org/apache/maven/plugins/dependency/ListClassesMojo.java`
      */
     @Parameter(property = "transitive", defaultValue = "false")
     private boolean transitive = false;
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `coordinate` may be 'final'
-in `src/main/java/org/apache/maven/plugins/dependency/ListClassesMojo.java`
-#### Snippet
-```java
-    private RepositorySystem repositorySystem;
-
-    private DefaultDependableCoordinate coordinate = new DefaultDependableCoordinate();
 
     /**
 ```
@@ -2839,56 +2804,19 @@ in `src/main/java/org/apache/maven/plugins/dependency/ListClassesMojo.java`
     /**
 ```
 
-## RuleId[id=CommentedOutCode]
-### CommentedOutCode
-Commented out code (15 lines)
-in `src/main/java/org/apache/maven/plugins/dependency/utils/translators/ClassifierTypeTranslator.java`
+### FieldMayBeFinal
+Field `coordinate` may be 'final'
+in `src/main/java/org/apache/maven/plugins/dependency/ListClassesMojo.java`
 #### Snippet
 ```java
-            coordinate.setExtension(extension);
+    private RepositorySystem repositorySystem;
 
-            // // Create a new artifact
-            // Artifact newArtifact = factory.createArtifactWithClassifier( artifact.getGroupId(), artifact
-            // .getArtifactId(), artifact.getVersion(), useType, useClassifier );
-```
+    private DefaultDependableCoordinate coordinate = new DefaultDependableCoordinate();
 
-### CommentedOutCode
-Commented out code (13 lines)
-in `src/main/java/org/apache/maven/plugins/dependency/resolvers/ResolvePluginsMojo.java`
-#### Snippet
-```java
-        // final ArtifactFilter filter = getPluginFilter();
-        for (final Artifact artifact : new LinkedHashSet<>(artifacts)) {
-            // if ( !filter.include( artifact ) )
-            // {
-            // final String logStr =
+    /**
 ```
 
 ## RuleId[id=MismatchedCollectionQueryUpdate]
-### MismatchedCollectionQueryUpdate
-Contents of collection `repositoryLayouts` are queried, but never updated
-in `src/main/java/org/apache/maven/plugins/dependency/GetMojo.java`
-#### Snippet
-```java
-     */
-    @Component(role = ArtifactRepositoryLayout.class)
-    private Map<String, ArtifactRepositoryLayout> repositoryLayouts;
-
-    /**
-```
-
-### MismatchedCollectionQueryUpdate
-Contents of collection `pomRemoteRepositories` are queried, but never updated
-in `src/main/java/org/apache/maven/plugins/dependency/GetMojo.java`
-#### Snippet
-```java
-     */
-    @Parameter(defaultValue = "${project.remoteArtifactRepositories}", readonly = true, required = true)
-    private List<ArtifactRepository> pomRemoteRepositories;
-
-    /**
-```
-
 ### MismatchedCollectionQueryUpdate
 Contents of collection `usedDeclared` are queried, but never updated
 in `src/main/java/org/apache/maven/plugins/dependency/analyze/AbstractAnalyzeMojo.java`
@@ -2902,13 +2830,37 @@ in `src/main/java/org/apache/maven/plugins/dependency/analyze/AbstractAnalyzeMoj
 ```
 
 ### MismatchedCollectionQueryUpdate
-Contents of collection `reactorProjects` are queried, but never updated
-in `src/main/java/org/apache/maven/plugins/dependency/PurgeLocalRepositoryMojo.java`
+Contents of collection `pomRemoteRepositories` are queried, but never updated
+in `src/main/java/org/apache/maven/plugins/dependency/GetMojo.java`
 #### Snippet
 ```java
      */
-    @Parameter(defaultValue = "${reactorProjects}", readonly = true, required = true)
-    private List<MavenProject> reactorProjects;
+    @Parameter(defaultValue = "${project.remoteArtifactRepositories}", readonly = true, required = true)
+    private List<ArtifactRepository> pomRemoteRepositories;
+
+    /**
+```
+
+### MismatchedCollectionQueryUpdate
+Contents of collection `repositoryLayouts` are queried, but never updated
+in `src/main/java/org/apache/maven/plugins/dependency/GetMojo.java`
+#### Snippet
+```java
+     */
+    @Component(role = ArtifactRepositoryLayout.class)
+    private Map<String, ArtifactRepositoryLayout> repositoryLayouts;
+
+    /**
+```
+
+### MismatchedCollectionQueryUpdate
+Contents of collection `repositoryLayouts` are queried, but never updated
+in `src/main/java/org/apache/maven/plugins/dependency/ListClassesMojo.java`
+#### Snippet
+```java
+     */
+    @Component(role = ArtifactRepositoryLayout.class)
+    private Map<String, ArtifactRepositoryLayout> repositoryLayouts;
 
     /**
 ```
@@ -2926,13 +2878,13 @@ in `src/main/java/org/apache/maven/plugins/dependency/ListClassesMojo.java`
 ```
 
 ### MismatchedCollectionQueryUpdate
-Contents of collection `repositoryLayouts` are queried, but never updated
-in `src/main/java/org/apache/maven/plugins/dependency/ListClassesMojo.java`
+Contents of collection `reactorProjects` are queried, but never updated
+in `src/main/java/org/apache/maven/plugins/dependency/PurgeLocalRepositoryMojo.java`
 #### Snippet
 ```java
      */
-    @Component(role = ArtifactRepositoryLayout.class)
-    private Map<String, ArtifactRepositoryLayout> repositoryLayouts;
+    @Parameter(defaultValue = "${reactorProjects}", readonly = true, required = true)
+    private List<MavenProject> reactorProjects;
 
     /**
 ```
@@ -3036,7 +2988,7 @@ in `src/main/java/org/apache/maven/plugins/dependency/resolvers/GoOfflineMojo.ja
 in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyUtil.java`
 #### Snippet
 ```java
-        if (!StringUtils.isEmpty(str)) {
+        if (!(str == null || str.isEmpty())) {
             // remove initial and ending spaces, plus all spaces next to commas
             ret = str.trim().replaceAll("[\\s]*,[\\s]*", ",");
         }
@@ -3048,7 +3000,7 @@ in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyUtil.java`
 in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyUtil.java`
 #### Snippet
 ```java
-        if (!StringUtils.isEmpty(str)) {
+        if (!(str == null || str.isEmpty())) {
             // remove initial and ending spaces, plus all spaces next to commas
             ret = str.trim().replaceAll("[\\s]*,[\\s]*", ",");
         }
@@ -3107,18 +3059,6 @@ in `src/main/java/org/apache/maven/plugins/dependency/utils/UnpackUtil.java`
 
 ## RuleId[id=InnerClassMayBeStatic]
 ### InnerClassMayBeStatic
-Inner class `DirectDependencyFilter` may be 'static'
-in `src/main/java/org/apache/maven/plugins/dependency/PurgeLocalRepositoryMojo.java`
-#### Snippet
-```java
-     * Includes only direct project dependencies.
-     */
-    private class DirectDependencyFilter extends AbstractFilter {
-        private final Artifact projectArtifact;
-
-```
-
-### InnerClassMayBeStatic
 Inner class `ModuleDescriptor` may be 'static'
 in `src/main/java/org/apache/maven/plugins/dependency/resolvers/ResolveDependenciesMojo.java`
 #### Snippet
@@ -3127,6 +3067,18 @@ in `src/main/java/org/apache/maven/plugins/dependency/resolvers/ResolveDependenc
 
     private class ModuleDescriptor {
         String name;
+
+```
+
+### InnerClassMayBeStatic
+Inner class `DirectDependencyFilter` may be 'static'
+in `src/main/java/org/apache/maven/plugins/dependency/PurgeLocalRepositoryMojo.java`
+#### Snippet
+```java
+     * Includes only direct project dependencies.
+     */
+    private class DirectDependencyFilter extends AbstractFilter {
+        private final Artifact projectArtifact;
 
 ```
 
@@ -3225,8 +3177,8 @@ in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/BuildClas
 #### Snippet
 ```java
      */
-    @Parameter(property = "mdep.useBaseVersion", defaultValue = "true")
-    private boolean useBaseVersion = true;
+    @Parameter(property = "mdep.stripClassifier", defaultValue = "false")
+    private boolean stripClassifier = false;
 
     /**
 ```
@@ -3237,8 +3189,8 @@ in `src/main/java/org/apache/maven/plugins/dependency/fromDependencies/BuildClas
 #### Snippet
 ```java
      */
-    @Parameter(property = "mdep.stripClassifier", defaultValue = "false")
-    private boolean stripClassifier = false;
+    @Parameter(property = "mdep.useBaseVersion", defaultValue = "true")
+    private boolean useBaseVersion = true;
 
     /**
 ```
@@ -3294,30 +3246,6 @@ in `src/main/java/org/apache/maven/plugins/dependency/utils/markers/SourcesFileM
 
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
-in `src/main/java/org/apache/maven/plugins/dependency/utils/UnpackUtil.java`
-#### Snippet
-```java
-            logUnpack(logger, file, location, includes, excludes);
-
-            location.mkdirs();
-            if (!location.exists()) {
-                throw new MojoExecutionException(
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyUtil.java`
-#### Snippet
-```java
-    public static synchronized void write(String string, File file, boolean append, String encoding)
-            throws IOException {
-        file.getParentFile().mkdirs();
-
-        try (Writer writer = new OutputStreamWriter(new FileOutputStream(file, append), encoding)) {
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
 in `src/main/java/org/apache/maven/plugins/dependency/utils/markers/DefaultFileMarkerHandler.java`
 #### Snippet
 ```java
@@ -3338,6 +3266,30 @@ in `src/main/java/org/apache/maven/plugins/dependency/utils/markers/DefaultFileM
             marker.createNewFile();
         } catch (IOException e) {
             throw new MojoExecutionException("Unable to create Marker: " + marker.getAbsolutePath(), e);
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `src/main/java/org/apache/maven/plugins/dependency/utils/UnpackUtil.java`
+#### Snippet
+```java
+            logUnpack(logger, file, location, includes, excludes);
+
+            location.mkdirs();
+            if (!location.exists()) {
+                throw new MojoExecutionException(
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `src/main/java/org/apache/maven/plugins/dependency/utils/DependencyUtil.java`
+#### Snippet
+```java
+    public static synchronized void write(String string, File file, boolean append, String encoding)
+            throws IOException {
+        file.getParentFile().mkdirs();
+
+        try (Writer writer = new OutputStreamWriter(new FileOutputStream(file, append), encoding)) {
 ```
 
 ### IgnoreResultOfCall
