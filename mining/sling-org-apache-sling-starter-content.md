@@ -139,18 +139,6 @@ in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
 
 ## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
-Variable `supportedPrivileges` initializer `null` is redundant
-in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
-#### Snippet
-```java
-            Map<Privilege, String> privilegeToLongestPath, String acePath) {
-        Map<Privilege, PrivilegeItem> newMap = new HashMap<>();
-        Privilege[] supportedPrivileges = null;
-        try {
-            Session jcrSession = request.getResourceResolver().adaptTo(Session.class);
-```
-
-### UnusedAssignment
 Variable `fieldValues` initializer `null` is redundant
 in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
 #### Snippet
@@ -160,6 +148,18 @@ in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
         String[] fieldValues = null;
         fieldValues = new String[paramValues.length];
         for (int i=0; i < paramValues.length; i++) {
+```
+
+### UnusedAssignment
+Variable `supportedPrivileges` initializer `null` is redundant
+in `src/main/java/org/apache/sling/starter/access/models/Ace.java`
+#### Snippet
+```java
+            Map<Privilege, String> privilegeToLongestPath, String acePath) {
+        Map<Privilege, PrivilegeItem> newMap = new HashMap<>();
+        Privilege[] supportedPrivileges = null;
+        try {
+            Session jcrSession = request.getResourceResolver().adaptTo(Session.class);
 ```
 
 ## RuleId[id=FieldMayBeFinal]
@@ -188,18 +188,6 @@ public class RestrictionDefinitionInfo implements RestrictionDefinition {
 ```
 
 ### FieldMayBeFinal
-Field `isGroup` may be 'final'
-in `src/main/java/org/apache/sling/starter/access/models/PrincipalPrivilege.java`
-#### Snippet
-```java
-    private boolean isAllow;
-    private boolean isDeny;
-    private boolean isGroup;
-
-    public PrincipalPrivilege(@NotNull Principal principal) {
-```
-
-### FieldMayBeFinal
 Field `principalName` may be 'final'
 in `src/main/java/org/apache/sling/starter/access/models/PrincipalPrivilege.java`
 #### Snippet
@@ -212,27 +200,27 @@ public class PrincipalPrivilege {
 ```
 
 ### FieldMayBeFinal
-Field `rd` may be 'final'
-in `src/main/java/org/apache/sling/starter/access/models/RestrictionItem.java`
+Field `isGroup` may be 'final'
+in `src/main/java/org/apache/sling/starter/access/models/PrincipalPrivilege.java`
 #### Snippet
 ```java
+    private boolean isAllow;
+    private boolean isDeny;
+    private boolean isGroup;
 
-public class RestrictionItem {
-    private RestrictionDefinition rd;
-    private Object value;
-    private boolean exists;
+    public PrincipalPrivilege(@NotNull Principal principal) {
 ```
 
 ### FieldMayBeFinal
-Field `value` may be 'final'
-in `src/main/java/org/apache/sling/starter/access/models/RestrictionItem.java`
+Field `depth` may be 'final'
+in `src/main/java/org/apache/sling/starter/access/models/PrivilegeItem.java`
 #### Snippet
 ```java
-public class RestrictionItem {
-    private RestrictionDefinition rd;
-    private Object value;
-    private boolean exists;
-
+    private boolean denied;
+    private String longestPath;
+    private long depth;
+    private String extraCssClasses;
+    private List<RestrictionItem> allowRestrictions;
 ```
 
 ### FieldMayBeFinal
@@ -260,15 +248,27 @@ public class PrivilegeItem {
 ```
 
 ### FieldMayBeFinal
-Field `depth` may be 'final'
-in `src/main/java/org/apache/sling/starter/access/models/PrivilegeItem.java`
+Field `value` may be 'final'
+in `src/main/java/org/apache/sling/starter/access/models/RestrictionItem.java`
 #### Snippet
 ```java
-    private boolean denied;
-    private String longestPath;
-    private long depth;
-    private String extraCssClasses;
-    private List<RestrictionItem> allowRestrictions;
+public class RestrictionItem {
+    private RestrictionDefinition rd;
+    private Object value;
+    private boolean exists;
+
+```
+
+### FieldMayBeFinal
+Field `rd` may be 'final'
+in `src/main/java/org/apache/sling/starter/access/models/RestrictionItem.java`
+#### Snippet
+```java
+
+public class RestrictionItem {
+    private RestrictionDefinition rd;
+    private Object value;
+    private boolean exists;
 ```
 
 ## RuleId[id=ConstantValue]
