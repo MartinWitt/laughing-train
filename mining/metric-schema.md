@@ -21,6 +21,18 @@ in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator
 #### Snippet
 ```java
             String namespace,
+            MetricNamespace metrics,
+            Optional<String> libraryName,
+            String packageName,
+            ImplementationVisibility visibility) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'libraryName'
+in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator.java`
+#### Snippet
+```java
+            String namespace,
             String metricName,
             Optional<String> libraryName,
             MetricDefinition definition,
@@ -37,18 +49,6 @@ in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator
             Optional<String> libraryName,
             MetricNamespace metricNamespace,
             MetricDefinition definition,
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'libraryName'
-in `metric-schema-java/src/main/java/com/palantir/metric/schema/UtilityGenerator.java`
-#### Snippet
-```java
-            String namespace,
-            MetricNamespace metrics,
-            Optional<String> libraryName,
-            String packageName,
-            ImplementationVisibility visibility) {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -227,18 +227,6 @@ in `metric-schema-java/src/main/java/com/palantir/metric/schema/model/Implementa
 ```
 
 ### UnstableApiUsage
-'splitToStream(java.lang.CharSequence)' is marked unstable with @Beta
-in `metric-schema-java/src/main/java/com/palantir/metric/schema/Custodian.java`
-#### Snippet
-```java
-    static String anyToUpperUnderscore(String input) {
-        Preconditions.checkNotNull(input, "Input string is required");
-        return escapeIfNecessary(splitter.splitToStream(input)
-                .map(segment -> CaseFormats.estimate(segment)
-                        .orElse(CaseFormat.LOWER_CAMEL)
-```
-
-### UnstableApiUsage
 'com.google.common.io.MoreFiles' is marked unstable with @Beta
 in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/GenerateMetricSchemaTask.java`
 #### Snippet
@@ -286,6 +274,18 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/Generat
             throw new SafeRuntimeException("Unable to clean output directory", SafeArg.of("output", outputPath));
 ```
 
+### UnstableApiUsage
+'splitToStream(java.lang.CharSequence)' is marked unstable with @Beta
+in `metric-schema-java/src/main/java/com/palantir/metric/schema/Custodian.java`
+#### Snippet
+```java
+    static String anyToUpperUnderscore(String input) {
+        Preconditions.checkNotNull(input, "Input string is required");
+        return escapeIfNecessary(splitter.splitToStream(input)
+                .map(segment -> CaseFormats.estimate(segment)
+                        .orElse(CaseFormat.LOWER_CAMEL)
+```
+
 ## RuleId[id=IgnoreResultOfCall]
 ### IgnoreResultOfCall
 Result of `File.delete()` is ignored
@@ -302,14 +302,14 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/Generat
 ## RuleId[id=BlockingMethodInNonBlockingContext]
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
-in `metric-schema-java/src/main/java/com/palantir/metric/schema/SchemaParser.java`
+in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CheckMetricMarkdownTask.java`
 #### Snippet
 ```java
-
-    List<MetricSchema> parseFile(Path file) {
-        try (InputStream stream = Files.newInputStream(file)) {
-            return mapper.readValue(stream, new TypeReference<List<MetricSchema>>() {});
-        } catch (IOException e) {
+                    markdown.getName(), getName()));
+        } else {
+            String fromDisk = Files.readString(markdown.toPath().toAbsolutePath());
+            Preconditions.checkState(
+                    fromDisk.equals(upToDateContents),
 ```
 
 ### BlockingMethodInNonBlockingContext
@@ -326,14 +326,14 @@ in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/Generat
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
-in `gradle-metric-schema/src/main/java/com/palantir/metric/schema/gradle/CheckMetricMarkdownTask.java`
+in `metric-schema-java/src/main/java/com/palantir/metric/schema/SchemaParser.java`
 #### Snippet
 ```java
-                    markdown.getName(), getName()));
-        } else {
-            String fromDisk = Files.readString(markdown.toPath().toAbsolutePath());
-            Preconditions.checkState(
-                    fromDisk.equals(upToDateContents),
+
+    List<MetricSchema> parseFile(Path file) {
+        try (InputStream stream = Files.newInputStream(file)) {
+            return mapper.readValue(stream, new TypeReference<List<MetricSchema>>() {});
+        } catch (IOException e) {
 ```
 
 ### BlockingMethodInNonBlockingContext
