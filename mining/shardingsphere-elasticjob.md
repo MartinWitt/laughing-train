@@ -26,8 +26,8 @@ I found 244 bad smells with 10 repairable:
 | StringOperationCanBeSimplified | 1 | false |
 | NullableProblems | 1 | false |
 | NonStrictComparisonCanBeEquality | 1 | true |
-| AutoCloseableResource | 1 | false |
 | IntegerMultiplicationImplicitCastToLong | 1 | false |
+| AutoCloseableResource | 1 | false |
 | SlowListContainsAll | 1 | false |
 | ComparatorMethodParameterNotUsed | 1 | false |
 | ArraysAsListWithZeroOrOneArgument | 1 | false |
@@ -45,18 +45,6 @@ in `elasticjob-cloud/elasticjob-cloud-scheduler/src/main/java/org/apache/shardin
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'T'
-in `elasticjob-infra/elasticjob-infra-common/src/main/java/org/apache/shardingsphere/elasticjob/infra/spi/ElasticJobServiceLoader.java`
-#### Snippet
-```java
-     */
-    public static <T extends TypedSPI> Optional<T> newTypedServiceInstance(final Class<T> typedServiceInterface, final String type, final Properties props) {
-        Optional<T> result = Optional.ofNullable(TYPED_SERVICE_CLASSES.get(typedServiceInterface)).map(serviceClasses -> serviceClasses.get(type)).map(clazz -> (T) newServiceInstance(clazz));
-        if (result.isPresent() && result.get() instanceof SPIPostProcessor) {
-            ((SPIPostProcessor) result.get()).init(props);
-```
-
-### UNCHECKED_WARNING
 Unchecked cast: 'org.apache.shardingsphere.elasticjob.infra.spi.TypedSPI' to 'T'
 in `elasticjob-infra/elasticjob-infra-common/src/main/java/org/apache/shardingsphere/elasticjob/infra/spi/ElasticJobServiceLoader.java`
 #### Snippet
@@ -66,6 +54,18 @@ in `elasticjob-infra/elasticjob-infra-common/src/main/java/org/apache/shardingsp
         return Optional.ofNullable(TYPED_SERVICES.get(typedServiceInterface)).map(services -> (T) services.get(type));
     }
     
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'T'
+in `elasticjob-infra/elasticjob-infra-common/src/main/java/org/apache/shardingsphere/elasticjob/infra/spi/ElasticJobServiceLoader.java`
+#### Snippet
+```java
+     */
+    public static <T extends TypedSPI> Optional<T> newTypedServiceInstance(final Class<T> typedServiceInterface, final String type, final Properties props) {
+        Optional<T> result = Optional.ofNullable(TYPED_SERVICE_CLASSES.get(typedServiceInterface)).map(serviceClasses -> serviceClasses.get(type)).map(clazz -> (T) newServiceInstance(clazz));
+        if (result.isPresent() && result.get() instanceof SPIPostProcessor) {
+            ((SPIPostProcessor) result.get()).init(props);
 ```
 
 ### UNCHECKED_WARNING
@@ -179,18 +179,6 @@ in `elasticjob-infra/elasticjob-registry-center/elasticjob-regitry-center-provid
 ```
 
 ### JavadocReference
-Cannot resolve symbol `ImportBeanDefinitionRegistrar`
-in `elasticjob-lite/elasticjob-lite-spring/elasticjob-lite-spring-core/src/main/java/org/apache/shardingsphere/elasticjob/lite/spring/core/scanner/ElasticJobScanRegistrar.java`
-#### Snippet
-```java
-
-/**
- * A {@link ImportBeanDefinitionRegistrar} to allow annotation configuration of Elastic Job scanning.
- *
- * @see ClassPathJobScanner
-```
-
-### JavadocReference
 Cannot resolve symbol `ClassPathBeanDefinitionScanner`
 in `elasticjob-lite/elasticjob-lite-spring/elasticjob-lite-spring-core/src/main/java/org/apache/shardingsphere/elasticjob/lite/spring/core/scanner/ClassPathJobScanner.java`
 #### Snippet
@@ -202,19 +190,19 @@ in `elasticjob-lite/elasticjob-lite-spring/elasticjob-lite-spring-core/src/main/
  * @see ScheduleJobBootstrap
 ```
 
-## RuleId[id=DataFlowIssue]
-### DataFlowIssue
-Argument `slaveHost` might be null
-in `elasticjob-cloud/elasticjob-cloud-scheduler/src/main/java/org/apache/shardingsphere/elasticjob/cloud/scheduler/mesos/MesosStateService.java`
+### JavadocReference
+Cannot resolve symbol `ImportBeanDefinitionRegistrar`
+in `elasticjob-lite/elasticjob-lite-spring/elasticjob-lite-spring-core/src/main/java/org/apache/shardingsphere/elasticjob/lite/spring/core/scanner/ElasticJobScanRegistrar.java`
 #### Snippet
 ```java
-                }
-            }
-            Preconditions.checkNotNull(slaveHost);
-            JsonObject slaveState = fetch(String.format("http://%s/state", slaveHost));
-            String workDir = slaveState.get("flags").getAsJsonObject().get("work_dir").getAsString();
+
+/**
+ * A {@link ImportBeanDefinitionRegistrar} to allow annotation configuration of Elastic Job scanning.
+ *
+ * @see ClassPathJobScanner
 ```
 
+## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
 Method invocation `getPath` may produce `NullPointerException`
 in `elasticjob-infra/elasticjob-registry-center/elasticjob-regitry-center-provider/elasticjob-registry-center-zookeeper-curator/src/main/java/org/apache/shardingsphere/elasticjob/reg/zookeeper/ZookeeperRegistryCenter.java`
@@ -225,6 +213,18 @@ in `elasticjob-infra/elasticjob-registry-center/elasticjob-regitry-center-provid
             String path = Type.DELETED == type ? oldData.getPath() : newData.getPath();
             if (path.isEmpty() || Type.IGNORED == type) {
                 return;
+```
+
+### DataFlowIssue
+Argument `slaveHost` might be null
+in `elasticjob-cloud/elasticjob-cloud-scheduler/src/main/java/org/apache/shardingsphere/elasticjob/cloud/scheduler/mesos/MesosStateService.java`
+#### Snippet
+```java
+                }
+            }
+            Preconditions.checkNotNull(slaveHost);
+            JsonObject slaveState = fetch(String.format("http://%s/state", slaveHost));
+            String workDir = slaveState.get("flags").getAsJsonObject().get("work_dir").getAsString();
 ```
 
 ## RuleId[id=StringOperationCanBeSimplified]
@@ -1462,18 +1462,6 @@ in `elasticjob-lite/elasticjob-lite-spring/elasticjob-lite-spring-namespace/src/
 
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
-in `elasticjob-lite/elasticjob-lite-spring/elasticjob-lite-spring-namespace/src/main/java/org/apache/shardingsphere/elasticjob/lite/spring/namespace/snapshot/parser/SnapshotBeanDefinitionParser.java`
-#### Snippet
-```java
-    
-    @Override
-    protected AbstractBeanDefinition parseInternal(final Element element, final ParserContext parserContext) {
-        BeanDefinitionBuilder result = BeanDefinitionBuilder.rootBeanDefinition(SnapshotService.class);
-        result.addConstructorArgReference(element.getAttribute(SnapshotBeanDefinitionTag.REGISTRY_CENTER_REF_ATTRIBUTE));
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
 in `elasticjob-lite/elasticjob-lite-spring/elasticjob-lite-spring-namespace/src/main/java/org/apache/shardingsphere/elasticjob/lite/spring/namespace/job/parser/JobBeanDefinitionParser.java`
 #### Snippet
 ```java
@@ -1482,6 +1470,18 @@ in `elasticjob-lite/elasticjob-lite-spring/elasticjob-lite-spring-namespace/src/
     protected AbstractBeanDefinition parseInternal(final Element element, final ParserContext parserContext) {
         BeanDefinitionBuilder factory;
         if (Strings.isNullOrEmpty(element.getAttribute(JobBeanDefinitionTag.CRON_ATTRIBUTE))) {
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `elasticjob-lite/elasticjob-lite-spring/elasticjob-lite-spring-namespace/src/main/java/org/apache/shardingsphere/elasticjob/lite/spring/namespace/snapshot/parser/SnapshotBeanDefinitionParser.java`
+#### Snippet
+```java
+    
+    @Override
+    protected AbstractBeanDefinition parseInternal(final Element element, final ParserContext parserContext) {
+        BeanDefinitionBuilder result = BeanDefinitionBuilder.rootBeanDefinition(SnapshotService.class);
+        result.addConstructorArgReference(element.getAttribute(SnapshotBeanDefinitionTag.REGISTRY_CENTER_REF_ATTRIBUTE));
 ```
 
 ### ProtectedMemberInFinalClass
@@ -1497,18 +1497,6 @@ in `elasticjob-infra/elasticjob-infra-common/src/main/java/org/apache/shardingsp
 ```
 
 ## RuleId[id=UnnecessaryToStringCall]
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `elasticjob-ecosystem/elasticjob-error-handler/elasticjob-error-handler-type/elasticjob-error-handler-wechat/src/main/java/org/apache/shardingsphere/elasticjob/error/handler/wechat/WechatJobErrorHandler.java`
-#### Snippet
-```java
-        StringWriter stringWriter = new StringWriter();
-        cause.printStackTrace(new PrintWriter(stringWriter, true));
-        return String.format("Job '%s' exception occur in job processing, caused by %s", jobName, stringWriter.toString());
-    }
-    
-```
-
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
 in `elasticjob-ecosystem/elasticjob-error-handler/elasticjob-error-handler-type/elasticjob-error-handler-dingtalk/src/main/java/org/apache/shardingsphere/elasticjob/error/handler/dingtalk/DingtalkJobErrorHandler.java`
@@ -1533,6 +1521,18 @@ in `elasticjob-ecosystem/elasticjob-error-handler/elasticjob-error-handler-type/
     
 ```
 
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `elasticjob-ecosystem/elasticjob-error-handler/elasticjob-error-handler-type/elasticjob-error-handler-wechat/src/main/java/org/apache/shardingsphere/elasticjob/error/handler/wechat/WechatJobErrorHandler.java`
+#### Snippet
+```java
+        StringWriter stringWriter = new StringWriter();
+        cause.printStackTrace(new PrintWriter(stringWriter, true));
+        return String.format("Job '%s' exception occur in job processing, caused by %s", jobName, stringWriter.toString());
+    }
+    
+```
+
 ## RuleId[id=TrivialStringConcatenation]
 ### TrivialStringConcatenation
 Empty string used in concatenation
@@ -1552,8 +1552,8 @@ in `elasticjob-lite/elasticjob-lite-core/src/main/java/org/apache/shardingsphere
 #### Snippet
 ```java
     
-    static String getCompletedNode(final int shardingItem) {
-        return String.join("/", COMPLETED_ROOT, shardingItem + "");
+    static String getStartedNode(final int shardingItem) {
+        return String.join("/", STARTED_ROOT, shardingItem + "");
     }
     
 ```
@@ -1564,8 +1564,8 @@ in `elasticjob-lite/elasticjob-lite-core/src/main/java/org/apache/shardingsphere
 #### Snippet
 ```java
     
-    static String getStartedNode(final int shardingItem) {
-        return String.join("/", STARTED_ROOT, shardingItem + "");
+    static String getCompletedNode(final int shardingItem) {
+        return String.join("/", COMPLETED_ROOT, shardingItem + "");
     }
     
 ```
@@ -1586,62 +1586,134 @@ in `elasticjob-infra/elasticjob-restful/src/main/java/org/apache/shardingsphere/
 ## RuleId[id=FieldCanBeLocal]
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `elasticjob-lite/elasticjob-lite-spring/elasticjob-lite-spring-boot-starter/src/main/java/org/apache/shardingsphere/elasticjob/lite/spring/boot/job/ElasticJobConfigurationProperties.java`
+in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-rdb/src/main/java/org/apache/shardingsphere/elasticjob/tracing/rdb/storage/RDBStorageSQLMapper.java`
 #### Snippet
 ```java
-    private boolean misfire;
+    private final String insertForJobExecutionLogForComplete;
     
-    private int maxTimeDiffSeconds = -1;
+    private final String insertForJobExecutionLogForFailure;
     
-    private int reconcileIntervalMinutes;
+    private final String updateForJobExecutionLog;
 ```
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `elasticjob-lite/elasticjob-lite-spring/elasticjob-lite-spring-boot-starter/src/main/java/org/apache/shardingsphere/elasticjob/lite/spring/boot/reg/ZookeeperProperties.java`
+in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-rdb/src/main/java/org/apache/shardingsphere/elasticjob/tracing/rdb/storage/RDBStorageSQLMapper.java`
 #### Snippet
 ```java
-     * Base sleep time milliseconds.
-     */
-    private int baseSleepTimeMilliseconds = 1000;
+    private final String insertForJobExecutionLog;
     
-    /**
+    private final String insertForJobExecutionLogForComplete;
+    
+    private final String insertForJobExecutionLogForFailure;
 ```
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `elasticjob-lite/elasticjob-lite-spring/elasticjob-lite-spring-boot-starter/src/main/java/org/apache/shardingsphere/elasticjob/lite/spring/boot/reg/ZookeeperProperties.java`
+in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-rdb/src/main/java/org/apache/shardingsphere/elasticjob/tracing/rdb/storage/RDBStorageSQLMapper.java`
 #### Snippet
 ```java
-     * Max retry times.
-     */
-    private int maxRetries = 3;
+    private final String createIndexForTaskIdStateIndex;
     
-    /**
+    private final String insertForJobExecutionLog;
+    
+    private final String insertForJobExecutionLogForComplete;
 ```
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `elasticjob-lite/elasticjob-lite-spring/elasticjob-lite-spring-boot-starter/src/main/java/org/apache/shardingsphere/elasticjob/lite/spring/boot/reg/ZookeeperProperties.java`
+in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-rdb/src/main/java/org/apache/shardingsphere/elasticjob/tracing/rdb/storage/RDBStorageSQLMapper.java`
 #### Snippet
 ```java
-     * Max sleep time milliseconds.
-     */
-    private int maxSleepTimeMilliseconds = 3000;
+public final class RDBStorageSQLMapper {
     
-    /**
+    private final String createTableForJobExecutionLog;
+    
+    private final String createTableForJobStatusTraceLog;
 ```
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `elasticjob-cloud/elasticjob-cloud-scheduler/src/main/java/org/apache/shardingsphere/elasticjob/cloud/scheduler/util/HttpClientUtils.java`
+in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-rdb/src/main/java/org/apache/shardingsphere/elasticjob/tracing/rdb/storage/RDBStorageSQLMapper.java`
 #### Snippet
 ```java
-        private final int code;
-        
-        private final String content;
-        
-        public HttpResult(final int code, final String content) {
+    private final String updateForJobExecutionLog;
+    
+    private final String updateForJobExecutionLogForFailure;
+    
+    private final String insertForJobStatusTraceLog;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-rdb/src/main/java/org/apache/shardingsphere/elasticjob/tracing/rdb/storage/RDBStorageSQLMapper.java`
+#### Snippet
+```java
+    private final String createTableForJobStatusTraceLog;
+    
+    private final String createIndexForTaskIdStateIndex;
+    
+    private final String insertForJobExecutionLog;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-rdb/src/main/java/org/apache/shardingsphere/elasticjob/tracing/rdb/storage/RDBStorageSQLMapper.java`
+#### Snippet
+```java
+    private final String insertForJobStatusTraceLog;
+    
+    private final String selectForJobStatusTraceLog;
+    
+    private final String selectOriginalTaskIdForJobStatusTraceLog;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-rdb/src/main/java/org/apache/shardingsphere/elasticjob/tracing/rdb/storage/RDBStorageSQLMapper.java`
+#### Snippet
+```java
+    private final String insertForJobExecutionLogForFailure;
+    
+    private final String updateForJobExecutionLog;
+    
+    private final String updateForJobExecutionLogForFailure;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-rdb/src/main/java/org/apache/shardingsphere/elasticjob/tracing/rdb/storage/RDBStorageSQLMapper.java`
+#### Snippet
+```java
+    private final String createTableForJobExecutionLog;
+    
+    private final String createTableForJobStatusTraceLog;
+    
+    private final String createIndexForTaskIdStateIndex;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-rdb/src/main/java/org/apache/shardingsphere/elasticjob/tracing/rdb/storage/RDBStorageSQLMapper.java`
+#### Snippet
+```java
+    private final String selectForJobStatusTraceLog;
+    
+    private final String selectOriginalTaskIdForJobStatusTraceLog;
+    
+    public RDBStorageSQLMapper(final String sqlPropertiesFileName) {
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-rdb/src/main/java/org/apache/shardingsphere/elasticjob/tracing/rdb/storage/RDBStorageSQLMapper.java`
+#### Snippet
+```java
+    private final String updateForJobExecutionLogForFailure;
+    
+    private final String insertForJobStatusTraceLog;
+    
+    private final String selectForJobStatusTraceLog;
 ```
 
 ### FieldCanBeLocal
@@ -1654,6 +1726,18 @@ in `elasticjob-cloud/elasticjob-cloud-scheduler/src/main/java/org/apache/shardin
         private final int code;
         
         private final String content;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `elasticjob-cloud/elasticjob-cloud-scheduler/src/main/java/org/apache/shardingsphere/elasticjob/cloud/scheduler/util/HttpClientUtils.java`
+#### Snippet
+```java
+        private final int code;
+        
+        private final String content;
+        
+        public HttpResult(final int code, final String content) {
 ```
 
 ### FieldCanBeLocal
@@ -1673,11 +1757,11 @@ Field can be converted to a local variable
 in `elasticjob-cloud/elasticjob-cloud-scheduler/src/main/java/org/apache/shardingsphere/elasticjob/cloud/scheduler/config/app/pojo/CloudAppConfigurationPOJO.java`
 #### Snippet
 ```java
+    private String bootstrapScript;
+    
     private double cpuCount = 1d;
     
     private double memoryMB = 128d;
-    
-    private boolean appCacheEnable = true;
 ```
 
 ### FieldCanBeLocal
@@ -1685,11 +1769,11 @@ Field can be converted to a local variable
 in `elasticjob-cloud/elasticjob-cloud-scheduler/src/main/java/org/apache/shardingsphere/elasticjob/cloud/scheduler/config/app/pojo/CloudAppConfigurationPOJO.java`
 #### Snippet
 ```java
-    private String bootstrapScript;
-    
     private double cpuCount = 1d;
     
     private double memoryMB = 128d;
+    
+    private boolean appCacheEnable = true;
 ```
 
 ### FieldCanBeLocal
@@ -1702,18 +1786,6 @@ in `elasticjob-infra/elasticjob-infra-common/src/main/java/org/apache/shardingsp
     private String serverIp;
     
     public JobInstance() {
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `elasticjob-infra/elasticjob-infra-common/src/main/java/org/apache/shardingsphere/elasticjob/infra/context/ShardingItemParameters.java`
-#### Snippet
-```java
-    private static final String KEY_VALUE_DELIMITER = "=";
-    
-    private final Map<Integer, String> map;
-    
-    public ShardingItemParameters(final String shardingItemParameters) {
 ```
 
 ### FieldCanBeLocal
@@ -1742,6 +1814,18 @@ in `elasticjob-infra/elasticjob-infra-common/src/main/java/org/apache/shardingsp
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
+in `elasticjob-infra/elasticjob-infra-common/src/main/java/org/apache/shardingsphere/elasticjob/infra/context/ShardingItemParameters.java`
+#### Snippet
+```java
+    private static final String KEY_VALUE_DELIMITER = "=";
+    
+    private final Map<Integer, String> map;
+    
+    public ShardingItemParameters(final String shardingItemParameters) {
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
 in `elasticjob-infra/elasticjob-infra-common/src/main/java/org/apache/shardingsphere/elasticjob/infra/pojo/JobConfigurationPOJO.java`
 #### Snippet
 ```java
@@ -1766,134 +1850,14 @@ in `elasticjob-infra/elasticjob-infra-common/src/main/java/org/apache/shardingsp
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-rdb/src/main/java/org/apache/shardingsphere/elasticjob/tracing/rdb/storage/RDBStorageSQLMapper.java`
+in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-api/src/main/java/org/apache/shardingsphere/elasticjob/tracing/api/TracingConfiguration.java`
 #### Snippet
 ```java
-    private final String insertForJobStatusTraceLog;
+public final class TracingConfiguration<T> implements JobExtraConfiguration {
     
-    private final String selectForJobStatusTraceLog;
+    private final String type;
     
-    private final String selectOriginalTaskIdForJobStatusTraceLog;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-rdb/src/main/java/org/apache/shardingsphere/elasticjob/tracing/rdb/storage/RDBStorageSQLMapper.java`
-#### Snippet
-```java
-    private final String selectForJobStatusTraceLog;
-    
-    private final String selectOriginalTaskIdForJobStatusTraceLog;
-    
-    public RDBStorageSQLMapper(final String sqlPropertiesFileName) {
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-rdb/src/main/java/org/apache/shardingsphere/elasticjob/tracing/rdb/storage/RDBStorageSQLMapper.java`
-#### Snippet
-```java
-    private final String createTableForJobExecutionLog;
-    
-    private final String createTableForJobStatusTraceLog;
-    
-    private final String createIndexForTaskIdStateIndex;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-rdb/src/main/java/org/apache/shardingsphere/elasticjob/tracing/rdb/storage/RDBStorageSQLMapper.java`
-#### Snippet
-```java
-    private final String insertForJobExecutionLog;
-    
-    private final String insertForJobExecutionLogForComplete;
-    
-    private final String insertForJobExecutionLogForFailure;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-rdb/src/main/java/org/apache/shardingsphere/elasticjob/tracing/rdb/storage/RDBStorageSQLMapper.java`
-#### Snippet
-```java
-    private final String createTableForJobStatusTraceLog;
-    
-    private final String createIndexForTaskIdStateIndex;
-    
-    private final String insertForJobExecutionLog;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-rdb/src/main/java/org/apache/shardingsphere/elasticjob/tracing/rdb/storage/RDBStorageSQLMapper.java`
-#### Snippet
-```java
-public final class RDBStorageSQLMapper {
-    
-    private final String createTableForJobExecutionLog;
-    
-    private final String createTableForJobStatusTraceLog;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-rdb/src/main/java/org/apache/shardingsphere/elasticjob/tracing/rdb/storage/RDBStorageSQLMapper.java`
-#### Snippet
-```java
-    private final String insertForJobExecutionLogForFailure;
-    
-    private final String updateForJobExecutionLog;
-    
-    private final String updateForJobExecutionLogForFailure;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-rdb/src/main/java/org/apache/shardingsphere/elasticjob/tracing/rdb/storage/RDBStorageSQLMapper.java`
-#### Snippet
-```java
-    private final String createIndexForTaskIdStateIndex;
-    
-    private final String insertForJobExecutionLog;
-    
-    private final String insertForJobExecutionLogForComplete;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-rdb/src/main/java/org/apache/shardingsphere/elasticjob/tracing/rdb/storage/RDBStorageSQLMapper.java`
-#### Snippet
-```java
-    private final String updateForJobExecutionLogForFailure;
-    
-    private final String insertForJobStatusTraceLog;
-    
-    private final String selectForJobStatusTraceLog;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-rdb/src/main/java/org/apache/shardingsphere/elasticjob/tracing/rdb/storage/RDBStorageSQLMapper.java`
-#### Snippet
-```java
-    private final String updateForJobExecutionLog;
-    
-    private final String updateForJobExecutionLogForFailure;
-    
-    private final String insertForJobStatusTraceLog;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-rdb/src/main/java/org/apache/shardingsphere/elasticjob/tracing/rdb/storage/RDBStorageSQLMapper.java`
-#### Snippet
-```java
-    private final String insertForJobExecutionLogForComplete;
-    
-    private final String insertForJobExecutionLogForFailure;
-    
-    private final String updateForJobExecutionLog;
+    private final TracingStorageConfiguration<T> tracingStorageConfiguration;
 ```
 
 ### FieldCanBeLocal
@@ -1910,14 +1874,50 @@ in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-api/src/main/java
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-api/src/main/java/org/apache/shardingsphere/elasticjob/tracing/api/TracingConfiguration.java`
+in `elasticjob-lite/elasticjob-lite-spring/elasticjob-lite-spring-boot-starter/src/main/java/org/apache/shardingsphere/elasticjob/lite/spring/boot/job/ElasticJobConfigurationProperties.java`
 #### Snippet
 ```java
-public final class TracingConfiguration<T> implements JobExtraConfiguration {
+    private boolean misfire;
     
-    private final String type;
+    private int maxTimeDiffSeconds = -1;
     
-    private final TracingStorageConfiguration<T> tracingStorageConfiguration;
+    private int reconcileIntervalMinutes;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `elasticjob-lite/elasticjob-lite-spring/elasticjob-lite-spring-boot-starter/src/main/java/org/apache/shardingsphere/elasticjob/lite/spring/boot/reg/ZookeeperProperties.java`
+#### Snippet
+```java
+     * Max retry times.
+     */
+    private int maxRetries = 3;
+    
+    /**
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `elasticjob-lite/elasticjob-lite-spring/elasticjob-lite-spring-boot-starter/src/main/java/org/apache/shardingsphere/elasticjob/lite/spring/boot/reg/ZookeeperProperties.java`
+#### Snippet
+```java
+     * Base sleep time milliseconds.
+     */
+    private int baseSleepTimeMilliseconds = 1000;
+    
+    /**
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `elasticjob-lite/elasticjob-lite-spring/elasticjob-lite-spring-boot-starter/src/main/java/org/apache/shardingsphere/elasticjob/lite/spring/boot/reg/ZookeeperProperties.java`
+#### Snippet
+```java
+     * Max sleep time milliseconds.
+     */
+    private int maxSleepTimeMilliseconds = 3000;
+    
+    /**
 ```
 
 ### FieldCanBeLocal
@@ -1958,15 +1958,15 @@ in `elasticjob-infra/elasticjob-restful/src/main/java/org/apache/shardingsphere/
 
 ## RuleId[id=IgnoreResultOfCall]
 ### IgnoreResultOfCall
-Result of `BlockingQueue.offer()` is ignored
-in `elasticjob-cloud/elasticjob-cloud-scheduler/src/main/java/org/apache/shardingsphere/elasticjob/cloud/scheduler/mesos/LeasesQueue.java`
+Result of `Thread.interrupted()` is ignored
+in `elasticjob-lite/elasticjob-lite-core/src/main/java/org/apache/shardingsphere/elasticjob/lite/api/listener/AbstractDistributeOnceElasticJobListener.java`
 #### Snippet
 ```java
-     */
-    public void offer(final Protos.Offer offer) {
-        queue.offer(new VMLeaseObject(offer));
-    }
-    
+            }
+        } catch (final InterruptedException ex) {
+            Thread.interrupted();
+        }
+        if (timeService.getCurrentMillis() - before >= completedTimeoutMilliseconds) {
 ```
 
 ### IgnoreResultOfCall
@@ -1982,15 +1982,15 @@ in `elasticjob-lite/elasticjob-lite-core/src/main/java/org/apache/shardingsphere
 ```
 
 ### IgnoreResultOfCall
-Result of `Thread.interrupted()` is ignored
-in `elasticjob-lite/elasticjob-lite-core/src/main/java/org/apache/shardingsphere/elasticjob/lite/api/listener/AbstractDistributeOnceElasticJobListener.java`
+Result of `BlockingQueue.offer()` is ignored
+in `elasticjob-cloud/elasticjob-cloud-scheduler/src/main/java/org/apache/shardingsphere/elasticjob/cloud/scheduler/mesos/LeasesQueue.java`
 #### Snippet
 ```java
-            }
-        } catch (final InterruptedException ex) {
-            Thread.interrupted();
-        }
-        if (timeService.getCurrentMillis() - before >= completedTimeoutMilliseconds) {
+     */
+    public void offer(final Protos.Offer offer) {
+        queue.offer(new VMLeaseObject(offer));
+    }
+    
 ```
 
 ## RuleId[id=NonStrictComparisonCanBeEquality]
@@ -2006,19 +2006,6 @@ in `elasticjob-infra/elasticjob-restful/src/main/java/org/apache/shardingsphere/
         }
 ```
 
-## RuleId[id=AutoCloseableResource]
-### AutoCloseableResource
-'InputStream' used without 'try'-with-resources statement
-in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-rdb/src/main/java/org/apache/shardingsphere/elasticjob/tracing/rdb/storage/RDBStorageSQLMapper.java`
-#### Snippet
-```java
-    
-    private InputStream getPropertiesInputStream(final String sqlPropertiesFileName) {
-        InputStream sqlPropertiesFile = RDBJobEventStorage.class.getClassLoader().getResourceAsStream(String.format("META-INF/sql/%s", sqlPropertiesFileName));
-        return null == sqlPropertiesFile ? RDBJobEventStorage.class.getClassLoader().getResourceAsStream("META-INF/sql/SQL92.properties") : sqlPropertiesFile;
-    }
-```
-
 ## RuleId[id=IntegerMultiplicationImplicitCastToLong]
 ### IntegerMultiplicationImplicitCastToLong
 reconcileIntervalMinutes \* 60 \* 1000: integer multiplication implicitly cast to long
@@ -2030,6 +2017,19 @@ in `elasticjob-lite/elasticjob-lite-core/src/main/java/org/apache/shardingsphere
         if (reconcileIntervalMinutes > 0 && (System.currentTimeMillis() - lastReconcileTime >= reconcileIntervalMinutes * 60 * 1000)) {
             lastReconcileTime = System.currentTimeMillis();
             if (!shardingService.isNeedSharding() && shardingService.hasShardingInfoInOfflineServers() && !(isStaticSharding() && hasShardingInfo())) {
+```
+
+## RuleId[id=AutoCloseableResource]
+### AutoCloseableResource
+'InputStream' used without 'try'-with-resources statement
+in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-rdb/src/main/java/org/apache/shardingsphere/elasticjob/tracing/rdb/storage/RDBStorageSQLMapper.java`
+#### Snippet
+```java
+    
+    private InputStream getPropertiesInputStream(final String sqlPropertiesFileName) {
+        InputStream sqlPropertiesFile = RDBJobEventStorage.class.getClassLoader().getResourceAsStream(String.format("META-INF/sql/%s", sqlPropertiesFileName));
+        return null == sqlPropertiesFile ? RDBJobEventStorage.class.getClassLoader().getResourceAsStream("META-INF/sql/SQL92.properties") : sqlPropertiesFile;
+    }
 ```
 
 ## RuleId[id=SlowListContainsAll]
@@ -2060,59 +2060,83 @@ in `elasticjob-infra/elasticjob-restful/src/main/java/org/apache/shardingsphere/
 
 ## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
-Field `jobs` may be 'final'
-in `elasticjob-lite/elasticjob-lite-spring/elasticjob-lite-spring-boot-starter/src/main/java/org/apache/shardingsphere/elasticjob/lite/spring/boot/job/ElasticJobProperties.java`
+Field `cleanShutdown` may be 'final'
+in `elasticjob-lite/elasticjob-lite-core/src/main/java/org/apache/shardingsphere/elasticjob/lite/internal/schedule/JobShutdownHookPlugin.java`
 #### Snippet
 ```java
-public class ElasticJobProperties {
     
-    private Map<String, ElasticJobConfigurationProperties> jobs = new LinkedHashMap<>();
+    @Setter
+    private boolean cleanShutdown = true;
+    
+    @Override
+```
+
+### FieldMayBeFinal
+Field `props` may be 'final'
+in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-rdb/src/main/java/org/apache/shardingsphere/elasticjob/tracing/rdb/yaml/YamlDataSourceConfiguration.java`
+#### Snippet
+```java
+    private String dataSourceClassName;
+    
+    private Map<String, Object> props = new LinkedHashMap<>();
+    
+    @Override
+```
+
+### FieldMayBeFinal
+Field `creationTime` may be 'final'
+in `elasticjob-cloud/elasticjob-cloud-common/src/main/java/org/apache/shardingsphere/elasticjob/cloud/statistics/type/job/JobRegisterStatistics.java`
+#### Snippet
+```java
+    private final Date statisticsTime;
+    
+    private Date creationTime = new Date();
 }
 
 ```
 
 ### FieldMayBeFinal
-Field `maxTimeDiffSeconds` may be 'final'
-in `elasticjob-lite/elasticjob-lite-spring/elasticjob-lite-spring-boot-starter/src/main/java/org/apache/shardingsphere/elasticjob/lite/spring/boot/job/ElasticJobConfigurationProperties.java`
+Field `creationTime` may be 'final'
+in `elasticjob-cloud/elasticjob-cloud-common/src/main/java/org/apache/shardingsphere/elasticjob/cloud/statistics/type/job/JobRunningStatistics.java`
 #### Snippet
 ```java
-    private boolean misfire;
+    private final Date statisticsTime;
     
-    private int maxTimeDiffSeconds = -1;
-    
-    private int reconcileIntervalMinutes;
+    private Date creationTime = new Date();
+}
+
 ```
 
 ### FieldMayBeFinal
-Field `props` may be 'final'
-in `elasticjob-lite/elasticjob-lite-spring/elasticjob-lite-spring-boot-starter/src/main/java/org/apache/shardingsphere/elasticjob/lite/spring/boot/job/ElasticJobConfigurationProperties.java`
+Field `creationTime` may be 'final'
+in `elasticjob-cloud/elasticjob-cloud-common/src/main/java/org/apache/shardingsphere/elasticjob/cloud/statistics/type/task/TaskRunningStatistics.java`
 #### Snippet
 ```java
-    private String description;
+    private final Date statisticsTime;
     
-    private Properties props = new Properties();
-    
-    private boolean disabled;
+    private Date creationTime = new Date();
+}
+
 ```
 
 ### FieldMayBeFinal
-Field `jobListenerTypes` may be 'final'
-in `elasticjob-lite/elasticjob-lite-spring/elasticjob-lite-spring-boot-starter/src/main/java/org/apache/shardingsphere/elasticjob/lite/spring/boot/job/ElasticJobConfigurationProperties.java`
+Field `creationTime` may be 'final'
+in `elasticjob-cloud/elasticjob-cloud-common/src/main/java/org/apache/shardingsphere/elasticjob/cloud/statistics/type/task/TaskResultStatistics.java`
 #### Snippet
 ```java
-    private String jobErrorHandlerType;
+    private final Date statisticsTime;
     
-    private Collection<String> jobListenerTypes = new LinkedList<>();
-    
-    private String description;
+    private Date creationTime = new Date();
+}
+
 ```
 
 ### FieldMayBeFinal
 Field `baseSleepTimeMilliseconds` may be 'final'
-in `elasticjob-lite/elasticjob-lite-spring/elasticjob-lite-spring-boot-starter/src/main/java/org/apache/shardingsphere/elasticjob/lite/spring/boot/reg/ZookeeperProperties.java`
+in `elasticjob-infra/elasticjob-registry-center/elasticjob-regitry-center-provider/elasticjob-registry-center-zookeeper-curator/src/main/java/org/apache/shardingsphere/elasticjob/reg/zookeeper/ZookeeperConfiguration.java`
 #### Snippet
 ```java
-     * Base sleep time milliseconds.
+     * Base sleep time milliseconds. 
      */
     private int baseSleepTimeMilliseconds = 1000;
     
@@ -2121,7 +2145,7 @@ in `elasticjob-lite/elasticjob-lite-spring/elasticjob-lite-spring-boot-starter/s
 
 ### FieldMayBeFinal
 Field `maxRetries` may be 'final'
-in `elasticjob-lite/elasticjob-lite-spring/elasticjob-lite-spring-boot-starter/src/main/java/org/apache/shardingsphere/elasticjob/lite/spring/boot/reg/ZookeeperProperties.java`
+in `elasticjob-infra/elasticjob-registry-center/elasticjob-regitry-center-provider/elasticjob-registry-center-zookeeper-curator/src/main/java/org/apache/shardingsphere/elasticjob/reg/zookeeper/ZookeeperConfiguration.java`
 #### Snippet
 ```java
      * Max retry times.
@@ -2133,7 +2157,7 @@ in `elasticjob-lite/elasticjob-lite-spring/elasticjob-lite-spring-boot-starter/s
 
 ### FieldMayBeFinal
 Field `maxSleepTimeMilliseconds` may be 'final'
-in `elasticjob-lite/elasticjob-lite-spring/elasticjob-lite-spring-boot-starter/src/main/java/org/apache/shardingsphere/elasticjob/lite/spring/boot/reg/ZookeeperProperties.java`
+in `elasticjob-infra/elasticjob-registry-center/elasticjob-regitry-center-provider/elasticjob-registry-center-zookeeper-curator/src/main/java/org/apache/shardingsphere/elasticjob/reg/zookeeper/ZookeeperConfiguration.java`
 #### Snippet
 ```java
      * Max sleep time milliseconds.
@@ -2144,51 +2168,15 @@ in `elasticjob-lite/elasticjob-lite-spring/elasticjob-lite-spring-boot-starter/s
 ```
 
 ### FieldMayBeFinal
-Field `excludeJobNames` may be 'final'
-in `elasticjob-lite/elasticjob-lite-spring/elasticjob-lite-spring-boot-starter/src/main/java/org/apache/shardingsphere/elasticjob/lite/spring/boot/tracing/TracingProperties.java`
+Field `props` may be 'final'
+in `elasticjob-cloud/elasticjob-cloud-common/src/main/java/org/apache/shardingsphere/elasticjob/cloud/config/pojo/CloudJobConfigurationPOJO.java`
 #### Snippet
 ```java
-    private Set<String> includeJobNames = new HashSet<>();
-
-    private Set<String> excludeJobNames = new HashSet<>();
-}
-
-```
-
-### FieldMayBeFinal
-Field `includeJobNames` may be 'final'
-in `elasticjob-lite/elasticjob-lite-spring/elasticjob-lite-spring-boot-starter/src/main/java/org/apache/shardingsphere/elasticjob/lite/spring/boot/tracing/TracingProperties.java`
-#### Snippet
-```java
-    private DataSourceProperties dataSource;
-
-    private Set<String> includeJobNames = new HashSet<>();
-
-    private Set<String> excludeJobNames = new HashSet<>();
-```
-
-### FieldMayBeFinal
-Field `appCacheEnable` may be 'final'
-in `elasticjob-cloud/elasticjob-cloud-scheduler/src/main/java/org/apache/shardingsphere/elasticjob/cloud/scheduler/config/app/CloudAppConfiguration.java`
-#### Snippet
-```java
-    private double memoryMB = 128d;
+    private String description;
     
-    private boolean appCacheEnable = true;
+    private Properties props = new Properties();
     
-    private int eventTraceSamplingCount;
-```
-
-### FieldMayBeFinal
-Field `appCacheEnable` may be 'final'
-in `elasticjob-cloud/elasticjob-cloud-scheduler/src/main/java/org/apache/shardingsphere/elasticjob/cloud/scheduler/config/app/pojo/CloudAppConfigurationPOJO.java`
-#### Snippet
-```java
-    private double memoryMB = 128d;
-    
-    private boolean appCacheEnable = true;
-    
-    private int eventTraceSamplingCount;
+    private boolean disabled;
 ```
 
 ### FieldMayBeFinal
@@ -2204,15 +2192,15 @@ in `elasticjob-cloud/elasticjob-cloud-scheduler/src/main/java/org/apache/shardin
 ```
 
 ### FieldMayBeFinal
-Field `memoryMB` may be 'final'
-in `elasticjob-cloud/elasticjob-cloud-scheduler/src/main/java/org/apache/shardingsphere/elasticjob/cloud/scheduler/config/app/pojo/CloudAppConfigurationPOJO.java`
+Field `appCacheEnable` may be 'final'
+in `elasticjob-cloud/elasticjob-cloud-scheduler/src/main/java/org/apache/shardingsphere/elasticjob/cloud/scheduler/config/app/CloudAppConfiguration.java`
 #### Snippet
 ```java
-    private double cpuCount = 1d;
-    
     private double memoryMB = 128d;
     
     private boolean appCacheEnable = true;
+    
+    private int eventTraceSamplingCount;
 ```
 
 ### FieldMayBeFinal
@@ -2228,6 +2216,18 @@ in `elasticjob-cloud/elasticjob-cloud-scheduler/src/main/java/org/apache/shardin
 ```
 
 ### FieldMayBeFinal
+Field `appCacheEnable` may be 'final'
+in `elasticjob-cloud/elasticjob-cloud-scheduler/src/main/java/org/apache/shardingsphere/elasticjob/cloud/scheduler/config/app/pojo/CloudAppConfigurationPOJO.java`
+#### Snippet
+```java
+    private double memoryMB = 128d;
+    
+    private boolean appCacheEnable = true;
+    
+    private int eventTraceSamplingCount;
+```
+
+### FieldMayBeFinal
 Field `cpuCount` may be 'final'
 in `elasticjob-cloud/elasticjob-cloud-scheduler/src/main/java/org/apache/shardingsphere/elasticjob/cloud/scheduler/config/app/pojo/CloudAppConfigurationPOJO.java`
 #### Snippet
@@ -2237,6 +2237,18 @@ in `elasticjob-cloud/elasticjob-cloud-scheduler/src/main/java/org/apache/shardin
     private double cpuCount = 1d;
     
     private double memoryMB = 128d;
+```
+
+### FieldMayBeFinal
+Field `memoryMB` may be 'final'
+in `elasticjob-cloud/elasticjob-cloud-scheduler/src/main/java/org/apache/shardingsphere/elasticjob/cloud/scheduler/config/app/pojo/CloudAppConfigurationPOJO.java`
+#### Snippet
+```java
+    private double cpuCount = 1d;
+    
+    private double memoryMB = 128d;
+    
+    private boolean appCacheEnable = true;
 ```
 
 ### FieldMayBeFinal
@@ -2252,18 +2264,6 @@ in `elasticjob-cloud/elasticjob-cloud-scheduler/src/main/java/org/apache/shardin
 ```
 
 ### FieldMayBeFinal
-Field `repository` may be 'final'
-in `elasticjob-cloud/elasticjob-cloud-scheduler/src/main/java/org/apache/shardingsphere/elasticjob/cloud/scheduler/statistics/job/JobRunningStatisticJob.java`
-#### Snippet
-```java
-    private RunningService runningService;
-    
-    private StatisticRdbRepository repository;
-
-    public JobRunningStatisticJob(final CoordinatorRegistryCenter registryCenter, final StatisticRdbRepository rdbRepository) {
-```
-
-### FieldMayBeFinal
 Field `runningService` may be 'final'
 in `elasticjob-cloud/elasticjob-cloud-scheduler/src/main/java/org/apache/shardingsphere/elasticjob/cloud/scheduler/statistics/job/JobRunningStatisticJob.java`
 #### Snippet
@@ -2276,51 +2276,15 @@ in `elasticjob-cloud/elasticjob-cloud-scheduler/src/main/java/org/apache/shardin
 ```
 
 ### FieldMayBeFinal
-Field `cleanShutdown` may be 'final'
-in `elasticjob-lite/elasticjob-lite-core/src/main/java/org/apache/shardingsphere/elasticjob/lite/internal/schedule/JobShutdownHookPlugin.java`
+Field `repository` may be 'final'
+in `elasticjob-cloud/elasticjob-cloud-scheduler/src/main/java/org/apache/shardingsphere/elasticjob/cloud/scheduler/statistics/job/JobRunningStatisticJob.java`
 #### Snippet
 ```java
+    private RunningService runningService;
     
-    @Setter
-    private boolean cleanShutdown = true;
-    
-    @Override
-```
+    private StatisticRdbRepository repository;
 
-### FieldMayBeFinal
-Field `maxRetries` may be 'final'
-in `elasticjob-infra/elasticjob-registry-center/elasticjob-regitry-center-provider/elasticjob-registry-center-zookeeper-curator/src/main/java/org/apache/shardingsphere/elasticjob/reg/zookeeper/ZookeeperConfiguration.java`
-#### Snippet
-```java
-     * Max retry times.
-     */
-    private int maxRetries = 3;
-    
-    /**
-```
-
-### FieldMayBeFinal
-Field `maxSleepTimeMilliseconds` may be 'final'
-in `elasticjob-infra/elasticjob-registry-center/elasticjob-regitry-center-provider/elasticjob-registry-center-zookeeper-curator/src/main/java/org/apache/shardingsphere/elasticjob/reg/zookeeper/ZookeeperConfiguration.java`
-#### Snippet
-```java
-     * Max sleep time milliseconds.
-     */
-    private int maxSleepTimeMilliseconds = 3000;
-    
-    /**
-```
-
-### FieldMayBeFinal
-Field `baseSleepTimeMilliseconds` may be 'final'
-in `elasticjob-infra/elasticjob-registry-center/elasticjob-regitry-center-provider/elasticjob-registry-center-zookeeper-curator/src/main/java/org/apache/shardingsphere/elasticjob/reg/zookeeper/ZookeeperConfiguration.java`
-#### Snippet
-```java
-     * Base sleep time milliseconds. 
-     */
-    private int baseSleepTimeMilliseconds = 1000;
-    
-    /**
+    public JobRunningStatisticJob(final CoordinatorRegistryCenter registryCenter, final StatisticRdbRepository rdbRepository) {
 ```
 
 ### FieldMayBeFinal
@@ -2360,27 +2324,15 @@ in `elasticjob-infra/elasticjob-infra-common/src/main/java/org/apache/shardingsp
 ```
 
 ### FieldMayBeFinal
-Field `props` may be 'final'
+Field `jobListenerTypes` may be 'final'
 in `elasticjob-infra/elasticjob-infra-common/src/main/java/org/apache/shardingsphere/elasticjob/infra/pojo/JobConfigurationPOJO.java`
 #### Snippet
 ```java
-    private String description;
+    private String jobErrorHandlerType;
     
-    private Properties props = new Properties();
-    
-    private boolean disabled;
-```
-
-### FieldMayBeFinal
-Field `jobExtraConfigurations` may be 'final'
-in `elasticjob-infra/elasticjob-infra-common/src/main/java/org/apache/shardingsphere/elasticjob/infra/pojo/JobConfigurationPOJO.java`
-#### Snippet
-```java
     private Collection<String> jobListenerTypes = new ArrayList<>();
     
     private Collection<YamlConfiguration<JobExtraConfiguration>> jobExtraConfigurations = new LinkedList<>();
-    
-    private String description;
 ```
 
 ### FieldMayBeFinal
@@ -2396,15 +2348,27 @@ in `elasticjob-infra/elasticjob-infra-common/src/main/java/org/apache/shardingsp
 ```
 
 ### FieldMayBeFinal
-Field `jobListenerTypes` may be 'final'
+Field `jobExtraConfigurations` may be 'final'
 in `elasticjob-infra/elasticjob-infra-common/src/main/java/org/apache/shardingsphere/elasticjob/infra/pojo/JobConfigurationPOJO.java`
 #### Snippet
 ```java
-    private String jobErrorHandlerType;
-    
     private Collection<String> jobListenerTypes = new ArrayList<>();
     
     private Collection<YamlConfiguration<JobExtraConfiguration>> jobExtraConfigurations = new LinkedList<>();
+    
+    private String description;
+```
+
+### FieldMayBeFinal
+Field `props` may be 'final'
+in `elasticjob-infra/elasticjob-infra-common/src/main/java/org/apache/shardingsphere/elasticjob/infra/pojo/JobConfigurationPOJO.java`
+#### Snippet
+```java
+    private String description;
+    
+    private Properties props = new Properties();
+    
+    private boolean disabled;
 ```
 
 ### FieldMayBeFinal
@@ -2432,54 +2396,6 @@ in `elasticjob-infra/elasticjob-infra-common/src/main/java/org/apache/shardingsp
 ```
 
 ### FieldMayBeFinal
-Field `props` may be 'final'
-in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-rdb/src/main/java/org/apache/shardingsphere/elasticjob/tracing/rdb/yaml/YamlDataSourceConfiguration.java`
-#### Snippet
-```java
-    private String dataSourceClassName;
-    
-    private Map<String, Object> props = new LinkedHashMap<>();
-    
-    @Override
-```
-
-### FieldMayBeFinal
-Field `disabledJobsNum` may be 'final'
-in `elasticjob-lite/elasticjob-lite-lifecycle/src/main/java/org/apache/shardingsphere/elasticjob/lite/lifecycle/domain/ServerBriefInfo.java`
-#### Snippet
-```java
-    private int jobsNum;
-    
-    private AtomicInteger disabledJobsNum = new AtomicInteger();
-    
-    @Override
-```
-
-### FieldMayBeFinal
-Field `startTime` may be 'final'
-in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-api/src/main/java/org/apache/shardingsphere/elasticjob/tracing/event/JobExecutionEvent.java`
-#### Snippet
-```java
-    private final int shardingItem;
-    
-    private Date startTime = new Date();
-    
-    @Setter
-```
-
-### FieldMayBeFinal
-Field `id` may be 'final'
-in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-api/src/main/java/org/apache/shardingsphere/elasticjob/tracing/event/JobExecutionEvent.java`
-#### Snippet
-```java
-public final class JobExecutionEvent implements JobEvent {
-    
-    private String id = UUID.randomUUID().toString();
-    
-    private final String hostname;
-```
-
-### FieldMayBeFinal
 Field `creationTime` may be 'final'
 in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-api/src/main/java/org/apache/shardingsphere/elasticjob/tracing/event/JobStatusTraceEvent.java`
 #### Snippet
@@ -2489,18 +2405,6 @@ in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-api/src/main/java
     private Date creationTime = new Date();
     
     public enum State {
-```
-
-### FieldMayBeFinal
-Field `id` may be 'final'
-in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-api/src/main/java/org/apache/shardingsphere/elasticjob/tracing/event/JobStatusTraceEvent.java`
-#### Snippet
-```java
-public final class JobStatusTraceEvent implements JobEvent {
-    
-    private String id = UUID.randomUUID().toString();
-    
-    private final String jobName;
 ```
 
 ### FieldMayBeFinal
@@ -2516,56 +2420,92 @@ in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-api/src/main/java
 ```
 
 ### FieldMayBeFinal
-Field `creationTime` may be 'final'
-in `elasticjob-cloud/elasticjob-cloud-common/src/main/java/org/apache/shardingsphere/elasticjob/cloud/statistics/type/job/JobRegisterStatistics.java`
+Field `id` may be 'final'
+in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-api/src/main/java/org/apache/shardingsphere/elasticjob/tracing/event/JobStatusTraceEvent.java`
 #### Snippet
 ```java
-    private final Date statisticsTime;
+public final class JobStatusTraceEvent implements JobEvent {
     
-    private Date creationTime = new Date();
+    private String id = UUID.randomUUID().toString();
+    
+    private final String jobName;
+```
+
+### FieldMayBeFinal
+Field `id` may be 'final'
+in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-api/src/main/java/org/apache/shardingsphere/elasticjob/tracing/event/JobExecutionEvent.java`
+#### Snippet
+```java
+public final class JobExecutionEvent implements JobEvent {
+    
+    private String id = UUID.randomUUID().toString();
+    
+    private final String hostname;
+```
+
+### FieldMayBeFinal
+Field `startTime` may be 'final'
+in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-api/src/main/java/org/apache/shardingsphere/elasticjob/tracing/event/JobExecutionEvent.java`
+#### Snippet
+```java
+    private final int shardingItem;
+    
+    private Date startTime = new Date();
+    
+    @Setter
+```
+
+### FieldMayBeFinal
+Field `jobs` may be 'final'
+in `elasticjob-lite/elasticjob-lite-spring/elasticjob-lite-spring-boot-starter/src/main/java/org/apache/shardingsphere/elasticjob/lite/spring/boot/job/ElasticJobProperties.java`
+#### Snippet
+```java
+public class ElasticJobProperties {
+    
+    private Map<String, ElasticJobConfigurationProperties> jobs = new LinkedHashMap<>();
 }
 
 ```
 
 ### FieldMayBeFinal
-Field `creationTime` may be 'final'
-in `elasticjob-cloud/elasticjob-cloud-common/src/main/java/org/apache/shardingsphere/elasticjob/cloud/statistics/type/job/JobRunningStatistics.java`
+Field `excludeJobNames` may be 'final'
+in `elasticjob-lite/elasticjob-lite-spring/elasticjob-lite-spring-boot-starter/src/main/java/org/apache/shardingsphere/elasticjob/lite/spring/boot/tracing/TracingProperties.java`
 #### Snippet
 ```java
-    private final Date statisticsTime;
-    
-    private Date creationTime = new Date();
+    private Set<String> includeJobNames = new HashSet<>();
+
+    private Set<String> excludeJobNames = new HashSet<>();
 }
 
 ```
 
 ### FieldMayBeFinal
-Field `creationTime` may be 'final'
-in `elasticjob-cloud/elasticjob-cloud-common/src/main/java/org/apache/shardingsphere/elasticjob/cloud/statistics/type/task/TaskResultStatistics.java`
+Field `includeJobNames` may be 'final'
+in `elasticjob-lite/elasticjob-lite-spring/elasticjob-lite-spring-boot-starter/src/main/java/org/apache/shardingsphere/elasticjob/lite/spring/boot/tracing/TracingProperties.java`
 #### Snippet
 ```java
-    private final Date statisticsTime;
-    
-    private Date creationTime = new Date();
-}
+    private DataSourceProperties dataSource;
 
+    private Set<String> includeJobNames = new HashSet<>();
+
+    private Set<String> excludeJobNames = new HashSet<>();
 ```
 
 ### FieldMayBeFinal
-Field `creationTime` may be 'final'
-in `elasticjob-cloud/elasticjob-cloud-common/src/main/java/org/apache/shardingsphere/elasticjob/cloud/statistics/type/task/TaskRunningStatistics.java`
+Field `maxTimeDiffSeconds` may be 'final'
+in `elasticjob-lite/elasticjob-lite-spring/elasticjob-lite-spring-boot-starter/src/main/java/org/apache/shardingsphere/elasticjob/lite/spring/boot/job/ElasticJobConfigurationProperties.java`
 #### Snippet
 ```java
-    private final Date statisticsTime;
+    private boolean misfire;
     
-    private Date creationTime = new Date();
-}
-
+    private int maxTimeDiffSeconds = -1;
+    
+    private int reconcileIntervalMinutes;
 ```
 
 ### FieldMayBeFinal
 Field `props` may be 'final'
-in `elasticjob-cloud/elasticjob-cloud-common/src/main/java/org/apache/shardingsphere/elasticjob/cloud/config/pojo/CloudJobConfigurationPOJO.java`
+in `elasticjob-lite/elasticjob-lite-spring/elasticjob-lite-spring-boot-starter/src/main/java/org/apache/shardingsphere/elasticjob/lite/spring/boot/job/ElasticJobConfigurationProperties.java`
 #### Snippet
 ```java
     private String description;
@@ -2573,6 +2513,66 @@ in `elasticjob-cloud/elasticjob-cloud-common/src/main/java/org/apache/shardingsp
     private Properties props = new Properties();
     
     private boolean disabled;
+```
+
+### FieldMayBeFinal
+Field `jobListenerTypes` may be 'final'
+in `elasticjob-lite/elasticjob-lite-spring/elasticjob-lite-spring-boot-starter/src/main/java/org/apache/shardingsphere/elasticjob/lite/spring/boot/job/ElasticJobConfigurationProperties.java`
+#### Snippet
+```java
+    private String jobErrorHandlerType;
+    
+    private Collection<String> jobListenerTypes = new LinkedList<>();
+    
+    private String description;
+```
+
+### FieldMayBeFinal
+Field `maxRetries` may be 'final'
+in `elasticjob-lite/elasticjob-lite-spring/elasticjob-lite-spring-boot-starter/src/main/java/org/apache/shardingsphere/elasticjob/lite/spring/boot/reg/ZookeeperProperties.java`
+#### Snippet
+```java
+     * Max retry times.
+     */
+    private int maxRetries = 3;
+    
+    /**
+```
+
+### FieldMayBeFinal
+Field `baseSleepTimeMilliseconds` may be 'final'
+in `elasticjob-lite/elasticjob-lite-spring/elasticjob-lite-spring-boot-starter/src/main/java/org/apache/shardingsphere/elasticjob/lite/spring/boot/reg/ZookeeperProperties.java`
+#### Snippet
+```java
+     * Base sleep time milliseconds.
+     */
+    private int baseSleepTimeMilliseconds = 1000;
+    
+    /**
+```
+
+### FieldMayBeFinal
+Field `maxSleepTimeMilliseconds` may be 'final'
+in `elasticjob-lite/elasticjob-lite-spring/elasticjob-lite-spring-boot-starter/src/main/java/org/apache/shardingsphere/elasticjob/lite/spring/boot/reg/ZookeeperProperties.java`
+#### Snippet
+```java
+     * Max sleep time milliseconds.
+     */
+    private int maxSleepTimeMilliseconds = 3000;
+    
+    /**
+```
+
+### FieldMayBeFinal
+Field `disabledJobsNum` may be 'final'
+in `elasticjob-lite/elasticjob-lite-lifecycle/src/main/java/org/apache/shardingsphere/elasticjob/lite/lifecycle/domain/ServerBriefInfo.java`
+#### Snippet
+```java
+    private int jobsNum;
+    
+    private AtomicInteger disabledJobsNum = new AtomicInteger();
+    
+    @Override
 ```
 
 ### FieldMayBeFinal
@@ -2589,20 +2589,8 @@ in `elasticjob-infra/elasticjob-restful/src/main/java/org/apache/shardingsphere/
 
 ## RuleId[id=MismatchedCollectionQueryUpdate]
 ### MismatchedCollectionQueryUpdate
-Contents of collection `jobListenerTypes` are queried, but never updated
-in `elasticjob-lite/elasticjob-lite-spring/elasticjob-lite-spring-boot-starter/src/main/java/org/apache/shardingsphere/elasticjob/lite/spring/boot/job/ElasticJobConfigurationProperties.java`
-#### Snippet
-```java
-    private String jobErrorHandlerType;
-    
-    private Collection<String> jobListenerTypes = new LinkedList<>();
-    
-    private String description;
-```
-
-### MismatchedCollectionQueryUpdate
 Contents of collection `props` are queried, but never updated
-in `elasticjob-infra/elasticjob-infra-common/src/main/java/org/apache/shardingsphere/elasticjob/infra/pojo/JobConfigurationPOJO.java`
+in `elasticjob-cloud/elasticjob-cloud-common/src/main/java/org/apache/shardingsphere/elasticjob/cloud/config/pojo/CloudJobConfigurationPOJO.java`
 #### Snippet
 ```java
     private String description;
@@ -2610,6 +2598,18 @@ in `elasticjob-infra/elasticjob-infra-common/src/main/java/org/apache/shardingsp
     private Properties props = new Properties();
     
     private boolean disabled;
+```
+
+### MismatchedCollectionQueryUpdate
+Contents of collection `jobListenerTypes` are queried, but never updated
+in `elasticjob-infra/elasticjob-infra-common/src/main/java/org/apache/shardingsphere/elasticjob/infra/pojo/JobConfigurationPOJO.java`
+#### Snippet
+```java
+    private String jobErrorHandlerType;
+    
+    private Collection<String> jobListenerTypes = new ArrayList<>();
+    
+    private Collection<YamlConfiguration<JobExtraConfiguration>> jobExtraConfigurations = new LinkedList<>();
 ```
 
 ### MismatchedCollectionQueryUpdate
@@ -2625,15 +2625,15 @@ in `elasticjob-infra/elasticjob-infra-common/src/main/java/org/apache/shardingsp
 ```
 
 ### MismatchedCollectionQueryUpdate
-Contents of collection `jobListenerTypes` are queried, but never updated
+Contents of collection `props` are queried, but never updated
 in `elasticjob-infra/elasticjob-infra-common/src/main/java/org/apache/shardingsphere/elasticjob/infra/pojo/JobConfigurationPOJO.java`
 #### Snippet
 ```java
-    private String jobErrorHandlerType;
+    private String description;
     
-    private Collection<String> jobListenerTypes = new ArrayList<>();
+    private Properties props = new Properties();
     
-    private Collection<YamlConfiguration<JobExtraConfiguration>> jobExtraConfigurations = new LinkedList<>();
+    private boolean disabled;
 ```
 
 ### MismatchedCollectionQueryUpdate
@@ -2649,27 +2649,15 @@ in `elasticjob-infra/elasticjob-infra-common/src/main/java/org/apache/shardingsp
 ```
 
 ### MismatchedCollectionQueryUpdate
-Contents of collection `props` are queried, but never updated
-in `elasticjob-cloud/elasticjob-cloud-common/src/main/java/org/apache/shardingsphere/elasticjob/cloud/config/pojo/CloudJobConfigurationPOJO.java`
+Contents of collection `jobListenerTypes` are queried, but never updated
+in `elasticjob-lite/elasticjob-lite-spring/elasticjob-lite-spring-boot-starter/src/main/java/org/apache/shardingsphere/elasticjob/lite/spring/boot/job/ElasticJobConfigurationProperties.java`
 #### Snippet
 ```java
+    private String jobErrorHandlerType;
+    
+    private Collection<String> jobListenerTypes = new LinkedList<>();
+    
     private String description;
-    
-    private Properties props = new Properties();
-    
-    private boolean disabled;
-```
-
-### MismatchedCollectionQueryUpdate
-Contents of collection `filterInstances` are updated, but never queried
-in `elasticjob-infra/elasticjob-restful/src/main/java/org/apache/shardingsphere/elasticjob/restful/NettyRestfulServiceConfiguration.java`
-#### Snippet
-```java
-    private boolean trailingSlashSensitive;
-    
-    private final List<Filter> filterInstances = new LinkedList<>();
-    
-    private final List<RestfulController> controllerInstances = new LinkedList<>();
 ```
 
 ### MismatchedCollectionQueryUpdate
@@ -2682,6 +2670,18 @@ in `elasticjob-infra/elasticjob-restful/src/main/java/org/apache/shardingsphere/
     private final List<RestfulController> controllerInstances = new LinkedList<>();
     
     private final Map<Class<? extends Throwable>, ExceptionHandler<? extends Throwable>> exceptionHandlers = new HashMap<>();
+```
+
+### MismatchedCollectionQueryUpdate
+Contents of collection `filterInstances` are updated, but never queried
+in `elasticjob-infra/elasticjob-restful/src/main/java/org/apache/shardingsphere/elasticjob/restful/NettyRestfulServiceConfiguration.java`
+#### Snippet
+```java
+    private boolean trailingSlashSensitive;
+    
+    private final List<Filter> filterInstances = new LinkedList<>();
+    
+    private final List<RestfulController> controllerInstances = new LinkedList<>();
 ```
 
 ## RuleId[id=ArraysAsListWithZeroOrOneArgument]
@@ -2736,15 +2736,27 @@ in `elasticjob-infra/elasticjob-infra-common/src/main/java/org/apache/shardingsp
 
 ## RuleId[id=ConstantValue]
 ### ConstantValue
-Condition `Objects.nonNull(jobName)` is always `true`
-in `elasticjob-cloud/elasticjob-cloud-scheduler/src/main/java/org/apache/shardingsphere/elasticjob/cloud/scheduler/state/disable/job/CloudJobDisableListener.java`
+Result of `timeService.getCurrentMillis() - before` is always '0'
+in `elasticjob-lite/elasticjob-lite-core/src/main/java/org/apache/shardingsphere/elasticjob/lite/api/listener/AbstractDistributeOnceElasticJobListener.java`
 #### Snippet
 ```java
-        if (Type.NODE_CREATED == type && isJobDisableNode(path)) {
-            String jobName = path.substring(DisableJobNode.ROOT.length() + 1);
-            if (Objects.nonNull(jobName)) {
-                producerManager.unschedule(jobName);
-            }
+            Thread.interrupted();
+        }
+        if (timeService.getCurrentMillis() - before >= completedTimeoutMilliseconds) {
+            guaranteeService.clearAllCompletedInfo();
+            handleTimeout(completedTimeoutMilliseconds);
+```
+
+### ConstantValue
+Result of `timeService.getCurrentMillis() - before` is always '0'
+in `elasticjob-lite/elasticjob-lite-core/src/main/java/org/apache/shardingsphere/elasticjob/lite/api/listener/AbstractDistributeOnceElasticJobListener.java`
+#### Snippet
+```java
+            Thread.interrupted();
+        }
+        if (timeService.getCurrentMillis() - before >= startedTimeoutMilliseconds) {
+            guaranteeService.clearAllStartedInfo();
+            handleTimeout(startedTimeoutMilliseconds);
 ```
 
 ### ConstantValue
@@ -2756,6 +2768,18 @@ in `elasticjob-cloud/elasticjob-cloud-scheduler/src/main/java/org/apache/shardin
             String appName = path.substring(DisableAppNode.ROOT.length() + 1);
             if (Objects.nonNull(appName)) {
                 disableApp(appName);
+            }
+```
+
+### ConstantValue
+Condition `Objects.nonNull(jobName)` is always `true`
+in `elasticjob-cloud/elasticjob-cloud-scheduler/src/main/java/org/apache/shardingsphere/elasticjob/cloud/scheduler/state/disable/job/CloudJobDisableListener.java`
+#### Snippet
+```java
+        if (Type.NODE_CREATED == type && isJobDisableNode(path)) {
+            String jobName = path.substring(DisableJobNode.ROOT.length() + 1);
+            if (Objects.nonNull(jobName)) {
+                producerManager.unschedule(jobName);
             }
 ```
 
@@ -2781,30 +2805,6 @@ in `elasticjob-cloud/elasticjob-cloud-scheduler/src/main/java/org/apache/shardin
             if (Objects.nonNull(jobName)) {
                 producerManager.reschedule(jobName);
             }
-```
-
-### ConstantValue
-Result of `timeService.getCurrentMillis() - before` is always '0'
-in `elasticjob-lite/elasticjob-lite-core/src/main/java/org/apache/shardingsphere/elasticjob/lite/api/listener/AbstractDistributeOnceElasticJobListener.java`
-#### Snippet
-```java
-            Thread.interrupted();
-        }
-        if (timeService.getCurrentMillis() - before >= startedTimeoutMilliseconds) {
-            guaranteeService.clearAllStartedInfo();
-            handleTimeout(startedTimeoutMilliseconds);
-```
-
-### ConstantValue
-Result of `timeService.getCurrentMillis() - before` is always '0'
-in `elasticjob-lite/elasticjob-lite-core/src/main/java/org/apache/shardingsphere/elasticjob/lite/api/listener/AbstractDistributeOnceElasticJobListener.java`
-#### Snippet
-```java
-            Thread.interrupted();
-        }
-        if (timeService.getCurrentMillis() - before >= completedTimeoutMilliseconds) {
-            guaranteeService.clearAllCompletedInfo();
-            handleTimeout(completedTimeoutMilliseconds);
 ```
 
 ## RuleId[id=UnstableApiUsage]
@@ -2917,42 +2917,6 @@ in `elasticjob-infra/elasticjob-infra-common/src/main/java/org/apache/shardingsp
 ```
 
 ### UnstableApiUsage
-'post(java.lang.Object)' is declared in unstable class 'com.google.common.eventbus.EventBus' marked with @Beta
-in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-api/src/main/java/org/apache/shardingsphere/elasticjob/tracing/JobTracingEventBus.java`
-#### Snippet
-```java
-    public void post(final JobEvent event) {
-        if (isRegistered && !EXECUTOR_SERVICE.isShutdown()) {
-            eventBus.post(event);
-        }
-    }
-```
-
-### UnstableApiUsage
-'register(java.lang.Object)' is declared in unstable class 'com.google.common.eventbus.EventBus' marked with @Beta
-in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-api/src/main/java/org/apache/shardingsphere/elasticjob/tracing/JobTracingEventBus.java`
-#### Snippet
-```java
-    private void register(final TracingConfiguration<?> tracingConfig) {
-        try {
-            eventBus.register(TracingListenerFactory.getListener(tracingConfig));
-            isRegistered = true;
-        } catch (final TracingConfigurationException ex) {
-```
-
-### UnstableApiUsage
-'getExitingExecutorService(java.util.concurrent.ThreadPoolExecutor)' is marked unstable with @Beta
-in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-api/src/main/java/org/apache/shardingsphere/elasticjob/tracing/JobTracingEventBus.java`
-#### Snippet
-```java
-                new LinkedBlockingQueue<>(), new BasicThreadFactory.Builder().namingPattern(String.join("-", "job-event", "%s")).build());
-        threadPoolExecutor.allowCoreThreadTimeOut(true);
-        return MoreExecutors.listeningDecorator(MoreExecutors.getExitingExecutorService(threadPoolExecutor));
-    }
-    
-```
-
-### UnstableApiUsage
 'AsyncEventBus(java.util.concurrent.Executor)' is declared in unstable class 'com.google.common.eventbus.AsyncEventBus' marked with @Beta
 in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-api/src/main/java/org/apache/shardingsphere/elasticjob/tracing/JobTracingEventBus.java`
 #### Snippet
@@ -2977,6 +2941,18 @@ in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-api/src/main/java
 ```
 
 ### UnstableApiUsage
+'register(java.lang.Object)' is declared in unstable class 'com.google.common.eventbus.EventBus' marked with @Beta
+in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-api/src/main/java/org/apache/shardingsphere/elasticjob/tracing/JobTracingEventBus.java`
+#### Snippet
+```java
+    private void register(final TracingConfiguration<?> tracingConfig) {
+        try {
+            eventBus.register(TracingListenerFactory.getListener(tracingConfig));
+            isRegistered = true;
+        } catch (final TracingConfigurationException ex) {
+```
+
+### UnstableApiUsage
 'com.google.common.eventbus.EventBus' is marked unstable with @Beta
 in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-api/src/main/java/org/apache/shardingsphere/elasticjob/tracing/JobTracingEventBus.java`
 #### Snippet
@@ -2986,6 +2962,30 @@ in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-api/src/main/java
     private final EventBus eventBus;
     
     private volatile boolean isRegistered;
+```
+
+### UnstableApiUsage
+'post(java.lang.Object)' is declared in unstable class 'com.google.common.eventbus.EventBus' marked with @Beta
+in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-api/src/main/java/org/apache/shardingsphere/elasticjob/tracing/JobTracingEventBus.java`
+#### Snippet
+```java
+    public void post(final JobEvent event) {
+        if (isRegistered && !EXECUTOR_SERVICE.isShutdown()) {
+            eventBus.post(event);
+        }
+    }
+```
+
+### UnstableApiUsage
+'getExitingExecutorService(java.util.concurrent.ThreadPoolExecutor)' is marked unstable with @Beta
+in `elasticjob-ecosystem/elasticjob-tracing/elasticjob-tracing-api/src/main/java/org/apache/shardingsphere/elasticjob/tracing/JobTracingEventBus.java`
+#### Snippet
+```java
+                new LinkedBlockingQueue<>(), new BasicThreadFactory.Builder().namingPattern(String.join("-", "job-event", "%s")).build());
+        threadPoolExecutor.allowCoreThreadTimeOut(true);
+        return MoreExecutors.listeningDecorator(MoreExecutors.getExitingExecutorService(threadPoolExecutor));
+    }
+    
 ```
 
 ### UnstableApiUsage
