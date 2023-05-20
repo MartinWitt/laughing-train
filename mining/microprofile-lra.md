@@ -1,28 +1,22 @@
 # microprofile-lra 
  
 # Bad smells
-I found 43 bad smells with 4 repairable:
+I found 40 bad smells with 1 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| UnnecessaryFullyQualifiedName | 16 | false |
-| EmptyMethod | 4 | false |
-| AssignmentToMethodParameter | 4 | false |
+| FieldMayBeFinal | 10 | false |
+| AutoCloseableResource | 6 | false |
+| DuplicatedCode | 6 | false |
+| NewClassNamingConvention | 4 | false |
+| UastIncorrectHttpHeaderInspection | 3 | false |
 | DefaultAnnotationParam | 2 | false |
-| RedundantMethodOverride | 2 | false |
 | JUnitMalformedDeclaration | 2 | false |
-| UtilityClassWithoutPrivateConstructor | 1 | true |
-| StaticCallOnSubclass | 1 | false |
-| ThrowablePrintStackTrace | 1 | false |
-| CodeBlock2Expr | 1 | true |
-| AssignmentToStaticFieldFromInstanceMethod | 1 | false |
-| RedundantFieldInitialization | 1 | false |
-| HtmlWrongAttributeValue | 1 | false |
-| ReturnNull | 1 | false |
-| SizeReplaceableByIsEmpty | 1 | true |
-| NonFinalFieldOfException | 1 | false |
+| CdiInjectionPointsInspection | 2 | false |
+| JavadocReference | 1 | false |
+| JavadocDeclaration | 1 | false |
+| NonFinalFieldInEnum | 1 | false |
 | InnerClassMayBeStatic | 1 | true |
-| MissortedModifiers | 1 | false |
-| TestCaseWithNoTestMethods | 1 | false |
+| JavadocLinkAsPlainText | 1 | false |
 ## RuleId[id=DefaultAnnotationParam]
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
@@ -48,276 +42,93 @@ in `tck/src/main/java/org/eclipse/microprofile/lra/tck/participant/api/LraResour
             @HeaderParam(LRA_HTTP_CONTEXT_HEADER) URI nestedLRAId) {
 ```
 
-## RuleId[id=RedundantMethodOverride]
-### RedundantMethodOverride
-Method `before()` only delegates to its super method
-in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckUnknownStatusTests.java`
+## RuleId[id=AutoCloseableResource]
+### AutoCloseableResource
+'Response' used without 'try'-with-resources statement
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckParticipantTests.java`
 #### Snippet
 ```java
-
-    @Before
-    public void before() {
-        super.before();
-    }
+                .path(LongBusinessMethodParticipant.SYNC_METHOD)
+                .request()
+                .put(Entity.text(""));
+        Assert.assertEquals("Endpoint " + LongBusinessMethodParticipant.SYNC_METHOD + " failed execution",
+                200, syncMethodResponse.getStatus());
 ```
 
-### RedundantMethodOverride
-Method `before()` only delegates to its super method
-in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckUnknownTests.java`
-#### Snippet
-```java
-
-    @Before
-    public void before() {
-        super.before();
-    }
-```
-
-## RuleId[id=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `Builder` has only 'static' members, and lacks a 'private' constructor
-in `api/src/main/java/org/eclipse/microprofile/lra/LRAResponse.java`
-#### Snippet
-```java
-    }
-
-    public static final class Builder {
-        public static Response.ResponseBuilder compensated() {
-            return Response.ok();
-```
-
-## RuleId[id=StaticCallOnSubclass]
-### StaticCallOnSubclass
-Static method `deploy()` declared in class 'org.eclipse.microprofile.lra.tck.TckTestBase' but referenced via subclass 'org.eclipse.microprofile.lra.tck.TckUnknownStatusTests'
-in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckUnknownStatusTests.java`
-#### Snippet
-```java
-    @Deployment(name = "tckunkownstatus")
-    public static WebArchive deploy() {
-        return TckUnknownStatusTests.deploy(TckUnknownStatusTests.class.getSimpleName().toLowerCase());
-    }
-
-```
-
-## RuleId[id=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.microprofile.lra.annotation.ws.rs` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/lra/annotation/Forget.java`
-#### Snippet
-```java
- * <p>
- * Similar remarks apply if the participant was enlisted in a nested LRA
- * ({@link org.eclipse.microprofile.lra.annotation.ws.rs.LRA.Type#NESTED}). Actions performed in the context of a nested
- * LRA must remain compensatable until the participant is explicitly told it can clean up using this
- * <code>&#64;Forget</code> annotation.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.osgi.annotation.versioning` is unnecessary, and can be replaced with an import
-in `api/src/main/java/org/eclipse/microprofile/lra/package-info.java`
-#### Snippet
-```java
- */
-
-@org.osgi.annotation.versioning.Version("2.0")
-package org.eclipse.microprofile.lra;
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.net` is unnecessary and can be removed
-in `tck/src/main/java/org/eclipse/microprofile/lra/tck/participant/api/LraCancelOnResource.java`
-#### Snippet
-```java
-     * The remote REST call invokes the same resource class {@link LraCancelOnResource} That assumes the call to the
-     * representative of the same LRA participant as it's already enlisted by the method
-     * {@link #cancelFromRemoteCall(java.net.URI, jakarta.ws.rs.core.UriInfo)} invoked by the test. Because the
-     * specification mandates that the same participant can be enlisted only once per LRA instance then the
-     * {@link Compensate} method {@link #compensateWork(URI)} will be called only once for the test invocation.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `jakarta.ws.rs.core` is unnecessary and can be removed
-in `tck/src/main/java/org/eclipse/microprofile/lra/tck/participant/api/LraCancelOnResource.java`
-#### Snippet
-```java
-     * The remote REST call invokes the same resource class {@link LraCancelOnResource} That assumes the call to the
-     * representative of the same LRA participant as it's already enlisted by the method
-     * {@link #cancelFromRemoteCall(java.net.URI, jakarta.ws.rs.core.UriInfo)} invoked by the test. Because the
-     * specification mandates that the same participant can be enlisted only once per LRA instance then the
-     * {@link Compensate} method {@link #compensateWork(URI)} will be called only once for the test invocation.
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.microprofile.lra.annotation.ws.rs` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/lra/annotation/ws/rs/LRA.java`
-#### Snippet
-```java
-         * nested LRA is started whose outcome depends upon whether or not the enclosing LRA is closed or cancelled. The
-         * id of the parent LRA MUST be present in the header with the name
-         * {@value org.eclipse.microprofile.lra.annotation.ws.rs.LRA#LRA_HTTP_PARENT_CONTEXT_HEADER} and the value is of
-         * type {@link java.net.URI}.
-         * </p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.microprofile.lra.annotation.ws.rs` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/lra/annotation/ws/rs/LRA.java`
-#### Snippet
-```java
-         * cancel the nested participants will be told to compensate. This implies that the nested participants must be
-         * aware that they are nested and the JAX-RS header with the name
-         * {@value org.eclipse.microprofile.lra.annotation.ws.rs.LRA#LRA_HTTP_PARENT_CONTEXT_HEADER} is guaranteed to
-         * hold the parent context whenever a nested LRA is being propagated.
-         * </p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `jakarta.ws.rs.core` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/lra/annotation/ws/rs/LRA.java`
-#### Snippet
-```java
-     * </p>
-     *
-     * @return the {@link jakarta.ws.rs.core.Response.Status.Family} status families that will cause cancellation of the
-     *         LRA
-     */
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `jakarta.ws.rs.core` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/lra/annotation/ws/rs/LRA.java`
-#### Snippet
-```java
-     * </p>
-     *
-     * @return the {@link jakarta.ws.rs.core.Response.Status} HTTP status codes that will cause cancellation of the LRA
-     */
-    Response.Status[] cancelOn() default {};
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.net` is unnecessary and can be removed
-in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckCancelOnTests.java`
-#### Snippet
-```java
-
-    /**
-     * See {@link LraCancelOnResource#notCancelOnFamily5xx(java.net.URI)}
-     */
-    @Test
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.net` is unnecessary and can be removed
-in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckCancelOnTests.java`
-#### Snippet
-```java
-
-    /**
-     * See {@link LraCancelOnResource#cancelOnFamilyDefault5xx(java.net.URI)}
-     */
-    @Test
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.net` is unnecessary and can be removed
-in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckCancelOnTests.java`
-#### Snippet
-```java
-
-    /**
-     * See {@link LraCancelOnResource#cancelOn301(java.net.URI)}
-     */
-    @Test
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.net` is unnecessary and can be removed
-in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckCancelOnTests.java`
-#### Snippet
-```java
-
-    /**
-     * See {@link LraCancelOnResource#cancelOnFamily3xx(java.net.URI)}
-     */
-    @Test
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.net` is unnecessary and can be removed
-in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckCancelOnTests.java`
-#### Snippet
-```java
-
-    /**
-     * See {@link LraCancelOnResource#cancelOnFamilyDefault4xx(java.net.URI)}
-     */
-    @Test
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `java.net` is unnecessary and can be removed
-in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckCancelOnTests.java`
-#### Snippet
-```java
-
-    /**
-     * See {@link LraCancelOnResource#cancelFromRemoteCall(java.net.URI, jakarta.ws.rs.core.UriInfo)}
-     */
-    @Test
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.eclipse.microprofile.lra.annotation.ws.rs` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/lra/annotation/AfterLRA.java`
-#### Snippet
-```java
- * name {@link LRA#LRA_HTTP_ENDED_CONTEXT_HEADER} and the final status is passed to the method as plain text
- * corresponding to one of the {@link LRAStatus} enum values. If this LRA was nested then the parent LRA MUST be present
- * in the header {@link org.eclipse.microprofile.lra.annotation.ws.rs.LRA#LRA_HTTP_PARENT_CONTEXT_HEADER} and value is
- * of type {@link java.net.URI}. For example:
- * </p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `jakarta.ws.rs.core` is unnecessary and can be removed
-in `api/src/main/java/org/eclipse/microprofile/lra/LRAResponse.java`
-#### Snippet
-```java
-/**
- * The utility class that will create the correct {@link Response} or
- * {@link jakarta.ws.rs.core.Response.ResponseBuilder} for the response that should be returned from the LRA JAX-RS
- * methods.
- */
-```
-
-## RuleId[id=ThrowablePrintStackTrace]
-### ThrowablePrintStackTrace
-Call to `printStackTrace()` should probably be replaced with more robust logging
+### AutoCloseableResource
+'Response' used without 'try'-with-resources statement
 in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckTests.java`
 #### Snippet
 ```java
-                    lraTestService.isLRAFinished(lra));
-        } catch (GenericLRAException e) {
-            e.printStackTrace();
-            throw e;
-        }
+                    .request()
+                    .header(LRA_HTTP_CONTEXT_HEADER, uris[1])
+                    .put(Entity.text(""));
+
+            lraClient.closeLRA(lra); // should not complete any nested LRAs (since they have already completed via the
 ```
 
-## RuleId[id=JUnitMalformedDeclaration]
-### JUnitMalformedDeclaration
-Method `testCancelWhenParticipantIsUnavailable` annotated with '@Test' should not declare parameter 'deploymentURL'
+### AutoCloseableResource
+'Response' used without 'try'-with-resources statement
 in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckRecoveryTests.java`
 #### Snippet
 ```java
-     */
-    @Test
-    public void testCancelWhenParticipantIsUnavailable(@ArquillianResource URL deploymentURL) {
-        clientServiceSetup(deploymentURL);
+                .path(RecoveryResource.RECOVERY_RESOURCE_PATH)
+                .path(RecoveryResource.REQUIRED_PATH)
+                .request().put(Entity.text(""));
+
+        Assert.assertEquals(200, response.getStatus());
+```
+
+### AutoCloseableResource
+'Response' used without 'try'-with-resources statement
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckRecoveryTests.java`
+#### Snippet
+```java
+                .path(RecoveryResource.RECOVERY_RESOURCE_PATH)
+                .path(RecoveryResource.REQUIRED_TIMEOUT_PATH)
+                .request().put(Entity.text(""));
+
+        Assert.assertEquals(200, response.getStatus());
+```
+
+### AutoCloseableResource
+'Response' used without 'try'-with-resources statement
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/LRAClientOps.java`
+#### Snippet
+```java
+
+    private void leaveLRA(URI lra, String basePath, String resourcePath) throws GenericLRAException {
+        invokeRestEndpoint(lra, basePath, resourcePath, 200);
+    }
 
 ```
 
+### AutoCloseableResource
+'Response' used without 'try'-with-resources statement
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/LRAClientOps.java`
+#### Snippet
+```java
+    public URI startLRA(URI parentLRA, String clientID, long timeout, ChronoUnit unit)
+            throws GenericLRAException {
+        String lra = invokeRestEndpoint(parentLRA,
+                TCK_NON_PARTICIPANT_RESOURCE_PATH, START_BUT_DONT_END_PATH, 200)
+                        .readEntity(String.class);
+```
+
+## RuleId[id=JavadocReference]
+### JavadocReference
+Cannot resolve symbol `Deployment`
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckRecoveryTests.java`
+#### Snippet
+```java
+ * <p>
+ * This test is meant to be run in "run as client mode controlling the behaviour not via CDI injection but via HTTP
+ * calls. The @{@link Deployment} is defined as <code>managed = false</code> which means that Arquillian does not
+ * automatically deploy the deployment at the start of the test and the test control this step on its own.
+ * </p>
+```
+
+## RuleId[id=JUnitMalformedDeclaration]
 ### JUnitMalformedDeclaration
 Method `testCancelWhenParticipantIsRestarted` annotated with '@Test' should not declare parameter 'deploymentURL'
 in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckRecoveryTests.java`
@@ -330,185 +141,58 @@ in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckRecoveryTests.java`
 
 ```
 
-## RuleId[id=CodeBlock2Expr]
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckTests.java`
+### JUnitMalformedDeclaration
+Method `testCancelWhenParticipantIsUnavailable` annotated with '@Test' should not declare parameter 'deploymentURL'
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckRecoveryTests.java`
 #### Snippet
 ```java
-        // starting at index 1 as LRAResource#multiLevelNestedActivity returns the top-level LRA as the first argument
-        // which was not finished yet
-        IntStream.range(1, uris.length).parallel().forEach(i -> {
-            lraTestService.waitForCallbacks(uris[i]);
-        });
+     */
+    @Test
+    public void testCancelWhenParticipantIsUnavailable(@ArquillianResource URL deploymentURL) {
+        clientServiceSetup(deploymentURL);
+
 ```
 
-## RuleId[id=AssignmentToStaticFieldFromInstanceMethod]
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `tckSuiteClient` from instance context
-in `tck/src/main/java/org/eclipse/microprofile/lra/tck/service/LRATestService.java`
+## RuleId[id=JavadocDeclaration]
+### JavadocDeclaration
+Javadoc pointing to itself
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/participant/api/LraCancelOnResource.java`
 #### Snippet
 ```java
-
-    public void start(URL deploymentURL) {
-        tckSuiteClient = ClientBuilder.newClient();
-        tckSuiteTarget = tckSuiteClient.target(URI.create(deploymentURL.toExternalForm()));
-        lraClient = new LRAClientOps(tckSuiteTarget);
+     * The remote REST call invokes the same resource class {@link LraCancelOnResource} That assumes the call to the
+     * representative of the same LRA participant as it's already enlisted by the method
+     * {@link #cancelFromRemoteCall(java.net.URI, jakarta.ws.rs.core.UriInfo)} invoked by the test. Because the
+     * specification mandates that the same participant can be enlisted only once per LRA instance then the
+     * {@link Compensate} method {@link #compensateWork(URI)} will be called only once for the test invocation.
 ```
 
-## RuleId[id=EmptyMethod]
-### EmptyMethod
-Method only calls its super
-in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckUnknownStatusTests.java`
+## RuleId[id=FieldMayBeFinal]
+### FieldMayBeFinal
+Field `scenarioMap` may be 'final'
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/participant/api/LRAUnknownResource.java`
 #### Snippet
 ```java
+    private static final String AFTER_LRA = "/after";
 
-    @Before
-    public void before() {
-        super.before();
-    }
-```
-
-### EmptyMethod
-Method only calls its super
-in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckUnknownTests.java`
-#### Snippet
-```java
-
-    @Before
-    public void before() {
-        super.before();
-    }
-```
-
-### EmptyMethod
-The method is empty
-in `tck/src/main/java/org/eclipse/microprofile/lra/tck/participant/nonjaxrs/InvalidAfterLRASignatureListener.java`
-#### Snippet
-```java
-
-    @AfterLRA
-    public void onLRAEnd(String lraId, String lraStatus) {
-        // intentionally empty
-    }
-```
-
-### EmptyMethod
-The method is empty
-in `tck/src/main/java/org/eclipse/microprofile/lra/tck/participant/nonjaxrs/InvalidArgumentTypesParticipant.java`
-#### Snippet
-```java
-
-    @Forget
-    public void forget(int lraId, URI parentId) {
-        // intentionally empty
-    }
-```
-
-## RuleId[id=RedundantFieldInitialization]
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `tck/src/main/java/org/eclipse/microprofile/lra/tck/participant/api/ParticipatingTckResource.java`
-#### Snippet
-```java
-    public static final String RECOVERY_PARAM = "recoveryCount";
-
-    private int recoveryPasses = 0;
+    private Map<String, Scenario> scenarioMap = new HashMap<>();
 
     @Inject
 ```
 
-## RuleId[id=AssignmentToMethodParameter]
-### AssignmentToMethodParameter
-Assignment to method parameter `lraCheckType`
-in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckLRATypeTests.java`
+### FieldMayBeFinal
+Field `lraRecoveryService` may be 'final'
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/service/LRATestService.java`
 #### Snippet
 ```java
-            if (response.getStatus() == Response.Status.PRECONDITION_FAILED.getStatusCode()) {
-                // 412 errors should abort running the target method so skip the LRA check
-                lraCheckType = MethodLRACheck.NONE;
-                methodLRAShouldBeActive = false;
-                methodLraId = "";
+    private WebTarget tckSuiteTarget;
+
+    private LRARecoveryService lraRecoveryService = loadService(LRARecoveryService.class);
+
+    @Inject
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `methodLRAShouldBeActive`
-in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckLRATypeTests.java`
-#### Snippet
-```java
-                // 412 errors should abort running the target method so skip the LRA check
-                lraCheckType = MethodLRACheck.NONE;
-                methodLRAShouldBeActive = false;
-                methodLraId = "";
-            } else {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `lraId`
-in `tck/src/main/java/org/eclipse/microprofile/lra/tck/participant/api/LraResource.java`
-#### Snippet
-```java
-            URI lra = new LRAClientOps(target).startLRA(null, "subActivity", 0L, ChronoUnit.SECONDS);
-
-            lraId = lra;
-
-            storeActivity(lraId, null);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `how`
-in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckTests.java`
-#### Snippet
-```java
-
-        if (how == CompletionType.mixed && nestedCnt <= 1) {
-            how = CompletionType.complete;
-        }
-
-```
-
-## RuleId[id=HtmlWrongAttributeValue]
-### HtmlWrongAttributeValue
-Wrong attribute value
-in `log/indexing-diagnostic/project.15375f63/diagnostic-2023-04-27-16-27-17.108.html`
-#### Snippet
-```java
-              <td>0</td>
-              <td>0</td>
-              <td><textarea rows="10" cols="75" readonly="true" placeholder="empty" style="white-space: pre; border: none">Not collected for refresh</textarea></td>
-            </tr>
-          </tbody>
-```
-
-## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
-in `tck/src/main/java/org/eclipse/microprofile/lra/tck/participant/api/NoLRAResource.java`
-#### Snippet
-```java
-        }
-
-        return null;
-    }
-}
-```
-
-## RuleId[id=SizeReplaceableByIsEmpty]
-### SizeReplaceableByIsEmpty
-`methodLraId.length() != 0` can be replaced with '!methodLraId.isEmpty()'
-in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckLRATypeTests.java`
-#### Snippet
-```java
-                assertFalse(lraTestService.isLRAFinished(URI.create(methodLraId)));
-                lraClient.closeLRA(methodLraId);
-            } else if (methodLraId.length() != 0) {
-                // otherwise it should be finished
-                assertTrue(lraTestService.isLRAFinished(URI.create(methodLraId)));
-```
-
-## RuleId[id=NonFinalFieldOfException]
-### NonFinalFieldOfException
-Non-final field `lraId` of exception class
+### FieldMayBeFinal
+Field `lraId` may be 'final'
 in `tck/src/main/java/org/eclipse/microprofile/lra/tck/participant/api/GenericLRAException.java`
 #### Snippet
 ```java
@@ -517,6 +201,313 @@ in `tck/src/main/java/org/eclipse/microprofile/lra/tck/participant/api/GenericLR
     private URI lraId;
 
     public URI getLraId() {
+```
+
+### FieldMayBeFinal
+Field `syncLatch` may be 'final'
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/participant/nonjaxrs/valid/LongBusinessMethodParticipant.java`
+#### Snippet
+```java
+
+    private CountDownLatch businessLatch = new CountDownLatch(1);
+    private CountDownLatch syncLatch = new CountDownLatch(1);
+
+    @Inject
+```
+
+### FieldMayBeFinal
+Field `businessLatch` may be 'final'
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/participant/nonjaxrs/valid/LongBusinessMethodParticipant.java`
+#### Snippet
+```java
+    private static final Logger LOGGER = Logger.getLogger(LongBusinessMethodParticipant.class.getName());
+
+    private CountDownLatch businessLatch = new CountDownLatch(1);
+    private CountDownLatch syncLatch = new CountDownLatch(1);
+
+```
+
+### FieldMayBeFinal
+Field `scenarioMap` may be 'final'
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/participant/api/LRAUnknownStatusResource.java`
+#### Snippet
+```java
+    private static final String AFTER_LRA = "/after";
+
+    private Map<String, Scenario> scenarioMap = new HashMap<>();
+
+    @Inject
+```
+
+### FieldMayBeFinal
+Field `metricsPerLra` may be 'final'
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/service/LRAMetricService.java`
+#### Snippet
+```java
+public class LRAMetricService {
+
+    private Map<URI, Map<String, LRAMetric>> metricsPerLra = new HashMap<>();
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `metrics` may be 'final'
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/service/LRAMetricService.java`
+#### Snippet
+```java
+     */
+    private static class LRAMetric {
+        private Map<LRAMetricType, AtomicInteger> metrics = Arrays.stream(LRAMetricType.values())
+                .collect(Collectors.toMap(Function.identity(), t -> new AtomicInteger(0)));
+
+```
+
+### FieldMayBeFinal
+Field `pathResponseCode` may be 'final'
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/participant/api/Scenario.java`
+#### Snippet
+```java
+    COMPENSATE_IMMEDIATE(500), COMPENSATE_RETRY(500), COMPLETE_IMMEDIATE(200), COMPLETE_RETRY(200);
+
+    private int pathResponseCode;
+
+    Scenario(int pathResponseCode) {
+```
+
+### FieldMayBeFinal
+Field `activities` may be 'final'
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/participant/activity/ActivityStorage.java`
+#### Snippet
+```java
+@ApplicationScoped
+public class ActivityStorage {
+    private Map<URI, Activity> activities = new HashMap<>();
+
+    public Activity getActivityAndAssertExistence(URI lraId, UriInfo jaxrsContext) {
+```
+
+## RuleId[id=UastIncorrectHttpHeaderInspection]
+### UastIncorrectHttpHeaderInspection
+Unknown HTTP header
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/participant/api/ContextTckResource.java`
+#### Snippet
+```java
+    // from the LRA implementation (complete, compensate, forget and status)
+    public static final String LRA_TCK_FAULT_TYPE_HEADER = "Lra-Tck-Fault-Type";
+    public static final String LRA_TCK_FAULT_CODE_HEADER = "Lra-Tck-Fault-Status";
+
+    // a header for tests to indicate which LRA stats are being queried/reset
+```
+
+### UastIncorrectHttpHeaderInspection
+Unknown HTTP header
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/participant/api/ContextTckResource.java`
+#### Snippet
+```java
+
+    // a header for tests to indicate which LRA stats are being queried/reset
+    public static final String LRA_TCK_HTTP_CONTEXT_HEADER = "Lra-Tck-Context";
+
+    private static final String REQUIRES_NEW_LRA_PATH = "/requires-new-lra";
+```
+
+### UastIncorrectHttpHeaderInspection
+Unknown HTTP header
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/participant/api/ContextTckResource.java`
+#### Snippet
+```java
+    // headers for tests to indicate how the participant should respond to callbacks
+    // from the LRA implementation (complete, compensate, forget and status)
+    public static final String LRA_TCK_FAULT_TYPE_HEADER = "Lra-Tck-Fault-Type";
+    public static final String LRA_TCK_FAULT_CODE_HEADER = "Lra-Tck-Fault-Status";
+
+```
+
+## RuleId[id=NonFinalFieldInEnum]
+### NonFinalFieldInEnum
+Non-final field `pathResponseCode` in enum 'Scenario'
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/participant/api/Scenario.java`
+#### Snippet
+```java
+    COMPENSATE_IMMEDIATE(500), COMPENSATE_RETRY(500), COMPLETE_IMMEDIATE(200), COMPLETE_RETRY(200);
+
+    private int pathResponseCode;
+
+    Scenario(int pathResponseCode) {
+```
+
+## RuleId[id=DuplicatedCode]
+### DuplicatedCode
+Duplicated code
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckContextTests.java`
+#### Snippet
+```java
+        URI lra = URI.create(invoke(REQUIRED_LRA_PATH, PUT, null, 200, ContextTckResource.EndPhase.ACCEPTED, 202));
+
+        // verify that the resource was asked to complete and is in the state Completing
+        String status = invoke(STATUS_PATH, HttpMethod.GET, lra, 202, ContextTckResource.EndPhase.SUCCESS, 200);
+        lraTestService.waitForCallbacks(lra);
+        assertEquals(testName.getMethodName() + ": participant is not completing", ParticipantStatus.Completing.name(),
+                status);
+```
+
+### DuplicatedCode
+Duplicated code
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckTests.java`
+#### Snippet
+```java
+        URI lra = lraClient.startLRA(null, lraClientId(), lraTimeout(), ChronoUnit.MILLIS);
+
+        WebTarget resourcePath = tckSuiteTarget.path(LRA_RESOURCE_PATH).path(TRANSACTIONAL_WORK_PATH);
+        Response response = resourcePath
+                .request().header(LRA_HTTP_CONTEXT_HEADER, lra).put(Entity.text(""));
+
+        checkStatusAndCloseResponse(Response.Status.OK, response, resourcePath);
+```
+
+### DuplicatedCode
+Duplicated code
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckTests.java`
+#### Snippet
+```java
+        WebTarget resource1Path = tckSuiteTarget.path(TCK_PARTICIPANT_RESOURCE_PATH).path(resource1Method);
+        WebTarget resource2Path = tckSuiteTarget.path(TCK_PARTICIPANT_RESOURCE_PATH).path(resource2Method);
+
+        URI lra = lraClient.startLRA(null, lraClientId(), lraTimeout(), ChronoUnit.MILLIS);
+
+        // invoke the same JAX-RS resources twice in the context of the lra which should enlist the resource only once:
+        Response response1 = resource1Path.request().header(LRA_HTTP_CONTEXT_HEADER, lra).put(Entity.text(""));
+        checkStatusAndCloseResponse(Response.Status.OK, response1, resource1Path);
+        Response response2 = resource2Path.request().header(LRA_HTTP_CONTEXT_HEADER, lra).put(Entity.text(""));
+        checkStatusAndCloseResponse(Response.Status.OK, response2, resource2Path);
+```
+
+### DuplicatedCode
+Duplicated code
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/participant/api/ContextTckResource.java`
+#### Snippet
+```java
+        if (response.hasEntity()) {
+            id = response.readEntity(String.class);
+        }
+
+        try {
+            if (response.getStatus() != Response.Status.OK.getStatusCode()) {
+                throw new WebApplicationException("Error on REST PUT for LRA '" + lraURI
+                        + "' at path '" + path + "' and body '" + bodyText + "'", response);
+            }
+        } finally {
+            response.close();
+        }
+
+        return id;
+```
+
+### DuplicatedCode
+Duplicated code
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/participant/api/LRAUnknownResource.java`
+#### Snippet
+```java
+        int responseCode = 410;
+        Scenario scenario = scenarioMap.get(lraId.toASCIIString());
+        if (scenario == Scenario.COMPLETE_RETRY) {
+            responseCode = 202; // The 'action' is in progress
+            scenarioMap.remove(lraId.toASCIIString()); // so that by next call the return status is 410.
+        }
+
+        LOGGER.info(String.format("LRA id '%s' was completed", lraId.toASCIIString()));
+        return Response.status(responseCode).build();
+```
+
+### DuplicatedCode
+Duplicated code
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/participant/api/LRAUnknownResource.java`
+#### Snippet
+```java
+        int responseCode = 410;
+        Scenario scenario = scenarioMap.get(lraId.toASCIIString());
+        if (scenario == Scenario.COMPENSATE_RETRY) {
+            responseCode = 202; // The 'action' is in progress
+            scenarioMap.remove(lraId.toASCIIString()); // so that by next call the return status is 410.
+        }
+
+        LOGGER.info(String.format("LRA id '%s' was compensated", lraId));
+        return Response.status(responseCode).build();
+```
+
+## RuleId[id=NewClassNamingConvention]
+### NewClassNamingConvention
+Test class name `DeploymentNameRule` doesn't match regex '\[A-Z\]\[A-Za-z\\d\]\*Test(s\|Case)?\|Test\[A-Z\]\[A-Za-z\\d\]\*\|IT(.\*)\|(.\*)IT(Case)?'
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckInvalidSignaturesTests.java`
+#### Snippet
+```java
+    }
+
+    private static final class DeploymentNameRule extends TestName {
+
+        String deploymentName;
+```
+
+### NewClassNamingConvention
+Test class name `HttpMethod` doesn't match regex '\[A-Z\]\[A-Za-z\\d\]\*Test(s\|Case)?\|Test\[A-Z\]\[A-Za-z\\d\]\*\|IT(.\*)\|(.\*)IT(Case)?'
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckContextTests.java`
+#### Snippet
+```java
+public class TckContextTests extends TckTestBase {
+
+    enum HttpMethod {
+        GET, PUT, POST
+    }
+```
+
+### NewClassNamingConvention
+Test class name `CompletionType` doesn't match regex '\[A-Z\]\[A-Za-z\\d\]\*Test(s\|Case)?\|Test\[A-Z\]\[A-Za-z\\d\]\*\|IT(.\*)\|(.\*)IT(Case)?'
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckTests.java`
+#### Snippet
+```java
+    private LRATestService lraTestService;
+
+    private enum CompletionType {
+        complete, compensate, mixed
+    }
+```
+
+### NewClassNamingConvention
+Test class name `MethodLRACheck` doesn't match regex '\[A-Z\]\[A-Za-z\\d\]\*Test(s\|Case)?\|Test\[A-Z\]\[A-Za-z\\d\]\*\|IT(.\*)\|(.\*)IT(Case)?'
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckLRATypeTests.java`
+#### Snippet
+```java
+
+    // enum to indicate which checks to perform on the expected and actual active LRA after running a resource method
+    private enum MethodLRACheck {
+        NONE, NOT_PRESENT, EQUALS, NOT_EQUALS
+    }
+```
+
+## RuleId[id=CdiInjectionPointsInspection]
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/LraTckConfigBean.java`
+#### Snippet
+```java
+    @Inject
+    @ConfigProperty(name = LRA_TCK_BASE_URL_PROPERTY_NAME, defaultValue = "http://localhost:8180/")
+    private String tckSuiteBaseUrl;
+
+    /**
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/LraTckConfigBean.java`
+#### Snippet
+```java
+    @Inject
+    @ConfigProperty(name = LRA_TCK_TIMEOUT_FACTOR_PROPETY_NAME, defaultValue = "1.0")
+    private double timeoutFactor;
+
+    /**
 ```
 
 ## RuleId[id=InnerClassMayBeStatic]
@@ -532,29 +523,16 @@ in `tck/src/main/java/org/eclipse/microprofile/lra/tck/LRAClientOps.java`
         final URI lra; // the LRA that clientId is associated with
 ```
 
-## RuleId[id=MissortedModifiers]
-### MissortedModifiers
-Missorted modifiers `final @Suspended`
-in `tck/src/main/java/org/eclipse/microprofile/lra/tck/participant/api/ContextTckResource.java`
+## RuleId[id=JavadocLinkAsPlainText]
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `tck/src/main/java/org/eclipse/microprofile/lra/tck/LraTckConfigBean.java`
 #### Snippet
 ```java
-    @Path(ASYNC_LRA_PATH1)
-    public void async1LRA(@HeaderParam(LRA_HTTP_CONTEXT_HEADER) URI lraId,
-            final @Suspended AsyncResponse ar) {
-        excecutorService.submit(() -> {
-            // excecute long running business activity and resume when done
-```
-
-## RuleId[id=TestCaseWithNoTestMethods]
-### TestCaseWithNoTestMethods
-Test class `TckTestBase` has no tests
-in `tck/src/main/java/org/eclipse/microprofile/lra/tck/TckTestBase.java`
-#### Snippet
-```java
- * environment.
- */
-public class TckTestBase {
-    private static final Logger LOGGER = Logger.getLogger(TckTestBase.class.getName());
-
+     * paths will be constructed based on this base URL.
+     * <p>
+     * The default base URL where TCK suite is expected to be started is <code>http://localhost:8180/</code>.
+     */
+    @Inject
 ```
 
