@@ -277,42 +277,6 @@ in `common/src/com/intellij/rt/coverage/util/CoverageIOUtil.java`
 
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
-in `reporter/src/com/intellij/rt/coverage/report/Reporter.java`
-#### Snippet
-```java
-    FileOutputStream out = null;
-    try {
-      xmlFile.getParentFile().mkdirs();
-      out = new FileOutputStream(xmlFile);
-      report.write(out, myLoad.getProjectData());
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `reporter/src/com/intellij/rt/coverage/report/Reporter.java`
-#### Snippet
-```java
-
-  public void createHTMLReport(File htmlDir, String title, String charset) throws IOException {
-    htmlDir.mkdirs();
-    final HTMLReportBuilder builder = ReportBuilderFactory.createHTMLReportBuilderForKover();
-    builder.setReportDir(htmlDir);
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `src/com/intellij/rt/coverage/data/ProjectData.java`
-#### Snippet
-```java
-    final File result = new File(dataFile.getParent(), dirName);
-    if (!result.exists()) {
-      result.mkdirs();
-    }
-    return result;
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
 in `src/com/intellij/rt/coverage/data/ProjectData.java`
 #### Snippet
 ```java
@@ -333,5 +297,41 @@ in `src/com/intellij/rt/coverage/data/ProjectData.java`
       dataFile.createNewFile();
     }
     ourProjectData.myStopped = false;
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `src/com/intellij/rt/coverage/data/ProjectData.java`
+#### Snippet
+```java
+    final File result = new File(dataFile.getParent(), dirName);
+    if (!result.exists()) {
+      result.mkdirs();
+    }
+    return result;
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `reporter/src/com/intellij/rt/coverage/report/Reporter.java`
+#### Snippet
+```java
+    FileOutputStream out = null;
+    try {
+      xmlFile.getParentFile().mkdirs();
+      out = new FileOutputStream(xmlFile);
+      report.write(out, myLoad.getProjectData());
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `reporter/src/com/intellij/rt/coverage/report/Reporter.java`
+#### Snippet
+```java
+
+  public void createHTMLReport(File htmlDir, String title, String charset) throws IOException {
+    htmlDir.mkdirs();
+    final HTMLReportBuilder builder = ReportBuilderFactory.createHTMLReportBuilderForKover();
+    builder.setReportDir(htmlDir);
 ```
 
