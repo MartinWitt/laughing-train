@@ -25,8 +25,8 @@ in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/
 #### Snippet
 ```java
     @Override
-    public BinaryPredicate<X, T, T> greaterThan(T y) {
-        return new DefaultBinaryPredicate(BinaryPredicate.Operator.GREATER_THAN, this, y);
+    public BinaryPredicate<X, T, T> lessThanOrEqualTo(T y) {
+        return new DefaultBinaryPredicate(BinaryPredicate.Operator.LESS_THAN_OR_EQUAL, this, y);
     }
 
 ```
@@ -37,8 +37,8 @@ in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/
 #### Snippet
 ```java
     @Override
-    public BinaryPredicate<X, T, T> lessThanOrEqualTo(T y) {
-        return new DefaultBinaryPredicate(BinaryPredicate.Operator.LESS_THAN_OR_EQUAL, this, y);
+    public BinaryPredicate<X, T, T> greaterThan(T y) {
+        return new DefaultBinaryPredicate(BinaryPredicate.Operator.GREATER_THAN, this, y);
     }
 
 ```
@@ -95,39 +95,63 @@ in `jnosql-mapping-validation/src/main/java/org/eclipse/jnosql/mapping/validatio
 
 ## RuleId[id=UNCHECKED_WARNING]
 ### UNCHECKED_WARNING
-Unchecked assignment: 'org.eclipse.jnosql.mapping.criteria.DefaultBinaryPredicate' to 'org.eclipse.jnosql.mapping.criteria.api.BinaryPredicate'
-in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultStringExpression.java`
-#### Snippet
-```java
-    @Override
-    public BinaryPredicate<X, String, String> like(String pattern) {
-        return new DefaultBinaryPredicate(BinaryPredicate.Operator.LIKE, this, pattern);
-    }
-    
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'DefaultBinaryPredicate(Operator, Expression, RHS)' as a member of raw type 'org.eclipse.jnosql.mapping.criteria.DefaultBinaryPredicate'
-in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultStringExpression.java`
-#### Snippet
-```java
-    @Override
-    public BinaryPredicate<X, String, String> like(String pattern) {
-        return new DefaultBinaryPredicate(BinaryPredicate.Operator.LIKE, this, pattern);
-    }
-    
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.eclipse.jnosql.mapping.metamodel.api.StringAttribute' to 'org.eclipse.jnosql.mapping.metamodel.api.Attribute'
-in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultStringExpression.java`
+Unchecked assignment: 'org.eclipse.jnosql.mapping.metamodel.api.NumberAttribute' to 'org.eclipse.jnosql.mapping.metamodel.api.ComparableAttribute'
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultNumberExpression.java`
 #### Snippet
 ```java
 
-    public DefaultStringExpression(Path<X, Y> path, StringAttribute attribute) {
+    public DefaultNumberExpression(Path<X, Y> path, NumberAttribute attribute) {
         super(path, attribute);
-    }    
+    }
     
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.eclipse.jnosql.mapping.criteria.api.SelectQuery' to 'org.eclipse.jnosql.mapping.criteria.api.SelectQuery'
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultCriteriaDocumentTemplate.java`
+#### Snippet
+```java
+        requireNonNull(criteriaQuery, "query is required");
+        if (criteriaQuery instanceof SelectQuery) {
+            SelectQuery<T, ?, ?, ?> selectQuery = SelectQuery.class.cast(criteriaQuery);
+            DocumentQuery documentQuery = CriteriaQueryUtils.convert(selectQuery);
+            Stream<DocumentEntity> entityStream = this.getManager().select(
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'feed(F)' as a member of raw type 'org.eclipse.jnosql.mapping.criteria.api.ExecutableQuery'
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultCriteriaDocumentTemplate.java`
+#### Snippet
+```java
+
+            if (selectQuery instanceof EntityQuery) {
+                EntityQuery.class.cast(selectQuery).feed(
+                        entityStream.map(
+                                documentEntity -> this.getConverter().toEntity(
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'feed(F)' as a member of raw type 'org.eclipse.jnosql.mapping.criteria.api.ExecutableQuery'
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultCriteriaDocumentTemplate.java`
+#### Snippet
+```java
+                );
+            } else if (selectQuery instanceof ExpressionQuery) {
+                ExpressionQuery.class.cast(selectQuery).feed(
+                        entityStream.map(
+                                documentEntity -> documentEntity.documents().stream().map(
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'org.eclipse.jnosql.mapping.criteria.AbstractRestrictedQuery' to 'Q'
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/AbstractRestrictedQuery.java`
+#### Snippet
+```java
+    public Q where(Predicate<T>... restrictions) {
+        this.restrictions = Arrays.asList(restrictions);
+        return (Q) this;
+    }
+
 ```
 
 ### UNCHECKED_WARNING
@@ -160,10 +184,10 @@ in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/
 #### Snippet
 ```java
     @Override
-    public BinaryPredicate<X, T, Expression<X, Y, T>> equal(Expression<X, Y, T> expression) {
-        return new DefaultBinaryPredicate(BinaryPredicate.Operator.EQUAL, this, expression);
+    public BinaryPredicate<X, T, Collection<T>> in(Collection<T> values) {
+        return new DefaultBinaryPredicate(BinaryPredicate.Operator.IN, this, values);
     }
-
+    
 ```
 
 ### UNCHECKED_WARNING
@@ -172,10 +196,10 @@ in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/
 #### Snippet
 ```java
     @Override
-    public BinaryPredicate<X, T, Expression<X, Y, T>> equal(Expression<X, Y, T> expression) {
-        return new DefaultBinaryPredicate(BinaryPredicate.Operator.EQUAL, this, expression);
+    public BinaryPredicate<X, T, Collection<T>> in(Collection<T> values) {
+        return new DefaultBinaryPredicate(BinaryPredicate.Operator.IN, this, values);
     }
-
+    
 ```
 
 ### UNCHECKED_WARNING
@@ -184,10 +208,10 @@ in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/
 #### Snippet
 ```java
     @Override
-    public BinaryPredicate<X, T, Collection<T>> in(Collection<T> values) {
-        return new DefaultBinaryPredicate(BinaryPredicate.Operator.IN, this, values);
+    public BinaryPredicate<X, T, Expression<X, Y, T>> equal(Expression<X, Y, T> expression) {
+        return new DefaultBinaryPredicate(BinaryPredicate.Operator.EQUAL, this, expression);
     }
-    
+
 ```
 
 ### UNCHECKED_WARNING
@@ -196,10 +220,10 @@ in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/
 #### Snippet
 ```java
     @Override
-    public BinaryPredicate<X, T, Collection<T>> in(Collection<T> values) {
-        return new DefaultBinaryPredicate(BinaryPredicate.Operator.IN, this, values);
+    public BinaryPredicate<X, T, Expression<X, Y, T>> equal(Expression<X, Y, T> expression) {
+        return new DefaultBinaryPredicate(BinaryPredicate.Operator.EQUAL, this, expression);
     }
-    
+
 ```
 
 ### UNCHECKED_WARNING
@@ -227,97 +251,157 @@ in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'org.eclipse.jnosql.mapping.criteria.DefaultExpressionQueryResult' to 'org.eclipse.jnosql.mapping.criteria.DefaultExpressionQueryResult'
-in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultExpressionQuery.java`
-#### Snippet
-```java
-    public ExpressionQuery<X> feed(Stream<List<Value>> results) {
-        this.setResult(
-                new DefaultExpressionQueryResult(
-                        results.map(
-                                result -> new DefaultExpressionQueryResultRow(
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'DefaultExpressionQueryResult(Stream\>)' as a member of raw type 'org.eclipse.jnosql.mapping.criteria.DefaultExpressionQueryResult'
-in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultExpressionQuery.java`
-#### Snippet
-```java
-    public ExpressionQuery<X> feed(Stream<List<Value>> results) {
-        this.setResult(
-                new DefaultExpressionQueryResult(
-                        results.map(
-                                result -> new DefaultExpressionQueryResultRow(
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'DefaultExpressionQueryResultRow(Map, Value\>)' as a member of raw type 'org.eclipse.jnosql.mapping.criteria.DefaultExpressionQueryResultRow'
-in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultExpressionQuery.java`
-#### Snippet
-```java
-                new DefaultExpressionQueryResult(
-                        results.map(
-                                result -> new DefaultExpressionQueryResultRow(
-                                        this.expressions.stream().collect(
-                                                Collectors.toMap(
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.eclipse.jnosql.mapping.criteria.DefaultNegationPredicate' to 'org.eclipse.jnosql.mapping.criteria.api.NegationPredicate'
-in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/AbstractPredicate.java`
+Unchecked assignment: 'org.eclipse.jnosql.mapping.criteria.DefaultRangePredicate' to 'org.eclipse.jnosql.mapping.criteria.api.RangePredicate\>'
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultComparableExpression.java`
 #### Snippet
 ```java
     @Override
-    public NegationPredicate<T> not() {
-        return new DefaultNegationPredicate(this);
+    public RangePredicate<X, T, Expression<X, ?, T>> exclusiveBetween(Expression<X, ?, T> from, Expression<X, ?, T> to) {
+        return new DefaultRangePredicate(RangePredicate.Operator.EXCLUSIVE_BETWEEN, this, from, to);
     }
 
 ```
 
 ### UNCHECKED_WARNING
-Unchecked call to 'DefaultNegationPredicate(Predicate)' as a member of raw type 'org.eclipse.jnosql.mapping.criteria.DefaultNegationPredicate'
-in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/AbstractPredicate.java`
+Unchecked call to 'DefaultRangePredicate(Operator, Expression, RHS, RHS)' as a member of raw type 'org.eclipse.jnosql.mapping.criteria.DefaultRangePredicate'
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultComparableExpression.java`
 #### Snippet
 ```java
     @Override
-    public NegationPredicate<T> not() {
-        return new DefaultNegationPredicate(this);
+    public RangePredicate<X, T, Expression<X, ?, T>> exclusiveBetween(Expression<X, ?, T> from, Expression<X, ?, T> to) {
+        return new DefaultRangePredicate(RangePredicate.Operator.EXCLUSIVE_BETWEEN, this, from, to);
     }
 
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'org.eclipse.jnosql.mapping.criteria.DefaultAggregatedQuery' to 'org.eclipse.jnosql.mapping.criteria.api.AggregatedQuery'
-in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultFunctionQuery.java`
+Unchecked assignment: 'org.eclipse.jnosql.mapping.criteria.DefaultBinaryPredicate' to 'org.eclipse.jnosql.mapping.criteria.api.BinaryPredicate\>'
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultComparableExpression.java`
 #### Snippet
 ```java
     @Override
-    public AggregatedQuery<T> groupBy(Expression<T, ?, ?>... groupings) {
-        return new DefaultAggregatedQuery(this.getType(), groupings);
+    public BinaryPredicate<X, T, Expression<X, ?, T>> greaterThan(Expression<X, ?, T> expression) {
+        return new DefaultBinaryPredicate(BinaryPredicate.Operator.GREATER_THAN, this, expression);
     }
 
 ```
 
 ### UNCHECKED_WARNING
-Unchecked call to 'DefaultAggregatedQuery(Class, Expression...)' as a member of raw type 'org.eclipse.jnosql.mapping.criteria.DefaultAggregatedQuery'
-in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultFunctionQuery.java`
+Unchecked call to 'DefaultBinaryPredicate(Operator, Expression, RHS)' as a member of raw type 'org.eclipse.jnosql.mapping.criteria.DefaultBinaryPredicate'
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultComparableExpression.java`
 #### Snippet
 ```java
     @Override
-    public AggregatedQuery<T> groupBy(Expression<T, ?, ?>... groupings) {
-        return new DefaultAggregatedQuery(this.getType(), groupings);
+    public BinaryPredicate<X, T, Expression<X, ?, T>> greaterThan(Expression<X, ?, T> expression) {
+        return new DefaultBinaryPredicate(BinaryPredicate.Operator.GREATER_THAN, this, expression);
     }
 
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'org.eclipse.jnosql.mapping.criteria.AbstractRestrictedQuery' to 'Q'
-in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/AbstractRestrictedQuery.java`
+Unchecked assignment: 'org.eclipse.jnosql.mapping.criteria.DefaultRangePredicate' to 'org.eclipse.jnosql.mapping.criteria.api.RangePredicate'
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultComparableExpression.java`
 #### Snippet
 ```java
-    public Q where(Predicate<T>... restrictions) {
-        this.restrictions = Arrays.asList(restrictions);
-        return (Q) this;
+    @Override
+    public RangePredicate<X, T, T> inclusiveBetween(T from, T to) {
+        return new DefaultRangePredicate(RangePredicate.Operator.INCLUSIVE_BETWEEN, this, from, to);
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'DefaultRangePredicate(Operator, Expression, RHS, RHS)' as a member of raw type 'org.eclipse.jnosql.mapping.criteria.DefaultRangePredicate'
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultComparableExpression.java`
+#### Snippet
+```java
+    @Override
+    public RangePredicate<X, T, T> inclusiveBetween(T from, T to) {
+        return new DefaultRangePredicate(RangePredicate.Operator.INCLUSIVE_BETWEEN, this, from, to);
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.eclipse.jnosql.mapping.criteria.DefaultBinaryPredicate' to 'org.eclipse.jnosql.mapping.criteria.api.BinaryPredicate\>'
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultComparableExpression.java`
+#### Snippet
+```java
+    @Override
+    public BinaryPredicate<X, T, Expression<X, ?, T>> lessThan(Expression<X, ?, T> expression) {
+        return new DefaultBinaryPredicate(BinaryPredicate.Operator.LESS_THAN, this, expression);
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'DefaultBinaryPredicate(Operator, Expression, RHS)' as a member of raw type 'org.eclipse.jnosql.mapping.criteria.DefaultBinaryPredicate'
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultComparableExpression.java`
+#### Snippet
+```java
+    @Override
+    public BinaryPredicate<X, T, Expression<X, ?, T>> lessThan(Expression<X, ?, T> expression) {
+        return new DefaultBinaryPredicate(BinaryPredicate.Operator.LESS_THAN, this, expression);
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.eclipse.jnosql.mapping.criteria.DefaultRangePredicate' to 'org.eclipse.jnosql.mapping.criteria.api.RangePredicate'
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultComparableExpression.java`
+#### Snippet
+```java
+    @Override
+    public RangePredicate<X, T, T> exclusiveBetween(T from, T to) {
+        return new DefaultRangePredicate(RangePredicate.Operator.EXCLUSIVE_BETWEEN, this, from, to);
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'DefaultRangePredicate(Operator, Expression, RHS, RHS)' as a member of raw type 'org.eclipse.jnosql.mapping.criteria.DefaultRangePredicate'
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultComparableExpression.java`
+#### Snippet
+```java
+    @Override
+    public RangePredicate<X, T, T> exclusiveBetween(T from, T to) {
+        return new DefaultRangePredicate(RangePredicate.Operator.EXCLUSIVE_BETWEEN, this, from, to);
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.eclipse.jnosql.mapping.criteria.DefaultBinaryPredicate' to 'org.eclipse.jnosql.mapping.criteria.api.BinaryPredicate'
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultComparableExpression.java`
+#### Snippet
+```java
+    @Override
+    public BinaryPredicate<X, T, T> lessThanOrEqualTo(T y) {
+        return new DefaultBinaryPredicate(BinaryPredicate.Operator.LESS_THAN_OR_EQUAL, this, y);
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'DefaultBinaryPredicate(Operator, Expression, RHS)' as a member of raw type 'org.eclipse.jnosql.mapping.criteria.DefaultBinaryPredicate'
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultComparableExpression.java`
+#### Snippet
+```java
+    @Override
+    public BinaryPredicate<X, T, T> lessThanOrEqualTo(T y) {
+        return new DefaultBinaryPredicate(BinaryPredicate.Operator.LESS_THAN_OR_EQUAL, this, y);
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.eclipse.jnosql.mapping.criteria.DefaultBinaryPredicate' to 'org.eclipse.jnosql.mapping.criteria.api.BinaryPredicate'
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultComparableExpression.java`
+#### Snippet
+```java
+    @Override
+    public BinaryPredicate<X, T, T> greaterThan(T y) {
+        return new DefaultBinaryPredicate(BinaryPredicate.Operator.GREATER_THAN, this, y);
     }
 
 ```
@@ -359,25 +443,13 @@ in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'org.eclipse.jnosql.mapping.criteria.DefaultRangePredicate' to 'org.eclipse.jnosql.mapping.criteria.api.RangePredicate'
+Unchecked call to 'DefaultBinaryPredicate(Operator, Expression, RHS)' as a member of raw type 'org.eclipse.jnosql.mapping.criteria.DefaultBinaryPredicate'
 in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultComparableExpression.java`
 #### Snippet
 ```java
     @Override
-    public RangePredicate<X, T, T> inclusiveBetween(T from, T to) {
-        return new DefaultRangePredicate(RangePredicate.Operator.INCLUSIVE_BETWEEN, this, from, to);
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'DefaultRangePredicate(Operator, Expression, RHS, RHS)' as a member of raw type 'org.eclipse.jnosql.mapping.criteria.DefaultRangePredicate'
-in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultComparableExpression.java`
-#### Snippet
-```java
-    @Override
-    public RangePredicate<X, T, T> inclusiveBetween(T from, T to) {
-        return new DefaultRangePredicate(RangePredicate.Operator.INCLUSIVE_BETWEEN, this, from, to);
+    public BinaryPredicate<X, T, T> greaterThan(T y) {
+        return new DefaultBinaryPredicate(BinaryPredicate.Operator.GREATER_THAN, this, y);
     }
 
 ```
@@ -407,13 +479,13 @@ in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'org.eclipse.jnosql.mapping.criteria.DefaultBinaryPredicate' to 'org.eclipse.jnosql.mapping.criteria.api.BinaryPredicate'
+Unchecked assignment: 'org.eclipse.jnosql.mapping.criteria.DefaultBinaryPredicate' to 'org.eclipse.jnosql.mapping.criteria.api.BinaryPredicate\>'
 in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultComparableExpression.java`
 #### Snippet
 ```java
     @Override
-    public BinaryPredicate<X, T, T> greaterThan(T y) {
-        return new DefaultBinaryPredicate(BinaryPredicate.Operator.GREATER_THAN, this, y);
+    public BinaryPredicate<X, T, Expression<X, ?, T>> lessThanOrEqualTo(Expression<X, ?, T> expression) {
+        return new DefaultBinaryPredicate(BinaryPredicate.Operator.LESS_THAN_OR_EQUAL, this, expression);
     }
 
 ```
@@ -424,32 +496,8 @@ in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/
 #### Snippet
 ```java
     @Override
-    public BinaryPredicate<X, T, T> greaterThan(T y) {
-        return new DefaultBinaryPredicate(BinaryPredicate.Operator.GREATER_THAN, this, y);
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.eclipse.jnosql.mapping.criteria.DefaultBinaryPredicate' to 'org.eclipse.jnosql.mapping.criteria.api.BinaryPredicate'
-in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultComparableExpression.java`
-#### Snippet
-```java
-    @Override
-    public BinaryPredicate<X, T, T> lessThanOrEqualTo(T y) {
-        return new DefaultBinaryPredicate(BinaryPredicate.Operator.LESS_THAN_OR_EQUAL, this, y);
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'DefaultBinaryPredicate(Operator, Expression, RHS)' as a member of raw type 'org.eclipse.jnosql.mapping.criteria.DefaultBinaryPredicate'
-in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultComparableExpression.java`
-#### Snippet
-```java
-    @Override
-    public BinaryPredicate<X, T, T> lessThanOrEqualTo(T y) {
-        return new DefaultBinaryPredicate(BinaryPredicate.Operator.LESS_THAN_OR_EQUAL, this, y);
+    public BinaryPredicate<X, T, Expression<X, ?, T>> lessThanOrEqualTo(Expression<X, ?, T> expression) {
+        return new DefaultBinaryPredicate(BinaryPredicate.Operator.LESS_THAN_OR_EQUAL, this, expression);
     }
 
 ```
@@ -479,37 +527,13 @@ in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'org.eclipse.jnosql.mapping.criteria.DefaultBinaryPredicate' to 'org.eclipse.jnosql.mapping.criteria.api.BinaryPredicate\>'
+Unchecked assignment: 'org.eclipse.jnosql.mapping.criteria.DefaultRangePredicate' to 'org.eclipse.jnosql.mapping.criteria.api.RangePredicate\>'
 in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultComparableExpression.java`
 #### Snippet
 ```java
     @Override
-    public BinaryPredicate<X, T, Expression<X, ?, T>> lessThanOrEqualTo(Expression<X, ?, T> expression) {
-        return new DefaultBinaryPredicate(BinaryPredicate.Operator.LESS_THAN_OR_EQUAL, this, expression);
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'DefaultBinaryPredicate(Operator, Expression, RHS)' as a member of raw type 'org.eclipse.jnosql.mapping.criteria.DefaultBinaryPredicate'
-in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultComparableExpression.java`
-#### Snippet
-```java
-    @Override
-    public BinaryPredicate<X, T, Expression<X, ?, T>> lessThanOrEqualTo(Expression<X, ?, T> expression) {
-        return new DefaultBinaryPredicate(BinaryPredicate.Operator.LESS_THAN_OR_EQUAL, this, expression);
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.eclipse.jnosql.mapping.criteria.DefaultRangePredicate' to 'org.eclipse.jnosql.mapping.criteria.api.RangePredicate'
-in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultComparableExpression.java`
-#### Snippet
-```java
-    @Override
-    public RangePredicate<X, T, T> exclusiveBetween(T from, T to) {
-        return new DefaultRangePredicate(RangePredicate.Operator.EXCLUSIVE_BETWEEN, this, from, to);
+    public RangePredicate<X, T, Expression<X, ?, T>> inclusiveBetween(Expression<X, ?, T> from, Expression<X, ? , T> to) {
+        return new DefaultRangePredicate(RangePredicate.Operator.INCLUSIVE_BETWEEN, this, from, to);
     }
 
 ```
@@ -520,8 +544,8 @@ in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/
 #### Snippet
 ```java
     @Override
-    public RangePredicate<X, T, T> exclusiveBetween(T from, T to) {
-        return new DefaultRangePredicate(RangePredicate.Operator.EXCLUSIVE_BETWEEN, this, from, to);
+    public RangePredicate<X, T, Expression<X, ?, T>> inclusiveBetween(Expression<X, ?, T> from, Expression<X, ? , T> to) {
+        return new DefaultRangePredicate(RangePredicate.Operator.INCLUSIVE_BETWEEN, this, from, to);
     }
 
 ```
@@ -551,110 +575,62 @@ in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'org.eclipse.jnosql.mapping.criteria.DefaultBinaryPredicate' to 'org.eclipse.jnosql.mapping.criteria.api.BinaryPredicate\>'
-in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultComparableExpression.java`
+Unchecked assignment: 'org.eclipse.jnosql.mapping.criteria.DefaultAggregatedQuery' to 'org.eclipse.jnosql.mapping.criteria.api.AggregatedQuery'
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultFunctionQuery.java`
 #### Snippet
 ```java
     @Override
-    public BinaryPredicate<X, T, Expression<X, ?, T>> greaterThan(Expression<X, ?, T> expression) {
-        return new DefaultBinaryPredicate(BinaryPredicate.Operator.GREATER_THAN, this, expression);
+    public AggregatedQuery<T> groupBy(Expression<T, ?, ?>... groupings) {
+        return new DefaultAggregatedQuery(this.getType(), groupings);
     }
 
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'DefaultAggregatedQuery(Class, Expression...)' as a member of raw type 'org.eclipse.jnosql.mapping.criteria.DefaultAggregatedQuery'
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultFunctionQuery.java`
+#### Snippet
+```java
+    @Override
+    public AggregatedQuery<T> groupBy(Expression<T, ?, ?>... groupings) {
+        return new DefaultAggregatedQuery(this.getType(), groupings);
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.eclipse.jnosql.mapping.criteria.DefaultBinaryPredicate' to 'org.eclipse.jnosql.mapping.criteria.api.BinaryPredicate'
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultStringExpression.java`
+#### Snippet
+```java
+    @Override
+    public BinaryPredicate<X, String, String> like(String pattern) {
+        return new DefaultBinaryPredicate(BinaryPredicate.Operator.LIKE, this, pattern);
+    }
+    
 ```
 
 ### UNCHECKED_WARNING
 Unchecked call to 'DefaultBinaryPredicate(Operator, Expression, RHS)' as a member of raw type 'org.eclipse.jnosql.mapping.criteria.DefaultBinaryPredicate'
-in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultComparableExpression.java`
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultStringExpression.java`
 #### Snippet
 ```java
     @Override
-    public BinaryPredicate<X, T, Expression<X, ?, T>> greaterThan(Expression<X, ?, T> expression) {
-        return new DefaultBinaryPredicate(BinaryPredicate.Operator.GREATER_THAN, this, expression);
+    public BinaryPredicate<X, String, String> like(String pattern) {
+        return new DefaultBinaryPredicate(BinaryPredicate.Operator.LIKE, this, pattern);
     }
-
+    
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'org.eclipse.jnosql.mapping.criteria.DefaultRangePredicate' to 'org.eclipse.jnosql.mapping.criteria.api.RangePredicate\>'
-in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultComparableExpression.java`
-#### Snippet
-```java
-    @Override
-    public RangePredicate<X, T, Expression<X, ?, T>> exclusiveBetween(Expression<X, ?, T> from, Expression<X, ?, T> to) {
-        return new DefaultRangePredicate(RangePredicate.Operator.EXCLUSIVE_BETWEEN, this, from, to);
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'DefaultRangePredicate(Operator, Expression, RHS, RHS)' as a member of raw type 'org.eclipse.jnosql.mapping.criteria.DefaultRangePredicate'
-in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultComparableExpression.java`
-#### Snippet
-```java
-    @Override
-    public RangePredicate<X, T, Expression<X, ?, T>> exclusiveBetween(Expression<X, ?, T> from, Expression<X, ?, T> to) {
-        return new DefaultRangePredicate(RangePredicate.Operator.EXCLUSIVE_BETWEEN, this, from, to);
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.eclipse.jnosql.mapping.criteria.DefaultRangePredicate' to 'org.eclipse.jnosql.mapping.criteria.api.RangePredicate\>'
-in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultComparableExpression.java`
-#### Snippet
-```java
-    @Override
-    public RangePredicate<X, T, Expression<X, ?, T>> inclusiveBetween(Expression<X, ?, T> from, Expression<X, ? , T> to) {
-        return new DefaultRangePredicate(RangePredicate.Operator.INCLUSIVE_BETWEEN, this, from, to);
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'DefaultRangePredicate(Operator, Expression, RHS, RHS)' as a member of raw type 'org.eclipse.jnosql.mapping.criteria.DefaultRangePredicate'
-in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultComparableExpression.java`
-#### Snippet
-```java
-    @Override
-    public RangePredicate<X, T, Expression<X, ?, T>> inclusiveBetween(Expression<X, ?, T> from, Expression<X, ? , T> to) {
-        return new DefaultRangePredicate(RangePredicate.Operator.INCLUSIVE_BETWEEN, this, from, to);
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.eclipse.jnosql.mapping.criteria.DefaultBinaryPredicate' to 'org.eclipse.jnosql.mapping.criteria.api.BinaryPredicate\>'
-in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultComparableExpression.java`
-#### Snippet
-```java
-    @Override
-    public BinaryPredicate<X, T, Expression<X, ?, T>> lessThan(Expression<X, ?, T> expression) {
-        return new DefaultBinaryPredicate(BinaryPredicate.Operator.LESS_THAN, this, expression);
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'DefaultBinaryPredicate(Operator, Expression, RHS)' as a member of raw type 'org.eclipse.jnosql.mapping.criteria.DefaultBinaryPredicate'
-in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultComparableExpression.java`
-#### Snippet
-```java
-    @Override
-    public BinaryPredicate<X, T, Expression<X, ?, T>> lessThan(Expression<X, ?, T> expression) {
-        return new DefaultBinaryPredicate(BinaryPredicate.Operator.LESS_THAN, this, expression);
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.eclipse.jnosql.mapping.metamodel.api.NumberAttribute' to 'org.eclipse.jnosql.mapping.metamodel.api.ComparableAttribute'
-in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultNumberExpression.java`
+Unchecked assignment: 'org.eclipse.jnosql.mapping.metamodel.api.StringAttribute' to 'org.eclipse.jnosql.mapping.metamodel.api.Attribute'
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultStringExpression.java`
 #### Snippet
 ```java
 
-    public DefaultNumberExpression(Path<X, Y> path, NumberAttribute attribute) {
+    public DefaultStringExpression(Path<X, Y> path, StringAttribute attribute) {
         super(path, attribute);
-    }
+    }    
     
 ```
 
@@ -668,6 +644,66 @@ in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/
     public CriteriaDocumentTemplate get(DocumentManager dm) {
         return new DefaultCriteriaDocumentTemplate(
                 dm,
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.eclipse.jnosql.mapping.criteria.DefaultNegationPredicate' to 'org.eclipse.jnosql.mapping.criteria.api.NegationPredicate'
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/AbstractPredicate.java`
+#### Snippet
+```java
+    @Override
+    public NegationPredicate<T> not() {
+        return new DefaultNegationPredicate(this);
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'DefaultNegationPredicate(Predicate)' as a member of raw type 'org.eclipse.jnosql.mapping.criteria.DefaultNegationPredicate'
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/AbstractPredicate.java`
+#### Snippet
+```java
+    @Override
+    public NegationPredicate<T> not() {
+        return new DefaultNegationPredicate(this);
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.eclipse.jnosql.mapping.criteria.api.ExpressionQuery' to 'org.eclipse.jnosql.mapping.criteria.api.ExpressionQuery'
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/CriteriaQueryUtils.java`
+#### Snippet
+```java
+
+        if (selectQuery instanceof ExpressionQuery) {
+            ExpressionQuery<X> expressionQuery = ExpressionQuery.class.cast(selectQuery);
+            builder = DocumentQuery.builder(
+                    expressionQuery.getExpressions().stream().map(
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Collection' to 'java.util.Collection'. Reason: 'CompositionPredicate.class.cast(predicate)' has raw type, so result of getPredicates is erased
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/CriteriaQueryUtils.java`
+#### Snippet
+```java
+        DocumentCondition result = null;
+        if (predicate instanceof CompositionPredicate) {
+            Collection<Predicate> restrictions = CompositionPredicate.class.cast(predicate).getPredicates();
+            Function<DocumentCondition[], DocumentCondition> function = predicate instanceof DisjunctionPredicate
+                    ? DocumentCondition::or
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.ArrayDeque' to 'java.util.Deque'
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/CriteriaQueryUtils.java`
+#### Snippet
+```java
+    public static String unfold(Path path) {
+        Path tmp = path;
+        Deque<String> attributes = new ArrayDeque();
+        while (Objects.nonNull(tmp) && !(tmp instanceof Root)) {
+            attributes.add(
 ```
 
 ### UNCHECKED_WARNING
@@ -695,78 +731,54 @@ in `jnosql-metamodel-processor-extension/src/main/java/org/eclipse/jnosql/mappin
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'org.eclipse.jnosql.mapping.criteria.api.SelectQuery' to 'org.eclipse.jnosql.mapping.criteria.api.SelectQuery'
-in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultCriteriaDocumentTemplate.java`
+Unchecked assignment: 'org.eclipse.jnosql.mapping.criteria.DefaultExpressionQueryResult' to 'org.eclipse.jnosql.mapping.criteria.DefaultExpressionQueryResult'
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultExpressionQuery.java`
 #### Snippet
 ```java
-        requireNonNull(criteriaQuery, "query is required");
-        if (criteriaQuery instanceof SelectQuery) {
-            SelectQuery<T, ?, ?, ?> selectQuery = SelectQuery.class.cast(criteriaQuery);
-            DocumentQuery documentQuery = CriteriaQueryUtils.convert(selectQuery);
-            Stream<DocumentEntity> entityStream = this.getManager().select(
+    public ExpressionQuery<X> feed(Stream<List<Value>> results) {
+        this.setResult(
+                new DefaultExpressionQueryResult(
+                        results.map(
+                                result -> new DefaultExpressionQueryResultRow(
 ```
 
 ### UNCHECKED_WARNING
-Unchecked call to 'feed(F)' as a member of raw type 'org.eclipse.jnosql.mapping.criteria.api.ExecutableQuery'
-in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultCriteriaDocumentTemplate.java`
+Unchecked call to 'DefaultExpressionQueryResult(Stream\>)' as a member of raw type 'org.eclipse.jnosql.mapping.criteria.DefaultExpressionQueryResult'
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultExpressionQuery.java`
 #### Snippet
 ```java
-
-            if (selectQuery instanceof EntityQuery) {
-                EntityQuery.class.cast(selectQuery).feed(
-                        entityStream.map(
-                                documentEntity -> this.getConverter().toEntity(
+    public ExpressionQuery<X> feed(Stream<List<Value>> results) {
+        this.setResult(
+                new DefaultExpressionQueryResult(
+                        results.map(
+                                result -> new DefaultExpressionQueryResultRow(
 ```
 
 ### UNCHECKED_WARNING
-Unchecked call to 'feed(F)' as a member of raw type 'org.eclipse.jnosql.mapping.criteria.api.ExecutableQuery'
-in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultCriteriaDocumentTemplate.java`
+Unchecked call to 'DefaultExpressionQueryResultRow(Map, Value\>)' as a member of raw type 'org.eclipse.jnosql.mapping.criteria.DefaultExpressionQueryResultRow'
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultExpressionQuery.java`
 #### Snippet
 ```java
-                );
-            } else if (selectQuery instanceof ExpressionQuery) {
-                ExpressionQuery.class.cast(selectQuery).feed(
-                        entityStream.map(
-                                documentEntity -> documentEntity.documents().stream().map(
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Collection' to 'java.util.Collection'. Reason: 'CompositionPredicate.class.cast(predicate)' has raw type, so result of getPredicates is erased
-in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/CriteriaQueryUtils.java`
-#### Snippet
-```java
-        DocumentCondition result = null;
-        if (predicate instanceof CompositionPredicate) {
-            Collection<Predicate> restrictions = CompositionPredicate.class.cast(predicate).getPredicates();
-            Function<DocumentCondition[], DocumentCondition> function = predicate instanceof DisjunctionPredicate
-                    ? DocumentCondition::or
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.eclipse.jnosql.mapping.criteria.api.ExpressionQuery' to 'org.eclipse.jnosql.mapping.criteria.api.ExpressionQuery'
-in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/CriteriaQueryUtils.java`
-#### Snippet
-```java
-
-        if (selectQuery instanceof ExpressionQuery) {
-            ExpressionQuery<X> expressionQuery = ExpressionQuery.class.cast(selectQuery);
-            builder = DocumentQuery.builder(
-                    expressionQuery.getExpressions().stream().map(
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.ArrayDeque' to 'java.util.Deque'
-in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/CriteriaQueryUtils.java`
-#### Snippet
-```java
-    public static String unfold(Path path) {
-        Path tmp = path;
-        Deque<String> attributes = new ArrayDeque();
-        while (Objects.nonNull(tmp) && !(tmp instanceof Root)) {
-            attributes.add(
+                new DefaultExpressionQueryResult(
+                        results.map(
+                                result -> new DefaultExpressionQueryResultRow(
+                                        this.expressions.stream().collect(
+                                                Collectors.toMap(
 ```
 
 ## RuleId[id=JavadocReference]
+### JavadocReference
+Cannot resolve symbol `Graph`
+in `jnosql-graph-connections/src/main/java/org/eclipse/jnosql/mapping/graph/connections/JanusGraphConfiguration.java`
+#### Snippet
+```java
+
+/**
+ * Creates the connection to {@link Graph} using JanusGraph.
+ */
+public class JanusGraphConfiguration implements GraphConfiguration {
+```
+
 ### JavadocReference
 Cannot resolve symbol `Graph`
 in `jnosql-graph-connections/src/main/java/org/eclipse/jnosql/mapping/graph/connections/Neo4JEmbeddedGraphConfiguration.java`
@@ -793,30 +805,6 @@ public class Neo4JGraphConfiguration implements GraphConfiguration {
 
 ### JavadocReference
 Cannot resolve symbol `Graph`
-in `jnosql-graph-connections/src/main/java/org/eclipse/jnosql/mapping/graph/connections/JanusGraphConfiguration.java`
-#### Snippet
-```java
-
-/**
- * Creates the connection to {@link Graph} using JanusGraph.
- */
-public class JanusGraphConfiguration implements GraphConfiguration {
-```
-
-### JavadocReference
-Cannot resolve symbol `org.eclipse.jnosql.communication.Settings`
-in `jnosql-graph-connections/src/main/java/org/eclipse/jnosql/mapping/graph/connections/Neo4JGraphConfigurations.java`
-#### Snippet
-```java
- * overwritten by the system environment using Eclipse Microprofile or Jakarta Config API.
- *
- * @see org.eclipse.jnosql.communication.Settings
- */
-public enum Neo4JGraphConfigurations implements Supplier<String> {
-```
-
-### JavadocReference
-Cannot resolve symbol `Graph`
 in `jnosql-graph-connections/src/main/java/org/eclipse/jnosql/mapping/graph/connections/ArangoDBGraphConfiguration.java`
 #### Snippet
 ```java
@@ -825,6 +813,18 @@ in `jnosql-graph-connections/src/main/java/org/eclipse/jnosql/mapping/graph/conn
  * Creates the connection to {@link Graph} using ArangoDB.
  */
 public class ArangoDBGraphConfiguration implements GraphConfiguration {
+```
+
+### JavadocReference
+Cannot resolve symbol `org.eclipse.jnosql.communication.Settings`
+in `jnosql-graph-connections/src/main/java/org/eclipse/jnosql/mapping/graph/connections/ArangoDBGraphConfigurations.java`
+#### Snippet
+```java
+ * overwritten by the system environment using Eclipse Microprofile or Jakarta Config API.
+ *
+ * @see org.eclipse.jnosql.communication.Settings
+ */
+public enum ArangoDBGraphConfigurations implements Supplier<String> {
 ```
 
 ### JavadocReference
@@ -841,14 +841,14 @@ public class TitanGraphConfiguration implements GraphConfiguration {
 
 ### JavadocReference
 Cannot resolve symbol `org.eclipse.jnosql.communication.Settings`
-in `jnosql-graph-connections/src/main/java/org/eclipse/jnosql/mapping/graph/connections/ArangoDBGraphConfigurations.java`
+in `jnosql-graph-connections/src/main/java/org/eclipse/jnosql/mapping/graph/connections/Neo4JGraphConfigurations.java`
 #### Snippet
 ```java
  * overwritten by the system environment using Eclipse Microprofile or Jakarta Config API.
  *
  * @see org.eclipse.jnosql.communication.Settings
  */
-public enum ArangoDBGraphConfigurations implements Supplier<String> {
+public enum Neo4JGraphConfigurations implements Supplier<String> {
 ```
 
 ### JavadocReference
@@ -879,42 +879,6 @@ in `jnosql-metamodel-processor-extension/src/main/java/org/eclipse/jnosql/mappin
 ## RuleId[id=RedundantClassCall]
 ### RedundantClassCall
 Redundant call to `cast()`
-in `jnosql-metamodel-processor-extension/src/main/java/org/eclipse/jnosql/mapping/metamodel/processor/MetamodelProcessor.java`
-#### Snippet
-```java
-            Element asElement = this.processingEnv.getTypeUtils().asElement(asType);
-            if (asElement instanceof TypeElement) {
-                fieldType = TypeElement.class.cast(asElement);
-            }
-        } else if (asType instanceof PrimitiveType) {
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-metamodel-processor-extension/src/main/java/org/eclipse/jnosql/mapping/metamodel/processor/MetamodelProcessor.java`
-#### Snippet
-```java
-        } else if (asType instanceof PrimitiveType) {
-            fieldType = this.processingEnv.getTypeUtils().boxedClass(
-                    PrimitiveType.class.cast(asType)
-            );
-        }
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
-in `jnosql-metamodel-processor-extension/src/main/java/org/eclipse/jnosql/mapping/metamodel/processor/MetamodelProcessor.java`
-#### Snippet
-```java
-            for (Element element : re.getElementsAnnotatedWith(annotationElement)) {
-                if (element instanceof TypeElement) {
-                    TypeElement typeElement = TypeElement.class.cast(element);
-
-                    String name = typeElement.getQualifiedName() + "_";
-```
-
-### RedundantClassCall
-Redundant call to `cast()`
 in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultCriteriaDocumentTemplate.java`
 #### Snippet
 ```java
@@ -947,6 +911,18 @@ in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/
                 ExpressionQuery.class.cast(selectQuery).feed(
                         entityStream.map(
                                 documentEntity -> documentEntity.documents().stream().map(
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/CriteriaQueryUtils.java`
+#### Snippet
+```java
+
+        if (selectQuery instanceof ExpressionQuery) {
+            ExpressionQuery<X> expressionQuery = ExpressionQuery.class.cast(selectQuery);
+            builder = DocumentQuery.builder(
+                    expressionQuery.getExpressions().stream().map(
 ```
 
 ### RedundantClassCall
@@ -999,29 +975,41 @@ in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/
 
 ### RedundantClassCall
 Redundant call to `cast()`
-in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/CriteriaQueryUtils.java`
-#### Snippet
-```java
-
-        if (selectQuery instanceof ExpressionQuery) {
-            ExpressionQuery<X> expressionQuery = ExpressionQuery.class.cast(selectQuery);
-            builder = DocumentQuery.builder(
-                    expressionQuery.getExpressions().stream().map(
-```
-
-## RuleId[id=SimplifyStreamApiCallChains]
-### SimplifyStreamApiCallChains
-'Arrays.asList().stream()' can be replaced with 'Stream.of()'
 in `jnosql-metamodel-processor-extension/src/main/java/org/eclipse/jnosql/mapping/metamodel/processor/MetamodelProcessor.java`
 #### Snippet
 ```java
-                        Embeddable.class,
-                        MappedSuperclass.class
-                ).stream().map(
-                        Class::getName
-                ).collect(
+            Element asElement = this.processingEnv.getTypeUtils().asElement(asType);
+            if (asElement instanceof TypeElement) {
+                fieldType = TypeElement.class.cast(asElement);
+            }
+        } else if (asType instanceof PrimitiveType) {
 ```
 
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-metamodel-processor-extension/src/main/java/org/eclipse/jnosql/mapping/metamodel/processor/MetamodelProcessor.java`
+#### Snippet
+```java
+        } else if (asType instanceof PrimitiveType) {
+            fieldType = this.processingEnv.getTypeUtils().boxedClass(
+                    PrimitiveType.class.cast(asType)
+            );
+        }
+```
+
+### RedundantClassCall
+Redundant call to `cast()`
+in `jnosql-metamodel-processor-extension/src/main/java/org/eclipse/jnosql/mapping/metamodel/processor/MetamodelProcessor.java`
+#### Snippet
+```java
+            for (Element element : re.getElementsAnnotatedWith(annotationElement)) {
+                if (element instanceof TypeElement) {
+                    TypeElement typeElement = TypeElement.class.cast(element);
+
+                    String name = typeElement.getQualifiedName() + "_";
+```
+
+## RuleId[id=SimplifyStreamApiCallChains]
 ### SimplifyStreamApiCallChains
 'Arrays.asList().stream()' can be replaced with 'Stream.of()'
 in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/CriteriaQueryUtils.java`
@@ -1034,7 +1022,31 @@ in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/
                                 0,
 ```
 
+### SimplifyStreamApiCallChains
+'Arrays.asList().stream()' can be replaced with 'Stream.of()'
+in `jnosql-metamodel-processor-extension/src/main/java/org/eclipse/jnosql/mapping/metamodel/processor/MetamodelProcessor.java`
+#### Snippet
+```java
+                        Embeddable.class,
+                        MappedSuperclass.class
+                ).stream().map(
+                        Class::getName
+                ).collect(
+```
+
 ## RuleId[id=FieldMayBeFinal]
+### FieldMayBeFinal
+Field `workflow` may be 'final'
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultCriteriaDocumentTemplate.java`
+#### Snippet
+```java
+    private DocumentEntityConverter converter;
+
+    private DocumentWorkflow workflow;
+
+    private EntitiesMetadata entities;
+```
+
 ### FieldMayBeFinal
 Field `manager` may be 'final'
 in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultCriteriaDocumentTemplate.java`
@@ -1045,30 +1057,6 @@ public class DefaultCriteriaDocumentTemplate extends AbstractDocumentTemplate im
     private DocumentManager manager;
 
     private DocumentEntityConverter converter;
-```
-
-### FieldMayBeFinal
-Field `converter` may be 'final'
-in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultCriteriaDocumentTemplate.java`
-#### Snippet
-```java
-    private DocumentManager manager;
-
-    private DocumentEntityConverter converter;
-
-    private DocumentWorkflow workflow;
-```
-
-### FieldMayBeFinal
-Field `converters` may be 'final'
-in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultCriteriaDocumentTemplate.java`
-#### Snippet
-```java
-    private EntitiesMetadata entities;
-
-    private Converters converters;
-
-    private DocumentEventPersistManager persistManager;
 ```
 
 ### FieldMayBeFinal
@@ -1096,15 +1084,27 @@ in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/
 ```
 
 ### FieldMayBeFinal
-Field `workflow` may be 'final'
+Field `converter` may be 'final'
 in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultCriteriaDocumentTemplate.java`
 #### Snippet
 ```java
+    private DocumentManager manager;
+
     private DocumentEntityConverter converter;
 
     private DocumentWorkflow workflow;
+```
 
+### FieldMayBeFinal
+Field `converters` may be 'final'
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultCriteriaDocumentTemplate.java`
+#### Snippet
+```java
     private EntitiesMetadata entities;
+
+    private Converters converters;
+
+    private DocumentEventPersistManager persistManager;
 ```
 
 ## RuleId[id=Deprecation]
@@ -1118,6 +1118,19 @@ in `jnosql-graph-connections/src/main/java/org/eclipse/jnosql/mapping/graph/conn
         return new Neo4JGraph(driver, vertexIdProvider, edgeIdProvider);
     }
 }
+```
+
+## RuleId[id=FuseStreamOperations]
+### FuseStreamOperations
+Stream may be extended replacing HashSet
+in `jnosql-metamodel-processor-extension/src/main/java/org/eclipse/jnosql/mapping/metamodel/processor/MetamodelProcessor.java`
+#### Snippet
+```java
+                ).stream().map(
+                        Class::getName
+                ).collect(
+                        Collectors.toList()
+                )
 ```
 
 ## RuleId[id=CdiInjectionPointsInspection]
@@ -1150,18 +1163,6 @@ Unsatisfied dependency: no bean matches the injection point
 in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultCriteriaDocumentTemplateProducer.java`
 #### Snippet
 ```java
-    
-    @Inject
-    private Converters converters;
-
-    @Inject
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultCriteriaDocumentTemplateProducer.java`
-#### Snippet
-```java
 
     @Inject
     private DocumentEventPersistManager persistManager;
@@ -1176,22 +1177,21 @@ in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/
 ```java
     
     @Inject
-    private DocumentWorkflow workflow;
-    
+    private Converters converters;
+
     @Inject
 ```
 
-## RuleId[id=FuseStreamOperations]
-### FuseStreamOperations
-Stream may be extended replacing HashSet
-in `jnosql-metamodel-processor-extension/src/main/java/org/eclipse/jnosql/mapping/metamodel/processor/MetamodelProcessor.java`
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `jnosql-criteria-extension/src/main/java/org/eclipse/jnosql/mapping/criteria/DefaultCriteriaDocumentTemplateProducer.java`
 #### Snippet
 ```java
-                ).stream().map(
-                        Class::getName
-                ).collect(
-                        Collectors.toList()
-                )
+    
+    @Inject
+    private DocumentWorkflow workflow;
+    
+    @Inject
 ```
 
 ## RuleId[id=RedundantTypeArguments]
