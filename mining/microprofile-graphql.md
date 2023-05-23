@@ -66,6 +66,183 @@ in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/dynamic/Schema
 
 ## RuleId[id=UnnecessaryModifier]
 ### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
+#### Snippet
+```java
+ */
+public interface ConfigKey {
+    public static final String DEFAULT_ERROR_MESSAGE = "mp.graphql.defaultErrorMessage";
+
+    @Deprecated
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
+#### Snippet
+```java
+ */
+public interface ConfigKey {
+    public static final String DEFAULT_ERROR_MESSAGE = "mp.graphql.defaultErrorMessage";
+
+    @Deprecated
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
+#### Snippet
+```java
+ */
+public interface ConfigKey {
+    public static final String DEFAULT_ERROR_MESSAGE = "mp.graphql.defaultErrorMessage";
+
+    @Deprecated
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
+#### Snippet
+```java
+    @Deprecated
+    public static final String EXCEPTION_WHITE_LIST = "mp.graphql.exceptionsWhiteList";
+    public static final String EXCEPTION_SHOW_ERROR_MESSAGE_LIST = "mp.graphql.showErrorMessage";
+}
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
+#### Snippet
+```java
+    @Deprecated
+    public static final String EXCEPTION_WHITE_LIST = "mp.graphql.exceptionsWhiteList";
+    public static final String EXCEPTION_SHOW_ERROR_MESSAGE_LIST = "mp.graphql.showErrorMessage";
+}
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
+#### Snippet
+```java
+    @Deprecated
+    public static final String EXCEPTION_WHITE_LIST = "mp.graphql.exceptionsWhiteList";
+    public static final String EXCEPTION_SHOW_ERROR_MESSAGE_LIST = "mp.graphql.showErrorMessage";
+}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
+#### Snippet
+```java
+    @Deprecated
+    public static final String EXCEPTION_BLACK_LIST = "mp.graphql.exceptionsBlackList";
+    public static final String EXCEPTION_HIDE_ERROR_MESSAGE_LIST = "mp.graphql.hideErrorMessage";
+
+    @Deprecated
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
+#### Snippet
+```java
+    @Deprecated
+    public static final String EXCEPTION_BLACK_LIST = "mp.graphql.exceptionsBlackList";
+    public static final String EXCEPTION_HIDE_ERROR_MESSAGE_LIST = "mp.graphql.hideErrorMessage";
+
+    @Deprecated
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
+#### Snippet
+```java
+    @Deprecated
+    public static final String EXCEPTION_BLACK_LIST = "mp.graphql.exceptionsBlackList";
+    public static final String EXCEPTION_HIDE_ERROR_MESSAGE_LIST = "mp.graphql.hideErrorMessage";
+
+    @Deprecated
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
+#### Snippet
+```java
+
+    @Deprecated
+    public static final String EXCEPTION_WHITE_LIST = "mp.graphql.exceptionsWhiteList";
+    public static final String EXCEPTION_SHOW_ERROR_MESSAGE_LIST = "mp.graphql.showErrorMessage";
+}
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
+#### Snippet
+```java
+
+    @Deprecated
+    public static final String EXCEPTION_WHITE_LIST = "mp.graphql.exceptionsWhiteList";
+    public static final String EXCEPTION_SHOW_ERROR_MESSAGE_LIST = "mp.graphql.showErrorMessage";
+}
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
+#### Snippet
+```java
+
+    @Deprecated
+    public static final String EXCEPTION_WHITE_LIST = "mp.graphql.exceptionsWhiteList";
+    public static final String EXCEPTION_SHOW_ERROR_MESSAGE_LIST = "mp.graphql.showErrorMessage";
+}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
+#### Snippet
+```java
+
+    @Deprecated
+    public static final String EXCEPTION_BLACK_LIST = "mp.graphql.exceptionsBlackList";
+    public static final String EXCEPTION_HIDE_ERROR_MESSAGE_LIST = "mp.graphql.hideErrorMessage";
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
+#### Snippet
+```java
+
+    @Deprecated
+    public static final String EXCEPTION_BLACK_LIST = "mp.graphql.exceptionsBlackList";
+    public static final String EXCEPTION_HIDE_ERROR_MESSAGE_LIST = "mp.graphql.hideErrorMessage";
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
+#### Snippet
+```java
+
+    @Deprecated
+    public static final String EXCEPTION_BLACK_LIST = "mp.graphql.exceptionsBlackList";
+    public static final String EXCEPTION_HIDE_ERROR_MESSAGE_LIST = "mp.graphql.hideErrorMessage";
+
+```
+
+### UnnecessaryModifier
 Modifier `static` is redundant for inner enums
 in `server/api/src/main/java/org/eclipse/microprofile/graphql/GraphQLException.java`
 #### Snippet
@@ -89,183 +266,6 @@ in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/dynamic/execut
     }
 ```
 
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
-#### Snippet
-```java
-    @Deprecated
-    public static final String EXCEPTION_WHITE_LIST = "mp.graphql.exceptionsWhiteList";
-    public static final String EXCEPTION_SHOW_ERROR_MESSAGE_LIST = "mp.graphql.showErrorMessage";
-}
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
-#### Snippet
-```java
-    @Deprecated
-    public static final String EXCEPTION_WHITE_LIST = "mp.graphql.exceptionsWhiteList";
-    public static final String EXCEPTION_SHOW_ERROR_MESSAGE_LIST = "mp.graphql.showErrorMessage";
-}
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
-#### Snippet
-```java
-    @Deprecated
-    public static final String EXCEPTION_WHITE_LIST = "mp.graphql.exceptionsWhiteList";
-    public static final String EXCEPTION_SHOW_ERROR_MESSAGE_LIST = "mp.graphql.showErrorMessage";
-}
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
-#### Snippet
-```java
-    @Deprecated
-    public static final String EXCEPTION_BLACK_LIST = "mp.graphql.exceptionsBlackList";
-    public static final String EXCEPTION_HIDE_ERROR_MESSAGE_LIST = "mp.graphql.hideErrorMessage";
-
-    @Deprecated
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
-#### Snippet
-```java
-    @Deprecated
-    public static final String EXCEPTION_BLACK_LIST = "mp.graphql.exceptionsBlackList";
-    public static final String EXCEPTION_HIDE_ERROR_MESSAGE_LIST = "mp.graphql.hideErrorMessage";
-
-    @Deprecated
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
-#### Snippet
-```java
-    @Deprecated
-    public static final String EXCEPTION_BLACK_LIST = "mp.graphql.exceptionsBlackList";
-    public static final String EXCEPTION_HIDE_ERROR_MESSAGE_LIST = "mp.graphql.hideErrorMessage";
-
-    @Deprecated
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
-#### Snippet
-```java
-
-    @Deprecated
-    public static final String EXCEPTION_BLACK_LIST = "mp.graphql.exceptionsBlackList";
-    public static final String EXCEPTION_HIDE_ERROR_MESSAGE_LIST = "mp.graphql.hideErrorMessage";
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
-#### Snippet
-```java
-
-    @Deprecated
-    public static final String EXCEPTION_BLACK_LIST = "mp.graphql.exceptionsBlackList";
-    public static final String EXCEPTION_HIDE_ERROR_MESSAGE_LIST = "mp.graphql.hideErrorMessage";
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
-#### Snippet
-```java
-
-    @Deprecated
-    public static final String EXCEPTION_BLACK_LIST = "mp.graphql.exceptionsBlackList";
-    public static final String EXCEPTION_HIDE_ERROR_MESSAGE_LIST = "mp.graphql.hideErrorMessage";
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
-#### Snippet
-```java
-
-    @Deprecated
-    public static final String EXCEPTION_WHITE_LIST = "mp.graphql.exceptionsWhiteList";
-    public static final String EXCEPTION_SHOW_ERROR_MESSAGE_LIST = "mp.graphql.showErrorMessage";
-}
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
-#### Snippet
-```java
-
-    @Deprecated
-    public static final String EXCEPTION_WHITE_LIST = "mp.graphql.exceptionsWhiteList";
-    public static final String EXCEPTION_SHOW_ERROR_MESSAGE_LIST = "mp.graphql.showErrorMessage";
-}
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
-#### Snippet
-```java
-
-    @Deprecated
-    public static final String EXCEPTION_WHITE_LIST = "mp.graphql.exceptionsWhiteList";
-    public static final String EXCEPTION_SHOW_ERROR_MESSAGE_LIST = "mp.graphql.showErrorMessage";
-}
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
-#### Snippet
-```java
- */
-public interface ConfigKey {
-    public static final String DEFAULT_ERROR_MESSAGE = "mp.graphql.defaultErrorMessage";
-
-    @Deprecated
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
-#### Snippet
-```java
- */
-public interface ConfigKey {
-    public static final String DEFAULT_ERROR_MESSAGE = "mp.graphql.defaultErrorMessage";
-
-    @Deprecated
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `server/api/src/main/java/org/eclipse/microprofile/graphql/ConfigKey.java`
-#### Snippet
-```java
- */
-public interface ConfigKey {
-    public static final String DEFAULT_ERROR_MESSAGE = "mp.graphql.defaultErrorMessage";
-
-    @Deprecated
-```
-
 ## RuleId[id=UNCHECKED_WARNING]
 ### UNCHECKED_WARNING
 Unchecked assignment: 'java.util.List' to 'java.util.List'
@@ -281,15 +281,15 @@ in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/dynamic/execut
 
 ## RuleId[id=AutoCloseableResource]
 ### AutoCloseableResource
-'Jsonb' used without 'try'-with-resources statement
-in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/apps/superhero/db/SidekickDatabase.java`
+'FileSystem' used without 'try'-with-resources statement
+in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/dynamic/DynamicPaths.java`
 #### Snippet
 ```java
-
-        try {
-            Jsonb jsonb = JsonbBuilder.create();
-            String mapJson = getInitalJson();
-            addSidekicks(jsonb.fromJson(mapJson,
+        URL jar = DynamicPaths.class.getProtectionDomain().getCodeSource().getLocation();
+        Path jarFile = Paths.get(jar.toURI());
+        FileSystem fs = FileSystems.newFileSystem(jarFile, (ClassLoader)null);
+        return Files.newDirectoryStream(fs.getPath(SPEC));
+    }
 ```
 
 ### AutoCloseableResource
@@ -305,15 +305,15 @@ in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/apps/superhero
 ```
 
 ### AutoCloseableResource
-'FileSystem' used without 'try'-with-resources statement
-in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/dynamic/DynamicPaths.java`
+'Jsonb' used without 'try'-with-resources statement
+in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/apps/superhero/db/SidekickDatabase.java`
 #### Snippet
 ```java
-        URL jar = DynamicPaths.class.getProtectionDomain().getCodeSource().getLocation();
-        Path jarFile = Paths.get(jar.toURI());
-        FileSystem fs = FileSystems.newFileSystem(jarFile, (ClassLoader)null);
-        return Files.newDirectoryStream(fs.getPath(SPEC));
-    }
+
+        try {
+            Jsonb jsonb = JsonbBuilder.create();
+            String mapJson = getInitalJson();
+            addSidekicks(jsonb.fromJson(mapJson,
 ```
 
 ## RuleId[id=ConditionCoveredByFurtherCondition]
@@ -396,6 +396,54 @@ in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/dynamic/Dynami
 
 ## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
+Field `formattedDateList` may be 'final'
+in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/apps/basic/api/ArraysHolder.java`
+#### Snippet
+```java
+
+    @DateFormat(value = "dd.MM.yyyy")
+    private List<LocalDate> formattedDateList = Arrays.asList(date);
+
+    public Integer[] getIntObject() {
+```
+
+### FieldMayBeFinal
+Field `dateList` may be 'final'
+in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/apps/basic/api/ArraysHolder.java`
+#### Snippet
+```java
+    private LocalDate[] date = {LocalDate.parse("2006-02-01"), LocalDate.parse("2007-03-02")};
+
+    private List<LocalDate> dateList = Arrays.asList(date);
+
+    @DateFormat(value = "dd.MM.yyyy")
+```
+
+### FieldMayBeFinal
+Field `formattedIntObject` may be 'final'
+in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/apps/basic/api/ArraysHolder.java`
+#### Snippet
+```java
+
+    @NumberFormat(value = "¤00", locale = "en-ZA")
+    private Integer[] formattedIntObject = intObject;
+
+    @NumberFormat(value = "¤00", locale = "en-ZA")
+```
+
+### FieldMayBeFinal
+Field `intPrimitive` may be 'final'
+in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/apps/basic/api/ArraysHolder.java`
+#### Snippet
+```java
+    private List<Integer> intObjectList = Arrays.asList(intObject);
+
+    private int[] intPrimitive = {1, 2, 3};
+
+    @NumberFormat(value = "¤00", locale = "en-ZA")
+```
+
+### FieldMayBeFinal
 Field `formattedDate` may be 'final'
 in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/apps/basic/api/ArraysHolder.java`
 #### Snippet
@@ -405,6 +453,30 @@ in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/apps/basic/api
     private LocalDate[] formattedDate = date;
 
     @DateFormat(value = "dd.MM.yyyy")
+```
+
+### FieldMayBeFinal
+Field `date` may be 'final'
+in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/apps/basic/api/ArraysHolder.java`
+#### Snippet
+```java
+    private int[] formattedIntPrimitive = intPrimitive;
+
+    private LocalDate[] date = {LocalDate.parse("2006-02-01"), LocalDate.parse("2007-03-02")};
+
+    private List<LocalDate> dateList = Arrays.asList(date);
+```
+
+### FieldMayBeFinal
+Field `intObjectList` may be 'final'
+in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/apps/basic/api/ArraysHolder.java`
+#### Snippet
+```java
+    private Integer[] intObject = {1, 2, 3};
+
+    private List<Integer> intObjectList = Arrays.asList(intObject);
+
+    private int[] intPrimitive = {1, 2, 3};
 ```
 
 ### FieldMayBeFinal
@@ -432,18 +504,6 @@ in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/apps/basic/api
 ```
 
 ### FieldMayBeFinal
-Field `dateList` may be 'final'
-in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/apps/basic/api/ArraysHolder.java`
-#### Snippet
-```java
-    private LocalDate[] date = {LocalDate.parse("2006-02-01"), LocalDate.parse("2007-03-02")};
-
-    private List<LocalDate> dateList = Arrays.asList(date);
-
-    @DateFormat(value = "dd.MM.yyyy")
-```
-
-### FieldMayBeFinal
 Field `formattedIntObjectList` may be 'final'
 in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/apps/basic/api/ArraysHolder.java`
 #### Snippet
@@ -456,63 +516,15 @@ in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/apps/basic/api
 ```
 
 ### FieldMayBeFinal
-Field `intPrimitive` may be 'final'
-in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/apps/basic/api/ArraysHolder.java`
+Field `name` may be 'final'
+in `client/api/src/main/java/org/eclipse/microprofile/graphql/client/core/Fragment.java`
 #### Snippet
 ```java
-    private List<Integer> intObjectList = Arrays.asList(intObject);
+    class FragmentBuilder {
 
-    private int[] intPrimitive = {1, 2, 3};
+        private String name;
 
-    @NumberFormat(value = "¤00", locale = "en-ZA")
-```
-
-### FieldMayBeFinal
-Field `intObjectList` may be 'final'
-in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/apps/basic/api/ArraysHolder.java`
-#### Snippet
-```java
-    private Integer[] intObject = {1, 2, 3};
-
-    private List<Integer> intObjectList = Arrays.asList(intObject);
-
-    private int[] intPrimitive = {1, 2, 3};
-```
-
-### FieldMayBeFinal
-Field `formattedIntObject` may be 'final'
-in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/apps/basic/api/ArraysHolder.java`
-#### Snippet
-```java
-
-    @NumberFormat(value = "¤00", locale = "en-ZA")
-    private Integer[] formattedIntObject = intObject;
-
-    @NumberFormat(value = "¤00", locale = "en-ZA")
-```
-
-### FieldMayBeFinal
-Field `date` may be 'final'
-in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/apps/basic/api/ArraysHolder.java`
-#### Snippet
-```java
-    private int[] formattedIntPrimitive = intPrimitive;
-
-    private LocalDate[] date = {LocalDate.parse("2006-02-01"), LocalDate.parse("2007-03-02")};
-
-    private List<LocalDate> dateList = Arrays.asList(date);
-```
-
-### FieldMayBeFinal
-Field `formattedDateList` may be 'final'
-in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/apps/basic/api/ArraysHolder.java`
-#### Snippet
-```java
-
-    @DateFormat(value = "dd.MM.yyyy")
-    private List<LocalDate> formattedDateList = Arrays.asList(date);
-
-    public Integer[] getIntObject() {
+        private String targetType;
 ```
 
 ### FieldMayBeFinal
@@ -525,18 +537,6 @@ in `client/api/src/main/java/org/eclipse/microprofile/graphql/client/core/Scalar
     private String type;
 
     ScalarType(String type) {
-```
-
-### FieldMayBeFinal
-Field `name` may be 'final'
-in `client/api/src/main/java/org/eclipse/microprofile/graphql/client/core/Fragment.java`
-#### Snippet
-```java
-    class FragmentBuilder {
-
-        private String name;
-
-        private String targetType;
 ```
 
 ### FieldMayBeFinal
@@ -579,18 +579,6 @@ in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/apps/basic/api
 
 ## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
-Local variable `content` is redundant
-in `client/tck/src/main/java/org/eclipse/microprofile/graphql/client/tck/helper/Utils.java`
-#### Snippet
-```java
-        InputStream in =classLoader.getResourceAsStream(resourceName);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-        String content = reader.lines().collect(Collectors.joining("\n"));
-
-        return content;
-```
-
-### UnnecessaryLocalVariable
 Local variable `t` is redundant
 in `client/api/src/main/java/org/eclipse/microprofile/graphql/client/core/utils/ServiceUtils.java`
 #### Snippet
@@ -600,6 +588,18 @@ in `client/api/src/main/java/org/eclipse/microprofile/graphql/client/core/utils/
         T t = sl.iterator().next();
 
         return t;
+```
+
+### UnnecessaryLocalVariable
+Local variable `content` is redundant
+in `client/tck/src/main/java/org/eclipse/microprofile/graphql/client/tck/helper/Utils.java`
+#### Snippet
+```java
+        InputStream in =classLoader.getResourceAsStream(resourceName);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+        String content = reader.lines().collect(Collectors.joining("\n"));
+
+        return content;
 ```
 
 ### UnnecessaryLocalVariable
@@ -696,11 +696,11 @@ in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/apps/superhero
 in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/dynamic/execution/TestData.java`
 #### Snippet
 ```java
-            return false;
-        }
-        if (!Objects.equals(this.properties, other.properties)) {
-            return false;
-        }
+        if(properties!=null && !properties.isEmpty() && properties.containsKey(key)){
+            String ignore = properties.getProperty(key);
+            if(ignore!=null && !ignore.isEmpty() && ignore.equalsIgnoreCase("true")){
+                return true;
+            }
 ```
 
 ### TrivialIf
@@ -708,10 +708,10 @@ in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/dynamic/execut
 in `server/tck/src/main/java/org/eclipse/microprofile/graphql/tck/dynamic/execution/TestData.java`
 #### Snippet
 ```java
-        if(properties!=null && !properties.isEmpty() && properties.containsKey(key)){
-            String ignore = properties.getProperty(key);
-            if(ignore!=null && !ignore.isEmpty() && ignore.equalsIgnoreCase("true")){
-                return true;
-            }
+            return false;
+        }
+        if (!Objects.equals(this.properties, other.properties)) {
+            return false;
+        }
 ```
 
