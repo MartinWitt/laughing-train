@@ -8,8 +8,8 @@ I found 15 bad smells with 0 repairable:
 | UnstableApiUsage | 4 | false |
 | RedundantTypeArguments | 2 | false |
 | OptionalUsedAsFieldOrParameterType | 1 | false |
-| Deprecation | 1 | false |
 | SimplifyOptionalCallChains | 1 | false |
+| Deprecation | 1 | false |
 ## RuleId[id=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'optionalValue'
@@ -21,19 +21,6 @@ in `streams/src/main/java/com/palantir/common/streams/MoreStreams.java`
     public static <T> Stream<T> stream(Optional<T> optionalValue) {
         return optionalValue.map(Stream::of).orElseGet(Stream::empty);
     }
-```
-
-## RuleId[id=Deprecation]
-### Deprecation
-'stream(java.lang.Iterable)' is deprecated
-in `streams/src/main/java/com/palantir/common/streams/KeyedStream.java`
-#### Snippet
-```java
-     */
-    static <V> KeyedStream<V, V> of(Iterable<? extends V> items) {
-        return KeyedStream.of(MoreStreams.stream(items));
-    }
-
 ```
 
 ## RuleId[id=SimplifyOptionalCallChains]
@@ -49,19 +36,20 @@ in `streams/src/main/java/com/palantir/common/streams/MoreStreams.java`
 
 ```
 
-## RuleId[id=RedundantTypeArguments]
-### RedundantTypeArguments
-Type arguments are redundant for the non-generic method reference
-in `streams/src/main/java/com/palantir/common/streams/MoreCollectors.java`
+## RuleId[id=Deprecation]
+### Deprecation
+'stream(java.lang.Iterable)' is deprecated
+in `streams/src/main/java/com/palantir/common/streams/KeyedStream.java`
 #### Snippet
 ```java
-        return Collector.of(
-                ImmutableSet::<T>builder,
-                ImmutableSet.Builder::<T>add,
-                (left, right) -> left.addAll(right.build()),
-                ImmutableSet.Builder::build,
+     */
+    static <V> KeyedStream<V, V> of(Iterable<? extends V> items) {
+        return KeyedStream.of(MoreStreams.stream(items));
+    }
+
 ```
 
+## RuleId[id=RedundantTypeArguments]
 ### RedundantTypeArguments
 Type arguments are redundant for the non-generic method reference
 in `streams/src/main/java/com/palantir/common/streams/MoreCollectors.java`
@@ -74,19 +62,19 @@ in `streams/src/main/java/com/palantir/common/streams/MoreCollectors.java`
                 ImmutableList.Builder::build);
 ```
 
-## RuleId[id=DeprecatedIsStillUsed]
-### DeprecatedIsStillUsed
-Deprecated member 'blockingStreamWithParallelism' is still used
-in `streams/src/main/java/com/palantir/common/streams/MoreStreams.java`
+### RedundantTypeArguments
+Type arguments are redundant for the non-generic method reference
+in `streams/src/main/java/com/palantir/common/streams/MoreCollectors.java`
 #### Snippet
 ```java
-     */
-    @Deprecated
-    public static <T, F extends ListenableFuture<T>> Stream<F> blockingStreamWithParallelism(
-            Stream<F> futures, int maxParallelism) {
-        return StreamSupport.stream(
+        return Collector.of(
+                ImmutableSet::<T>builder,
+                ImmutableSet.Builder::<T>add,
+                (left, right) -> left.addAll(right.build()),
+                ImmutableSet.Builder::build,
 ```
 
+## RuleId[id=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
 Deprecated member 'stream' is still used
 in `streams/src/main/java/com/palantir/common/streams/MoreStreams.java`
@@ -109,6 +97,30 @@ in `streams/src/main/java/com/palantir/common/streams/MoreStreams.java`
     public static <T, F extends ListenableFuture<T>> Stream<F> inCompletionOrder(
             Stream<F> futures, int maxParallelism) {
         return StreamSupport.stream(
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'blockingStreamWithParallelism' is still used
+in `streams/src/main/java/com/palantir/common/streams/MoreStreams.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static <T, F extends ListenableFuture<T>> Stream<F> blockingStreamWithParallelism(
+            Stream<F> futures, int maxParallelism) {
+        return StreamSupport.stream(
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'toImmutableList' is still used
+in `streams/src/main/java/com/palantir/common/streams/MoreCollectors.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static <T> Collector<T, ?, List<T>> toImmutableList() {
+        return Collector.of(
+                ImmutableList::<T>builder,
 ```
 
 ### DeprecatedIsStillUsed
@@ -135,31 +147,7 @@ in `streams/src/main/java/com/palantir/common/streams/MoreCollectors.java`
                 ImmutableSet::<T>builder,
 ```
 
-### DeprecatedIsStillUsed
-Deprecated member 'toImmutableList' is still used
-in `streams/src/main/java/com/palantir/common/streams/MoreCollectors.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static <T> Collector<T, ?, List<T>> toImmutableList() {
-        return Collector.of(
-                ImmutableList::<T>builder,
-```
-
 ## RuleId[id=UnstableApiUsage]
-### UnstableApiUsage
-'stream(java.util.Iterator)' is marked unstable with @Beta
-in `streams/src/main/java/com/palantir/common/streams/MoreStreams.java`
-#### Snippet
-```java
-     * @return A stream for the iterator
-     *
-     * @deprecated Use {@link com.google.common.collect.Streams#stream(Iterator)}, available in Guava 21+
-     */
-    @Deprecated
-```
-
 ### UnstableApiUsage
 'stream(java.util.Optional)' is marked unstable with @Beta
 in `streams/src/main/java/com/palantir/common/streams/MoreStreams.java`
@@ -173,11 +161,23 @@ in `streams/src/main/java/com/palantir/common/streams/MoreStreams.java`
 ```
 
 ### UnstableApiUsage
+'stream(java.util.Iterator)' is marked unstable with @Beta
+in `streams/src/main/java/com/palantir/common/streams/MoreStreams.java`
+#### Snippet
+```java
+     * @return A stream for the iterator
+     *
+     * @deprecated Use {@link com.google.common.collect.Streams#stream(Iterator)}, available in Guava 21+
+     */
+    @Deprecated
+```
+
+### UnstableApiUsage
 'transform(com.google.common.util.concurrent.ListenableFuture*, com.google.common.base.Function, java.util.concurrent.Executor)' is marked unstable with @Beta*
 in `streams/src/main/java/com/palantir/common/streams/MoreStreams.java`
 #### Snippet
 ```java
-                                InSourceOrder.INSTANCE,
+                                InCompletionOrder.INSTANCE,
                                 arguments.spliterator(),
                                 x -> Futures.transform(Futures.immediateFuture(x), mapper::apply, executor),
                                 maxParallelism),
@@ -189,7 +189,7 @@ in `streams/src/main/java/com/palantir/common/streams/MoreStreams.java`
 in `streams/src/main/java/com/palantir/common/streams/MoreStreams.java`
 #### Snippet
 ```java
-                                InCompletionOrder.INSTANCE,
+                                InSourceOrder.INSTANCE,
                                 arguments.spliterator(),
                                 x -> Futures.transform(Futures.immediateFuture(x), mapper::apply, executor),
                                 maxParallelism),
