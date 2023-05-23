@@ -12,8 +12,8 @@ I found 32 bad smells with 0 repairable:
 | SpringXmlAutowireExplicitlyInspection | 1 | false |
 | JavadocReference | 1 | false |
 | JavadocDeclaration | 1 | false |
-| EqualsWhichDoesntCheckParameterClass | 1 | false |
 | DeprecatedIsStillUsed | 1 | false |
+| EqualsWhichDoesntCheckParameterClass | 1 | false |
 ## RuleId[id=SpringJavaInjectionPointsAutowiringInspection]
 ### SpringJavaInjectionPointsAutowiringInspection
 Could not autowire. No beans of 'SBuildServer' type found.
@@ -52,6 +52,18 @@ in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/WebhooksEventLis
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'PluginLifecycleEventDispatcher' type found.
+in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/WebhooksManager.java`
+#### Snippet
+```java
+    }
+
+    public WebhooksManager(PluginLifecycleEventDispatcher dispatcher,
+                           AsyncEventDispatcher asyncEventDispatcher,
+                           WebhooksEventListener eventListener) {
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
 Could not autowire. No beans of 'RestApiFacade' type found.
 in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/RestApiProducer.java`
 #### Snippet
@@ -63,16 +75,29 @@ in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/RestApiProducer.
     }
 ```
 
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'PluginLifecycleEventDispatcher' type found.
-in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/WebhooksManager.java`
+## RuleId[id=NonFinalFieldInEnum]
+### NonFinalFieldInEnum
+Non-final field `restApiUrl` in enum 'EventType'
+in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/RestApiProducer.java`
 #### Snippet
 ```java
-    }
+        BUILD(Arrays.asList(BUILD_STARTED, BUILD_FINISHED, BUILD_INTERRUPTED, CHANGES_LOADED, BUILD_TYPE_ADDED_TO_QUEUE, BUILD_REMOVED_FROM_QUEUE, BUILD_PROBLEMS_CHANGED), "/app/rest/builds/promotionId:");
 
-    public WebhooksManager(PluginLifecycleEventDispatcher dispatcher,
-                           AsyncEventDispatcher asyncEventDispatcher,
-                           WebhooksEventListener eventListener) {
+        private String restApiUrl;
+        private List<String> events;
+
+```
+
+### NonFinalFieldInEnum
+Non-final field `events` in enum 'EventType'
+in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/RestApiProducer.java`
+#### Snippet
+```java
+
+        private String restApiUrl;
+        private List<String> events;
+
+        EventType(List<String> events, String restApiUrl) {
 ```
 
 ## RuleId[id=SpringXmlAutowireExplicitlyInspection]
@@ -86,31 +111,6 @@ in `webhooks-server/src/main/resources/META-INF/build-server-plugin-teamcity-web
        default-autowire="constructor">
     <context:component-scan base-package="jetbrains.buildServer.webhook"/>
 </beans>
-```
-
-## RuleId[id=NonFinalFieldInEnum]
-### NonFinalFieldInEnum
-Non-final field `events` in enum 'EventType'
-in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/RestApiProducer.java`
-#### Snippet
-```java
-
-        private String restApiUrl;
-        private List<String> events;
-
-        EventType(List<String> events, String restApiUrl) {
-```
-
-### NonFinalFieldInEnum
-Non-final field `restApiUrl` in enum 'EventType'
-in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/RestApiProducer.java`
-#### Snippet
-```java
-        BUILD(Arrays.asList(BUILD_STARTED, BUILD_FINISHED, BUILD_INTERRUPTED, CHANGES_LOADED, BUILD_TYPE_ADDED_TO_QUEUE, BUILD_REMOVED_FROM_QUEUE, BUILD_PROBLEMS_CHANGED), "/app/rest/builds/promotionId:");
-
-        private String restApiUrl;
-        private List<String> events;
-
 ```
 
 ## RuleId[id=JavadocReference]
@@ -129,14 +129,14 @@ in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/async/AsyncEvent
 ## RuleId[id=Deprecation]
 ### Deprecation
 'jetbrains.buildServer.webhook.async.AsyncEventDispatcher' is deprecated
-in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/async/events/AsyncEvent.java`
+in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/async/AsyncEventListener.java`
 #### Snippet
 ```java
-
-/**
- * Simple event used by {@link jetbrains.buildServer.webhook.async.AsyncEventDispatcher}
- * to allows listeners {@link jetbrains.buildServer.webhook.async.AsyncEventListener} handle it asynchronously
- */
+    /**
+     * Overriding this method allows to define a list of listeners for which order of handling events is important
+     * @return key witch will be used for synchronization ordering events during the processing in {@link AsyncEventDispatcher}
+     */
+    default Object getSyncKey() {
 ```
 
 ### Deprecation
@@ -153,14 +153,14 @@ in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/WebhooksManager.
 
 ### Deprecation
 'jetbrains.buildServer.webhook.async.AsyncEventDispatcher' is deprecated
-in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/async/AsyncEventListener.java`
+in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/async/events/AsyncEvent.java`
 #### Snippet
 ```java
-    /**
-     * Overriding this method allows to define a list of listeners for which order of handling events is important
-     * @return key witch will be used for synchronization ordering events during the processing in {@link AsyncEventDispatcher}
-     */
-    default Object getSyncKey() {
+
+/**
+ * Simple event used by {@link jetbrains.buildServer.webhook.async.AsyncEventDispatcher}
+ * to allows listeners {@link jetbrains.buildServer.webhook.async.AsyncEventListener} handle it asynchronously
+ */
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
@@ -345,19 +345,6 @@ in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/WebhookDataProdu
     String getJson(AsyncEvent event, String fields);
 ```
 
-## RuleId[id=EqualsWhichDoesntCheckParameterClass]
-### EqualsWhichDoesntCheckParameterClass
-`equals()` should check the class of its parameter
-in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/async/AsyncEventDispatcher.java`
-#### Snippet
-```java
-
-            @Override
-            public boolean equals(Object obj) {
-                return listener.equals(obj);
-            }
-```
-
 ## RuleId[id=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
 Deprecated member 'AsyncEventDispatcher' is still used
@@ -369,6 +356,19 @@ in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/async/AsyncEvent
 public class AsyncEventDispatcher {
 
     private final jetbrains.buildServer.serverSide.impl.events.async.AsyncEventDispatcher myDelegate;
+```
+
+## RuleId[id=EqualsWhichDoesntCheckParameterClass]
+### EqualsWhichDoesntCheckParameterClass
+`equals()` should check the class of its parameter
+in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/async/AsyncEventDispatcher.java`
+#### Snippet
+```java
+
+            @Override
+            public boolean equals(Object obj) {
+                return listener.equals(obj);
+            }
 ```
 
 ## RuleId[id=FieldMayBeFinal]
@@ -385,18 +385,6 @@ in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/WebhooksEventLis
 ```
 
 ### FieldMayBeFinal
-Field `events` may be 'final'
-in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/RestApiProducer.java`
-#### Snippet
-```java
-
-        private String restApiUrl;
-        private List<String> events;
-
-        EventType(List<String> events, String restApiUrl) {
-```
-
-### FieldMayBeFinal
 Field `restApiUrl` may be 'final'
 in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/RestApiProducer.java`
 #### Snippet
@@ -406,5 +394,17 @@ in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/RestApiProducer.
         private String restApiUrl;
         private List<String> events;
 
+```
+
+### FieldMayBeFinal
+Field `events` may be 'final'
+in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/RestApiProducer.java`
+#### Snippet
+```java
+
+        private String restApiUrl;
+        private List<String> events;
+
+        EventType(List<String> events, String restApiUrl) {
 ```
 
