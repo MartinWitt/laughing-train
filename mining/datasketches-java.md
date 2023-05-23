@@ -112,24 +112,24 @@ in `src/main/java/org/apache/datasketches/quantilescommon/QuantilesGenericAPI.ja
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `src/main/java/org/apache/datasketches/tuple/SummaryFactory.java`
-#### Snippet
-```java
-   * @return new instance of Summary
-   */
-  public S newSummary();
-
-}
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
 in `src/main/java/org/apache/datasketches/tuple/SummaryDeserializer.java`
 #### Snippet
 ```java
    * from the Memory
    */
   public DeserializeResult<S> heapifySummary(Memory mem);
+
+}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/org/apache/datasketches/tuple/SummaryFactory.java`
+#### Snippet
+```java
+   * @return new instance of Summary
+   */
+  public S newSummary();
 
 }
 ```
@@ -175,11 +175,11 @@ Modifier `public` is redundant for interface members
 in `src/main/java/org/apache/datasketches/tuple/arrayofdoubles/ArrayOfDoublesSketchIterator.java`
 #### Snippet
 ```java
-   * @return true if the next element exists
+   * @return array of double values for the current entry (may or may not be a copy)
    */
-  public boolean next();
+  public double[] getValues();
+}
 
-  /**
 ```
 
 ### UnnecessaryModifier
@@ -199,11 +199,11 @@ Modifier `public` is redundant for interface members
 in `src/main/java/org/apache/datasketches/tuple/arrayofdoubles/ArrayOfDoublesSketchIterator.java`
 #### Snippet
 ```java
-   * @return array of double values for the current entry (may or may not be a copy)
+   * @return true if the next element exists
    */
-  public double[] getValues();
-}
+  public boolean next();
 
+  /**
 ```
 
 ### UnnecessaryModifier
@@ -255,30 +255,6 @@ in `src/main/java/org/apache/datasketches/common/Family.java`
 ```
 
 ### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/org/apache/datasketches/tuple/arrayofdoubles/ArrayOfDoublesCombiner.java`
-#### Snippet
-```java
-   * @return Result of combining A and B
-   */
-  public double[] combine(double[] a, double[] b);
-
-}
-```
-
-### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
-in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.java`
-#### Snippet
-```java
-    private String actionDescription;
-
-    private UnionAction(final String actionId, final String actionDescription) {
-      this.actionId = actionId;
-      this.actionDescription = actionDescription;
-```
-
-### UnnecessaryModifier
 Modifier `private` is redundant for enum constructors
 in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.java`
 #### Snippet
@@ -288,6 +264,18 @@ in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.ja
     private CornerCase(final int caseId, final String caseDescription,
         final IntersectAction intersectAction, final AnotbAction anotbAction, final UnionAction unionAction) {
       this.caseId = caseId;
+```
+
+### UnnecessaryModifier
+Modifier `private` is redundant for enum constructors
+in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.java`
+#### Snippet
+```java
+    private String actionDescription;
+
+    private IntersectAction(final String actionId, final String actionDescription) {
+      this.actionId = actionId;
+      this.actionDescription = actionDescription;
 ```
 
 ### UnnecessaryModifier
@@ -309,9 +297,21 @@ in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.ja
 ```java
     private String actionDescription;
 
-    private IntersectAction(final String actionId, final String actionDescription) {
+    private UnionAction(final String actionId, final String actionDescription) {
       this.actionId = actionId;
       this.actionDescription = actionDescription;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/org/apache/datasketches/tuple/arrayofdoubles/ArrayOfDoublesCombiner.java`
+#### Snippet
+```java
+   * @return Result of combining A and B
+   */
+  public double[] combine(double[] a, double[] b);
+
+}
 ```
 
 ### UnnecessaryModifier
@@ -453,1880 +453,8 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
 
-  static void packBits5(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off] = (byte) (values[i + 0] << 3);
-    buf[off++] |= values[i + 1] >>> 2;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits32(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 24);
-    buf[off++] = (byte) (values[i + 0] >>> 16);
-    buf[off++] = (byte) (values[i + 0] >>> 8);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void packBits32(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 24);
-    buf[off++] = (byte) (values[i + 0] >>> 16);
-    buf[off++] = (byte) (values[i + 0] >>> 8);
-    buf[off++] = (byte) (values[i + 0]);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 24);
-    buf[off++] = (byte) (values[i + 0] >>> 16);
-    buf[off++] = (byte) (values[i + 0] >>> 8);
-    buf[off++] = (byte) (values[i + 0]);
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 16);
-    buf[off++] = (byte) (values[i + 0] >>> 8);
-    buf[off++] = (byte) (values[i + 0]);
-
-    buf[off++] = (byte) (values[i + 1] >>> 24);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits41(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 33);
-    buf[off++] = (byte) (values[i + 0] >>> 25);
-    buf[off++] = (byte) (values[i + 0] >>> 17);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void packBits41(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 33);
-    buf[off++] = (byte) (values[i + 0] >>> 25);
-    buf[off++] = (byte) (values[i + 0] >>> 17);
-    buf[off++] = (byte) (values[i + 0] >>> 9);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 33);
-    buf[off++] = (byte) (values[i + 0] >>> 25);
-    buf[off++] = (byte) (values[i + 0] >>> 17);
-    buf[off++] = (byte) (values[i + 0] >>> 9);
-    buf[off++] = (byte) (values[i + 0] >>> 1);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 25);
-    buf[off++] = (byte) (values[i + 0] >>> 17);
-    buf[off++] = (byte) (values[i + 0] >>> 9);
-    buf[off++] = (byte) (values[i + 0] >>> 1);
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 17);
-    buf[off++] = (byte) (values[i + 0] >>> 9);
-    buf[off++] = (byte) (values[i + 0] >>> 1);
-
-    buf[off] = (byte) (values[i + 0] << 7);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 1);
-
-    buf[off] = (byte) (values[i + 0] << 7);
-    buf[off++] |= values[i + 1] >>> 34;
-    buf[off++] = (byte) (values[i + 1] >>> 26);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void unpackBits42(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 34;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 26;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 18;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void unpackBits42(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 34;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 26;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 18;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 34;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 26;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 18;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 2;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 26;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 18;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 2;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 6;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 18;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 2;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 6;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 2;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 6;
-
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0x3f) << 36;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void unpackBits17(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 9;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 1;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 7;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void unpackBits17(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 9;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 1;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 7;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 9;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 1;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 7;
-
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0x7f) << 10;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits53(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 45);
-    buf[off++] = (byte) (values[i + 0] >>> 37);
-    buf[off++] = (byte) (values[i + 0] >>> 29);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void packBits53(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 45);
-    buf[off++] = (byte) (values[i + 0] >>> 37);
-    buf[off++] = (byte) (values[i + 0] >>> 29);
-    buf[off++] = (byte) (values[i + 0] >>> 21);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 45);
-    buf[off++] = (byte) (values[i + 0] >>> 37);
-    buf[off++] = (byte) (values[i + 0] >>> 29);
-    buf[off++] = (byte) (values[i + 0] >>> 21);
-    buf[off++] = (byte) (values[i + 0] >>> 13);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 37);
-    buf[off++] = (byte) (values[i + 0] >>> 29);
-    buf[off++] = (byte) (values[i + 0] >>> 21);
-    buf[off++] = (byte) (values[i + 0] >>> 13);
-    buf[off++] = (byte) (values[i + 0] >>> 5);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 29);
-    buf[off++] = (byte) (values[i + 0] >>> 21);
-    buf[off++] = (byte) (values[i + 0] >>> 13);
-    buf[off++] = (byte) (values[i + 0] >>> 5);
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 21);
-    buf[off++] = (byte) (values[i + 0] >>> 13);
-    buf[off++] = (byte) (values[i + 0] >>> 5);
-
-    buf[off] = (byte) (values[i + 0] << 3);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 5);
-
-    buf[off] = (byte) (values[i + 0] << 3);
-    buf[off++] |= values[i + 1] >>> 50;
-    buf[off++] = (byte) (values[i + 1] >>> 42);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void unpackBits9(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 1;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 7;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void unpackBits9(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 1;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 7;
-
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0x7f) << 2;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits24(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 16);
-    buf[off++] = (byte) (values[i + 0] >>> 8);
-    buf[off++] = (byte) (values[i + 0]);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void packBits24(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 16);
-    buf[off++] = (byte) (values[i + 0] >>> 8);
-    buf[off++] = (byte) (values[i + 0]);
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 16);
-    buf[off++] = (byte) (values[i + 0] >>> 8);
-    buf[off++] = (byte) (values[i + 0]);
-
-    buf[off++] = (byte) (values[i + 1] >>> 16);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void unpackBits34(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 26;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 18;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void unpackBits34(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 26;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 18;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 2;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 26;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 18;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 2;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 6;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 18;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 2;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 6;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 2;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 6;
-
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0x3f) << 28;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits42(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 34);
-    buf[off++] = (byte) (values[i + 0] >>> 26);
-    buf[off++] = (byte) (values[i + 0] >>> 18);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void packBits42(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 34);
-    buf[off++] = (byte) (values[i + 0] >>> 26);
-    buf[off++] = (byte) (values[i + 0] >>> 18);
-    buf[off++] = (byte) (values[i + 0] >>> 10);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 34);
-    buf[off++] = (byte) (values[i + 0] >>> 26);
-    buf[off++] = (byte) (values[i + 0] >>> 18);
-    buf[off++] = (byte) (values[i + 0] >>> 10);
-    buf[off++] = (byte) (values[i + 0] >>> 2);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 26);
-    buf[off++] = (byte) (values[i + 0] >>> 18);
-    buf[off++] = (byte) (values[i + 0] >>> 10);
-    buf[off++] = (byte) (values[i + 0] >>> 2);
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 18);
-    buf[off++] = (byte) (values[i + 0] >>> 10);
-    buf[off++] = (byte) (values[i + 0] >>> 2);
-
-    buf[off] = (byte) (values[i + 0] << 6);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 2);
-
-    buf[off] = (byte) (values[i + 0] << 6);
-    buf[off++] |= values[i + 1] >>> 36;
-    buf[off++] = (byte) (values[i + 1] >>> 28);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void unpackBits10(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 2;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 6;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void unpackBits10(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 2;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 6;
-
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0x3f) << 4;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits45(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 37);
-    buf[off++] = (byte) (values[i + 0] >>> 29);
-    buf[off++] = (byte) (values[i + 0] >>> 21);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void packBits45(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 37);
-    buf[off++] = (byte) (values[i + 0] >>> 29);
-    buf[off++] = (byte) (values[i + 0] >>> 21);
-    buf[off++] = (byte) (values[i + 0] >>> 13);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 37);
-    buf[off++] = (byte) (values[i + 0] >>> 29);
-    buf[off++] = (byte) (values[i + 0] >>> 21);
-    buf[off++] = (byte) (values[i + 0] >>> 13);
-    buf[off++] = (byte) (values[i + 0] >>> 5);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 29);
-    buf[off++] = (byte) (values[i + 0] >>> 21);
-    buf[off++] = (byte) (values[i + 0] >>> 13);
-    buf[off++] = (byte) (values[i + 0] >>> 5);
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 21);
-    buf[off++] = (byte) (values[i + 0] >>> 13);
-    buf[off++] = (byte) (values[i + 0] >>> 5);
-
-    buf[off] = (byte) (values[i + 0] << 3);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 5);
-
-    buf[off] = (byte) (values[i + 0] << 3);
-    buf[off++] |= values[i + 1] >>> 42;
-    buf[off++] = (byte) (values[i + 1] >>> 34);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits57(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 49);
-    buf[off++] = (byte) (values[i + 0] >>> 41);
-    buf[off++] = (byte) (values[i + 0] >>> 33);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void packBits57(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 49);
-    buf[off++] = (byte) (values[i + 0] >>> 41);
-    buf[off++] = (byte) (values[i + 0] >>> 33);
-    buf[off++] = (byte) (values[i + 0] >>> 25);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 49);
-    buf[off++] = (byte) (values[i + 0] >>> 41);
-    buf[off++] = (byte) (values[i + 0] >>> 33);
-    buf[off++] = (byte) (values[i + 0] >>> 25);
-    buf[off++] = (byte) (values[i + 0] >>> 17);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 41);
-    buf[off++] = (byte) (values[i + 0] >>> 33);
-    buf[off++] = (byte) (values[i + 0] >>> 25);
-    buf[off++] = (byte) (values[i + 0] >>> 17);
-    buf[off++] = (byte) (values[i + 0] >>> 9);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 33);
-    buf[off++] = (byte) (values[i + 0] >>> 25);
-    buf[off++] = (byte) (values[i + 0] >>> 17);
-    buf[off++] = (byte) (values[i + 0] >>> 9);
-    buf[off++] = (byte) (values[i + 0] >>> 1);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 25);
-    buf[off++] = (byte) (values[i + 0] >>> 17);
-    buf[off++] = (byte) (values[i + 0] >>> 9);
-    buf[off++] = (byte) (values[i + 0] >>> 1);
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 17);
-    buf[off++] = (byte) (values[i + 0] >>> 9);
-    buf[off++] = (byte) (values[i + 0] >>> 1);
-
-    buf[off] = (byte) (values[i + 0] << 7);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 1);
-
-    buf[off] = (byte) (values[i + 0] << 7);
-    buf[off++] |= values[i + 1] >>> 50;
-    buf[off++] = (byte) (values[i + 1] >>> 42);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits6(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off] = (byte) (values[i + 0] << 2);
-    buf[off++] |= values[i + 1] >>> 4;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits10(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 2);
-
-    buf[off] = (byte) (values[i + 0] << 6);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 2);
-
-    buf[off] = (byte) (values[i + 0] << 6);
-    buf[off++] |= values[i + 1] >>> 4;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits50(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 42);
-    buf[off++] = (byte) (values[i + 0] >>> 34);
-    buf[off++] = (byte) (values[i + 0] >>> 26);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void packBits50(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 42);
-    buf[off++] = (byte) (values[i + 0] >>> 34);
-    buf[off++] = (byte) (values[i + 0] >>> 26);
-    buf[off++] = (byte) (values[i + 0] >>> 18);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 42);
-    buf[off++] = (byte) (values[i + 0] >>> 34);
-    buf[off++] = (byte) (values[i + 0] >>> 26);
-    buf[off++] = (byte) (values[i + 0] >>> 18);
-    buf[off++] = (byte) (values[i + 0] >>> 10);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 34);
-    buf[off++] = (byte) (values[i + 0] >>> 26);
-    buf[off++] = (byte) (values[i + 0] >>> 18);
-    buf[off++] = (byte) (values[i + 0] >>> 10);
-    buf[off++] = (byte) (values[i + 0] >>> 2);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 26);
-    buf[off++] = (byte) (values[i + 0] >>> 18);
-    buf[off++] = (byte) (values[i + 0] >>> 10);
-    buf[off++] = (byte) (values[i + 0] >>> 2);
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 18);
-    buf[off++] = (byte) (values[i + 0] >>> 10);
-    buf[off++] = (byte) (values[i + 0] >>> 2);
-
-    buf[off] = (byte) (values[i + 0] << 6);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 2);
-
-    buf[off] = (byte) (values[i + 0] << 6);
-    buf[off++] |= values[i + 1] >>> 44;
-    buf[off++] = (byte) (values[i + 1] >>> 36);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits26(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 18);
-
-    buf[off++] = (byte) (values[i + 0] >>> 10);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 18);
-
-    buf[off++] = (byte) (values[i + 0] >>> 10);
-
-    buf[off++] = (byte) (values[i + 0] >>> 2);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 10);
-
-    buf[off++] = (byte) (values[i + 0] >>> 2);
-
-    buf[off] = (byte) (values[i + 0] << 6);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 2);
-
-    buf[off] = (byte) (values[i + 0] << 6);
-    buf[off++] |= values[i + 1] >>> 20;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void unpackBits14(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 6;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 2;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void unpackBits14(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 6;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 2;
-
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 3) << 12;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits36(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 28);
-    buf[off++] = (byte) (values[i + 0] >>> 20);
-    buf[off++] = (byte) (values[i + 0] >>> 12);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void packBits36(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 28);
-    buf[off++] = (byte) (values[i + 0] >>> 20);
-    buf[off++] = (byte) (values[i + 0] >>> 12);
-    buf[off++] = (byte) (values[i + 0] >>> 4);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 28);
-    buf[off++] = (byte) (values[i + 0] >>> 20);
-    buf[off++] = (byte) (values[i + 0] >>> 12);
-    buf[off++] = (byte) (values[i + 0] >>> 4);
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 20);
-    buf[off++] = (byte) (values[i + 0] >>> 12);
-    buf[off++] = (byte) (values[i + 0] >>> 4);
-
-    buf[off] = (byte) (values[i + 0] << 4);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 4);
-
-    buf[off] = (byte) (values[i + 0] << 4);
-    buf[off++] |= values[i + 1] >>> 32;
-    buf[off++] = (byte) (values[i + 1] >>> 24);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void unpackBits12(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 4;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 4;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void unpackBits12(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 4;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 4;
-
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0xf) << 8;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void unpackBits5(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off]) >>> 3;
-
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 7) << 2;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void unpackBits56(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 48;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 40;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 32;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void unpackBits56(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 48;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 40;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 32;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 24;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 48;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 40;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 32;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 24;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 16;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 40;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 32;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 24;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 16;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 8;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 32;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 24;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 16;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 8;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 24;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 16;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 8;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]);
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++])) << 48;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 16;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 8;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]);
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++])) << 48;
-    values[i + 1] |= (Byte.toUnsignedLong(buf[off++])) << 40;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits15(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 7);
-
-    buf[off] = (byte) (values[i + 0] << 1);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 7);
-
-    buf[off] = (byte) (values[i + 0] << 1);
-    buf[off++] |= values[i + 1] >>> 14;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void unpackBits58(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 50;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 42;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 34;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void unpackBits58(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 50;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 42;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 34;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 26;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 50;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 42;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 34;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 26;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 18;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 42;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 34;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 26;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 18;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 34;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 26;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 18;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 2;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 26;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 18;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 2;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 6;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 18;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 2;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 6;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 2;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 6;
-
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0x3f) << 52;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits11(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 3);
-
-    buf[off] = (byte) (values[i + 0] << 5);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 3);
-
-    buf[off] = (byte) (values[i + 0] << 5);
-    buf[off++] |= values[i + 1] >>> 6;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits47(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 39);
-    buf[off++] = (byte) (values[i + 0] >>> 31);
-    buf[off++] = (byte) (values[i + 0] >>> 23);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void packBits47(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 39);
-    buf[off++] = (byte) (values[i + 0] >>> 31);
-    buf[off++] = (byte) (values[i + 0] >>> 23);
-    buf[off++] = (byte) (values[i + 0] >>> 15);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 39);
-    buf[off++] = (byte) (values[i + 0] >>> 31);
-    buf[off++] = (byte) (values[i + 0] >>> 23);
-    buf[off++] = (byte) (values[i + 0] >>> 15);
-    buf[off++] = (byte) (values[i + 0] >>> 7);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 31);
-    buf[off++] = (byte) (values[i + 0] >>> 23);
-    buf[off++] = (byte) (values[i + 0] >>> 15);
-    buf[off++] = (byte) (values[i + 0] >>> 7);
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 23);
-    buf[off++] = (byte) (values[i + 0] >>> 15);
-    buf[off++] = (byte) (values[i + 0] >>> 7);
-
-    buf[off] = (byte) (values[i + 0] << 1);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 7);
-
-    buf[off] = (byte) (values[i + 0] << 1);
-    buf[off++] |= values[i + 1] >>> 46;
-    buf[off++] = (byte) (values[i + 1] >>> 38);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits9(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 1);
-
-    buf[off] = (byte) (values[i + 0] << 7);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 1);
-
-    buf[off] = (byte) (values[i + 0] << 7);
-    buf[off++] |= values[i + 1] >>> 2;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits55(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 47);
-    buf[off++] = (byte) (values[i + 0] >>> 39);
-    buf[off++] = (byte) (values[i + 0] >>> 31);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void packBits55(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 47);
-    buf[off++] = (byte) (values[i + 0] >>> 39);
-    buf[off++] = (byte) (values[i + 0] >>> 31);
-    buf[off++] = (byte) (values[i + 0] >>> 23);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 47);
-    buf[off++] = (byte) (values[i + 0] >>> 39);
-    buf[off++] = (byte) (values[i + 0] >>> 31);
-    buf[off++] = (byte) (values[i + 0] >>> 23);
-    buf[off++] = (byte) (values[i + 0] >>> 15);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 39);
-    buf[off++] = (byte) (values[i + 0] >>> 31);
-    buf[off++] = (byte) (values[i + 0] >>> 23);
-    buf[off++] = (byte) (values[i + 0] >>> 15);
-    buf[off++] = (byte) (values[i + 0] >>> 7);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 31);
-    buf[off++] = (byte) (values[i + 0] >>> 23);
-    buf[off++] = (byte) (values[i + 0] >>> 15);
-    buf[off++] = (byte) (values[i + 0] >>> 7);
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 23);
-    buf[off++] = (byte) (values[i + 0] >>> 15);
-    buf[off++] = (byte) (values[i + 0] >>> 7);
-
-    buf[off] = (byte) (values[i + 0] << 1);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 7);
-
-    buf[off] = (byte) (values[i + 0] << 1);
-    buf[off++] |= values[i + 1] >>> 54;
-    buf[off++] = (byte) (values[i + 1] >>> 46);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits2(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off] = (byte) (values[i + 0] << 6);
-    buf[off] |= values[i + 1] << 4;
-    buf[off] |= values[i + 2] << 2;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void unpackBits61(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 53;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 45;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 37;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void unpackBits61(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 53;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 45;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 37;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 29;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 53;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 45;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 37;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 29;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 21;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 45;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 37;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 29;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 21;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 13;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 37;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 29;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 21;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 13;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 5;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 29;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 21;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 13;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 5;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 3;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 21;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 13;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 5;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 3;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 13;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 5;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 3;
-
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 7) << 58;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void unpackBits30(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 22;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 14;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 6;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void unpackBits30(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 22;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 14;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 6;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 2;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 22;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 14;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 6;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 2;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 14;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 6;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 2;
-
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 3) << 28;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits35(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 27);
-    buf[off++] = (byte) (values[i + 0] >>> 19);
-    buf[off++] = (byte) (values[i + 0] >>> 11);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void packBits35(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 27);
-    buf[off++] = (byte) (values[i + 0] >>> 19);
-    buf[off++] = (byte) (values[i + 0] >>> 11);
-    buf[off++] = (byte) (values[i + 0] >>> 3);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 27);
-    buf[off++] = (byte) (values[i + 0] >>> 19);
-    buf[off++] = (byte) (values[i + 0] >>> 11);
-    buf[off++] = (byte) (values[i + 0] >>> 3);
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 19);
-    buf[off++] = (byte) (values[i + 0] >>> 11);
-    buf[off++] = (byte) (values[i + 0] >>> 3);
-
-    buf[off] = (byte) (values[i + 0] << 5);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 3);
-
-    buf[off] = (byte) (values[i + 0] << 5);
-    buf[off++] |= values[i + 1] >>> 30;
-    buf[off++] = (byte) (values[i + 1] >>> 22);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void unpackBits33(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 25;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 17;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 9;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void unpackBits33(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 25;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 17;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 9;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 1;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 25;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 17;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 9;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 1;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 7;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 17;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 9;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 1;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 7;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 9;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 1;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 7;
-
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0x7f) << 26;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void unpackBits28(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 20;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void unpackBits28(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 20;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 4;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 20;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 4;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 4;
-
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0xf) << 24;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void unpackBits21(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 13;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 5;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 3;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void unpackBits21(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 13;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 5;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 3;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 13;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 5;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 3;
-
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 7) << 18;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits17(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 9);
-
-    buf[off++] = (byte) (values[i + 0] >>> 1);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 9);
-
-    buf[off++] = (byte) (values[i + 0] >>> 1);
-
-    buf[off] = (byte) (values[i + 0] << 7);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 1);
-
-    buf[off] = (byte) (values[i + 0] << 7);
-    buf[off++] |= values[i + 1] >>> 10;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits3(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off] = (byte) (values[i + 0] << 5);
-    buf[off] |= values[i + 1] << 2;
-    buf[off++] |= values[i + 2] >>> 1;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits4(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off] = (byte) (values[i + 0] << 4);
-    buf[off++] |= values[i + 1];
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void unpackBits55(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 47;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 39;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 31;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void unpackBits55(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 47;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 39;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 31;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 23;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 47;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 39;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 31;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 23;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 15;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 39;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 31;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 23;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 15;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 7;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 31;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 23;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 15;
+  static void unpackBits23(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 15;
     values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 7;
     values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 1;
 ```
@@ -2336,8 +464,8 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 23;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 15;
+  static void unpackBits23(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 15;
     values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 7;
     values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 1;
 
@@ -2348,2051 +476,11 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 15;
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 15;
     values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 7;
     values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 1;
 
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 1) << 54;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits59(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 51);
-    buf[off++] = (byte) (values[i + 0] >>> 43);
-    buf[off++] = (byte) (values[i + 0] >>> 35);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void packBits59(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 51);
-    buf[off++] = (byte) (values[i + 0] >>> 43);
-    buf[off++] = (byte) (values[i + 0] >>> 35);
-    buf[off++] = (byte) (values[i + 0] >>> 27);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 51);
-    buf[off++] = (byte) (values[i + 0] >>> 43);
-    buf[off++] = (byte) (values[i + 0] >>> 35);
-    buf[off++] = (byte) (values[i + 0] >>> 27);
-    buf[off++] = (byte) (values[i + 0] >>> 19);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 43);
-    buf[off++] = (byte) (values[i + 0] >>> 35);
-    buf[off++] = (byte) (values[i + 0] >>> 27);
-    buf[off++] = (byte) (values[i + 0] >>> 19);
-    buf[off++] = (byte) (values[i + 0] >>> 11);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 35);
-    buf[off++] = (byte) (values[i + 0] >>> 27);
-    buf[off++] = (byte) (values[i + 0] >>> 19);
-    buf[off++] = (byte) (values[i + 0] >>> 11);
-    buf[off++] = (byte) (values[i + 0] >>> 3);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 27);
-    buf[off++] = (byte) (values[i + 0] >>> 19);
-    buf[off++] = (byte) (values[i + 0] >>> 11);
-    buf[off++] = (byte) (values[i + 0] >>> 3);
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 19);
-    buf[off++] = (byte) (values[i + 0] >>> 11);
-    buf[off++] = (byte) (values[i + 0] >>> 3);
-
-    buf[off] = (byte) (values[i + 0] << 5);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 3);
-
-    buf[off] = (byte) (values[i + 0] << 5);
-    buf[off++] |= values[i + 1] >>> 54;
-    buf[off++] = (byte) (values[i + 1] >>> 46);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void unpackBits13(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 5;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 3;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void unpackBits13(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 5;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 3;
-
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 7) << 10;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits61(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 53);
-    buf[off++] = (byte) (values[i + 0] >>> 45);
-    buf[off++] = (byte) (values[i + 0] >>> 37);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void packBits61(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 53);
-    buf[off++] = (byte) (values[i + 0] >>> 45);
-    buf[off++] = (byte) (values[i + 0] >>> 37);
-    buf[off++] = (byte) (values[i + 0] >>> 29);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 53);
-    buf[off++] = (byte) (values[i + 0] >>> 45);
-    buf[off++] = (byte) (values[i + 0] >>> 37);
-    buf[off++] = (byte) (values[i + 0] >>> 29);
-    buf[off++] = (byte) (values[i + 0] >>> 21);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 45);
-    buf[off++] = (byte) (values[i + 0] >>> 37);
-    buf[off++] = (byte) (values[i + 0] >>> 29);
-    buf[off++] = (byte) (values[i + 0] >>> 21);
-    buf[off++] = (byte) (values[i + 0] >>> 13);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 37);
-    buf[off++] = (byte) (values[i + 0] >>> 29);
-    buf[off++] = (byte) (values[i + 0] >>> 21);
-    buf[off++] = (byte) (values[i + 0] >>> 13);
-    buf[off++] = (byte) (values[i + 0] >>> 5);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 29);
-    buf[off++] = (byte) (values[i + 0] >>> 21);
-    buf[off++] = (byte) (values[i + 0] >>> 13);
-    buf[off++] = (byte) (values[i + 0] >>> 5);
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 21);
-    buf[off++] = (byte) (values[i + 0] >>> 13);
-    buf[off++] = (byte) (values[i + 0] >>> 5);
-
-    buf[off] = (byte) (values[i + 0] << 3);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 5);
-
-    buf[off] = (byte) (values[i + 0] << 3);
-    buf[off++] |= values[i + 1] >>> 58;
-    buf[off++] = (byte) (values[i + 1] >>> 50);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void unpackBits32(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 24;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 16;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 8;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void unpackBits32(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 24;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 16;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 8;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 24;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 16;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 8;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]);
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++])) << 24;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 16;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 8;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]);
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++])) << 24;
-    values[i + 1] |= Byte.toUnsignedLong(buf[off++]) << 16;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void unpackBits15(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 7;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 1;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void unpackBits15(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 7;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 1;
-
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 1) << 14;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void unpackBits19(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 11;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 5;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void unpackBits19(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 11;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 5;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 11;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 5;
-
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0x1f) << 14;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits7(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off] = (byte) (values[i + 0] << 1);
-    buf[off++] |= values[i + 1] >>> 6;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void unpackBits51(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 43;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 35;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 27;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void unpackBits51(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 43;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 35;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 27;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 19;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 43;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 35;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 27;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 19;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 35;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 27;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 19;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 27;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 19;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 5;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 19;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 5;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 5;
-
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0x1f) << 46;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits13(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 5);
-
-    buf[off] = (byte) (values[i + 0] << 3);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 5);
-
-    buf[off] = (byte) (values[i + 0] << 3);
-    buf[off++] |= values[i + 1] >>> 10;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits25(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 17);
-
-    buf[off++] = (byte) (values[i + 0] >>> 9);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 17);
-
-    buf[off++] = (byte) (values[i + 0] >>> 9);
-
-    buf[off++] = (byte) (values[i + 0] >>> 1);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 9);
-
-    buf[off++] = (byte) (values[i + 0] >>> 1);
-
-    buf[off] = (byte) (values[i + 0] << 7);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 1);
-
-    buf[off] = (byte) (values[i + 0] << 7);
-    buf[off++] |= values[i + 1] >>> 18;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void unpackBits25(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 17;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 9;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 1;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void unpackBits25(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 17;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 9;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 1;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 7;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 17;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 9;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 1;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 7;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 9;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 1;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 7;
-
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0x7f) << 18;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void unpackBits31(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 23;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 15;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 7;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void unpackBits31(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 23;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 15;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 7;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 1;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 23;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 15;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 7;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 1;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 15;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 7;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 1;
-
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 1) << 30;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits62(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 54);
-    buf[off++] = (byte) (values[i + 0] >>> 46);
-    buf[off++] = (byte) (values[i + 0] >>> 38);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void packBits62(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 54);
-    buf[off++] = (byte) (values[i + 0] >>> 46);
-    buf[off++] = (byte) (values[i + 0] >>> 38);
-    buf[off++] = (byte) (values[i + 0] >>> 30);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 54);
-    buf[off++] = (byte) (values[i + 0] >>> 46);
-    buf[off++] = (byte) (values[i + 0] >>> 38);
-    buf[off++] = (byte) (values[i + 0] >>> 30);
-    buf[off++] = (byte) (values[i + 0] >>> 22);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 46);
-    buf[off++] = (byte) (values[i + 0] >>> 38);
-    buf[off++] = (byte) (values[i + 0] >>> 30);
-    buf[off++] = (byte) (values[i + 0] >>> 22);
-    buf[off++] = (byte) (values[i + 0] >>> 14);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 38);
-    buf[off++] = (byte) (values[i + 0] >>> 30);
-    buf[off++] = (byte) (values[i + 0] >>> 22);
-    buf[off++] = (byte) (values[i + 0] >>> 14);
-    buf[off++] = (byte) (values[i + 0] >>> 6);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 30);
-    buf[off++] = (byte) (values[i + 0] >>> 22);
-    buf[off++] = (byte) (values[i + 0] >>> 14);
-    buf[off++] = (byte) (values[i + 0] >>> 6);
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 22);
-    buf[off++] = (byte) (values[i + 0] >>> 14);
-    buf[off++] = (byte) (values[i + 0] >>> 6);
-
-    buf[off] = (byte) (values[i + 0] << 2);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 6);
-
-    buf[off] = (byte) (values[i + 0] << 2);
-    buf[off++] |= values[i + 1] >>> 60;
-    buf[off++] = (byte) (values[i + 1] >>> 52);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits63(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 55);
-    buf[off++] = (byte) (values[i + 0] >>> 47);
-    buf[off++] = (byte) (values[i + 0] >>> 39);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void packBits63(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 55);
-    buf[off++] = (byte) (values[i + 0] >>> 47);
-    buf[off++] = (byte) (values[i + 0] >>> 39);
-    buf[off++] = (byte) (values[i + 0] >>> 31);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 55);
-    buf[off++] = (byte) (values[i + 0] >>> 47);
-    buf[off++] = (byte) (values[i + 0] >>> 39);
-    buf[off++] = (byte) (values[i + 0] >>> 31);
-    buf[off++] = (byte) (values[i + 0] >>> 23);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 47);
-    buf[off++] = (byte) (values[i + 0] >>> 39);
-    buf[off++] = (byte) (values[i + 0] >>> 31);
-    buf[off++] = (byte) (values[i + 0] >>> 23);
-    buf[off++] = (byte) (values[i + 0] >>> 15);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 39);
-    buf[off++] = (byte) (values[i + 0] >>> 31);
-    buf[off++] = (byte) (values[i + 0] >>> 23);
-    buf[off++] = (byte) (values[i + 0] >>> 15);
-    buf[off++] = (byte) (values[i + 0] >>> 7);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 31);
-    buf[off++] = (byte) (values[i + 0] >>> 23);
-    buf[off++] = (byte) (values[i + 0] >>> 15);
-    buf[off++] = (byte) (values[i + 0] >>> 7);
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 23);
-    buf[off++] = (byte) (values[i + 0] >>> 15);
-    buf[off++] = (byte) (values[i + 0] >>> 7);
-
-    buf[off] = (byte) (values[i + 0] << 1);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 7);
-
-    buf[off] = (byte) (values[i + 0] << 1);
-    buf[off++] |= values[i + 1] >>> 62;
-    buf[off++] = (byte) (values[i + 1] >>> 54);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void unpackBits49(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 41;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 33;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 25;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void unpackBits49(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 41;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 33;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 25;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 17;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 41;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 33;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 25;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 17;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 9;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 33;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 25;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 17;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 9;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 1;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 25;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 17;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 9;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 1;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 7;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 17;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 9;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 1;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 7;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 9;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 1;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 7;
-
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0x7f) << 42;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void unpackBits6(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off]) >>> 2;
-
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 3) << 4;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits31(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 23);
-    buf[off++] = (byte) (values[i + 0] >>> 15);
-    buf[off++] = (byte) (values[i + 0] >>> 7);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void packBits31(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 23);
-    buf[off++] = (byte) (values[i + 0] >>> 15);
-    buf[off++] = (byte) (values[i + 0] >>> 7);
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 23);
-    buf[off++] = (byte) (values[i + 0] >>> 15);
-    buf[off++] = (byte) (values[i + 0] >>> 7);
-
-    buf[off] = (byte) (values[i + 0] << 1);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 7);
-
-    buf[off] = (byte) (values[i + 0] << 1);
-    buf[off++] |= values[i + 1] >>> 30;
-    buf[off++] = (byte) (values[i + 1] >>> 22);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void unpackBits59(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 51;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 43;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 35;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void unpackBits59(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 51;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 43;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 35;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 27;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 51;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 43;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 35;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 27;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 19;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 43;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 35;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 27;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 19;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 35;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 27;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 19;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 27;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 19;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 5;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 19;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 5;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 5;
-
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0x1f) << 54;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void unpackBits62(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 54;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 46;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 38;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void unpackBits62(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 54;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 46;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 38;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 30;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 54;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 46;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 38;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 30;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 22;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 46;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 38;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 30;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 22;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 14;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 38;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 30;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 22;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 14;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 6;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 30;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 22;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 14;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 6;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 2;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 22;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 14;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 6;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 2;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 14;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 6;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 2;
-
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 3) << 60;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void unpackBits46(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 38;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 30;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 22;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void unpackBits46(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 38;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 30;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 22;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 14;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 38;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 30;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 22;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 14;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 6;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 30;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 22;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 14;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 6;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 2;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 22;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 14;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 6;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 2;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 14;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 6;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 2;
-
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 3) << 44;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void unpackBits48(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 40;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 32;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 24;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void unpackBits48(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 40;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 32;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 24;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 16;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 40;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 32;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 24;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 16;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 8;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 32;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 24;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 16;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 8;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 24;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 16;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 8;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]);
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++])) << 40;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 16;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 8;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]);
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++])) << 40;
-    values[i + 1] |= (Byte.toUnsignedLong(buf[off++])) << 32;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void unpackBits50(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 42;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 34;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 26;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void unpackBits50(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 42;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 34;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 26;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 18;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 42;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 34;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 26;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 18;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 34;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 26;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 18;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 2;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 26;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 18;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 2;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 6;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 18;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 2;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 6;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 2;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 6;
-
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0x3f) << 44;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits52(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 44);
-    buf[off++] = (byte) (values[i + 0] >>> 36);
-    buf[off++] = (byte) (values[i + 0] >>> 28);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void packBits52(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 44);
-    buf[off++] = (byte) (values[i + 0] >>> 36);
-    buf[off++] = (byte) (values[i + 0] >>> 28);
-    buf[off++] = (byte) (values[i + 0] >>> 20);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 44);
-    buf[off++] = (byte) (values[i + 0] >>> 36);
-    buf[off++] = (byte) (values[i + 0] >>> 28);
-    buf[off++] = (byte) (values[i + 0] >>> 20);
-    buf[off++] = (byte) (values[i + 0] >>> 12);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 36);
-    buf[off++] = (byte) (values[i + 0] >>> 28);
-    buf[off++] = (byte) (values[i + 0] >>> 20);
-    buf[off++] = (byte) (values[i + 0] >>> 12);
-    buf[off++] = (byte) (values[i + 0] >>> 4);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 28);
-    buf[off++] = (byte) (values[i + 0] >>> 20);
-    buf[off++] = (byte) (values[i + 0] >>> 12);
-    buf[off++] = (byte) (values[i + 0] >>> 4);
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 20);
-    buf[off++] = (byte) (values[i + 0] >>> 12);
-    buf[off++] = (byte) (values[i + 0] >>> 4);
-
-    buf[off] = (byte) (values[i + 0] << 4);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 4);
-
-    buf[off] = (byte) (values[i + 0] << 4);
-    buf[off++] |= values[i + 1] >>> 48;
-    buf[off++] = (byte) (values[i + 1] >>> 40);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits40(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 32);
-    buf[off++] = (byte) (values[i + 0] >>> 24);
-    buf[off++] = (byte) (values[i + 0] >>> 16);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void packBits40(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 32);
-    buf[off++] = (byte) (values[i + 0] >>> 24);
-    buf[off++] = (byte) (values[i + 0] >>> 16);
-    buf[off++] = (byte) (values[i + 0] >>> 8);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 32);
-    buf[off++] = (byte) (values[i + 0] >>> 24);
-    buf[off++] = (byte) (values[i + 0] >>> 16);
-    buf[off++] = (byte) (values[i + 0] >>> 8);
-    buf[off++] = (byte) (values[i + 0]);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 24);
-    buf[off++] = (byte) (values[i + 0] >>> 16);
-    buf[off++] = (byte) (values[i + 0] >>> 8);
-    buf[off++] = (byte) (values[i + 0]);
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 16);
-    buf[off++] = (byte) (values[i + 0] >>> 8);
-    buf[off++] = (byte) (values[i + 0]);
-
-    buf[off++] = (byte) (values[i + 1] >>> 32);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits48(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 40);
-    buf[off++] = (byte) (values[i + 0] >>> 32);
-    buf[off++] = (byte) (values[i + 0] >>> 24);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void packBits48(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 40);
-    buf[off++] = (byte) (values[i + 0] >>> 32);
-    buf[off++] = (byte) (values[i + 0] >>> 24);
-    buf[off++] = (byte) (values[i + 0] >>> 16);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 40);
-    buf[off++] = (byte) (values[i + 0] >>> 32);
-    buf[off++] = (byte) (values[i + 0] >>> 24);
-    buf[off++] = (byte) (values[i + 0] >>> 16);
-    buf[off++] = (byte) (values[i + 0] >>> 8);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 32);
-    buf[off++] = (byte) (values[i + 0] >>> 24);
-    buf[off++] = (byte) (values[i + 0] >>> 16);
-    buf[off++] = (byte) (values[i + 0] >>> 8);
-    buf[off++] = (byte) (values[i + 0]);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 24);
-    buf[off++] = (byte) (values[i + 0] >>> 16);
-    buf[off++] = (byte) (values[i + 0] >>> 8);
-    buf[off++] = (byte) (values[i + 0]);
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 16);
-    buf[off++] = (byte) (values[i + 0] >>> 8);
-    buf[off++] = (byte) (values[i + 0]);
-
-    buf[off++] = (byte) (values[i + 1] >>> 40);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits19(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 11);
-
-    buf[off++] = (byte) (values[i + 0] >>> 3);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 11);
-
-    buf[off++] = (byte) (values[i + 0] >>> 3);
-
-    buf[off] = (byte) (values[i + 0] << 5);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 3);
-
-    buf[off] = (byte) (values[i + 0] << 5);
-    buf[off++] |= values[i + 1] >>> 14;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits37(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 29);
-    buf[off++] = (byte) (values[i + 0] >>> 21);
-    buf[off++] = (byte) (values[i + 0] >>> 13);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void packBits37(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 29);
-    buf[off++] = (byte) (values[i + 0] >>> 21);
-    buf[off++] = (byte) (values[i + 0] >>> 13);
-    buf[off++] = (byte) (values[i + 0] >>> 5);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 29);
-    buf[off++] = (byte) (values[i + 0] >>> 21);
-    buf[off++] = (byte) (values[i + 0] >>> 13);
-    buf[off++] = (byte) (values[i + 0] >>> 5);
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 21);
-    buf[off++] = (byte) (values[i + 0] >>> 13);
-    buf[off++] = (byte) (values[i + 0] >>> 5);
-
-    buf[off] = (byte) (values[i + 0] << 3);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 5);
-
-    buf[off] = (byte) (values[i + 0] << 3);
-    buf[off++] |= values[i + 1] >>> 34;
-    buf[off++] = (byte) (values[i + 1] >>> 26);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits38(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 30);
-    buf[off++] = (byte) (values[i + 0] >>> 22);
-    buf[off++] = (byte) (values[i + 0] >>> 14);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void packBits38(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 30);
-    buf[off++] = (byte) (values[i + 0] >>> 22);
-    buf[off++] = (byte) (values[i + 0] >>> 14);
-    buf[off++] = (byte) (values[i + 0] >>> 6);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 30);
-    buf[off++] = (byte) (values[i + 0] >>> 22);
-    buf[off++] = (byte) (values[i + 0] >>> 14);
-    buf[off++] = (byte) (values[i + 0] >>> 6);
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 22);
-    buf[off++] = (byte) (values[i + 0] >>> 14);
-    buf[off++] = (byte) (values[i + 0] >>> 6);
-
-    buf[off] = (byte) (values[i + 0] << 2);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 6);
-
-    buf[off] = (byte) (values[i + 0] << 2);
-    buf[off++] |= values[i + 1] >>> 36;
-    buf[off++] = (byte) (values[i + 1] >>> 28);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void unpackBits38(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 30;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 22;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 14;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void unpackBits38(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 30;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 22;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 14;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 6;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 30;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 22;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 14;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 6;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 2;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 22;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 14;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 6;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 2;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 14;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 6;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 2;
-
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 3) << 36;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits8(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0]);
-    buf[off++] = (byte) (values[i + 1]);
-    buf[off++] = (byte) (values[i + 2]);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits29(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 21);
-
-    buf[off++] = (byte) (values[i + 0] >>> 13);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 21);
-
-    buf[off++] = (byte) (values[i + 0] >>> 13);
-
-    buf[off++] = (byte) (values[i + 0] >>> 5);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 13);
-
-    buf[off++] = (byte) (values[i + 0] >>> 5);
-
-    buf[off] = (byte) (values[i + 0] << 3);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 5);
-
-    buf[off] = (byte) (values[i + 0] << 3);
-    buf[off++] |= values[i + 1] >>> 26;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits49(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 41);
-    buf[off++] = (byte) (values[i + 0] >>> 33);
-    buf[off++] = (byte) (values[i + 0] >>> 25);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void packBits49(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 41);
-    buf[off++] = (byte) (values[i + 0] >>> 33);
-    buf[off++] = (byte) (values[i + 0] >>> 25);
-    buf[off++] = (byte) (values[i + 0] >>> 17);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 41);
-    buf[off++] = (byte) (values[i + 0] >>> 33);
-    buf[off++] = (byte) (values[i + 0] >>> 25);
-    buf[off++] = (byte) (values[i + 0] >>> 17);
-    buf[off++] = (byte) (values[i + 0] >>> 9);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 33);
-    buf[off++] = (byte) (values[i + 0] >>> 25);
-    buf[off++] = (byte) (values[i + 0] >>> 17);
-    buf[off++] = (byte) (values[i + 0] >>> 9);
-    buf[off++] = (byte) (values[i + 0] >>> 1);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 25);
-    buf[off++] = (byte) (values[i + 0] >>> 17);
-    buf[off++] = (byte) (values[i + 0] >>> 9);
-    buf[off++] = (byte) (values[i + 0] >>> 1);
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 17);
-    buf[off++] = (byte) (values[i + 0] >>> 9);
-    buf[off++] = (byte) (values[i + 0] >>> 1);
-
-    buf[off] = (byte) (values[i + 0] << 7);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 1);
-
-    buf[off] = (byte) (values[i + 0] << 7);
-    buf[off++] |= values[i + 1] >>> 42;
-    buf[off++] = (byte) (values[i + 1] >>> 34);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void unpackBits4(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off]) >>> 4;
-    values[i + 1] = Byte.toUnsignedLong(buf[off++]) & 0xf;
-    values[i + 2] = Byte.toUnsignedLong(buf[off]) >>> 4;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits28(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 20);
-    buf[off++] = (byte) (values[i + 0] >>> 12);
-    buf[off++] = (byte) (values[i + 0] >>> 4);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void packBits28(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 20);
-    buf[off++] = (byte) (values[i + 0] >>> 12);
-    buf[off++] = (byte) (values[i + 0] >>> 4);
-    buf[off] = (byte) (values[i + 0] << 4);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 20);
-    buf[off++] = (byte) (values[i + 0] >>> 12);
-    buf[off++] = (byte) (values[i + 0] >>> 4);
-    buf[off] = (byte) (values[i + 0] << 4);
-    buf[off++] |= values[i + 1] >>> 24;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 12);
-    buf[off++] = (byte) (values[i + 0] >>> 4);
-    buf[off] = (byte) (values[i + 0] << 4);
-    buf[off++] |= values[i + 1] >>> 24;
-    buf[off++] = (byte) (values[i + 1] >>> 16);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void unpackBits39(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 31;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 23;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 15;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void unpackBits39(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 31;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 23;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 15;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 7;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 31;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 23;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 15;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 7;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 1;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 23;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 15;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 7;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 1;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 15;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 7;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 1;
-
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 1) << 38;
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 1) << 22;
 ```
 
 ### PointlessArithmeticExpression
@@ -4497,9 +585,81 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
 
-  static void unpackBits11(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 3;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 5;
+  static void unpackBits60(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 52;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 44;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 36;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void unpackBits60(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 52;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 44;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 36;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 28;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 52;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 44;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 36;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 28;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 20;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 44;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 36;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 28;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 20;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 36;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 28;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 20;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 28;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 20;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 4;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 20;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 4;
 
 ```
 
@@ -4508,11 +668,11 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
-  static void unpackBits11(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 3;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 5;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 4;
 
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0x1f) << 6;
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0xf) << 56;
 ```
 
 ### PointlessArithmeticExpression
@@ -4521,10 +681,10 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
 
-  static void packBits16(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 8);
-    buf[off++] = (byte) (values[i + 0]);
-
+  static void unpackBits24(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 16;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 8;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]);
 ```
 
 ### PointlessArithmeticExpression
@@ -4532,11 +692,11 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
-  static void packBits16(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 8);
-    buf[off++] = (byte) (values[i + 0]);
-
-    buf[off++] = (byte) (values[i + 1] >>> 8);
+  static void unpackBits24(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 16;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 8;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]);
+    values[i + 1] = Byte.toUnsignedLong(buf[off++]) << 16;
 ```
 
 ### PointlessArithmeticExpression
@@ -4544,59 +704,11 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
-
-  static void unpackBits7(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off]) >>> 1;
-
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 1) << 6;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void unpackBits26(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 18;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 2;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void unpackBits26(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 18;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 2;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 6;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 18;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 2;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 6;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 2;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 6;
-
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0x3f) << 20;
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 16;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 8;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]);
+    values[i + 1] = Byte.toUnsignedLong(buf[off++]) << 16;
+    values[i + 1] |= Byte.toUnsignedLong(buf[off++]) << 8;
 ```
 
 ### PointlessArithmeticExpression
@@ -4605,118 +717,10 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
 
-  static void unpackBits1(final long[] values, final int i, final byte[] buf, final int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off]) >>> 7) & 1;
-    values[i + 1] = (Byte.toUnsignedLong(buf[off]) >>> 6) & 1;
-    values[i + 2] = (Byte.toUnsignedLong(buf[off]) >>> 5) & 1;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits1(final long[] values, final int i, final byte[] buf, final int off) {
-    buf[off] = (byte) (values[i + 0] << 7);
-    buf[off] |= values[i + 1] << 6;
-    buf[off] |= values[i + 2] << 5;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits56(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 48);
-    buf[off++] = (byte) (values[i + 0] >>> 40);
-    buf[off++] = (byte) (values[i + 0] >>> 32);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void packBits56(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 48);
-    buf[off++] = (byte) (values[i + 0] >>> 40);
-    buf[off++] = (byte) (values[i + 0] >>> 32);
-    buf[off++] = (byte) (values[i + 0] >>> 24);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 48);
-    buf[off++] = (byte) (values[i + 0] >>> 40);
-    buf[off++] = (byte) (values[i + 0] >>> 32);
-    buf[off++] = (byte) (values[i + 0] >>> 24);
-    buf[off++] = (byte) (values[i + 0] >>> 16);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 40);
-    buf[off++] = (byte) (values[i + 0] >>> 32);
-    buf[off++] = (byte) (values[i + 0] >>> 24);
-    buf[off++] = (byte) (values[i + 0] >>> 16);
-    buf[off++] = (byte) (values[i + 0] >>> 8);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 32);
-    buf[off++] = (byte) (values[i + 0] >>> 24);
-    buf[off++] = (byte) (values[i + 0] >>> 16);
-    buf[off++] = (byte) (values[i + 0] >>> 8);
-    buf[off++] = (byte) (values[i + 0]);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 24);
-    buf[off++] = (byte) (values[i + 0] >>> 16);
-    buf[off++] = (byte) (values[i + 0] >>> 8);
-    buf[off++] = (byte) (values[i + 0]);
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 16);
-    buf[off++] = (byte) (values[i + 0] >>> 8);
-    buf[off++] = (byte) (values[i + 0]);
-
-    buf[off++] = (byte) (values[i + 1] >>> 48);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits43(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 35);
-    buf[off++] = (byte) (values[i + 0] >>> 27);
+  static void packBits27(final long[] values, final int i, final byte[] buf, int off) {
     buf[off++] = (byte) (values[i + 0] >>> 19);
+
+    buf[off++] = (byte) (values[i + 0] >>> 11);
 ```
 
 ### PointlessArithmeticExpression
@@ -4724,8 +728,44 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
-  static void packBits43(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 35);
+    buf[off++] = (byte) (values[i + 0] >>> 19);
+
+    buf[off++] = (byte) (values[i + 0] >>> 11);
+
+    buf[off++] = (byte) (values[i + 0] >>> 3);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 11);
+
+    buf[off++] = (byte) (values[i + 0] >>> 3);
+
+    buf[off] = (byte) (values[i + 0] << 5);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 3);
+
+    buf[off] = (byte) (values[i + 0] << 5);
+    buf[off++] |= values[i + 1] >>> 22;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits35(final long[] values, final int i, final byte[] buf, int off) {
     buf[off++] = (byte) (values[i + 0] >>> 27);
     buf[off++] = (byte) (values[i + 0] >>> 19);
     buf[off++] = (byte) (values[i + 0] >>> 11);
@@ -4736,7 +776,7 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
-    buf[off++] = (byte) (values[i + 0] >>> 35);
+  static void packBits35(final long[] values, final int i, final byte[] buf, int off) {
     buf[off++] = (byte) (values[i + 0] >>> 27);
     buf[off++] = (byte) (values[i + 0] >>> 19);
     buf[off++] = (byte) (values[i + 0] >>> 11);
@@ -4775,8 +815,8 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
     buf[off++] = (byte) (values[i + 0] >>> 3);
 
     buf[off] = (byte) (values[i + 0] << 5);
-    buf[off++] |= values[i + 1] >>> 38;
-    buf[off++] = (byte) (values[i + 1] >>> 30);
+    buf[off++] |= values[i + 1] >>> 30;
+    buf[off++] = (byte) (values[i + 1] >>> 22);
 ```
 
 ### PointlessArithmeticExpression
@@ -4785,10 +825,10 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
 
-  static void unpackBits40(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 32;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 24;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 16;
+  static void packBits36(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 28);
+    buf[off++] = (byte) (values[i + 0] >>> 20);
+    buf[off++] = (byte) (values[i + 0] >>> 12);
 ```
 
 ### PointlessArithmeticExpression
@@ -4796,11 +836,11 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
-  static void unpackBits40(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 32;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 24;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 16;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 8;
+  static void packBits36(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 28);
+    buf[off++] = (byte) (values[i + 0] >>> 20);
+    buf[off++] = (byte) (values[i + 0] >>> 12);
+    buf[off++] = (byte) (values[i + 0] >>> 4);
 ```
 
 ### PointlessArithmeticExpression
@@ -4808,11 +848,11 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 32;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 24;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 16;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 8;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]);
+    buf[off++] = (byte) (values[i + 0] >>> 28);
+    buf[off++] = (byte) (values[i + 0] >>> 20);
+    buf[off++] = (byte) (values[i + 0] >>> 12);
+    buf[off++] = (byte) (values[i + 0] >>> 4);
+
 ```
 
 ### PointlessArithmeticExpression
@@ -4820,11 +860,11 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 24;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 16;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 8;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]);
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++])) << 32;
+    buf[off++] = (byte) (values[i + 0] >>> 20);
+    buf[off++] = (byte) (values[i + 0] >>> 12);
+    buf[off++] = (byte) (values[i + 0] >>> 4);
+
+    buf[off] = (byte) (values[i + 0] << 4);
 ```
 
 ### PointlessArithmeticExpression
@@ -4832,11 +872,251 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 16;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 8;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]);
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++])) << 32;
-    values[i + 1] |= (Byte.toUnsignedLong(buf[off++])) << 24;
+    buf[off++] = (byte) (values[i + 0] >>> 4);
+
+    buf[off] = (byte) (values[i + 0] << 4);
+    buf[off++] |= values[i + 1] >>> 32;
+    buf[off++] = (byte) (values[i + 1] >>> 24);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void unpackBits51(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 43;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 35;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 27;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void unpackBits51(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 43;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 35;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 27;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 19;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 43;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 35;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 27;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 19;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 35;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 27;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 19;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 27;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 19;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 5;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 19;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 5;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 5;
+
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0x1f) << 46;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits52(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 44);
+    buf[off++] = (byte) (values[i + 0] >>> 36);
+    buf[off++] = (byte) (values[i + 0] >>> 28);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void packBits52(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 44);
+    buf[off++] = (byte) (values[i + 0] >>> 36);
+    buf[off++] = (byte) (values[i + 0] >>> 28);
+    buf[off++] = (byte) (values[i + 0] >>> 20);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 44);
+    buf[off++] = (byte) (values[i + 0] >>> 36);
+    buf[off++] = (byte) (values[i + 0] >>> 28);
+    buf[off++] = (byte) (values[i + 0] >>> 20);
+    buf[off++] = (byte) (values[i + 0] >>> 12);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 36);
+    buf[off++] = (byte) (values[i + 0] >>> 28);
+    buf[off++] = (byte) (values[i + 0] >>> 20);
+    buf[off++] = (byte) (values[i + 0] >>> 12);
+    buf[off++] = (byte) (values[i + 0] >>> 4);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 28);
+    buf[off++] = (byte) (values[i + 0] >>> 20);
+    buf[off++] = (byte) (values[i + 0] >>> 12);
+    buf[off++] = (byte) (values[i + 0] >>> 4);
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 20);
+    buf[off++] = (byte) (values[i + 0] >>> 12);
+    buf[off++] = (byte) (values[i + 0] >>> 4);
+
+    buf[off] = (byte) (values[i + 0] << 4);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 4);
+
+    buf[off] = (byte) (values[i + 0] << 4);
+    buf[off++] |= values[i + 1] >>> 48;
+    buf[off++] = (byte) (values[i + 1] >>> 40);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits46(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 38);
+    buf[off++] = (byte) (values[i + 0] >>> 30);
+    buf[off++] = (byte) (values[i + 0] >>> 22);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void packBits46(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 38);
+    buf[off++] = (byte) (values[i + 0] >>> 30);
+    buf[off++] = (byte) (values[i + 0] >>> 22);
+    buf[off++] = (byte) (values[i + 0] >>> 14);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 38);
+    buf[off++] = (byte) (values[i + 0] >>> 30);
+    buf[off++] = (byte) (values[i + 0] >>> 22);
+    buf[off++] = (byte) (values[i + 0] >>> 14);
+    buf[off++] = (byte) (values[i + 0] >>> 6);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 30);
+    buf[off++] = (byte) (values[i + 0] >>> 22);
+    buf[off++] = (byte) (values[i + 0] >>> 14);
+    buf[off++] = (byte) (values[i + 0] >>> 6);
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 22);
+    buf[off++] = (byte) (values[i + 0] >>> 14);
+    buf[off++] = (byte) (values[i + 0] >>> 6);
+
+    buf[off] = (byte) (values[i + 0] << 2);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 6);
+
+    buf[off] = (byte) (values[i + 0] << 2);
+    buf[off++] |= values[i + 1] >>> 44;
+    buf[off++] = (byte) (values[i + 1] >>> 36);
 ```
 
 ### PointlessArithmeticExpression
@@ -4909,6 +1189,618 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
     buf[off] = (byte) (values[i + 0] << 4);
     buf[off++] |= values[i + 1] >>> 40;
     buf[off++] = (byte) (values[i + 1] >>> 32);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits10(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 2);
+
+    buf[off] = (byte) (values[i + 0] << 6);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 2);
+
+    buf[off] = (byte) (values[i + 0] << 6);
+    buf[off++] |= values[i + 1] >>> 4;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits7(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off] = (byte) (values[i + 0] << 1);
+    buf[off++] |= values[i + 1] >>> 6;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits29(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 21);
+
+    buf[off++] = (byte) (values[i + 0] >>> 13);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 21);
+
+    buf[off++] = (byte) (values[i + 0] >>> 13);
+
+    buf[off++] = (byte) (values[i + 0] >>> 5);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 13);
+
+    buf[off++] = (byte) (values[i + 0] >>> 5);
+
+    buf[off] = (byte) (values[i + 0] << 3);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 5);
+
+    buf[off] = (byte) (values[i + 0] << 3);
+    buf[off++] |= values[i + 1] >>> 26;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits24(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 16);
+    buf[off++] = (byte) (values[i + 0] >>> 8);
+    buf[off++] = (byte) (values[i + 0]);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void packBits24(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 16);
+    buf[off++] = (byte) (values[i + 0] >>> 8);
+    buf[off++] = (byte) (values[i + 0]);
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 16);
+    buf[off++] = (byte) (values[i + 0] >>> 8);
+    buf[off++] = (byte) (values[i + 0]);
+
+    buf[off++] = (byte) (values[i + 1] >>> 16);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void unpackBits54(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 46;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 38;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 30;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void unpackBits54(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 46;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 38;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 30;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 22;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 46;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 38;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 30;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 22;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 14;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 38;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 30;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 22;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 14;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 6;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 30;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 22;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 14;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 6;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 2;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 22;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 14;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 6;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 2;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 14;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 6;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 2;
+
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 3) << 52;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits62(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 54);
+    buf[off++] = (byte) (values[i + 0] >>> 46);
+    buf[off++] = (byte) (values[i + 0] >>> 38);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void packBits62(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 54);
+    buf[off++] = (byte) (values[i + 0] >>> 46);
+    buf[off++] = (byte) (values[i + 0] >>> 38);
+    buf[off++] = (byte) (values[i + 0] >>> 30);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 54);
+    buf[off++] = (byte) (values[i + 0] >>> 46);
+    buf[off++] = (byte) (values[i + 0] >>> 38);
+    buf[off++] = (byte) (values[i + 0] >>> 30);
+    buf[off++] = (byte) (values[i + 0] >>> 22);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 46);
+    buf[off++] = (byte) (values[i + 0] >>> 38);
+    buf[off++] = (byte) (values[i + 0] >>> 30);
+    buf[off++] = (byte) (values[i + 0] >>> 22);
+    buf[off++] = (byte) (values[i + 0] >>> 14);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 38);
+    buf[off++] = (byte) (values[i + 0] >>> 30);
+    buf[off++] = (byte) (values[i + 0] >>> 22);
+    buf[off++] = (byte) (values[i + 0] >>> 14);
+    buf[off++] = (byte) (values[i + 0] >>> 6);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 30);
+    buf[off++] = (byte) (values[i + 0] >>> 22);
+    buf[off++] = (byte) (values[i + 0] >>> 14);
+    buf[off++] = (byte) (values[i + 0] >>> 6);
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 22);
+    buf[off++] = (byte) (values[i + 0] >>> 14);
+    buf[off++] = (byte) (values[i + 0] >>> 6);
+
+    buf[off] = (byte) (values[i + 0] << 2);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 6);
+
+    buf[off] = (byte) (values[i + 0] << 2);
+    buf[off++] |= values[i + 1] >>> 60;
+    buf[off++] = (byte) (values[i + 1] >>> 52);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits59(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 51);
+    buf[off++] = (byte) (values[i + 0] >>> 43);
+    buf[off++] = (byte) (values[i + 0] >>> 35);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void packBits59(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 51);
+    buf[off++] = (byte) (values[i + 0] >>> 43);
+    buf[off++] = (byte) (values[i + 0] >>> 35);
+    buf[off++] = (byte) (values[i + 0] >>> 27);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 51);
+    buf[off++] = (byte) (values[i + 0] >>> 43);
+    buf[off++] = (byte) (values[i + 0] >>> 35);
+    buf[off++] = (byte) (values[i + 0] >>> 27);
+    buf[off++] = (byte) (values[i + 0] >>> 19);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 43);
+    buf[off++] = (byte) (values[i + 0] >>> 35);
+    buf[off++] = (byte) (values[i + 0] >>> 27);
+    buf[off++] = (byte) (values[i + 0] >>> 19);
+    buf[off++] = (byte) (values[i + 0] >>> 11);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 35);
+    buf[off++] = (byte) (values[i + 0] >>> 27);
+    buf[off++] = (byte) (values[i + 0] >>> 19);
+    buf[off++] = (byte) (values[i + 0] >>> 11);
+    buf[off++] = (byte) (values[i + 0] >>> 3);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 27);
+    buf[off++] = (byte) (values[i + 0] >>> 19);
+    buf[off++] = (byte) (values[i + 0] >>> 11);
+    buf[off++] = (byte) (values[i + 0] >>> 3);
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 19);
+    buf[off++] = (byte) (values[i + 0] >>> 11);
+    buf[off++] = (byte) (values[i + 0] >>> 3);
+
+    buf[off] = (byte) (values[i + 0] << 5);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 3);
+
+    buf[off] = (byte) (values[i + 0] << 5);
+    buf[off++] |= values[i + 1] >>> 54;
+    buf[off++] = (byte) (values[i + 1] >>> 46);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void unpackBits28(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 20;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void unpackBits28(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 20;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 4;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 20;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 4;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 4;
+
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0xf) << 24;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void unpackBits9(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 1;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 7;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void unpackBits9(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 1;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 7;
+
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0x7f) << 2;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void unpackBits19(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 11;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 5;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void unpackBits19(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 11;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 5;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 11;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 5;
+
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0x1f) << 14;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits57(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 49);
+    buf[off++] = (byte) (values[i + 0] >>> 41);
+    buf[off++] = (byte) (values[i + 0] >>> 33);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void packBits57(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 49);
+    buf[off++] = (byte) (values[i + 0] >>> 41);
+    buf[off++] = (byte) (values[i + 0] >>> 33);
+    buf[off++] = (byte) (values[i + 0] >>> 25);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 49);
+    buf[off++] = (byte) (values[i + 0] >>> 41);
+    buf[off++] = (byte) (values[i + 0] >>> 33);
+    buf[off++] = (byte) (values[i + 0] >>> 25);
+    buf[off++] = (byte) (values[i + 0] >>> 17);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 41);
+    buf[off++] = (byte) (values[i + 0] >>> 33);
+    buf[off++] = (byte) (values[i + 0] >>> 25);
+    buf[off++] = (byte) (values[i + 0] >>> 17);
+    buf[off++] = (byte) (values[i + 0] >>> 9);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 33);
+    buf[off++] = (byte) (values[i + 0] >>> 25);
+    buf[off++] = (byte) (values[i + 0] >>> 17);
+    buf[off++] = (byte) (values[i + 0] >>> 9);
+    buf[off++] = (byte) (values[i + 0] >>> 1);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 25);
+    buf[off++] = (byte) (values[i + 0] >>> 17);
+    buf[off++] = (byte) (values[i + 0] >>> 9);
+    buf[off++] = (byte) (values[i + 0] >>> 1);
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 17);
+    buf[off++] = (byte) (values[i + 0] >>> 9);
+    buf[off++] = (byte) (values[i + 0] >>> 1);
+
+    buf[off] = (byte) (values[i + 0] << 7);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 1);
+
+    buf[off] = (byte) (values[i + 0] << 7);
+    buf[off++] |= values[i + 1] >>> 50;
+    buf[off++] = (byte) (values[i + 1] >>> 42);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits1(final long[] values, final int i, final byte[] buf, final int off) {
+    buf[off] = (byte) (values[i + 0] << 7);
+    buf[off] |= values[i + 1] << 6;
+    buf[off] |= values[i + 2] << 5;
 ```
 
 ### PointlessArithmeticExpression
@@ -5013,10 +1905,10 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
 
-  static void packBits46(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 38);
-    buf[off++] = (byte) (values[i + 0] >>> 30);
-    buf[off++] = (byte) (values[i + 0] >>> 22);
+  static void unpackBits29(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 21;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 13;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 5;
 ```
 
 ### PointlessArithmeticExpression
@@ -5024,8 +1916,320 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
-  static void packBits46(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 38);
+  static void unpackBits29(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 21;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 13;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 5;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 3;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 21;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 13;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 5;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 3;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 13;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 5;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 3;
+
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 7) << 26;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits13(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 5);
+
+    buf[off] = (byte) (values[i + 0] << 3);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 5);
+
+    buf[off] = (byte) (values[i + 0] << 3);
+    buf[off++] |= values[i + 1] >>> 10;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void unpackBits52(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 44;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 36;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 28;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void unpackBits52(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 44;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 36;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 28;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 20;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 44;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 36;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 28;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 20;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 36;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 28;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 20;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 28;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 20;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 4;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 20;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 4;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 4;
+
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0xf) << 48;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits26(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 18);
+
+    buf[off++] = (byte) (values[i + 0] >>> 10);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 18);
+
+    buf[off++] = (byte) (values[i + 0] >>> 10);
+
+    buf[off++] = (byte) (values[i + 0] >>> 2);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 10);
+
+    buf[off++] = (byte) (values[i + 0] >>> 2);
+
+    buf[off] = (byte) (values[i + 0] << 6);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 2);
+
+    buf[off] = (byte) (values[i + 0] << 6);
+    buf[off++] |= values[i + 1] >>> 20;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits18(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 10);
+
+    buf[off++] = (byte) (values[i + 0] >>> 2);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 10);
+
+    buf[off++] = (byte) (values[i + 0] >>> 2);
+
+    buf[off] = (byte) (values[i + 0] << 6);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 2);
+
+    buf[off] = (byte) (values[i + 0] << 6);
+    buf[off++] |= values[i + 1] >>> 12;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits31(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 23);
+    buf[off++] = (byte) (values[i + 0] >>> 15);
+    buf[off++] = (byte) (values[i + 0] >>> 7);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void packBits31(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 23);
+    buf[off++] = (byte) (values[i + 0] >>> 15);
+    buf[off++] = (byte) (values[i + 0] >>> 7);
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 23);
+    buf[off++] = (byte) (values[i + 0] >>> 15);
+    buf[off++] = (byte) (values[i + 0] >>> 7);
+
+    buf[off] = (byte) (values[i + 0] << 1);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 7);
+
+    buf[off] = (byte) (values[i + 0] << 1);
+    buf[off++] |= values[i + 1] >>> 30;
+    buf[off++] = (byte) (values[i + 1] >>> 22);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits23(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 15);
+
+    buf[off++] = (byte) (values[i + 0] >>> 7);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 15);
+
+    buf[off++] = (byte) (values[i + 0] >>> 7);
+
+    buf[off] = (byte) (values[i + 0] << 1);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 7);
+
+    buf[off] = (byte) (values[i + 0] << 1);
+    buf[off++] |= values[i + 1] >>> 22;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits38(final long[] values, final int i, final byte[] buf, int off) {
     buf[off++] = (byte) (values[i + 0] >>> 30);
     buf[off++] = (byte) (values[i + 0] >>> 22);
     buf[off++] = (byte) (values[i + 0] >>> 14);
@@ -5036,7 +2240,7 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
-    buf[off++] = (byte) (values[i + 0] >>> 38);
+  static void packBits38(final long[] values, final int i, final byte[] buf, int off) {
     buf[off++] = (byte) (values[i + 0] >>> 30);
     buf[off++] = (byte) (values[i + 0] >>> 22);
     buf[off++] = (byte) (values[i + 0] >>> 14);
@@ -5075,8 +2279,8 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
     buf[off++] = (byte) (values[i + 0] >>> 6);
 
     buf[off] = (byte) (values[i + 0] << 2);
-    buf[off++] |= values[i + 1] >>> 44;
-    buf[off++] = (byte) (values[i + 1] >>> 36);
+    buf[off++] |= values[i + 1] >>> 36;
+    buf[off++] = (byte) (values[i + 1] >>> 28);
 ```
 
 ### PointlessArithmeticExpression
@@ -5085,21 +2289,9 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
 
-  static void unpackBits20(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 12;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 4;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void unpackBits20(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 12;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 4;
+  static void unpackBits13(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 5;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 3;
 
 ```
 
@@ -5108,11 +2300,611 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 12;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 4;
+  static void unpackBits13(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 5;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 3;
 
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0xf) << 16;
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 7) << 10;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void unpackBits30(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 22;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 14;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 6;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void unpackBits30(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 22;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 14;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 6;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 2;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 22;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 14;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 6;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 2;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 14;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 6;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 2;
+
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 3) << 28;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void unpackBits2(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off]) >>> 6) & 3;
+    values[i + 1] = (Byte.toUnsignedLong(buf[off]) >>> 4) & 3;
+    values[i + 2] = (Byte.toUnsignedLong(buf[off]) >>> 2) & 3;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits45(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 37);
+    buf[off++] = (byte) (values[i + 0] >>> 29);
+    buf[off++] = (byte) (values[i + 0] >>> 21);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void packBits45(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 37);
+    buf[off++] = (byte) (values[i + 0] >>> 29);
+    buf[off++] = (byte) (values[i + 0] >>> 21);
+    buf[off++] = (byte) (values[i + 0] >>> 13);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 37);
+    buf[off++] = (byte) (values[i + 0] >>> 29);
+    buf[off++] = (byte) (values[i + 0] >>> 21);
+    buf[off++] = (byte) (values[i + 0] >>> 13);
+    buf[off++] = (byte) (values[i + 0] >>> 5);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 29);
+    buf[off++] = (byte) (values[i + 0] >>> 21);
+    buf[off++] = (byte) (values[i + 0] >>> 13);
+    buf[off++] = (byte) (values[i + 0] >>> 5);
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 21);
+    buf[off++] = (byte) (values[i + 0] >>> 13);
+    buf[off++] = (byte) (values[i + 0] >>> 5);
+
+    buf[off] = (byte) (values[i + 0] << 3);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 5);
+
+    buf[off] = (byte) (values[i + 0] << 3);
+    buf[off++] |= values[i + 1] >>> 42;
+    buf[off++] = (byte) (values[i + 1] >>> 34);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits49(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 41);
+    buf[off++] = (byte) (values[i + 0] >>> 33);
+    buf[off++] = (byte) (values[i + 0] >>> 25);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void packBits49(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 41);
+    buf[off++] = (byte) (values[i + 0] >>> 33);
+    buf[off++] = (byte) (values[i + 0] >>> 25);
+    buf[off++] = (byte) (values[i + 0] >>> 17);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 41);
+    buf[off++] = (byte) (values[i + 0] >>> 33);
+    buf[off++] = (byte) (values[i + 0] >>> 25);
+    buf[off++] = (byte) (values[i + 0] >>> 17);
+    buf[off++] = (byte) (values[i + 0] >>> 9);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 33);
+    buf[off++] = (byte) (values[i + 0] >>> 25);
+    buf[off++] = (byte) (values[i + 0] >>> 17);
+    buf[off++] = (byte) (values[i + 0] >>> 9);
+    buf[off++] = (byte) (values[i + 0] >>> 1);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 25);
+    buf[off++] = (byte) (values[i + 0] >>> 17);
+    buf[off++] = (byte) (values[i + 0] >>> 9);
+    buf[off++] = (byte) (values[i + 0] >>> 1);
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 17);
+    buf[off++] = (byte) (values[i + 0] >>> 9);
+    buf[off++] = (byte) (values[i + 0] >>> 1);
+
+    buf[off] = (byte) (values[i + 0] << 7);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 1);
+
+    buf[off] = (byte) (values[i + 0] << 7);
+    buf[off++] |= values[i + 1] >>> 42;
+    buf[off++] = (byte) (values[i + 1] >>> 34);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void unpackBits38(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 30;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 22;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 14;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void unpackBits38(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 30;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 22;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 14;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 6;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 30;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 22;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 14;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 6;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 2;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 22;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 14;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 6;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 2;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 14;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 6;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 2;
+
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 3) << 36;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits53(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 45);
+    buf[off++] = (byte) (values[i + 0] >>> 37);
+    buf[off++] = (byte) (values[i + 0] >>> 29);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void packBits53(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 45);
+    buf[off++] = (byte) (values[i + 0] >>> 37);
+    buf[off++] = (byte) (values[i + 0] >>> 29);
+    buf[off++] = (byte) (values[i + 0] >>> 21);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 45);
+    buf[off++] = (byte) (values[i + 0] >>> 37);
+    buf[off++] = (byte) (values[i + 0] >>> 29);
+    buf[off++] = (byte) (values[i + 0] >>> 21);
+    buf[off++] = (byte) (values[i + 0] >>> 13);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 37);
+    buf[off++] = (byte) (values[i + 0] >>> 29);
+    buf[off++] = (byte) (values[i + 0] >>> 21);
+    buf[off++] = (byte) (values[i + 0] >>> 13);
+    buf[off++] = (byte) (values[i + 0] >>> 5);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 29);
+    buf[off++] = (byte) (values[i + 0] >>> 21);
+    buf[off++] = (byte) (values[i + 0] >>> 13);
+    buf[off++] = (byte) (values[i + 0] >>> 5);
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 21);
+    buf[off++] = (byte) (values[i + 0] >>> 13);
+    buf[off++] = (byte) (values[i + 0] >>> 5);
+
+    buf[off] = (byte) (values[i + 0] << 3);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 5);
+
+    buf[off] = (byte) (values[i + 0] << 3);
+    buf[off++] |= values[i + 1] >>> 50;
+    buf[off++] = (byte) (values[i + 1] >>> 42);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void unpackBits45(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 37;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 29;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 21;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void unpackBits45(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 37;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 29;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 21;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 13;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 37;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 29;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 21;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 13;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 5;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 29;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 21;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 13;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 5;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 3;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 21;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 13;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 5;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 3;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 13;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 5;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 3;
+
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 7) << 42;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void unpackBits33(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 25;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 17;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 9;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void unpackBits33(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 25;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 17;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 9;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 1;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 25;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 17;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 9;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 1;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 7;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 17;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 9;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 1;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 7;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 9;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 1;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 7;
+
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0x7f) << 26;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits19(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 11);
+
+    buf[off++] = (byte) (values[i + 0] >>> 3);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 11);
+
+    buf[off++] = (byte) (values[i + 0] >>> 3);
+
+    buf[off] = (byte) (values[i + 0] << 5);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 3);
+
+    buf[off] = (byte) (values[i + 0] << 5);
+    buf[off++] |= values[i + 1] >>> 14;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void unpackBits42(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 34;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 26;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 18;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void unpackBits42(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 34;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 26;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 18;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 34;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 26;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 18;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 2;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 26;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 18;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 2;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 6;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 18;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 2;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 6;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 2;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 6;
+
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0x3f) << 36;
 ```
 
 ### PointlessArithmeticExpression
@@ -5173,6 +2965,366 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
     values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 3;
 
     values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 7) << 34;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void unpackBits8(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]);
+    values[i + 1] = Byte.toUnsignedLong(buf[off++]);
+    values[i + 2] = Byte.toUnsignedLong(buf[off++]);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits12(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 4);
+
+    buf[off] = (byte) (values[i + 0] << 4);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 4);
+
+    buf[off] = (byte) (values[i + 0] << 4);
+    buf[off++] |= values[i + 1] >>> 8;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits20(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 12);
+
+    buf[off++] = (byte) (values[i + 0] >>> 4);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 12);
+
+    buf[off++] = (byte) (values[i + 0] >>> 4);
+
+    buf[off] = (byte) (values[i + 0] << 4);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 4);
+
+    buf[off] = (byte) (values[i + 0] << 4);
+    buf[off++] |= values[i + 1] >>> 16;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits40(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 32);
+    buf[off++] = (byte) (values[i + 0] >>> 24);
+    buf[off++] = (byte) (values[i + 0] >>> 16);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void packBits40(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 32);
+    buf[off++] = (byte) (values[i + 0] >>> 24);
+    buf[off++] = (byte) (values[i + 0] >>> 16);
+    buf[off++] = (byte) (values[i + 0] >>> 8);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 32);
+    buf[off++] = (byte) (values[i + 0] >>> 24);
+    buf[off++] = (byte) (values[i + 0] >>> 16);
+    buf[off++] = (byte) (values[i + 0] >>> 8);
+    buf[off++] = (byte) (values[i + 0]);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 24);
+    buf[off++] = (byte) (values[i + 0] >>> 16);
+    buf[off++] = (byte) (values[i + 0] >>> 8);
+    buf[off++] = (byte) (values[i + 0]);
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 16);
+    buf[off++] = (byte) (values[i + 0] >>> 8);
+    buf[off++] = (byte) (values[i + 0]);
+
+    buf[off++] = (byte) (values[i + 1] >>> 32);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits32(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 24);
+    buf[off++] = (byte) (values[i + 0] >>> 16);
+    buf[off++] = (byte) (values[i + 0] >>> 8);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void packBits32(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 24);
+    buf[off++] = (byte) (values[i + 0] >>> 16);
+    buf[off++] = (byte) (values[i + 0] >>> 8);
+    buf[off++] = (byte) (values[i + 0]);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 24);
+    buf[off++] = (byte) (values[i + 0] >>> 16);
+    buf[off++] = (byte) (values[i + 0] >>> 8);
+    buf[off++] = (byte) (values[i + 0]);
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 16);
+    buf[off++] = (byte) (values[i + 0] >>> 8);
+    buf[off++] = (byte) (values[i + 0]);
+
+    buf[off++] = (byte) (values[i + 1] >>> 24);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits41(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 33);
+    buf[off++] = (byte) (values[i + 0] >>> 25);
+    buf[off++] = (byte) (values[i + 0] >>> 17);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void packBits41(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 33);
+    buf[off++] = (byte) (values[i + 0] >>> 25);
+    buf[off++] = (byte) (values[i + 0] >>> 17);
+    buf[off++] = (byte) (values[i + 0] >>> 9);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 33);
+    buf[off++] = (byte) (values[i + 0] >>> 25);
+    buf[off++] = (byte) (values[i + 0] >>> 17);
+    buf[off++] = (byte) (values[i + 0] >>> 9);
+    buf[off++] = (byte) (values[i + 0] >>> 1);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 25);
+    buf[off++] = (byte) (values[i + 0] >>> 17);
+    buf[off++] = (byte) (values[i + 0] >>> 9);
+    buf[off++] = (byte) (values[i + 0] >>> 1);
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 17);
+    buf[off++] = (byte) (values[i + 0] >>> 9);
+    buf[off++] = (byte) (values[i + 0] >>> 1);
+
+    buf[off] = (byte) (values[i + 0] << 7);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 1);
+
+    buf[off] = (byte) (values[i + 0] << 7);
+    buf[off++] |= values[i + 1] >>> 34;
+    buf[off++] = (byte) (values[i + 1] >>> 26);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void unpackBits35(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 27;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 19;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void unpackBits35(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 27;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 19;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 27;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 19;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 5;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 19;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 5;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 5;
+
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0x1f) << 30;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits28(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 20);
+    buf[off++] = (byte) (values[i + 0] >>> 12);
+    buf[off++] = (byte) (values[i + 0] >>> 4);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void packBits28(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 20);
+    buf[off++] = (byte) (values[i + 0] >>> 12);
+    buf[off++] = (byte) (values[i + 0] >>> 4);
+    buf[off] = (byte) (values[i + 0] << 4);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 20);
+    buf[off++] = (byte) (values[i + 0] >>> 12);
+    buf[off++] = (byte) (values[i + 0] >>> 4);
+    buf[off] = (byte) (values[i + 0] << 4);
+    buf[off++] |= values[i + 1] >>> 24;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 12);
+    buf[off++] = (byte) (values[i + 0] >>> 4);
+    buf[off] = (byte) (values[i + 0] << 4);
+    buf[off++] |= values[i + 1] >>> 24;
+    buf[off++] = (byte) (values[i + 1] >>> 16);
 ```
 
 ### PointlessArithmeticExpression
@@ -5265,10 +3417,10 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
 
-  static void unpackBits54(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 46;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 38;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 30;
+  static void packBits63(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 55);
+    buf[off++] = (byte) (values[i + 0] >>> 47);
+    buf[off++] = (byte) (values[i + 0] >>> 39);
 ```
 
 ### PointlessArithmeticExpression
@@ -5276,9 +3428,237 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
-  static void unpackBits54(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 46;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 38;
+  static void packBits63(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 55);
+    buf[off++] = (byte) (values[i + 0] >>> 47);
+    buf[off++] = (byte) (values[i + 0] >>> 39);
+    buf[off++] = (byte) (values[i + 0] >>> 31);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 55);
+    buf[off++] = (byte) (values[i + 0] >>> 47);
+    buf[off++] = (byte) (values[i + 0] >>> 39);
+    buf[off++] = (byte) (values[i + 0] >>> 31);
+    buf[off++] = (byte) (values[i + 0] >>> 23);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 47);
+    buf[off++] = (byte) (values[i + 0] >>> 39);
+    buf[off++] = (byte) (values[i + 0] >>> 31);
+    buf[off++] = (byte) (values[i + 0] >>> 23);
+    buf[off++] = (byte) (values[i + 0] >>> 15);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 39);
+    buf[off++] = (byte) (values[i + 0] >>> 31);
+    buf[off++] = (byte) (values[i + 0] >>> 23);
+    buf[off++] = (byte) (values[i + 0] >>> 15);
+    buf[off++] = (byte) (values[i + 0] >>> 7);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 31);
+    buf[off++] = (byte) (values[i + 0] >>> 23);
+    buf[off++] = (byte) (values[i + 0] >>> 15);
+    buf[off++] = (byte) (values[i + 0] >>> 7);
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 23);
+    buf[off++] = (byte) (values[i + 0] >>> 15);
+    buf[off++] = (byte) (values[i + 0] >>> 7);
+
+    buf[off] = (byte) (values[i + 0] << 1);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 7);
+
+    buf[off] = (byte) (values[i + 0] << 1);
+    buf[off++] |= values[i + 1] >>> 62;
+    buf[off++] = (byte) (values[i + 1] >>> 54);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void unpackBits44(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 36;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 28;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 20;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void unpackBits44(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 36;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 28;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 20;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 36;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 28;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 20;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 28;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 20;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 4;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 20;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 4;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 4;
+
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0xf) << 40;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void unpackBits15(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 7;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 1;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void unpackBits15(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 7;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 1;
+
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 1) << 14;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void unpackBits31(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 23;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 15;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 7;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void unpackBits31(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 23;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 15;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 7;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 1;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 23;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 15;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 7;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 1;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 15;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 7;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 1;
+
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 1) << 30;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void unpackBits46(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 38;
     values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 30;
     values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 22;
 ```
@@ -5288,8 +3668,8 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 46;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 38;
+  static void unpackBits46(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 38;
     values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 30;
     values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 22;
     values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 14;
@@ -5300,7 +3680,7 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 38;
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 38;
     values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 30;
     values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 22;
     values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 14;
@@ -5340,7 +3720,7 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
     values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 6;
     values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 2;
 
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 3) << 52;
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 3) << 44;
 ```
 
 ### PointlessArithmeticExpression
@@ -5349,70 +3729,10 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
 
-  static void unpackBits43(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 35;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 27;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 19;
-```
+  static void unpackBits6(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off]) >>> 2;
 
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void unpackBits43(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 35;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 27;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 19;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 35;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 27;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 19;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 27;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 19;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 5;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 19;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 5;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 5;
-
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0x1f) << 38;
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 3) << 4;
 ```
 
 ### PointlessArithmeticExpression
@@ -5421,10 +3741,10 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
 
-  static void packBits22(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 14);
-
-    buf[off++] = (byte) (values[i + 0] >>> 6);
+  static void unpackBits20(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 12;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 4;
 ```
 
 ### PointlessArithmeticExpression
@@ -5432,22 +3752,10 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
-    buf[off++] = (byte) (values[i + 0] >>> 14);
-
-    buf[off++] = (byte) (values[i + 0] >>> 6);
-
-    buf[off] = (byte) (values[i + 0] << 2);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 6);
-
-    buf[off] = (byte) (values[i + 0] << 2);
-    buf[off++] |= values[i + 1] >>> 20;
+  static void unpackBits20(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 12;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 4;
 
 ```
 
@@ -5456,71 +3764,11 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 12;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 4;
 
-  static void unpackBits41(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 33;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 25;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 17;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void unpackBits41(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 33;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 25;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 17;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 9;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 33;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 25;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 17;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 9;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 1;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 25;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 17;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 9;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 1;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 7;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 17;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 9;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 1;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 7;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 9;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 1;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 7;
-
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0x7f) << 34;
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0xf) << 16;
 ```
 
 ### PointlessArithmeticExpression
@@ -5529,94 +3777,10 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
 
-  static void packBits60(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 52);
-    buf[off++] = (byte) (values[i + 0] >>> 44);
-    buf[off++] = (byte) (values[i + 0] >>> 36);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void packBits60(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 52);
-    buf[off++] = (byte) (values[i + 0] >>> 44);
-    buf[off++] = (byte) (values[i + 0] >>> 36);
-    buf[off++] = (byte) (values[i + 0] >>> 28);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 52);
-    buf[off++] = (byte) (values[i + 0] >>> 44);
-    buf[off++] = (byte) (values[i + 0] >>> 36);
-    buf[off++] = (byte) (values[i + 0] >>> 28);
-    buf[off++] = (byte) (values[i + 0] >>> 20);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 44);
-    buf[off++] = (byte) (values[i + 0] >>> 36);
-    buf[off++] = (byte) (values[i + 0] >>> 28);
-    buf[off++] = (byte) (values[i + 0] >>> 20);
-    buf[off++] = (byte) (values[i + 0] >>> 12);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 36);
-    buf[off++] = (byte) (values[i + 0] >>> 28);
-    buf[off++] = (byte) (values[i + 0] >>> 20);
-    buf[off++] = (byte) (values[i + 0] >>> 12);
-    buf[off++] = (byte) (values[i + 0] >>> 4);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 28);
-    buf[off++] = (byte) (values[i + 0] >>> 20);
-    buf[off++] = (byte) (values[i + 0] >>> 12);
-    buf[off++] = (byte) (values[i + 0] >>> 4);
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 20);
-    buf[off++] = (byte) (values[i + 0] >>> 12);
-    buf[off++] = (byte) (values[i + 0] >>> 4);
-
-    buf[off] = (byte) (values[i + 0] << 4);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 4);
-
-    buf[off] = (byte) (values[i + 0] << 4);
-    buf[off++] |= values[i + 1] >>> 56;
-    buf[off++] = (byte) (values[i + 1] >>> 48);
+  static void unpackBits4(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off]) >>> 4;
+    values[i + 1] = Byte.toUnsignedLong(buf[off++]) & 0xf;
+    values[i + 2] = Byte.toUnsignedLong(buf[off]) >>> 4;
 ```
 
 ### PointlessArithmeticExpression
@@ -5625,44 +3789,8 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
 
-  static void unpackBits45(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 37;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 29;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 21;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void unpackBits45(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 37;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 29;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 21;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 13;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 37;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 29;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 21;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 13;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 5;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 29;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 21;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 13;
+  static void unpackBits21(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 13;
     values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 5;
     values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 3;
 ```
@@ -5672,8 +3800,8 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 21;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 13;
+  static void unpackBits21(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 13;
     values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 5;
     values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 3;
 
@@ -5684,11 +3812,11 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 13;
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 13;
     values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 5;
     values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 3;
 
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 7) << 42;
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 7) << 18;
 ```
 
 ### PointlessArithmeticExpression
@@ -5697,10 +3825,22 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
 
-  static void unpackBits8(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]);
-    values[i + 1] = Byte.toUnsignedLong(buf[off++]);
-    values[i + 2] = Byte.toUnsignedLong(buf[off++]);
+  static void packBits9(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 1);
+
+    buf[off] = (byte) (values[i + 0] << 7);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 1);
+
+    buf[off] = (byte) (values[i + 0] << 7);
+    buf[off++] |= values[i + 1] >>> 2;
+
 ```
 
 ### PointlessArithmeticExpression
@@ -5709,10 +3849,10 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
 
-  static void packBits21(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 13);
-
-    buf[off++] = (byte) (values[i + 0] >>> 5);
+  static void packBits8(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0]);
+    buf[off++] = (byte) (values[i + 1]);
+    buf[off++] = (byte) (values[i + 2]);
 ```
 
 ### PointlessArithmeticExpression
@@ -5720,11 +3860,11 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
-    buf[off++] = (byte) (values[i + 0] >>> 13);
 
-    buf[off++] = (byte) (values[i + 0] >>> 5);
+  static void unpackBits10(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 2;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 6;
 
-    buf[off] = (byte) (values[i + 0] << 3);
 ```
 
 ### PointlessArithmeticExpression
@@ -5732,11 +3872,11 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
-    buf[off++] = (byte) (values[i + 0] >>> 5);
+  static void unpackBits10(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 2;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 6;
 
-    buf[off] = (byte) (values[i + 0] << 3);
-    buf[off++] |= values[i + 1] >>> 18;
-
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0x3f) << 4;
 ```
 
 ### PointlessArithmeticExpression
@@ -5925,93 +4065,9 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
 
-  static void unpackBits24(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 16;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 8;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void unpackBits24(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 16;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 8;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]);
-    values[i + 1] = Byte.toUnsignedLong(buf[off++]) << 16;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 16;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 8;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]);
-    values[i + 1] = Byte.toUnsignedLong(buf[off++]) << 16;
-    values[i + 1] |= Byte.toUnsignedLong(buf[off++]) << 8;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void unpackBits44(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 36;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 28;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 20;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void unpackBits44(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 36;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 28;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 20;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 36;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 28;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 20;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 28;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 20;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 4;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 20;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 4;
+  static void unpackBits14(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 6;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 2;
 
 ```
 
@@ -6020,11 +4076,11 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 4;
+  static void unpackBits14(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 6;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 2;
 
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0xf) << 40;
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 3) << 12;
 ```
 
 ### PointlessArithmeticExpression
@@ -6105,10 +4161,10 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
 
-  static void unpackBits36(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 28;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 20;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
+  static void packBits33(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 25);
+    buf[off++] = (byte) (values[i + 0] >>> 17);
+    buf[off++] = (byte) (values[i + 0] >>> 9);
 ```
 
 ### PointlessArithmeticExpression
@@ -6116,11 +4172,11 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
-  static void unpackBits36(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 28;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 20;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
+  static void packBits33(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 25);
+    buf[off++] = (byte) (values[i + 0] >>> 17);
+    buf[off++] = (byte) (values[i + 0] >>> 9);
+    buf[off++] = (byte) (values[i + 0] >>> 1);
 ```
 
 ### PointlessArithmeticExpression
@@ -6128,22 +4184,10 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 28;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 20;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 4;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 20;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 4;
+    buf[off++] = (byte) (values[i + 0] >>> 25);
+    buf[off++] = (byte) (values[i + 0] >>> 17);
+    buf[off++] = (byte) (values[i + 0] >>> 9);
+    buf[off++] = (byte) (values[i + 0] >>> 1);
 
 ```
 
@@ -6152,11 +4196,23 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 4;
+    buf[off++] = (byte) (values[i + 0] >>> 17);
+    buf[off++] = (byte) (values[i + 0] >>> 9);
+    buf[off++] = (byte) (values[i + 0] >>> 1);
 
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0xf) << 32;
+    buf[off] = (byte) (values[i + 0] << 7);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 1);
+
+    buf[off] = (byte) (values[i + 0] << 7);
+    buf[off++] |= values[i + 1] >>> 26;
+    buf[off++] = (byte) (values[i + 1] >>> 18);
 ```
 
 ### PointlessArithmeticExpression
@@ -6165,10 +4221,10 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
 
-  static void unpackBits23(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 15;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 7;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 1;
+  static void packBits55(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 47);
+    buf[off++] = (byte) (values[i + 0] >>> 39);
+    buf[off++] = (byte) (values[i + 0] >>> 31);
 ```
 
 ### PointlessArithmeticExpression
@@ -6176,11 +4232,11 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
-  static void unpackBits23(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 15;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 7;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 1;
-
+  static void packBits55(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 47);
+    buf[off++] = (byte) (values[i + 0] >>> 39);
+    buf[off++] = (byte) (values[i + 0] >>> 31);
+    buf[off++] = (byte) (values[i + 0] >>> 23);
 ```
 
 ### PointlessArithmeticExpression
@@ -6188,58 +4244,22 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 15;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 7;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 1;
-
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 1) << 22;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits18(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 10);
-
-    buf[off++] = (byte) (values[i + 0] >>> 2);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 10);
-
-    buf[off++] = (byte) (values[i + 0] >>> 2);
-
-    buf[off] = (byte) (values[i + 0] << 6);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 2);
-
-    buf[off] = (byte) (values[i + 0] << 6);
-    buf[off++] |= values[i + 1] >>> 12;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits23(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 47);
+    buf[off++] = (byte) (values[i + 0] >>> 39);
+    buf[off++] = (byte) (values[i + 0] >>> 31);
+    buf[off++] = (byte) (values[i + 0] >>> 23);
     buf[off++] = (byte) (values[i + 0] >>> 15);
+```
 
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 39);
+    buf[off++] = (byte) (values[i + 0] >>> 31);
+    buf[off++] = (byte) (values[i + 0] >>> 23);
+    buf[off++] = (byte) (values[i + 0] >>> 15);
     buf[off++] = (byte) (values[i + 0] >>> 7);
 ```
 
@@ -6248,8 +4268,20 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
+    buf[off++] = (byte) (values[i + 0] >>> 31);
+    buf[off++] = (byte) (values[i + 0] >>> 23);
     buf[off++] = (byte) (values[i + 0] >>> 15);
+    buf[off++] = (byte) (values[i + 0] >>> 7);
 
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 23);
+    buf[off++] = (byte) (values[i + 0] >>> 15);
     buf[off++] = (byte) (values[i + 0] >>> 7);
 
     buf[off] = (byte) (values[i + 0] << 1);
@@ -6263,7 +4295,127 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
     buf[off++] = (byte) (values[i + 0] >>> 7);
 
     buf[off] = (byte) (values[i + 0] << 1);
-    buf[off++] |= values[i + 1] >>> 22;
+    buf[off++] |= values[i + 1] >>> 54;
+    buf[off++] = (byte) (values[i + 1] >>> 46);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits2(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off] = (byte) (values[i + 0] << 6);
+    buf[off] |= values[i + 1] << 4;
+    buf[off] |= values[i + 2] << 2;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void unpackBits48(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 40;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 32;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 24;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void unpackBits48(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 40;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 32;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 24;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 16;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 40;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 32;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 24;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 16;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 8;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 32;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 24;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 16;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 8;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 24;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 16;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 8;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]);
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++])) << 40;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 16;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 8;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]);
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++])) << 40;
+    values[i + 1] |= (Byte.toUnsignedLong(buf[off++])) << 32;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits21(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 13);
+
+    buf[off++] = (byte) (values[i + 0] >>> 5);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 13);
+
+    buf[off++] = (byte) (values[i + 0] >>> 5);
+
+    buf[off] = (byte) (values[i + 0] << 3);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 5);
+
+    buf[off] = (byte) (values[i + 0] << 3);
+    buf[off++] |= values[i + 1] >>> 18;
 
 ```
 
@@ -6273,10 +4425,10 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
 
-  static void unpackBits52(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 44;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 36;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 28;
+  static void unpackBits18(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 10;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 2;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 6;
 ```
 
 ### PointlessArithmeticExpression
@@ -6284,58 +4436,10 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
-  static void unpackBits52(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 44;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 36;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 28;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 20;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 44;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 36;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 28;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 20;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 36;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 28;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 20;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 28;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 20;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 4;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 20;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 4;
+  static void unpackBits18(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 10;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 2;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 6;
 
 ```
 
@@ -6344,11 +4448,11 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 4;
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 10;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 2;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 6;
 
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0xf) << 48;
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0x3f) << 12;
 ```
 
 ### PointlessArithmeticExpression
@@ -6441,10 +4545,10 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
 
-  static void packBits30(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 22);
-    buf[off++] = (byte) (values[i + 0] >>> 14);
-    buf[off++] = (byte) (values[i + 0] >>> 6);
+  static void packBits34(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 26);
+    buf[off++] = (byte) (values[i + 0] >>> 18);
+    buf[off++] = (byte) (values[i + 0] >>> 10);
 ```
 
 ### PointlessArithmeticExpression
@@ -6452,10 +4556,22 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
-  static void packBits30(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 22);
-    buf[off++] = (byte) (values[i + 0] >>> 14);
-    buf[off++] = (byte) (values[i + 0] >>> 6);
+  static void packBits34(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 26);
+    buf[off++] = (byte) (values[i + 0] >>> 18);
+    buf[off++] = (byte) (values[i + 0] >>> 10);
+    buf[off++] = (byte) (values[i + 0] >>> 2);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 26);
+    buf[off++] = (byte) (values[i + 0] >>> 18);
+    buf[off++] = (byte) (values[i + 0] >>> 10);
+    buf[off++] = (byte) (values[i + 0] >>> 2);
 
 ```
 
@@ -6464,11 +4580,11 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
-    buf[off++] = (byte) (values[i + 0] >>> 22);
-    buf[off++] = (byte) (values[i + 0] >>> 14);
-    buf[off++] = (byte) (values[i + 0] >>> 6);
+    buf[off++] = (byte) (values[i + 0] >>> 18);
+    buf[off++] = (byte) (values[i + 0] >>> 10);
+    buf[off++] = (byte) (values[i + 0] >>> 2);
 
-    buf[off] = (byte) (values[i + 0] << 2);
+    buf[off] = (byte) (values[i + 0] << 6);
 ```
 
 ### PointlessArithmeticExpression
@@ -6476,9 +4592,9 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
-    buf[off++] = (byte) (values[i + 0] >>> 6);
+    buf[off++] = (byte) (values[i + 0] >>> 2);
 
-    buf[off] = (byte) (values[i + 0] << 2);
+    buf[off] = (byte) (values[i + 0] << 6);
     buf[off++] |= values[i + 1] >>> 28;
     buf[off++] = (byte) (values[i + 1] >>> 20);
 ```
@@ -6489,10 +4605,10 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
 
-  static void unpackBits29(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 21;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 13;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 5;
+  static void unpackBits17(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 9;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 1;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 7;
 ```
 
 ### PointlessArithmeticExpression
@@ -6500,22 +4616,10 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
-  static void unpackBits29(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 21;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 13;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 5;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 3;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 21;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 13;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 5;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 3;
+  static void unpackBits17(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 9;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 1;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 7;
 
 ```
 
@@ -6524,11 +4628,11 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 13;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 5;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 3;
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 9;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 1;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 7;
 
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 7) << 26;
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0x7f) << 10;
 ```
 
 ### PointlessArithmeticExpression
@@ -6537,31 +4641,7 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
 
-  static void packBits27(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 19);
-
-    buf[off++] = (byte) (values[i + 0] >>> 11);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 19);
-
-    buf[off++] = (byte) (values[i + 0] >>> 11);
-
-    buf[off++] = (byte) (values[i + 0] >>> 3);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 11);
-
+  static void packBits11(final long[] values, final int i, final byte[] buf, int off) {
     buf[off++] = (byte) (values[i + 0] >>> 3);
 
     buf[off] = (byte) (values[i + 0] << 5);
@@ -6575,7 +4655,7 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
     buf[off++] = (byte) (values[i + 0] >>> 3);
 
     buf[off] = (byte) (values[i + 0] << 5);
-    buf[off++] |= values[i + 1] >>> 22;
+    buf[off++] |= values[i + 1] >>> 6;
 
 ```
 
@@ -6585,10 +4665,10 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
 
-  static void packBits33(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 25);
-    buf[off++] = (byte) (values[i + 0] >>> 17);
-    buf[off++] = (byte) (values[i + 0] >>> 9);
+  static void unpackBits49(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 41;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 33;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 25;
 ```
 
 ### PointlessArithmeticExpression
@@ -6596,11 +4676,11 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
-  static void packBits33(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 25);
-    buf[off++] = (byte) (values[i + 0] >>> 17);
-    buf[off++] = (byte) (values[i + 0] >>> 9);
-    buf[off++] = (byte) (values[i + 0] >>> 1);
+  static void unpackBits49(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 41;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 33;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 25;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 17;
 ```
 
 ### PointlessArithmeticExpression
@@ -6608,11 +4688,11 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
-    buf[off++] = (byte) (values[i + 0] >>> 25);
-    buf[off++] = (byte) (values[i + 0] >>> 17);
-    buf[off++] = (byte) (values[i + 0] >>> 9);
-    buf[off++] = (byte) (values[i + 0] >>> 1);
-
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 41;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 33;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 25;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 17;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 9;
 ```
 
 ### PointlessArithmeticExpression
@@ -6620,11 +4700,11 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
-    buf[off++] = (byte) (values[i + 0] >>> 17);
-    buf[off++] = (byte) (values[i + 0] >>> 9);
-    buf[off++] = (byte) (values[i + 0] >>> 1);
-
-    buf[off] = (byte) (values[i + 0] << 7);
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 33;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 25;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 17;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 9;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 1;
 ```
 
 ### PointlessArithmeticExpression
@@ -6632,11 +4712,11 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
-    buf[off++] = (byte) (values[i + 0] >>> 1);
-
-    buf[off] = (byte) (values[i + 0] << 7);
-    buf[off++] |= values[i + 1] >>> 26;
-    buf[off++] = (byte) (values[i + 1] >>> 18);
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 25;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 17;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 9;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 1;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 7;
 ```
 
 ### PointlessArithmeticExpression
@@ -6644,22 +4724,10 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
-
-  static void packBits14(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 6);
-
-    buf[off] = (byte) (values[i + 0] << 2);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 6);
-
-    buf[off] = (byte) (values[i + 0] << 2);
-    buf[off++] |= values[i + 1] >>> 12;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 17;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 9;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 1;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 7;
 
 ```
 
@@ -6668,95 +4736,11 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 9;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 1;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 7;
 
-  static void unpackBits60(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 52;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 44;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 36;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void unpackBits60(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 52;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 44;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 36;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 28;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 52;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 44;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 36;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 28;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 20;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 44;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 36;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 28;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 20;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 36;
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 28;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 20;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 28;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 20;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 4;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 20;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 4;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 4;
-
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0xf) << 56;
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0x7f) << 42;
 ```
 
 ### PointlessArithmeticExpression
@@ -6765,10 +4749,10 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
 
-  static void unpackBits3(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off]) >>> 5;
-    values[i + 1] = (Byte.toUnsignedLong(buf[off]) >>> 2) & 7;
-    values[i + 2] = (Byte.toUnsignedLong(buf[off++]) & 3) << 1;
+  static void packBits60(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 52);
+    buf[off++] = (byte) (values[i + 0] >>> 44);
+    buf[off++] = (byte) (values[i + 0] >>> 36);
 ```
 
 ### PointlessArithmeticExpression
@@ -6776,10 +4760,46 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
+  static void packBits60(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 52);
+    buf[off++] = (byte) (values[i + 0] >>> 44);
+    buf[off++] = (byte) (values[i + 0] >>> 36);
+    buf[off++] = (byte) (values[i + 0] >>> 28);
+```
 
-  static void packBits20(final long[] values, final int i, final byte[] buf, int off) {
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 52);
+    buf[off++] = (byte) (values[i + 0] >>> 44);
+    buf[off++] = (byte) (values[i + 0] >>> 36);
+    buf[off++] = (byte) (values[i + 0] >>> 28);
+    buf[off++] = (byte) (values[i + 0] >>> 20);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 44);
+    buf[off++] = (byte) (values[i + 0] >>> 36);
+    buf[off++] = (byte) (values[i + 0] >>> 28);
+    buf[off++] = (byte) (values[i + 0] >>> 20);
     buf[off++] = (byte) (values[i + 0] >>> 12);
+```
 
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 36);
+    buf[off++] = (byte) (values[i + 0] >>> 28);
+    buf[off++] = (byte) (values[i + 0] >>> 20);
+    buf[off++] = (byte) (values[i + 0] >>> 12);
     buf[off++] = (byte) (values[i + 0] >>> 4);
 ```
 
@@ -6788,8 +4808,20 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
+    buf[off++] = (byte) (values[i + 0] >>> 28);
+    buf[off++] = (byte) (values[i + 0] >>> 20);
     buf[off++] = (byte) (values[i + 0] >>> 12);
+    buf[off++] = (byte) (values[i + 0] >>> 4);
 
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 20);
+    buf[off++] = (byte) (values[i + 0] >>> 12);
     buf[off++] = (byte) (values[i + 0] >>> 4);
 
     buf[off] = (byte) (values[i + 0] << 4);
@@ -6803,8 +4835,8 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
     buf[off++] = (byte) (values[i + 0] >>> 4);
 
     buf[off] = (byte) (values[i + 0] << 4);
-    buf[off++] |= values[i + 1] >>> 16;
-
+    buf[off++] |= values[i + 1] >>> 56;
+    buf[off++] = (byte) (values[i + 1] >>> 48);
 ```
 
 ### PointlessArithmeticExpression
@@ -6813,10 +4845,10 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
 
-  static void unpackBits2(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off]) >>> 6) & 3;
-    values[i + 1] = (Byte.toUnsignedLong(buf[off]) >>> 4) & 3;
-    values[i + 2] = (Byte.toUnsignedLong(buf[off]) >>> 2) & 3;
+  static void unpackBits26(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 18;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 2;
 ```
 
 ### PointlessArithmeticExpression
@@ -6824,9 +4856,9 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
-
-  static void unpackBits18(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 10;
+  static void unpackBits26(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 18;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
     values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 2;
     values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 6;
 ```
@@ -6836,8 +4868,8 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
-  static void unpackBits18(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 10;
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 18;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
     values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 2;
     values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 6;
 
@@ -6848,71 +4880,11 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 10;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
     values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 2;
     values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 6;
 
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0x3f) << 12;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void unpackBits35(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 27;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 19;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void unpackBits35(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 27;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 19;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 27;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 19;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 5;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 19;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 5;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 5;
-
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0x1f) << 30;
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0x3f) << 20;
 ```
 
 ### PointlessArithmeticExpression
@@ -6945,7 +4917,667 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
 
-  static void packBits34(final long[] values, final int i, final byte[] buf, int off) {
+  static void unpackBits50(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 42;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 34;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 26;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void unpackBits50(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 42;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 34;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 26;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 18;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 42;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 34;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 26;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 18;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 34;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 26;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 18;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 2;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 26;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 18;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 2;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 6;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 18;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 2;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 6;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 2;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 6;
+
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0x3f) << 44;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void unpackBits59(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 51;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 43;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 35;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void unpackBits59(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 51;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 43;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 35;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 27;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 51;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 43;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 35;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 27;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 19;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 43;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 35;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 27;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 19;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 35;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 27;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 19;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 27;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 19;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 5;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 19;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 5;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 5;
+
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0x1f) << 54;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void unpackBits32(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 24;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 16;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 8;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void unpackBits32(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 24;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 16;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 8;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 24;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 16;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 8;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]);
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++])) << 24;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 16;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 8;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]);
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++])) << 24;
+    values[i + 1] |= Byte.toUnsignedLong(buf[off++]) << 16;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void unpackBits27(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 19;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void unpackBits27(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 19;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 5;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 19;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 5;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 5;
+
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0x1f) << 22;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits25(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 17);
+
+    buf[off++] = (byte) (values[i + 0] >>> 9);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 17);
+
+    buf[off++] = (byte) (values[i + 0] >>> 9);
+
+    buf[off++] = (byte) (values[i + 0] >>> 1);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 9);
+
+    buf[off++] = (byte) (values[i + 0] >>> 1);
+
+    buf[off] = (byte) (values[i + 0] << 7);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 1);
+
+    buf[off] = (byte) (values[i + 0] << 7);
+    buf[off++] |= values[i + 1] >>> 18;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits43(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 35);
+    buf[off++] = (byte) (values[i + 0] >>> 27);
+    buf[off++] = (byte) (values[i + 0] >>> 19);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void packBits43(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 35);
+    buf[off++] = (byte) (values[i + 0] >>> 27);
+    buf[off++] = (byte) (values[i + 0] >>> 19);
+    buf[off++] = (byte) (values[i + 0] >>> 11);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 35);
+    buf[off++] = (byte) (values[i + 0] >>> 27);
+    buf[off++] = (byte) (values[i + 0] >>> 19);
+    buf[off++] = (byte) (values[i + 0] >>> 11);
+    buf[off++] = (byte) (values[i + 0] >>> 3);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 27);
+    buf[off++] = (byte) (values[i + 0] >>> 19);
+    buf[off++] = (byte) (values[i + 0] >>> 11);
+    buf[off++] = (byte) (values[i + 0] >>> 3);
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 19);
+    buf[off++] = (byte) (values[i + 0] >>> 11);
+    buf[off++] = (byte) (values[i + 0] >>> 3);
+
+    buf[off] = (byte) (values[i + 0] << 5);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 3);
+
+    buf[off] = (byte) (values[i + 0] << 5);
+    buf[off++] |= values[i + 1] >>> 38;
+    buf[off++] = (byte) (values[i + 1] >>> 30);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void unpackBits22(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 14;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 6;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 2;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void unpackBits22(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 14;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 6;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 2;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 14;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 6;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 2;
+
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 3) << 20;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits22(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 14);
+
+    buf[off++] = (byte) (values[i + 0] >>> 6);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 14);
+
+    buf[off++] = (byte) (values[i + 0] >>> 6);
+
+    buf[off] = (byte) (values[i + 0] << 2);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 6);
+
+    buf[off] = (byte) (values[i + 0] << 2);
+    buf[off++] |= values[i + 1] >>> 20;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void unpackBits1(final long[] values, final int i, final byte[] buf, final int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off]) >>> 7) & 1;
+    values[i + 1] = (Byte.toUnsignedLong(buf[off]) >>> 6) & 1;
+    values[i + 2] = (Byte.toUnsignedLong(buf[off]) >>> 5) & 1;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void unpackBits41(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 33;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 25;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 17;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void unpackBits41(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 33;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 25;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 17;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 9;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 33;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 25;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 17;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 9;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 1;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 25;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 17;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 9;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 1;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 7;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 17;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 9;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 1;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 7;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 9;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 1;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 7;
+
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0x7f) << 34;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void unpackBits58(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 50;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 42;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 34;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void unpackBits58(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 50;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 42;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 34;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 26;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 50;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 42;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 34;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 26;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 18;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 42;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 34;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 26;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 18;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 34;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 26;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 18;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 2;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 26;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 18;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 2;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 6;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 18;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 2;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 6;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 2;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 6;
+
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0x3f) << 52;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits42(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 34);
+    buf[off++] = (byte) (values[i + 0] >>> 26);
+    buf[off++] = (byte) (values[i + 0] >>> 18);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void packBits42(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 34);
     buf[off++] = (byte) (values[i + 0] >>> 26);
     buf[off++] = (byte) (values[i + 0] >>> 18);
     buf[off++] = (byte) (values[i + 0] >>> 10);
@@ -6956,7 +5588,7 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
-  static void packBits34(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 34);
     buf[off++] = (byte) (values[i + 0] >>> 26);
     buf[off++] = (byte) (values[i + 0] >>> 18);
     buf[off++] = (byte) (values[i + 0] >>> 10);
@@ -6995,8 +5627,1472 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
     buf[off++] = (byte) (values[i + 0] >>> 2);
 
     buf[off] = (byte) (values[i + 0] << 6);
+    buf[off++] |= values[i + 1] >>> 36;
+    buf[off++] = (byte) (values[i + 1] >>> 28);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits6(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off] = (byte) (values[i + 0] << 2);
+    buf[off++] |= values[i + 1] >>> 4;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits17(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 9);
+
+    buf[off++] = (byte) (values[i + 0] >>> 1);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 9);
+
+    buf[off++] = (byte) (values[i + 0] >>> 1);
+
+    buf[off] = (byte) (values[i + 0] << 7);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 1);
+
+    buf[off] = (byte) (values[i + 0] << 7);
+    buf[off++] |= values[i + 1] >>> 10;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits56(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 48);
+    buf[off++] = (byte) (values[i + 0] >>> 40);
+    buf[off++] = (byte) (values[i + 0] >>> 32);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void packBits56(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 48);
+    buf[off++] = (byte) (values[i + 0] >>> 40);
+    buf[off++] = (byte) (values[i + 0] >>> 32);
+    buf[off++] = (byte) (values[i + 0] >>> 24);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 48);
+    buf[off++] = (byte) (values[i + 0] >>> 40);
+    buf[off++] = (byte) (values[i + 0] >>> 32);
+    buf[off++] = (byte) (values[i + 0] >>> 24);
+    buf[off++] = (byte) (values[i + 0] >>> 16);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 40);
+    buf[off++] = (byte) (values[i + 0] >>> 32);
+    buf[off++] = (byte) (values[i + 0] >>> 24);
+    buf[off++] = (byte) (values[i + 0] >>> 16);
+    buf[off++] = (byte) (values[i + 0] >>> 8);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 32);
+    buf[off++] = (byte) (values[i + 0] >>> 24);
+    buf[off++] = (byte) (values[i + 0] >>> 16);
+    buf[off++] = (byte) (values[i + 0] >>> 8);
+    buf[off++] = (byte) (values[i + 0]);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 24);
+    buf[off++] = (byte) (values[i + 0] >>> 16);
+    buf[off++] = (byte) (values[i + 0] >>> 8);
+    buf[off++] = (byte) (values[i + 0]);
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 16);
+    buf[off++] = (byte) (values[i + 0] >>> 8);
+    buf[off++] = (byte) (values[i + 0]);
+
+    buf[off++] = (byte) (values[i + 1] >>> 48);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void unpackBits12(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 4;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 4;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void unpackBits12(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 4;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 4;
+
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0xf) << 8;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits5(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off] = (byte) (values[i + 0] << 3);
+    buf[off++] |= values[i + 1] >>> 2;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits4(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off] = (byte) (values[i + 0] << 4);
+    buf[off++] |= values[i + 1];
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void unpackBits39(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 31;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 23;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 15;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void unpackBits39(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 31;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 23;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 15;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 7;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 31;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 23;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 15;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 7;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 1;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 23;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 15;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 7;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 1;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 15;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 7;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 1;
+
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 1) << 38;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void unpackBits62(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 54;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 46;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 38;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void unpackBits62(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 54;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 46;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 38;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 30;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 54;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 46;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 38;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 30;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 22;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 46;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 38;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 30;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 22;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 14;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 38;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 30;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 22;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 14;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 6;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 30;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 22;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 14;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 6;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 2;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 22;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 14;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 6;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 2;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 14;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 6;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 2;
+
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 3) << 60;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void unpackBits56(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 48;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 40;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 32;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void unpackBits56(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 48;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 40;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 32;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 24;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 48;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 40;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 32;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 24;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 16;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 40;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 32;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 24;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 16;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 8;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 32;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 24;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 16;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 8;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 24;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 16;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 8;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]);
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++])) << 48;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 16;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 8;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]);
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++])) << 48;
+    values[i + 1] |= (Byte.toUnsignedLong(buf[off++])) << 40;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits47(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 39);
+    buf[off++] = (byte) (values[i + 0] >>> 31);
+    buf[off++] = (byte) (values[i + 0] >>> 23);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void packBits47(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 39);
+    buf[off++] = (byte) (values[i + 0] >>> 31);
+    buf[off++] = (byte) (values[i + 0] >>> 23);
+    buf[off++] = (byte) (values[i + 0] >>> 15);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 39);
+    buf[off++] = (byte) (values[i + 0] >>> 31);
+    buf[off++] = (byte) (values[i + 0] >>> 23);
+    buf[off++] = (byte) (values[i + 0] >>> 15);
+    buf[off++] = (byte) (values[i + 0] >>> 7);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 31);
+    buf[off++] = (byte) (values[i + 0] >>> 23);
+    buf[off++] = (byte) (values[i + 0] >>> 15);
+    buf[off++] = (byte) (values[i + 0] >>> 7);
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 23);
+    buf[off++] = (byte) (values[i + 0] >>> 15);
+    buf[off++] = (byte) (values[i + 0] >>> 7);
+
+    buf[off] = (byte) (values[i + 0] << 1);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 7);
+
+    buf[off] = (byte) (values[i + 0] << 1);
+    buf[off++] |= values[i + 1] >>> 46;
+    buf[off++] = (byte) (values[i + 1] >>> 38);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void unpackBits40(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 32;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 24;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 16;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void unpackBits40(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 32;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 24;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 16;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 8;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 32;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 24;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 16;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 8;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 24;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 16;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 8;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]);
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++])) << 32;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 16;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 8;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]);
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++])) << 32;
+    values[i + 1] |= (Byte.toUnsignedLong(buf[off++])) << 24;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits15(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 7);
+
+    buf[off] = (byte) (values[i + 0] << 1);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 7);
+
+    buf[off] = (byte) (values[i + 0] << 1);
+    buf[off++] |= values[i + 1] >>> 14;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void unpackBits3(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off]) >>> 5;
+    values[i + 1] = (Byte.toUnsignedLong(buf[off]) >>> 2) & 7;
+    values[i + 2] = (Byte.toUnsignedLong(buf[off++]) & 3) << 1;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void unpackBits7(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off]) >>> 1;
+
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 1) << 6;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits3(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off] = (byte) (values[i + 0] << 5);
+    buf[off] |= values[i + 1] << 2;
+    buf[off++] |= values[i + 2] >>> 1;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void unpackBits61(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 53;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 45;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 37;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void unpackBits61(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 53;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 45;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 37;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 29;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 53;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 45;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 37;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 29;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 21;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 45;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 37;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 29;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 21;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 13;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 37;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 29;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 21;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 13;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 5;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 29;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 21;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 13;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 5;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 3;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 21;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 13;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 5;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 3;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 13;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 5;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 3;
+
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 7) << 58;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void unpackBits43(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 35;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 27;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 19;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void unpackBits43(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 35;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 27;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 19;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 35;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 27;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 19;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 27;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 19;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 5;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 19;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 5;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 5;
+
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0x1f) << 38;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void unpackBits55(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 47;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 39;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 31;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void unpackBits55(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 47;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 39;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 31;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 23;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 47;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 39;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 31;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 23;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 15;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 39;
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 31;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 23;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 15;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 7;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= (Byte.toUnsignedLong(buf[off++])) << 31;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 23;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 15;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 7;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 1;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 23;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 15;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 7;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 1;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 15;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 7;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 1;
+
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 1) << 54;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void unpackBits11(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 3;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 5;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void unpackBits11(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 3;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 5;
+
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0x1f) << 6;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits61(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 53);
+    buf[off++] = (byte) (values[i + 0] >>> 45);
+    buf[off++] = (byte) (values[i + 0] >>> 37);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void packBits61(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 53);
+    buf[off++] = (byte) (values[i + 0] >>> 45);
+    buf[off++] = (byte) (values[i + 0] >>> 37);
+    buf[off++] = (byte) (values[i + 0] >>> 29);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 53);
+    buf[off++] = (byte) (values[i + 0] >>> 45);
+    buf[off++] = (byte) (values[i + 0] >>> 37);
+    buf[off++] = (byte) (values[i + 0] >>> 29);
+    buf[off++] = (byte) (values[i + 0] >>> 21);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 45);
+    buf[off++] = (byte) (values[i + 0] >>> 37);
+    buf[off++] = (byte) (values[i + 0] >>> 29);
+    buf[off++] = (byte) (values[i + 0] >>> 21);
+    buf[off++] = (byte) (values[i + 0] >>> 13);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 37);
+    buf[off++] = (byte) (values[i + 0] >>> 29);
+    buf[off++] = (byte) (values[i + 0] >>> 21);
+    buf[off++] = (byte) (values[i + 0] >>> 13);
+    buf[off++] = (byte) (values[i + 0] >>> 5);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 29);
+    buf[off++] = (byte) (values[i + 0] >>> 21);
+    buf[off++] = (byte) (values[i + 0] >>> 13);
+    buf[off++] = (byte) (values[i + 0] >>> 5);
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 21);
+    buf[off++] = (byte) (values[i + 0] >>> 13);
+    buf[off++] = (byte) (values[i + 0] >>> 5);
+
+    buf[off] = (byte) (values[i + 0] << 3);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 5);
+
+    buf[off] = (byte) (values[i + 0] << 3);
+    buf[off++] |= values[i + 1] >>> 58;
+    buf[off++] = (byte) (values[i + 1] >>> 50);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits16(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 8);
+    buf[off++] = (byte) (values[i + 0]);
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void packBits16(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 8);
+    buf[off++] = (byte) (values[i + 0]);
+
+    buf[off++] = (byte) (values[i + 1] >>> 8);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void unpackBits36(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 28;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 20;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void unpackBits36(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 28;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 20;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 28;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 20;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 4;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 20;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 4;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 12;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 4;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 4;
+
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0xf) << 32;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void unpackBits25(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 17;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 9;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 1;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void unpackBits25(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 17;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 9;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 1;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 7;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 17;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 9;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 1;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 7;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 9;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 1;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 7;
+
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0x7f) << 18;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits50(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 42);
+    buf[off++] = (byte) (values[i + 0] >>> 34);
+    buf[off++] = (byte) (values[i + 0] >>> 26);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void packBits50(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 42);
+    buf[off++] = (byte) (values[i + 0] >>> 34);
+    buf[off++] = (byte) (values[i + 0] >>> 26);
+    buf[off++] = (byte) (values[i + 0] >>> 18);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 42);
+    buf[off++] = (byte) (values[i + 0] >>> 34);
+    buf[off++] = (byte) (values[i + 0] >>> 26);
+    buf[off++] = (byte) (values[i + 0] >>> 18);
+    buf[off++] = (byte) (values[i + 0] >>> 10);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 34);
+    buf[off++] = (byte) (values[i + 0] >>> 26);
+    buf[off++] = (byte) (values[i + 0] >>> 18);
+    buf[off++] = (byte) (values[i + 0] >>> 10);
+    buf[off++] = (byte) (values[i + 0] >>> 2);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 26);
+    buf[off++] = (byte) (values[i + 0] >>> 18);
+    buf[off++] = (byte) (values[i + 0] >>> 10);
+    buf[off++] = (byte) (values[i + 0] >>> 2);
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 18);
+    buf[off++] = (byte) (values[i + 0] >>> 10);
+    buf[off++] = (byte) (values[i + 0] >>> 2);
+
+    buf[off] = (byte) (values[i + 0] << 6);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 2);
+
+    buf[off] = (byte) (values[i + 0] << 6);
+    buf[off++] |= values[i + 1] >>> 44;
+    buf[off++] = (byte) (values[i + 1] >>> 36);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits30(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 22);
+    buf[off++] = (byte) (values[i + 0] >>> 14);
+    buf[off++] = (byte) (values[i + 0] >>> 6);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void packBits30(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 22);
+    buf[off++] = (byte) (values[i + 0] >>> 14);
+    buf[off++] = (byte) (values[i + 0] >>> 6);
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 22);
+    buf[off++] = (byte) (values[i + 0] >>> 14);
+    buf[off++] = (byte) (values[i + 0] >>> 6);
+
+    buf[off] = (byte) (values[i + 0] << 2);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 6);
+
+    buf[off] = (byte) (values[i + 0] << 2);
     buf[off++] |= values[i + 1] >>> 28;
     buf[off++] = (byte) (values[i + 1] >>> 20);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits14(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 6);
+
+    buf[off] = (byte) (values[i + 0] << 2);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 6);
+
+    buf[off] = (byte) (values[i + 0] << 2);
+    buf[off++] |= values[i + 1] >>> 12;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits48(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 40);
+    buf[off++] = (byte) (values[i + 0] >>> 32);
+    buf[off++] = (byte) (values[i + 0] >>> 24);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void packBits48(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 40);
+    buf[off++] = (byte) (values[i + 0] >>> 32);
+    buf[off++] = (byte) (values[i + 0] >>> 24);
+    buf[off++] = (byte) (values[i + 0] >>> 16);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 40);
+    buf[off++] = (byte) (values[i + 0] >>> 32);
+    buf[off++] = (byte) (values[i + 0] >>> 24);
+    buf[off++] = (byte) (values[i + 0] >>> 16);
+    buf[off++] = (byte) (values[i + 0] >>> 8);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 32);
+    buf[off++] = (byte) (values[i + 0] >>> 24);
+    buf[off++] = (byte) (values[i + 0] >>> 16);
+    buf[off++] = (byte) (values[i + 0] >>> 8);
+    buf[off++] = (byte) (values[i + 0]);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 24);
+    buf[off++] = (byte) (values[i + 0] >>> 16);
+    buf[off++] = (byte) (values[i + 0] >>> 8);
+    buf[off++] = (byte) (values[i + 0]);
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 16);
+    buf[off++] = (byte) (values[i + 0] >>> 8);
+    buf[off++] = (byte) (values[i + 0]);
+
+    buf[off++] = (byte) (values[i + 1] >>> 40);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void packBits37(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 29);
+    buf[off++] = (byte) (values[i + 0] >>> 21);
+    buf[off++] = (byte) (values[i + 0] >>> 13);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void packBits37(final long[] values, final int i, final byte[] buf, int off) {
+    buf[off++] = (byte) (values[i + 0] >>> 29);
+    buf[off++] = (byte) (values[i + 0] >>> 21);
+    buf[off++] = (byte) (values[i + 0] >>> 13);
+    buf[off++] = (byte) (values[i + 0] >>> 5);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 29);
+    buf[off++] = (byte) (values[i + 0] >>> 21);
+    buf[off++] = (byte) (values[i + 0] >>> 13);
+    buf[off++] = (byte) (values[i + 0] >>> 5);
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 21);
+    buf[off++] = (byte) (values[i + 0] >>> 13);
+    buf[off++] = (byte) (values[i + 0] >>> 5);
+
+    buf[off] = (byte) (values[i + 0] << 3);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    buf[off++] = (byte) (values[i + 0] >>> 5);
+
+    buf[off] = (byte) (values[i + 0] << 3);
+    buf[off++] |= values[i + 1] >>> 34;
+    buf[off++] = (byte) (values[i + 1] >>> 26);
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+
+  static void unpackBits34(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 26;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 18;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+  static void unpackBits34(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 26;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 18;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 2;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] = (Byte.toUnsignedLong(buf[off++])) << 26;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 18;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 2;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 6;
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 18;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 2;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 6;
+
+```
+
+### PointlessArithmeticExpression
+`i + 0` can be replaced with 'i'
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 10;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 2;
+    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 6;
+
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0x3f) << 28;
 ```
 
 ### PointlessArithmeticExpression
@@ -7065,106 +7161,10 @@ in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
 #### Snippet
 ```java
 
-  static void unpackBits27(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 19;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
-```
+  static void unpackBits5(final long[] values, final int i, final byte[] buf, int off) {
+    values[i + 0] = Byte.toUnsignedLong(buf[off]) >>> 3;
 
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void unpackBits27(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 19;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 5;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 19;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 5;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 11;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 3;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 5;
-
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 0x1f) << 22;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void unpackBits22(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 14;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 6;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 2;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-  static void unpackBits22(final long[] values, final int i, final byte[] buf, int off) {
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 14;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 6;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 2;
-
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    values[i + 0] = Byte.toUnsignedLong(buf[off++]) << 14;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off++]) << 6;
-    values[i + 0] |= Byte.toUnsignedLong(buf[off]) >>> 2;
-
-    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 3) << 20;
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-
-  static void packBits12(final long[] values, final int i, final byte[] buf, int off) {
-    buf[off++] = (byte) (values[i + 0] >>> 4);
-
-    buf[off] = (byte) (values[i + 0] << 4);
-```
-
-### PointlessArithmeticExpression
-`i + 0` can be replaced with 'i'
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-    buf[off++] = (byte) (values[i + 0] >>> 4);
-
-    buf[off] = (byte) (values[i + 0] << 4);
-    buf[off++] |= values[i + 1] >>> 8;
-
+    values[i + 1] = (Byte.toUnsignedLong(buf[off++]) & 7) << 2;
 ```
 
 ## RuleId[id=JavadocReference]
@@ -7178,6 +7178,210 @@ in `src/main/java/org/apache/datasketches/theta/UpdateSketchBuilder.java`
    * {@link org.apache.datasketches.memory.DefaultMemoryRequestServer}.</li>
    * </ul>
    * Parameters unique to the concurrent sketches only:
+```
+
+### JavadocReference
+Cannot resolve symbol `Memory`
+in `src/main/java/org/apache/datasketches/theta/Sketches.java`
+#### Snippet
+```java
+
+  /**
+   * Ref: {@link CompactSketch#wrap(Memory) CompactSketch.wrap(Memory)}
+   * @param srcMem Ref: {@link CompactSketch#wrap(Memory) CompactSketch.wrap(Memory)}, {@code srcMem}
+   * @return {@link CompactSketch CompactSketch}
+```
+
+### JavadocReference
+Cannot resolve symbol `Memory`
+in `src/main/java/org/apache/datasketches/theta/Sketches.java`
+#### Snippet
+```java
+  /**
+   * Ref: {@link CompactSketch#wrap(Memory) CompactSketch.wrap(Memory)}
+   * @param srcMem Ref: {@link CompactSketch#wrap(Memory) CompactSketch.wrap(Memory)}, {@code srcMem}
+   * @return {@link CompactSketch CompactSketch}
+   */
+```
+
+### JavadocReference
+Cannot resolve symbol `Memory`
+in `src/main/java/org/apache/datasketches/theta/Sketches.java`
+#### Snippet
+```java
+
+  /**
+   * Ref: {@link CompactSketch#heapify(Memory, long) CompactSketch.heapify(Memory, long)}
+   * @param srcMem Ref: {@link CompactSketch#heapify(Memory, long) CompactSketch.heapify(Memory, long)}, {@code srcMem}
+   * @param expectedSeed Ref: {@link CompactSketch#heapify(Memory, long) CompactSketch.heapify(Memory, long)},
+```
+
+### JavadocReference
+Cannot resolve symbol `Memory`
+in `src/main/java/org/apache/datasketches/theta/Sketches.java`
+#### Snippet
+```java
+  /**
+   * Ref: {@link CompactSketch#heapify(Memory, long) CompactSketch.heapify(Memory, long)}
+   * @param srcMem Ref: {@link CompactSketch#heapify(Memory, long) CompactSketch.heapify(Memory, long)}, {@code srcMem}
+   * @param expectedSeed Ref: {@link CompactSketch#heapify(Memory, long) CompactSketch.heapify(Memory, long)},
+   * {@code expectedSeed}
+```
+
+### JavadocReference
+Cannot resolve symbol `Memory`
+in `src/main/java/org/apache/datasketches/theta/Sketches.java`
+#### Snippet
+```java
+   * Ref: {@link CompactSketch#heapify(Memory, long) CompactSketch.heapify(Memory, long)}
+   * @param srcMem Ref: {@link CompactSketch#heapify(Memory, long) CompactSketch.heapify(Memory, long)}, {@code srcMem}
+   * @param expectedSeed Ref: {@link CompactSketch#heapify(Memory, long) CompactSketch.heapify(Memory, long)},
+   * {@code expectedSeed}
+   * @return {@link CompactSketch CompactSketch}
+```
+
+### JavadocReference
+Cannot resolve symbol `Memory`
+in `src/main/java/org/apache/datasketches/theta/Sketches.java`
+#### Snippet
+```java
+
+  /**
+   * Ref: {@link UpdateSketch#heapify(Memory, long) UpdateSketch.heapify(Memory, long)}
+   * @param srcMem Ref: {@link UpdateSketch#heapify(Memory, long) UpdateSketch.heapify(Memory, long)},
+   *   {@code srcMem}
+```
+
+### JavadocReference
+Cannot resolve symbol `Memory`
+in `src/main/java/org/apache/datasketches/theta/Sketches.java`
+#### Snippet
+```java
+  /**
+   * Ref: {@link UpdateSketch#heapify(Memory, long) UpdateSketch.heapify(Memory, long)}
+   * @param srcMem Ref: {@link UpdateSketch#heapify(Memory, long) UpdateSketch.heapify(Memory, long)},
+   *   {@code srcMem}
+   * @param expectedSeed the seed used to validate the given Memory image.
+```
+
+### JavadocReference
+Cannot resolve symbol `Memory`
+in `src/main/java/org/apache/datasketches/theta/Sketches.java`
+#### Snippet
+```java
+   *   {@code srcMem}
+   * @param expectedSeed the seed used to validate the given Memory image.
+   * Ref: {@link UpdateSketch#heapify(Memory, long) UpdateSketch.heapify(Memory, long)},
+   *   {@code expectedSeed}
+   * @return {@link UpdateSketch UpdateSketch}
+```
+
+### JavadocReference
+Cannot resolve symbol `Memory`
+in `src/main/java/org/apache/datasketches/theta/Sketches.java`
+#### Snippet
+```java
+
+  /**
+   * Convenience method, calls {@link SetOperation#wrap(Memory)} and casts the result to a Intersection
+   * @param srcMem Ref: {@link SetOperation#wrap(Memory)}, {@code srcMem}
+   * @return a Intersection backed by the given Memory
+```
+
+### JavadocReference
+Cannot resolve symbol `Memory`
+in `src/main/java/org/apache/datasketches/theta/Sketches.java`
+#### Snippet
+```java
+  /**
+   * Convenience method, calls {@link SetOperation#wrap(Memory)} and casts the result to a Intersection
+   * @param srcMem Ref: {@link SetOperation#wrap(Memory)}, {@code srcMem}
+   * @return a Intersection backed by the given Memory
+   */
+```
+
+### JavadocReference
+Cannot resolve symbol `Memory`
+in `src/main/java/org/apache/datasketches/theta/Sketches.java`
+#### Snippet
+```java
+
+  /**
+   * Convenience method, calls {@link SetOperation#wrap(Memory)} and casts the result to a Union
+   * @param srcMem Ref: {@link SetOperation#wrap(Memory)}, {@code srcMem}
+   * @return a Union backed by the given Memory
+```
+
+### JavadocReference
+Cannot resolve symbol `Memory`
+in `src/main/java/org/apache/datasketches/theta/Sketches.java`
+#### Snippet
+```java
+  /**
+   * Convenience method, calls {@link SetOperation#wrap(Memory)} and casts the result to a Union
+   * @param srcMem Ref: {@link SetOperation#wrap(Memory)}, {@code srcMem}
+   * @return a Union backed by the given Memory
+   */
+```
+
+### JavadocReference
+Cannot resolve symbol `Memory`
+in `src/main/java/org/apache/datasketches/theta/Sketches.java`
+#### Snippet
+```java
+
+  /**
+   * Ref: {@link UpdateSketch#heapify(Memory) UpdateSketch.heapify(Memory)}
+   * @param srcMem Ref: {@link UpdateSketch#heapify(Memory) UpdateSketch.heapify(Memory)}, {@code srcMem}
+   * @return {@link UpdateSketch UpdateSketch}
+```
+
+### JavadocReference
+Cannot resolve symbol `Memory`
+in `src/main/java/org/apache/datasketches/theta/Sketches.java`
+#### Snippet
+```java
+  /**
+   * Ref: {@link UpdateSketch#heapify(Memory) UpdateSketch.heapify(Memory)}
+   * @param srcMem Ref: {@link UpdateSketch#heapify(Memory) UpdateSketch.heapify(Memory)}, {@code srcMem}
+   * @return {@link UpdateSketch UpdateSketch}
+   */
+```
+
+### JavadocReference
+Cannot resolve symbol `Memory`
+in `src/main/java/org/apache/datasketches/theta/Sketches.java`
+#### Snippet
+```java
+
+  /**
+   * Ref: {@link Sketch#wrap(Memory, long) Sketch.wrap(Memory, long)}
+   * @param srcMem Ref: {@link Sketch#wrap(Memory, long) Sketch.wrap(Memory, long)}, {@code srcMem}
+   * @param expectedSeed the expectedSeed used to validate the given Memory image.
+```
+
+### JavadocReference
+Cannot resolve symbol `Memory`
+in `src/main/java/org/apache/datasketches/theta/Sketches.java`
+#### Snippet
+```java
+  /**
+   * Ref: {@link Sketch#wrap(Memory, long) Sketch.wrap(Memory, long)}
+   * @param srcMem Ref: {@link Sketch#wrap(Memory, long) Sketch.wrap(Memory, long)}, {@code srcMem}
+   * @param expectedSeed the expectedSeed used to validate the given Memory image.
+   * Ref: {@link Sketch#wrap(Memory, long) Sketch.wrap(Memory, long)}, {@code expectedSeed}
+```
+
+### JavadocReference
+Cannot resolve symbol `Memory`
+in `src/main/java/org/apache/datasketches/theta/Sketches.java`
+#### Snippet
+```java
+   * @param srcMem Ref: {@link Sketch#wrap(Memory, long) Sketch.wrap(Memory, long)}, {@code srcMem}
+   * @param expectedSeed the expectedSeed used to validate the given Memory image.
+   * Ref: {@link Sketch#wrap(Memory, long) Sketch.wrap(Memory, long)}, {@code expectedSeed}
+   * @return {@link Sketch Sketch}
+   */
 ```
 
 ### JavadocReference
@@ -7214,6 +7418,282 @@ in `src/main/java/org/apache/datasketches/theta/Sketches.java`
    * Ref: {@link SetOperation#wrap(Memory, long) SetOperation.wrap(Memory, long)},
    * {@code expectedSeed}
    * @return {@link SetOperation SetOperation}
+```
+
+### JavadocReference
+Cannot resolve symbol `Memory`
+in `src/main/java/org/apache/datasketches/theta/Sketches.java`
+#### Snippet
+```java
+
+  /**
+   * Ref: {@link Sketch#heapify(Memory, long) Sketch.heapify(Memory, long)}
+   * @param srcMem Ref: {@link Sketch#heapify(Memory, long) Sketch.heapify(Memory, long)}, {@code srcMem}
+   * @param expectedSeed the seed used to validate the given Memory image.
+```
+
+### JavadocReference
+Cannot resolve symbol `Memory`
+in `src/main/java/org/apache/datasketches/theta/Sketches.java`
+#### Snippet
+```java
+  /**
+   * Ref: {@link Sketch#heapify(Memory, long) Sketch.heapify(Memory, long)}
+   * @param srcMem Ref: {@link Sketch#heapify(Memory, long) Sketch.heapify(Memory, long)}, {@code srcMem}
+   * @param expectedSeed the seed used to validate the given Memory image.
+   * Ref: {@link Sketch#heapify(Memory, long) Sketch.heapify(Memory, long)}, {@code expectedSeed}
+```
+
+### JavadocReference
+Cannot resolve symbol `Memory`
+in `src/main/java/org/apache/datasketches/theta/Sketches.java`
+#### Snippet
+```java
+   * @param srcMem Ref: {@link Sketch#heapify(Memory, long) Sketch.heapify(Memory, long)}, {@code srcMem}
+   * @param expectedSeed the seed used to validate the given Memory image.
+   * Ref: {@link Sketch#heapify(Memory, long) Sketch.heapify(Memory, long)}, {@code expectedSeed}
+   * @return {@link Sketch Sketch}
+   */
+```
+
+### JavadocReference
+Cannot resolve symbol `Memory`
+in `src/main/java/org/apache/datasketches/theta/Sketches.java`
+#### Snippet
+```java
+
+  /**
+   * Ref: {@link Sketch#getSerializationVersion(Memory)}
+   * @param srcMem Ref: {@link Sketch#getSerializationVersion(Memory)}, {@code srcMem}
+   * @return Ref: {@link Sketch#getSerializationVersion(Memory)}
+```
+
+### JavadocReference
+Cannot resolve symbol `Memory`
+in `src/main/java/org/apache/datasketches/theta/Sketches.java`
+#### Snippet
+```java
+  /**
+   * Ref: {@link Sketch#getSerializationVersion(Memory)}
+   * @param srcMem Ref: {@link Sketch#getSerializationVersion(Memory)}, {@code srcMem}
+   * @return Ref: {@link Sketch#getSerializationVersion(Memory)}
+   */
+```
+
+### JavadocReference
+Cannot resolve symbol `Memory`
+in `src/main/java/org/apache/datasketches/theta/Sketches.java`
+#### Snippet
+```java
+   * Ref: {@link Sketch#getSerializationVersion(Memory)}
+   * @param srcMem Ref: {@link Sketch#getSerializationVersion(Memory)}, {@code srcMem}
+   * @return Ref: {@link Sketch#getSerializationVersion(Memory)}
+   */
+  public static int getSerializationVersion(final Memory srcMem) {
+```
+
+### JavadocReference
+Cannot resolve symbol `Memory`
+in `src/main/java/org/apache/datasketches/theta/Sketches.java`
+#### Snippet
+```java
+
+  /**
+   * Ref: {@link Sketch#heapify(Memory) Sketch.heapify(Memory)}
+   * @param srcMem Ref: {@link Sketch#heapify(Memory) Sketch.heapify(Memory)}, {@code srcMem}
+   * @return {@link Sketch Sketch}
+```
+
+### JavadocReference
+Cannot resolve symbol `Memory`
+in `src/main/java/org/apache/datasketches/theta/Sketches.java`
+#### Snippet
+```java
+  /**
+   * Ref: {@link Sketch#heapify(Memory) Sketch.heapify(Memory)}
+   * @param srcMem Ref: {@link Sketch#heapify(Memory) Sketch.heapify(Memory)}, {@code srcMem}
+   * @return {@link Sketch Sketch}
+   */
+```
+
+### JavadocReference
+Cannot resolve symbol `Memory`
+in `src/main/java/org/apache/datasketches/theta/Sketches.java`
+#### Snippet
+```java
+
+  /**
+   * Ref: {@link SetOperation#heapify(Memory) SetOperation.heapify(Memory)}
+   * @param srcMem Ref: {@link SetOperation#heapify(Memory) SetOperation.heapify(Memory)}, {@code srcMem}
+   * @return {@link SetOperation SetOperation}
+```
+
+### JavadocReference
+Cannot resolve symbol `Memory`
+in `src/main/java/org/apache/datasketches/theta/Sketches.java`
+#### Snippet
+```java
+  /**
+   * Ref: {@link SetOperation#heapify(Memory) SetOperation.heapify(Memory)}
+   * @param srcMem Ref: {@link SetOperation#heapify(Memory) SetOperation.heapify(Memory)}, {@code srcMem}
+   * @return {@link SetOperation SetOperation}
+   */
+```
+
+### JavadocReference
+Cannot resolve symbol `Memory`
+in `src/main/java/org/apache/datasketches/theta/Sketches.java`
+#### Snippet
+```java
+
+  /**
+   * Ref: {@link Sketch#wrap(Memory) Sketch.wrap(Memory)}
+   * @param srcMem Ref: {@link Sketch#wrap(Memory) Sketch.wrap(Memory)}, {@code srcMem}
+   * @return {@link Sketch Sketch}
+```
+
+### JavadocReference
+Cannot resolve symbol `Memory`
+in `src/main/java/org/apache/datasketches/theta/Sketches.java`
+#### Snippet
+```java
+  /**
+   * Ref: {@link Sketch#wrap(Memory) Sketch.wrap(Memory)}
+   * @param srcMem Ref: {@link Sketch#wrap(Memory) Sketch.wrap(Memory)}, {@code srcMem}
+   * @return {@link Sketch Sketch}
+   */
+```
+
+### JavadocReference
+Cannot resolve symbol `Memory`
+in `src/main/java/org/apache/datasketches/theta/Sketches.java`
+#### Snippet
+```java
+
+  /**
+   * Convenience method, calls {@link SetOperation#wrap(Memory)} and casts the result to a Intersection
+   * @param srcMem Ref: {@link SetOperation#wrap(Memory)}, {@code srcMem}
+   * @return a Intersection backed by the given Memory
+```
+
+### JavadocReference
+Cannot resolve symbol `Memory`
+in `src/main/java/org/apache/datasketches/theta/Sketches.java`
+#### Snippet
+```java
+  /**
+   * Convenience method, calls {@link SetOperation#wrap(Memory)} and casts the result to a Intersection
+   * @param srcMem Ref: {@link SetOperation#wrap(Memory)}, {@code srcMem}
+   * @return a Intersection backed by the given Memory
+   */
+```
+
+### JavadocReference
+Cannot resolve symbol `Memory`
+in `src/main/java/org/apache/datasketches/theta/Sketches.java`
+#### Snippet
+```java
+
+  /**
+   * Ref: {@link SetOperation#wrap(Memory, long) SetOperation.wrap(Memory, long)}
+   * @param srcMem Ref: {@link SetOperation#wrap(Memory, long) SetOperation.wrap(Memory, long)},
+   * {@code srcMem}
+```
+
+### JavadocReference
+Cannot resolve symbol `Memory`
+in `src/main/java/org/apache/datasketches/theta/Sketches.java`
+#### Snippet
+```java
+  /**
+   * Ref: {@link SetOperation#wrap(Memory, long) SetOperation.wrap(Memory, long)}
+   * @param srcMem Ref: {@link SetOperation#wrap(Memory, long) SetOperation.wrap(Memory, long)},
+   * {@code srcMem}
+   * @param expectedSeed the seed used to validate the given Memory image.
+```
+
+### JavadocReference
+Cannot resolve symbol `Memory`
+in `src/main/java/org/apache/datasketches/theta/Sketches.java`
+#### Snippet
+```java
+   * {@code srcMem}
+   * @param expectedSeed the seed used to validate the given Memory image.
+   * Ref: {@link SetOperation#wrap(Memory, long) SetOperation.wrap(Memory, long)},
+   * {@code expectedSeed}
+   * @return {@link SetOperation SetOperation}
+```
+
+### JavadocReference
+Cannot resolve symbol `Memory`
+in `src/main/java/org/apache/datasketches/theta/Sketches.java`
+#### Snippet
+```java
+
+  /**
+   * Ref: {@link SetOperation#wrap(Memory) SetOperation.wrap(Memory)}
+   * @param srcMem Ref: {@link SetOperation#wrap(Memory) SetOperation.wrap(Memory)}, {@code srcMem}
+   * @return {@link SetOperation SetOperation}
+```
+
+### JavadocReference
+Cannot resolve symbol `Memory`
+in `src/main/java/org/apache/datasketches/theta/Sketches.java`
+#### Snippet
+```java
+  /**
+   * Ref: {@link SetOperation#wrap(Memory) SetOperation.wrap(Memory)}
+   * @param srcMem Ref: {@link SetOperation#wrap(Memory) SetOperation.wrap(Memory)}, {@code srcMem}
+   * @return {@link SetOperation SetOperation}
+   */
+```
+
+### JavadocReference
+Cannot resolve symbol `Memory`
+in `src/main/java/org/apache/datasketches/theta/Sketches.java`
+#### Snippet
+```java
+
+  /**
+   * Ref: {@link CompactSketch#heapify(Memory) CompactSketch.heapify(Memory)}
+   * @param srcMem Ref: {@link CompactSketch#heapify(Memory) CompactSketch.heapify(Memory)}, {@code srcMem}
+   * @return {@link CompactSketch CompactSketch}
+```
+
+### JavadocReference
+Cannot resolve symbol `Memory`
+in `src/main/java/org/apache/datasketches/theta/Sketches.java`
+#### Snippet
+```java
+  /**
+   * Ref: {@link CompactSketch#heapify(Memory) CompactSketch.heapify(Memory)}
+   * @param srcMem Ref: {@link CompactSketch#heapify(Memory) CompactSketch.heapify(Memory)}, {@code srcMem}
+   * @return {@link CompactSketch CompactSketch}
+   */
+```
+
+### JavadocReference
+Cannot resolve symbol `Memory`
+in `src/main/java/org/apache/datasketches/theta/Sketches.java`
+#### Snippet
+```java
+
+  /**
+   * Ref: {@link UpdateSketch#wrap(Memory) UpdateSketch.wrap(Memory)}
+   * @param srcMem Ref: {@link UpdateSketch#wrap(Memory) UpdateSketch.wrap(Memory)}, {@code srcMem}
+   * @return {@link UpdateSketch UpdateSketch}
+```
+
+### JavadocReference
+Cannot resolve symbol `Memory`
+in `src/main/java/org/apache/datasketches/theta/Sketches.java`
+#### Snippet
+```java
+  /**
+   * Ref: {@link UpdateSketch#wrap(Memory) UpdateSketch.wrap(Memory)}
+   * @param srcMem Ref: {@link UpdateSketch#wrap(Memory) UpdateSketch.wrap(Memory)}, {@code srcMem}
+   * @return {@link UpdateSketch UpdateSketch}
+   */
 ```
 
 ### JavadocReference
@@ -7249,282 +7729,6 @@ in `src/main/java/org/apache/datasketches/theta/Sketches.java`
    * @param expectedSeed the seed used to validate the given Memory image.
    * Ref: {@link UpdateSketch#wrap(Memory, long) UpdateSketch.wrap(Memory, long)}, {@code expectedSeed}
    * @return {@link UpdateSketch UpdateSketch}
-   */
-```
-
-### JavadocReference
-Cannot resolve symbol `Memory`
-in `src/main/java/org/apache/datasketches/theta/Sketches.java`
-#### Snippet
-```java
-
-  /**
-   * Ref: {@link SetOperation#heapify(Memory) SetOperation.heapify(Memory)}
-   * @param srcMem Ref: {@link SetOperation#heapify(Memory) SetOperation.heapify(Memory)}, {@code srcMem}
-   * @return {@link SetOperation SetOperation}
-```
-
-### JavadocReference
-Cannot resolve symbol `Memory`
-in `src/main/java/org/apache/datasketches/theta/Sketches.java`
-#### Snippet
-```java
-  /**
-   * Ref: {@link SetOperation#heapify(Memory) SetOperation.heapify(Memory)}
-   * @param srcMem Ref: {@link SetOperation#heapify(Memory) SetOperation.heapify(Memory)}, {@code srcMem}
-   * @return {@link SetOperation SetOperation}
-   */
-```
-
-### JavadocReference
-Cannot resolve symbol `Memory`
-in `src/main/java/org/apache/datasketches/theta/Sketches.java`
-#### Snippet
-```java
-
-  /**
-   * Ref: {@link SetOperation#wrap(Memory, long) SetOperation.wrap(Memory, long)}
-   * @param srcMem Ref: {@link SetOperation#wrap(Memory, long) SetOperation.wrap(Memory, long)},
-   * {@code srcMem}
-```
-
-### JavadocReference
-Cannot resolve symbol `Memory`
-in `src/main/java/org/apache/datasketches/theta/Sketches.java`
-#### Snippet
-```java
-  /**
-   * Ref: {@link SetOperation#wrap(Memory, long) SetOperation.wrap(Memory, long)}
-   * @param srcMem Ref: {@link SetOperation#wrap(Memory, long) SetOperation.wrap(Memory, long)},
-   * {@code srcMem}
-   * @param expectedSeed the seed used to validate the given Memory image.
-```
-
-### JavadocReference
-Cannot resolve symbol `Memory`
-in `src/main/java/org/apache/datasketches/theta/Sketches.java`
-#### Snippet
-```java
-   * {@code srcMem}
-   * @param expectedSeed the seed used to validate the given Memory image.
-   * Ref: {@link SetOperation#wrap(Memory, long) SetOperation.wrap(Memory, long)},
-   * {@code expectedSeed}
-   * @return {@link SetOperation SetOperation}
-```
-
-### JavadocReference
-Cannot resolve symbol `Memory`
-in `src/main/java/org/apache/datasketches/theta/Sketches.java`
-#### Snippet
-```java
-
-  /**
-   * Ref: {@link CompactSketch#wrap(Memory, long) CompactSketch.wrap(Memory, long)}
-   * @param srcMem Ref: {@link CompactSketch#wrap(Memory, long) CompactSketch.wrap(Memory, long)}, {@code srcMem}
-   * @param expectedSeed Ref: {@link CompactSketch#wrap(Memory, long) CompactSketch.wrap(Memory, long)},
-```
-
-### JavadocReference
-Cannot resolve symbol `Memory`
-in `src/main/java/org/apache/datasketches/theta/Sketches.java`
-#### Snippet
-```java
-  /**
-   * Ref: {@link CompactSketch#wrap(Memory, long) CompactSketch.wrap(Memory, long)}
-   * @param srcMem Ref: {@link CompactSketch#wrap(Memory, long) CompactSketch.wrap(Memory, long)}, {@code srcMem}
-   * @param expectedSeed Ref: {@link CompactSketch#wrap(Memory, long) CompactSketch.wrap(Memory, long)},
-   * {@code expectedSeed}
-```
-
-### JavadocReference
-Cannot resolve symbol `Memory`
-in `src/main/java/org/apache/datasketches/theta/Sketches.java`
-#### Snippet
-```java
-   * Ref: {@link CompactSketch#wrap(Memory, long) CompactSketch.wrap(Memory, long)}
-   * @param srcMem Ref: {@link CompactSketch#wrap(Memory, long) CompactSketch.wrap(Memory, long)}, {@code srcMem}
-   * @param expectedSeed Ref: {@link CompactSketch#wrap(Memory, long) CompactSketch.wrap(Memory, long)},
-   * {@code expectedSeed}
-   * @return {@link CompactSketch CompactSketch}
-```
-
-### JavadocReference
-Cannot resolve symbol `Memory`
-in `src/main/java/org/apache/datasketches/theta/Sketches.java`
-#### Snippet
-```java
-
-  /**
-   * Ref: {@link CompactSketch#wrap(Memory) CompactSketch.wrap(Memory)}
-   * @param srcMem Ref: {@link CompactSketch#wrap(Memory) CompactSketch.wrap(Memory)}, {@code srcMem}
-   * @return {@link CompactSketch CompactSketch}
-```
-
-### JavadocReference
-Cannot resolve symbol `Memory`
-in `src/main/java/org/apache/datasketches/theta/Sketches.java`
-#### Snippet
-```java
-  /**
-   * Ref: {@link CompactSketch#wrap(Memory) CompactSketch.wrap(Memory)}
-   * @param srcMem Ref: {@link CompactSketch#wrap(Memory) CompactSketch.wrap(Memory)}, {@code srcMem}
-   * @return {@link CompactSketch CompactSketch}
-   */
-```
-
-### JavadocReference
-Cannot resolve symbol `Memory`
-in `src/main/java/org/apache/datasketches/theta/Sketches.java`
-#### Snippet
-```java
-
-  /**
-   * Ref: {@link Sketch#wrap(Memory) Sketch.wrap(Memory)}
-   * @param srcMem Ref: {@link Sketch#wrap(Memory) Sketch.wrap(Memory)}, {@code srcMem}
-   * @return {@link Sketch Sketch}
-```
-
-### JavadocReference
-Cannot resolve symbol `Memory`
-in `src/main/java/org/apache/datasketches/theta/Sketches.java`
-#### Snippet
-```java
-  /**
-   * Ref: {@link Sketch#wrap(Memory) Sketch.wrap(Memory)}
-   * @param srcMem Ref: {@link Sketch#wrap(Memory) Sketch.wrap(Memory)}, {@code srcMem}
-   * @return {@link Sketch Sketch}
-   */
-```
-
-### JavadocReference
-Cannot resolve symbol `Memory`
-in `src/main/java/org/apache/datasketches/theta/Sketches.java`
-#### Snippet
-```java
-
-  /**
-   * Convenience method, calls {@link SetOperation#wrap(Memory)} and casts the result to a Union
-   * @param srcMem Ref: {@link SetOperation#wrap(Memory)}, {@code srcMem}
-   * @return a Union backed by the given Memory
-```
-
-### JavadocReference
-Cannot resolve symbol `Memory`
-in `src/main/java/org/apache/datasketches/theta/Sketches.java`
-#### Snippet
-```java
-  /**
-   * Convenience method, calls {@link SetOperation#wrap(Memory)} and casts the result to a Union
-   * @param srcMem Ref: {@link SetOperation#wrap(Memory)}, {@code srcMem}
-   * @return a Union backed by the given Memory
-   */
-```
-
-### JavadocReference
-Cannot resolve symbol `Memory`
-in `src/main/java/org/apache/datasketches/theta/Sketches.java`
-#### Snippet
-```java
-
-  /**
-   * Ref: {@link Sketch#wrap(Memory, long) Sketch.wrap(Memory, long)}
-   * @param srcMem Ref: {@link Sketch#wrap(Memory, long) Sketch.wrap(Memory, long)}, {@code srcMem}
-   * @param expectedSeed the expectedSeed used to validate the given Memory image.
-```
-
-### JavadocReference
-Cannot resolve symbol `Memory`
-in `src/main/java/org/apache/datasketches/theta/Sketches.java`
-#### Snippet
-```java
-  /**
-   * Ref: {@link Sketch#wrap(Memory, long) Sketch.wrap(Memory, long)}
-   * @param srcMem Ref: {@link Sketch#wrap(Memory, long) Sketch.wrap(Memory, long)}, {@code srcMem}
-   * @param expectedSeed the expectedSeed used to validate the given Memory image.
-   * Ref: {@link Sketch#wrap(Memory, long) Sketch.wrap(Memory, long)}, {@code expectedSeed}
-```
-
-### JavadocReference
-Cannot resolve symbol `Memory`
-in `src/main/java/org/apache/datasketches/theta/Sketches.java`
-#### Snippet
-```java
-   * @param srcMem Ref: {@link Sketch#wrap(Memory, long) Sketch.wrap(Memory, long)}, {@code srcMem}
-   * @param expectedSeed the expectedSeed used to validate the given Memory image.
-   * Ref: {@link Sketch#wrap(Memory, long) Sketch.wrap(Memory, long)}, {@code expectedSeed}
-   * @return {@link Sketch Sketch}
-   */
-```
-
-### JavadocReference
-Cannot resolve symbol `Memory`
-in `src/main/java/org/apache/datasketches/theta/Sketches.java`
-#### Snippet
-```java
-
-  /**
-   * Convenience method, calls {@link SetOperation#wrap(Memory)} and casts the result to a Intersection
-   * @param srcMem Ref: {@link SetOperation#wrap(Memory)}, {@code srcMem}
-   * @return a Intersection backed by the given Memory
-```
-
-### JavadocReference
-Cannot resolve symbol `Memory`
-in `src/main/java/org/apache/datasketches/theta/Sketches.java`
-#### Snippet
-```java
-  /**
-   * Convenience method, calls {@link SetOperation#wrap(Memory)} and casts the result to a Intersection
-   * @param srcMem Ref: {@link SetOperation#wrap(Memory)}, {@code srcMem}
-   * @return a Intersection backed by the given Memory
-   */
-```
-
-### JavadocReference
-Cannot resolve symbol `Memory`
-in `src/main/java/org/apache/datasketches/theta/Sketches.java`
-#### Snippet
-```java
-
-  /**
-   * Ref: {@link SetOperation#wrap(Memory) SetOperation.wrap(Memory)}
-   * @param srcMem Ref: {@link SetOperation#wrap(Memory) SetOperation.wrap(Memory)}, {@code srcMem}
-   * @return {@link SetOperation SetOperation}
-```
-
-### JavadocReference
-Cannot resolve symbol `Memory`
-in `src/main/java/org/apache/datasketches/theta/Sketches.java`
-#### Snippet
-```java
-  /**
-   * Ref: {@link SetOperation#wrap(Memory) SetOperation.wrap(Memory)}
-   * @param srcMem Ref: {@link SetOperation#wrap(Memory) SetOperation.wrap(Memory)}, {@code srcMem}
-   * @return {@link SetOperation SetOperation}
-   */
-```
-
-### JavadocReference
-Cannot resolve symbol `Memory`
-in `src/main/java/org/apache/datasketches/theta/Sketches.java`
-#### Snippet
-```java
-
-  /**
-   * Ref: {@link Sketch#heapify(Memory) Sketch.heapify(Memory)}
-   * @param srcMem Ref: {@link Sketch#heapify(Memory) Sketch.heapify(Memory)}, {@code srcMem}
-   * @return {@link Sketch Sketch}
-```
-
-### JavadocReference
-Cannot resolve symbol `Memory`
-in `src/main/java/org/apache/datasketches/theta/Sketches.java`
-#### Snippet
-```java
-  /**
-   * Ref: {@link Sketch#heapify(Memory) Sketch.heapify(Memory)}
-   * @param srcMem Ref: {@link Sketch#heapify(Memory) Sketch.heapify(Memory)}, {@code srcMem}
-   * @return {@link Sketch Sketch}
    */
 ```
 
@@ -7571,9 +7775,9 @@ in `src/main/java/org/apache/datasketches/theta/Sketches.java`
 ```java
 
   /**
-   * Ref: {@link CompactSketch#heapify(Memory) CompactSketch.heapify(Memory)}
-   * @param srcMem Ref: {@link CompactSketch#heapify(Memory) CompactSketch.heapify(Memory)}, {@code srcMem}
-   * @return {@link CompactSketch CompactSketch}
+   * Ref: {@link CompactSketch#wrap(Memory, long) CompactSketch.wrap(Memory, long)}
+   * @param srcMem Ref: {@link CompactSketch#wrap(Memory, long) CompactSketch.wrap(Memory, long)}, {@code srcMem}
+   * @param expectedSeed Ref: {@link CompactSketch#wrap(Memory, long) CompactSketch.wrap(Memory, long)},
 ```
 
 ### JavadocReference
@@ -7582,10 +7786,22 @@ in `src/main/java/org/apache/datasketches/theta/Sketches.java`
 #### Snippet
 ```java
   /**
-   * Ref: {@link CompactSketch#heapify(Memory) CompactSketch.heapify(Memory)}
-   * @param srcMem Ref: {@link CompactSketch#heapify(Memory) CompactSketch.heapify(Memory)}, {@code srcMem}
+   * Ref: {@link CompactSketch#wrap(Memory, long) CompactSketch.wrap(Memory, long)}
+   * @param srcMem Ref: {@link CompactSketch#wrap(Memory, long) CompactSketch.wrap(Memory, long)}, {@code srcMem}
+   * @param expectedSeed Ref: {@link CompactSketch#wrap(Memory, long) CompactSketch.wrap(Memory, long)},
+   * {@code expectedSeed}
+```
+
+### JavadocReference
+Cannot resolve symbol `Memory`
+in `src/main/java/org/apache/datasketches/theta/Sketches.java`
+#### Snippet
+```java
+   * Ref: {@link CompactSketch#wrap(Memory, long) CompactSketch.wrap(Memory, long)}
+   * @param srcMem Ref: {@link CompactSketch#wrap(Memory, long) CompactSketch.wrap(Memory, long)}, {@code srcMem}
+   * @param expectedSeed Ref: {@link CompactSketch#wrap(Memory, long) CompactSketch.wrap(Memory, long)},
+   * {@code expectedSeed}
    * @return {@link CompactSketch CompactSketch}
-   */
 ```
 
 ### JavadocReference
@@ -7619,150 +7835,6 @@ in `src/main/java/org/apache/datasketches/theta/Sketches.java`
 ```java
 
   /**
-   * Convenience method, calls {@link SetOperation#wrap(Memory)} and casts the result to a Intersection
-   * @param srcMem Ref: {@link SetOperation#wrap(Memory)}, {@code srcMem}
-   * @return a Intersection backed by the given Memory
-```
-
-### JavadocReference
-Cannot resolve symbol `Memory`
-in `src/main/java/org/apache/datasketches/theta/Sketches.java`
-#### Snippet
-```java
-  /**
-   * Convenience method, calls {@link SetOperation#wrap(Memory)} and casts the result to a Intersection
-   * @param srcMem Ref: {@link SetOperation#wrap(Memory)}, {@code srcMem}
-   * @return a Intersection backed by the given Memory
-   */
-```
-
-### JavadocReference
-Cannot resolve symbol `Memory`
-in `src/main/java/org/apache/datasketches/theta/Sketches.java`
-#### Snippet
-```java
-
-  /**
-   * Ref: {@link CompactSketch#heapify(Memory, long) CompactSketch.heapify(Memory, long)}
-   * @param srcMem Ref: {@link CompactSketch#heapify(Memory, long) CompactSketch.heapify(Memory, long)}, {@code srcMem}
-   * @param expectedSeed Ref: {@link CompactSketch#heapify(Memory, long) CompactSketch.heapify(Memory, long)},
-```
-
-### JavadocReference
-Cannot resolve symbol `Memory`
-in `src/main/java/org/apache/datasketches/theta/Sketches.java`
-#### Snippet
-```java
-  /**
-   * Ref: {@link CompactSketch#heapify(Memory, long) CompactSketch.heapify(Memory, long)}
-   * @param srcMem Ref: {@link CompactSketch#heapify(Memory, long) CompactSketch.heapify(Memory, long)}, {@code srcMem}
-   * @param expectedSeed Ref: {@link CompactSketch#heapify(Memory, long) CompactSketch.heapify(Memory, long)},
-   * {@code expectedSeed}
-```
-
-### JavadocReference
-Cannot resolve symbol `Memory`
-in `src/main/java/org/apache/datasketches/theta/Sketches.java`
-#### Snippet
-```java
-   * Ref: {@link CompactSketch#heapify(Memory, long) CompactSketch.heapify(Memory, long)}
-   * @param srcMem Ref: {@link CompactSketch#heapify(Memory, long) CompactSketch.heapify(Memory, long)}, {@code srcMem}
-   * @param expectedSeed Ref: {@link CompactSketch#heapify(Memory, long) CompactSketch.heapify(Memory, long)},
-   * {@code expectedSeed}
-   * @return {@link CompactSketch CompactSketch}
-```
-
-### JavadocReference
-Cannot resolve symbol `Memory`
-in `src/main/java/org/apache/datasketches/theta/Sketches.java`
-#### Snippet
-```java
-
-  /**
-   * Ref: {@link UpdateSketch#heapify(Memory) UpdateSketch.heapify(Memory)}
-   * @param srcMem Ref: {@link UpdateSketch#heapify(Memory) UpdateSketch.heapify(Memory)}, {@code srcMem}
-   * @return {@link UpdateSketch UpdateSketch}
-```
-
-### JavadocReference
-Cannot resolve symbol `Memory`
-in `src/main/java/org/apache/datasketches/theta/Sketches.java`
-#### Snippet
-```java
-  /**
-   * Ref: {@link UpdateSketch#heapify(Memory) UpdateSketch.heapify(Memory)}
-   * @param srcMem Ref: {@link UpdateSketch#heapify(Memory) UpdateSketch.heapify(Memory)}, {@code srcMem}
-   * @return {@link UpdateSketch UpdateSketch}
-   */
-```
-
-### JavadocReference
-Cannot resolve symbol `Memory`
-in `src/main/java/org/apache/datasketches/theta/Sketches.java`
-#### Snippet
-```java
-
-  /**
-   * Ref: {@link Sketch#heapify(Memory, long) Sketch.heapify(Memory, long)}
-   * @param srcMem Ref: {@link Sketch#heapify(Memory, long) Sketch.heapify(Memory, long)}, {@code srcMem}
-   * @param expectedSeed the seed used to validate the given Memory image.
-```
-
-### JavadocReference
-Cannot resolve symbol `Memory`
-in `src/main/java/org/apache/datasketches/theta/Sketches.java`
-#### Snippet
-```java
-  /**
-   * Ref: {@link Sketch#heapify(Memory, long) Sketch.heapify(Memory, long)}
-   * @param srcMem Ref: {@link Sketch#heapify(Memory, long) Sketch.heapify(Memory, long)}, {@code srcMem}
-   * @param expectedSeed the seed used to validate the given Memory image.
-   * Ref: {@link Sketch#heapify(Memory, long) Sketch.heapify(Memory, long)}, {@code expectedSeed}
-```
-
-### JavadocReference
-Cannot resolve symbol `Memory`
-in `src/main/java/org/apache/datasketches/theta/Sketches.java`
-#### Snippet
-```java
-   * @param srcMem Ref: {@link Sketch#heapify(Memory, long) Sketch.heapify(Memory, long)}, {@code srcMem}
-   * @param expectedSeed the seed used to validate the given Memory image.
-   * Ref: {@link Sketch#heapify(Memory, long) Sketch.heapify(Memory, long)}, {@code expectedSeed}
-   * @return {@link Sketch Sketch}
-   */
-```
-
-### JavadocReference
-Cannot resolve symbol `Memory`
-in `src/main/java/org/apache/datasketches/theta/Sketches.java`
-#### Snippet
-```java
-
-  /**
-   * Ref: {@link UpdateSketch#wrap(Memory) UpdateSketch.wrap(Memory)}
-   * @param srcMem Ref: {@link UpdateSketch#wrap(Memory) UpdateSketch.wrap(Memory)}, {@code srcMem}
-   * @return {@link UpdateSketch UpdateSketch}
-```
-
-### JavadocReference
-Cannot resolve symbol `Memory`
-in `src/main/java/org/apache/datasketches/theta/Sketches.java`
-#### Snippet
-```java
-  /**
-   * Ref: {@link UpdateSketch#wrap(Memory) UpdateSketch.wrap(Memory)}
-   * @param srcMem Ref: {@link UpdateSketch#wrap(Memory) UpdateSketch.wrap(Memory)}, {@code srcMem}
-   * @return {@link UpdateSketch UpdateSketch}
-   */
-```
-
-### JavadocReference
-Cannot resolve symbol `Memory`
-in `src/main/java/org/apache/datasketches/theta/Sketches.java`
-#### Snippet
-```java
-
-  /**
    * Convenience method, calls {@link SetOperation#wrap(Memory)} and casts the result to a Union
    * @param srcMem Ref: {@link SetOperation#wrap(Memory)}, {@code srcMem}
    * @return a Union backed by the given Memory
@@ -7778,78 +7850,6 @@ in `src/main/java/org/apache/datasketches/theta/Sketches.java`
    * @param srcMem Ref: {@link SetOperation#wrap(Memory)}, {@code srcMem}
    * @return a Union backed by the given Memory
    */
-```
-
-### JavadocReference
-Cannot resolve symbol `Memory`
-in `src/main/java/org/apache/datasketches/theta/Sketches.java`
-#### Snippet
-```java
-
-  /**
-   * Ref: {@link UpdateSketch#heapify(Memory, long) UpdateSketch.heapify(Memory, long)}
-   * @param srcMem Ref: {@link UpdateSketch#heapify(Memory, long) UpdateSketch.heapify(Memory, long)},
-   *   {@code srcMem}
-```
-
-### JavadocReference
-Cannot resolve symbol `Memory`
-in `src/main/java/org/apache/datasketches/theta/Sketches.java`
-#### Snippet
-```java
-  /**
-   * Ref: {@link UpdateSketch#heapify(Memory, long) UpdateSketch.heapify(Memory, long)}
-   * @param srcMem Ref: {@link UpdateSketch#heapify(Memory, long) UpdateSketch.heapify(Memory, long)},
-   *   {@code srcMem}
-   * @param expectedSeed the seed used to validate the given Memory image.
-```
-
-### JavadocReference
-Cannot resolve symbol `Memory`
-in `src/main/java/org/apache/datasketches/theta/Sketches.java`
-#### Snippet
-```java
-   *   {@code srcMem}
-   * @param expectedSeed the seed used to validate the given Memory image.
-   * Ref: {@link UpdateSketch#heapify(Memory, long) UpdateSketch.heapify(Memory, long)},
-   *   {@code expectedSeed}
-   * @return {@link UpdateSketch UpdateSketch}
-```
-
-### JavadocReference
-Cannot resolve symbol `Memory`
-in `src/main/java/org/apache/datasketches/theta/Sketches.java`
-#### Snippet
-```java
-
-  /**
-   * Ref: {@link Sketch#getSerializationVersion(Memory)}
-   * @param srcMem Ref: {@link Sketch#getSerializationVersion(Memory)}, {@code srcMem}
-   * @return Ref: {@link Sketch#getSerializationVersion(Memory)}
-```
-
-### JavadocReference
-Cannot resolve symbol `Memory`
-in `src/main/java/org/apache/datasketches/theta/Sketches.java`
-#### Snippet
-```java
-  /**
-   * Ref: {@link Sketch#getSerializationVersion(Memory)}
-   * @param srcMem Ref: {@link Sketch#getSerializationVersion(Memory)}, {@code srcMem}
-   * @return Ref: {@link Sketch#getSerializationVersion(Memory)}
-   */
-```
-
-### JavadocReference
-Cannot resolve symbol `Memory`
-in `src/main/java/org/apache/datasketches/theta/Sketches.java`
-#### Snippet
-```java
-   * Ref: {@link Sketch#getSerializationVersion(Memory)}
-   * @param srcMem Ref: {@link Sketch#getSerializationVersion(Memory)}, {@code srcMem}
-   * @return Ref: {@link Sketch#getSerializationVersion(Memory)}
-   */
-  public static int getSerializationVersion(final Memory srcMem) {
 ```
 
 ### JavadocReference
@@ -7952,15 +7952,15 @@ in `src/main/java/org/apache/datasketches/sampling/ReservoirItemsSketch.java`
 ```
 
 ### DataFlowIssue
-Array access `pairs[i]` may produce `NullPointerException`
-in `src/main/java/org/apache/datasketches/cpc/CpcCompression.java`
+Variable is already assigned to this value
+in `src/main/java/org/apache/datasketches/req/ReqSketchBuilder.java`
 #### Snippet
 ```java
-      // shift the columns over by 8 positions before compressing (because of the window)
-      for (int i = 0; i < numPairs; i++) {
-        assert (pairs[i] & 63) >= 8;
-        pairs[i] -= 8;
-      }
+   */
+  public ReqSketchBuilder() {
+    bK = DEFAULT_K;
+    bHRA = true;
+    bReqDebug = null;
 ```
 
 ### DataFlowIssue
@@ -7976,27 +7976,15 @@ in `src/main/java/org/apache/datasketches/cpc/CpcCompression.java`
 ```
 
 ### DataFlowIssue
-Variable is already assigned to this value
-in `src/main/java/org/apache/datasketches/req/ReqSketchBuilder.java`
+Array access `pairs[i]` may produce `NullPointerException`
+in `src/main/java/org/apache/datasketches/cpc/CpcCompression.java`
 #### Snippet
 ```java
-   */
-  public ReqSketchBuilder() {
-    bK = DEFAULT_K;
-    bHRA = true;
-    bReqDebug = null;
-```
-
-### DataFlowIssue
-Array access `summariesBytes[i]` may produce `NullPointerException`
-in `src/main/java/org/apache/datasketches/tuple/QuickSelectSketch.java`
-#### Snippet
-```java
-          ByteArrayUtil.putLongLE(bytes, offset, hashTable_[j]);
-          offset += Long.BYTES;
-          System.arraycopy(summariesBytes[i], 0, bytes, offset, summariesBytes[i].length);
-          offset += summariesBytes[i].length;
-          i++;
+      // shift the columns over by 8 positions before compressing (because of the window)
+      for (int i = 0; i < numPairs; i++) {
+        assert (pairs[i] & 63) >= 8;
+        pairs[i] -= 8;
+      }
 ```
 
 ### DataFlowIssue
@@ -8083,19 +8071,19 @@ in `src/main/java/org/apache/datasketches/theta/HeapAlphaSketch.java`
     hashTableThreshold_ = setHashTableThreshold(lgNomLongs_, lgArrLongs_);
 ```
 
-## RuleId[id=EmptyStatementBody]
-### EmptyStatementBody
-`while` statement has empty body
-in `src/main/java/org/apache/datasketches/theta/ConcurrentDirectQuickSelectSketch.java`
+### DataFlowIssue
+Array access `summariesBytes[i]` may produce `NullPointerException`
+in `src/main/java/org/apache/datasketches/tuple/QuickSelectSketch.java`
 #### Snippet
 ```java
-  @Override
-  public boolean startEagerPropagation() {
-    while (!sharedPropagationInProgress_.compareAndSet(false, true)) { } //busy wait till free
-    return (!isEstimationMode());// no eager propagation is allowed in estimation mode
-  }
+          ByteArrayUtil.putLongLE(bytes, offset, hashTable_[j]);
+          offset += Long.BYTES;
+          System.arraycopy(summariesBytes[i], 0, bytes, offset, summariesBytes[i].length);
+          offset += summariesBytes[i].length;
+          i++;
 ```
 
+## RuleId[id=EmptyStatementBody]
 ### EmptyStatementBody
 `while` statement has empty body
 in `src/main/java/org/apache/datasketches/theta/ConcurrentDirectQuickSelectSketch.java`
@@ -8106,6 +8094,18 @@ in `src/main/java/org/apache/datasketches/theta/ConcurrentDirectQuickSelectSketc
     while (!sharedPropagationInProgress_.compareAndSet(false, true)) { } //busy wait till free
     final byte[] res = super.toByteArray();
     sharedPropagationInProgress_.set(false);
+```
+
+### EmptyStatementBody
+`while` statement has empty body
+in `src/main/java/org/apache/datasketches/theta/ConcurrentDirectQuickSelectSketch.java`
+#### Snippet
+```java
+  @Override
+  public boolean startEagerPropagation() {
+    while (!sharedPropagationInProgress_.compareAndSet(false, true)) { } //busy wait till free
+    return (!isEstimationMode());// no eager propagation is allowed in estimation mode
+  }
 ```
 
 ### EmptyStatementBody
@@ -8126,10 +8126,10 @@ in `src/main/java/org/apache/datasketches/theta/ConcurrentHeapQuickSelectSketch.
 #### Snippet
 ```java
   @Override
-  public byte[] toByteArray() {
+  public boolean startEagerPropagation() {
     while (!sharedPropagationInProgress_.compareAndSet(false, true)) { } //busy wait till free
-    final byte[] res = super.toByteArray();
-    sharedPropagationInProgress_.set(false);
+    return (!isEstimationMode());// no eager propagation is allowed in estimation mode
+  }
 ```
 
 ### EmptyStatementBody
@@ -8138,10 +8138,10 @@ in `src/main/java/org/apache/datasketches/theta/ConcurrentHeapQuickSelectSketch.
 #### Snippet
 ```java
   @Override
-  public boolean startEagerPropagation() {
+  public byte[] toByteArray() {
     while (!sharedPropagationInProgress_.compareAndSet(false, true)) { } //busy wait till free
-    return (!isEstimationMode());// no eager propagation is allowed in estimation mode
-  }
+    final byte[] res = super.toByteArray();
+    sharedPropagationInProgress_.set(false);
 ```
 
 ## RuleId[id=CStyleArrayDeclaration]
@@ -8181,104 +8181,7 @@ in `src/main/java/org/apache/datasketches/hll/CompositeInterpolationXTable.java`
   {
 ```
 
-## RuleId[id=DeprecatedIsStillUsed]
-### DeprecatedIsStillUsed
-Deprecated member 'IntegerSketch' is still used
-in `src/main/java/org/apache/datasketches/tuple/aninteger/IntegerSketch.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public IntegerSketch(final Memory mem, final IntegerSummary.Mode mode) {
-    super(mem, new IntegerSummaryDeserializer(), new IntegerSummaryFactory(mode));
-  }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'PairwiseSetOperations' is still used
-in `src/main/java/org/apache/datasketches/theta/PairwiseSetOperations.java`
-#### Snippet
-```java
- */
-@Deprecated
-public class PairwiseSetOperations {
-
-  /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'DoubleSketch' is still used
-in `src/main/java/org/apache/datasketches/tuple/adouble/DoubleSketch.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public DoubleSketch(final Memory mem, final DoubleSummary.Mode mode) {
-    super(mem, new DoubleSummaryDeserializer(), new DoubleSummaryFactory(mode));
-  }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'heapifyUpdatableSketch' is still used
-in `src/main/java/org/apache/datasketches/tuple/Sketches.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public static <U, S extends UpdatableSummary<U>> UpdatableSketch<U, S> heapifyUpdatableSketch(
-      final Memory mem,
-      final SummaryDeserializer<S> deserializer,
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'QuickSelectSketch' is still used
-in `src/main/java/org/apache/datasketches/tuple/QuickSelectSketch.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  QuickSelectSketch(
-      final Memory mem,
-      final SummaryDeserializer<S> deserializer,
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'FdtSketch' is still used
-in `src/main/java/org/apache/datasketches/fdt/FdtSketch.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  FdtSketch(final Memory mem) {
-    super(mem);
-  }
-```
-
 ## RuleId[id=CommentedOutCode]
-### CommentedOutCode
-Commented out code (3 lines)
-in `src/main/java/org/apache/datasketches/sampling/PreambleUtil.java`
-#### Snippet
-```java
-    final int flags = extractFlags(mem);
-    final String flagsStr = zeroPad(Integer.toBinaryString(flags), 8) + ", " + (flags);
-    //final boolean bigEndian = (flags & BIG_ENDIAN_FLAG_MASK) > 0;
-    //final String nativeOrder = ByteOrder.nativeOrder().toString();
-    //final boolean readOnly = (flags & READ_ONLY_FLAG_MASK) > 0;
-```
-
-### CommentedOutCode
-Commented out code (3 lines)
-in `src/main/java/org/apache/datasketches/sampling/PreambleUtil.java`
-#### Snippet
-```java
-    final int flags = extractFlags(mem);
-    final String flagsStr = zeroPad(Integer.toBinaryString(flags), 8) + ", " + (flags);
-    //final boolean bigEndian = (flags & BIG_ENDIAN_FLAG_MASK) > 0;
-    //final String nativeOrder = ByteOrder.nativeOrder().toString();
-    //final boolean readOnly = (flags & READ_ONLY_FLAG_MASK) > 0;
-```
-
 ### CommentedOutCode
 Commented out code (2 lines)
 in `src/main/java/org/apache/datasketches/sampling/PreambleUtil.java`
@@ -8289,6 +8192,30 @@ in `src/main/java/org/apache/datasketches/sampling/PreambleUtil.java`
   //static final int BIG_ENDIAN_FLAG_MASK = 1;
   //static final int READ_ONLY_FLAG_MASK  = 2;
   static final int EMPTY_FLAG_MASK      = 4;
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
+in `src/main/java/org/apache/datasketches/sampling/PreambleUtil.java`
+#### Snippet
+```java
+    final int flags = extractFlags(mem);
+    final String flagsStr = zeroPad(Integer.toBinaryString(flags), 8) + ", " + (flags);
+    //final boolean bigEndian = (flags & BIG_ENDIAN_FLAG_MASK) > 0;
+    //final String nativeOrder = ByteOrder.nativeOrder().toString();
+    //final boolean readOnly = (flags & READ_ONLY_FLAG_MASK) > 0;
+```
+
+### CommentedOutCode
+Commented out code (3 lines)
+in `src/main/java/org/apache/datasketches/sampling/PreambleUtil.java`
+#### Snippet
+```java
+    final int flags = extractFlags(mem);
+    final String flagsStr = zeroPad(Integer.toBinaryString(flags), 8) + ", " + (flags);
+    //final boolean bigEndian = (flags & BIG_ENDIAN_FLAG_MASK) > 0;
+    //final String nativeOrder = ByteOrder.nativeOrder().toString();
+    //final boolean readOnly = (flags & READ_ONLY_FLAG_MASK) > 0;
 ```
 
 ### CommentedOutCode
@@ -8316,6 +8243,18 @@ in `src/main/java/org/apache/datasketches/cpc/MergingValidation.java`
 ```
 
 ### CommentedOutCode
+Commented out code (7 lines)
+in `src/main/java/org/apache/datasketches/kll/KllDoublesHelper.java`
+#### Snippet
+```java
+   * above need to be modified.
+   */ //NOTE Validation Method: Need to uncomment
+  //    static int nextOffset = 0;
+  //
+  //    private static int deterministicOffset() {
+```
+
+### CommentedOutCode
 Commented out code (2 lines)
 in `src/main/java/org/apache/datasketches/cpc/CpcCompression.java`
 #### Snippet
@@ -8325,6 +8264,18 @@ in `src/main/java/org/apache/datasketches/cpc/CpcCompression.java`
     //  final int[] shorterBuf = Arrays.copyOf(windowBuf, target.cwLength);
     //  target.compressedWindow = shorterBuf;
     target.cwStream = windowBuf; //avoid extra copy
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `src/main/java/org/apache/datasketches/cpc/CpcCompression.java`
+#### Snippet
+```java
+
+    //FOR TESTING If needed
+    //        for (int i = 0; i < (source.numCoupons - 1); i++) {
+    //          assert (Integer.compareUnsigned(allPairs[i], allPairs[i + 1]) < 0); }
+
 ```
 
 ### CommentedOutCode
@@ -8345,34 +8296,10 @@ in `src/main/java/org/apache/datasketches/cpc/CpcCompression.java`
 #### Snippet
 ```java
 
-    //FOR TESTING If needed
-    //        for (int i = 0; i < (source.numCoupons - 1); i++) {
-    //          assert (Integer.compareUnsigned(allPairs[i], allPairs[i + 1]) < 0); }
-
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `src/main/java/org/apache/datasketches/cpc/CpcCompression.java`
-#### Snippet
-```java
-
     // At this point we free the unused portion of the compression output buffer.
     //  final int[] shorterBuf = Arrays.copyOf(pairBuf, target.csvLength);
     //  target.compressedWindow = shorterBuf;
 
-```
-
-### CommentedOutCode
-Commented out code (7 lines)
-in `src/main/java/org/apache/datasketches/kll/KllDoublesHelper.java`
-#### Snippet
-```java
-   * above need to be modified.
-   */ //NOTE Validation Method: Need to uncomment
-  //    static int nextOffset = 0;
-  //
-  //    private static int deterministicOffset() {
 ```
 
 ### CommentedOutCode
@@ -8519,6 +8446,79 @@ in `src/main/java/org/apache/datasketches/cpc/CompressionData.java`
 
 ```
 
+## RuleId[id=DeprecatedIsStillUsed]
+### DeprecatedIsStillUsed
+Deprecated member 'IntegerSketch' is still used
+in `src/main/java/org/apache/datasketches/tuple/aninteger/IntegerSketch.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public IntegerSketch(final Memory mem, final IntegerSummary.Mode mode) {
+    super(mem, new IntegerSummaryDeserializer(), new IntegerSummaryFactory(mode));
+  }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'DoubleSketch' is still used
+in `src/main/java/org/apache/datasketches/tuple/adouble/DoubleSketch.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public DoubleSketch(final Memory mem, final DoubleSummary.Mode mode) {
+    super(mem, new DoubleSummaryDeserializer(), new DoubleSummaryFactory(mode));
+  }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'heapifyUpdatableSketch' is still used
+in `src/main/java/org/apache/datasketches/tuple/Sketches.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public static <U, S extends UpdatableSummary<U>> UpdatableSketch<U, S> heapifyUpdatableSketch(
+      final Memory mem,
+      final SummaryDeserializer<S> deserializer,
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'PairwiseSetOperations' is still used
+in `src/main/java/org/apache/datasketches/theta/PairwiseSetOperations.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public class PairwiseSetOperations {
+
+  /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'FdtSketch' is still used
+in `src/main/java/org/apache/datasketches/fdt/FdtSketch.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  FdtSketch(final Memory mem) {
+    super(mem);
+  }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'QuickSelectSketch' is still used
+in `src/main/java/org/apache/datasketches/tuple/QuickSelectSketch.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  QuickSelectSketch(
+      final Memory mem,
+      final SummaryDeserializer<S> deserializer,
+```
+
 ## RuleId[id=ManualArrayCopy]
 ### ManualArrayCopy
 Manual array copy
@@ -8562,11 +8562,11 @@ Method declared `final` in 'final' class
 in `src/main/java/org/apache/datasketches/quantilescommon/QuantilesUtil.java`
 #### Snippet
 ```java
-   * @param nRank the given normalized rank.
+   * @param values the given array of double values
    */
-  public static final void checkNormalizedRankBounds(final double nRank) {
-    if ((nRank < 0.0) || (nRank > 1.0)) {
-      throw new SketchesArgumentException(
+  public static final void checkFloatsSplitPointsOrder(final float[] values) {
+    Objects.requireNonNull(values);
+    final int len = values.length - 1;
 ```
 
 ### FinalMethodInFinalClass
@@ -8574,11 +8574,11 @@ Method declared `final` in 'final' class
 in `src/main/java/org/apache/datasketches/quantilescommon/QuantilesUtil.java`
 #### Snippet
 ```java
-   * @param values the given array of double values
+   * @param nRank the given normalized rank.
    */
-  public static final void checkFloatsSplitPointsOrder(final float[] values) {
-    Objects.requireNonNull(values);
-    final int len = values.length - 1;
+  public static final void checkNormalizedRankBounds(final double nRank) {
+    if ((nRank < 0.0) || (nRank > 1.0)) {
+      throw new SketchesArgumentException(
 ```
 
 ### FinalMethodInFinalClass
@@ -8679,26 +8679,14 @@ in `src/main/java/org/apache/datasketches/theta/Rebuilder.java`
 
 ### FinalMethodInFinalClass
 Method declared `final` in 'final' class
-in `src/main/java/org/apache/datasketches/theta/CompactOperations.java`
+in `src/main/java/org/apache/datasketches/theta/ConcurrentDirectQuickSelectSketch.java`
 #### Snippet
 ```java
-   * @param curCount the given current count
-   */ //This handles #2 and #6 above
-  static final void checkIllegalCurCountAndEmpty(final boolean empty, final int curCount) {
-    if (empty && (curCount != 0)) { //this handles #2 and #6 above
-      throw new SketchesStateException("Illegal State: Empty=true and Current Count != 0.");
-```
 
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/org/apache/datasketches/theta/CompactOperations.java`
-#### Snippet
-```java
+  @Override
+  public final void initBgPropagationService() {
+    executorService_ = ConcurrentPropagationService.getExecutorService(Thread.currentThread().getId());
   }
-
-  private static final void checkFamilyAndFlags(
-      final int srcFamId,
-      final boolean srcCompactFlag,
 ```
 
 ### FinalMethodInFinalClass
@@ -8718,11 +8706,11 @@ Method declared `final` in 'final' class
 in `src/main/java/org/apache/datasketches/theta/CompactOperations.java`
 #### Snippet
 ```java
-  //All arguments must be valid and correct including flags.
-  // Used as helper to create byte arrays as well as loading Memory for direct compact sketches
-  static final Memory loadCompactMemory(
-      final long[] compactHashArr,
-      final short seedHash,
+  }
+
+  private static final void checkFamilyAndFlags(
+      final int srcFamId,
+      final boolean srcCompactFlag,
 ```
 
 ### FinalMethodInFinalClass
@@ -8735,6 +8723,30 @@ in `src/main/java/org/apache/datasketches/theta/CompactOperations.java`
   static final int computeCompactPreLongs(final boolean empty, final int curCount,
       final long thetaLong) {
     return (thetaLong < Long.MAX_VALUE) ? 3 : empty ? 1 : (curCount > 1) ? 2 : 1;
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/org/apache/datasketches/theta/CompactOperations.java`
+#### Snippet
+```java
+  //All arguments must be valid and correct including flags.
+  // Used as helper to create byte arrays as well as loading Memory for direct compact sketches
+  static final Memory loadCompactMemory(
+      final long[] compactHashArr,
+      final short seedHash,
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/org/apache/datasketches/theta/CompactOperations.java`
+#### Snippet
+```java
+   * @param curCount the given current count
+   */ //This handles #2 and #6 above
+  static final void checkIllegalCurCountAndEmpty(final boolean empty, final int curCount) {
+    if (empty && (curCount != 0)) { //this handles #2 and #6 above
+      throw new SketchesStateException("Illegal State: Empty=true and Current Count != 0.");
 ```
 
 ### FinalMethodInFinalClass
@@ -8763,18 +8775,6 @@ in `src/main/java/org/apache/datasketches/theta/CompactOperations.java`
 
 ### FinalMethodInFinalClass
 Method declared `final` in 'final' class
-in `src/main/java/org/apache/datasketches/theta/ConcurrentDirectQuickSelectSketch.java`
-#### Snippet
-```java
-
-  @Override
-  public final void initBgPropagationService() {
-    executorService_ = ConcurrentPropagationService.getExecutorService(Thread.currentThread().getId());
-  }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
 in `src/main/java/org/apache/datasketches/hllmap/CouponTraverseMap.java`
 #### Snippet
 ```java
@@ -8791,10 +8791,10 @@ in `src/main/java/org/apache/datasketches/hll/HllUtil.java`
 #### Snippet
 ```java
 
-  //Exceptions
-  static final void noWriteAccess() {
-    throw new SketchesReadOnlyException(
-        "This sketch is compact or does not have write access to the underlying resource.");
+  //Checks
+  static final int checkLgK(final int lgK) {
+    if ((lgK >= MIN_LOG_K) && (lgK <= MAX_LOG_K)) { return lgK; }
+    throw new SketchesArgumentException(
 ```
 
 ### FinalMethodInFinalClass
@@ -8807,18 +8807,6 @@ in `src/main/java/org/apache/datasketches/hll/HllUtil.java`
   static final int getPairLow26(final int coupon) {
     return coupon & KEY_MASK_26;
   }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/org/apache/datasketches/hll/HllUtil.java`
-#### Snippet
-```java
-
-  //Checks
-  static final int checkLgK(final int lgK) {
-    if ((lgK >= MIN_LOG_K) && (lgK <= MAX_LOG_K)) { return lgK; }
-    throw new SketchesArgumentException(
 ```
 
 ### FinalMethodInFinalClass
@@ -8847,6 +8835,18 @@ in `src/main/java/org/apache/datasketches/hll/HllUtil.java`
 
 ### FinalMethodInFinalClass
 Method declared `final` in 'final' class
+in `src/main/java/org/apache/datasketches/hll/HllUtil.java`
+#### Snippet
+```java
+
+  //Exceptions
+  static final void noWriteAccess() {
+    throw new SketchesReadOnlyException(
+        "This sketch is compact or does not have write access to the underlying resource.");
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
 in `src/main/java/org/apache/datasketches/cpc/CpcSketch.java`
 #### Snippet
 ```java
@@ -8855,6 +8855,18 @@ in `src/main/java/org/apache/datasketches/cpc/CpcSketch.java`
   public final void reset() {
     numCoupons = 0;
     mergeFlag = false;
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/org/apache/datasketches/tuple/Util.java`
+#### Snippet
+```java
+   * @param seedHashB given seed hash B
+   */
+  public static final void checkSeedHashes(final short seedHashA, final short seedHashB) {
+    if (seedHashA != seedHashB) {
+      throw new SketchesArgumentException("Incompatible Seed Hashes. " + seedHashA + ", "
 ```
 
 ### FinalMethodInFinalClass
@@ -8879,18 +8891,6 @@ in `src/main/java/org/apache/datasketches/tuple/Util.java`
   public static final long[] doubleToLongArray(final double value) {
     final double d = (value == 0.0) ? 0.0 : value; // canonicalize -0.0, 0.0
     final long[] array = { Double.doubleToLongBits(d) }; // canonicalize all NaN forms
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/org/apache/datasketches/tuple/Util.java`
-#### Snippet
-```java
-   * @param seedHashB given seed hash B
-   */
-  public static final void checkSeedHashes(final short seedHashA, final short seedHashB) {
-    if (seedHashA != seedHashB) {
-      throw new SketchesArgumentException("Incompatible Seed Hashes. " + seedHashA + ", "
 ```
 
 ### FinalMethodInFinalClass
@@ -8958,18 +8958,6 @@ Method declared `final` in 'final' class
 in `src/main/java/org/apache/datasketches/req/ReqSketch.java`
 #### Snippet
 ```java
-  }
-
-  private final void refreshSortedView() {
-    reqSV = (reqSV == null) ? new ReqSketchSortedView(this) : reqSV;
-  }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/org/apache/datasketches/req/ReqSketch.java`
-#### Snippet
-```java
    * @return a new ReqSketchBuilder
    */
   public static final ReqSketchBuilder builder() {
@@ -8979,26 +8967,14 @@ in `src/main/java/org/apache/datasketches/req/ReqSketch.java`
 
 ### FinalMethodInFinalClass
 Method declared `final` in 'final' class
-in `src/main/java/org/apache/datasketches/hllmap/HllMap.java`
+in `src/main/java/org/apache/datasketches/req/ReqSketch.java`
 #### Snippet
 ```java
   }
 
-  private static final double updateEntrySizeBytes(final int tableEntries, final int keySizeBytes,
-      final int hllArrLongs) {
-    final double byteFraction = Math.ceil(tableEntries / 8.0) / tableEntries;
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/org/apache/datasketches/hllmap/HllMap.java`
-#### Snippet
-```java
-  //This method is specifically tied to the HLL array layout
-  @SuppressFBWarnings(value = "IM_MULTIPLYING_RESULT_OF_IREM", justification = "False Positive")
-  private final boolean updateHll(final int entryIndex, final int coupon) {
-    final int newValue = coupon16Value(coupon);
-
+  private final void refreshSortedView() {
+    reqSV = (reqSV == null) ? new ReqSketchSortedView(this) : reqSV;
+  }
 ```
 
 ### FinalMethodInFinalClass
@@ -9030,11 +9006,35 @@ Method declared `final` in 'final' class
 in `src/main/java/org/apache/datasketches/hllmap/HllMap.java`
 #### Snippet
 ```java
+  }
+
+  private static final double updateEntrySizeBytes(final int tableEntries, final int keySizeBytes,
+      final int hllArrLongs) {
+    final double byteFraction = Math.ceil(tableEntries / 8.0) / tableEntries;
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/org/apache/datasketches/hllmap/HllMap.java`
+#### Snippet
+```java
    */
   @Override
   final int findKey(final byte[] key) {
     final int keyLen = key.length;
     final long[] hash = MurmurHash3.hash(key, SEED);
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/org/apache/datasketches/hllmap/HllMap.java`
+#### Snippet
+```java
+  //This method is specifically tied to the HLL array layout
+  @SuppressFBWarnings(value = "IM_MULTIPLYING_RESULT_OF_IREM", justification = "False Positive")
+  private final boolean updateHll(final int entryIndex, final int coupon) {
+    final int newValue = coupon16Value(coupon);
+
 ```
 
 ### FinalMethodInFinalClass
@@ -9066,10 +9066,34 @@ Method declared `final` in 'final' class
 in `src/main/java/org/apache/datasketches/hll/DirectHll6Array.java`
 #### Snippet
 ```java
+
+  //off-heap / direct
+  private static final void put6Bit(final WritableMemory wmem, final int offsetBytes, final int slotNo,
+      final int newValue) {
+    final int startBit = slotNo * 6;
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/org/apache/datasketches/hll/DirectHll6Array.java`
+#### Snippet
+```java
   @Override
   //Would be used by Union, but not used because the gadget is always HLL8 type
   final void updateSlotNoKxQ(final int slotNo, final int newValue) {
     throw new SketchesStateException("Improper access.");
+  }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/org/apache/datasketches/hll/DirectHll6Array.java`
+#### Snippet
+```java
+
+  @Override
+  final int getSlotValue(final int slotNo) {
+    return get6Bit(mem, HLL_BYTE_ARR_START, slotNo);
   }
 ```
 
@@ -9092,45 +9116,9 @@ in `src/main/java/org/apache/datasketches/hll/DirectHll6Array.java`
 ```java
 
   //off-heap / direct
-  private static final void put6Bit(final WritableMemory wmem, final int offsetBytes, final int slotNo,
-      final int newValue) {
-    final int startBit = slotNo * 6;
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/org/apache/datasketches/hll/DirectHll6Array.java`
-#### Snippet
-```java
-
-  @Override
-  final int getSlotValue(final int slotNo) {
-    return get6Bit(mem, HLL_BYTE_ARR_START, slotNo);
-  }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/org/apache/datasketches/hll/DirectHll6Array.java`
-#### Snippet
-```java
-
-  //off-heap / direct
   private static final int get6Bit(final Memory mem, final int offsetBytes, final int slotNo) {
     final int startBit = slotNo * 6;
     final int shift = startBit & 0X7;
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/org/apache/datasketches/theta/ForwardCompatibility.java`
-#### Snippet
-```java
-  }
-
-  private static final void validateInputSize(final int reqBytesIn, final int memCap) {
-    if (reqBytesIn > memCap) {
-      throw new SketchesArgumentException(
 ```
 
 ### FinalMethodInFinalClass
@@ -9150,6 +9138,18 @@ Method declared `final` in 'final' class
 in `src/main/java/org/apache/datasketches/theta/ForwardCompatibility.java`
 #### Snippet
 ```java
+  }
+
+  private static final void validateInputSize(final int reqBytesIn, final int memCap) {
+    if (reqBytesIn > memCap) {
+      throw new SketchesArgumentException(
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/org/apache/datasketches/theta/ForwardCompatibility.java`
+#### Snippet
+```java
    * @return a SerVer 3 HeapCompactOrderedSketch
    */
   static final CompactSketch heapify2to3(final Memory srcMem, final short seedHash) {
@@ -9162,11 +9162,35 @@ Method declared `final` in 'final' class
 in `src/main/java/org/apache/datasketches/theta/HeapAlphaSketch.java`
 #### Snippet
 ```java
+   * @return <a href="{@docRoot}/resources/dictionary.html#updateReturnState">See Update Return State</a>
    */
-  // @formatter:on
-  private static final double getVariance(final double k, final double p, final double alpha,
-      final double theta, final int count) {
-    final double kPlus1 = k + 1.0;
+  final UpdateReturnState enhancedHashInsert(final long[] hashTable, final long hash) {
+    final int arrayMask = (1 << lgArrLongs_) - 1; // arrayLongs -1
+    // make odd and independent of curProbe:
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/org/apache/datasketches/theta/HeapAlphaSketch.java`
+#### Snippet
+```java
+  //Checks for rare lockup condition
+  // Used by hashUpdate(), rebuild()
+  private final void rebuildDirty() {
+    final int curCountBefore = curCount_;
+    forceRebuildDirtyCache(); //changes curCount_ only
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/org/apache/datasketches/theta/HeapAlphaSketch.java`
+#### Snippet
+```java
+  //Force resize. Changes lgArrLongs_ only. Theta doesn't change, count doesn't change.
+  // Used by rebuildDirty(), resizeClean()
+  private final void forceResizeCleanCache(final int lgResizeFactor) {
+    assert (!dirty_); // Should never be dirty before a resize.
+    lgArrLongs_ += lgResizeFactor; // new tgt size
 ```
 
 ### FinalMethodInFinalClass
@@ -9198,18 +9222,6 @@ Method declared `final` in 'final' class
 in `src/main/java/org/apache/datasketches/theta/HeapAlphaSketch.java`
 #### Snippet
 ```java
-  //Force resize. Changes lgArrLongs_ only. Theta doesn't change, count doesn't change.
-  // Used by rebuildDirty(), resizeClean()
-  private final void forceResizeCleanCache(final int lgResizeFactor) {
-    assert (!dirty_); // Should never be dirty before a resize.
-    lgArrLongs_ += lgResizeFactor; // new tgt size
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/org/apache/datasketches/theta/HeapAlphaSketch.java`
-#### Snippet
-```java
   //Checks for rare lockup condition
   // Used by hashUpdate()
   private final void resizeClean() {
@@ -9234,47 +9246,23 @@ Method declared `final` in 'final' class
 in `src/main/java/org/apache/datasketches/theta/HeapAlphaSketch.java`
 #### Snippet
 ```java
+   */
+  // @formatter:on
+  private static final double getVariance(final double k, final double p, final double alpha,
+      final double theta, final int count) {
+    final double kPlus1 = k + 1.0;
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/org/apache/datasketches/theta/HeapAlphaSketch.java`
+#### Snippet
+```java
    * @return the hash table threshold
    */
   private static final int setHashTableThreshold(final int lgNomLongs, final int lgArrLongs) {
     final double fraction = (lgArrLongs <= lgNomLongs) ? ThetaUtil.RESIZE_THRESHOLD : ThetaUtil.REBUILD_THRESHOLD;
     return (int) Math.floor(fraction * (1 << lgArrLongs));
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/org/apache/datasketches/theta/HeapAlphaSketch.java`
-#### Snippet
-```java
-   * @return <a href="{@docRoot}/resources/dictionary.html#updateReturnState">See Update Return State</a>
-   */
-  final UpdateReturnState enhancedHashInsert(final long[] hashTable, final long hash) {
-    final int arrayMask = (1 << lgArrLongs_) - 1; // arrayLongs -1
-    // make odd and independent of curProbe:
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/org/apache/datasketches/theta/HeapAlphaSketch.java`
-#### Snippet
-```java
-  //Checks for rare lockup condition
-  // Used by hashUpdate(), rebuild()
-  private final void rebuildDirty() {
-    final int curCountBefore = curCount_;
-    forceRebuildDirtyCache(); //changes curCount_ only
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/org/apache/datasketches/cpc/PreambleUtil.java`
-#### Snippet
-```java
-  }
-
-  static final boolean hasWindow(final Memory mem) {
-    return (getFlags(mem) & WINDOW_FLAG_MASK) > 0;
-  }
 ```
 
 ### FinalMethodInFinalClass
@@ -9286,6 +9274,18 @@ in `src/main/java/org/apache/datasketches/cpc/PreambleUtil.java`
 
   static final boolean isCompressed(final Memory mem) {
     return (getFlags(mem) & COMPRESSED_FLAG_MASK) > 0;
+  }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/org/apache/datasketches/cpc/PreambleUtil.java`
+#### Snippet
+```java
+  }
+
+  static final boolean hasWindow(final Memory mem) {
+    return (getFlags(mem) & WINDOW_FLAG_MASK) > 0;
   }
 ```
 
@@ -9460,15 +9460,15 @@ in `src/main/java/org/apache/datasketches/cpc/Flavor.java`
 ```
 
 ### NonFinalFieldInEnum
-Non-final field `famName_` in enum 'Family'
+Non-final field `maxPreLongs_` in enum 'Family'
 in `src/main/java/org/apache/datasketches/common/Family.java`
 #### Snippet
 ```java
-  private static final Map<String, Family> lookupFamName = new HashMap<>();
-  private int id_;
   private String famName_;
   private int minPreLongs_;
   private int maxPreLongs_;
+
+  static {
 ```
 
 ### NonFinalFieldInEnum
@@ -9484,15 +9484,15 @@ in `src/main/java/org/apache/datasketches/common/Family.java`
 ```
 
 ### NonFinalFieldInEnum
-Non-final field `maxPreLongs_` in enum 'Family'
+Non-final field `famName_` in enum 'Family'
 in `src/main/java/org/apache/datasketches/common/Family.java`
 #### Snippet
 ```java
+  private static final Map<String, Family> lookupFamName = new HashMap<>();
+  private int id_;
   private String famName_;
   private int minPreLongs_;
   private int maxPreLongs_;
-
-  static {
 ```
 
 ### NonFinalFieldInEnum
@@ -9508,39 +9508,15 @@ in `src/main/java/org/apache/datasketches/common/Family.java`
 ```
 
 ### NonFinalFieldInEnum
-Non-final field `caseDescription` in enum 'CornerCase'
+Non-final field `unionAction` in enum 'CornerCase'
 in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.java`
 #### Snippet
 ```java
-    private static final Map<Integer, CornerCase> caseIdToCornerCaseMap = new HashMap<>();
-    private int caseId;
-    private String caseDescription;
     private IntersectAction intersectAction;
     private AnotbAction anotbAction;
-```
+    private UnionAction unionAction;
 
-### NonFinalFieldInEnum
-Non-final field `actionDescription` in enum 'AnotbAction'
-in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.java`
-#### Snippet
-```java
-
-    private String actionId;
-    private String actionDescription;
-
-    private AnotbAction(final String actionId, final String actionDescription) {
-```
-
-### NonFinalFieldInEnum
-Non-final field `actionId` in enum 'IntersectAction'
-in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.java`
-#### Snippet
-```java
-    FULL_INTERSECT("I", "Full Intersect");
-
-    private String actionId;
-    private String actionDescription;
-
+    static {
 ```
 
 ### NonFinalFieldInEnum
@@ -9556,51 +9532,15 @@ in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.ja
 ```
 
 ### NonFinalFieldInEnum
-Non-final field `caseId` in enum 'CornerCase'
+Non-final field `caseDescription` in enum 'CornerCase'
 in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.java`
 #### Snippet
 ```java
-
     private static final Map<Integer, CornerCase> caseIdToCornerCaseMap = new HashMap<>();
     private int caseId;
     private String caseDescription;
     private IntersectAction intersectAction;
-```
-
-### NonFinalFieldInEnum
-Non-final field `actionDescription` in enum 'IntersectAction'
-in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.java`
-#### Snippet
-```java
-
-    private String actionId;
-    private String actionDescription;
-
-    private IntersectAction(final String actionId, final String actionDescription) {
-```
-
-### NonFinalFieldInEnum
-Non-final field `unionAction` in enum 'CornerCase'
-in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.java`
-#### Snippet
-```java
-    private IntersectAction intersectAction;
     private AnotbAction anotbAction;
-    private UnionAction unionAction;
-
-    static {
-```
-
-### NonFinalFieldInEnum
-Non-final field `actionId` in enum 'UnionAction'
-in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.java`
-#### Snippet
-```java
-    FULL_UNION("N", "Full Union");
-
-    private String actionId;
-    private String actionDescription;
-
 ```
 
 ### NonFinalFieldInEnum
@@ -9616,15 +9556,15 @@ in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.ja
 ```
 
 ### NonFinalFieldInEnum
-Non-final field `actionDescription` in enum 'UnionAction'
+Non-final field `actionId` in enum 'IntersectAction'
 in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.java`
 #### Snippet
 ```java
+    FULL_INTERSECT("I", "Full Intersect");
 
     private String actionId;
     private String actionDescription;
 
-    private UnionAction(final String actionId, final String actionDescription) {
 ```
 
 ### NonFinalFieldInEnum
@@ -9639,19 +9579,67 @@ in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.ja
 
 ```
 
-## RuleId[id=FinalPrivateMethod]
-### FinalPrivateMethod
-'private' method declared `final`
-in `src/main/java/org/apache/datasketches/hll/BaseHllSketch.java`
+### NonFinalFieldInEnum
+Non-final field `actionDescription` in enum 'IntersectAction'
+in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.java`
 #### Snippet
 ```java
-  }
 
-  private static final int coupon(final long[] hash) {
-    final int addr26 = (int) ((hash[0] & KEY_MASK_26));
-    final int lz = Long.numberOfLeadingZeros(hash[1]);
+    private String actionId;
+    private String actionDescription;
+
+    private IntersectAction(final String actionId, final String actionDescription) {
 ```
 
+### NonFinalFieldInEnum
+Non-final field `caseId` in enum 'CornerCase'
+in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.java`
+#### Snippet
+```java
+
+    private static final Map<Integer, CornerCase> caseIdToCornerCaseMap = new HashMap<>();
+    private int caseId;
+    private String caseDescription;
+    private IntersectAction intersectAction;
+```
+
+### NonFinalFieldInEnum
+Non-final field `actionDescription` in enum 'AnotbAction'
+in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.java`
+#### Snippet
+```java
+
+    private String actionId;
+    private String actionDescription;
+
+    private AnotbAction(final String actionId, final String actionDescription) {
+```
+
+### NonFinalFieldInEnum
+Non-final field `actionDescription` in enum 'UnionAction'
+in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.java`
+#### Snippet
+```java
+
+    private String actionId;
+    private String actionDescription;
+
+    private UnionAction(final String actionId, final String actionDescription) {
+```
+
+### NonFinalFieldInEnum
+Non-final field `actionId` in enum 'UnionAction'
+in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.java`
+#### Snippet
+```java
+    FULL_UNION("N", "Full Union");
+
+    private String actionId;
+    private String actionDescription;
+
+```
+
+## RuleId[id=FinalPrivateMethod]
 ### FinalPrivateMethod
 'private' method declared `final`
 in `src/main/java/org/apache/datasketches/hll/DirectHllArray.java`
@@ -9666,14 +9654,14 @@ in `src/main/java/org/apache/datasketches/hll/DirectHllArray.java`
 
 ### FinalPrivateMethod
 'private' method declared `final`
-in `src/main/java/org/apache/datasketches/hll/ToByteArrayImpl.java`
+in `src/main/java/org/apache/datasketches/hll/BaseHllSketch.java`
 #### Snippet
 ```java
   }
 
-  private static final void insertHll(final AbstractHllArray impl, final WritableMemory wmem,
-      final boolean compact) {
-    insertCommonHll(impl, wmem, compact);
+  private static final int coupon(final long[] hash) {
+    final int addr26 = (int) ((hash[0] & KEY_MASK_26));
+    final int lz = Long.numberOfLeadingZeros(hash[1]);
 ```
 
 ### FinalPrivateMethod
@@ -9695,9 +9683,9 @@ in `src/main/java/org/apache/datasketches/hll/ToByteArrayImpl.java`
 ```java
   }
 
-  private static final void copyCommonListAndSet(final AbstractCoupons impl,
-      final WritableMemory wmem) {
-    insertPreInts(wmem, impl.getPreInts());
+  private static final void insertCommonHll(final AbstractHllArray srcImpl,
+      final WritableMemory tgtWmem, final boolean compact) {
+    insertPreInts(tgtWmem, srcImpl.getPreInts());
 ```
 
 ### FinalPrivateMethod
@@ -9707,9 +9695,21 @@ in `src/main/java/org/apache/datasketches/hll/ToByteArrayImpl.java`
 ```java
   }
 
-  private static final void insertCommonHll(final AbstractHllArray srcImpl,
-      final WritableMemory tgtWmem, final boolean compact) {
-    insertPreInts(tgtWmem, srcImpl.getPreInts());
+  private static final void insertHll(final AbstractHllArray impl, final WritableMemory wmem,
+      final boolean compact) {
+    insertCommonHll(impl, wmem, compact);
+```
+
+### FinalPrivateMethod
+'private' method declared `final`
+in `src/main/java/org/apache/datasketches/hll/ToByteArrayImpl.java`
+#### Snippet
+```java
+  }
+
+  private static final void copyCommonListAndSet(final AbstractCoupons impl,
+      final WritableMemory wmem) {
+    insertPreInts(wmem, impl.getPreInts());
 ```
 
 ### FinalPrivateMethod
@@ -9722,30 +9722,6 @@ in `src/main/java/org/apache/datasketches/hll/CouponHashSet.java`
   private static final int[] growHashSet(final int[] coupIntArr, final int tgtLgCoupArrSize) {
     final int[] tgtCouponIntArr = new int[1 << tgtLgCoupArrSize]; //create tgt
     final int len = coupIntArr.length;
-```
-
-### FinalPrivateMethod
-'private' method declared `final`
-in `src/main/java/org/apache/datasketches/theta/Sketch.java`
-#### Snippet
-```java
-  }
-
-  private static final boolean estMode(final long thetaLong, final boolean empty) {
-    return thetaLong < Long.MAX_VALUE && !empty;
-  }
-```
-
-### FinalPrivateMethod
-'private' method declared `final`
-in `src/main/java/org/apache/datasketches/theta/Sketch.java`
-#### Snippet
-```java
-   * @return a Sketch
-   */
-  private static final Sketch heapifyUpdateFromMemory(final Memory srcMem, final long expectedSeed) {
-    final long cap = srcMem.getCapacity();
-    if (cap < 8) {
 ```
 
 ### FinalPrivateMethod
@@ -9786,6 +9762,30 @@ in `src/main/java/org/apache/datasketches/hll/Union.java`
 
 ### FinalPrivateMethod
 'private' method declared `final`
+in `src/main/java/org/apache/datasketches/theta/Sketch.java`
+#### Snippet
+```java
+   * @return a Sketch
+   */
+  private static final Sketch heapifyUpdateFromMemory(final Memory srcMem, final long expectedSeed) {
+    final long cap = srcMem.getCapacity();
+    if (cap < 8) {
+```
+
+### FinalPrivateMethod
+'private' method declared `final`
+in `src/main/java/org/apache/datasketches/theta/Sketch.java`
+#### Snippet
+```java
+  }
+
+  private static final boolean estMode(final long thetaLong, final boolean empty) {
+    return thetaLong < Long.MAX_VALUE && !empty;
+  }
+```
+
+### FinalPrivateMethod
+'private' method declared `final`
 in `src/main/java/org/apache/datasketches/hllmap/CouponHashMap.java`
 #### Snippet
 ```java
@@ -9810,18 +9810,6 @@ in `src/main/java/org/apache/datasketches/hllmap/SingleCouponMap.java`
 
 ### FinalPrivateMethod
 'private' method declared `final`
-in `src/main/java/org/apache/datasketches/theta/CompactOperations.java`
-#### Snippet
-```java
-  }
-
-  private static final void checkFamilyAndFlags(
-      final int srcFamId,
-      final boolean srcCompactFlag,
-```
-
-### FinalPrivateMethod
-'private' method declared `final`
 in `src/main/java/org/apache/datasketches/hllmap/UniqueCountMap.java`
 #### Snippet
 ```java
@@ -9842,6 +9830,18 @@ in `src/main/java/org/apache/datasketches/hllmap/UniqueCountMap.java`
   private static final void checkConstructorKeySize(final int keySizeBytes) {
     if (keySizeBytes < 4) {
       throw new SketchesArgumentException("KeySizeBytes must be >= 4: " + keySizeBytes);
+```
+
+### FinalPrivateMethod
+'private' method declared `final`
+in `src/main/java/org/apache/datasketches/theta/CompactOperations.java`
+#### Snippet
+```java
+  }
+
+  private static final void checkFamilyAndFlags(
+      final int srcFamId,
+      final boolean srcCompactFlag,
 ```
 
 ### FinalPrivateMethod
@@ -9930,6 +9930,18 @@ in `src/main/java/org/apache/datasketches/quantiles/ItemsSketchSortedView.java`
 
 ### FinalPrivateMethod
 'private' method declared `final`
+in `src/main/java/org/apache/datasketches/kll/KllDoublesSketch.java`
+#### Snippet
+```java
+  void setMinFloatItem(final float item) { kllSketchThrow(MUST_NOT_CALL); }
+
+  private final void refreshSortedView() {
+    kllDoublesSV = (kllDoublesSV == null) ? new KllDoublesSketchSortedView(this) : kllDoublesSV;
+  }
+```
+
+### FinalPrivateMethod
+'private' method declared `final`
 in `src/main/java/org/apache/datasketches/hll/Hll6Array.java`
 #### Snippet
 ```java
@@ -9962,18 +9974,6 @@ in `src/main/java/org/apache/datasketches/hll/HeapAuxHashMap.java`
   private static final int find(final int[] auxArr, final int lgAuxArrInts, final int lgConfigK,
       final int slotNo) {
     assert lgAuxArrInts < lgConfigK;
-```
-
-### FinalPrivateMethod
-'private' method declared `final`
-in `src/main/java/org/apache/datasketches/kll/KllDoublesSketch.java`
-#### Snippet
-```java
-  void setMinFloatItem(final float item) { kllSketchThrow(MUST_NOT_CALL); }
-
-  private final void refreshSortedView() {
-    kllDoublesSV = (kllDoublesSV == null) ? new KllDoublesSketchSortedView(this) : kllDoublesSV;
-  }
 ```
 
 ### FinalPrivateMethod
@@ -10017,30 +10017,6 @@ in `src/main/java/org/apache/datasketches/kll/KllFloatsSketch.java`
 in `src/main/java/org/apache/datasketches/hllmap/HllMap.java`
 #### Snippet
 ```java
-  }
-
-  private static final double updateEntrySizeBytes(final int tableEntries, final int keySizeBytes,
-      final int hllArrLongs) {
-    final double byteFraction = Math.ceil(tableEntries / 8.0) / tableEntries;
-```
-
-### FinalPrivateMethod
-'private' method declared `final`
-in `src/main/java/org/apache/datasketches/hllmap/HllMap.java`
-#### Snippet
-```java
-  //This method is specifically tied to the HLL array layout
-  @SuppressFBWarnings(value = "IM_MULTIPLYING_RESULT_OF_IREM", justification = "False Positive")
-  private final boolean updateHll(final int entryIndex, final int coupon) {
-    final int newValue = coupon16Value(coupon);
-
-```
-
-### FinalPrivateMethod
-'private' method declared `final`
-in `src/main/java/org/apache/datasketches/hllmap/HllMap.java`
-#### Snippet
-```java
    * @return the first empty slot for the given key
    */
   private static final int findEmpty(final byte[] key, final int tableEntries, final byte[] stateArr) {
@@ -10058,6 +10034,30 @@ in `src/main/java/org/apache/datasketches/hllmap/HllMap.java`
   private final void resize() {
     final int newTableEntries = nextPrime((int)(tableEntries_ * growthFactor_));
     final int newCapacityEntries = (int)(newTableEntries * LOAD_FACTOR);
+```
+
+### FinalPrivateMethod
+'private' method declared `final`
+in `src/main/java/org/apache/datasketches/hllmap/HllMap.java`
+#### Snippet
+```java
+  }
+
+  private static final double updateEntrySizeBytes(final int tableEntries, final int keySizeBytes,
+      final int hllArrLongs) {
+    final double byteFraction = Math.ceil(tableEntries / 8.0) / tableEntries;
+```
+
+### FinalPrivateMethod
+'private' method declared `final`
+in `src/main/java/org/apache/datasketches/hllmap/HllMap.java`
+#### Snippet
+```java
+  //This method is specifically tied to the HLL array layout
+  @SuppressFBWarnings(value = "IM_MULTIPLYING_RESULT_OF_IREM", justification = "False Positive")
+  private final boolean updateHll(final int entryIndex, final int coupon) {
+    final int newValue = coupon16Value(coupon);
+
 ```
 
 ### FinalPrivateMethod
@@ -10098,18 +10098,6 @@ in `src/main/java/org/apache/datasketches/hll/DirectHll6Array.java`
 
 ### FinalPrivateMethod
 'private' method declared `final`
-in `src/main/java/org/apache/datasketches/theta/ForwardCompatibility.java`
-#### Snippet
-```java
-  }
-
-  private static final void validateInputSize(final int reqBytesIn, final int memCap) {
-    if (reqBytesIn > memCap) {
-      throw new SketchesArgumentException(
-```
-
-### FinalPrivateMethod
-'private' method declared `final`
 in `src/main/java/org/apache/datasketches/hll/Hll4Update.java`
 #### Snippet
 ```java
@@ -10118,6 +10106,18 @@ in `src/main/java/org/apache/datasketches/hll/Hll4Update.java`
   private static final void shiftToBiggerCurMin(final AbstractHllArray host) {
     final int oldCurMin = host.getCurMin();
     final int newCurMin = oldCurMin + 1;
+```
+
+### FinalPrivateMethod
+'private' method declared `final`
+in `src/main/java/org/apache/datasketches/theta/ForwardCompatibility.java`
+#### Snippet
+```java
+  }
+
+  private static final void validateInputSize(final int reqBytesIn, final int memCap) {
+    if (reqBytesIn > memCap) {
+      throw new SketchesArgumentException(
 ```
 
 ### FinalPrivateMethod
@@ -10173,23 +10173,11 @@ in `src/main/java/org/apache/datasketches/theta/HeapQuickSelectSketch.java`
 in `src/main/java/org/apache/datasketches/theta/HeapAlphaSketch.java`
 #### Snippet
 ```java
-   */
-  // @formatter:on
-  private static final double getVariance(final double k, final double p, final double alpha,
-      final double theta, final int count) {
-    final double kPlus1 = k + 1.0;
-```
-
-### FinalPrivateMethod
-'private' method declared `final`
-in `src/main/java/org/apache/datasketches/theta/HeapAlphaSketch.java`
-#### Snippet
-```java
-  //Cache stays the same size. Must be dirty. Theta doesn't change, count will change.
-  // Used by rebuildDirtyAtTgtSize()
-  private final void forceRebuildDirtyCache() {
-    final long[] tgtArr = new long[1 << lgArrLongs_];
-    curCount_ = HashOperations.hashArrayInsert(cache_, tgtArr, lgArrLongs_, thetaLong_);
+  //Checks for rare lockup condition
+  // Used by hashUpdate(), rebuild()
+  private final void rebuildDirty() {
+    final int curCountBefore = curCount_;
+    forceRebuildDirtyCache(); //changes curCount_ only
 ```
 
 ### FinalPrivateMethod
@@ -10202,6 +10190,18 @@ in `src/main/java/org/apache/datasketches/theta/HeapAlphaSketch.java`
   private final void forceResizeCleanCache(final int lgResizeFactor) {
     assert (!dirty_); // Should never be dirty before a resize.
     lgArrLongs_ += lgResizeFactor; // new tgt size
+```
+
+### FinalPrivateMethod
+'private' method declared `final`
+in `src/main/java/org/apache/datasketches/theta/HeapAlphaSketch.java`
+#### Snippet
+```java
+  //Cache stays the same size. Must be dirty. Theta doesn't change, count will change.
+  // Used by rebuildDirtyAtTgtSize()
+  private final void forceRebuildDirtyCache() {
+    final long[] tgtArr = new long[1 << lgArrLongs_];
+    curCount_ = HashOperations.hashArrayInsert(cache_, tgtArr, lgArrLongs_, thetaLong_);
 ```
 
 ### FinalPrivateMethod
@@ -10233,11 +10233,11 @@ in `src/main/java/org/apache/datasketches/theta/HeapAlphaSketch.java`
 in `src/main/java/org/apache/datasketches/theta/HeapAlphaSketch.java`
 #### Snippet
 ```java
-   * @return the hash table threshold
    */
-  private static final int setHashTableThreshold(final int lgNomLongs, final int lgArrLongs) {
-    final double fraction = (lgArrLongs <= lgNomLongs) ? ThetaUtil.RESIZE_THRESHOLD : ThetaUtil.REBUILD_THRESHOLD;
-    return (int) Math.floor(fraction * (1 << lgArrLongs));
+  // @formatter:on
+  private static final double getVariance(final double k, final double p, final double alpha,
+      final double theta, final int count) {
+    final double kPlus1 = k + 1.0;
 ```
 
 ### FinalPrivateMethod
@@ -10245,11 +10245,11 @@ in `src/main/java/org/apache/datasketches/theta/HeapAlphaSketch.java`
 in `src/main/java/org/apache/datasketches/theta/HeapAlphaSketch.java`
 #### Snippet
 ```java
-  //Checks for rare lockup condition
-  // Used by hashUpdate(), rebuild()
-  private final void rebuildDirty() {
-    final int curCountBefore = curCount_;
-    forceRebuildDirtyCache(); //changes curCount_ only
+   * @return the hash table threshold
+   */
+  private static final int setHashTableThreshold(final int lgNomLongs, final int lgArrLongs) {
+    final double fraction = (lgArrLongs <= lgNomLongs) ? ThetaUtil.RESIZE_THRESHOLD : ThetaUtil.REBUILD_THRESHOLD;
+    return (int) Math.floor(fraction * (1 << lgArrLongs));
 ```
 
 ## RuleId[id=DuplicatedCode]
@@ -12623,63 +12623,27 @@ in `src/main/java/org/apache/datasketches/cpc/TestUtil.java`
 ```
 
 ### OctalLiteral
-Octal integer `020`
+Octal integer `066`
 in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.java`
 #### Snippet
 ```java
-    Estimation_Estimation(022, "A{<1.0,>0, F} ; B{<1.0,>0, F}",
-        IntersectAction.FULL_INTERSECT, AnotbAction.FULL_ANOTB, UnionAction.FULL_UNION),
-    Estimation_Degen(020, "A{<1.0,>0, F} ; B{<1.0, 0, F}",
-        IntersectAction.DEGEN_MIN_0_F, AnotbAction.TRIM_A, UnionAction.TRIM_A),
-
-```
-
-### OctalLiteral
-Octal integer `060`
-in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.java`
-#### Snippet
-```java
-    Exact_Estimation(062, "A{ 1.0,>0, F} ; B{<1.0,>0, F}",
-        IntersectAction.FULL_INTERSECT, AnotbAction.FULL_ANOTB, UnionAction.FULL_UNION),
-    Exact_Degen(060, "A{ 1.0,>0, F} ; B{<1.0, 0, F}",
-        IntersectAction.DEGEN_MIN_0_F, AnotbAction.TRIM_A, UnionAction.TRIM_A),
-
-```
-
-### OctalLiteral
-Octal integer `055`
-in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.java`
-#### Snippet
-```java
-
-  public enum CornerCase {
-    Empty_Empty(055, "A{ 1.0, 0, T} ; B{ 1.0, 0, T}",
-        IntersectAction.EMPTY_1_0_T, AnotbAction.EMPTY_1_0_T, UnionAction.EMPTY_1_0_T),
-    Empty_Exact(056, "A{ 1.0, 0, T} ; B{ 1.0,>0, F}",
-```
-
-### OctalLiteral
-Octal integer `062`
-in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.java`
-#### Snippet
-```java
+    Exact_Empty(065, "A{ 1.0,>0, F} ; B{ 1.0, 0, T}",
+        IntersectAction.EMPTY_1_0_T, AnotbAction.SKETCH_A, UnionAction.SKETCH_A),
     Exact_Exact(066, "A{ 1.0,>0, F} ; B{ 1.0,>0, F}",
         IntersectAction.FULL_INTERSECT, AnotbAction.FULL_ANOTB, UnionAction.FULL_UNION),
     Exact_Estimation(062, "A{ 1.0,>0, F} ; B{<1.0,>0, F}",
-        IntersectAction.FULL_INTERSECT, AnotbAction.FULL_ANOTB, UnionAction.FULL_UNION),
-    Exact_Degen(060, "A{ 1.0,>0, F} ; B{<1.0, 0, F}",
 ```
 
 ### OctalLiteral
-Octal integer `050`
+Octal integer `065`
 in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.java`
 #### Snippet
 ```java
-    Empty_Estimation(052, "A{ 1.0, 0, T} ; B{<1.0,>0, F",
-        IntersectAction.EMPTY_1_0_T, AnotbAction.EMPTY_1_0_T, UnionAction.SKETCH_B),
-    Empty_Degen(050, "A{ 1.0, 0, T} ; B{<1.0, 0, F}",
         IntersectAction.EMPTY_1_0_T, AnotbAction.EMPTY_1_0_T, UnionAction.DEGEN_THB_0_F),
 
+    Exact_Empty(065, "A{ 1.0,>0, F} ; B{ 1.0, 0, T}",
+        IntersectAction.EMPTY_1_0_T, AnotbAction.SKETCH_A, UnionAction.SKETCH_A),
+    Exact_Exact(066, "A{ 1.0,>0, F} ; B{ 1.0,>0, F}",
 ```
 
 ### OctalLiteral
@@ -12692,30 +12656,6 @@ in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.ja
     Empty_Estimation(052, "A{ 1.0, 0, T} ; B{<1.0,>0, F",
         IntersectAction.EMPTY_1_0_T, AnotbAction.EMPTY_1_0_T, UnionAction.SKETCH_B),
     Empty_Degen(050, "A{ 1.0, 0, T} ; B{<1.0, 0, F}",
-```
-
-### OctalLiteral
-Octal integer `026`
-in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.java`
-#### Snippet
-```java
-    Estimation_Empty(025, "A{<1.0,>0, F} ; B{ 1.0, 0, T}",
-        IntersectAction.EMPTY_1_0_T, AnotbAction.SKETCH_A, UnionAction.SKETCH_A),
-    Estimation_Exact(026, "A{<1.0,>0, F} ; B{ 1.0,>0, F}",
-        IntersectAction.FULL_INTERSECT, AnotbAction.FULL_ANOTB, UnionAction.FULL_UNION),
-    Estimation_Estimation(022, "A{<1.0,>0, F} ; B{<1.0,>0, F}",
-```
-
-### OctalLiteral
-Octal integer `000`
-in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.java`
-#### Snippet
-```java
-    Degen_Estimation(002, "A{<1.0, 0, F} ; B{<1.0,>0, F}",
-        IntersectAction.DEGEN_MIN_0_F, AnotbAction.DEGEN_MIN_0_F, UnionAction.TRIM_B),
-    Degen_Degen(000, "A{<1.0, 0, F} ; B{<1.0, 0, F}",
-        IntersectAction.DEGEN_MIN_0_F, AnotbAction.DEGEN_MIN_0_F, UnionAction.DEGEN_MIN_0_F);
-
 ```
 
 ### OctalLiteral
@@ -12743,51 +12683,27 @@ in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.ja
 ```
 
 ### OctalLiteral
-Octal integer `066`
+Octal integer `060`
 in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.java`
 #### Snippet
 ```java
-    Exact_Empty(065, "A{ 1.0,>0, F} ; B{ 1.0, 0, T}",
-        IntersectAction.EMPTY_1_0_T, AnotbAction.SKETCH_A, UnionAction.SKETCH_A),
-    Exact_Exact(066, "A{ 1.0,>0, F} ; B{ 1.0,>0, F}",
-        IntersectAction.FULL_INTERSECT, AnotbAction.FULL_ANOTB, UnionAction.FULL_UNION),
     Exact_Estimation(062, "A{ 1.0,>0, F} ; B{<1.0,>0, F}",
-```
-
-### OctalLiteral
-Octal integer `005`
-in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.java`
-#### Snippet
-```java
+        IntersectAction.FULL_INTERSECT, AnotbAction.FULL_ANOTB, UnionAction.FULL_UNION),
+    Exact_Degen(060, "A{ 1.0,>0, F} ; B{<1.0, 0, F}",
         IntersectAction.DEGEN_MIN_0_F, AnotbAction.TRIM_A, UnionAction.TRIM_A),
 
-    Degen_Empty(005, "A{<1.0, 0, F} ; B{ 1.0, 0, T}",
-        IntersectAction.EMPTY_1_0_T, AnotbAction.DEGEN_THA_0_F, UnionAction.DEGEN_THA_0_F),
-    Degen_Exact(006, "A{<1.0, 0, F} ; B{ 1.0,>0, F}",
 ```
 
 ### OctalLiteral
-Octal integer `065`
+Octal integer `050`
 in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.java`
 #### Snippet
 ```java
+    Empty_Estimation(052, "A{ 1.0, 0, T} ; B{<1.0,>0, F",
+        IntersectAction.EMPTY_1_0_T, AnotbAction.EMPTY_1_0_T, UnionAction.SKETCH_B),
+    Empty_Degen(050, "A{ 1.0, 0, T} ; B{<1.0, 0, F}",
         IntersectAction.EMPTY_1_0_T, AnotbAction.EMPTY_1_0_T, UnionAction.DEGEN_THB_0_F),
 
-    Exact_Empty(065, "A{ 1.0,>0, F} ; B{ 1.0, 0, T}",
-        IntersectAction.EMPTY_1_0_T, AnotbAction.SKETCH_A, UnionAction.SKETCH_A),
-    Exact_Exact(066, "A{ 1.0,>0, F} ; B{ 1.0,>0, F}",
-```
-
-### OctalLiteral
-Octal integer `002`
-in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.java`
-#### Snippet
-```java
-    Degen_Exact(006, "A{<1.0, 0, F} ; B{ 1.0,>0, F}",
-        IntersectAction.DEGEN_MIN_0_F, AnotbAction.DEGEN_THA_0_F, UnionAction.TRIM_B),
-    Degen_Estimation(002, "A{<1.0, 0, F} ; B{<1.0,>0, F}",
-        IntersectAction.DEGEN_MIN_0_F, AnotbAction.DEGEN_MIN_0_F, UnionAction.TRIM_B),
-    Degen_Degen(000, "A{<1.0, 0, F} ; B{<1.0, 0, F}",
 ```
 
 ### OctalLiteral
@@ -12803,6 +12719,18 @@ in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.ja
 ```
 
 ### OctalLiteral
+Octal integer `000`
+in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.java`
+#### Snippet
+```java
+    Degen_Estimation(002, "A{<1.0, 0, F} ; B{<1.0,>0, F}",
+        IntersectAction.DEGEN_MIN_0_F, AnotbAction.DEGEN_MIN_0_F, UnionAction.TRIM_B),
+    Degen_Degen(000, "A{<1.0, 0, F} ; B{<1.0, 0, F}",
+        IntersectAction.DEGEN_MIN_0_F, AnotbAction.DEGEN_MIN_0_F, UnionAction.DEGEN_MIN_0_F);
+
+```
+
+### OctalLiteral
 Octal integer `022`
 in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.java`
 #### Snippet
@@ -12812,6 +12740,78 @@ in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.ja
     Estimation_Estimation(022, "A{<1.0,>0, F} ; B{<1.0,>0, F}",
         IntersectAction.FULL_INTERSECT, AnotbAction.FULL_ANOTB, UnionAction.FULL_UNION),
     Estimation_Degen(020, "A{<1.0,>0, F} ; B{<1.0, 0, F}",
+```
+
+### OctalLiteral
+Octal integer `026`
+in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.java`
+#### Snippet
+```java
+    Estimation_Empty(025, "A{<1.0,>0, F} ; B{ 1.0, 0, T}",
+        IntersectAction.EMPTY_1_0_T, AnotbAction.SKETCH_A, UnionAction.SKETCH_A),
+    Estimation_Exact(026, "A{<1.0,>0, F} ; B{ 1.0,>0, F}",
+        IntersectAction.FULL_INTERSECT, AnotbAction.FULL_ANOTB, UnionAction.FULL_UNION),
+    Estimation_Estimation(022, "A{<1.0,>0, F} ; B{<1.0,>0, F}",
+```
+
+### OctalLiteral
+Octal integer `002`
+in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.java`
+#### Snippet
+```java
+    Degen_Exact(006, "A{<1.0, 0, F} ; B{ 1.0,>0, F}",
+        IntersectAction.DEGEN_MIN_0_F, AnotbAction.DEGEN_THA_0_F, UnionAction.TRIM_B),
+    Degen_Estimation(002, "A{<1.0, 0, F} ; B{<1.0,>0, F}",
+        IntersectAction.DEGEN_MIN_0_F, AnotbAction.DEGEN_MIN_0_F, UnionAction.TRIM_B),
+    Degen_Degen(000, "A{<1.0, 0, F} ; B{<1.0, 0, F}",
+```
+
+### OctalLiteral
+Octal integer `005`
+in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.java`
+#### Snippet
+```java
+        IntersectAction.DEGEN_MIN_0_F, AnotbAction.TRIM_A, UnionAction.TRIM_A),
+
+    Degen_Empty(005, "A{<1.0, 0, F} ; B{ 1.0, 0, T}",
+        IntersectAction.EMPTY_1_0_T, AnotbAction.DEGEN_THA_0_F, UnionAction.DEGEN_THA_0_F),
+    Degen_Exact(006, "A{<1.0, 0, F} ; B{ 1.0,>0, F}",
+```
+
+### OctalLiteral
+Octal integer `055`
+in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.java`
+#### Snippet
+```java
+
+  public enum CornerCase {
+    Empty_Empty(055, "A{ 1.0, 0, T} ; B{ 1.0, 0, T}",
+        IntersectAction.EMPTY_1_0_T, AnotbAction.EMPTY_1_0_T, UnionAction.EMPTY_1_0_T),
+    Empty_Exact(056, "A{ 1.0, 0, T} ; B{ 1.0,>0, F}",
+```
+
+### OctalLiteral
+Octal integer `062`
+in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.java`
+#### Snippet
+```java
+    Exact_Exact(066, "A{ 1.0,>0, F} ; B{ 1.0,>0, F}",
+        IntersectAction.FULL_INTERSECT, AnotbAction.FULL_ANOTB, UnionAction.FULL_UNION),
+    Exact_Estimation(062, "A{ 1.0,>0, F} ; B{<1.0,>0, F}",
+        IntersectAction.FULL_INTERSECT, AnotbAction.FULL_ANOTB, UnionAction.FULL_UNION),
+    Exact_Degen(060, "A{ 1.0,>0, F} ; B{<1.0, 0, F}",
+```
+
+### OctalLiteral
+Octal integer `020`
+in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.java`
+#### Snippet
+```java
+    Estimation_Estimation(022, "A{<1.0,>0, F} ; B{<1.0,>0, F}",
+        IntersectAction.FULL_INTERSECT, AnotbAction.FULL_ANOTB, UnionAction.FULL_UNION),
+    Estimation_Degen(020, "A{<1.0,>0, F} ; B{<1.0, 0, F}",
+        IntersectAction.DEGEN_MIN_0_F, AnotbAction.TRIM_A, UnionAction.TRIM_A),
+
 ```
 
 ## RuleId[id=MismatchedJavadocCode]
@@ -12842,18 +12842,6 @@ in `src/main/java/org/apache/datasketches/quantiles/DoublesSketchBuilder.java`
 
 ### StringBufferReplaceableByString
 `StringBuilder sb` can be replaced with 'String'
-in `src/main/java/org/apache/datasketches/frequencies/ItemsSketch.java`
-#### Snippet
-```java
-  @Override
-  public String toString() {
-    final StringBuilder sb = new StringBuilder();
-    sb.append("FrequentItemsSketch<T>:").append(LS);
-    sb.append("  Stream Length    : " + streamWeight).append(LS);
-```
-
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
 in `src/main/java/org/apache/datasketches/frequencies/LongsSketch.java`
 #### Snippet
 ```java
@@ -12861,6 +12849,18 @@ in `src/main/java/org/apache/datasketches/frequencies/LongsSketch.java`
   public String toString() {
     final StringBuilder sb = new StringBuilder();
     sb.append("FrequentLongsSketch:").append(LS);
+    sb.append("  Stream Length    : " + streamWeight).append(LS);
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `src/main/java/org/apache/datasketches/frequencies/ItemsSketch.java`
+#### Snippet
+```java
+  @Override
+  public String toString() {
+    final StringBuilder sb = new StringBuilder();
+    sb.append("FrequentItemsSketch<T>:").append(LS);
     sb.append("  Stream Length    : " + streamWeight).append(LS);
 ```
 
@@ -12888,17 +12888,78 @@ in `src/main/java/org/apache/datasketches/req/ReqSketch.java`
     sb.append("  K               : " + k).append(LS);
 ```
 
+## RuleId[id=SimplifiableConditionalExpression]
+### SimplifiableConditionalExpression
+`(srcEmptyFlag || single) ? true : dstOrdered` can be simplified to 'srcEmptyFlag \|\| single \|\| dstOrdered'
+in `src/main/java/org/apache/datasketches/theta/CompactOperations.java`
+#### Snippet
+```java
+    //dispatch empty and single cases
+    //Note: for empty and single we always output the ordered form.
+    final boolean dstOrderedOut = (srcEmptyFlag || single) ? true : dstOrdered;
+    if (srcEmptyFlag) {
+      if (dstMem != null) {
+```
+
+### SimplifiableConditionalExpression
+`(empty || single) ? true : dstOrdered` can be simplified to 'empty \|\| single \|\| dstOrdered'
+in `src/main/java/org/apache/datasketches/theta/CompactOperations.java`
+#### Snippet
+```java
+    }
+    //Note: for empty or single we always output the ordered form.
+    final boolean dstOrderedOut = (empty || single) ? true : dstOrdered;
+    if (direct) {
+      final int preLongs = computeCompactPreLongs(empty, curCount, thetaLong);
+```
+
+### SimplifiableConditionalExpression
+`(gadget_ == null) ? false : gadget_.isSameResource(that)` can be simplified to 'gadget_!=null \&\& gadget_.isSameResource(that)'
+in `src/main/java/org/apache/datasketches/quantiles/DoublesUnionImplR.java`
+#### Snippet
+```java
+  @Override
+  public boolean isSameResource(final Memory that) {
+    return (gadget_ == null) ? false : gadget_.isSameResource(that);
+  }
+
+```
+
+### SimplifiableConditionalExpression
+`i == 0 ? lvl0Sorted : true` can be simplified to 'i!=0 \|\| lvl0Sorted'
+in `src/main/java/org/apache/datasketches/req/ReqSerDe.java`
+#### Snippet
+```java
+        final List<ReqCompactor> compactors = new ArrayList<>();
+        for (int i = 0; i < numCompactors; i++) {
+          final boolean level0sorted = i == 0 ? lvl0Sorted : true;
+          final Compactor compactor = extractCompactor(buff, level0sorted, hra);
+          compactors.add(compactor.reqCompactor);
+```
+
 ## RuleId[id=FinalStaticMethod]
 ### FinalStaticMethod
 'static' method declared `final`
-in `src/main/java/org/apache/datasketches/hll/BaseHllSketch.java`
+in `src/main/java/org/apache/datasketches/theta/SetOperation.java`
 #### Snippet
 ```java
-   * @return the current serialization version.
+   * @return a new builder
    */
-  public static final int getSerializationVersion(final Memory mem) {
-    return mem.getByte(PreambleUtil.SER_VER_BYTE) & 0XFF;
+  public static final SetOperationBuilder builder() {
+    return new SetOperationBuilder();
   }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/datasketches/hll/DirectHllArray.java`
+#### Snippet
+```java
+  }
+
+  private static final void checkReadOnly(final WritableMemory wmem) {
+    if (wmem == null) {
+      throw new SketchesArgumentException("Cannot modify a read-only sketch");
 ```
 
 ### FinalStaticMethod
@@ -12927,26 +12988,74 @@ in `src/main/java/org/apache/datasketches/hll/BaseHllSketch.java`
 
 ### FinalStaticMethod
 'static' method declared `final`
-in `src/main/java/org/apache/datasketches/theta/SetOperation.java`
+in `src/main/java/org/apache/datasketches/hll/BaseHllSketch.java`
 #### Snippet
 ```java
-   * @return a new builder
+   * @return the current serialization version.
    */
-  public static final SetOperationBuilder builder() {
-    return new SetOperationBuilder();
+  public static final int getSerializationVersion(final Memory mem) {
+    return mem.getByte(PreambleUtil.SER_VER_BYTE) & 0XFF;
   }
 ```
 
 ### FinalStaticMethod
 'static' method declared `final`
-in `src/main/java/org/apache/datasketches/hll/DirectHllArray.java`
+in `src/main/java/org/apache/datasketches/quantilescommon/QuantilesUtil.java`
+#### Snippet
+```java
+   * @param values the given array of double values
+   */
+  public static final void checkDoublesSplitPointsOrder(final double[] values) {
+    Objects.requireNonNull(values);
+    final int len = values.length - 1;
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/datasketches/quantilescommon/QuantilesUtil.java`
+#### Snippet
+```java
+   * @param values the given array of double values
+   */
+  public static final void checkFloatsSplitPointsOrder(final float[] values) {
+    Objects.requireNonNull(values);
+    final int len = values.length - 1;
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/datasketches/quantilescommon/QuantilesUtil.java`
+#### Snippet
+```java
+   * @param nRank the given normalized rank.
+   */
+  public static final void checkNormalizedRankBounds(final double nRank) {
+    if ((nRank < 0.0) || (nRank > 1.0)) {
+      throw new SketchesArgumentException(
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/datasketches/hll/ToByteArrayImpl.java`
 #### Snippet
 ```java
   }
 
-  private static final void checkReadOnly(final WritableMemory wmem) {
-    if (wmem == null) {
-      throw new SketchesArgumentException("Cannot modify a read-only sketch");
+  private static final void insertAux(final AbstractHllArray srcImpl, final WritableMemory tgtWmem,
+      final boolean tgtCompact) {
+    final AuxHashMap auxHashMap = srcImpl.getAuxHashMap();
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/datasketches/hll/ToByteArrayImpl.java`
+#### Snippet
+```java
+
+  // To byte array used by the heap HLL modes.
+  static final byte[] toHllByteArray(final AbstractHllArray impl, final boolean compact) {
+    int auxBytes = 0;
+    if (impl.tgtHllType == TgtHllType.HLL_4) {
 ```
 
 ### FinalStaticMethod
@@ -12968,21 +13077,9 @@ in `src/main/java/org/apache/datasketches/hll/ToByteArrayImpl.java`
 ```java
   }
 
-  private static final void insertHll(final AbstractHllArray impl, final WritableMemory wmem,
-      final boolean compact) {
-    insertCommonHll(impl, wmem, compact);
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/datasketches/hll/ToByteArrayImpl.java`
-#### Snippet
-```java
-
-  // To byte array used by the heap HLL modes.
-  static final byte[] toHllByteArray(final AbstractHllArray impl, final boolean compact) {
-    int auxBytes = 0;
-    if (impl.tgtHllType == TgtHllType.HLL_4) {
+  private static final void insertCommonHll(final AbstractHllArray srcImpl,
+      final WritableMemory tgtWmem, final boolean compact) {
+    insertPreInts(tgtWmem, srcImpl.getPreInts());
 ```
 
 ### FinalStaticMethod
@@ -12992,9 +13089,9 @@ in `src/main/java/org/apache/datasketches/hll/ToByteArrayImpl.java`
 ```java
   }
 
-  private static final void insertAux(final AbstractHllArray srcImpl, final WritableMemory tgtWmem,
-      final boolean tgtCompact) {
-    final AuxHashMap auxHashMap = srcImpl.getAuxHashMap();
+  private static final void insertHll(final AbstractHllArray impl, final WritableMemory wmem,
+      final boolean compact) {
+    insertCommonHll(impl, wmem, compact);
 ```
 
 ### FinalStaticMethod
@@ -13011,74 +13108,14 @@ in `src/main/java/org/apache/datasketches/hll/ToByteArrayImpl.java`
 
 ### FinalStaticMethod
 'static' method declared `final`
-in `src/main/java/org/apache/datasketches/hll/ToByteArrayImpl.java`
+in `src/main/java/org/apache/datasketches/hll/CouponList.java`
 #### Snippet
 ```java
   }
 
-  private static final void insertCommonHll(final AbstractHllArray srcImpl,
-      final WritableMemory tgtWmem, final boolean compact) {
-    insertPreInts(tgtWmem, srcImpl.getPreInts());
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/datasketches/quantilescommon/QuantilesUtil.java`
-#### Snippet
-```java
-   * @param values the given array of double values
-   */
-  public static final void checkDoublesSplitPointsOrder(final double[] values) {
-    Objects.requireNonNull(values);
-    final int len = values.length - 1;
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/datasketches/quantilescommon/QuantilesUtil.java`
-#### Snippet
-```java
-   * @param nRank the given normalized rank.
-   */
-  public static final void checkNormalizedRankBounds(final double nRank) {
-    if ((nRank < 0.0) || (nRank > 1.0)) {
-      throw new SketchesArgumentException(
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/datasketches/quantilescommon/QuantilesUtil.java`
-#### Snippet
-```java
-   * @param values the given array of double values
-   */
-  public static final void checkFloatsSplitPointsOrder(final float[] values) {
-    Objects.requireNonNull(values);
-    final int len = values.length - 1;
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/datasketches/theta/SingleItemSketch.java`
-#### Snippet
-```java
-  }
-
-  static final boolean otherCheckForSingleItem(final int preLongs, final int serVer,
-      final int famId, final int flags) {
-    // Flags byte: SI=X, Ordered=T, Compact=T, Empty=F, ReadOnly=T, BigEndian=F = X11010 = 0x1A.
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/datasketches/theta/SingleItemSketch.java`
-#### Snippet
-```java
-  }
-
-  static final boolean otherCheckForSingleItem(final Memory mem) {
-    return otherCheckForSingleItem(extractPreLongs(mem), extractSerVer(mem),
-        extractFamilyID(mem), extractFlags(mem) );
+  static final HllSketchImpl promoteHeapListToSet(final CouponList list) {
+    final int couponCount = list.couponCount;
+    final int[] arr = list.couponIntArr;
 ```
 
 ### FinalStaticMethod
@@ -13107,18 +13144,6 @@ in `src/main/java/org/apache/datasketches/hll/CouponList.java`
 
 ### FinalStaticMethod
 'static' method declared `final`
-in `src/main/java/org/apache/datasketches/hll/CouponList.java`
-#### Snippet
-```java
-  }
-
-  static final HllSketchImpl promoteHeapListToSet(final CouponList list) {
-    final int couponCount = list.couponCount;
-    final int[] arr = list.couponIntArr;
-```
-
-### FinalStaticMethod
-'static' method declared `final`
 in `src/main/java/org/apache/datasketches/hll/CouponHashSet.java`
 #### Snippet
 ```java
@@ -13143,6 +13168,30 @@ in `src/main/java/org/apache/datasketches/hll/CouponHashSet.java`
 
 ### FinalStaticMethod
 'static' method declared `final`
+in `src/main/java/org/apache/datasketches/theta/SingleItemSketch.java`
+#### Snippet
+```java
+  }
+
+  static final boolean otherCheckForSingleItem(final int preLongs, final int serVer,
+      final int famId, final int flags) {
+    // Flags byte: SI=X, Ordered=T, Compact=T, Empty=F, ReadOnly=T, BigEndian=F = X11010 = 0x1A.
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/datasketches/theta/SingleItemSketch.java`
+#### Snippet
+```java
+  }
+
+  static final boolean otherCheckForSingleItem(final Memory mem) {
+    return otherCheckForSingleItem(extractPreLongs(mem), extractSerVer(mem),
+        extractFamilyID(mem), extractFlags(mem) );
+```
+
+### FinalStaticMethod
+'static' method declared `final`
 in `src/main/java/org/apache/datasketches/theta/DirectQuickSelectSketchR.java`
 #### Snippet
 ```java
@@ -13151,114 +13200,6 @@ in `src/main/java/org/apache/datasketches/theta/DirectQuickSelectSketchR.java`
   static final int setHashTableThreshold(final int lgNomLongs, final int lgArrLongs) {
     //SpotBugs may complain (DB_DUPLICATE_BRANCHES) if DQS_RESIZE_THRESHOLD == REBUILD_THRESHOLD,
     //but this allows us to tune these constants for different sketches.
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/datasketches/theta/Sketch.java`
-#### Snippet
-```java
-  }
-
-  private static final boolean estMode(final long thetaLong, final boolean empty) {
-    return thetaLong < Long.MAX_VALUE && !empty;
-  }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/datasketches/theta/Sketch.java`
-#### Snippet
-```java
-   * @param sketch the given sketch
-   */
-  static final void checkSketchAndMemoryFlags(final Sketch sketch) {
-    final Memory mem = sketch.getMemory();
-    if (mem == null) { return; }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/datasketches/theta/Sketch.java`
-#### Snippet
-```java
-  }
-
-  static final double upperBound(final int curCount, final long thetaLong, final int numStdDev,
-      final boolean empty) {
-    final double theta = thetaLong / LONG_MAX_VALUE_AS_DOUBLE;
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/datasketches/theta/Sketch.java`
-#### Snippet
-```java
-  }
-
-  static final double lowerBound(final int curCount, final long thetaLong, final int numStdDev,
-      final boolean empty) {
-    final double theta = thetaLong / LONG_MAX_VALUE_AS_DOUBLE;
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/datasketches/theta/Sketch.java`
-#### Snippet
-```java
-   * @return true if given Family id is one of the theta sketches
-   */
-  static final boolean isValidSketchID(final int id) {
-    return id == Family.ALPHA.getID()
-        || id == Family.QUICKSELECT.getID()
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/datasketches/theta/Sketch.java`
-#### Snippet
-```java
-  }
-
-  static final double estimate(final long thetaLong, final int curCount) {
-    return curCount * (LONG_MAX_VALUE_AS_DOUBLE / thetaLong);
-  }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/datasketches/theta/Sketch.java`
-#### Snippet
-```java
-   * @return a Sketch
-   */
-  private static final Sketch heapifyUpdateFromMemory(final Memory srcMem, final long expectedSeed) {
-    final long cap = srcMem.getCapacity();
-    if (cap < 8) {
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/datasketches/hll/Union.java`
-#### Snippet
-```java
-   * @return a union operator populated with the given Memory image of an HllSketch.
-   */
-  public static final Union heapify(final Memory mem) {
-    final int lgK = HllUtil.checkLgK(mem.getByte(PreambleUtil.LG_K_BYTE));
-    final HllSketch sk = HllSketch.heapify(mem, false); //allows non-finalized image
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/datasketches/hll/Union.java`
-#### Snippet
-```java
-
-  //Used to rebuild curMin, numAtCurMin and KxQ registers, due to high performance merge operation
-  static final void checkRebuildCurMinNumKxQ(final HllSketch sketch) {
-    final HllSketchImpl hllSketchImpl = sketch.hllSketchImpl;
-    final CurMode curMode = sketch.getCurMode();
 ```
 
 ### FinalStaticMethod
@@ -13290,11 +13231,47 @@ in `src/main/java/org/apache/datasketches/hll/Union.java`
 in `src/main/java/org/apache/datasketches/hll/Union.java`
 #### Snippet
 ```java
+   * @return a Union operator where the sketch data is in the given dstMem.
+   */
+  public static final Union writableWrap(final WritableMemory srcWmem) {
+    final TgtHllType tgtHllType = extractTgtHllType(srcWmem);
+    if (tgtHllType != TgtHllType.HLL_8) {
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/datasketches/hll/Union.java`
+#### Snippet
+```java
+   * @return a union operator populated with the given Memory image of an HllSketch.
+   */
+  public static final Union heapify(final Memory mem) {
+    final int lgK = HllUtil.checkLgK(mem.getByte(PreambleUtil.LG_K_BYTE));
+    final HllSketch sk = HllSketch.heapify(mem, false); //allows non-finalized image
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/datasketches/hll/Union.java`
+#### Snippet
+```java
   }
 
   private static final void mergeHlltoHLLmode(final HllSketch src, final HllSketch tgt,
       final int srcLgK, final int tgtLgK, final boolean srcIsMem, final boolean tgtIsMem) {
       final int sw = (tgtIsMem ? 1 : 0) | (srcIsMem ? 2 : 0)
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/datasketches/hll/Union.java`
+#### Snippet
+```java
+
+  //Used to rebuild curMin, numAtCurMin and KxQ registers, due to high performance merge operation
+  static final void checkRebuildCurMinNumKxQ(final HllSketch sketch) {
+    final HllSketchImpl hllSketchImpl = sketch.hllSketchImpl;
+    final CurMode curMode = sketch.getCurMode();
 ```
 
 ### FinalStaticMethod
@@ -13311,14 +13288,86 @@ in `src/main/java/org/apache/datasketches/hll/Union.java`
 
 ### FinalStaticMethod
 'static' method declared `final`
-in `src/main/java/org/apache/datasketches/hll/Union.java`
+in `src/main/java/org/apache/datasketches/theta/Sketch.java`
 #### Snippet
 ```java
-   * @return a Union operator where the sketch data is in the given dstMem.
+  }
+
+  static final double lowerBound(final int curCount, final long thetaLong, final int numStdDev,
+      final boolean empty) {
+    final double theta = thetaLong / LONG_MAX_VALUE_AS_DOUBLE;
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/datasketches/theta/Sketch.java`
+#### Snippet
+```java
+  }
+
+  static final double estimate(final long thetaLong, final int curCount) {
+    return curCount * (LONG_MAX_VALUE_AS_DOUBLE / thetaLong);
+  }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/datasketches/theta/Sketch.java`
+#### Snippet
+```java
+   * @return true if given Family id is one of the theta sketches
    */
-  public static final Union writableWrap(final WritableMemory srcWmem) {
-    final TgtHllType tgtHllType = extractTgtHllType(srcWmem);
-    if (tgtHllType != TgtHllType.HLL_8) {
+  static final boolean isValidSketchID(final int id) {
+    return id == Family.ALPHA.getID()
+        || id == Family.QUICKSELECT.getID()
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/datasketches/theta/Sketch.java`
+#### Snippet
+```java
+  }
+
+  static final double upperBound(final int curCount, final long thetaLong, final int numStdDev,
+      final boolean empty) {
+    final double theta = thetaLong / LONG_MAX_VALUE_AS_DOUBLE;
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/datasketches/theta/Sketch.java`
+#### Snippet
+```java
+   * @return a Sketch
+   */
+  private static final Sketch heapifyUpdateFromMemory(final Memory srcMem, final long expectedSeed) {
+    final long cap = srcMem.getCapacity();
+    if (cap < 8) {
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/datasketches/theta/Sketch.java`
+#### Snippet
+```java
+  }
+
+  private static final boolean estMode(final long thetaLong, final boolean empty) {
+    return thetaLong < Long.MAX_VALUE && !empty;
+  }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/datasketches/theta/Sketch.java`
+#### Snippet
+```java
+   * @param sketch the given sketch
+   */
+  static final void checkSketchAndMemoryFlags(final Sketch sketch) {
+    final Memory mem = sketch.getMemory();
+    if (mem == null) { return; }
 ```
 
 ### FinalStaticMethod
@@ -13338,11 +13387,11 @@ in `src/main/java/org/apache/datasketches/hllmap/CouponHashMap.java`
 in `src/main/java/org/apache/datasketches/hll/AbstractHllArray.java`
 #### Snippet
 ```java
-  //Called here and by Heap and Direct 6 and 8 bit implementations
-  //In C: again-two-registers.c Lines 851 to 871
-  static final void hipAndKxQIncrementalUpdate(final AbstractHllArray host,
-      final int oldValue, final int newValue) {
-    assert newValue > oldValue;
+  }
+
+  static final int hll8ArrBytes(final int lgConfigK) {
+    return 1 << lgConfigK;
+  }
 ```
 
 ### FinalStaticMethod
@@ -13374,11 +13423,11 @@ in `src/main/java/org/apache/datasketches/hll/AbstractHllArray.java`
 in `src/main/java/org/apache/datasketches/hll/AbstractHllArray.java`
 #### Snippet
 ```java
-  }
-
-  static final int hll6ArrBytes(final int lgConfigK) {
-    final int numSlots = 1 << lgConfigK;
-    return ((numSlots * 3) >>> 2) + 1;
+  //Called here and by Heap and Direct 6 and 8 bit implementations
+  //In C: again-two-registers.c Lines 851 to 871
+  static final void hipAndKxQIncrementalUpdate(final AbstractHllArray host,
+      final int oldValue, final int newValue) {
+    assert newValue > oldValue;
 ```
 
 ### FinalStaticMethod
@@ -13388,9 +13437,57 @@ in `src/main/java/org/apache/datasketches/hll/AbstractHllArray.java`
 ```java
   }
 
-  static final int hll8ArrBytes(final int lgConfigK) {
-    return 1 << lgConfigK;
+  static final int hll6ArrBytes(final int lgConfigK) {
+    final int numSlots = 1 << lgConfigK;
+    return ((numSlots * 3) >>> 2) + 1;
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/datasketches/hll/Conversions.java`
+#### Snippet
+```java
+class Conversions {
+
+  static final Hll4Array convertToHll4(final AbstractHllArray srcAbsHllArr) {
+    final int lgConfigK = srcAbsHllArr.getLgConfigK();
+    final Hll4Array hll4Array = new Hll4Array(lgConfigK);
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/datasketches/hll/Conversions.java`
+#### Snippet
+```java
   }
+
+  static final Hll8Array convertToHll8(final AbstractHllArray srcAbsHllArr) {
+    final int lgConfigK = srcAbsHllArr.lgConfigK;
+    final Hll8Array hll8Array = new Hll8Array(lgConfigK);
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/datasketches/hll/Conversions.java`
+#### Snippet
+```java
+  }
+
+  static final Hll6Array convertToHll6(final AbstractHllArray srcAbsHllArr) {
+    final int lgConfigK = srcAbsHllArr.lgConfigK;
+    final Hll6Array hll6Array = new Hll6Array(lgConfigK);
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/datasketches/hll/Conversions.java`
+#### Snippet
+```java
+   * @return pair values representing numAtCurMin and curMin
+   */
+  static final int curMinAndNum(final AbstractHllArray absHllArr) {
+    int curMin = 64;
+    int numAtCurMin = 0;
 ```
 
 ### FinalStaticMethod
@@ -13415,54 +13512,6 @@ in `src/main/java/org/apache/datasketches/hll/AbstractCoupons.java`
   static final int find(final int[] array, final int lgArrInts, final int coupon) {
     final int arrMask = array.length - 1;
     int probe = coupon & arrMask;
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/datasketches/hll/Conversions.java`
-#### Snippet
-```java
-class Conversions {
-
-  static final Hll4Array convertToHll4(final AbstractHllArray srcAbsHllArr) {
-    final int lgConfigK = srcAbsHllArr.getLgConfigK();
-    final Hll4Array hll4Array = new Hll4Array(lgConfigK);
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/datasketches/hll/Conversions.java`
-#### Snippet
-```java
-   * @return pair values representing numAtCurMin and curMin
-   */
-  static final int curMinAndNum(final AbstractHllArray absHllArr) {
-    int curMin = 64;
-    int numAtCurMin = 0;
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/datasketches/hll/Conversions.java`
-#### Snippet
-```java
-  }
-
-  static final Hll6Array convertToHll6(final AbstractHllArray srcAbsHllArr) {
-    final int lgConfigK = srcAbsHllArr.lgConfigK;
-    final Hll6Array hll6Array = new Hll6Array(lgConfigK);
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/datasketches/hll/Conversions.java`
-#### Snippet
-```java
-  }
-
-  static final Hll8Array convertToHll8(final AbstractHllArray srcAbsHllArr) {
-    final int lgConfigK = srcAbsHllArr.lgConfigK;
-    final Hll8Array hll8Array = new Hll8Array(lgConfigK);
 ```
 
 ### FinalStaticMethod
@@ -13518,11 +13567,11 @@ in `src/main/java/org/apache/datasketches/theta/Rebuilder.java`
 in `src/main/java/org/apache/datasketches/theta/CompactOperations.java`
 #### Snippet
 ```java
-   * @param curCount the given current count
-   */ //This handles #2 and #6 above
-  static final void checkIllegalCurCountAndEmpty(final boolean empty, final int curCount) {
-    if (empty && (curCount != 0)) { //this handles #2 and #6 above
-      throw new SketchesStateException("Illegal State: Empty=true and Current Count != 0.");
+   * @return the compacted array.
+   */
+  static final long[] compactCache(final long[] srcCache, final int curCount,
+      final long thetaLong, final boolean dstOrdered) {
+    if (curCount == 0) {
 ```
 
 ### FinalStaticMethod
@@ -13542,11 +13591,11 @@ in `src/main/java/org/apache/datasketches/theta/CompactOperations.java`
 in `src/main/java/org/apache/datasketches/theta/CompactOperations.java`
 #### Snippet
 ```java
-   * @return the compacted array.
+   * @return the number of preamble longs
    */
-  static final long[] compactCache(final long[] srcCache, final int curCount,
-      final long thetaLong, final boolean dstOrdered) {
-    if (curCount == 0) {
+  static final int computeCompactPreLongs(final boolean empty, final int curCount,
+      final long thetaLong) {
+    return (thetaLong < Long.MAX_VALUE) ? 3 : empty ? 1 : (curCount > 1) ? 2 : 1;
 ```
 
 ### FinalStaticMethod
@@ -13566,11 +13615,11 @@ in `src/main/java/org/apache/datasketches/theta/CompactOperations.java`
 in `src/main/java/org/apache/datasketches/theta/CompactOperations.java`
 #### Snippet
 ```java
-   * @return the number of preamble longs
-   */
-  static final int computeCompactPreLongs(final boolean empty, final int curCount,
-      final long thetaLong) {
-    return (thetaLong < Long.MAX_VALUE) ? 3 : empty ? 1 : (curCount > 1) ? 2 : 1;
+   * @param curCount the given current count
+   */ //This handles #2 and #6 above
+  static final void checkIllegalCurCountAndEmpty(final boolean empty, final int curCount) {
+    if (empty && (curCount != 0)) { //this handles #2 and #6 above
+      throw new SketchesStateException("Illegal State: Empty=true and Current Count != 0.");
 ```
 
 ### FinalStaticMethod
@@ -13627,10 +13676,10 @@ in `src/main/java/org/apache/datasketches/hll/HllUtil.java`
 #### Snippet
 ```java
 
-  //Exceptions
-  static final void noWriteAccess() {
-    throw new SketchesReadOnlyException(
-        "This sketch is compact or does not have write access to the underlying resource.");
+  //Checks
+  static final int checkLgK(final int lgK) {
+    if ((lgK >= MIN_LOG_K) && (lgK <= MAX_LOG_K)) { return lgK; }
+    throw new SketchesArgumentException(
 ```
 
 ### FinalStaticMethod
@@ -13643,18 +13692,6 @@ in `src/main/java/org/apache/datasketches/hll/HllUtil.java`
   static final int getPairLow26(final int coupon) {
     return coupon & KEY_MASK_26;
   }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/datasketches/hll/HllUtil.java`
-#### Snippet
-```java
-
-  //Checks
-  static final int checkLgK(final int lgK) {
-    if ((lgK >= MIN_LOG_K) && (lgK <= MAX_LOG_K)) { return lgK; }
-    throw new SketchesArgumentException(
 ```
 
 ### FinalStaticMethod
@@ -13678,6 +13715,30 @@ in `src/main/java/org/apache/datasketches/hll/HllUtil.java`
 
   static final int getPairValue(final int coupon) {
     return coupon >>> KEY_BITS_26;
+  }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/datasketches/hll/HllUtil.java`
+#### Snippet
+```java
+
+  //Exceptions
+  static final void noWriteAccess() {
+    throw new SketchesReadOnlyException(
+        "This sketch is compact or does not have write access to the underlying resource.");
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/datasketches/req/ReqCompactor.java`
+#### Snippet
+```java
+   * @return the nearest even integer to the given float.
+   */
+  static final int nearestEven(final float fltVal) {
+    return (int) round(fltVal / 2.0) << 1;
   }
 ```
 
@@ -13707,18 +13768,6 @@ in `src/main/java/org/apache/datasketches/hll/DirectAuxHashMap.java`
 
 ### FinalStaticMethod
 'static' method declared `final`
-in `src/main/java/org/apache/datasketches/req/ReqCompactor.java`
-#### Snippet
-```java
-   * @return the nearest even integer to the given float.
-   */
-  static final int nearestEven(final float fltVal) {
-    return (int) round(fltVal / 2.0) << 1;
-  }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
 in `src/main/java/org/apache/datasketches/hll/TgtHllType.java`
 #### Snippet
 ```java
@@ -13727,42 +13776,6 @@ in `src/main/java/org/apache/datasketches/hll/TgtHllType.java`
   public static final TgtHllType fromOrdinal(final int typeId) {
     return values[typeId];
   }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/datasketches/tuple/Util.java`
-#### Snippet
-```java
-   * @return the UTF_8 byte array
-   */
-  public static final byte[] stringToByteArray(final String value) {
-    if ((value == null) || value.isEmpty()) { return null; }
-    return value.getBytes(UTF_8);
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/datasketches/tuple/Util.java`
-#### Snippet
-```java
-   * @return the long array
-   */
-  public static final long[] doubleToLongArray(final double value) {
-    final double d = (value == 0.0) ? 0.0 : value; // canonicalize -0.0, 0.0
-    final long[] array = { Double.doubleToLongBits(d) }; // canonicalize all NaN forms
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/datasketches/tuple/Util.java`
-#### Snippet
-```java
-   * @param seedHashB given seed hash B
-   */
-  public static final void checkSeedHashes(final short seedHashA, final short seedHashB) {
-    if (seedHashA != seedHashB) {
-      throw new SketchesArgumentException("Incompatible Seed Hashes. " + seedHashA + ", "
 ```
 
 ### FinalStaticMethod
@@ -13787,6 +13800,42 @@ in `src/main/java/org/apache/datasketches/hll/DirectCouponHashSet.java`
   private static final void growHashSet(final WritableMemory wmem, final int tgtLgCouponArrSize) {
     final int tgtArrSize = 1 << tgtLgCouponArrSize;
     final int[] tgtCouponIntArr = new int[tgtArrSize];
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/datasketches/tuple/Util.java`
+#### Snippet
+```java
+   * @param seedHashB given seed hash B
+   */
+  public static final void checkSeedHashes(final short seedHashA, final short seedHashB) {
+    if (seedHashA != seedHashB) {
+      throw new SketchesArgumentException("Incompatible Seed Hashes. " + seedHashA + ", "
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/datasketches/tuple/Util.java`
+#### Snippet
+```java
+   * @return the UTF_8 byte array
+   */
+  public static final byte[] stringToByteArray(final String value) {
+    if ((value == null) || value.isEmpty()) { return null; }
+    return value.getBytes(UTF_8);
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/datasketches/tuple/Util.java`
+#### Snippet
+```java
+   * @return the long array
+   */
+  public static final long[] doubleToLongArray(final double value) {
+    final double d = (value == 0.0) ? 0.0 : value; // canonicalize -0.0, 0.0
+    final long[] array = { Double.doubleToLongBits(d) }; // canonicalize all NaN forms
 ```
 
 ### FinalStaticMethod
@@ -13950,18 +13999,6 @@ in `src/main/java/org/apache/datasketches/hll/Hll6Array.java`
 in `src/main/java/org/apache/datasketches/hll/HeapAuxHashMap.java`
 #### Snippet
 ```java
-  }
-
-  static final HeapAuxHashMap heapify(final Memory mem, final long offset, final int lgConfigK,
-      final int auxCount, final boolean srcCompact) {
-    final int lgAuxArrInts;
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/datasketches/hll/HeapAuxHashMap.java`
-#### Snippet
-```java
   //Continues searching.
   //If the probe comes back to original index, throws an exception.
   private static final int find(final int[] auxArr, final int lgAuxArrInts, final int lgConfigK,
@@ -13979,6 +14016,18 @@ in `src/main/java/org/apache/datasketches/req/ReqSerDe.java`
   static final Compactor extractCompactor(final Buffer buff, final boolean lvl0Sorted,
       final boolean hra) {
     final long state = buff.getLong();
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/datasketches/hll/HeapAuxHashMap.java`
+#### Snippet
+```java
+  }
+
+  static final HeapAuxHashMap heapify(final Memory mem, final long offset, final int lgConfigK,
+      final int auxCount, final boolean srcCompact) {
+    final int lgAuxArrInts;
 ```
 
 ### FinalStaticMethod
@@ -14010,11 +14059,11 @@ in `src/main/java/org/apache/datasketches/req/ReqSketch.java`
 in `src/main/java/org/apache/datasketches/hllmap/HllMap.java`
 #### Snippet
 ```java
-  }
-
-  private static final double updateEntrySizeBytes(final int tableEntries, final int keySizeBytes,
-      final int hllArrLongs) {
-    final double byteFraction = Math.ceil(tableEntries / 8.0) / tableEntries;
+   * @return the first empty slot for the given key
+   */
+  private static final int findEmpty(final byte[] key, final int tableEntries, final byte[] stateArr) {
+    final long[] hash = MurmurHash3.hash(key, SEED);
+    int entryIndex  = getIndex(hash[0], tableEntries);
 ```
 
 ### FinalStaticMethod
@@ -14022,11 +14071,11 @@ in `src/main/java/org/apache/datasketches/hllmap/HllMap.java`
 in `src/main/java/org/apache/datasketches/hllmap/HllMap.java`
 #### Snippet
 ```java
-   * @return the first empty slot for the given key
-   */
-  private static final int findEmpty(final byte[] key, final int tableEntries, final byte[] stateArr) {
-    final long[] hash = MurmurHash3.hash(key, SEED);
-    int entryIndex  = getIndex(hash[0], tableEntries);
+  }
+
+  private static final double updateEntrySizeBytes(final int tableEntries, final int keySizeBytes,
+      final int hllArrLongs) {
+    final double byteFraction = Math.ceil(tableEntries / 8.0) / tableEntries;
 ```
 
 ### FinalStaticMethod
@@ -14082,11 +14131,59 @@ in `src/main/java/org/apache/datasketches/quantiles/ItemsUtil.java`
 in `src/main/java/org/apache/datasketches/hll/HllSketch.java`
 #### Snippet
 ```java
+
+  //used by union and above
+  static final HllSketch heapify(final Memory srcMem, final boolean checkRebuild) {
+    Objects.requireNonNull(srcMem, "Source Memory must not be null");
+    checkBounds(0, 8, srcMem.getCapacity()); //need min 8 bytes
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/datasketches/hll/HllSketch.java`
+#### Snippet
+```java
    * @return the maximum size in bytes that this sketch can grow to.
    */
   public static final int getMaxUpdatableSerializationBytes(final int lgConfigK,
       final TgtHllType tgtHllType) {
     final int arrBytes;
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/datasketches/hll/HllSketch.java`
+#### Snippet
+```java
+   * @return an HllSketch where the sketch data is in the given dstMem.
+   */
+  public static final HllSketch writableWrap(final WritableMemory srcWmem) {
+    return writableWrap(srcWmem, true);
+  }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/datasketches/hll/HllSketch.java`
+#### Snippet
+```java
+   * @return an HllSketch on the java heap.
+   */
+  public static final HllSketch heapify(final byte[] byteArray) {
+    return heapify(Memory.wrap(byteArray));
+  }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/datasketches/hll/HllSketch.java`
+#### Snippet
+```java
+   *
+   */
+  public static final HllSketch wrap(final Memory srcMem) {
+    Objects.requireNonNull(srcMem, "Source Memory must not be null");
+    checkBounds(0, 8, srcMem.getCapacity()); //need min 8 bytes
 ```
 
 ### FinalStaticMethod
@@ -14108,68 +14205,8 @@ in `src/main/java/org/apache/datasketches/hll/HllSketch.java`
 ```java
    * @return an HllSketch on the java heap.
    */
-  public static final HllSketch heapify(final byte[] byteArray) {
-    return heapify(Memory.wrap(byteArray));
-  }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/datasketches/hll/HllSketch.java`
-#### Snippet
-```java
-   * @return an HllSketch where the sketch data is in the given dstMem.
-   */
-  public static final HllSketch writableWrap(final WritableMemory srcWmem) {
-    return writableWrap(srcWmem, true);
-  }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/datasketches/hll/HllSketch.java`
-#### Snippet
-```java
-
-  //used by union and above
-  static final HllSketch heapify(final Memory srcMem, final boolean checkRebuild) {
-    Objects.requireNonNull(srcMem, "Source Memory must not be null");
-    checkBounds(0, 8, srcMem.getCapacity()); //need min 8 bytes
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/datasketches/hll/HllSketch.java`
-#### Snippet
-```java
-   * @return an HllSketch on the java heap.
-   */
   public static final HllSketch heapify(final Memory srcMem) {
     return heapify(srcMem, true);
-  }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/datasketches/hll/HllSketch.java`
-#### Snippet
-```java
-   *
-   */
-  public static final HllSketch wrap(final Memory srcMem) {
-    Objects.requireNonNull(srcMem, "Source Memory must not be null");
-    checkBounds(0, 8, srcMem.getCapacity()); //need min 8 bytes
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/datasketches/hllmap/Map.java`
-#### Snippet
-```java
-  }
-
-  static final int getIndex(final long hash, final int tableEntries) {
-    return (int) ((hash >>> 1) % tableEntries);
   }
 ```
 
@@ -14183,6 +14220,30 @@ in `src/main/java/org/apache/datasketches/hllmap/Map.java`
   static final int coupon16(final byte[] identifier) {
     final long[] hash = MurmurHash3.hash(identifier, SEED);
     final int hllIdx = (int) (((hash[0] >>> 1) % 1024) & TEN_BIT_MASK); //hash[0] for 10-bit address
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/datasketches/hllmap/Map.java`
+#### Snippet
+```java
+  }
+
+  static final int getStride(final long hash, final int tableEntries) {
+    return (int) ((hash >>> 1) % (tableEntries - 2L) + 1L);
+  }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/datasketches/hllmap/Map.java`
+#### Snippet
+```java
+  }
+
+  static final int coupon16Value(final int coupon) {
+    return (coupon >>> 10) & SIX_BIT_MASK;
+  }
 ```
 
 ### FinalStaticMethod
@@ -14204,20 +14265,8 @@ in `src/main/java/org/apache/datasketches/hllmap/Map.java`
 ```java
   }
 
-  static final int coupon16Value(final int coupon) {
-    return (coupon >>> 10) & SIX_BIT_MASK;
-  }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/datasketches/hllmap/Map.java`
-#### Snippet
-```java
-  }
-
-  static final int getStride(final long hash, final int tableEntries) {
-    return (int) ((hash >>> 1) % (tableEntries - 2L) + 1L);
+  static final int getIndex(final long hash, final int tableEntries) {
+    return (int) ((hash >>> 1) % tableEntries);
   }
 ```
 
@@ -14247,42 +14296,6 @@ in `src/main/java/org/apache/datasketches/hll/DirectHll6Array.java`
 
 ### FinalStaticMethod
 'static' method declared `final`
-in `src/main/java/org/apache/datasketches/theta/ForwardCompatibility.java`
-#### Snippet
-```java
-  }
-
-  private static final void validateInputSize(final int reqBytesIn, final int memCap) {
-    if (reqBytesIn > memCap) {
-      throw new SketchesArgumentException(
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/datasketches/theta/ForwardCompatibility.java`
-#### Snippet
-```java
-   * @return a SerVer 3 {@link CompactSketch}.
-   */
-  static final CompactSketch heapify1to3(final Memory srcMem, final short seedHash) {
-    final int memCap = (int) srcMem.getCapacity();
-    final int preLongs = extractPreLongs(srcMem); //always 3 for serVer 1
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/datasketches/theta/ForwardCompatibility.java`
-#### Snippet
-```java
-   * @return a SerVer 3 HeapCompactOrderedSketch
-   */
-  static final CompactSketch heapify2to3(final Memory srcMem, final short seedHash) {
-    final int memCap = (int) srcMem.getCapacity();
-    final int preLongs = extractPreLongs(srcMem); //1,2 or 3
-```
-
-### FinalStaticMethod
-'static' method declared `final`
 in `src/main/java/org/apache/datasketches/hll/Hll4Update.java`
 #### Snippet
 ```java
@@ -14307,14 +14320,38 @@ in `src/main/java/org/apache/datasketches/hll/Hll4Update.java`
 
 ### FinalStaticMethod
 'static' method declared `final`
-in `src/main/java/org/apache/datasketches/hll/HllArray.java`
+in `src/main/java/org/apache/datasketches/theta/ForwardCompatibility.java`
+#### Snippet
+```java
+   * @return a SerVer 3 {@link CompactSketch}.
+   */
+  static final CompactSketch heapify1to3(final Memory srcMem, final short seedHash) {
+    final int memCap = (int) srcMem.getCapacity();
+    final int preLongs = extractPreLongs(srcMem); //always 3 for serVer 1
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/datasketches/theta/ForwardCompatibility.java`
 #### Snippet
 ```java
   }
 
-  static final HllArray newHeapHll(final int lgConfigK, final TgtHllType tgtHllType) {
-    if (tgtHllType == HLL_4) { return new Hll4Array(lgConfigK); }
-    if (tgtHllType == HLL_6) { return new Hll6Array(lgConfigK); }
+  private static final void validateInputSize(final int reqBytesIn, final int memCap) {
+    if (reqBytesIn > memCap) {
+      throw new SketchesArgumentException(
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/datasketches/theta/ForwardCompatibility.java`
+#### Snippet
+```java
+   * @return a SerVer 3 HeapCompactOrderedSketch
+   */
+  static final CompactSketch heapify2to3(final Memory srcMem, final short seedHash) {
+    final int memCap = (int) srcMem.getCapacity();
+    final int preLongs = extractPreLongs(srcMem); //1,2 or 3
 ```
 
 ### FinalStaticMethod
@@ -14331,26 +14368,14 @@ in `src/main/java/org/apache/datasketches/hll/HllArray.java`
 
 ### FinalStaticMethod
 'static' method declared `final`
-in `src/main/java/org/apache/datasketches/hll/HllEstimators.java`
+in `src/main/java/org/apache/datasketches/hll/HllArray.java`
 #### Snippet
 ```java
-   */
-  //In C: again-two-registers.c hhb_get_composite_estimate L1489
-  static final double hllCompositeEstimate(final AbstractHllArray absHllArr) {
-    final int lgConfigK = absHllArr.getLgConfigK();
-    final double rawEst = getHllRawEstimate(lgConfigK, absHllArr.getKxQ0() + absHllArr.getKxQ1());
-```
+  }
 
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/org/apache/datasketches/hll/HllEstimators.java`
-#### Snippet
-```java
-   */
-
-  static final double hllLowerBound(final AbstractHllArray absHllArr, final int numStdDev) {
-    final int lgConfigK = absHllArr.lgConfigK;
-    final int configK = 1 << lgConfigK;
+  static final HllArray newHeapHll(final int lgConfigK, final TgtHllType tgtHllType) {
+    if (tgtHllType == HLL_4) { return new Hll4Array(lgConfigK); }
+    if (tgtHllType == HLL_6) { return new Hll6Array(lgConfigK); }
 ```
 
 ### FinalStaticMethod
@@ -14370,11 +14395,11 @@ in `src/main/java/org/apache/datasketches/hll/HllEstimators.java`
 in `src/main/java/org/apache/datasketches/hll/HllEstimators.java`
 #### Snippet
 ```java
-  //In C: again-two-registers.c hhb_get_raw_estimate L1167
-  //This algorithm is from Flajolet's, et al, 2007 HLL paper, Fig 3.
-  private static final double getHllRawEstimate(final int lgConfigK, final double kxqSum) {
+   */
+
+  static final double hllLowerBound(final AbstractHllArray absHllArr, final int numStdDev) {
+    final int lgConfigK = absHllArr.lgConfigK;
     final int configK = 1 << lgConfigK;
-    final double correctionFactor;
 ```
 
 ### FinalStaticMethod
@@ -14387,6 +14412,30 @@ in `src/main/java/org/apache/datasketches/hll/HllEstimators.java`
   static final double hllUpperBound(final AbstractHllArray absHllArr, final int numStdDev) {
     final int lgConfigK = absHllArr.lgConfigK;
     final double estimate = absHllArr.getEstimate();
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/datasketches/hll/HllEstimators.java`
+#### Snippet
+```java
+  //In C: again-two-registers.c hhb_get_raw_estimate L1167
+  //This algorithm is from Flajolet's, et al, 2007 HLL paper, Fig 3.
+  private static final double getHllRawEstimate(final int lgConfigK, final double kxqSum) {
+    final int configK = 1 << lgConfigK;
+    final double correctionFactor;
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/org/apache/datasketches/hll/HllEstimators.java`
+#### Snippet
+```java
+   */
+  //In C: again-two-registers.c hhb_get_composite_estimate L1489
+  static final double hllCompositeEstimate(final AbstractHllArray absHllArr) {
+    final int lgConfigK = absHllArr.getLgConfigK();
+    final double rawEst = getHllRawEstimate(lgConfigK, absHllArr.getKxQ0() + absHllArr.getKxQ1());
 ```
 
 ### FinalStaticMethod
@@ -14406,11 +14455,11 @@ in `src/main/java/org/apache/datasketches/theta/HeapQuickSelectSketch.java`
 in `src/main/java/org/apache/datasketches/theta/HeapAlphaSketch.java`
 #### Snippet
 ```java
+   * @return R.
    */
-  // @formatter:on
-  private static final double getVariance(final double k, final double p, final double alpha,
-      final double theta, final int count) {
-    final double kPlus1 = k + 1.0;
+  private static final int getR(final double theta, final double alpha, final double p) {
+    final double split1 = (p * (alpha + 1.0)) / 2.0;
+    if (theta > split1) { return 0; }
 ```
 
 ### FinalStaticMethod
@@ -14418,11 +14467,11 @@ in `src/main/java/org/apache/datasketches/theta/HeapAlphaSketch.java`
 in `src/main/java/org/apache/datasketches/theta/HeapAlphaSketch.java`
 #### Snippet
 ```java
-   * @return R.
    */
-  private static final int getR(final double theta, final double alpha, final double p) {
-    final double split1 = (p * (alpha + 1.0)) / 2.0;
-    if (theta > split1) { return 0; }
+  // @formatter:on
+  private static final double getVariance(final double k, final double p, final double alpha,
+      final double theta, final int count) {
+    final double kPlus1 = k + 1.0;
 ```
 
 ### FinalStaticMethod
@@ -14444,8 +14493,8 @@ in `src/main/java/org/apache/datasketches/cpc/PreambleUtil.java`
 ```java
   }
 
-  static final boolean hasWindow(final Memory mem) {
-    return (getFlags(mem) & WINDOW_FLAG_MASK) > 0;
+  static final boolean isCompressed(final Memory mem) {
+    return (getFlags(mem) & COMPRESSED_FLAG_MASK) > 0;
   }
 ```
 
@@ -14456,8 +14505,8 @@ in `src/main/java/org/apache/datasketches/cpc/PreambleUtil.java`
 ```java
   }
 
-  static final boolean isCompressed(final Memory mem) {
-    return (getFlags(mem) & COMPRESSED_FLAG_MASK) > 0;
+  static final boolean hasWindow(final Memory mem) {
+    return (getFlags(mem) & WINDOW_FLAG_MASK) > 0;
   }
 ```
 
@@ -14473,188 +14522,7 @@ in `src/main/java/org/apache/datasketches/cpc/PreambleUtil.java`
   }
 ```
 
-## RuleId[id=ManualMinMaxCalculation]
-### ManualMinMaxCalculation
-Can be replaced with 'Math.min()' call
-in `src/main/java/org/apache/datasketches/hll/BaseHllSketch.java`
-#### Snippet
-```java
-    final int addr26 = (int) ((hash[0] & KEY_MASK_26));
-    final int lz = Long.numberOfLeadingZeros(hash[1]);
-    final int value = ((lz > 62 ? 62 : lz) + 1);
-    return (value << KEY_BITS_26) | addr26;
-  }
-```
-
-### ManualMinMaxCalculation
-Can be replaced with 'Math.min()' call
-in `src/main/java/org/apache/datasketches/theta/Rebuilder.java`
-#### Snippet
-```java
-    final int maxHTLongs = Util.floorPowerOf2(((int)(capBytes >>> 3) - preLongs));
-    final int lgFactor = Math.max(Integer.numberOfTrailingZeros(maxHTLongs) - lgArrLongs, 0);
-    return (lgFactor >= lgRF) ? lgRF : lgFactor;
-  }
-
-```
-
-### ManualMinMaxCalculation
-Can be replaced with 'Math.max()' call
-in `src/main/java/org/apache/datasketches/common/Util.java`
-#### Snippet
-```java
-   */
-  public static long pwr2SeriesNext(final int ppo, final long curPoint) {
-    final long cur = curPoint < 1L ? 1L : curPoint;
-    int gi = (int)round(log2(cur) * ppo); //current generating index
-    long next;
-```
-
-### ManualMinMaxCalculation
-Can be replaced with 'Math.max()' call
-in `src/main/java/org/apache/datasketches/common/Util.java`
-#### Snippet
-```java
-  public static double powerSeriesNextDouble(final int ppb, final double curPoint,
-      final boolean roundToLong, final double logBase) {
-    final double cur = curPoint < 1.0 ? 1.0 : curPoint;
-    double gi = round(logBaseOfX(logBase, cur) * ppb ); //current generating index
-    double next;
-```
-
-### ManualMinMaxCalculation
-Can be replaced with 'Math.max()' call
-in `src/main/java/org/apache/datasketches/common/Util.java`
-#### Snippet
-```java
-   */
-  public static double floorPowerBaseOfDouble(final double base, final double n) {
-    final double x = n < 1.0 ? 1.0 : n;
-    return pow(base, floor(logBaseOfX(base, x)));
-  }
-```
-
-### ManualMinMaxCalculation
-Can be replaced with 'Math.max()' call
-in `src/main/java/org/apache/datasketches/common/Util.java`
-#### Snippet
-```java
-   */
-  public static double ceilingPowerBaseOfDouble(final double base, final double n) {
-    final double x = n < 1.0 ? 1.0 : n;
-    return pow(base, ceil(logBaseOfX(base, x)));
-  }
-```
-
-### ManualMinMaxCalculation
-Can be replaced with 'Math.max()' call
-in `src/main/java/org/apache/datasketches/frequencies/ItemsSketch.java`
-#### Snippet
-```java
-   */
-  public Row<T>[] getFrequentItems(final long threshold, final ErrorType errorType) {
-    return sortItems(threshold > getMaximumError() ? threshold : getMaximumError(), errorType);
-  }
-
-```
-
-### ManualMinMaxCalculation
-Can be replaced with 'Math.max()' call
-in `src/main/java/org/apache/datasketches/frequencies/LongsSketch.java`
-#### Snippet
-```java
-   */
-  public Row[] getFrequentItems(final long threshold, final ErrorType errorType) {
-    return sortItems(threshold > getMaximumError() ? threshold : getMaximumError(), errorType);
-  }
-
-```
-
-### ManualMinMaxCalculation
-Can be replaced with 'Math.max()' call
-in `src/main/java/org/apache/datasketches/cpc/TestUtil.java`
-#### Snippet
-```java
-
-  static final double pwrLaw10NextDouble(final int ppb, final double curPoint) {
-    final double cur = (curPoint < 1.0) ? 1.0 : curPoint;
-    double gi = round(Math.log10(cur) * ppb); //current generating index
-    double next;
-```
-
-### ManualMinMaxCalculation
-Can be replaced with 'Math.max()' call
-in `src/main/java/org/apache/datasketches/kll/KllDoublesHelper.java`
-#### Snippet
-```java
-      //calculate the new levels array length
-      final int finalLevelsArrLen;
-      if (myCurLevelsArr.length < myNewNumLevels + 1) { finalLevelsArrLen = myNewNumLevels + 1; }
-      else { finalLevelsArrLen = myCurLevelsArr.length; }
-
-```
-
-### ManualMinMaxCalculation
-Can be replaced with 'Math.max()' call
-in `src/main/java/org/apache/datasketches/cpc/IconEstimator.java`
-#### Snippet
-```java
-    final double term = 1.0 + ((ratio * ratio * ratio) / 66.774757);
-    final double result = doubleC * factor * term;
-    return (result >= doubleC) ? result : doubleC;
-  }
-
-```
-
-### ManualMinMaxCalculation
-Can be replaced with 'Math.min()' call
-in `src/main/java/org/apache/datasketches/hllmap/Map.java`
-#### Snippet
-```java
-    final int hllIdx = (int) (((hash[0] >>> 1) % 1024) & TEN_BIT_MASK); //hash[0] for 10-bit address
-    final int lz = Long.numberOfLeadingZeros(hash[1]);
-    final int value = (lz > 62 ? 62 : lz) + 1;
-    return (value << 10) | hllIdx;
-  }
-```
-
-### ManualMinMaxCalculation
-Can be replaced with 'Math.max()' call
-in `src/main/java/org/apache/datasketches/kll/KllFloatsHelper.java`
-#### Snippet
-```java
-      //calculate the new levels array length
-      final int finalLevelsArrLen;
-      if (myCurLevelsArr.length < myNewNumLevels + 1) { finalLevelsArrLen = myNewNumLevels + 1; }
-      else { finalLevelsArrLen = myCurLevelsArr.length; }
-
-```
-
-### ManualMinMaxCalculation
-Can be replaced with 'Math.min()' call
-in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
-#### Snippet
-```java
-      int bufOffset,final int bitOffset) {
-    final int availBits = 8 - bitOffset;
-    final int chunkBits = availBits <= bits ? availBits : bits;
-    final int mask = (1 << chunkBits) - 1;
-    value[index] = (buffer[bufOffset] >>> (availBits - chunkBits)) & mask;
-```
-
 ## RuleId[id=UnnecessaryToStringCall]
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/org/apache/datasketches/theta/SetOperation.java`
-#### Snippet
-```java
-      default: {
-        throw new SketchesArgumentException("SetOperation cannot heapify family: "
-            + family.toString());
-      }
-    }
-```
-
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
 in `src/main/java/org/apache/datasketches/theta/SetOperation.java`
@@ -14681,26 +14549,14 @@ in `src/main/java/org/apache/datasketches/theta/SetOperation.java`
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `src/main/java/org/apache/datasketches/sampling/PreambleUtil.java`
+in `src/main/java/org/apache/datasketches/theta/SetOperation.java`
 #### Snippet
 ```java
-      .append("Byte  0: ResizeFactor         : ").append(rf.toString()).append(LS)
-      .append("Byte  1: Serialization Version: ").append(serVer).append(LS)
-      .append("Byte  2: Family               : ").append(family.toString()).append(LS)
-      .append("Byte  3: Flags Field          : ").append(flagsStr).append(LS)
-      //.append("  BIG_ENDIAN_STORAGE          : ").append(bigEndian).append(LS)
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/org/apache/datasketches/sampling/PreambleUtil.java`
-#### Snippet
-```java
-            + "Byte  0: ResizeFactor             : " + rf.toString() + LS
-            + "Byte  1: Serialization Version    : " + serVer + LS
-            + "Byte  2: Family                   : " + family.toString() + LS
-            + "Byte  3: Flags Field              : " + flagsStr + LS
-            //+ "  BIG_ENDIAN_STORAGE              : " + bigEndian + LS
+      default: {
+        throw new SketchesArgumentException("SetOperation cannot heapify family: "
+            + family.toString());
+      }
+    }
 ```
 
 ### UnnecessaryToStringCall
@@ -14717,6 +14573,30 @@ in `src/main/java/org/apache/datasketches/sampling/ReservoirLongsUnion.java`
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
+in `src/main/java/org/apache/datasketches/sampling/PreambleUtil.java`
+#### Snippet
+```java
+            + "Byte  0: ResizeFactor             : " + rf.toString() + LS
+            + "Byte  1: Serialization Version    : " + serVer + LS
+            + "Byte  2: Family                   : " + family.toString() + LS
+            + "Byte  3: Flags Field              : " + flagsStr + LS
+            //+ "  BIG_ENDIAN_STORAGE              : " + bigEndian + LS
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/org/apache/datasketches/sampling/PreambleUtil.java`
+#### Snippet
+```java
+      .append("Byte  0: ResizeFactor         : ").append(rf.toString()).append(LS)
+      .append("Byte  1: Serialization Version: ").append(serVer).append(LS)
+      .append("Byte  2: Family               : ").append(family.toString()).append(LS)
+      .append("Byte  3: Flags Field          : ").append(flagsStr).append(LS)
+      //.append("  BIG_ENDIAN_STORAGE          : ").append(bigEndian).append(LS)
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
 in `src/main/java/org/apache/datasketches/sampling/VarOptItemsSketch.java`
 #### Snippet
 ```java
@@ -14729,18 +14609,6 @@ in `src/main/java/org/apache/datasketches/sampling/VarOptItemsSketch.java`
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `src/main/java/org/apache/datasketches/theta/CompactOperations.java`
-#### Snippet
-```java
-    throw new SketchesArgumentException(
-        "Possible Corruption: Family does not match flags: Family: "
-            + srcFamily.toString()
-            + ", Compact Flag: " + srcCompactFlag
-            + ", ReadOnly Flag: " + srcReadOnlyFlag);
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
 in `src/main/java/org/apache/datasketches/hllmap/UniqueCountMap.java`
 #### Snippet
 ```java
@@ -14749,6 +14617,18 @@ in `src/main/java/org/apache/datasketches/hllmap/UniqueCountMap.java`
         sb.append(cMap.toString());
         sb.append(LS);
       }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/org/apache/datasketches/theta/CompactOperations.java`
+#### Snippet
+```java
+    throw new SketchesArgumentException(
+        "Possible Corruption: Family does not match flags: Family: "
+            + srcFamily.toString()
+            + ", Compact Flag: " + srcCompactFlag
+            + ", ReadOnly Flag: " + srcReadOnlyFlag);
 ```
 
 ### UnnecessaryToStringCall
@@ -14813,18 +14693,6 @@ in `src/main/java/org/apache/datasketches/quantiles/ClassicUtil.java`
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `src/main/java/org/apache/datasketches/theta/UpdateSketch.java`
-#### Snippet
-```java
-    } else {
-      throw new SketchesArgumentException(
-          "Possible corruption: Invalid Family: " + family.toString());
-    }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
 in `src/main/java/org/apache/datasketches/quantiles/ItemsUnion.java`
 #### Snippet
 ```java
@@ -14833,6 +14701,18 @@ in `src/main/java/org/apache/datasketches/quantiles/ItemsUnion.java`
       sb.append(ItemsSketch.getInstance(this.clazz_, maxK_, comparator_).toString());
       return sb.toString();
     }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/org/apache/datasketches/theta/UpdateSketch.java`
+#### Snippet
+```java
+    } else {
+      throw new SketchesArgumentException(
+          "Possible corruption: Invalid Family: " + family.toString());
+    }
+
 ```
 
 ### UnnecessaryToStringCall
@@ -14943,53 +14823,173 @@ in `src/main/java/org/apache/datasketches/cpc/PreambleUtil.java`
     return fieldOffset;
 ```
 
-## RuleId[id=SimplifiableConditionalExpression]
-### SimplifiableConditionalExpression
-`(srcEmptyFlag || single) ? true : dstOrdered` can be simplified to 'srcEmptyFlag \|\| single \|\| dstOrdered'
-in `src/main/java/org/apache/datasketches/theta/CompactOperations.java`
+## RuleId[id=ManualMinMaxCalculation]
+### ManualMinMaxCalculation
+Can be replaced with 'Math.min()' call
+in `src/main/java/org/apache/datasketches/hll/BaseHllSketch.java`
 #### Snippet
 ```java
-    //dispatch empty and single cases
-    //Note: for empty and single we always output the ordered form.
-    final boolean dstOrderedOut = (srcEmptyFlag || single) ? true : dstOrdered;
-    if (srcEmptyFlag) {
-      if (dstMem != null) {
+    final int addr26 = (int) ((hash[0] & KEY_MASK_26));
+    final int lz = Long.numberOfLeadingZeros(hash[1]);
+    final int value = ((lz > 62 ? 62 : lz) + 1);
+    return (value << KEY_BITS_26) | addr26;
+  }
 ```
 
-### SimplifiableConditionalExpression
-`(empty || single) ? true : dstOrdered` can be simplified to 'empty \|\| single \|\| dstOrdered'
-in `src/main/java/org/apache/datasketches/theta/CompactOperations.java`
+### ManualMinMaxCalculation
+Can be replaced with 'Math.min()' call
+in `src/main/java/org/apache/datasketches/theta/Rebuilder.java`
 #### Snippet
 ```java
-    }
-    //Note: for empty or single we always output the ordered form.
-    final boolean dstOrderedOut = (empty || single) ? true : dstOrdered;
-    if (direct) {
-      final int preLongs = computeCompactPreLongs(empty, curCount, thetaLong);
-```
-
-### SimplifiableConditionalExpression
-`(gadget_ == null) ? false : gadget_.isSameResource(that)` can be simplified to 'gadget_!=null \&\& gadget_.isSameResource(that)'
-in `src/main/java/org/apache/datasketches/quantiles/DoublesUnionImplR.java`
-#### Snippet
-```java
-  @Override
-  public boolean isSameResource(final Memory that) {
-    return (gadget_ == null) ? false : gadget_.isSameResource(that);
+    final int maxHTLongs = Util.floorPowerOf2(((int)(capBytes >>> 3) - preLongs));
+    final int lgFactor = Math.max(Integer.numberOfTrailingZeros(maxHTLongs) - lgArrLongs, 0);
+    return (lgFactor >= lgRF) ? lgRF : lgFactor;
   }
 
 ```
 
-### SimplifiableConditionalExpression
-`i == 0 ? lvl0Sorted : true` can be simplified to 'i!=0 \|\| lvl0Sorted'
-in `src/main/java/org/apache/datasketches/req/ReqSerDe.java`
+### ManualMinMaxCalculation
+Can be replaced with 'Math.max()' call
+in `src/main/java/org/apache/datasketches/common/Util.java`
 #### Snippet
 ```java
-        final List<ReqCompactor> compactors = new ArrayList<>();
-        for (int i = 0; i < numCompactors; i++) {
-          final boolean level0sorted = i == 0 ? lvl0Sorted : true;
-          final Compactor compactor = extractCompactor(buff, level0sorted, hra);
-          compactors.add(compactor.reqCompactor);
+  public static double powerSeriesNextDouble(final int ppb, final double curPoint,
+      final boolean roundToLong, final double logBase) {
+    final double cur = curPoint < 1.0 ? 1.0 : curPoint;
+    double gi = round(logBaseOfX(logBase, cur) * ppb ); //current generating index
+    double next;
+```
+
+### ManualMinMaxCalculation
+Can be replaced with 'Math.max()' call
+in `src/main/java/org/apache/datasketches/common/Util.java`
+#### Snippet
+```java
+   */
+  public static double floorPowerBaseOfDouble(final double base, final double n) {
+    final double x = n < 1.0 ? 1.0 : n;
+    return pow(base, floor(logBaseOfX(base, x)));
+  }
+```
+
+### ManualMinMaxCalculation
+Can be replaced with 'Math.max()' call
+in `src/main/java/org/apache/datasketches/common/Util.java`
+#### Snippet
+```java
+   */
+  public static double ceilingPowerBaseOfDouble(final double base, final double n) {
+    final double x = n < 1.0 ? 1.0 : n;
+    return pow(base, ceil(logBaseOfX(base, x)));
+  }
+```
+
+### ManualMinMaxCalculation
+Can be replaced with 'Math.max()' call
+in `src/main/java/org/apache/datasketches/common/Util.java`
+#### Snippet
+```java
+   */
+  public static long pwr2SeriesNext(final int ppo, final long curPoint) {
+    final long cur = curPoint < 1L ? 1L : curPoint;
+    int gi = (int)round(log2(cur) * ppo); //current generating index
+    long next;
+```
+
+### ManualMinMaxCalculation
+Can be replaced with 'Math.max()' call
+in `src/main/java/org/apache/datasketches/frequencies/LongsSketch.java`
+#### Snippet
+```java
+   */
+  public Row[] getFrequentItems(final long threshold, final ErrorType errorType) {
+    return sortItems(threshold > getMaximumError() ? threshold : getMaximumError(), errorType);
+  }
+
+```
+
+### ManualMinMaxCalculation
+Can be replaced with 'Math.max()' call
+in `src/main/java/org/apache/datasketches/frequencies/ItemsSketch.java`
+#### Snippet
+```java
+   */
+  public Row<T>[] getFrequentItems(final long threshold, final ErrorType errorType) {
+    return sortItems(threshold > getMaximumError() ? threshold : getMaximumError(), errorType);
+  }
+
+```
+
+### ManualMinMaxCalculation
+Can be replaced with 'Math.max()' call
+in `src/main/java/org/apache/datasketches/cpc/TestUtil.java`
+#### Snippet
+```java
+
+  static final double pwrLaw10NextDouble(final int ppb, final double curPoint) {
+    final double cur = (curPoint < 1.0) ? 1.0 : curPoint;
+    double gi = round(Math.log10(cur) * ppb); //current generating index
+    double next;
+```
+
+### ManualMinMaxCalculation
+Can be replaced with 'Math.max()' call
+in `src/main/java/org/apache/datasketches/kll/KllDoublesHelper.java`
+#### Snippet
+```java
+      //calculate the new levels array length
+      final int finalLevelsArrLen;
+      if (myCurLevelsArr.length < myNewNumLevels + 1) { finalLevelsArrLen = myNewNumLevels + 1; }
+      else { finalLevelsArrLen = myCurLevelsArr.length; }
+
+```
+
+### ManualMinMaxCalculation
+Can be replaced with 'Math.max()' call
+in `src/main/java/org/apache/datasketches/cpc/IconEstimator.java`
+#### Snippet
+```java
+    final double term = 1.0 + ((ratio * ratio * ratio) / 66.774757);
+    final double result = doubleC * factor * term;
+    return (result >= doubleC) ? result : doubleC;
+  }
+
+```
+
+### ManualMinMaxCalculation
+Can be replaced with 'Math.min()' call
+in `src/main/java/org/apache/datasketches/hllmap/Map.java`
+#### Snippet
+```java
+    final int hllIdx = (int) (((hash[0] >>> 1) % 1024) & TEN_BIT_MASK); //hash[0] for 10-bit address
+    final int lz = Long.numberOfLeadingZeros(hash[1]);
+    final int value = (lz > 62 ? 62 : lz) + 1;
+    return (value << 10) | hllIdx;
+  }
+```
+
+### ManualMinMaxCalculation
+Can be replaced with 'Math.max()' call
+in `src/main/java/org/apache/datasketches/kll/KllFloatsHelper.java`
+#### Snippet
+```java
+      //calculate the new levels array length
+      final int finalLevelsArrLen;
+      if (myCurLevelsArr.length < myNewNumLevels + 1) { finalLevelsArrLen = myNewNumLevels + 1; }
+      else { finalLevelsArrLen = myCurLevelsArr.length; }
+
+```
+
+### ManualMinMaxCalculation
+Can be replaced with 'Math.min()' call
+in `src/main/java/org/apache/datasketches/theta/BitPacking.java`
+#### Snippet
+```java
+      int bufOffset,final int bitOffset) {
+    final int availBits = 8 - bitOffset;
+    final int chunkBits = availBits <= bits ? availBits : bits;
+    final int mask = (1 << chunkBits) - 1;
+    value[index] = (buffer[bufOffset] >>> (availBits - chunkBits)) & mask;
 ```
 
 ## RuleId[id=JavadocLinkAsPlainText]
@@ -15023,6 +15023,30 @@ Field can be converted to a local variable
 in `src/main/java/org/apache/datasketches/cpc/CompressionCharacterization.java`
 #### Snippet
 ```java
+  private CpcSketch[] streamSketches;
+  private CompressedState[] compressedStates1;
+  private WritableMemory[] memoryArr;
+  private CompressedState[] compressedStates2;
+  private CpcSketch[] unCompressedSketches;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `src/main/java/org/apache/datasketches/cpc/CompressionCharacterization.java`
+#### Snippet
+```java
+  private CompressedState[] compressedStates1;
+  private WritableMemory[] memoryArr;
+  private CompressedState[] compressedStates2;
+  private CpcSketch[] unCompressedSketches;
+
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `src/main/java/org/apache/datasketches/cpc/CompressionCharacterization.java`
+#### Snippet
+```java
   private WritableMemory[] memoryArr;
   private CompressedState[] compressedStates2;
   private CpcSketch[] unCompressedSketches;
@@ -15035,30 +15059,6 @@ Field can be converted to a local variable
 in `src/main/java/org/apache/datasketches/cpc/CompressionCharacterization.java`
 #### Snippet
 ```java
-  private CompressedState[] compressedStates1;
-  private WritableMemory[] memoryArr;
-  private CompressedState[] compressedStates2;
-  private CpcSketch[] unCompressedSketches;
-
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `src/main/java/org/apache/datasketches/cpc/CompressionCharacterization.java`
-#### Snippet
-```java
-  private CpcSketch[] streamSketches;
-  private CompressedState[] compressedStates1;
-  private WritableMemory[] memoryArr;
-  private CompressedState[] compressedStates2;
-  private CpcSketch[] unCompressedSketches;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `src/main/java/org/apache/datasketches/cpc/CompressionCharacterization.java`
-#### Snippet
-```java
   //intermediates
   private CpcSketch[] streamSketches;
   private CompressedState[] compressedStates1;
@@ -15076,6 +15076,18 @@ in `src/main/java/org/apache/datasketches/cpc/CompressionCharacterization.java`
   private CpcSketch[] streamSketches;
   private CompressedState[] compressedStates1;
   private WritableMemory[] memoryArr;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `src/main/java/org/apache/datasketches/cpc/StreamingValidation.java`
+#### Snippet
+```java
+
+  //sketches
+  private CpcSketch sketch = null;
+  private BitMatrix matrix = null;
+
 ```
 
 ### FieldCanBeLocal
@@ -15088,18 +15100,6 @@ in `src/main/java/org/apache/datasketches/cpc/StreamingValidation.java`
   private BitMatrix matrix = null;
 
   /**
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `src/main/java/org/apache/datasketches/cpc/StreamingValidation.java`
-#### Snippet
-```java
-
-  //sketches
-  private CpcSketch sketch = null;
-  private BitMatrix matrix = null;
-
 ```
 
 ### FieldCanBeLocal
@@ -15153,11 +15153,11 @@ in `src/main/java/org/apache/datasketches/theta/CompactOperations.java`
 
 ### TrivialIf
 `if` statement can be simplified
-in `src/main/java/org/apache/datasketches/frequencies/ItemsSketch.java`
+in `src/main/java/org/apache/datasketches/frequencies/LongsSketch.java`
 #### Snippet
 ```java
       if ( !(obj instanceof Row)) { return false; }
-      final Row<T> that = (Row<T>) obj;
+      final Row that = (Row) obj;
       if (est != that.est) { return false; }
       return true;
     }
@@ -15165,11 +15165,11 @@ in `src/main/java/org/apache/datasketches/frequencies/ItemsSketch.java`
 
 ### TrivialIf
 `if` statement can be simplified
-in `src/main/java/org/apache/datasketches/frequencies/LongsSketch.java`
+in `src/main/java/org/apache/datasketches/frequencies/ItemsSketch.java`
 #### Snippet
 ```java
       if ( !(obj instanceof Row)) { return false; }
-      final Row that = (Row) obj;
+      final Row<T> that = (Row<T>) obj;
       if (est != that.est) { return false; }
       return true;
     }
@@ -15225,18 +15225,6 @@ in `src/main/java/org/apache/datasketches/hll/Hll4Update.java`
 
 ## RuleId[id=RedundantMethodOverride]
 ### RedundantMethodOverride
-Method `getCurMode()` is identical to its super method
-in `src/main/java/org/apache/datasketches/hll/HllArray.java`
-#### Snippet
-```java
-
-  @Override
-  CurMode getCurMode() {
-    return curMode;
-  }
-```
-
-### RedundantMethodOverride
 Method `getLgConfigK()` is identical to its super method
 in `src/main/java/org/apache/datasketches/hll/HllArray.java`
 #### Snippet
@@ -15245,6 +15233,18 @@ in `src/main/java/org/apache/datasketches/hll/HllArray.java`
   @Override
   int getLgConfigK() {
     return lgConfigK;
+  }
+```
+
+### RedundantMethodOverride
+Method `getCurMode()` is identical to its super method
+in `src/main/java/org/apache/datasketches/hll/HllArray.java`
+#### Snippet
+```java
+
+  @Override
+  CurMode getCurMode() {
+    return curMode;
   }
 ```
 
@@ -15266,11 +15266,11 @@ cnt++ \<\< 2: integer shift implicitly cast to long
 in `src/main/java/org/apache/datasketches/hll/ToByteArrayImpl.java`
 #### Snippet
 ```java
-        int cnt = 0;
-        while (itr.nextValid()) {
-          insertInt(memOut, dataStart + (cnt++ << 2), itr.getPair());
-        }
-        if (list) {
+      int cnt = 0;
+      while (itr.nextValid()) { //works whether src has compact memory or not
+        insertInt(tgtWmem, auxStart + (cnt++ << 2), itr.getPair());
+      }
+      assert cnt == auxCount;
 ```
 
 ### IntegerMultiplicationImplicitCastToLong
@@ -15278,11 +15278,11 @@ cnt++ \<\< 2: integer shift implicitly cast to long
 in `src/main/java/org/apache/datasketches/hll/ToByteArrayImpl.java`
 #### Snippet
 ```java
-      int cnt = 0;
-      while (itr.nextValid()) { //works whether src has compact memory or not
-        insertInt(tgtWmem, auxStart + (cnt++ << 2), itr.getPair());
-      }
-      assert cnt == auxCount;
+        int cnt = 0;
+        while (itr.nextValid()) {
+          insertInt(memOut, dataStart + (cnt++ << 2), itr.getPair());
+        }
+        if (list) {
 ```
 
 ### IntegerMultiplicationImplicitCastToLong
@@ -15322,18 +15322,6 @@ in `src/main/java/org/apache/datasketches/quantiles/DoublesUtil.java`
 ```
 
 ### IntegerMultiplicationImplicitCastToLong
-oldAuxArrInts \<\< 3: integer shift implicitly cast to long
-in `src/main/java/org/apache/datasketches/hll/DirectAuxHashMap.java`
-#### Snippet
-```java
-    insertLgArr(host.wmem, oldLgAuxArrInts + 1); //update LgArr field
-
-    final long newAuxBytes = oldAuxArrInts << 3;
-    final long requestBytes = host.auxStart + newAuxBytes;
-    final long oldCapBytes = host.wmem.getCapacity();
-```
-
-### IntegerMultiplicationImplicitCastToLong
 bbCount \<\< 3: integer shift implicitly cast to long
 in `src/main/java/org/apache/datasketches/quantiles/DirectCompactDoublesSketch.java`
 #### Snippet
@@ -15358,27 +15346,15 @@ in `src/main/java/org/apache/datasketches/quantiles/DirectCompactDoublesSketch.j
 ```
 
 ### IntegerMultiplicationImplicitCastToLong
-3 \* k: integer multiplication implicitly cast to long
-in `src/main/java/org/apache/datasketches/cpc/CpcSketch.java`
+oldAuxArrInts \<\< 3: integer shift implicitly cast to long
+in `src/main/java/org/apache/datasketches/hll/DirectAuxHashMap.java`
 #### Snippet
 ```java
-    final int k = (1 << lgK);
-    final long c32 = sketch.numCoupons << 5;
-    assert ((c32 == (3 * k)) || ((lgK == 4) && (c32 > (3 * k))));
+    insertLgArr(host.wmem, oldLgAuxArrInts + 1); //update LgArr field
 
-    final byte[] window = new byte[k];
-```
-
-### IntegerMultiplicationImplicitCastToLong
-3 \* k: integer multiplication implicitly cast to long
-in `src/main/java/org/apache/datasketches/cpc/CpcSketch.java`
-#### Snippet
-```java
-    final int k = (1 << lgK);
-    final long c32 = sketch.numCoupons << 5;
-    assert ((c32 == (3 * k)) || ((lgK == 4) && (c32 > (3 * k))));
-
-    final byte[] window = new byte[k];
+    final long newAuxBytes = oldAuxArrInts << 3;
+    final long requestBytes = host.auxStart + newAuxBytes;
+    final long oldCapBytes = host.wmem.getCapacity();
 ```
 
 ### IntegerMultiplicationImplicitCastToLong
@@ -15415,6 +15391,30 @@ in `src/main/java/org/apache/datasketches/req/ReqSketchIterator.java`
     return 1 << cIndex;
   }
 
+```
+
+### IntegerMultiplicationImplicitCastToLong
+3 \* k: integer multiplication implicitly cast to long
+in `src/main/java/org/apache/datasketches/cpc/CpcSketch.java`
+#### Snippet
+```java
+    final int k = (1 << lgK);
+    final long c32 = sketch.numCoupons << 5;
+    assert ((c32 == (3 * k)) || ((lgK == 4) && (c32 > (3 * k))));
+
+    final byte[] window = new byte[k];
+```
+
+### IntegerMultiplicationImplicitCastToLong
+3 \* k: integer multiplication implicitly cast to long
+in `src/main/java/org/apache/datasketches/cpc/CpcSketch.java`
+#### Snippet
+```java
+    final int k = (1 << lgK);
+    final long c32 = sketch.numCoupons << 5;
+    assert ((c32 == (3 * k)) || ((lgK == 4) && (c32 > (3 * k))));
+
+    final byte[] window = new byte[k];
 ```
 
 ### IntegerMultiplicationImplicitCastToLong
@@ -15562,18 +15562,6 @@ in `src/main/java/org/apache/datasketches/hash/MurmurHash3.java`
 ```
 
 ### IntegerMultiplicationImplicitCastToLong
-lengthLongs \<\< 3: integer shift implicitly cast to long
-in `src/main/java/org/apache/datasketches/hash/MurmurHash3.java`
-#### Snippet
-```java
-    final long k1 = rem == 0 ? 0 : key[offsetLongs + tail]; //k2 -> 0
-    // Mix the tail into the hash and return
-    return hashState.finalMix128(k1, 0, lengthLongs << 3); //convert to bytes
-  }
-
-```
-
-### IntegerMultiplicationImplicitCastToLong
 lengthInts \<\< 2: integer shift implicitly cast to long
 in `src/main/java/org/apache/datasketches/hash/MurmurHash3.java`
 #### Snippet
@@ -15581,6 +15569,18 @@ in `src/main/java/org/apache/datasketches/hash/MurmurHash3.java`
     }
     // Mix the tail into the hash and return
     return hashState.finalMix128(k1, k2, lengthInts << 2); //convert to bytes
+  }
+
+```
+
+### IntegerMultiplicationImplicitCastToLong
+lengthLongs \<\< 3: integer shift implicitly cast to long
+in `src/main/java/org/apache/datasketches/hash/MurmurHash3.java`
+#### Snippet
+```java
+    final long k1 = rem == 0 ? 0 : key[offsetLongs + tail]; //k2 -> 0
+    // Mix the tail into the hash and return
+    return hashState.finalMix128(k1, 0, lengthLongs << 3); //convert to bytes
   }
 
 ```
@@ -15760,18 +15760,6 @@ in `src/main/java/org/apache/datasketches/sampling/VarOptItemsSamples.java`
 ```
 
 ### FieldMayBeFinal
-Field `NON_HIP_UB` may be 'final'
-in `src/main/java/org/apache/datasketches/hll/RelativeErrorTables.java`
-#### Snippet
-```java
-
-  //case 3
-  private static double[] NON_HIP_UB = //sd 1, 2, 3
-    { //Q(.15866), Q(.02275), Q(.00135) respectively
-      -0.256980172, -0.411905944, -0.52651057,  //4
-```
-
-### FieldMayBeFinal
 Field `NON_HIP_LB` may be 'final'
 in `src/main/java/org/apache/datasketches/hll/RelativeErrorTables.java`
 #### Snippet
@@ -15784,15 +15772,15 @@ in `src/main/java/org/apache/datasketches/hll/RelativeErrorTables.java`
 ```
 
 ### FieldMayBeFinal
-Field `HIP_LB` may be 'final'
+Field `NON_HIP_UB` may be 'final'
 in `src/main/java/org/apache/datasketches/hll/RelativeErrorTables.java`
 #### Snippet
 ```java
 
-  //case 0
-  private static double[] HIP_LB = //sd 1, 2, 3
-    { //Q(.84134), Q(.97725), Q(.99865) respectively
-      0.207316195, 0.502865572, 0.882303765, //4
+  //case 3
+  private static double[] NON_HIP_UB = //sd 1, 2, 3
+    { //Q(.15866), Q(.02275), Q(.00135) respectively
+      -0.256980172, -0.411905944, -0.52651057,  //4
 ```
 
 ### FieldMayBeFinal
@@ -15808,27 +15796,15 @@ in `src/main/java/org/apache/datasketches/hll/RelativeErrorTables.java`
 ```
 
 ### FieldMayBeFinal
-Field `lowerBound` may be 'final'
-in `src/main/java/org/apache/datasketches/sampling/SampleSubsetSummary.java`
+Field `HIP_LB` may be 'final'
+in `src/main/java/org/apache/datasketches/hll/RelativeErrorTables.java`
 #### Snippet
 ```java
- */
-public class SampleSubsetSummary {
-  private double lowerBound;
-  private double estimate;
-  private double upperBound;
-```
 
-### FieldMayBeFinal
-Field `estimate` may be 'final'
-in `src/main/java/org/apache/datasketches/sampling/SampleSubsetSummary.java`
-#### Snippet
-```java
-public class SampleSubsetSummary {
-  private double lowerBound;
-  private double estimate;
-  private double upperBound;
-  private double totalSketchWeight;
+  //case 0
+  private static double[] HIP_LB = //sd 1, 2, 3
+    { //Q(.84134), Q(.97725), Q(.99865) respectively
+      0.207316195, 0.502865572, 0.882303765, //4
 ```
 
 ### FieldMayBeFinal
@@ -15844,6 +15820,18 @@ in `src/main/java/org/apache/datasketches/sampling/SampleSubsetSummary.java`
 ```
 
 ### FieldMayBeFinal
+Field `lowerBound` may be 'final'
+in `src/main/java/org/apache/datasketches/sampling/SampleSubsetSummary.java`
+#### Snippet
+```java
+ */
+public class SampleSubsetSummary {
+  private double lowerBound;
+  private double estimate;
+  private double upperBound;
+```
+
+### FieldMayBeFinal
 Field `totalSketchWeight` may be 'final'
 in `src/main/java/org/apache/datasketches/sampling/SampleSubsetSummary.java`
 #### Snippet
@@ -15853,6 +15841,18 @@ in `src/main/java/org/apache/datasketches/sampling/SampleSubsetSummary.java`
   private double totalSketchWeight;
 
   SampleSubsetSummary(final double lowerBound,
+```
+
+### FieldMayBeFinal
+Field `estimate` may be 'final'
+in `src/main/java/org/apache/datasketches/sampling/SampleSubsetSummary.java`
+#### Snippet
+```java
+public class SampleSubsetSummary {
+  private double lowerBound;
+  private double estimate;
+  private double upperBound;
+  private double totalSketchWeight;
 ```
 
 ### FieldMayBeFinal
@@ -15880,39 +15880,15 @@ in `src/main/java/org/apache/datasketches/hll/HarmonicNumbers.java`
 ```
 
 ### FieldMayBeFinal
-Field `printStream` may be 'final'
-in `src/main/java/org/apache/datasketches/cpc/MergingValidation.java`
+Field `qsk_` may be 'final'
+in `src/main/java/org/apache/datasketches/tuple/Union.java`
 #### Snippet
 ```java
-  private int uPPO;
-  private int incLgK; //increment of lgK
-  private PrintStream printStream;
-  private PrintWriter printWriter;
-
-```
-
-### FieldMayBeFinal
-Field `printWriter` may be 'final'
-in `src/main/java/org/apache/datasketches/cpc/MergingValidation.java`
-#### Snippet
-```java
-  private int incLgK; //increment of lgK
-  private PrintStream printStream;
-  private PrintWriter printWriter;
-
-  /**
-```
-
-### FieldMayBeFinal
-Field `lgMinK` may be 'final'
-in `src/main/java/org/apache/datasketches/cpc/MergingValidation.java`
-#### Snippet
-```java
-
-  //inputs
-  private int lgMinK;
-  private int lgMaxK; //inclusive
-  private int lgMulK; //multiplier of K to produce maxNa, maxNb
+public class Union<S extends Summary> {
+  private final SummarySetOperations<S> summarySetOps_;
+  private QuickSelectSketch<S> qsk_;
+  private long unionThetaLong_; // need to maintain outside of the sketch
+  private boolean empty_;
 ```
 
 ### FieldMayBeFinal
@@ -15952,6 +15928,30 @@ in `src/main/java/org/apache/datasketches/cpc/MergingValidation.java`
 ```
 
 ### FieldMayBeFinal
+Field `printStream` may be 'final'
+in `src/main/java/org/apache/datasketches/cpc/MergingValidation.java`
+#### Snippet
+```java
+  private int uPPO;
+  private int incLgK; //increment of lgK
+  private PrintStream printStream;
+  private PrintWriter printWriter;
+
+```
+
+### FieldMayBeFinal
+Field `printWriter` may be 'final'
+in `src/main/java/org/apache/datasketches/cpc/MergingValidation.java`
+#### Snippet
+```java
+  private int incLgK; //increment of lgK
+  private PrintStream printStream;
+  private PrintWriter printWriter;
+
+  /**
+```
+
+### FieldMayBeFinal
 Field `incLgK` may be 'final'
 in `src/main/java/org/apache/datasketches/cpc/MergingValidation.java`
 #### Snippet
@@ -15964,15 +15964,15 @@ in `src/main/java/org/apache/datasketches/cpc/MergingValidation.java`
 ```
 
 ### FieldMayBeFinal
-Field `qsk_` may be 'final'
-in `src/main/java/org/apache/datasketches/tuple/Union.java`
+Field `lgMinK` may be 'final'
+in `src/main/java/org/apache/datasketches/cpc/MergingValidation.java`
 #### Snippet
 ```java
-public class Union<S extends Summary> {
-  private final SummarySetOperations<S> summarySetOps_;
-  private QuickSelectSketch<S> qsk_;
-  private long unionThetaLong_; // need to maintain outside of the sketch
-  private boolean empty_;
+
+  //inputs
+  private int lgMinK;
+  private int lgMaxK; //inclusive
+  private int lgMulK; //multiplier of K to produce maxNa, maxNb
 ```
 
 ### FieldMayBeFinal
@@ -15988,15 +15988,15 @@ in `src/main/java/org/apache/datasketches/common/ResizeFactor.java`
 ```
 
 ### FieldMayBeFinal
-Field `incLgK` may be 'final'
+Field `pw` may be 'final'
 in `src/main/java/org/apache/datasketches/cpc/CompressionCharacterization.java`
 #### Snippet
 ```java
-  private int lgMulK; //multiplier of K to produce maxU
-  private int uPPO;
   private int incLgK; //increment of lgK
   private PrintStream ps;
   private PrintWriter pw;
+
+  //intermediates
 ```
 
 ### FieldMayBeFinal
@@ -16012,27 +16012,15 @@ in `src/main/java/org/apache/datasketches/cpc/CompressionCharacterization.java`
 ```
 
 ### FieldMayBeFinal
-Field `pw` may be 'final'
+Field `lgMaxT` may be 'final'
 in `src/main/java/org/apache/datasketches/cpc/CompressionCharacterization.java`
 #### Snippet
 ```java
-  private int incLgK; //increment of lgK
-  private PrintStream ps;
-  private PrintWriter pw;
-
-  //intermediates
-```
-
-### FieldMayBeFinal
-Field `uPPO` may be 'final'
-in `src/main/java/org/apache/datasketches/cpc/CompressionCharacterization.java`
-#### Snippet
-```java
+  private int lgMaxK; //inclusive
+  private int lgMinT; //Trials at end
   private int lgMaxT; //Trials at start
   private int lgMulK; //multiplier of K to produce maxU
   private int uPPO;
-  private int incLgK; //increment of lgK
-  private PrintStream ps;
 ```
 
 ### FieldMayBeFinal
@@ -16072,6 +16060,30 @@ in `src/main/java/org/apache/datasketches/cpc/CompressionCharacterization.java`
 ```
 
 ### FieldMayBeFinal
+Field `incLgK` may be 'final'
+in `src/main/java/org/apache/datasketches/cpc/CompressionCharacterization.java`
+#### Snippet
+```java
+  private int lgMulK; //multiplier of K to produce maxU
+  private int uPPO;
+  private int incLgK; //increment of lgK
+  private PrintStream ps;
+  private PrintWriter pw;
+```
+
+### FieldMayBeFinal
+Field `uPPO` may be 'final'
+in `src/main/java/org/apache/datasketches/cpc/CompressionCharacterization.java`
+#### Snippet
+```java
+  private int lgMaxT; //Trials at start
+  private int lgMulK; //multiplier of K to produce maxU
+  private int uPPO;
+  private int incLgK; //increment of lgK
+  private PrintStream ps;
+```
+
+### FieldMayBeFinal
 Field `lgMinK` may be 'final'
 in `src/main/java/org/apache/datasketches/cpc/CompressionCharacterization.java`
 #### Snippet
@@ -16081,66 +16093,6 @@ in `src/main/java/org/apache/datasketches/cpc/CompressionCharacterization.java`
   private int lgMinK;
   private int lgMaxK; //inclusive
   private int lgMinT; //Trials at end
-```
-
-### FieldMayBeFinal
-Field `lgMaxT` may be 'final'
-in `src/main/java/org/apache/datasketches/cpc/CompressionCharacterization.java`
-#### Snippet
-```java
-  private int lgMaxK; //inclusive
-  private int lgMinT; //Trials at end
-  private int lgMaxT; //Trials at start
-  private int lgMulK; //multiplier of K to produce maxU
-  private int uPPO;
-```
-
-### FieldMayBeFinal
-Field `lgMaxMapSize` may be 'final'
-in `src/main/java/org/apache/datasketches/frequencies/ItemsSketch.java`
-#### Snippet
-```java
-   * structure.
-   */
-  private int lgMaxMapSize;
-
-  /**
-```
-
-### FieldMayBeFinal
-Field `sampleSize` may be 'final'
-in `src/main/java/org/apache/datasketches/frequencies/ItemsSketch.java`
-#### Snippet
-```java
-   * decrement
-   */
-  private int sampleSize;
-
-  /**
-```
-
-### FieldMayBeFinal
-Field `lgMaxMapSize` may be 'final'
-in `src/main/java/org/apache/datasketches/frequencies/LongsSketch.java`
-#### Snippet
-```java
-   * structure.
-   */
-  private int lgMaxMapSize;
-
-  /**
-```
-
-### FieldMayBeFinal
-Field `sampleSize` may be 'final'
-in `src/main/java/org/apache/datasketches/frequencies/LongsSketch.java`
-#### Snippet
-```java
-   * decrement
-   */
-  private int sampleSize;
-
-  /**
 ```
 
 ### FieldMayBeFinal
@@ -16168,18 +16120,6 @@ class MemoryHashIterator implements HashIterator {
 ```
 
 ### FieldMayBeFinal
-Field `thetaLong` may be 'final'
-in `src/main/java/org/apache/datasketches/theta/MemoryHashIterator.java`
-#### Snippet
-```java
-  private Memory mem;
-  private int arrLongs;
-  private long thetaLong;
-  private long offsetBytes;
-  private int index;
-```
-
-### FieldMayBeFinal
 Field `offsetBytes` may be 'final'
 in `src/main/java/org/apache/datasketches/theta/MemoryHashIterator.java`
 #### Snippet
@@ -16192,15 +16132,63 @@ in `src/main/java/org/apache/datasketches/theta/MemoryHashIterator.java`
 ```
 
 ### FieldMayBeFinal
-Field `compactors` may be 'final'
-in `src/main/java/org/apache/datasketches/req/ReqSketchIterator.java`
+Field `thetaLong` may be 'final'
+in `src/main/java/org/apache/datasketches/theta/MemoryHashIterator.java`
 #### Snippet
 ```java
- */
-public class ReqSketchIterator implements QuantilesFloatsSketchIterator {
-  private List<ReqCompactor> compactors;
-  private int cIndex;
-  private int bIndex;
+  private Memory mem;
+  private int arrLongs;
+  private long thetaLong;
+  private long offsetBytes;
+  private int index;
+```
+
+### FieldMayBeFinal
+Field `sampleSize` may be 'final'
+in `src/main/java/org/apache/datasketches/frequencies/LongsSketch.java`
+#### Snippet
+```java
+   * decrement
+   */
+  private int sampleSize;
+
+  /**
+```
+
+### FieldMayBeFinal
+Field `lgMaxMapSize` may be 'final'
+in `src/main/java/org/apache/datasketches/frequencies/LongsSketch.java`
+#### Snippet
+```java
+   * structure.
+   */
+  private int lgMaxMapSize;
+
+  /**
+```
+
+### FieldMayBeFinal
+Field `sampleSize` may be 'final'
+in `src/main/java/org/apache/datasketches/frequencies/ItemsSketch.java`
+#### Snippet
+```java
+   * decrement
+   */
+  private int sampleSize;
+
+  /**
+```
+
+### FieldMayBeFinal
+Field `lgMaxMapSize` may be 'final'
+in `src/main/java/org/apache/datasketches/frequencies/ItemsSketch.java`
+#### Snippet
+```java
+   * structure.
+   */
+  private int lgMaxMapSize;
+
+  /**
 ```
 
 ### FieldMayBeFinal
@@ -16213,6 +16201,18 @@ in `src/main/java/org/apache/datasketches/req/ReqSketchIterator.java`
   private int numRetainedItems;
   private FloatBuffer currentBuf;
 
+```
+
+### FieldMayBeFinal
+Field `compactors` may be 'final'
+in `src/main/java/org/apache/datasketches/req/ReqSketchIterator.java`
+#### Snippet
+```java
+ */
+public class ReqSketchIterator implements QuantilesFloatsSketchIterator {
+  private List<ReqCompactor> compactors;
+  private int cIndex;
+  private int bIndex;
 ```
 
 ### FieldMayBeFinal
@@ -16252,30 +16252,6 @@ in `src/main/java/org/apache/datasketches/thetacommon/EquivTables.java`
 ```
 
 ### FieldMayBeFinal
-Field `numEntries_` may be 'final'
-in `src/main/java/org/apache/datasketches/tuple/arrayofdoubles/DirectArrayOfDoublesSketchIterator.java`
-#### Snippet
-```java
-  private Memory mem_;
-  private int offset_;
-  private int numEntries_;
-  private int numValues_;
-  private int i_;
-```
-
-### FieldMayBeFinal
-Field `mem_` may be 'final'
-in `src/main/java/org/apache/datasketches/tuple/arrayofdoubles/DirectArrayOfDoublesSketchIterator.java`
-#### Snippet
-```java
-final class DirectArrayOfDoublesSketchIterator implements ArrayOfDoublesSketchIterator {
-
-  private Memory mem_;
-  private int offset_;
-  private int numEntries_;
-```
-
-### FieldMayBeFinal
 Field `numValues_` may be 'final'
 in `src/main/java/org/apache/datasketches/tuple/arrayofdoubles/DirectArrayOfDoublesSketchIterator.java`
 #### Snippet
@@ -16300,15 +16276,27 @@ in `src/main/java/org/apache/datasketches/tuple/arrayofdoubles/DirectArrayOfDoub
 ```
 
 ### FieldMayBeFinal
-Field `cache` may be 'final'
-in `src/main/java/org/apache/datasketches/theta/HeapHashIterator.java`
+Field `mem_` may be 'final'
+in `src/main/java/org/apache/datasketches/tuple/arrayofdoubles/DirectArrayOfDoublesSketchIterator.java`
 #### Snippet
 ```java
- */
-class HeapHashIterator implements HashIterator {
-  private long[] cache;
-  private long thetaLong;
-  private int index;
+final class DirectArrayOfDoublesSketchIterator implements ArrayOfDoublesSketchIterator {
+
+  private Memory mem_;
+  private int offset_;
+  private int numEntries_;
+```
+
+### FieldMayBeFinal
+Field `numEntries_` may be 'final'
+in `src/main/java/org/apache/datasketches/tuple/arrayofdoubles/DirectArrayOfDoublesSketchIterator.java`
+#### Snippet
+```java
+  private Memory mem_;
+  private int offset_;
+  private int numEntries_;
+  private int numValues_;
+  private int i_;
 ```
 
 ### FieldMayBeFinal
@@ -16321,6 +16309,30 @@ class HeapHashIterator implements HashIterator {
   private long thetaLong;
   private int index;
   private long hash;
+```
+
+### FieldMayBeFinal
+Field `cache` may be 'final'
+in `src/main/java/org/apache/datasketches/theta/HeapHashIterator.java`
+#### Snippet
+```java
+ */
+class HeapHashIterator implements HashIterator {
+  private long[] cache;
+  private long thetaLong;
+  private int index;
+```
+
+### FieldMayBeFinal
+Field `mem_` may be 'final'
+in `src/main/java/org/apache/datasketches/tuple/arrayofdoubles/DirectArrayOfDoublesQuickSelectSketch.java`
+#### Snippet
+```java
+
+  // these values exist only on heap, never serialized
+  private WritableMemory mem_;
+  // these can be derived from the mem_ contents, but are kept here for performance
+  private int keysOffset_;
 ```
 
 ### FieldMayBeFinal
@@ -16348,18 +16360,6 @@ final class DirectArrayOfDoublesIntersection extends ArrayOfDoublesIntersection 
 ```
 
 ### FieldMayBeFinal
-Field `mem_` may be 'final'
-in `src/main/java/org/apache/datasketches/tuple/arrayofdoubles/DirectArrayOfDoublesQuickSelectSketch.java`
-#### Snippet
-```java
-
-  // these values exist only on heap, never serialized
-  private WritableMemory mem_;
-  // these can be derived from the mem_ contents, but are kept here for performance
-  private int keysOffset_;
-```
-
-### FieldMayBeFinal
 Field `msg` may be 'final'
 in `src/main/java/org/apache/datasketches/kll/KllSketch.java`
 #### Snippet
@@ -16372,15 +16372,15 @@ in `src/main/java/org/apache/datasketches/kll/KllSketch.java`
 ```
 
 ### FieldMayBeFinal
-Field `ppoN` may be 'final'
+Field `printStream` may be 'final'
 in `src/main/java/org/apache/datasketches/cpc/StreamingValidation.java`
 #### Snippet
 ```java
-  private int lgMaxK; //inclusive
   private int trials;
   private int ppoN;
   private PrintStream printStream;
   private PrintWriter printWriter;
+
 ```
 
 ### FieldMayBeFinal
@@ -16396,18 +16396,6 @@ in `src/main/java/org/apache/datasketches/cpc/StreamingValidation.java`
 ```
 
 ### FieldMayBeFinal
-Field `lgMinK` may be 'final'
-in `src/main/java/org/apache/datasketches/cpc/StreamingValidation.java`
-#### Snippet
-```java
-
-  //inputs
-  private int lgMinK;
-  private int lgMaxK; //inclusive
-  private int trials;
-```
-
-### FieldMayBeFinal
 Field `trials` may be 'final'
 in `src/main/java/org/apache/datasketches/cpc/StreamingValidation.java`
 #### Snippet
@@ -16417,6 +16405,18 @@ in `src/main/java/org/apache/datasketches/cpc/StreamingValidation.java`
   private int trials;
   private int ppoN;
   private PrintStream printStream;
+```
+
+### FieldMayBeFinal
+Field `ppoN` may be 'final'
+in `src/main/java/org/apache/datasketches/cpc/StreamingValidation.java`
+#### Snippet
+```java
+  private int lgMaxK; //inclusive
+  private int trials;
+  private int ppoN;
+  private PrintStream printStream;
+  private PrintWriter printWriter;
 ```
 
 ### FieldMayBeFinal
@@ -16432,27 +16432,15 @@ in `src/main/java/org/apache/datasketches/cpc/StreamingValidation.java`
 ```
 
 ### FieldMayBeFinal
-Field `printStream` may be 'final'
+Field `lgMinK` may be 'final'
 in `src/main/java/org/apache/datasketches/cpc/StreamingValidation.java`
 #### Snippet
 ```java
+
+  //inputs
+  private int lgMinK;
+  private int lgMaxK; //inclusive
   private int trials;
-  private int ppoN;
-  private PrintStream printStream;
-  private PrintWriter printWriter;
-
-```
-
-### FieldMayBeFinal
-Field `sketchAccessor` may be 'final'
-in `src/main/java/org/apache/datasketches/quantiles/DoublesSketchIterator.java`
-#### Snippet
-```java
- */
-public class DoublesSketchIterator implements QuantilesDoublesSketchIterator {
-  private DoublesSketchAccessor sketchAccessor;
-  private long bitPattern;
-  private int level;
 ```
 
 ### FieldMayBeFinal
@@ -16468,15 +16456,39 @@ in `src/main/java/org/apache/datasketches/fdt/PostProcessor.java`
 ```
 
 ### FieldMayBeFinal
-Field `printStream` may be 'final'
+Field `sketchAccessor` may be 'final'
+in `src/main/java/org/apache/datasketches/quantiles/DoublesSketchIterator.java`
+#### Snippet
+```java
+ */
+public class DoublesSketchIterator implements QuantilesDoublesSketchIterator {
+  private DoublesSketchAccessor sketchAccessor;
+  private long bitPattern;
+  private int level;
+```
+
+### FieldMayBeFinal
+Field `printWriter` may be 'final'
 in `src/main/java/org/apache/datasketches/cpc/QuickMergingValidation.java`
 #### Snippet
 ```java
-  private int lgMaxK; //inclusive
   private int incLgK; //increment of lgK
   private PrintStream printStream;
   private PrintWriter printWriter;
 
+  /**
+```
+
+### FieldMayBeFinal
+Field `lgMinK` may be 'final'
+in `src/main/java/org/apache/datasketches/cpc/QuickMergingValidation.java`
+#### Snippet
+```java
+
+  //inputs
+  private int lgMinK;
+  private int lgMaxK; //inclusive
+  private int incLgK; //increment of lgK
 ```
 
 ### FieldMayBeFinal
@@ -16504,27 +16516,15 @@ in `src/main/java/org/apache/datasketches/cpc/QuickMergingValidation.java`
 ```
 
 ### FieldMayBeFinal
-Field `printWriter` may be 'final'
+Field `printStream` may be 'final'
 in `src/main/java/org/apache/datasketches/cpc/QuickMergingValidation.java`
 #### Snippet
 ```java
+  private int lgMaxK; //inclusive
   private int incLgK; //increment of lgK
   private PrintStream printStream;
   private PrintWriter printWriter;
 
-  /**
-```
-
-### FieldMayBeFinal
-Field `lgMinK` may be 'final'
-in `src/main/java/org/apache/datasketches/cpc/QuickMergingValidation.java`
-#### Snippet
-```java
-
-  //inputs
-  private int lgMinK;
-  private int lgMaxK; //inclusive
-  private int incLgK; //increment of lgK
 ```
 
 ### FieldMayBeFinal
@@ -16552,18 +16552,6 @@ final class HeapArrayOfDoublesSketchIterator implements ArrayOfDoublesSketchIter
 ```
 
 ### FieldMayBeFinal
-Field `values_` may be 'final'
-in `src/main/java/org/apache/datasketches/tuple/arrayofdoubles/HeapArrayOfDoublesSketchIterator.java`
-#### Snippet
-```java
-
-  private long[] keys_;
-  private double[] values_;
-  private int numValues_;
-  private int i_;
-```
-
-### FieldMayBeFinal
 Field `numValues_` may be 'final'
 in `src/main/java/org/apache/datasketches/tuple/arrayofdoubles/HeapArrayOfDoublesSketchIterator.java`
 #### Snippet
@@ -16576,15 +16564,15 @@ in `src/main/java/org/apache/datasketches/tuple/arrayofdoubles/HeapArrayOfDouble
 ```
 
 ### FieldMayBeFinal
-Field `k` may be 'final'
-in `src/main/java/org/apache/datasketches/quantiles/ItemsSketchIterator.java`
+Field `values_` may be 'final'
+in `src/main/java/org/apache/datasketches/tuple/arrayofdoubles/HeapArrayOfDoublesSketchIterator.java`
 #### Snippet
 ```java
-  private int offset;
-  private int num;
-  private int k;
 
-  ItemsSketchIterator(final ItemsSketch<T> sketch, final long bitPattern) {
+  private long[] keys_;
+  private double[] values_;
+  private int numValues_;
+  private int i_;
 ```
 
 ### FieldMayBeFinal
@@ -16600,6 +16588,18 @@ public class ItemsSketchIterator<T> implements QuantilesGenericSketchIterator<T>
 ```
 
 ### FieldMayBeFinal
+Field `k` may be 'final'
+in `src/main/java/org/apache/datasketches/quantiles/ItemsSketchIterator.java`
+#### Snippet
+```java
+  private int offset;
+  private int num;
+  private int k;
+
+  ItemsSketchIterator(final ItemsSketch<T> sketch, final long bitPattern) {
+```
+
+### FieldMayBeFinal
 Field `fmtArr` may be 'final'
 in `src/main/java/org/apache/datasketches/cpc/Format.java`
 #### Snippet
@@ -16607,18 +16607,6 @@ in `src/main/java/org/apache/datasketches/cpc/Format.java`
   PINNED_SLIDING_HIP;
 
   private static Format[] fmtArr = Format.class.getEnumConstants();
-
-  /**
-```
-
-### FieldMayBeFinal
-Field `fmtArr` may be 'final'
-in `src/main/java/org/apache/datasketches/cpc/Flavor.java`
-#### Snippet
-```java
-  SLIDING; // 27K/8 <= C
-
-  private static Flavor[] fmtArr = Flavor.class.getEnumConstants();
 
   /**
 ```
@@ -16636,27 +16624,15 @@ in `src/main/java/org/apache/datasketches/kll/KllHelper.java`
 ```
 
 ### FieldMayBeFinal
-Field `famName_` may be 'final'
-in `src/main/java/org/apache/datasketches/common/Family.java`
+Field `fmtArr` may be 'final'
+in `src/main/java/org/apache/datasketches/cpc/Flavor.java`
 #### Snippet
 ```java
-  private static final Map<String, Family> lookupFamName = new HashMap<>();
-  private int id_;
-  private String famName_;
-  private int minPreLongs_;
-  private int maxPreLongs_;
-```
+  SLIDING; // 27K/8 <= C
 
-### FieldMayBeFinal
-Field `minPreLongs_` may be 'final'
-in `src/main/java/org/apache/datasketches/common/Family.java`
-#### Snippet
-```java
-  private int id_;
-  private String famName_;
-  private int minPreLongs_;
-  private int maxPreLongs_;
+  private static Flavor[] fmtArr = Flavor.class.getEnumConstants();
 
+  /**
 ```
 
 ### FieldMayBeFinal
@@ -16672,6 +16648,30 @@ in `src/main/java/org/apache/datasketches/common/Family.java`
 ```
 
 ### FieldMayBeFinal
+Field `minPreLongs_` may be 'final'
+in `src/main/java/org/apache/datasketches/common/Family.java`
+#### Snippet
+```java
+  private int id_;
+  private String famName_;
+  private int minPreLongs_;
+  private int maxPreLongs_;
+
+```
+
+### FieldMayBeFinal
+Field `famName_` may be 'final'
+in `src/main/java/org/apache/datasketches/common/Family.java`
+#### Snippet
+```java
+  private static final Map<String, Family> lookupFamName = new HashMap<>();
+  private int id_;
+  private String famName_;
+  private int minPreLongs_;
+  private int maxPreLongs_;
+```
+
+### FieldMayBeFinal
 Field `id_` may be 'final'
 in `src/main/java/org/apache/datasketches/common/Family.java`
 #### Snippet
@@ -16681,6 +16681,30 @@ in `src/main/java/org/apache/datasketches/common/Family.java`
   private int id_;
   private String famName_;
   private int minPreLongs_;
+```
+
+### FieldMayBeFinal
+Field `unionAction` may be 'final'
+in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.java`
+#### Snippet
+```java
+    private IntersectAction intersectAction;
+    private AnotbAction anotbAction;
+    private UnionAction unionAction;
+
+    static {
+```
+
+### FieldMayBeFinal
+Field `anotbAction` may be 'final'
+in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.java`
+#### Snippet
+```java
+    private String caseDescription;
+    private IntersectAction intersectAction;
+    private AnotbAction anotbAction;
+    private UnionAction unionAction;
+
 ```
 
 ### FieldMayBeFinal
@@ -16696,15 +16720,15 @@ in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.ja
 ```
 
 ### FieldMayBeFinal
-Field `actionDescription` may be 'final'
+Field `intersectAction` may be 'final'
 in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.java`
 #### Snippet
 ```java
-
-    private String actionId;
-    private String actionDescription;
-
-    private AnotbAction(final String actionId, final String actionDescription) {
+    private int caseId;
+    private String caseDescription;
+    private IntersectAction intersectAction;
+    private AnotbAction anotbAction;
+    private UnionAction unionAction;
 ```
 
 ### FieldMayBeFinal
@@ -16720,15 +16744,27 @@ in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.ja
 ```
 
 ### FieldMayBeFinal
-Field `anotbAction` may be 'final'
+Field `actionId` may be 'final'
 in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.java`
 #### Snippet
 ```java
-    private String caseDescription;
-    private IntersectAction intersectAction;
-    private AnotbAction anotbAction;
-    private UnionAction unionAction;
+    FULL_ANOTB("N", "Full AnotB");
 
+    private String actionId;
+    private String actionDescription;
+
+```
+
+### FieldMayBeFinal
+Field `actionDescription` may be 'final'
+in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.java`
+#### Snippet
+```java
+
+    private String actionId;
+    private String actionDescription;
+
+    private IntersectAction(final String actionId, final String actionDescription) {
 ```
 
 ### FieldMayBeFinal
@@ -16752,43 +16788,7 @@ in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.ja
     private String actionId;
     private String actionDescription;
 
-    private IntersectAction(final String actionId, final String actionDescription) {
-```
-
-### FieldMayBeFinal
-Field `unionAction` may be 'final'
-in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.java`
-#### Snippet
-```java
-    private IntersectAction intersectAction;
-    private AnotbAction anotbAction;
-    private UnionAction unionAction;
-
-    static {
-```
-
-### FieldMayBeFinal
-Field `actionId` may be 'final'
-in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.java`
-#### Snippet
-```java
-    FULL_UNION("N", "Full Union");
-
-    private String actionId;
-    private String actionDescription;
-
-```
-
-### FieldMayBeFinal
-Field `intersectAction` may be 'final'
-in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.java`
-#### Snippet
-```java
-    private int caseId;
-    private String caseDescription;
-    private IntersectAction intersectAction;
-    private AnotbAction anotbAction;
-    private UnionAction unionAction;
+    private AnotbAction(final String actionId, final String actionDescription) {
 ```
 
 ### FieldMayBeFinal
@@ -16808,10 +16808,22 @@ Field `actionId` may be 'final'
 in `src/main/java/org/apache/datasketches/thetacommon/SetOperationCornerCases.java`
 #### Snippet
 ```java
-    FULL_ANOTB("N", "Full AnotB");
+    FULL_UNION("N", "Full Union");
 
     private String actionId;
     private String actionDescription;
+
+```
+
+### FieldMayBeFinal
+Field `numItems_` may be 'final'
+in `src/main/java/org/apache/datasketches/quantiles/DoublesArrayAccessor.java`
+#### Snippet
+```java
+ */
+final class DoublesArrayAccessor extends DoublesBufferAccessor {
+  private int numItems_;
+  private double[] buffer_;
 
 ```
 
@@ -16825,18 +16837,6 @@ final class DoublesArrayAccessor extends DoublesBufferAccessor {
   private double[] buffer_;
 
   private DoublesArrayAccessor(final double[] buffer) {
-```
-
-### FieldMayBeFinal
-Field `numItems_` may be 'final'
-in `src/main/java/org/apache/datasketches/quantiles/DoublesArrayAccessor.java`
-#### Snippet
-```java
- */
-final class DoublesArrayAccessor extends DoublesBufferAccessor {
-  private int numItems_;
-  private double[] buffer_;
-
 ```
 
 ## RuleId[id=UnnecessaryContinue]
@@ -16879,18 +16879,6 @@ in `src/main/java/org/apache/datasketches/cpc/CpcUnion.java`
 
 ## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
-Local variable `curCount` is redundant
-in `src/main/java/org/apache/datasketches/theta/DirectCompactSketch.java`
-#### Snippet
-```java
-    if (otherCheckForSingleItem(mem_)) { return 1; }
-    final int preLongs = extractPreLongs(mem_);
-    final int curCount = (preLongs == 1) ? 0 : extractCurCount(mem_);
-    return curCount;
-  }
-```
-
-### UnnecessaryLocalVariable
 Local variable `bytes` is redundant
 in `src/main/java/org/apache/datasketches/theta/SetOperation.java`
 #### Snippet
@@ -16903,14 +16891,14 @@ in `src/main/java/org/apache/datasketches/theta/SetOperation.java`
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `lengthBytes` is redundant
-in `src/main/java/org/apache/datasketches/theta/DirectQuickSelectSketchR.java`
+Local variable `curCount` is redundant
+in `src/main/java/org/apache/datasketches/theta/DirectCompactSketch.java`
 #### Snippet
 ```java
-    final byte lgArrLongs = wmem_.getByte(LG_ARR_LONGS_BYTE);
-    final int preLongs = wmem_.getByte(PREAMBLE_LONGS_BYTE) & 0X3F;
-    final int lengthBytes = (preLongs + (1 << lgArrLongs)) << 3;
-    return lengthBytes;
+    if (otherCheckForSingleItem(mem_)) { return 1; }
+    final int preLongs = extractPreLongs(mem_);
+    final int curCount = (preLongs == 1) ? 0 : extractCurCount(mem_);
+    return curCount;
   }
 ```
 
@@ -16923,6 +16911,18 @@ in `src/main/java/org/apache/datasketches/tuple/strings/ArrayOfStringsSummary.ja
   public ArrayOfStringsSummary copy() {
     final ArrayOfStringsSummary nodes = new ArrayOfStringsSummary(nodesArr);
     return nodes;
+  }
+```
+
+### UnnecessaryLocalVariable
+Local variable `lengthBytes` is redundant
+in `src/main/java/org/apache/datasketches/theta/DirectQuickSelectSketchR.java`
+#### Snippet
+```java
+    final byte lgArrLongs = wmem_.getByte(LG_ARR_LONGS_BYTE);
+    final int preLongs = wmem_.getByte(PREAMBLE_LONGS_BYTE) & 0X3F;
+    final int lengthBytes = (preLongs + (1 << lgArrLongs)) << 3;
+    return lengthBytes;
   }
 ```
 
@@ -16963,18 +16963,6 @@ in `src/main/java/org/apache/datasketches/hll/HarmonicNumbers.java`
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `hashArrA` is redundant
-in `src/main/java/org/apache/datasketches/theta/AnotBimpl.java`
-#### Snippet
-```java
-    //Get skA cache as array
-    final CompactSketch cskA = skA.compact(false, null); //sorting not required
-    final long[] hashArrA = cskA.getCache().clone();
-    return hashArrA;
-  }
-```
-
-### UnnecessaryLocalVariable
 Local variable `result` is redundant
 in `src/main/java/org/apache/datasketches/theta/AnotBimpl.java`
 #### Snippet
@@ -16984,6 +16972,18 @@ in `src/main/java/org/apache/datasketches/theta/AnotBimpl.java`
     final CompactSketch result = CompactOperations.componentsToCompact(
           minThetaLong, countOut, seedHash_, empty, true, false, dstOrdered, dstMem, hashArrOut);
     return result;
+```
+
+### UnnecessaryLocalVariable
+Local variable `hashArrA` is redundant
+in `src/main/java/org/apache/datasketches/theta/AnotBimpl.java`
+#### Snippet
+```java
+    //Get skA cache as array
+    final CompactSketch cskA = skA.compact(false, null); //sorting not required
+    final long[] hashArrA = cskA.getCache().clone();
+    return hashArrA;
+  }
 ```
 
 ### UnnecessaryLocalVariable
@@ -17035,6 +17035,42 @@ in `src/main/java/org/apache/datasketches/quantiles/DoublesUtil.java`
 ```
 
 ### UnnecessaryLocalVariable
+Local variable `spaceNeeded` is redundant
+in `src/main/java/org/apache/datasketches/quantiles/DoublesUpdateImpl.java`
+#### Snippet
+```java
+    assert newN >= (2L * k);
+    assert numLevelsNeeded > 0;
+    final int spaceNeeded = (2 + numLevelsNeeded) * k;
+    return spaceNeeded;
+  }
+```
+
+### UnnecessaryLocalVariable
+Local variable `daR` is redundant
+in `src/main/java/org/apache/datasketches/tuple/arrayofdoubles/ArrayOfDoublesAnotBImpl.java`
+#### Snippet
+```java
+    tmpHashArrA = Arrays.copyOf(tmpHashArrA, nonMatches);
+    tmpValuesArrA = Arrays.copyOf(tmpValuesArrA, nonMatches * numValues);
+    final DataArrays daR = new DataArrays(tmpHashArrA, tmpValuesArrA, nonMatches);
+    return daR;
+  }
+```
+
+### UnnecessaryLocalVariable
+Local variable `prefix` is redundant
+in `src/main/java/org/apache/datasketches/req/ReqCompactor.java`
+#### Snippet
+```java
+    final int numSec = getNumSections();
+    final long num = getState();
+    final String prefix = String.format(
+      "  C:%d Len:%d NomSz:%d SecSz:%d NumSec:%d State:%d",
+           h, len, nom, secSz, numSec, num);
+```
+
+### UnnecessaryLocalVariable
 Local variable `path` is redundant
 in `src/main/java/org/apache/datasketches/common/Util.java`
 #### Snippet
@@ -17059,18 +17095,6 @@ in `src/main/java/org/apache/datasketches/frequencies/LongsSketch.java`
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `daR` is redundant
-in `src/main/java/org/apache/datasketches/tuple/arrayofdoubles/ArrayOfDoublesAnotBImpl.java`
-#### Snippet
-```java
-    tmpHashArrA = Arrays.copyOf(tmpHashArrA, nonMatches);
-    tmpValuesArrA = Arrays.copyOf(tmpValuesArrA, nonMatches * numValues);
-    final DataArrays daR = new DataArrays(tmpHashArrA, tmpValuesArrA, nonMatches);
-    return daR;
-  }
-```
-
-### UnnecessaryLocalVariable
 Local variable `serVer` is redundant
 in `src/main/java/org/apache/datasketches/frequencies/LongsSketch.java`
 #### Snippet
@@ -17083,26 +17107,14 @@ in `src/main/java/org/apache/datasketches/frequencies/LongsSketch.java`
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `prefix` is redundant
-in `src/main/java/org/apache/datasketches/req/ReqCompactor.java`
+Local variable `tmpSummaryArr` is redundant
+in `src/main/java/org/apache/datasketches/tuple/Util.java`
 #### Snippet
 ```java
-    final int numSec = getNumSections();
-    final long num = getState();
-    final String prefix = String.format(
-      "  C:%d Len:%d NomSz:%d SecSz:%d NumSec:%d State:%d",
-           h, len, nom, secSz, numSec, num);
-```
-
-### UnnecessaryLocalVariable
-Local variable `spaceNeeded` is redundant
-in `src/main/java/org/apache/datasketches/quantiles/DoublesUpdateImpl.java`
-#### Snippet
-```java
-    assert newN >= (2L * k);
-    assert numLevelsNeeded > 0;
-    final int spaceNeeded = (2 + numLevelsNeeded) * k;
-    return spaceNeeded;
+  public static <S extends Summary> S[] newSummaryArray(final S[] summaryArr, final int length) {
+    final Class<S> summaryType = (Class<S>) summaryArr.getClass().getComponentType();
+    final S[] tmpSummaryArr = (S[]) Array.newInstance(summaryType, length);
+    return tmpSummaryArr;
   }
 ```
 
@@ -17115,18 +17127,6 @@ in `src/main/java/org/apache/datasketches/tuple/Util.java`
     final double d = (value == 0.0) ? 0.0 : value; // canonicalize -0.0, 0.0
     final long[] array = { Double.doubleToLongBits(d) }; // canonicalize all NaN forms
     return array;
-  }
-```
-
-### UnnecessaryLocalVariable
-Local variable `tmpSummaryArr` is redundant
-in `src/main/java/org/apache/datasketches/tuple/Util.java`
-#### Snippet
-```java
-  public static <S extends Summary> S[] newSummaryArray(final S[] summaryArr, final int length) {
-    final Class<S> summaryType = (Class<S>) summaryArr.getClass().getComponentType();
-    final S[] tmpSummaryArr = (S[]) Array.newInstance(summaryType, length);
-    return tmpSummaryArr;
   }
 ```
 
@@ -17167,66 +17167,6 @@ in `src/main/java/org/apache/datasketches/hll/PreambleUtil.java`
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `table` is redundant
-in `src/main/java/org/apache/datasketches/cpc/CpcCompression.java`
-#### Snippet
-```java
-      }
-
-      final PairTable table = PairTable.newInstanceFromPairsArray(pairs, numPairs, srcLgK);
-      target.pairTable = table;
-    }
-```
-
-### UnnecessaryLocalVariable
-Local variable `c` is redundant
-in `src/main/java/org/apache/datasketches/cpc/CpcCompression.java`
-#### Snippet
-```java
-  private static int determinePseudoPhase(final int lgK, final long numCoupons) {
-    final long k = 1L << lgK;
-    final long c = numCoupons;
-    // This midrange logic produces pseudo-phases. They are used to select encoding tables.
-    // The thresholds were chosen by hand after looking at plots of measured compression.
-```
-
-### UnnecessaryLocalVariable
-Local variable `table` is redundant
-in `src/main/java/org/apache/datasketches/cpc/CpcCompression.java`
-#### Snippet
-```java
-    final int[] srcPairArr = uncompressTheSurprisingValues(source);
-    final int numPairs = source.numCsv;
-    final PairTable table = PairTable.newInstanceFromPairsArray(srcPairArr, numPairs, source.lgK);
-    target.pairTable = table;
-  }
-```
-
-### UnnecessaryLocalVariable
-Local variable `table` is redundant
-in `src/main/java/org/apache/datasketches/cpc/CpcCompression.java`
-#### Snippet
-```java
-    target.windowOffset = 0;
-
-    final PairTable table = PairTable.newInstanceFromPairsArray(pairs, nextTruePair, srcLgK);
-    target.pairTable = table;
-    target.slidingWindow = window;
-```
-
-### UnnecessaryLocalVariable
-Local variable `table` is redundant
-in `src/main/java/org/apache/datasketches/cpc/CpcCompression.java`
-#### Snippet
-```java
-        pairs[i] += 8;
-      }
-      final PairTable table = PairTable.newInstanceFromPairsArray(pairs, numPairs, srcLgK);
-      target.pairTable = table;
-    }
-```
-
-### UnnecessaryLocalVariable
 Local variable `startingLevel1` is redundant
 in `src/main/java/org/apache/datasketches/kll/KllFloatsSketchSortedView.java`
 #### Snippet
@@ -17248,30 +17188,6 @@ in `src/main/java/org/apache/datasketches/req/ReqSketchBuilder.java`
     final ReqSketch sk = new ReqSketch(bK, bHRA, bReqDebug);
     return sk;
   }
-```
-
-### UnnecessaryLocalVariable
-Local variable `est` is redundant
-in `src/main/java/org/apache/datasketches/cpc/CpcConfidence.java`
-#### Snippet
-```java
-    final double rel = x / sqrt(1 << lgK);
-    final double eps = kappa * rel;
-    final double est = hipEstAccum;
-    final double result = est / (1.0 - eps);
-    return ceil(result); // widening for coverage
-```
-
-### UnnecessaryLocalVariable
-Local variable `est` is redundant
-in `src/main/java/org/apache/datasketches/cpc/CpcConfidence.java`
-#### Snippet
-```java
-    final double rel = x / sqrt(1 << lgK);
-    final double eps = kappa * rel;
-    final double est = hipEstAccum;
-    double result = est / (1.0 + eps);
-    if (result < numCoupons) { result = numCoupons; }
 ```
 
 ### UnnecessaryLocalVariable
@@ -17308,6 +17224,90 @@ in `src/main/java/org/apache/datasketches/cpc/IconEstimator.java`
     final double doubleC = c;
     // Differing thresholds ensure that the approximated estimator is monotonically increasing.
     final double thresholdFactor = ((lgK < 14) ? 5.7 : 5.6);
+```
+
+### UnnecessaryLocalVariable
+Local variable `table` is redundant
+in `src/main/java/org/apache/datasketches/cpc/CpcCompression.java`
+#### Snippet
+```java
+    target.windowOffset = 0;
+
+    final PairTable table = PairTable.newInstanceFromPairsArray(pairs, nextTruePair, srcLgK);
+    target.pairTable = table;
+    target.slidingWindow = window;
+```
+
+### UnnecessaryLocalVariable
+Local variable `table` is redundant
+in `src/main/java/org/apache/datasketches/cpc/CpcCompression.java`
+#### Snippet
+```java
+    final int[] srcPairArr = uncompressTheSurprisingValues(source);
+    final int numPairs = source.numCsv;
+    final PairTable table = PairTable.newInstanceFromPairsArray(srcPairArr, numPairs, source.lgK);
+    target.pairTable = table;
+  }
+```
+
+### UnnecessaryLocalVariable
+Local variable `table` is redundant
+in `src/main/java/org/apache/datasketches/cpc/CpcCompression.java`
+#### Snippet
+```java
+        pairs[i] += 8;
+      }
+      final PairTable table = PairTable.newInstanceFromPairsArray(pairs, numPairs, srcLgK);
+      target.pairTable = table;
+    }
+```
+
+### UnnecessaryLocalVariable
+Local variable `c` is redundant
+in `src/main/java/org/apache/datasketches/cpc/CpcCompression.java`
+#### Snippet
+```java
+  private static int determinePseudoPhase(final int lgK, final long numCoupons) {
+    final long k = 1L << lgK;
+    final long c = numCoupons;
+    // This midrange logic produces pseudo-phases. They are used to select encoding tables.
+    // The thresholds were chosen by hand after looking at plots of measured compression.
+```
+
+### UnnecessaryLocalVariable
+Local variable `table` is redundant
+in `src/main/java/org/apache/datasketches/cpc/CpcCompression.java`
+#### Snippet
+```java
+      }
+
+      final PairTable table = PairTable.newInstanceFromPairsArray(pairs, numPairs, srcLgK);
+      target.pairTable = table;
+    }
+```
+
+### UnnecessaryLocalVariable
+Local variable `est` is redundant
+in `src/main/java/org/apache/datasketches/cpc/CpcConfidence.java`
+#### Snippet
+```java
+    final double rel = x / sqrt(1 << lgK);
+    final double eps = kappa * rel;
+    final double est = hipEstAccum;
+    final double result = est / (1.0 - eps);
+    return ceil(result); // widening for coverage
+```
+
+### UnnecessaryLocalVariable
+Local variable `est` is redundant
+in `src/main/java/org/apache/datasketches/cpc/CpcConfidence.java`
+#### Snippet
+```java
+    final double rel = x / sqrt(1 << lgK);
+    final double eps = kappa * rel;
+    final double est = hipEstAccum;
+    double result = est / (1.0 + eps);
+    if (result < numCoupons) { result = numCoupons; }
 ```
 
 ### UnnecessaryLocalVariable
@@ -17412,18 +17412,6 @@ in `src/main/java/org/apache/datasketches/thetacommon/BinomialBoundsN.java`
 #### Snippet
 ```java
     checkArgs(numSamples, theta, numSDev);
-    final double lb = computeApproxBinoLB(numSamples, theta, numSDev);
-    final double numSamplesF = numSamples;
-    final double est = numSamplesF / theta;
-    return (Math.min(est, Math.max(numSamplesF, lb)));
-```
-
-### UnnecessaryLocalVariable
-Local variable `numSamplesF` is redundant
-in `src/main/java/org/apache/datasketches/thetacommon/BinomialBoundsN.java`
-#### Snippet
-```java
-    checkArgs(numSamples, theta, numSDev);
     final double ub = computeApproxBinoUB(numSamples, theta, numSDev);
     final double numSamplesF = numSamples;
     final double est = numSamplesF / theta;
@@ -17452,6 +17440,18 @@ in `src/main/java/org/apache/datasketches/thetacommon/BinomialBoundsN.java`
       final long nstar = specialNStar(numSamplesI, theta, delta);
       return (nstar); // don't need to round
     }
+```
+
+### UnnecessaryLocalVariable
+Local variable `numSamplesF` is redundant
+in `src/main/java/org/apache/datasketches/thetacommon/BinomialBoundsN.java`
+#### Snippet
+```java
+    checkArgs(numSamples, theta, numSDev);
+    final double lb = computeApproxBinoLB(numSamples, theta, numSDev);
+    final double numSamplesF = numSamples;
+    final double est = numSamplesF / theta;
+    return (Math.min(est, Math.max(numSamplesF, lb)));
 ```
 
 ### UnnecessaryLocalVariable
@@ -17542,18 +17542,6 @@ in `src/main/java/org/apache/datasketches/cpc/CpcSketch.java`
 
 ## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
-Variable `hash_` initializer `0` is redundant
-in `src/main/java/org/apache/datasketches/theta/SingleItemSketch.java`
-#### Snippet
-```java
-  private static final long PRE0_LO6_SI   = 0X00_00_3A_00_00_03_03_01L; //with SI flag
-  private long pre0_ = 0;
-  private long hash_ = 0;
-
-  //Internal Constructor. All checking & hashing has been done, assumes default seed
-```
-
-### UnusedAssignment
 Variable `pre0_` initializer `0` is redundant
 in `src/main/java/org/apache/datasketches/theta/SingleItemSketch.java`
 #### Snippet
@@ -17563,6 +17551,18 @@ in `src/main/java/org/apache/datasketches/theta/SingleItemSketch.java`
   private long pre0_ = 0;
   private long hash_ = 0;
 
+```
+
+### UnusedAssignment
+Variable `hash_` initializer `0` is redundant
+in `src/main/java/org/apache/datasketches/theta/SingleItemSketch.java`
+#### Snippet
+```java
+  private static final long PRE0_LO6_SI   = 0X00_00_3A_00_00_03_03_01L; //with SI flag
+  private long pre0_ = 0;
+  private long hash_ = 0;
+
+  //Internal Constructor. All checking & hashing has been done, assumes default seed
 ```
 
 ### UnusedAssignment
@@ -17650,15 +17650,15 @@ in `src/main/java/org/apache/datasketches/cpc/CompressionCharacterization.java`
 ```
 
 ### UnusedAssignment
-Variable `numValues` initializer `0` is redundant
+Variable `numKeys` initializer `0` is redundant
 in `src/main/java/org/apache/datasketches/tuple/arrayofdoubles/HashTables.java`
 #### Snippet
 ```java
-  private long[] hashTable = null;
-  private double[][] valueTable = null;
   private int numValues = 0;
   private int lgTableSize = 0;
   private int numKeys = 0;
+
+  //Construct from sketch
 ```
 
 ### UnusedAssignment
@@ -17674,15 +17674,15 @@ class HashTables {
 ```
 
 ### UnusedAssignment
-Variable `hashTable` initializer `null` is redundant
+Variable `numValues` initializer `0` is redundant
 in `src/main/java/org/apache/datasketches/tuple/arrayofdoubles/HashTables.java`
 #### Snippet
 ```java
-
-class HashTables {
   private long[] hashTable = null;
   private double[][] valueTable = null;
   private int numValues = 0;
+  private int lgTableSize = 0;
+  private int numKeys = 0;
 ```
 
 ### UnusedAssignment
@@ -17698,15 +17698,15 @@ in `src/main/java/org/apache/datasketches/tuple/arrayofdoubles/HashTables.java`
 ```
 
 ### UnusedAssignment
-Variable `numKeys` initializer `0` is redundant
+Variable `hashTable` initializer `null` is redundant
 in `src/main/java/org/apache/datasketches/tuple/arrayofdoubles/HashTables.java`
 #### Snippet
 ```java
-  private int numValues = 0;
-  private int lgTableSize = 0;
-  private int numKeys = 0;
 
-  //Construct from sketch
+class HashTables {
+  private long[] hashTable = null;
+  private double[][] valueTable = null;
+  private int numValues = 0;
 ```
 
 ### UnusedAssignment
@@ -17734,54 +17734,6 @@ in `src/main/java/org/apache/datasketches/kll/KllSketch.java`
 ```
 
 ### UnusedAssignment
-Variable `pairIndex` initializer `0` is redundant
-in `src/main/java/org/apache/datasketches/cpc/CpcCompression.java`
-#### Snippet
-```java
-      final int[] compressedWords) { // output
-
-    int pairIndex = 0;
-
-    final long[] ptrArr = new long[3];
-```
-
-### UnusedAssignment
-Variable `pairIndex` initializer `0` is redundant
-in `src/main/java/org/apache/datasketches/cpc/CpcCompression.java`
-#### Snippet
-```java
-      final long numCompressedWords) { // input
-
-    int pairIndex = 0;
-
-    final long[] ptrArr = new long[3];
-```
-
-### UnusedAssignment
-Variable `byteIndex` initializer `0` is redundant
-in `src/main/java/org/apache/datasketches/cpc/CpcCompression.java`
-#### Snippet
-```java
-      final long numCompressedWords) { // input
-
-    int byteIndex = 0;
-    int nextWordIndex = 0;
-    long bitBuf = 0;
-```
-
-### UnusedAssignment
-Variable `rowIndex` initializer `0` is redundant
-in `src/main/java/org/apache/datasketches/cpc/CpcCompression.java`
-#### Snippet
-```java
-    final int outputLength = emptySpace + numPairsToGet;
-    final int[] pairs = new int[outputLength];
-    int rowIndex = 0;
-    int pairIndex = emptySpace;
-    for (rowIndex = 0; rowIndex < k; rowIndex++) {
-```
-
-### UnusedAssignment
 Variable `offsetBytes` initializer `0` is redundant
 in `src/main/java/org/apache/datasketches/kll/KllPreambleUtil.java`
 #### Snippet
@@ -17803,6 +17755,54 @@ public class ReqSketchBuilder {
   private int bK = DEFAULT_K;
   private boolean bHRA;
   private ReqDebug bReqDebug;
+```
+
+### UnusedAssignment
+Variable `byteIndex` initializer `0` is redundant
+in `src/main/java/org/apache/datasketches/cpc/CpcCompression.java`
+#### Snippet
+```java
+      final long numCompressedWords) { // input
+
+    int byteIndex = 0;
+    int nextWordIndex = 0;
+    long bitBuf = 0;
+```
+
+### UnusedAssignment
+Variable `pairIndex` initializer `0` is redundant
+in `src/main/java/org/apache/datasketches/cpc/CpcCompression.java`
+#### Snippet
+```java
+      final long numCompressedWords) { // input
+
+    int pairIndex = 0;
+
+    final long[] ptrArr = new long[3];
+```
+
+### UnusedAssignment
+Variable `pairIndex` initializer `0` is redundant
+in `src/main/java/org/apache/datasketches/cpc/CpcCompression.java`
+#### Snippet
+```java
+      final int[] compressedWords) { // output
+
+    int pairIndex = 0;
+
+    final long[] ptrArr = new long[3];
+```
+
+### UnusedAssignment
+Variable `rowIndex` initializer `0` is redundant
+in `src/main/java/org/apache/datasketches/cpc/CpcCompression.java`
+#### Snippet
+```java
+    final int outputLength = emptySpace + numPairsToGet;
+    final int[] pairs = new int[outputLength];
+    int rowIndex = 0;
+    int pairIndex = emptySpace;
+    for (rowIndex = 0; rowIndex < k; rowIndex++) {
 ```
 
 ### UnusedAssignment
@@ -18023,30 +18023,6 @@ in `src/main/java/org/apache/datasketches/theta/CompactOperations.java`
 ```
 
 ### ConstantValue
-Condition `col >= sketch.windowOffset` is always `true`
-in `src/main/java/org/apache/datasketches/cpc/CpcSketch.java`
-#### Snippet
-```java
-    }
-    else if (col < (sketch.windowOffset + 8)) { // track the 8 bits inside the window
-      assert (col >= sketch.windowOffset);
-      final int row = rowCol >>> 6;
-      final byte oldBits = sketch.slidingWindow[row];
-```
-
-### ConstantValue
-Condition `reqDebug != null` is always `false`
-in `src/main/java/org/apache/datasketches/req/ReqCompactor.java`
-#### Snippet
-```java
-      numSections <<= 1;
-      buf.ensureCapacity(2 * getNomCapacity());
-      if (reqDebug != null) { reqDebug.emitAdjSecSizeNumSec(lgWeight); }
-      return true;
-    }
-```
-
-### ConstantValue
 Condition `reqDebug != null` is always `false`
 in `src/main/java/org/apache/datasketches/req/ReqCompactor.java`
 #### Snippet
@@ -18080,6 +18056,18 @@ in `src/main/java/org/apache/datasketches/req/ReqCompactor.java`
     if (reqDebug != null) { reqDebug.emitCompactionDone(lgWeight); }
     return promote;
   } //End Compact
+```
+
+### ConstantValue
+Condition `reqDebug != null` is always `false`
+in `src/main/java/org/apache/datasketches/req/ReqCompactor.java`
+#### Snippet
+```java
+      numSections <<= 1;
+      buf.ensureCapacity(2 * getNomCapacity());
+      if (reqDebug != null) { reqDebug.emitAdjSecSizeNumSec(lgWeight); }
+      return true;
+    }
 ```
 
 ### ConstantValue
@@ -18119,39 +18107,15 @@ in `src/main/java/org/apache/datasketches/theta/IntersectionImpl.java`
 ```
 
 ### ConstantValue
-Condition `(phase >= 0) && (phase < 16)` is always `true`
-in `src/main/java/org/apache/datasketches/cpc/CpcCompression.java`
+Condition `col >= sketch.windowOffset` is always `true`
+in `src/main/java/org/apache/datasketches/cpc/CpcSketch.java`
 #### Snippet
 ```java
-      final long tmp = c >>> (lgK - 4);
-      final int phase = (int) (tmp & 15L);
-      assert (phase >= 0) && (phase < 16);
-      return phase;
     }
-```
-
-### ConstantValue
-Condition `phase >= 0` is always `true`
-in `src/main/java/org/apache/datasketches/cpc/CpcCompression.java`
-#### Snippet
-```java
-      final long tmp = c >>> (lgK - 4);
-      final int phase = (int) (tmp & 15L);
-      assert (phase >= 0) && (phase < 16);
-      return phase;
-    }
-```
-
-### ConstantValue
-Condition `phase < 16` is always `true` when reached
-in `src/main/java/org/apache/datasketches/cpc/CpcCompression.java`
-#### Snippet
-```java
-      final long tmp = c >>> (lgK - 4);
-      final int phase = (int) (tmp & 15L);
-      assert (phase >= 0) && (phase < 16);
-      return phase;
-    }
+    else if (col < (sketch.windowOffset + 8)) { // track the 8 bits inside the window
+      assert (col >= sketch.windowOffset);
+      final int row = rowCol >>> 6;
+      final byte oldBits = sketch.slidingWindow[row];
 ```
 
 ### ConstantValue
@@ -18215,6 +18179,42 @@ in `src/main/java/org/apache/datasketches/cpc/CpcCompression.java`
 ```
 
 ### ConstantValue
+Condition `(phase >= 0) && (phase < 16)` is always `true`
+in `src/main/java/org/apache/datasketches/cpc/CpcCompression.java`
+#### Snippet
+```java
+      final long tmp = c >>> (lgK - 4);
+      final int phase = (int) (tmp & 15L);
+      assert (phase >= 0) && (phase < 16);
+      return phase;
+    }
+```
+
+### ConstantValue
+Condition `phase >= 0` is always `true`
+in `src/main/java/org/apache/datasketches/cpc/CpcCompression.java`
+#### Snippet
+```java
+      final long tmp = c >>> (lgK - 4);
+      final int phase = (int) (tmp & 15L);
+      assert (phase >= 0) && (phase < 16);
+      return phase;
+    }
+```
+
+### ConstantValue
+Condition `phase < 16` is always `true` when reached
+in `src/main/java/org/apache/datasketches/cpc/CpcCompression.java`
+#### Snippet
+```java
+      final long tmp = c >>> (lgK - 4);
+      final int phase = (int) (tmp & 15L);
+      assert (phase >= 0) && (phase < 16);
+      return phase;
+    }
+```
+
+### ConstantValue
 Condition `other != null` is always `true`
 in `src/main/java/org/apache/datasketches/quantiles/ItemsUnion.java`
 #### Snippet
@@ -18275,6 +18275,18 @@ in `src/main/java/org/apache/datasketches/theta/Intersection.java`
 ```
 
 ### ConstantValue
+Condition `fetched == -1` is always `true`
+in `src/main/java/org/apache/datasketches/cpc/PairTable.java`
+#### Snippet
+```java
+    if (fetched == item) { throw new SketchesStateException("PairTable mustInsert() failed"); }
+    else {
+      assert (fetched == -1);
+      arr[probe] = item;
+      // counts and resizing must be handled by the caller.
+```
+
+### ConstantValue
 Condition `fetched == item` is always `true`
 in `src/main/java/org/apache/datasketches/cpc/PairTable.java`
 #### Snippet
@@ -18296,18 +18308,6 @@ in `src/main/java/org/apache/datasketches/cpc/PairTable.java`
       assert (fetched == -1);
       arr[probe] = item;
       table.numPairs += 1;
-```
-
-### ConstantValue
-Condition `fetched == -1` is always `true`
-in `src/main/java/org/apache/datasketches/cpc/PairTable.java`
-#### Snippet
-```java
-    if (fetched == item) { throw new SketchesStateException("PairTable mustInsert() failed"); }
-    else {
-      assert (fetched == -1);
-      arr[probe] = item;
-      // counts and resizing must be handled by the caller.
 ```
 
 ### ConstantValue
@@ -18494,11 +18494,11 @@ in `src/main/java/org/apache/datasketches/quantiles/DoublesUtil.java`
 
 ### StringConcatenationInsideStringBufferAppend
 String concatenation as argument to `StringBuilder.append()` call
-in `src/main/java/org/apache/datasketches/frequencies/ItemsSketch.java`
+in `src/main/java/org/apache/datasketches/frequencies/LongsSketch.java`
 #### Snippet
 ```java
     final StringBuilder sb = new StringBuilder();
-    sb.append("FrequentItemsSketch<T>:").append(LS);
+    sb.append("FrequentLongsSketch:").append(LS);
     sb.append("  Stream Length    : " + streamWeight).append(LS);
     sb.append("  Max Error Offset : " + offset).append(LS);
     sb.append(hashMap.toString());
@@ -18506,10 +18506,10 @@ in `src/main/java/org/apache/datasketches/frequencies/ItemsSketch.java`
 
 ### StringConcatenationInsideStringBufferAppend
 String concatenation as argument to `StringBuilder.append()` call
-in `src/main/java/org/apache/datasketches/frequencies/ItemsSketch.java`
+in `src/main/java/org/apache/datasketches/frequencies/LongsSketch.java`
 #### Snippet
 ```java
-    sb.append("FrequentItemsSketch<T>:").append(LS);
+    sb.append("FrequentLongsSketch:").append(LS);
     sb.append("  Stream Length    : " + streamWeight).append(LS);
     sb.append("  Max Error Offset : " + offset).append(LS);
     sb.append(hashMap.toString());
@@ -18518,11 +18518,11 @@ in `src/main/java/org/apache/datasketches/frequencies/ItemsSketch.java`
 
 ### StringConcatenationInsideStringBufferAppend
 String concatenation as argument to `StringBuilder.append()` call
-in `src/main/java/org/apache/datasketches/frequencies/LongsSketch.java`
+in `src/main/java/org/apache/datasketches/frequencies/ItemsSketch.java`
 #### Snippet
 ```java
     final StringBuilder sb = new StringBuilder();
-    sb.append("FrequentLongsSketch:").append(LS);
+    sb.append("FrequentItemsSketch<T>:").append(LS);
     sb.append("  Stream Length    : " + streamWeight).append(LS);
     sb.append("  Max Error Offset : " + offset).append(LS);
     sb.append(hashMap.toString());
@@ -18530,10 +18530,10 @@ in `src/main/java/org/apache/datasketches/frequencies/LongsSketch.java`
 
 ### StringConcatenationInsideStringBufferAppend
 String concatenation as argument to `StringBuilder.append()` call
-in `src/main/java/org/apache/datasketches/frequencies/LongsSketch.java`
+in `src/main/java/org/apache/datasketches/frequencies/ItemsSketch.java`
 #### Snippet
 ```java
-    sb.append("FrequentLongsSketch:").append(LS);
+    sb.append("FrequentItemsSketch<T>:").append(LS);
     sb.append("  Stream Length    : " + streamWeight).append(LS);
     sb.append("  Max Error Offset : " + offset).append(LS);
     sb.append(hashMap.toString());
