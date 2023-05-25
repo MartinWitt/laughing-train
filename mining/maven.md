@@ -1,11 +1,11 @@
 # maven 
  
 # Bad smells
-I found 1874 bad smells with 37 repairable:
+I found 1873 bad smells with 37 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | Deprecation | 963 | false |
-| FieldMayBeFinal | 169 | false |
+| FieldMayBeFinal | 168 | false |
 | JavadocDeclaration | 166 | false |
 | JavadocReference | 93 | false |
 | DuplicatedCode | 73 | false |
@@ -56,8 +56,8 @@ I found 1874 bad smells with 37 repairable:
 | SynchronizeOnNonFinalField | 1 | false |
 | EqualsHashCodeCalledOnUrl | 1 | false |
 | AutoCloseableResource | 1 | false |
-| UnnecessaryContinue | 1 | false |
 | UnnecessaryUnicodeEscape | 1 | false |
+| UnnecessaryContinue | 1 | false |
 | BusyWait | 1 | false |
 | CopyConstructorMissesField | 1 | false |
 | EqualsWhichDoesntCheckParameterClass | 1 | false |
@@ -115,11 +115,11 @@ in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEv
 in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluatorV4.java`
 #### Snippet
 ```java
-                        "Error evaluating plugin parameter expression: " + expression, e);
-            }
-        } else if (expression.equals("repositorySystemSession")) {
-            // TODO: v4
-        } else if (expression.equals("mojo") || expression.equals("mojoExecution")) {
+        // similar component for re-usage
+        if (file != null) {
+            if (file.isAbsolute()) {
+                // path was already absolute, just normalize file separator and we're done
+            } else if (file.getPath().startsWith(File.separator)) {
 ```
 
 ### EmptyStatementBody
@@ -127,11 +127,11 @@ in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEv
 in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluatorV4.java`
 #### Snippet
 ```java
-        // similar component for re-usage
-        if (file != null) {
-            if (file.isAbsolute()) {
-                // path was already absolute, just normalize file separator and we're done
-            } else if (file.getPath().startsWith(File.separator)) {
+                        "Error evaluating plugin parameter expression: " + expression, e);
+            }
+        } else if (expression.equals("repositorySystemSession")) {
+            // TODO: v4
+        } else if (expression.equals("mojo") || expression.equals("mojoExecution")) {
 ```
 
 ### EmptyStatementBody
@@ -172,25 +172,13 @@ in `maven-core/src/main/java/org/apache/maven/configuration/BasedirBeanConfigura
 
 ## RuleId[id=CStyleArrayDeclaration]
 ### CStyleArrayDeclaration
-C-style array declaration of parameter `s`
+C-style array declaration of parameter `x`
 in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/builder/multithreaded/ThreadOutputMuxer.java`
 #### Snippet
 ```java
 
         @Override
-        public void print(char s[]) {
-            final PrintStream currentStream = getOutputStreamForCurrentThread();
-            synchronized (currentStream) {
-```
-
-### CStyleArrayDeclaration
-C-style array declaration of parameter `b`
-in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/builder/multithreaded/ThreadOutputMuxer.java`
-#### Snippet
-```java
-
-        @Override
-        public void write(byte b[], int off, int len) {
+        public void println(char x[]) {
             final PrintStream currentStream = getOutputStreamForCurrentThread();
             synchronized (currentStream) {
 ```
@@ -208,13 +196,25 @@ in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/builder/multith
 ```
 
 ### CStyleArrayDeclaration
-C-style array declaration of parameter `x`
+C-style array declaration of parameter `b`
 in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/builder/multithreaded/ThreadOutputMuxer.java`
 #### Snippet
 ```java
 
         @Override
-        public void println(char x[]) {
+        public void write(byte b[], int off, int len) {
+            final PrintStream currentStream = getOutputStreamForCurrentThread();
+            synchronized (currentStream) {
+```
+
+### CStyleArrayDeclaration
+C-style array declaration of parameter `s`
+in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/builder/multithreaded/ThreadOutputMuxer.java`
+#### Snippet
+```java
+
+        @Override
+        public void print(char s[]) {
             final PrintStream currentStream = getOutputStreamForCurrentThread();
             synchronized (currentStream) {
 ```
@@ -281,15 +281,15 @@ in `maven-compat/src/main/java/org/apache/maven/repository/metadata/DefaultGraph
 ```
 
 ### CommentedOutCode
-Commented out code (15 lines)
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+Commented out code (4 lines)
+in `maven-compat/src/main/java/org/apache/maven/repository/metadata/ArtifactMetadata.java`
 #### Snippet
 ```java
-    }
 
-    //    public void addProxy( String protocol, String host, int port, String username, String password,
-    //                          String nonProxyHosts )
-    //    {
+    public ArtifactMetadata(Artifact af) {
+        /*
+        if ( af != null )
+        {
 ```
 
 ### CommentedOutCode
@@ -305,15 +305,15 @@ in `maven-compat/src/main/java/org/apache/maven/repository/metadata/ArtifactMeta
 ```
 
 ### CommentedOutCode
-Commented out code (4 lines)
-in `maven-compat/src/main/java/org/apache/maven/repository/metadata/ArtifactMetadata.java`
+Commented out code (15 lines)
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
 #### Snippet
 ```java
+    }
 
-    public ArtifactMetadata(Artifact af) {
-        /*
-        if ( af != null )
-        {
+    //    public void addProxy( String protocol, String host, int port, String username, String password,
+    //                          String nonProxyHosts )
+    //    {
 ```
 
 ### CommentedOutCode
@@ -367,12 +367,12 @@ public interface JavaToolchain extends Toolchain {
 ## RuleId[id=CloneableImplementsClone]
 ### CloneableImplementsClone
 `BaseObject` is 'Cloneable' but does not define 'clone()' method
-in `maven-settings/src/main/java/org/apache/maven/settings/BaseObject.java`
+in `maven-model/src/main/java/org/apache/maven/model/BaseObject.java`
 #### Snippet
 ```java
 import java.io.Serializable;
 
-public abstract class BaseObject implements Serializable, Cloneable {
+public abstract class BaseObject implements Serializable, Cloneable, InputLocationTracker {
     protected transient ChildrenTracking childrenTracking;
 
 ```
@@ -391,12 +391,12 @@ public abstract class BaseObject implements Serializable, Cloneable {
 
 ### CloneableImplementsClone
 `BaseObject` is 'Cloneable' but does not define 'clone()' method
-in `maven-model/src/main/java/org/apache/maven/model/BaseObject.java`
+in `maven-settings/src/main/java/org/apache/maven/settings/BaseObject.java`
 #### Snippet
 ```java
 import java.io.Serializable;
 
-public abstract class BaseObject implements Serializable, Cloneable, InputLocationTracker {
+public abstract class BaseObject implements Serializable, Cloneable {
     protected transient ChildrenTracking childrenTracking;
 
 ```
@@ -416,18 +416,6 @@ in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/XmlNodeImpl.java`
 
 ### RefusedBequest
 Method `clone()` does not call 'super.clone()'
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/PluginDescriptor.java`
-#### Snippet
-```java
-     */
-    @Override
-    public PluginDescriptor clone() {
-        try {
-            return (PluginDescriptor) super.clone();
-```
-
-### RefusedBequest
-Method `clone()` does not call 'super.clone()'
 in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/MojoDescriptor.java`
 #### Snippet
 ```java
@@ -436,6 +424,18 @@ in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/MojoDescri
     public MojoDescriptor clone() {
         try {
             return (MojoDescriptor) super.clone();
+```
+
+### RefusedBequest
+Method `clone()` does not call 'super.clone()'
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/PluginDescriptor.java`
+#### Snippet
+```java
+     */
+    @Override
+    public PluginDescriptor clone() {
+        try {
+            return (PluginDescriptor) super.clone();
 ```
 
 ## RuleId[id=RedundantArrayCreation]
@@ -452,6 +452,30 @@ in `maven-core/src/main/java/org/apache/maven/execution/MavenSession.java`
 ```
 
 ## RuleId[id=DuplicateBranchesInSwitch]
+### DuplicateBranchesInSwitch
+Branch in 'switch' is a duplicate of the default branch
+in `maven-model-transform/src/main/java/org/apache/maven/model/transform/pull/BufferingParser.java`
+#### Snippet
+```java
+            case START_DOCUMENT:
+            case END_DOCUMENT:
+                break;
+            case START_TAG:
+                event.name = pp.getName();
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `maven-core/src/main/java/org/apache/maven/repository/ArtifactTransferEvent.java`
+#### Snippet
+```java
+                break;
+            case REQUEST_GET:
+                break;
+            default:
+                throw new IllegalArgumentException("Illegal request type: " + requestType);
+```
+
 ### DuplicateBranchesInSwitch
 Duplicate branch in 'switch'
 in `maven-core/src/main/java/org/apache/maven/repository/ArtifactTransferEvent.java`
@@ -500,30 +524,6 @@ in `maven-core/src/main/java/org/apache/maven/repository/ArtifactTransferEvent.j
                 throw new IllegalArgumentException("Illegal event type: " + eventType);
 ```
 
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `maven-core/src/main/java/org/apache/maven/repository/ArtifactTransferEvent.java`
-#### Snippet
-```java
-                break;
-            case REQUEST_GET:
-                break;
-            default:
-                throw new IllegalArgumentException("Illegal request type: " + requestType);
-```
-
-### DuplicateBranchesInSwitch
-Branch in 'switch' is a duplicate of the default branch
-in `maven-model-transform/src/main/java/org/apache/maven/model/transform/pull/BufferingParser.java`
-#### Snippet
-```java
-            case START_DOCUMENT:
-            case END_DOCUMENT:
-                break;
-            case START_TAG:
-                event.name = pp.getName();
-```
-
 ## RuleId[id=NonFinalFieldInEnum]
 ### NonFinalFieldInEnum
 Non-final field `id` in enum 'ArtifactScopeEnum'
@@ -550,6 +550,534 @@ in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataReso
 ```
 
 ## RuleId[id=Deprecation]
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-artifact/src/main/java/org/apache/maven/artifact/Artifact.java`
+#### Snippet
+```java
+    void setRepository(ArtifactRepository remoteRepository);
+
+    ArtifactRepository getRepository();
+
+    void updateVersion(String version, ArtifactRepository localRepository);
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-artifact/src/main/java/org/apache/maven/artifact/Artifact.java`
+#### Snippet
+```java
+    ArtifactRepository getRepository();
+
+    void updateVersion(String version, ArtifactRepository localRepository);
+
+    String getDownloadUrl();
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
+in `maven-artifact/src/main/java/org/apache/maven/artifact/Artifact.java`
+#### Snippet
+```java
+    String getDependencyConflictId();
+
+    void addMetadata(ArtifactMetadata metadata);
+
+    Collection<ArtifactMetadata> getMetadataList();
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-artifact/src/main/java/org/apache/maven/artifact/Artifact.java`
+#### Snippet
+```java
+    Collection<ArtifactMetadata> getMetadataList();
+
+    void setRepository(ArtifactRepository remoteRepository);
+
+    ArtifactRepository getRepository();
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
+in `maven-artifact/src/main/java/org/apache/maven/artifact/Artifact.java`
+#### Snippet
+```java
+    void addMetadata(ArtifactMetadata metadata);
+
+    Collection<ArtifactMetadata> getMetadataList();
+
+    void setRepository(ArtifactRepository remoteRepository);
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/ArtifactResolutionException.java`
+#### Snippet
+```java
+
+    public ArtifactResolutionException(
+            String message, Artifact artifact, List<ArtifactRepository> remoteRepositories, Throwable cause) {
+        super(message, artifact, remoteRepositories, cause);
+    }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/ArtifactResolutionException.java`
+#### Snippet
+```java
+            String type,
+            String classifier,
+            List<ArtifactRepository> remoteRepositories,
+            List<String> path,
+            Throwable t) {
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/ArtifactResolutionException.java`
+#### Snippet
+```java
+    }
+
+    public ArtifactResolutionException(String message, Artifact artifact, List<ArtifactRepository> remoteRepositories) {
+        super(message, artifact, remoteRepositories);
+    }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/ArtifactNotFoundException.java`
+#### Snippet
+```java
+            String type,
+            String classifier,
+            List<ArtifactRepository> remoteRepositories,
+            String downloadUrl,
+            List<String> path,
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/ArtifactNotFoundException.java`
+#### Snippet
+```java
+
+    protected ArtifactNotFoundException(
+            String message, Artifact artifact, List<ArtifactRepository> remoteRepositories) {
+        super(message, artifact, remoteRepositories);
+    }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/ArtifactNotFoundException.java`
+#### Snippet
+```java
+            String type,
+            String classifier,
+            List<ArtifactRepository> remoteRepositories,
+            String downloadUrl,
+            List<String> path) {
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/ArtifactNotFoundException.java`
+#### Snippet
+```java
+
+    protected ArtifactNotFoundException(
+            String message, Artifact artifact, List<ArtifactRepository> remoteRepositories, Throwable cause) {
+        this(
+                message,
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/MultipleArtifactsNotFoundException.java`
+#### Snippet
+```java
+            List<Artifact> resolvedArtifacts,
+            List<Artifact> missingArtifacts,
+            List<ArtifactRepository> remoteRepositories) {
+        super(constructMessage(missingArtifacts), originatingArtifact, remoteRepositories);
+        this.resolvedArtifacts = resolvedArtifacts;
+```
+
+### Deprecation
+Overrides deprecated method in 'java.util.Properties'
+in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public void save(OutputStream out, String comments) {
+        Properties props = new Properties();
+        props.putAll(getter.get());
+```
+
+### Deprecation
+'save(java.io.OutputStream, java.lang.String)' is deprecated
+in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+#### Snippet
+```java
+        Properties props = new Properties();
+        props.putAll(getter.get());
+        props.save(out, comments);
+    }
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout' is deprecated
+in `maven-artifact/src/main/java/org/apache/maven/artifact/repository/layout/ArtifactRepositoryLayout2.java`
+#### Snippet
+```java
+ * ArtifactRepositoryLayout2
+ */
+public interface ArtifactRepositoryLayout2 extends ArtifactRepositoryLayout {
+
+    ArtifactRepository newMavenArtifactRepository(
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-artifact/src/main/java/org/apache/maven/artifact/repository/layout/ArtifactRepositoryLayout2.java`
+#### Snippet
+```java
+public interface ArtifactRepositoryLayout2 extends ArtifactRepositoryLayout {
+
+    ArtifactRepository newMavenArtifactRepository(
+            String id, String url, ArtifactRepositoryPolicy snapshots, ArtifactRepositoryPolicy releases);
+}
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-artifact/src/main/java/org/apache/maven/artifact/repository/layout/ArtifactRepositoryLayout2.java`
+#### Snippet
+```java
+
+    ArtifactRepository newMavenArtifactRepository(
+            String id, String url, ArtifactRepositoryPolicy snapshots, ArtifactRepositoryPolicy releases);
+}
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-artifact/src/main/java/org/apache/maven/artifact/repository/layout/ArtifactRepositoryLayout2.java`
+#### Snippet
+```java
+
+    ArtifactRepository newMavenArtifactRepository(
+            String id, String url, ArtifactRepositoryPolicy snapshots, ArtifactRepositoryPolicy releases);
+}
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/OverConstrainedVersionException.java`
+#### Snippet
+```java
+    }
+
+    public OverConstrainedVersionException(String msg, Artifact artifact, List<ArtifactRepository> remoteRepositories) {
+        super(msg, artifact, remoteRepositories);
+    }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-artifact/src/main/java/org/apache/maven/artifact/DefaultArtifact.java`
+#### Snippet
+```java
+    }
+
+    public void updateVersion(String version, ArtifactRepository localRepository) {
+        setResolvedVersion(version);
+        setFile(new File(localRepository.getBasedir(), localRepository.pathOf(this)));
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-artifact/src/main/java/org/apache/maven/artifact/DefaultArtifact.java`
+#### Snippet
+```java
+    }
+
+    public void setRepository(ArtifactRepository repository) {
+        this.repository = repository;
+    }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-artifact/src/main/java/org/apache/maven/artifact/DefaultArtifact.java`
+#### Snippet
+```java
+    private volatile File file;
+
+    private ArtifactRepository repository;
+
+    private String downloadUrl;
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
+in `maven-artifact/src/main/java/org/apache/maven/artifact/DefaultArtifact.java`
+#### Snippet
+```java
+    }
+
+    public Collection<ArtifactMetadata> getMetadataList() {
+        if (metadataMap == null) {
+            return Collections.emptyList();
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-artifact/src/main/java/org/apache/maven/artifact/DefaultArtifact.java`
+#### Snippet
+```java
+    }
+
+    public ArtifactRepository getRepository() {
+        return repository;
+    }
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
+in `maven-artifact/src/main/java/org/apache/maven/artifact/DefaultArtifact.java`
+#### Snippet
+```java
+    }
+
+    public void addMetadata(ArtifactMetadata metadata) {
+        if (metadataMap == null) {
+            metadataMap = new HashMap<>();
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
+in `maven-artifact/src/main/java/org/apache/maven/artifact/DefaultArtifact.java`
+#### Snippet
+```java
+        }
+
+        ArtifactMetadata m = metadataMap.get(metadata.getKey());
+        if (m != null) {
+            m.merge(metadata);
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
+in `maven-artifact/src/main/java/org/apache/maven/artifact/DefaultArtifact.java`
+#### Snippet
+```java
+    private List<ArtifactVersion> availableVersions;
+
+    private Map<Object, ArtifactMetadata> metadataMap;
+
+    private boolean optional;
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
+#### Snippet
+```java
+
+    protected AbstractArtifactResolutionException(
+            String message, Artifact artifact, List<ArtifactRepository> remoteRepositories) {
+        this(message, artifact, remoteRepositories, null);
+    }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
+#### Snippet
+```java
+    }
+
+    public List<ArtifactRepository> getRemoteRepositories() {
+        return remoteRepositories;
+    }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
+#### Snippet
+```java
+    private Artifact artifact;
+
+    private List<ArtifactRepository> remoteRepositories;
+
+    private final String originalMessage;
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
+#### Snippet
+```java
+            String type,
+            String classifier,
+            List<ArtifactRepository> remoteRepositories,
+            List<String> path,
+            Throwable t) {
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
+#### Snippet
+```java
+            String version,
+            String type,
+            List<ArtifactRepository> remoteRepositories,
+            List<String> path) {
+        StringBuilder sb = new StringBuilder();
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
+#### Snippet
+```java
+                }
+
+                for (Iterator<ArtifactRepository> i = remoteRepositories.iterator(); i.hasNext(); ) {
+                    ArtifactRepository remoteRepository = i.next();
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
+#### Snippet
+```java
+
+                for (Iterator<ArtifactRepository> i = remoteRepositories.iterator(); i.hasNext(); ) {
+                    ArtifactRepository remoteRepository = i.next();
+
+                    sb.append(remoteRepository.getId());
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
+#### Snippet
+```java
+                    sb.append(remoteRepository.getUrl());
+
+                    ArtifactRepositoryPolicy releases = remoteRepository.getReleases();
+                    if (releases != null) {
+                        sb.append(", releases=").append(releases.isEnabled());
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
+#### Snippet
+```java
+                    }
+
+                    ArtifactRepositoryPolicy snapshots = remoteRepository.getSnapshots();
+                    if (snapshots != null) {
+                        sb.append(", snapshots=").append(snapshots.isEnabled());
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
+#### Snippet
+```java
+            String type,
+            String classifier,
+            List<ArtifactRepository> remoteRepositories,
+            List<String> path) {
+        this(message, groupId, artifactId, version, type, classifier, remoteRepositories, path, null);
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
+#### Snippet
+```java
+
+    protected AbstractArtifactResolutionException(
+            String message, Artifact artifact, List<ArtifactRepository> remoteRepositories, Throwable t) {
+        this(
+                message,
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-artifact/src/main/java/org/apache/maven/repository/legacy/metadata/ArtifactMetadata.java`
+#### Snippet
+```java
+     * @return the filename
+     */
+    String getLocalFilename(ArtifactRepository repository);
+
+    /**
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
+in `maven-artifact/src/main/java/org/apache/maven/repository/legacy/metadata/ArtifactMetadata.java`
+#### Snippet
+```java
+    /**
+     * Merge a new metadata set into this piece of metadata.
+     * TODO this should only be needed on the repository metadata {@link org.apache.maven.artifact.metadata.ArtifactMetadata}
+     *
+     * @param metadata the new metadata
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
+in `maven-artifact/src/main/java/org/apache/maven/repository/legacy/metadata/ArtifactMetadata.java`
+#### Snippet
+```java
+    /**
+     * Store the metadata in the local repository.
+     * TODO this should only be needed on the repository metadata {@link org.apache.maven.artifact.metadata.ArtifactMetadata}
+     *
+     * @param localRepository  the local repository
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-artifact/src/main/java/org/apache/maven/repository/legacy/metadata/ArtifactMetadata.java`
+#### Snippet
+```java
+     * @throws RepositoryMetadataStoreException in case of issue
+     */
+    void storeInLocalRepository(ArtifactRepository localRepository, ArtifactRepository remoteRepository)
+            throws RepositoryMetadataStoreException;
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-artifact/src/main/java/org/apache/maven/repository/legacy/metadata/ArtifactMetadata.java`
+#### Snippet
+```java
+     * @throws RepositoryMetadataStoreException in case of issue
+     */
+    void storeInLocalRepository(ArtifactRepository localRepository, ArtifactRepository remoteRepository)
+            throws RepositoryMetadataStoreException;
+
+```
+
 ### Deprecation
 'org.apache.maven.project.inheritance.ModelInheritanceAssembler' is deprecated
 in `maven-compat/src/main/java/org/apache/maven/project/inheritance/DefaultModelInheritanceAssembler.java`
@@ -587,6 +1115,30 @@ in `maven-compat/src/main/java/org/apache/maven/artifact/UnknownRepositoryLayout
 ```
 
 ### Deprecation
+Overrides deprecated method in 'java.util.Properties'
+in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
+#### Snippet
+```java
+
+    @Override
+    public void save(OutputStream out, String comments) {
+        Properties props = new Properties();
+        props.putAll(getter.get());
+```
+
+### Deprecation
+'save(java.io.OutputStream, java.lang.String)' is deprecated
+in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
+#### Snippet
+```java
+        Properties props = new Properties();
+        props.putAll(getter.get());
+        props.save(out, comments);
+    }
+
+```
+
+### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
 in `maven-compat/src/main/java/org/apache/maven/artifact/deployer/ArtifactDeployer.java`
 #### Snippet
@@ -608,6 +1160,18 @@ in `maven-compat/src/main/java/org/apache/maven/artifact/deployer/ArtifactDeploy
             File source, Artifact artifact, ArtifactRepository deploymentRepository, ArtifactRepository localRepository)
             throws ArtifactDeploymentException;
 }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/manager/DefaultWagonManager.java`
+#### Snippet
+```java
+    }
+
+    public void getArtifact(Artifact artifact, ArtifactRepository repository)
+            throws TransferFailedException, ResourceDoesNotExistException {
+        getArtifact(artifact, repository, null, false);
 ```
 
 ### Deprecation
@@ -648,30 +1212,6 @@ in `maven-compat/src/main/java/org/apache/maven/artifact/manager/DefaultWagonMan
 
 ### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/manager/DefaultWagonManager.java`
-#### Snippet
-```java
-    }
-
-    public void getArtifact(Artifact artifact, ArtifactRepository repository)
-            throws TransferFailedException, ResourceDoesNotExistException {
-        getArtifact(artifact, repository, null, false);
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/UnresolvedArtifacts.java`
-#### Snippet
-```java
-    private List<Artifact> artifacts;
-
-    private List<ArtifactRepository> remoteRepositories;
-
-    public UnresolvedArtifacts(
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
 in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/UnresolvedArtifacts.java`
 #### Snippet
 ```java
@@ -696,26 +1236,38 @@ in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/UnresolvedArti
 
 ### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/installer/ArtifactInstaller.java`
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/UnresolvedArtifacts.java`
 #### Snippet
 ```java
-     * @throws ArtifactInstallationException if an error occurred installing the artifact
-     */
-    void install(File source, Artifact artifact, ArtifactRepository localRepository)
-            throws ArtifactInstallationException;
-}
+    private List<Artifact> artifacts;
+
+    private List<ArtifactRepository> remoteRepositories;
+
+    public UnresolvedArtifacts(
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.resolver.ResolutionListenerForDepMgmt' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DebugResolutionListener.java`
+Overrides deprecated method in 'org.apache.maven.project.interpolation.ModelInterpolator'
+in `maven-compat/src/main/java/org/apache/maven/project/interpolation/AbstractStringBasedModelInterpolator.java`
 #### Snippet
 ```java
- * @author <a href="mailto:brett@apache.org">Brett Porter</a>
- */
-public class DebugResolutionListener implements ResolutionListener, ResolutionListenerForDepMgmt {
-    private Logger logger;
+     */
+    @Deprecated
+    public Model interpolate(Model model, Map<String, ?> context, boolean strict) throws ModelInterpolationException {
+        Properties props = new Properties();
+        props.putAll(context);
+```
 
+### Deprecation
+Overrides deprecated method in 'org.apache.maven.project.interpolation.ModelInterpolator'
+in `maven-compat/src/main/java/org/apache/maven/project/interpolation/AbstractStringBasedModelInterpolator.java`
+#### Snippet
+```java
+    protected AbstractStringBasedModelInterpolator() {}
+
+    public Model interpolate(Model model, Map<String, ?> context) throws ModelInterpolationException {
+        return interpolate(model, context, true);
+    }
 ```
 
 ### Deprecation
@@ -767,27 +1319,87 @@ in `maven-compat/src/main/java/org/apache/maven/artifact/deployer/DefaultArtifac
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/installer/DefaultArtifactInstaller.java`
+'org.apache.maven.artifact.resolver.ResolutionListenerForDepMgmt' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DebugResolutionListener.java`
 #### Snippet
 ```java
-    }
+ * @author <a href="mailto:brett@apache.org">Brett Porter</a>
+ */
+public class DebugResolutionListener implements ResolutionListener, ResolutionListenerForDepMgmt {
+    private Logger logger;
 
-    public void install(File source, Artifact artifact, ArtifactRepository localRepository)
-            throws ArtifactInstallationException {
-        RepositorySystemSession session =
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/installer/DefaultArtifactInstaller.java`
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/installer/ArtifactInstaller.java`
 #### Snippet
 ```java
-        request.addArtifact(mainArtifact);
+     * @throws ArtifactInstallationException if an error occurred installing the artifact
+     */
+    void install(File source, Artifact artifact, ArtifactRepository localRepository)
+            throws ArtifactInstallationException;
+}
+```
 
-        for (ArtifactMetadata metadata : artifact.getMetadataList()) {
-            if (metadata instanceof ProjectArtifactMetadata) {
-                org.eclipse.aether.artifact.Artifact pomArtifact = new SubArtifact(mainArtifact, "", "pom");
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/repository/ArtifactRepositoryFactory.java`
+#### Snippet
+```java
+            throws UnknownRepositoryLayoutException;
+
+    ArtifactRepository createDeploymentArtifactRepository(
+            String id, String url, ArtifactRepositoryLayout layout, boolean uniqueVersion);
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/repository/ArtifactRepositoryFactory.java`
+#### Snippet
+```java
+
+    ArtifactRepository createDeploymentArtifactRepository(
+            String id, String url, ArtifactRepositoryLayout layout, boolean uniqueVersion);
+
+    ArtifactRepository createArtifactRepository(
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/repository/ArtifactRepositoryFactory.java`
+#### Snippet
+```java
+            String id, String url, ArtifactRepositoryLayout layout, boolean uniqueVersion);
+
+    ArtifactRepository createArtifactRepository(
+            String id,
+            String url,
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/repository/ArtifactRepositoryFactory.java`
+#### Snippet
+```java
+            String url,
+            String layoutId,
+            ArtifactRepositoryPolicy snapshots,
+            ArtifactRepositoryPolicy releases)
+            throws UnknownRepositoryLayoutException;
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/repository/ArtifactRepositoryFactory.java`
+#### Snippet
+```java
+            String layoutId,
+            ArtifactRepositoryPolicy snapshots,
+            ArtifactRepositoryPolicy releases)
+            throws UnknownRepositoryLayoutException;
+
 ```
 
 ### Deprecation
@@ -840,62 +1452,26 @@ in `maven-compat/src/main/java/org/apache/maven/artifact/repository/ArtifactRepo
 
 ### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/repository/ArtifactRepositoryFactory.java`
+in `maven-compat/src/main/java/org/apache/maven/artifact/installer/DefaultArtifactInstaller.java`
 #### Snippet
 ```java
-            throws UnknownRepositoryLayoutException;
+    }
 
-    ArtifactRepository createDeploymentArtifactRepository(
-            String id, String url, ArtifactRepositoryLayout layout, boolean uniqueVersion);
-
+    public void install(File source, Artifact artifact, ArtifactRepository localRepository)
+            throws ArtifactInstallationException {
+        RepositorySystemSession session =
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/repository/ArtifactRepositoryFactory.java`
+'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/installer/DefaultArtifactInstaller.java`
 #### Snippet
 ```java
+        request.addArtifact(mainArtifact);
 
-    ArtifactRepository createDeploymentArtifactRepository(
-            String id, String url, ArtifactRepositoryLayout layout, boolean uniqueVersion);
-
-    ArtifactRepository createArtifactRepository(
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/repository/ArtifactRepositoryFactory.java`
-#### Snippet
-```java
-            String id, String url, ArtifactRepositoryLayout layout, boolean uniqueVersion);
-
-    ArtifactRepository createArtifactRepository(
-            String id,
-            String url,
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/repository/ArtifactRepositoryFactory.java`
-#### Snippet
-```java
-            String url,
-            String layoutId,
-            ArtifactRepositoryPolicy snapshots,
-            ArtifactRepositoryPolicy releases)
-            throws UnknownRepositoryLayoutException;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/repository/ArtifactRepositoryFactory.java`
-#### Snippet
-```java
-            String layoutId,
-            ArtifactRepositoryPolicy snapshots,
-            ArtifactRepositoryPolicy releases)
-            throws UnknownRepositoryLayoutException;
-
+        for (ArtifactMetadata metadata : artifact.getMetadataList()) {
+            if (metadata instanceof ProjectArtifactMetadata) {
+                org.eclipse.aether.artifact.Artifact pomArtifact = new SubArtifact(mainArtifact, "", "pom");
 ```
 
 ### Deprecation
@@ -960,26 +1536,122 @@ public class FlatRepositoryLayout implements ArtifactRepositoryLayout {
 
 ### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/SnapshotArtifactRepositoryMetadata.java`
+in `maven-compat/src/main/java/org/apache/maven/artifact/repository/DefaultArtifactRepositoryFactory.java`
 #### Snippet
 ```java
     }
 
-    public void setRepository(ArtifactRepository remoteRepository) {
-        artifact.setRepository(remoteRepository);
-    }
+    private boolean isLocalRepository(ArtifactRepository repository) {
+        // unfortunately, the API doesn't allow to tell a remote repo and the local repo apart...
+        return "local".equals(repository.getId());
 ```
 
 ### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/SnapshotArtifactRepositoryMetadata.java`
+in `maven-compat/src/main/java/org/apache/maven/artifact/repository/DefaultArtifactRepositoryFactory.java`
 #### Snippet
 ```java
     }
 
-    public ArtifactRepository getRepository() {
-        return artifact.getRepository();
+    public ArtifactRepository createArtifactRepository(
+            String id,
+            String url,
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/repository/DefaultArtifactRepositoryFactory.java`
+#### Snippet
+```java
+            String url,
+            String layoutId,
+            ArtifactRepositoryPolicy snapshots,
+            ArtifactRepositoryPolicy releases)
+            throws UnknownRepositoryLayoutException {
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/repository/DefaultArtifactRepositoryFactory.java`
+#### Snippet
+```java
+            String layoutId,
+            ArtifactRepositoryPolicy snapshots,
+            ArtifactRepositoryPolicy releases)
+            throws UnknownRepositoryLayoutException {
+        return injectSession(factory.createArtifactRepository(id, url, layoutId, snapshots, releases), true);
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/repository/DefaultArtifactRepositoryFactory.java`
+#### Snippet
+```java
     }
+
+    public ArtifactRepository createDeploymentArtifactRepository(
+            String id, String url, ArtifactRepositoryLayout repositoryLayout, boolean uniqueVersion) {
+        return injectSession(
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/repository/DefaultArtifactRepositoryFactory.java`
+#### Snippet
+```java
+
+    public ArtifactRepository createDeploymentArtifactRepository(
+            String id, String url, ArtifactRepositoryLayout repositoryLayout, boolean uniqueVersion) {
+        return injectSession(
+                factory.createDeploymentArtifactRepository(id, url, repositoryLayout, uniqueVersion), false);
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/repository/DefaultArtifactRepositoryFactory.java`
+#### Snippet
+```java
+    private RepositorySystem repositorySystem;
+
+    public ArtifactRepositoryLayout getLayout(String layoutId) throws UnknownRepositoryLayoutException {
+        return factory.getLayout(layoutId);
+    }
+```
+
+### Deprecation
+'getLayout(java.lang.String)' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/repository/DefaultArtifactRepositoryFactory.java`
+#### Snippet
+```java
+
+    public ArtifactRepositoryLayout getLayout(String layoutId) throws UnknownRepositoryLayoutException {
+        return factory.getLayout(layoutId);
+    }
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/repository/DefaultArtifactRepositoryFactory.java`
+#### Snippet
+```java
+    }
+
+    public ArtifactRepository createDeploymentArtifactRepository(
+            String id, String url, String layoutId, boolean uniqueVersion) throws UnknownRepositoryLayoutException {
+        return injectSession(factory.createDeploymentArtifactRepository(id, url, layoutId, uniqueVersion), false);
+```
+
+### Deprecation
+'createDeploymentArtifactRepository(java.lang.String, java.lang.String, java.lang.String, boolean)' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/repository/DefaultArtifactRepositoryFactory.java`
+#### Snippet
+```java
+    public ArtifactRepository createDeploymentArtifactRepository(
+            String id, String url, String layoutId, boolean uniqueVersion) throws UnknownRepositoryLayoutException {
+        return injectSession(factory.createDeploymentArtifactRepository(id, url, layoutId, uniqueVersion), false);
+    }
+
 ```
 
 ### Deprecation
@@ -1025,66 +1697,6 @@ in `maven-compat/src/main/java/org/apache/maven/artifact/repository/DefaultArtif
 ```java
     }
 
-    public ArtifactRepository createDeploymentArtifactRepository(
-            String id, String url, ArtifactRepositoryLayout repositoryLayout, boolean uniqueVersion) {
-        return injectSession(
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/repository/DefaultArtifactRepositoryFactory.java`
-#### Snippet
-```java
-
-    public ArtifactRepository createDeploymentArtifactRepository(
-            String id, String url, ArtifactRepositoryLayout repositoryLayout, boolean uniqueVersion) {
-        return injectSession(
-                factory.createDeploymentArtifactRepository(id, url, repositoryLayout, uniqueVersion), false);
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/repository/DefaultArtifactRepositoryFactory.java`
-#### Snippet
-```java
-    }
-
-    public ArtifactRepository createDeploymentArtifactRepository(
-            String id, String url, String layoutId, boolean uniqueVersion) throws UnknownRepositoryLayoutException {
-        return injectSession(factory.createDeploymentArtifactRepository(id, url, layoutId, uniqueVersion), false);
-```
-
-### Deprecation
-'createDeploymentArtifactRepository(java.lang.String, java.lang.String, java.lang.String, boolean)' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/repository/DefaultArtifactRepositoryFactory.java`
-#### Snippet
-```java
-    public ArtifactRepository createDeploymentArtifactRepository(
-            String id, String url, String layoutId, boolean uniqueVersion) throws UnknownRepositoryLayoutException {
-        return injectSession(factory.createDeploymentArtifactRepository(id, url, layoutId, uniqueVersion), false);
-    }
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/repository/DefaultArtifactRepositoryFactory.java`
-#### Snippet
-```java
-    }
-
-    private boolean isLocalRepository(ArtifactRepository repository) {
-        // unfortunately, the API doesn't allow to tell a remote repo and the local repo apart...
-        return "local".equals(repository.getId());
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/repository/DefaultArtifactRepositoryFactory.java`
-#### Snippet
-```java
-    }
-
     public ArtifactRepository createArtifactRepository(
             String id,
             String url,
@@ -1127,74 +1739,26 @@ in `maven-compat/src/main/java/org/apache/maven/artifact/repository/DefaultArtif
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/repository/DefaultArtifactRepositoryFactory.java`
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/SnapshotArtifactRepositoryMetadata.java`
 #### Snippet
 ```java
-    private RepositorySystem repositorySystem;
-
-    public ArtifactRepositoryLayout getLayout(String layoutId) throws UnknownRepositoryLayoutException {
-        return factory.getLayout(layoutId);
-    }
-```
-
-### Deprecation
-'getLayout(java.lang.String)' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/repository/DefaultArtifactRepositoryFactory.java`
-#### Snippet
-```java
-
-    public ArtifactRepositoryLayout getLayout(String layoutId) throws UnknownRepositoryLayoutException {
-        return factory.getLayout(layoutId);
     }
 
+    public ArtifactRepository getRepository() {
+        return artifact.getRepository();
+    }
 ```
 
 ### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/repository/DefaultArtifactRepositoryFactory.java`
-#### Snippet
-```java
-    }
-
-    public ArtifactRepository createArtifactRepository(
-            String id,
-            String url,
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/repository/DefaultArtifactRepositoryFactory.java`
-#### Snippet
-```java
-            String url,
-            String layoutId,
-            ArtifactRepositoryPolicy snapshots,
-            ArtifactRepositoryPolicy releases)
-            throws UnknownRepositoryLayoutException {
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/repository/DefaultArtifactRepositoryFactory.java`
-#### Snippet
-```java
-            String layoutId,
-            ArtifactRepositoryPolicy snapshots,
-            ArtifactRepositoryPolicy releases)
-            throws UnknownRepositoryLayoutException {
-        return injectSession(factory.createArtifactRepository(id, url, layoutId, snapshots, releases), true);
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/GroupRepositoryMetadata.java`
+in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/SnapshotArtifactRepositoryMetadata.java`
 #### Snippet
 ```java
     }
 
     public void setRepository(ArtifactRepository remoteRepository) {
-        // intentionally blank
+        artifact.setRepository(remoteRepository);
     }
 ```
 
@@ -1211,39 +1775,459 @@ in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/Gro
 ```
 
 ### Deprecation
-Overrides deprecated method in 'org.apache.maven.artifact.repository.ArtifactRepository'
-in `maven-compat/src/main/java/org/apache/maven/artifact/repository/DefaultArtifactRepository.java`
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/GroupRepositoryMetadata.java`
 #### Snippet
 ```java
     }
 
-    public boolean isBlacklisted() {
-        return blacklisted;
+    public void setRepository(ArtifactRepository remoteRepository) {
+        // intentionally blank
     }
 ```
 
 ### Deprecation
-Overrides deprecated method in 'org.apache.maven.artifact.repository.ArtifactRepository'
-in `maven-compat/src/main/java/org/apache/maven/artifact/repository/DefaultArtifactRepository.java`
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
+#### Snippet
+```java
+
+    public void resolveAlways(
+            Artifact artifact, List<ArtifactRepository> remoteRepositories, ArtifactRepository localRepository)
+            throws ArtifactResolutionException, ArtifactNotFoundException {
+        resolve(artifact, remoteRepositories, getSession(localRepository));
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
+#### Snippet
+```java
+
+    public void resolveAlways(
+            Artifact artifact, List<ArtifactRepository> remoteRepositories, ArtifactRepository localRepository)
+            throws ArtifactResolutionException, ArtifactNotFoundException {
+        resolve(artifact, remoteRepositories, getSession(localRepository));
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
+#### Snippet
+```java
+
+    public void resolve(
+            Artifact artifact, List<ArtifactRepository> remoteRepositories, ArtifactRepository localRepository)
+            throws ArtifactResolutionException, ArtifactNotFoundException {
+        resolve(artifact, remoteRepositories, localRepository, null);
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
+#### Snippet
+```java
+
+    public void resolve(
+            Artifact artifact, List<ArtifactRepository> remoteRepositories, ArtifactRepository localRepository)
+            throws ArtifactResolutionException, ArtifactNotFoundException {
+        resolve(artifact, remoteRepositories, localRepository, null);
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
+#### Snippet
+```java
+            Artifact originatingArtifact,
+            Map<String, Artifact> managedVersions,
+            ArtifactRepository localRepository,
+            List<ArtifactRepository> remoteRepositories,
+            ArtifactMetadataSource source,
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
+#### Snippet
+```java
+            Map<String, Artifact> managedVersions,
+            ArtifactRepository localRepository,
+            List<ArtifactRepository> remoteRepositories,
+            ArtifactMetadataSource source,
+            ArtifactFilter filter)
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadataSource' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
+#### Snippet
+```java
+            ArtifactRepository localRepository,
+            List<ArtifactRepository> remoteRepositories,
+            ArtifactMetadataSource source,
+            ArtifactFilter filter)
+            throws ArtifactResolutionException, ArtifactNotFoundException {
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
+#### Snippet
+```java
+            Set<Artifact> artifacts,
+            Artifact originatingArtifact,
+            List<ArtifactRepository> remoteRepositories,
+            ArtifactRepository localRepository,
+            ArtifactMetadataSource source)
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
+#### Snippet
+```java
+            Artifact originatingArtifact,
+            List<ArtifactRepository> remoteRepositories,
+            ArtifactRepository localRepository,
+            ArtifactMetadataSource source)
+            throws ArtifactResolutionException, ArtifactNotFoundException {
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadataSource' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
+#### Snippet
+```java
+            List<ArtifactRepository> remoteRepositories,
+            ArtifactRepository localRepository,
+            ArtifactMetadataSource source)
+            throws ArtifactResolutionException, ArtifactNotFoundException {
+        return resolveTransitively(artifacts, originatingArtifact, localRepository, remoteRepositories, source, null);
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
 #### Snippet
 ```java
     }
 
-    public void setBlacklisted(boolean blacklisted) {
-        this.blacklisted = blacklisted;
+    private RepositorySystemSession getSession(ArtifactRepository localRepository) {
+        return LegacyLocalRepositoryManager.overlay(localRepository, legacySupport.getRepositorySession(), repoSystem);
     }
 ```
 
 ### Deprecation
-Overrides deprecated method in 'org.apache.maven.artifact.repository.ArtifactRepository'
-in `maven-compat/src/main/java/org/apache/maven/artifact/repository/DefaultArtifactRepository.java`
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
 #### Snippet
 ```java
-    }
+                Artifact artifact,
+                RepositorySystemSession session,
+                List<ArtifactRepository> remoteRepositories,
+                ArtifactResolutionResult result) {
+            this.classLoader = classLoader;
+```
 
-    public boolean isUniqueVersion() {
-        return true;
-    }
+### Deprecation
+'org.apache.maven.artifact.factory.ArtifactFactory' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
+#### Snippet
+```java
+
+    @Requirement
+    protected ArtifactFactory artifactFactory;
+
+    @Requirement
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadataSource' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
+#### Snippet
+```java
+
+    @Requirement
+    private ArtifactMetadataSource source;
+
+    @Requirement
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
+#### Snippet
+```java
+        private final RepositorySystemSession session;
+
+        private final List<ArtifactRepository> remoteRepositories;
+
+        private final ArtifactResolutionResult result;
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
+#### Snippet
+```java
+    public void resolve(
+            Artifact artifact,
+            List<ArtifactRepository> remoteRepositories,
+            ArtifactRepository localRepository,
+            TransferListener resolutionListener)
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
+#### Snippet
+```java
+            Artifact artifact,
+            List<ArtifactRepository> remoteRepositories,
+            ArtifactRepository localRepository,
+            TransferListener resolutionListener)
+            throws ArtifactResolutionException, ArtifactNotFoundException {
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
+#### Snippet
+```java
+            Set<Artifact> artifacts,
+            Artifact originatingArtifact,
+            List<ArtifactRepository> remoteRepositories,
+            ArtifactRepository localRepository,
+            ArtifactMetadataSource source,
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
+#### Snippet
+```java
+            Artifact originatingArtifact,
+            List<ArtifactRepository> remoteRepositories,
+            ArtifactRepository localRepository,
+            ArtifactMetadataSource source,
+            List<ResolutionListener> listeners)
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadataSource' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
+#### Snippet
+```java
+            List<ArtifactRepository> remoteRepositories,
+            ArtifactRepository localRepository,
+            ArtifactMetadataSource source,
+            List<ResolutionListener> listeners)
+            throws ArtifactResolutionException, ArtifactNotFoundException {
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
+#### Snippet
+```java
+            Artifact originatingArtifact,
+            Map<String, Artifact> managedVersions,
+            ArtifactRepository localRepository,
+            List<ArtifactRepository> remoteRepositories,
+            ArtifactMetadataSource source)
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
+#### Snippet
+```java
+            Map<String, Artifact> managedVersions,
+            ArtifactRepository localRepository,
+            List<ArtifactRepository> remoteRepositories,
+            ArtifactMetadataSource source)
+            throws ArtifactResolutionException, ArtifactNotFoundException {
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadataSource' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
+#### Snippet
+```java
+            ArtifactRepository localRepository,
+            List<ArtifactRepository> remoteRepositories,
+            ArtifactMetadataSource source)
+            throws ArtifactResolutionException, ArtifactNotFoundException {
+        return resolveTransitively(
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
+#### Snippet
+```java
+            Artifact originatingArtifact,
+            Map<String, Artifact> managedVersions,
+            ArtifactRepository localRepository,
+            List<ArtifactRepository> remoteRepositories,
+            ArtifactMetadataSource source,
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
+#### Snippet
+```java
+            Map<String, Artifact> managedVersions,
+            ArtifactRepository localRepository,
+            List<ArtifactRepository> remoteRepositories,
+            ArtifactMetadataSource source,
+            ArtifactFilter filter,
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadataSource' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
+#### Snippet
+```java
+            ArtifactRepository localRepository,
+            List<ArtifactRepository> remoteRepositories,
+            ArtifactMetadataSource source,
+            ArtifactFilter filter,
+            List<ResolutionListener> listeners)
+```
+
+### Deprecation
+'org.apache.maven.artifact.resolver.ArtifactCollector' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
+#### Snippet
+```java
+
+    @Requirement
+    private ArtifactCollector artifactCollector;
+
+    @Requirement
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
+#### Snippet
+```java
+            Artifact originatingArtifact,
+            Map<String, Artifact> managedVersions,
+            ArtifactRepository localRepository,
+            List<ArtifactRepository> remoteRepositories,
+            ArtifactMetadataSource source,
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
+#### Snippet
+```java
+            Map<String, Artifact> managedVersions,
+            ArtifactRepository localRepository,
+            List<ArtifactRepository> remoteRepositories,
+            ArtifactMetadataSource source,
+            ArtifactFilter filter,
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadataSource' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
+#### Snippet
+```java
+            ArtifactRepository localRepository,
+            List<ArtifactRepository> remoteRepositories,
+            ArtifactMetadataSource source,
+            ArtifactFilter filter,
+            List<ResolutionListener> listeners,
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadataSource' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
+#### Snippet
+```java
+        if (source == null) {
+            try {
+                source = container.lookup(ArtifactMetadataSource.class);
+            } catch (ComponentLookupException e) {
+                // won't happen
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ResolutionGroup' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
+#### Snippet
+```java
+
+            try {
+                ResolutionGroup resolutionGroup = source.retrieve(metadataRequest);
+
+                if (managedVersions == null) {
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadataRetrievalException' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
+#### Snippet
+```java
+                collectionRequest.setProxies(request.getProxies());
+                collectionRequest.setRemoteRepositories(resolutionGroup.getResolutionRepositories());
+            } catch (ArtifactMetadataRetrievalException e) {
+                ArtifactResolutionException are = new ArtifactResolutionException(
+                        "Unable to get dependency information for " + rootArtifact.getId() + ": " + e.getMessage(),
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
+#### Snippet
+```java
+            Set<Artifact> artifacts,
+            Artifact originatingArtifact,
+            ArtifactRepository localRepository,
+            List<ArtifactRepository> remoteRepositories,
+            ArtifactMetadataSource source,
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
+#### Snippet
+```java
+            Artifact originatingArtifact,
+            ArtifactRepository localRepository,
+            List<ArtifactRepository> remoteRepositories,
+            ArtifactMetadataSource source,
+            ArtifactFilter filter)
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadataSource' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
+#### Snippet
+```java
+            ArtifactRepository localRepository,
+            List<ArtifactRepository> remoteRepositories,
+            ArtifactMetadataSource source,
+            ArtifactFilter filter)
+            throws ArtifactResolutionException, ArtifactNotFoundException {
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
+#### Snippet
+```java
+
+    private void resolve(
+            Artifact artifact, List<ArtifactRepository> remoteRepositories, RepositorySystemSession session)
+            throws ArtifactResolutionException, ArtifactNotFoundException {
+        if (artifact == null) {
 ```
 
 ### Deprecation
@@ -1280,30 +2264,6 @@ public final class MetadataBridge extends AbstractMetadata implements MergeableM
     private ArtifactMetadata metadata;
 
     private boolean merged;
-```
-
-### Deprecation
-Overrides deprecated method in 'org.apache.maven.project.interpolation.ModelInterpolator'
-in `maven-compat/src/main/java/org/apache/maven/project/interpolation/AbstractStringBasedModelInterpolator.java`
-#### Snippet
-```java
-    protected AbstractStringBasedModelInterpolator() {}
-
-    public Model interpolate(Model model, Map<String, ?> context) throws ModelInterpolationException {
-        return interpolate(model, context, true);
-    }
-```
-
-### Deprecation
-Overrides deprecated method in 'org.apache.maven.project.interpolation.ModelInterpolator'
-in `maven-compat/src/main/java/org/apache/maven/project/interpolation/AbstractStringBasedModelInterpolator.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public Model interpolate(Model model, Map<String, ?> context, boolean strict) throws ModelInterpolationException {
-        Properties props = new Properties();
-        props.putAll(context);
 ```
 
 ### Deprecation
@@ -1367,39 +2327,15 @@ public class UserLocalArtifactRepository extends LocalArtifactRepository {
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/DefaultRepositoryMetadataManager.java`
+'toURL()' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/usability/plugin/ExpressionDocumenter.java`
 #### Snippet
 ```java
-
-    public void resolveAlways(
-            RepositoryMetadata metadata, ArtifactRepository localRepository, ArtifactRepository remoteRepository)
-            throws RepositoryMetadataResolutionException {
-        File file;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/DefaultRepositoryMetadataManager.java`
-#### Snippet
-```java
-
-    public void resolveAlways(
-            RepositoryMetadata metadata, ArtifactRepository localRepository, ArtifactRepository remoteRepository)
-            throws RepositoryMetadataResolutionException {
-        File file;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/UpdateCheckManager.java`
-#### Snippet
-```java
-    boolean isUpdateRequired(Artifact artifact, ArtifactRepository repository);
-
-    void touch(Artifact artifact, ArtifactRepository repository, String error);
-
-    String getError(Artifact artifact, ArtifactRepository repository);
+        URL docResource;
+        try {
+            docResource = new File(myClasspathEntry).toURL();
+        } catch (MalformedURLException e) {
+            throw new ExpressionDocumentationException(
 ```
 
 ### Deprecation
@@ -1412,18 +2348,6 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/UpdateCheckMan
     boolean isUpdateRequired(RepositoryMetadata metadata, ArtifactRepository repository, File file);
 
     void touch(RepositoryMetadata metadata, ArtifactRepository repository, File file);
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/UpdateCheckManager.java`
-#### Snippet
-```java
-    void touch(Artifact artifact, ArtifactRepository repository, String error);
-
-    String getError(Artifact artifact, ArtifactRepository repository);
-
-    boolean isUpdateRequired(RepositoryMetadata metadata, ArtifactRepository repository, File file);
 ```
 
 ### Deprecation
@@ -1443,6 +2367,18 @@ public interface UpdateCheckManager {
 in `maven-compat/src/main/java/org/apache/maven/repository/legacy/UpdateCheckManager.java`
 #### Snippet
 ```java
+    void touch(Artifact artifact, ArtifactRepository repository, String error);
+
+    String getError(Artifact artifact, ArtifactRepository repository);
+
+    boolean isUpdateRequired(RepositoryMetadata metadata, ArtifactRepository repository, File file);
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/UpdateCheckManager.java`
+#### Snippet
+```java
     boolean isUpdateRequired(RepositoryMetadata metadata, ArtifactRepository repository, File file);
 
     void touch(RepositoryMetadata metadata, ArtifactRepository repository, File file);
@@ -1451,15 +2387,15 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/UpdateCheckMan
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/DefaultRepositoryMetadataManager.java`
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/UpdateCheckManager.java`
 #### Snippet
 ```java
-    }
+    boolean isUpdateRequired(Artifact artifact, ArtifactRepository repository);
 
-    public void install(ArtifactMetadata metadata, ArtifactRepository localRepository)
-            throws RepositoryMetadataInstallationException {
-        try {
+    void touch(Artifact artifact, ArtifactRepository repository, String error);
+
+    String getError(Artifact artifact, ArtifactRepository repository);
 ```
 
 ### Deprecation
@@ -1467,11 +2403,95 @@ in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/Def
 in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/DefaultRepositoryMetadataManager.java`
 #### Snippet
 ```java
-    }
+    public void resolve(
+            RepositoryMetadata metadata,
+            List<ArtifactRepository> remoteRepositories,
+            ArtifactRepository localRepository)
+            throws RepositoryMetadataResolutionException {
+```
 
-    public void install(ArtifactMetadata metadata, ArtifactRepository localRepository)
-            throws RepositoryMetadataInstallationException {
-        try {
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/DefaultRepositoryMetadataManager.java`
+#### Snippet
+```java
+            RepositoryMetadata metadata,
+            List<ArtifactRepository> remoteRepositories,
+            ArtifactRepository localRepository)
+            throws RepositoryMetadataResolutionException {
+        RepositoryRequest request = new DefaultRepositoryRequest();
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/DefaultRepositoryMetadataManager.java`
+#### Snippet
+```java
+    private boolean loadMetadata(
+            RepositoryMetadata repoMetadata,
+            ArtifactRepository remoteRepository,
+            ArtifactRepository localRepository,
+            Map<ArtifactRepository, Metadata> previousMetadata) {
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/DefaultRepositoryMetadataManager.java`
+#### Snippet
+```java
+            RepositoryMetadata repoMetadata,
+            ArtifactRepository remoteRepository,
+            ArtifactRepository localRepository,
+            Map<ArtifactRepository, Metadata> previousMetadata) {
+        boolean setRepository = false;
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/DefaultRepositoryMetadataManager.java`
+#### Snippet
+```java
+            ArtifactRepository remoteRepository,
+            ArtifactRepository localRepository,
+            Map<ArtifactRepository, Metadata> previousMetadata) {
+        boolean setRepository = false;
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/DefaultRepositoryMetadataManager.java`
+#### Snippet
+```java
+
+    public void deploy(
+            ArtifactMetadata metadata, ArtifactRepository localRepository, ArtifactRepository deploymentRepository)
+            throws RepositoryMetadataDeploymentException {
+        File file;
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/DefaultRepositoryMetadataManager.java`
+#### Snippet
+```java
+
+    public void deploy(
+            ArtifactMetadata metadata, ArtifactRepository localRepository, ArtifactRepository deploymentRepository)
+            throws RepositoryMetadataDeploymentException {
+        File file;
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/DefaultRepositoryMetadataManager.java`
+#### Snippet
+```java
+
+    public void deploy(
+            ArtifactMetadata metadata, ArtifactRepository localRepository, ArtifactRepository deploymentRepository)
+            throws RepositoryMetadataDeploymentException {
+        File file;
 ```
 
 ### Deprecation
@@ -1520,126 +2540,6 @@ in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/Def
                 ArtifactRepositoryPolicy policy = metadata.getPolicy(repository);
 
                 File file =
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/DefaultRepositoryMetadataManager.java`
-#### Snippet
-```java
-
-    public void deploy(
-            ArtifactMetadata metadata, ArtifactRepository localRepository, ArtifactRepository deploymentRepository)
-            throws RepositoryMetadataDeploymentException {
-        File file;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/DefaultRepositoryMetadataManager.java`
-#### Snippet
-```java
-
-    public void deploy(
-            ArtifactMetadata metadata, ArtifactRepository localRepository, ArtifactRepository deploymentRepository)
-            throws RepositoryMetadataDeploymentException {
-        File file;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/DefaultRepositoryMetadataManager.java`
-#### Snippet
-```java
-
-    public void deploy(
-            ArtifactMetadata metadata, ArtifactRepository localRepository, ArtifactRepository deploymentRepository)
-            throws RepositoryMetadataDeploymentException {
-        File file;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/DefaultRepositoryMetadataManager.java`
-#### Snippet
-```java
-    private boolean loadMetadata(
-            RepositoryMetadata repoMetadata,
-            ArtifactRepository remoteRepository,
-            ArtifactRepository localRepository,
-            Map<ArtifactRepository, Metadata> previousMetadata) {
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/DefaultRepositoryMetadataManager.java`
-#### Snippet
-```java
-            RepositoryMetadata repoMetadata,
-            ArtifactRepository remoteRepository,
-            ArtifactRepository localRepository,
-            Map<ArtifactRepository, Metadata> previousMetadata) {
-        boolean setRepository = false;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/DefaultRepositoryMetadataManager.java`
-#### Snippet
-```java
-            ArtifactRepository remoteRepository,
-            ArtifactRepository localRepository,
-            Map<ArtifactRepository, Metadata> previousMetadata) {
-        boolean setRepository = false;
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/DefaultRepositoryMetadataManager.java`
-#### Snippet
-```java
-    private void updateSnapshotMetadata(
-            RepositoryMetadata metadata,
-            Map<ArtifactRepository, Metadata> previousMetadata,
-            ArtifactRepository selected,
-            ArtifactRepository localRepository)
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/DefaultRepositoryMetadataManager.java`
-#### Snippet
-```java
-            RepositoryMetadata metadata,
-            Map<ArtifactRepository, Metadata> previousMetadata,
-            ArtifactRepository selected,
-            ArtifactRepository localRepository)
-            throws RepositoryMetadataStoreException {
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/DefaultRepositoryMetadataManager.java`
-#### Snippet
-```java
-            Map<ArtifactRepository, Metadata> previousMetadata,
-            ArtifactRepository selected,
-            ArtifactRepository localRepository)
-            throws RepositoryMetadataStoreException {
-        // TODO this could be a lot nicer... should really be in the snapshot transformation?
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/DefaultRepositoryMetadataManager.java`
-#### Snippet
-```java
-            Metadata prevMetadata = metadata.getMetadata();
-
-            for (ArtifactRepository repository : previousMetadata.keySet()) {
-                Metadata m = previousMetadata.get(repository);
-                if (repository.equals(selected)) {
 ```
 
 ### Deprecation
@@ -1715,6 +2615,30 @@ in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/Def
 ```
 
 ### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/DefaultRepositoryMetadataManager.java`
+#### Snippet
+```java
+    }
+
+    public void install(ArtifactMetadata metadata, ArtifactRepository localRepository)
+            throws RepositoryMetadataInstallationException {
+        try {
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/DefaultRepositoryMetadataManager.java`
+#### Snippet
+```java
+    }
+
+    public void install(ArtifactMetadata metadata, ArtifactRepository localRepository)
+            throws RepositoryMetadataInstallationException {
+        try {
+```
+
+### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
 in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/DefaultRepositoryMetadataManager.java`
 #### Snippet
@@ -1779,11 +2703,35 @@ in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/Def
 in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/DefaultRepositoryMetadataManager.java`
 #### Snippet
 ```java
-    public void resolve(
-            RepositoryMetadata metadata,
-            List<ArtifactRepository> remoteRepositories,
-            ArtifactRepository localRepository)
+
+    public void resolveAlways(
+            RepositoryMetadata metadata, ArtifactRepository localRepository, ArtifactRepository remoteRepository)
             throws RepositoryMetadataResolutionException {
+        File file;
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/DefaultRepositoryMetadataManager.java`
+#### Snippet
+```java
+
+    public void resolveAlways(
+            RepositoryMetadata metadata, ArtifactRepository localRepository, ArtifactRepository remoteRepository)
+            throws RepositoryMetadataResolutionException {
+        File file;
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/DefaultRepositoryMetadataManager.java`
+#### Snippet
+```java
+    private void updateSnapshotMetadata(
+            RepositoryMetadata metadata,
+            Map<ArtifactRepository, Metadata> previousMetadata,
+            ArtifactRepository selected,
+            ArtifactRepository localRepository)
 ```
 
 ### Deprecation
@@ -1792,10 +2740,58 @@ in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/Def
 #### Snippet
 ```java
             RepositoryMetadata metadata,
-            List<ArtifactRepository> remoteRepositories,
+            Map<ArtifactRepository, Metadata> previousMetadata,
+            ArtifactRepository selected,
             ArtifactRepository localRepository)
-            throws RepositoryMetadataResolutionException {
-        RepositoryRequest request = new DefaultRepositoryRequest();
+            throws RepositoryMetadataStoreException {
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/DefaultRepositoryMetadataManager.java`
+#### Snippet
+```java
+            Map<ArtifactRepository, Metadata> previousMetadata,
+            ArtifactRepository selected,
+            ArtifactRepository localRepository)
+            throws RepositoryMetadataStoreException {
+        // TODO this could be a lot nicer... should really be in the snapshot transformation?
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/MetadataResolutionRequest.java`
+#### Snippet
+```java
+    }
+
+    public MetadataResolutionRequest setLocalRepository(ArtifactRepository localRepository) {
+        this.localRepository = localRepository;
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/DefaultRepositoryMetadataManager.java`
+#### Snippet
+```java
+            Metadata prevMetadata = metadata.getMetadata();
+
+            for (ArtifactRepository repository : previousMetadata.keySet()) {
+                Metadata m = previousMetadata.get(repository);
+                if (repository.equals(selected)) {
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/MetadataResolutionRequest.java`
+#### Snippet
+```java
+    }
+
+    public ArtifactRepository getLocalRepository() {
+        return localRepository;
+    }
 ```
 
 ### Deprecation
@@ -1827,11 +2823,11 @@ in `maven-compat/src/main/java/org/apache/maven/repository/MetadataResolutionReq
 in `maven-compat/src/main/java/org/apache/maven/repository/MetadataResolutionRequest.java`
 #### Snippet
 ```java
+    }
 
-    public MetadataResolutionRequest(
-            MavenArtifactMetadata md, ArtifactRepository localRepository, List<ArtifactRepository> remoteRepositories) {
-        this.mad = md;
-        this.localRepository = localRepository;
+    public List<ArtifactRepository> getRemoteRepositories() {
+        return getRemoteRepostories();
+    }
 ```
 
 ### Deprecation
@@ -1851,23 +2847,11 @@ in `maven-compat/src/main/java/org/apache/maven/repository/MetadataResolutionReq
 in `maven-compat/src/main/java/org/apache/maven/repository/MetadataResolutionRequest.java`
 #### Snippet
 ```java
-    }
 
-    public MetadataResolutionRequest setLocalRepository(ArtifactRepository localRepository) {
+    public MetadataResolutionRequest(
+            MavenArtifactMetadata md, ArtifactRepository localRepository, List<ArtifactRepository> remoteRepositories) {
+        this.mad = md;
         this.localRepository = localRepository;
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/MetadataResolutionRequest.java`
-#### Snippet
-```java
-    }
-
-    public ArtifactRepository getLocalRepository() {
-        return localRepository;
-    }
 ```
 
 ### Deprecation
@@ -1883,354 +2867,6 @@ in `maven-compat/src/main/java/org/apache/maven/repository/MetadataResolutionReq
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/MetadataResolutionRequest.java`
-#### Snippet
-```java
-    }
-
-    public List<ArtifactRepository> getRemoteRepositories() {
-        return getRemoteRepostories();
-    }
-```
-
-### Deprecation
-'toURL()' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/usability/plugin/ExpressionDocumenter.java`
-#### Snippet
-```java
-        URL docResource;
-        try {
-            docResource = new File(myClasspathEntry).toURL();
-        } catch (MalformedURLException e) {
-            throw new ExpressionDocumentationException(
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadataSource' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
-#### Snippet
-```java
-        if (source == null) {
-            try {
-                source = container.lookup(ArtifactMetadataSource.class);
-            } catch (ComponentLookupException e) {
-                // won't happen
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ResolutionGroup' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
-#### Snippet
-```java
-
-            try {
-                ResolutionGroup resolutionGroup = source.retrieve(metadataRequest);
-
-                if (managedVersions == null) {
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadataRetrievalException' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
-#### Snippet
-```java
-                collectionRequest.setProxies(request.getProxies());
-                collectionRequest.setRemoteRepositories(resolutionGroup.getResolutionRepositories());
-            } catch (ArtifactMetadataRetrievalException e) {
-                ArtifactResolutionException are = new ArtifactResolutionException(
-                        "Unable to get dependency information for " + rootArtifact.getId() + ": " + e.getMessage(),
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
-#### Snippet
-```java
-                Artifact artifact,
-                RepositorySystemSession session,
-                List<ArtifactRepository> remoteRepositories,
-                ArtifactResolutionResult result) {
-            this.classLoader = classLoader;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
-#### Snippet
-```java
-        private final RepositorySystemSession session;
-
-        private final List<ArtifactRepository> remoteRepositories;
-
-        private final ArtifactResolutionResult result;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
-#### Snippet
-```java
-            Artifact originatingArtifact,
-            Map<String, Artifact> managedVersions,
-            ArtifactRepository localRepository,
-            List<ArtifactRepository> remoteRepositories,
-            ArtifactMetadataSource source,
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
-#### Snippet
-```java
-            Map<String, Artifact> managedVersions,
-            ArtifactRepository localRepository,
-            List<ArtifactRepository> remoteRepositories,
-            ArtifactMetadataSource source,
-            ArtifactFilter filter,
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadataSource' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
-#### Snippet
-```java
-            ArtifactRepository localRepository,
-            List<ArtifactRepository> remoteRepositories,
-            ArtifactMetadataSource source,
-            ArtifactFilter filter,
-            List<ResolutionListener> listeners,
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadataSource' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
-#### Snippet
-```java
-
-    @Requirement
-    private ArtifactMetadataSource source;
-
-    @Requirement
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
-#### Snippet
-```java
-            Artifact originatingArtifact,
-            Map<String, Artifact> managedVersions,
-            ArtifactRepository localRepository,
-            List<ArtifactRepository> remoteRepositories,
-            ArtifactMetadataSource source,
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
-#### Snippet
-```java
-            Map<String, Artifact> managedVersions,
-            ArtifactRepository localRepository,
-            List<ArtifactRepository> remoteRepositories,
-            ArtifactMetadataSource source,
-            ArtifactFilter filter,
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadataSource' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
-#### Snippet
-```java
-            ArtifactRepository localRepository,
-            List<ArtifactRepository> remoteRepositories,
-            ArtifactMetadataSource source,
-            ArtifactFilter filter,
-            List<ResolutionListener> listeners)
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
-#### Snippet
-```java
-            Artifact originatingArtifact,
-            Map<String, Artifact> managedVersions,
-            ArtifactRepository localRepository,
-            List<ArtifactRepository> remoteRepositories,
-            ArtifactMetadataSource source,
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
-#### Snippet
-```java
-            Map<String, Artifact> managedVersions,
-            ArtifactRepository localRepository,
-            List<ArtifactRepository> remoteRepositories,
-            ArtifactMetadataSource source,
-            ArtifactFilter filter)
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadataSource' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
-#### Snippet
-```java
-            ArtifactRepository localRepository,
-            List<ArtifactRepository> remoteRepositories,
-            ArtifactMetadataSource source,
-            ArtifactFilter filter)
-            throws ArtifactResolutionException, ArtifactNotFoundException {
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
-#### Snippet
-```java
-            Artifact originatingArtifact,
-            Map<String, Artifact> managedVersions,
-            ArtifactRepository localRepository,
-            List<ArtifactRepository> remoteRepositories,
-            ArtifactMetadataSource source)
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
-#### Snippet
-```java
-            Map<String, Artifact> managedVersions,
-            ArtifactRepository localRepository,
-            List<ArtifactRepository> remoteRepositories,
-            ArtifactMetadataSource source)
-            throws ArtifactResolutionException, ArtifactNotFoundException {
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadataSource' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
-#### Snippet
-```java
-            ArtifactRepository localRepository,
-            List<ArtifactRepository> remoteRepositories,
-            ArtifactMetadataSource source)
-            throws ArtifactResolutionException, ArtifactNotFoundException {
-        return resolveTransitively(
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
-#### Snippet
-```java
-    }
-
-    private RepositorySystemSession getSession(ArtifactRepository localRepository) {
-        return LegacyLocalRepositoryManager.overlay(localRepository, legacySupport.getRepositorySession(), repoSystem);
-    }
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/WagonManager.java`
-#### Snippet
-```java
-
-    void getRemoteFile(
-            ArtifactRepository repository,
-            File destination,
-            String remotePath,
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
-#### Snippet
-```java
-
-    private void resolve(
-            Artifact artifact, List<ArtifactRepository> remoteRepositories, RepositorySystemSession session)
-            throws ArtifactResolutionException, ArtifactNotFoundException {
-        if (artifact == null) {
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/WagonManager.java`
-#### Snippet
-```java
-    void getArtifact(
-            Artifact artifact,
-            List<ArtifactRepository> remoteRepositories,
-            TransferListener transferListener,
-            boolean force)
-```
-
-### Deprecation
-'org.apache.maven.artifact.resolver.ArtifactCollector' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
-#### Snippet
-```java
-
-    @Requirement
-    private ArtifactCollector artifactCollector;
-
-    @Requirement
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/WagonManager.java`
-#### Snippet
-```java
-
-    void getArtifactMetadata(
-            ArtifactMetadata metadata, ArtifactRepository remoteRepository, File destination, String checksumPolicy)
-            throws TransferFailedException, ResourceDoesNotExistException;
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
-#### Snippet
-```java
-
-    public void resolve(
-            Artifact artifact, List<ArtifactRepository> remoteRepositories, ArtifactRepository localRepository)
-            throws ArtifactResolutionException, ArtifactNotFoundException {
-        resolve(artifact, remoteRepositories, localRepository, null);
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
-#### Snippet
-```java
-
-    public void resolve(
-            Artifact artifact, List<ArtifactRepository> remoteRepositories, ArtifactRepository localRepository)
-            throws ArtifactResolutionException, ArtifactNotFoundException {
-        resolve(artifact, remoteRepositories, localRepository, null);
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/WagonManager.java`
-#### Snippet
-```java
-
-    void getArtifactMetadata(
-            ArtifactMetadata metadata, ArtifactRepository remoteRepository, File destination, String checksumPolicy)
-            throws TransferFailedException, ResourceDoesNotExistException;
-
-```
-
-### Deprecation
 'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
 in `maven-compat/src/main/java/org/apache/maven/repository/legacy/WagonManager.java`
 #### Snippet
@@ -2244,18 +2880,6 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/WagonManager.j
 
 ### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
-#### Snippet
-```java
-            Set<Artifact> artifacts,
-            Artifact originatingArtifact,
-            List<ArtifactRepository> remoteRepositories,
-            ArtifactRepository localRepository,
-            ArtifactMetadataSource source,
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
 in `maven-compat/src/main/java/org/apache/maven/repository/legacy/WagonManager.java`
 #### Snippet
 ```java
@@ -2264,102 +2888,6 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/WagonManager.j
     void putArtifactMetadata(File source, ArtifactMetadata artifactMetadata, ArtifactRepository repository)
             throws TransferFailedException;
 }
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
-#### Snippet
-```java
-            Artifact originatingArtifact,
-            List<ArtifactRepository> remoteRepositories,
-            ArtifactRepository localRepository,
-            ArtifactMetadataSource source,
-            List<ResolutionListener> listeners)
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/WagonManager.java`
-#### Snippet
-```java
-            throws TransferFailedException;
-
-    void putRemoteFile(ArtifactRepository repository, File source, String remotePath, TransferListener downloadMonitor)
-            throws TransferFailedException;
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadataSource' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
-#### Snippet
-```java
-            List<ArtifactRepository> remoteRepositories,
-            ArtifactRepository localRepository,
-            ArtifactMetadataSource source,
-            List<ResolutionListener> listeners)
-            throws ArtifactResolutionException, ArtifactNotFoundException {
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/WagonManager.java`
-#### Snippet
-```java
-    //
-    void putArtifact(
-            File source, Artifact artifact, ArtifactRepository deploymentRepository, TransferListener downloadMonitor)
-            throws TransferFailedException;
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
-#### Snippet
-```java
-    public void resolve(
-            Artifact artifact,
-            List<ArtifactRepository> remoteRepositories,
-            ArtifactRepository localRepository,
-            TransferListener resolutionListener)
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/WagonManager.java`
-#### Snippet
-```java
-
-    void getArtifactMetadataFromDeploymentRepository(
-            ArtifactMetadata metadata, ArtifactRepository remoteRepository, File file, String checksumPolicyWarn)
-            throws TransferFailedException, ResourceDoesNotExistException;
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
-#### Snippet
-```java
-            Artifact artifact,
-            List<ArtifactRepository> remoteRepositories,
-            ArtifactRepository localRepository,
-            TransferListener resolutionListener)
-            throws ArtifactResolutionException, ArtifactNotFoundException {
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/WagonManager.java`
-#### Snippet
-```java
-
-    void getArtifactMetadataFromDeploymentRepository(
-            ArtifactMetadata metadata, ArtifactRepository remoteRepository, File file, String checksumPolicyWarn)
-            throws TransferFailedException, ResourceDoesNotExistException;
-
 ```
 
 ### Deprecation
@@ -2376,170 +2904,98 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/WagonManager.j
 
 ### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/WagonManager.java`
 #### Snippet
 ```java
+            throws TransferFailedException;
 
-    public void resolveAlways(
-            Artifact artifact, List<ArtifactRepository> remoteRepositories, ArtifactRepository localRepository)
-            throws ArtifactResolutionException, ArtifactNotFoundException {
-        resolve(artifact, remoteRepositories, getSession(localRepository));
+    void putRemoteFile(ArtifactRepository repository, File source, String remotePath, TransferListener downloadMonitor)
+            throws TransferFailedException;
+
 ```
 
 ### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/WagonManager.java`
 #### Snippet
 ```java
 
-    public void resolveAlways(
-            Artifact artifact, List<ArtifactRepository> remoteRepositories, ArtifactRepository localRepository)
-            throws ArtifactResolutionException, ArtifactNotFoundException {
-        resolve(artifact, remoteRepositories, getSession(localRepository));
+    void getRemoteFile(
+            ArtifactRepository repository,
+            File destination,
+            String remotePath,
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.factory.ArtifactFactory' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
+'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/WagonManager.java`
 #### Snippet
 ```java
 
-    @Requirement
-    protected ArtifactFactory artifactFactory;
+    void getArtifactMetadata(
+            ArtifactMetadata metadata, ArtifactRepository remoteRepository, File destination, String checksumPolicy)
+            throws TransferFailedException, ResourceDoesNotExistException;
 
-    @Requirement
 ```
 
 ### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/WagonManager.java`
 #### Snippet
 ```java
-            Set<Artifact> artifacts,
-            Artifact originatingArtifact,
+
+    void getArtifactMetadata(
+            ArtifactMetadata metadata, ArtifactRepository remoteRepository, File destination, String checksumPolicy)
+            throws TransferFailedException, ResourceDoesNotExistException;
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/WagonManager.java`
+#### Snippet
+```java
+    void getArtifact(
+            Artifact artifact,
             List<ArtifactRepository> remoteRepositories,
-            ArtifactRepository localRepository,
-            ArtifactMetadataSource source)
+            TransferListener transferListener,
+            boolean force)
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/WagonManager.java`
+#### Snippet
+```java
+
+    void getArtifactMetadataFromDeploymentRepository(
+            ArtifactMetadata metadata, ArtifactRepository remoteRepository, File file, String checksumPolicyWarn)
+            throws TransferFailedException, ResourceDoesNotExistException;
+
 ```
 
 ### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/WagonManager.java`
 #### Snippet
 ```java
-            Artifact originatingArtifact,
-            List<ArtifactRepository> remoteRepositories,
-            ArtifactRepository localRepository,
-            ArtifactMetadataSource source)
-            throws ArtifactResolutionException, ArtifactNotFoundException {
-```
 
-### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadataSource' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
-#### Snippet
-```java
-            List<ArtifactRepository> remoteRepositories,
-            ArtifactRepository localRepository,
-            ArtifactMetadataSource source)
-            throws ArtifactResolutionException, ArtifactNotFoundException {
-        return resolveTransitively(artifacts, originatingArtifact, localRepository, remoteRepositories, source, null);
+    void getArtifactMetadataFromDeploymentRepository(
+            ArtifactMetadata metadata, ArtifactRepository remoteRepository, File file, String checksumPolicyWarn)
+            throws TransferFailedException, ResourceDoesNotExistException;
+
 ```
 
 ### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/WagonManager.java`
 #### Snippet
 ```java
-            Set<Artifact> artifacts,
-            Artifact originatingArtifact,
-            ArtifactRepository localRepository,
-            List<ArtifactRepository> remoteRepositories,
-            ArtifactMetadataSource source,
-```
+    //
+    void putArtifact(
+            File source, Artifact artifact, ArtifactRepository deploymentRepository, TransferListener downloadMonitor)
+            throws TransferFailedException;
 
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/MetadataResolutionResult.java`
-#### Snippet
-```java
-    // ------------------------------------------------------------------------
-
-    public List<ArtifactRepository> getRepositories() {
-        if (repositories == null) {
-            return Collections.emptyList();
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/MetadataResolutionResult.java`
-#### Snippet
-```java
-    // file system errors
-
-    private List<ArtifactRepository> repositories;
-
-    private Set<Artifact> requestedArtifacts;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
-#### Snippet
-```java
-            Artifact originatingArtifact,
-            ArtifactRepository localRepository,
-            List<ArtifactRepository> remoteRepositories,
-            ArtifactMetadataSource source,
-            ArtifactFilter filter)
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/MetadataResolutionResult.java`
-#### Snippet
-```java
-    }
-
-    public MetadataResolutionResult setRepositories(final List<ArtifactRepository> repositories) {
-        this.repositories = repositories;
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadataSource' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/DefaultArtifactResolver.java`
-#### Snippet
-```java
-            ArtifactRepository localRepository,
-            List<ArtifactRepository> remoteRepositories,
-            ArtifactMetadataSource source,
-            ArtifactFilter filter)
-            throws ArtifactResolutionException, ArtifactNotFoundException {
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/DefaultMirrorSelector.java`
-#### Snippet
-```java
-     * @return true if external.
-     */
-    static boolean isExternalHttpRepo(ArtifactRepository originalRepository) {
-        try {
-            URL url = new URL(originalRepository.getUrl());
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/DefaultMirrorSelector.java`
-#### Snippet
-```java
-    }
-
-    static boolean matchesLayout(ArtifactRepository repository, Mirror mirror) {
-        return matchesLayout(RepositoryUtils.getLayout(repository), mirror.getMirrorOfLayouts());
-    }
 ```
 
 ### Deprecation
@@ -2571,11 +3027,131 @@ in `maven-compat/src/main/java/org/apache/maven/repository/DefaultMirrorSelector
 in `maven-compat/src/main/java/org/apache/maven/repository/DefaultMirrorSelector.java`
 #### Snippet
 ```java
+     * @return true if external.
+     */
+    static boolean isExternalHttpRepo(ArtifactRepository originalRepository) {
+        try {
+            URL url = new URL(originalRepository.getUrl());
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/DefaultMirrorSelector.java`
+#### Snippet
+```java
      * @return true if the repository is a match to this pattern.
      */
     static boolean matchPattern(ArtifactRepository originalRepository, String pattern) {
         boolean result = false;
         String originalId = originalRepository.getId();
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/DefaultMirrorSelector.java`
+#### Snippet
+```java
+    }
+
+    static boolean matchesLayout(ArtifactRepository repository, Mirror mirror) {
+        return matchesLayout(RepositoryUtils.getLayout(repository), mirror.getMirrorOfLayouts());
+    }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/MetadataResolutionResult.java`
+#### Snippet
+```java
+    // file system errors
+
+    private List<ArtifactRepository> repositories;
+
+    private Set<Artifact> requestedArtifacts;
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/MetadataResolutionResult.java`
+#### Snippet
+```java
+    // ------------------------------------------------------------------------
+
+    public List<ArtifactRepository> getRepositories() {
+        if (repositories == null) {
+            return Collections.emptyList();
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/MetadataResolutionResult.java`
+#### Snippet
+```java
+    }
+
+    public MetadataResolutionResult setRepositories(final List<ArtifactRepository> repositories) {
+        this.repositories = repositories;
+
+```
+
+### Deprecation
+Overrides deprecated method in 'org.apache.maven.artifact.repository.ArtifactRepository'
+in `maven-compat/src/main/java/org/apache/maven/artifact/repository/DefaultArtifactRepository.java`
+#### Snippet
+```java
+    }
+
+    public boolean isBlacklisted() {
+        return blacklisted;
+    }
+```
+
+### Deprecation
+Overrides deprecated method in 'org.apache.maven.artifact.repository.ArtifactRepository'
+in `maven-compat/src/main/java/org/apache/maven/artifact/repository/DefaultArtifactRepository.java`
+#### Snippet
+```java
+    }
+
+    public boolean isUniqueVersion() {
+        return true;
+    }
+```
+
+### Deprecation
+Overrides deprecated method in 'org.apache.maven.artifact.repository.ArtifactRepository'
+in `maven-compat/src/main/java/org/apache/maven/artifact/repository/DefaultArtifactRepository.java`
+#### Snippet
+```java
+    }
+
+    public void setBlacklisted(boolean blacklisted) {
+        this.blacklisted = blacklisted;
+    }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/transform/ArtifactTransformation.java`
+#### Snippet
+```java
+     */
+    void transformForResolve(
+            Artifact artifact, List<ArtifactRepository> remoteRepositories, ArtifactRepository localRepository)
+            throws ArtifactResolutionException, ArtifactNotFoundException;
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/transform/ArtifactTransformation.java`
+#### Snippet
+```java
+     */
+    void transformForResolve(
+            Artifact artifact, List<ArtifactRepository> remoteRepositories, ArtifactRepository localRepository)
+            throws ArtifactResolutionException, ArtifactNotFoundException;
+
 ```
 
 ### Deprecation
@@ -2611,30 +3187,6 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/trans
      */
     void transformForInstall(Artifact artifact, ArtifactRepository localRepository)
             throws ArtifactInstallationException;
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/transform/ArtifactTransformation.java`
-#### Snippet
-```java
-     */
-    void transformForResolve(
-            Artifact artifact, List<ArtifactRepository> remoteRepositories, ArtifactRepository localRepository)
-            throws ArtifactResolutionException, ArtifactNotFoundException;
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/transform/ArtifactTransformation.java`
-#### Snippet
-```java
-     */
-    void transformForResolve(
-            Artifact artifact, List<ArtifactRepository> remoteRepositories, ArtifactRepository localRepository)
-            throws ArtifactResolutionException, ArtifactNotFoundException;
 
 ```
 
@@ -2676,50 +3228,62 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/trans
 
 ### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/transform/AbstractVersionTransformation.java`
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/transform/ArtifactTransformationManager.java`
 #### Snippet
 ```java
+     * @param localRepository the local repository it will be stored in
+     */
+    void transformForInstall(Artifact artifact, ArtifactRepository localRepository)
+            throws ArtifactInstallationException;
 
-    protected String resolveVersion(
-            Artifact artifact, ArtifactRepository localRepository, List<ArtifactRepository> remoteRepositories)
-            throws RepositoryMetadataResolutionException {
-        RepositoryRequest request = new DefaultRepositoryRequest();
 ```
 
 ### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/transform/AbstractVersionTransformation.java`
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/transform/ArtifactTransformationManager.java`
 #### Snippet
 ```java
+     */
+    void transformForDeployment(
+            Artifact artifact, ArtifactRepository remoteRepository, ArtifactRepository localRepository)
+            throws ArtifactDeploymentException;
 
-    protected String resolveVersion(
-            Artifact artifact, ArtifactRepository localRepository, List<ArtifactRepository> remoteRepositories)
-            throws RepositoryMetadataResolutionException {
-        RepositoryRequest request = new DefaultRepositoryRequest();
 ```
 
 ### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/transform/AbstractVersionTransformation.java`
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/transform/ArtifactTransformationManager.java`
 #### Snippet
 ```java
+     */
+    void transformForDeployment(
+            Artifact artifact, ArtifactRepository remoteRepository, ArtifactRepository localRepository)
+            throws ArtifactDeploymentException;
 
-    public void transformForResolve(
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/transform/ArtifactTransformationManager.java`
+#### Snippet
+```java
+     */
+    void transformForResolve(
             Artifact artifact, List<ArtifactRepository> remoteRepositories, ArtifactRepository localRepository)
-            throws ArtifactResolutionException, ArtifactNotFoundException {
-        RepositoryRequest request = new DefaultRepositoryRequest();
+            throws ArtifactResolutionException, ArtifactNotFoundException;
+
 ```
 
 ### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/transform/AbstractVersionTransformation.java`
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/transform/ArtifactTransformationManager.java`
 #### Snippet
 ```java
-
-    public void transformForResolve(
+     */
+    void transformForResolve(
             Artifact artifact, List<ArtifactRepository> remoteRepositories, ArtifactRepository localRepository)
-            throws ArtifactResolutionException, ArtifactNotFoundException {
-        RepositoryRequest request = new DefaultRepositoryRequest();
+            throws ArtifactResolutionException, ArtifactNotFoundException;
+
 ```
 
 ### Deprecation
@@ -2756,6 +3320,66 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/trans
         ArtifactMetadata metadata = createMetadata(artifact);
 
         artifact.addMetadata(metadata);
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/transform/DefaultArtifactTransformationManager.java`
+#### Snippet
+```java
+    }
+
+    public void transformForInstall(Artifact artifact, ArtifactRepository localRepository)
+            throws ArtifactInstallationException {
+        for (ArtifactTransformation transform : artifactTransformations) {
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/transform/DefaultArtifactTransformationManager.java`
+#### Snippet
+```java
+
+    public void transformForResolve(
+            Artifact artifact, List<ArtifactRepository> remoteRepositories, ArtifactRepository localRepository)
+            throws ArtifactResolutionException, ArtifactNotFoundException {
+        for (ArtifactTransformation transform : artifactTransformations) {
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/transform/DefaultArtifactTransformationManager.java`
+#### Snippet
+```java
+
+    public void transformForResolve(
+            Artifact artifact, List<ArtifactRepository> remoteRepositories, ArtifactRepository localRepository)
+            throws ArtifactResolutionException, ArtifactNotFoundException {
+        for (ArtifactTransformation transform : artifactTransformations) {
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/transform/DefaultArtifactTransformationManager.java`
+#### Snippet
+```java
+
+    public void transformForDeployment(
+            Artifact artifact, ArtifactRepository remoteRepository, ArtifactRepository localRepository)
+            throws ArtifactDeploymentException {
+        for (ArtifactTransformation transform : artifactTransformations) {
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/transform/DefaultArtifactTransformationManager.java`
+#### Snippet
+```java
+
+    public void transformForDeployment(
+            Artifact artifact, ArtifactRepository remoteRepository, ArtifactRepository localRepository)
+            throws ArtifactDeploymentException {
+        for (ArtifactTransformation transform : artifactTransformations) {
 ```
 
 ### Deprecation
@@ -2796,122 +3420,50 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/trans
 
 ### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/transform/ArtifactTransformationManager.java`
-#### Snippet
-```java
-     * @param localRepository the local repository it will be stored in
-     */
-    void transformForInstall(Artifact artifact, ArtifactRepository localRepository)
-            throws ArtifactInstallationException;
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/transform/ArtifactTransformationManager.java`
-#### Snippet
-```java
-     */
-    void transformForDeployment(
-            Artifact artifact, ArtifactRepository remoteRepository, ArtifactRepository localRepository)
-            throws ArtifactDeploymentException;
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/transform/ArtifactTransformationManager.java`
-#### Snippet
-```java
-     */
-    void transformForDeployment(
-            Artifact artifact, ArtifactRepository remoteRepository, ArtifactRepository localRepository)
-            throws ArtifactDeploymentException;
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/transform/DefaultArtifactTransformationManager.java`
-#### Snippet
-```java
-    }
-
-    public void transformForInstall(Artifact artifact, ArtifactRepository localRepository)
-            throws ArtifactInstallationException {
-        for (ArtifactTransformation transform : artifactTransformations) {
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/transform/ArtifactTransformationManager.java`
-#### Snippet
-```java
-     */
-    void transformForResolve(
-            Artifact artifact, List<ArtifactRepository> remoteRepositories, ArtifactRepository localRepository)
-            throws ArtifactResolutionException, ArtifactNotFoundException;
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/transform/ArtifactTransformationManager.java`
-#### Snippet
-```java
-     */
-    void transformForResolve(
-            Artifact artifact, List<ArtifactRepository> remoteRepositories, ArtifactRepository localRepository)
-            throws ArtifactResolutionException, ArtifactNotFoundException;
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/transform/DefaultArtifactTransformationManager.java`
-#### Snippet
-```java
-
-    public void transformForDeployment(
-            Artifact artifact, ArtifactRepository remoteRepository, ArtifactRepository localRepository)
-            throws ArtifactDeploymentException {
-        for (ArtifactTransformation transform : artifactTransformations) {
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/transform/DefaultArtifactTransformationManager.java`
-#### Snippet
-```java
-
-    public void transformForDeployment(
-            Artifact artifact, ArtifactRepository remoteRepository, ArtifactRepository localRepository)
-            throws ArtifactDeploymentException {
-        for (ArtifactTransformation transform : artifactTransformations) {
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/transform/DefaultArtifactTransformationManager.java`
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/transform/AbstractVersionTransformation.java`
 #### Snippet
 ```java
 
     public void transformForResolve(
             Artifact artifact, List<ArtifactRepository> remoteRepositories, ArtifactRepository localRepository)
             throws ArtifactResolutionException, ArtifactNotFoundException {
-        for (ArtifactTransformation transform : artifactTransformations) {
+        RepositoryRequest request = new DefaultRepositoryRequest();
 ```
 
 ### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/transform/DefaultArtifactTransformationManager.java`
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/transform/AbstractVersionTransformation.java`
 #### Snippet
 ```java
 
     public void transformForResolve(
             Artifact artifact, List<ArtifactRepository> remoteRepositories, ArtifactRepository localRepository)
             throws ArtifactResolutionException, ArtifactNotFoundException {
-        for (ArtifactTransformation transform : artifactTransformations) {
+        RepositoryRequest request = new DefaultRepositoryRequest();
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/transform/AbstractVersionTransformation.java`
+#### Snippet
+```java
+
+    protected String resolveVersion(
+            Artifact artifact, ArtifactRepository localRepository, List<ArtifactRepository> remoteRepositories)
+            throws RepositoryMetadataResolutionException {
+        RepositoryRequest request = new DefaultRepositoryRequest();
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/transform/AbstractVersionTransformation.java`
+#### Snippet
+```java
+
+    protected String resolveVersion(
+            Artifact artifact, ArtifactRepository localRepository, List<ArtifactRepository> remoteRepositories)
+            throws RepositoryMetadataResolutionException {
+        RepositoryRequest request = new DefaultRepositoryRequest();
 ```
 
 ### Deprecation
@@ -2975,6 +3527,150 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/trans
 ```
 
 ### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultUpdateCheckManager.java`
+#### Snippet
+```java
+    }
+
+    public void touch(Artifact artifact, ArtifactRepository repository, String error) {
+        File file = artifact.getFile();
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultUpdateCheckManager.java`
+#### Snippet
+```java
+    }
+
+    private Date readLastUpdated(RepositoryMetadata metadata, ArtifactRepository repository, File file) {
+        File touchfile = getTouchfile(metadata, file);
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultUpdateCheckManager.java`
+#### Snippet
+```java
+    }
+
+    String getRepositoryKey(ArtifactRepository repository) {
+        StringBuilder buffer = new StringBuilder(256);
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultUpdateCheckManager.java`
+#### Snippet
+```java
+    }
+
+    public boolean isUpdateRequired(RepositoryMetadata metadata, ArtifactRepository repository, File file) {
+        // Here, we need to determine which policy to use. Release updateInterval will be used when
+        // the metadata refers to a release artifact or meta-version, and snapshot updateInterval will be used when
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultUpdateCheckManager.java`
+#### Snippet
+```java
+        // meta-versions like RELEASE and LATEST to resolve, and also to allow retrieval of the range of valid, released
+        // artifacts available.
+        ArtifactRepositoryPolicy policy = metadata.getPolicy(repository);
+
+        if (!policy.isEnabled()) {
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultUpdateCheckManager.java`
+#### Snippet
+```java
+    }
+
+    String getMetadataKey(ArtifactRepository repository, File file) {
+        return repository.getId() + '.' + file.getName() + LAST_UPDATE_TAG;
+    }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultUpdateCheckManager.java`
+#### Snippet
+```java
+    }
+
+    public void touch(RepositoryMetadata metadata, ArtifactRepository repository, File file) {
+        File touchfile = getTouchfile(metadata, file);
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultUpdateCheckManager.java`
+#### Snippet
+```java
+    private static final String TOUCHFILE_NAME = "resolver-status.properties";
+
+    public boolean isUpdateRequired(Artifact artifact, ArtifactRepository repository) {
+        File file = artifact.getFile();
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultUpdateCheckManager.java`
+#### Snippet
+```java
+        File file = artifact.getFile();
+
+        ArtifactRepositoryPolicy policy = artifact.isSnapshot() ? repository.getSnapshots() : repository.getReleases();
+
+        if (!policy.isEnabled()) {
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultUpdateCheckManager.java`
+#### Snippet
+```java
+    }
+
+    public String getError(Artifact artifact, ArtifactRepository repository) {
+        File touchFile = getTouchfile(artifact);
+        return getError(touchFile, getRepositoryKey(repository));
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/repository/DefaultArtifactRepositoryFactory.java`
+#### Snippet
+```java
+    }
+
+    public ArtifactRepository createDeploymentArtifactRepository(
+            String id, String url, ArtifactRepositoryLayout repositoryLayout, boolean uniqueVersion) {
+        return createArtifactRepository(id, url, repositoryLayout, null, null);
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/repository/DefaultArtifactRepositoryFactory.java`
+#### Snippet
+```java
+
+    public ArtifactRepository createDeploymentArtifactRepository(
+            String id, String url, ArtifactRepositoryLayout repositoryLayout, boolean uniqueVersion) {
+        return createArtifactRepository(id, url, repositoryLayout, null, null);
+    }
+```
+
+### Deprecation
 'org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout' is deprecated
 in `maven-compat/src/main/java/org/apache/maven/repository/legacy/repository/DefaultArtifactRepositoryFactory.java`
 #### Snippet
@@ -2984,42 +3680,6 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/repository/Def
     private void checkLayout(String repositoryId, String layoutId, ArtifactRepositoryLayout layout)
             throws UnknownRepositoryLayoutException {
         if (layout == null) {
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/repository/DefaultArtifactRepositoryFactory.java`
-#### Snippet
-```java
-    private Map<String, ArtifactRepositoryLayout> repositoryLayouts;
-
-    public ArtifactRepositoryLayout getLayout(String layoutId) throws UnknownRepositoryLayoutException {
-        return repositoryLayouts.get(layoutId);
-    }
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/repository/DefaultArtifactRepositoryFactory.java`
-#### Snippet
-```java
-    private String globalChecksumPolicy;
-
-    @Requirement(role = ArtifactRepositoryLayout.class)
-    private Map<String, ArtifactRepositoryLayout> repositoryLayouts;
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/repository/DefaultArtifactRepositoryFactory.java`
-#### Snippet
-```java
-
-    @Requirement(role = ArtifactRepositoryLayout.class)
-    private Map<String, ArtifactRepositoryLayout> repositoryLayouts;
-
-    public ArtifactRepositoryLayout getLayout(String layoutId) throws UnknownRepositoryLayoutException {
 ```
 
 ### Deprecation
@@ -3078,30 +3738,6 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/repository/Def
     }
 
     public ArtifactRepository createDeploymentArtifactRepository(
-            String id, String url, ArtifactRepositoryLayout repositoryLayout, boolean uniqueVersion) {
-        return createArtifactRepository(id, url, repositoryLayout, null, null);
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/repository/DefaultArtifactRepositoryFactory.java`
-#### Snippet
-```java
-
-    public ArtifactRepository createDeploymentArtifactRepository(
-            String id, String url, ArtifactRepositoryLayout repositoryLayout, boolean uniqueVersion) {
-        return createArtifactRepository(id, url, repositoryLayout, null, null);
-    }
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/repository/DefaultArtifactRepositoryFactory.java`
-#### Snippet
-```java
-    }
-
-    public ArtifactRepository createDeploymentArtifactRepository(
             String id, String url, String layoutId, boolean uniqueVersion) throws UnknownRepositoryLayoutException {
         ArtifactRepositoryLayout layout = repositoryLayouts.get(layoutId);
 ```
@@ -3116,6 +3752,18 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/repository/Def
         ArtifactRepositoryLayout layout = repositoryLayouts.get(layoutId);
 
         checkLayout(id, layoutId, layout);
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/repository/DefaultArtifactRepositoryFactory.java`
+#### Snippet
+```java
+    private Map<String, ArtifactRepositoryLayout> repositoryLayouts;
+
+    public ArtifactRepositoryLayout getLayout(String layoutId) throws UnknownRepositoryLayoutException {
+        return repositoryLayouts.get(layoutId);
+    }
 ```
 
 ### Deprecation
@@ -3203,159 +3851,27 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/repository/Def
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultUpdateCheckManager.java`
+'org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/repository/DefaultArtifactRepositoryFactory.java`
 #### Snippet
 ```java
-    }
+    private String globalChecksumPolicy;
 
-    public void touch(RepositoryMetadata metadata, ArtifactRepository repository, File file) {
-        File touchfile = getTouchfile(metadata, file);
+    @Requirement(role = ArtifactRepositoryLayout.class)
+    private Map<String, ArtifactRepositoryLayout> repositoryLayouts;
 
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultUpdateCheckManager.java`
+'org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/repository/DefaultArtifactRepositoryFactory.java`
 #### Snippet
 ```java
-    }
 
-    public boolean isUpdateRequired(RepositoryMetadata metadata, ArtifactRepository repository, File file) {
-        // Here, we need to determine which policy to use. Release updateInterval will be used when
-        // the metadata refers to a release artifact or meta-version, and snapshot updateInterval will be used when
-```
+    @Requirement(role = ArtifactRepositoryLayout.class)
+    private Map<String, ArtifactRepositoryLayout> repositoryLayouts;
 
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultUpdateCheckManager.java`
-#### Snippet
-```java
-        // meta-versions like RELEASE and LATEST to resolve, and also to allow retrieval of the range of valid, released
-        // artifacts available.
-        ArtifactRepositoryPolicy policy = metadata.getPolicy(repository);
-
-        if (!policy.isEnabled()) {
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultUpdateCheckManager.java`
-#### Snippet
-```java
-    }
-
-    String getMetadataKey(ArtifactRepository repository, File file) {
-        return repository.getId() + '.' + file.getName() + LAST_UPDATE_TAG;
-    }
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultUpdateCheckManager.java`
-#### Snippet
-```java
-    }
-
-    public String getError(Artifact artifact, ArtifactRepository repository) {
-        File touchFile = getTouchfile(artifact);
-        return getError(touchFile, getRepositoryKey(repository));
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultUpdateCheckManager.java`
-#### Snippet
-```java
-    }
-
-    public void touch(Artifact artifact, ArtifactRepository repository, String error) {
-        File file = artifact.getFile();
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultUpdateCheckManager.java`
-#### Snippet
-```java
-    }
-
-    private Date readLastUpdated(RepositoryMetadata metadata, ArtifactRepository repository, File file) {
-        File touchfile = getTouchfile(metadata, file);
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultUpdateCheckManager.java`
-#### Snippet
-```java
-    private static final String TOUCHFILE_NAME = "resolver-status.properties";
-
-    public boolean isUpdateRequired(Artifact artifact, ArtifactRepository repository) {
-        File file = artifact.getFile();
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultUpdateCheckManager.java`
-#### Snippet
-```java
-        File file = artifact.getFile();
-
-        ArtifactRepositoryPolicy policy = artifact.isSnapshot() ? repository.getSnapshots() : repository.getReleases();
-
-        if (!policy.isEnabled()) {
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultUpdateCheckManager.java`
-#### Snippet
-```java
-    }
-
-    String getRepositoryKey(ArtifactRepository repository) {
-        StringBuilder buffer = new StringBuilder(256);
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataResolutionRequest.java`
-#### Snippet
-```java
-    }
-
-    public void setRemoteRepositories(List<ArtifactRepository> remoteRepositories) {
-        this.remoteRepositories = remoteRepositories;
-    }
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataResolutionRequest.java`
-#### Snippet
-```java
-public class MetadataResolutionRequest {
-    protected ArtifactMetadata query;
-    protected ArtifactRepository localRepository;
-    protected List<ArtifactRepository> remoteRepositories;
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataResolutionRequest.java`
-#### Snippet
-```java
-    }
-
-    public void setLocalRepository(ArtifactRepository localRepository) {
-        this.localRepository = localRepository;
-    }
+    public ArtifactRepositoryLayout getLayout(String layoutId) throws UnknownRepositoryLayoutException {
 ```
 
 ### Deprecation
@@ -3401,8 +3917,8 @@ in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataReso
 ```java
     }
 
-    public ArtifactRepository getLocalRepository() {
-        return localRepository;
+    public void setLocalRepository(ArtifactRepository localRepository) {
+        this.localRepository = localRepository;
     }
 ```
 
@@ -3420,14 +3936,38 @@ in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataReso
 
 ### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataResolution.java`
+in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataResolutionRequest.java`
 #### Snippet
 ```java
     }
-    // -------------------------------------------------------------------
-    public MetadataResolution(ArtifactMetadata artifactMetadata, Collection<ArtifactRepository> metadataRepositories) {
-        this(artifactMetadata);
-        this.metadataRepositories = metadataRepositories;
+
+    public void setRemoteRepositories(List<ArtifactRepository> remoteRepositories) {
+        this.remoteRepositories = remoteRepositories;
+    }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataResolutionRequest.java`
+#### Snippet
+```java
+public class MetadataResolutionRequest {
+    protected ArtifactMetadata query;
+    protected ArtifactRepository localRepository;
+    protected List<ArtifactRepository> remoteRepositories;
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataResolutionRequest.java`
+#### Snippet
+```java
+    }
+
+    public ArtifactRepository getLocalRepository() {
+        return localRepository;
+    }
 ```
 
 ### Deprecation
@@ -3468,14 +4008,38 @@ in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataReso
 
 ### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonManager.java`
+in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataResolution.java`
 #### Snippet
 ```java
-     * @throws AuthenticationException
-     */
-    private void connectWagon(Wagon wagon, ArtifactRepository repository)
-            throws ConnectionException, AuthenticationException {
-        // MNG-5509
+    }
+    // -------------------------------------------------------------------
+    public MetadataResolution(ArtifactMetadata artifactMetadata, Collection<ArtifactRepository> metadataRepositories) {
+        this(artifactMetadata);
+        this.metadataRepositories = metadataRepositories;
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataSource.java`
+#### Snippet
+```java
+
+    MetadataResolution retrieve(
+            ArtifactMetadata artifact, ArtifactRepository localRepository, List<ArtifactRepository> remoteRepositories)
+            throws MetadataRetrievalException;
+}
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataSource.java`
+#### Snippet
+```java
+
+    MetadataResolution retrieve(
+            ArtifactMetadata artifact, ArtifactRepository localRepository, List<ArtifactRepository> remoteRepositories)
+            throws MetadataRetrievalException;
+}
 ```
 
 ### Deprecation
@@ -3500,6 +4064,138 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonMa
         } else if (!ArtifactRepositoryPolicy.CHECKSUM_POLICY_IGNORE.equals(checksumPolicy)) {
             // warn if it is set to anything other than ignore
             logger.warn("*** CHECKSUM FAILED - " + message + " - IGNORING");
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonManager.java`
+#### Snippet
+```java
+    @Override
+    public void getArtifact(
+            Artifact artifact, ArtifactRepository repository, TransferListener downloadMonitor, boolean force)
+            throws TransferFailedException, ResourceDoesNotExistException {
+        String remotePath = repository.pathOf(artifact);
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonManager.java`
+#### Snippet
+```java
+        String remotePath = repository.pathOf(artifact);
+
+        ArtifactRepositoryPolicy policy = artifact.isSnapshot() ? repository.getSnapshots() : repository.getReleases();
+
+        if (!policy.isEnabled()) {
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonManager.java`
+#### Snippet
+```java
+    @Override
+    public void putRemoteFile(
+            ArtifactRepository repository, File source, String remotePath, TransferListener downloadMonitor)
+            throws TransferFailedException {
+        String protocol = repository.getProtocol();
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonManager.java`
+#### Snippet
+```java
+    }
+
+    private AuthenticationInfo authenticationInfo(ArtifactRepository repository) {
+        AuthenticationInfo ai = new AuthenticationInfo();
+        ai.setUserName(repository.getAuthentication().getUsername());
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonManager.java`
+#### Snippet
+```java
+    @Override
+    public void putArtifact(
+            File source, Artifact artifact, ArtifactRepository deploymentRepository, TransferListener downloadMonitor)
+            throws TransferFailedException {
+        putRemoteFile(deploymentRepository, source, deploymentRepository.pathOf(artifact), downloadMonitor);
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonManager.java`
+#### Snippet
+```java
+     * @throws AuthenticationException
+     */
+    private void connectWagon(Wagon wagon, ArtifactRepository repository)
+            throws ConnectionException, AuthenticationException {
+        // MNG-5509
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonManager.java`
+#### Snippet
+```java
+    @Override
+    public void getArtifactMetadataFromDeploymentRepository(
+            ArtifactMetadata metadata, ArtifactRepository repository, File destination, String checksumPolicy)
+            throws TransferFailedException, ResourceDoesNotExistException {
+        String remotePath = repository.pathOfRemoteRepositoryMetadata(metadata);
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonManager.java`
+#### Snippet
+```java
+    @Override
+    public void getArtifactMetadataFromDeploymentRepository(
+            ArtifactMetadata metadata, ArtifactRepository repository, File destination, String checksumPolicy)
+            throws TransferFailedException, ResourceDoesNotExistException {
+        String remotePath = repository.pathOfRemoteRepositoryMetadata(metadata);
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonManager.java`
+#### Snippet
+```java
+
+    @Override
+    public void putArtifactMetadata(File source, ArtifactMetadata artifactMetadata, ArtifactRepository repository)
+            throws TransferFailedException {
+        logger.info("Uploading " + artifactMetadata);
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonManager.java`
+#### Snippet
+```java
+
+    @Override
+    public void putArtifactMetadata(File source, ArtifactMetadata artifactMetadata, ArtifactRepository repository)
+            throws TransferFailedException {
+        logger.info("Uploading " + artifactMetadata);
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonManager.java`
+#### Snippet
+```java
+    }
+
+    private ProxyInfo proxyInfo(ArtifactRepository repository) {
+        ProxyInfo proxyInfo = new ProxyInfo();
+        proxyInfo.setHost(repository.getProxy().getHost());
 ```
 
 ### Deprecation
@@ -3539,126 +4235,6 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonMa
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonManager.java`
-#### Snippet
-```java
-    @Override
-    public void putRemoteFile(
-            ArtifactRepository repository, File source, String remotePath, TransferListener downloadMonitor)
-            throws TransferFailedException {
-        String protocol = repository.getProtocol();
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonManager.java`
-#### Snippet
-```java
-
-    @Override
-    public void putArtifactMetadata(File source, ArtifactMetadata artifactMetadata, ArtifactRepository repository)
-            throws TransferFailedException {
-        logger.info("Uploading " + artifactMetadata);
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonManager.java`
-#### Snippet
-```java
-
-    @Override
-    public void putArtifactMetadata(File source, ArtifactMetadata artifactMetadata, ArtifactRepository repository)
-            throws TransferFailedException {
-        logger.info("Uploading " + artifactMetadata);
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonManager.java`
-#### Snippet
-```java
-    @Override
-    public void getArtifact(
-            Artifact artifact, ArtifactRepository repository, TransferListener downloadMonitor, boolean force)
-            throws TransferFailedException, ResourceDoesNotExistException {
-        String remotePath = repository.pathOf(artifact);
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonManager.java`
-#### Snippet
-```java
-        String remotePath = repository.pathOf(artifact);
-
-        ArtifactRepositoryPolicy policy = artifact.isSnapshot() ? repository.getSnapshots() : repository.getReleases();
-
-        if (!policy.isEnabled()) {
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonManager.java`
-#### Snippet
-```java
-    }
-
-    private ProxyInfo proxyInfo(ArtifactRepository repository) {
-        ProxyInfo proxyInfo = new ProxyInfo();
-        proxyInfo.setHost(repository.getProxy().getHost());
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonManager.java`
-#### Snippet
-```java
-    }
-
-    private AuthenticationInfo authenticationInfo(ArtifactRepository repository) {
-        AuthenticationInfo ai = new AuthenticationInfo();
-        ai.setUserName(repository.getAuthentication().getUsername());
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonManager.java`
-#### Snippet
-```java
-    @Override
-    public void putArtifact(
-            File source, Artifact artifact, ArtifactRepository deploymentRepository, TransferListener downloadMonitor)
-            throws TransferFailedException {
-        putRemoteFile(deploymentRepository, source, deploymentRepository.pathOf(artifact), downloadMonitor);
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonManager.java`
-#### Snippet
-```java
-    @Override
-    public void getArtifactMetadataFromDeploymentRepository(
-            ArtifactMetadata metadata, ArtifactRepository repository, File destination, String checksumPolicy)
-            throws TransferFailedException, ResourceDoesNotExistException {
-        String remotePath = repository.pathOfRemoteRepositoryMetadata(metadata);
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonManager.java`
-#### Snippet
-```java
-    @Override
-    public void getArtifactMetadataFromDeploymentRepository(
-            ArtifactMetadata metadata, ArtifactRepository repository, File destination, String checksumPolicy)
-            throws TransferFailedException, ResourceDoesNotExistException {
-        String remotePath = repository.pathOfRemoteRepositoryMetadata(metadata);
-```
-
-### Deprecation
 'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
 in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonManager.java`
 #### Snippet
@@ -3684,26 +4260,38 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonMa
 
 ### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataSource.java`
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/repository/ArtifactRepositoryFactory.java`
 #### Snippet
 ```java
+            String id, String url, ArtifactRepositoryLayout layout, boolean uniqueVersion);
 
-    MetadataResolution retrieve(
-            ArtifactMetadata artifact, ArtifactRepository localRepository, List<ArtifactRepository> remoteRepositories)
-            throws MetadataRetrievalException;
-}
+    ArtifactRepository createArtifactRepository(
+            String id,
+            String url,
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataSource.java`
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/repository/ArtifactRepositoryFactory.java`
 #### Snippet
 ```java
+            String url,
+            String layoutId,
+            ArtifactRepositoryPolicy snapshots,
+            ArtifactRepositoryPolicy releases)
+            throws UnknownRepositoryLayoutException;
+```
 
-    MetadataResolution retrieve(
-            ArtifactMetadata artifact, ArtifactRepository localRepository, List<ArtifactRepository> remoteRepositories)
-            throws MetadataRetrievalException;
-}
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/repository/ArtifactRepositoryFactory.java`
+#### Snippet
+```java
+            String layoutId,
+            ArtifactRepositoryPolicy snapshots,
+            ArtifactRepositoryPolicy releases)
+            throws UnknownRepositoryLayoutException;
+
 ```
 
 ### Deprecation
@@ -3716,30 +4304,6 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/repository/Art
     ArtifactRepository createDeploymentArtifactRepository(
             String id, String url, ArtifactRepositoryLayout layout, boolean uniqueVersion);
 
-```
-
-### Deprecation
-'org.apache.maven.artifact.resolver.ResolutionListenerForDepMgmt' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
-#### Snippet
-```java
-                    break;
-                case ResolutionListener.MANAGE_ARTIFACT_VERSION:
-                    if (listener instanceof ResolutionListenerForDepMgmt) {
-                        ResolutionListenerForDepMgmt asImpl = (ResolutionListenerForDepMgmt) listener;
-                        asImpl.manageArtifactVersion(node.getArtifact(), replacement);
-```
-
-### Deprecation
-'org.apache.maven.artifact.resolver.ResolutionListenerForDepMgmt' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
-#### Snippet
-```java
-                case ResolutionListener.MANAGE_ARTIFACT_VERSION:
-                    if (listener instanceof ResolutionListenerForDepMgmt) {
-                        ResolutionListenerForDepMgmt asImpl = (ResolutionListenerForDepMgmt) listener;
-                        asImpl.manageArtifactVersion(node.getArtifact(), replacement);
-                    } else {
 ```
 
 ### Deprecation
@@ -3755,18 +4319,6 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/repository/Art
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.resolver.ResolutionListenerForDepMgmt' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
-#### Snippet
-```java
-                case ResolutionListener.MANAGE_ARTIFACT_VERSION:
-                    if (listener instanceof ResolutionListenerForDepMgmt) {
-                        ResolutionListenerForDepMgmt asImpl = (ResolutionListenerForDepMgmt) listener;
-                        asImpl.manageArtifactVersion(node.getArtifact(), replacement);
-                    } else {
-```
-
-### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
 in `maven-compat/src/main/java/org/apache/maven/repository/legacy/repository/ArtifactRepositoryFactory.java`
 #### Snippet
@@ -3776,18 +4328,6 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/repository/Art
     ArtifactRepository createArtifactRepository(
             String id,
             String url,
-```
-
-### Deprecation
-'manageArtifact(org.apache.maven.artifact.Artifact, org.apache.maven.artifact.Artifact)' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
-#### Snippet
-```java
-                        asImpl.manageArtifactVersion(node.getArtifact(), replacement);
-                    } else {
-                        listener.manageArtifact(node.getArtifact(), replacement);
-                    }
-                    break;
 ```
 
 ### Deprecation
@@ -3800,18 +4340,6 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/repository/Art
             ArtifactRepositoryLayout repositoryLayout,
             ArtifactRepositoryPolicy snapshots,
             ArtifactRepositoryPolicy releases);
-```
-
-### Deprecation
-'org.apache.maven.artifact.resolver.ResolutionListenerForDepMgmt' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
-#### Snippet
-```java
-                    break;
-                case ResolutionListener.MANAGE_ARTIFACT_SCOPE:
-                    if (listener instanceof ResolutionListenerForDepMgmt) {
-                        ResolutionListenerForDepMgmt asImpl = (ResolutionListenerForDepMgmt) listener;
-                        asImpl.manageArtifactScope(node.getArtifact(), replacement);
 ```
 
 ### Deprecation
@@ -3824,18 +4352,6 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/repository/Art
             ArtifactRepositoryPolicy snapshots,
             ArtifactRepositoryPolicy releases);
 
-```
-
-### Deprecation
-'org.apache.maven.artifact.resolver.ResolutionListenerForDepMgmt' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
-#### Snippet
-```java
-                case ResolutionListener.MANAGE_ARTIFACT_SCOPE:
-                    if (listener instanceof ResolutionListenerForDepMgmt) {
-                        ResolutionListenerForDepMgmt asImpl = (ResolutionListenerForDepMgmt) listener;
-                        asImpl.manageArtifactScope(node.getArtifact(), replacement);
-                    } else {
 ```
 
 ### Deprecation
@@ -3848,426 +4364,6 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/repository/Art
             ArtifactRepositoryPolicy releases);
 
     void setGlobalUpdatePolicy(String snapshotPolicy);
-```
-
-### Deprecation
-'org.apache.maven.artifact.resolver.ResolutionListenerForDepMgmt' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
-#### Snippet
-```java
-                case ResolutionListener.MANAGE_ARTIFACT_SCOPE:
-                    if (listener instanceof ResolutionListenerForDepMgmt) {
-                        ResolutionListenerForDepMgmt asImpl = (ResolutionListenerForDepMgmt) listener;
-                        asImpl.manageArtifactScope(node.getArtifact(), replacement);
-                    } else {
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/repository/ArtifactRepositoryFactory.java`
-#### Snippet
-```java
-            String id, String url, ArtifactRepositoryLayout layout, boolean uniqueVersion);
-
-    ArtifactRepository createArtifactRepository(
-            String id,
-            String url,
-```
-
-### Deprecation
-'manageArtifact(org.apache.maven.artifact.Artifact, org.apache.maven.artifact.Artifact)' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
-#### Snippet
-```java
-                        asImpl.manageArtifactScope(node.getArtifact(), replacement);
-                    } else {
-                        listener.manageArtifact(node.getArtifact(), replacement);
-                    }
-                    break;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/repository/ArtifactRepositoryFactory.java`
-#### Snippet
-```java
-            String url,
-            String layoutId,
-            ArtifactRepositoryPolicy snapshots,
-            ArtifactRepositoryPolicy releases)
-            throws UnknownRepositoryLayoutException;
-```
-
-### Deprecation
-'org.apache.maven.artifact.resolver.ResolutionListenerForDepMgmt' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
-#### Snippet
-```java
-                    break;
-                case ResolutionListener.MANAGE_ARTIFACT_SYSTEM_PATH:
-                    if (listener instanceof ResolutionListenerForDepMgmt) {
-                        ResolutionListenerForDepMgmt asImpl = (ResolutionListenerForDepMgmt) listener;
-                        asImpl.manageArtifactSystemPath(node.getArtifact(), replacement);
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/repository/ArtifactRepositoryFactory.java`
-#### Snippet
-```java
-            String layoutId,
-            ArtifactRepositoryPolicy snapshots,
-            ArtifactRepositoryPolicy releases)
-            throws UnknownRepositoryLayoutException;
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.resolver.ResolutionListenerForDepMgmt' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
-#### Snippet
-```java
-                case ResolutionListener.MANAGE_ARTIFACT_SYSTEM_PATH:
-                    if (listener instanceof ResolutionListenerForDepMgmt) {
-                        ResolutionListenerForDepMgmt asImpl = (ResolutionListenerForDepMgmt) listener;
-                        asImpl.manageArtifactSystemPath(node.getArtifact(), replacement);
-                    } else {
-```
-
-### Deprecation
-'org.apache.maven.artifact.resolver.ResolutionListenerForDepMgmt' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
-#### Snippet
-```java
-                case ResolutionListener.MANAGE_ARTIFACT_SYSTEM_PATH:
-                    if (listener instanceof ResolutionListenerForDepMgmt) {
-                        ResolutionListenerForDepMgmt asImpl = (ResolutionListenerForDepMgmt) listener;
-                        asImpl.manageArtifactSystemPath(node.getArtifact(), replacement);
-                    } else {
-```
-
-### Deprecation
-'manageArtifact(org.apache.maven.artifact.Artifact, org.apache.maven.artifact.Artifact)' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
-#### Snippet
-```java
-                        asImpl.manageArtifactSystemPath(node.getArtifact(), replacement);
-                    } else {
-                        listener.manageArtifact(node.getArtifact(), replacement);
-                    }
-                    break;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
-#### Snippet
-```java
-            Artifact originatingArtifact,
-            Map<String, Artifact> managedVersions,
-            ArtifactRepository localRepository,
-            List<ArtifactRepository> remoteRepositories,
-            ArtifactMetadataSource source,
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
-#### Snippet
-```java
-            Map<String, Artifact> managedVersions,
-            ArtifactRepository localRepository,
-            List<ArtifactRepository> remoteRepositories,
-            ArtifactMetadataSource source,
-            ArtifactFilter filter,
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadataSource' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
-#### Snippet
-```java
-            ArtifactRepository localRepository,
-            List<ArtifactRepository> remoteRepositories,
-            ArtifactMetadataSource source,
-            ArtifactFilter filter,
-            List<ResolutionListener> listeners,
-```
-
-### Deprecation
-'org.apache.maven.repository.legacy.resolver.LegacyArtifactCollector' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
-#### Snippet
-```java
- * @author Jason van Zyl
- */
-@Component(role = LegacyArtifactCollector.class)
-public class DefaultLegacyArtifactCollector implements LegacyArtifactCollector {
-
-```
-
-### Deprecation
-'org.apache.maven.repository.legacy.resolver.LegacyArtifactCollector' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
-#### Snippet
-```java
- */
-@Component(role = LegacyArtifactCollector.class)
-public class DefaultLegacyArtifactCollector implements LegacyArtifactCollector {
-
-    @Requirement(hint = "nearest")
-```
-
-### Deprecation
-'org.apache.maven.artifact.versioning.ManagedVersionMap' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
-#### Snippet
-```java
-            ResolutionNode node,
-            Map<Object, List<ResolutionNode>> resolvedArtifacts,
-            ManagedVersionMap managedVersions,
-            ArtifactResolutionRequest request,
-            ArtifactMetadataSource source,
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadataSource' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
-#### Snippet
-```java
-            ManagedVersionMap managedVersions,
-            ArtifactResolutionRequest request,
-            ArtifactMetadataSource source,
-            ArtifactFilter filter,
-            List<ResolutionListener> listeners,
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
-#### Snippet
-```java
-                        Artifact artifact = child.getArtifact();
-                        artifact.setDependencyTrail(node.getDependencyTrail());
-                        List<ArtifactRepository> childRemoteRepositories = child.getRemoteRepositories();
-
-                        MetadataResolutionRequest metadataRequest = new DefaultMetadataResolutionRequest(request);
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ResolutionGroup' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
-#### Snippet
-```java
-
-                        try {
-                            ResolutionGroup rGroup;
-
-                            Object childKey;
-```
-
-### Deprecation
-'org.apache.maven.artifact.versioning.ManagedVersionMap' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
-#### Snippet
-```java
-     * @param managedVersions original managed versions
-     */
-    private ManagedVersionMap getManagedVersionsMap(
-            Artifact originatingArtifact, Map<String, Artifact> managedVersions) {
-        ManagedVersionMap versionMap;
-```
-
-### Deprecation
-'org.apache.maven.artifact.versioning.ManagedVersionMap' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
-#### Snippet
-```java
-    private ManagedVersionMap getManagedVersionsMap(
-            Artifact originatingArtifact, Map<String, Artifact> managedVersions) {
-        ManagedVersionMap versionMap;
-        if (managedVersions instanceof ManagedVersionMap) {
-            versionMap = (ManagedVersionMap) managedVersions;
-```
-
-### Deprecation
-'org.apache.maven.artifact.versioning.ManagedVersionMap' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
-#### Snippet
-```java
-            Artifact originatingArtifact, Map<String, Artifact> managedVersions) {
-        ManagedVersionMap versionMap;
-        if (managedVersions instanceof ManagedVersionMap) {
-            versionMap = (ManagedVersionMap) managedVersions;
-        } else {
-```
-
-### Deprecation
-'org.apache.maven.artifact.versioning.ManagedVersionMap' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
-#### Snippet
-```java
-        ManagedVersionMap versionMap;
-        if (managedVersions instanceof ManagedVersionMap) {
-            versionMap = (ManagedVersionMap) managedVersions;
-        } else {
-            versionMap = new ManagedVersionMap(managedVersions);
-```
-
-### Deprecation
-'org.apache.maven.artifact.versioning.ManagedVersionMap' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
-#### Snippet
-```java
-            versionMap = (ManagedVersionMap) managedVersions;
-        } else {
-            versionMap = new ManagedVersionMap(managedVersions);
-        }
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.versioning.ManagedVersionMap' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
-#### Snippet
-```java
-            // TODO we probably want to warn the user that he is building an artifact with
-            // different values than in dependencyManagement
-            if (managedVersions instanceof ManagedVersionMap) {
-                /* avoid modifying the managedVersions parameter creating a new map */
-                versionMap = new ManagedVersionMap(managedVersions);
-```
-
-### Deprecation
-'org.apache.maven.artifact.versioning.ManagedVersionMap' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
-#### Snippet
-```java
-            if (managedVersions instanceof ManagedVersionMap) {
-                /* avoid modifying the managedVersions parameter creating a new map */
-                versionMap = new ManagedVersionMap(managedVersions);
-            }
-            versionMap.remove(originatingArtifact.getDependencyConflictId());
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
-#### Snippet
-```java
-            Set<Artifact> artifacts,
-            Artifact originatingArtifact,
-            ArtifactRepository localRepository,
-            List<ArtifactRepository> remoteRepositories,
-            ArtifactMetadataSource source,
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
-#### Snippet
-```java
-            Artifact originatingArtifact,
-            ArtifactRepository localRepository,
-            List<ArtifactRepository> remoteRepositories,
-            ArtifactMetadataSource source,
-            ArtifactFilter filter,
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadataSource' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
-#### Snippet
-```java
-            ArtifactRepository localRepository,
-            List<ArtifactRepository> remoteRepositories,
-            ArtifactMetadataSource source,
-            ArtifactFilter filter,
-            List<ResolutionListener> listeners) {
-```
-
-### Deprecation
-'org.apache.maven.artifact.versioning.ManagedVersionMap' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
-#### Snippet
-```java
-
-    private void manageArtifact(
-            ResolutionNode node, ManagedVersionMap managedVersions, List<ResolutionListener> listeners) {
-        Artifact artifact = managedVersions.get(node.getKey());
-
-```
-
-### Deprecation
-Overrides deprecated method in 'org.apache.maven.repository.legacy.resolver.LegacyArtifactCollector'
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
-#### Snippet
-```java
-
-    @SuppressWarnings("checkstyle:parameternumber")
-    public ArtifactResolutionResult collect(
-            Set<Artifact> artifacts,
-            Artifact originatingArtifact,
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
-#### Snippet
-```java
-            Artifact originatingArtifact,
-            Map<String, Artifact> managedVersions,
-            ArtifactRepository localRepository,
-            List<ArtifactRepository> remoteRepositories,
-            ArtifactMetadataSource source,
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
-#### Snippet
-```java
-            Map<String, Artifact> managedVersions,
-            ArtifactRepository localRepository,
-            List<ArtifactRepository> remoteRepositories,
-            ArtifactMetadataSource source,
-            ArtifactFilter filter,
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadataSource' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
-#### Snippet
-```java
-            ArtifactRepository localRepository,
-            List<ArtifactRepository> remoteRepositories,
-            ArtifactMetadataSource source,
-            ArtifactFilter filter,
-            List<ResolutionListener> listeners) {
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadataSource' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
-#### Snippet
-```java
-            Map<String, Artifact> managedVersions,
-            ArtifactResolutionRequest repositoryRequest,
-            ArtifactMetadataSource source,
-            ArtifactFilter filter,
-            List<ResolutionListener> listeners,
-```
-
-### Deprecation
-'org.apache.maven.artifact.versioning.ManagedVersionMap' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
-#### Snippet
-```java
-        }
-
-        ManagedVersionMap versionMap = getManagedVersionsMap(originatingArtifact, managedVersions);
-
-        try {
 ```
 
 ### Deprecation
@@ -4343,6 +4439,18 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyReposito
 ```
 
 ### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
+        }
+
+        public String pathOfRemoteRepositoryMetadata(ArtifactMetadata metadata) {
+            return fallback.pathOfRemoteRepositoryMetadata(metadata);
+        }
+```
+
+### Deprecation
 'org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout' is deprecated
 in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
 #### Snippet
@@ -4367,15 +4475,39 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyReposito
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
 in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
 #### Snippet
 ```java
-        }
+    }
 
-        public String pathOfLocalRepositoryMetadata(ArtifactMetadata metadata, ArtifactRepository repository) {
-            return fallback.pathOfLocalRepositoryMetadata(metadata, repository);
-        }
+    private Proxy getProxy(RepositorySystemSession session, ArtifactRepository repository) {
+        if (session != null) {
+            ProxySelector selector = session.getProxySelector();
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
+    //    }
+
+    public List<ArtifactRepository> getEffectiveRepositories(List<ArtifactRepository> repositories) {
+        if (repositories == null) {
+            return null;
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
+    //    }
+
+    public List<ArtifactRepository> getEffectiveRepositories(List<ArtifactRepository> repositories) {
+        if (repositories == null) {
+            return null;
 ```
 
 ### Deprecation
@@ -4385,9 +4517,189 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyReposito
 ```java
         }
 
-        public String pathOfLocalRepositoryMetadata(ArtifactMetadata metadata, ArtifactRepository repository) {
-            return fallback.pathOfLocalRepositoryMetadata(metadata, repository);
+        Map<String, List<ArtifactRepository>> reposByKey = new LinkedHashMap<>();
+
+        for (ArtifactRepository repository : repositories) {
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
+        Map<String, List<ArtifactRepository>> reposByKey = new LinkedHashMap<>();
+
+        for (ArtifactRepository repository : repositories) {
+            String key = repository.getId();
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
+            String key = repository.getId();
+
+            List<ArtifactRepository> aliasedRepos = reposByKey.computeIfAbsent(key, k -> new ArrayList<>());
+
+            aliasedRepos.add(repository);
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
         }
+
+        List<ArtifactRepository> effectiveRepositories = new ArrayList<>();
+
+        for (List<ArtifactRepository> aliasedRepos : reposByKey.values()) {
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
+        List<ArtifactRepository> effectiveRepositories = new ArrayList<>();
+
+        for (List<ArtifactRepository> aliasedRepos : reposByKey.values()) {
+            List<ArtifactRepository> mirroredRepos = new ArrayList<>();
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
+
+        for (List<ArtifactRepository> aliasedRepos : reposByKey.values()) {
+            List<ArtifactRepository> mirroredRepos = new ArrayList<>();
+
+            List<ArtifactRepositoryPolicy> releasePolicies = new ArrayList<>(aliasedRepos.size());
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
+            List<ArtifactRepository> mirroredRepos = new ArrayList<>();
+
+            List<ArtifactRepositoryPolicy> releasePolicies = new ArrayList<>(aliasedRepos.size());
+
+            for (ArtifactRepository aliasedRepo : aliasedRepos) {
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
+            List<ArtifactRepositoryPolicy> releasePolicies = new ArrayList<>(aliasedRepos.size());
+
+            for (ArtifactRepository aliasedRepo : aliasedRepos) {
+                releasePolicies.add(aliasedRepo.getReleases());
+                mirroredRepos.addAll(aliasedRepo.getMirroredRepositories());
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
+            }
+
+            ArtifactRepositoryPolicy releasePolicy = getEffectivePolicy(releasePolicies);
+
+            List<ArtifactRepositoryPolicy> snapshotPolicies = new ArrayList<>(aliasedRepos.size());
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
+            ArtifactRepositoryPolicy releasePolicy = getEffectivePolicy(releasePolicies);
+
+            List<ArtifactRepositoryPolicy> snapshotPolicies = new ArrayList<>(aliasedRepos.size());
+
+            for (ArtifactRepository aliasedRepo : aliasedRepos) {
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
+            List<ArtifactRepositoryPolicy> snapshotPolicies = new ArrayList<>(aliasedRepos.size());
+
+            for (ArtifactRepository aliasedRepo : aliasedRepos) {
+                snapshotPolicies.add(aliasedRepo.getSnapshots());
+            }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
+            }
+
+            ArtifactRepositoryPolicy snapshotPolicy = getEffectivePolicy(snapshotPolicies);
+
+            ArtifactRepository aliasedRepo = aliasedRepos.get(0);
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
+            ArtifactRepositoryPolicy snapshotPolicy = getEffectivePolicy(snapshotPolicies);
+
+            ArtifactRepository aliasedRepo = aliasedRepos.get(0);
+
+            ArtifactRepository effectiveRepository = createArtifactRepository(
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
+            ArtifactRepository aliasedRepo = aliasedRepos.get(0);
+
+            ArtifactRepository effectiveRepository = createArtifactRepository(
+                    aliasedRepo.getId(), aliasedRepo.getUrl(), aliasedRepo.getLayout(), snapshotPolicy, releasePolicy);
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
+    }
+
+    public Mirror getMirror(ArtifactRepository repository, List<Mirror> mirrors) {
+        return mirrorSelector.getMirror(repository, mirrors);
+    }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
+
+    private org.apache.maven.settings.Proxy getProxy(
+            ArtifactRepository repository, List<org.apache.maven.settings.Proxy> proxies) {
+        if (proxies != null && repository.getProtocol() != null) {
+            for (org.apache.maven.settings.Proxy proxy : proxies) {
 ```
 
 ### Deprecation
@@ -4457,150 +4769,6 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyReposito
 ```java
     }
 
-    private Proxy getProxy(RepositorySystemSession session, ArtifactRepository repository) {
-        if (session != null) {
-            ProxySelector selector = session.getProxySelector();
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-    }
-
-    private void injectMirror(ArtifactRepository repository, Mirror mirror) {
-        if (mirror != null) {
-            ArtifactRepository original = createArtifactRepository(
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-    private void injectMirror(ArtifactRepository repository, Mirror mirror) {
-        if (mirror != null) {
-            ArtifactRepository original = createArtifactRepository(
-                    repository.getId(),
-                    repository.getUrl(),
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-    }
-
-    public ArtifactRepository createDefaultRemoteRepository() throws InvalidRepositoryException {
-        return createRepository(
-                RepositorySystem.DEFAULT_REMOTE_REPO_URL,
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-                RepositorySystem.DEFAULT_REMOTE_REPO_ID,
-                true,
-                ArtifactRepositoryPolicy.UPDATE_POLICY_DAILY,
-                false,
-                ArtifactRepositoryPolicy.UPDATE_POLICY_DAILY,
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-                ArtifactRepositoryPolicy.UPDATE_POLICY_DAILY,
-                false,
-                ArtifactRepositoryPolicy.UPDATE_POLICY_DAILY,
-                ArtifactRepositoryPolicy.CHECKSUM_POLICY_WARN);
-    }
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-                false,
-                ArtifactRepositoryPolicy.UPDATE_POLICY_DAILY,
-                ArtifactRepositoryPolicy.CHECKSUM_POLICY_WARN);
-    }
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-    }
-
-    public void injectMirror(List<ArtifactRepository> repositories, List<Mirror> mirrors) {
-        if (repositories != null && mirrors != null) {
-            for (ArtifactRepository repository : repositories) {
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-    public void injectMirror(List<ArtifactRepository> repositories, List<Mirror> mirrors) {
-        if (repositories != null && mirrors != null) {
-            for (ArtifactRepository repository : repositories) {
-                Mirror mirror = getMirror(repository, mirrors);
-                injectMirror(repository, mirror);
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-        private final String id;
-
-        private final ArtifactRepositoryLayout fallback;
-
-        UnknownRepositoryLayout(String id, ArtifactRepositoryLayout fallback) {
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-     * described.
-     */
-    static class UnknownRepositoryLayout implements ArtifactRepositoryLayout {
-
-        private final String id;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-        private final ArtifactRepositoryLayout fallback;
-
-        UnknownRepositoryLayout(String id, ArtifactRepositoryLayout fallback) {
-            this.id = id;
-            this.fallback = fallback;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-    }
-
     public void injectMirror(RepositorySystemSession session, List<ArtifactRepository> repositories) {
         if (repositories != null && session != null) {
             for (ArtifactRepository repository : repositories) {
@@ -4616,18 +4784,6 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyReposito
             for (ArtifactRepository repository : repositories) {
                 Mirror mirror = getMirror(session, repository);
                 injectMirror(repository, mirror);
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-    }
-
-    public Mirror getMirror(ArtifactRepository repository, List<Mirror> mirrors) {
-        return mirrorSelector.getMirror(repository, mirrors);
-    }
 ```
 
 ### Deprecation
@@ -4655,159 +4811,15 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyReposito
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-    }
-
-    public ArtifactRepositoryPolicy buildArtifactRepositoryPolicy(RepositoryPolicy policy) {
-        boolean enabled = true;
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-        }
-
-        return new ArtifactRepositoryPolicy(enabled, updatePolicy, checksumPolicy);
-    }
-
-```
-
-### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
 in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
 #### Snippet
 ```java
-    }
 
-    public ArtifactRepository createDefaultLocalRepository() throws InvalidRepositoryException {
-        return createLocalRepository(RepositorySystem.defaultUserLocalRepository);
-    }
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-    }
-
-    private Authentication getAuthentication(RepositorySystemSession session, ArtifactRepository repository) {
-        if (session != null) {
-            AuthenticationSelector selector = session.getAuthenticationSelector();
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-    }
-
-    private ArtifactRepositoryPolicy getEffectivePolicy(Collection<ArtifactRepositoryPolicy> policies) {
-        ArtifactRepositoryPolicy effectivePolicy = null;
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-    }
-
-    private ArtifactRepositoryPolicy getEffectivePolicy(Collection<ArtifactRepositoryPolicy> policies) {
-        ArtifactRepositoryPolicy effectivePolicy = null;
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-
-    private ArtifactRepositoryPolicy getEffectivePolicy(Collection<ArtifactRepositoryPolicy> policies) {
-        ArtifactRepositoryPolicy effectivePolicy = null;
-
-        for (ArtifactRepositoryPolicy policy : policies) {
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-        ArtifactRepositoryPolicy effectivePolicy = null;
-
-        for (ArtifactRepositoryPolicy policy : policies) {
-            if (effectivePolicy == null) {
-                effectivePolicy = new ArtifactRepositoryPolicy(policy);
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-        for (ArtifactRepositoryPolicy policy : policies) {
-            if (effectivePolicy == null) {
-                effectivePolicy = new ArtifactRepositoryPolicy(policy);
-            } else {
-                effectivePolicy.merge(policy);
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-    }
-
-    public ArtifactRepository createLocalRepository(File localRepository) throws InvalidRepositoryException {
-        return createRepository(
-                "file://" + localRepository.toURI().getRawPath(),
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-                RepositorySystem.DEFAULT_LOCAL_REPO_ID,
-                true,
-                ArtifactRepositoryPolicy.UPDATE_POLICY_ALWAYS,
-                true,
-                ArtifactRepositoryPolicy.UPDATE_POLICY_ALWAYS,
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-                ArtifactRepositoryPolicy.UPDATE_POLICY_ALWAYS,
-                true,
-                ArtifactRepositoryPolicy.UPDATE_POLICY_ALWAYS,
-                ArtifactRepositoryPolicy.CHECKSUM_POLICY_IGNORE);
-    }
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-                true,
-                ArtifactRepositoryPolicy.UPDATE_POLICY_ALWAYS,
-                ArtifactRepositoryPolicy.CHECKSUM_POLICY_IGNORE);
-    }
-
+    public void publish(
+            ArtifactRepository repository, File source, String remotePath, ArtifactTransferListener transferListener)
+            throws ArtifactTransferFailedException {
+        try {
 ```
 
 ### Deprecation
@@ -4907,42 +4919,6 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyReposito
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.factory.ArtifactFactory' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-
-    @Requirement
-    private ArtifactFactory artifactFactory;
-
-    @Requirement
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-    }
-
-    public void injectAuthentication(RepositorySystemSession session, List<ArtifactRepository> repositories) {
-        if (repositories != null && session != null) {
-            for (ArtifactRepository repository : repositories) {
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-    public void injectAuthentication(RepositorySystemSession session, List<ArtifactRepository> repositories) {
-        if (repositories != null && session != null) {
-            for (ArtifactRepository repository : repositories) {
-                repository.setAuthentication(getAuthentication(session, repository));
-            }
-```
-
-### Deprecation
 'org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout' is deprecated
 in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
 #### Snippet
@@ -4964,6 +4940,30 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyReposito
         ArtifactRepositoryLayout layout = layouts.get(id);
 
         if (layout == null) {
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
+    }
+
+    private void injectMirror(ArtifactRepository repository, Mirror mirror) {
+        if (mirror != null) {
+            ArtifactRepository original = createArtifactRepository(
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
+    private void injectMirror(ArtifactRepository repository, Mirror mirror) {
+        if (mirror != null) {
+            ArtifactRepository original = createArtifactRepository(
+                    repository.getId(),
+                    repository.getUrl(),
 ```
 
 ### Deprecation
@@ -5003,15 +5003,15 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyReposito
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
-in `maven-artifact/src/main/java/org/apache/maven/artifact/Artifact.java`
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
 #### Snippet
 ```java
-    String getDependencyConflictId();
+    }
 
-    void addMetadata(ArtifactMetadata metadata);
-
-    Collection<ArtifactMetadata> getMetadataList();
+    public void injectMirror(List<ArtifactRepository> repositories, List<Mirror> mirrors) {
+        if (repositories != null && mirrors != null) {
+            for (ArtifactRepository repository : repositories) {
 ```
 
 ### Deprecation
@@ -5019,23 +5019,11 @@ in `maven-artifact/src/main/java/org/apache/maven/artifact/Artifact.java`
 in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
 #### Snippet
 ```java
-
-    public void publish(
-            ArtifactRepository repository, File source, String remotePath, ArtifactTransferListener transferListener)
-            throws ArtifactTransferFailedException {
-        try {
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
-in `maven-artifact/src/main/java/org/apache/maven/artifact/Artifact.java`
-#### Snippet
-```java
-    void addMetadata(ArtifactMetadata metadata);
-
-    Collection<ArtifactMetadata> getMetadataList();
-
-    void setRepository(ArtifactRepository remoteRepository);
+    public void injectMirror(List<ArtifactRepository> repositories, List<Mirror> mirrors) {
+        if (repositories != null && mirrors != null) {
+            for (ArtifactRepository repository : repositories) {
+                Mirror mirror = getMirror(repository, mirrors);
+                injectMirror(repository, mirror);
 ```
 
 ### Deprecation
@@ -5045,21 +5033,81 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyReposito
 ```java
     }
 
-    public void injectAuthentication(List<ArtifactRepository> repositories, List<Server> servers) {
-        if (repositories != null) {
-            Map<String, Server> serversById = new HashMap<>();
+    public ArtifactRepository createDefaultLocalRepository() throws InvalidRepositoryException {
+        return createLocalRepository(RepositorySystem.defaultUserLocalRepository);
+    }
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-artifact/src/main/java/org/apache/maven/artifact/Artifact.java`
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
 #### Snippet
 ```java
-    void setRepository(ArtifactRepository remoteRepository);
+    }
 
-    ArtifactRepository getRepository();
+    private ArtifactRepositoryPolicy getEffectivePolicy(Collection<ArtifactRepositoryPolicy> policies) {
+        ArtifactRepositoryPolicy effectivePolicy = null;
 
-    void updateVersion(String version, ArtifactRepository localRepository);
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
+    }
+
+    private ArtifactRepositoryPolicy getEffectivePolicy(Collection<ArtifactRepositoryPolicy> policies) {
+        ArtifactRepositoryPolicy effectivePolicy = null;
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
+
+    private ArtifactRepositoryPolicy getEffectivePolicy(Collection<ArtifactRepositoryPolicy> policies) {
+        ArtifactRepositoryPolicy effectivePolicy = null;
+
+        for (ArtifactRepositoryPolicy policy : policies) {
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
+        ArtifactRepositoryPolicy effectivePolicy = null;
+
+        for (ArtifactRepositoryPolicy policy : policies) {
+            if (effectivePolicy == null) {
+                effectivePolicy = new ArtifactRepositoryPolicy(policy);
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
+        for (ArtifactRepositoryPolicy policy : policies) {
+            if (effectivePolicy == null) {
+                effectivePolicy = new ArtifactRepositoryPolicy(policy);
+            } else {
+                effectivePolicy.merge(policy);
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
+        }
+
+        public String pathOfLocalRepositoryMetadata(ArtifactMetadata metadata, ArtifactRepository repository) {
+            return fallback.pathOfLocalRepositoryMetadata(metadata, repository);
+        }
 ```
 
 ### Deprecation
@@ -5067,23 +5115,11 @@ in `maven-artifact/src/main/java/org/apache/maven/artifact/Artifact.java`
 in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
 #### Snippet
 ```java
-            }
+        }
 
-            for (ArtifactRepository repository : repositories) {
-                Server server = serversById.get(repository.getId());
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-artifact/src/main/java/org/apache/maven/artifact/Artifact.java`
-#### Snippet
-```java
-    Collection<ArtifactMetadata> getMetadataList();
-
-    void setRepository(ArtifactRepository remoteRepository);
-
-    ArtifactRepository getRepository();
+        public String pathOfLocalRepositoryMetadata(ArtifactMetadata metadata, ArtifactRepository repository) {
+            return fallback.pathOfLocalRepositoryMetadata(metadata, repository);
+        }
 ```
 
 ### Deprecation
@@ -5091,23 +5127,11 @@ in `maven-artifact/src/main/java/org/apache/maven/artifact/Artifact.java`
 in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
 #### Snippet
 ```java
+    }
 
-    private org.apache.maven.settings.Proxy getProxy(
-            ArtifactRepository repository, List<org.apache.maven.settings.Proxy> proxies) {
-        if (proxies != null && repository.getProtocol() != null) {
-            for (org.apache.maven.settings.Proxy proxy : proxies) {
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-artifact/src/main/java/org/apache/maven/artifact/Artifact.java`
-#### Snippet
-```java
-    ArtifactRepository getRepository();
-
-    void updateVersion(String version, ArtifactRepository localRepository);
-
-    String getDownloadUrl();
+    private Mirror getMirror(RepositorySystemSession session, ArtifactRepository repository) {
+        if (session != null) {
+            org.eclipse.aether.repository.MirrorSelector selector = session.getMirrorSelector();
 ```
 
 ### Deprecation
@@ -5139,11 +5163,11 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyReposito
 in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
 #### Snippet
 ```java
-    //    }
+    }
 
-    public List<ArtifactRepository> getEffectiveRepositories(List<ArtifactRepository> repositories) {
-        if (repositories == null) {
-            return null;
+    public void injectAuthentication(RepositorySystemSession session, List<ArtifactRepository> repositories) {
+        if (repositories != null && session != null) {
+            for (ArtifactRepository repository : repositories) {
 ```
 
 ### Deprecation
@@ -5151,23 +5175,95 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyReposito
 in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
 #### Snippet
 ```java
-    //    }
-
-    public List<ArtifactRepository> getEffectiveRepositories(List<ArtifactRepository> repositories) {
-        if (repositories == null) {
-            return null;
+    public void injectAuthentication(RepositorySystemSession session, List<ArtifactRepository> repositories) {
+        if (repositories != null && session != null) {
+            for (ArtifactRepository repository : repositories) {
+                repository.setAuthentication(getAuthentication(session, repository));
+            }
 ```
 
 ### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
+    }
+
+    public ArtifactRepository createLocalRepository(File localRepository) throws InvalidRepositoryException {
+        return createRepository(
+                "file://" + localRepository.toURI().getRawPath(),
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
+                RepositorySystem.DEFAULT_LOCAL_REPO_ID,
+                true,
+                ArtifactRepositoryPolicy.UPDATE_POLICY_ALWAYS,
+                true,
+                ArtifactRepositoryPolicy.UPDATE_POLICY_ALWAYS,
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
+                ArtifactRepositoryPolicy.UPDATE_POLICY_ALWAYS,
+                true,
+                ArtifactRepositoryPolicy.UPDATE_POLICY_ALWAYS,
+                ArtifactRepositoryPolicy.CHECKSUM_POLICY_IGNORE);
+    }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
+                true,
+                ArtifactRepositoryPolicy.UPDATE_POLICY_ALWAYS,
+                ArtifactRepositoryPolicy.CHECKSUM_POLICY_IGNORE);
+    }
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
+    }
+
+    public ArtifactRepositoryPolicy buildArtifactRepositoryPolicy(RepositoryPolicy policy) {
+        boolean enabled = true;
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
 in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
 #### Snippet
 ```java
         }
 
-        Map<String, List<ArtifactRepository>> reposByKey = new LinkedHashMap<>();
+        return new ArtifactRepositoryPolicy(enabled, updatePolicy, checksumPolicy);
+    }
 
-        for (ArtifactRepository repository : repositories) {
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
+        private final String id;
+
+        private final ArtifactRepositoryLayout fallback;
+
+        UnknownRepositoryLayout(String id, ArtifactRepositoryLayout fallback) {
 ```
 
 ### Deprecation
@@ -5175,95 +5271,59 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyReposito
 in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
 #### Snippet
 ```java
-        Map<String, List<ArtifactRepository>> reposByKey = new LinkedHashMap<>();
+    }
 
-        for (ArtifactRepository repository : repositories) {
-            String key = repository.getId();
-
+    public void injectAuthentication(List<ArtifactRepository> repositories, List<Server> servers) {
+        if (repositories != null) {
+            Map<String, Server> serversById = new HashMap<>();
 ```
 
 ### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-            String key = repository.getId();
-
-            List<ArtifactRepository> aliasedRepos = reposByKey.computeIfAbsent(key, k -> new ArrayList<>());
-
-            aliasedRepos.add(repository);
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-        }
-
-        List<ArtifactRepository> effectiveRepositories = new ArrayList<>();
-
-        for (List<ArtifactRepository> aliasedRepos : reposByKey.values()) {
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-        List<ArtifactRepository> effectiveRepositories = new ArrayList<>();
-
-        for (List<ArtifactRepository> aliasedRepos : reposByKey.values()) {
-            List<ArtifactRepository> mirroredRepos = new ArrayList<>();
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-
-        for (List<ArtifactRepository> aliasedRepos : reposByKey.values()) {
-            List<ArtifactRepository> mirroredRepos = new ArrayList<>();
-
-            List<ArtifactRepositoryPolicy> releasePolicies = new ArrayList<>(aliasedRepos.size());
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-            List<ArtifactRepository> mirroredRepos = new ArrayList<>();
-
-            List<ArtifactRepositoryPolicy> releasePolicies = new ArrayList<>(aliasedRepos.size());
-
-            for (ArtifactRepository aliasedRepo : aliasedRepos) {
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-            List<ArtifactRepositoryPolicy> releasePolicies = new ArrayList<>(aliasedRepos.size());
-
-            for (ArtifactRepository aliasedRepo : aliasedRepos) {
-                releasePolicies.add(aliasedRepo.getReleases());
-                mirroredRepos.addAll(aliasedRepo.getMirroredRepositories());
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
 in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
 #### Snippet
 ```java
             }
 
-            ArtifactRepositoryPolicy releasePolicy = getEffectivePolicy(releasePolicies);
+            for (ArtifactRepository repository : repositories) {
+                Server server = serversById.get(repository.getId());
 
-            List<ArtifactRepositoryPolicy> snapshotPolicies = new ArrayList<>(aliasedRepos.size());
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
+     * described.
+     */
+    static class UnknownRepositoryLayout implements ArtifactRepositoryLayout {
+
+        private final String id;
+```
+
+### Deprecation
+'org.apache.maven.artifact.factory.ArtifactFactory' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
+
+    @Requirement
+    private ArtifactFactory artifactFactory;
+
+    @Requirement
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
+    }
+
+    public ArtifactRepository createDefaultRemoteRepository() throws InvalidRepositoryException {
+        return createRepository(
+                RepositorySystem.DEFAULT_REMOTE_REPO_URL,
 ```
 
 ### Deprecation
@@ -5271,23 +5331,11 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyReposito
 in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
 #### Snippet
 ```java
-            ArtifactRepositoryPolicy releasePolicy = getEffectivePolicy(releasePolicies);
-
-            List<ArtifactRepositoryPolicy> snapshotPolicies = new ArrayList<>(aliasedRepos.size());
-
-            for (ArtifactRepository aliasedRepo : aliasedRepos) {
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-            List<ArtifactRepositoryPolicy> snapshotPolicies = new ArrayList<>(aliasedRepos.size());
-
-            for (ArtifactRepository aliasedRepo : aliasedRepos) {
-                snapshotPolicies.add(aliasedRepo.getSnapshots());
-            }
+                RepositorySystem.DEFAULT_REMOTE_REPO_ID,
+                true,
+                ArtifactRepositoryPolicy.UPDATE_POLICY_DAILY,
+                false,
+                ArtifactRepositoryPolicy.UPDATE_POLICY_DAILY,
 ```
 
 ### Deprecation
@@ -5295,11 +5343,35 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyReposito
 in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
 #### Snippet
 ```java
-            }
+                ArtifactRepositoryPolicy.UPDATE_POLICY_DAILY,
+                false,
+                ArtifactRepositoryPolicy.UPDATE_POLICY_DAILY,
+                ArtifactRepositoryPolicy.CHECKSUM_POLICY_WARN);
+    }
+```
 
-            ArtifactRepositoryPolicy snapshotPolicy = getEffectivePolicy(snapshotPolicies);
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
+                false,
+                ArtifactRepositoryPolicy.UPDATE_POLICY_DAILY,
+                ArtifactRepositoryPolicy.CHECKSUM_POLICY_WARN);
+    }
 
-            ArtifactRepository aliasedRepo = aliasedRepos.get(0);
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+#### Snippet
+```java
+        private final ArtifactRepositoryLayout fallback;
+
+        UnknownRepositoryLayout(String id, ArtifactRepositoryLayout fallback) {
+            this.id = id;
+            this.fallback = fallback;
 ```
 
 ### Deprecation
@@ -5307,23 +5379,11 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyReposito
 in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
 #### Snippet
 ```java
-            ArtifactRepositoryPolicy snapshotPolicy = getEffectivePolicy(snapshotPolicies);
+    }
 
-            ArtifactRepository aliasedRepo = aliasedRepos.get(0);
-
-            ArtifactRepository effectiveRepository = createArtifactRepository(
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
-#### Snippet
-```java
-            ArtifactRepository aliasedRepo = aliasedRepos.get(0);
-
-            ArtifactRepository effectiveRepository = createArtifactRepository(
-                    aliasedRepo.getId(), aliasedRepo.getUrl(), aliasedRepo.getLayout(), snapshotPolicy, releasePolicy);
-
+    private Authentication getAuthentication(RepositorySystemSession session, ArtifactRepository repository) {
+        if (session != null) {
+            AuthenticationSelector selector = session.getAuthenticationSelector();
 ```
 
 ### Deprecation
@@ -5352,674 +5412,482 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyReposito
 
 ### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
 #### Snippet
 ```java
-    }
-
-    private Mirror getMirror(RepositorySystemSession session, ArtifactRepository repository) {
-        if (session != null) {
-            org.eclipse.aether.repository.MirrorSelector selector = session.getMirrorSelector();
+            Set<Artifact> artifacts,
+            Artifact originatingArtifact,
+            ArtifactRepository localRepository,
+            List<ArtifactRepository> remoteRepositories,
+            ArtifactMetadataSource source,
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/LegacyRepositorySystem.java`
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
 #### Snippet
 ```java
+            Artifact originatingArtifact,
+            ArtifactRepository localRepository,
+            List<ArtifactRepository> remoteRepositories,
+            ArtifactMetadataSource source,
+            ArtifactFilter filter,
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadataSource' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
+#### Snippet
+```java
+            ArtifactRepository localRepository,
+            List<ArtifactRepository> remoteRepositories,
+            ArtifactMetadataSource source,
+            ArtifactFilter filter,
+            List<ResolutionListener> listeners) {
+```
+
+### Deprecation
+'org.apache.maven.artifact.versioning.ManagedVersionMap' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
+#### Snippet
+```java
+
+    private void manageArtifact(
+            ResolutionNode node, ManagedVersionMap managedVersions, List<ResolutionListener> listeners) {
+        Artifact artifact = managedVersions.get(node.getKey());
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.versioning.ManagedVersionMap' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
+#### Snippet
+```java
+     * @param managedVersions original managed versions
+     */
+    private ManagedVersionMap getManagedVersionsMap(
+            Artifact originatingArtifact, Map<String, Artifact> managedVersions) {
+        ManagedVersionMap versionMap;
+```
+
+### Deprecation
+'org.apache.maven.artifact.versioning.ManagedVersionMap' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
+#### Snippet
+```java
+    private ManagedVersionMap getManagedVersionsMap(
+            Artifact originatingArtifact, Map<String, Artifact> managedVersions) {
+        ManagedVersionMap versionMap;
+        if (managedVersions instanceof ManagedVersionMap) {
+            versionMap = (ManagedVersionMap) managedVersions;
+```
+
+### Deprecation
+'org.apache.maven.artifact.versioning.ManagedVersionMap' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
+#### Snippet
+```java
+            Artifact originatingArtifact, Map<String, Artifact> managedVersions) {
+        ManagedVersionMap versionMap;
+        if (managedVersions instanceof ManagedVersionMap) {
+            versionMap = (ManagedVersionMap) managedVersions;
+        } else {
+```
+
+### Deprecation
+'org.apache.maven.artifact.versioning.ManagedVersionMap' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
+#### Snippet
+```java
+        ManagedVersionMap versionMap;
+        if (managedVersions instanceof ManagedVersionMap) {
+            versionMap = (ManagedVersionMap) managedVersions;
+        } else {
+            versionMap = new ManagedVersionMap(managedVersions);
+```
+
+### Deprecation
+'org.apache.maven.artifact.versioning.ManagedVersionMap' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
+#### Snippet
+```java
+            versionMap = (ManagedVersionMap) managedVersions;
+        } else {
+            versionMap = new ManagedVersionMap(managedVersions);
         }
 
-        public String pathOfRemoteRepositoryMetadata(ArtifactMetadata metadata) {
-            return fallback.pathOfRemoteRepositoryMetadata(metadata);
-        }
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/ArtifactResolutionException.java`
+'org.apache.maven.artifact.versioning.ManagedVersionMap' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
 #### Snippet
 ```java
-    }
-
-    public ArtifactResolutionException(String message, Artifact artifact, List<ArtifactRepository> remoteRepositories) {
-        super(message, artifact, remoteRepositories);
-    }
+            // TODO we probably want to warn the user that he is building an artifact with
+            // different values than in dependencyManagement
+            if (managedVersions instanceof ManagedVersionMap) {
+                /* avoid modifying the managedVersions parameter creating a new map */
+                versionMap = new ManagedVersionMap(managedVersions);
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/ArtifactResolutionException.java`
+'org.apache.maven.artifact.versioning.ManagedVersionMap' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
 #### Snippet
 ```java
-
-    public ArtifactResolutionException(
-            String message, Artifact artifact, List<ArtifactRepository> remoteRepositories, Throwable cause) {
-        super(message, artifact, remoteRepositories, cause);
-    }
+            if (managedVersions instanceof ManagedVersionMap) {
+                /* avoid modifying the managedVersions parameter creating a new map */
+                versionMap = new ManagedVersionMap(managedVersions);
+            }
+            versionMap.remove(originatingArtifact.getDependencyConflictId());
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/ArtifactResolutionException.java`
+'org.apache.maven.artifact.resolver.ResolutionListenerForDepMgmt' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
 #### Snippet
 ```java
-            String type,
-            String classifier,
-            List<ArtifactRepository> remoteRepositories,
-            List<String> path,
-            Throwable t) {
+                    break;
+                case ResolutionListener.MANAGE_ARTIFACT_VERSION:
+                    if (listener instanceof ResolutionListenerForDepMgmt) {
+                        ResolutionListenerForDepMgmt asImpl = (ResolutionListenerForDepMgmt) listener;
+                        asImpl.manageArtifactVersion(node.getArtifact(), replacement);
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/ArtifactNotFoundException.java`
+'org.apache.maven.artifact.resolver.ResolutionListenerForDepMgmt' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
 #### Snippet
 ```java
-            String type,
-            String classifier,
-            List<ArtifactRepository> remoteRepositories,
-            String downloadUrl,
-            List<String> path) {
+                case ResolutionListener.MANAGE_ARTIFACT_VERSION:
+                    if (listener instanceof ResolutionListenerForDepMgmt) {
+                        ResolutionListenerForDepMgmt asImpl = (ResolutionListenerForDepMgmt) listener;
+                        asImpl.manageArtifactVersion(node.getArtifact(), replacement);
+                    } else {
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/ArtifactNotFoundException.java`
+'org.apache.maven.artifact.resolver.ResolutionListenerForDepMgmt' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
 #### Snippet
 ```java
-            String type,
-            String classifier,
-            List<ArtifactRepository> remoteRepositories,
-            String downloadUrl,
-            List<String> path,
+                case ResolutionListener.MANAGE_ARTIFACT_VERSION:
+                    if (listener instanceof ResolutionListenerForDepMgmt) {
+                        ResolutionListenerForDepMgmt asImpl = (ResolutionListenerForDepMgmt) listener;
+                        asImpl.manageArtifactVersion(node.getArtifact(), replacement);
+                    } else {
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/ArtifactNotFoundException.java`
+'manageArtifact(org.apache.maven.artifact.Artifact, org.apache.maven.artifact.Artifact)' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
 #### Snippet
 ```java
-
-    protected ArtifactNotFoundException(
-            String message, Artifact artifact, List<ArtifactRepository> remoteRepositories, Throwable cause) {
-        this(
-                message,
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/ArtifactNotFoundException.java`
-#### Snippet
-```java
-
-    protected ArtifactNotFoundException(
-            String message, Artifact artifact, List<ArtifactRepository> remoteRepositories) {
-        super(message, artifact, remoteRepositories);
-    }
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/MultipleArtifactsNotFoundException.java`
-#### Snippet
-```java
-            List<Artifact> resolvedArtifacts,
-            List<Artifact> missingArtifacts,
-            List<ArtifactRepository> remoteRepositories) {
-        super(constructMessage(missingArtifacts), originatingArtifact, remoteRepositories);
-        this.resolvedArtifacts = resolvedArtifacts;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout' is deprecated
-in `maven-artifact/src/main/java/org/apache/maven/artifact/repository/layout/ArtifactRepositoryLayout2.java`
-#### Snippet
-```java
- * ArtifactRepositoryLayout2
- */
-public interface ArtifactRepositoryLayout2 extends ArtifactRepositoryLayout {
-
-    ArtifactRepository newMavenArtifactRepository(
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-artifact/src/main/java/org/apache/maven/artifact/repository/layout/ArtifactRepositoryLayout2.java`
-#### Snippet
-```java
-public interface ArtifactRepositoryLayout2 extends ArtifactRepositoryLayout {
-
-    ArtifactRepository newMavenArtifactRepository(
-            String id, String url, ArtifactRepositoryPolicy snapshots, ArtifactRepositoryPolicy releases);
-}
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-artifact/src/main/java/org/apache/maven/artifact/repository/layout/ArtifactRepositoryLayout2.java`
-#### Snippet
-```java
-
-    ArtifactRepository newMavenArtifactRepository(
-            String id, String url, ArtifactRepositoryPolicy snapshots, ArtifactRepositoryPolicy releases);
-}
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-artifact/src/main/java/org/apache/maven/artifact/repository/layout/ArtifactRepositoryLayout2.java`
-#### Snippet
-```java
-
-    ArtifactRepository newMavenArtifactRepository(
-            String id, String url, ArtifactRepositoryPolicy snapshots, ArtifactRepositoryPolicy releases);
-}
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
-in `maven-artifact/src/main/java/org/apache/maven/artifact/DefaultArtifact.java`
-#### Snippet
-```java
-    private List<ArtifactVersion> availableVersions;
-
-    private Map<Object, ArtifactMetadata> metadataMap;
-
-    private boolean optional;
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
-in `maven-artifact/src/main/java/org/apache/maven/artifact/DefaultArtifact.java`
-#### Snippet
-```java
-    }
-
-    public void addMetadata(ArtifactMetadata metadata) {
-        if (metadataMap == null) {
-            metadataMap = new HashMap<>();
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
-in `maven-artifact/src/main/java/org/apache/maven/artifact/DefaultArtifact.java`
-#### Snippet
-```java
-        }
-
-        ArtifactMetadata m = metadataMap.get(metadata.getKey());
-        if (m != null) {
-            m.merge(metadata);
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-artifact/src/main/java/org/apache/maven/artifact/DefaultArtifact.java`
-#### Snippet
-```java
-    }
-
-    public ArtifactRepository getRepository() {
-        return repository;
-    }
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
-in `maven-artifact/src/main/java/org/apache/maven/artifact/DefaultArtifact.java`
-#### Snippet
-```java
-    }
-
-    public Collection<ArtifactMetadata> getMetadataList() {
-        if (metadataMap == null) {
-            return Collections.emptyList();
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-artifact/src/main/java/org/apache/maven/artifact/DefaultArtifact.java`
-#### Snippet
-```java
-    }
-
-    public void updateVersion(String version, ArtifactRepository localRepository) {
-        setResolvedVersion(version);
-        setFile(new File(localRepository.getBasedir(), localRepository.pathOf(this)));
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-artifact/src/main/java/org/apache/maven/artifact/DefaultArtifact.java`
-#### Snippet
-```java
-    }
-
-    public void setRepository(ArtifactRepository repository) {
-        this.repository = repository;
-    }
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-artifact/src/main/java/org/apache/maven/artifact/DefaultArtifact.java`
-#### Snippet
-```java
-    private volatile File file;
-
-    private ArtifactRepository repository;
-
-    private String downloadUrl;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
-#### Snippet
-```java
-            String type,
-            String classifier,
-            List<ArtifactRepository> remoteRepositories,
-            List<String> path,
-            Throwable t) {
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
-#### Snippet
-```java
-            String version,
-            String type,
-            List<ArtifactRepository> remoteRepositories,
-            List<String> path) {
-        StringBuilder sb = new StringBuilder();
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
-#### Snippet
-```java
-                }
-
-                for (Iterator<ArtifactRepository> i = remoteRepositories.iterator(); i.hasNext(); ) {
-                    ArtifactRepository remoteRepository = i.next();
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
-#### Snippet
-```java
-
-                for (Iterator<ArtifactRepository> i = remoteRepositories.iterator(); i.hasNext(); ) {
-                    ArtifactRepository remoteRepository = i.next();
-
-                    sb.append(remoteRepository.getId());
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
-#### Snippet
-```java
-                    sb.append(remoteRepository.getUrl());
-
-                    ArtifactRepositoryPolicy releases = remoteRepository.getReleases();
-                    if (releases != null) {
-                        sb.append(", releases=").append(releases.isEnabled());
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
-#### Snippet
-```java
+                        asImpl.manageArtifactVersion(node.getArtifact(), replacement);
+                    } else {
+                        listener.manageArtifact(node.getArtifact(), replacement);
                     }
+                    break;
+```
 
-                    ArtifactRepositoryPolicy snapshots = remoteRepository.getSnapshots();
-                    if (snapshots != null) {
-                        sb.append(", snapshots=").append(snapshots.isEnabled());
+### Deprecation
+'org.apache.maven.artifact.resolver.ResolutionListenerForDepMgmt' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
+#### Snippet
+```java
+                    break;
+                case ResolutionListener.MANAGE_ARTIFACT_SCOPE:
+                    if (listener instanceof ResolutionListenerForDepMgmt) {
+                        ResolutionListenerForDepMgmt asImpl = (ResolutionListenerForDepMgmt) listener;
+                        asImpl.manageArtifactScope(node.getArtifact(), replacement);
+```
+
+### Deprecation
+'org.apache.maven.artifact.resolver.ResolutionListenerForDepMgmt' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
+#### Snippet
+```java
+                case ResolutionListener.MANAGE_ARTIFACT_SCOPE:
+                    if (listener instanceof ResolutionListenerForDepMgmt) {
+                        ResolutionListenerForDepMgmt asImpl = (ResolutionListenerForDepMgmt) listener;
+                        asImpl.manageArtifactScope(node.getArtifact(), replacement);
+                    } else {
+```
+
+### Deprecation
+'org.apache.maven.artifact.resolver.ResolutionListenerForDepMgmt' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
+#### Snippet
+```java
+                case ResolutionListener.MANAGE_ARTIFACT_SCOPE:
+                    if (listener instanceof ResolutionListenerForDepMgmt) {
+                        ResolutionListenerForDepMgmt asImpl = (ResolutionListenerForDepMgmt) listener;
+                        asImpl.manageArtifactScope(node.getArtifact(), replacement);
+                    } else {
+```
+
+### Deprecation
+'manageArtifact(org.apache.maven.artifact.Artifact, org.apache.maven.artifact.Artifact)' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
+#### Snippet
+```java
+                        asImpl.manageArtifactScope(node.getArtifact(), replacement);
+                    } else {
+                        listener.manageArtifact(node.getArtifact(), replacement);
+                    }
+                    break;
+```
+
+### Deprecation
+'org.apache.maven.artifact.resolver.ResolutionListenerForDepMgmt' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
+#### Snippet
+```java
+                    break;
+                case ResolutionListener.MANAGE_ARTIFACT_SYSTEM_PATH:
+                    if (listener instanceof ResolutionListenerForDepMgmt) {
+                        ResolutionListenerForDepMgmt asImpl = (ResolutionListenerForDepMgmt) listener;
+                        asImpl.manageArtifactSystemPath(node.getArtifact(), replacement);
+```
+
+### Deprecation
+'org.apache.maven.artifact.resolver.ResolutionListenerForDepMgmt' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
+#### Snippet
+```java
+                case ResolutionListener.MANAGE_ARTIFACT_SYSTEM_PATH:
+                    if (listener instanceof ResolutionListenerForDepMgmt) {
+                        ResolutionListenerForDepMgmt asImpl = (ResolutionListenerForDepMgmt) listener;
+                        asImpl.manageArtifactSystemPath(node.getArtifact(), replacement);
+                    } else {
+```
+
+### Deprecation
+'org.apache.maven.artifact.resolver.ResolutionListenerForDepMgmt' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
+#### Snippet
+```java
+                case ResolutionListener.MANAGE_ARTIFACT_SYSTEM_PATH:
+                    if (listener instanceof ResolutionListenerForDepMgmt) {
+                        ResolutionListenerForDepMgmt asImpl = (ResolutionListenerForDepMgmt) listener;
+                        asImpl.manageArtifactSystemPath(node.getArtifact(), replacement);
+                    } else {
+```
+
+### Deprecation
+'manageArtifact(org.apache.maven.artifact.Artifact, org.apache.maven.artifact.Artifact)' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
+#### Snippet
+```java
+                        asImpl.manageArtifactSystemPath(node.getArtifact(), replacement);
+                    } else {
+                        listener.manageArtifact(node.getArtifact(), replacement);
+                    }
+                    break;
+```
+
+### Deprecation
+'org.apache.maven.artifact.versioning.ManagedVersionMap' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
+#### Snippet
+```java
+            ResolutionNode node,
+            Map<Object, List<ResolutionNode>> resolvedArtifacts,
+            ManagedVersionMap managedVersions,
+            ArtifactResolutionRequest request,
+            ArtifactMetadataSource source,
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadataSource' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
+#### Snippet
+```java
+            ManagedVersionMap managedVersions,
+            ArtifactResolutionRequest request,
+            ArtifactMetadataSource source,
+            ArtifactFilter filter,
+            List<ResolutionListener> listeners,
 ```
 
 ### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
 #### Snippet
 ```java
+                        Artifact artifact = child.getArtifact();
+                        artifact.setDependencyTrail(node.getDependencyTrail());
+                        List<ArtifactRepository> childRemoteRepositories = child.getRemoteRepositories();
 
-    protected AbstractArtifactResolutionException(
-            String message, Artifact artifact, List<ArtifactRepository> remoteRepositories, Throwable t) {
-        this(
-                message,
+                        MetadataResolutionRequest metadataRequest = new DefaultMetadataResolutionRequest(request);
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
+'org.apache.maven.artifact.metadata.ResolutionGroup' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
 #### Snippet
 ```java
 
-    protected AbstractArtifactResolutionException(
-            String message, Artifact artifact, List<ArtifactRepository> remoteRepositories) {
-        this(message, artifact, remoteRepositories, null);
-    }
+                        try {
+                            ResolutionGroup rGroup;
+
+                            Object childKey;
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
+'org.apache.maven.artifact.metadata.ArtifactMetadataSource' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
 #### Snippet
 ```java
-    }
-
-    public List<ArtifactRepository> getRemoteRepositories() {
-        return remoteRepositories;
-    }
+            Map<String, Artifact> managedVersions,
+            ArtifactResolutionRequest repositoryRequest,
+            ArtifactMetadataSource source,
+            ArtifactFilter filter,
+            List<ResolutionListener> listeners,
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
-#### Snippet
-```java
-            String type,
-            String classifier,
-            List<ArtifactRepository> remoteRepositories,
-            List<String> path) {
-        this(message, groupId, artifactId, version, type, classifier, remoteRepositories, path, null);
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
-#### Snippet
-```java
-    private Artifact artifact;
-
-    private List<ArtifactRepository> remoteRepositories;
-
-    private final String originalMessage;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/OverConstrainedVersionException.java`
-#### Snippet
-```java
-    }
-
-    public OverConstrainedVersionException(String msg, Artifact artifact, List<ArtifactRepository> remoteRepositories) {
-        super(msg, artifact, remoteRepositories);
-    }
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
-in `maven-artifact/src/main/java/org/apache/maven/repository/legacy/metadata/ArtifactMetadata.java`
-#### Snippet
-```java
-    /**
-     * Merge a new metadata set into this piece of metadata.
-     * TODO this should only be needed on the repository metadata {@link org.apache.maven.artifact.metadata.ArtifactMetadata}
-     *
-     * @param metadata the new metadata
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-artifact/src/main/java/org/apache/maven/repository/legacy/metadata/ArtifactMetadata.java`
-#### Snippet
-```java
-     * @return the filename
-     */
-    String getLocalFilename(ArtifactRepository repository);
-
-    /**
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
-in `maven-artifact/src/main/java/org/apache/maven/repository/legacy/metadata/ArtifactMetadata.java`
-#### Snippet
-```java
-    /**
-     * Store the metadata in the local repository.
-     * TODO this should only be needed on the repository metadata {@link org.apache.maven.artifact.metadata.ArtifactMetadata}
-     *
-     * @param localRepository  the local repository
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-artifact/src/main/java/org/apache/maven/repository/legacy/metadata/ArtifactMetadata.java`
-#### Snippet
-```java
-     * @throws RepositoryMetadataStoreException in case of issue
-     */
-    void storeInLocalRepository(ArtifactRepository localRepository, ArtifactRepository remoteRepository)
-            throws RepositoryMetadataStoreException;
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-artifact/src/main/java/org/apache/maven/repository/legacy/metadata/ArtifactMetadata.java`
-#### Snippet
-```java
-     * @throws RepositoryMetadataStoreException in case of issue
-     */
-    void storeInLocalRepository(ArtifactRepository localRepository, ArtifactRepository remoteRepository)
-            throws RepositoryMetadataStoreException;
-
-```
-
-### Deprecation
-Overrides deprecated method in 'java.util.Properties'
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public void save(OutputStream out, String comments) {
-        Properties props = new Properties();
-        props.putAll(getter.get());
-```
-
-### Deprecation
-'save(java.io.OutputStream, java.lang.String)' is deprecated
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
-#### Snippet
-```java
-        Properties props = new Properties();
-        props.putAll(getter.get());
-        props.save(out, comments);
-    }
-
-```
-
-### Deprecation
-Overrides deprecated method in 'java.util.Properties'
-in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
-#### Snippet
-```java
-
-    @Override
-    public void save(OutputStream out, String comments) {
-        Properties props = new Properties();
-        props.putAll(getter.get());
-```
-
-### Deprecation
-'save(java.io.OutputStream, java.lang.String)' is deprecated
-in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
-#### Snippet
-```java
-        Properties props = new Properties();
-        props.putAll(getter.get());
-        props.save(out, comments);
-    }
-
-```
-
-### Deprecation
-'org.apache.maven.plugin.logging.Log' is deprecated
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/AbstractMojo.java`
-#### Snippet
-```java
-public abstract class AbstractMojo implements Mojo, ContextEnabled {
-    /** Instance logger */
-    private Log log;
-
-    /** Plugin container context */
-```
-
-### Deprecation
-'setActiveProfiles(java.util.List)' is deprecated
-in `maven-embedder/src/main/java/org/apache/maven/cli/configuration/SettingsXmlConfigurationProcessor.java`
+'org.apache.maven.artifact.versioning.ManagedVersionMap' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
 #### Snippet
 ```java
         }
 
-        request.setActiveProfiles(settings.getActiveProfiles());
+        ManagedVersionMap versionMap = getManagedVersionsMap(originatingArtifact, managedVersions);
 
-        for (Profile rawProfile : settings.getProfiles()) {
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/ArtifactDescriptorUtils.java`
-#### Snippet
-```java
-    public static String toRepositoryChecksumPolicy(final String artifactRepositoryPolicy) {
-        switch (artifactRepositoryPolicy) {
-            case ArtifactRepositoryPolicy.CHECKSUM_POLICY_FAIL:
-                return RepositoryPolicy.CHECKSUM_POLICY_FAIL;
-            case ArtifactRepositoryPolicy.CHECKSUM_POLICY_IGNORE:
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/ArtifactDescriptorUtils.java`
-#### Snippet
-```java
-            case ArtifactRepositoryPolicy.CHECKSUM_POLICY_FAIL:
-                return RepositoryPolicy.CHECKSUM_POLICY_FAIL;
-            case ArtifactRepositoryPolicy.CHECKSUM_POLICY_IGNORE:
-                return RepositoryPolicy.CHECKSUM_POLICY_IGNORE;
-            case ArtifactRepositoryPolicy.CHECKSUM_POLICY_WARN:
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/ArtifactDescriptorUtils.java`
-#### Snippet
-```java
-            case ArtifactRepositoryPolicy.CHECKSUM_POLICY_IGNORE:
-                return RepositoryPolicy.CHECKSUM_POLICY_IGNORE;
-            case ArtifactRepositoryPolicy.CHECKSUM_POLICY_WARN:
-                return RepositoryPolicy.CHECKSUM_POLICY_WARN;
-            default:
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/ArtifactDescriptorUtils.java`
-#### Snippet
-```java
-    public static RepositoryPolicy toRepositoryPolicy(org.apache.maven.model.RepositoryPolicy policy) {
-        boolean enabled = true;
-        String checksums = toRepositoryChecksumPolicy(ArtifactRepositoryPolicy.DEFAULT_CHECKSUM_POLICY);
-        String updates = RepositoryPolicy.UPDATE_POLICY_DAILY;
-
-```
-
-### Deprecation
-'org.apache.maven.model.building.ModelSource' is deprecated
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultModelResolver.java`
-#### Snippet
-```java
-
-    @Override
-    public ModelSource resolveModel(String groupId, String artifactId, String version)
-            throws UnresolvableModelException {
-        Artifact pomArtifact = new DefaultArtifact(groupId, artifactId, "", "pom", version);
-```
-
-### Deprecation
-'org.apache.maven.model.building.ModelSource' is deprecated
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultModelResolver.java`
-#### Snippet
-```java
-
-    @Override
-    public ModelSource resolveModel(org.apache.maven.model.Dependency dependency) throws UnresolvableModelException {
-        AtomicReference<org.apache.maven.api.model.Dependency> resolvedDependency = new AtomicReference<>();
-        ModelSource result = resolveModel(dependency.getDelegate(), resolvedDependency);
-```
-
-### Deprecation
-'org.apache.maven.model.building.ModelSource' is deprecated
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultModelResolver.java`
-#### Snippet
-```java
-    public ModelSource resolveModel(org.apache.maven.model.Dependency dependency) throws UnresolvableModelException {
-        AtomicReference<org.apache.maven.api.model.Dependency> resolvedDependency = new AtomicReference<>();
-        ModelSource result = resolveModel(dependency.getDelegate(), resolvedDependency);
-        if (resolvedDependency.get() != null) {
-            dependency.setVersion(resolvedDependency.get().getVersion());
-```
-
-### Deprecation
-'org.apache.maven.model.building.ModelSource' is deprecated
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultModelResolver.java`
-#### Snippet
-```java
-
-    @Override
-    public ModelSource resolveModel(final Dependency dependency, AtomicReference<Dependency> modified)
-            throws UnresolvableModelException {
         try {
 ```
 
 ### Deprecation
-'org.apache.maven.model.building.ModelSource' is deprecated
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultModelResolver.java`
+'org.apache.maven.repository.legacy.resolver.LegacyArtifactCollector' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
+#### Snippet
+```java
+ * @author Jason van Zyl
+ */
+@Component(role = LegacyArtifactCollector.class)
+public class DefaultLegacyArtifactCollector implements LegacyArtifactCollector {
+
+```
+
+### Deprecation
+'org.apache.maven.repository.legacy.resolver.LegacyArtifactCollector' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
+#### Snippet
+```java
+ */
+@Component(role = LegacyArtifactCollector.class)
+public class DefaultLegacyArtifactCollector implements LegacyArtifactCollector {
+
+    @Requirement(hint = "nearest")
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
+#### Snippet
+```java
+            Artifact originatingArtifact,
+            Map<String, Artifact> managedVersions,
+            ArtifactRepository localRepository,
+            List<ArtifactRepository> remoteRepositories,
+            ArtifactMetadataSource source,
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
+#### Snippet
+```java
+            Map<String, Artifact> managedVersions,
+            ArtifactRepository localRepository,
+            List<ArtifactRepository> remoteRepositories,
+            ArtifactMetadataSource source,
+            ArtifactFilter filter,
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadataSource' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
+#### Snippet
+```java
+            ArtifactRepository localRepository,
+            List<ArtifactRepository> remoteRepositories,
+            ArtifactMetadataSource source,
+            ArtifactFilter filter,
+            List<ResolutionListener> listeners,
+```
+
+### Deprecation
+Overrides deprecated method in 'org.apache.maven.repository.legacy.resolver.LegacyArtifactCollector'
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
+#### Snippet
+```java
+
+    @SuppressWarnings("checkstyle:parameternumber")
+    public ArtifactResolutionResult collect(
+            Set<Artifact> artifacts,
+            Artifact originatingArtifact,
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
+#### Snippet
+```java
+            Artifact originatingArtifact,
+            Map<String, Artifact> managedVersions,
+            ArtifactRepository localRepository,
+            List<ArtifactRepository> remoteRepositories,
+            ArtifactMetadataSource source,
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
+#### Snippet
+```java
+            Map<String, Artifact> managedVersions,
+            ArtifactRepository localRepository,
+            List<ArtifactRepository> remoteRepositories,
+            ArtifactMetadataSource source,
+            ArtifactFilter filter,
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadataSource' is deprecated
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
+#### Snippet
+```java
+            ArtifactRepository localRepository,
+            List<ArtifactRepository> remoteRepositories,
+            ArtifactMetadataSource source,
+            ArtifactFilter filter,
+            List<ResolutionListener> listeners) {
+```
+
+### Deprecation
+Overrides deprecated method in 'java.util.Properties'
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
 #### Snippet
 ```java
 
     @Override
-    public ModelSource resolveModel(final Parent parent, final AtomicReference<Parent> modified)
-            throws UnresolvableModelException {
-        try {
+    public void save(OutputStream out, String comments) {
+        Properties props = new Properties();
+        props.putAll(getter.get());
 ```
 
 ### Deprecation
-'org.apache.maven.model.building.ModelSource' is deprecated
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultModelResolver.java`
+'save(java.io.OutputStream, java.lang.String)' is deprecated
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
 #### Snippet
 ```java
+        Properties props = new Properties();
+        props.putAll(getter.get());
+        props.save(out, comments);
+    }
 
-    @Override
-    public ModelSource resolveModel(org.apache.maven.model.Parent parent) throws UnresolvableModelException {
-        AtomicReference<org.apache.maven.api.model.Parent> resolvedParent = new AtomicReference<>();
-        ModelSource result = resolveModel(parent.getDelegate(), resolvedParent);
-```
-
-### Deprecation
-'org.apache.maven.model.building.ModelSource' is deprecated
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultModelResolver.java`
-#### Snippet
-```java
-    public ModelSource resolveModel(org.apache.maven.model.Parent parent) throws UnresolvableModelException {
-        AtomicReference<org.apache.maven.api.model.Parent> resolvedParent = new AtomicReference<>();
-        ModelSource result = resolveModel(parent.getDelegate(), resolvedParent);
-        if (resolvedParent.get() != null) {
-            parent.setVersion(resolvedParent.get().getVersion());
 ```
 
 ### Deprecation
@@ -6065,9 +5933,9 @@ in `maven-core/src/main/java/org/apache/maven/RepositoryUtils.java`
 ```java
     }
 
-    public static List<RemoteRepository> toRepos(List<ArtifactRepository> repos) {
-        return Optional.ofNullable(repos).orElse(Collections.emptyList()).stream()
-                .map(RepositoryUtils::toRepo)
+    public static RemoteRepository toRepo(ArtifactRepository repo) {
+        RemoteRepository result = null;
+        if (repo != null) {
 ```
 
 ### Deprecation
@@ -6083,6 +5951,18 @@ in `maven-core/src/main/java/org/apache/maven/RepositoryUtils.java`
 ```
 
 ### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/RepositoryUtils.java`
+#### Snippet
+```java
+    }
+
+    public static List<RemoteRepository> toRepos(List<ArtifactRepository> repos) {
+        return Optional.ofNullable(repos).orElse(Collections.emptyList()).stream()
+                .map(RepositoryUtils::toRepo)
+```
+
+### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
 in `maven-core/src/main/java/org/apache/maven/RepositoryUtils.java`
 #### Snippet
@@ -6092,18 +5972,6 @@ in `maven-core/src/main/java/org/apache/maven/RepositoryUtils.java`
     private static RepositoryPolicy toPolicy(ArtifactRepositoryPolicy policy) {
         RepositoryPolicy result = null;
         if (policy != null) {
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/RepositoryUtils.java`
-#### Snippet
-```java
-    }
-
-    public static RemoteRepository toRepo(ArtifactRepository repo) {
-        RemoteRepository result = null;
-        if (repo != null) {
 ```
 
 ### Deprecation
@@ -6123,18 +5991,6 @@ in `maven-core/src/main/java/org/apache/maven/graph/DefaultGraphBuilder.java`
 in `maven-core/src/main/java/org/apache/maven/ReactorReader.java`
 #### Snippet
 ```java
-    private Path relativizeOutputFile(final Path outputFile) {
-        Path projectBaseDirectory =
-                Paths.get(session.getRequest().getMultiModuleProjectDirectory().toURI());
-        return projectBaseDirectory.relativize(outputFile);
-    }
-```
-
-### Deprecation
-'getMultiModuleProjectDirectory()' is deprecated
-in `maven-core/src/main/java/org/apache/maven/ReactorReader.java`
-#### Snippet
-```java
     private Path getProjectLocalRepo() {
         if (projectLocalRepository == null) {
             Path root = session.getRequest().getMultiModuleProjectDirectory().toPath();
@@ -6143,62 +5999,62 @@ in `maven-core/src/main/java/org/apache/maven/ReactorReader.java`
 ```
 
 ### Deprecation
-'DEBUG' is deprecated
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+'getMultiModuleProjectDirectory()' is deprecated
+in `maven-core/src/main/java/org/apache/maven/ReactorReader.java`
 #### Snippet
 ```java
-        // LOG LEVEL
-        cliRequest.verbose = cliRequest.commandLine.hasOption(CLIManager.VERBOSE)
-                || cliRequest.commandLine.hasOption(CLIManager.DEBUG);
-        cliRequest.quiet = !cliRequest.verbose && cliRequest.commandLine.hasOption(CLIManager.QUIET);
-        cliRequest.showErrors = cliRequest.verbose || cliRequest.commandLine.hasOption(CLIManager.ERRORS);
+    private Path relativizeOutputFile(final Path outputFile) {
+        Path projectBaseDirectory =
+                Paths.get(session.getRequest().getMultiModuleProjectDirectory().toURI());
+        return projectBaseDirectory.relativize(outputFile);
+    }
 ```
 
 ### Deprecation
-'DEBUG' is deprecated
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+     * @since 3.6.1
+     */
+    public List<ArtifactRepository> getEffectiveRepositories(List<ArtifactRepository> repositories) {
+        if (repositories == null) {
+            return null;
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+     * @since 3.6.1
+     */
+    public List<ArtifactRepository> getEffectiveRepositories(List<ArtifactRepository> repositories) {
+        if (repositories == null) {
+            return null;
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
 #### Snippet
 ```java
         }
 
-        if (cliRequest.commandLine.hasOption(CLIManager.DEBUG)) {
-            slf4jLogger.warn("The option '--debug' is deprecated and may be repurposed as Java debug"
-                    + " in a future version. Use -X/--verbose instead.");
+        Map<String, List<ArtifactRepository>> reposByKey = new LinkedHashMap<>();
+
+        for (ArtifactRepository repository : repositories) {
 ```
 
 ### Deprecation
-'setBaseDirectory(java.io.File)' is deprecated
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
 #### Snippet
 ```java
-        enableOnPresentOption(commandLine, CLIManager.UPDATE_SNAPSHOTS, request::setUpdateSnapshots);
-        request.setGlobalChecksumPolicy(determineGlobalCheckPolicy(commandLine));
-        request.setBaseDirectory(baseDirectory);
-        request.setSystemProperties(cliRequest.systemProperties);
-        request.setUserProperties(cliRequest.userProperties);
-```
+        Map<String, List<ArtifactRepository>> reposByKey = new LinkedHashMap<>();
 
-### Deprecation
-'setMultiModuleProjectDirectory(java.io.File)' is deprecated
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-        request.setSystemProperties(cliRequest.systemProperties);
-        request.setUserProperties(cliRequest.userProperties);
-        request.setMultiModuleProjectDirectory(cliRequest.multiModuleProjectDirectory);
-        request.setRootDirectory(cliRequest.rootDirectory);
-        request.setTopDirectory(cliRequest.topDirectory);
-```
-
-### Deprecation
-'setBaseDirectory(java.io.File)' is deprecated
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-
-        if ((request.getPom() != null) && (request.getPom().getParentFile() != null)) {
-            request.setBaseDirectory(request.getPom().getParentFile());
-        }
+        for (ArtifactRepository repository : repositories) {
+            String key = repository.getId();
 
 ```
 
@@ -6207,11 +6063,143 @@ in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
 in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
 #### Snippet
 ```java
-     * @return true if the repository is a match to this pattern.
-     */
-    static boolean matchPattern(ArtifactRepository originalRepository, String pattern) {
-        boolean result = false;
-        String originalId = originalRepository.getId();
+            String key = repository.getId();
+
+            List<ArtifactRepository> aliasedRepos = reposByKey.computeIfAbsent(key, k -> new ArrayList<>());
+
+            aliasedRepos.add(repository);
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+        }
+
+        List<ArtifactRepository> effectiveRepositories = new ArrayList<>();
+
+        for (List<ArtifactRepository> aliasedRepos : reposByKey.values()) {
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+        List<ArtifactRepository> effectiveRepositories = new ArrayList<>();
+
+        for (List<ArtifactRepository> aliasedRepos : reposByKey.values()) {
+            List<ArtifactRepository> mirroredRepos = new ArrayList<>();
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+
+        for (List<ArtifactRepository> aliasedRepos : reposByKey.values()) {
+            List<ArtifactRepository> mirroredRepos = new ArrayList<>();
+
+            List<ArtifactRepositoryPolicy> releasePolicies = new ArrayList<>(aliasedRepos.size());
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+            List<ArtifactRepository> mirroredRepos = new ArrayList<>();
+
+            List<ArtifactRepositoryPolicy> releasePolicies = new ArrayList<>(aliasedRepos.size());
+
+            for (ArtifactRepository aliasedRepo : aliasedRepos) {
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+            List<ArtifactRepositoryPolicy> releasePolicies = new ArrayList<>(aliasedRepos.size());
+
+            for (ArtifactRepository aliasedRepo : aliasedRepos) {
+                releasePolicies.add(aliasedRepo.getReleases());
+                mirroredRepos.addAll(aliasedRepo.getMirroredRepositories());
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+            }
+
+            ArtifactRepositoryPolicy releasePolicy = getEffectivePolicy(releasePolicies);
+
+            List<ArtifactRepositoryPolicy> snapshotPolicies = new ArrayList<>(aliasedRepos.size());
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+            ArtifactRepositoryPolicy releasePolicy = getEffectivePolicy(releasePolicies);
+
+            List<ArtifactRepositoryPolicy> snapshotPolicies = new ArrayList<>(aliasedRepos.size());
+
+            for (ArtifactRepository aliasedRepo : aliasedRepos) {
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+            List<ArtifactRepositoryPolicy> snapshotPolicies = new ArrayList<>(aliasedRepos.size());
+
+            for (ArtifactRepository aliasedRepo : aliasedRepos) {
+                snapshotPolicies.add(aliasedRepo.getSnapshots());
+            }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+            }
+
+            ArtifactRepositoryPolicy snapshotPolicy = getEffectivePolicy(snapshotPolicies);
+
+            ArtifactRepository aliasedRepo = aliasedRepos.get(0);
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+            ArtifactRepositoryPolicy snapshotPolicy = getEffectivePolicy(snapshotPolicies);
+
+            ArtifactRepository aliasedRepo = aliasedRepos.get(0);
+
+            ArtifactRepository effectiveRepository = createArtifactRepository(
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+            ArtifactRepository aliasedRepo = aliasedRepos.get(0);
+
+            ArtifactRepository effectiveRepository = createArtifactRepository(
+                    aliasedRepo.getId(), aliasedRepo.getUrl(), aliasedRepo.getLayout(), snapshotPolicy, releasePolicy);
+
 ```
 
 ### Deprecation
@@ -6221,9 +6209,21 @@ in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
 ```java
      * @return true if external.
      */
-    static boolean isExternalRepo(ArtifactRepository originalRepository) {
+    static boolean isExternalHttpRepo(ArtifactRepository originalRepository) {
         try {
             URL url = new URL(originalRepository.getUrl());
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout' is deprecated
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+    }
+
+    private void checkLayout(String repositoryId, String layoutId, ArtifactRepositoryLayout layout) throws Exception {
+        if (layout == null) {
+            throw new Exception(
 ```
 
 ### Deprecation
@@ -6233,9 +6233,9 @@ in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
 ```java
     }
 
-    public ArtifactRepository createLocalRepository(MavenExecutionRequest request, File localRepository)
-            throws Exception {
-        return createRepository(
+    public static ArtifactRepository buildArtifactRepository(org.apache.maven.settings.Repository repo)
+            throws InvalidRepositoryException {
+        return buildArtifactRepository(fromSettingsRepository(repo));
 ```
 
 ### Deprecation
@@ -6243,35 +6243,35 @@ in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
 in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
 #### Snippet
 ```java
-                RepositorySystem.DEFAULT_LOCAL_REPO_ID,
-                true,
-                ArtifactRepositoryPolicy.UPDATE_POLICY_ALWAYS,
-                true,
-                ArtifactRepositoryPolicy.UPDATE_POLICY_ALWAYS,
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-                ArtifactRepositoryPolicy.UPDATE_POLICY_ALWAYS,
-                true,
-                ArtifactRepositoryPolicy.UPDATE_POLICY_ALWAYS,
-                ArtifactRepositoryPolicy.CHECKSUM_POLICY_IGNORE);
-    }
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-                true,
-                ArtifactRepositoryPolicy.UPDATE_POLICY_ALWAYS,
-                ArtifactRepositoryPolicy.CHECKSUM_POLICY_IGNORE);
     }
 
+    public static ArtifactRepositoryPolicy buildArtifactRepositoryPolicy(
+            org.apache.maven.model.RepositoryPolicy policy) {
+        boolean enabled = true;
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+        }
+
+        return new ArtifactRepositoryPolicy(enabled, updatePolicy, checksumPolicy);
+    }
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout' is deprecated
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+    @Inject
+    public MavenRepositorySystem(
+            ArtifactHandlerManager artifactHandlerManager, Map<String, ArtifactRepositoryLayout> layouts) {
+        this.artifactHandlerManager = artifactHandlerManager;
+        this.layouts = layouts;
 ```
 
 ### Deprecation
@@ -6293,9 +6293,165 @@ in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
 ```java
     }
 
-    static boolean matchesLayout(ArtifactRepository repository, Mirror mirror) {
-        return matchesLayout(RepositoryUtils.getLayout(repository), mirror.getMirrorOfLayouts());
+    public void injectAuthentication(RepositorySystemSession session, List<ArtifactRepository> repositories) {
+        if (repositories != null && session != null) {
+            for (ArtifactRepository repository : repositories) {
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+    public void injectAuthentication(RepositorySystemSession session, List<ArtifactRepository> repositories) {
+        if (repositories != null && session != null) {
+            for (ArtifactRepository repository : repositories) {
+                repository.setAuthentication(getAuthentication(session, repository));
+            }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+    //
+
+    public ArtifactRepository createDefaultRemoteRepository(MavenExecutionRequest request) throws Exception {
+        return createRepository(
+                RepositorySystem.DEFAULT_REMOTE_REPO_URL,
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+                RepositorySystem.DEFAULT_REMOTE_REPO_ID,
+                true,
+                ArtifactRepositoryPolicy.UPDATE_POLICY_DAILY,
+                false,
+                ArtifactRepositoryPolicy.UPDATE_POLICY_DAILY,
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+                ArtifactRepositoryPolicy.UPDATE_POLICY_DAILY,
+                false,
+                ArtifactRepositoryPolicy.UPDATE_POLICY_DAILY,
+                ArtifactRepositoryPolicy.DEFAULT_CHECKSUM_POLICY);
     }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+                false,
+                ArtifactRepositoryPolicy.UPDATE_POLICY_DAILY,
+                ArtifactRepositoryPolicy.DEFAULT_CHECKSUM_POLICY);
+    }
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+     * @return true if the repository is a match to this pattern.
+     */
+    static boolean matchPattern(ArtifactRepository originalRepository, String pattern) {
+        boolean result = false;
+        String originalId = originalRepository.getId();
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+    }
+
+    private void injectMirror(ArtifactRepository repository, Mirror mirror) {
+        if (mirror != null) {
+            ArtifactRepository original = createArtifactRepository(
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+    private void injectMirror(ArtifactRepository repository, Mirror mirror) {
+        if (mirror != null) {
+            ArtifactRepository original = createArtifactRepository(
+                    repository.getId(),
+                    repository.getUrl(),
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout' is deprecated
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+    private final ArtifactHandlerManager artifactHandlerManager;
+
+    private final Map<String, ArtifactRepositoryLayout> layouts;
+
+    @Inject
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+    }
+
+    public ArtifactRepository createArtifactRepository(
+            String id,
+            String url,
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+            String url,
+            String layoutId,
+            ArtifactRepositoryPolicy snapshots,
+            ArtifactRepositoryPolicy releases)
+            throws Exception {
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+            String layoutId,
+            ArtifactRepositoryPolicy snapshots,
+            ArtifactRepositoryPolicy releases)
+            throws Exception {
+        ArtifactRepositoryLayout layout = layouts.get(layoutId);
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout' is deprecated
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+            ArtifactRepositoryPolicy releases)
+            throws Exception {
+        ArtifactRepositoryLayout layout = layouts.get(layoutId);
+
+        checkLayout(id, layoutId, layout);
 ```
 
 ### Deprecation
@@ -6353,9 +6509,9 @@ in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
 ```java
     }
 
-    private void injectMirror(ArtifactRepository repository, Mirror mirror) {
-        if (mirror != null) {
-            ArtifactRepository original = createArtifactRepository(
+    public void injectMirror(RepositorySystemSession session, List<ArtifactRepository> repositories) {
+        if (repositories != null && session != null) {
+            for (ArtifactRepository repository : repositories) {
 ```
 
 ### Deprecation
@@ -6363,11 +6519,11 @@ in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
 in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
 #### Snippet
 ```java
-    private void injectMirror(ArtifactRepository repository, Mirror mirror) {
-        if (mirror != null) {
-            ArtifactRepository original = createArtifactRepository(
-                    repository.getId(),
-                    repository.getUrl(),
+    public void injectMirror(RepositorySystemSession session, List<ArtifactRepository> repositories) {
+        if (repositories != null && session != null) {
+            for (ArtifactRepository repository : repositories) {
+                Mirror mirror = getMirror(session, repository);
+                injectMirror(repository, mirror);
 ```
 
 ### Deprecation
@@ -6377,9 +6533,93 @@ in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
 ```java
     }
 
-    private Mirror getMirror(RepositorySystemSession session, ArtifactRepository repository) {
-        if (session != null) {
-            org.eclipse.aether.repository.MirrorSelector selector = session.getMirrorSelector();
+    static boolean matchesLayout(ArtifactRepository repository, Mirror mirror) {
+        return matchesLayout(RepositoryUtils.getLayout(repository), mirror.getMirrorOfLayouts());
+    }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+    }
+
+    public Set<String> getRepoIds(List<ArtifactRepository> repositories) {
+        Set<String> repoIds = new HashSet<>();
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+
+        if (repositories != null) {
+            for (ArtifactRepository repository : repositories) {
+                repoIds.add(repository.getId());
+            }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+    }
+
+    public ArtifactRepository createRepository(
+            String url,
+            String repositoryId,
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+            String checksumPolicy)
+            throws Exception {
+        ArtifactRepositoryPolicy snapshotsPolicy =
+                new ArtifactRepositoryPolicy(snapshots, snapshotUpdates, checksumPolicy);
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+            throws Exception {
+        ArtifactRepositoryPolicy snapshotsPolicy =
+                new ArtifactRepositoryPolicy(snapshots, snapshotUpdates, checksumPolicy);
+
+        ArtifactRepositoryPolicy releasesPolicy =
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+                new ArtifactRepositoryPolicy(snapshots, snapshotUpdates, checksumPolicy);
+
+        ArtifactRepositoryPolicy releasesPolicy =
+                new ArtifactRepositoryPolicy(releases, releaseUpdates, checksumPolicy);
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+
+        ArtifactRepositoryPolicy releasesPolicy =
+                new ArtifactRepositoryPolicy(releases, releaseUpdates, checksumPolicy);
+
+        return createArtifactRepository(repositoryId, url, "default", snapshotsPolicy, releasesPolicy);
 ```
 
 ### Deprecation
@@ -6473,213 +6713,9 @@ in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
 ```java
     }
 
-    public ArtifactRepository createArtifactRepository(
-            String id,
-            String url,
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-            String url,
-            String layoutId,
-            ArtifactRepositoryPolicy snapshots,
-            ArtifactRepositoryPolicy releases)
-            throws Exception {
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-            String layoutId,
-            ArtifactRepositoryPolicy snapshots,
-            ArtifactRepositoryPolicy releases)
-            throws Exception {
-        ArtifactRepositoryLayout layout = layouts.get(layoutId);
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout' is deprecated
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-            ArtifactRepositoryPolicy releases)
-            throws Exception {
-        ArtifactRepositoryLayout layout = layouts.get(layoutId);
-
-        checkLayout(id, layoutId, layout);
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-    //
-
-    public ArtifactRepository createDefaultRemoteRepository(MavenExecutionRequest request) throws Exception {
-        return createRepository(
-                RepositorySystem.DEFAULT_REMOTE_REPO_URL,
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-                RepositorySystem.DEFAULT_REMOTE_REPO_ID,
-                true,
-                ArtifactRepositoryPolicy.UPDATE_POLICY_DAILY,
-                false,
-                ArtifactRepositoryPolicy.UPDATE_POLICY_DAILY,
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-                ArtifactRepositoryPolicy.UPDATE_POLICY_DAILY,
-                false,
-                ArtifactRepositoryPolicy.UPDATE_POLICY_DAILY,
-                ArtifactRepositoryPolicy.DEFAULT_CHECKSUM_POLICY);
-    }
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-                false,
-                ArtifactRepositoryPolicy.UPDATE_POLICY_DAILY,
-                ArtifactRepositoryPolicy.DEFAULT_CHECKSUM_POLICY);
-    }
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout' is deprecated
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-    @Inject
-    public MavenRepositorySystem(
-            ArtifactHandlerManager artifactHandlerManager, Map<String, ArtifactRepositoryLayout> layouts) {
-        this.artifactHandlerManager = artifactHandlerManager;
-        this.layouts = layouts;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-    }
-
-    public void injectAuthentication(RepositorySystemSession session, List<ArtifactRepository> repositories) {
-        if (repositories != null && session != null) {
-            for (ArtifactRepository repository : repositories) {
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-    public void injectAuthentication(RepositorySystemSession session, List<ArtifactRepository> repositories) {
-        if (repositories != null && session != null) {
-            for (ArtifactRepository repository : repositories) {
-                repository.setAuthentication(getAuthentication(session, repository));
-            }
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-    }
-
-    public static ArtifactRepositoryPolicy buildArtifactRepositoryPolicy(
-            org.apache.maven.model.RepositoryPolicy policy) {
-        boolean enabled = true;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-        }
-
-        return new ArtifactRepositoryPolicy(enabled, updatePolicy, checksumPolicy);
-    }
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-    }
-
-    public ArtifactRepository createRepository(
-            String url,
-            String repositoryId,
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-            String checksumPolicy)
-            throws Exception {
-        ArtifactRepositoryPolicy snapshotsPolicy =
-                new ArtifactRepositoryPolicy(snapshots, snapshotUpdates, checksumPolicy);
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-            throws Exception {
-        ArtifactRepositoryPolicy snapshotsPolicy =
-                new ArtifactRepositoryPolicy(snapshots, snapshotUpdates, checksumPolicy);
-
-        ArtifactRepositoryPolicy releasesPolicy =
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-                new ArtifactRepositoryPolicy(snapshots, snapshotUpdates, checksumPolicy);
-
-        ArtifactRepositoryPolicy releasesPolicy =
-                new ArtifactRepositoryPolicy(releases, releaseUpdates, checksumPolicy);
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-
-        ArtifactRepositoryPolicy releasesPolicy =
-                new ArtifactRepositoryPolicy(releases, releaseUpdates, checksumPolicy);
-
-        return createArtifactRepository(repositoryId, url, "default", snapshotsPolicy, releasesPolicy);
+    private Mirror getMirror(RepositorySystemSession session, ArtifactRepository repository) {
+        if (session != null) {
+            org.eclipse.aether.repository.MirrorSelector selector = session.getMirrorSelector();
 ```
 
 ### Deprecation
@@ -6743,66 +6779,6 @@ in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout' is deprecated
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-    private final ArtifactHandlerManager artifactHandlerManager;
-
-    private final Map<String, ArtifactRepositoryLayout> layouts;
-
-    @Inject
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-    }
-
-    public Set<String> getRepoIds(List<ArtifactRepository> repositories) {
-        Set<String> repoIds = new HashSet<>();
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-
-        if (repositories != null) {
-            for (ArtifactRepository repository : repositories) {
-                repoIds.add(repository.getId());
-            }
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-     * @return true if external.
-     */
-    static boolean isExternalHttpRepo(ArtifactRepository originalRepository) {
-        try {
-            URL url = new URL(originalRepository.getUrl());
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout' is deprecated
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-    }
-
-    private void checkLayout(String repositoryId, String layoutId, ArtifactRepositoryLayout layout) throws Exception {
-        if (layout == null) {
-            throw new Exception(
-```
-
-### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
 in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
 #### Snippet
@@ -6833,9 +6809,69 @@ in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
 ```java
     }
 
-    private Authentication getAuthentication(RepositorySystemSession session, ArtifactRepository repository) {
-        if (session != null) {
-            AuthenticationSelector selector = session.getAuthenticationSelector();
+    public ArtifactRepository createLocalRepository(MavenExecutionRequest request, File localRepository)
+            throws Exception {
+        return createRepository(
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+                RepositorySystem.DEFAULT_LOCAL_REPO_ID,
+                true,
+                ArtifactRepositoryPolicy.UPDATE_POLICY_ALWAYS,
+                true,
+                ArtifactRepositoryPolicy.UPDATE_POLICY_ALWAYS,
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+                ArtifactRepositoryPolicy.UPDATE_POLICY_ALWAYS,
+                true,
+                ArtifactRepositoryPolicy.UPDATE_POLICY_ALWAYS,
+                ArtifactRepositoryPolicy.CHECKSUM_POLICY_IGNORE);
+    }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+                true,
+                ArtifactRepositoryPolicy.UPDATE_POLICY_ALWAYS,
+                ArtifactRepositoryPolicy.CHECKSUM_POLICY_IGNORE);
+    }
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+    private static final String EXTERNAL_HTTP_WILDCARD = "external:http:*";
+
+    public static Mirror getMirror(ArtifactRepository repository, List<Mirror> mirrors) {
+        String repoId = repository.getId();
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+#### Snippet
+```java
+     * @return true if external.
+     */
+    static boolean isExternalRepo(ArtifactRepository originalRepository) {
+        try {
+            URL url = new URL(originalRepository.getUrl());
 ```
 
 ### Deprecation
@@ -6845,201 +6881,9 @@ in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
 ```java
     }
 
-    public static ArtifactRepository buildArtifactRepository(org.apache.maven.settings.Repository repo)
-            throws InvalidRepositoryException {
-        return buildArtifactRepository(fromSettingsRepository(repo));
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-     * @since 3.6.1
-     */
-    public List<ArtifactRepository> getEffectiveRepositories(List<ArtifactRepository> repositories) {
-        if (repositories == null) {
-            return null;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-     * @since 3.6.1
-     */
-    public List<ArtifactRepository> getEffectiveRepositories(List<ArtifactRepository> repositories) {
-        if (repositories == null) {
-            return null;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-        }
-
-        Map<String, List<ArtifactRepository>> reposByKey = new LinkedHashMap<>();
-
-        for (ArtifactRepository repository : repositories) {
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-        Map<String, List<ArtifactRepository>> reposByKey = new LinkedHashMap<>();
-
-        for (ArtifactRepository repository : repositories) {
-            String key = repository.getId();
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-            String key = repository.getId();
-
-            List<ArtifactRepository> aliasedRepos = reposByKey.computeIfAbsent(key, k -> new ArrayList<>());
-
-            aliasedRepos.add(repository);
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-        }
-
-        List<ArtifactRepository> effectiveRepositories = new ArrayList<>();
-
-        for (List<ArtifactRepository> aliasedRepos : reposByKey.values()) {
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-        List<ArtifactRepository> effectiveRepositories = new ArrayList<>();
-
-        for (List<ArtifactRepository> aliasedRepos : reposByKey.values()) {
-            List<ArtifactRepository> mirroredRepos = new ArrayList<>();
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-
-        for (List<ArtifactRepository> aliasedRepos : reposByKey.values()) {
-            List<ArtifactRepository> mirroredRepos = new ArrayList<>();
-
-            List<ArtifactRepositoryPolicy> releasePolicies = new ArrayList<>(aliasedRepos.size());
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-            List<ArtifactRepository> mirroredRepos = new ArrayList<>();
-
-            List<ArtifactRepositoryPolicy> releasePolicies = new ArrayList<>(aliasedRepos.size());
-
-            for (ArtifactRepository aliasedRepo : aliasedRepos) {
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-            List<ArtifactRepositoryPolicy> releasePolicies = new ArrayList<>(aliasedRepos.size());
-
-            for (ArtifactRepository aliasedRepo : aliasedRepos) {
-                releasePolicies.add(aliasedRepo.getReleases());
-                mirroredRepos.addAll(aliasedRepo.getMirroredRepositories());
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-            }
-
-            ArtifactRepositoryPolicy releasePolicy = getEffectivePolicy(releasePolicies);
-
-            List<ArtifactRepositoryPolicy> snapshotPolicies = new ArrayList<>(aliasedRepos.size());
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-            ArtifactRepositoryPolicy releasePolicy = getEffectivePolicy(releasePolicies);
-
-            List<ArtifactRepositoryPolicy> snapshotPolicies = new ArrayList<>(aliasedRepos.size());
-
-            for (ArtifactRepository aliasedRepo : aliasedRepos) {
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-            List<ArtifactRepositoryPolicy> snapshotPolicies = new ArrayList<>(aliasedRepos.size());
-
-            for (ArtifactRepository aliasedRepo : aliasedRepos) {
-                snapshotPolicies.add(aliasedRepo.getSnapshots());
-            }
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-            }
-
-            ArtifactRepositoryPolicy snapshotPolicy = getEffectivePolicy(snapshotPolicies);
-
-            ArtifactRepository aliasedRepo = aliasedRepos.get(0);
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-            ArtifactRepositoryPolicy snapshotPolicy = getEffectivePolicy(snapshotPolicies);
-
-            ArtifactRepository aliasedRepo = aliasedRepos.get(0);
-
-            ArtifactRepository effectiveRepository = createArtifactRepository(
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
-#### Snippet
-```java
-            ArtifactRepository aliasedRepo = aliasedRepos.get(0);
-
-            ArtifactRepository effectiveRepository = createArtifactRepository(
-                    aliasedRepo.getId(), aliasedRepo.getUrl(), aliasedRepo.getLayout(), snapshotPolicy, releasePolicy);
-
+    private Authentication getAuthentication(RepositorySystemSession session, ArtifactRepository repository) {
+        if (session != null) {
+            AuthenticationSelector selector = session.getAuthenticationSelector();
 ```
 
 ### Deprecation
@@ -7080,38 +6924,38 @@ in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
 
 ### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluator.java`
 #### Snippet
 ```java
-    private static final String EXTERNAL_HTTP_WILDCARD = "external:http:*";
-
-    public static Mirror getMirror(ArtifactRepository repository, List<Mirror> mirrors) {
-        String repoId = repository.getId();
-
+ * <tr><td><code>session.*</code></td>         <td>(since Maven 3)</td><td></td></tr>
+ * <tr><td><code>localRepository</code></td>   <td></td>
+ *                                             <td>{@link MavenSession#getLocalRepository()} DEPRECATED: Avoid use of {@link org.apache.maven.artifact.repository.ArtifactRepository} type. If you need access to local repository, switch to '${repositorySystemSession}' expression and get LRM from it instead. See <a href="https://issues.apache.org/jira/browse/MNG-7706">MNG-7706</a></td></tr>
+ * <tr><td><code>reactorProjects</code></td>   <td></td>               <td>{@link MavenSession#getProjects()}</td></tr>
+ * <tr><td><code>repositorySystemSession</code></td><td> (since Maven 3)</td>
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+'getExecutionRootDirectory()' is deprecated
+in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluator.java`
 #### Snippet
 ```java
-    }
-
-    public void injectMirror(RepositorySystemSession session, List<ArtifactRepository> repositories) {
-        if (repositories != null && session != null) {
-            for (ArtifactRepository repository : repositories) {
+ * <tr><td><code>settings.*</code></td>        <td></td>               <td></td></tr>
+ * <tr><td><code>basedir</code></td>           <td></td>
+ *                                             <td>{@link MavenSession#getExecutionRootDirectory()} or
+ *                                                 <code>System.getProperty( "user.dir" )</code> if null</td></tr>
+ * <tr><td><code>mojoExecution</code></td>     <td></td>               <td>the actual {@link MojoExecution}</td></tr>
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
+'getExecutionRootDirectory()' is deprecated
+in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluator.java`
 #### Snippet
 ```java
-    public void injectMirror(RepositorySystemSession session, List<ArtifactRepository> repositories) {
-        if (repositories != null && session != null) {
-            for (ArtifactRepository repository : repositories) {
-                Mirror mirror = getMirror(session, repository);
-                injectMirror(repository, mirror);
+
+        if (basedir == null) {
+            basedir = session.getExecutionRootDirectory();
+        }
+
 ```
 
 ### Deprecation
@@ -7139,66 +6983,6 @@ in `maven-core/src/main/java/org/apache/maven/plugin/DefaultBuildPluginManager.j
 ```
 
 ### Deprecation
-'getExecutionRootDirectory()' is deprecated
-in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluator.java`
-#### Snippet
-```java
-
-        if (basedir == null) {
-            basedir = session.getExecutionRootDirectory();
-        }
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluator.java`
-#### Snippet
-```java
- * <tr><td><code>session.*</code></td>         <td>(since Maven 3)</td><td></td></tr>
- * <tr><td><code>localRepository</code></td>   <td></td>
- *                                             <td>{@link MavenSession#getLocalRepository()} DEPRECATED: Avoid use of {@link org.apache.maven.artifact.repository.ArtifactRepository} type. If you need access to local repository, switch to '${repositorySystemSession}' expression and get LRM from it instead. See <a href="https://issues.apache.org/jira/browse/MNG-7706">MNG-7706</a></td></tr>
- * <tr><td><code>reactorProjects</code></td>   <td></td>               <td>{@link MavenSession#getProjects()}</td></tr>
- * <tr><td><code>repositorySystemSession</code></td><td> (since Maven 3)</td>
-```
-
-### Deprecation
-'getExecutionRootDirectory()' is deprecated
-in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluator.java`
-#### Snippet
-```java
- * <tr><td><code>settings.*</code></td>        <td></td>               <td></td></tr>
- * <tr><td><code>basedir</code></td>           <td></td>
- *                                             <td>{@link MavenSession#getExecutionRootDirectory()} or
- *                                                 <code>System.getProperty( "user.dir" )</code> if null</td></tr>
- * <tr><td><code>mojoExecution</code></td>     <td></td>               <td>the actual {@link MojoExecution}</td></tr>
-```
-
-### Deprecation
-'getExecutionRootDirectory()' is deprecated
-in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluatorV4.java`
-#### Snippet
-```java
-
-        if (basedir == null) {
-            basedir = session.getExecutionRootDirectory();
-        }
-
-```
-
-### Deprecation
-'getExecutionRootDirectory()' is deprecated
-in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluatorV4.java`
-#### Snippet
-```java
- * <tr><td><code>settings.*</code></td>        <td></td>               <td></td></tr>
- * <tr><td><code>basedir</code></td>           <td></td>
- *                                 <td>{@link Session#getExecutionRootDirectory()} or
- *                                                 <code>System.getProperty( "user.dir" )</code> if null</td></tr>
- * <tr><td><code>mojoExecution</code></td>     <td></td>               <td>the actual {@link MojoExecution}</td></tr>
-```
-
-### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
 in `maven-core/src/main/java/org/apache/maven/plugin/internal/DeprecatedCoreExpressionValidator.java`
 #### Snippet
@@ -7219,6 +7003,30 @@ in `maven-core/src/main/java/org/apache/maven/plugin/internal/MojoLogWrapper.jav
  */
 public class MojoLogWrapper implements Log {
     private final Logger logger;
+
+```
+
+### Deprecation
+'getExecutionRootDirectory()' is deprecated
+in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluatorV4.java`
+#### Snippet
+```java
+ * <tr><td><code>settings.*</code></td>        <td></td>               <td></td></tr>
+ * <tr><td><code>basedir</code></td>           <td></td>
+ *                                 <td>{@link Session#getExecutionRootDirectory()} or
+ *                                                 <code>System.getProperty( "user.dir" )</code> if null</td></tr>
+ * <tr><td><code>mojoExecution</code></td>     <td></td>               <td>the actual {@link MojoExecution}</td></tr>
+```
+
+### Deprecation
+'getExecutionRootDirectory()' is deprecated
+in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluatorV4.java`
+#### Snippet
+```java
+
+        if (basedir == null) {
+            basedir = session.getExecutionRootDirectory();
+        }
 
 ```
 
@@ -7251,18 +7059,6 @@ in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultPluginManag
 in `maven-core/src/main/java/org/apache/maven/project/DefaultModelBuildingListener.java`
 #### Snippet
 ```java
-    private List<ArtifactRepository> remoteRepositories;
-
-    private List<ArtifactRepository> pluginRepositories;
-
-    public DefaultModelBuildingListener(
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/DefaultModelBuildingListener.java`
-#### Snippet
-```java
     private ProjectBuildingRequest projectBuildingRequest;
 
     private List<ArtifactRepository> remoteRepositories;
@@ -7272,14 +7068,38 @@ in `maven-core/src/main/java/org/apache/maven/project/DefaultModelBuildingListen
 
 ### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/DefaultModelBuildingListener.java`
+#### Snippet
+```java
+    private List<ArtifactRepository> remoteRepositories;
+
+    private List<ArtifactRepository> pluginRepositories;
+
+    public DefaultModelBuildingListener(
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
 in `maven-core/src/main/java/org/apache/maven/project/ProjectBuildingRequest.java`
 #### Snippet
 ```java
-    ProjectBuildingRequest setRemoteRepositories(List<ArtifactRepository> remoteRepositories);
-
     List<ArtifactRepository> getRemoteRepositories();
 
     ProjectBuildingRequest setPluginArtifactRepositories(List<ArtifactRepository> pluginArtifactRepositories);
+
+    List<ArtifactRepository> getPluginArtifactRepositories();
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/ProjectBuildingRequest.java`
+#### Snippet
+```java
+    ProjectBuildingRequest setLocalRepository(ArtifactRepository localRepository);
+
+    ArtifactRepository getLocalRepository();
+
+    ProjectBuildingRequest setRemoteRepositories(List<ArtifactRepository> remoteRepositories);
 ```
 
 ### Deprecation
@@ -7311,11 +7131,11 @@ in `maven-core/src/main/java/org/apache/maven/project/ProjectBuildingRequest.jav
 in `maven-core/src/main/java/org/apache/maven/project/ProjectBuildingRequest.java`
 #### Snippet
 ```java
-    ProjectBuildingRequest setLocalRepository(ArtifactRepository localRepository);
-
-    ArtifactRepository getLocalRepository();
-
     ProjectBuildingRequest setRemoteRepositories(List<ArtifactRepository> remoteRepositories);
+
+    List<ArtifactRepository> getRemoteRepositories();
+
+    ProjectBuildingRequest setPluginArtifactRepositories(List<ArtifactRepository> pluginArtifactRepositories);
 ```
 
 ### Deprecation
@@ -7331,15 +7151,15 @@ public interface ProjectBuildingRequest {
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/ProjectBuildingRequest.java`
+'org.apache.maven.model.building.ModelSource' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/ProjectBuilder.java`
 #### Snippet
 ```java
-    List<ArtifactRepository> getRemoteRepositories();
+     * @see org.apache.maven.model.building.ModelSource2
+     */
+    ProjectBuildingResult build(ModelSource modelSource, ProjectBuildingRequest request)
+            throws ProjectBuildingException;
 
-    ProjectBuildingRequest setPluginArtifactRepositories(List<ArtifactRepository> pluginArtifactRepositories);
-
-    List<ArtifactRepository> getPluginArtifactRepositories();
 ```
 
 ### Deprecation
@@ -7439,15 +7259,27 @@ in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuildingHelp
 ```
 
 ### Deprecation
-'org.apache.maven.model.building.ModelSource' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/ProjectBuilder.java`
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/ProjectBuildingHelper.java`
 #### Snippet
 ```java
-     * @see org.apache.maven.model.building.ModelSource2
+     * @throws InvalidRepositoryException
      */
-    ProjectBuildingResult build(ModelSource modelSource, ProjectBuildingRequest request)
-            throws ProjectBuildingException;
+    List<ArtifactRepository> createArtifactRepositories(
+            List<Repository> pomRepositories,
+            List<ArtifactRepository> externalRepositories,
+```
 
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/ProjectBuildingHelper.java`
+#### Snippet
+```java
+    List<ArtifactRepository> createArtifactRepositories(
+            List<Repository> pomRepositories,
+            List<ArtifactRepository> externalRepositories,
+            ProjectBuildingRequest request)
+            throws InvalidRepositoryException;
 ```
 
 ### Deprecation
@@ -7457,9 +7289,9 @@ in `maven-core/src/main/java/org/apache/maven/project/ProjectModelResolver.java`
 ```java
 
     @Override
-    public ModelSource resolveModel(org.apache.maven.model.Dependency dependency) throws UnresolvableModelException {
-        AtomicReference<org.apache.maven.api.model.Dependency> resolvedDependency = new AtomicReference<>();
-        ModelSource result = resolveModel(dependency.getDelegate(), resolvedDependency);
+    public ModelSource resolveModel(org.apache.maven.model.Parent parent) throws UnresolvableModelException {
+        AtomicReference<org.apache.maven.api.model.Parent> resolvedParent = new AtomicReference<>();
+        ModelSource result = resolveModel(parent.getDelegate(), resolvedParent);
 ```
 
 ### Deprecation
@@ -7467,11 +7299,11 @@ in `maven-core/src/main/java/org/apache/maven/project/ProjectModelResolver.java`
 in `maven-core/src/main/java/org/apache/maven/project/ProjectModelResolver.java`
 #### Snippet
 ```java
-    public ModelSource resolveModel(org.apache.maven.model.Dependency dependency) throws UnresolvableModelException {
-        AtomicReference<org.apache.maven.api.model.Dependency> resolvedDependency = new AtomicReference<>();
-        ModelSource result = resolveModel(dependency.getDelegate(), resolvedDependency);
-        if (resolvedDependency.get() != null) {
-            dependency.setVersion(resolvedDependency.get().getVersion());
+    public ModelSource resolveModel(org.apache.maven.model.Parent parent) throws UnresolvableModelException {
+        AtomicReference<org.apache.maven.api.model.Parent> resolvedParent = new AtomicReference<>();
+        ModelSource result = resolveModel(parent.getDelegate(), resolvedParent);
+        if (resolvedParent.get() != null) {
+            parent.setVersion(resolvedParent.get().getVersion());
 ```
 
 ### Deprecation
@@ -7505,9 +7337,21 @@ in `maven-core/src/main/java/org/apache/maven/project/ProjectModelResolver.java`
 ```java
 
     @Override
-    public ModelSource resolveModel(final Dependency dependency, AtomicReference<Dependency> modified)
-            throws UnresolvableModelException {
-        try {
+    public ModelSource resolveModel(org.apache.maven.model.Dependency dependency) throws UnresolvableModelException {
+        AtomicReference<org.apache.maven.api.model.Dependency> resolvedDependency = new AtomicReference<>();
+        ModelSource result = resolveModel(dependency.getDelegate(), resolvedDependency);
+```
+
+### Deprecation
+'org.apache.maven.model.building.ModelSource' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/ProjectModelResolver.java`
+#### Snippet
+```java
+    public ModelSource resolveModel(org.apache.maven.model.Dependency dependency) throws UnresolvableModelException {
+        AtomicReference<org.apache.maven.api.model.Dependency> resolvedDependency = new AtomicReference<>();
+        ModelSource result = resolveModel(dependency.getDelegate(), resolvedDependency);
+        if (resolvedDependency.get() != null) {
+            dependency.setVersion(resolvedDependency.get().getVersion());
 ```
 
 ### Deprecation
@@ -7517,45 +7361,9 @@ in `maven-core/src/main/java/org/apache/maven/project/ProjectModelResolver.java`
 ```java
 
     @Override
-    public ModelSource resolveModel(org.apache.maven.model.Parent parent) throws UnresolvableModelException {
-        AtomicReference<org.apache.maven.api.model.Parent> resolvedParent = new AtomicReference<>();
-        ModelSource result = resolveModel(parent.getDelegate(), resolvedParent);
-```
-
-### Deprecation
-'org.apache.maven.model.building.ModelSource' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/ProjectModelResolver.java`
-#### Snippet
-```java
-    public ModelSource resolveModel(org.apache.maven.model.Parent parent) throws UnresolvableModelException {
-        AtomicReference<org.apache.maven.api.model.Parent> resolvedParent = new AtomicReference<>();
-        ModelSource result = resolveModel(parent.getDelegate(), resolvedParent);
-        if (resolvedParent.get() != null) {
-            parent.setVersion(resolvedParent.get().getVersion());
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/ProjectBuildingHelper.java`
-#### Snippet
-```java
-     * @throws InvalidRepositoryException
-     */
-    List<ArtifactRepository> createArtifactRepositories(
-            List<Repository> pomRepositories,
-            List<ArtifactRepository> externalRepositories,
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/ProjectBuildingHelper.java`
-#### Snippet
-```java
-    List<ArtifactRepository> createArtifactRepositories(
-            List<Repository> pomRepositories,
-            List<ArtifactRepository> externalRepositories,
-            ProjectBuildingRequest request)
-            throws InvalidRepositoryException;
+    public ModelSource resolveModel(final Dependency dependency, AtomicReference<Dependency> modified)
+            throws UnresolvableModelException {
+        try {
 ```
 
 ### Deprecation
@@ -7643,15 +7451,123 @@ in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMetadataSo
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuildingRequest.java`
+'getDependencyArtifacts()' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectDependenciesResolver.java`
+#### Snippet
+```java
+        collect.setRepositories(project.getRemoteProjectRepositories());
+
+        if (project.getDependencyArtifacts() == null) {
+            for (Dependency dependency : project.getDependencies()) {
+                if (StringUtils.isEmpty(dependency.getGroupId())
+```
+
+### Deprecation
+'getDependencyArtifacts()' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectDependenciesResolver.java`
+#### Snippet
+```java
+                dependencies.put(key, dependency);
+            }
+            for (Artifact artifact : project.getDependencyArtifacts()) {
+                String key = artifact.getDependencyConflictId();
+                Dependency dependency = dependencies.get(key);
+```
+
+### Deprecation
+'org.apache.maven.plugin.DebugConfigurationListener' is deprecated
+in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultMavenPluginManager.java`
+#### Snippet
+```java
+            configurator = container.lookup(ComponentConfigurator.class, configuratorId);
+
+            ConfigurationListener listener = new DebugConfigurationListener(logger);
+
+            ValidatingConfigurationListener validator =
+```
+
+### Deprecation
+'setLog(org.apache.maven.plugin.logging.Log)' is deprecated
+in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultMavenPluginManager.java`
+#### Snippet
+```java
+            if (mojo instanceof Mojo) {
+                Logger mojoLogger = LoggerFactory.getLogger(mojoDescriptor.getImplementation());
+                ((Mojo) mojo).setLog(new MojoLogWrapper(mojoLogger));
+            }
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/ProjectArtifactMetadata.java`
+#### Snippet
+```java
+
+    public void merge(org.apache.maven.repository.legacy.metadata.ArtifactMetadata metadata) {
+        this.merge((ArtifactMetadata) metadata);
+    }
+}
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/ProjectArtifactMetadata.java`
 #### Snippet
 ```java
     }
 
-    public ProjectBuildingRequest setRemoteRepositories(List<ArtifactRepository> remoteRepositories) {
-        if (remoteRepositories != null) {
-            this.remoteRepositories = new ArrayList<>(remoteRepositories);
+    public void merge(ArtifactMetadata metadata) {
+        ProjectArtifactMetadata m = (ProjectArtifactMetadata) metadata;
+        if (!m.file.equals(file)) {
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/ProjectArtifactMetadata.java`
+#### Snippet
+```java
+    }
+
+    public String getLocalFilename(ArtifactRepository repository) {
+        return getFilename();
+    }
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.AbstractArtifactMetadata' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/ProjectArtifactMetadata.java`
+#### Snippet
+```java
+ * @author <a href="mailto:brett@apache.org">Brett Porter</a>
+ */
+public class ProjectArtifactMetadata extends AbstractArtifactMetadata {
+    private final File file;
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/ProjectArtifactMetadata.java`
+#### Snippet
+```java
+    }
+
+    public void storeInLocalRepository(ArtifactRepository localRepository, ArtifactRepository remoteRepository)
+            throws RepositoryMetadataStoreException {
+        File destination = new File(
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/ProjectArtifactMetadata.java`
+#### Snippet
+```java
+    }
+
+    public void storeInLocalRepository(ArtifactRepository localRepository, ArtifactRepository remoteRepository)
+            throws RepositoryMetadataStoreException {
+        File destination = new File(
 ```
 
 ### Deprecation
@@ -7664,6 +7580,18 @@ in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuildingRequ
     public List<ArtifactRepository> getRemoteRepositories() {
         return remoteRepositories;
     }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuildingRequest.java`
+#### Snippet
+```java
+    }
+
+    public ProjectBuildingRequest setLocalRepository(ArtifactRepository localRepository) {
+        this.localRepository = localRepository;
+        return this;
 ```
 
 ### Deprecation
@@ -7697,9 +7625,9 @@ in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuildingRequ
 ```java
     }
 
-    public ProjectBuildingRequest setPluginArtifactRepositories(List<ArtifactRepository> pluginArtifactRepositories) {
-        if (pluginArtifactRepositories != null) {
-            this.pluginArtifactRepositories = new ArrayList<>(pluginArtifactRepositories);
+    public ProjectBuildingRequest setRemoteRepositories(List<ArtifactRepository> remoteRepositories) {
+        if (remoteRepositories != null) {
+            this.remoteRepositories = new ArrayList<>(remoteRepositories);
 ```
 
 ### Deprecation
@@ -7715,18 +7643,6 @@ in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuildingRequ
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuildingRequest.java`
-#### Snippet
-```java
-    }
-
-    public ProjectBuildingRequest setLocalRepository(ArtifactRepository localRepository) {
-        this.localRepository = localRepository;
-        return this;
-```
-
-### Deprecation
 'isResolveVersionRanges()' is deprecated
 in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuildingRequest.java`
 #### Snippet
@@ -7739,15 +7655,15 @@ in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuildingRequ
 ```
 
 ### Deprecation
-'getDependencyArtifacts()' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectDependenciesResolver.java`
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuildingRequest.java`
 #### Snippet
 ```java
-        collect.setRepositories(project.getRemoteProjectRepositories());
+    }
 
-        if (project.getDependencyArtifacts() == null) {
-            for (Dependency dependency : project.getDependencies()) {
-                if (StringUtils.isEmpty(dependency.getGroupId())
+    public ProjectBuildingRequest setPluginArtifactRepositories(List<ArtifactRepository> pluginArtifactRepositories) {
+        if (pluginArtifactRepositories != null) {
+            this.pluginArtifactRepositories = new ArrayList<>(pluginArtifactRepositories);
 ```
 
 ### Deprecation
@@ -7763,18 +7679,6 @@ in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuildingRequ
 ```
 
 ### Deprecation
-'getDependencyArtifacts()' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectDependenciesResolver.java`
-#### Snippet
-```java
-                dependencies.put(key, dependency);
-            }
-            for (Artifact artifact : project.getDependencyArtifacts()) {
-                String key = artifact.getDependencyConflictId();
-                Dependency dependency = dependencies.get(key);
-```
-
-### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
 in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuildingRequest.java`
 #### Snippet
@@ -7784,102 +7688,6 @@ in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuildingRequ
     private List<ArtifactRepository> pluginArtifactRepositories;
 
     private MavenProject project;
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/ProjectArtifactMetadata.java`
-#### Snippet
-```java
-    }
-
-    public void merge(ArtifactMetadata metadata) {
-        ProjectArtifactMetadata m = (ProjectArtifactMetadata) metadata;
-        if (!m.file.equals(file)) {
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/ProjectArtifactMetadata.java`
-#### Snippet
-```java
-    }
-
-    public String getLocalFilename(ArtifactRepository repository) {
-        return getFilename();
-    }
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/ProjectArtifactMetadata.java`
-#### Snippet
-```java
-
-    public void merge(org.apache.maven.repository.legacy.metadata.ArtifactMetadata metadata) {
-        this.merge((ArtifactMetadata) metadata);
-    }
-}
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/ProjectArtifactMetadata.java`
-#### Snippet
-```java
-    }
-
-    public void storeInLocalRepository(ArtifactRepository localRepository, ArtifactRepository remoteRepository)
-            throws RepositoryMetadataStoreException {
-        File destination = new File(
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/ProjectArtifactMetadata.java`
-#### Snippet
-```java
-    }
-
-    public void storeInLocalRepository(ArtifactRepository localRepository, ArtifactRepository remoteRepository)
-            throws RepositoryMetadataStoreException {
-        File destination = new File(
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.AbstractArtifactMetadata' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/ProjectArtifactMetadata.java`
-#### Snippet
-```java
- * @author <a href="mailto:brett@apache.org">Brett Porter</a>
- */
-public class ProjectArtifactMetadata extends AbstractArtifactMetadata {
-    private final File file;
-
-```
-
-### Deprecation
-'org.apache.maven.plugin.DebugConfigurationListener' is deprecated
-in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultMavenPluginManager.java`
-#### Snippet
-```java
-            configurator = container.lookup(ComponentConfigurator.class, configuratorId);
-
-            ConfigurationListener listener = new DebugConfigurationListener(logger);
-
-            ValidatingConfigurationListener validator =
-```
-
-### Deprecation
-'setLog(org.apache.maven.plugin.logging.Log)' is deprecated
-in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultMavenPluginManager.java`
-#### Snippet
-```java
-            if (mojo instanceof Mojo) {
-                Logger mojoLogger = LoggerFactory.getLogger(mojoDescriptor.getImplementation());
-                ((Mojo) mojo).setLog(new MojoLogWrapper(mojoLogger));
-            }
-
 ```
 
 ### Deprecation
@@ -7931,42 +7739,6 @@ in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultProjectArt
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
-#### Snippet
-```java
-    }
-
-    private static boolean repositoryPolicyEquals(ArtifactRepositoryPolicy p1, ArtifactRepositoryPolicy p2) {
-        if (p1 == p2) {
-            return true;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
-#### Snippet
-```java
-    }
-
-    private static boolean repositoryPolicyEquals(ArtifactRepositoryPolicy p1, ArtifactRepositoryPolicy p2) {
-        if (p1 == p2) {
-            return true;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
-#### Snippet
-```java
-                Set<Artifact> artifacts,
-                Map<String, Artifact> managedVersions,
-                List<ArtifactRepository> remoteRepositories) {
-            this.pomArtifact = ArtifactUtils.copyArtifact(pomArtifact);
-            this.relocatedArtifact = ArtifactUtils.copyArtifactSafe(relocatedArtifact);
-```
-
-### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
 in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
 #### Snippet
@@ -7983,179 +7755,11 @@ in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetad
 in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
 #### Snippet
 ```java
-            Artifact artifact,
-            boolean resolveManagedVersions,
-            ArtifactRepository localRepository,
-            List<ArtifactRepository> remoteRepositories,
-            ResolutionGroup result) {
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
-#### Snippet
-```java
-            boolean resolveManagedVersions,
-            ArtifactRepository localRepository,
-            List<ArtifactRepository> remoteRepositories,
-            ResolutionGroup result) {
-        put(newCacheKey(artifact, resolveManagedVersions, localRepository, remoteRepositories), result);
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ResolutionGroup' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
-#### Snippet
-```java
-            ArtifactRepository localRepository,
-            List<ArtifactRepository> remoteRepositories,
-            ResolutionGroup result) {
-        put(newCacheKey(artifact, resolveManagedVersions, localRepository, remoteRepositories), result);
-    }
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
-#### Snippet
-```java
         private final long pomHash;
         private final boolean resolveManagedVersions;
         private final List<ArtifactRepository> repositories = new ArrayList<>();
         private final int hashCode;
 
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
-#### Snippet
-```java
-        private List<Artifact> artifacts;
-        private Map<String, Artifact> managedVersions;
-        private List<ArtifactRepository> remoteRepositories;
-
-        private long length;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
-#### Snippet
-```java
-            Artifact artifact,
-            boolean resolveManagedVersions,
-            ArtifactRepository localRepository,
-            List<ArtifactRepository> remoteRepositories) {
-        return new CacheKey(artifact, resolveManagedVersions, localRepository, remoteRepositories);
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
-#### Snippet
-```java
-            boolean resolveManagedVersions,
-            ArtifactRepository localRepository,
-            List<ArtifactRepository> remoteRepositories) {
-        return new CacheKey(artifact, resolveManagedVersions, localRepository, remoteRepositories);
-    }
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ResolutionGroup' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
-#### Snippet
-```java
-    }
-
-    protected void put(CacheKey cacheKey, ResolutionGroup result) {
-        CacheRecord cacheRecord = new CacheRecord(
-                result.getPomArtifact(),
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
-#### Snippet
-```java
-    }
-
-    private static boolean repositoriesEquals(List<ArtifactRepository> r1, List<ArtifactRepository> r2) {
-        if (r1.size() != r2.size()) {
-            return false;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
-#### Snippet
-```java
-    }
-
-    private static boolean repositoriesEquals(List<ArtifactRepository> r1, List<ArtifactRepository> r2) {
-        if (r1.size() != r2.size()) {
-            return false;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
-#### Snippet
-```java
-        }
-
-        for (Iterator<ArtifactRepository> it1 = r1.iterator(), it2 = r2.iterator(); it1.hasNext(); ) {
-            if (!repositoryEquals(it1.next(), it2.next())) {
-                return false;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
-#### Snippet
-```java
-    }
-
-    private static boolean repositoryEquals(ArtifactRepository r1, ArtifactRepository r2) {
-        if (r1 == r2) {
-            return true;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
-#### Snippet
-```java
-    }
-
-    private static boolean repositoryEquals(ArtifactRepository r1, ArtifactRepository r2) {
-        if (r1 == r2) {
-            return true;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
-#### Snippet
-```java
-    }
-
-    private static int repositoriesHashCode(List<ArtifactRepository> repositories) {
-        int result = 17;
-        for (ArtifactRepository repository : repositories) {
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
-#### Snippet
-```java
-    private static int repositoriesHashCode(List<ArtifactRepository> repositories) {
-        int result = 17;
-        for (ArtifactRepository repository : repositories) {
-            result = 31 * result + repositoryHashCode(repository);
-        }
 ```
 
 ### Deprecation
@@ -8247,6 +7851,222 @@ in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetad
 in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
 #### Snippet
 ```java
+                Set<Artifact> artifacts,
+                Map<String, Artifact> managedVersions,
+                List<ArtifactRepository> remoteRepositories) {
+            this.pomArtifact = ArtifactUtils.copyArtifact(pomArtifact);
+            this.relocatedArtifact = ArtifactUtils.copyArtifactSafe(relocatedArtifact);
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
+#### Snippet
+```java
+    }
+
+    private static boolean repositoriesEquals(List<ArtifactRepository> r1, List<ArtifactRepository> r2) {
+        if (r1.size() != r2.size()) {
+            return false;
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
+#### Snippet
+```java
+    }
+
+    private static boolean repositoriesEquals(List<ArtifactRepository> r1, List<ArtifactRepository> r2) {
+        if (r1.size() != r2.size()) {
+            return false;
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
+#### Snippet
+```java
+        }
+
+        for (Iterator<ArtifactRepository> it1 = r1.iterator(), it2 = r2.iterator(); it1.hasNext(); ) {
+            if (!repositoryEquals(it1.next(), it2.next())) {
+                return false;
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
+#### Snippet
+```java
+    }
+
+    private static boolean repositoryPolicyEquals(ArtifactRepositoryPolicy p1, ArtifactRepositoryPolicy p2) {
+        if (p1 == p2) {
+            return true;
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
+#### Snippet
+```java
+    }
+
+    private static boolean repositoryPolicyEquals(ArtifactRepositoryPolicy p1, ArtifactRepositoryPolicy p2) {
+        if (p1 == p2) {
+            return true;
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ResolutionGroup' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
+#### Snippet
+```java
+    }
+
+    protected void put(CacheKey cacheKey, ResolutionGroup result) {
+        CacheRecord cacheRecord = new CacheRecord(
+                result.getPomArtifact(),
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
+#### Snippet
+```java
+        }
+
+        public List<ArtifactRepository> getRemoteRepositories() {
+            return remoteRepositories;
+        }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
+#### Snippet
+```java
+    }
+
+    private static boolean repositoryEquals(ArtifactRepository r1, ArtifactRepository r2) {
+        if (r1 == r2) {
+            return true;
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
+#### Snippet
+```java
+    }
+
+    private static boolean repositoryEquals(ArtifactRepository r1, ArtifactRepository r2) {
+        if (r1 == r2) {
+            return true;
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
+#### Snippet
+```java
+        private List<Artifact> artifacts;
+        private Map<String, Artifact> managedVersions;
+        private List<ArtifactRepository> remoteRepositories;
+
+        private long length;
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
+#### Snippet
+```java
+            Artifact artifact,
+            boolean resolveManagedVersions,
+            ArtifactRepository localRepository,
+            List<ArtifactRepository> remoteRepositories,
+            ResolutionGroup result) {
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
+#### Snippet
+```java
+            boolean resolveManagedVersions,
+            ArtifactRepository localRepository,
+            List<ArtifactRepository> remoteRepositories,
+            ResolutionGroup result) {
+        put(newCacheKey(artifact, resolveManagedVersions, localRepository, remoteRepositories), result);
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ResolutionGroup' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
+#### Snippet
+```java
+            ArtifactRepository localRepository,
+            List<ArtifactRepository> remoteRepositories,
+            ResolutionGroup result) {
+        put(newCacheKey(artifact, resolveManagedVersions, localRepository, remoteRepositories), result);
+    }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
+#### Snippet
+```java
+            Artifact artifact,
+            boolean resolveManagedVersions,
+            ArtifactRepository localRepository,
+            List<ArtifactRepository> remoteRepositories) {
+        return new CacheKey(artifact, resolveManagedVersions, localRepository, remoteRepositories);
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
+#### Snippet
+```java
+            boolean resolveManagedVersions,
+            ArtifactRepository localRepository,
+            List<ArtifactRepository> remoteRepositories) {
+        return new CacheKey(artifact, resolveManagedVersions, localRepository, remoteRepositories);
+    }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
+#### Snippet
+```java
+    }
+
+    private static int repositoriesHashCode(List<ArtifactRepository> repositories) {
+        int result = 17;
+        for (ArtifactRepository repository : repositories) {
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
+#### Snippet
+```java
+    private static int repositoriesHashCode(List<ArtifactRepository> repositories) {
+        int result = 17;
+        for (ArtifactRepository repository : repositories) {
+            result = 31 * result + repositoryHashCode(repository);
+        }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
+#### Snippet
+```java
                 Artifact artifact,
                 boolean resolveManagedVersions,
                 ArtifactRepository localRepository,
@@ -8264,30 +8084,6 @@ in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetad
                 List<ArtifactRepository> remoteRepositories) {
             File file = artifact.getFile();
             this.artifact = ArtifactUtils.copyArtifact(artifact);
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
-#### Snippet
-```java
-        }
-
-        public List<ArtifactRepository> getRemoteRepositories() {
-            return remoteRepositories;
-        }
-```
-
-### Deprecation
-'org.apache.maven.artifact.factory.ArtifactFactory' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/factory/DefaultArtifactFactory.java`
-#### Snippet
-```java
-@Singleton
-@SuppressWarnings("checkstyle:parameternumber")
-public class DefaultArtifactFactory implements ArtifactFactory {
-    private final ArtifactHandlerManager artifactHandlerManager;
-
 ```
 
 ### Deprecation
@@ -8327,399 +8123,15 @@ in `maven-core/src/main/java/org/apache/maven/project/collector/MultiModuleColle
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
+'org.apache.maven.artifact.factory.ArtifactFactory' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/factory/DefaultArtifactFactory.java`
 #### Snippet
 ```java
-    }
+@Singleton
+@SuppressWarnings("checkstyle:parameternumber")
+public class DefaultArtifactFactory implements ArtifactFactory {
+    private final ArtifactHandlerManager artifactHandlerManager;
 
-    public ArtifactRepository getDistributionManagementArtifactRepository() {
-        return getArtifact().isSnapshot() && (getSnapshotArtifactRepository() != null)
-                ? getSnapshotArtifactRepository()
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
-#### Snippet
-```java
-    }
-
-    public void setRemoteArtifactRepositories(List<ArtifactRepository> remoteArtifactRepositories) {
-        this.remoteArtifactRepositories = remoteArtifactRepositories;
-        this.remoteProjectRepositories = RepositoryUtils.toRepos(getRemoteArtifactRepositories());
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
-#### Snippet
-```java
-    private ArtifactRepository releaseArtifactRepository;
-
-    private ArtifactRepository snapshotArtifactRepository;
-
-    private List<Profile> activeProfiles = new ArrayList<>();
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
-#### Snippet
-```java
-    }
-
-    protected ArtifactRepository getSnapshotArtifactRepository() {
-        return snapshotArtifactRepository;
-    }
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
-#### Snippet
-```java
-    private List<ArtifactRepository> remoteArtifactRepositories;
-
-    private List<ArtifactRepository> pluginArtifactRepositories;
-
-    private List<RemoteRepository> remoteProjectRepositories;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
-#### Snippet
-```java
-    }
-
-    public void setSnapshotArtifactRepository(ArtifactRepository snapshotArtifactRepository) {
-        this.snapshotArtifactRepository = snapshotArtifactRepository;
-    }
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
-#### Snippet
-```java
-    private List<String> scriptSourceRoots = new ArrayList<>();
-
-    private ArtifactRepository releaseArtifactRepository;
-
-    private ArtifactRepository snapshotArtifactRepository;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
-#### Snippet
-```java
-    }
-
-    protected ArtifactRepository getReleaseArtifactRepository() {
-        return releaseArtifactRepository;
-    }
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
-#### Snippet
-```java
-    }
-
-    public List<ArtifactRepository> getRemoteArtifactRepositories() {
-        if (remoteArtifactRepositories == null) {
-            remoteArtifactRepositories = new ArrayList<>();
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
-#### Snippet
-```java
-     *         getPluginRepositories.
-     */
-    public List<ArtifactRepository> getPluginArtifactRepositories() {
-        if (pluginArtifactRepositories == null) {
-            pluginArtifactRepositories = new ArrayList<>();
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
-#### Snippet
-```java
-    }
-
-    public void setPluginArtifactRepositories(List<ArtifactRepository> pluginArtifactRepositories) {
-        this.pluginArtifactRepositories = pluginArtifactRepositories;
-        this.remotePluginRepositories = RepositoryUtils.toRepos(getPluginArtifactRepositories());
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
-#### Snippet
-```java
-    }
-
-    public void setReleaseArtifactRepository(ArtifactRepository releaseArtifactRepository) {
-        this.releaseArtifactRepository = releaseArtifactRepository;
-    }
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
-#### Snippet
-```java
-    private Set<Artifact> pluginArtifacts;
-
-    private List<ArtifactRepository> remoteArtifactRepositories;
-
-    private List<ArtifactRepository> pluginArtifactRepositories;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/resolver/ArtifactResolutionRequest.java`
-#### Snippet
-```java
-    }
-
-    public ArtifactRepository getLocalRepository() {
-        return localRepository;
-    }
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/resolver/ArtifactResolutionRequest.java`
-#### Snippet
-```java
-    }
-
-    public ArtifactResolutionRequest setRemoteRepositories(List<ArtifactRepository> remoteRepositories) {
-        this.remoteRepositories = remoteRepositories;
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/resolver/ArtifactResolutionRequest.java`
-#### Snippet
-```java
-    private ArtifactRepository localRepository;
-
-    private List<ArtifactRepository> remoteRepositories;
-
-    private ArtifactFilter collectionFilter;
-```
-
-### Deprecation
-'addScriptSourceRoot(java.lang.String)' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuilder.java`
-#### Snippet
-```java
-        {
-            Build build = project.getBuild();
-            project.addScriptSourceRoot(build.getScriptSourceDirectory());
-            project.addCompileSourceRoot(build.getSourceDirectory());
-            project.addTestCompileSourceRoot(build.getTestSourceDirectory());
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/resolver/ArtifactResolutionRequest.java`
-#### Snippet
-```java
-    }
-
-    public ArtifactResolutionRequest setLocalRepository(ArtifactRepository localRepository) {
-        this.localRepository = localRepository;
-
-```
-
-### Deprecation
-'setProjectBuildingRequest(org.apache.maven.project.ProjectBuildingRequest)' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuilder.java`
-#### Snippet
-```java
-        //
-
-        project.setProjectBuildingRequest(projectBuildingRequest);
-
-        // pluginArtifacts
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.RepositoryCache' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/resolver/ArtifactResolutionRequest.java`
-#### Snippet
-```java
-    // this here, possibly indefinitely.
-    //
-    public ArtifactResolutionRequest setCache(RepositoryCache cache) {
-        return this;
-    }
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/resolver/ArtifactResolutionRequest.java`
-#### Snippet
-```java
-    private Set<Artifact> artifactDependencies;
-
-    private ArtifactRepository localRepository;
-
-    private List<ArtifactRepository> remoteRepositories;
-```
-
-### Deprecation
-'getReportPlugins()' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuilder.java`
-#### Snippet
-```java
-        // reportArtifacts
-        Set<Artifact> reportArtifacts = new HashSet<>();
-        for (ReportPlugin report : project.getReportPlugins()) {
-            Plugin pp = new Plugin();
-            pp.setGroupId(report.getGroupId());
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/resolver/ArtifactResolutionRequest.java`
-#### Snippet
-```java
-    }
-
-    public List<ArtifactRepository> getRemoteRepositories() {
-        return remoteRepositories;
-    }
-```
-
-### Deprecation
-'setReportArtifacts(java.util.Set)' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuilder.java`
-#### Snippet
-```java
-            }
-        }
-        project.setReportArtifacts(reportArtifacts);
-
-        // extensionArtifacts
-```
-
-### Deprecation
-'setExtensionArtifacts(java.util.Set)' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuilder.java`
-#### Snippet
-```java
-            }
-        }
-        project.setExtensionArtifacts(extensionArtifacts);
-
-        // managedVersionMap
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuilder.java`
-#### Snippet
-```java
-                DeploymentRepository r = project.getDistributionManagement().getRepository();
-                if (!StringUtils.isEmpty(r.getId()) && !StringUtils.isEmpty(r.getUrl())) {
-                    ArtifactRepository repo = MavenRepositorySystem.buildArtifactRepository(r);
-                    repositorySystem.injectProxy(projectBuildingRequest.getRepositorySession(), Arrays.asList(repo));
-                    repositorySystem.injectAuthentication(
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuilder.java`
-#### Snippet
-```java
-                DeploymentRepository r = project.getDistributionManagement().getSnapshotRepository();
-                if (!StringUtils.isEmpty(r.getId()) && !StringUtils.isEmpty(r.getUrl())) {
-                    ArtifactRepository repo = MavenRepositorySystem.buildArtifactRepository(r);
-                    repositorySystem.injectProxy(projectBuildingRequest.getRepositorySession(), Arrays.asList(repo));
-                    repositorySystem.injectAuthentication(
-```
-
-### Deprecation
-'org.apache.maven.model.building.ModelSource' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuilder.java`
-#### Snippet
-```java
-    }
-
-    private ModelSource createStubModelSource(Artifact artifact) {
-        StringBuilder buffer = new StringBuilder(1024);
-
-```
-
-### Deprecation
-'org.apache.maven.model.building.StringModelSource' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuilder.java`
-#### Snippet
-```java
-        buffer.append("</project>");
-
-        return new StringModelSource(buffer, artifact.getId());
-    }
-
-```
-
-### Deprecation
-'org.apache.maven.model.building.ModelSource' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuilder.java`
-#### Snippet
-```java
-    }
-
-    private ProjectBuildingResult build(File pomFile, ModelSource modelSource, InternalConfig config)
-            throws ProjectBuildingException {
-        ClassLoader oldContextClassLoader = Thread.currentThread().getContextClassLoader();
-```
-
-### Deprecation
-'org.apache.maven.model.building.ModelSource' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuilder.java`
-#### Snippet
-```java
-
-    @Override
-    public ProjectBuildingResult build(ModelSource modelSource, ProjectBuildingRequest request)
-            throws ProjectBuildingException {
-        return build(null, modelSource, new InternalConfig(request, null, null));
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/resolver/ResolutionNode.java`
-#### Snippet
-```java
-    }
-
-    public ResolutionNode(Artifact artifact, List<ArtifactRepository> remoteRepositories, ResolutionNode parent) {
-        this.artifact = artifact;
-        this.remoteRepositories = remoteRepositories;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/resolver/ResolutionNode.java`
-#### Snippet
-```java
-
-    public void addDependencies(
-            Set<Artifact> artifacts, List<ArtifactRepository> remoteRepositories, ArtifactFilter filter)
-            throws CyclicDependencyException, OverConstrainedVersionException {
-        if (artifacts != null && !artifacts.isEmpty()) {
 ```
 
 ### Deprecation
@@ -8739,11 +8151,35 @@ in `maven-core/src/main/java/org/apache/maven/artifact/resolver/ResolutionNode.j
 in `maven-core/src/main/java/org/apache/maven/artifact/resolver/ResolutionNode.java`
 #### Snippet
 ```java
+
+    public void addDependencies(
+            Set<Artifact> artifacts, List<ArtifactRepository> remoteRepositories, ArtifactFilter filter)
+            throws CyclicDependencyException, OverConstrainedVersionException {
+        if (artifacts != null && !artifacts.isEmpty()) {
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/resolver/ResolutionNode.java`
+#### Snippet
+```java
     }
 
     public List<ArtifactRepository> getRemoteRepositories() {
         return remoteRepositories;
     }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/resolver/ResolutionNode.java`
+#### Snippet
+```java
+    }
+
+    public ResolutionNode(Artifact artifact, List<ArtifactRepository> remoteRepositories, ResolutionNode parent) {
+        this.artifact = artifact;
+        this.remoteRepositories = remoteRepositories;
 ```
 
 ### Deprecation
@@ -8760,38 +8196,86 @@ in `maven-core/src/main/java/org/apache/maven/artifact/resolver/ResolutionNode.j
 
 ### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/resolver/ArtifactResolutionResult.java`
-#### Snippet
-```java
-    // file system errors
-
-    private List<ArtifactRepository> repositories;
-
-    private Set<Artifact> artifacts;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/resolver/ArtifactResolutionResult.java`
+in `maven-core/src/main/java/org/apache/maven/artifact/resolver/ArtifactResolutionRequest.java`
 #### Snippet
 ```java
     }
 
-    public ArtifactResolutionResult setRepositories(final List<ArtifactRepository> repositories) {
-        this.repositories = repositories;
+    public List<ArtifactRepository> getRemoteRepositories() {
+        return remoteRepositories;
+    }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/resolver/ArtifactResolutionRequest.java`
+#### Snippet
+```java
+    private ArtifactRepository localRepository;
+
+    private List<ArtifactRepository> remoteRepositories;
+
+    private ArtifactFilter collectionFilter;
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/resolver/ArtifactResolutionRequest.java`
+#### Snippet
+```java
+    private Set<Artifact> artifactDependencies;
+
+    private ArtifactRepository localRepository;
+
+    private List<ArtifactRepository> remoteRepositories;
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/resolver/ArtifactResolutionRequest.java`
+#### Snippet
+```java
+    }
+
+    public ArtifactResolutionRequest setRemoteRepositories(List<ArtifactRepository> remoteRepositories) {
+        this.remoteRepositories = remoteRepositories;
 
 ```
 
 ### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/resolver/ArtifactResolutionResult.java`
+in `maven-core/src/main/java/org/apache/maven/artifact/resolver/ArtifactResolutionRequest.java`
 #### Snippet
 ```java
-    // ------------------------------------------------------------------------
+    }
 
-    public List<ArtifactRepository> getRepositories() {
-        if (repositories == null) {
-            return Collections.emptyList();
+    public ArtifactRepository getLocalRepository() {
+        return localRepository;
+    }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.RepositoryCache' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/resolver/ArtifactResolutionRequest.java`
+#### Snippet
+```java
+    // this here, possibly indefinitely.
+    //
+    public ArtifactResolutionRequest setCache(RepositoryCache cache) {
+        return this;
+    }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/resolver/ArtifactResolutionRequest.java`
+#### Snippet
+```java
+    }
+
+    public ArtifactResolutionRequest setLocalRepository(ArtifactRepository localRepository) {
+        this.localRepository = localRepository;
+
 ```
 
 ### Deprecation
@@ -8804,18 +8288,6 @@ in `maven-core/src/main/java/org/apache/maven/artifact/repository/RepositoryRequ
     RepositoryRequest setLocalRepository(ArtifactRepository localRepository);
 
     /**
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/RepositoryRequest.java`
-#### Snippet
-```java
-     * @return This request, never {@code null}.
-     */
-    RepositoryRequest setRemoteRepositories(List<ArtifactRepository> remoteRepositories);
-}
-
 ```
 
 ### Deprecation
@@ -8844,26 +8316,170 @@ in `maven-core/src/main/java/org/apache/maven/artifact/repository/RepositoryRequ
 
 ### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/DefaultRepositoryRequest.java`
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/RepositoryRequest.java`
 #### Snippet
 ```java
-    private boolean forceUpdate;
+     * @return This request, never {@code null}.
+     */
+    RepositoryRequest setRemoteRepositories(List<ArtifactRepository> remoteRepositories);
+}
 
-    private ArtifactRepository localRepository;
-
-    private List<ArtifactRepository> remoteRepositories;
 ```
 
 ### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/DefaultRepositoryRequest.java`
+in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
 #### Snippet
 ```java
-    private ArtifactRepository localRepository;
+    }
 
-    private List<ArtifactRepository> remoteRepositories;
+    public void setPluginArtifactRepositories(List<ArtifactRepository> pluginArtifactRepositories) {
+        this.pluginArtifactRepositories = pluginArtifactRepositories;
+        this.remotePluginRepositories = RepositoryUtils.toRepos(getPluginArtifactRepositories());
+```
 
-    /**
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
+#### Snippet
+```java
+    }
+
+    public ArtifactRepository getDistributionManagementArtifactRepository() {
+        return getArtifact().isSnapshot() && (getSnapshotArtifactRepository() != null)
+                ? getSnapshotArtifactRepository()
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
+#### Snippet
+```java
+    }
+
+    public List<ArtifactRepository> getRemoteArtifactRepositories() {
+        if (remoteArtifactRepositories == null) {
+            remoteArtifactRepositories = new ArrayList<>();
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
+#### Snippet
+```java
+    private List<String> scriptSourceRoots = new ArrayList<>();
+
+    private ArtifactRepository releaseArtifactRepository;
+
+    private ArtifactRepository snapshotArtifactRepository;
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
+#### Snippet
+```java
+     *         getPluginRepositories.
+     */
+    public List<ArtifactRepository> getPluginArtifactRepositories() {
+        if (pluginArtifactRepositories == null) {
+            pluginArtifactRepositories = new ArrayList<>();
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
+#### Snippet
+```java
+    }
+
+    public void setRemoteArtifactRepositories(List<ArtifactRepository> remoteArtifactRepositories) {
+        this.remoteArtifactRepositories = remoteArtifactRepositories;
+        this.remoteProjectRepositories = RepositoryUtils.toRepos(getRemoteArtifactRepositories());
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
+#### Snippet
+```java
+    private Set<Artifact> pluginArtifacts;
+
+    private List<ArtifactRepository> remoteArtifactRepositories;
+
+    private List<ArtifactRepository> pluginArtifactRepositories;
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
+#### Snippet
+```java
+    }
+
+    protected ArtifactRepository getSnapshotArtifactRepository() {
+        return snapshotArtifactRepository;
+    }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
+#### Snippet
+```java
+    }
+
+    public void setSnapshotArtifactRepository(ArtifactRepository snapshotArtifactRepository) {
+        this.snapshotArtifactRepository = snapshotArtifactRepository;
+    }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
+#### Snippet
+```java
+    }
+
+    public void setReleaseArtifactRepository(ArtifactRepository releaseArtifactRepository) {
+        this.releaseArtifactRepository = releaseArtifactRepository;
+    }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
+#### Snippet
+```java
+    private List<ArtifactRepository> remoteArtifactRepositories;
+
+    private List<ArtifactRepository> pluginArtifactRepositories;
+
+    private List<RemoteRepository> remoteProjectRepositories;
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
+#### Snippet
+```java
+    }
+
+    protected ArtifactRepository getReleaseArtifactRepository() {
+        return releaseArtifactRepository;
+    }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
+#### Snippet
+```java
+    private ArtifactRepository releaseArtifactRepository;
+
+    private ArtifactRepository snapshotArtifactRepository;
+
+    private List<Profile> activeProfiles = new ArrayList<>();
 ```
 
 ### Deprecation
@@ -8897,6 +8513,18 @@ in `maven-core/src/main/java/org/apache/maven/artifact/repository/DefaultReposit
 ```java
     }
 
+    public ArtifactRepository getLocalRepository() {
+        return localRepository;
+    }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/DefaultRepositoryRequest.java`
+#### Snippet
+```java
+    }
+
     public DefaultRepositoryRequest setRemoteRepositories(List<ArtifactRepository> remoteRepositories) {
         this.remoteRepositories = remoteRepositories;
 
@@ -8907,371 +8535,59 @@ in `maven-core/src/main/java/org/apache/maven/artifact/repository/DefaultReposit
 in `maven-core/src/main/java/org/apache/maven/artifact/repository/DefaultRepositoryRequest.java`
 #### Snippet
 ```java
-    }
+    private ArtifactRepository localRepository;
 
-    public ArtifactRepository getLocalRepository() {
-        return localRepository;
-    }
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/RepositoryMetadata.java`
-#### Snippet
-```java
- * TODO not happy about the store method - they use "this"
- */
-public interface RepositoryMetadata extends org.apache.maven.artifact.metadata.ArtifactMetadata {
-
-    int RELEASE = 1;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/RepositoryMetadata.java`
-#### Snippet
-```java
-     * @return The policy, never {@code null}.
-     */
-    ArtifactRepositoryPolicy getPolicy(ArtifactRepository repository);
-}
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/RepositoryMetadata.java`
-#### Snippet
-```java
-     * @return The policy, never {@code null}.
-     */
-    ArtifactRepositoryPolicy getPolicy(ArtifactRepository repository);
-}
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/RepositoryMetadata.java`
-#### Snippet
-```java
-     * @param remoteRepository the repository
-     */
-    void setRepository(ArtifactRepository remoteRepository);
+    private List<ArtifactRepository> remoteRepositories;
 
     /**
 ```
 
 ### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/RepositoryMetadata.java`
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/DefaultRepositoryRequest.java`
 #### Snippet
 ```java
-     * @return the repository
-     */
-    ArtifactRepository getRepository();
+    private boolean forceUpdate;
 
-    /**
+    private ArtifactRepository localRepository;
+
+    private List<ArtifactRepository> remoteRepositories;
 ```
 
 ### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/RepositoryMetadataManager.java`
-#### Snippet
-```java
-    void resolve(
-            RepositoryMetadata repositoryMetadata,
-            List<ArtifactRepository> repositories,
-            ArtifactRepository localRepository)
-            throws RepositoryMetadataResolutionException;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/RepositoryMetadataManager.java`
-#### Snippet
-```java
-            RepositoryMetadata repositoryMetadata,
-            List<ArtifactRepository> repositories,
-            ArtifactRepository localRepository)
-            throws RepositoryMetadataResolutionException;
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/RepositoryMetadataManager.java`
-#### Snippet
-```java
-     * @throws RepositoryMetadataDeploymentException in case of metadata deployment issue
-     */
-    void deploy(ArtifactMetadata metadata, ArtifactRepository localRepository, ArtifactRepository deploymentRepository)
-            throws RepositoryMetadataDeploymentException;
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/RepositoryMetadataManager.java`
-#### Snippet
-```java
-     * @throws RepositoryMetadataDeploymentException in case of metadata deployment issue
-     */
-    void deploy(ArtifactMetadata metadata, ArtifactRepository localRepository, ArtifactRepository deploymentRepository)
-            throws RepositoryMetadataDeploymentException;
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/RepositoryMetadataManager.java`
-#### Snippet
-```java
-     * @throws RepositoryMetadataDeploymentException in case of metadata deployment issue
-     */
-    void deploy(ArtifactMetadata metadata, ArtifactRepository localRepository, ArtifactRepository deploymentRepository)
-            throws RepositoryMetadataDeploymentException;
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/RepositoryMetadataManager.java`
-#### Snippet
-```java
-     * @throws RepositoryMetadataInstallationException in case of metadata installation issue
-     */
-    void install(ArtifactMetadata metadata, ArtifactRepository localRepository)
-            throws RepositoryMetadataInstallationException;
-}
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/RepositoryMetadataManager.java`
-#### Snippet
-```java
-     * @throws RepositoryMetadataInstallationException in case of metadata installation issue
-     */
-    void install(ArtifactMetadata metadata, ArtifactRepository localRepository)
-            throws RepositoryMetadataInstallationException;
-}
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/RepositoryMetadataManager.java`
-#### Snippet
-```java
-
-    void resolveAlways(
-            RepositoryMetadata metadata, ArtifactRepository localRepository, ArtifactRepository remoteRepository)
-            throws RepositoryMetadataResolutionException;
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/RepositoryMetadataManager.java`
-#### Snippet
-```java
-
-    void resolveAlways(
-            RepositoryMetadata metadata, ArtifactRepository localRepository, ArtifactRepository remoteRepository)
-            throws RepositoryMetadataResolutionException;
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/layout/DefaultRepositoryLayout.java`
+in `maven-core/src/main/java/org/apache/maven/artifact/resolver/ArtifactResolutionResult.java`
 #### Snippet
 ```java
     }
 
-    public String pathOfRemoteRepositoryMetadata(ArtifactMetadata metadata) {
-        return pathOfRepositoryMetadata(metadata, metadata.getRemoteFilename());
-    }
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/layout/DefaultRepositoryLayout.java`
-#### Snippet
-```java
-    }
-
-    private String pathOfRepositoryMetadata(ArtifactMetadata metadata, String filename) {
-        StringBuilder path = new StringBuilder(128);
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/layout/DefaultRepositoryLayout.java`
-#### Snippet
-```java
-    }
-
-    public String pathOfLocalRepositoryMetadata(ArtifactMetadata metadata, ArtifactRepository repository) {
-        return pathOfRepositoryMetadata(metadata, metadata.getLocalFilename(repository));
-    }
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/layout/DefaultRepositoryLayout.java`
-#### Snippet
-```java
-    }
-
-    public String pathOfLocalRepositoryMetadata(ArtifactMetadata metadata, ArtifactRepository repository) {
-        return pathOfRepositoryMetadata(metadata, metadata.getLocalFilename(repository));
-    }
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/layout/DefaultRepositoryLayout.java`
-#### Snippet
-```java
-@Named("default")
-@Singleton
-public class DefaultRepositoryLayout implements ArtifactRepositoryLayout {
-    private static final char PATH_SEPARATOR = '/';
+    public ArtifactResolutionResult setRepositories(final List<ArtifactRepository> repositories) {
+        this.repositories = repositories;
 
 ```
 
 ### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
+in `maven-core/src/main/java/org/apache/maven/artifact/resolver/ArtifactResolutionResult.java`
 #### Snippet
 ```java
-    }
+    // file system errors
 
-    private List<ArtifactRepository> getRepositoriesFromModel(RepositorySystemSession repositorySession, Model model) {
-        List<ArtifactRepository> pomRepositories = new ArrayList<>();
-        for (Repository modelRepository : model.getRepositories()) {
+    private List<ArtifactRepository> repositories;
+
+    private Set<Artifact> artifacts;
 ```
 
 ### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
+in `maven-core/src/main/java/org/apache/maven/artifact/resolver/ArtifactResolutionResult.java`
 #### Snippet
 ```java
+    // ------------------------------------------------------------------------
 
-    private List<ArtifactRepository> getRepositoriesFromModel(RepositorySystemSession repositorySession, Model model) {
-        List<ArtifactRepository> pomRepositories = new ArrayList<>();
-        for (Repository modelRepository : model.getRepositories()) {
-            try {
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ResolutionGroup' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
-#### Snippet
-```java
-
-    @Override
-    public ResolutionGroup retrieve(
-            Artifact artifact, ArtifactRepository localRepository, List<ArtifactRepository> remoteRepositories)
-            throws ArtifactMetadataRetrievalException {
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
-#### Snippet
-```java
-    @Override
-    public ResolutionGroup retrieve(
-            Artifact artifact, ArtifactRepository localRepository, List<ArtifactRepository> remoteRepositories)
-            throws ArtifactMetadataRetrievalException {
-        return retrieve(artifact, localRepository, remoteRepositories, false);
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
-#### Snippet
-```java
-    @Override
-    public ResolutionGroup retrieve(
-            Artifact artifact, ArtifactRepository localRepository, List<ArtifactRepository> remoteRepositories)
-            throws ArtifactMetadataRetrievalException {
-        return retrieve(artifact, localRepository, remoteRepositories, false);
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadataRetrievalException' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
-#### Snippet
-```java
-    public ResolutionGroup retrieve(
-            Artifact artifact, ArtifactRepository localRepository, List<ArtifactRepository> remoteRepositories)
-            throws ArtifactMetadataRetrievalException {
-        return retrieve(artifact, localRepository, remoteRepositories, false);
-    }
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadataSource' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
-#### Snippet
-```java
-@Named("maven")
-@Singleton
-public class MavenMetadataSource implements ArtifactMetadataSource {
-    private final Logger logger = LoggerFactory.getLogger(getClass());
-    private final RepositoryMetadataManager repositoryMetadataManager;
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ResolutionGroup' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
-#### Snippet
-```java
-    }
-
-    public ResolutionGroup retrieve(
-            Artifact artifact,
-            ArtifactRepository localRepository,
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
-#### Snippet
-```java
-    public ResolutionGroup retrieve(
-            Artifact artifact,
-            ArtifactRepository localRepository,
-            List<ArtifactRepository> remoteRepositories,
-            boolean resolveManagedVersions)
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
-#### Snippet
-```java
-            Artifact artifact,
-            ArtifactRepository localRepository,
-            List<ArtifactRepository> remoteRepositories,
-            boolean resolveManagedVersions)
-            throws ArtifactMetadataRetrievalException {
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadataRetrievalException' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
-#### Snippet
-```java
-            List<ArtifactRepository> remoteRepositories,
-            boolean resolveManagedVersions)
-            throws ArtifactMetadataRetrievalException {
-        MetadataResolutionRequest request = new DefaultMetadataResolutionRequest();
-        injectSession(request);
+    public List<ArtifactRepository> getRepositories() {
+        if (repositories == null) {
+            return Collections.emptyList();
 ```
 
 ### Deprecation
@@ -9311,270 +8627,6 @@ in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSour
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/AbstractRepositoryMetadata.java`
-#### Snippet
-```java
-    }
-
-    protected void updateRepositoryMetadata(ArtifactRepository localRepository, ArtifactRepository remoteRepository)
-            throws IOException, XmlPullParserException {
-        MetadataXpp3Reader mappingReader = new MetadataXpp3Reader();
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadataRetrievalException' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
-#### Snippet
-```java
-
-    private Artifact createDependencyArtifact(Dependency dependency, Artifact owner, Artifact pom)
-            throws ArtifactMetadataRetrievalException {
-        try {
-            String inheritedScope = (owner != null) ? owner.getScope() : null;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/AbstractRepositoryMetadata.java`
-#### Snippet
-```java
-    }
-
-    protected void updateRepositoryMetadata(ArtifactRepository localRepository, ArtifactRepository remoteRepository)
-            throws IOException, XmlPullParserException {
-        MetadataXpp3Reader mappingReader = new MetadataXpp3Reader();
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/AbstractRepositoryMetadata.java`
-#### Snippet
-```java
-    }
-
-    public void storeInLocalRepository(ArtifactRepository localRepository, ArtifactRepository remoteRepository)
-            throws RepositoryMetadataStoreException {
-        try {
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/AbstractRepositoryMetadata.java`
-#### Snippet
-```java
-    }
-
-    public void storeInLocalRepository(ArtifactRepository localRepository, ArtifactRepository remoteRepository)
-            throws RepositoryMetadataStoreException {
-        try {
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/AbstractRepositoryMetadata.java`
-#### Snippet
-```java
-    }
-
-    public String getLocalFilename(ArtifactRepository repository) {
-        return "maven-metadata-" + repository.getKey() + ".xml";
-    }
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/AbstractRepositoryMetadata.java`
-#### Snippet
-```java
-    }
-
-    public void merge(ArtifactMetadata metadata) {
-        // TODO not sure that it should assume this, maybe the calls to addMetadata should pre-merge, then artifact
-        // replaces?
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/AbstractRepositoryMetadata.java`
-#### Snippet
-```java
-    }
-
-    public ArtifactRepositoryPolicy getPolicy(ArtifactRepository repository) {
-        int nature = getNature();
-        if ((nature & RepositoryMetadata.RELEASE_OR_SNAPSHOT) == RepositoryMetadata.RELEASE_OR_SNAPSHOT) {
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/AbstractRepositoryMetadata.java`
-#### Snippet
-```java
-    }
-
-    public ArtifactRepositoryPolicy getPolicy(ArtifactRepository repository) {
-        int nature = getNature();
-        if ((nature & RepositoryMetadata.RELEASE_OR_SNAPSHOT) == RepositoryMetadata.RELEASE_OR_SNAPSHOT) {
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/AbstractRepositoryMetadata.java`
-#### Snippet
-```java
-        int nature = getNature();
-        if ((nature & RepositoryMetadata.RELEASE_OR_SNAPSHOT) == RepositoryMetadata.RELEASE_OR_SNAPSHOT) {
-            ArtifactRepositoryPolicy policy = new ArtifactRepositoryPolicy(repository.getReleases());
-            policy.merge(repository.getSnapshots());
-            return policy;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/AbstractRepositoryMetadata.java`
-#### Snippet
-```java
-        int nature = getNature();
-        if ((nature & RepositoryMetadata.RELEASE_OR_SNAPSHOT) == RepositoryMetadata.RELEASE_OR_SNAPSHOT) {
-            ArtifactRepositoryPolicy policy = new ArtifactRepositoryPolicy(repository.getReleases());
-            policy.merge(repository.getSnapshots());
-            return policy;
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadataRetrievalException' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
-#### Snippet
-```java
-            return createDependencyArtifact(artifactFactory, dependency, inheritedScope, inheritedFilter);
-        } catch (InvalidVersionSpecificationException e) {
-            throw new ArtifactMetadataRetrievalException(
-                    "Invalid version for dependency " + dependency.getManagementKey() + ": " + e.getMessage(), e, pom);
-        }
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ResolutionGroup' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
-#### Snippet
-```java
-
-    @Override
-    public ResolutionGroup retrieve(MetadataResolutionRequest request) throws ArtifactMetadataRetrievalException {
-        Artifact artifact = request.getArtifact();
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadataRetrievalException' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
-#### Snippet
-```java
-
-    @Override
-    public ResolutionGroup retrieve(MetadataResolutionRequest request) throws ArtifactMetadataRetrievalException {
-        Artifact artifact = request.getArtifact();
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ResolutionGroup' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
-#### Snippet
-```java
-        //
-        if (artifact.getScope() != null && artifact.getScope().equals(Artifact.SCOPE_SYSTEM)) {
-            return new ResolutionGroup(null, null, null);
-        }
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ResolutionGroup' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
-#### Snippet
-```java
-        }
-
-        ResolutionGroup cached = cache.get(
-                artifact,
-                request.isResolveManagedVersions(),
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
-#### Snippet
-```java
-        List<Dependency> managedDependencies = null;
-
-        List<ArtifactRepository> pomRepositories = null;
-
-        Artifact pomArtifact;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/ArtifactRepositoryMetadata.java`
-#### Snippet
-```java
-    }
-
-    public void setRepository(ArtifactRepository remoteRepository) {
-        /*
-         * NOTE: Metadata at the g:a level contains a collection of available versions. After merging, we can't tell
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/ArtifactRepositoryMetadata.java`
-#### Snippet
-```java
-    }
-
-    public ArtifactRepository getRepository() {
-        return null;
-    }
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
-#### Snippet
-```java
-        }
-
-        List<ArtifactRepository> aggregatedRepositories =
-                aggregateRepositories(request.getRemoteRepositories(), pomRepositories);
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ResolutionGroup' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
-#### Snippet
-```java
-                aggregateRepositories(request.getRemoteRepositories(), pomRepositories);
-
-        ResolutionGroup result =
-                new ResolutionGroup(pomArtifact, relocatedArtifact, artifacts, managedVersions, aggregatedRepositories);
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ResolutionGroup' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
-#### Snippet
-```java
-
-        ResolutionGroup result =
-                new ResolutionGroup(pomArtifact, relocatedArtifact, artifacts, managedVersions, aggregatedRepositories);
-
-        cache.put(
-```
-
-### Deprecation
 'org.apache.maven.artifact.factory.ArtifactFactory' is deprecated
 in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
 #### Snippet
@@ -9587,51 +8639,15 @@ in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSour
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadataRetrievalException' is deprecated
+'org.apache.maven.artifact.metadata.ResolutionGroup' is deprecated
 in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
 #### Snippet
 ```java
+
     @Override
-    public List<ArtifactVersion> retrieveAvailableVersions(MetadataResolutionRequest request)
+    public ResolutionGroup retrieve(
+            Artifact artifact, ArtifactRepository localRepository, List<ArtifactRepository> remoteRepositories)
             throws ArtifactMetadataRetrievalException {
-        RepositoryMetadata metadata = new ArtifactRepositoryMetadata(request.getArtifact());
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadataRetrievalException' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
-#### Snippet
-```java
-            repositoryMetadataManager.resolve(metadata, request);
-        } catch (RepositoryMetadataResolutionException e) {
-            throw new ArtifactMetadataRetrievalException(e.getMessage(), e, request.getArtifact());
-        }
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.factory.ArtifactFactory' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
-#### Snippet
-```java
-    public MavenMetadataSource(
-            RepositoryMetadataManager repositoryMetadataManager,
-            ArtifactFactory artifactFactory,
-            ProjectBuilder projectBuilder,
-            MavenMetadataCache cache,
-```
-
-### Deprecation
-'org.apache.maven.artifact.factory.ArtifactFactory' is deprecated
-in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
-#### Snippet
-```java
-
-    private static Artifact createDependencyArtifact(
-            ArtifactFactory factory, Dependency dependency, String inheritedScope, ArtifactFilter inheritedFilter)
-            throws InvalidVersionSpecificationException {
-        String effectiveScope = getEffectiveScope(dependency.getScope(), inheritedScope);
 ```
 
 ### Deprecation
@@ -9640,10 +8656,10 @@ in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSour
 #### Snippet
 ```java
     @Override
-    public List<ArtifactVersion> retrieveAvailableVersions(
+    public ResolutionGroup retrieve(
             Artifact artifact, ArtifactRepository localRepository, List<ArtifactRepository> remoteRepositories)
             throws ArtifactMetadataRetrievalException {
-        MetadataResolutionRequest request = new DefaultMetadataResolutionRequest();
+        return retrieve(artifact, localRepository, remoteRepositories, false);
 ```
 
 ### Deprecation
@@ -9652,10 +8668,10 @@ in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSour
 #### Snippet
 ```java
     @Override
-    public List<ArtifactVersion> retrieveAvailableVersions(
+    public ResolutionGroup retrieve(
             Artifact artifact, ArtifactRepository localRepository, List<ArtifactRepository> remoteRepositories)
             throws ArtifactMetadataRetrievalException {
-        MetadataResolutionRequest request = new DefaultMetadataResolutionRequest();
+        return retrieve(artifact, localRepository, remoteRepositories, false);
 ```
 
 ### Deprecation
@@ -9663,11 +8679,35 @@ in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSour
 in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
 #### Snippet
 ```java
-    public List<ArtifactVersion> retrieveAvailableVersions(
+    public ResolutionGroup retrieve(
             Artifact artifact, ArtifactRepository localRepository, List<ArtifactRepository> remoteRepositories)
             throws ArtifactMetadataRetrievalException {
-        MetadataResolutionRequest request = new DefaultMetadataResolutionRequest();
-        injectSession(request);
+        return retrieve(artifact, localRepository, remoteRepositories, false);
+    }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
+#### Snippet
+```java
+    }
+
+    private List<ArtifactRepository> getRepositoriesFromModel(RepositorySystemSession repositorySession, Model model) {
+        List<ArtifactRepository> pomRepositories = new ArrayList<>();
+        for (Repository modelRepository : model.getRepositories()) {
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
+#### Snippet
+```java
+
+    private List<ArtifactRepository> getRepositoriesFromModel(RepositorySystemSession repositorySession, Model model) {
+        List<ArtifactRepository> pomRepositories = new ArrayList<>();
+        for (Repository modelRepository : model.getRepositories()) {
+            try {
 ```
 
 ### Deprecation
@@ -9755,6 +8795,246 @@ in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSour
 ```
 
 ### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadataRetrievalException' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
+#### Snippet
+```java
+    @Override
+    public List<ArtifactVersion> retrieveAvailableVersions(MetadataResolutionRequest request)
+            throws ArtifactMetadataRetrievalException {
+        RepositoryMetadata metadata = new ArtifactRepositoryMetadata(request.getArtifact());
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadataRetrievalException' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
+#### Snippet
+```java
+            repositoryMetadataManager.resolve(metadata, request);
+        } catch (RepositoryMetadataResolutionException e) {
+            throw new ArtifactMetadataRetrievalException(e.getMessage(), e, request.getArtifact());
+        }
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.factory.ArtifactFactory' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
+#### Snippet
+```java
+
+    private static Artifact createDependencyArtifact(
+            ArtifactFactory factory, Dependency dependency, String inheritedScope, ArtifactFilter inheritedFilter)
+            throws InvalidVersionSpecificationException {
+        String effectiveScope = getEffectiveScope(dependency.getScope(), inheritedScope);
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ResolutionGroup' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
+#### Snippet
+```java
+    }
+
+    public ResolutionGroup retrieve(
+            Artifact artifact,
+            ArtifactRepository localRepository,
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
+#### Snippet
+```java
+    public ResolutionGroup retrieve(
+            Artifact artifact,
+            ArtifactRepository localRepository,
+            List<ArtifactRepository> remoteRepositories,
+            boolean resolveManagedVersions)
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
+#### Snippet
+```java
+            Artifact artifact,
+            ArtifactRepository localRepository,
+            List<ArtifactRepository> remoteRepositories,
+            boolean resolveManagedVersions)
+            throws ArtifactMetadataRetrievalException {
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadataRetrievalException' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
+#### Snippet
+```java
+            List<ArtifactRepository> remoteRepositories,
+            boolean resolveManagedVersions)
+            throws ArtifactMetadataRetrievalException {
+        MetadataResolutionRequest request = new DefaultMetadataResolutionRequest();
+        injectSession(request);
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
+#### Snippet
+```java
+    @Override
+    public List<ArtifactVersion> retrieveAvailableVersions(
+            Artifact artifact, ArtifactRepository localRepository, List<ArtifactRepository> remoteRepositories)
+            throws ArtifactMetadataRetrievalException {
+        MetadataResolutionRequest request = new DefaultMetadataResolutionRequest();
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
+#### Snippet
+```java
+    @Override
+    public List<ArtifactVersion> retrieveAvailableVersions(
+            Artifact artifact, ArtifactRepository localRepository, List<ArtifactRepository> remoteRepositories)
+            throws ArtifactMetadataRetrievalException {
+        MetadataResolutionRequest request = new DefaultMetadataResolutionRequest();
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadataRetrievalException' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
+#### Snippet
+```java
+    public List<ArtifactVersion> retrieveAvailableVersions(
+            Artifact artifact, ArtifactRepository localRepository, List<ArtifactRepository> remoteRepositories)
+            throws ArtifactMetadataRetrievalException {
+        MetadataResolutionRequest request = new DefaultMetadataResolutionRequest();
+        injectSession(request);
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ResolutionGroup' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
+#### Snippet
+```java
+
+    @Override
+    public ResolutionGroup retrieve(MetadataResolutionRequest request) throws ArtifactMetadataRetrievalException {
+        Artifact artifact = request.getArtifact();
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadataRetrievalException' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
+#### Snippet
+```java
+
+    @Override
+    public ResolutionGroup retrieve(MetadataResolutionRequest request) throws ArtifactMetadataRetrievalException {
+        Artifact artifact = request.getArtifact();
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ResolutionGroup' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
+#### Snippet
+```java
+        //
+        if (artifact.getScope() != null && artifact.getScope().equals(Artifact.SCOPE_SYSTEM)) {
+            return new ResolutionGroup(null, null, null);
+        }
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ResolutionGroup' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
+#### Snippet
+```java
+        }
+
+        ResolutionGroup cached = cache.get(
+                artifact,
+                request.isResolveManagedVersions(),
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
+#### Snippet
+```java
+        List<Dependency> managedDependencies = null;
+
+        List<ArtifactRepository> pomRepositories = null;
+
+        Artifact pomArtifact;
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
+#### Snippet
+```java
+        }
+
+        List<ArtifactRepository> aggregatedRepositories =
+                aggregateRepositories(request.getRemoteRepositories(), pomRepositories);
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ResolutionGroup' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
+#### Snippet
+```java
+                aggregateRepositories(request.getRemoteRepositories(), pomRepositories);
+
+        ResolutionGroup result =
+                new ResolutionGroup(pomArtifact, relocatedArtifact, artifacts, managedVersions, aggregatedRepositories);
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ResolutionGroup' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
+#### Snippet
+```java
+
+        ResolutionGroup result =
+                new ResolutionGroup(pomArtifact, relocatedArtifact, artifacts, managedVersions, aggregatedRepositories);
+
+        cache.put(
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadataRetrievalException' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
+#### Snippet
+```java
+
+    private Artifact createDependencyArtifact(Dependency dependency, Artifact owner, Artifact pom)
+            throws ArtifactMetadataRetrievalException {
+        try {
+            String inheritedScope = (owner != null) ? owner.getScope() : null;
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadataRetrievalException' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
+#### Snippet
+```java
+            return createDependencyArtifact(artifactFactory, dependency, inheritedScope, inheritedFilter);
+        } catch (InvalidVersionSpecificationException e) {
+            throw new ArtifactMetadataRetrievalException(
+                    "Invalid version for dependency " + dependency.getManagementKey() + ": " + e.getMessage(), e, pom);
+        }
+```
+
+### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
 in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
 #### Snippet
@@ -9803,99 +9083,219 @@ in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSour
 ```
 
 ### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadataSource' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
+#### Snippet
+```java
+@Named("maven")
+@Singleton
+public class MavenMetadataSource implements ArtifactMetadataSource {
+    private final Logger logger = LoggerFactory.getLogger(getClass());
+    private final RepositoryMetadataManager repositoryMetadataManager;
+```
+
+### Deprecation
+'org.apache.maven.artifact.factory.ArtifactFactory' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSource.java`
+#### Snippet
+```java
+    public MavenMetadataSource(
+            RepositoryMetadataManager repositoryMetadataManager,
+            ArtifactFactory artifactFactory,
+            ProjectBuilder projectBuilder,
+            MavenMetadataCache cache,
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/RepositoryMetadata.java`
+#### Snippet
+```java
+     * @param remoteRepository the repository
+     */
+    void setRepository(ArtifactRepository remoteRepository);
+
+    /**
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/RepositoryMetadata.java`
+#### Snippet
+```java
+     * @return the repository
+     */
+    ArtifactRepository getRepository();
+
+    /**
+```
+
+### Deprecation
 'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/RepositoryMetadata.java`
 #### Snippet
 ```java
-    }
+ * TODO not happy about the store method - they use "this"
+ */
+public interface RepositoryMetadata extends org.apache.maven.artifact.metadata.ArtifactMetadata {
 
-    static class ArtifactMetadataAdapter implements ArtifactMetadata {
-
-        private final Metadata metadata;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
-#### Snippet
-```java
-        }
-
-        public void storeInLocalRepository(ArtifactRepository localRepository, ArtifactRepository remoteRepository)
-                throws RepositoryMetadataStoreException {
-            // not used
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
-#### Snippet
-```java
-        }
-
-        public void storeInLocalRepository(ArtifactRepository localRepository, ArtifactRepository remoteRepository)
-                throws RepositoryMetadataStoreException {
-            // not used
-```
-
-### Deprecation
-Overrides deprecated method in 'org.apache.maven.artifact.repository.ArtifactRepository'
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
-#### Snippet
-```java
-        }
-
-        public boolean isBlacklisted() {
-            return false;
-        }
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
-#### Snippet
-```java
-        }
-
-        public void setMirroredRepositories(List<ArtifactRepository> mirroredRepositories) {}
-
-        public boolean isBlocked() {
+    int RELEASE = 1;
 ```
 
 ### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/RepositoryMetadata.java`
 #### Snippet
 ```java
-        public void setSnapshotUpdatePolicy(ArtifactRepositoryPolicy policy) {}
+     * @return The policy, never {@code null}.
+     */
+    ArtifactRepositoryPolicy getPolicy(ArtifactRepository repository);
+}
 
-        public ArtifactRepositoryPolicy getReleases() {
-            return null;
-        }
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/RepositoryMetadata.java`
 #### Snippet
 ```java
-        }
+     * @return The policy, never {@code null}.
+     */
+    ArtifactRepositoryPolicy getPolicy(ArtifactRepository repository);
+}
 
-        public void setLayout(ArtifactRepositoryLayout layout) {}
-
-        public String getKey() {
 ```
 
 ### Deprecation
-Overrides deprecated method in 'org.apache.maven.artifact.repository.ArtifactRepository'
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
+'org.apache.maven.model.building.ModelSource' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuilder.java`
 #### Snippet
 ```java
+    }
+
+    private ProjectBuildingResult build(File pomFile, ModelSource modelSource, InternalConfig config)
+            throws ProjectBuildingException {
+        ClassLoader oldContextClassLoader = Thread.currentThread().getContextClassLoader();
+```
+
+### Deprecation
+'org.apache.maven.model.building.ModelSource' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuilder.java`
+#### Snippet
+```java
+    }
+
+    private ModelSource createStubModelSource(Artifact artifact) {
+        StringBuilder buffer = new StringBuilder(1024);
+
+```
+
+### Deprecation
+'org.apache.maven.model.building.StringModelSource' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuilder.java`
+#### Snippet
+```java
+        buffer.append("</project>");
+
+        return new StringModelSource(buffer, artifact.getId());
+    }
+
+```
+
+### Deprecation
+'org.apache.maven.model.building.ModelSource' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuilder.java`
+#### Snippet
+```java
+
+    @Override
+    public ProjectBuildingResult build(ModelSource modelSource, ProjectBuildingRequest request)
+            throws ProjectBuildingException {
+        return build(null, modelSource, new InternalConfig(request, null, null));
+```
+
+### Deprecation
+'addScriptSourceRoot(java.lang.String)' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuilder.java`
+#### Snippet
+```java
+        {
+            Build build = project.getBuild();
+            project.addScriptSourceRoot(build.getScriptSourceDirectory());
+            project.addCompileSourceRoot(build.getSourceDirectory());
+            project.addTestCompileSourceRoot(build.getTestSourceDirectory());
+```
+
+### Deprecation
+'setProjectBuildingRequest(org.apache.maven.project.ProjectBuildingRequest)' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuilder.java`
+#### Snippet
+```java
+        //
+
+        project.setProjectBuildingRequest(projectBuildingRequest);
+
+        // pluginArtifacts
+```
+
+### Deprecation
+'getReportPlugins()' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuilder.java`
+#### Snippet
+```java
+        // reportArtifacts
+        Set<Artifact> reportArtifacts = new HashSet<>();
+        for (ReportPlugin report : project.getReportPlugins()) {
+            Plugin pp = new Plugin();
+            pp.setGroupId(report.getGroupId());
+```
+
+### Deprecation
+'setReportArtifacts(java.util.Set)' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuilder.java`
+#### Snippet
+```java
+            }
         }
+        project.setReportArtifacts(reportArtifacts);
 
-        public void setBlacklisted(boolean blackListed) {}
+        // extensionArtifacts
+```
 
-        public org.apache.maven.artifact.Artifact find(org.apache.maven.artifact.Artifact artifact) {
+### Deprecation
+'setExtensionArtifacts(java.util.Set)' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuilder.java`
+#### Snippet
+```java
+            }
+        }
+        project.setExtensionArtifacts(extensionArtifacts);
+
+        // managedVersionMap
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuilder.java`
+#### Snippet
+```java
+                DeploymentRepository r = project.getDistributionManagement().getRepository();
+                if (!StringUtils.isEmpty(r.getId()) && !StringUtils.isEmpty(r.getUrl())) {
+                    ArtifactRepository repo = MavenRepositorySystem.buildArtifactRepository(r);
+                    repositorySystem.injectProxy(projectBuildingRequest.getRepositorySession(), Arrays.asList(repo));
+                    repositorySystem.injectAuthentication(
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuilder.java`
+#### Snippet
+```java
+                DeploymentRepository r = project.getDistributionManagement().getSnapshotRepository();
+                if (!StringUtils.isEmpty(r.getId()) && !StringUtils.isEmpty(r.getUrl())) {
+                    ArtifactRepository repo = MavenRepositorySystem.buildArtifactRepository(r);
+                    repositorySystem.injectProxy(projectBuildingRequest.getRepositorySession(), Arrays.asList(repo));
+                    repositorySystem.injectAuthentication(
 ```
 
 ### Deprecation
@@ -9911,25 +9311,13 @@ in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRep
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
 in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
 #### Snippet
 ```java
-        }
+        public void setSnapshotUpdatePolicy(ArtifactRepositoryPolicy policy) {}
 
-        public String pathOfLocalRepositoryMetadata(ArtifactMetadata metadata, ArtifactRepository repository) {
-            return null;
-        }
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
-#### Snippet
-```java
-        }
-
-        public String pathOfLocalRepositoryMetadata(ArtifactMetadata metadata, ArtifactRepository repository) {
+        public ArtifactRepositoryPolicy getReleases() {
             return null;
         }
 ```
@@ -9959,87 +9347,15 @@ in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRep
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
-#### Snippet
-```java
-        public void setId(String id) {}
-
-        public ArtifactRepositoryPolicy getSnapshots() {
-            return null;
-        }
-```
-
-### Deprecation
-Overrides deprecated method in 'org.apache.maven.artifact.repository.ArtifactRepository'
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
-#### Snippet
-```java
-        }
-
-        public boolean isUniqueVersion() {
-            return true;
-        }
-```
-
-### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
 in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
 #### Snippet
 ```java
-        }
+public class LegacyLocalRepositoryManager implements LocalRepositoryManager {
 
-        public String getLocalFilename(ArtifactRepository repository) {
-            return insertRepositoryKey(getRemoteFilename(), repository.getKey());
-        }
-```
+    private final ArtifactRepository delegate;
 
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
-#### Snippet
-```java
-
-    public static RepositorySystemSession overlay(
-            ArtifactRepository repository, RepositorySystemSession session, RepositorySystem system) {
-        if (repository == null || repository.getBasedir() == null) {
-            return session;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
-#### Snippet
-```java
-        }
-
-        public void setReleaseUpdatePolicy(ArtifactRepositoryPolicy policy) {}
-
-        public ArtifactRepositoryLayout getLayout() {
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
-#### Snippet
-```java
-        public void setReleaseUpdatePolicy(ArtifactRepositoryPolicy policy) {}
-
-        public ArtifactRepositoryLayout getLayout() {
-            return null;
-        }
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
-#### Snippet
-```java
-    }
-
-    static class ArtifactRepositoryAdapter implements ArtifactRepository {
-
-        private final RemoteRepository repository;
+    private final LocalRepository repo;
 ```
 
 ### Deprecation
@@ -10067,15 +9383,255 @@ in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRep
 ```
 
 ### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/RepositoryMetadataManager.java`
+#### Snippet
+```java
+     * @throws RepositoryMetadataInstallationException in case of metadata installation issue
+     */
+    void install(ArtifactMetadata metadata, ArtifactRepository localRepository)
+            throws RepositoryMetadataInstallationException;
+}
+```
+
+### Deprecation
+Overrides deprecated method in 'org.apache.maven.artifact.repository.ArtifactRepository'
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
+#### Snippet
+```java
+        }
+
+        public boolean isUniqueVersion() {
+            return true;
+        }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/RepositoryMetadataManager.java`
+#### Snippet
+```java
+     * @throws RepositoryMetadataInstallationException in case of metadata installation issue
+     */
+    void install(ArtifactMetadata metadata, ArtifactRepository localRepository)
+            throws RepositoryMetadataInstallationException;
+}
+```
+
+### Deprecation
+Overrides deprecated method in 'org.apache.maven.artifact.repository.ArtifactRepository'
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
+#### Snippet
+```java
+        }
+
+        public void setBlacklisted(boolean blackListed) {}
+
+        public org.apache.maven.artifact.Artifact find(org.apache.maven.artifact.Artifact artifact) {
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/RepositoryMetadataManager.java`
+#### Snippet
+```java
+    void resolve(
+            RepositoryMetadata repositoryMetadata,
+            List<ArtifactRepository> repositories,
+            ArtifactRepository localRepository)
+            throws RepositoryMetadataResolutionException;
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
+#### Snippet
+```java
+        }
+
+        public void setLayout(ArtifactRepositoryLayout layout) {}
+
+        public String getKey() {
+```
+
+### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
 in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
 #### Snippet
 ```java
-public class LegacyLocalRepositoryManager implements LocalRepositoryManager {
+    }
 
-    private final ArtifactRepository delegate;
+    static class ArtifactRepositoryAdapter implements ArtifactRepository {
 
-    private final LocalRepository repo;
+        private final RemoteRepository repository;
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/RepositoryMetadataManager.java`
+#### Snippet
+```java
+            RepositoryMetadata repositoryMetadata,
+            List<ArtifactRepository> repositories,
+            ArtifactRepository localRepository)
+            throws RepositoryMetadataResolutionException;
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
+#### Snippet
+```java
+        public void setId(String id) {}
+
+        public ArtifactRepositoryPolicy getSnapshots() {
+            return null;
+        }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/RepositoryMetadataManager.java`
+#### Snippet
+```java
+
+    void resolveAlways(
+            RepositoryMetadata metadata, ArtifactRepository localRepository, ArtifactRepository remoteRepository)
+            throws RepositoryMetadataResolutionException;
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
+#### Snippet
+```java
+        }
+
+        public String pathOfLocalRepositoryMetadata(ArtifactMetadata metadata, ArtifactRepository repository) {
+            return null;
+        }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/RepositoryMetadataManager.java`
+#### Snippet
+```java
+
+    void resolveAlways(
+            RepositoryMetadata metadata, ArtifactRepository localRepository, ArtifactRepository remoteRepository)
+            throws RepositoryMetadataResolutionException;
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/RepositoryMetadataManager.java`
+#### Snippet
+```java
+     * @throws RepositoryMetadataDeploymentException in case of metadata deployment issue
+     */
+    void deploy(ArtifactMetadata metadata, ArtifactRepository localRepository, ArtifactRepository deploymentRepository)
+            throws RepositoryMetadataDeploymentException;
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/RepositoryMetadataManager.java`
+#### Snippet
+```java
+     * @throws RepositoryMetadataDeploymentException in case of metadata deployment issue
+     */
+    void deploy(ArtifactMetadata metadata, ArtifactRepository localRepository, ArtifactRepository deploymentRepository)
+            throws RepositoryMetadataDeploymentException;
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/RepositoryMetadataManager.java`
+#### Snippet
+```java
+     * @throws RepositoryMetadataDeploymentException in case of metadata deployment issue
+     */
+    void deploy(ArtifactMetadata metadata, ArtifactRepository localRepository, ArtifactRepository deploymentRepository)
+            throws RepositoryMetadataDeploymentException;
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
+#### Snippet
+```java
+        }
+
+        public String pathOfLocalRepositoryMetadata(ArtifactMetadata metadata, ArtifactRepository repository) {
+            return null;
+        }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
+#### Snippet
+```java
+        }
+
+        public void setReleaseUpdatePolicy(ArtifactRepositoryPolicy policy) {}
+
+        public ArtifactRepositoryLayout getLayout() {
+```
+
+### Deprecation
+Overrides deprecated method in 'org.apache.maven.artifact.repository.ArtifactRepository'
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
+#### Snippet
+```java
+        }
+
+        public boolean isBlacklisted() {
+            return false;
+        }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
+#### Snippet
+```java
+        }
+
+        public String getLocalFilename(ArtifactRepository repository) {
+            return insertRepositoryKey(getRemoteFilename(), repository.getKey());
+        }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
+#### Snippet
+```java
+        }
+
+        public void storeInLocalRepository(ArtifactRepository localRepository, ArtifactRepository remoteRepository)
+                throws RepositoryMetadataStoreException {
+            // not used
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
+#### Snippet
+```java
+        }
+
+        public void storeInLocalRepository(ArtifactRepository localRepository, ArtifactRepository remoteRepository)
+                throws RepositoryMetadataStoreException {
+            // not used
 ```
 
 ### Deprecation
@@ -10091,15 +9647,255 @@ in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRep
 ```
 
 ### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
+#### Snippet
+```java
+        }
+
+        public void setMirroredRepositories(List<ArtifactRepository> mirroredRepositories) {}
+
+        public boolean isBlocked() {
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
+#### Snippet
+```java
+
+    public static RepositorySystemSession overlay(
+            ArtifactRepository repository, RepositorySystemSession session, RepositorySystem system) {
+        if (repository == null || repository.getBasedir() == null) {
+            return session;
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
+#### Snippet
+```java
+    }
+
+    static class ArtifactMetadataAdapter implements ArtifactMetadata {
+
+        private final Metadata metadata;
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/LegacyLocalRepositoryManager.java`
+#### Snippet
+```java
+        public void setReleaseUpdatePolicy(ArtifactRepositoryPolicy policy) {}
+
+        public ArtifactRepositoryLayout getLayout() {
+            return null;
+        }
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/layout/DefaultRepositoryLayout.java`
+#### Snippet
+```java
+    }
+
+    public String pathOfRemoteRepositoryMetadata(ArtifactMetadata metadata) {
+        return pathOfRepositoryMetadata(metadata, metadata.getRemoteFilename());
+    }
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/layout/DefaultRepositoryLayout.java`
+#### Snippet
+```java
+    }
+
+    public String pathOfLocalRepositoryMetadata(ArtifactMetadata metadata, ArtifactRepository repository) {
+        return pathOfRepositoryMetadata(metadata, metadata.getLocalFilename(repository));
+    }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/layout/DefaultRepositoryLayout.java`
+#### Snippet
+```java
+    }
+
+    public String pathOfLocalRepositoryMetadata(ArtifactMetadata metadata, ArtifactRepository repository) {
+        return pathOfRepositoryMetadata(metadata, metadata.getLocalFilename(repository));
+    }
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/layout/DefaultRepositoryLayout.java`
+#### Snippet
+```java
+    }
+
+    private String pathOfRepositoryMetadata(ArtifactMetadata metadata, String filename) {
+        StringBuilder path = new StringBuilder(128);
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/layout/DefaultRepositoryLayout.java`
+#### Snippet
+```java
+@Named("default")
+@Singleton
+public class DefaultRepositoryLayout implements ArtifactRepositoryLayout {
+    private static final char PATH_SEPARATOR = '/';
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/ArtifactRepositoryMetadata.java`
+#### Snippet
+```java
+    }
+
+    public ArtifactRepository getRepository() {
+        return null;
+    }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/ArtifactRepositoryMetadata.java`
+#### Snippet
+```java
+    }
+
+    public void setRepository(ArtifactRepository remoteRepository) {
+        /*
+         * NOTE: Metadata at the g:a level contains a collection of available versions. After merging, we can't tell
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/AbstractRepositoryMetadata.java`
+#### Snippet
+```java
+    }
+
+    public String getLocalFilename(ArtifactRepository repository) {
+        return "maven-metadata-" + repository.getKey() + ".xml";
+    }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/AbstractRepositoryMetadata.java`
+#### Snippet
+```java
+    }
+
+    public void storeInLocalRepository(ArtifactRepository localRepository, ArtifactRepository remoteRepository)
+            throws RepositoryMetadataStoreException {
+        try {
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/AbstractRepositoryMetadata.java`
+#### Snippet
+```java
+    }
+
+    public void storeInLocalRepository(ArtifactRepository localRepository, ArtifactRepository remoteRepository)
+            throws RepositoryMetadataStoreException {
+        try {
+```
+
+### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/MavenArtifactRepository.java`
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/AbstractRepositoryMetadata.java`
 #### Snippet
 ```java
     }
 
-    public void setReleaseUpdatePolicy(ArtifactRepositoryPolicy releases) {
-        this.releases = releases;
+    public ArtifactRepositoryPolicy getPolicy(ArtifactRepository repository) {
+        int nature = getNature();
+        if ((nature & RepositoryMetadata.RELEASE_OR_SNAPSHOT) == RepositoryMetadata.RELEASE_OR_SNAPSHOT) {
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/AbstractRepositoryMetadata.java`
+#### Snippet
+```java
     }
+
+    public ArtifactRepositoryPolicy getPolicy(ArtifactRepository repository) {
+        int nature = getNature();
+        if ((nature & RepositoryMetadata.RELEASE_OR_SNAPSHOT) == RepositoryMetadata.RELEASE_OR_SNAPSHOT) {
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/AbstractRepositoryMetadata.java`
+#### Snippet
+```java
+        int nature = getNature();
+        if ((nature & RepositoryMetadata.RELEASE_OR_SNAPSHOT) == RepositoryMetadata.RELEASE_OR_SNAPSHOT) {
+            ArtifactRepositoryPolicy policy = new ArtifactRepositoryPolicy(repository.getReleases());
+            policy.merge(repository.getSnapshots());
+            return policy;
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/AbstractRepositoryMetadata.java`
+#### Snippet
+```java
+        int nature = getNature();
+        if ((nature & RepositoryMetadata.RELEASE_OR_SNAPSHOT) == RepositoryMetadata.RELEASE_OR_SNAPSHOT) {
+            ArtifactRepositoryPolicy policy = new ArtifactRepositoryPolicy(repository.getReleases());
+            policy.merge(repository.getSnapshots());
+            return policy;
+```
+
+### Deprecation
+'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/AbstractRepositoryMetadata.java`
+#### Snippet
+```java
+    }
+
+    public void merge(ArtifactMetadata metadata) {
+        // TODO not sure that it should assume this, maybe the calls to addMetadata should pre-merge, then artifact
+        // replaces?
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/AbstractRepositoryMetadata.java`
+#### Snippet
+```java
+    }
+
+    protected void updateRepositoryMetadata(ArtifactRepository localRepository, ArtifactRepository remoteRepository)
+            throws IOException, XmlPullParserException {
+        MetadataXpp3Reader mappingReader = new MetadataXpp3Reader();
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/AbstractRepositoryMetadata.java`
+#### Snippet
+```java
+    }
+
+    protected void updateRepositoryMetadata(ArtifactRepository localRepository, ArtifactRepository remoteRepository)
+            throws IOException, XmlPullParserException {
+        MetadataXpp3Reader mappingReader = new MetadataXpp3Reader();
 ```
 
 ### Deprecation
@@ -10107,11 +9903,11 @@ in `maven-core/src/main/java/org/apache/maven/artifact/repository/MavenArtifactR
 in `maven-core/src/main/java/org/apache/maven/artifact/repository/MavenArtifactRepository.java`
 #### Snippet
 ```java
- */
-// TODO completely separate local and remote artifact repositories
-public class MavenArtifactRepository implements ArtifactRepository {
-    private static final String LS = System.lineSeparator();
+    private Proxy proxy;
 
+    private List<ArtifactRepository> mirroredRepositories = Collections.emptyList();
+
+    private boolean blocked;
 ```
 
 ### Deprecation
@@ -10119,11 +9915,23 @@ public class MavenArtifactRepository implements ArtifactRepository {
 in `maven-core/src/main/java/org/apache/maven/artifact/repository/MavenArtifactRepository.java`
 #### Snippet
 ```java
-    }
+        }
 
-    public void setMirroredRepositories(List<ArtifactRepository> mirroredRepositories) {
-        if (mirroredRepositories != null) {
-            this.mirroredRepositories = Collections.unmodifiableList(mirroredRepositories);
+        ArtifactRepository other = (ArtifactRepository) obj;
+
+        return eq(getId(), other.getId());
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/MavenArtifactRepository.java`
+#### Snippet
+```java
+        }
+
+        ArtifactRepository other = (ArtifactRepository) obj;
+
+        return eq(getId(), other.getId());
 ```
 
 ### Deprecation
@@ -10139,14 +9947,26 @@ in `maven-core/src/main/java/org/apache/maven/artifact/repository/MavenArtifactR
 ```
 
 ### Deprecation
-Overrides deprecated method in 'org.apache.maven.artifact.repository.ArtifactRepository'
+'org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout' is deprecated
 in `maven-core/src/main/java/org/apache/maven/artifact/repository/MavenArtifactRepository.java`
 #### Snippet
 ```java
     }
 
-    public void setBlacklisted(boolean blackListed) {
-        // no op
+    public ArtifactRepositoryLayout getLayout() {
+        return layout;
+    }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/MavenArtifactRepository.java`
+#### Snippet
+```java
+    }
+
+    public List<ArtifactRepository> getMirroredRepositories() {
+        return mirroredRepositories;
     }
 ```
 
@@ -10199,14 +10019,14 @@ in `maven-core/src/main/java/org/apache/maven/artifact/repository/MavenArtifactR
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout' is deprecated
+'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
 in `maven-core/src/main/java/org/apache/maven/artifact/repository/MavenArtifactRepository.java`
 #### Snippet
 ```java
     }
 
-    public ArtifactRepositoryLayout getLayout() {
-        return layout;
+    public String pathOfRemoteRepositoryMetadata(ArtifactMetadata artifactMetadata) {
+        return layout.pathOfRemoteRepositoryMetadata(artifactMetadata);
     }
 ```
 
@@ -10215,22 +10035,10 @@ in `maven-core/src/main/java/org/apache/maven/artifact/repository/MavenArtifactR
 in `maven-core/src/main/java/org/apache/maven/artifact/repository/MavenArtifactRepository.java`
 #### Snippet
 ```java
-    private ArtifactRepositoryLayout layout;
-
-    private ArtifactRepositoryPolicy snapshots;
-
-    private ArtifactRepositoryPolicy releases;
-```
-
-### Deprecation
-'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/MavenArtifactRepository.java`
-#### Snippet
-```java
     }
 
-    public String pathOfLocalRepositoryMetadata(ArtifactMetadata metadata, ArtifactRepository repository) {
-        return layout.pathOfLocalRepositoryMetadata(metadata, repository);
+    public void setReleaseUpdatePolicy(ArtifactRepositoryPolicy releases) {
+        this.releases = releases;
     }
 ```
 
@@ -10241,9 +10049,21 @@ in `maven-core/src/main/java/org/apache/maven/artifact/repository/MavenArtifactR
 ```java
     }
 
-    public String pathOfLocalRepositoryMetadata(ArtifactMetadata metadata, ArtifactRepository repository) {
-        return layout.pathOfLocalRepositoryMetadata(metadata, repository);
-    }
+    public void setMirroredRepositories(List<ArtifactRepository> mirroredRepositories) {
+        if (mirroredRepositories != null) {
+            this.mirroredRepositories = Collections.unmodifiableList(mirroredRepositories);
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/MavenArtifactRepository.java`
+#### Snippet
+```java
+    private String protocol;
+
+    private ArtifactRepositoryLayout layout;
+
+    private ArtifactRepositoryPolicy snapshots;
 ```
 
 ### Deprecation
@@ -10259,27 +10079,15 @@ in `maven-core/src/main/java/org/apache/maven/artifact/repository/MavenArtifactR
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
 in `maven-core/src/main/java/org/apache/maven/artifact/repository/MavenArtifactRepository.java`
 #### Snippet
 ```java
-        }
+    private ArtifactRepositoryLayout layout;
 
-        ArtifactRepository other = (ArtifactRepository) obj;
+    private ArtifactRepositoryPolicy snapshots;
 
-        return eq(getId(), other.getId());
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/MavenArtifactRepository.java`
-#### Snippet
-```java
-        }
-
-        ArtifactRepository other = (ArtifactRepository) obj;
-
-        return eq(getId(), other.getId());
+    private ArtifactRepositoryPolicy releases;
 ```
 
 ### Deprecation
@@ -10307,38 +10115,14 @@ in `maven-core/src/main/java/org/apache/maven/artifact/repository/MavenArtifactR
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/MavenArtifactRepository.java`
-#### Snippet
-```java
-    private Proxy proxy;
-
-    private List<ArtifactRepository> mirroredRepositories = Collections.emptyList();
-
-    private boolean blocked;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout' is deprecated
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/MavenArtifactRepository.java`
-#### Snippet
-```java
-    private String protocol;
-
-    private ArtifactRepositoryLayout layout;
-
-    private ArtifactRepositoryPolicy snapshots;
-```
-
-### Deprecation
 'org.apache.maven.artifact.metadata.ArtifactMetadata' is deprecated
 in `maven-core/src/main/java/org/apache/maven/artifact/repository/MavenArtifactRepository.java`
 #### Snippet
 ```java
     }
 
-    public String pathOfRemoteRepositoryMetadata(ArtifactMetadata artifactMetadata) {
-        return layout.pathOfRemoteRepositoryMetadata(artifactMetadata);
+    public String pathOfLocalRepositoryMetadata(ArtifactMetadata metadata, ArtifactRepository repository) {
+        return layout.pathOfLocalRepositoryMetadata(metadata, repository);
     }
 ```
 
@@ -10349,8 +10133,44 @@ in `maven-core/src/main/java/org/apache/maven/artifact/repository/MavenArtifactR
 ```java
     }
 
-    public List<ArtifactRepository> getMirroredRepositories() {
-        return mirroredRepositories;
+    public String pathOfLocalRepositoryMetadata(ArtifactMetadata metadata, ArtifactRepository repository) {
+        return layout.pathOfLocalRepositoryMetadata(metadata, repository);
+    }
+```
+
+### Deprecation
+Overrides deprecated method in 'org.apache.maven.artifact.repository.ArtifactRepository'
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/MavenArtifactRepository.java`
+#### Snippet
+```java
+    }
+
+    public void setBlacklisted(boolean blackListed) {
+        // no op
+    }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/MavenArtifactRepository.java`
+#### Snippet
+```java
+ */
+// TODO completely separate local and remote artifact repositories
+public class MavenArtifactRepository implements ArtifactRepository {
+    private static final String LS = System.lineSeparator();
+
+```
+
+### Deprecation
+Overrides deprecated method in 'org.apache.maven.artifact.repository.ArtifactRepository'
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/MavenArtifactRepository.java`
+#### Snippet
+```java
+    }
+
+    public boolean isBlacklisted() {
+        return false;
     }
 ```
 
@@ -10367,39 +10187,15 @@ in `maven-core/src/main/java/org/apache/maven/artifact/repository/MavenArtifactR
 ```
 
 ### Deprecation
-Overrides deprecated method in 'org.apache.maven.artifact.repository.ArtifactRepository'
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/MavenArtifactRepository.java`
-#### Snippet
-```java
-    }
-
-    public boolean isBlacklisted() {
-        return false;
-    }
-```
-
-### Deprecation
-'org.apache.maven.settings.building.SettingsSource' is deprecated
-in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultSettingsBuilder.java`
-#### Snippet
-```java
-    }
-
-    private static class MappedSettingsSource implements SettingsSource {
-        private final Source source;
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+'getMultiModuleProjectDirectory()' is deprecated
 in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultSession.java`
 #### Snippet
 ```java
+    @Override
+    public Path getMultiModuleProjectDirectory() {
+        return mavenSession.getRequest().getMultiModuleProjectDirectory().toPath();
     }
 
-    public ArtifactRepository toArtifactRepository(RemoteRepository repository) {
-        if (repository instanceof DefaultRemoteRepository) {
-            org.eclipse.aether.repository.RemoteRepository rr = ((DefaultRemoteRepository) repository).getRepository();
 ```
 
 ### Deprecation
@@ -10427,39 +10223,27 @@ in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultSession.java`
 ```
 
 ### Deprecation
-'getMultiModuleProjectDirectory()' is deprecated
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
 in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultSession.java`
 #### Snippet
 ```java
-    @Override
-    public Path getMultiModuleProjectDirectory() {
-        return mavenSession.getRequest().getMultiModuleProjectDirectory().toPath();
     }
 
+    public ArtifactRepository toArtifactRepository(RemoteRepository repository) {
+        if (repository instanceof DefaultRemoteRepository) {
+            org.eclipse.aether.repository.RemoteRepository rr = ((DefaultRemoteRepository) repository).getRepository();
 ```
 
 ### Deprecation
-'addAttachedArtifact(org.apache.maven.artifact.Artifact)' is deprecated
-in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultProjectManager.java`
+'org.apache.maven.settings.building.SettingsSource' is deprecated
+in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultSettingsBuilder.java`
 #### Snippet
 ```java
-    public void attachArtifact(Project project, Artifact artifact, Path path) {
-        getMavenProject(project)
-                .addAttachedArtifact(RepositoryUtils.toArtifact(
-                        ((DefaultProject) project).getSession().toArtifact(artifact)));
-        artifactManager.setPath(artifact, path);
-```
+    }
 
-### Deprecation
-'org.apache.maven.model.building.ModelSource' is deprecated
-in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultProjectBuilder.java`
-#### Snippet
-```java
-            } else if (request.getSource().isPresent()) {
-                Source source = request.getSource().get();
-                ModelSource modelSource = new ModelSource() {
-                    @Override
-                    public InputStream getInputStream() throws IOException {
+    private static class MappedSettingsSource implements SettingsSource {
+        private final Source source;
+
 ```
 
 ### Deprecation
@@ -10487,27 +10271,39 @@ in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultProjectBuilde
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/internal/impl/AbstractSession.java`
+'org.apache.maven.model.building.ModelSource' is deprecated
+in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultProjectBuilder.java`
 #### Snippet
 ```java
-    }
-
-    public List<ArtifactRepository> toArtifactRepositories(List<RemoteRepository> repositories) {
-        return repositories == null
-                ? null
+            } else if (request.getSource().isPresent()) {
+                Source source = request.getSource().get();
+                ModelSource modelSource = new ModelSource() {
+                    @Override
+                    public InputStream getInputStream() throws IOException {
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/internal/impl/AbstractSession.java`
+'addAttachedArtifact(org.apache.maven.artifact.Artifact)' is deprecated
+in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultProjectManager.java`
 #### Snippet
 ```java
-    }
+    public void attachArtifact(Project project, Artifact artifact, Path path) {
+        getMavenProject(project)
+                .addAttachedArtifact(RepositoryUtils.toArtifact(
+                        ((DefaultProject) project).getSession().toArtifact(artifact)));
+        artifactManager.setPath(artifact, path);
+```
 
-    public abstract ArtifactRepository toArtifactRepository(RemoteRepository repository);
-
-    public List<org.eclipse.aether.graph.Dependency> toDependencies(Collection<DependencyCoordinate> dependencies) {
+### Deprecation
+'addAttachedArtifact(org.apache.maven.artifact.Artifact)' is deprecated
+in `maven-core/src/main/java/org/apache/maven/internal/transformation/ConsumerPomArtifactTransformer.java`
+#### Snippet
+```java
+                generatedFile = Files.createTempFile(buildDir, CONSUMER_POM_CLASSIFIER, "pom");
+            }
+            project.addAttachedArtifact(new ConsumerPomArtifact(project, generatedFile, session));
+        } else if (project.getModel().isRoot()) {
+            throw new IllegalStateException(
 ```
 
 ### Deprecation
@@ -10547,27 +10343,27 @@ public class DefaultMavenSettingsBuilder extends AbstractLogEnabled implements M
 ```
 
 ### Deprecation
-'addAttachedArtifact(org.apache.maven.artifact.Artifact)' is deprecated
-in `maven-core/src/main/java/org/apache/maven/internal/transformation/ConsumerPomArtifactTransformer.java`
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/internal/impl/AbstractSession.java`
 #### Snippet
 ```java
-                generatedFile = Files.createTempFile(buildDir, CONSUMER_POM_CLASSIFIER, "pom");
-            }
-            project.addAttachedArtifact(new ConsumerPomArtifact(project, generatedFile, session));
-        } else if (project.getModel().isRoot()) {
-            throw new IllegalStateException(
+    }
+
+    public abstract ArtifactRepository toArtifactRepository(RemoteRepository repository);
+
+    public List<org.eclipse.aether.graph.Dependency> toDependencies(Collection<DependencyCoordinate> dependencies) {
 ```
 
 ### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequestPopulator.java`
+in `maven-core/src/main/java/org/apache/maven/internal/impl/AbstractSession.java`
 #### Snippet
 ```java
-    // ------------------------------------------------------------------------
+    }
 
-    private ArtifactRepository createLocalRepository(MavenExecutionRequest request)
-            throws MavenExecutionRequestPopulationException {
-        String localRepositoryPath = null;
+    public List<ArtifactRepository> toArtifactRepositories(List<RemoteRepository> repositories) {
+        return repositories == null
+                ? null
 ```
 
 ### Deprecation
@@ -10596,26 +10392,38 @@ in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionReq
 
 ### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
+in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequestPopulator.java`
 #### Snippet
 ```java
-    private WorkspaceReader workspaceReader;
+    // ------------------------------------------------------------------------
 
-    private ArtifactRepository localRepository;
-
-    private EventSpyDispatcher eventSpyDispatcher;
+    private ArtifactRepository createLocalRepository(MavenExecutionRequest request)
+            throws MavenExecutionRequestPopulationException {
+        String localRepositoryPath = null;
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
+'getDependencyArtifacts()' is deprecated
+in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/DependencyContext.java`
 #### Snippet
 ```java
-    private List<ArtifactRepository> remoteRepositories;
 
-    private List<ArtifactRepository> pluginArtifactRepositories;
+    public void synchronizeWithProjectState() {
+        lastDependencyArtifacts = project.getDependencyArtifacts();
+        lastDependencyArtifactCount = (lastDependencyArtifacts != null) ? lastDependencyArtifacts.size() : 0;
+    }
+```
 
-    private ExecutionListener executionListener;
+### Deprecation
+'getDependencyArtifacts()' is deprecated
+in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/DependencyContext.java`
+#### Snippet
+```java
+
+    public boolean isResolutionRequiredForCurrentProject() {
+        return lastDependencyArtifacts != project.getDependencyArtifacts()
+                || (lastDependencyArtifacts != null && lastDependencyArtifactCount != lastDependencyArtifacts.size());
+    }
 ```
 
 ### Deprecation
@@ -10625,9 +10433,9 @@ in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionReq
 ```java
 
     @Override
-    public List<ArtifactRepository> getPluginArtifactRepositories() {
-        if (pluginArtifactRepositories == null) {
-            pluginArtifactRepositories = new ArrayList<>();
+    public MavenExecutionRequest addPluginArtifactRepository(ArtifactRepository repository) {
+        for (ArtifactRepository repo : getPluginArtifactRepositories()) {
+            if (repo.getId() != null && repo.getId().equals(repository.getId())) {
 ```
 
 ### Deprecation
@@ -10635,11 +10443,11 @@ in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionReq
 in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
 #### Snippet
 ```java
-
     @Override
-    public MavenExecutionRequest setLocalRepository(ArtifactRepository localRepository) {
-        this.localRepository = localRepository;
-
+    public MavenExecutionRequest addPluginArtifactRepository(ArtifactRepository repository) {
+        for (ArtifactRepository repo : getPluginArtifactRepositories()) {
+            if (repo.getId() != null && repo.getId().equals(repository.getId())) {
+                return this;
 ```
 
 ### Deprecation
@@ -10652,6 +10460,18 @@ in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionReq
             this.projectActivation.overwriteInactiveProjects(excludedProjects);
         }
 
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
+#### Snippet
+```java
+
+    @Override
+    public ArtifactRepository getLocalRepository() {
+        return localRepository;
+    }
 ```
 
 ### Deprecation
@@ -10679,50 +10499,14 @@ in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionReq
 ```
 
 ### Deprecation
-'getExcludedProjects()' is deprecated
-in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
-#### Snippet
-```java
-    @Override
-    public List<String> getExcludedProjects() {
-        return this.projectActivation.getExcludedProjects();
-    }
-
-```
-
-### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
 in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
 #### Snippet
 ```java
-    private boolean updateSnapshots = false;
 
-    private List<ArtifactRepository> remoteRepositories;
-
-    private List<ArtifactRepository> pluginArtifactRepositories;
-```
-
-### Deprecation
-'getActiveProfiles()' is deprecated
-in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
-#### Snippet
-```java
     @Override
-    public List<String> getActiveProfiles() {
-        return this.profileActivation.getActiveProfiles();
-    }
-
-```
-
-### Deprecation
-'overwriteActiveProfiles(java.util.List)' is deprecated
-in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
-#### Snippet
-```java
-    public MavenExecutionRequest setActiveProfiles(List<String> activeProfiles) {
-        if (activeProfiles != null) {
-            this.profileActivation.overwriteActiveProfiles(activeProfiles);
-        }
+    public MavenExecutionRequest setLocalRepository(ArtifactRepository localRepository) {
+        this.localRepository = localRepository;
 
 ```
 
@@ -10736,6 +10520,30 @@ in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionReq
         return this.profileActivation.getInactiveProfiles();
     }
 
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
+#### Snippet
+```java
+
+    @Override
+    public MavenExecutionRequest addRemoteRepository(ArtifactRepository repository) {
+        for (ArtifactRepository repo : getRemoteRepositories()) {
+            if (repo.getId() != null && repo.getId().equals(repository.getId())) {
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
+#### Snippet
+```java
+    @Override
+    public MavenExecutionRequest addRemoteRepository(ArtifactRepository repository) {
+        for (ArtifactRepository repo : getRemoteRepositories()) {
+            if (repo.getId() != null && repo.getId().equals(repository.getId())) {
+                return this;
 ```
 
 ### Deprecation
@@ -10757,9 +10565,105 @@ in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionReq
 ```java
 
     @Override
-    public ArtifactRepository getLocalRepository() {
-        return localRepository;
+    public List<ArtifactRepository> getPluginArtifactRepositories() {
+        if (pluginArtifactRepositories == null) {
+            pluginArtifactRepositories = new ArrayList<>();
+```
+
+### Deprecation
+'getActiveProfiles()' is deprecated
+in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
+#### Snippet
+```java
+    @Override
+    public List<String> getActiveProfiles() {
+        return this.profileActivation.getActiveProfiles();
     }
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
+#### Snippet
+```java
+    private List<ArtifactRepository> remoteRepositories;
+
+    private List<ArtifactRepository> pluginArtifactRepositories;
+
+    private ExecutionListener executionListener;
+```
+
+### Deprecation
+'overwriteActiveProfiles(java.util.List)' is deprecated
+in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
+#### Snippet
+```java
+    public MavenExecutionRequest setActiveProfiles(List<String> activeProfiles) {
+        if (activeProfiles != null) {
+            this.profileActivation.overwriteActiveProfiles(activeProfiles);
+        }
+
+```
+
+### Deprecation
+'getExcludedProjects()' is deprecated
+in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
+#### Snippet
+```java
+    @Override
+    public List<String> getExcludedProjects() {
+        return this.projectActivation.getExcludedProjects();
+    }
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
+#### Snippet
+```java
+    private WorkspaceReader workspaceReader;
+
+    private ArtifactRepository localRepository;
+
+    private EventSpyDispatcher eventSpyDispatcher;
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
+#### Snippet
+```java
+
+    @Override
+    public MavenExecutionRequest setPluginArtifactRepositories(List<ArtifactRepository> pluginArtifactRepositories) {
+        if (pluginArtifactRepositories != null) {
+            this.pluginArtifactRepositories = new ArrayList<>(pluginArtifactRepositories);
+```
+
+### Deprecation
+'overwriteInactiveProfiles(java.util.List)' is deprecated
+in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
+#### Snippet
+```java
+    public MavenExecutionRequest setInactiveProfiles(List<String> inactiveProfiles) {
+        if (inactiveProfiles != null) {
+            this.profileActivation.overwriteInactiveProfiles(inactiveProfiles);
+        }
+
+```
+
+### Deprecation
+'overwriteActiveProjects(java.util.List)' is deprecated
+in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
+#### Snippet
+```java
+    public MavenExecutionRequest setSelectedProjects(List<String> selectedProjects) {
+        if (selectedProjects != null) {
+            this.projectActivation.overwriteActiveProjects(selectedProjects);
+        }
+
 ```
 
 ### Deprecation
@@ -10823,135 +10727,15 @@ in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionReq
 ```
 
 ### Deprecation
-'overwriteActiveProjects(java.util.List)' is deprecated
-in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
-#### Snippet
-```java
-    public MavenExecutionRequest setSelectedProjects(List<String> selectedProjects) {
-        if (selectedProjects != null) {
-            this.projectActivation.overwriteActiveProjects(selectedProjects);
-        }
-
-```
-
-### Deprecation
-'overwriteInactiveProfiles(java.util.List)' is deprecated
-in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
-#### Snippet
-```java
-    public MavenExecutionRequest setInactiveProfiles(List<String> inactiveProfiles) {
-        if (inactiveProfiles != null) {
-            this.profileActivation.overwriteInactiveProfiles(inactiveProfiles);
-        }
-
-```
-
-### Deprecation
 'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
 in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
 #### Snippet
 ```java
+    private boolean updateSnapshots = false;
 
-    @Override
-    public MavenExecutionRequest addRemoteRepository(ArtifactRepository repository) {
-        for (ArtifactRepository repo : getRemoteRepositories()) {
-            if (repo.getId() != null && repo.getId().equals(repository.getId())) {
-```
+    private List<ArtifactRepository> remoteRepositories;
 
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
-#### Snippet
-```java
-    @Override
-    public MavenExecutionRequest addRemoteRepository(ArtifactRepository repository) {
-        for (ArtifactRepository repo : getRemoteRepositories()) {
-            if (repo.getId() != null && repo.getId().equals(repository.getId())) {
-                return this;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
-#### Snippet
-```java
-
-    @Override
-    public MavenExecutionRequest setPluginArtifactRepositories(List<ArtifactRepository> pluginArtifactRepositories) {
-        if (pluginArtifactRepositories != null) {
-            this.pluginArtifactRepositories = new ArrayList<>(pluginArtifactRepositories);
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
-#### Snippet
-```java
-
-    @Override
-    public MavenExecutionRequest addPluginArtifactRepository(ArtifactRepository repository) {
-        for (ArtifactRepository repo : getPluginArtifactRepositories()) {
-            if (repo.getId() != null && repo.getId().equals(repository.getId())) {
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
-#### Snippet
-```java
-    @Override
-    public MavenExecutionRequest addPluginArtifactRepository(ArtifactRepository repository) {
-        for (ArtifactRepository repo : getPluginArtifactRepositories()) {
-            if (repo.getId() != null && repo.getId().equals(repository.getId())) {
-                return this;
-```
-
-### Deprecation
-'getDependencyArtifacts()' is deprecated
-in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/DependencyContext.java`
-#### Snippet
-```java
-
-    public void synchronizeWithProjectState() {
-        lastDependencyArtifacts = project.getDependencyArtifacts();
-        lastDependencyArtifactCount = (lastDependencyArtifacts != null) ? lastDependencyArtifacts.size() : 0;
-    }
-```
-
-### Deprecation
-'getDependencyArtifacts()' is deprecated
-in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/DependencyContext.java`
-#### Snippet
-```java
-
-    public boolean isResolutionRequiredForCurrentProject() {
-        return lastDependencyArtifacts != project.getDependencyArtifacts()
-                || (lastDependencyArtifacts != null && lastDependencyArtifactCount != lastDependencyArtifacts.size());
-    }
-```
-
-### Deprecation
-'getActiveProfiles()' is deprecated
-in `maven-core/src/main/java/org/apache/maven/execution/MavenSession.java`
-#### Snippet
-```java
-                        .map(SettingsUtilsV4::convertToSettingsProfile)
-                        .collect(Collectors.toList()))
-                .activeProfiles(request.getActiveProfiles())
-                .pluginGroups(request.getPluginGroups())
-                .build());
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/execution/MavenSession.java`
-#### Snippet
-```java
-    }
-
-    public ArtifactRepository getLocalRepository() {
-        return request.getLocalRepository();
-    }
+    private List<ArtifactRepository> pluginArtifactRepositories;
 ```
 
 ### Deprecation
@@ -10964,18 +10748,6 @@ in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/LifecycleStarte
                         + " but there is no POM in this directory (" + session.getExecutionRootDirectory() + ")."
                         + " Please verify you invoked Maven from the correct directory.");
             }
-```
-
-### Deprecation
-'getExecutionRootDirectory()' is deprecated
-in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/MojoExecutor.java`
-#### Snippet
-```java
-            Throwable cause = new MissingProjectException(
-                    "Goal requires a project to execute" + " but there is no POM in this directory ("
-                            + session.getExecutionRootDirectory() + ")."
-                            + " Please verify you invoked Maven from the correct directory.");
-            throw new LifecycleExecutionException(mojoExecution, null, cause);
 ```
 
 ### Deprecation
@@ -11015,27 +10787,15 @@ in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/LifecycleDepend
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/repository/legacy/metadata/ResolutionGroup.java`
+'getExecutionRootDirectory()' is deprecated
+in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/MojoExecutor.java`
 #### Snippet
 ```java
-    private final Set<Artifact> artifacts;
-
-    private final List<ArtifactRepository> resolutionRepositories;
-
-    private final Artifact pomArtifact;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/repository/legacy/metadata/ResolutionGroup.java`
-#### Snippet
-```java
-    }
-
-    public List<ArtifactRepository> getResolutionRepositories() {
-        return resolutionRepositories;
-    }
+            Throwable cause = new MissingProjectException(
+                    "Goal requires a project to execute" + " but there is no POM in this directory ("
+                            + session.getExecutionRootDirectory() + ")."
+                            + " Please verify you invoked Maven from the correct directory.");
+            throw new LifecycleExecutionException(mojoExecution, null, cause);
 ```
 
 ### Deprecation
@@ -11043,35 +10803,11 @@ in `maven-core/src/main/java/org/apache/maven/repository/legacy/metadata/Resolut
 in `maven-core/src/main/java/org/apache/maven/repository/RepositorySystem.java`
 #### Snippet
 ```java
+    //
+    void publish(
+            ArtifactRepository repository, File source, String remotePath, ArtifactTransferListener transferListener)
+            throws ArtifactTransferFailedException;
 
-    void retrieve(
-            ArtifactRepository repository,
-            File destination,
-            String remotePath,
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/repository/RepositorySystem.java`
-#### Snippet
-```java
-    ArtifactRepository buildArtifactRepository(Repository repository) throws InvalidRepositoryException;
-
-    ArtifactRepository createDefaultRemoteRepository() throws InvalidRepositoryException;
-
-    ArtifactRepository createDefaultLocalRepository() throws InvalidRepositoryException;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/repository/RepositorySystem.java`
-#### Snippet
-```java
-    ArtifactRepository createDefaultRemoteRepository() throws InvalidRepositoryException;
-
-    ArtifactRepository createDefaultLocalRepository() throws InvalidRepositoryException;
-
-    ArtifactRepository createLocalRepository(File localRepository) throws InvalidRepositoryException;
 ```
 
 ### Deprecation
@@ -11091,9 +10827,81 @@ in `maven-core/src/main/java/org/apache/maven/repository/RepositorySystem.java`
 in `maven-core/src/main/java/org/apache/maven/repository/RepositorySystem.java`
 #### Snippet
 ```java
-     * @return The mirror specification for the repository or {@code null} if no mirror matched.
+    ArtifactRepository createDefaultLocalRepository() throws InvalidRepositoryException;
+
+    ArtifactRepository createLocalRepository(File localRepository) throws InvalidRepositoryException;
+
+    ArtifactRepository createArtifactRepository(
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/repository/RepositorySystem.java`
+#### Snippet
+```java
+
+    void retrieve(
+            ArtifactRepository repository,
+            File destination,
+            String remotePath,
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/repository/RepositorySystem.java`
+#### Snippet
+```java
+    void injectMirror(RepositorySystemSession session, List<ArtifactRepository> repositories);
+
+    void injectProxy(RepositorySystemSession session, List<ArtifactRepository> repositories);
+
+    void injectAuthentication(RepositorySystemSession session, List<ArtifactRepository> repositories);
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/repository/RepositorySystem.java`
+#### Snippet
+```java
+     * @param mirrors The available mirrors, may be {@code null}.
      */
-    Mirror getMirror(ArtifactRepository repository, List<Mirror> mirrors);
+    void injectMirror(List<ArtifactRepository> repositories, List<Mirror> mirrors);
+
+    /**
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/repository/RepositorySystem.java`
+#### Snippet
+```java
+     * @param servers The available servers, may be {@code null}.
+     */
+    void injectAuthentication(List<ArtifactRepository> repositories, List<Server> servers);
+
+    void injectMirror(RepositorySystemSession session, List<ArtifactRepository> repositories);
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/repository/RepositorySystem.java`
+#### Snippet
+```java
+     * @return The effective repositories or {@code null} if the input was {@code null}.
+     */
+    List<ArtifactRepository> getEffectiveRepositories(List<ArtifactRepository> repositories);
+
+    /**
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/repository/RepositorySystem.java`
+#### Snippet
+```java
+     * @return The effective repositories or {@code null} if the input was {@code null}.
+     */
+    List<ArtifactRepository> getEffectiveRepositories(List<ArtifactRepository> repositories);
 
     /**
 ```
@@ -11115,11 +10923,35 @@ in `maven-core/src/main/java/org/apache/maven/repository/RepositorySystem.java`
 in `maven-core/src/main/java/org/apache/maven/repository/RepositorySystem.java`
 #### Snippet
 ```java
+    ArtifactRepository buildArtifactRepository(Repository repository) throws InvalidRepositoryException;
+
+    ArtifactRepository createDefaultRemoteRepository() throws InvalidRepositoryException;
+
+    ArtifactRepository createDefaultLocalRepository() throws InvalidRepositoryException;
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/repository/RepositorySystem.java`
+#### Snippet
+```java
+    Artifact createDependencyArtifact(Dependency dependency);
+
+    ArtifactRepository buildArtifactRepository(Repository repository) throws InvalidRepositoryException;
+
+    ArtifactRepository createDefaultRemoteRepository() throws InvalidRepositoryException;
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/repository/RepositorySystem.java`
+#### Snippet
+```java
+    ArtifactRepository createDefaultRemoteRepository() throws InvalidRepositoryException;
+
     ArtifactRepository createDefaultLocalRepository() throws InvalidRepositoryException;
 
     ArtifactRepository createLocalRepository(File localRepository) throws InvalidRepositoryException;
-
-    ArtifactRepository createArtifactRepository(
 ```
 
 ### Deprecation
@@ -11132,54 +10964,6 @@ in `maven-core/src/main/java/org/apache/maven/repository/RepositorySystem.java`
     void injectMirror(RepositorySystemSession session, List<ArtifactRepository> repositories);
 
     void injectProxy(RepositorySystemSession session, List<ArtifactRepository> repositories);
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/repository/legacy/metadata/ResolutionGroup.java`
-#### Snippet
-```java
-            Set<Artifact> artifacts,
-            Map<String, Artifact> managedVersions,
-            List<ArtifactRepository> resolutionRepositories) {
-        this.pomArtifact = pomArtifact;
-        this.relocatedArtifact = relocatedArtifact;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/repository/RepositorySystem.java`
-#### Snippet
-```java
-     * @param mirrors The available mirrors, may be {@code null}.
-     */
-    void injectMirror(List<ArtifactRepository> repositories, List<Mirror> mirrors);
-
-    /**
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/repository/RepositorySystem.java`
-#### Snippet
-```java
-    void injectMirror(RepositorySystemSession session, List<ArtifactRepository> repositories);
-
-    void injectProxy(RepositorySystemSession session, List<ArtifactRepository> repositories);
-
-    void injectAuthentication(RepositorySystemSession session, List<ArtifactRepository> repositories);
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/repository/legacy/metadata/ResolutionGroup.java`
-#### Snippet
-```java
-
-    public ResolutionGroup(
-            Artifact pomArtifact, Set<Artifact> artifacts, List<ArtifactRepository> resolutionRepositories) {
-        this(pomArtifact, null, artifacts, null, resolutionRepositories);
-    }
 ```
 
 ### Deprecation
@@ -11235,131 +11019,11 @@ in `maven-core/src/main/java/org/apache/maven/repository/RepositorySystem.java`
 in `maven-core/src/main/java/org/apache/maven/repository/RepositorySystem.java`
 #### Snippet
 ```java
-     * @param servers The available servers, may be {@code null}.
+     * @return The mirror specification for the repository or {@code null} if no mirror matched.
      */
-    void injectAuthentication(List<ArtifactRepository> repositories, List<Server> servers);
-
-    void injectMirror(RepositorySystemSession session, List<ArtifactRepository> repositories);
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/repository/RepositorySystem.java`
-#### Snippet
-```java
-    Artifact createDependencyArtifact(Dependency dependency);
-
-    ArtifactRepository buildArtifactRepository(Repository repository) throws InvalidRepositoryException;
-
-    ArtifactRepository createDefaultRemoteRepository() throws InvalidRepositoryException;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/repository/RepositorySystem.java`
-#### Snippet
-```java
-    //
-    void publish(
-            ArtifactRepository repository, File source, String remotePath, ArtifactTransferListener transferListener)
-            throws ArtifactTransferFailedException;
-
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/repository/RepositorySystem.java`
-#### Snippet
-```java
-     * @return The effective repositories or {@code null} if the input was {@code null}.
-     */
-    List<ArtifactRepository> getEffectiveRepositories(List<ArtifactRepository> repositories);
+    Mirror getMirror(ArtifactRepository repository, List<Mirror> mirrors);
 
     /**
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/repository/RepositorySystem.java`
-#### Snippet
-```java
-     * @return The effective repositories or {@code null} if the input was {@code null}.
-     */
-    List<ArtifactRepository> getEffectiveRepositories(List<ArtifactRepository> repositories);
-
-    /**
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/repository/legacy/metadata/MetadataResolutionRequest.java`
-#### Snippet
-```java
-     * @return The local repository to use for the resolution or {@code null} if not set.
-     */
-    ArtifactRepository getLocalRepository();
-
-    /**
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/repository/legacy/metadata/MetadataResolutionRequest.java`
-#### Snippet
-```java
-     * @return This request, never {@code null}.
-     */
-    MetadataResolutionRequest setLocalRepository(ArtifactRepository localRepository);
-
-    /**
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/repository/legacy/metadata/MetadataResolutionRequest.java`
-#### Snippet
-```java
-     * @return This request, never {@code null}.
-     */
-    MetadataResolutionRequest setRemoteRepositories(List<ArtifactRepository> remoteRepositories);
-
-    /**
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/repository/legacy/metadata/MetadataResolutionRequest.java`
-#### Snippet
-```java
-     * @return The remote repositories to use for the resolution, never {@code null}.
-     */
-    List<ArtifactRepository> getRemoteRepositories();
-
-    /**
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/repository/legacy/metadata/DefaultMetadataResolutionRequest.java`
-#### Snippet
-```java
-    }
-
-    public List<ArtifactRepository> getRemoteRepositories() {
-        return repositoryRequest.getRemoteRepositories();
-    }
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/repository/legacy/metadata/DefaultMetadataResolutionRequest.java`
-#### Snippet
-```java
-    }
-
-    public DefaultMetadataResolutionRequest setRemoteRepositories(List<ArtifactRepository> remoteRepositories) {
-        repositoryRequest.setRemoteRepositories(remoteRepositories);
-
 ```
 
 ### Deprecation
@@ -11384,6 +11048,126 @@ in `maven-core/src/main/java/org/apache/maven/repository/legacy/metadata/Default
     public DefaultMetadataResolutionRequest setLocalRepository(ArtifactRepository localRepository) {
         repositoryRequest.setLocalRepository(localRepository);
 
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/repository/legacy/metadata/DefaultMetadataResolutionRequest.java`
+#### Snippet
+```java
+    }
+
+    public DefaultMetadataResolutionRequest setRemoteRepositories(List<ArtifactRepository> remoteRepositories) {
+        repositoryRequest.setRemoteRepositories(remoteRepositories);
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/repository/legacy/metadata/DefaultMetadataResolutionRequest.java`
+#### Snippet
+```java
+    }
+
+    public List<ArtifactRepository> getRemoteRepositories() {
+        return repositoryRequest.getRemoteRepositories();
+    }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/repository/legacy/metadata/ResolutionGroup.java`
+#### Snippet
+```java
+    }
+
+    public List<ArtifactRepository> getResolutionRepositories() {
+        return resolutionRepositories;
+    }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/repository/legacy/metadata/ResolutionGroup.java`
+#### Snippet
+```java
+    private final Set<Artifact> artifacts;
+
+    private final List<ArtifactRepository> resolutionRepositories;
+
+    private final Artifact pomArtifact;
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/repository/legacy/metadata/ResolutionGroup.java`
+#### Snippet
+```java
+
+    public ResolutionGroup(
+            Artifact pomArtifact, Set<Artifact> artifacts, List<ArtifactRepository> resolutionRepositories) {
+        this(pomArtifact, null, artifacts, null, resolutionRepositories);
+    }
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/repository/legacy/metadata/ResolutionGroup.java`
+#### Snippet
+```java
+            Set<Artifact> artifacts,
+            Map<String, Artifact> managedVersions,
+            List<ArtifactRepository> resolutionRepositories) {
+        this.pomArtifact = pomArtifact;
+        this.relocatedArtifact = relocatedArtifact;
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/repository/legacy/metadata/MetadataResolutionRequest.java`
+#### Snippet
+```java
+     * @return The remote repositories to use for the resolution, never {@code null}.
+     */
+    List<ArtifactRepository> getRemoteRepositories();
+
+    /**
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/repository/legacy/metadata/MetadataResolutionRequest.java`
+#### Snippet
+```java
+     * @return This request, never {@code null}.
+     */
+    MetadataResolutionRequest setRemoteRepositories(List<ArtifactRepository> remoteRepositories);
+
+    /**
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/repository/legacy/metadata/MetadataResolutionRequest.java`
+#### Snippet
+```java
+     * @return This request, never {@code null}.
+     */
+    MetadataResolutionRequest setLocalRepository(ArtifactRepository localRepository);
+
+    /**
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/repository/legacy/metadata/MetadataResolutionRequest.java`
+#### Snippet
+```java
+     * @return The local repository to use for the resolution or {@code null} if not set.
+     */
+    ArtifactRepository getLocalRepository();
+
+    /**
 ```
 
 ### Deprecation
@@ -11471,126 +11255,6 @@ in `maven-core/src/main/java/org/apache/maven/repository/legacy/metadata/Artifac
 ```
 
 ### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/execution/MavenExecutionRequest.java`
-#### Snippet
-```java
-    MavenExecutionRequest setLocalRepository(ArtifactRepository repository);
-
-    ArtifactRepository getLocalRepository();
-
-    // Interactive
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/execution/MavenExecutionRequest.java`
-#### Snippet
-```java
-    MavenExecutionRequest setPluginArtifactRepositories(List<ArtifactRepository> repositories);
-
-    List<ArtifactRepository> getPluginArtifactRepositories();
-
-    MavenExecutionRequest setRepositoryCache(RepositoryCache repositoryCache);
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-core/src/main/java/org/apache/maven/execution/MavenExecutionRequest.java`
-#### Snippet
-```java
-    // ----------------------------------------------------------------------
-
-    String CHECKSUM_POLICY_FAIL = ArtifactRepositoryPolicy.CHECKSUM_POLICY_FAIL;
-
-    String CHECKSUM_POLICY_WARN = ArtifactRepositoryPolicy.CHECKSUM_POLICY_WARN;
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
-in `maven-core/src/main/java/org/apache/maven/execution/MavenExecutionRequest.java`
-#### Snippet
-```java
-    String CHECKSUM_POLICY_FAIL = ArtifactRepositoryPolicy.CHECKSUM_POLICY_FAIL;
-
-    String CHECKSUM_POLICY_WARN = ArtifactRepositoryPolicy.CHECKSUM_POLICY_WARN;
-
-    // ----------------------------------------------------------------------
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/execution/MavenExecutionRequest.java`
-#### Snippet
-```java
-     * @return This request, never {@code null}.
-     */
-    MavenExecutionRequest setRemoteRepositories(List<ArtifactRepository> repositories);
-
-    List<ArtifactRepository> getRemoteRepositories();
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/execution/MavenExecutionRequest.java`
-#### Snippet
-```java
-    List<ArtifactRepository> getRemoteRepositories();
-
-    MavenExecutionRequest setPluginArtifactRepositories(List<ArtifactRepository> repositories);
-
-    List<ArtifactRepository> getPluginArtifactRepositories();
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/execution/MavenExecutionRequest.java`
-#### Snippet
-```java
-    MavenExecutionRequest setGlobalSettingsFile(File globalSettingsFile);
-
-    MavenExecutionRequest addRemoteRepository(ArtifactRepository repository);
-
-    MavenExecutionRequest addPluginArtifactRepository(ArtifactRepository repository);
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/execution/MavenExecutionRequest.java`
-#### Snippet
-```java
-    File getLocalRepositoryPath();
-
-    MavenExecutionRequest setLocalRepository(ArtifactRepository repository);
-
-    ArtifactRepository getLocalRepository();
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/execution/MavenExecutionRequest.java`
-#### Snippet
-```java
-    MavenExecutionRequest setRemoteRepositories(List<ArtifactRepository> repositories);
-
-    List<ArtifactRepository> getRemoteRepositories();
-
-    MavenExecutionRequest setPluginArtifactRepositories(List<ArtifactRepository> repositories);
-```
-
-### Deprecation
-'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
-in `maven-core/src/main/java/org/apache/maven/execution/MavenExecutionRequest.java`
-#### Snippet
-```java
-    MavenExecutionRequest addRemoteRepository(ArtifactRepository repository);
-
-    MavenExecutionRequest addPluginArtifactRepository(ArtifactRepository repository);
-
-    /**
-```
-
-### Deprecation
 'org.apache.maven.model.building.ModelSource' is deprecated
 in `maven-model-builder/src/main/java/org/apache/maven/model/building/ArtifactModelSource.java`
 #### Snippet
@@ -11599,6 +11263,30 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/building/ArtifactMo
  */
 public class ArtifactModelSource extends FileSource implements ModelSource {
     private final String groupId;
+
+```
+
+### Deprecation
+'setRawModel(Model)' is deprecated
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/FilterModelBuildingRequest.java`
+#### Snippet
+```java
+    @Override
+    public ModelBuildingRequest setRawModel(Model rawModel) {
+        request.setRawModel(rawModel);
+        return this;
+    }
+```
+
+### Deprecation
+'org.apache.maven.model.building.ModelSource' is deprecated
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/FilterModelBuildingRequest.java`
+#### Snippet
+```java
+
+    @Override
+    public FilterModelBuildingRequest setModelSource(ModelSource modelSource) {
+        request.setModelSource(modelSource);
 
 ```
 
@@ -11621,57 +11309,9 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/building/FilterMode
 ```java
 
     @Override
-    public FilterModelBuildingRequest setModelSource(ModelSource modelSource) {
-        request.setModelSource(modelSource);
-
-```
-
-### Deprecation
-'org.apache.maven.model.building.ModelSource' is deprecated
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/FilterModelBuildingRequest.java`
-#### Snippet
-```java
-
-    @Override
     public ModelSource getModelSource() {
         return request.getModelSource();
     }
-```
-
-### Deprecation
-'setRawModel(Model)' is deprecated
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/FilterModelBuildingRequest.java`
-#### Snippet
-```java
-    @Override
-    public ModelBuildingRequest setRawModel(Model rawModel) {
-        request.setRawModel(rawModel);
-        return this;
-    }
-```
-
-### Deprecation
-'org.apache.maven.model.building.ModelSource' is deprecated
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/ModelBuildingRequest.java`
-#### Snippet
-```java
-     * the model builder operate in project mode. This mode is meant for effective models that are employed during the
-     * build process of a local project. Hence the effective model will support the notion of a project directory. To
-     * build the model for a POM from the repository, use {@link #setModelSource(ModelSource)} in combination with a
-     * {@link FileModelSource} instead.
-     *
-```
-
-### Deprecation
-'org.apache.maven.model.building.ModelSource' is deprecated
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/ModelBuildingRequest.java`
-#### Snippet
-```java
-     * @return The source of the POM or {@code null} if not set.
-     */
-    ModelSource getModelSource();
-
-    /**
 ```
 
 ### Deprecation
@@ -11700,6 +11340,30 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/building/ModelBuild
 
 ### Deprecation
 'org.apache.maven.model.building.ModelSource' is deprecated
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/ModelBuildingRequest.java`
+#### Snippet
+```java
+     * @return The source of the POM or {@code null} if not set.
+     */
+    ModelSource getModelSource();
+
+    /**
+```
+
+### Deprecation
+'org.apache.maven.model.building.ModelSource' is deprecated
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/ModelBuildingRequest.java`
+#### Snippet
+```java
+     * the model builder operate in project mode. This mode is meant for effective models that are employed during the
+     * build process of a local project. Hence the effective model will support the notion of a project directory. To
+     * build the model for a POM from the repository, use {@link #setModelSource(ModelSource)} in combination with a
+     * {@link FileModelSource} instead.
+     *
+```
+
+### Deprecation
+'org.apache.maven.model.building.ModelSource' is deprecated
 in `maven-model-builder/src/main/java/org/apache/maven/model/building/ModelSource2.java`
 #### Snippet
 ```java
@@ -11724,38 +11388,38 @@ public interface ModelSource2 extends ModelSource {
 
 ### Deprecation
 'org.apache.maven.model.building.ModelSource' is deprecated
-in `maven-model-builder/src/main/java/org/apache/maven/model/resolution/ModelResolver.java`
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuildingRequest.java`
 #### Snippet
 ```java
-     * @see Dependency#clone()
-     */
-    ModelSource resolveModel(org.apache.maven.model.Dependency dependency) throws UnresolvableModelException;
+    private File pomFile;
 
-    /**
+    private ModelSource modelSource;
+
+    private int validationLevel = VALIDATION_LEVEL_STRICT;
 ```
 
 ### Deprecation
 'org.apache.maven.model.building.ModelSource' is deprecated
-in `maven-model-builder/src/main/java/org/apache/maven/model/resolution/ModelResolver.java`
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuildingRequest.java`
 #### Snippet
 ```java
-     * @throws UnresolvableModelException If the POM could not be resolved from any configured repository.
-     */
-    ModelSource resolveModel(String groupId, String artifactId, String version) throws UnresolvableModelException;
 
-    /**
+    @Override
+    public DefaultModelBuildingRequest setModelSource(ModelSource modelSource) {
+        this.modelSource = modelSource;
+
 ```
 
 ### Deprecation
 'org.apache.maven.model.building.ModelSource' is deprecated
-in `maven-model-builder/src/main/java/org/apache/maven/model/resolution/ModelResolver.java`
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuildingRequest.java`
 #### Snippet
 ```java
-     * @see Parent#clone()
-     */
-    ModelSource resolveModel(org.apache.maven.model.Parent parent) throws UnresolvableModelException;
 
-    /**
+    @Override
+    public synchronized ModelSource getModelSource() {
+        if (modelSource == null && pomFile != null) {
+            modelSource = new FileModelSource(pomFile);
 ```
 
 ### Deprecation
@@ -11787,6 +11451,30 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/resolution/ModelRes
 in `maven-model-builder/src/main/java/org/apache/maven/model/resolution/ModelResolver.java`
 #### Snippet
 ```java
+     * @see Parent#clone()
+     */
+    ModelSource resolveModel(org.apache.maven.model.Parent parent) throws UnresolvableModelException;
+
+    /**
+```
+
+### Deprecation
+'org.apache.maven.model.building.ModelSource' is deprecated
+in `maven-model-builder/src/main/java/org/apache/maven/model/resolution/ModelResolver.java`
+#### Snippet
+```java
+     * @throws UnresolvableModelException If the POM could not be resolved from any configured repository.
+     */
+    ModelSource resolveModel(String groupId, String artifactId, String version) throws UnresolvableModelException;
+
+    /**
+```
+
+### Deprecation
+'org.apache.maven.model.building.ModelSource' is deprecated
+in `maven-model-builder/src/main/java/org/apache/maven/model/resolution/ModelResolver.java`
+#### Snippet
+```java
     }
 
     default ModelSource resolveModel(Dependency dependency, AtomicReference<Dependency> modified)
@@ -11808,86 +11496,350 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/resolution/ModelRes
 
 ### Deprecation
 'org.apache.maven.model.building.ModelSource' is deprecated
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuildingRequest.java`
+in `maven-model-builder/src/main/java/org/apache/maven/model/resolution/ModelResolver.java`
 #### Snippet
 ```java
+     * @see Dependency#clone()
+     */
+    ModelSource resolveModel(org.apache.maven.model.Dependency dependency) throws UnresolvableModelException;
 
-    @Override
-    public DefaultModelBuildingRequest setModelSource(ModelSource modelSource) {
-        this.modelSource = modelSource;
-
+    /**
 ```
 
 ### Deprecation
 'org.apache.maven.model.building.ModelSource' is deprecated
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuildingRequest.java`
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
 #### Snippet
 ```java
-    private File pomFile;
-
-    private ModelSource modelSource;
-
-    private int validationLevel = VALIDATION_LEVEL_STRICT;
+        // no workspace resolver or workspace resolver returned null (i.e. model not in workspace)
+        if (importModel == null) {
+            final ModelSource importSource;
+            try {
+                importSource = modelResolver.resolveModel(dependency);
 ```
 
 ### Deprecation
 'org.apache.maven.model.building.ModelSource' is deprecated
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuildingRequest.java`
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
+#### Snippet
+```java
+                        ModelProblemUtils.toSourceHint(childModel)));
+
+        ModelSource modelSource;
+        try {
+            modelSource = modelResolver.resolveModel(parent);
+```
+
+### Deprecation
+'org.apache.maven.model.building.ModelSource' is deprecated
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
+#### Snippet
+```java
+    }
+
+    private ModelSource getParentPomFile(Model childModel, Source source) {
+        if (!(source instanceof ModelSource2)) {
+            return null;
+```
+
+### Deprecation
+'org.apache.maven.model.building.ModelSource' is deprecated
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
+#### Snippet
+```java
+    private Model readFileModel(ModelBuildingRequest request, DefaultModelProblemCollector problems)
+            throws ModelBuildingException {
+        ModelSource modelSource = request.getModelSource();
+        org.apache.maven.api.model.Model model = fromCache(request.getModelCache(), modelSource, ModelCacheTag.FILE);
+        if (model == null) {
+```
+
+### Deprecation
+'org.apache.maven.model.building.ModelSource' is deprecated
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
+#### Snippet
+```java
+                        try {
+                            ModelBuildingRequest gaBuildingRequest =
+                                    new DefaultModelBuildingRequest(request).setModelSource((ModelSource) source);
+                            Model model = readRawModel(gaBuildingRequest, problems);
+                            if (source instanceof FileModelSource) {
+```
+
+### Deprecation
+'org.apache.maven.model.building.ModelSource' is deprecated
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
+#### Snippet
+```java
+            throws ModelBuildingException {
+        final Parent parent = childModel.getParent();
+        final ModelSource candidateSource;
+        final Model candidateModel;
+        final WorkspaceModelResolver resolver = request.getWorkspaceModelResolver();
+```
+
+### Deprecation
+'org.apache.maven.model.building.ModelSource' is deprecated
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
+#### Snippet
+```java
+    @SuppressWarnings("checkstyle:methodlength")
+    private org.apache.maven.api.model.Model doReadFileModel(
+            ModelSource modelSource, ModelBuildingRequest request, DefaultModelProblemCollector problems)
+            throws ModelBuildingException {
+        org.apache.maven.api.model.Model model;
+```
+
+### Deprecation
+'org.apache.maven.model.building.ModelSource' is deprecated
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
+#### Snippet
+```java
+    private Model readRawModel(ModelBuildingRequest request, DefaultModelProblemCollector problems)
+            throws ModelBuildingException {
+        ModelSource modelSource = request.getModelSource();
+
+        ModelData cachedData = fromCache(request.getModelCache(), modelSource, ModelCacheTag.RAW);
+```
+
+### Deprecation
+'getActiveProfiles()' is deprecated
+in `maven-core/src/main/java/org/apache/maven/execution/MavenSession.java`
+#### Snippet
+```java
+                        .map(SettingsUtilsV4::convertToSettingsProfile)
+                        .collect(Collectors.toList()))
+                .activeProfiles(request.getActiveProfiles())
+                .pluginGroups(request.getPluginGroups())
+                .build());
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/execution/MavenSession.java`
+#### Snippet
+```java
+    }
+
+    public ArtifactRepository getLocalRepository() {
+        return request.getLocalRepository();
+    }
+```
+
+### Deprecation
+'setActiveProfiles(java.util.List)' is deprecated
+in `maven-embedder/src/main/java/org/apache/maven/cli/configuration/SettingsXmlConfigurationProcessor.java`
+#### Snippet
+```java
+        }
+
+        request.setActiveProfiles(settings.getActiveProfiles());
+
+        for (Profile rawProfile : settings.getProfiles()) {
+```
+
+### Deprecation
+'setBaseDirectory(java.io.File)' is deprecated
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+        enableOnPresentOption(commandLine, CLIManager.UPDATE_SNAPSHOTS, request::setUpdateSnapshots);
+        request.setGlobalChecksumPolicy(determineGlobalCheckPolicy(commandLine));
+        request.setBaseDirectory(baseDirectory);
+        request.setSystemProperties(cliRequest.systemProperties);
+        request.setUserProperties(cliRequest.userProperties);
+```
+
+### Deprecation
+'setMultiModuleProjectDirectory(java.io.File)' is deprecated
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+        request.setSystemProperties(cliRequest.systemProperties);
+        request.setUserProperties(cliRequest.userProperties);
+        request.setMultiModuleProjectDirectory(cliRequest.multiModuleProjectDirectory);
+        request.setRootDirectory(cliRequest.rootDirectory);
+        request.setTopDirectory(cliRequest.topDirectory);
+```
+
+### Deprecation
+'setBaseDirectory(java.io.File)' is deprecated
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+
+        if ((request.getPom() != null) && (request.getPom().getParentFile() != null)) {
+            request.setBaseDirectory(request.getPom().getParentFile());
+        }
+
+```
+
+### Deprecation
+'DEBUG' is deprecated
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+        // LOG LEVEL
+        cliRequest.verbose = cliRequest.commandLine.hasOption(CLIManager.VERBOSE)
+                || cliRequest.commandLine.hasOption(CLIManager.DEBUG);
+        cliRequest.quiet = !cliRequest.verbose && cliRequest.commandLine.hasOption(CLIManager.QUIET);
+        cliRequest.showErrors = cliRequest.verbose || cliRequest.commandLine.hasOption(CLIManager.ERRORS);
+```
+
+### Deprecation
+'DEBUG' is deprecated
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+        }
+
+        if (cliRequest.commandLine.hasOption(CLIManager.DEBUG)) {
+            slf4jLogger.warn("The option '--debug' is deprecated and may be repurposed as Java debug"
+                    + " in a future version. Use -X/--verbose instead.");
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/execution/MavenExecutionRequest.java`
+#### Snippet
+```java
+    File getLocalRepositoryPath();
+
+    MavenExecutionRequest setLocalRepository(ArtifactRepository repository);
+
+    ArtifactRepository getLocalRepository();
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-core/src/main/java/org/apache/maven/execution/MavenExecutionRequest.java`
+#### Snippet
+```java
+    String CHECKSUM_POLICY_FAIL = ArtifactRepositoryPolicy.CHECKSUM_POLICY_FAIL;
+
+    String CHECKSUM_POLICY_WARN = ArtifactRepositoryPolicy.CHECKSUM_POLICY_WARN;
+
+    // ----------------------------------------------------------------------
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/execution/MavenExecutionRequest.java`
+#### Snippet
+```java
+    MavenExecutionRequest setRemoteRepositories(List<ArtifactRepository> repositories);
+
+    List<ArtifactRepository> getRemoteRepositories();
+
+    MavenExecutionRequest setPluginArtifactRepositories(List<ArtifactRepository> repositories);
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/execution/MavenExecutionRequest.java`
+#### Snippet
+```java
+    MavenExecutionRequest setLocalRepository(ArtifactRepository repository);
+
+    ArtifactRepository getLocalRepository();
+
+    // Interactive
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/execution/MavenExecutionRequest.java`
+#### Snippet
+```java
+    List<ArtifactRepository> getRemoteRepositories();
+
+    MavenExecutionRequest setPluginArtifactRepositories(List<ArtifactRepository> repositories);
+
+    List<ArtifactRepository> getPluginArtifactRepositories();
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/execution/MavenExecutionRequest.java`
+#### Snippet
+```java
+    MavenExecutionRequest setGlobalSettingsFile(File globalSettingsFile);
+
+    MavenExecutionRequest addRemoteRepository(ArtifactRepository repository);
+
+    MavenExecutionRequest addPluginArtifactRepository(ArtifactRepository repository);
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/execution/MavenExecutionRequest.java`
+#### Snippet
+```java
+     * @return This request, never {@code null}.
+     */
+    MavenExecutionRequest setRemoteRepositories(List<ArtifactRepository> repositories);
+
+    List<ArtifactRepository> getRemoteRepositories();
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/execution/MavenExecutionRequest.java`
+#### Snippet
+```java
+    MavenExecutionRequest setPluginArtifactRepositories(List<ArtifactRepository> repositories);
+
+    List<ArtifactRepository> getPluginArtifactRepositories();
+
+    MavenExecutionRequest setRepositoryCache(RepositoryCache repositoryCache);
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepository' is deprecated
+in `maven-core/src/main/java/org/apache/maven/execution/MavenExecutionRequest.java`
+#### Snippet
+```java
+    MavenExecutionRequest addRemoteRepository(ArtifactRepository repository);
+
+    MavenExecutionRequest addPluginArtifactRepository(ArtifactRepository repository);
+
+    /**
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-core/src/main/java/org/apache/maven/execution/MavenExecutionRequest.java`
+#### Snippet
+```java
+    // ----------------------------------------------------------------------
+
+    String CHECKSUM_POLICY_FAIL = ArtifactRepositoryPolicy.CHECKSUM_POLICY_FAIL;
+
+    String CHECKSUM_POLICY_WARN = ArtifactRepositoryPolicy.CHECKSUM_POLICY_WARN;
+```
+
+### Deprecation
+'org.apache.maven.settings.building.SettingsSource' is deprecated
+in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/DefaultSettingsBuildingRequest.java`
 #### Snippet
 ```java
 
     @Override
-    public synchronized ModelSource getModelSource() {
-        if (modelSource == null && pomFile != null) {
-            modelSource = new FileModelSource(pomFile);
+    public DefaultSettingsBuildingRequest setGlobalSettingsSource(SettingsSource globalSettingsSource) {
+        this.globalSettingsSource = globalSettingsSource;
+
 ```
 
 ### Deprecation
 'org.apache.maven.settings.building.SettingsSource' is deprecated
-in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/SettingsBuildingRequest.java`
+in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/DefaultSettingsBuildingRequest.java`
 #### Snippet
 ```java
-     * @return The user settings source or {@code null} if none.
-     */
-    SettingsSource getUserSettingsSource();
 
-    /**
-```
-
-### Deprecation
-'org.apache.maven.settings.building.SettingsSource' is deprecated
-in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/SettingsBuildingRequest.java`
-#### Snippet
-```java
-     * @return This request, never {@code null}.
-     */
-    SettingsBuildingRequest setGlobalSettingsSource(SettingsSource globalSettingsSource);
-
-    /**
-```
-
-### Deprecation
-'org.apache.maven.settings.building.SettingsSource' is deprecated
-in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/SettingsBuildingRequest.java`
-#### Snippet
-```java
-     * @return The global settings source or {@code null} if none.
-     */
-    SettingsSource getGlobalSettingsSource();
-
-    /**
-```
-
-### Deprecation
-'org.apache.maven.settings.building.SettingsSource' is deprecated
-in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/SettingsBuildingRequest.java`
-#### Snippet
-```java
-     * @return This request, never {@code null}.
-     */
-    SettingsBuildingRequest setUserSettingsSource(SettingsSource userSettingsSource);
-
-    /**
+    @Override
+    public SettingsSource getGlobalSettingsSource() {
+        return globalSettingsSource;
+    }
 ```
 
 ### Deprecation
@@ -11909,33 +11861,9 @@ in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/Defa
 ```java
 
     @Override
-    public SettingsSource getGlobalSettingsSource() {
-        return globalSettingsSource;
-    }
-```
-
-### Deprecation
-'org.apache.maven.settings.building.SettingsSource' is deprecated
-in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/DefaultSettingsBuildingRequest.java`
-#### Snippet
-```java
-
-    @Override
     public SettingsSource getUserSettingsSource() {
         return userSettingsSource;
     }
-```
-
-### Deprecation
-'org.apache.maven.settings.building.SettingsSource' is deprecated
-in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/DefaultSettingsBuildingRequest.java`
-#### Snippet
-```java
-
-    @Override
-    public DefaultSettingsBuildingRequest setGlobalSettingsSource(SettingsSource globalSettingsSource) {
-        this.globalSettingsSource = globalSettingsSource;
-
 ```
 
 ### Deprecation
@@ -11963,15 +11891,51 @@ in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/Defa
 ```
 
 ### Deprecation
-'org.apache.maven.settings.merge.MavenSettingsMerger' is deprecated
-in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/DefaultSettingsBuilder.java`
+'org.apache.maven.settings.building.SettingsSource' is deprecated
+in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/SettingsBuildingRequest.java`
 #### Snippet
 ```java
-    private SettingsValidator settingsValidator;
+     * @return This request, never {@code null}.
+     */
+    SettingsBuildingRequest setGlobalSettingsSource(SettingsSource globalSettingsSource);
 
-    private final MavenSettingsMerger settingsMerger = new MavenSettingsMerger();
+    /**
+```
 
-    @Inject
+### Deprecation
+'org.apache.maven.settings.building.SettingsSource' is deprecated
+in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/SettingsBuildingRequest.java`
+#### Snippet
+```java
+     * @return This request, never {@code null}.
+     */
+    SettingsBuildingRequest setUserSettingsSource(SettingsSource userSettingsSource);
+
+    /**
+```
+
+### Deprecation
+'org.apache.maven.settings.building.SettingsSource' is deprecated
+in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/SettingsBuildingRequest.java`
+#### Snippet
+```java
+     * @return The global settings source or {@code null} if none.
+     */
+    SettingsSource getGlobalSettingsSource();
+
+    /**
+```
+
+### Deprecation
+'org.apache.maven.settings.building.SettingsSource' is deprecated
+in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/SettingsBuildingRequest.java`
+#### Snippet
+```java
+     * @return The user settings source or {@code null} if none.
+     */
+    SettingsSource getUserSettingsSource();
+
+    /**
 ```
 
 ### Deprecation
@@ -11987,126 +11951,174 @@ in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/Defa
 ```
 
 ### Deprecation
-'org.apache.maven.model.building.ModelSource' is deprecated
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
+'org.apache.maven.settings.merge.MavenSettingsMerger' is deprecated
+in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/DefaultSettingsBuilder.java`
 #### Snippet
 ```java
-                        try {
-                            ModelBuildingRequest gaBuildingRequest =
-                                    new DefaultModelBuildingRequest(request).setModelSource((ModelSource) source);
-                            Model model = readRawModel(gaBuildingRequest, problems);
-                            if (source instanceof FileModelSource) {
+    private SettingsValidator settingsValidator;
+
+    private final MavenSettingsMerger settingsMerger = new MavenSettingsMerger();
+
+    @Inject
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/ArtifactDescriptorUtils.java`
+#### Snippet
+```java
+    public static RepositoryPolicy toRepositoryPolicy(org.apache.maven.model.RepositoryPolicy policy) {
+        boolean enabled = true;
+        String checksums = toRepositoryChecksumPolicy(ArtifactRepositoryPolicy.DEFAULT_CHECKSUM_POLICY);
+        String updates = RepositoryPolicy.UPDATE_POLICY_DAILY;
+
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/ArtifactDescriptorUtils.java`
+#### Snippet
+```java
+    public static String toRepositoryChecksumPolicy(final String artifactRepositoryPolicy) {
+        switch (artifactRepositoryPolicy) {
+            case ArtifactRepositoryPolicy.CHECKSUM_POLICY_FAIL:
+                return RepositoryPolicy.CHECKSUM_POLICY_FAIL;
+            case ArtifactRepositoryPolicy.CHECKSUM_POLICY_IGNORE:
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/ArtifactDescriptorUtils.java`
+#### Snippet
+```java
+            case ArtifactRepositoryPolicy.CHECKSUM_POLICY_FAIL:
+                return RepositoryPolicy.CHECKSUM_POLICY_FAIL;
+            case ArtifactRepositoryPolicy.CHECKSUM_POLICY_IGNORE:
+                return RepositoryPolicy.CHECKSUM_POLICY_IGNORE;
+            case ArtifactRepositoryPolicy.CHECKSUM_POLICY_WARN:
+```
+
+### Deprecation
+'org.apache.maven.artifact.repository.ArtifactRepositoryPolicy' is deprecated
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/ArtifactDescriptorUtils.java`
+#### Snippet
+```java
+            case ArtifactRepositoryPolicy.CHECKSUM_POLICY_IGNORE:
+                return RepositoryPolicy.CHECKSUM_POLICY_IGNORE;
+            case ArtifactRepositoryPolicy.CHECKSUM_POLICY_WARN:
+                return RepositoryPolicy.CHECKSUM_POLICY_WARN;
+            default:
 ```
 
 ### Deprecation
 'org.apache.maven.model.building.ModelSource' is deprecated
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
-#### Snippet
-```java
-                        ModelProblemUtils.toSourceHint(childModel)));
-
-        ModelSource modelSource;
-        try {
-            modelSource = modelResolver.resolveModel(parent);
-```
-
-### Deprecation
-'org.apache.maven.model.building.ModelSource' is deprecated
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
-#### Snippet
-```java
-    private Model readRawModel(ModelBuildingRequest request, DefaultModelProblemCollector problems)
-            throws ModelBuildingException {
-        ModelSource modelSource = request.getModelSource();
-
-        ModelData cachedData = fromCache(request.getModelCache(), modelSource, ModelCacheTag.RAW);
-```
-
-### Deprecation
-'org.apache.maven.model.building.ModelSource' is deprecated
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
-#### Snippet
-```java
-            throws ModelBuildingException {
-        final Parent parent = childModel.getParent();
-        final ModelSource candidateSource;
-        final Model candidateModel;
-        final WorkspaceModelResolver resolver = request.getWorkspaceModelResolver();
-```
-
-### Deprecation
-'org.apache.maven.model.building.ModelSource' is deprecated
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
-#### Snippet
-```java
-    private Model readFileModel(ModelBuildingRequest request, DefaultModelProblemCollector problems)
-            throws ModelBuildingException {
-        ModelSource modelSource = request.getModelSource();
-        org.apache.maven.api.model.Model model = fromCache(request.getModelCache(), modelSource, ModelCacheTag.FILE);
-        if (model == null) {
-```
-
-### Deprecation
-'org.apache.maven.model.building.ModelSource' is deprecated
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
-#### Snippet
-```java
-    }
-
-    private ModelSource getParentPomFile(Model childModel, Source source) {
-        if (!(source instanceof ModelSource2)) {
-            return null;
-```
-
-### Deprecation
-'org.apache.maven.model.building.ModelSource' is deprecated
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
-#### Snippet
-```java
-        // no workspace resolver or workspace resolver returned null (i.e. model not in workspace)
-        if (importModel == null) {
-            final ModelSource importSource;
-            try {
-                importSource = modelResolver.resolveModel(dependency);
-```
-
-### Deprecation
-'org.apache.maven.model.building.ModelSource' is deprecated
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
-#### Snippet
-```java
-    @SuppressWarnings("checkstyle:methodlength")
-    private org.apache.maven.api.model.Model doReadFileModel(
-            ModelSource modelSource, ModelBuildingRequest request, DefaultModelProblemCollector problems)
-            throws ModelBuildingException {
-        org.apache.maven.api.model.Model model;
-```
-
-### Deprecation
-Overrides deprecated method in 'java.util.Properties'
-in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultModelResolver.java`
 #### Snippet
 ```java
 
     @Override
-    public void save(OutputStream out, String comments) {
-        Properties props = new Properties();
-        props.putAll(getter.get());
+    public ModelSource resolveModel(final Parent parent, final AtomicReference<Parent> modified)
+            throws UnresolvableModelException {
+        try {
 ```
 
 ### Deprecation
-'save(java.io.OutputStream, java.lang.String)' is deprecated
-in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+'org.apache.maven.model.building.ModelSource' is deprecated
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultModelResolver.java`
 #### Snippet
 ```java
-        Properties props = new Properties();
-        props.putAll(getter.get());
-        props.save(out, comments);
-    }
 
+    @Override
+    public ModelSource resolveModel(String groupId, String artifactId, String version)
+            throws UnresolvableModelException {
+        Artifact pomArtifact = new DefaultArtifact(groupId, artifactId, "", "pom", version);
+```
+
+### Deprecation
+'org.apache.maven.model.building.ModelSource' is deprecated
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultModelResolver.java`
+#### Snippet
+```java
+
+    @Override
+    public ModelSource resolveModel(org.apache.maven.model.Parent parent) throws UnresolvableModelException {
+        AtomicReference<org.apache.maven.api.model.Parent> resolvedParent = new AtomicReference<>();
+        ModelSource result = resolveModel(parent.getDelegate(), resolvedParent);
+```
+
+### Deprecation
+'org.apache.maven.model.building.ModelSource' is deprecated
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultModelResolver.java`
+#### Snippet
+```java
+    public ModelSource resolveModel(org.apache.maven.model.Parent parent) throws UnresolvableModelException {
+        AtomicReference<org.apache.maven.api.model.Parent> resolvedParent = new AtomicReference<>();
+        ModelSource result = resolveModel(parent.getDelegate(), resolvedParent);
+        if (resolvedParent.get() != null) {
+            parent.setVersion(resolvedParent.get().getVersion());
+```
+
+### Deprecation
+'org.apache.maven.model.building.ModelSource' is deprecated
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultModelResolver.java`
+#### Snippet
+```java
+
+    @Override
+    public ModelSource resolveModel(org.apache.maven.model.Dependency dependency) throws UnresolvableModelException {
+        AtomicReference<org.apache.maven.api.model.Dependency> resolvedDependency = new AtomicReference<>();
+        ModelSource result = resolveModel(dependency.getDelegate(), resolvedDependency);
+```
+
+### Deprecation
+'org.apache.maven.model.building.ModelSource' is deprecated
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultModelResolver.java`
+#### Snippet
+```java
+    public ModelSource resolveModel(org.apache.maven.model.Dependency dependency) throws UnresolvableModelException {
+        AtomicReference<org.apache.maven.api.model.Dependency> resolvedDependency = new AtomicReference<>();
+        ModelSource result = resolveModel(dependency.getDelegate(), resolvedDependency);
+        if (resolvedDependency.get() != null) {
+            dependency.setVersion(resolvedDependency.get().getVersion());
+```
+
+### Deprecation
+'org.apache.maven.model.building.ModelSource' is deprecated
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultModelResolver.java`
+#### Snippet
+```java
+
+    @Override
+    public ModelSource resolveModel(final Dependency dependency, AtomicReference<Dependency> modified)
+            throws UnresolvableModelException {
+        try {
+```
+
+### Deprecation
+'org.apache.maven.plugin.logging.Log' is deprecated
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/AbstractMojo.java`
+#### Snippet
+```java
+public abstract class AbstractMojo implements Mojo, ContextEnabled {
+    /** Instance logger */
+    private Log log;
+
+    /** Plugin container context */
 ```
 
 ## RuleId[id=StringBufferReplaceableByString]
+### StringBufferReplaceableByString
+`StringBuilder buffer` can be replaced with 'String'
+in `maven-artifact/src/main/java/org/apache/maven/artifact/repository/ArtifactRepositoryPolicy.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        StringBuilder buffer = new StringBuilder(64);
+        buffer.append("{enabled=");
+        buffer.append(enabled);
+```
+
 ### StringBufferReplaceableByString
 `StringBuilder path` can be replaced with 'String'
 in `maven-compat/src/main/java/org/apache/maven/artifact/repository/layout/FlatRepositoryLayout.java`
@@ -12129,18 +12141,6 @@ in `maven-compat/src/main/java/org/apache/maven/repository/MetadataResolutionReq
         StringBuilder sb = new StringBuilder()
                 .append("REQUEST: ")
                 .append("\n")
-```
-
-### StringBufferReplaceableByString
-`StringBuilder buffer` can be replaced with 'String'
-in `maven-artifact/src/main/java/org/apache/maven/artifact/repository/ArtifactRepositoryPolicy.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        StringBuilder buffer = new StringBuilder(64);
-        buffer.append("{enabled=");
-        buffer.append(enabled);
 ```
 
 ### StringBufferReplaceableByString
@@ -12168,18 +12168,6 @@ in `maven-core/src/main/java/org/apache/maven/project/ReactorModelPool.java`
 ```
 
 ### StringBufferReplaceableByString
-`StringBuilder buffer` can be replaced with 'String'
-in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
-#### Snippet
-```java
-
-    private static String getProjectReferenceId(String groupId, String artifactId, String version) {
-        StringBuilder buffer = new StringBuilder(128);
-        buffer.append(groupId).append(':').append(artifactId).append(':').append(version);
-        return buffer.toString();
-```
-
-### StringBufferReplaceableByString
 `StringBuilder sb` can be replaced with 'String'
 in `maven-core/src/main/java/org/apache/maven/artifact/resolver/ArtifactResolutionRequest.java`
 #### Snippet
@@ -12189,6 +12177,18 @@ in `maven-core/src/main/java/org/apache/maven/artifact/resolver/ArtifactResoluti
         StringBuilder sb = new StringBuilder()
                 .append("REQUEST: ")
                 .append(LS)
+```
+
+### StringBufferReplaceableByString
+`StringBuilder buffer` can be replaced with 'String'
+in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
+#### Snippet
+```java
+
+    private static String getProjectReferenceId(String groupId, String artifactId, String version) {
+        StringBuilder buffer = new StringBuilder(128);
+        buffer.append(groupId).append(':').append(artifactId).append(':').append(version);
+        return buffer.toString();
 ```
 
 ### StringBufferReplaceableByString
@@ -12346,18 +12346,6 @@ in `maven-compat/src/main/java/org/apache/maven/repository/metadata/DefaultGraph
 #### Snippet
 ```java
      */
-    @Configuration(name = "newer-first", value = "true")
-    private boolean newerFirst = true;
-
-    public MetadataGraphEdge apply(MetadataGraphEdge e1, MetadataGraphEdge e2) {
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `maven-compat/src/main/java/org/apache/maven/repository/metadata/DefaultGraphConflictResolutionPolicy.java`
-#### Snippet
-```java
-     */
     @Configuration(name = "closer-first", value = "true")
     private boolean closerFirst = true;
 
@@ -12366,26 +12354,14 @@ in `maven-compat/src/main/java/org/apache/maven/repository/metadata/DefaultGraph
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `maven-embedder/src/main/java/org/apache/maven/cli/configuration/SettingsXmlConfigurationProcessor.java`
+in `maven-compat/src/main/java/org/apache/maven/repository/metadata/DefaultGraphConflictResolutionPolicy.java`
 #### Snippet
 ```java
+     */
+    @Configuration(name = "newer-first", value = "true")
+    private boolean newerFirst = true;
 
-    private final SettingsBuilder settingsBuilder;
-    private final SettingsDecrypter settingsDecrypter;
-
-    @Inject
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `maven-embedder/src/main/java/org/apache/maven/cli/event/ExecutionEventLogger.java`
-#### Snippet
-```java
-    private static final int MAX_PADDED_BUILD_TIME_DURATION_LENGTH = 9;
-
-    private final int terminalWidth;
-    private final int lineLength;
-    private final int maxProjectNameLength;
+    public MetadataGraphEdge apply(MetadataGraphEdge e1, MetadataGraphEdge e2) {
 ```
 
 ### FieldCanBeLocal
@@ -12472,6 +12448,30 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultMod
     public DefaultModelBuilderFactory setModelProcessor(ModelProcessor modelProcessor) {
 ```
 
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `maven-embedder/src/main/java/org/apache/maven/cli/event/ExecutionEventLogger.java`
+#### Snippet
+```java
+    private static final int MAX_PADDED_BUILD_TIME_DURATION_LENGTH = 9;
+
+    private final int terminalWidth;
+    private final int lineLength;
+    private final int maxProjectNameLength;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `maven-embedder/src/main/java/org/apache/maven/cli/configuration/SettingsXmlConfigurationProcessor.java`
+#### Snippet
+```java
+
+    private final SettingsBuilder settingsBuilder;
+    private final SettingsDecrypter settingsDecrypter;
+
+    @Inject
+```
+
 ## RuleId[id=IgnoreResultOfCall]
 ### IgnoreResultOfCall
 Result of `File.delete()` is ignored
@@ -12522,18 +12522,6 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultUpdateC
 ```
 
 ### IgnoreResultOfCall
-Result of `File.setLastModified()` is ignored
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonManager.java`
-#### Snippet
-```java
-                            if (!downloaded) {
-                                // prevent additional checks of this artifact until it expires again
-                                destination.setLastModified(System.currentTimeMillis());
-                            }
-                        } catch (UnsupportedOperationException e) {
-```
-
-### IgnoreResultOfCall
 Result of `File.delete()` is ignored
 in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonManager.java`
 #### Snippet
@@ -12546,15 +12534,15 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonMa
 ```
 
 ### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/MavenMetadata.java`
+Result of `File.setLastModified()` is ignored
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonManager.java`
 #### Snippet
 ```java
-
-    private void write(File metadataFile, Metadata metadata) throws RepositoryException {
-        metadataFile.getParentFile().mkdirs();
-        try (Writer writer = WriterFactory.newXmlWriter(metadataFile)) {
-            new MetadataXpp3Writer().write(writer, metadata);
+                            if (!downloaded) {
+                                // prevent additional checks of this artifact until it expires again
+                                destination.setLastModified(System.currentTimeMillis());
+                            }
+                        } catch (UnsupportedOperationException e) {
 ```
 
 ### IgnoreResultOfCall
@@ -12639,6 +12627,18 @@ in `maven-settings-builder/src/main/java/org/apache/maven/settings/io/DefaultSet
         output.getParentFile().mkdirs();
 
         write(WriterFactory.newXmlWriter(output), options, settings);
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/MavenMetadata.java`
+#### Snippet
+```java
+
+    private void write(File metadataFile, Metadata metadata) throws RepositoryException {
+        metadataFile.getParentFile().mkdirs();
+        try (Writer writer = WriterFactory.newXmlWriter(metadataFile)) {
+            new MetadataXpp3Writer().write(writer, metadata);
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
@@ -12744,7 +12744,7 @@ in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
 ## RuleId[id=DuplicateThrows]
 ### DuplicateThrows
 There is a more general exception, 'java.io.IOException', in the throws list already.
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
+in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
 #### Snippet
 ```java
 
@@ -12768,7 +12768,7 @@ in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/Wrapper
 
 ### DuplicateThrows
 There is a more general exception, 'java.io.IOException', in the throws list already.
-in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
 #### Snippet
 ```java
 
@@ -12842,15 +12842,15 @@ public class TypeArtifactFilter implements ArtifactFilter {
 ```
 
 ### UnusedAssignment
-Variable `pomOrder` initializer `-1` is redundant
+Variable `resolved` initializer `true` is redundant
 in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataGraphEdge.java`
 #### Snippet
 ```java
-    ArtifactScopeEnum scope;
     int depth = -1;
     int pomOrder = -1;
     boolean resolved = true;
     String artifactUri;
+
 ```
 
 ### UnusedAssignment
@@ -12866,15 +12866,15 @@ in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataGrap
 ```
 
 ### UnusedAssignment
-Variable `resolved` initializer `true` is redundant
+Variable `pomOrder` initializer `-1` is redundant
 in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataGraphEdge.java`
 #### Snippet
 ```java
+    ArtifactScopeEnum scope;
     int depth = -1;
     int pomOrder = -1;
     boolean resolved = true;
     String artifactUri;
-
 ```
 
 ### UnusedAssignment
@@ -12890,15 +12890,27 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonMa
 ```
 
 ### UnusedAssignment
-The value `false` assigned to `addedToBuffer` is never used
-in `maven-embedder/src/main/java/org/apache/maven/cli/CleanArgument.java`
+The value changed at `pos++` is never used
+in `maven-model-transform/src/main/java/org/apache/maven/model/transform/ReactorDependencyXMLFilter.java`
 #### Snippet
 ```java
+                    e.namespace = buffer.get(0).namespace;
+                    e.prefix = buffer.get(0).prefix;
+                    buffer.add(pos++, e);
+                }
+                break;
+```
 
-                currentArg = null;
-                addedToBuffer = false;
-                continue;
-            }
+### UnusedAssignment
+The value changed at `pos++` is never used
+in `maven-model-transform/src/main/java/org/apache/maven/model/transform/ParentXMLFilter.java`
+#### Snippet
+```java
+                    e.namespace = buffer.get(0).namespace;
+                    e.prefix = buffer.get(0).prefix;
+                    buffer.add(pos++, e);
+                }
+                break;
 ```
 
 ### UnusedAssignment
@@ -12938,18 +12950,6 @@ in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultToolchainsXml
 ```
 
 ### UnusedAssignment
-The value `new InputSource(request.getModelId(), request.getLocation())` assigned to `source` is never used
-in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultSettingsXmlFactory.java`
-#### Snippet
-```java
-            InputSource source = null;
-            if (request.getModelId() != null || request.getLocation() != null) {
-                source = new InputSource(request.getModelId(), request.getLocation());
-            }
-            SettingsXpp3Reader xml = new SettingsXpp3Reader();
-```
-
-### UnusedAssignment
 Variable `nsee` initializer `new NoSuchElementException(c.getName())` is redundant
 in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultSession.java`
 #### Snippet
@@ -12959,6 +12959,18 @@ in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultSession.java`
             NoSuchElementException nsee = new NoSuchElementException(c.getName());
             e.initCause(e);
             throw nsee;
+```
+
+### UnusedAssignment
+The value `new InputSource(request.getModelId(), request.getLocation())` assigned to `source` is never used
+in `maven-core/src/main/java/org/apache/maven/internal/impl/DefaultSettingsXmlFactory.java`
+#### Snippet
+```java
+            InputSource source = null;
+            if (request.getModelId() != null || request.getLocation() != null) {
+                source = new InputSource(request.getModelId(), request.getLocation());
+            }
+            SettingsXpp3Reader xml = new SettingsXpp3Reader();
 ```
 
 ### UnusedAssignment
@@ -13022,30 +13034,54 @@ in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/MojoDescriptorC
 ```
 
 ### UnusedAssignment
-The value changed at `pos++` is never used
-in `maven-model-transform/src/main/java/org/apache/maven/model/transform/ReactorDependencyXMLFilter.java`
+The value `false` assigned to `addedToBuffer` is never used
+in `maven-embedder/src/main/java/org/apache/maven/cli/CleanArgument.java`
 #### Snippet
 ```java
-                    e.namespace = buffer.get(0).namespace;
-                    e.prefix = buffer.get(0).prefix;
-                    buffer.add(pos++, e);
-                }
-                break;
-```
 
-### UnusedAssignment
-The value changed at `pos++` is never used
-in `maven-model-transform/src/main/java/org/apache/maven/model/transform/ParentXMLFilter.java`
-#### Snippet
-```java
-                    e.namespace = buffer.get(0).namespace;
-                    e.prefix = buffer.get(0).prefix;
-                    buffer.add(pos++, e);
-                }
-                break;
+                currentArg = null;
+                addedToBuffer = false;
+                continue;
+            }
 ```
 
 ## RuleId[id=ConstantValue]
+### ConstantValue
+Value `ret` is always 'true'
+in `maven-model/src/main/java/org/apache/maven/model/WrapperList.java`
+#### Snippet
+```java
+            boolean ret = list.add(revMapper.apply(t));
+            setter.accept(list);
+            return ret;
+        } else {
+            return getter.get().add(revMapper.apply(t));
+```
+
+### ConstantValue
+Value `artifactId` is always 'null'
+in `maven-artifact/src/main/java/org/apache/maven/artifact/DefaultArtifact.java`
+#### Snippet
+```java
+        if (artifactId == null) {
+            throw new InvalidArtifactRTException(
+                    groupId, artifactId, getVersion(), type, "The artifactId cannot be empty.");
+        }
+
+```
+
+### ConstantValue
+Value `type` is always 'null'
+in `maven-artifact/src/main/java/org/apache/maven/artifact/DefaultArtifact.java`
+#### Snippet
+```java
+
+        if (type == null) {
+            throw new InvalidArtifactRTException(groupId, artifactId, getVersion(), type, "The type cannot be empty.");
+        }
+
+```
+
 ### ConstantValue
 Condition `problems != null` is always `true`
 in `maven-toolchain-builder/src/main/java/org/apache/maven/toolchain/building/ToolchainsBuildingException.java`
@@ -13056,6 +13092,78 @@ in `maven-toolchain-builder/src/main/java/org/apache/maven/toolchain/building/To
         if (problems != null) {
             this.problems.addAll(problems);
         }
+```
+
+### ConstantValue
+Value `ret` is always 'true'
+in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperList.java`
+#### Snippet
+```java
+            boolean ret = list.add(revMapper.apply(t));
+            setter.accept(list);
+            return ret;
+        } else {
+            return getter.get().add(revMapper.apply(t));
+```
+
+### ConstantValue
+Value `lowerInclusive` is always 'true'
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRange.java`
+#### Snippet
+```java
+                        restrictions.add(new Restriction(lower, lowerInclusive, upper, upperInclusive));
+                    } else if (lowerInclusive && upperInclusive) {
+                        restrictions.add(new Restriction(lower, lowerInclusive, upper, upperInclusive));
+                    }
+
+```
+
+### ConstantValue
+Value `upperInclusive` is always 'true'
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRange.java`
+#### Snippet
+```java
+                        restrictions.add(new Restriction(lower, lowerInclusive, upper, upperInclusive));
+                    } else if (lowerInclusive && upperInclusive) {
+                        restrictions.add(new Restriction(lower, lowerInclusive, upper, upperInclusive));
+                    }
+
+```
+
+### ConstantValue
+Value `lowerBoundInclusive` is always 'true'
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRange.java`
+#### Snippet
+```java
+            ArtifactVersion version = new DefaultArtifactVersion(process);
+
+            restriction = new Restriction(version, lowerBoundInclusive, version, upperBoundInclusive);
+        } else {
+            String lowerBound = process.substring(0, index).trim();
+```
+
+### ConstantValue
+Value `upperBoundInclusive` is always 'true'
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRange.java`
+#### Snippet
+```java
+            ArtifactVersion version = new DefaultArtifactVersion(process);
+
+            restriction = new Restriction(version, lowerBoundInclusive, version, upperBoundInclusive);
+        } else {
+            String lowerBound = process.substring(0, index).trim();
+```
+
+### ConstantValue
+Value `l` is always 'null'
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java`
+#### Snippet
+```java
+
+                        // if this is shorter, then invert the compare and mul with -1
+                        int result = l == null ? (r == null ? 0 : -1 * r.compareTo(l)) : l.compareTo(r);
+
+                        if (result != 0) {
 ```
 
 ### ConstantValue
@@ -13119,27 +13227,27 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonMa
 ```
 
 ### ConstantValue
-Value `artifactId` is always 'null'
-in `maven-artifact/src/main/java/org/apache/maven/artifact/DefaultArtifact.java`
+Value `orgParser` is always 'null'
+in `maven-model-transform/src/main/java/org/apache/maven/model/transform/RawToConsumerPomXMLFilterFactory.java`
 #### Snippet
 ```java
-        if (artifactId == null) {
-            throw new InvalidArtifactRTException(
-                    groupId, artifactId, getVersion(), type, "The artifactId cannot be empty.");
-        }
+    public final XmlPullParser get(XmlPullParser orgParser, Path projectPath) {
+        // Ensure that xs:any elements aren't touched by next filters
+        XmlPullParser parser = orgParser instanceof FastForwardFilter ? orgParser : new FastForwardFilter(orgParser);
 
+        parser = buildPomXMLFilterFactory.get(parser, projectPath);
 ```
 
 ### ConstantValue
-Value `type` is always 'null'
-in `maven-artifact/src/main/java/org/apache/maven/artifact/DefaultArtifact.java`
+Value `orgParser` is always 'null'
+in `maven-model-transform/src/main/java/org/apache/maven/model/transform/BuildToRawPomXMLFilterFactory.java`
 #### Snippet
 ```java
 
-        if (type == null) {
-            throw new InvalidArtifactRTException(groupId, artifactId, getVersion(), type, "The type cannot be empty.");
-        }
+        // Ensure that xs:any elements aren't touched by next filters
+        XmlPullParser parser = orgParser instanceof FastForwardFilter ? orgParser : new FastForwardFilter(orgParser);
 
+        if (getDependencyKeyToVersionMapper() != null) {
 ```
 
 ### ConstantValue
@@ -13155,114 +13263,6 @@ in `maven-settings/src/main/java/org/apache/maven/settings/WrapperList.java`
 ```
 
 ### ConstantValue
-Value `l` is always 'null'
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java`
-#### Snippet
-```java
-
-                        // if this is shorter, then invert the compare and mul with -1
-                        int result = l == null ? (r == null ? 0 : -1 * r.compareTo(l)) : l.compareTo(r);
-
-                        if (result != 0) {
-```
-
-### ConstantValue
-Value `lowerBoundInclusive` is always 'true'
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRange.java`
-#### Snippet
-```java
-            ArtifactVersion version = new DefaultArtifactVersion(process);
-
-            restriction = new Restriction(version, lowerBoundInclusive, version, upperBoundInclusive);
-        } else {
-            String lowerBound = process.substring(0, index).trim();
-```
-
-### ConstantValue
-Value `upperBoundInclusive` is always 'true'
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRange.java`
-#### Snippet
-```java
-            ArtifactVersion version = new DefaultArtifactVersion(process);
-
-            restriction = new Restriction(version, lowerBoundInclusive, version, upperBoundInclusive);
-        } else {
-            String lowerBound = process.substring(0, index).trim();
-```
-
-### ConstantValue
-Value `lowerInclusive` is always 'true'
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRange.java`
-#### Snippet
-```java
-                        restrictions.add(new Restriction(lower, lowerInclusive, upper, upperInclusive));
-                    } else if (lowerInclusive && upperInclusive) {
-                        restrictions.add(new Restriction(lower, lowerInclusive, upper, upperInclusive));
-                    }
-
-```
-
-### ConstantValue
-Value `upperInclusive` is always 'true'
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/VersionRange.java`
-#### Snippet
-```java
-                        restrictions.add(new Restriction(lower, lowerInclusive, upper, upperInclusive));
-                    } else if (lowerInclusive && upperInclusive) {
-                        restrictions.add(new Restriction(lower, lowerInclusive, upper, upperInclusive));
-                    }
-
-```
-
-### ConstantValue
-Value `ret` is always 'true'
-in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperList.java`
-#### Snippet
-```java
-            boolean ret = list.add(revMapper.apply(t));
-            setter.accept(list);
-            return ret;
-        } else {
-            return getter.get().add(revMapper.apply(t));
-```
-
-### ConstantValue
-Condition `currentArg != null` is always `true`
-in `maven-embedder/src/main/java/org/apache/maven/cli/CleanArgument.java`
-#### Snippet
-```java
-
-                // if we're building an argument, keep doing so.
-                if (currentArg != null) {
-                    // if this is the case of "-Dfoo=bar", then we need to adjust the buffer.
-                    if (addedToBuffer) {
-```
-
-### ConstantValue
-Condition `addedToBuffer` is always `true`
-in `maven-embedder/src/main/java/org/apache/maven/cli/CleanArgument.java`
-#### Snippet
-```java
-                if (currentArg != null) {
-                    // if this is the case of "-Dfoo=bar", then we need to adjust the buffer.
-                    if (addedToBuffer) {
-                        currentArg.setLength(currentArg.length() - 1);
-                    }
-```
-
-### ConstantValue
-Value `transitive` is always 'true'
-in `maven-core/src/main/java/org/apache/maven/graph/DefaultProjectDependencyGraph.java`
-#### Snippet
-```java
-        for (String id : sorter.getDependencies(projectId)) {
-            if (projectIds.add(id) && transitive) {
-                getUpstreamProjects(id, projectIds, transitive);
-            }
-        }
-```
-
-### ConstantValue
 Value `transitive` is always 'true'
 in `maven-core/src/main/java/org/apache/maven/graph/DefaultProjectDependencyGraph.java`
 #### Snippet
@@ -13275,15 +13275,15 @@ in `maven-core/src/main/java/org/apache/maven/graph/DefaultProjectDependencyGrap
 ```
 
 ### ConstantValue
-Condition `referenceKey != null` is always `true`
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+Value `transitive` is always 'true'
+in `maven-core/src/main/java/org/apache/maven/graph/DefaultProjectDependencyGraph.java`
 #### Snippet
 ```java
-        String msg = summary.getMessage();
-
-        if (referenceKey != null && !referenceKey.isEmpty()) {
-            if (msg.indexOf('\n') < 0) {
-                msg += " -> " + buffer().strong(referenceKey);
+        for (String id : sorter.getDependencies(projectId)) {
+            if (projectIds.add(id) && transitive) {
+                getUpstreamProjects(id, projectIds, transitive);
+            }
+        }
 ```
 
 ### ConstantValue
@@ -13347,18 +13347,6 @@ in `maven-core/src/main/java/org/apache/maven/project/collector/DefaultProjectsS
 ```
 
 ### ConstantValue
-Condition `repositorySystem != null` is always `true`
-in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuilder.java`
-#### Snippet
-```java
-        // managedVersionMap
-        Map<String, Artifact> map = null;
-        if (repositorySystem != null) {
-            final DependencyManagement dependencyManagement = project.getDependencyManagement();
-            if ((dependencyManagement != null)
-```
-
-### ConstantValue
 Value `recursive` is always 'true'
 in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuilder.java`
 #### Snippet
@@ -13368,6 +13356,18 @@ in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuilder.java
                     recursive,
                     config,
                     poolBuilder)) {
+```
+
+### ConstantValue
+Condition `repositorySystem != null` is always `true`
+in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuilder.java`
+#### Snippet
+```java
+        // managedVersionMap
+        Map<String, Artifact> map = null;
+        if (repositorySystem != null) {
+            final DependencyManagement dependencyManagement = project.getDependencyManagement();
+            if ((dependencyManagement != null)
 ```
 
 ### ConstantValue
@@ -13551,18 +13551,6 @@ in `maven-core/src/main/java/org/apache/maven/exception/DefaultExceptionHandler.
 ```
 
 ### ConstantValue
-Value `aggregating` is always 'true'
-in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/MojoExecutor.java`
-#### Snippet
-```java
-                                scopesToResolve,
-                                session,
-                                aggregating,
-                                Collections.emptySet());
-                    }
-```
-
-### ConstantValue
 Value `recordArtifacts` is always 'null'
 in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/LifecycleDependencyResolver.java`
 #### Snippet
@@ -13584,6 +13572,18 @@ in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/builder/multith
                         analyzer, reactorContext, session, service, taskSegment, projectBuildMap, muxer);
                 if (reactorContext.getReactorBuildStatus().isHalted()) {
                     break;
+```
+
+### ConstantValue
+Value `aggregating` is always 'true'
+in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/MojoExecutor.java`
+#### Snippet
+```java
+                                scopesToResolve,
+                                session,
+                                aggregating,
+                                Collections.emptySet());
+                    }
 ```
 
 ### ConstantValue
@@ -13611,6 +13611,42 @@ in `maven-core/src/main/java/org/apache/maven/configuration/internal/DefaultBean
 ```
 
 ### ConstantValue
+Condition `currentArg != null` is always `true`
+in `maven-embedder/src/main/java/org/apache/maven/cli/CleanArgument.java`
+#### Snippet
+```java
+
+                // if we're building an argument, keep doing so.
+                if (currentArg != null) {
+                    // if this is the case of "-Dfoo=bar", then we need to adjust the buffer.
+                    if (addedToBuffer) {
+```
+
+### ConstantValue
+Condition `addedToBuffer` is always `true`
+in `maven-embedder/src/main/java/org/apache/maven/cli/CleanArgument.java`
+#### Snippet
+```java
+                if (currentArg != null) {
+                    // if this is the case of "-Dfoo=bar", then we need to adjust the buffer.
+                    if (addedToBuffer) {
+                        currentArg.setLength(currentArg.length() - 1);
+                    }
+```
+
+### ConstantValue
+Condition `referenceKey != null` is always `true`
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+        String msg = summary.getMessage();
+
+        if (referenceKey != null && !referenceKey.isEmpty()) {
+            if (msg.indexOf('\n') < 0) {
+                msg += " -> " + buffer().strong(referenceKey);
+```
+
+### ConstantValue
 Condition `problems != null` is always `true`
 in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/SettingsBuildingException.java`
 #### Snippet
@@ -13622,58 +13658,34 @@ in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/Sett
         }
 ```
 
-### ConstantValue
-Value `orgParser` is always 'null'
-in `maven-model-transform/src/main/java/org/apache/maven/model/transform/RawToConsumerPomXMLFilterFactory.java`
-#### Snippet
-```java
-    public final XmlPullParser get(XmlPullParser orgParser, Path projectPath) {
-        // Ensure that xs:any elements aren't touched by next filters
-        XmlPullParser parser = orgParser instanceof FastForwardFilter ? orgParser : new FastForwardFilter(orgParser);
-
-        parser = buildPomXMLFilterFactory.get(parser, projectPath);
-```
-
-### ConstantValue
-Value `orgParser` is always 'null'
-in `maven-model-transform/src/main/java/org/apache/maven/model/transform/BuildToRawPomXMLFilterFactory.java`
-#### Snippet
-```java
-
-        // Ensure that xs:any elements aren't touched by next filters
-        XmlPullParser parser = orgParser instanceof FastForwardFilter ? orgParser : new FastForwardFilter(orgParser);
-
-        if (getDependencyKeyToVersionMapper() != null) {
-```
-
-### ConstantValue
-Value `ret` is always 'true'
-in `maven-model/src/main/java/org/apache/maven/model/WrapperList.java`
-#### Snippet
-```java
-            boolean ret = list.add(revMapper.apply(t));
-            setter.accept(list);
-            return ret;
-        } else {
-            return getter.get().add(revMapper.apply(t));
-```
-
 ## RuleId[id=UNCHECKED_WARNING]
 ### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Set' to 'java.util.Set'
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
+Unchecked assignment: 'java.util.Enumeration' to 'java.util.Enumeration'
+in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
 #### Snippet
 ```java
     @Override
-    public Set<Object> keySet() {
-        return (Set) getter.get().keySet();
+    public Enumeration<Object> elements() {
+        return Collections.enumeration((Collection) getter.get().values());
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Collection' to 'java.util.Collection'
+in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+#### Snippet
+```java
+    @Override
+    public Enumeration<Object> elements() {
+        return Collections.enumeration((Collection) getter.get().values());
     }
 
 ```
 
 ### UNCHECKED_WARNING
 Unchecked assignment: 'java.util.Enumeration' to 'java.util.Enumeration'
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
+in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
 #### Snippet
 ```java
     @Override
@@ -13685,7 +13697,7 @@ in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.jav
 
 ### UNCHECKED_WARNING
 Unchecked assignment: 'java.util.Set' to 'java.util.Collection'
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
+in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
 #### Snippet
 ```java
     @Override
@@ -13696,8 +13708,32 @@ in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.jav
 ```
 
 ### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Set' to 'java.util.Set'
+in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+#### Snippet
+```java
+    @Override
+    public Set<Object> keySet() {
+        return (Set) getter.get().keySet();
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Collection' to 'java.util.Collection'
+in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+#### Snippet
+```java
+    @Override
+    public Collection<Object> values() {
+        return (Collection) getter.get().values();
+    }
+
+```
+
+### UNCHECKED_WARNING
 Unchecked assignment: 'java.util.Set' to 'java.util.Set\>'
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
+in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
 #### Snippet
 ```java
     @Override
@@ -13708,32 +13744,8 @@ in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.jav
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Enumeration' to 'java.util.Enumeration'
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
-#### Snippet
-```java
-    @Override
-    public Enumeration<Object> elements() {
-        return Collections.enumeration((Collection) getter.get().values());
-    }
-
-```
-
-### UNCHECKED_WARNING
 Unchecked assignment: 'java.util.Collection' to 'java.util.Collection'
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
-#### Snippet
-```java
-    @Override
-    public Enumeration<Object> elements() {
-        return Collections.enumeration((Collection) getter.get().values());
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Collection' to 'java.util.Collection'
-in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
+in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
 #### Snippet
 ```java
     @Override
@@ -13756,30 +13768,6 @@ in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/Wrapper
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Enumeration' to 'java.util.Enumeration'
-in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
-#### Snippet
-```java
-    @Override
-    public Enumeration<Object> elements() {
-        return Collections.enumeration((Collection) getter.get().values());
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Collection' to 'java.util.Collection'
-in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
-#### Snippet
-```java
-    @Override
-    public Enumeration<Object> elements() {
-        return Collections.enumeration((Collection) getter.get().values());
-    }
-
-```
-
-### UNCHECKED_WARNING
 Unchecked assignment: 'java.util.Set' to 'java.util.Set\>'
 in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
 #### Snippet
@@ -13787,18 +13775,6 @@ in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/Wrapper
     @Override
     public Set<Map.Entry<Object, Object>> entrySet() {
         return (Set) getter.get().entrySet();
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Collection' to 'java.util.Collection'
-in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
-#### Snippet
-```java
-    @Override
-    public Collection<Object> values() {
-        return (Collection) getter.get().values();
     }
 
 ```
@@ -13828,171 +13804,111 @@ in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/Wrapper
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.HashMap' to 'java.util.Map'
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/ArtifactDescriptorReaderDelegate.java`
+Unchecked assignment: 'java.util.Enumeration' to 'java.util.Enumeration'
+in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
 #### Snippet
 ```java
-        if (downloadUrl != null && downloadUrl.length() > 0) {
-            Artifact artifact = result.getArtifact();
-            Map<String, String> props = new HashMap<>(artifact.getProperties());
-            props.put(ArtifactProperties.DOWNLOAD_URL, downloadUrl);
-            result.setArtifact(artifact.setProperties(props));
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/ArtifactDescriptorReaderDelegate.java`
-#### Snippet
-```java
-                stereotype);
-
-        List<Exclusion> exclusions = new ArrayList<>(dependency.getExclusions().size());
-        for (org.apache.maven.model.Exclusion exclusion : dependency.getExclusions()) {
-            exclusions.add(convert(exclusion));
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'ArrayList(Collection)' as a member of raw type 'java.util.ArrayList'
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/LocalSnapshotMetadata.java`
-#### Snippet
-```java
-            }
-
-            metadata.getVersioning().setSnapshotVersions(new ArrayList<>(versions.values()));
-        }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.LinkedHashSet' to 'java.util.Collection'
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/VersionsMetadata.java`
-#### Snippet
-```java
-
-            Collection<String> versions =
-                    new LinkedHashSet<>(recessive.getVersioning().getVersions());
-            versions.addAll(versioning.getVersions());
-            versioning.setVersions(new ArrayList<>(versions));
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'ArrayList(Collection)' as a member of raw type 'java.util.ArrayList'
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/PluginsMetadata.java`
-#### Snippet
-```java
-            recessivePlugins.forEach(p -> mergedPlugins.put(p.getPrefix(), p));
-            plugins.forEach(p -> mergedPlugins.put(p.getPrefix(), p));
-            metadata.setPlugins(new ArrayList<>(mergedPlugins.values()));
-        }
+    @Override
+    public Enumeration<Object> elements() {
+        return Collections.enumeration((Collection) getter.get().values());
     }
+
 ```
 
 ### UNCHECKED_WARNING
-Unchecked call to 'ArrayList(Collection)' as a member of raw type 'java.util.ArrayList'
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/RemoteSnapshotMetadata.java`
+Unchecked assignment: 'java.util.Collection' to 'java.util.Collection'
+in `maven-toolchain-model/src/main/java/org/apache/maven/toolchain/model/WrapperProperties.java`
 #### Snippet
 ```java
-
-        if (!legacyFormat) {
-            metadata.getVersioning().setSnapshotVersions(new ArrayList<>(versions.values()));
-        }
+    @Override
+    public Enumeration<Object> elements() {
+        return Collections.enumeration((Collection) getter.get().values());
     }
+
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Map' to 'java.util.Map'
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultModelCache.java`
+Unchecked assignment: 'java.util.Collection' to 'java.util.Collection'
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
 #### Snippet
 ```java
-            cache = new ConcurrentHashMap<>();
-        } else {
-            cache = (Map) session.getCache().get(session, KEY);
-            if (cache == null) {
-                cache = new ConcurrentHashMap<>();
+    @Override
+    public Collection<Object> values() {
+        return (Collection) getter.get().values();
+    }
+
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultVersionRangeResolver.java`
+Unchecked assignment: 'java.util.Enumeration' to 'java.util.Enumeration'
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
 #### Snippet
 ```java
+    @Override
+    public Enumeration<Object> elements() {
+        return Collections.enumeration((Collection) getter.get().values());
+    }
 
-        List<MetadataRequest> metadataRequests =
-                new ArrayList<>(request.getRepositories().size());
-
-        metadataRequests.add(new MetadataRequest(metadata, null, request.getRequestContext()));
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultModelResolver.java`
+Unchecked assignment: 'java.util.Collection' to 'java.util.Collection'
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
 #### Snippet
 ```java
-        this.remoteRepositoryManager = remoteRepositoryManager;
-        this.repositories = repositories;
-        this.externalRepositories = Collections.unmodifiableList(new ArrayList<>(repositories));
+    @Override
+    public Enumeration<Object> elements() {
+        return Collections.enumeration((Collection) getter.get().values());
+    }
 
-        this.repositoryIds = new HashSet<>();
 ```
 
 ### UNCHECKED_WARNING
-Unchecked call to 'ArrayList(Collection)' as a member of raw type 'java.util.ArrayList'
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultModelResolver.java`
+Unchecked assignment: 'java.util.Set' to 'java.util.Set\>'
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
 #### Snippet
 ```java
-        this.remoteRepositoryManager = remoteRepositoryManager;
-        this.repositories = repositories;
-        this.externalRepositories = Collections.unmodifiableList(new ArrayList<>(repositories));
+    @Override
+    public Set<Map.Entry<Object, Object>> entrySet() {
+        return (Set) getter.get().entrySet();
+    }
 
-        this.repositoryIds = new HashSet<>();
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultModelResolver.java`
+Unchecked assignment: 'java.util.Enumeration' to 'java.util.Enumeration'
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
 #### Snippet
 ```java
-        this.versionRangeResolver = original.versionRangeResolver;
-        this.remoteRepositoryManager = original.remoteRepositoryManager;
-        this.repositories = new ArrayList<>(original.repositories);
-        this.externalRepositories = original.externalRepositories;
-        this.repositoryIds = new HashSet<>(original.repositoryIds);
+    @Override
+    public Enumeration<Object> keys() {
+        return Collections.enumeration((Set) getter.get().keySet());
+    }
+
 ```
 
 ### UNCHECKED_WARNING
-Unchecked call to 'ArrayList(Collection)' as a member of raw type 'java.util.ArrayList'
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultModelResolver.java`
+Unchecked assignment: 'java.util.Set' to 'java.util.Collection'
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
 #### Snippet
 ```java
-        this.versionRangeResolver = original.versionRangeResolver;
-        this.remoteRepositoryManager = original.remoteRepositoryManager;
-        this.repositories = new ArrayList<>(original.repositories);
-        this.externalRepositories = original.externalRepositories;
-        this.repositoryIds = new HashSet<>(original.repositoryIds);
+    @Override
+    public Enumeration<Object> keys() {
+        return Collections.enumeration((Set) getter.get().keySet());
+    }
+
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultVersionResolver.java`
+Unchecked assignment: 'java.util.Set' to 'java.util.Set'
+in `maven-settings/src/main/java/org/apache/maven/settings/WrapperProperties.java`
 #### Snippet
 ```java
-        } else {
-            List<MetadataRequest> metadataReqs =
-                    new ArrayList<>(request.getRepositories().size());
+    @Override
+    public Set<Object> keySet() {
+        return (Set) getter.get().keySet();
+    }
 
-            metadataReqs.add(new MetadataRequest(metadata, null, request.getRequestContext()));
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultVersionResolver.java`
-#### Snippet
-```java
-            WorkspaceReader reader = session.getWorkspaceReader();
-            workspace = (reader != null) ? reader.getRepository() : null;
-            repositories = new ArrayList<>(request.getRepositories().size());
-            boolean repoMan = false;
-            for (RemoteRepository repository : request.getRepositories()) {
 ```
 
 ### UNCHECKED_WARNING
@@ -14129,30 +14045,6 @@ in `maven-core/src/main/java/org/apache/maven/project/ProjectModelResolver.java`
 
 ### UNCHECKED_WARNING
 Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
-in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuildingRequest.java`
-#### Snippet
-```java
-    public void setProfiles(List<Profile> profiles) {
-        if (profiles != null) {
-            this.profiles = new ArrayList<>(profiles);
-        } else {
-            this.profiles.clear();
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'ArrayList(Collection)' as a member of raw type 'java.util.ArrayList'
-in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuildingRequest.java`
-#### Snippet
-```java
-    public void setProfiles(List<Profile> profiles) {
-        if (profiles != null) {
-            this.profiles = new ArrayList<>(profiles);
-        } else {
-            this.profiles.clear();
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
 in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultMavenPluginManager.java`
 #### Snippet
 ```java
@@ -14188,6 +14080,30 @@ in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultMavenPlugin
 ```
 
 ### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
+in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuildingRequest.java`
+#### Snippet
+```java
+    public void setProfiles(List<Profile> profiles) {
+        if (profiles != null) {
+            this.profiles = new ArrayList<>(profiles);
+        } else {
+            this.profiles.clear();
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'ArrayList(Collection)' as a member of raw type 'java.util.ArrayList'
+in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuildingRequest.java`
+#### Snippet
+```java
+    public void setProfiles(List<Profile> profiles) {
+        if (profiles != null) {
+            this.profiles = new ArrayList<>(profiles);
+        } else {
+            this.profiles.clear();
+```
+
+### UNCHECKED_WARNING
 Unchecked cast: 'capture' to 'T'
 in `maven-core/src/main/java/org/apache/maven/execution/scope/internal/MojoExecutionScope.java`
 #### Snippet
@@ -14216,11 +14132,11 @@ Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
 in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
 #### Snippet
 ```java
-    public MavenExecutionRequest setProxies(List<Proxy> proxies) {
-        if (proxies != null) {
-            this.proxies = new ArrayList<>(proxies);
+    public MavenExecutionRequest setProfiles(List<Profile> profiles) {
+        if (profiles != null) {
+            this.profiles = new ArrayList<>(profiles);
         } else {
-            this.proxies = null;
+            this.profiles = null;
 ```
 
 ### UNCHECKED_WARNING
@@ -14228,11 +14144,11 @@ Unchecked call to 'ArrayList(Collection)' as a member of raw type 'java.util.Arr
 in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
 #### Snippet
 ```java
-    public MavenExecutionRequest setProxies(List<Proxy> proxies) {
-        if (proxies != null) {
-            this.proxies = new ArrayList<>(proxies);
+    public MavenExecutionRequest setProfiles(List<Profile> profiles) {
+        if (profiles != null) {
+            this.profiles = new ArrayList<>(profiles);
         } else {
-            this.proxies = null;
+            this.profiles = null;
 ```
 
 ### UNCHECKED_WARNING
@@ -14264,11 +14180,11 @@ Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
 in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
 #### Snippet
 ```java
-    public MavenExecutionRequest setProfiles(List<Profile> profiles) {
-        if (profiles != null) {
-            this.profiles = new ArrayList<>(profiles);
+    public MavenExecutionRequest setProxies(List<Proxy> proxies) {
+        if (proxies != null) {
+            this.proxies = new ArrayList<>(proxies);
         } else {
-            this.profiles = null;
+            this.proxies = null;
 ```
 
 ### UNCHECKED_WARNING
@@ -14276,11 +14192,11 @@ Unchecked call to 'ArrayList(Collection)' as a member of raw type 'java.util.Arr
 in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionRequest.java`
 #### Snippet
 ```java
-    public MavenExecutionRequest setProfiles(List<Profile> profiles) {
-        if (profiles != null) {
-            this.profiles = new ArrayList<>(profiles);
+    public MavenExecutionRequest setProxies(List<Proxy> proxies) {
+        if (proxies != null) {
+            this.proxies = new ArrayList<>(proxies);
         } else {
-            this.profiles = null;
+            this.proxies = null;
 ```
 
 ### UNCHECKED_WARNING
@@ -14380,90 +14296,402 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultMod
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Enumeration' to 'java.util.Enumeration'
-in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+Unchecked call to 'ArrayList(Collection)' as a member of raw type 'java.util.ArrayList'
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/LocalSnapshotMetadata.java`
 #### Snippet
 ```java
-    @Override
-    public Enumeration<Object> keys() {
-        return Collections.enumeration((Set) getter.get().keySet());
-    }
+            }
+
+            metadata.getVersioning().setSnapshotVersions(new ArrayList<>(versions.values()));
+        }
 
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Set' to 'java.util.Collection'
-in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+Unchecked assignment: 'java.util.HashMap' to 'java.util.Map'
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/ArtifactDescriptorReaderDelegate.java`
 #### Snippet
 ```java
-    @Override
-    public Enumeration<Object> keys() {
-        return Collections.enumeration((Set) getter.get().keySet());
-    }
-
+        if (downloadUrl != null && downloadUrl.length() > 0) {
+            Artifact artifact = result.getArtifact();
+            Map<String, String> props = new HashMap<>(artifact.getProperties());
+            props.put(ArtifactProperties.DOWNLOAD_URL, downloadUrl);
+            result.setArtifact(artifact.setProperties(props));
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Set' to 'java.util.Set\>'
-in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/ArtifactDescriptorReaderDelegate.java`
 #### Snippet
 ```java
-    @Override
-    public Set<Map.Entry<Object, Object>> entrySet() {
-        return (Set) getter.get().entrySet();
-    }
+                stereotype);
 
+        List<Exclusion> exclusions = new ArrayList<>(dependency.getExclusions().size());
+        for (org.apache.maven.model.Exclusion exclusion : dependency.getExclusions()) {
+            exclusions.add(convert(exclusion));
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Enumeration' to 'java.util.Enumeration'
-in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+Unchecked assignment: 'java.util.LinkedHashSet' to 'java.util.Collection'
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/VersionsMetadata.java`
 #### Snippet
 ```java
-    @Override
-    public Enumeration<Object> elements() {
-        return Collections.enumeration((Collection) getter.get().values());
-    }
 
+            Collection<String> versions =
+                    new LinkedHashSet<>(recessive.getVersioning().getVersions());
+            versions.addAll(versioning.getVersions());
+            versioning.setVersions(new ArrayList<>(versions));
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Collection' to 'java.util.Collection'
-in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultVersionRangeResolver.java`
 #### Snippet
 ```java
-    @Override
-    public Enumeration<Object> elements() {
-        return Collections.enumeration((Collection) getter.get().values());
-    }
 
+        List<MetadataRequest> metadataRequests =
+                new ArrayList<>(request.getRepositories().size());
+
+        metadataRequests.add(new MetadataRequest(metadata, null, request.getRequestContext()));
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Set' to 'java.util.Set'
-in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+Unchecked call to 'ArrayList(Collection)' as a member of raw type 'java.util.ArrayList'
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/PluginsMetadata.java`
 #### Snippet
 ```java
-    @Override
-    public Set<Object> keySet() {
-        return (Set) getter.get().keySet();
+            recessivePlugins.forEach(p -> mergedPlugins.put(p.getPrefix(), p));
+            plugins.forEach(p -> mergedPlugins.put(p.getPrefix(), p));
+            metadata.setPlugins(new ArrayList<>(mergedPlugins.values()));
+        }
     }
-
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Collection' to 'java.util.Collection'
-in `maven-model/src/main/java/org/apache/maven/model/WrapperProperties.java`
+Unchecked call to 'ArrayList(Collection)' as a member of raw type 'java.util.ArrayList'
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/RemoteSnapshotMetadata.java`
 #### Snippet
 ```java
-    @Override
-    public Collection<Object> values() {
-        return (Collection) getter.get().values();
-    }
 
+        if (!legacyFormat) {
+            metadata.getVersioning().setSnapshotVersions(new ArrayList<>(versions.values()));
+        }
+    }
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultVersionResolver.java`
+#### Snippet
+```java
+            WorkspaceReader reader = session.getWorkspaceReader();
+            workspace = (reader != null) ? reader.getRepository() : null;
+            repositories = new ArrayList<>(request.getRepositories().size());
+            boolean repoMan = false;
+            for (RemoteRepository repository : request.getRepositories()) {
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultVersionResolver.java`
+#### Snippet
+```java
+        } else {
+            List<MetadataRequest> metadataReqs =
+                    new ArrayList<>(request.getRepositories().size());
+
+            metadataReqs.add(new MetadataRequest(metadata, null, request.getRequestContext()));
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Map' to 'java.util.Map'
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultModelCache.java`
+#### Snippet
+```java
+            cache = new ConcurrentHashMap<>();
+        } else {
+            cache = (Map) session.getCache().get(session, KEY);
+            if (cache == null) {
+                cache = new ConcurrentHashMap<>();
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultModelResolver.java`
+#### Snippet
+```java
+        this.remoteRepositoryManager = remoteRepositoryManager;
+        this.repositories = repositories;
+        this.externalRepositories = Collections.unmodifiableList(new ArrayList<>(repositories));
+
+        this.repositoryIds = new HashSet<>();
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'ArrayList(Collection)' as a member of raw type 'java.util.ArrayList'
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultModelResolver.java`
+#### Snippet
+```java
+        this.remoteRepositoryManager = remoteRepositoryManager;
+        this.repositories = repositories;
+        this.externalRepositories = Collections.unmodifiableList(new ArrayList<>(repositories));
+
+        this.repositoryIds = new HashSet<>();
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultModelResolver.java`
+#### Snippet
+```java
+        this.versionRangeResolver = original.versionRangeResolver;
+        this.remoteRepositoryManager = original.remoteRepositoryManager;
+        this.repositories = new ArrayList<>(original.repositories);
+        this.externalRepositories = original.externalRepositories;
+        this.repositoryIds = new HashSet<>(original.repositoryIds);
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'ArrayList(Collection)' as a member of raw type 'java.util.ArrayList'
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultModelResolver.java`
+#### Snippet
+```java
+        this.versionRangeResolver = original.versionRangeResolver;
+        this.remoteRepositoryManager = original.remoteRepositoryManager;
+        this.repositories = new ArrayList<>(original.repositories);
+        this.externalRepositories = original.externalRepositories;
+        this.repositoryIds = new HashSet<>(original.repositoryIds);
 ```
 
 ## RuleId[id=JavadocReference]
+### JavadocReference
+Cannot resolve symbol `XmlPullParserException`
+in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3Reader.java`
+#### Snippet
+```java
+     * @param strict a strict object.
+     * @throws IOException IOException if any.
+     * @throws XmlPullParserException XmlPullParserException if
+     * any.
+     * @return Model
+```
+
+### JavadocReference
+Cannot resolve symbol `ReaderFactory`
+in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3Reader.java`
+#### Snippet
+```java
+
+    /**
+     * @see ReaderFactory#newXmlReader
+     *
+     * @param reader a reader object.
+```
+
+### JavadocReference
+Cannot resolve symbol `newXmlReader`
+in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3Reader.java`
+#### Snippet
+```java
+
+    /**
+     * @see ReaderFactory#newXmlReader
+     *
+     * @param reader a reader object.
+```
+
+### JavadocReference
+Cannot resolve symbol `XmlPullParserException`
+in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3Reader.java`
+#### Snippet
+```java
+     * @param reader a reader object.
+     * @throws IOException IOException if any.
+     * @throws XmlPullParserException XmlPullParserException if
+     * any.
+     * @return Model
+```
+
+### JavadocReference
+Cannot resolve symbol `XmlPullParserException`
+in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3Reader.java`
+#### Snippet
+```java
+     * @param in a in object.
+     * @throws IOException IOException if any.
+     * @throws XmlPullParserException XmlPullParserException if
+     * any.
+     * @return Model
+```
+
+### JavadocReference
+Cannot resolve symbol `XmlPullParserException`
+in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3Reader.java`
+#### Snippet
+```java
+     * @param strict a strict object.
+     * @throws IOException IOException if any.
+     * @throws XmlPullParserException XmlPullParserException if
+     * any.
+     * @return Model
+```
+
+### JavadocReference
+Cannot resolve symbol `ReaderFactory`
+in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3Reader.java`
+#### Snippet
+```java
+
+    /**
+     * @see ReaderFactory#newXmlReader
+     *
+     * @param reader a reader object.
+```
+
+### JavadocReference
+Cannot resolve symbol `newXmlReader`
+in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3Reader.java`
+#### Snippet
+```java
+
+    /**
+     * @see ReaderFactory#newXmlReader
+     *
+     * @param reader a reader object.
+```
+
+### JavadocReference
+Cannot resolve symbol `XmlPullParserException`
+in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3Reader.java`
+#### Snippet
+```java
+     * @param strict a strict object.
+     * @throws IOException IOException if any.
+     * @throws XmlPullParserException XmlPullParserException if
+     * any.
+     * @return Model
+```
+
+### JavadocReference
+Cannot resolve symbol `ReaderFactory`
+in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3ReaderEx.java`
+#### Snippet
+```java
+
+    /**
+     * @see ReaderFactory#newXmlReader
+     *
+     * @param reader a reader object.
+```
+
+### JavadocReference
+Cannot resolve symbol `newXmlReader`
+in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3ReaderEx.java`
+#### Snippet
+```java
+
+    /**
+     * @see ReaderFactory#newXmlReader
+     *
+     * @param reader a reader object.
+```
+
+### JavadocReference
+Cannot resolve symbol `XmlPullParserException`
+in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3ReaderEx.java`
+#### Snippet
+```java
+     * @param strict a strict object.
+     * @throws IOException IOException if any.
+     * @throws XmlPullParserException XmlPullParserException if
+     * any.
+     * @return Model
+```
+
+### JavadocReference
+Cannot resolve symbol `XmlPullParserException`
+in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3ReaderEx.java`
+#### Snippet
+```java
+     * @param strict a strict object.
+     * @throws IOException IOException if any.
+     * @throws XmlPullParserException XmlPullParserException if
+     * any.
+     * @return Model
+```
+
+### JavadocReference
+Cannot resolve symbol `XmlPullParserException`
+in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3ReaderEx.java`
+#### Snippet
+```java
+     * @param in a in object.
+     * @throws IOException IOException if any.
+     * @throws XmlPullParserException XmlPullParserException if
+     * any.
+     * @return Model
+```
+
+### JavadocReference
+Cannot resolve symbol `ReaderFactory`
+in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3ReaderEx.java`
+#### Snippet
+```java
+
+    /**
+     * @see ReaderFactory#newXmlReader
+     *
+     * @param reader a reader object.
+```
+
+### JavadocReference
+Cannot resolve symbol `newXmlReader`
+in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3ReaderEx.java`
+#### Snippet
+```java
+
+    /**
+     * @see ReaderFactory#newXmlReader
+     *
+     * @param reader a reader object.
+```
+
+### JavadocReference
+Cannot resolve symbol `XmlPullParserException`
+in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3ReaderEx.java`
+#### Snippet
+```java
+     * @param reader a reader object.
+     * @throws IOException IOException if any.
+     * @throws XmlPullParserException XmlPullParserException if
+     * any.
+     * @return Model
+```
+
+### JavadocReference
+Cannot resolve symbol `XmlPullParserException`
+in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3ReaderEx.java`
+#### Snippet
+```java
+     * @param strict a strict object.
+     * @throws IOException IOException if any.
+     * @throws XmlPullParserException XmlPullParserException if
+     * any.
+     * @return Model
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.maven.api.model.Model`
+in `api/maven-api-model/src/main/java/org/apache/maven/api/model/package-info.java`
+#### Snippet
+```java
+/**
+ * Maven Immutable POM (Project Object Model) classes, generated from <code>maven.mdo</code> model.
+ * The root class is {@link org.apache.maven.api.model.Model}.
+ */
+package org.apache.maven.api.model;
+```
+
 ### JavadocReference
 Cannot resolve symbol `Model`
 in `maven-compat/src/main/java/org/apache/maven/project/interpolation/ModelInterpolator.java`
@@ -14538,50 +14766,38 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonMa
 
 ### JavadocReference
 Cannot resolve symbol `XmlPullParserException`
-in `maven-settings/src/main/java/org/apache/maven/settings/io/xpp3/SettingsXpp3Reader.java`
+in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/XmlNodeBuilder.java`
 #### Snippet
 ```java
-     * @param strict a strict object.
-     * @throws IOException IOException if any.
-     * @throws XmlPullParserException XmlPullParserException if
-     * any.
-     * @return Settings
-```
-
-### JavadocReference
-Cannot resolve symbol `ReaderFactory`
-in `maven-settings/src/main/java/org/apache/maven/settings/io/xpp3/SettingsXpp3Reader.java`
-#### Snippet
-```java
-
-    /**
-     * @see ReaderFactory#newXmlReader
-     *
-     * @param reader a reader object.
-```
-
-### JavadocReference
-Cannot resolve symbol `newXmlReader`
-in `maven-settings/src/main/java/org/apache/maven/settings/io/xpp3/SettingsXpp3Reader.java`
-#### Snippet
-```java
-
-    /**
-     * @see ReaderFactory#newXmlReader
-     *
-     * @param reader a reader object.
+     * @param trim do trim
+     * @return DOM
+     * @throws XmlPullParserException xml exception
+     * @throws IOException io
+     */
 ```
 
 ### JavadocReference
 Cannot resolve symbol `XmlPullParserException`
-in `maven-settings/src/main/java/org/apache/maven/settings/io/xpp3/SettingsXpp3Reader.java`
+in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/XmlNodeBuilder.java`
 #### Snippet
 ```java
-     * @param reader a reader object.
-     * @throws IOException IOException if any.
-     * @throws XmlPullParserException XmlPullParserException if
-     * any.
-     * @return Model
+     * @since 3.2.0
+     * @return DOM
+     * @throws XmlPullParserException xml exception
+     * @throws IOException io
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `XmlPullParserException`
+in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/XmlNodeBuilder.java`
+#### Snippet
+```java
+     * @since 3.2.0
+     * @return DOM
+     * @throws XmlPullParserException xml exception
+     * @throws IOException io
+     */
 ```
 
 ### JavadocReference
@@ -14645,231 +14861,51 @@ in `maven-settings/src/main/java/org/apache/maven/settings/io/xpp3/SettingsXpp3R
 ```
 
 ### JavadocReference
-Cannot resolve symbol `XmlPullParserException`
-in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/XmlNodeBuilder.java`
+Cannot resolve symbol `ReaderFactory`
+in `maven-settings/src/main/java/org/apache/maven/settings/io/xpp3/SettingsXpp3Reader.java`
 #### Snippet
 ```java
-     * @since 3.2.0
-     * @return DOM
-     * @throws XmlPullParserException xml exception
-     * @throws IOException io
-     */
-```
 
-### JavadocReference
-Cannot resolve symbol `XmlPullParserException`
-in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/XmlNodeBuilder.java`
-#### Snippet
-```java
-     * @param trim do trim
-     * @return DOM
-     * @throws XmlPullParserException xml exception
-     * @throws IOException io
-     */
-```
-
-### JavadocReference
-Cannot resolve symbol `XmlPullParserException`
-in `maven-xml-impl/src/main/java/org/apache/maven/internal/xml/XmlNodeBuilder.java`
-#### Snippet
-```java
-     * @since 3.2.0
-     * @return DOM
-     * @throws XmlPullParserException xml exception
-     * @throws IOException io
-     */
-```
-
-### JavadocReference
-Cannot resolve symbol `Model`
-in `api/maven-api-core/src/main/java/org/apache/maven/api/Project.java`
-#### Snippet
-```java
-     * Returns a boolean indicating if the project is a root project,
-     * meaning that the {@link #getRootDirectory()} and {@link #getBasedir()}
-     * points to the same directory, and that either {@link Model#isRoot()}
-     * is {@code true} or that {@code basedir} contains a {@code .mvn} child
-     * directory.
-```
-
-### JavadocReference
-Cannot resolve symbol `isRoot()`
-in `api/maven-api-core/src/main/java/org/apache/maven/api/Project.java`
-#### Snippet
-```java
-     * Returns a boolean indicating if the project is a root project,
-     * meaning that the {@link #getRootDirectory()} and {@link #getBasedir()}
-     * points to the same directory, and that either {@link Model#isRoot()}
-     * is {@code true} or that {@code basedir} contains a {@code .mvn} child
-     * directory.
-```
-
-### JavadocReference
-Cannot resolve symbol `Model`
-in `api/maven-api-core/src/main/java/org/apache/maven/api/Project.java`
-#### Snippet
-```java
-     *
-     * @return {@code true} if the project is the root project
-     * @see Model#isRoot()
-     */
-    boolean isRootProject();
-```
-
-### JavadocReference
-Cannot resolve symbol `isRoot()`
-in `api/maven-api-core/src/main/java/org/apache/maven/api/Project.java`
-#### Snippet
-```java
-     *
-     * @return {@code true} if the project is the root project
-     * @see Model#isRoot()
-     */
-    boolean isRootProject();
-```
-
-### JavadocReference
-Cannot resolve symbol `createRemote(Repository)`
-in `api/maven-api-core/src/main/java/org/apache/maven/api/Session.java`
-#### Snippet
-```java
     /**
-     * Shortcut for <code>getService(RepositoryFactory.class).createRemote(...)</code>
-     * @see org.apache.maven.api.services.RepositoryFactory#createRemote(Repository)
-     */
-    @Nonnull
+     * @see ReaderFactory#newXmlReader
+     *
+     * @param reader a reader object.
 ```
 
 ### JavadocReference
-Cannot resolve symbol `Settings`
-in `api/maven-api-core/src/main/java/org/apache/maven/api/services/xml/SettingsXmlFactory.java`
+Cannot resolve symbol `newXmlReader`
+in `maven-settings/src/main/java/org/apache/maven/settings/io/xpp3/SettingsXpp3Reader.java`
 #### Snippet
 ```java
 
-/**
- * Reads and writes a {@link Settings} object to/from XML.
- *
- * @since 4.0.0
+    /**
+     * @see ReaderFactory#newXmlReader
+     *
+     * @param reader a reader object.
 ```
 
 ### JavadocReference
-Cannot resolve symbol `PersistedToolchains`
-in `api/maven-api-core/src/main/java/org/apache/maven/api/services/xml/ToolchainsXmlFactory.java`
+Cannot resolve symbol `XmlPullParserException`
+in `maven-settings/src/main/java/org/apache/maven/settings/io/xpp3/SettingsXpp3Reader.java`
 #### Snippet
 ```java
-
-/**
- * Reads and writes a {@link PersistedToolchains} object to/from XML.
- *
- * @since 4.0.0
+     * @param reader a reader object.
+     * @throws IOException IOException if any.
+     * @throws XmlPullParserException XmlPullParserException if
+     * any.
+     * @return Model
 ```
 
 ### JavadocReference
-Cannot resolve symbol `Model`
-in `api/maven-api-core/src/main/java/org/apache/maven/api/services/xml/ModelXmlFactory.java`
+Cannot resolve symbol `XmlPullParserException`
+in `maven-settings/src/main/java/org/apache/maven/settings/io/xpp3/SettingsXpp3Reader.java`
 #### Snippet
 ```java
-
-/**
- * Reads or writes a {@link Model} using XML.
- *
- * @since 4.0.0
-```
-
-### JavadocReference
-Cannot resolve symbol `org.apache.maven.api.model.Model`
-in `api/maven-api-model/src/main/java/org/apache/maven/api/model/package-info.java`
-#### Snippet
-```java
-/**
- * Maven Immutable POM (Project Object Model) classes, generated from <code>maven.mdo</code> model.
- * The root class is {@link org.apache.maven.api.model.Model}.
- */
-package org.apache.maven.api.model;
-```
-
-### JavadocReference
-Cannot resolve symbol `org.slf4j.ILoggerFactory`
-in `maven-embedder/src/main/java/org/apache/maven/cli/logging/Slf4jLoggerManager.java`
-#### Snippet
-```java
-
-/**
- * Use an SLF4J {@link org.slf4j.ILoggerFactory} as a backing for a Plexus
- * {@link org.codehaus.plexus.logging.LoggerManager},
- * ignoring Plexus logger API parts that are not classical and probably not really used.
-```
-
-### JavadocReference
-Cannot resolve symbol `org.codehaus.plexus.logging.LoggerManager`
-in `maven-embedder/src/main/java/org/apache/maven/cli/logging/Slf4jLoggerManager.java`
-#### Snippet
-```java
-/**
- * Use an SLF4J {@link org.slf4j.ILoggerFactory} as a backing for a Plexus
- * {@link org.codehaus.plexus.logging.LoggerManager},
- * ignoring Plexus logger API parts that are not classical and probably not really used.
- *
-```
-
-### JavadocReference
-Cannot resolve symbol `ArtifactDescriptorResult`
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/ArtifactDescriptorReaderDelegate.java`
-#### Snippet
-```java
-
-/**
- * Populates Aether {@link ArtifactDescriptorResult} from Maven project {@link Model}.
- *
- * <strong>Note:</strong> This class is part of work in progress and can be changed or removed without notice.
-```
-
-### JavadocReference
-Cannot resolve symbol `Model`
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/ArtifactDescriptorReaderDelegate.java`
-#### Snippet
-```java
-
-/**
- * Populates Aether {@link ArtifactDescriptorResult} from Maven project {@link Model}.
- *
- * <strong>Note:</strong> This class is part of work in progress and can be changed or removed without notice.
-```
-
-### JavadocReference
-Cannot resolve symbol `GenericVersionScheme`
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultVersionSchemeProvider.java`
-#### Snippet
-```java
-
-/**
- * Default version scheme provider: provides singleton {@link GenericVersionScheme} instance.
- */
-@Singleton
-```
-
-### JavadocReference
-Cannot resolve symbol `PlexusBeanConverter`
-in `maven-embedder/src/main/java/org/eclipse/sisu/plexus/PlexusXmlBeanConverter.java`
-#### Snippet
-```java
-
-/**
- * {@link PlexusBeanConverter} {@link Module} that converts Plexus XML configuration into beans.
- */
-@Singleton
-```
-
-### JavadocReference
-Cannot resolve symbol `CycleDetectedException`
-in `maven-core/src/main/java/org/apache/maven/graph/DefaultProjectDependencyGraph.java`
-#### Snippet
-```java
-     * @param projects    The projects to create the dependency graph with.
-     * @throws DuplicateProjectException
-     * @throws CycleDetectedException
-     * @since 3.5.0
-     * @deprecated Use {@link #DefaultProjectDependencyGraph(Collection, Collection)} instead.
+     * @param strict a strict object.
+     * @throws IOException IOException if any.
+     * @throws XmlPullParserException XmlPullParserException if
+     * any.
+     * @return Settings
 ```
 
 ### JavadocReference
@@ -14882,6 +14918,18 @@ in `maven-core/src/main/java/org/apache/maven/graph/DefaultProjectDependencyGrap
      * @throws CycleDetectedException
      * @since 4.0.0
      */
+```
+
+### JavadocReference
+Cannot resolve symbol `CycleDetectedException`
+in `maven-core/src/main/java/org/apache/maven/graph/DefaultProjectDependencyGraph.java`
+#### Snippet
+```java
+     * @param projects    The projects to create the dependency graph with.
+     * @throws DuplicateProjectException
+     * @throws CycleDetectedException
+     * @since 3.5.0
+     * @deprecated Use {@link #DefaultProjectDependencyGraph(Collection, Collection)} instead.
 ```
 
 ### JavadocReference
@@ -14969,54 +15017,6 @@ in `maven-core/src/main/java/org/apache/maven/internal/aether/MavenChainedWorksp
 ```
 
 ### JavadocReference
-Cannot resolve symbol `XmlPullParserException`
-in `maven-core/src/main/java/org/apache/maven/settings/MavenSettingsBuilder.java`
-#### Snippet
-```java
-     * @return a <code>Settings</code> object from the user settings file.
-     * @throws IOException if any
-     * @throws XmlPullParserException if any
-     */
-    Settings buildSettings(File userSettingsFile, boolean useCachedSettings) throws IOException, XmlPullParserException;
-```
-
-### JavadocReference
-Cannot resolve symbol `XmlPullParserException`
-in `maven-core/src/main/java/org/apache/maven/settings/MavenSettingsBuilder.java`
-#### Snippet
-```java
-     * @return a <code>Settings</code> object from the user settings file.
-     * @throws IOException if any
-     * @throws XmlPullParserException if any
-     */
-    Settings buildSettings(File userSettingsFile) throws IOException, XmlPullParserException;
-```
-
-### JavadocReference
-Cannot resolve symbol `XmlPullParserException`
-in `maven-core/src/main/java/org/apache/maven/settings/MavenSettingsBuilder.java`
-#### Snippet
-```java
-     * @return a <code>Settings</code> object from the user settings file.
-     * @throws IOException if any
-     * @throws XmlPullParserException if any
-     */
-    Settings buildSettings(boolean useCachedSettings) throws IOException, XmlPullParserException;
-```
-
-### JavadocReference
-Cannot resolve symbol `XmlPullParserException`
-in `maven-core/src/main/java/org/apache/maven/settings/MavenSettingsBuilder.java`
-#### Snippet
-```java
-     * @return a <code>Settings</code> object from the user settings file.
-     * @throws IOException if any
-     * @throws XmlPullParserException if any
-     */
-    Settings buildSettings() throws IOException, XmlPullParserException;
-```
-
-### JavadocReference
 Cannot resolve symbol `CollectStepData`
 in `maven-core/src/main/java/org/apache/maven/internal/aether/ReverseTreeRepositoryListener.java`
 #### Snippet
@@ -15053,6 +15053,54 @@ in `maven-core/src/main/java/org/apache/maven/internal/aether/ReverseTreeReposit
 ```
 
 ### JavadocReference
+Cannot resolve symbol `XmlPullParserException`
+in `maven-core/src/main/java/org/apache/maven/settings/MavenSettingsBuilder.java`
+#### Snippet
+```java
+     * @return a <code>Settings</code> object from the user settings file.
+     * @throws IOException if any
+     * @throws XmlPullParserException if any
+     */
+    Settings buildSettings(boolean useCachedSettings) throws IOException, XmlPullParserException;
+```
+
+### JavadocReference
+Cannot resolve symbol `XmlPullParserException`
+in `maven-core/src/main/java/org/apache/maven/settings/MavenSettingsBuilder.java`
+#### Snippet
+```java
+     * @return a <code>Settings</code> object from the user settings file.
+     * @throws IOException if any
+     * @throws XmlPullParserException if any
+     */
+    Settings buildSettings(File userSettingsFile) throws IOException, XmlPullParserException;
+```
+
+### JavadocReference
+Cannot resolve symbol `XmlPullParserException`
+in `maven-core/src/main/java/org/apache/maven/settings/MavenSettingsBuilder.java`
+#### Snippet
+```java
+     * @return a <code>Settings</code> object from the user settings file.
+     * @throws IOException if any
+     * @throws XmlPullParserException if any
+     */
+    Settings buildSettings(File userSettingsFile, boolean useCachedSettings) throws IOException, XmlPullParserException;
+```
+
+### JavadocReference
+Cannot resolve symbol `XmlPullParserException`
+in `maven-core/src/main/java/org/apache/maven/settings/MavenSettingsBuilder.java`
+#### Snippet
+```java
+     * @return a <code>Settings</code> object from the user settings file.
+     * @throws IOException if any
+     * @throws XmlPullParserException if any
+     */
+    Settings buildSettings() throws IOException, XmlPullParserException;
+```
+
+### JavadocReference
 Cannot resolve symbol `Repository`
 in `maven-core/src/main/java/org/apache/maven/internal/impl/AbstractSession.java`
 #### Snippet
@@ -15086,18 +15134,6 @@ in `maven-core/src/main/java/org/apache/maven/lifecycle/DefaultLifecycles.java`
      * @deprecated Rely on {@link #DefaultLifecycles(PlexusContainer)} instead
      */
     @Deprecated
-```
-
-### JavadocReference
-Cannot resolve symbol `Settings`
-in `maven-core/src/main/java/org/apache/maven/execution/MavenSession.java`
-#### Snippet
-```java
-
-    /**
-     * Adapt a {@link MavenExecutionRequest} to a {@link Settings} object for use in the Maven core.
-     * We want to make sure that what is ask for in the execution request overrides what is in the settings.
-     * The CLI feeds into an execution request so if a particular value is present in the execution request
 ```
 
 ### JavadocReference
@@ -15221,18 +15257,6 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/path/ProfileActivat
 ```
 
 ### JavadocReference
-Cannot resolve symbol `ActivationProperty`
-in `maven-model-builder/src/main/java/org/apache/maven/model/profile/activation/PropertyProfileActivator.java`
-#### Snippet
-```java
- *
- * @author Benjamin Bentmann
- * @see ActivationProperty
- */
-@Named("property")
-```
-
-### JavadocReference
 Cannot resolve symbol `ActivationFile`
 in `maven-model-builder/src/main/java/org/apache/maven/model/profile/activation/FileProfileActivator.java`
 #### Snippet
@@ -15242,18 +15266,6 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/profile/activation/
  * @see ActivationFile
  * @see org.apache.maven.model.validation.DefaultModelValidator#validateRawModel
  */
-```
-
-### JavadocReference
-Cannot resolve symbol `ActivationOS`
-in `maven-model-builder/src/main/java/org/apache/maven/model/profile/activation/OperatingSystemProfileActivator.java`
-#### Snippet
-```java
- *
- * @author Benjamin Bentmann
- * @see ActivationOS
- */
-@Named("os")
 ```
 
 ### JavadocReference
@@ -15281,6 +15293,30 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/profile/activation/
 ```
 
 ### JavadocReference
+Cannot resolve symbol `ActivationOS`
+in `maven-model-builder/src/main/java/org/apache/maven/model/profile/activation/OperatingSystemProfileActivator.java`
+#### Snippet
+```java
+ *
+ * @author Benjamin Bentmann
+ * @see ActivationOS
+ */
+@Named("os")
+```
+
+### JavadocReference
+Cannot resolve symbol `ActivationProperty`
+in `maven-model-builder/src/main/java/org/apache/maven/model/profile/activation/PropertyProfileActivator.java`
+#### Snippet
+```java
+ *
+ * @author Benjamin Bentmann
+ * @see ActivationProperty
+ */
+@Named("property")
+```
+
+### JavadocReference
 Cannot resolve symbol `XmlPullParser`
 in `maven-model-builder/src/main/java/org/apache/maven/model/building/ModelSourceTransformer.java`
 #### Snippet
@@ -15290,30 +15326,6 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/building/ModelSourc
  * The {@link #transform(XmlPullParser, Path, TransformerContext)} method uses a Path on purpose, to ensure the
  * local pom is the original source.
  *
-```
-
-### JavadocReference
-Cannot resolve symbol `Dependency`
-in `maven-model-builder/src/main/java/org/apache/maven/model/resolution/ModelResolver.java`
-#### Snippet
-```java
-     * @since 3.5.0
-     *
-     * @see Dependency#clone()
-     */
-    ModelSource resolveModel(org.apache.maven.model.Dependency dependency) throws UnresolvableModelException;
-```
-
-### JavadocReference
-Cannot resolve symbol `clone()`
-in `maven-model-builder/src/main/java/org/apache/maven/model/resolution/ModelResolver.java`
-#### Snippet
-```java
-     * @since 3.5.0
-     *
-     * @see Dependency#clone()
-     */
-    ModelSource resolveModel(org.apache.maven.model.Dependency dependency) throws UnresolvableModelException;
 ```
 
 ### JavadocReference
@@ -15353,6 +15365,174 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/resolution/ModelRes
 ```
 
 ### JavadocReference
+Cannot resolve symbol `Dependency`
+in `maven-model-builder/src/main/java/org/apache/maven/model/resolution/ModelResolver.java`
+#### Snippet
+```java
+     * @since 3.5.0
+     *
+     * @see Dependency#clone()
+     */
+    ModelSource resolveModel(org.apache.maven.model.Dependency dependency) throws UnresolvableModelException;
+```
+
+### JavadocReference
+Cannot resolve symbol `clone()`
+in `maven-model-builder/src/main/java/org/apache/maven/model/resolution/ModelResolver.java`
+#### Snippet
+```java
+     * @since 3.5.0
+     *
+     * @see Dependency#clone()
+     */
+    ModelSource resolveModel(org.apache.maven.model.Dependency dependency) throws UnresolvableModelException;
+```
+
+### JavadocReference
+Cannot resolve symbol `org.slf4j.ILoggerFactory`
+in `maven-embedder/src/main/java/org/apache/maven/cli/logging/Slf4jLoggerManager.java`
+#### Snippet
+```java
+
+/**
+ * Use an SLF4J {@link org.slf4j.ILoggerFactory} as a backing for a Plexus
+ * {@link org.codehaus.plexus.logging.LoggerManager},
+ * ignoring Plexus logger API parts that are not classical and probably not really used.
+```
+
+### JavadocReference
+Cannot resolve symbol `org.codehaus.plexus.logging.LoggerManager`
+in `maven-embedder/src/main/java/org/apache/maven/cli/logging/Slf4jLoggerManager.java`
+#### Snippet
+```java
+/**
+ * Use an SLF4J {@link org.slf4j.ILoggerFactory} as a backing for a Plexus
+ * {@link org.codehaus.plexus.logging.LoggerManager},
+ * ignoring Plexus logger API parts that are not classical and probably not really used.
+ *
+```
+
+### JavadocReference
+Cannot resolve symbol `Settings`
+in `maven-core/src/main/java/org/apache/maven/execution/MavenSession.java`
+#### Snippet
+```java
+
+    /**
+     * Adapt a {@link MavenExecutionRequest} to a {@link Settings} object for use in the Maven core.
+     * We want to make sure that what is ask for in the execution request overrides what is in the settings.
+     * The CLI feeds into an execution request so if a particular value is present in the execution request
+```
+
+### JavadocReference
+Cannot resolve symbol `Model`
+in `api/maven-api-core/src/main/java/org/apache/maven/api/Project.java`
+#### Snippet
+```java
+     * Returns a boolean indicating if the project is a root project,
+     * meaning that the {@link #getRootDirectory()} and {@link #getBasedir()}
+     * points to the same directory, and that either {@link Model#isRoot()}
+     * is {@code true} or that {@code basedir} contains a {@code .mvn} child
+     * directory.
+```
+
+### JavadocReference
+Cannot resolve symbol `isRoot()`
+in `api/maven-api-core/src/main/java/org/apache/maven/api/Project.java`
+#### Snippet
+```java
+     * Returns a boolean indicating if the project is a root project,
+     * meaning that the {@link #getRootDirectory()} and {@link #getBasedir()}
+     * points to the same directory, and that either {@link Model#isRoot()}
+     * is {@code true} or that {@code basedir} contains a {@code .mvn} child
+     * directory.
+```
+
+### JavadocReference
+Cannot resolve symbol `Model`
+in `api/maven-api-core/src/main/java/org/apache/maven/api/Project.java`
+#### Snippet
+```java
+     *
+     * @return {@code true} if the project is the root project
+     * @see Model#isRoot()
+     */
+    boolean isRootProject();
+```
+
+### JavadocReference
+Cannot resolve symbol `isRoot()`
+in `api/maven-api-core/src/main/java/org/apache/maven/api/Project.java`
+#### Snippet
+```java
+     *
+     * @return {@code true} if the project is the root project
+     * @see Model#isRoot()
+     */
+    boolean isRootProject();
+```
+
+### JavadocReference
+Cannot resolve symbol `PlexusBeanConverter`
+in `maven-embedder/src/main/java/org/eclipse/sisu/plexus/PlexusXmlBeanConverter.java`
+#### Snippet
+```java
+
+/**
+ * {@link PlexusBeanConverter} {@link Module} that converts Plexus XML configuration into beans.
+ */
+@Singleton
+```
+
+### JavadocReference
+Cannot resolve symbol `createRemote(Repository)`
+in `api/maven-api-core/src/main/java/org/apache/maven/api/Session.java`
+#### Snippet
+```java
+    /**
+     * Shortcut for <code>getService(RepositoryFactory.class).createRemote(...)</code>
+     * @see org.apache.maven.api.services.RepositoryFactory#createRemote(Repository)
+     */
+    @Nonnull
+```
+
+### JavadocReference
+Cannot resolve symbol `Settings`
+in `api/maven-api-core/src/main/java/org/apache/maven/api/services/xml/SettingsXmlFactory.java`
+#### Snippet
+```java
+
+/**
+ * Reads and writes a {@link Settings} object to/from XML.
+ *
+ * @since 4.0.0
+```
+
+### JavadocReference
+Cannot resolve symbol `PersistedToolchains`
+in `api/maven-api-core/src/main/java/org/apache/maven/api/services/xml/ToolchainsXmlFactory.java`
+#### Snippet
+```java
+
+/**
+ * Reads and writes a {@link PersistedToolchains} object to/from XML.
+ *
+ * @since 4.0.0
+```
+
+### JavadocReference
+Cannot resolve symbol `Model`
+in `api/maven-api-core/src/main/java/org/apache/maven/api/services/xml/ModelXmlFactory.java`
+#### Snippet
+```java
+
+/**
+ * Reads or writes a {@link Model} using XML.
+ *
+ * @since 4.0.0
+```
+
+### JavadocReference
 Cannot resolve symbol `org.apache.maven.settings.v4.SettingsMerger`
 in `maven-settings-builder/src/main/java/org/apache/maven/settings/merge/MavenSettingsMerger.java`
 #### Snippet
@@ -15365,219 +15545,39 @@ in `maven-settings-builder/src/main/java/org/apache/maven/settings/merge/MavenSe
 ```
 
 ### JavadocReference
-Cannot resolve symbol `XmlPullParserException`
-in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3Reader.java`
+Cannot resolve symbol `ArtifactDescriptorResult`
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/ArtifactDescriptorReaderDelegate.java`
 #### Snippet
 ```java
-     * @param in a in object.
-     * @throws IOException IOException if any.
-     * @throws XmlPullParserException XmlPullParserException if
-     * any.
-     * @return Model
+
+/**
+ * Populates Aether {@link ArtifactDescriptorResult} from Maven project {@link Model}.
+ *
+ * <strong>Note:</strong> This class is part of work in progress and can be changed or removed without notice.
 ```
 
 ### JavadocReference
-Cannot resolve symbol `XmlPullParserException`
-in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3Reader.java`
+Cannot resolve symbol `Model`
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/ArtifactDescriptorReaderDelegate.java`
 #### Snippet
 ```java
-     * @param strict a strict object.
-     * @throws IOException IOException if any.
-     * @throws XmlPullParserException XmlPullParserException if
-     * any.
-     * @return Model
+
+/**
+ * Populates Aether {@link ArtifactDescriptorResult} from Maven project {@link Model}.
+ *
+ * <strong>Note:</strong> This class is part of work in progress and can be changed or removed without notice.
 ```
 
 ### JavadocReference
-Cannot resolve symbol `XmlPullParserException`
-in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3Reader.java`
-#### Snippet
-```java
-     * @param strict a strict object.
-     * @throws IOException IOException if any.
-     * @throws XmlPullParserException XmlPullParserException if
-     * any.
-     * @return Model
-```
-
-### JavadocReference
-Cannot resolve symbol `ReaderFactory`
-in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3Reader.java`
+Cannot resolve symbol `GenericVersionScheme`
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/DefaultVersionSchemeProvider.java`
 #### Snippet
 ```java
 
-    /**
-     * @see ReaderFactory#newXmlReader
-     *
-     * @param reader a reader object.
-```
-
-### JavadocReference
-Cannot resolve symbol `newXmlReader`
-in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3Reader.java`
-#### Snippet
-```java
-
-    /**
-     * @see ReaderFactory#newXmlReader
-     *
-     * @param reader a reader object.
-```
-
-### JavadocReference
-Cannot resolve symbol `XmlPullParserException`
-in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3Reader.java`
-#### Snippet
-```java
-     * @param reader a reader object.
-     * @throws IOException IOException if any.
-     * @throws XmlPullParserException XmlPullParserException if
-     * any.
-     * @return Model
-```
-
-### JavadocReference
-Cannot resolve symbol `ReaderFactory`
-in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3Reader.java`
-#### Snippet
-```java
-
-    /**
-     * @see ReaderFactory#newXmlReader
-     *
-     * @param reader a reader object.
-```
-
-### JavadocReference
-Cannot resolve symbol `newXmlReader`
-in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3Reader.java`
-#### Snippet
-```java
-
-    /**
-     * @see ReaderFactory#newXmlReader
-     *
-     * @param reader a reader object.
-```
-
-### JavadocReference
-Cannot resolve symbol `XmlPullParserException`
-in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3Reader.java`
-#### Snippet
-```java
-     * @param strict a strict object.
-     * @throws IOException IOException if any.
-     * @throws XmlPullParserException XmlPullParserException if
-     * any.
-     * @return Model
-```
-
-### JavadocReference
-Cannot resolve symbol `ReaderFactory`
-in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3ReaderEx.java`
-#### Snippet
-```java
-
-    /**
-     * @see ReaderFactory#newXmlReader
-     *
-     * @param reader a reader object.
-```
-
-### JavadocReference
-Cannot resolve symbol `newXmlReader`
-in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3ReaderEx.java`
-#### Snippet
-```java
-
-    /**
-     * @see ReaderFactory#newXmlReader
-     *
-     * @param reader a reader object.
-```
-
-### JavadocReference
-Cannot resolve symbol `XmlPullParserException`
-in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3ReaderEx.java`
-#### Snippet
-```java
-     * @param strict a strict object.
-     * @throws IOException IOException if any.
-     * @throws XmlPullParserException XmlPullParserException if
-     * any.
-     * @return Model
-```
-
-### JavadocReference
-Cannot resolve symbol `XmlPullParserException`
-in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3ReaderEx.java`
-#### Snippet
-```java
-     * @param in a in object.
-     * @throws IOException IOException if any.
-     * @throws XmlPullParserException XmlPullParserException if
-     * any.
-     * @return Model
-```
-
-### JavadocReference
-Cannot resolve symbol `ReaderFactory`
-in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3ReaderEx.java`
-#### Snippet
-```java
-
-    /**
-     * @see ReaderFactory#newXmlReader
-     *
-     * @param reader a reader object.
-```
-
-### JavadocReference
-Cannot resolve symbol `newXmlReader`
-in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3ReaderEx.java`
-#### Snippet
-```java
-
-    /**
-     * @see ReaderFactory#newXmlReader
-     *
-     * @param reader a reader object.
-```
-
-### JavadocReference
-Cannot resolve symbol `XmlPullParserException`
-in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3ReaderEx.java`
-#### Snippet
-```java
-     * @param reader a reader object.
-     * @throws IOException IOException if any.
-     * @throws XmlPullParserException XmlPullParserException if
-     * any.
-     * @return Model
-```
-
-### JavadocReference
-Cannot resolve symbol `XmlPullParserException`
-in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3ReaderEx.java`
-#### Snippet
-```java
-     * @param strict a strict object.
-     * @throws IOException IOException if any.
-     * @throws XmlPullParserException XmlPullParserException if
-     * any.
-     * @return Model
-```
-
-### JavadocReference
-Cannot resolve symbol `XmlPullParserException`
-in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3ReaderEx.java`
-#### Snippet
-```java
-     * @param strict a strict object.
-     * @throws IOException IOException if any.
-     * @throws XmlPullParserException XmlPullParserException if
-     * any.
-     * @return Model
+/**
+ * Default version scheme provider: provides singleton {@link GenericVersionScheme} instance.
+ */
+@Singleton
 ```
 
 ## RuleId[id=UnnecessarySemicolon]
@@ -15607,18 +15607,6 @@ in `maven-compat/src/main/java/org/apache/maven/project/DefaultMavenProjectBuild
 ```
 
 ### DataFlowIssue
-Method invocation `getArtifact` may produce `NullPointerException`
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
-#### Snippet
-```java
-                            // TODO add better exception
-                            result.addVersionRangeViolation(new ArtifactResolutionException(
-                                    "Conflict resolver returned unknown resolution node: ", resolved.getArtifact()));
-                        }
-
-```
-
-### DataFlowIssue
 `null` is returned by the method declared as @NotNull
 in `maven-compat/src/main/java/org/apache/maven/repository/metadata/ClasspathContainer.java`
 #### Snippet
@@ -15631,15 +15619,15 @@ in `maven-compat/src/main/java/org/apache/maven/repository/metadata/ClasspathCon
 ```
 
 ### DataFlowIssue
-Method invocation `getClass` will produce `NullPointerException`
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+Method invocation `getArtifact` may produce `NullPointerException`
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
 #### Snippet
 ```java
-                                + "The --fail-on-severity flag will not take effect.",
-                        MavenSlf4jWrapperFactory.class.getName(),
-                        slf4jLoggerFactory.getClass().getName());
-            }
-        }
+                            // TODO add better exception
+                            result.addVersionRangeViolation(new ArtifactResolutionException(
+                                    "Conflict resolver returned unknown resolution node: ", resolved.getArtifact()));
+                        }
+
 ```
 
 ### DataFlowIssue
@@ -15786,6 +15774,18 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/superpom/DefaultSup
 
 ```
 
+### DataFlowIssue
+Method invocation `getClass` will produce `NullPointerException`
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+                                + "The --fail-on-severity flag will not take effect.",
+                        MavenSlf4jWrapperFactory.class.getName(),
+                        slf4jLoggerFactory.getClass().getName());
+            }
+        }
+```
+
 ## RuleId[id=SimplifyStreamApiCallChains]
 ### SimplifyStreamApiCallChains
 '!Stream.anyMatch(...)' can be replaced with 'noneMatch()'
@@ -15826,18 +15826,6 @@ public interface ModelInheritanceAssembler {
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'WagonManager' is still used
-in `maven-compat/src/main/java/org/apache/maven/artifact/manager/WagonManager.java`
-#### Snippet
-```java
- */
-@Deprecated
-public interface WagonManager extends org.apache.maven.repository.legacy.WagonManager {
-    /**
-     * this method is only here for backward compat (project-info-reports:dependencies)
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'DefaultPathTranslator' is still used
 in `maven-compat/src/main/java/org/apache/maven/project/path/DefaultPathTranslator.java`
 #### Snippet
@@ -15847,6 +15835,18 @@ in `maven-compat/src/main/java/org/apache/maven/project/path/DefaultPathTranslat
 public class DefaultPathTranslator implements PathTranslator {
     private static final String[] BASEDIR_EXPRESSIONS = {"${basedir}", "${pom.basedir}", "${project.basedir}"};
 
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'WagonManager' is still used
+in `maven-compat/src/main/java/org/apache/maven/artifact/manager/WagonManager.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public interface WagonManager extends org.apache.maven.repository.legacy.WagonManager {
+    /**
+     * this method is only here for backward compat (project-info-reports:dependencies)
 ```
 
 ### DeprecatedIsStillUsed
@@ -15862,18 +15862,6 @@ public interface ResolutionListenerForDepMgmt {
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'ArtifactCollector' is still used
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/ArtifactCollector.java`
-#### Snippet
-```java
- */
-@Deprecated
-public interface ArtifactCollector extends org.apache.maven.repository.legacy.resolver.LegacyArtifactCollector {
-
-    @Deprecated
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'ManagedVersionMap' is still used
 in `maven-compat/src/main/java/org/apache/maven/artifact/versioning/ManagedVersionMap.java`
 #### Snippet
@@ -15886,27 +15874,27 @@ public class ManagedVersionMap extends HashMap<String, Artifact> {
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'DefaultArtifactRepository' is still used
-in `maven-compat/src/main/java/org/apache/maven/artifact/repository/DefaultArtifactRepository.java`
+Deprecated member 'ProfileManager' is still used
+in `maven-compat/src/main/java/org/apache/maven/profiles/ProfileManager.java`
 #### Snippet
 ```java
  */
 @Deprecated
-public class DefaultArtifactRepository extends Repository implements ArtifactRepository {
-    private ArtifactRepositoryLayout layout;
+public interface ProfileManager {
 
+    void addProfile(Profile profile);
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'resolveTransitively' is still used
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/ArtifactResolver.java`
+Deprecated member 'ArtifactCollector' is still used
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/ArtifactCollector.java`
 #### Snippet
 ```java
-    // USED BY INVOKER PLUGIN
+ */
+@Deprecated
+public interface ArtifactCollector extends org.apache.maven.repository.legacy.resolver.LegacyArtifactCollector {
+
     @Deprecated
-    ArtifactResolutionResult resolveTransitively(
-            Set<Artifact> artifacts,
-            Artifact originatingArtifact,
 ```
 
 ### DeprecatedIsStillUsed
@@ -15958,6 +15946,30 @@ public interface WagonManager {
 ```
 
 ### DeprecatedIsStillUsed
+Deprecated member 'DefaultArtifactRepository' is still used
+in `maven-compat/src/main/java/org/apache/maven/artifact/repository/DefaultArtifactRepository.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public class DefaultArtifactRepository extends Repository implements ArtifactRepository {
+    private ArtifactRepositoryLayout layout;
+
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'resolveTransitively' is still used
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/ArtifactResolver.java`
+#### Snippet
+```java
+    // USED BY INVOKER PLUGIN
+    @Deprecated
+    ArtifactResolutionResult resolveTransitively(
+            Set<Artifact> artifacts,
+            Artifact originatingArtifact,
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'LegacyArtifactCollector' is still used
 in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/LegacyArtifactCollector.java`
 #### Snippet
@@ -15991,54 +16003,6 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/repository/Art
     ArtifactRepository createDeploymentArtifactRepository(String id, String url, String layoutId, boolean uniqueVersion)
             throws UnknownRepositoryLayoutException;
 
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'ProfileManager' is still used
-in `maven-compat/src/main/java/org/apache/maven/profiles/ProfileManager.java`
-#### Snippet
-```java
- */
-@Deprecated
-public interface ProfileManager {
-
-    void addProfile(Profile profile);
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getExecutionRootDirectory' is still used
-in `api/maven-api-core/src/main/java/org/apache/maven/api/Session.java`
-#### Snippet
-```java
-    @Deprecated
-    @Nonnull
-    Path getExecutionRootDirectory();
-
-    @Nonnull
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'setLog' is still used
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/Mojo.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    void setLog(Log log);
-
-    /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'DEBUG' is still used
-in `maven-embedder/src/main/java/org/apache/maven/cli/CLIManager.java`
-#### Snippet
-```java
-     * Use {@code -X/--verbose} instead. */
-    @Deprecated
-    public static final String DEBUG = "debug";
-
-    protected Options options;
 ```
 
 ### DeprecatedIsStillUsed
@@ -16114,6 +16078,18 @@ public class AttachedArtifact extends DefaultArtifact {
 ```
 
 ### DeprecatedIsStillUsed
+Deprecated member 'PathTranslator' is still used
+in `maven-core/src/main/java/org/apache/maven/project/path/PathTranslator.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public interface PathTranslator {
+    String ROLE = PathTranslator.class.getName();
+
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'setResolveVersionRanges' is still used
 in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuildingRequest.java`
 #### Snippet
@@ -16138,6 +16114,66 @@ public abstract class AbstractArtifactMetadata
 ```
 
 ### DeprecatedIsStillUsed
+Deprecated member 'manageArtifact' is still used
+in `maven-core/src/main/java/org/apache/maven/artifact/resolver/ResolutionListener.java`
+#### Snippet
+```java
+
+    @Deprecated
+    void manageArtifact(Artifact artifact, Artifact replacement);
+
+    // TODO Use the following two instead of manageArtifact
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getModulePathAdjustment' is still used
+in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
+#### Snippet
+```java
+
+    @Deprecated // This appears only to be used in test code
+    public String getModulePathAdjustment(MavenProject moduleProject) throws IOException {
+        // FIXME: This is hacky. What if module directory doesn't match artifactid, and parent
+        // is coming from the repository??
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'setReportArtifacts' is still used
+in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
+#### Snippet
+```java
+
+    @Deprecated
+    public void setReportArtifacts(Set<Artifact> reportArtifacts) {
+        this.reportArtifacts = reportArtifacts;
+
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'setDependencyArtifacts' is still used
+in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
+#### Snippet
+```java
+
+    @Deprecated
+    public void setDependencyArtifacts(Set<Artifact> dependencyArtifacts) {
+        this.dependencyArtifacts = dependencyArtifacts;
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'setExtensionArtifacts' is still used
+in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
+#### Snippet
+```java
+
+    @Deprecated
+    public void setExtensionArtifacts(Set<Artifact> extensionArtifacts) {
+        this.extensionArtifacts = extensionArtifacts;
+
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'getExtensionArtifacts' is still used
 in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
 #### Snippet
@@ -16146,6 +16182,18 @@ in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
     @Deprecated
     public Set<Artifact> getExtensionArtifacts() {
         return extensionArtifacts;
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getDependencyArtifacts' is still used
+in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public Set<Artifact> getDependencyArtifacts() {
+        return dependencyArtifacts;
     }
 ```
 
@@ -16186,42 +16234,6 @@ in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'getSystemClasspathElements' is still used
-in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
-#### Snippet
-```java
-
-    @Deprecated
-    public List<String> getSystemClasspathElements() throws DependencyResolutionRequiredException {
-        List<String> list = new ArrayList<>(getArtifacts().size());
-
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'setReportArtifacts' is still used
-in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
-#### Snippet
-```java
-
-    @Deprecated
-    public void setReportArtifacts(Set<Artifact> reportArtifacts) {
-        this.reportArtifacts = reportArtifacts;
-
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'setScriptSourceRoots' is still used
-in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
-#### Snippet
-```java
-
-    @Deprecated
-    protected void setScriptSourceRoots(List<String> scriptSourceRoots) {
-        this.scriptSourceRoots = scriptSourceRoots;
-    }
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'setProjectBuildingRequest' is still used
 in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
 #### Snippet
@@ -16231,30 +16243,6 @@ in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
     public void setProjectBuildingRequest(ProjectBuildingRequest projectBuildingRequest) {
         this.projectBuilderConfiguration = projectBuildingRequest;
     }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'setDependencyArtifacts' is still used
-in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
-#### Snippet
-```java
-
-    @Deprecated
-    public void setDependencyArtifacts(Set<Artifact> dependencyArtifacts) {
-        this.dependencyArtifacts = dependencyArtifacts;
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getModulePathAdjustment' is still used
-in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
-#### Snippet
-```java
-
-    @Deprecated // This appears only to be used in test code
-    public String getModulePathAdjustment(MavenProject moduleProject) throws IOException {
-        // FIXME: This is hacky. What if module directory doesn't match artifactid, and parent
-        // is coming from the repository??
 ```
 
 ### DeprecatedIsStillUsed
@@ -16270,14 +16258,38 @@ in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'setExtensionArtifacts' is still used
+Deprecated member 'addAttachedArtifact' is still used
+in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
+#### Snippet
+```java
+     * @throws DuplicateArtifactAttachmentException will never happen but leave it for backward compatibility
+     */
+    public void addAttachedArtifact(Artifact artifact) throws DuplicateArtifactAttachmentException {
+        // if already there we remove it and add again
+        int index = attachedArtifacts.indexOf(artifact);
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'setScriptSourceRoots' is still used
 in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
 #### Snippet
 ```java
 
     @Deprecated
-    public void setExtensionArtifacts(Set<Artifact> extensionArtifacts) {
-        this.extensionArtifacts = extensionArtifacts;
+    protected void setScriptSourceRoots(List<String> scriptSourceRoots) {
+        this.scriptSourceRoots = scriptSourceRoots;
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getSystemClasspathElements' is still used
+in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
+#### Snippet
+```java
+
+    @Deprecated
+    public List<String> getSystemClasspathElements() throws DependencyResolutionRequiredException {
+        List<String> list = new ArrayList<>(getArtifacts().size());
 
 ```
 
@@ -16291,54 +16303,6 @@ in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
     public void addScriptSourceRoot(String path) {
         if (path != null) {
             path = path.trim();
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'addAttachedArtifact' is still used
-in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
-#### Snippet
-```java
-     * @throws DuplicateArtifactAttachmentException will never happen but leave it for backward compatibility
-     */
-    public void addAttachedArtifact(Artifact artifact) throws DuplicateArtifactAttachmentException {
-        // if already there we remove it and add again
-        int index = attachedArtifacts.indexOf(artifact);
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getDependencyArtifacts' is still used
-in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public Set<Artifact> getDependencyArtifacts() {
-        return dependencyArtifacts;
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'manageArtifact' is still used
-in `maven-core/src/main/java/org/apache/maven/artifact/resolver/ResolutionListener.java`
-#### Snippet
-```java
-
-    @Deprecated
-    void manageArtifact(Artifact artifact, Artifact replacement);
-
-    // TODO Use the following two instead of manageArtifact
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'PathTranslator' is still used
-in `maven-core/src/main/java/org/apache/maven/project/path/PathTranslator.java`
-#### Snippet
-```java
- */
-@Deprecated
-public interface PathTranslator {
-    String ROLE = PathTranslator.class.getName();
-
 ```
 
 ### DeprecatedIsStillUsed
@@ -16390,15 +16354,51 @@ in `maven-core/src/main/java/org/apache/maven/execution/MavenExecutionRequestPop
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'overwriteInactiveProfiles' is still used
-in `maven-core/src/main/java/org/apache/maven/execution/ProfileActivation.java`
+Deprecated member 'overwriteActiveProjects' is still used
+in `maven-core/src/main/java/org/apache/maven/execution/ProjectActivation.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public void overwriteInactiveProfiles(List<String> inactiveProfileIds) {
-        getInactiveProfiles().forEach(this.activations::remove);
-        inactiveProfileIds.forEach(this::deactivateOptionalProfile);
+    public void overwriteActiveProjects(List<String> activeProjectSelectors) {
+        List<ProjectActivationSettings> projects = getProjects(pa -> pa.active).collect(Collectors.toList());
+        this.activations.removeAll(projects);
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getSelectedProjects' is still used
+in `maven-core/src/main/java/org/apache/maven/execution/ProjectActivation.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public List<String> getSelectedProjects() {
+        return Collections.unmodifiableList(new ArrayList<>(getProjectSelectors(pa -> pa.active)));
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'overwriteInactiveProjects' is still used
+in `maven-core/src/main/java/org/apache/maven/execution/ProjectActivation.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public void overwriteInactiveProjects(List<String> inactiveProjectSelectors) {
+        List<ProjectActivationSettings> projects = getProjects(pa -> !pa.active).collect(Collectors.toList());
+        this.activations.removeAll(projects);
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getExcludedProjects' is still used
+in `maven-core/src/main/java/org/apache/maven/execution/ProjectActivation.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public List<String> getExcludedProjects() {
+        return Collections.unmodifiableList(new ArrayList<>(getProjectSelectors(pa -> !pa.active)));
+    }
 ```
 
 ### DeprecatedIsStillUsed
@@ -16426,6 +16426,18 @@ in `maven-core/src/main/java/org/apache/maven/execution/ProfileActivation.java`
 ```
 
 ### DeprecatedIsStillUsed
+Deprecated member 'overwriteInactiveProfiles' is still used
+in `maven-core/src/main/java/org/apache/maven/execution/ProfileActivation.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public void overwriteInactiveProfiles(List<String> inactiveProfileIds) {
+        getInactiveProfiles().forEach(this.activations::remove);
+        inactiveProfileIds.forEach(this::deactivateOptionalProfile);
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'phases' is still used
 in `maven-core/src/main/java/org/apache/maven/lifecycle/mapping/DefaultLifecycleMapping.java`
 #### Snippet
@@ -16438,51 +16450,51 @@ in `maven-core/src/main/java/org/apache/maven/lifecycle/mapping/DefaultLifecycle
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'getExcludedProjects' is still used
-in `maven-core/src/main/java/org/apache/maven/execution/ProjectActivation.java`
+Deprecated member 'setRawModel' is still used
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/ModelBuildingRequest.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public List<String> getExcludedProjects() {
-        return Collections.unmodifiableList(new ArrayList<>(getProjectSelectors(pa -> !pa.active)));
-    }
+    ModelBuildingRequest setRawModel(Model rawModel);
+
+    /**
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'getSelectedProjects' is still used
-in `maven-core/src/main/java/org/apache/maven/execution/ProjectActivation.java`
+Deprecated member 'StringModelSource' is still used
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/StringModelSource.java`
 #### Snippet
 ```java
-     */
-    @Deprecated
-    public List<String> getSelectedProjects() {
-        return Collections.unmodifiableList(new ArrayList<>(getProjectSelectors(pa -> pa.active)));
-    }
+ */
+@Deprecated
+public class StringModelSource extends StringSource implements ModelSource {
+
+    /**
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'overwriteActiveProjects' is still used
-in `maven-core/src/main/java/org/apache/maven/execution/ProjectActivation.java`
+Deprecated member 'UrlModelSource' is still used
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/UrlModelSource.java`
 #### Snippet
 ```java
-     */
-    @Deprecated
-    public void overwriteActiveProjects(List<String> activeProjectSelectors) {
-        List<ProjectActivationSettings> projects = getProjects(pa -> pa.active).collect(Collectors.toList());
-        this.activations.removeAll(projects);
+ */
+@Deprecated
+public class UrlModelSource extends UrlSource implements ModelSource {
+    /**
+     * Creates a new model source backed by the specified URL.
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'overwriteInactiveProjects' is still used
-in `maven-core/src/main/java/org/apache/maven/execution/ProjectActivation.java`
+Deprecated member 'DEBUG' is still used
+in `maven-embedder/src/main/java/org/apache/maven/cli/CLIManager.java`
 #### Snippet
 ```java
-     */
+     * Use {@code -X/--verbose} instead. */
     @Deprecated
-    public void overwriteInactiveProjects(List<String> inactiveProjectSelectors) {
-        List<ProjectActivationSettings> projects = getProjects(pa -> !pa.active).collect(Collectors.toList());
-        this.activations.removeAll(projects);
+    public static final String DEBUG = "debug";
+
+    protected Options options;
 ```
 
 ### DeprecatedIsStillUsed
@@ -16498,18 +16510,6 @@ in `maven-core/src/main/java/org/apache/maven/execution/MavenSession.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'DefaultJavaToolChain' is still used
-in `maven-core/src/main/java/org/apache/maven/toolchain/java/DefaultJavaToolChain.java`
-#### Snippet
-```java
- */
-@Deprecated
-public class DefaultJavaToolChain extends JavaToolchainImpl {
-    public static final String KEY_JAVAHOME = JavaToolchainImpl.KEY_JAVAHOME;
-
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'DelegatingLocalArtifactRepository' is still used
 in `maven-core/src/main/java/org/apache/maven/repository/DelegatingLocalArtifactRepository.java`
 #### Snippet
@@ -16522,61 +16522,25 @@ public class DelegatingLocalArtifactRepository extends MavenArtifactRepository {
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'setSelectedProjects' is still used
-in `maven-core/src/main/java/org/apache/maven/execution/MavenExecutionRequest.java`
+Deprecated member 'DefaultJavaToolChain' is still used
+in `maven-core/src/main/java/org/apache/maven/toolchain/java/DefaultJavaToolChain.java`
 #### Snippet
 ```java
-     */
-    @Deprecated
-    MavenExecutionRequest setSelectedProjects(List<String> projects);
+ */
+@Deprecated
+public class DefaultJavaToolChain extends JavaToolchainImpl {
+    public static final String KEY_JAVAHOME = JavaToolchainImpl.KEY_JAVAHOME;
 
-    /**
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'getInactiveProfiles' is still used
+Deprecated member 'setMultiModuleProjectDirectory' is still used
 in `maven-core/src/main/java/org/apache/maven/execution/MavenExecutionRequest.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    List<String> getInactiveProfiles();
-
-    /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'isUseLegacyLocalRepository' is still used
-in `maven-core/src/main/java/org/apache/maven/execution/MavenExecutionRequest.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    boolean isUseLegacyLocalRepository();
-
-    /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getBaseDirectory' is still used
-in `maven-core/src/main/java/org/apache/maven/execution/MavenExecutionRequest.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    String getBaseDirectory();
-
-    // Timing (remove this)
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'setActiveProfiles' is still used
-in `maven-core/src/main/java/org/apache/maven/execution/MavenExecutionRequest.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    MavenExecutionRequest setActiveProfiles(List<String> profiles);
+    void setMultiModuleProjectDirectory(File file);
 
     /**
 ```
@@ -16606,27 +16570,75 @@ in `maven-core/src/main/java/org/apache/maven/execution/MavenExecutionRequest.ja
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'setMultiModuleProjectDirectory' is still used
+Deprecated member 'isUseLegacyLocalRepository' is still used
 in `maven-core/src/main/java/org/apache/maven/execution/MavenExecutionRequest.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    void setMultiModuleProjectDirectory(File file);
+    boolean isUseLegacyLocalRepository();
 
     /**
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'setRawModel' is still used
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/ModelBuildingRequest.java`
+Deprecated member 'getInactiveProfiles' is still used
+in `maven-core/src/main/java/org/apache/maven/execution/MavenExecutionRequest.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    ModelBuildingRequest setRawModel(Model rawModel);
+    List<String> getInactiveProfiles();
 
     /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'setActiveProfiles' is still used
+in `maven-core/src/main/java/org/apache/maven/execution/MavenExecutionRequest.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    MavenExecutionRequest setActiveProfiles(List<String> profiles);
+
+    /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'setSelectedProjects' is still used
+in `maven-core/src/main/java/org/apache/maven/execution/MavenExecutionRequest.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    MavenExecutionRequest setSelectedProjects(List<String> projects);
+
+    /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getBaseDirectory' is still used
+in `maven-core/src/main/java/org/apache/maven/execution/MavenExecutionRequest.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    String getBaseDirectory();
+
+    // Timing (remove this)
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getExecutionRootDirectory' is still used
+in `api/maven-api-core/src/main/java/org/apache/maven/api/Session.java`
+#### Snippet
+```java
+    @Deprecated
+    @Nonnull
+    Path getExecutionRootDirectory();
+
+    @Nonnull
 ```
 
 ### DeprecatedIsStillUsed
@@ -16653,27 +16665,15 @@ public interface SettingsSource extends Source {}
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'StringModelSource' is still used
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/StringModelSource.java`
+Deprecated member 'setLog' is still used
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/Mojo.java`
 #### Snippet
 ```java
- */
-@Deprecated
-public class StringModelSource extends StringSource implements ModelSource {
+     */
+    @Deprecated
+    void setLog(Log log);
 
     /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'UrlModelSource' is still used
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/UrlModelSource.java`
-#### Snippet
-```java
- */
-@Deprecated
-public class UrlModelSource extends UrlSource implements ModelSource {
-    /**
-     * Creates a new model source backed by the specified URL.
 ```
 
 ## RuleId[id=UnnecessaryCallToStringValueOf]
@@ -18449,42 +18449,6 @@ in `maven-embedder/src/main/java/org/apache/maven/cli/logging/impl/UnsupportedSl
 ## RuleId[id=IOStreamConstructor]
 ### IOStreamConstructor
 'InputStream' can be constructed using 'Files.newInputStream()'
-in `maven-builder-support/src/main/java/org/apache/maven/building/FileSource.java`
-#### Snippet
-```java
-    @Override
-    public InputStream getInputStream() throws IOException {
-        return new FileInputStream(file);
-    }
-
-```
-
-### IOStreamConstructor
-'InputStream' can be constructed using 'Files.newInputStream()'
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/PluginDescriptor.java`
-#### Snippet
-```java
-            }
-        } else {
-            return new FileInputStream(new File(pluginFile, descriptor));
-        }
-    }
-```
-
-### IOStreamConstructor
-'InputStream' can be constructed using 'Files.newInputStream()'
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-        CoreExtensionsXpp3Reader parser = new CoreExtensionsXpp3Reader();
-
-        try (InputStream is = new BufferedInputStream(new FileInputStream(extensionsFile))) {
-
-            return parser.read(is).getExtensions();
-```
-
-### IOStreamConstructor
-'InputStream' can be constructed using 'Files.newInputStream()'
 in `maven-core/src/main/java/org/apache/maven/project/ExtensionDescriptorBuilder.java`
 #### Snippet
 ```java
@@ -18507,19 +18471,43 @@ in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultMavenPlugin
                     }
 ```
 
-## RuleId[id=UnnecessaryToStringCall]
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultUpdateCheckManager.java`
+### IOStreamConstructor
+'InputStream' can be constructed using 'Files.newInputStream()'
+in `maven-builder-support/src/main/java/org/apache/maven/building/FileSource.java`
 #### Snippet
 ```java
-                        .debug(
-                                "Failed to record lastUpdated information for resolution.\nFile: "
-                                        + touchfile.toString() + "; key: " + key,
-                                e);
-            } finally {
+    @Override
+    public InputStream getInputStream() throws IOException {
+        return new FileInputStream(file);
+    }
+
 ```
 
+### IOStreamConstructor
+'InputStream' can be constructed using 'Files.newInputStream()'
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+        CoreExtensionsXpp3Reader parser = new CoreExtensionsXpp3Reader();
+
+        try (InputStream is = new BufferedInputStream(new FileInputStream(extensionsFile))) {
+
+            return parser.read(is).getExtensions();
+```
+
+### IOStreamConstructor
+'InputStream' can be constructed using 'Files.newInputStream()'
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/PluginDescriptor.java`
+#### Snippet
+```java
+            }
+        } else {
+            return new FileInputStream(new File(pluginFile, descriptor));
+        }
+    }
+```
+
+## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
 in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java`
@@ -18534,14 +18522,50 @@ in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/Comparable
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultUpdateCheckManager.java`
+#### Snippet
+```java
+                        .debug(
+                                "Failed to record lastUpdated information for resolution.\nFile: "
+                                        + touchfile.toString() + "; key: " + key,
+                                e);
+            } finally {
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `maven-embedder/src/main/java/org/apache/maven/cli/transfer/AbstractMavenTransferListener.java`
 #### Snippet
 ```java
 
-        System.out.println("[" + prefix + "] " + content.toString() + System.lineSeparator() + System.lineSeparator()
-                + sWriter.toString());
+        message.append(')');
+        out.println(message.toString());
     }
 }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `maven-embedder/src/main/java/org/apache/maven/cli/transfer/AbstractMavenTransferListener.java`
+#### Snippet
+```java
+        message.append(resource.getRepositoryUrl()).append(resource.getResourceName());
+
+        out.println(message.toString());
+    }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
+#### Snippet
+```java
+        error.printStackTrace(pWriter);
+
+        System.out.println("[" + prefix + "] " + sWriter.toString());
+    }
+
 ```
 
 ### UnnecessaryToStringCall
@@ -18562,10 +18586,10 @@ in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamL
 #### Snippet
 ```java
 
-        System.err.println(
-                "[error] " + content.toString() + System.lineSeparator() + System.lineSeparator() + sWriter.toString());
+        System.out.println("[" + prefix + "] " + content.toString() + System.lineSeparator() + System.lineSeparator()
+                + sWriter.toString());
     }
-
+}
 ```
 
 ### UnnecessaryToStringCall
@@ -18573,50 +18597,14 @@ Unnecessary `toString()` call
 in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/SystemStreamLog.java`
 #### Snippet
 ```java
-        error.printStackTrace(pWriter);
 
-        System.out.println("[" + prefix + "] " + sWriter.toString());
+        System.err.println(
+                "[error] " + content.toString() + System.lineSeparator() + System.lineSeparator() + sWriter.toString());
     }
 
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `maven-embedder/src/main/java/org/apache/maven/cli/transfer/AbstractMavenTransferListener.java`
-#### Snippet
-```java
-        message.append(resource.getRepositoryUrl()).append(resource.getResourceName());
-
-        out.println(message.toString());
-    }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `maven-embedder/src/main/java/org/apache/maven/cli/transfer/AbstractMavenTransferListener.java`
-#### Snippet
-```java
-
-        message.append(')');
-        out.println(message.toString());
-    }
-}
 ```
 
 ## RuleId[id=DanglingJavadoc]
-### DanglingJavadoc
-Dangling Javadoc comment
-in `maven-core/src/main/java/org/apache/maven/execution/MavenSession.java`
-#### Snippet
-```java
-
-    @Deprecated
-    /** @deprecated This appears not to be used anywhere within Maven itself. */
-    public Map<String, MavenProject> getProjectMap() {
-        return projectMap;
-```
-
 ### DanglingJavadoc
 Dangling Javadoc comment
 in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/LifecycleDependencyResolver.java`
@@ -18629,7 +18617,56 @@ in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/LifecycleDepend
                  * During lifecycle the Artifact.getFile() can change from target/classes to the actual jar.
 ```
 
+### DanglingJavadoc
+Dangling Javadoc comment
+in `maven-core/src/main/java/org/apache/maven/execution/MavenSession.java`
+#### Snippet
+```java
+
+    @Deprecated
+    /** @deprecated This appears not to be used anywhere within Maven itself. */
+    public Map<String, MavenProject> getProjectMap() {
+        return projectMap;
+```
+
+## RuleId[id=InnerClassMayBeStatic]
+### InnerClassMayBeStatic
+Inner class `ClasspathGraphVisitor` may be 'static'
+in `maven-compat/src/main/java/org/apache/maven/repository/metadata/DefaultClasspathTransformation.java`
+#### Snippet
+```java
+     * and yet use class level data to lessen stack usage in recursion
+     */
+    private class ClasspathGraphVisitor {
+        MetadataGraph graph;
+
+```
+
+### InnerClassMayBeStatic
+Inner class `CacheRecord` may be 'static'
+in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
+#### Snippet
+```java
+     * CacheRecord
+     */
+    public class CacheRecord {
+        private Artifact pomArtifact;
+        private Artifact relocatedArtifact;
+```
+
 ## RuleId[id=SuspiciousMethodCalls]
+### SuspiciousMethodCalls
+Suspicious call to 'HashMap.get()'
+in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
+#### Snippet
+```java
+    private void manageArtifact(
+            ResolutionNode node, ManagedVersionMap managedVersions, List<ResolutionListener> listeners) {
+        Artifact artifact = managedVersions.get(node.getKey());
+
+        // Before we update the version of the artifact, we need to know
+```
+
 ### SuspiciousMethodCalls
 Suspicious call to 'HashMap.containsKey()'
 in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
@@ -18664,43 +18701,6 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/Defau
                                     Artifact ma = managedVersions.get(childKey);
                                     ArtifactFilter managedExclusionFilter = ma.getDependencyFilter();
                                     if (null != managedExclusionFilter) {
-```
-
-### SuspiciousMethodCalls
-Suspicious call to 'HashMap.get()'
-in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
-#### Snippet
-```java
-    private void manageArtifact(
-            ResolutionNode node, ManagedVersionMap managedVersions, List<ResolutionListener> listeners) {
-        Artifact artifact = managedVersions.get(node.getKey());
-
-        // Before we update the version of the artifact, we need to know
-```
-
-## RuleId[id=InnerClassMayBeStatic]
-### InnerClassMayBeStatic
-Inner class `ClasspathGraphVisitor` may be 'static'
-in `maven-compat/src/main/java/org/apache/maven/repository/metadata/DefaultClasspathTransformation.java`
-#### Snippet
-```java
-     * and yet use class level data to lessen stack usage in recursion
-     */
-    private class ClasspathGraphVisitor {
-        MetadataGraph graph;
-
-```
-
-### InnerClassMayBeStatic
-Inner class `CacheRecord` may be 'static'
-in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
-#### Snippet
-```java
-     * CacheRecord
-     */
-    public class CacheRecord {
-        private Artifact pomArtifact;
-        private Artifact relocatedArtifact;
 ```
 
 ## RuleId[id=SynchronizeOnNonFinalField]
@@ -18744,18 +18744,6 @@ in `maven-compat/src/main/java/org/apache/maven/project/path/DefaultPathTranslat
 
 ### NonStrictComparisonCanBeEquality
 Can be replaced with equality
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/RelocatedArtifact.java`
-#### Snippet
-```java
-    public Artifact setVersion(String version) {
-        String current = getVersion();
-        if (current.equals(version) || (version == null && current.length() <= 0)) {
-            return this;
-        }
-```
-
-### NonStrictComparisonCanBeEquality
-Can be replaced with equality
 in `maven-core/src/main/java/org/apache/maven/RepositoryUtils.java`
 #### Snippet
 ```java
@@ -18792,14 +18780,14 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/io/DefaultModelWrit
 
 ### NonStrictComparisonCanBeEquality
 Can be replaced with equality
-in `maven-model-builder/src/main/java/org/apache/maven/model/profile/activation/PropertyProfileActivator.java`
+in `maven-model-builder/src/main/java/org/apache/maven/model/profile/activation/JdkVersionProfileActivator.java`
 #### Snippet
 ```java
-        }
 
-        if (name == null || name.length() <= 0) {
-            problems.add(new ModelProblemCollectorRequest(Severity.ERROR, Version.BASE)
-                    .setMessage("The property name is required to activate the profile " + profile.getId())
+    private static int getRelationOrder(String value, RangeValue rangeValue, boolean isLeft) {
+        if (rangeValue.value.length() <= 0) {
+            return isLeft ? 1 : -1;
+        }
 ```
 
 ### NonStrictComparisonCanBeEquality
@@ -18828,25 +18816,25 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/profile/activation/
 
 ### NonStrictComparisonCanBeEquality
 Can be replaced with equality
-in `maven-model-builder/src/main/java/org/apache/maven/model/profile/activation/JdkVersionProfileActivator.java`
+in `maven-model-builder/src/main/java/org/apache/maven/model/profile/activation/PropertyProfileActivator.java`
 #### Snippet
 ```java
-
-    private static int getRelationOrder(String value, RangeValue rangeValue, boolean isLeft) {
-        if (rangeValue.value.length() <= 0) {
-            return isLeft ? 1 : -1;
         }
+
+        if (name == null || name.length() <= 0) {
+            problems.add(new ModelProblemCollectorRequest(Severity.ERROR, Version.BASE)
+                    .setMessage("The property name is required to activate the profile " + profile.getId())
 ```
 
 ### NonStrictComparisonCanBeEquality
 Can be replaced with equality
-in `maven-settings-builder/src/main/java/org/apache/maven/settings/io/DefaultSettingsWriter.java`
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
 #### Snippet
 ```java
-        String encoding = settings.getModelEncoding();
-        // TODO Use StringUtils here
-        if (encoding == null || encoding.length() <= 0) {
-            encoding = "UTF-8";
+        String parentPath = childModel.getParent().getRelativePath();
+
+        if (parentPath == null || parentPath.length() <= 0) {
+            return null;
         }
 ```
 
@@ -18891,23 +18879,35 @@ Can be replaced with equality
 in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
 #### Snippet
 ```java
-        String parentPath = childModel.getParent().getRelativePath();
-
-        if (parentPath == null || parentPath.length() <= 0) {
-            return null;
-        }
-```
-
-### NonStrictComparisonCanBeEquality
-Can be replaced with equality
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
-#### Snippet
-```java
         } catch (IOException e) {
             String msg = e.getMessage();
             if (msg == null || msg.length() <= 0) {
                 // NOTE: There's java.nio.charset.MalformedInputException and sun.io.MalformedInputException
                 if (e.getClass().getName().endsWith("MalformedInputException")) {
+```
+
+### NonStrictComparisonCanBeEquality
+Can be replaced with equality
+in `maven-model-builder/src/main/java/org/apache/maven/model/validation/DefaultModelValidator.java`
+#### Snippet
+```java
+    private boolean validateModelVersion(
+            ModelProblemCollector problems, String string, InputLocationTracker tracker, String... validVersions) {
+        if (string == null || string.length() <= 0) {
+            return true;
+        }
+```
+
+### NonStrictComparisonCanBeEquality
+Can be replaced with equality
+in `maven-model-builder/src/main/java/org/apache/maven/model/validation/DefaultModelValidator.java`
+#### Snippet
+```java
+            String sourceHint,
+            InputLocationTracker tracker) {
+        if (string == null || string.length() <= 0) {
+            return true;
+        }
 ```
 
 ### NonStrictComparisonCanBeEquality
@@ -18951,18 +18951,6 @@ Can be replaced with equality
 in `maven-model-builder/src/main/java/org/apache/maven/model/validation/DefaultModelValidator.java`
 #### Snippet
 ```java
-    private boolean validateModelVersion(
-            ModelProblemCollector problems, String string, InputLocationTracker tracker, String... validVersions) {
-        if (string == null || string.length() <= 0) {
-            return true;
-        }
-```
-
-### NonStrictComparisonCanBeEquality
-Can be replaced with equality
-in `maven-model-builder/src/main/java/org/apache/maven/model/validation/DefaultModelValidator.java`
-#### Snippet
-```java
             InputLocationTracker tracker,
             String... validValues) {
         if (string == null || string.length() <= 0) {
@@ -18972,13 +18960,25 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/validation/DefaultM
 
 ### NonStrictComparisonCanBeEquality
 Can be replaced with equality
-in `maven-model-builder/src/main/java/org/apache/maven/model/validation/DefaultModelValidator.java`
+in `maven-settings-builder/src/main/java/org/apache/maven/settings/io/DefaultSettingsWriter.java`
 #### Snippet
 ```java
-            String sourceHint,
-            InputLocationTracker tracker) {
-        if (string == null || string.length() <= 0) {
-            return true;
+        String encoding = settings.getModelEncoding();
+        // TODO Use StringUtils here
+        if (encoding == null || encoding.length() <= 0) {
+            encoding = "UTF-8";
+        }
+```
+
+### NonStrictComparisonCanBeEquality
+Can be replaced with equality
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/RelocatedArtifact.java`
+#### Snippet
+```java
+    public Artifact setVersion(String version) {
+        String current = getVersion();
+        if (current.equals(version) || (version == null && current.length() <= 0)) {
+            return this;
         }
 ```
 
@@ -19021,6 +19021,18 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/building/Result.jav
 ```
 
 ## RuleId[id=JavadocDeclaration]
+### JavadocDeclaration
+`@param stringFormatter` tag description is missing
+in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3WriterEx.java`
+#### Snippet
+```java
+     * Method setStringFormatter.
+     *
+     * @param stringFormatter
+     */
+    public void setStringFormatter(InputLocation.StringFormatter stringFormatter) {
+```
+
 ### JavadocDeclaration
 `@param projectId` tag description is missing
 in `maven-compat/src/main/java/org/apache/maven/project/InvalidProjectModelException.java`
@@ -19082,6 +19094,18 @@ in `maven-compat/src/main/java/org/apache/maven/project/InvalidProjectModelExcep
 ```
 
 ### JavadocDeclaration
+`@param qualifier` tag description is missing
+in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java`
+#### Snippet
+```java
+         * so this is still fast. If more characters are needed then it requires a lexical sort anyway.
+         *
+         * @param qualifier
+         * @return an equivalent value that can be used with lexical comparison
+         */
+```
+
+### JavadocDeclaration
 `@param md` tag description is missing
 in `maven-compat/src/main/java/org/apache/maven/repository/MetadataGraph.java`
 #### Snippet
@@ -19122,7 +19146,7 @@ in `maven-compat/src/main/java/org/apache/maven/usability/plugin/ExpressionDocum
 in `maven-compat/src/main/java/org/apache/maven/repository/DefaultMirrorSelector.java`
 #### Snippet
 ```java
-     * Checks the URL to see if this repository refers to a non-localhost repository using HTTP.
+     * Checks the URL to see if this repository refers to an external repository
      *
      * @param originalRepository
      * @return true if external.
@@ -19134,7 +19158,7 @@ in `maven-compat/src/main/java/org/apache/maven/repository/DefaultMirrorSelector
 in `maven-compat/src/main/java/org/apache/maven/repository/DefaultMirrorSelector.java`
 #### Snippet
 ```java
-     * Checks the URL to see if this repository refers to an external repository
+     * Checks the URL to see if this repository refers to a non-localhost repository using HTTP.
      *
      * @param originalRepository
      * @return true if external.
@@ -19190,6 +19214,18 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/DefaultWagonMa
 ```
 
 ### JavadocDeclaration
+`@param relativePathMapper` tag description is missing
+in `maven-model-transform/src/main/java/org/apache/maven/model/transform/ParentXMLFilter.java`
+#### Snippet
+```java
+
+    /**
+     * @param relativePathMapper
+     */
+    ParentXMLFilter(
+```
+
+### JavadocDeclaration
 `@param listeners` tag description is missing
 in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/DefaultLegacyArtifactCollector.java`
 #### Snippet
@@ -19202,723 +19238,27 @@ in `maven-compat/src/main/java/org/apache/maven/repository/legacy/resolver/Defau
 ```
 
 ### JavadocDeclaration
-`@param qualifier` tag description is missing
-in `maven-artifact/src/main/java/org/apache/maven/artifact/versioning/ComparableVersion.java`
+`@throws` tag description is missing
+in `maven-core/src/main/java/org/apache/maven/graph/DefaultProjectDependencyGraph.java`
 #### Snippet
 ```java
-         * so this is still fast. If more characters are needed then it requires a lexical sort anyway.
-         *
-         * @param qualifier
-         * @return an equivalent value that can be used with lexical comparison
-         */
+     * @param allProjects All collected projects.
+     * @param projects    The projects to create the dependency graph with.
+     * @throws DuplicateProjectException
+     * @throws CycleDetectedException
+     * @since 4.0.0
 ```
 
 ### JavadocDeclaration
-`@param error` tag description is missing
-in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/Log.java`
+`@throws` tag description is missing
+in `maven-core/src/main/java/org/apache/maven/graph/DefaultProjectDependencyGraph.java`
 #### Snippet
 ```java
-     * The stack trace for this exception will be output when this error level is enabled.
-     *
-     * @param error
+     * @param projects    The projects to create the dependency graph with.
+     * @throws DuplicateProjectException
+     * @throws CycleDetectedException
+     * @since 4.0.0
      */
-    void error(Throwable error);
-```
-
-### JavadocDeclaration
-`@param content` tag description is missing
-in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/Log.java`
-#### Snippet
-```java
-     * The error's stacktrace will be output when this error level is enabled.
-     *
-     * @param content
-     * @param error
-     */
-```
-
-### JavadocDeclaration
-`@param error` tag description is missing
-in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/Log.java`
-#### Snippet
-```java
-     *
-     * @param content
-     * @param error
-     */
-    void error(CharSequence content, Throwable error);
-```
-
-### JavadocDeclaration
-`@param error` tag description is missing
-in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/Log.java`
-#### Snippet
-```java
-     * The stack trace for this exception will be output when this error level is enabled.
-     *
-     * @param error
-     */
-    void info(Throwable error);
-```
-
-### JavadocDeclaration
-`@param content` tag description is missing
-in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/Log.java`
-#### Snippet
-```java
-     * Send a message to the user in the <b>error</b> error level.
-     *
-     * @param content
-     */
-    void error(CharSequence content);
-```
-
-### JavadocDeclaration
-`@param error` tag description is missing
-in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/Log.java`
-#### Snippet
-```java
-     * The stack trace for this exception will be output when this error level is enabled.
-     *
-     * @param error
-     */
-    void warn(Throwable error);
-```
-
-### JavadocDeclaration
-`@param content` tag description is missing
-in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/Log.java`
-#### Snippet
-```java
-     * The error's stacktrace will be output when this error level is enabled.
-     *
-     * @param content
-     * @param error
-     */
-```
-
-### JavadocDeclaration
-`@param error` tag description is missing
-in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/Log.java`
-#### Snippet
-```java
-     *
-     * @param content
-     * @param error
-     */
-    void info(CharSequence content, Throwable error);
-```
-
-### JavadocDeclaration
-`@param content` tag description is missing
-in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/Log.java`
-#### Snippet
-```java
-     * The error's stacktrace will be output when this error level is enabled.
-     *
-     * @param content
-     * @param error
-     */
-```
-
-### JavadocDeclaration
-`@param error` tag description is missing
-in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/Log.java`
-#### Snippet
-```java
-     *
-     * @param content
-     * @param error
-     */
-    void warn(CharSequence content, Throwable error);
-```
-
-### JavadocDeclaration
-`@param content` tag description is missing
-in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/Log.java`
-#### Snippet
-```java
-     * The error's stacktrace will be output when this error level is enabled.
-     *
-     * @param content
-     * @param error
-     */
-```
-
-### JavadocDeclaration
-`@param error` tag description is missing
-in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/Log.java`
-#### Snippet
-```java
-     *
-     * @param content
-     * @param error
-     */
-    void debug(CharSequence content, Throwable error);
-```
-
-### JavadocDeclaration
-`@param content` tag description is missing
-in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/Log.java`
-#### Snippet
-```java
-     * Send a message to the user in the <b>debug</b> error level.
-     *
-     * @param content
-     */
-    void debug(CharSequence content);
-```
-
-### JavadocDeclaration
-`@param error` tag description is missing
-in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/Log.java`
-#### Snippet
-```java
-     * The stack trace for this exception will be output when this error level is enabled.
-     *
-     * @param error
-     */
-    void debug(Throwable error);
-```
-
-### JavadocDeclaration
-`@param content` tag description is missing
-in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/Log.java`
-#### Snippet
-```java
-     * Send a message to the user in the <b>warn</b> error level.
-     *
-     * @param content
-     */
-    void warn(CharSequence content);
-```
-
-### JavadocDeclaration
-`@param content` tag description is missing
-in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/Log.java`
-#### Snippet
-```java
-     * Send a message to the user in the <b>info</b> error level.
-     *
-     * @param content
-     */
-    void info(CharSequence content);
-```
-
-### JavadocDeclaration
-Javadoc pointing to itself
-in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/annotations/Execute.java`
-#### Snippet
-```java
-     * Lifecycle phase to fork. Note that specifying a phase overrides specifying a goal.
-     * For custom lifecycle phase ids use {@link #customPhase()} instead.
-     * Only one of {@link #customPhase()} and {@link #phase()} must be set.
-     * @return the phase
-     */
-```
-
-### JavadocDeclaration
-Javadoc pointing to itself
-in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/annotations/Execute.java`
-#### Snippet
-```java
-     * Custom lifecycle phase to fork. Note that specifying a phase overrides specifying a goal.
-     * This element should only be used for non-standard phases. For standard phases rather use {@link #phase()}.
-     * Only one of {@link #customPhase()} and {@link #phase()} must be set.
-     * @return the custom phase id
-     */
-```
-
-### JavadocDeclaration
-`@param session` tag description is missing
-in `api/maven-api-core/src/main/java/org/apache/maven/api/services/ToolchainManager.java`
-#### Snippet
-```java
-    /**
-     *
-     * @param session
-     * @param type
-     * @param requirements
-```
-
-### JavadocDeclaration
-`@param type` tag description is missing
-in `api/maven-api-core/src/main/java/org/apache/maven/api/services/ToolchainManager.java`
-#### Snippet
-```java
-     *
-     * @param session
-     * @param type
-     * @param requirements
-     * @return the selected {@link Toolchain}s
-```
-
-### JavadocDeclaration
-`@param requirements` tag description is missing
-in `api/maven-api-core/src/main/java/org/apache/maven/api/services/ToolchainManager.java`
-#### Snippet
-```java
-     * @param session
-     * @param type
-     * @param requirements
-     * @return the selected {@link Toolchain}s
-     * @throws ToolchainManagerException if an exception occurs
-```
-
-### JavadocDeclaration
-`@param session` tag description is missing
-in `api/maven-api-core/src/main/java/org/apache/maven/api/services/ToolchainManager.java`
-#### Snippet
-```java
-    /**
-     *
-     * @param session
-     * @param toolchain
-     * @throws ToolchainManagerException if an exception occurs
-```
-
-### JavadocDeclaration
-`@param toolchain` tag description is missing
-in `api/maven-api-core/src/main/java/org/apache/maven/api/services/ToolchainManager.java`
-#### Snippet
-```java
-     *
-     * @param session
-     * @param toolchain
-     * @throws ToolchainManagerException if an exception occurs
-     */
-```
-
-### JavadocDeclaration
-`@param session` tag description is missing
-in `api/maven-api-core/src/main/java/org/apache/maven/api/services/ToolchainManager.java`
-#### Snippet
-```java
-    /**
-     *
-     * @param session
-     * @param type
-     * @return the selected {@link Toolchain}s
-```
-
-### JavadocDeclaration
-`@param type` tag description is missing
-in `api/maven-api-core/src/main/java/org/apache/maven/api/services/ToolchainManager.java`
-#### Snippet
-```java
-     *
-     * @param session
-     * @param type
-     * @return the selected {@link Toolchain}s
-     * @throws ToolchainManagerException if an exception occurs
-```
-
-### JavadocDeclaration
-`@param session` tag description is missing
-in `api/maven-api-core/src/main/java/org/apache/maven/api/services/ToolchainManager.java`
-#### Snippet
-```java
-    /**
-     *
-     * @param session
-     * @param type
-     * @return the selected {@link Toolchain}
-```
-
-### JavadocDeclaration
-`@param type` tag description is missing
-in `api/maven-api-core/src/main/java/org/apache/maven/api/services/ToolchainManager.java`
-#### Snippet
-```java
-     *
-     * @param session
-     * @param type
-     * @return the selected {@link Toolchain}
-     * @throws ToolchainManagerException if an exception occurs
-```
-
-### JavadocDeclaration
-`@param message` tag description is missing
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/MojoFailureException.java`
-#### Snippet
-```java
-     * and providing a <code>message</code>.
-     *
-     * @param message
-     * @param cause
-     * @since 2.0.9
-```
-
-### JavadocDeclaration
-`@param cause` tag description is missing
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/MojoFailureException.java`
-#### Snippet
-```java
-     *
-     * @param message
-     * @param cause
-     * @since 2.0.9
-     */
-```
-
-### JavadocDeclaration
-`@param source` tag description is missing
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/MojoFailureException.java`
-#### Snippet
-```java
-     * these messages are used to improve the message written at the end of Maven build.
-     *
-     * @param source
-     * @param shortMessage
-     * @param longMessage
-```
-
-### JavadocDeclaration
-`@param shortMessage` tag description is missing
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/MojoFailureException.java`
-#### Snippet
-```java
-     *
-     * @param source
-     * @param shortMessage
-     * @param longMessage
-     */
-```
-
-### JavadocDeclaration
-`@param message` tag description is missing
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/MojoExecutionException.java`
-#### Snippet
-```java
-     * and providing a <code>message</code>.
-     *
-     * @param message
-     * @param cause
-     */
-```
-
-### JavadocDeclaration
-`@param cause` tag description is missing
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/MojoExecutionException.java`
-#### Snippet
-```java
-     *
-     * @param message
-     * @param cause
-     */
-    public MojoExecutionException(String message, Exception cause) {
-```
-
-### JavadocDeclaration
-`@param message` tag description is missing
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/MojoExecutionException.java`
-#### Snippet
-```java
-     * Construct a new <code>MojoExecutionException</code> exception providing a <code>message</code>.
-     *
-     * @param message
-     */
-    public MojoExecutionException(String message) {
-```
-
-### JavadocDeclaration
-`@param longMessage` tag description is missing
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/MojoFailureException.java`
-#### Snippet
-```java
-     * @param source
-     * @param shortMessage
-     * @param longMessage
-     */
-    public MojoFailureException(Object source, String shortMessage, String longMessage) {
-```
-
-### JavadocDeclaration
-`@param source` tag description is missing
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/MojoExecutionException.java`
-#### Snippet
-```java
-     * these messages are used to improve the message written at the end of Maven build.
-     *
-     * @param source
-     * @param shortMessage
-     * @param longMessage
-```
-
-### JavadocDeclaration
-`@param message` tag description is missing
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/MojoFailureException.java`
-#### Snippet
-```java
-     * Construct a new <code>MojoFailureException</code> exception providing a message.
-     *
-     * @param message
-     */
-    public MojoFailureException(String message) {
-```
-
-### JavadocDeclaration
-`@param shortMessage` tag description is missing
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/MojoExecutionException.java`
-#### Snippet
-```java
-     *
-     * @param source
-     * @param shortMessage
-     * @param longMessage
-     */
-```
-
-### JavadocDeclaration
-`@param longMessage` tag description is missing
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/MojoExecutionException.java`
-#### Snippet
-```java
-     * @param source
-     * @param shortMessage
-     * @param longMessage
-     */
-    public MojoExecutionException(Object source, String shortMessage, String longMessage) {
-```
-
-### JavadocDeclaration
-`@param message` tag description is missing
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/MojoExecutionException.java`
-#### Snippet
-```java
-     * and providing a <code>message</code>.
-     *
-     * @param message
-     * @param cause
-     */
-```
-
-### JavadocDeclaration
-`@param cause` tag description is missing
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/MojoExecutionException.java`
-#### Snippet
-```java
-     *
-     * @param message
-     * @param cause
-     */
-    public MojoExecutionException(String message, Throwable cause) {
-```
-
-### JavadocDeclaration
-`@param content` tag description is missing
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/Log.java`
-#### Snippet
-```java
-     * The error's stacktrace will be output when this error level is enabled.
-     *
-     * @param content
-     * @param error
-     */
-```
-
-### JavadocDeclaration
-`@param error` tag description is missing
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/Log.java`
-#### Snippet
-```java
-     *
-     * @param content
-     * @param error
-     */
-    void debug(CharSequence content, Throwable error);
-```
-
-### JavadocDeclaration
-`@param content` tag description is missing
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/Log.java`
-#### Snippet
-```java
-     * The error's stacktrace will be output when this error level is enabled.
-     *
-     * @param content
-     * @param error
-     */
-```
-
-### JavadocDeclaration
-`@param error` tag description is missing
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/Log.java`
-#### Snippet
-```java
-     *
-     * @param content
-     * @param error
-     */
-    void warn(CharSequence content, Throwable error);
-```
-
-### JavadocDeclaration
-`@param content` tag description is missing
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/Log.java`
-#### Snippet
-```java
-     * The error's stacktrace will be output when this error level is enabled.
-     *
-     * @param content
-     * @param error
-     */
-```
-
-### JavadocDeclaration
-`@param error` tag description is missing
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/Log.java`
-#### Snippet
-```java
-     *
-     * @param content
-     * @param error
-     */
-    void info(CharSequence content, Throwable error);
-```
-
-### JavadocDeclaration
-`@param error` tag description is missing
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/Log.java`
-#### Snippet
-```java
-     * The stack trace for this exception will be output when this error level is enabled.
-     *
-     * @param error
-     */
-    void warn(Throwable error);
-```
-
-### JavadocDeclaration
-`@param content` tag description is missing
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/Log.java`
-#### Snippet
-```java
-     * The error's stacktrace will be output when this error level is enabled.
-     *
-     * @param content
-     * @param error
-     */
-```
-
-### JavadocDeclaration
-`@param error` tag description is missing
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/Log.java`
-#### Snippet
-```java
-     *
-     * @param content
-     * @param error
-     */
-    void error(CharSequence content, Throwable error);
-```
-
-### JavadocDeclaration
-`@param content` tag description is missing
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/Log.java`
-#### Snippet
-```java
-     * Send a message to the user in the <b>warn</b> error level.
-     *
-     * @param content
-     */
-    void warn(CharSequence content);
-```
-
-### JavadocDeclaration
-`@param error` tag description is missing
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/Log.java`
-#### Snippet
-```java
-     * The stack trace for this exception will be output when this error level is enabled.
-     *
-     * @param error
-     */
-    void error(Throwable error);
-```
-
-### JavadocDeclaration
-`@param content` tag description is missing
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/Log.java`
-#### Snippet
-```java
-     * Send a message to the user in the <b>info</b> error level.
-     *
-     * @param content
-     */
-    void info(CharSequence content);
-```
-
-### JavadocDeclaration
-`@param content` tag description is missing
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/Log.java`
-#### Snippet
-```java
-     * Send a message to the user in the <b>debug</b> error level.
-     *
-     * @param content
-     */
-    void debug(CharSequence content);
-```
-
-### JavadocDeclaration
-`@param error` tag description is missing
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/Log.java`
-#### Snippet
-```java
-     * The stack trace for this exception will be output when this error level is enabled.
-     *
-     * @param error
-     */
-    void info(Throwable error);
-```
-
-### JavadocDeclaration
-`@param content` tag description is missing
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/Log.java`
-#### Snippet
-```java
-     * Send a message to the user in the <b>error</b> error level.
-     *
-     * @param content
-     */
-    void error(CharSequence content);
-```
-
-### JavadocDeclaration
-`@param error` tag description is missing
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/Log.java`
-#### Snippet
-```java
-     * The stack trace for this exception will be output when this error level is enabled.
-     *
-     * @param error
-     */
-    void debug(Throwable error);
-```
-
-### JavadocDeclaration
-Class org.apache.maven.plugin.descriptor.DuplicateParameterException is not a descendant of Throwable
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/MojoDescriptor.java`
-#### Snippet
-```java
-    /**
-     * @param parameters the new list of parameters
-     * @throws DuplicateParameterException if any
-     */
-    public void setParameters(List<Parameter> parameters) throws DuplicateParameterException {
-```
-
-### JavadocDeclaration
-Class org.apache.maven.plugin.descriptor.DuplicateParameterException is not a descendant of Throwable
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/MojoDescriptor.java`
-#### Snippet
-```java
-    /**
-     * @param parameter add a new parameter
-     * @throws DuplicateParameterException if any
-     */
-    public void addParameter(Parameter parameter) throws DuplicateParameterException {
 ```
 
 ### JavadocDeclaration
@@ -19943,30 +19283,6 @@ in `maven-core/src/main/java/org/apache/maven/graph/DefaultProjectDependencyGrap
      * @throws CycleDetectedException
      * @since 3.5.0
      * @deprecated Use {@link #DefaultProjectDependencyGraph(Collection, Collection)} instead.
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `maven-core/src/main/java/org/apache/maven/graph/DefaultProjectDependencyGraph.java`
-#### Snippet
-```java
-     * @param allProjects All collected projects.
-     * @param projects    The projects to create the dependency graph with.
-     * @throws DuplicateProjectException
-     * @throws CycleDetectedException
-     * @since 4.0.0
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `maven-core/src/main/java/org/apache/maven/graph/DefaultProjectDependencyGraph.java`
-#### Snippet
-```java
-     * @param projects    The projects to create the dependency graph with.
-     * @throws DuplicateProjectException
-     * @throws CycleDetectedException
-     * @since 4.0.0
-     */
 ```
 
 ### JavadocDeclaration
@@ -20034,7 +19350,7 @@ in `maven-core/src/main/java/org/apache/maven/plugin/MojosExecutionStrategy.java
 in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
 #### Snippet
 ```java
-     * Checks the URL to see if this repository refers to an external repository
+     * Checks the URL to see if this repository refers to a non-localhost repository using HTTP.
      *
      * @param originalRepository
      * @return true if external.
@@ -20046,11 +19362,23 @@ in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
 in `maven-core/src/main/java/org/apache/maven/bridge/MavenRepositorySystem.java`
 #### Snippet
 ```java
-     * Checks the URL to see if this repository refers to a non-localhost repository using HTTP.
+     * Checks the URL to see if this repository refers to an external repository
      *
      * @param originalRepository
      * @return true if external.
      */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `maven-core/src/main/java/org/apache/maven/plugin/DefaultBuildPluginManager.java`
+#### Snippet
+```java
+     * TODO pluginDescriptor classRealm and artifacts are set as a side effect of this
+     *      call, which is not nice.
+     * @throws PluginResolutionException
+     */
+    public ClassRealm getPluginRealm(MavenSession session, PluginDescriptor pluginDescriptor)
 ```
 
 ### JavadocDeclaration
@@ -20102,18 +19430,6 @@ in `maven-core/src/main/java/org/apache/maven/plugin/DefaultBuildPluginManager.j
 ```
 
 ### JavadocDeclaration
-`@throws` tag description is missing
-in `maven-core/src/main/java/org/apache/maven/plugin/DefaultBuildPluginManager.java`
-#### Snippet
-```java
-     * TODO pluginDescriptor classRealm and artifacts are set as a side effect of this
-     *      call, which is not nice.
-     * @throws PluginResolutionException
-     */
-    public ClassRealm getPluginRealm(MavenSession session, PluginDescriptor pluginDescriptor)
-```
-
-### JavadocDeclaration
 `@param path` tag description is missing
 in `maven-core/src/main/java/org/apache/maven/project/ReactorModelPool.java`
 #### Snippet
@@ -20158,7 +19474,19 @@ in `maven-core/src/main/java/org/apache/maven/project/ProjectBuildingException.j
      * @param projectId
      * @param message
      * @param pomFile   pom file location
+     * @param cause
+```
+
+### JavadocDeclaration
+`@param cause` tag description is missing
+in `maven-core/src/main/java/org/apache/maven/project/ProjectBuildingException.java`
+#### Snippet
+```java
+     * @param message
+     * @param pomFile   pom file location
+     * @param cause
      */
+    protected ProjectBuildingException(String projectId, String message, File pomFile, Throwable cause) {
 ```
 
 ### JavadocDeclaration
@@ -20182,19 +19510,7 @@ in `maven-core/src/main/java/org/apache/maven/project/ProjectBuildingException.j
      * @param projectId
      * @param message
      * @param pomFile   pom file location
-     * @param cause
-```
-
-### JavadocDeclaration
-`@param cause` tag description is missing
-in `maven-core/src/main/java/org/apache/maven/project/ProjectBuildingException.java`
-#### Snippet
-```java
-     * @param message
-     * @param pomFile   pom file location
-     * @param cause
      */
-    protected ProjectBuildingException(String projectId, String message, File pomFile, Throwable cause) {
 ```
 
 ### JavadocDeclaration
@@ -20246,6 +19562,18 @@ in `maven-core/src/main/java/org/apache/maven/project/collector/ProjectCollectio
 ```
 
 ### JavadocDeclaration
+`@param modelProfile` tag description is missing
+in `maven-core/src/main/java/org/apache/maven/settings/SettingsUtils.java`
+#### Snippet
+```java
+
+    /**
+     * @param modelProfile
+     * @return a profile
+     */
+```
+
+### JavadocDeclaration
 `@param dominant` tag description is missing
 in `maven-core/src/main/java/org/apache/maven/settings/SettingsUtils.java`
 #### Snippet
@@ -20294,14 +19622,50 @@ in `maven-core/src/main/java/org/apache/maven/settings/SettingsUtils.java`
 ```
 
 ### JavadocDeclaration
+`@param modelPolicy` tag description is missing
+in `maven-core/src/main/java/org/apache/maven/settings/SettingsUtilsV4.java`
+#### Snippet
+```java
+
+    /**
+     * @param modelPolicy
+     * @return a RepositoryPolicy
+     */
+```
+
+### JavadocDeclaration
 `@param modelProfile` tag description is missing
-in `maven-core/src/main/java/org/apache/maven/settings/SettingsUtils.java`
+in `maven-core/src/main/java/org/apache/maven/settings/SettingsUtilsV4.java`
 #### Snippet
 ```java
 
     /**
      * @param modelProfile
      * @return a profile
+     */
+```
+
+### JavadocDeclaration
+`@param settingsProfile` tag description is missing
+in `maven-core/src/main/java/org/apache/maven/settings/SettingsUtilsV4.java`
+#### Snippet
+```java
+
+    /**
+     * @param settingsProfile
+     * @return a profile
+     */
+```
+
+### JavadocDeclaration
+`@param settingsRepo` tag description is missing
+in `maven-core/src/main/java/org/apache/maven/settings/SettingsUtilsV4.java`
+#### Snippet
+```java
+
+    /**
+     * @param settingsRepo
+     * @return a repository
      */
 ```
 
@@ -20330,30 +19694,6 @@ in `maven-core/src/main/java/org/apache/maven/settings/SettingsUtilsV4.java`
 ```
 
 ### JavadocDeclaration
-`@param settingsRepo` tag description is missing
-in `maven-core/src/main/java/org/apache/maven/settings/SettingsUtilsV4.java`
-#### Snippet
-```java
-
-    /**
-     * @param settingsRepo
-     * @return a repository
-     */
-```
-
-### JavadocDeclaration
-`@param modelPolicy` tag description is missing
-in `maven-core/src/main/java/org/apache/maven/settings/SettingsUtilsV4.java`
-#### Snippet
-```java
-
-    /**
-     * @param modelPolicy
-     * @return a RepositoryPolicy
-     */
-```
-
-### JavadocDeclaration
 `@param dominant` tag description is missing
 in `maven-core/src/main/java/org/apache/maven/settings/SettingsUtilsV4.java`
 #### Snippet
@@ -20375,30 +19715,6 @@ in `maven-core/src/main/java/org/apache/maven/settings/SettingsUtilsV4.java`
      * @param recessive
      */
     public static Settings merge(Settings dominant, Settings recessive) {
-```
-
-### JavadocDeclaration
-`@param settingsProfile` tag description is missing
-in `maven-core/src/main/java/org/apache/maven/settings/SettingsUtilsV4.java`
-#### Snippet
-```java
-
-    /**
-     * @param settingsProfile
-     * @return a profile
-     */
-```
-
-### JavadocDeclaration
-`@param modelProfile` tag description is missing
-in `maven-core/src/main/java/org/apache/maven/settings/SettingsUtilsV4.java`
-#### Snippet
-```java
-
-    /**
-     * @param modelProfile
-     * @return a profile
-     */
 ```
 
 ### JavadocDeclaration
@@ -20474,18 +19790,6 @@ in `maven-core/src/main/java/org/apache/maven/execution/DefaultMavenExecutionReq
 ```
 
 ### JavadocDeclaration
-`@param id` tag description is missing
-in `maven-core/src/main/java/org/apache/maven/lifecycle/mapping/Lifecycle.java`
-#### Snippet
-```java
-     * Method setId
-     *
-     * @param id
-     */
-    public void setId(String id) {
-```
-
-### JavadocDeclaration
 `@param lifecyclePhases` tag description is missing
 in `maven-core/src/main/java/org/apache/maven/lifecycle/mapping/Lifecycle.java`
 #### Snippet
@@ -20498,15 +19802,15 @@ in `maven-core/src/main/java/org/apache/maven/lifecycle/mapping/Lifecycle.java`
 ```
 
 ### JavadocDeclaration
-`@param p` tag description is missing
-in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/builder/multithreaded/ConcurrencyDependencyGraph.java`
+`@param id` tag description is missing
+in `maven-core/src/main/java/org/apache/maven/lifecycle/mapping/Lifecycle.java`
 #### Snippet
 ```java
-     * For the given {@link MavenProject} {@code p}, return all of {@code p}'s dependencies.
+     * Method setId
      *
-     * @param p
-     * @return List of prerequisite projects
+     * @param id
      */
+    public void setId(String id) {
 ```
 
 ### JavadocDeclaration
@@ -20522,51 +19826,15 @@ in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/builder/multith
 ```
 
 ### JavadocDeclaration
-`@param repositories` tag description is missing
-in `maven-core/src/main/java/org/apache/maven/execution/MavenExecutionRequest.java`
+`@param p` tag description is missing
+in `maven-core/src/main/java/org/apache/maven/lifecycle/internal/builder/multithreaded/ConcurrencyDependencyGraph.java`
 #### Snippet
 ```java
-     * mirrors then it's easier to just replace the whole list with a new list of transformed repositories.
+     * For the given {@link MavenProject} {@code p}, return all of {@code p}'s dependencies.
      *
-     * @param repositories
-     * @return This request, never {@code null}.
+     * @param p
+     * @return List of prerequisite projects
      */
-```
-
-### JavadocDeclaration
-`@param degreeOfConcurrency` tag description is missing
-in `maven-core/src/main/java/org/apache/maven/execution/MavenExecutionRequest.java`
-#### Snippet
-```java
-     * Set's the parallel degree of concurrency used by the build.
-     *
-     * @param degreeOfConcurrency
-     */
-    void setDegreeOfConcurrency(int degreeOfConcurrency);
-```
-
-### JavadocDeclaration
-`@param key` tag description is missing
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/TransformerContext.java`
-#### Snippet
-```java
-    /**
-     * Get the value of the commandline argument {@code -Dkey=value}
-     * @param key
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/TransformerContext.java`
-#### Snippet
-```java
-     * Get the value of the commandline argument {@code -Dkey=value}
-     * @param key
-     * @return
-     */
-    String getUserProperty(String key);
 ```
 
 ### JavadocDeclaration
@@ -20574,11 +19842,23 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/building/Transforme
 in `maven-model-builder/src/main/java/org/apache/maven/model/building/Result.java`
 #### Snippet
 ```java
-     * Success without warnings
+     * Success with warnings
      *
      * @param model
+     * @param problems
      */
-    public static <T> Result<T> success(T model) {
+```
+
+### JavadocDeclaration
+`@param problems` tag description is missing
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/Result.java`
+#### Snippet
+```java
+     *
+     * @param model
+     * @param problems
+     */
+    public static <T> Result<T> success(T model, Iterable<? extends ModelProblem> problems) {
 ```
 
 ### JavadocDeclaration
@@ -20603,78 +19883,6 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/building/Result.jav
      * @param problems
      */
     public static <T> Result<T> addProblems(Result<T> result, Iterable<? extends ModelProblem> problems) {
-```
-
-### JavadocDeclaration
-`@param problems` tag description is missing
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/Result.java`
-#### Snippet
-```java
-     * Error with problems describing the cause
-     *
-     * @param problems
-     */
-    public static <T> Result<T> error(Iterable<? extends ModelProblem> problems) {
-```
-
-### JavadocDeclaration
-`@param results` tag description is missing
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/Result.java`
-#### Snippet
-```java
-     * Turns the given results into a single result by combining problems and models into single collection.
-     *
-     * @param results
-     */
-    public static <T> Result<Iterable<T>> newResultSet(Iterable<? extends Result<? extends T>> results) {
-```
-
-### JavadocDeclaration
-`@param model` tag description is missing
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/Result.java`
-#### Snippet
-```java
-     * Success with warnings
-     *
-     * @param model
-     * @param results
-     */
-```
-
-### JavadocDeclaration
-`@param results` tag description is missing
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/Result.java`
-#### Snippet
-```java
-     *
-     * @param model
-     * @param results
-     */
-    public static <T> Result<T> success(T model, Result<?>... results) {
-```
-
-### JavadocDeclaration
-`@param result` tag description is missing
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/Result.java`
-#### Snippet
-```java
-     * concat(result.getProblems(),problems)).
-     *
-     * @param result
-     * @param problem
-     */
-```
-
-### JavadocDeclaration
-`@param problem` tag description is missing
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/Result.java`
-#### Snippet
-```java
-     *
-     * @param result
-     * @param problem
-     */
-    public static <T> Result<T> addProblem(Result<T> result, ModelProblem problem) {
 ```
 
 ### JavadocDeclaration
@@ -20706,30 +19914,6 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/building/Result.jav
 in `maven-model-builder/src/main/java/org/apache/maven/model/building/Result.java`
 #### Snippet
 ```java
-     * Success with warnings
-     *
-     * @param model
-     * @param problems
-     */
-```
-
-### JavadocDeclaration
-`@param problems` tag description is missing
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/Result.java`
-#### Snippet
-```java
-     *
-     * @param model
-     * @param problems
-     */
-    public static <T> Result<T> success(T model, Iterable<? extends ModelProblem> problems) {
-```
-
-### JavadocDeclaration
-`@param model` tag description is missing
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/Result.java`
-#### Snippet
-```java
      * New result - determine whether error or success by checking problems for errors
      *
      * @param model
@@ -20750,15 +19934,111 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/building/Result.jav
 ```
 
 ### JavadocDeclaration
-`@param fileModel` tag description is missing
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/ModelBuildingRequest.java`
+`@param model` tag description is missing
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/Result.java`
 #### Snippet
 ```java
-     * Set the file model with profile activation
+     * Success without warnings
      *
-     * @param fileModel
-     * @return This request, never {@code null}.
-     * @since 4.0.0
+     * @param model
+     */
+    public static <T> Result<T> success(T model) {
+```
+
+### JavadocDeclaration
+`@param result` tag description is missing
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/Result.java`
+#### Snippet
+```java
+     * concat(result.getProblems(),problems)).
+     *
+     * @param result
+     * @param problem
+     */
+```
+
+### JavadocDeclaration
+`@param problem` tag description is missing
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/Result.java`
+#### Snippet
+```java
+     *
+     * @param result
+     * @param problem
+     */
+    public static <T> Result<T> addProblem(Result<T> result, ModelProblem problem) {
+```
+
+### JavadocDeclaration
+`@param problems` tag description is missing
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/Result.java`
+#### Snippet
+```java
+     * Error with problems describing the cause
+     *
+     * @param problems
+     */
+    public static <T> Result<T> error(Iterable<? extends ModelProblem> problems) {
+```
+
+### JavadocDeclaration
+`@param model` tag description is missing
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/Result.java`
+#### Snippet
+```java
+     * Success with warnings
+     *
+     * @param model
+     * @param results
+     */
+```
+
+### JavadocDeclaration
+`@param results` tag description is missing
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/Result.java`
+#### Snippet
+```java
+     *
+     * @param model
+     * @param results
+     */
+    public static <T> Result<T> success(T model, Result<?>... results) {
+```
+
+### JavadocDeclaration
+`@param results` tag description is missing
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/Result.java`
+#### Snippet
+```java
+     * Turns the given results into a single result by combining problems and models into single collection.
+     *
+     * @param results
+     */
+    public static <T> Result<Iterable<T>> newResultSet(Iterable<? extends Result<? extends T>> results) {
+```
+
+### JavadocDeclaration
+`@param key` tag description is missing
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/TransformerContext.java`
+#### Snippet
+```java
+    /**
+     * Get the value of the commandline argument {@code -Dkey=value}
+     * @param key
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/TransformerContext.java`
+#### Snippet
+```java
+     * Get the value of the commandline argument {@code -Dkey=value}
+     * @param key
+     * @return
+     */
+    String getUserProperty(String key);
 ```
 
 ### JavadocDeclaration
@@ -20771,6 +20051,18 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/building/ModelBuild
      * Sets the source of the POM to process. Eventually, either {@link #setModelSource(ModelSource)} or
      * {@link #setPomFile(File)} must be set.
      *
+```
+
+### JavadocDeclaration
+`@param fileModel` tag description is missing
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/ModelBuildingRequest.java`
+#### Snippet
+```java
+     * Set the file model with profile activation
+     *
+     * @param fileModel
+     * @return This request, never {@code null}.
+     * @since 4.0.0
 ```
 
 ### JavadocDeclaration
@@ -20870,39 +20162,387 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/interpolation/Model
 ```
 
 ### JavadocDeclaration
-`@param dominant` tag description is missing
-in `maven-settings-builder/src/main/java/org/apache/maven/settings/merge/MavenSettingsMerger.java`
+`@param request` tag description is missing
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
 #### Snippet
 ```java
-
-    /**
-     * @param dominant
-     * @param recessive
-     * @param recessiveSourceLevel
+         * If an interface could be extracted, DefaultModelProblemCollector should be ModelProblemCollectorExt
+         *
+         * @param request
+         * @param collector
+         * @return
 ```
 
 ### JavadocDeclaration
-`@param recessive` tag description is missing
-in `maven-settings-builder/src/main/java/org/apache/maven/settings/merge/MavenSettingsMerger.java`
+`@param collector` tag description is missing
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
 #### Snippet
 ```java
-    /**
-     * @param dominant
-     * @param recessive
-     * @param recessiveSourceLevel
+         *
+         * @param request
+         * @param collector
+         * @return
+         */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
+#### Snippet
+```java
+         * @param request
+         * @param collector
+         * @return
+         */
+        @Override
+```
+
+### JavadocDeclaration
+`@param content` tag description is missing
+in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/Log.java`
+#### Snippet
+```java
+     * The error's stacktrace will be output when this error level is enabled.
+     *
+     * @param content
+     * @param error
      */
 ```
 
 ### JavadocDeclaration
-`@param recessiveSourceLevel` tag description is missing
-in `maven-settings-builder/src/main/java/org/apache/maven/settings/merge/MavenSettingsMerger.java`
+`@param error` tag description is missing
+in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/Log.java`
 #### Snippet
 ```java
-     * @param dominant
-     * @param recessive
-     * @param recessiveSourceLevel
+     *
+     * @param content
+     * @param error
      */
-    public void merge(Settings dominant, Settings recessive, String recessiveSourceLevel) {
+    void warn(CharSequence content, Throwable error);
+```
+
+### JavadocDeclaration
+`@param content` tag description is missing
+in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/Log.java`
+#### Snippet
+```java
+     * The error's stacktrace will be output when this error level is enabled.
+     *
+     * @param content
+     * @param error
+     */
+```
+
+### JavadocDeclaration
+`@param error` tag description is missing
+in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/Log.java`
+#### Snippet
+```java
+     *
+     * @param content
+     * @param error
+     */
+    void info(CharSequence content, Throwable error);
+```
+
+### JavadocDeclaration
+`@param content` tag description is missing
+in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/Log.java`
+#### Snippet
+```java
+     * Send a message to the user in the <b>info</b> error level.
+     *
+     * @param content
+     */
+    void info(CharSequence content);
+```
+
+### JavadocDeclaration
+`@param content` tag description is missing
+in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/Log.java`
+#### Snippet
+```java
+     * The error's stacktrace will be output when this error level is enabled.
+     *
+     * @param content
+     * @param error
+     */
+```
+
+### JavadocDeclaration
+`@param error` tag description is missing
+in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/Log.java`
+#### Snippet
+```java
+     *
+     * @param content
+     * @param error
+     */
+    void error(CharSequence content, Throwable error);
+```
+
+### JavadocDeclaration
+`@param error` tag description is missing
+in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/Log.java`
+#### Snippet
+```java
+     * The stack trace for this exception will be output when this error level is enabled.
+     *
+     * @param error
+     */
+    void warn(Throwable error);
+```
+
+### JavadocDeclaration
+`@param content` tag description is missing
+in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/Log.java`
+#### Snippet
+```java
+     * Send a message to the user in the <b>warn</b> error level.
+     *
+     * @param content
+     */
+    void warn(CharSequence content);
+```
+
+### JavadocDeclaration
+`@param content` tag description is missing
+in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/Log.java`
+#### Snippet
+```java
+     * Send a message to the user in the <b>error</b> error level.
+     *
+     * @param content
+     */
+    void error(CharSequence content);
+```
+
+### JavadocDeclaration
+`@param content` tag description is missing
+in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/Log.java`
+#### Snippet
+```java
+     * The error's stacktrace will be output when this error level is enabled.
+     *
+     * @param content
+     * @param error
+     */
+```
+
+### JavadocDeclaration
+`@param error` tag description is missing
+in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/Log.java`
+#### Snippet
+```java
+     *
+     * @param content
+     * @param error
+     */
+    void debug(CharSequence content, Throwable error);
+```
+
+### JavadocDeclaration
+`@param content` tag description is missing
+in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/Log.java`
+#### Snippet
+```java
+     * Send a message to the user in the <b>debug</b> error level.
+     *
+     * @param content
+     */
+    void debug(CharSequence content);
+```
+
+### JavadocDeclaration
+`@param error` tag description is missing
+in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/Log.java`
+#### Snippet
+```java
+     * The stack trace for this exception will be output when this error level is enabled.
+     *
+     * @param error
+     */
+    void error(Throwable error);
+```
+
+### JavadocDeclaration
+`@param error` tag description is missing
+in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/Log.java`
+#### Snippet
+```java
+     * The stack trace for this exception will be output when this error level is enabled.
+     *
+     * @param error
+     */
+    void debug(Throwable error);
+```
+
+### JavadocDeclaration
+`@param error` tag description is missing
+in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/Log.java`
+#### Snippet
+```java
+     * The stack trace for this exception will be output when this error level is enabled.
+     *
+     * @param error
+     */
+    void info(Throwable error);
+```
+
+### JavadocDeclaration
+Javadoc pointing to itself
+in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/annotations/Execute.java`
+#### Snippet
+```java
+     * Custom lifecycle phase to fork. Note that specifying a phase overrides specifying a goal.
+     * This element should only be used for non-standard phases. For standard phases rather use {@link #phase()}.
+     * Only one of {@link #customPhase()} and {@link #phase()} must be set.
+     * @return the custom phase id
+     */
+```
+
+### JavadocDeclaration
+Javadoc pointing to itself
+in `api/maven-api-core/src/main/java/org/apache/maven/api/plugin/annotations/Execute.java`
+#### Snippet
+```java
+     * Lifecycle phase to fork. Note that specifying a phase overrides specifying a goal.
+     * For custom lifecycle phase ids use {@link #customPhase()} instead.
+     * Only one of {@link #customPhase()} and {@link #phase()} must be set.
+     * @return the phase
+     */
+```
+
+### JavadocDeclaration
+`@param session` tag description is missing
+in `api/maven-api-core/src/main/java/org/apache/maven/api/services/ToolchainManager.java`
+#### Snippet
+```java
+    /**
+     *
+     * @param session
+     * @param type
+     * @return the selected {@link Toolchain}
+```
+
+### JavadocDeclaration
+`@param type` tag description is missing
+in `api/maven-api-core/src/main/java/org/apache/maven/api/services/ToolchainManager.java`
+#### Snippet
+```java
+     *
+     * @param session
+     * @param type
+     * @return the selected {@link Toolchain}
+     * @throws ToolchainManagerException if an exception occurs
+```
+
+### JavadocDeclaration
+`@param session` tag description is missing
+in `api/maven-api-core/src/main/java/org/apache/maven/api/services/ToolchainManager.java`
+#### Snippet
+```java
+    /**
+     *
+     * @param session
+     * @param type
+     * @return the selected {@link Toolchain}s
+```
+
+### JavadocDeclaration
+`@param type` tag description is missing
+in `api/maven-api-core/src/main/java/org/apache/maven/api/services/ToolchainManager.java`
+#### Snippet
+```java
+     *
+     * @param session
+     * @param type
+     * @return the selected {@link Toolchain}s
+     * @throws ToolchainManagerException if an exception occurs
+```
+
+### JavadocDeclaration
+`@param session` tag description is missing
+in `api/maven-api-core/src/main/java/org/apache/maven/api/services/ToolchainManager.java`
+#### Snippet
+```java
+    /**
+     *
+     * @param session
+     * @param toolchain
+     * @throws ToolchainManagerException if an exception occurs
+```
+
+### JavadocDeclaration
+`@param toolchain` tag description is missing
+in `api/maven-api-core/src/main/java/org/apache/maven/api/services/ToolchainManager.java`
+#### Snippet
+```java
+     *
+     * @param session
+     * @param toolchain
+     * @throws ToolchainManagerException if an exception occurs
+     */
+```
+
+### JavadocDeclaration
+`@param session` tag description is missing
+in `api/maven-api-core/src/main/java/org/apache/maven/api/services/ToolchainManager.java`
+#### Snippet
+```java
+    /**
+     *
+     * @param session
+     * @param type
+     * @param requirements
+```
+
+### JavadocDeclaration
+`@param type` tag description is missing
+in `api/maven-api-core/src/main/java/org/apache/maven/api/services/ToolchainManager.java`
+#### Snippet
+```java
+     *
+     * @param session
+     * @param type
+     * @param requirements
+     * @return the selected {@link Toolchain}s
+```
+
+### JavadocDeclaration
+`@param requirements` tag description is missing
+in `api/maven-api-core/src/main/java/org/apache/maven/api/services/ToolchainManager.java`
+#### Snippet
+```java
+     * @param session
+     * @param type
+     * @param requirements
+     * @return the selected {@link Toolchain}s
+     * @throws ToolchainManagerException if an exception occurs
+```
+
+### JavadocDeclaration
+`@param degreeOfConcurrency` tag description is missing
+in `maven-core/src/main/java/org/apache/maven/execution/MavenExecutionRequest.java`
+#### Snippet
+```java
+     * Set's the parallel degree of concurrency used by the build.
+     *
+     * @param degreeOfConcurrency
+     */
+    void setDegreeOfConcurrency(int degreeOfConcurrency);
+```
+
+### JavadocDeclaration
+`@param repositories` tag description is missing
+in `maven-core/src/main/java/org/apache/maven/execution/MavenExecutionRequest.java`
+#### Snippet
+```java
+     * mirrors then it's easier to just replace the whole list with a new list of transformed repositories.
+     *
+     * @param repositories
+     * @return This request, never {@code null}.
+     */
 ```
 
 ### JavadocDeclaration
@@ -20954,76 +20594,508 @@ in `maven-settings-builder/src/main/java/org/apache/maven/settings/merge/MavenSe
 ```
 
 ### JavadocDeclaration
-`@param request` tag description is missing
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
-#### Snippet
-```java
-         * If an interface could be extracted, DefaultModelProblemCollector should be ModelProblemCollectorExt
-         *
-         * @param request
-         * @param collector
-         * @return
-```
-
-### JavadocDeclaration
-`@param collector` tag description is missing
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
-#### Snippet
-```java
-         *
-         * @param request
-         * @param collector
-         * @return
-         */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuilder.java`
-#### Snippet
-```java
-         * @param request
-         * @param collector
-         * @return
-         */
-        @Override
-```
-
-### JavadocDeclaration
-`@param relativePathMapper` tag description is missing
-in `maven-model-transform/src/main/java/org/apache/maven/model/transform/ParentXMLFilter.java`
+`@param dominant` tag description is missing
+in `maven-settings-builder/src/main/java/org/apache/maven/settings/merge/MavenSettingsMerger.java`
 #### Snippet
 ```java
 
     /**
-     * @param relativePathMapper
-     */
-    ParentXMLFilter(
+     * @param dominant
+     * @param recessive
+     * @param recessiveSourceLevel
 ```
 
 ### JavadocDeclaration
-`@param stringFormatter` tag description is missing
-in `maven-model/src/main/java/org/apache/maven/model/io/xpp3/MavenXpp3WriterEx.java`
+`@param recessive` tag description is missing
+in `maven-settings-builder/src/main/java/org/apache/maven/settings/merge/MavenSettingsMerger.java`
 #### Snippet
 ```java
-     * Method setStringFormatter.
-     *
-     * @param stringFormatter
+    /**
+     * @param dominant
+     * @param recessive
+     * @param recessiveSourceLevel
      */
-    public void setStringFormatter(InputLocation.StringFormatter stringFormatter) {
+```
+
+### JavadocDeclaration
+`@param recessiveSourceLevel` tag description is missing
+in `maven-settings-builder/src/main/java/org/apache/maven/settings/merge/MavenSettingsMerger.java`
+#### Snippet
+```java
+     * @param dominant
+     * @param recessive
+     * @param recessiveSourceLevel
+     */
+    public void merge(Settings dominant, Settings recessive, String recessiveSourceLevel) {
+```
+
+### JavadocDeclaration
+`@param source` tag description is missing
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/MojoFailureException.java`
+#### Snippet
+```java
+     * these messages are used to improve the message written at the end of Maven build.
+     *
+     * @param source
+     * @param shortMessage
+     * @param longMessage
+```
+
+### JavadocDeclaration
+`@param shortMessage` tag description is missing
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/MojoFailureException.java`
+#### Snippet
+```java
+     *
+     * @param source
+     * @param shortMessage
+     * @param longMessage
+     */
+```
+
+### JavadocDeclaration
+`@param longMessage` tag description is missing
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/MojoFailureException.java`
+#### Snippet
+```java
+     * @param source
+     * @param shortMessage
+     * @param longMessage
+     */
+    public MojoFailureException(Object source, String shortMessage, String longMessage) {
+```
+
+### JavadocDeclaration
+`@param message` tag description is missing
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/MojoFailureException.java`
+#### Snippet
+```java
+     * and providing a <code>message</code>.
+     *
+     * @param message
+     * @param cause
+     * @since 2.0.9
+```
+
+### JavadocDeclaration
+`@param cause` tag description is missing
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/MojoFailureException.java`
+#### Snippet
+```java
+     *
+     * @param message
+     * @param cause
+     * @since 2.0.9
+     */
+```
+
+### JavadocDeclaration
+`@param message` tag description is missing
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/MojoFailureException.java`
+#### Snippet
+```java
+     * Construct a new <code>MojoFailureException</code> exception providing a message.
+     *
+     * @param message
+     */
+    public MojoFailureException(String message) {
+```
+
+### JavadocDeclaration
+`@param message` tag description is missing
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/MojoExecutionException.java`
+#### Snippet
+```java
+     * and providing a <code>message</code>.
+     *
+     * @param message
+     * @param cause
+     */
+```
+
+### JavadocDeclaration
+`@param cause` tag description is missing
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/MojoExecutionException.java`
+#### Snippet
+```java
+     *
+     * @param message
+     * @param cause
+     */
+    public MojoExecutionException(String message, Exception cause) {
+```
+
+### JavadocDeclaration
+`@param source` tag description is missing
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/MojoExecutionException.java`
+#### Snippet
+```java
+     * these messages are used to improve the message written at the end of Maven build.
+     *
+     * @param source
+     * @param shortMessage
+     * @param longMessage
+```
+
+### JavadocDeclaration
+`@param shortMessage` tag description is missing
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/MojoExecutionException.java`
+#### Snippet
+```java
+     *
+     * @param source
+     * @param shortMessage
+     * @param longMessage
+     */
+```
+
+### JavadocDeclaration
+`@param longMessage` tag description is missing
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/MojoExecutionException.java`
+#### Snippet
+```java
+     * @param source
+     * @param shortMessage
+     * @param longMessage
+     */
+    public MojoExecutionException(Object source, String shortMessage, String longMessage) {
+```
+
+### JavadocDeclaration
+`@param message` tag description is missing
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/MojoExecutionException.java`
+#### Snippet
+```java
+     * and providing a <code>message</code>.
+     *
+     * @param message
+     * @param cause
+     */
+```
+
+### JavadocDeclaration
+`@param cause` tag description is missing
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/MojoExecutionException.java`
+#### Snippet
+```java
+     *
+     * @param message
+     * @param cause
+     */
+    public MojoExecutionException(String message, Throwable cause) {
+```
+
+### JavadocDeclaration
+`@param message` tag description is missing
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/MojoExecutionException.java`
+#### Snippet
+```java
+     * Construct a new <code>MojoExecutionException</code> exception providing a <code>message</code>.
+     *
+     * @param message
+     */
+    public MojoExecutionException(String message) {
+```
+
+### JavadocDeclaration
+`@param content` tag description is missing
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/Log.java`
+#### Snippet
+```java
+     * The error's stacktrace will be output when this error level is enabled.
+     *
+     * @param content
+     * @param error
+     */
+```
+
+### JavadocDeclaration
+`@param error` tag description is missing
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/Log.java`
+#### Snippet
+```java
+     *
+     * @param content
+     * @param error
+     */
+    void error(CharSequence content, Throwable error);
+```
+
+### JavadocDeclaration
+`@param content` tag description is missing
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/Log.java`
+#### Snippet
+```java
+     * The error's stacktrace will be output when this error level is enabled.
+     *
+     * @param content
+     * @param error
+     */
+```
+
+### JavadocDeclaration
+`@param error` tag description is missing
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/Log.java`
+#### Snippet
+```java
+     *
+     * @param content
+     * @param error
+     */
+    void warn(CharSequence content, Throwable error);
+```
+
+### JavadocDeclaration
+`@param content` tag description is missing
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/Log.java`
+#### Snippet
+```java
+     * Send a message to the user in the <b>debug</b> error level.
+     *
+     * @param content
+     */
+    void debug(CharSequence content);
+```
+
+### JavadocDeclaration
+`@param error` tag description is missing
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/Log.java`
+#### Snippet
+```java
+     * The stack trace for this exception will be output when this error level is enabled.
+     *
+     * @param error
+     */
+    void warn(Throwable error);
+```
+
+### JavadocDeclaration
+`@param content` tag description is missing
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/Log.java`
+#### Snippet
+```java
+     * The error's stacktrace will be output when this error level is enabled.
+     *
+     * @param content
+     * @param error
+     */
+```
+
+### JavadocDeclaration
+`@param error` tag description is missing
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/Log.java`
+#### Snippet
+```java
+     *
+     * @param content
+     * @param error
+     */
+    void debug(CharSequence content, Throwable error);
+```
+
+### JavadocDeclaration
+`@param content` tag description is missing
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/Log.java`
+#### Snippet
+```java
+     * Send a message to the user in the <b>info</b> error level.
+     *
+     * @param content
+     */
+    void info(CharSequence content);
+```
+
+### JavadocDeclaration
+`@param error` tag description is missing
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/Log.java`
+#### Snippet
+```java
+     * The stack trace for this exception will be output when this error level is enabled.
+     *
+     * @param error
+     */
+    void debug(Throwable error);
+```
+
+### JavadocDeclaration
+`@param content` tag description is missing
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/Log.java`
+#### Snippet
+```java
+     * The error's stacktrace will be output when this error level is enabled.
+     *
+     * @param content
+     * @param error
+     */
+```
+
+### JavadocDeclaration
+`@param error` tag description is missing
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/Log.java`
+#### Snippet
+```java
+     *
+     * @param content
+     * @param error
+     */
+    void info(CharSequence content, Throwable error);
+```
+
+### JavadocDeclaration
+`@param error` tag description is missing
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/Log.java`
+#### Snippet
+```java
+     * The stack trace for this exception will be output when this error level is enabled.
+     *
+     * @param error
+     */
+    void error(Throwable error);
+```
+
+### JavadocDeclaration
+`@param content` tag description is missing
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/Log.java`
+#### Snippet
+```java
+     * Send a message to the user in the <b>error</b> error level.
+     *
+     * @param content
+     */
+    void error(CharSequence content);
+```
+
+### JavadocDeclaration
+`@param content` tag description is missing
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/Log.java`
+#### Snippet
+```java
+     * Send a message to the user in the <b>warn</b> error level.
+     *
+     * @param content
+     */
+    void warn(CharSequence content);
+```
+
+### JavadocDeclaration
+`@param error` tag description is missing
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/logging/Log.java`
+#### Snippet
+```java
+     * The stack trace for this exception will be output when this error level is enabled.
+     *
+     * @param error
+     */
+    void info(Throwable error);
+```
+
+### JavadocDeclaration
+Class org.apache.maven.plugin.descriptor.DuplicateParameterException is not a descendant of Throwable
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/MojoDescriptor.java`
+#### Snippet
+```java
+    /**
+     * @param parameter add a new parameter
+     * @throws DuplicateParameterException if any
+     */
+    public void addParameter(Parameter parameter) throws DuplicateParameterException {
+```
+
+### JavadocDeclaration
+Class org.apache.maven.plugin.descriptor.DuplicateParameterException is not a descendant of Throwable
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/descriptor/MojoDescriptor.java`
+#### Snippet
+```java
+    /**
+     * @param parameters the new list of parameters
+     * @throws DuplicateParameterException if any
+     */
+    public void setParameters(List<Parameter> parameters) throws DuplicateParameterException {
 ```
 
 ## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
-Field `problems` may be 'final'
-in `maven-toolchain-builder/src/main/java/org/apache/maven/toolchain/building/DefaultToolchainsBuildingResult.java`
+Field `artifact` may be 'final'
+in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/CyclicDependencyException.java`
 #### Snippet
 ```java
-    private PersistedToolchains effectiveToolchains;
+ */
+public class CyclicDependencyException extends ArtifactResolutionException {
+    private Artifact artifact;
 
-    private List<Problem> problems;
+    public CyclicDependencyException(String message, Artifact artifact) {
+```
 
-    /**
+### FieldMayBeFinal
+Field `groupId` may be 'final'
+in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
+#### Snippet
+```java
+ */
+public class AbstractArtifactResolutionException extends Exception {
+    private String groupId;
+
+    private String artifactId;
+```
+
+### FieldMayBeFinal
+Field `remoteRepositories` may be 'final'
+in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
+#### Snippet
+```java
+    private Artifact artifact;
+
+    private List<ArtifactRepository> remoteRepositories;
+
+    private final String originalMessage;
+```
+
+### FieldMayBeFinal
+Field `type` may be 'final'
+in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
+#### Snippet
+```java
+    private String version;
+
+    private String type;
+
+    private String classifier;
+```
+
+### FieldMayBeFinal
+Field `classifier` may be 'final'
+in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
+#### Snippet
+```java
+    private String type;
+
+    private String classifier;
+
+    private Artifact artifact;
+```
+
+### FieldMayBeFinal
+Field `artifactId` may be 'final'
+in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
+#### Snippet
+```java
+    private String groupId;
+
+    private String artifactId;
+
+    private String version;
+```
+
+### FieldMayBeFinal
+Field `version` may be 'final'
+in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
+#### Snippet
+```java
+    private String artifactId;
+
+    private String version;
+
+    private String type;
 ```
 
 ### FieldMayBeFinal
@@ -21036,6 +21108,18 @@ public class DefaultToolchainsBuildingResult implements ToolchainsBuildingResult
     private PersistedToolchains effectiveToolchains;
 
     private List<Problem> problems;
+```
+
+### FieldMayBeFinal
+Field `problems` may be 'final'
+in `maven-toolchain-builder/src/main/java/org/apache/maven/toolchain/building/DefaultToolchainsBuildingResult.java`
+#### Snippet
+```java
+    private PersistedToolchains effectiveToolchains;
+
+    private List<Problem> problems;
+
+    /**
 ```
 
 ### FieldMayBeFinal
@@ -21075,18 +21159,6 @@ public class WarningResolutionListener implements ResolutionListener {
 ```
 
 ### FieldMayBeFinal
-Field `remoteRepositories` may be 'final'
-in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/UnresolvedArtifacts.java`
-#### Snippet
-```java
-    private List<Artifact> artifacts;
-
-    private List<ArtifactRepository> remoteRepositories;
-
-    public UnresolvedArtifacts(
-```
-
-### FieldMayBeFinal
 Field `originatingArtifact` may be 'final'
 in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/UnresolvedArtifacts.java`
 #### Snippet
@@ -21108,6 +21180,30 @@ in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/UnresolvedArti
     private List<Artifact> artifacts;
 
     private List<ArtifactRepository> remoteRepositories;
+```
+
+### FieldMayBeFinal
+Field `remoteRepositories` may be 'final'
+in `maven-compat/src/main/java/org/apache/maven/artifact/resolver/UnresolvedArtifacts.java`
+#### Snippet
+```java
+    private List<Artifact> artifacts;
+
+    private List<ArtifactRepository> remoteRepositories;
+
+    public UnresolvedArtifacts(
+```
+
+### FieldMayBeFinal
+Field `relatedMetadata` may be 'final'
+in `maven-compat/src/main/java/org/apache/maven/artifact/deployer/DefaultArtifactDeployer.java`
+#### Snippet
+```java
+    private LegacySupport legacySupport;
+
+    private Map<Object, MergeableMetadata> relatedMetadata = new ConcurrentHashMap<>();
+
+    /**
 ```
 
 ### FieldMayBeFinal
@@ -21147,18 +21243,6 @@ public class DebugResolutionListener implements ResolutionListener, ResolutionLi
 ```
 
 ### FieldMayBeFinal
-Field `relatedMetadata` may be 'final'
-in `maven-compat/src/main/java/org/apache/maven/artifact/deployer/DefaultArtifactDeployer.java`
-#### Snippet
-```java
-    private LegacySupport legacySupport;
-
-    private Map<Object, MergeableMetadata> relatedMetadata = new ConcurrentHashMap<>();
-
-    /**
-```
-
-### FieldMayBeFinal
 Field `artifact` may be 'final'
 in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/SnapshotArtifactRepositoryMetadata.java`
 #### Snippet
@@ -21195,18 +21279,6 @@ public final class MetadataBridge extends AbstractMetadata implements MergeableM
 ```
 
 ### FieldMayBeFinal
-Field `defaultIds` may be 'final'
-in `maven-compat/src/main/java/org/apache/maven/profiles/DefaultProfileManager.java`
-#### Snippet
-```java
-    private List<String> deactivatedIds = new ArrayList<>();
-
-    private List<String> defaultIds = new ArrayList<>();
-
-    private Map<String, Profile> profilesById = new LinkedHashMap<>();
-```
-
-### FieldMayBeFinal
 Field `profileSelector` may be 'final'
 in `maven-compat/src/main/java/org/apache/maven/profiles/DefaultProfileManager.java`
 #### Snippet
@@ -21219,27 +21291,15 @@ in `maven-compat/src/main/java/org/apache/maven/profiles/DefaultProfileManager.j
 ```
 
 ### FieldMayBeFinal
-Field `profilesById` may be 'final'
+Field `logger` may be 'final'
 in `maven-compat/src/main/java/org/apache/maven/profiles/DefaultProfileManager.java`
 #### Snippet
 ```java
-    private List<String> defaultIds = new ArrayList<>();
 
-    private Map<String, Profile> profilesById = new LinkedHashMap<>();
+    @Requirement
+    private Logger logger;
 
-    private Properties requestProperties;
-```
-
-### FieldMayBeFinal
-Field `deactivatedIds` may be 'final'
-in `maven-compat/src/main/java/org/apache/maven/profiles/DefaultProfileManager.java`
-#### Snippet
-```java
-    private List<String> activatedIds = new ArrayList<>();
-
-    private List<String> deactivatedIds = new ArrayList<>();
-
-    private List<String> defaultIds = new ArrayList<>();
+    @Requirement
 ```
 
 ### FieldMayBeFinal
@@ -21267,27 +21327,39 @@ in `maven-compat/src/main/java/org/apache/maven/profiles/DefaultProfileManager.j
 ```
 
 ### FieldMayBeFinal
-Field `logger` may be 'final'
+Field `profilesById` may be 'final'
 in `maven-compat/src/main/java/org/apache/maven/profiles/DefaultProfileManager.java`
 #### Snippet
 ```java
+    private List<String> defaultIds = new ArrayList<>();
 
-    @Requirement
-    private Logger logger;
+    private Map<String, Profile> profilesById = new LinkedHashMap<>();
 
-    @Requirement
+    private Properties requestProperties;
 ```
 
 ### FieldMayBeFinal
-Field `localRepository` may be 'final'
-in `maven-compat/src/main/java/org/apache/maven/repository/UserLocalArtifactRepository.java`
+Field `deactivatedIds` may be 'final'
+in `maven-compat/src/main/java/org/apache/maven/profiles/DefaultProfileManager.java`
 #### Snippet
 ```java
- */
-public class UserLocalArtifactRepository extends LocalArtifactRepository {
-    private ArtifactRepository localRepository;
+    private List<String> activatedIds = new ArrayList<>();
 
-    public UserLocalArtifactRepository(ArtifactRepository localRepository) {
+    private List<String> deactivatedIds = new ArrayList<>();
+
+    private List<String> defaultIds = new ArrayList<>();
+```
+
+### FieldMayBeFinal
+Field `defaultIds` may be 'final'
+in `maven-compat/src/main/java/org/apache/maven/profiles/DefaultProfileManager.java`
+#### Snippet
+```java
+    private List<String> deactivatedIds = new ArrayList<>();
+
+    private List<String> defaultIds = new ArrayList<>();
+
+    private Map<String, Profile> profilesById = new LinkedHashMap<>();
 ```
 
 ### FieldMayBeFinal
@@ -21300,6 +21372,18 @@ in `maven-compat/src/main/java/org/apache/maven/repository/VersionNotFoundExcept
     private String projectId;
     private File pomFile;
     private InvalidVersionSpecificationException cause;
+```
+
+### FieldMayBeFinal
+Field `dependency` may be 'final'
+in `maven-compat/src/main/java/org/apache/maven/repository/VersionNotFoundException.java`
+#### Snippet
+```java
+ */
+public class VersionNotFoundException extends Exception {
+    private Dependency dependency;
+
+    private String projectId;
 ```
 
 ### FieldMayBeFinal
@@ -21327,15 +21411,15 @@ in `maven-compat/src/main/java/org/apache/maven/repository/VersionNotFoundExcept
 ```
 
 ### FieldMayBeFinal
-Field `dependency` may be 'final'
-in `maven-compat/src/main/java/org/apache/maven/repository/VersionNotFoundException.java`
+Field `localRepository` may be 'final'
+in `maven-compat/src/main/java/org/apache/maven/repository/UserLocalArtifactRepository.java`
 #### Snippet
 ```java
  */
-public class VersionNotFoundException extends Exception {
-    private Dependency dependency;
+public class UserLocalArtifactRepository extends LocalArtifactRepository {
+    private ArtifactRepository localRepository;
 
-    private String projectId;
+    public UserLocalArtifactRepository(ArtifactRepository localRepository) {
 ```
 
 ### FieldMayBeFinal
@@ -21375,18 +21459,6 @@ class MavenArtifact implements ArtifactTransferResource {
 ```
 
 ### FieldMayBeFinal
-Field `newerFirst` may be 'final'
-in `maven-compat/src/main/java/org/apache/maven/repository/metadata/DefaultGraphConflictResolutionPolicy.java`
-#### Snippet
-```java
-     */
-    @Configuration(name = "newer-first", value = "true")
-    private boolean newerFirst = true;
-
-    public MetadataGraphEdge apply(MetadataGraphEdge e1, MetadataGraphEdge e2) {
-```
-
-### FieldMayBeFinal
 Field `closerFirst` may be 'final'
 in `maven-compat/src/main/java/org/apache/maven/repository/metadata/DefaultGraphConflictResolutionPolicy.java`
 #### Snippet
@@ -21396,6 +21468,18 @@ in `maven-compat/src/main/java/org/apache/maven/repository/metadata/DefaultGraph
     private boolean closerFirst = true;
 
     /**
+```
+
+### FieldMayBeFinal
+Field `newerFirst` may be 'final'
+in `maven-compat/src/main/java/org/apache/maven/repository/metadata/DefaultGraphConflictResolutionPolicy.java`
+#### Snippet
+```java
+     */
+    @Configuration(name = "newer-first", value = "true")
+    private boolean newerFirst = true;
+
+    public MetadataGraphEdge apply(MetadataGraphEdge e1, MetadataGraphEdge e2) {
 ```
 
 ### FieldMayBeFinal
@@ -21423,219 +21507,15 @@ in `maven-compat/src/main/java/org/apache/maven/repository/metadata/MetadataReso
 ```
 
 ### FieldMayBeFinal
-Field `artifact` may be 'final'
-in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/CyclicDependencyException.java`
+Field `buildPomXMLFilterFactory` may be 'final'
+in `maven-model-transform/src/main/java/org/apache/maven/model/transform/RawToConsumerPomXMLFilterFactory.java`
 #### Snippet
 ```java
  */
-public class CyclicDependencyException extends ArtifactResolutionException {
-    private Artifact artifact;
+public class RawToConsumerPomXMLFilterFactory {
+    private BuildToRawPomXMLFilterFactory buildPomXMLFilterFactory;
 
-    public CyclicDependencyException(String message, Artifact artifact) {
-```
-
-### FieldMayBeFinal
-Field `type` may be 'final'
-in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
-#### Snippet
-```java
-    private String version;
-
-    private String type;
-
-    private String classifier;
-```
-
-### FieldMayBeFinal
-Field `artifactId` may be 'final'
-in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
-#### Snippet
-```java
-    private String groupId;
-
-    private String artifactId;
-
-    private String version;
-```
-
-### FieldMayBeFinal
-Field `version` may be 'final'
-in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
-#### Snippet
-```java
-    private String artifactId;
-
-    private String version;
-
-    private String type;
-```
-
-### FieldMayBeFinal
-Field `classifier` may be 'final'
-in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
-#### Snippet
-```java
-    private String type;
-
-    private String classifier;
-
-    private Artifact artifact;
-```
-
-### FieldMayBeFinal
-Field `groupId` may be 'final'
-in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
-#### Snippet
-```java
- */
-public class AbstractArtifactResolutionException extends Exception {
-    private String groupId;
-
-    private String artifactId;
-```
-
-### FieldMayBeFinal
-Field `remoteRepositories` may be 'final'
-in `maven-artifact/src/main/java/org/apache/maven/artifact/resolver/AbstractArtifactResolutionException.java`
-#### Snippet
-```java
-    private Artifact artifact;
-
-    private List<ArtifactRepository> remoteRepositories;
-
-    private final String originalMessage;
-```
-
-### FieldMayBeFinal
-Field `problems` may be 'final'
-in `maven-builder-support/src/main/java/org/apache/maven/building/DefaultProblemCollector.java`
-#### Snippet
-```java
-class DefaultProblemCollector implements ProblemCollector {
-
-    private List<Problem> problems;
-
-    private String source;
-```
-
-### FieldMayBeFinal
-Field `goal` may be 'final'
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/MojoNotFoundException.java`
-#### Snippet
-```java
- */
-public class MojoNotFoundException extends Exception {
-    private String goal;
-
-    private PluginDescriptor pluginDescriptor;
-```
-
-### FieldMayBeFinal
-Field `pluginDescriptor` may be 'final'
-in `maven-plugin-api/src/main/java/org/apache/maven/plugin/MojoNotFoundException.java`
-#### Snippet
-```java
-    private String goal;
-
-    private PluginDescriptor pluginDescriptor;
-
-    public MojoNotFoundException(String goal, PluginDescriptor pluginDescriptor) {
-```
-
-### FieldMayBeFinal
-Field `logger` may be 'final'
-in `maven-embedder/src/main/java/org/apache/maven/cli/logging/Slf4jLogger.java`
-#### Snippet
-```java
-public class Slf4jLogger implements Logger {
-
-    private org.slf4j.Logger logger;
-
-    public Slf4jLogger(org.slf4j.Logger logger) {
-```
-
-### FieldMayBeFinal
-Field `loggerFactory` may be 'final'
-in `maven-embedder/src/main/java/org/apache/maven/cli/logging/Slf4jLoggerManager.java`
-#### Snippet
-```java
-public class Slf4jLoggerManager implements LoggerManager {
-
-    private ILoggerFactory loggerFactory;
-
-    public Slf4jLoggerManager() {
-```
-
-### FieldMayBeFinal
-Field `out` may be 'final'
-in `maven-embedder/src/main/java/org/apache/maven/cli/logging/Slf4jStdoutLogger.java`
-#### Snippet
-```java
-    private static final String ERROR = "[ERROR] ";
-
-    private PrintStream out = System.out;
-
-    //
-```
-
-### FieldMayBeFinal
-Field `transfers` may be 'final'
-in `maven-embedder/src/main/java/org/apache/maven/cli/transfer/ConsoleMavenTransferListener.java`
-#### Snippet
-```java
-public class ConsoleMavenTransferListener extends AbstractMavenTransferListener {
-
-    private Map<TransferResource, Long> transfers = Collections.synchronizedMap(new LinkedHashMap<>());
-
-    private boolean printResourceNames;
-```
-
-### FieldMayBeFinal
-Field `printResourceNames` may be 'final'
-in `maven-embedder/src/main/java/org/apache/maven/cli/transfer/ConsoleMavenTransferListener.java`
-#### Snippet
-```java
-    private Map<TransferResource, Long> transfers = Collections.synchronizedMap(new LinkedHashMap<>());
-
-    private boolean printResourceNames;
-    private int lastLength;
-
-```
-
-### FieldMayBeFinal
-Field `snapshots` may be 'final'
-in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/LocalSnapshotMetadataGenerator.java`
-#### Snippet
-```java
-class LocalSnapshotMetadataGenerator implements MetadataGenerator {
-
-    private Map<Object, LocalSnapshotMetadata> snapshots;
-
-    private final boolean legacyFormat;
-```
-
-### FieldMayBeFinal
-Field `smallFormat` may be 'final'
-in `maven-embedder/src/main/java/org/apache/maven/cli/transfer/AbstractMavenTransferListener.java`
-#### Snippet
-```java
-        }
-
-        private DecimalFormat smallFormat;
-        private DecimalFormat largeFormat;
-
-```
-
-### FieldMayBeFinal
-Field `largeFormat` may be 'final'
-in `maven-embedder/src/main/java/org/apache/maven/cli/transfer/AbstractMavenTransferListener.java`
-#### Snippet
-```java
-
-        private DecimalFormat smallFormat;
-        private DecimalFormat largeFormat;
-
-        FileSizeFormat(Locale locale) {
+    public RawToConsumerPomXMLFilterFactory(BuildToRawPomXMLFilterFactory buildPomXMLFilterFactory) {
 ```
 
 ### FieldMayBeFinal
@@ -21663,18 +21543,6 @@ public class MissingModuleException extends MavenExecutionException {
 ```
 
 ### FieldMayBeFinal
-Field `whiteList` may be 'final'
-in `maven-core/src/main/java/org/apache/maven/graph/FilteredProjectDependencyGraph.java`
-#### Snippet
-```java
-    private ProjectDependencyGraph projectDependencyGraph;
-
-    private Map<MavenProject, ?> whiteList;
-
-    private List<MavenProject> sortedProjects;
-```
-
-### FieldMayBeFinal
 Field `projectDependencyGraph` may be 'final'
 in `maven-core/src/main/java/org/apache/maven/graph/FilteredProjectDependencyGraph.java`
 #### Snippet
@@ -21684,6 +21552,18 @@ class FilteredProjectDependencyGraph implements ProjectDependencyGraph {
     private ProjectDependencyGraph projectDependencyGraph;
 
     private Map<MavenProject, ?> whiteList;
+```
+
+### FieldMayBeFinal
+Field `whiteList` may be 'final'
+in `maven-core/src/main/java/org/apache/maven/graph/FilteredProjectDependencyGraph.java`
+#### Snippet
+```java
+    private ProjectDependencyGraph projectDependencyGraph;
+
+    private Map<MavenProject, ?> whiteList;
+
+    private List<MavenProject> sortedProjects;
 ```
 
 ### FieldMayBeFinal
@@ -21711,6 +21591,66 @@ public class PluginContainerException extends PluginManagerException {
 ```
 
 ### FieldMayBeFinal
+Field `legacySupport` may be 'final'
+in `maven-core/src/main/java/org/apache/maven/DefaultMaven.java`
+#### Snippet
+```java
+    private ExecutionEventCatapult eventCatapult;
+
+    private LegacySupport legacySupport;
+
+    private SessionScope sessionScope;
+```
+
+### FieldMayBeFinal
+Field `eventCatapult` may be 'final'
+in `maven-core/src/main/java/org/apache/maven/DefaultMaven.java`
+#### Snippet
+```java
+    protected PlexusContainer container;
+
+    private ExecutionEventCatapult eventCatapult;
+
+    private LegacySupport legacySupport;
+```
+
+### FieldMayBeFinal
+Field `sessionScope` may be 'final'
+in `maven-core/src/main/java/org/apache/maven/DefaultMaven.java`
+#### Snippet
+```java
+    private LegacySupport legacySupport;
+
+    private SessionScope sessionScope;
+
+    private DefaultRepositorySystemSessionFactory repositorySessionFactory;
+```
+
+### FieldMayBeFinal
+Field `lifecycleStarter` may be 'final'
+in `maven-core/src/main/java/org/apache/maven/DefaultMaven.java`
+#### Snippet
+```java
+    protected ProjectBuilder projectBuilder;
+
+    private LifecycleStarter lifecycleStarter;
+
+    protected PlexusContainer container;
+```
+
+### FieldMayBeFinal
+Field `repositorySessionFactory` may be 'final'
+in `maven-core/src/main/java/org/apache/maven/DefaultMaven.java`
+#### Snippet
+```java
+    private SessionScope sessionScope;
+
+    private DefaultRepositorySystemSessionFactory repositorySessionFactory;
+
+    private final GraphBuilder graphBuilder;
+```
+
+### FieldMayBeFinal
 Field `originalMessage` may be 'final'
 in `maven-core/src/main/java/org/apache/maven/plugin/PluginConfigurationException.java`
 #### Snippet
@@ -21732,66 +21672,6 @@ public class PluginConfigurationException extends Exception {
     private PluginDescriptor pluginDescriptor;
 
     private String originalMessage;
-```
-
-### FieldMayBeFinal
-Field `sessionScope` may be 'final'
-in `maven-core/src/main/java/org/apache/maven/DefaultMaven.java`
-#### Snippet
-```java
-    private LegacySupport legacySupport;
-
-    private SessionScope sessionScope;
-
-    private DefaultRepositorySystemSessionFactory repositorySessionFactory;
-```
-
-### FieldMayBeFinal
-Field `eventCatapult` may be 'final'
-in `maven-core/src/main/java/org/apache/maven/DefaultMaven.java`
-#### Snippet
-```java
-    protected PlexusContainer container;
-
-    private ExecutionEventCatapult eventCatapult;
-
-    private LegacySupport legacySupport;
-```
-
-### FieldMayBeFinal
-Field `lifecycleStarter` may be 'final'
-in `maven-core/src/main/java/org/apache/maven/DefaultMaven.java`
-#### Snippet
-```java
-    protected ProjectBuilder projectBuilder;
-
-    private LifecycleStarter lifecycleStarter;
-
-    protected PlexusContainer container;
-```
-
-### FieldMayBeFinal
-Field `legacySupport` may be 'final'
-in `maven-core/src/main/java/org/apache/maven/DefaultMaven.java`
-#### Snippet
-```java
-    private ExecutionEventCatapult eventCatapult;
-
-    private LegacySupport legacySupport;
-
-    private SessionScope sessionScope;
-```
-
-### FieldMayBeFinal
-Field `repositorySessionFactory` may be 'final'
-in `maven-core/src/main/java/org/apache/maven/DefaultMaven.java`
-#### Snippet
-```java
-    private SessionScope sessionScope;
-
-    private DefaultRepositorySystemSessionFactory repositorySessionFactory;
-
-    private final GraphBuilder graphBuilder;
 ```
 
 ### FieldMayBeFinal
@@ -21831,18 +21711,6 @@ in `maven-core/src/main/java/org/apache/maven/plugin/MojoExecution.java`
 ```
 
 ### FieldMayBeFinal
-Field `classWorld` may be 'final'
-in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
-#### Snippet
-```java
-    public static final String STYLE_COLOR_PROPERTY = "style.color";
-
-    private ClassWorld classWorld;
-
-    private LoggerManager plexusLoggerManager;
-```
-
-### FieldMayBeFinal
 Field `project` may be 'final'
 in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluator.java`
 #### Snippet
@@ -21855,15 +21723,15 @@ in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEv
 ```
 
 ### FieldMayBeFinal
-Field `session` may be 'final'
+Field `basedir` may be 'final'
 in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluator.java`
 #### Snippet
 ```java
- */
-public class PluginParameterExpressionEvaluator implements TypeAwareExpressionEvaluator {
-    private MavenSession session;
+    private MavenProject project;
 
-    private MojoExecution mojoExecution;
+    private String basedir;
+
+    private Properties properties;
 ```
 
 ### FieldMayBeFinal
@@ -21879,18 +21747,6 @@ in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEv
 ```
 
 ### FieldMayBeFinal
-Field `basedir` may be 'final'
-in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluator.java`
-#### Snippet
-```java
-    private MavenProject project;
-
-    private String basedir;
-
-    private Properties properties;
-```
-
-### FieldMayBeFinal
 Field `mojoExecution` may be 'final'
 in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluator.java`
 #### Snippet
@@ -21904,14 +21760,26 @@ in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEv
 
 ### FieldMayBeFinal
 Field `session` may be 'final'
-in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluatorV4.java`
+in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluator.java`
 #### Snippet
 ```java
  */
-public class PluginParameterExpressionEvaluatorV4 implements TypeAwareExpressionEvaluator {
+public class PluginParameterExpressionEvaluator implements TypeAwareExpressionEvaluator {
+    private MavenSession session;
+
+    private MojoExecution mojoExecution;
+```
+
+### FieldMayBeFinal
+Field `mojoExecution` may be 'final'
+in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluatorV4.java`
+#### Snippet
+```java
     private Session session;
 
     private MojoExecution mojoExecution;
+
+    private Project project;
 ```
 
 ### FieldMayBeFinal
@@ -21927,15 +21795,15 @@ in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEv
 ```
 
 ### FieldMayBeFinal
-Field `mojoExecution` may be 'final'
+Field `session` may be 'final'
 in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEvaluatorV4.java`
 #### Snippet
 ```java
+ */
+public class PluginParameterExpressionEvaluatorV4 implements TypeAwareExpressionEvaluator {
     private Session session;
 
     private MojoExecution mojoExecution;
-
-    private Project project;
 ```
 
 ### FieldMayBeFinal
@@ -21963,18 +21831,6 @@ in `maven-core/src/main/java/org/apache/maven/plugin/PluginParameterExpressionEv
 ```
 
 ### FieldMayBeFinal
-Field `resolutionErrors` may be 'final'
-in `maven-core/src/main/java/org/apache/maven/project/DefaultDependencyResolutionResult.java`
-#### Snippet
-```java
-    private List<Exception> collectionErrors = new ArrayList<>();
-
-    private Map<Dependency, List<Exception>> resolutionErrors = new IdentityHashMap<>();
-
-    public DependencyNode getDependencyGraph() {
-```
-
-### FieldMayBeFinal
 Field `unresolvedDependencies` may be 'final'
 in `maven-core/src/main/java/org/apache/maven/project/DefaultDependencyResolutionResult.java`
 #### Snippet
@@ -21984,6 +21840,18 @@ in `maven-core/src/main/java/org/apache/maven/project/DefaultDependencyResolutio
     private List<Dependency> unresolvedDependencies = new ArrayList<>();
 
     private List<Exception> collectionErrors = new ArrayList<>();
+```
+
+### FieldMayBeFinal
+Field `resolutionErrors` may be 'final'
+in `maven-core/src/main/java/org/apache/maven/project/DefaultDependencyResolutionResult.java`
+#### Snippet
+```java
+    private List<Exception> collectionErrors = new ArrayList<>();
+
+    private Map<Dependency, List<Exception>> resolutionErrors = new IdentityHashMap<>();
+
+    public DependencyNode getDependencyGraph() {
 ```
 
 ### FieldMayBeFinal
@@ -22023,6 +21891,18 @@ in `maven-core/src/main/java/org/apache/maven/project/ReactorModelPool.java`
 ```
 
 ### FieldMayBeFinal
+Field `projectBuildingHelper` may be 'final'
+in `maven-core/src/main/java/org/apache/maven/project/DefaultModelBuildingListener.java`
+#### Snippet
+```java
+    private MavenProject project;
+
+    private ProjectBuildingHelper projectBuildingHelper;
+
+    private ProjectBuildingRequest projectBuildingRequest;
+```
+
+### FieldMayBeFinal
 Field `projectBuildingRequest` may be 'final'
 in `maven-core/src/main/java/org/apache/maven/project/DefaultModelBuildingListener.java`
 #### Snippet
@@ -22047,18 +21927,6 @@ public class DefaultModelBuildingListener extends AbstractModelBuildingListener 
 ```
 
 ### FieldMayBeFinal
-Field `projectBuildingHelper` may be 'final'
-in `maven-core/src/main/java/org/apache/maven/project/DefaultModelBuildingListener.java`
-#### Snippet
-```java
-    private MavenProject project;
-
-    private ProjectBuildingHelper projectBuildingHelper;
-
-    private ProjectBuildingRequest projectBuildingRequest;
-```
-
-### FieldMayBeFinal
 Field `artifact` may be 'final'
 in `maven-core/src/main/java/org/apache/maven/project/DuplicateArtifactAttachmentException.java`
 #### Snippet
@@ -22071,18 +21939,6 @@ in `maven-core/src/main/java/org/apache/maven/project/DuplicateArtifactAttachmen
 ```
 
 ### FieldMayBeFinal
-Field `sortedProjects` may be 'final'
-in `maven-core/src/main/java/org/apache/maven/project/ProjectSorter.java`
-#### Snippet
-```java
-    private DAG dag;
-
-    private List<MavenProject> sortedProjects;
-
-    private Map<String, MavenProject> projectMap;
-```
-
-### FieldMayBeFinal
 Field `projectMap` may be 'final'
 in `maven-core/src/main/java/org/apache/maven/project/ProjectSorter.java`
 #### Snippet
@@ -22092,6 +21948,18 @@ in `maven-core/src/main/java/org/apache/maven/project/ProjectSorter.java`
     private Map<String, MavenProject> projectMap;
 
     /**
+```
+
+### FieldMayBeFinal
+Field `sortedProjects` may be 'final'
+in `maven-core/src/main/java/org/apache/maven/project/ProjectSorter.java`
+#### Snippet
+```java
+    private DAG dag;
+
+    private List<MavenProject> sortedProjects;
+
+    private Map<String, MavenProject> projectMap;
 ```
 
 ### FieldMayBeFinal
@@ -22119,66 +21987,6 @@ public class InvalidDependencyVersionException extends InvalidProjectVersionExce
 ```
 
 ### FieldMayBeFinal
-Field `extensionRealmCache` may be 'final'
-in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultMavenPluginManager.java`
-#### Snippet
-```java
-    private PluginDependenciesResolver pluginDependenciesResolver;
-    private RuntimeInformation runtimeInformation;
-    private ExtensionRealmCache extensionRealmCache;
-    private PluginVersionResolver pluginVersionResolver;
-    private PluginArtifactsCache pluginArtifactsCache;
-```
-
-### FieldMayBeFinal
-Field `runtimeInformation` may be 'final'
-in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultMavenPluginManager.java`
-#### Snippet
-```java
-    private PluginRealmCache pluginRealmCache;
-    private PluginDependenciesResolver pluginDependenciesResolver;
-    private RuntimeInformation runtimeInformation;
-    private ExtensionRealmCache extensionRealmCache;
-    private PluginVersionResolver pluginVersionResolver;
-```
-
-### FieldMayBeFinal
-Field `prerequisitesCheckers` may be 'final'
-in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultMavenPluginManager.java`
-#### Snippet
-```java
-    private List<MavenPluginDependenciesValidator> dependenciesValidators;
-    private PluginValidationManager pluginValidationManager;
-    private List<MavenPluginPrerequisitesChecker> prerequisitesCheckers;
-    private final ExtensionDescriptorBuilder extensionDescriptorBuilder = new ExtensionDescriptorBuilder();
-    private final PluginDescriptorBuilder builder = new PluginDescriptorBuilder();
-```
-
-### FieldMayBeFinal
-Field `pluginArtifactsCache` may be 'final'
-in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultMavenPluginManager.java`
-#### Snippet
-```java
-    private ExtensionRealmCache extensionRealmCache;
-    private PluginVersionResolver pluginVersionResolver;
-    private PluginArtifactsCache pluginArtifactsCache;
-    private MavenPluginValidator pluginValidator;
-    private List<MavenPluginConfigurationValidator> configurationValidators;
-```
-
-### FieldMayBeFinal
-Field `pluginDescriptorCache` may be 'final'
-in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultMavenPluginManager.java`
-#### Snippet
-```java
-    private PlexusContainer container;
-    private ClassRealmManager classRealmManager;
-    private PluginDescriptorCache pluginDescriptorCache;
-    private PluginRealmCache pluginRealmCache;
-    private PluginDependenciesResolver pluginDependenciesResolver;
-```
-
-### FieldMayBeFinal
 Field `pluginDependenciesResolver` may be 'final'
 in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultMavenPluginManager.java`
 #### Snippet
@@ -22191,63 +21999,27 @@ in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultMavenPlugin
 ```
 
 ### FieldMayBeFinal
-Field `container` may be 'final'
+Field `extensionRealmCache` may be 'final'
 in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultMavenPluginManager.java`
 #### Snippet
 ```java
-    private final Logger logger = LoggerFactory.getLogger(getClass());
-
-    private PlexusContainer container;
-    private ClassRealmManager classRealmManager;
-    private PluginDescriptorCache pluginDescriptorCache;
-```
-
-### FieldMayBeFinal
-Field `pluginValidator` may be 'final'
-in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultMavenPluginManager.java`
-#### Snippet
-```java
-    private PluginVersionResolver pluginVersionResolver;
-    private PluginArtifactsCache pluginArtifactsCache;
-    private MavenPluginValidator pluginValidator;
-    private List<MavenPluginConfigurationValidator> configurationValidators;
-    private List<MavenPluginDependenciesValidator> dependenciesValidators;
-```
-
-### FieldMayBeFinal
-Field `dependenciesValidators` may be 'final'
-in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultMavenPluginManager.java`
-#### Snippet
-```java
-    private MavenPluginValidator pluginValidator;
-    private List<MavenPluginConfigurationValidator> configurationValidators;
-    private List<MavenPluginDependenciesValidator> dependenciesValidators;
-    private PluginValidationManager pluginValidationManager;
-    private List<MavenPluginPrerequisitesChecker> prerequisitesCheckers;
-```
-
-### FieldMayBeFinal
-Field `pluginValidationManager` may be 'final'
-in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultMavenPluginManager.java`
-#### Snippet
-```java
-    private List<MavenPluginConfigurationValidator> configurationValidators;
-    private List<MavenPluginDependenciesValidator> dependenciesValidators;
-    private PluginValidationManager pluginValidationManager;
-    private List<MavenPluginPrerequisitesChecker> prerequisitesCheckers;
-    private final ExtensionDescriptorBuilder extensionDescriptorBuilder = new ExtensionDescriptorBuilder();
-```
-
-### FieldMayBeFinal
-Field `pluginVersionResolver` may be 'final'
-in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultMavenPluginManager.java`
-#### Snippet
-```java
+    private PluginDependenciesResolver pluginDependenciesResolver;
     private RuntimeInformation runtimeInformation;
     private ExtensionRealmCache extensionRealmCache;
     private PluginVersionResolver pluginVersionResolver;
     private PluginArtifactsCache pluginArtifactsCache;
+```
+
+### FieldMayBeFinal
+Field `configurationValidators` may be 'final'
+in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultMavenPluginManager.java`
+#### Snippet
+```java
+    private PluginArtifactsCache pluginArtifactsCache;
     private MavenPluginValidator pluginValidator;
+    private List<MavenPluginConfigurationValidator> configurationValidators;
+    private PluginValidationManager pluginValidationManager;
+    private List<MavenPluginPrerequisitesChecker> prerequisitesCheckers;
 ```
 
 ### FieldMayBeFinal
@@ -22263,15 +22035,99 @@ in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultMavenPlugin
 ```
 
 ### FieldMayBeFinal
-Field `configurationValidators` may be 'final'
+Field `pluginArtifactsCache` may be 'final'
 in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultMavenPluginManager.java`
 #### Snippet
 ```java
+    private ExtensionRealmCache extensionRealmCache;
+    private PluginVersionResolver pluginVersionResolver;
     private PluginArtifactsCache pluginArtifactsCache;
     private MavenPluginValidator pluginValidator;
     private List<MavenPluginConfigurationValidator> configurationValidators;
-    private List<MavenPluginDependenciesValidator> dependenciesValidators;
+```
+
+### FieldMayBeFinal
+Field `pluginValidationManager` may be 'final'
+in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultMavenPluginManager.java`
+#### Snippet
+```java
+    private MavenPluginValidator pluginValidator;
+    private List<MavenPluginConfigurationValidator> configurationValidators;
     private PluginValidationManager pluginValidationManager;
+    private List<MavenPluginPrerequisitesChecker> prerequisitesCheckers;
+    private final ExtensionDescriptorBuilder extensionDescriptorBuilder = new ExtensionDescriptorBuilder();
+```
+
+### FieldMayBeFinal
+Field `pluginDescriptorCache` may be 'final'
+in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultMavenPluginManager.java`
+#### Snippet
+```java
+    private PlexusContainer container;
+    private ClassRealmManager classRealmManager;
+    private PluginDescriptorCache pluginDescriptorCache;
+    private PluginRealmCache pluginRealmCache;
+    private PluginDependenciesResolver pluginDependenciesResolver;
+```
+
+### FieldMayBeFinal
+Field `container` may be 'final'
+in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultMavenPluginManager.java`
+#### Snippet
+```java
+    private final Logger logger = LoggerFactory.getLogger(getClass());
+
+    private PlexusContainer container;
+    private ClassRealmManager classRealmManager;
+    private PluginDescriptorCache pluginDescriptorCache;
+```
+
+### FieldMayBeFinal
+Field `prerequisitesCheckers` may be 'final'
+in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultMavenPluginManager.java`
+#### Snippet
+```java
+    private List<MavenPluginConfigurationValidator> configurationValidators;
+    private PluginValidationManager pluginValidationManager;
+    private List<MavenPluginPrerequisitesChecker> prerequisitesCheckers;
+    private final ExtensionDescriptorBuilder extensionDescriptorBuilder = new ExtensionDescriptorBuilder();
+    private final PluginDescriptorBuilder builder = new PluginDescriptorBuilder();
+```
+
+### FieldMayBeFinal
+Field `pluginVersionResolver` may be 'final'
+in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultMavenPluginManager.java`
+#### Snippet
+```java
+    private RuntimeInformation runtimeInformation;
+    private ExtensionRealmCache extensionRealmCache;
+    private PluginVersionResolver pluginVersionResolver;
+    private PluginArtifactsCache pluginArtifactsCache;
+    private MavenPluginValidator pluginValidator;
+```
+
+### FieldMayBeFinal
+Field `pluginValidator` may be 'final'
+in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultMavenPluginManager.java`
+#### Snippet
+```java
+    private PluginVersionResolver pluginVersionResolver;
+    private PluginArtifactsCache pluginArtifactsCache;
+    private MavenPluginValidator pluginValidator;
+    private List<MavenPluginConfigurationValidator> configurationValidators;
+    private PluginValidationManager pluginValidationManager;
+```
+
+### FieldMayBeFinal
+Field `runtimeInformation` may be 'final'
+in `maven-core/src/main/java/org/apache/maven/plugin/internal/DefaultMavenPluginManager.java`
+#### Snippet
+```java
+    private PluginRealmCache pluginRealmCache;
+    private PluginDependenciesResolver pluginDependenciesResolver;
+    private RuntimeInformation runtimeInformation;
+    private ExtensionRealmCache extensionRealmCache;
+    private PluginVersionResolver pluginVersionResolver;
 ```
 
 ### FieldMayBeFinal
@@ -22323,18 +22179,6 @@ in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultProjectArt
 ```
 
 ### FieldMayBeFinal
-Field `timestamp` may be 'final'
-in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
-#### Snippet
-```java
-
-        private long length;
-        private long timestamp;
-
-        CacheRecord(
-```
-
-### FieldMayBeFinal
 Field `length` may be 'final'
 in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
 #### Snippet
@@ -22344,6 +22188,18 @@ in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetad
         private long length;
         private long timestamp;
 
+```
+
+### FieldMayBeFinal
+Field `timestamp` may be 'final'
+in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
+#### Snippet
+```java
+
+        private long length;
+        private long timestamp;
+
+        CacheRecord(
 ```
 
 ### FieldMayBeFinal
@@ -22359,18 +22215,6 @@ in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetad
 ```
 
 ### FieldMayBeFinal
-Field `pomArtifact` may be 'final'
-in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
-#### Snippet
-```java
-     */
-    public class CacheRecord {
-        private Artifact pomArtifact;
-        private Artifact relocatedArtifact;
-        private List<Artifact> artifacts;
-```
-
-### FieldMayBeFinal
 Field `relocatedArtifact` may be 'final'
 in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
 #### Snippet
@@ -22380,6 +22224,18 @@ in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetad
         private Artifact relocatedArtifact;
         private List<Artifact> artifacts;
         private Map<String, Artifact> managedVersions;
+```
+
+### FieldMayBeFinal
+Field `pomArtifact` may be 'final'
+in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetadataCache.java`
+#### Snippet
+```java
+     */
+    public class CacheRecord {
+        private Artifact pomArtifact;
+        private Artifact relocatedArtifact;
+        private List<Artifact> artifacts;
 ```
 
 ### FieldMayBeFinal
@@ -22395,27 +22251,15 @@ in `maven-core/src/main/java/org/apache/maven/project/artifact/DefaultMavenMetad
 ```
 
 ### FieldMayBeFinal
-Field `projectReferences` may be 'final'
-in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
+Field `excludes` may be 'final'
+in `maven-core/src/main/java/org/apache/maven/artifact/resolver/filter/ExclusionSetFilter.java`
 #### Snippet
 ```java
-    private Map<String, Artifact> managedVersionMap;
+ */
+public class ExclusionSetFilter implements ArtifactFilter {
+    private Set<String> excludes;
 
-    private Map<String, MavenProject> projectReferences = new HashMap<>();
-
-    private boolean executionRoot;
-```
-
-### FieldMayBeFinal
-Field `injectedProfileIds` may be 'final'
-in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
-#### Snippet
-```java
-    private List<Profile> activeProfiles = new ArrayList<>();
-
-    private Map<String, List<String>> injectedProfileIds = new LinkedHashMap<>();
-
-    private Set<Artifact> dependencyArtifacts;
+    public ExclusionSetFilter(String[] excludes) {
 ```
 
 ### FieldMayBeFinal
@@ -22431,15 +22275,15 @@ public class CumulativeScopeArtifactFilter extends AbstractScopeArtifactFilter {
 ```
 
 ### FieldMayBeFinal
-Field `excludes` may be 'final'
-in `maven-core/src/main/java/org/apache/maven/artifact/resolver/filter/ExclusionSetFilter.java`
+Field `groupIdAndArtifactIdIsWildcard` may be 'final'
+in `maven-core/src/main/java/org/apache/maven/artifact/resolver/filter/ExclusionArtifactFilter.java`
 #### Snippet
 ```java
- */
-public class ExclusionSetFilter implements ArtifactFilter {
-    private Set<String> excludes;
+    private Predicate<Exclusion> artifactIdIsWildcard = exclusion -> WILDCARD.equals(exclusion.getArtifactId());
 
-    public ExclusionSetFilter(String[] excludes) {
+    private Predicate<Exclusion> groupIdAndArtifactIdIsWildcard = groupIdIsWildcard.and(artifactIdIsWildcard);
+
+    private Predicate<Exclusion> exclude(Artifact artifact) {
 ```
 
 ### FieldMayBeFinal
@@ -22467,18 +22311,6 @@ in `maven-core/src/main/java/org/apache/maven/artifact/resolver/filter/Exclusion
 ```
 
 ### FieldMayBeFinal
-Field `groupIdAndArtifactIdIsWildcard` may be 'final'
-in `maven-core/src/main/java/org/apache/maven/artifact/resolver/filter/ExclusionArtifactFilter.java`
-#### Snippet
-```java
-    private Predicate<Exclusion> artifactIdIsWildcard = exclusion -> WILDCARD.equals(exclusion.getArtifactId());
-
-    private Predicate<Exclusion> groupIdAndArtifactIdIsWildcard = groupIdIsWildcard.and(artifactIdIsWildcard);
-
-    private Predicate<Exclusion> exclude(Artifact artifact) {
-```
-
-### FieldMayBeFinal
 Field `filters` may be 'final'
 in `maven-core/src/main/java/org/apache/maven/artifact/resolver/filter/AndArtifactFilter.java`
 #### Snippet
@@ -22491,15 +22323,27 @@ public class AndArtifactFilter implements ArtifactFilter {
 ```
 
 ### FieldMayBeFinal
-Field `artifact` may be 'final'
-in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/ArtifactRepositoryMetadata.java`
+Field `projectReferences` may be 'final'
+in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
 #### Snippet
 ```java
- */
-public class ArtifactRepositoryMetadata extends AbstractRepositoryMetadata {
-    private Artifact artifact;
+    private Map<String, Artifact> managedVersionMap;
 
-    public ArtifactRepositoryMetadata(Artifact artifact) {
+    private Map<String, MavenProject> projectReferences = new HashMap<>();
+
+    private boolean executionRoot;
+```
+
+### FieldMayBeFinal
+Field `injectedProfileIds` may be 'final'
+in `maven-core/src/main/java/org/apache/maven/project/MavenProject.java`
+#### Snippet
+```java
+    private List<Profile> activeProfiles = new ArrayList<>();
+
+    private Map<String, List<String>> injectedProfileIds = new LinkedHashMap<>();
+
+    private Set<Artifact> dependencyArtifacts;
 ```
 
 ### FieldMayBeFinal
@@ -22512,6 +22356,18 @@ in `maven-core/src/main/java/org/apache/maven/project/artifact/MavenMetadataSour
     private MavenRepositorySystem mavenRepositorySystem;
 
     @Inject
+```
+
+### FieldMayBeFinal
+Field `artifact` may be 'final'
+in `maven-core/src/main/java/org/apache/maven/artifact/repository/metadata/ArtifactRepositoryMetadata.java`
+#### Snippet
+```java
+ */
+public class ArtifactRepositoryMetadata extends AbstractRepositoryMetadata {
+    private Artifact artifact;
+
+    public ArtifactRepositoryMetadata(Artifact artifact) {
 ```
 
 ### FieldMayBeFinal
@@ -22551,6 +22407,18 @@ public final class MavenChainedWorkspaceReader implements MavenWorkspaceReader {
 ```
 
 ### FieldMayBeFinal
+Field `message` may be 'final'
+in `maven-core/src/main/java/org/apache/maven/exception/ExceptionSummary.java`
+#### Snippet
+```java
+    private Throwable exception;
+
+    private String message;
+
+    private String reference;
+```
+
+### FieldMayBeFinal
 Field `children` may be 'final'
 in `maven-core/src/main/java/org/apache/maven/exception/ExceptionSummary.java`
 #### Snippet
@@ -22587,18 +22455,6 @@ public class ExceptionSummary {
 ```
 
 ### FieldMayBeFinal
-Field `message` may be 'final'
-in `maven-core/src/main/java/org/apache/maven/exception/ExceptionSummary.java`
-#### Snippet
-```java
-    private Throwable exception;
-
-    private String message;
-
-    private String reference;
-```
-
-### FieldMayBeFinal
 Field `blackList` may be 'final'
 in `maven-core/src/main/java/org/apache/maven/execution/ReactorManager.java`
 #### Snippet
@@ -22608,18 +22464,6 @@ in `maven-core/src/main/java/org/apache/maven/execution/ReactorManager.java`
     private List<String> blackList = new ArrayList<>();
 
     private Map<String, BuildFailure> buildFailuresByProject = new HashMap<>();
-```
-
-### FieldMayBeFinal
-Field `pluginContextsByProjectAndPluginKey` may be 'final'
-in `maven-core/src/main/java/org/apache/maven/execution/ReactorManager.java`
-#### Snippet
-```java
-    private Map<String, BuildFailure> buildFailuresByProject = new HashMap<>();
-
-    private Map<String, Map<String, Map>> pluginContextsByProjectAndPluginKey = new HashMap<>();
-
-    private String failureBehavior = FAIL_FAST;
 ```
 
 ### FieldMayBeFinal
@@ -22635,6 +22479,18 @@ in `maven-core/src/main/java/org/apache/maven/execution/ReactorManager.java`
 ```
 
 ### FieldMayBeFinal
+Field `pluginContextsByProjectAndPluginKey` may be 'final'
+in `maven-core/src/main/java/org/apache/maven/execution/ReactorManager.java`
+#### Snippet
+```java
+    private Map<String, BuildFailure> buildFailuresByProject = new HashMap<>();
+
+    private Map<String, Map<String, Map>> pluginContextsByProjectAndPluginKey = new HashMap<>();
+
+    private String failureBehavior = FAIL_FAST;
+```
+
+### FieldMayBeFinal
 Field `buildFailuresByProject` may be 'final'
 in `maven-core/src/main/java/org/apache/maven/execution/ReactorManager.java`
 #### Snippet
@@ -22644,30 +22500,6 @@ in `maven-core/src/main/java/org/apache/maven/execution/ReactorManager.java`
     private Map<String, BuildFailure> buildFailuresByProject = new HashMap<>();
 
     private Map<String, Map<String, Map>> pluginContextsByProjectAndPluginKey = new HashMap<>();
-```
-
-### FieldMayBeFinal
-Field `request` may be 'final'
-in `maven-core/src/main/java/org/apache/maven/execution/MavenSession.java`
-#### Snippet
-```java
- */
-public class MavenSession implements Cloneable {
-    private MavenExecutionRequest request;
-
-    private MavenExecutionResult result;
-```
-
-### FieldMayBeFinal
-Field `container` may be 'final'
-in `maven-core/src/main/java/org/apache/maven/execution/MavenSession.java`
-#### Snippet
-```java
-    //
-
-    private PlexusContainer container;
-
-    private final Settings settings;
 ```
 
 ### FieldMayBeFinal
@@ -22755,15 +22587,15 @@ in `maven-core/src/main/java/org/apache/maven/repository/ArtifactTransferEvent.j
 ```
 
 ### FieldMayBeFinal
-Field `userLocalArtifactRepository` may be 'final'
-in `maven-core/src/main/java/org/apache/maven/repository/DelegatingLocalArtifactRepository.java`
+Field `closed` may be 'final'
+in `maven-model-builder/src/main/java/org/apache/maven/model/profile/activation/JdkVersionProfileActivator.java`
 #### Snippet
 ```java
-    private LocalArtifactRepository ideWorkspace;
+        private String value;
 
-    private ArtifactRepository userLocalArtifactRepository;
+        private boolean closed;
 
-    public DelegatingLocalArtifactRepository(ArtifactRepository artifactRepository) {
+        RangeValue(String value, boolean closed) {
 ```
 
 ### FieldMayBeFinal
@@ -22779,18 +22611,6 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/profile/activation/
 ```
 
 ### FieldMayBeFinal
-Field `closed` may be 'final'
-in `maven-model-builder/src/main/java/org/apache/maven/model/profile/activation/JdkVersionProfileActivator.java`
-#### Snippet
-```java
-        private String value;
-
-        private boolean closed;
-
-        RangeValue(String value, boolean closed) {
-```
-
-### FieldMayBeFinal
 Field `merger` may be 'final'
 in `maven-model-builder/src/main/java/org/apache/maven/model/profile/DefaultProfileInjector.java`
 #### Snippet
@@ -22800,18 +22620,6 @@ public class DefaultProfileInjector implements ProfileInjector {
     private ProfileModelMerger merger = new ProfileModelMerger();
 
     @Override
-```
-
-### FieldMayBeFinal
-Field `severities` may be 'final'
-in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelProblemCollector.java`
-#### Snippet
-```java
-    private Model rootModel;
-
-    private Set<ModelProblem.Severity> severities = EnumSet.noneOf(ModelProblem.Severity.class);
-
-    DefaultModelProblemCollector(ModelBuildingResult result) {
 ```
 
 ### FieldMayBeFinal
@@ -22827,6 +22635,18 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultMod
 ```
 
 ### FieldMayBeFinal
+Field `severities` may be 'final'
+in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelProblemCollector.java`
+#### Snippet
+```java
+    private Model rootModel;
+
+    private Set<ModelProblem.Severity> severities = EnumSet.noneOf(ModelProblem.Severity.class);
+
+    DefaultModelProblemCollector(ModelBuildingResult result) {
+```
+
+### FieldMayBeFinal
 Field `model` may be 'final'
 in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuildingEvent.java`
 #### Snippet
@@ -22839,15 +22659,15 @@ class DefaultModelBuildingEvent implements ModelBuildingEvent {
 ```
 
 ### FieldMayBeFinal
-Field `modelIds` may be 'final'
+Field `rawModels` may be 'final'
 in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuildingResult.java`
 #### Snippet
 ```java
-    private Model effectiveModel;
-
     private List<String> modelIds;
 
     private Map<String, Model> rawModels;
+
+    private Map<String, List<Profile>> activePomProfiles;
 ```
 
 ### FieldMayBeFinal
@@ -22863,15 +22683,27 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultMod
 ```
 
 ### FieldMayBeFinal
-Field `rawModels` may be 'final'
+Field `modelIds` may be 'final'
 in `maven-model-builder/src/main/java/org/apache/maven/model/building/DefaultModelBuildingResult.java`
 #### Snippet
 ```java
+    private Model effectiveModel;
+
     private List<String> modelIds;
 
     private Map<String, Model> rawModels;
+```
 
-    private Map<String, List<Profile>> activePomProfiles;
+### FieldMayBeFinal
+Field `merger` may be 'final'
+in `maven-model-builder/src/main/java/org/apache/maven/model/management/DefaultDependencyManagementInjector.java`
+#### Snippet
+```java
+public class DefaultDependencyManagementInjector implements DependencyManagementInjector {
+
+    private ManagementModelMerger merger = new ManagementModelMerger();
+
+    @Override
 ```
 
 ### FieldMayBeFinal
@@ -22888,18 +22720,6 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/resolution/InvalidR
 
 ### FieldMayBeFinal
 Field `merger` may be 'final'
-in `maven-model-builder/src/main/java/org/apache/maven/model/management/DefaultDependencyManagementInjector.java`
-#### Snippet
-```java
-public class DefaultDependencyManagementInjector implements DependencyManagementInjector {
-
-    private ManagementModelMerger merger = new ManagementModelMerger();
-
-    @Override
-```
-
-### FieldMayBeFinal
-Field `merger` may be 'final'
 in `maven-model-builder/src/main/java/org/apache/maven/model/management/DefaultPluginManagementInjector.java`
 #### Snippet
 ```java
@@ -22908,6 +22728,18 @@ public class DefaultPluginManagementInjector implements PluginManagementInjector
     private ManagementModelMerger merger = new ManagementModelMerger();
 
     @Override
+```
+
+### FieldMayBeFinal
+Field `merger` may be 'final'
+in `maven-model-builder/src/main/java/org/apache/maven/model/inheritance/DefaultInheritanceAssembler.java`
+#### Snippet
+```java
+public class DefaultInheritanceAssembler implements InheritanceAssembler {
+
+    private InheritanceModelMerger merger = new InheritanceModelMerger();
+
+    private static final String CHILD_DIRECTORY = "child-directory";
 ```
 
 ### FieldMayBeFinal
@@ -22936,18 +22768,6 @@ in `maven-model-builder/src/main/java/org/apache/maven/model/interpolation/Maven
 
 ### FieldMayBeFinal
 Field `merger` may be 'final'
-in `maven-model-builder/src/main/java/org/apache/maven/model/inheritance/DefaultInheritanceAssembler.java`
-#### Snippet
-```java
-public class DefaultInheritanceAssembler implements InheritanceAssembler {
-
-    private InheritanceModelMerger merger = new InheritanceModelMerger();
-
-    private static final String CHILD_DIRECTORY = "child-directory";
-```
-
-### FieldMayBeFinal
-Field `merger` may be 'final'
 in `maven-model-builder/src/main/java/org/apache/maven/model/normalization/DefaultModelNormalizer.java`
 #### Snippet
 ```java
@@ -22960,14 +22780,158 @@ public class DefaultModelNormalizer implements ModelNormalizer {
 
 ### FieldMayBeFinal
 Field `problems` may be 'final'
+in `maven-builder-support/src/main/java/org/apache/maven/building/DefaultProblemCollector.java`
+#### Snippet
+```java
+class DefaultProblemCollector implements ProblemCollector {
+
+    private List<Problem> problems;
+
+    private String source;
+```
+
+### FieldMayBeFinal
+Field `logger` may be 'final'
+in `maven-embedder/src/main/java/org/apache/maven/cli/logging/Slf4jLogger.java`
+#### Snippet
+```java
+public class Slf4jLogger implements Logger {
+
+    private org.slf4j.Logger logger;
+
+    public Slf4jLogger(org.slf4j.Logger logger) {
+```
+
+### FieldMayBeFinal
+Field `out` may be 'final'
+in `maven-embedder/src/main/java/org/apache/maven/cli/logging/Slf4jStdoutLogger.java`
+#### Snippet
+```java
+    private static final String ERROR = "[ERROR] ";
+
+    private PrintStream out = System.out;
+
+    //
+```
+
+### FieldMayBeFinal
+Field `loggerFactory` may be 'final'
+in `maven-embedder/src/main/java/org/apache/maven/cli/logging/Slf4jLoggerManager.java`
+#### Snippet
+```java
+public class Slf4jLoggerManager implements LoggerManager {
+
+    private ILoggerFactory loggerFactory;
+
+    public Slf4jLoggerManager() {
+```
+
+### FieldMayBeFinal
+Field `container` may be 'final'
+in `maven-core/src/main/java/org/apache/maven/execution/MavenSession.java`
+#### Snippet
+```java
+    //
+
+    private PlexusContainer container;
+
+    private final Settings settings;
+```
+
+### FieldMayBeFinal
+Field `request` may be 'final'
+in `maven-core/src/main/java/org/apache/maven/execution/MavenSession.java`
+#### Snippet
+```java
+ */
+public class MavenSession implements Cloneable {
+    private MavenExecutionRequest request;
+
+    private MavenExecutionResult result;
+```
+
+### FieldMayBeFinal
+Field `transfers` may be 'final'
+in `maven-embedder/src/main/java/org/apache/maven/cli/transfer/ConsoleMavenTransferListener.java`
+#### Snippet
+```java
+public class ConsoleMavenTransferListener extends AbstractMavenTransferListener {
+
+    private Map<TransferResource, Long> transfers = Collections.synchronizedMap(new LinkedHashMap<>());
+
+    private boolean printResourceNames;
+```
+
+### FieldMayBeFinal
+Field `printResourceNames` may be 'final'
+in `maven-embedder/src/main/java/org/apache/maven/cli/transfer/ConsoleMavenTransferListener.java`
+#### Snippet
+```java
+    private Map<TransferResource, Long> transfers = Collections.synchronizedMap(new LinkedHashMap<>());
+
+    private boolean printResourceNames;
+    private int lastLength;
+
+```
+
+### FieldMayBeFinal
+Field `largeFormat` may be 'final'
+in `maven-embedder/src/main/java/org/apache/maven/cli/transfer/AbstractMavenTransferListener.java`
+#### Snippet
+```java
+
+        private DecimalFormat smallFormat;
+        private DecimalFormat largeFormat;
+
+        FileSizeFormat(Locale locale) {
+```
+
+### FieldMayBeFinal
+Field `smallFormat` may be 'final'
+in `maven-embedder/src/main/java/org/apache/maven/cli/transfer/AbstractMavenTransferListener.java`
+#### Snippet
+```java
+        }
+
+        private DecimalFormat smallFormat;
+        private DecimalFormat largeFormat;
+
+```
+
+### FieldMayBeFinal
+Field `userLocalArtifactRepository` may be 'final'
+in `maven-core/src/main/java/org/apache/maven/repository/DelegatingLocalArtifactRepository.java`
+#### Snippet
+```java
+    private LocalArtifactRepository ideWorkspace;
+
+    private ArtifactRepository userLocalArtifactRepository;
+
+    public DelegatingLocalArtifactRepository(ArtifactRepository artifactRepository) {
+```
+
+### FieldMayBeFinal
+Field `classWorld` may be 'final'
+in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
+#### Snippet
+```java
+    public static final String STYLE_COLOR_PROPERTY = "style.color";
+
+    private ClassWorld classWorld;
+
+    private LoggerManager plexusLoggerManager;
+```
+
+### FieldMayBeFinal
+Field `proxies` may be 'final'
 in `maven-settings-builder/src/main/java/org/apache/maven/settings/crypto/DefaultSettingsDecryptionResult.java`
 #### Snippet
 ```java
+    private List<Server> servers;
+
     private List<Proxy> proxies;
 
     private List<SettingsProblem> problems;
-
-    DefaultSettingsDecryptionResult(List<Server> servers, List<Proxy> proxies, List<SettingsProblem> problems) {
 ```
 
 ### FieldMayBeFinal
@@ -22983,15 +22947,15 @@ class DefaultSettingsDecryptionResult implements SettingsDecryptionResult {
 ```
 
 ### FieldMayBeFinal
-Field `proxies` may be 'final'
+Field `problems` may be 'final'
 in `maven-settings-builder/src/main/java/org/apache/maven/settings/crypto/DefaultSettingsDecryptionResult.java`
 #### Snippet
 ```java
-    private List<Server> servers;
-
     private List<Proxy> proxies;
 
     private List<SettingsProblem> problems;
+
+    DefaultSettingsDecryptionResult(List<Server> servers, List<Proxy> proxies, List<SettingsProblem> problems) {
 ```
 
 ### FieldMayBeFinal
@@ -23031,28 +22995,39 @@ in `maven-settings-builder/src/main/java/org/apache/maven/settings/building/Defa
 ```
 
 ### FieldMayBeFinal
-Field `buildPomXMLFilterFactory` may be 'final'
-in `maven-model-transform/src/main/java/org/apache/maven/model/transform/RawToConsumerPomXMLFilterFactory.java`
+Field `snapshots` may be 'final'
+in `maven-resolver-provider/src/main/java/org/apache/maven/repository/internal/LocalSnapshotMetadataGenerator.java`
+#### Snippet
+```java
+class LocalSnapshotMetadataGenerator implements MetadataGenerator {
+
+    private Map<Object, LocalSnapshotMetadata> snapshots;
+
+    private final boolean legacyFormat;
+```
+
+### FieldMayBeFinal
+Field `pluginDescriptor` may be 'final'
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/MojoNotFoundException.java`
+#### Snippet
+```java
+    private String goal;
+
+    private PluginDescriptor pluginDescriptor;
+
+    public MojoNotFoundException(String goal, PluginDescriptor pluginDescriptor) {
+```
+
+### FieldMayBeFinal
+Field `goal` may be 'final'
+in `maven-plugin-api/src/main/java/org/apache/maven/plugin/MojoNotFoundException.java`
 #### Snippet
 ```java
  */
-public class RawToConsumerPomXMLFilterFactory {
-    private BuildToRawPomXMLFilterFactory buildPomXMLFilterFactory;
+public class MojoNotFoundException extends Exception {
+    private String goal;
 
-    public RawToConsumerPomXMLFilterFactory(BuildToRawPomXMLFilterFactory buildPomXMLFilterFactory) {
-```
-
-## RuleId[id=UnnecessaryContinue]
-### UnnecessaryContinue
-`continue` is unnecessary as the last statement in a loop
-in `maven-core/src/main/java/org/apache/maven/internal/transformation/ConsumerPomArtifactTransformer.java`
-#### Snippet
-```java
-                    || artifact.getExtension().startsWith("pom.")) {
-                // skip POM and POM subordinates
-                continue;
-            } else {
-                // everything else: add as is
+    private PluginDescriptor pluginDescriptor;
 ```
 
 ## RuleId[id=UnnecessaryUnicodeEscape]
@@ -23066,6 +23041,19 @@ in `maven-embedder/src/main/java/org/apache/maven/cli/MavenCli.java`
     private static final String ANSI_RESET = "\u001B\u005Bm";
 
     private void configure(CliRequest cliRequest) throws Exception {
+```
+
+## RuleId[id=UnnecessaryContinue]
+### UnnecessaryContinue
+`continue` is unnecessary as the last statement in a loop
+in `maven-core/src/main/java/org/apache/maven/internal/transformation/ConsumerPomArtifactTransformer.java`
+#### Snippet
+```java
+                    || artifact.getExtension().startsWith("pom.")) {
+                // skip POM and POM subordinates
+                continue;
+            } else {
+                // everything else: add as is
 ```
 
 ## RuleId[id=SynchronizationOnLocalVariableOrMethodParameter]
@@ -23119,15 +23107,15 @@ in `maven-compat/src/main/java/org/apache/maven/artifact/repository/metadata/Def
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `projectsSkipped` is redundant
-in `maven-embedder/src/main/java/org/apache/maven/cli/event/ExecutionEventLogger.java`
+Local variable `policy` is redundant
+in `maven-core/src/main/java/org/apache/maven/settings/SettingsUtilsV4.java`
 #### Snippet
 ```java
-
-            final List<MavenProject> allProjects = event.getSession().getAllProjects();
-            final int projectsSkipped = allProjects.size() - projects.size();
-
-            currentVisitedProjectCount = projectsSkipped;
+     */
+    private static RepositoryPolicy convertRepositoryPolicy(org.apache.maven.api.model.RepositoryPolicy modelPolicy) {
+        RepositoryPolicy policy = RepositoryPolicy.newBuilder()
+                .enabled(modelPolicy.isEnabled())
+                .updatePolicy(modelPolicy.getUpdatePolicy())
 ```
 
 ### UnnecessaryLocalVariable
@@ -23155,15 +23143,15 @@ in `maven-core/src/main/java/org/apache/maven/settings/SettingsUtilsV4.java`
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `policy` is redundant
-in `maven-core/src/main/java/org/apache/maven/settings/SettingsUtilsV4.java`
+Local variable `projectsSkipped` is redundant
+in `maven-embedder/src/main/java/org/apache/maven/cli/event/ExecutionEventLogger.java`
 #### Snippet
 ```java
-     */
-    private static RepositoryPolicy convertRepositoryPolicy(org.apache.maven.api.model.RepositoryPolicy modelPolicy) {
-        RepositoryPolicy policy = RepositoryPolicy.newBuilder()
-                .enabled(modelPolicy.isEnabled())
-                .updatePolicy(modelPolicy.getUpdatePolicy())
+
+            final List<MavenProject> allProjects = event.getSession().getAllProjects();
+            final int projectsSkipped = allProjects.size() - projects.size();
+
+            currentVisitedProjectCount = projectsSkipped;
 ```
 
 ## RuleId[id=BusyWait]
@@ -23294,6 +23282,18 @@ Call to `asList()` with only one argument
 in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuilder.java`
 #### Snippet
 ```java
+
+            if (error != null) {
+                ProjectBuildingException e = new ProjectBuildingException(Arrays.asList(result));
+                e.initCause(error);
+                throw e;
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuilder.java`
+#### Snippet
+```java
                 if (!StringUtils.isEmpty(r.getId()) && !StringUtils.isEmpty(r.getUrl())) {
                     ArtifactRepository repo = MavenRepositorySystem.buildArtifactRepository(r);
                     repositorySystem.injectProxy(projectBuildingRequest.getRepositorySession(), Arrays.asList(repo));
@@ -23335,18 +23335,6 @@ in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuilder.java
                             projectBuildingRequest.getRepositorySession(), Arrays.asList(repo));
                     project.setSnapshotArtifactRepository(repo);
                 }
-```
-
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
-in `maven-core/src/main/java/org/apache/maven/project/DefaultProjectBuilder.java`
-#### Snippet
-```java
-
-            if (error != null) {
-                ProjectBuildingException e = new ProjectBuildingException(Arrays.asList(result));
-                e.initCause(error);
-                throw e;
 ```
 
 ### ArraysAsListWithZeroOrOneArgument
@@ -23401,7 +23389,7 @@ in `maven-core/src/main/java/org/apache/maven/project/ReactorModelPool.java`
 ## RuleId[id=UseBulkOperation]
 ### UseBulkOperation
 Iteration can be replaced with bulk 'Map.putAll()' call
-in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
+in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
 #### Snippet
 ```java
                 // Do not use super.putAll, as it may delegate to put which throws an UnsupportedOperationException
@@ -23425,7 +23413,7 @@ in `api/maven-api-toolchain/src/main/java/org/apache/maven/api/toolchain/Immutab
 
 ### UseBulkOperation
 Iteration can be replaced with bulk 'Map.putAll()' call
-in `api/maven-api-settings/src/main/java/org/apache/maven/api/settings/ImmutableCollections.java`
+in `api/maven-api-model/src/main/java/org/apache/maven/api/model/ImmutableCollections.java`
 #### Snippet
 ```java
                 // Do not use super.putAll, as it may delegate to put which throws an UnsupportedOperationException
