@@ -1,12 +1,12 @@
 # maven-site-plugin 
  
 # Bad smells
-I found 66 bad smells with 2 repairable:
+I found 72 bad smells with 2 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | JavadocReference | 23 | false |
 | FieldMayBeFinal | 15 | false |
-| ConstantValue | 6 | false |
+| ConstantValue | 12 | false |
 | IgnoreResultOfCall | 6 | false |
 | DuplicatedCode | 4 | false |
 | JavadocDeclaration | 4 | false |
@@ -239,6 +239,18 @@ in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
 #### Snippet
 ```java
      *
+     * @return the site for deployment
+     * @throws MojoExecutionException in case of issue
+     * @see #determineDeploySite()
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
+#### Snippet
+```java
+     *
      * @return the relative path or "./" if the two URLs are the same.
      * @throws MojoExecutionException in case of issue
      */
@@ -254,66 +266,6 @@ in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
      * @return the site for deployment
      * @throws MojoExecutionException in case of issue
      * @see #determineTopDistributionManagementSiteUrl()
-     */
-```
-
-### JavadocReference
-Cannot resolve symbol `org.apache.maven.project.MavenProject`
-in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
-#### Snippet
-```java
-     * Extract the distributionManagement site of the top level parent of the given MavenProject.
-     * This climbs up the project hierarchy and returns the site of the last project
-     * for which {@link #getSite(org.apache.maven.project.MavenProject)} returns a site that resides in the
-     * same site. Notice that it doesn't take into account if the parent is in the reactor or not.
-     *
-```
-
-### JavadocReference
-Cannot resolve symbol `MojoExecutionException`
-in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
-#### Snippet
-```java
-     * @return the top level site. Not <code>null</code>.
-     *         Also site.getUrl() and site.getId() are guaranteed to be not <code>null</code>.
-     * @throws MojoExecutionException if no site info is found in the tree.
-     * @see URIPathDescriptor#sameSite(java.net.URI)
-     */
-```
-
-### JavadocReference
-Cannot resolve symbol `URIPathDescriptor`
-in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
-#### Snippet
-```java
-     *         Also site.getUrl() and site.getId() are guaranteed to be not <code>null</code>.
-     * @throws MojoExecutionException if no site info is found in the tree.
-     * @see URIPathDescriptor#sameSite(java.net.URI)
-     */
-    protected MavenProject getTopLevelProject(MavenProject project) throws MojoExecutionException {
-```
-
-### JavadocReference
-Cannot resolve symbol `sameSite(java.net.URI)`
-in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
-#### Snippet
-```java
-     *         Also site.getUrl() and site.getId() are guaranteed to be not <code>null</code>.
-     * @throws MojoExecutionException if no site info is found in the tree.
-     * @see URIPathDescriptor#sameSite(java.net.URI)
-     */
-    protected MavenProject getTopLevelProject(MavenProject project) throws MojoExecutionException {
-```
-
-### JavadocReference
-Cannot resolve symbol `MojoExecutionException`
-in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
-#### Snippet
-```java
-     *
-     * @return the site for deployment
-     * @throws MojoExecutionException in case of issue
-     * @see #determineDeploySite()
      */
 ```
 
@@ -375,6 +327,54 @@ in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
      * @throws MojoExecutionException if the deploy fails.
      */
     private void deployTo(final Repository repository) throws MojoExecutionException {
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.maven.project.MavenProject`
+in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
+#### Snippet
+```java
+     * Extract the distributionManagement site of the top level parent of the given MavenProject.
+     * This climbs up the project hierarchy and returns the site of the last project
+     * for which {@link #getSite(org.apache.maven.project.MavenProject)} returns a site that resides in the
+     * same site. Notice that it doesn't take into account if the parent is in the reactor or not.
+     *
+```
+
+### JavadocReference
+Cannot resolve symbol `MojoExecutionException`
+in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
+#### Snippet
+```java
+     * @return the top level site. Not <code>null</code>.
+     *         Also site.getUrl() and site.getId() are guaranteed to be not <code>null</code>.
+     * @throws MojoExecutionException if no site info is found in the tree.
+     * @see URIPathDescriptor#sameSite(java.net.URI)
+     */
+```
+
+### JavadocReference
+Cannot resolve symbol `URIPathDescriptor`
+in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
+#### Snippet
+```java
+     *         Also site.getUrl() and site.getId() are guaranteed to be not <code>null</code>.
+     * @throws MojoExecutionException if no site info is found in the tree.
+     * @see URIPathDescriptor#sameSite(java.net.URI)
+     */
+    protected MavenProject getTopLevelProject(MavenProject project) throws MojoExecutionException {
+```
+
+### JavadocReference
+Cannot resolve symbol `sameSite(java.net.URI)`
+in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
+#### Snippet
+```java
+     *         Also site.getUrl() and site.getId() are guaranteed to be not <code>null</code>.
+     * @throws MojoExecutionException if no site info is found in the tree.
+     * @see URIPathDescriptor#sameSite(java.net.URI)
+     */
+    protected MavenProject getTopLevelProject(MavenProject project) throws MojoExecutionException {
 ```
 
 ### JavadocReference
@@ -516,147 +516,15 @@ in `src/main/java/org/apache/maven/plugins/site/render/ReportDocumentRenderer.ja
 
 ## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
-Field `categoryReports` may be 'final'
-in `src/main/java/org/apache/maven/plugins/site/render/CategorySummaryDocumentRenderer.java`
-#### Snippet
-```java
-    private I18N i18n;
-
-    private List<MavenReport> categoryReports;
-
-    private final Log log;
-```
-
-### FieldMayBeFinal
-Field `desc2` may be 'final'
-in `src/main/java/org/apache/maven/plugins/site/render/CategorySummaryDocumentRenderer.java`
-#### Snippet
-```java
-    private String desc1;
-
-    private String desc2;
-
-    private I18N i18n;
-```
-
-### FieldMayBeFinal
-Field `title` may be 'final'
-in `src/main/java/org/apache/maven/plugins/site/render/CategorySummaryDocumentRenderer.java`
-#### Snippet
-```java
-    private final String reportMojoInfo;
-
-    private String title;
-
-    private String desc1;
-```
-
-### FieldMayBeFinal
-Field `i18n` may be 'final'
-in `src/main/java/org/apache/maven/plugins/site/render/CategorySummaryDocumentRenderer.java`
-#### Snippet
-```java
-    private String desc2;
-
-    private I18N i18n;
-
-    private List<MavenReport> categoryReports;
-```
-
-### FieldMayBeFinal
-Field `desc1` may be 'final'
-in `src/main/java/org/apache/maven/plugins/site/render/CategorySummaryDocumentRenderer.java`
-#### Snippet
-```java
-    private String title;
-
-    private String desc1;
-
-    private String desc2;
-```
-
-### FieldMayBeFinal
 Field `docRenderingContext` may be 'final'
-in `src/main/java/org/apache/maven/plugins/site/render/CategorySummaryDocumentRenderer.java`
+in `src/main/java/org/apache/maven/plugins/site/render/SitemapDocumentRenderer.java`
 #### Snippet
 ```java
  */
-public class CategorySummaryDocumentRenderer implements SitePluginReportDocumentRenderer {
+public class SitemapDocumentRenderer implements SitePluginReportDocumentRenderer {
     private DocumentRenderingContext docRenderingContext;
 
     private final String reportMojoInfo;
-```
-
-### FieldMayBeFinal
-Field `archive` may be 'final'
-in `src/main/java/org/apache/maven/plugins/site/render/SiteJarMojo.java`
-#### Snippet
-```java
-     */
-    @Parameter
-    private MavenArchiveConfiguration archive = new MavenArchiveConfiguration();
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `docRenderingContext` may be 'final'
-in `src/main/java/org/apache/maven/plugins/site/render/ReportDocumentRenderer.java`
-#### Snippet
-```java
-         * The main DocumentRenderingContext, which is the base for the DocumentRenderingContext of subpages
-         */
-        private DocumentRenderingContext docRenderingContext;
-
-        /**
-```
-
-### FieldMayBeFinal
-Field `sinks` may be 'final'
-in `src/main/java/org/apache/maven/plugins/site/render/ReportDocumentRenderer.java`
-#### Snippet
-```java
-         * List of sinks (subpages) associated to this report
-         */
-        private List<MultiPageSubSink> sinks = new ArrayList<MultiPageSubSink>();
-
-        MultiPageSinkFactory(MavenReport report, DocumentRenderingContext docRenderingContext) {
-```
-
-### FieldMayBeFinal
-Field `outputName` may be 'final'
-in `src/main/java/org/apache/maven/plugins/site/render/ReportDocumentRenderer.java`
-#### Snippet
-```java
-        private File outputDir;
-
-        private String outputName;
-
-        MultiPageSubSink(File outputDir, String outputName, DocumentRenderingContext docRenderingContext) {
-```
-
-### FieldMayBeFinal
-Field `report` may be 'final'
-in `src/main/java/org/apache/maven/plugins/site/render/ReportDocumentRenderer.java`
-#### Snippet
-```java
-         * The report that is (maybe) generating multiple pages
-         */
-        private MavenReport report;
-
-        /**
-```
-
-### FieldMayBeFinal
-Field `outputDir` may be 'final'
-in `src/main/java/org/apache/maven/plugins/site/render/ReportDocumentRenderer.java`
-#### Snippet
-```java
-
-    private static class MultiPageSubSink extends SiteRendererSink {
-        private File outputDir;
-
-        private String outputName;
 ```
 
 ### FieldMayBeFinal
@@ -684,15 +552,147 @@ in `src/main/java/org/apache/maven/plugins/site/render/SitemapDocumentRenderer.j
 ```
 
 ### FieldMayBeFinal
+Field `archive` may be 'final'
+in `src/main/java/org/apache/maven/plugins/site/render/SiteJarMojo.java`
+#### Snippet
+```java
+     */
+    @Parameter
+    private MavenArchiveConfiguration archive = new MavenArchiveConfiguration();
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `categoryReports` may be 'final'
+in `src/main/java/org/apache/maven/plugins/site/render/CategorySummaryDocumentRenderer.java`
+#### Snippet
+```java
+    private I18N i18n;
+
+    private List<MavenReport> categoryReports;
+
+    private final Log log;
+```
+
+### FieldMayBeFinal
+Field `title` may be 'final'
+in `src/main/java/org/apache/maven/plugins/site/render/CategorySummaryDocumentRenderer.java`
+#### Snippet
+```java
+    private final String reportMojoInfo;
+
+    private String title;
+
+    private String desc1;
+```
+
+### FieldMayBeFinal
+Field `desc2` may be 'final'
+in `src/main/java/org/apache/maven/plugins/site/render/CategorySummaryDocumentRenderer.java`
+#### Snippet
+```java
+    private String desc1;
+
+    private String desc2;
+
+    private I18N i18n;
+```
+
+### FieldMayBeFinal
+Field `desc1` may be 'final'
+in `src/main/java/org/apache/maven/plugins/site/render/CategorySummaryDocumentRenderer.java`
+#### Snippet
+```java
+    private String title;
+
+    private String desc1;
+
+    private String desc2;
+```
+
+### FieldMayBeFinal
 Field `docRenderingContext` may be 'final'
-in `src/main/java/org/apache/maven/plugins/site/render/SitemapDocumentRenderer.java`
+in `src/main/java/org/apache/maven/plugins/site/render/CategorySummaryDocumentRenderer.java`
 #### Snippet
 ```java
  */
-public class SitemapDocumentRenderer implements SitePluginReportDocumentRenderer {
+public class CategorySummaryDocumentRenderer implements SitePluginReportDocumentRenderer {
     private DocumentRenderingContext docRenderingContext;
 
     private final String reportMojoInfo;
+```
+
+### FieldMayBeFinal
+Field `i18n` may be 'final'
+in `src/main/java/org/apache/maven/plugins/site/render/CategorySummaryDocumentRenderer.java`
+#### Snippet
+```java
+    private String desc2;
+
+    private I18N i18n;
+
+    private List<MavenReport> categoryReports;
+```
+
+### FieldMayBeFinal
+Field `docRenderingContext` may be 'final'
+in `src/main/java/org/apache/maven/plugins/site/render/ReportDocumentRenderer.java`
+#### Snippet
+```java
+         * The main DocumentRenderingContext, which is the base for the DocumentRenderingContext of subpages
+         */
+        private DocumentRenderingContext docRenderingContext;
+
+        /**
+```
+
+### FieldMayBeFinal
+Field `outputDir` may be 'final'
+in `src/main/java/org/apache/maven/plugins/site/render/ReportDocumentRenderer.java`
+#### Snippet
+```java
+
+    private static class MultiPageSubSink extends SiteRendererSink {
+        private File outputDir;
+
+        private String outputName;
+```
+
+### FieldMayBeFinal
+Field `outputName` may be 'final'
+in `src/main/java/org/apache/maven/plugins/site/render/ReportDocumentRenderer.java`
+#### Snippet
+```java
+        private File outputDir;
+
+        private String outputName;
+
+        MultiPageSubSink(File outputDir, String outputName, DocumentRenderingContext docRenderingContext) {
+```
+
+### FieldMayBeFinal
+Field `sinks` may be 'final'
+in `src/main/java/org/apache/maven/plugins/site/render/ReportDocumentRenderer.java`
+#### Snippet
+```java
+         * List of sinks (subpages) associated to this report
+         */
+        private List<MultiPageSubSink> sinks = new ArrayList<MultiPageSubSink>();
+
+        MultiPageSinkFactory(MavenReport report, DocumentRenderingContext docRenderingContext) {
+```
+
+### FieldMayBeFinal
+Field `report` may be 'final'
+in `src/main/java/org/apache/maven/plugins/site/render/ReportDocumentRenderer.java`
+#### Snippet
+```java
+         * The report that is (maybe) generating multiple pages
+         */
+        private MavenReport report;
+
+        /**
 ```
 
 ## RuleId[id=ConstantValue]
@@ -733,15 +733,15 @@ in `src/main/java/org/apache/maven/plugins/site/render/ReportDocumentRenderer.ja
 ```
 
 ### ConstantValue
-Condition `proxyInfo == null` is always `true`
-in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
+Value `doc` is always 'null'
+in `src/main/java/org/apache/maven/plugins/site/render/SiteMojo.java`
 #### Snippet
 ```java
-                getLog().debug("connect with proxyInfo");
-                wagon.connect(repository, authenticationInfo, proxyInfo);
-            } else if (proxyInfo == null && authenticationInfo != null) {
-                getLog().debug("connect with authenticationInfo and without proxyInfo");
-                wagon.connect(repository, authenticationInfo);
+        for (DocumentRenderer doc : documents) {
+            String type;
+            if (doc instanceof ReportDocumentRenderer || doc instanceof SitePluginReportDocumentRenderer) {
+                type = "report";
+            } else {
 ```
 
 ### ConstantValue
@@ -757,15 +757,87 @@ in `src/main/java/org/apache/maven/plugins/site/render/SiteMojo.java`
 ```
 
 ### ConstantValue
-Value `doc` is always 'null'
-in `src/main/java/org/apache/maven/plugins/site/render/SiteMojo.java`
+Condition `nonProxyHostPrefix != null` is always `true`
+in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
 #### Snippet
 ```java
-        for (DocumentRenderer doc : documents) {
-            String type;
-            if (doc instanceof ReportDocumentRenderer || doc instanceof SitePluginReportDocumentRenderer) {
-                type = "report";
-            } else {
+                String nonProxyHostSuffix = nonProxyHost.substring(pos + 1);
+                // prefix*
+                if ((nonProxyHostPrefix != null && !nonProxyHostPrefix.isEmpty())
+                        && host.startsWith(nonProxyHostPrefix)
+                        && (nonProxyHostSuffix == null || nonProxyHostSuffix.isEmpty())) {
+```
+
+### ConstantValue
+Condition `nonProxyHostSuffix == null` is always `false`
+in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
+#### Snippet
+```java
+                if ((nonProxyHostPrefix != null && !nonProxyHostPrefix.isEmpty())
+                        && host.startsWith(nonProxyHostPrefix)
+                        && (nonProxyHostSuffix == null || nonProxyHostSuffix.isEmpty())) {
+                    return null;
+                }
+```
+
+### ConstantValue
+Condition `nonProxyHostPrefix == null` is always `false`
+in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
+#### Snippet
+```java
+                }
+                // *suffix
+                if ((nonProxyHostPrefix == null || nonProxyHostPrefix.isEmpty())
+                        && (nonProxyHostSuffix != null && !nonProxyHostSuffix.isEmpty())
+                        && host.endsWith(nonProxyHostSuffix)) {
+```
+
+### ConstantValue
+Condition `nonProxyHostSuffix != null` is always `true`
+in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
+#### Snippet
+```java
+                // *suffix
+                if ((nonProxyHostPrefix == null || nonProxyHostPrefix.isEmpty())
+                        && (nonProxyHostSuffix != null && !nonProxyHostSuffix.isEmpty())
+                        && host.endsWith(nonProxyHostSuffix)) {
+                    return null;
+```
+
+### ConstantValue
+Condition `nonProxyHostPrefix != null` is always `true`
+in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
+#### Snippet
+```java
+                }
+                // prefix*suffix
+                if ((nonProxyHostPrefix != null && !nonProxyHostPrefix.isEmpty())
+                        && host.startsWith(nonProxyHostPrefix)
+                        && (nonProxyHostSuffix != null && !nonProxyHostSuffix.isEmpty())
+```
+
+### ConstantValue
+Condition `nonProxyHostSuffix != null` is always `true`
+in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
+#### Snippet
+```java
+                if ((nonProxyHostPrefix != null && !nonProxyHostPrefix.isEmpty())
+                        && host.startsWith(nonProxyHostPrefix)
+                        && (nonProxyHostSuffix != null && !nonProxyHostSuffix.isEmpty())
+                        && host.endsWith(nonProxyHostSuffix)) {
+                    return null;
+```
+
+### ConstantValue
+Condition `proxyInfo == null` is always `true`
+in `src/main/java/org/apache/maven/plugins/site/deploy/AbstractDeployMojo.java`
+#### Snippet
+```java
+                getLog().debug("connect with proxyInfo");
+                wagon.connect(repository, authenticationInfo, proxyInfo);
+            } else if (proxyInfo == null && authenticationInfo != null) {
+                getLog().debug("connect with authenticationInfo and without proxyInfo");
+                wagon.connect(repository, authenticationInfo);
 ```
 
 ## RuleId[id=IgnoreResultOfCall]
@@ -783,30 +855,6 @@ in `src/main/java/org/apache/maven/plugins/site/deploy/SiteStageMojo.java`
 
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
-in `src/main/java/org/apache/maven/plugins/site/descriptor/SiteDescriptorArtifactMetadata.java`
-#### Snippet
-```java
-                localRepository.getBasedir(), localRepository.pathOfLocalRepositoryMetadata(this, remoteRepository));
-
-        destination.getParentFile().mkdirs();
-
-        try (Writer writer = WriterFactory.newXmlWriter(destination)) {
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `src/main/java/org/apache/maven/plugins/site/descriptor/EffectiveSiteMojo.java`
-#### Snippet
-```java
-    protected static void writeXmlFile(File output, String content) throws IOException {
-        try (Writer out = WriterFactory.newXmlWriter(output)) {
-            output.getParentFile().mkdirs();
-
-            out.write(content);
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
 in `src/main/java/org/apache/maven/plugins/site/run/SiteRunMojo.java`
 #### Snippet
 ```java
@@ -815,6 +863,18 @@ in `src/main/java/org/apache/maven/plugins/site/run/SiteRunMojo.java`
         webXml.getParentFile().mkdirs();
 
         try (InputStream inStream = getClass().getResourceAsStream("/run/web.xml"); //
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `src/main/java/org/apache/maven/plugins/site/descriptor/SiteDescriptorArtifactMetadata.java`
+#### Snippet
+```java
+                localRepository.getBasedir(), localRepository.pathOfLocalRepositoryMetadata(this, remoteRepository));
+
+        destination.getParentFile().mkdirs();
+
+        try (Writer writer = WriterFactory.newXmlWriter(destination)) {
 ```
 
 ### IgnoreResultOfCall
@@ -839,5 +899,17 @@ in `src/main/java/org/apache/maven/plugins/site/render/SiteMojo.java`
             file.mkdirs();
         }
 
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `src/main/java/org/apache/maven/plugins/site/descriptor/EffectiveSiteMojo.java`
+#### Snippet
+```java
+    protected static void writeXmlFile(File output, String content) throws IOException {
+        try (Writer out = WriterFactory.newXmlWriter(output)) {
+            output.getParentFile().mkdirs();
+
+            out.write(content);
 ```
 
