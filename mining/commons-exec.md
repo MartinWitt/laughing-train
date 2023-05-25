@@ -20,19 +20,32 @@ I found 37 bad smells with 8 repairable:
 | ConstantValue | 1 | false |
 | UnnecessaryInitCause | 1 | false |
 | IgnoreResultOfCall | 1 | false |
-## RuleId[id=UnnecessaryStringEscape]
-### UnnecessaryStringEscape
-`\'` is unnecessarily escaped
-in `src/main/java/org/apache/commons/exec/util/StringUtils.java`
+## RuleId[id=StringOperationCanBeSimplified]
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/org/apache/commons/exec/environment/EnvironmentUtils.java`
 #### Snippet
 ```java
-
-    private static final String[] EMPTY_STRING_ARRAY = new String[0];
-    private static final String SINGLE_QUOTE = "\'";
-    private static final String DOUBLE_QUOTE = "\"";
-    private static final char SLASH_CHAR = '/';
+        int i = 0;
+        for (final Entry<String, String> entry : environment.entrySet()) {
+            final String key  = entry.getKey() == null ? "" : entry.getKey().toString();
+            final String value = entry.getValue() == null ? "" : entry.getValue().toString();
+            result[i] = key + "=" + value;
 ```
 
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/org/apache/commons/exec/environment/EnvironmentUtils.java`
+#### Snippet
+```java
+        for (final Entry<String, String> entry : environment.entrySet()) {
+            final String key  = entry.getKey() == null ? "" : entry.getKey().toString();
+            final String value = entry.getValue() == null ? "" : entry.getValue().toString();
+            result[i] = key + "=" + value;
+            i++;
+```
+
+## RuleId[id=UnnecessaryStringEscape]
 ### UnnecessaryStringEscape
 `\'` is unnecessarily escaped
 in `src/main/java/org/apache/commons/exec/OS.java`
@@ -81,29 +94,16 @@ in `src/main/java/org/apache/commons/exec/CommandLine.java`
                 } else if ("\"".equals(nextTok)) {
 ```
 
-## RuleId[id=StringOperationCanBeSimplified]
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/org/apache/commons/exec/environment/EnvironmentUtils.java`
+### UnnecessaryStringEscape
+`\'` is unnecessarily escaped
+in `src/main/java/org/apache/commons/exec/util/StringUtils.java`
 #### Snippet
 ```java
-        int i = 0;
-        for (final Entry<String, String> entry : environment.entrySet()) {
-            final String key  = entry.getKey() == null ? "" : entry.getKey().toString();
-            final String value = entry.getValue() == null ? "" : entry.getValue().toString();
-            result[i] = key + "=" + value;
-```
 
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/org/apache/commons/exec/environment/EnvironmentUtils.java`
-#### Snippet
-```java
-        for (final Entry<String, String> entry : environment.entrySet()) {
-            final String key  = entry.getKey() == null ? "" : entry.getKey().toString();
-            final String value = entry.getValue() == null ? "" : entry.getValue().toString();
-            result[i] = key + "=" + value;
-            i++;
+    private static final String[] EMPTY_STRING_ARRAY = new String[0];
+    private static final String SINGLE_QUOTE = "\'";
+    private static final String DOUBLE_QUOTE = "\"";
+    private static final char SLASH_CHAR = '/';
 ```
 
 ## RuleId[id=RedundantCast]
@@ -121,6 +121,18 @@ in `src/main/java/org/apache/commons/exec/DefaultExecutor.java`
 
 ## RuleId[id=CommentedOutCode]
 ### CommentedOutCode
+Commented out code (6 lines)
+in `src/main/java/org/apache/commons/exec/environment/OpenVmsProcessingEnvironment.java`
+#### Snippet
+```java
+package org.apache.commons.exec.environment;
+
+//import java.io.BufferedReader;
+//import java.io.IOException;
+//import java.util.HashMap;
+```
+
+### CommentedOutCode
 Commented out code (55 lines)
 in `src/main/java/org/apache/commons/exec/environment/OpenVmsProcessingEnvironment.java`
 #### Snippet
@@ -134,14 +146,38 @@ in `src/main/java/org/apache/commons/exec/environment/OpenVmsProcessingEnvironme
 
 ### CommentedOutCode
 Commented out code (6 lines)
-in `src/main/java/org/apache/commons/exec/environment/OpenVmsProcessingEnvironment.java`
+in `src/main/java/org/apache/commons/exec/environment/DefaultProcessingEnvironment.java`
 #### Snippet
 ```java
-package org.apache.commons.exec.environment;
+    @Deprecated
+    protected BufferedReader runProcEnvCommand() throws IOException {
+//        final ByteArrayOutputStream out = new ByteArrayOutputStream();
+//        final Executor exe = new DefaultExecutor();
+//        exe.setStreamHandler(new PumpStreamHandler(out));
+```
 
-//import java.io.BufferedReader;
-//import java.io.IOException;
-//import java.util.HashMap;
+### CommentedOutCode
+Commented out code (28 lines)
+in `src/main/java/org/apache/commons/exec/environment/DefaultProcessingEnvironment.java`
+#### Snippet
+```java
+
+// No longer needed
+//        if (procEnvironment == null) {
+//            procEnvironment = createEnvironmentMap();
+//            final BufferedReader in = runProcEnvCommand();
+```
+
+### CommentedOutCode
+Commented out code (25 lines)
+in `src/main/java/org/apache/commons/exec/environment/DefaultProcessingEnvironment.java`
+#### Snippet
+```java
+    }
+
+//    /**
+//     * ByteArrayOutputStream#toString doesn't seem to work reliably on OS/390,
+//     * at least not the way we use it in the execution context.
 ```
 
 ### CommentedOutCode
@@ -166,42 +202,6 @@ in `src/main/java/org/apache/commons/exec/environment/DefaultProcessingEnvironme
 //        if (executable != null) {
 //            commandLine = new CommandLine(executable);
 //            commandLine.addArguments(arguments);
-```
-
-### CommentedOutCode
-Commented out code (25 lines)
-in `src/main/java/org/apache/commons/exec/environment/DefaultProcessingEnvironment.java`
-#### Snippet
-```java
-    }
-
-//    /**
-//     * ByteArrayOutputStream#toString doesn't seem to work reliably on OS/390,
-//     * at least not the way we use it in the execution context.
-```
-
-### CommentedOutCode
-Commented out code (28 lines)
-in `src/main/java/org/apache/commons/exec/environment/DefaultProcessingEnvironment.java`
-#### Snippet
-```java
-
-// No longer needed
-//        if (procEnvironment == null) {
-//            procEnvironment = createEnvironmentMap();
-//            final BufferedReader in = runProcEnvCommand();
-```
-
-### CommentedOutCode
-Commented out code (6 lines)
-in `src/main/java/org/apache/commons/exec/environment/DefaultProcessingEnvironment.java`
-#### Snippet
-```java
-    @Deprecated
-    protected BufferedReader runProcEnvCommand() throws IOException {
-//        final ByteArrayOutputStream out = new ByteArrayOutputStream();
-//        final Executor exe = new DefaultExecutor();
-//        exe.setStreamHandler(new PumpStreamHandler(out));
 ```
 
 ## RuleId[id=SwitchStatementWithTooFewBranches]
@@ -250,10 +250,10 @@ in `src/main/java/org/apache/commons/exec/Executor.java`
 #### Snippet
 ```java
      */
-    int execute(CommandLine command)
+    void execute(CommandLine command, Map<String, String> environment, ExecuteResultHandler handler)
         throws ExecuteException, IOException;
+}
 
-    /**
 ```
 
 ### DuplicateThrows
@@ -262,7 +262,7 @@ in `src/main/java/org/apache/commons/exec/Executor.java`
 #### Snippet
 ```java
      */
-    int execute(CommandLine command, Map<String, String> environment)
+    int execute(CommandLine command)
         throws ExecuteException, IOException;
 
     /**
@@ -286,34 +286,10 @@ in `src/main/java/org/apache/commons/exec/Executor.java`
 #### Snippet
 ```java
      */
-    void execute(CommandLine command, Map<String, String> environment, ExecuteResultHandler handler)
+    int execute(CommandLine command, Map<String, String> environment)
         throws ExecuteException, IOException;
-}
 
-```
-
-### DuplicateThrows
-There is a more general exception, 'java.io.IOException', in the throws list already.
-in `src/main/java/org/apache/commons/exec/DefaultExecutor.java`
-#### Snippet
-```java
-    @Override
-    public void execute(final CommandLine command, final ExecuteResultHandler handler)
-            throws ExecuteException, IOException {
-        execute(command, null, handler);
-    }
-```
-
-### DuplicateThrows
-There is a more general exception, 'java.io.IOException', in the throws list already.
-in `src/main/java/org/apache/commons/exec/DefaultExecutor.java`
-#### Snippet
-```java
-    @Override
-    public void execute(final CommandLine command, final Map<String, String> environment,
-            final ExecuteResultHandler handler) throws ExecuteException, IOException {
-
-        if (workingDirectory != null && !workingDirectory.exists()) {
+    /**
 ```
 
 ### DuplicateThrows
@@ -338,6 +314,30 @@ in `src/main/java/org/apache/commons/exec/DefaultExecutor.java`
     public int execute(final CommandLine command) throws ExecuteException,
             IOException {
         return execute(command, (Map<String, String>) null);
+```
+
+### DuplicateThrows
+There is a more general exception, 'java.io.IOException', in the throws list already.
+in `src/main/java/org/apache/commons/exec/DefaultExecutor.java`
+#### Snippet
+```java
+    @Override
+    public void execute(final CommandLine command, final ExecuteResultHandler handler)
+            throws ExecuteException, IOException {
+        execute(command, null, handler);
+    }
+```
+
+### DuplicateThrows
+There is a more general exception, 'java.io.IOException', in the throws list already.
+in `src/main/java/org/apache/commons/exec/DefaultExecutor.java`
+#### Snippet
+```java
+    @Override
+    public void execute(final CommandLine command, final Map<String, String> environment,
+            final ExecuteResultHandler handler) throws ExecuteException, IOException {
+
+        if (workingDirectory != null && !workingDirectory.exists()) {
 ```
 
 ## RuleId[id=UnnecessaryToStringCall]
