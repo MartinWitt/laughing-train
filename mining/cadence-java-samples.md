@@ -8,8 +8,8 @@ I found 33 bad smells with 2 repairable:
 | DuplicatedCode | 3 | false |
 | ThrowablePrintedToSystemOut | 3 | false |
 | FieldMayBeFinal | 2 | false |
-| Deprecation | 2 | false |
 | UnnecessaryLocalVariable | 2 | true |
+| Deprecation | 2 | false |
 | DanglingJavadoc | 2 | false |
 | JavadocLinkAsPlainText | 2 | false |
 | UNCHECKED_WARNING | 1 | false |
@@ -67,6 +67,42 @@ in `src/main/java/com/uber/cadence/samples/calculation/Activities.java`
    * @param b
    * @return a*b
    */
+```
+
+### JavadocDeclaration
+`@param values` tag description is missing
+in `src/main/java/com/uber/cadence/samples/hello/HelloDataConverter.java`
+#### Snippet
+```java
+     * classes(local activity, heartbeat etc) into binary.
+     *
+     * @param values
+     * @return
+     * @throws DataConverterException
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `src/main/java/com/uber/cadence/samples/hello/HelloDataConverter.java`
+#### Snippet
+```java
+     *
+     * @param values
+     * @return
+     * @throws DataConverterException
+     */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/com/uber/cadence/samples/hello/HelloDataConverter.java`
+#### Snippet
+```java
+     * @param values
+     * @return
+     * @throws DataConverterException
+     */
+    @Override
 ```
 
 ### JavadocDeclaration
@@ -135,42 +171,6 @@ in `src/main/java/com/uber/cadence/samples/hello/HelloDataConverter.java`
 #### Snippet
 ```java
      * @param <T>
-     * @return
-     * @throws DataConverterException
-     */
-    @Override
-```
-
-### JavadocDeclaration
-`@param values` tag description is missing
-in `src/main/java/com/uber/cadence/samples/hello/HelloDataConverter.java`
-#### Snippet
-```java
-     * classes(local activity, heartbeat etc) into binary.
-     *
-     * @param values
-     * @return
-     * @throws DataConverterException
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `src/main/java/com/uber/cadence/samples/hello/HelloDataConverter.java`
-#### Snippet
-```java
-     *
-     * @param values
-     * @return
-     * @throws DataConverterException
-     */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `src/main/java/com/uber/cadence/samples/hello/HelloDataConverter.java`
-#### Snippet
-```java
-     * @param values
      * @return
      * @throws DataConverterException
      */
@@ -280,31 +280,6 @@ in `src/main/java/com/uber/cadence/samples/hello/HelloConsistentQuery.java`
             .build();
 ```
 
-## RuleId[id=Deprecation]
-### Deprecation
-'com.uber.m3.tally.Buckets' is deprecated
-in `src/main/java/com/uber/cadence/samples/hello/HelloMetric.java`
-#### Snippet
-```java
-
-  @Override
-  public Histogram histogram(final String name, final Buckets buckets) {
-    String newName = fixName(name);
-    return scope.histogram(newName, buckets);
-```
-
-### Deprecation
-'createTempDir()' is deprecated
-in `src/main/java/com/uber/cadence/samples/fileprocessing/StoreActivitiesImpl.java`
-#### Snippet
-```java
-    try {
-      byte[] binary = Resources.toByteArray(url);
-      File destination = new File(Files.createTempDir(), "downloaded");
-      Files.write(binary, destination);
-      System.out.println(
-```
-
 ## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
 Local variable `newName` is redundant
@@ -328,6 +303,31 @@ in `src/main/java/com/uber/cadence/samples/hello/HelloDataConverter.java`
         Object[] result = new Object[valueTypes.length];
         return result;
       }
+```
+
+## RuleId[id=Deprecation]
+### Deprecation
+'com.uber.m3.tally.Buckets' is deprecated
+in `src/main/java/com/uber/cadence/samples/hello/HelloMetric.java`
+#### Snippet
+```java
+
+  @Override
+  public Histogram histogram(final String name, final Buckets buckets) {
+    String newName = fixName(name);
+    return scope.histogram(newName, buckets);
+```
+
+### Deprecation
+'createTempDir()' is deprecated
+in `src/main/java/com/uber/cadence/samples/fileprocessing/StoreActivitiesImpl.java`
+#### Snippet
+```java
+    try {
+      byte[] binary = Resources.toByteArray(url);
+      File destination = new File(Files.createTempDir(), "downloaded");
+      Files.write(binary, destination);
+      System.out.println(
 ```
 
 ## RuleId[id=BusyWait]
