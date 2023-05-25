@@ -22,13 +22,13 @@ I found 43 bad smells with 3 repairable:
 | IgnoreResultOfCall | 1 | false |
 ## RuleId[id=ToArrayCallWithZeroLengthArrayArgument]
 ### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new String\[fullArgs.size()\]'
-in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/execution/DefaultDockerCompose.java`
+Call to `toArray()` with pre-sized array argument 'new String\[containerNames.size()\]'
+in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/execution/Docker.java`
 #### Snippet
 ```java
-                .addAll(dockerComposeExecArgument.arguments())
-                .build();
-        return fullArgs.toArray(new String[fullArgs.size()]);
+
+    public void rm(Collection<String> containerNames) throws IOException, InterruptedException {
+        rm(containerNames.toArray(new String[containerNames.size()]));
     }
 
 ```
@@ -46,13 +46,13 @@ in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/execution
 ```
 
 ### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new String\[containerNames.size()\]'
-in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/execution/Docker.java`
+Call to `toArray()` with pre-sized array argument 'new String\[fullArgs.size()\]'
+in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/execution/DefaultDockerCompose.java`
 #### Snippet
 ```java
-
-    public void rm(Collection<String> containerNames) throws IOException, InterruptedException {
-        rm(containerNames.toArray(new String[containerNames.size()]));
+                .addAll(dockerComposeExecArgument.arguments())
+                .build();
+        return fullArgs.toArray(new String[fullArgs.size()]);
     }
 
 ```
@@ -173,18 +173,6 @@ in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/connectio
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'AGGRESSIVE' is still used
-in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/configuration/ShutdownStrategy.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    ShutdownStrategy AGGRESSIVE = new AggressiveShutdownStrategy();
-    /**
-     * Call rm on all containers, then call docker-compose down.
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'AGGRESSIVE_WITH_NETWORK_CLEANUP' is still used
 in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/configuration/ShutdownStrategy.java`
 #### Snippet
@@ -194,6 +182,18 @@ in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/configura
     ShutdownStrategy AGGRESSIVE_WITH_NETWORK_CLEANUP = new AggressiveShutdownWithNetworkCleanupStrategy();
     /**
      * Call docker-compose down, kill, then rm. Allows containers up to 10 seconds to shut down
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'AGGRESSIVE' is still used
+in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/configuration/ShutdownStrategy.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    ShutdownStrategy AGGRESSIVE = new AggressiveShutdownStrategy();
+    /**
+     * Call rm on all containers, then call docker-compose down.
 ```
 
 ## RuleId[id=FieldMayBeFinal]
@@ -248,18 +248,6 @@ in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/EventEmit
 
 ### Deprecation
 'propagate(java.lang.Throwable)' is deprecated
-in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/connection/Container.java`
-#### Snippet
-```java
-            return dockerCompose.ports(containerName);
-        } catch (IOException | InterruptedException e) {
-            throw Throwables.propagate(e);
-        }
-    }
-```
-
-### Deprecation
-'propagate(java.lang.Throwable)' is deprecated
 in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/execution/Command.java`
 #### Snippet
 ```java
@@ -270,19 +258,19 @@ in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/execution
     }
 ```
 
-## RuleId[id=ArraysAsListWithZeroOrOneArgument]
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
-in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/execution/DockerComposeRunOption.java`
+### Deprecation
+'propagate(java.lang.Throwable)' is deprecated
+in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/connection/Container.java`
 #### Snippet
 ```java
-
-    public static DockerComposeRunOption options(String... options) {
-        return ImmutableDockerComposeRunOption.of(Arrays.asList(options));
+            return dockerCompose.ports(containerName);
+        } catch (IOException | InterruptedException e) {
+            throw Throwables.propagate(e);
+        }
     }
-}
 ```
 
+## RuleId[id=ArraysAsListWithZeroOrOneArgument]
 ### ArraysAsListWithZeroOrOneArgument
 Call to `asList()` with only one argument
 in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/execution/DockerComposeRunArgument.java`
@@ -291,6 +279,18 @@ in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/execution
 
     public static DockerComposeRunArgument arguments(String... arguments) {
         return ImmutableDockerComposeRunArgument.of(Arrays.asList(arguments));
+    }
+}
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/execution/DockerComposeRunOption.java`
+#### Snippet
+```java
+
+    public static DockerComposeRunOption options(String... options) {
+        return ImmutableDockerComposeRunOption.of(Arrays.asList(options));
     }
 }
 ```
@@ -420,30 +420,6 @@ in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/reporting
 ```
 
 ### UnstableApiUsage
-'com.google.common.util.concurrent.Uninterruptibles' is marked unstable with @Beta
-in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/reporting/PostReportOnShutdown.java`
-#### Snippet
-```java
-            REPORTER.report();
-            // Give time for logs to flush before killing
-            Uninterruptibles.sleepUninterruptibly(300, TimeUnit.MILLISECONDS);
-        }));
-    }
-```
-
-### UnstableApiUsage
-'sleepUninterruptibly(long, java.util.concurrent.TimeUnit)' is declared in unstable class 'com.google.common.util.concurrent.Uninterruptibles' marked with @Beta
-in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/reporting/PostReportOnShutdown.java`
-#### Snippet
-```java
-            REPORTER.report();
-            // Give time for logs to flush before killing
-            Uninterruptibles.sleepUninterruptibly(300, TimeUnit.MILLISECONDS);
-        }));
-    }
-```
-
-### UnstableApiUsage
 'com.google.common.util.concurrent.Futures' is marked unstable with @Beta
 in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/DockerComposeManager.java`
 #### Snippet
@@ -476,6 +452,30 @@ in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/DockerCom
         } finally {
             MoreExecutors.shutdownAndAwaitTermination(executorService, 0, TimeUnit.SECONDS);
         }
+    }
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.Uninterruptibles' is marked unstable with @Beta
+in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/reporting/PostReportOnShutdown.java`
+#### Snippet
+```java
+            REPORTER.report();
+            // Give time for logs to flush before killing
+            Uninterruptibles.sleepUninterruptibly(300, TimeUnit.MILLISECONDS);
+        }));
+    }
+```
+
+### UnstableApiUsage
+'sleepUninterruptibly(long, java.util.concurrent.TimeUnit)' is declared in unstable class 'com.google.common.util.concurrent.Uninterruptibles' marked with @Beta
+in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/reporting/PostReportOnShutdown.java`
+#### Snippet
+```java
+            REPORTER.report();
+            // Give time for logs to flush before killing
+            Uninterruptibles.sleepUninterruptibly(300, TimeUnit.MILLISECONDS);
+        }));
     }
 ```
 
