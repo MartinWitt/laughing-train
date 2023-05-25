@@ -73,18 +73,6 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/GenerateConjureServ
 
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
-`null` is returned by the method declared as @NonNullApi
-in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
-#### Snippet
-```java
-                                    .set(project.provider(options::get)
-                                            .map(opts ->
-                                                    opts.has("packageName") ? (String) opts.get("packageName") : null)
-                                            .orElse(compileConjureTypeScript.flatMap(
-                                                    CompileConjureTypeScriptTask::getPackageName)));
-```
-
-### DataFlowIssue
 Method invocation `getSourceSets` may produce `NullPointerException`
 in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
 #### Snippet
@@ -94,6 +82,18 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
         javaPlugin.getSourceSets().getByName("main").getJava().srcDir(subproj.files(JAVA_GENERATED_SOURCE_DIRNAME));
     }
 
+```
+
+### DataFlowIssue
+`null` is returned by the method declared as @NonNullApi
+in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePlugin.java`
+#### Snippet
+```java
+                                    .set(project.provider(options::get)
+                                            .map(opts ->
+                                                    opts.has("packageName") ? (String) opts.get("packageName") : null)
+                                            .orElse(compileConjureTypeScript.flatMap(
+                                                    CompileConjureTypeScriptTask::getPackageName)));
 ```
 
 ## RuleId[id=FieldMayBeFinal]
@@ -173,19 +173,6 @@ in `gradle-conjure-api/src/main/java/com/palantir/gradle/conjure/api/EndpointMin
  */
 ```
 
-## RuleId[id=UnusedAssignment]
-### UnusedAssignment
-Variable `compileIr` initializer `null` is redundant
-in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePublishPlugin.java`
-#### Snippet
-```java
-
-    private TaskProvider<CompileIrTask> getCompileIrTask(Project project) {
-        TaskProvider<CompileIrTask> compileIr = null;
-        try {
-            compileIr = project.getTasks().named(ConjurePlugin.CONJURE_IR, CompileIrTask.class);
-```
-
 ## RuleId[id=NullableProblems]
 ### NullableProblems
 Not annotated parameter overrides @NonNullApi parameter
@@ -201,14 +188,14 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/CompileConjureTypeS
 
 ### NullableProblems
 Not annotated parameter overrides @NonNullApi parameter
-in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/GradleExecUtils.java`
+in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjureGeneratorTask.java`
 #### Snippet
 ```java
-                            new Action<BuildServiceSpec<Params>>() {
-                                @Override
-                                public void execute(BuildServiceSpec<Params> spec) {
-                                    spec.getParameters().getExecutable().set(executable);
-                                }
+        doLast(new Action<Task>() {
+            @Override
+            public void execute(Task _task) {
+                compileFiles();
+            }
 ```
 
 ### NullableProblems
@@ -225,14 +212,14 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjureGeneratorTas
 
 ### NullableProblems
 Not annotated parameter overrides @NonNullApi parameter
-in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjureGeneratorTask.java`
+in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/GradleExecUtils.java`
 #### Snippet
 ```java
-        doLast(new Action<Task>() {
-            @Override
-            public void execute(Task _task) {
-                compileFiles();
-            }
+                            new Action<BuildServiceSpec<Params>>() {
+                                @Override
+                                public void execute(BuildServiceSpec<Params> spec) {
+                                    spec.getParameters().getExecutable().set(executable);
+                                }
 ```
 
 ### NullableProblems
@@ -264,6 +251,30 @@ Not annotated parameter overrides @NonNullApi parameter
 in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ExtractExecutableTask.java`
 #### Snippet
 ```java
+        doFirst(new Action<Task>() {
+            @Override
+            public void execute(Task _task) {
+                Set<String> rootDirectories = new HashSet<>();
+                getProject().tarTree(tarFile.get()).visit(new FileVisitor() {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNullApi parameter
+in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ExtractExecutableTask.java`
+#### Snippet
+```java
+        doLast(new Action<Task>() {
+            @Override
+            public void execute(Task _task) {
+                getLogger().info("Extracted into {}", getOutputDirectory());
+                // Ensure the executable exists
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNullApi parameter
+in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ExtractExecutableTask.java`
+#### Snippet
+```java
 
                     @Override
                     public void visitFile(FileVisitDetails _fileDetails) {}
@@ -283,28 +294,17 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ExtractExecutableTa
                         // root dir 'a', but with 'a/b' directly. Hence, we look at all dirs and extract their first
 ```
 
-### NullableProblems
-Not annotated parameter overrides @NonNullApi parameter
-in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ExtractExecutableTask.java`
+## RuleId[id=UnusedAssignment]
+### UnusedAssignment
+Variable `compileIr` initializer `null` is redundant
+in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjurePublishPlugin.java`
 #### Snippet
 ```java
-        doFirst(new Action<Task>() {
-            @Override
-            public void execute(Task _task) {
-                Set<String> rootDirectories = new HashSet<>();
-                getProject().tarTree(tarFile.get()).visit(new FileVisitor() {
-```
 
-### NullableProblems
-Not annotated parameter overrides @NonNullApi parameter
-in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ExtractExecutableTask.java`
-#### Snippet
-```java
-        doLast(new Action<Task>() {
-            @Override
-            public void execute(Task _task) {
-                getLogger().info("Extracted into {}", getOutputDirectory());
-                // Ensure the executable exists
+    private TaskProvider<CompileIrTask> getCompileIrTask(Project project) {
+        TaskProvider<CompileIrTask> compileIr = null;
+        try {
+            compileIr = project.getTasks().named(ConjurePlugin.CONJURE_IR, CompileIrTask.class);
 ```
 
 ## RuleId[id=JavadocLinkAsPlainText]
@@ -361,6 +361,30 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/CompileConjurePytho
 ## RuleId[id=BlockingMethodInNonBlockingContext]
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
+in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/WriteGitignoreTask.java`
+#### Snippet
+```java
+    @TaskAction
+    public final void compileFiles() throws IOException {
+        Files.createDirectories(outputFile.getParent());
+
+        Files.write(outputFile, contents.getBytes(StandardCharsets.UTF_8));
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/WriteGitignoreTask.java`
+#### Snippet
+```java
+        Files.createDirectories(outputFile.getParent());
+
+        Files.write(outputFile, contents.getBytes(StandardCharsets.UTF_8));
+    }
+}
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
 in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ReverseEngineerJavaStartScript.java`
 #### Snippet
 ```java
@@ -397,26 +421,38 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/GenerateNpmrcTask.j
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
-in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/WriteGitignoreTask.java`
+in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ChildFirstUrlClassLoader.java`
 #### Snippet
 ```java
-    @TaskAction
-    public final void compileFiles() throws IOException {
-        Files.createDirectories(outputFile.getParent());
-
-        Files.write(outputFile, contents.getBytes(StandardCharsets.UTF_8));
+        Vector<URL> resources = new Vector<>();
+        // This "child" loader
+        Enumeration<URL> childResources = findResources(name);
+        if (childResources != null) {
+            while (childResources.hasMoreElements()) {
 ```
 
 ### BlockingMethodInNonBlockingContext
 Possibly blocking call in non-blocking context could lead to thread starvation
-in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/WriteGitignoreTask.java`
+in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ChildFirstUrlClassLoader.java`
 #### Snippet
 ```java
-        Files.createDirectories(outputFile.getParent());
 
-        Files.write(outputFile, contents.getBytes(StandardCharsets.UTF_8));
+        // Consort with the ancestors
+        Enumeration<URL> parentResources = super.findResources(name);
+        if (parentResources != null) {
+            while (parentResources.hasMoreElements()) {
+```
+
+### BlockingMethodInNonBlockingContext
+Possibly blocking call in non-blocking context could lead to thread starvation
+in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjureRunnerResource.java`
+#### Snippet
+```java
+    @Override
+    public final void close() throws IOException {
+        delegate.close();
     }
-}
+
 ```
 
 ### BlockingMethodInNonBlockingContext
@@ -441,42 +477,6 @@ in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjureRunnerResour
             classLoader.close();
         }
     }
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ConjureRunnerResource.java`
-#### Snippet
-```java
-    @Override
-    public final void close() throws IOException {
-        delegate.close();
-    }
-
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ChildFirstUrlClassLoader.java`
-#### Snippet
-```java
-        Vector<URL> resources = new Vector<>();
-        // This "child" loader
-        Enumeration<URL> childResources = findResources(name);
-        if (childResources != null) {
-            while (childResources.hasMoreElements()) {
-```
-
-### BlockingMethodInNonBlockingContext
-Possibly blocking call in non-blocking context could lead to thread starvation
-in `gradle-conjure/src/main/java/com/palantir/gradle/conjure/ChildFirstUrlClassLoader.java`
-#### Snippet
-```java
-
-        // Consort with the ancestors
-        Enumeration<URL> parentResources = super.findResources(name);
-        if (parentResources != null) {
-            while (parentResources.hasMoreElements()) {
 ```
 
 ## RuleId[id=IgnoreResultOfCall]
