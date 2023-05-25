@@ -17,12 +17,36 @@ I found 76 bad smells with 9 repairable:
 | JavadocReference | 1 | false |
 | UnnecessaryStringEscape | 1 | true |
 | StringOperationCanBeSimplified | 1 | false |
-| RedundantCast | 1 | false |
 | JavadocDeclaration | 1 | false |
+| RedundantCast | 1 | false |
 | UnnecessaryLocalVariable | 1 | true |
 | UnnecessaryToStringCall | 1 | true |
 | SuspiciousIndentAfterControlStatement | 1 | false |
 ## RuleId[id=UnnecessaryModifier]
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `sorald-api/src/main/java/sorald/annotations/ProcessorAnnotation.java`
+#### Snippet
+```java
+@Target(ElementType.TYPE)
+public @interface ProcessorAnnotation {
+    public String key();
+
+    public String description();
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `sorald-api/src/main/java/sorald/annotations/ProcessorAnnotation.java`
+#### Snippet
+```java
+    public String key();
+
+    public String description();
+}
+
+```
+
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
 in `sorald-api/src/main/java/sorald/api/RuleRepository.java`
@@ -30,9 +54,9 @@ in `sorald-api/src/main/java/sorald/api/RuleRepository.java`
 ```java
      */
     @Nonnull
-    public Collection<Rule> getAllRules();
+    public Collection<Rule> getHandledRulesByType(@Nonnull IRuleType... types);
+}
 
-    /**
 ```
 
 ### UnnecessaryModifier
@@ -66,168 +90,46 @@ in `sorald-api/src/main/java/sorald/api/RuleRepository.java`
 ```java
      */
     @Nonnull
-    public Collection<Rule> getHandledRulesByType(@Nonnull IRuleType... types);
-}
+    public Collection<Rule> getAllRules();
 
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `sorald-api/src/main/java/sorald/annotations/ProcessorAnnotation.java`
-#### Snippet
-```java
-@Target(ElementType.TYPE)
-public @interface ProcessorAnnotation {
-    public String key();
-
-    public String description();
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `sorald-api/src/main/java/sorald/annotations/ProcessorAnnotation.java`
-#### Snippet
-```java
-    public String key();
-
-    public String description();
-}
-
+    /**
 ```
 
 ## RuleId[id=UNCHECKED_WARNING]
 ### UNCHECKED_WARNING
-Unchecked assignment: 'spoon.reflect.reference.CtTypeReference' to 'spoon.reflect.reference.CtTypeReference'. Reason: 'arraysClass' has raw type, so result of getReference is erased
-in `sorald/src/main/java/sorald/processor/ArrayHashCodeAndToStringProcessor.java`
+Unchecked assignment: 'spoon.reflect.declaration.CtMethod' to 'spoon.reflect.declaration.CtExecutable'
+in `sorald/src/main/java/sorald/processor/BigDecimalDoubleConstructorProcessor.java`
 #### Snippet
 ```java
-        CtExpression prevTarget = element.getTarget();
-        CtClass arraysClass = getFactory().Class().get(Arrays.class);
-        CtTypeAccess<?> newTarget = getFactory().createTypeAccess(arraysClass.getReference());
-        CtMethod method = null;
-        if (element.getExecutable().getSignature().equals(Constants.HASHCODE_METHOD_NAME + "()")) {
+            CtMethod valueOfMethod = (CtMethod) bigDecimalClass.getMethodsByName("valueOf").get(0);
+            CtExecutableReference refToMethod =
+                    getFactory().Executable().createReference(valueOfMethod);
+            CtExpression arg = (CtExpression) cons.getArguments().get(0);
+            CtInvocation newInvocation =
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'spoon.reflect.declaration.CtMethod' to 'spoon.reflect.declaration.CtExecutable'
-in `sorald/src/main/java/sorald/processor/ArrayHashCodeAndToStringProcessor.java`
+Unchecked assignment: 'spoon.reflect.reference.CtExecutableReference' to 'spoon.reflect.reference.CtExecutableReference'
+in `sorald/src/main/java/sorald/processor/BigDecimalDoubleConstructorProcessor.java`
 #### Snippet
 ```java
-            System.err.println("Unhandled case. Something went wrong.");
+            CtExpression arg = (CtExpression) cons.getArguments().get(0);
+            CtInvocation newInvocation =
+                    getFactory().Code().createInvocation(invoker, refToMethod, arg);
+            cons.replace(newInvocation);
+        } else {
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'set(int, E)' as a member of raw type 'java.util.List'
+in `sorald/src/main/java/sorald/processor/BigDecimalDoubleConstructorProcessor.java`
+#### Snippet
+```java
+            String argValue = arg.toString().replaceAll("[fFdD]", "");
+            CtLiteral<String> literal = getFactory().Code().createLiteral(argValue);
+            newCtConstructorCall.getArguments().set(0, literal);
+            cons.replace(newCtConstructorCall);
         }
-        CtExecutableReference refToMethod = getFactory().Executable().createReference(method);
-        CtInvocation newInvocation =
-                getFactory().Code().createInvocation(newTarget, refToMethod, prevTarget);
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'spoon.reflect.reference.CtExecutableReference' to 'spoon.reflect.reference.CtExecutableReference'
-in `sorald/src/main/java/sorald/processor/ArrayHashCodeAndToStringProcessor.java`
-#### Snippet
-```java
-        CtExecutableReference refToMethod = getFactory().Executable().createReference(method);
-        CtInvocation newInvocation =
-                getFactory().Code().createInvocation(newTarget, refToMethod, prevTarget);
-        element.replace(newInvocation);
-    }
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'spoon.reflect.declaration.CtMethod' to 'spoon.reflect.declaration.CtExecutable'
-in `sorald/src/main/java/sorald/processor/EqualsOnAtomicClassProcessor.java`
-#### Snippet
-```java
-        CtMethod ctMethodToBeCalled = (CtMethod) atomicClass.getMethodsByName("get").get(0);
-        CtExecutableReference ctExecutableReferenceToMethodToBeCalled =
-                getFactory().Executable().createReference(ctMethodToBeCalled);
-
-        CtInvocation leftInvocation =
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'spoon.reflect.reference.CtExecutableReference' to 'spoon.reflect.reference.CtExecutableReference'
-in `sorald/src/main/java/sorald/processor/EqualsOnAtomicClassProcessor.java`
-#### Snippet
-```java
-                        .Code()
-                        .createInvocation(
-                                element.getTarget(), ctExecutableReferenceToMethodToBeCalled);
-        CtInvocation rightInvocation =
-                getFactory()
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'spoon.reflect.reference.CtExecutableReference' to 'spoon.reflect.reference.CtExecutableReference'
-in `sorald/src/main/java/sorald/processor/EqualsOnAtomicClassProcessor.java`
-#### Snippet
-```java
-                        .createInvocation(
-                                (CtExpression) element.getArguments().get(0),
-                                ctExecutableReferenceToMethodToBeCalled);
-
-        CtBinaryOperator newCtBinaryOperator =
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'setTypeCasts(List\>)' as a member of raw type 'spoon.reflect.code.CtExpression'
-in `sorald/src/main/java/sorald/processor/MathOnFloatProcessor.java`
-#### Snippet
-```java
-            } else {
-                if (isOperationBetweenFloats(binaryOperator)) {
-                    binaryOperator
-                            .getLeftHandOperand()
-                            .setTypeCasts(List.of(getFactory().Type().doublePrimitiveType()));
-
-                    /**
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'spoon.reflect.code.CtCatchVariable\>' to 'spoon.reflect.code.CtCatchVariable'
-in `sorald/src/main/java/sorald/processor/InterruptedExceptionProcessor.java`
-#### Snippet
-```java
-                factory.createCatchVariable(
-                        refToInterruptedException, catchVariable.getSimpleName());
-        newCatch.setParameter((CtCatchVariable<? extends Throwable>) newCatchVariable);
-
-        CtTry tryOfViolatedCatcher = violatedCatch.getParent(CtTry.class);
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'spoon.reflect.declaration.CtVariable' to 'spoon.reflect.code.CtLocalVariable'
-in `sorald/src/main/java/sorald/processor/UnclosedResourcesProcessor.java`
-#### Snippet
-```java
-        CtVariableReference<T> variableReference = variableWrite.getVariable();
-
-        CtLocalVariable<A> localVariable = (CtLocalVariable<A>) variableReference.getDeclaration();
-        CtLocalVariable<A> localVariableClone = localVariable.clone();
-        localVariableClone.setAssignment(assignment.getAssignment().clone());
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'setLeftHandOperand(CtExpression)' as a member of raw type 'spoon.reflect.code.CtBinaryOperator'
-in `sorald/src/main/java/sorald/processor/CastArithmeticOperandProcessor.java`
-#### Snippet
-```java
-                                        + ") "
-                                        + element.getLeftHandOperand());
-        element.setLeftHandOperand(newBinaryOperator);
-        // A nicer code for the casting would be the next line. However, more parentheses are added
-        // in
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'spoon.reflect.reference.CtVariableReference' to 'spoon.reflect.reference.CtVariableReference'. Reason: '((CtVariable) field)' has raw type, so result of getReference is erased
-in `sorald/src/main/java/sorald/processor/SelfAssignementProcessor.java`
-#### Snippet
-```java
-            CtField<?> field = type.getField(leftExpression2Check.toString());
-            if (field != null) {
-                fieldRead.setVariable(((CtVariable) field).getReference());
-                leftExpression2Check.replace(fieldRead);
-            } else {
 ```
 
 ### UNCHECKED_WARNING
@@ -282,39 +184,114 @@ in `sorald/src/main/java/sorald/processor/ThreadLocalWithInitial.java`
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'spoon.reflect.declaration.CtMethod' to 'spoon.reflect.declaration.CtExecutable'
-in `sorald/src/main/java/sorald/processor/BigDecimalDoubleConstructorProcessor.java`
+Unchecked assignment: 'spoon.reflect.code.CtExpression' to 'spoon.reflect.code.CtExpression'. Reason: 'assignment' has raw type, so result of getAssignment is erased
+in `sorald/src/main/java/sorald/processor/DeadStoreProcessor.java`
 #### Snippet
 ```java
-            CtMethod valueOfMethod = (CtMethod) bigDecimalClass.getMethodsByName("valueOf").get(0);
-            CtExecutableReference refToMethod =
-                    getFactory().Executable().createReference(valueOfMethod);
-            CtExpression arg = (CtExpression) cons.getArguments().get(0);
-            CtInvocation newInvocation =
+        CtVariable<?> decl = (CtVariable<?>) write.getVariable().getDeclaration().clone();
+        CtAssignment assignment = write.getParent(CtAssignment.class);
+        decl.setDefaultExpression(assignment.getAssignment());
+        assignment.replace(decl);
+    }
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'setEventHandlers(List)' as a member of raw type 'sorald.processor.SoraldAbstractProcessor'
+in `sorald/src/main/java/sorald/Repair.java`
+#### Snippet
+```java
+        SoraldAbstractProcessor<?> processor = createBaseProcessor(ruleKey);
+        if (processor != null) {
+            return processor
+                    .setMaxFixes(config.getMaxFixesPerRule())
+                    .setEventHandlers(eventHandlers);
+        }
+        return null;
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'spoon.reflect.declaration.CtMethod' to 'spoon.reflect.declaration.CtExecutable'
+in `sorald/src/main/java/sorald/processor/EqualsOnAtomicClassProcessor.java`
+#### Snippet
+```java
+        CtMethod ctMethodToBeCalled = (CtMethod) atomicClass.getMethodsByName("get").get(0);
+        CtExecutableReference ctExecutableReferenceToMethodToBeCalled =
+                getFactory().Executable().createReference(ctMethodToBeCalled);
+
+        CtInvocation leftInvocation =
 ```
 
 ### UNCHECKED_WARNING
 Unchecked assignment: 'spoon.reflect.reference.CtExecutableReference' to 'spoon.reflect.reference.CtExecutableReference'
-in `sorald/src/main/java/sorald/processor/BigDecimalDoubleConstructorProcessor.java`
+in `sorald/src/main/java/sorald/processor/EqualsOnAtomicClassProcessor.java`
 #### Snippet
 ```java
-            CtExpression arg = (CtExpression) cons.getArguments().get(0);
-            CtInvocation newInvocation =
-                    getFactory().Code().createInvocation(invoker, refToMethod, arg);
-            cons.replace(newInvocation);
-        } else {
+                        .Code()
+                        .createInvocation(
+                                element.getTarget(), ctExecutableReferenceToMethodToBeCalled);
+        CtInvocation rightInvocation =
+                getFactory()
 ```
 
 ### UNCHECKED_WARNING
-Unchecked call to 'set(int, E)' as a member of raw type 'java.util.List'
-in `sorald/src/main/java/sorald/processor/BigDecimalDoubleConstructorProcessor.java`
+Unchecked assignment: 'spoon.reflect.reference.CtExecutableReference' to 'spoon.reflect.reference.CtExecutableReference'
+in `sorald/src/main/java/sorald/processor/EqualsOnAtomicClassProcessor.java`
 #### Snippet
 ```java
-            String argValue = arg.toString().replaceAll("[fFdD]", "");
-            CtLiteral<String> literal = getFactory().Code().createLiteral(argValue);
-            newCtConstructorCall.getArguments().set(0, literal);
-            cons.replace(newCtConstructorCall);
+                        .createInvocation(
+                                (CtExpression) element.getArguments().get(0),
+                                ctExecutableReferenceToMethodToBeCalled);
+
+        CtBinaryOperator newCtBinaryOperator =
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'spoon.reflect.reference.CtFieldReference' to 'spoon.reflect.reference.CtVariableReference'
+in `sorald/src/main/java/sorald/processor/XxeProcessingProcessor.java`
+#### Snippet
+```java
+        fieldRead.setTarget(xmlConstantsAccess);
+        CtFieldReference fieldRef = xmlConstants.getDeclaredField(constantName);
+        fieldRead.setVariable(fieldRef);
+        return fieldRead;
+    }
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'spoon.reflect.declaration.CtMethod' to 'spoon.reflect.declaration.CtMethod'
+in `sorald/src/main/java/sorald/processor/XxeProcessingProcessor.java`
+#### Snippet
+```java
+        CtTypeReference<?> returnType = returnExp.getType().getTypeDeclaration().getReference();
+        CtMethod<T> method =
+                getFactory()
+                        .createMethod(
+                                target,
+                                modifiers,
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'spoon.reflect.reference.CtVariableReference' to 'spoon.reflect.reference.CtVariableReference'. Reason: '((CtVariable) newField)' has raw type, so result of getReference is erased
+in `sorald/src/main/java/sorald/processor/SynchronizationOnStringOrBoxedProcessor.java`
+#### Snippet
+```java
+                    fieldRead.getVariable().getQualifiedName(),
+                    ((CtVariable) newField).getReference());
+            fieldRead.setVariable(((CtVariable) newField).getReference());
+        } else {
+            fieldRead.setVariable(old2NewFields.get(fieldRead.getVariable().getQualifiedName()));
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'spoon.reflect.reference.CtVariableReference' to 'spoon.reflect.reference.CtVariableReference'
+in `sorald/src/main/java/sorald/processor/SynchronizationOnStringOrBoxedProcessor.java`
+#### Snippet
+```java
+            fieldRead.setVariable(((CtVariable) newField).getReference());
+        } else {
+            fieldRead.setVariable(old2NewFields.get(fieldRead.getVariable().getQualifiedName()));
         }
+    }
 ```
 
 ### UNCHECKED_WARNING
@@ -378,78 +355,101 @@ in `sorald/src/main/java/sorald/processor/SynchronizationOnStringOrBoxedProcesso
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'spoon.reflect.reference.CtVariableReference' to 'spoon.reflect.reference.CtVariableReference'. Reason: '((CtVariable) newField)' has raw type, so result of getReference is erased
-in `sorald/src/main/java/sorald/processor/SynchronizationOnStringOrBoxedProcessor.java`
+Unchecked assignment: 'spoon.reflect.reference.CtTypeReference' to 'spoon.reflect.reference.CtTypeReference'. Reason: 'arraysClass' has raw type, so result of getReference is erased
+in `sorald/src/main/java/sorald/processor/ArrayHashCodeAndToStringProcessor.java`
 #### Snippet
 ```java
-                    fieldRead.getVariable().getQualifiedName(),
-                    ((CtVariable) newField).getReference());
-            fieldRead.setVariable(((CtVariable) newField).getReference());
-        } else {
-            fieldRead.setVariable(old2NewFields.get(fieldRead.getVariable().getQualifiedName()));
+        CtExpression prevTarget = element.getTarget();
+        CtClass arraysClass = getFactory().Class().get(Arrays.class);
+        CtTypeAccess<?> newTarget = getFactory().createTypeAccess(arraysClass.getReference());
+        CtMethod method = null;
+        if (element.getExecutable().getSignature().equals(Constants.HASHCODE_METHOD_NAME + "()")) {
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'spoon.reflect.reference.CtVariableReference' to 'spoon.reflect.reference.CtVariableReference'
-in `sorald/src/main/java/sorald/processor/SynchronizationOnStringOrBoxedProcessor.java`
+Unchecked assignment: 'spoon.reflect.declaration.CtMethod' to 'spoon.reflect.declaration.CtExecutable'
+in `sorald/src/main/java/sorald/processor/ArrayHashCodeAndToStringProcessor.java`
 #### Snippet
 ```java
-            fieldRead.setVariable(((CtVariable) newField).getReference());
-        } else {
-            fieldRead.setVariable(old2NewFields.get(fieldRead.getVariable().getQualifiedName()));
+            System.err.println("Unhandled case. Something went wrong.");
         }
+        CtExecutableReference refToMethod = getFactory().Executable().createReference(method);
+        CtInvocation newInvocation =
+                getFactory().Code().createInvocation(newTarget, refToMethod, prevTarget);
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'spoon.reflect.reference.CtExecutableReference' to 'spoon.reflect.reference.CtExecutableReference'
+in `sorald/src/main/java/sorald/processor/ArrayHashCodeAndToStringProcessor.java`
+#### Snippet
+```java
+        CtExecutableReference refToMethod = getFactory().Executable().createReference(method);
+        CtInvocation newInvocation =
+                getFactory().Code().createInvocation(newTarget, refToMethod, prevTarget);
+        element.replace(newInvocation);
     }
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'spoon.reflect.reference.CtFieldReference' to 'spoon.reflect.reference.CtVariableReference'
-in `sorald/src/main/java/sorald/processor/XxeProcessingProcessor.java`
+Unchecked assignment: 'spoon.reflect.reference.CtVariableReference' to 'spoon.reflect.reference.CtVariableReference'. Reason: '((CtVariable) field)' has raw type, so result of getReference is erased
+in `sorald/src/main/java/sorald/processor/SelfAssignementProcessor.java`
 #### Snippet
 ```java
-        fieldRead.setTarget(xmlConstantsAccess);
-        CtFieldReference fieldRef = xmlConstants.getDeclaredField(constantName);
-        fieldRead.setVariable(fieldRef);
-        return fieldRead;
-    }
+            CtField<?> field = type.getField(leftExpression2Check.toString());
+            if (field != null) {
+                fieldRead.setVariable(((CtVariable) field).getReference());
+                leftExpression2Check.replace(fieldRead);
+            } else {
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'spoon.reflect.declaration.CtMethod' to 'spoon.reflect.declaration.CtMethod'
-in `sorald/src/main/java/sorald/processor/XxeProcessingProcessor.java`
+Unchecked cast: 'spoon.reflect.code.CtCatchVariable\>' to 'spoon.reflect.code.CtCatchVariable'
+in `sorald/src/main/java/sorald/processor/InterruptedExceptionProcessor.java`
 #### Snippet
 ```java
-        CtTypeReference<?> returnType = returnExp.getType().getTypeDeclaration().getReference();
-        CtMethod<T> method =
-                getFactory()
-                        .createMethod(
-                                target,
-                                modifiers,
+                factory.createCatchVariable(
+                        refToInterruptedException, catchVariable.getSimpleName());
+        newCatch.setParameter((CtCatchVariable<? extends Throwable>) newCatchVariable);
+
+        CtTry tryOfViolatedCatcher = violatedCatch.getParent(CtTry.class);
 ```
 
 ### UNCHECKED_WARNING
-Unchecked call to 'setEventHandlers(List)' as a member of raw type 'sorald.processor.SoraldAbstractProcessor'
-in `sorald/src/main/java/sorald/Repair.java`
+Unchecked call to 'setTypeCasts(List\>)' as a member of raw type 'spoon.reflect.code.CtExpression'
+in `sorald/src/main/java/sorald/processor/MathOnFloatProcessor.java`
 #### Snippet
 ```java
-        SoraldAbstractProcessor<?> processor = createBaseProcessor(ruleKey);
-        if (processor != null) {
-            return processor
-                    .setMaxFixes(config.getMaxFixesPerRule())
-                    .setEventHandlers(eventHandlers);
-        }
-        return null;
+            } else {
+                if (isOperationBetweenFloats(binaryOperator)) {
+                    binaryOperator
+                            .getLeftHandOperand()
+                            .setTypeCasts(List.of(getFactory().Type().doublePrimitiveType()));
+
+                    /**
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'spoon.reflect.code.CtExpression' to 'spoon.reflect.code.CtExpression'. Reason: 'assignment' has raw type, so result of getAssignment is erased
-in `sorald/src/main/java/sorald/processor/DeadStoreProcessor.java`
+Unchecked cast: 'spoon.reflect.declaration.CtVariable' to 'spoon.reflect.code.CtLocalVariable'
+in `sorald/src/main/java/sorald/processor/UnclosedResourcesProcessor.java`
 #### Snippet
 ```java
-        CtVariable<?> decl = (CtVariable<?>) write.getVariable().getDeclaration().clone();
-        CtAssignment assignment = write.getParent(CtAssignment.class);
-        decl.setDefaultExpression(assignment.getAssignment());
-        assignment.replace(decl);
-    }
+        CtVariableReference<T> variableReference = variableWrite.getVariable();
+
+        CtLocalVariable<A> localVariable = (CtLocalVariable<A>) variableReference.getDeclaration();
+        CtLocalVariable<A> localVariableClone = localVariable.clone();
+        localVariableClone.setAssignment(assignment.getAssignment().clone());
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'setLeftHandOperand(CtExpression)' as a member of raw type 'spoon.reflect.code.CtBinaryOperator'
+in `sorald/src/main/java/sorald/processor/CastArithmeticOperandProcessor.java`
+#### Snippet
+```java
+                                        + ") "
+                                        + element.getLeftHandOperand());
+        element.setLeftHandOperand(newBinaryOperator);
+        // A nicer code for the casting would be the next line. However, more parentheses are added
+        // in
 ```
 
 ## RuleId[id=JavadocReference]
@@ -514,19 +514,6 @@ in `sorald-api/src/main/java/sorald/processor/SoraldAbstractProcessor.java`
 
 ```
 
-## RuleId[id=RedundantCast]
-### RedundantCast
-Casting `expression.getParent(...)` to `CtType` is redundant
-in `sorald/src/main/java/sorald/processor/SynchronizationOnGetClassProcessor.java`
-#### Snippet
-```java
-        if (expression.toString().equals("getClass()")) {
-            /* implicit this case */
-            typeRef = ((CtType) expression.getParent(CtType.class)).getReference();
-        } else {
-            typeRef = ((CtInvocation) expression).getTarget().getType();
-```
-
 ## RuleId[id=JavadocDeclaration]
 ### JavadocDeclaration
 `@param classpath` tag description is missing
@@ -540,7 +527,32 @@ in `sorald/src/main/java/sorald/cli/RepairCommand.java`
      */
 ```
 
+## RuleId[id=RedundantCast]
+### RedundantCast
+Casting `expression.getParent(...)` to `CtType` is redundant
+in `sorald/src/main/java/sorald/processor/SynchronizationOnGetClassProcessor.java`
+#### Snippet
+```java
+        if (expression.toString().equals("getClass()")) {
+            /* implicit this case */
+            typeRef = ((CtType) expression.getParent(CtType.class)).getReference();
+        } else {
+            typeRef = ((CtInvocation) expression).getTarget().getType();
+```
+
 ## RuleId[id=FieldMayBeFinal]
+### FieldMayBeFinal
+Field `children` may be 'final'
+in `sorald/src/main/java/sorald/segment/Node.java`
+#### Snippet
+```java
+    private String rootPath;
+
+    private LinkedList<Node> children;
+
+    private List<String>
+```
+
 ### FieldMayBeFinal
 Field `hashCodesOfTypesUsingJEE` may be 'final'
 in `sorald/src/main/java/sorald/processor/GetClassLoaderProcessor.java`
@@ -554,27 +566,15 @@ public class GetClassLoaderProcessor extends SoraldAbstractProcessor<CtInvocatio
 ```
 
 ### FieldMayBeFinal
-Field `ruleTypes` may be 'final'
-in `sorald/src/main/java/sorald/cli/MineCommand.java`
+Field `old2NewFields` may be 'final'
+in `sorald/src/main/java/sorald/processor/SynchronizationOnStringOrBoxedProcessor.java`
 #### Snippet
 ```java
-                    "One or more types of rules to check for (use ',' to separate multiple types). Choices: ${COMPLETION-CANDIDATES}",
-            split = ",")
-    private List<IRuleType> ruleTypes = new ArrayList<>();
+public class SynchronizationOnStringOrBoxedProcessor
+        extends SoraldAbstractProcessor<CtSynchronized> {
+    private Map<String, CtVariableReference> old2NewFields;
 
-    @Parameter(property = "handledRules")
-```
-
-### FieldMayBeFinal
-Field `children` may be 'final'
-in `sorald/src/main/java/sorald/segment/Node.java`
-#### Snippet
-```java
-    private String rootPath;
-
-    private LinkedList<Node> children;
-
-    private List<String>
+    public SynchronizationOnStringOrBoxedProcessor() {
 ```
 
 ### FieldMayBeFinal
@@ -590,15 +590,15 @@ in `sorald/src/main/java/sorald/event/collectors/MinerStatisticsCollector.java`
 ```
 
 ### FieldMayBeFinal
-Field `old2NewFields` may be 'final'
-in `sorald/src/main/java/sorald/processor/SynchronizationOnStringOrBoxedProcessor.java`
+Field `ruleTypes` may be 'final'
+in `sorald/src/main/java/sorald/cli/MineCommand.java`
 #### Snippet
 ```java
-public class SynchronizationOnStringOrBoxedProcessor
-        extends SoraldAbstractProcessor<CtSynchronized> {
-    private Map<String, CtVariableReference> old2NewFields;
+                    "One or more types of rules to check for (use ',' to separate multiple types). Choices: ${COMPLETION-CANDIDATES}",
+            split = ",")
+    private List<IRuleType> ruleTypes = new ArrayList<>();
 
-    public SynchronizationOnStringOrBoxedProcessor() {
+    @Parameter(property = "handledRules")
 ```
 
 ## RuleId[id=DuplicatedCode]
@@ -657,18 +657,6 @@ in `sorald/src/main/java/sorald/FileUtils.java`
 ## RuleId[id=DanglingJavadoc]
 ### DanglingJavadoc
 Dangling Javadoc comment
-in `sorald/src/main/java/sorald/processor/MathOnFloatProcessor.java`
-#### Snippet
-```java
-                            .setTypeCasts(List.of(getFactory().Type().doublePrimitiveType()));
-
-                    /**
-                     * We also set the type so that the other operand is not explicitly cast as JVM
-                     * implicitly does that For example, `(double) a + (double) b` is equivalent to
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
 in `sorald-api/src/main/java/sorald/annotations/IncompleteProcessor.java`
 #### Snippet
 ```java
@@ -677,6 +665,18 @@ in `sorald-api/src/main/java/sorald/annotations/IncompleteProcessor.java`
 /** Annotation to mark that a processor is only a partial fix for its associated rule. */
 public @interface IncompleteProcessor {
     /**
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `sorald/src/main/java/sorald/processor/MathOnFloatProcessor.java`
+#### Snippet
+```java
+                            .setTypeCasts(List.of(getFactory().Type().doublePrimitiveType()));
+
+                    /**
+                     * We also set the type so that the other operand is not explicitly cast as JVM
+                     * implicitly does that For example, `(double) a + (double) b` is equivalent to
 ```
 
 ## RuleId[id=NullableProblems]
@@ -690,18 +690,6 @@ in `sorald-api/src/main/java/sorald/api/ProcessorRepository.java`
     @Nonnull
     List<Class<? extends SoraldAbstractProcessor<?>>> getAllProcessors();
 }
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @Nonnull
-in `sorald/src/main/java/sorald/sonar/SonarRuleRepository.java`
-#### Snippet
-```java
-     * @return All SonarJava rules.
-     */
-    public Collection<Rule> getAllRules() {
-        Collection<SonarLintRuleDefinition> allRules =
-                SonarLintEngine.getAllRulesDefinitionsByKey().values();
 ```
 
 ### NullableProblems
@@ -765,14 +753,50 @@ in `sorald/src/main/java/sorald/sonar/SonarRuleRepository.java`
 ```
 
 ### NullableProblems
+Not annotated method overrides method annotated with @Nonnull
+in `sorald/src/main/java/sorald/sonar/SonarRuleRepository.java`
+#### Snippet
+```java
+     * @return All SonarJava rules.
+     */
+    public Collection<Rule> getAllRules() {
+        Collection<SonarLintRuleDefinition> allRules =
+                SonarLintEngine.getAllRulesDefinitionsByKey().values();
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @Nonnull
+in `sorald/src/main/java/sorald/sonar/SonarProcessorRepository.java`
+#### Snippet
+```java
+
+    @Override
+    public List<Class<? extends SoraldAbstractProcessor<?>>> getAllProcessors() {
+        return new ArrayList<>(RULE_KEY_TO_PROCESSOR.values());
+    }
+```
+
+### NullableProblems
 Overridden methods are not annotated
 in `sorald-api/src/main/java/sorald/api/RuleRepository.java`
 #### Snippet
 ```java
-     * @return a collection of all rules.
+     * @return All rules with any of the given types.
      */
     @Nonnull
-    public Collection<Rule> getAllRules();
+    public Collection<Rule> getHandledRulesByType(@Nonnull IRuleType... types);
+}
+```
+
+### NullableProblems
+Overridden method parameters are not annotated
+in `sorald-api/src/main/java/sorald/api/RuleRepository.java`
+#### Snippet
+```java
+     */
+    @Nonnull
+    public Collection<Rule> getHandledRulesByType(@Nonnull IRuleType... types);
+}
 
 ```
 
@@ -817,59 +841,10 @@ Overridden methods are not annotated
 in `sorald-api/src/main/java/sorald/api/RuleRepository.java`
 #### Snippet
 ```java
-     * @return All rules with any of the given types.
+     * @return a collection of all rules.
      */
     @Nonnull
-    public Collection<Rule> getHandledRulesByType(@Nonnull IRuleType... types);
-}
-```
-
-### NullableProblems
-Overridden method parameters are not annotated
-in `sorald-api/src/main/java/sorald/api/RuleRepository.java`
-#### Snippet
-```java
-     */
-    @Nonnull
-    public Collection<Rule> getHandledRulesByType(@Nonnull IRuleType... types);
-}
-
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @Nonnull
-in `sorald/src/main/java/sorald/sonar/SonarProcessorRepository.java`
-#### Snippet
-```java
-
-    @Override
-    public List<Class<? extends SoraldAbstractProcessor<?>>> getAllProcessors() {
-        return new ArrayList<>(RULE_KEY_TO_PROCESSOR.values());
-    }
-```
-
-## RuleId[id=OptionalGetWithoutIsPresent]
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `sorald/src/main/java/sorald/processor/ThreadLocalWithInitial.java`
-#### Snippet
-```java
-                .filter(v -> v.getSimpleName().equals("initialValue"))
-                .findFirst()
-                .get();
-    }
-}
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `sorald/src/main/java/sorald/processor/DeadStoreProcessor.java`
-#### Snippet
-```java
-        return statementLists.stream()
-                .reduce((lhs, rhs) -> greedyFindDeepestCommonParent(lhs, rhs, depths))
-                .get();
-    }
+    public Collection<Rule> getAllRules();
 
 ```
 
@@ -908,6 +883,31 @@ in `sorald/src/main/java/sorald/processor/SelfAssignementProcessor.java`
         } else if (!instanceOfFieldAccess && instanceOfVariableAccess) {
             CtField<?> field = type.getField(leftExpression2Check.toString());
             if (field != null) {
+```
+
+## RuleId[id=OptionalGetWithoutIsPresent]
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `sorald/src/main/java/sorald/processor/ThreadLocalWithInitial.java`
+#### Snippet
+```java
+                .filter(v -> v.getSimpleName().equals("initialValue"))
+                .findFirst()
+                .get();
+    }
+}
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `sorald/src/main/java/sorald/processor/DeadStoreProcessor.java`
+#### Snippet
+```java
+        return statementLists.stream()
+                .reduce((lhs, rhs) -> greedyFindDeepestCommonParent(lhs, rhs, depths))
+                .get();
+    }
+
 ```
 
 ## RuleId[id=SuspiciousIndentAfterControlStatement]
