@@ -47,42 +47,6 @@ Modifier `public` is redundant for interface members
 in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
 #### Snippet
 ```java
-     * String constant to represent the scope value used for the base scope
-     */
-    public static final String BASE_SCOPE = "base";
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
-#### Snippet
-```java
-     * String constant to represent the scope value used for the base scope
-     */
-    public static final String BASE_SCOPE = "base";
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
-#### Snippet
-```java
-     * String constant to represent the scope value used for the base scope
-     */
-    public static final String BASE_SCOPE = "base";
-
-    /**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
-#### Snippet
-```java
      * String constant to represent the scope value used for the application scope
      */
     public static final String APPLICATION_SCOPE = "application";
@@ -146,23 +110,47 @@ in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
      * String constant to represent the scope value used for the vendor scope
      */
     public static final String VENDOR_SCOPE = "vendor";
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
+#### Snippet
+```java
+     * String constant to represent the scope value used for the base scope
+     */
+    public static final String BASE_SCOPE = "base";
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
+#### Snippet
+```java
+     * String constant to represent the scope value used for the base scope
+     */
+    public static final String BASE_SCOPE = "base";
+
+    /**
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
+#### Snippet
+```java
+     * String constant to represent the scope value used for the base scope
+     */
+    public static final String BASE_SCOPE = "base";
 
     /**
 ```
 
 ## RuleId[id=AutoCloseableResource]
-### AutoCloseableResource
-'Context' used without 'try'-with-resources statement
-in `tck/rest/src/main/java/org/eclipse/microprofile/metrics/test/MetricAppBean.java`
-#### Snippet
-```java
-        Timer timer = metrics.timer("metricTest.test1.timer");
-
-        Timer.Context context = timer.time();
-        try {
-            Thread.sleep((long) (Math.random() * 1000));
-```
-
 ### AutoCloseableResource
 'Context' used without 'try'-with-resources statement
 in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimerTest.java`
@@ -173,6 +161,18 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimerTest
         Context context = timer.time();
         double afterStartTime = System.nanoTime();
         Thread.sleep(1000);
+```
+
+### AutoCloseableResource
+'Context' used without 'try'-with-resources statement
+in `tck/rest/src/main/java/org/eclipse/microprofile/metrics/test/MetricAppBean.java`
+#### Snippet
+```java
+        Timer timer = metrics.timer("metricTest.test1.timer");
+
+        Timer.Context context = timer.time();
+        try {
+            Thread.sleep((long) (Math.random() * 1000));
 ```
 
 ## RuleId[id=UNCHECKED_WARNING]
@@ -190,18 +190,6 @@ in `tck/optional/src/main/java/org/eclipse/microprofile/metrics/test/optional/La
 
 ## RuleId[id=JavadocReference]
 ### JavadocReference
-Cannot resolve symbol `percentileValue()`
-in `api/src/main/java/org/eclipse/microprofile/metrics/Snapshot.java`
-#### Snippet
-```java
-     * Represents a percentile and its value at the moment it was sampled from the Snapshot.
-     *
-     * See {@link #percentileValue()}
-     */
-    public static class PercentileValue {
-```
-
-### JavadocReference
 Cannot resolve symbol `RegistryScope`
 in `api/src/main/java/org/eclipse/microprofile/metrics/annotation/package-info.java`
 #### Snippet
@@ -211,6 +199,18 @@ in `api/src/main/java/org/eclipse/microprofile/metrics/annotation/package-info.j
  * <b> This is DEPRECATED. Please use {@link RegistryScope} instead. </b>
  *
  * The {@link org.eclipse.microprofile.metrics.annotation.RegistryType RegistryType} is used to identify which
+```
+
+### JavadocReference
+Cannot resolve symbol `percentileValue()`
+in `api/src/main/java/org/eclipse/microprofile/metrics/Snapshot.java`
+#### Snippet
+```java
+     * Represents a percentile and its value at the moment it was sampled from the Snapshot.
+     *
+     * See {@link #percentileValue()}
+     */
+    public static class PercentileValue {
 ```
 
 ## RuleId[id=JUnitMalformedDeclaration]
@@ -227,14 +227,14 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/cdi/GaugeInjectio
 ```
 
 ### JUnitMalformedDeclaration
-Method `callTimedMethodOnce` annotated with '@Test' should not declare parameter 'registry'
+Method `callExtendedTimedMethodOnce` annotated with '@Test' should not declare parameter 'registry'
 in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteTimedBeanTest.java`
 #### Snippet
 ```java
     @Test
-    @InSequence(3)
-    public void callTimedMethodOnce(MetricRegistry registry) {
-        Timer timer = registry.getTimer(timerMID);
+    @InSequence(4)
+    public void callExtendedTimedMethodOnce(MetricRegistry registry) {
+        Timer timer = registry.getTimer(extendedTimedMID);
         assertThat("Timer is not registered correctly", timer, notNullValue());
 ```
 
@@ -251,14 +251,14 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteT
 ```
 
 ### JUnitMalformedDeclaration
-Method `callExtendedTimedMethodOnce` annotated with '@Test' should not declare parameter 'registry'
+Method `callTimedMethodOnce` annotated with '@Test' should not declare parameter 'registry'
 in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteTimedBeanTest.java`
 #### Snippet
 ```java
     @Test
-    @InSequence(4)
-    public void callExtendedTimedMethodOnce(MetricRegistry registry) {
-        Timer timer = registry.getTimer(extendedTimedMID);
+    @InSequence(3)
+    public void callTimedMethodOnce(MetricRegistry registry) {
+        Timer timer = registry.getTimer(timerMID);
         assertThat("Timer is not registered correctly", timer, notNullValue());
 ```
 
@@ -271,18 +271,6 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteT
     @InSequence(1)
     public void timedMethodNotCalledYet(MetricRegistry registry) {
         Timer timer = registry.getTimer(timerMID);
-        assertThat("Timer is not registered correctly", timer, notNullValue());
-```
-
-### JUnitMalformedDeclaration
-Method `timedMethodNotCalledYet` annotated with '@Test' should not declare parameter 'registry'
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteExtendedTimedBeanTest.java`
-#### Snippet
-```java
-    @Test
-    @InSequence(1)
-    public void timedMethodNotCalledYet(MetricRegistry registry) {
-        Timer timer = registry.getTimer(timedMID);
         assertThat("Timer is not registered correctly", timer, notNullValue());
 ```
 
@@ -320,6 +308,18 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteE
     public void extendedTimedMethodNotCalledYet(MetricRegistry registry) {
         Timer timer = registry.getTimer(extendedTimedMID);
         assertThat("Timer is not registered correctly on the methods on the abstract class", timer, notNullValue());
+```
+
+### JUnitMalformedDeclaration
+Method `timedMethodNotCalledYet` annotated with '@Test' should not declare parameter 'registry'
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteExtendedTimedBeanTest.java`
+#### Snippet
+```java
+    @Test
+    @InSequence(1)
+    public void timedMethodNotCalledYet(MetricRegistry registry) {
+        Timer timer = registry.getTimer(timedMID);
+        assertThat("Timer is not registered correctly", timer, notNullValue());
 ```
 
 ### JUnitMalformedDeclaration
@@ -384,19 +384,6 @@ in `tck/optional/src/main/java/org/eclipse/microprofile/metrics/test/optional/MP
         public MiniMeta() {
 ```
 
-## RuleId[id=CommentedOutCode]
-### CommentedOutCode
-Commented out code (6 lines)
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/MultipleMetricsConstructorBeanTest.java`
-#### Snippet
-```java
-    private Instance<MultipleMetricsConstructorBean> instance;
-
-    // @Test
-    // @InSequence(1)
-    // public void metricsConstructorNotCalledYet() {
-```
-
 ## RuleId[id=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
 Deprecated member 'RegistryType' is still used
@@ -423,13 +410,13 @@ in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'APPLICATION' is still used
+Deprecated member 'BASE' is still used
 in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
 #### Snippet
 ```java
          */
         @Deprecated
-        APPLICATION("application"),
+        BASE("base"),
 
         /**
 ```
@@ -447,15 +434,28 @@ in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'BASE' is still used
+Deprecated member 'APPLICATION' is still used
 in `api/src/main/java/org/eclipse/microprofile/metrics/MetricRegistry.java`
 #### Snippet
 ```java
          */
         @Deprecated
-        BASE("base"),
+        APPLICATION("application"),
 
         /**
+```
+
+## RuleId[id=CommentedOutCode]
+### CommentedOutCode
+Commented out code (6 lines)
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/MultipleMetricsConstructorBeanTest.java`
+#### Snippet
+```java
+    private Instance<MultipleMetricsConstructorBean> instance;
+
+    // @Test
+    // @InSequence(1)
+    // public void metricsConstructorNotCalledYet() {
 ```
 
 ## RuleId[id=RegExpRedundantEscape]
@@ -469,6 +469,18 @@ in `tck/rest/src/main/java/org/eclipse/microprofile/metrics/test/ReusedMetricsTe
         return responseBody.replaceAll(OPENMETRICS_APP_LABEL_REGEX, "").replaceAll("\\{,", "{").replaceAll(",\\}",
                 "}");
     }
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\}` in RegExp
+in `tck/rest/src/main/java/org/eclipse/microprofile/metrics/test/MpMetricTest.java`
+#### Snippet
+```java
+     */
+    private static String filterOutAppLabelPromMetrics(String responseBody) {
+        return responseBody.replaceAll(PROM_APP_LABEL_REGEX, "").replaceAll("\\{,", "{").replaceAll(",\\}", "}");
+    }
+
 ```
 
 ### RegExpRedundantEscape
@@ -533,18 +545,6 @@ in `tck/optional/src/main/java/org/eclipse/microprofile/metrics/test/optional/MP
 
 ### RegExpRedundantEscape
 Redundant character escape `\\}` in RegExp
-in `tck/rest/src/main/java/org/eclipse/microprofile/metrics/test/MpMetricTest.java`
-#### Snippet
-```java
-     */
-    private static String filterOutAppLabelPromMetrics(String responseBody) {
-        return responseBody.replaceAll(PROM_APP_LABEL_REGEX, "").replaceAll("\\{,", "{").replaceAll(",\\}", "}");
-    }
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\}` in RegExp
 in `tck/optional/src/main/java/org/eclipse/microprofile/metrics/test/optional/MpMetricOptionalTest.java`
 #### Snippet
 ```java
@@ -556,18 +556,6 @@ in `tck/optional/src/main/java/org/eclipse/microprofile/metrics/test/optional/Mp
 ```
 
 ## RuleId[id=SimplifiableAssertion]
-### SimplifiableAssertion
-`assertFalse()` can be simplified to 'assertNotEquals()'
-in `tck/rest/src/main/java/org/eclipse/microprofile/metrics/test/multipleinstances/MultipleBeanInstancesTest.java`
-#### Snippet
-```java
-        instance1 = bean.get();
-        instance2 = bean.get();
-        assertFalse("CDI container should return two different bean instances",
-                instance1.equals(instance2));
-    }
-```
-
 ### SimplifiableAssertion
 `assertTrue()` can be simplified to 'assertEquals()'
 in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/HistogramTest.java`
@@ -650,6 +638,18 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimerTest
         Assert.assertEquals(called.get(), true);
     }
 
+```
+
+### SimplifiableAssertion
+`assertFalse()` can be simplified to 'assertNotEquals()'
+in `tck/rest/src/main/java/org/eclipse/microprofile/metrics/test/multipleinstances/MultipleBeanInstancesTest.java`
+#### Snippet
+```java
+        instance1 = bean.get();
+        instance2 = bean.get();
+        assertFalse("CDI container should return two different bean instances",
+                instance1.equals(instance2));
+    }
 ```
 
 ## RuleId[id=DuplicatedCode]
@@ -948,6 +948,702 @@ in `tck/rest/src/main/java/org/eclipse/microprofile/metrics/test/ReusedMetricsTe
 ## RuleId[id=Deprecation]
 ### Deprecation
 'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/cdi/GaugeInjectionBeanTest.java`
+#### Snippet
+```java
+    public void gaugeCalledWithDefaultValue() {
+        // Make sure that the gauge has the expected value
+        assertThat("Gauge value is incorrect", gauge.getValue(), is(equalTo(0L)));
+    }
+
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/cdi/GaugeInjectionBeanTest.java`
+#### Snippet
+```java
+        bean.setGauge(value);
+
+        assertThat("Gauge value is incorrect", gauge.getValue(), is(equalTo(value)));
+    }
+}
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/MultipleMetricsConstructorBeanTest.java`
+#### Snippet
+```java
+
+        // Make sure that the metrics have been called
+        assertThat("Counter count is incorrect", registry.getCounter(
+                new MetricID(absoluteMetricName("counter"))).getCount(), is(equalTo(count)));
+        assertThat("Timer count is incorrect", registry.getTimer(
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/MultipleMetricsConstructorBeanTest.java`
+#### Snippet
+```java
+        assertThat("Counter count is incorrect", registry.getCounter(
+                new MetricID(absoluteMetricName("counter"))).getCount(), is(equalTo(count)));
+        assertThat("Timer count is incorrect", registry.getTimer(
+                new MetricID(absoluteMetricName("timer"))).getCount(), is(equalTo(count)));
+    }
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/HistogramFieldBeanTest.java`
+#### Snippet
+```java
+    @InSequence(1)
+    public void histogramFieldRegistered() {
+        assertThat("Histogram is not registered correctly", registry.getHistogram(histogramMID), notNullValue());
+    }
+
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/HistogramFieldBeanTest.java`
+#### Snippet
+```java
+    public void updateHistogramField() {
+        Histogram histogram = registry.getHistogram(histogramMID);
+        assertThat("Histogram is not registered correctly", histogram, notNullValue());
+
+        // Call the update method and assert the histogram is up-to-date
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/HistogramFieldBeanTest.java`
+#### Snippet
+```java
+
+        bean.update(value);
+        assertThat("Histogram count is incorrect", histogram.getCount(), is(equalTo(1L)));
+        assertThat("Histogram sum is incorrect", histogram.getSum(), is(equalTo(value)));
+        assertThat("Histogram size is incorrect", histogram.getSnapshot().size(), is(equalTo(1L)));
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/HistogramFieldBeanTest.java`
+#### Snippet
+```java
+        bean.update(value);
+        assertThat("Histogram count is incorrect", histogram.getCount(), is(equalTo(1L)));
+        assertThat("Histogram sum is incorrect", histogram.getSum(), is(equalTo(value)));
+        assertThat("Histogram size is incorrect", histogram.getSnapshot().size(), is(equalTo(1L)));
+        assertThat("Histogram max value is incorrect", histogram.getSnapshot().getMax(), is(equalTo((double) value)));
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/HistogramFieldBeanTest.java`
+#### Snippet
+```java
+        assertThat("Histogram count is incorrect", histogram.getCount(), is(equalTo(1L)));
+        assertThat("Histogram sum is incorrect", histogram.getSum(), is(equalTo(value)));
+        assertThat("Histogram size is incorrect", histogram.getSnapshot().size(), is(equalTo(1L)));
+        assertThat("Histogram max value is incorrect", histogram.getSnapshot().getMax(), is(equalTo((double) value)));
+    }
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/HistogramFieldBeanTest.java`
+#### Snippet
+```java
+        assertThat("Histogram sum is incorrect", histogram.getSum(), is(equalTo(value)));
+        assertThat("Histogram size is incorrect", histogram.getSnapshot().size(), is(equalTo(1L)));
+        assertThat("Histogram max value is incorrect", histogram.getSnapshot().getMax(), is(equalTo((double) value)));
+    }
+}
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteTimedBeanTest.java`
+#### Snippet
+```java
+    public void callExtendedTimedMethodOnce(MetricRegistry registry) {
+        Timer timer = registry.getTimer(extendedTimedMID);
+        assertThat("Timer is not registered correctly", timer, notNullValue());
+
+        // Call the timed method and assert it's been timed
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteTimedBeanTest.java`
+#### Snippet
+```java
+
+        // Make sure that the timer has been called
+        assertThat("Timer count is incorrect", timer.getCount(), is(equalTo(1L)));
+    }
+}
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteTimedBeanTest.java`
+#### Snippet
+```java
+    public void extendedTimedMethodNotCalledYet(MetricRegistry registry) {
+        Timer timer = registry.getTimer(extendedTimedMID);
+        assertThat("Timer is not registered correctly on the methods on the abstract class", timer, notNullValue());
+
+        // Make sure that the timer hasn't been called yet
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteTimedBeanTest.java`
+#### Snippet
+```java
+
+        // Make sure that the timer hasn't been called yet
+        assertThat("Timer count is incorrect", timer.getCount(), is(equalTo(0L)));
+    }
+
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteTimedBeanTest.java`
+#### Snippet
+```java
+    public void callTimedMethodOnce(MetricRegistry registry) {
+        Timer timer = registry.getTimer(timerMID);
+        assertThat("Timer is not registered correctly", timer, notNullValue());
+
+        // Call the timed method and assert it's been timed
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteTimedBeanTest.java`
+#### Snippet
+```java
+
+        // Make sure that the timer has been called
+        assertThat("Timer count is incorrect", timer.getCount(), is(equalTo(1L)));
+    }
+
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteTimedBeanTest.java`
+#### Snippet
+```java
+    public void timedMethodNotCalledYet(MetricRegistry registry) {
+        Timer timer = registry.getTimer(timerMID);
+        assertThat("Timer is not registered correctly", timer, notNullValue());
+
+        // Make sure that the timer hasn't been called yet
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteTimedBeanTest.java`
+#### Snippet
+```java
+
+        // Make sure that the timer hasn't been called yet
+        assertThat("Timer count is incorrect", timer.getCount(), is(equalTo(0L)));
+    }
+
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/cdi/TimerInjectionBeanTest.java`
+#### Snippet
+```java
+    public void timedMethodNotCalledYet() {
+        // Make sure that the timer hasn't been called yet
+        assertThat("Timer count is incorrect", timer.getCount(), is(equalTo(0L)));
+    }
+
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/cdi/TimerInjectionBeanTest.java`
+#### Snippet
+```java
+
+        // Make sure that the timer has been called
+        assertThat("Timer count is incorrect", timer.getCount(), is(equalTo(1L)));
+    }
+}
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedConstructorBeanTest.java`
+#### Snippet
+```java
+
+        Timer timer = registry.getTimer(timerMID);
+        assertThat("Timer is not registered correctly", timer, notNullValue());
+
+        // Make sure that the timer has been called
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedConstructorBeanTest.java`
+#### Snippet
+```java
+
+        // Make sure that the timer has been called
+        assertThat("Timer count is incorrect", timer.getCount(), is(equalTo(count)));
+    }
+}
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/inheritance/InheritedTimedMethodBeanTest.java`
+#### Snippet
+```java
+    @InSequence(2)
+    public void callTimedMethodsOnce() {
+        assertThat("Timers are not registered correctly", registry.getTimers().keySet(),
+                is(equalTo(MetricsUtil.createMetricIDs(absoluteMetricNames()))));
+
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/inheritance/InheritedTimedMethodBeanTest.java`
+#### Snippet
+```java
+        bean.timedMethodPackagedPrivate();
+
+        assertThat("Timer counts are incorrect", registry.getTimers().values(),
+                everyItem(Matchers.<Timer>hasProperty("count", equalTo(1L))));
+    }
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/inheritance/InheritedTimedMethodBeanTest.java`
+#### Snippet
+```java
+    @InSequence(1)
+    public void timedMethodsNotCalledYet() {
+        assertThat("Timers are not registered correctly", registry.getTimers().keySet(),
+                is(equalTo(MetricsUtil.createMetricIDs(absoluteMetricNames()))));
+
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/inheritance/InheritedTimedMethodBeanTest.java`
+#### Snippet
+```java
+
+        // Make sure that all the timers haven't been called yet
+        assertThat("Timer counts are incorrect", registry.getTimers().values(),
+                everyItem(Matchers.<Timer>hasProperty("count", equalTo(0L))));
+    }
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/inheritance/VisibilityTimedMethodBeanTest.java`
+#### Snippet
+```java
+    @InSequence(2)
+    public void callTimedMethodsOnce() {
+        assertThat("Timers are not registered correctly", registry.getTimers().keySet(),
+                is(equalTo(MetricsUtil.createMetricIDs(absoluteMetricNames()))));
+
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/inheritance/VisibilityTimedMethodBeanTest.java`
+#### Snippet
+```java
+        bean.packagePrivateTimedMethod();
+
+        assertThat("Timer counts are incorrect", registry.getTimers().values(),
+                everyItem(Matchers.<Timer>hasProperty("count", equalTo(1L))));
+    }
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/inheritance/VisibilityTimedMethodBeanTest.java`
+#### Snippet
+```java
+    @InSequence(1)
+    public void timedMethodsNotCalledYet() {
+        assertThat("Timers are not registered correctly", registry.getTimers().keySet(),
+                is(equalTo(MetricsUtil.createMetricIDs(absoluteMetricNames()))));
+
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/inheritance/VisibilityTimedMethodBeanTest.java`
+#### Snippet
+```java
+
+        // Make sure that all the timers haven't been called yet
+        assertThat("Timer counts are incorrect", registry.getTimers().values(),
+                everyItem(Matchers.<Timer>hasProperty("count", equalTo(0L))));
+    }
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedClassBeanTest.java`
+#### Snippet
+```java
+    @InSequence(2)
+    public void callCountedMethodsOnce() {
+        assertThat("Counters are not registered correctly", registry.getCounters().keySet(), is(equalTo(counterMIDs)));
+
+        // Call the counted methods and assert they've been incremented
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedClassBeanTest.java`
+#### Snippet
+```java
+
+        // Make sure that the counters have been incremented
+        assertThat("Method counter counts are incorrect", registry.getCounters(METHOD_COUNTERS).values(),
+                everyItem(Matchers.<Counter>hasProperty("count", equalTo(1L))));
+
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedClassBeanTest.java`
+#### Snippet
+```java
+                everyItem(Matchers.<Counter>hasProperty("count", equalTo(1L))));
+
+        assertThat("Constructor's metric should be incremented at least once",
+                registry.getCounter(constructorMID).getCount(), is(greaterThanOrEqualTo(1L)));
+    }
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedClassBeanTest.java`
+#### Snippet
+```java
+    @InSequence(1)
+    public void countedMethodsNotCalledYet() {
+        assertThat("Counters are not registered correctly", registry.getCounters().keySet(), is(equalTo(counterMIDs)));
+
+        // Make sure that the counters haven't been incremented
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedClassBeanTest.java`
+#### Snippet
+```java
+
+        // Make sure that the counters haven't been incremented
+        assertThat("Method counter counts are incorrect", registry.getCounters(METHOD_COUNTERS).values(),
+                everyItem(Matchers.<Counter>hasProperty("count", equalTo(0L))));
+    }
+```
+
+### Deprecation
+'org.eclipse.microprofile.metrics.annotation.RegistryType' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricRegistryTest.java`
+#### Snippet
+```java
+
+    @Inject
+    @RegistryType(type = MetricRegistry.Type.VENDOR)
+    private MetricRegistry vendorMetrics_RegistryType;
+
+```
+
+### Deprecation
+'org.eclipse.microprofile.metrics.MetricRegistry.Type' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricRegistryTest.java`
+#### Snippet
+```java
+
+    @Inject
+    @RegistryType(type = MetricRegistry.Type.VENDOR)
+    private MetricRegistry vendorMetrics_RegistryType;
+
+```
+
+### Deprecation
+'VENDOR' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricRegistryTest.java`
+#### Snippet
+```java
+
+    @Inject
+    @RegistryType(type = MetricRegistry.Type.VENDOR)
+    private MetricRegistry vendorMetrics_RegistryType;
+
+```
+
+### Deprecation
+'org.eclipse.microprofile.metrics.annotation.RegistryType' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricRegistryTest.java`
+#### Snippet
+```java
+
+    @Inject
+    @RegistryType(type = MetricRegistry.Type.APPLICATION)
+    private MetricRegistry applicationMetrics_RegistryType;
+
+```
+
+### Deprecation
+'org.eclipse.microprofile.metrics.MetricRegistry.Type' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricRegistryTest.java`
+#### Snippet
+```java
+
+    @Inject
+    @RegistryType(type = MetricRegistry.Type.APPLICATION)
+    private MetricRegistry applicationMetrics_RegistryType;
+
+```
+
+### Deprecation
+'APPLICATION' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricRegistryTest.java`
+#### Snippet
+```java
+
+    @Inject
+    @RegistryType(type = MetricRegistry.Type.APPLICATION)
+    private MetricRegistry applicationMetrics_RegistryType;
+
+```
+
+### Deprecation
+'org.eclipse.microprofile.metrics.annotation.RegistryType' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricRegistryTest.java`
+#### Snippet
+```java
+
+    @Inject
+    @RegistryType(type = MetricRegistry.Type.BASE)
+    private MetricRegistry baseMetrics_RegistryType;
+
+```
+
+### Deprecation
+'org.eclipse.microprofile.metrics.MetricRegistry.Type' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricRegistryTest.java`
+#### Snippet
+```java
+
+    @Inject
+    @RegistryType(type = MetricRegistry.Type.BASE)
+    private MetricRegistry baseMetrics_RegistryType;
+
+```
+
+### Deprecation
+'BASE' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricRegistryTest.java`
+#### Snippet
+```java
+
+    @Inject
+    @RegistryType(type = MetricRegistry.Type.BASE)
+    private MetricRegistry baseMetrics_RegistryType;
+
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteExtendedTimedBeanTest.java`
+#### Snippet
+```java
+    public void callTimedMethodOnce(MetricRegistry registry) {
+        Timer timer = registry.getTimer(timedMID);
+        assertThat("Timer is not registered correctly", timer, notNullValue());
+
+        // Call the timed method and assert it's been timed
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteExtendedTimedBeanTest.java`
+#### Snippet
+```java
+
+        // Make sure that the timer has been called
+        assertThat("Timer count is incorrect", timer.getCount(), is(equalTo(1L)));
+    }
+
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteExtendedTimedBeanTest.java`
+#### Snippet
+```java
+    public void callExtendedTimedMethodOnce(MetricRegistry registry) {
+        Timer timer = registry.getTimer(extendedTimedMID);
+        assertThat("Timer is not registered correctly", timer, notNullValue());
+
+        // Call the timed method and assert it's been timed
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteExtendedTimedBeanTest.java`
+#### Snippet
+```java
+
+        // Make sure that the timer has been called
+        assertThat("Timer count is incorrect", timer.getCount(), is(equalTo(1L)));
+    }
+}
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteExtendedTimedBeanTest.java`
+#### Snippet
+```java
+    public void extendedTimedMethodNotCalledYet(MetricRegistry registry) {
+        Timer timer = registry.getTimer(extendedTimedMID);
+        assertThat("Timer is not registered correctly on the methods on the abstract class", timer, notNullValue());
+
+        // Make sure that the timer hasn't been called yet
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteExtendedTimedBeanTest.java`
+#### Snippet
+```java
+
+        // Make sure that the timer hasn't been called yet
+        assertThat("Timer count is incorrect", timer.getCount(), is(equalTo(0L)));
+    }
+
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteExtendedTimedBeanTest.java`
+#### Snippet
+```java
+    public void timedMethodNotCalledYet(MetricRegistry registry) {
+        Timer timer = registry.getTimer(timedMID);
+        assertThat("Timer is not registered correctly", timer, notNullValue());
+
+        // Make sure that the timer hasn't been called yet
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteExtendedTimedBeanTest.java`
+#### Snippet
+```java
+
+        // Make sure that the timer hasn't been called yet
+        assertThat("Timer count is incorrect", timer.getCount(), is(equalTo(0L)));
+    }
+
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimerFieldBeanTest.java`
+#### Snippet
+```java
+    @Test
+    public void timerFieldsWithDefaultNamingConvention() {
+        assertThat("Timers are not registered correctly", registry.getMetricIDs(),
+                is(equalTo(MetricsUtil.createMetricIDs(metricNames()))));
+    }
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TimerTagFieldBeanTest.java`
+#### Snippet
+```java
+    @Test
+    public void timersTagFieldRegistered() {
+        assertThat("Timer is not registered correctly", registry.getTimer(timerOneMID), notNullValue());
+        assertThat("Timer is not registered correctly", registry.getTimer(timerTwoMID), notNullValue());
+    }
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TimerTagFieldBeanTest.java`
+#### Snippet
+```java
+    public void timersTagFieldRegistered() {
+        assertThat("Timer is not registered correctly", registry.getTimer(timerOneMID), notNullValue());
+        assertThat("Timer is not registered correctly", registry.getTimer(timerTwoMID), notNullValue());
+    }
+}
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CounterFieldBeanTest.java`
+#### Snippet
+```java
+    @InSequence(1)
+    public void counterFieldRegistered() {
+        assertThat("Counter is not registered correctly", registry.getCounter(counterMID), notNullValue());
+    }
+
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CounterFieldBeanTest.java`
+#### Snippet
+```java
+    public void incrementCounterField() {
+        Counter counter = registry.getCounter(counterMID);
+        assertThat("Counter is not registered correctly", counter, notNullValue());
+
+        // Call the increment method and assert the counter is up-to-date
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CounterFieldBeanTest.java`
+#### Snippet
+```java
+        long value = Math.round(Math.random() * Long.MAX_VALUE);
+        bean.increment(value);
+        assertThat("Counter value is incorrect", counter.getCount(), is(equalTo(value)));
+    }
+}
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
 in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TimedTagMethodBeanTest.java`
 #### Snippet
 ```java
@@ -966,6 +1662,462 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TimedTagMeth
     public void timedTagMethodRegistered() {
         assertThat("Timer is not registered correctly", registry.getTimer(timerOneMID), notNullValue());
         assertThat("Timer is not registered correctly", registry.getTimer(timerTwoMID), notNullValue());
+    }
+
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/cdi/ApplicationScopedTimedMethodBeanTest.java`
+#### Snippet
+```java
+    public void callTimedMethodOnce() {
+        Timer timer = registry.getTimer(timerMID);
+        assertThat("Timer is not registered correctly", timer, notNullValue());
+
+        // Call the timed method and assert it's been timed
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/cdi/ApplicationScopedTimedMethodBeanTest.java`
+#### Snippet
+```java
+
+        // Make sure that the timer has been called
+        assertThat("Timer count is incorrect", timer.getCount(), is(equalTo(1L)));
+    }
+}
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/cdi/ApplicationScopedTimedMethodBeanTest.java`
+#### Snippet
+```java
+    public void timedMethodNotCalledYet() {
+        Timer timer = registry.getTimer(timerMID);
+        assertThat("Timer is not registered correctly", timer, notNullValue());
+
+        // Make sure that the timer hasn't been called yet
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/cdi/ApplicationScopedTimedMethodBeanTest.java`
+#### Snippet
+```java
+
+        // Make sure that the timer hasn't been called yet
+        assertThat("Timer count is incorrect", timer.getCount(), is(equalTo(0L)));
+    }
+
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/OverloadedTimedMethodBeanTest.java`
+#### Snippet
+```java
+        bean.overloadedTimedMethod(new Object());
+        bean.overloadedTimedMethod(Arrays.asList("string1", "string2"));
+        assertThat("Timer counts are incorrect", registry.getTimers().values(),
+                hasItem(Matchers.<Timer>hasProperty("count", equalTo(1L))));
+    }
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/OverloadedTimedMethodBeanTest.java`
+#### Snippet
+```java
+
+        // Make sure that all the timers haven't been called yet
+        assertThat("Timer counts are incorrect", registry.getTimers().values(),
+                hasItem(Matchers.<Timer>hasProperty("count", equalTo(0L))));
+    }
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/HistogramTagFieldBeanTest.java`
+#### Snippet
+```java
+        Histogram histogramOne = registry.getHistogram(histogramOneMID);
+        Histogram histogramTwo = registry.getHistogram(histogramTwoMID);
+        assertThat("Histogram is not registered correctly", histogramOne, notNullValue());
+        assertThat("Histogram is not registered correctly", histogramTwo, notNullValue());
+
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/HistogramTagFieldBeanTest.java`
+#### Snippet
+```java
+        Histogram histogramTwo = registry.getHistogram(histogramTwoMID);
+        assertThat("Histogram is not registered correctly", histogramOne, notNullValue());
+        assertThat("Histogram is not registered correctly", histogramTwo, notNullValue());
+
+        // Call the update method and assert the histogram is up-to-date
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/HistogramTagFieldBeanTest.java`
+#### Snippet
+```java
+        bean.updateTwo(valueTwo);
+
+        assertThat("Histogram count is incorrect", histogramOne.getCount(), is(equalTo(1L)));
+        assertThat("Histogram size is incorrect", histogramOne.getSnapshot().size(), is(equalTo(1L)));
+        assertThat("Histogram max value is incorrect", histogramOne.getSnapshot().getMax(),
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/HistogramTagFieldBeanTest.java`
+#### Snippet
+```java
+
+        assertThat("Histogram count is incorrect", histogramOne.getCount(), is(equalTo(1L)));
+        assertThat("Histogram size is incorrect", histogramOne.getSnapshot().size(), is(equalTo(1L)));
+        assertThat("Histogram max value is incorrect", histogramOne.getSnapshot().getMax(),
+                is(equalTo((double) value)));
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/HistogramTagFieldBeanTest.java`
+#### Snippet
+```java
+        assertThat("Histogram count is incorrect", histogramOne.getCount(), is(equalTo(1L)));
+        assertThat("Histogram size is incorrect", histogramOne.getSnapshot().size(), is(equalTo(1L)));
+        assertThat("Histogram max value is incorrect", histogramOne.getSnapshot().getMax(),
+                is(equalTo((double) value)));
+
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/HistogramTagFieldBeanTest.java`
+#### Snippet
+```java
+                is(equalTo((double) value)));
+
+        assertThat("Histogram count is incorrect", histogramTwo.getCount(), is(equalTo(1L)));
+        assertThat("Histogram size is incorrect", histogramTwo.getSnapshot().size(), is(equalTo(1L)));
+        assertThat("Histogram max value is incorrect", histogramTwo.getSnapshot().getMax(),
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/HistogramTagFieldBeanTest.java`
+#### Snippet
+```java
+
+        assertThat("Histogram count is incorrect", histogramTwo.getCount(), is(equalTo(1L)));
+        assertThat("Histogram size is incorrect", histogramTwo.getSnapshot().size(), is(equalTo(1L)));
+        assertThat("Histogram max value is incorrect", histogramTwo.getSnapshot().getMax(),
+                is(equalTo((double) valueTwo)));
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/HistogramTagFieldBeanTest.java`
+#### Snippet
+```java
+        assertThat("Histogram count is incorrect", histogramTwo.getCount(), is(equalTo(1L)));
+        assertThat("Histogram size is incorrect", histogramTwo.getSnapshot().size(), is(equalTo(1L)));
+        assertThat("Histogram max value is incorrect", histogramTwo.getSnapshot().getMax(),
+                is(equalTo((double) valueTwo)));
+    }
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/HistogramTagFieldBeanTest.java`
+#### Snippet
+```java
+    @InSequence(1)
+    public void histogramTagFieldRegistered() {
+        assertThat("Histogram is not registered correctly", registry.getHistogram(histogramOneMID), notNullValue());
+        assertThat("Histogram is not registered correctly", registry.getHistogram(histogramTwoMID), notNullValue());
+    }
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/HistogramTagFieldBeanTest.java`
+#### Snippet
+```java
+    public void histogramTagFieldRegistered() {
+        assertThat("Histogram is not registered correctly", registry.getHistogram(histogramOneMID), notNullValue());
+        assertThat("Histogram is not registered correctly", registry.getHistogram(histogramTwoMID), notNullValue());
+    }
+
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedClassBeanTest.java`
+#### Snippet
+```java
+    @InSequence(1)
+    public void timedMethodsNotCalledYet() {
+        assertThat("Timers are not registered correctly", registry.getTimers().keySet(),
+                is(equalTo(timerMIDsIncludingToString)));
+
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedClassBeanTest.java`
+#### Snippet
+```java
+                is(equalTo(timerMIDsIncludingToString)));
+
+        assertThat("Constructor timer count is incorrect", registry.getTimer(constructorMID).getCount(),
+                is(equalTo(1L)));
+
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedMethodBeanLookupTest.java`
+#### Snippet
+```java
+
+        Timer timer = registry.getTimer(timerMID);
+        assertThat("Timer is not registered correctly", timer, notNullValue());
+
+        // Remove the timer from metrics registry
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedClassBeanTest.java`
+#### Snippet
+```java
+
+        // Make sure that the method timers haven't been timed yet
+        assertThat("Method timer counts are incorrect", registry.getTimers(METHOD_TIMERS).values(),
+                everyItem(Matchers.<Timer>hasProperty("count", equalTo(METHOD_COUNT.get()))));
+    }
+```
+
+### Deprecation
+'assertThat(T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedMethodBeanLookupTest.java`
+#### Snippet
+```java
+            bean.timedMethod();
+        } catch (RuntimeException cause) {
+            assertThat(cause, is(instanceOf(IllegalStateException.class)));
+            // Make sure that the timer hasn't been called
+            assertThat("Timer count is incorrect", timer.getCount(), is(equalTo(TIMER_COUNT.get())));
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedClassBeanTest.java`
+#### Snippet
+```java
+    @InSequence(2)
+    public void callTimedMethodsOnce() {
+        assertThat("Timers are not registered correctly", registry.getTimers().keySet(),
+                is(equalTo(timerMIDsIncludingToString)));
+
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedClassBeanTest.java`
+#### Snippet
+```java
+                is(equalTo(timerMIDsIncludingToString)));
+
+        assertThat("Constructor timer count is incorrect", registry.getTimer(constructorMID).getCount(),
+                is(equalTo(1L)));
+
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedClassBeanTest.java`
+#### Snippet
+```java
+
+        // Make sure that the method timers have been timed
+        assertThat("Method timer counts are incorrect", registry.getTimers(METHOD_TIMERS).values(),
+                everyItem(Matchers.<Timer>hasProperty("count", equalTo(METHOD_COUNT.incrementAndGet()))));
+    }
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedMethodBeanLookupTest.java`
+#### Snippet
+```java
+            assertThat(cause, is(instanceOf(IllegalStateException.class)));
+            // Make sure that the timer hasn't been called
+            assertThat("Timer count is incorrect", timer.getCount(), is(equalTo(TIMER_COUNT.get())));
+            return;
+        }
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedMethodBeanLookupTest.java`
+#### Snippet
+```java
+
+        Timer timer = registry.getTimer(timerMID);
+        assertThat("Timer is not registered correctly", timer, notNullValue());
+
+        // Make sure that the timer hasn't been called yet
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedMethodBeanLookupTest.java`
+#### Snippet
+```java
+
+        // Make sure that the timer hasn't been called yet
+        assertThat("Timer count is incorrect", timer.getCount(), is(equalTo(TIMER_COUNT.get())));
+    }
+
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedMethodBeanLookupTest.java`
+#### Snippet
+```java
+
+        Timer timer = registry.getTimer(timerMID);
+        assertThat("Timer is not registered correctly", timer, notNullValue());
+
+        // Call the timed method and assert it's been timed
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedMethodBeanLookupTest.java`
+#### Snippet
+```java
+
+        // Make sure that the timer has been called
+        assertThat("Timer count is incorrect", timer.getCount(), is(equalTo(TIMER_COUNT.incrementAndGet())));
+        TestUtils.assertEqualsWithTolerance(2000000000L, timer.getElapsedTime().toNanos());
+    }
+```
+
+### Deprecation
+'org.eclipse.microprofile.metrics.annotation.RegistryType' is deprecated
+in `api/src/main/java/org/eclipse/microprofile/metrics/annotation/package-info.java`
+#### Snippet
+```java
+ * <b> This is DEPRECATED. Please use {@link RegistryScope} instead. </b>
+ *
+ * The {@link org.eclipse.microprofile.metrics.annotation.RegistryType RegistryType} is used to identify which
+ * <code>MetricRegistry</code> (Application, Base, or Vendor) should be injected. Injecting a
+ * <code>MetricRegistry</code> without a <code>RegistryType</code> annotation gives the application-scoped
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/GaugeTagMethodBeanTest.java`
+#### Snippet
+```java
+        @SuppressWarnings("unchecked")
+        Gauge<Long> gaugeTwo = (Gauge<Long>) registry.getGauge(gaugeTwoMID);
+        assertThat("Gauge is not registered correctly", gaugeOne, notNullValue());
+        assertThat("Gauge is not registered correctly", gaugeTwo, notNullValue());
+
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/GaugeTagMethodBeanTest.java`
+#### Snippet
+```java
+        Gauge<Long> gaugeTwo = (Gauge<Long>) registry.getGauge(gaugeTwoMID);
+        assertThat("Gauge is not registered correctly", gaugeOne, notNullValue());
+        assertThat("Gauge is not registered correctly", gaugeTwo, notNullValue());
+
+        // Call the setter method and assert the gauge is up-to-date
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/GaugeTagMethodBeanTest.java`
+#### Snippet
+```java
+        bean.setGaugeTwo(secondValue);
+
+        assertThat("Gauge value is incorrect", gaugeOne.getValue(), is(equalTo(value)));
+        assertThat("Gauge value is incorrect", gaugeTwo.getValue(), is(equalTo(secondValue)));
+    }
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/GaugeTagMethodBeanTest.java`
+#### Snippet
+```java
+
+        assertThat("Gauge value is incorrect", gaugeOne.getValue(), is(equalTo(value)));
+        assertThat("Gauge value is incorrect", gaugeTwo.getValue(), is(equalTo(secondValue)));
+    }
+}
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/GaugeTagMethodBeanTest.java`
+#### Snippet
+```java
+        Gauge<Long> gaugeTwo = (Gauge<Long>) registry.getGauge(gaugeTwoMID);
+
+        assertThat("Gauge is not registered correctly", gaugeOne, notNullValue());
+        assertThat("Gauge is not registered correctly", gaugeTwo, notNullValue());
+
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/GaugeTagMethodBeanTest.java`
+#### Snippet
+```java
+
+        assertThat("Gauge is not registered correctly", gaugeOne, notNullValue());
+        assertThat("Gauge is not registered correctly", gaugeTwo, notNullValue());
+
+        // Make sure that the gauge has the expected value
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/GaugeTagMethodBeanTest.java`
+#### Snippet
+```java
+
+        // Make sure that the gauge has the expected value
+        assertThat("Gauge value is incorrect", gaugeOne.getValue(), is(equalTo(0L)));
+        assertThat("Gauge value is incorrect", gaugeTwo.getValue(), is(equalTo(0L)));
+    }
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/GaugeTagMethodBeanTest.java`
+#### Snippet
+```java
+        // Make sure that the gauge has the expected value
+        assertThat("Gauge value is incorrect", gaugeOne.getValue(), is(equalTo(0L)));
+        assertThat("Gauge value is incorrect", gaugeTwo.getValue(), is(equalTo(0L)));
     }
 
 ```
@@ -1080,1614 +2232,6 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/CounterField
 
 ### Deprecation
 'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/HistogramTagFieldBeanTest.java`
-#### Snippet
-```java
-    @InSequence(1)
-    public void histogramTagFieldRegistered() {
-        assertThat("Histogram is not registered correctly", registry.getHistogram(histogramOneMID), notNullValue());
-        assertThat("Histogram is not registered correctly", registry.getHistogram(histogramTwoMID), notNullValue());
-    }
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/HistogramTagFieldBeanTest.java`
-#### Snippet
-```java
-    public void histogramTagFieldRegistered() {
-        assertThat("Histogram is not registered correctly", registry.getHistogram(histogramOneMID), notNullValue());
-        assertThat("Histogram is not registered correctly", registry.getHistogram(histogramTwoMID), notNullValue());
-    }
-
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/HistogramTagFieldBeanTest.java`
-#### Snippet
-```java
-        Histogram histogramOne = registry.getHistogram(histogramOneMID);
-        Histogram histogramTwo = registry.getHistogram(histogramTwoMID);
-        assertThat("Histogram is not registered correctly", histogramOne, notNullValue());
-        assertThat("Histogram is not registered correctly", histogramTwo, notNullValue());
-
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/HistogramTagFieldBeanTest.java`
-#### Snippet
-```java
-        Histogram histogramTwo = registry.getHistogram(histogramTwoMID);
-        assertThat("Histogram is not registered correctly", histogramOne, notNullValue());
-        assertThat("Histogram is not registered correctly", histogramTwo, notNullValue());
-
-        // Call the update method and assert the histogram is up-to-date
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/HistogramTagFieldBeanTest.java`
-#### Snippet
-```java
-        bean.updateTwo(valueTwo);
-
-        assertThat("Histogram count is incorrect", histogramOne.getCount(), is(equalTo(1L)));
-        assertThat("Histogram size is incorrect", histogramOne.getSnapshot().size(), is(equalTo(1L)));
-        assertThat("Histogram max value is incorrect", histogramOne.getSnapshot().getMax(),
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/HistogramTagFieldBeanTest.java`
-#### Snippet
-```java
-
-        assertThat("Histogram count is incorrect", histogramOne.getCount(), is(equalTo(1L)));
-        assertThat("Histogram size is incorrect", histogramOne.getSnapshot().size(), is(equalTo(1L)));
-        assertThat("Histogram max value is incorrect", histogramOne.getSnapshot().getMax(),
-                is(equalTo((double) value)));
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/HistogramTagFieldBeanTest.java`
-#### Snippet
-```java
-        assertThat("Histogram count is incorrect", histogramOne.getCount(), is(equalTo(1L)));
-        assertThat("Histogram size is incorrect", histogramOne.getSnapshot().size(), is(equalTo(1L)));
-        assertThat("Histogram max value is incorrect", histogramOne.getSnapshot().getMax(),
-                is(equalTo((double) value)));
-
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/HistogramTagFieldBeanTest.java`
-#### Snippet
-```java
-                is(equalTo((double) value)));
-
-        assertThat("Histogram count is incorrect", histogramTwo.getCount(), is(equalTo(1L)));
-        assertThat("Histogram size is incorrect", histogramTwo.getSnapshot().size(), is(equalTo(1L)));
-        assertThat("Histogram max value is incorrect", histogramTwo.getSnapshot().getMax(),
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/HistogramTagFieldBeanTest.java`
-#### Snippet
-```java
-
-        assertThat("Histogram count is incorrect", histogramTwo.getCount(), is(equalTo(1L)));
-        assertThat("Histogram size is incorrect", histogramTwo.getSnapshot().size(), is(equalTo(1L)));
-        assertThat("Histogram max value is incorrect", histogramTwo.getSnapshot().getMax(),
-                is(equalTo((double) valueTwo)));
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/HistogramTagFieldBeanTest.java`
-#### Snippet
-```java
-        assertThat("Histogram count is incorrect", histogramTwo.getCount(), is(equalTo(1L)));
-        assertThat("Histogram size is incorrect", histogramTwo.getSnapshot().size(), is(equalTo(1L)));
-        assertThat("Histogram max value is incorrect", histogramTwo.getSnapshot().getMax(),
-                is(equalTo((double) valueTwo)));
-    }
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/GaugeTagMethodBeanTest.java`
-#### Snippet
-```java
-        @SuppressWarnings("unchecked")
-        Gauge<Long> gaugeTwo = (Gauge<Long>) registry.getGauge(gaugeTwoMID);
-        assertThat("Gauge is not registered correctly", gaugeOne, notNullValue());
-        assertThat("Gauge is not registered correctly", gaugeTwo, notNullValue());
-
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/GaugeTagMethodBeanTest.java`
-#### Snippet
-```java
-        Gauge<Long> gaugeTwo = (Gauge<Long>) registry.getGauge(gaugeTwoMID);
-        assertThat("Gauge is not registered correctly", gaugeOne, notNullValue());
-        assertThat("Gauge is not registered correctly", gaugeTwo, notNullValue());
-
-        // Call the setter method and assert the gauge is up-to-date
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/GaugeTagMethodBeanTest.java`
-#### Snippet
-```java
-        bean.setGaugeTwo(secondValue);
-
-        assertThat("Gauge value is incorrect", gaugeOne.getValue(), is(equalTo(value)));
-        assertThat("Gauge value is incorrect", gaugeTwo.getValue(), is(equalTo(secondValue)));
-    }
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/GaugeTagMethodBeanTest.java`
-#### Snippet
-```java
-
-        assertThat("Gauge value is incorrect", gaugeOne.getValue(), is(equalTo(value)));
-        assertThat("Gauge value is incorrect", gaugeTwo.getValue(), is(equalTo(secondValue)));
-    }
-}
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/GaugeTagMethodBeanTest.java`
-#### Snippet
-```java
-        Gauge<Long> gaugeTwo = (Gauge<Long>) registry.getGauge(gaugeTwoMID);
-
-        assertThat("Gauge is not registered correctly", gaugeOne, notNullValue());
-        assertThat("Gauge is not registered correctly", gaugeTwo, notNullValue());
-
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/GaugeTagMethodBeanTest.java`
-#### Snippet
-```java
-
-        assertThat("Gauge is not registered correctly", gaugeOne, notNullValue());
-        assertThat("Gauge is not registered correctly", gaugeTwo, notNullValue());
-
-        // Make sure that the gauge has the expected value
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/GaugeTagMethodBeanTest.java`
-#### Snippet
-```java
-
-        // Make sure that the gauge has the expected value
-        assertThat("Gauge value is incorrect", gaugeOne.getValue(), is(equalTo(0L)));
-        assertThat("Gauge value is incorrect", gaugeTwo.getValue(), is(equalTo(0L)));
-    }
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedClassBeanTest.java`
-#### Snippet
-```java
-    @InSequence(1)
-    public void timedMethodsNotCalledYet() {
-        assertThat("Timers are not registered correctly", registry.getTimers().keySet(),
-                is(equalTo(timerMIDsIncludingToString)));
-
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedClassBeanTest.java`
-#### Snippet
-```java
-                is(equalTo(timerMIDsIncludingToString)));
-
-        assertThat("Constructor timer count is incorrect", registry.getTimer(constructorMID).getCount(),
-                is(equalTo(1L)));
-
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/GaugeTagMethodBeanTest.java`
-#### Snippet
-```java
-        // Make sure that the gauge has the expected value
-        assertThat("Gauge value is incorrect", gaugeOne.getValue(), is(equalTo(0L)));
-        assertThat("Gauge value is incorrect", gaugeTwo.getValue(), is(equalTo(0L)));
-    }
-
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedClassBeanTest.java`
-#### Snippet
-```java
-
-        // Make sure that the method timers haven't been timed yet
-        assertThat("Method timer counts are incorrect", registry.getTimers(METHOD_TIMERS).values(),
-                everyItem(Matchers.<Timer>hasProperty("count", equalTo(METHOD_COUNT.get()))));
-    }
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedClassBeanTest.java`
-#### Snippet
-```java
-    @InSequence(2)
-    public void callTimedMethodsOnce() {
-        assertThat("Timers are not registered correctly", registry.getTimers().keySet(),
-                is(equalTo(timerMIDsIncludingToString)));
-
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedClassBeanTest.java`
-#### Snippet
-```java
-                is(equalTo(timerMIDsIncludingToString)));
-
-        assertThat("Constructor timer count is incorrect", registry.getTimer(constructorMID).getCount(),
-                is(equalTo(1L)));
-
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedClassBeanTest.java`
-#### Snippet
-```java
-
-        // Make sure that the method timers have been timed
-        assertThat("Method timer counts are incorrect", registry.getTimers(METHOD_TIMERS).values(),
-                everyItem(Matchers.<Timer>hasProperty("count", equalTo(METHOD_COUNT.incrementAndGet()))));
-    }
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimerFieldBeanTest.java`
-#### Snippet
-```java
-    @Test
-    public void timerFieldsWithDefaultNamingConvention() {
-        assertThat("Timers are not registered correctly", registry.getMetricIDs(),
-                is(equalTo(MetricsUtil.createMetricIDs(metricNames()))));
-    }
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedMethodBeanLookupTest.java`
-#### Snippet
-```java
-
-        Timer timer = registry.getTimer(timerMID);
-        assertThat("Timer is not registered correctly", timer, notNullValue());
-
-        // Call the timed method and assert it's been timed
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedMethodBeanLookupTest.java`
-#### Snippet
-```java
-
-        // Make sure that the timer has been called
-        assertThat("Timer count is incorrect", timer.getCount(), is(equalTo(TIMER_COUNT.incrementAndGet())));
-        TestUtils.assertEqualsWithTolerance(2000000000L, timer.getElapsedTime().toNanos());
-    }
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedMethodBeanLookupTest.java`
-#### Snippet
-```java
-
-        Timer timer = registry.getTimer(timerMID);
-        assertThat("Timer is not registered correctly", timer, notNullValue());
-
-        // Make sure that the timer hasn't been called yet
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedMethodBeanLookupTest.java`
-#### Snippet
-```java
-
-        // Make sure that the timer hasn't been called yet
-        assertThat("Timer count is incorrect", timer.getCount(), is(equalTo(TIMER_COUNT.get())));
-    }
-
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedMethodBeanLookupTest.java`
-#### Snippet
-```java
-
-        Timer timer = registry.getTimer(timerMID);
-        assertThat("Timer is not registered correctly", timer, notNullValue());
-
-        // Remove the timer from metrics registry
-```
-
-### Deprecation
-'assertThat(T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedMethodBeanLookupTest.java`
-#### Snippet
-```java
-            bean.timedMethod();
-        } catch (RuntimeException cause) {
-            assertThat(cause, is(instanceOf(IllegalStateException.class)));
-            // Make sure that the timer hasn't been called
-            assertThat("Timer count is incorrect", timer.getCount(), is(equalTo(TIMER_COUNT.get())));
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedMethodBeanLookupTest.java`
-#### Snippet
-```java
-            assertThat(cause, is(instanceOf(IllegalStateException.class)));
-            // Make sure that the timer hasn't been called
-            assertThat("Timer count is incorrect", timer.getCount(), is(equalTo(TIMER_COUNT.get())));
-            return;
-        }
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/OverloadedTimedMethodBeanTest.java`
-#### Snippet
-```java
-        bean.overloadedTimedMethod(new Object());
-        bean.overloadedTimedMethod(Arrays.asList("string1", "string2"));
-        assertThat("Timer counts are incorrect", registry.getTimers().values(),
-                hasItem(Matchers.<Timer>hasProperty("count", equalTo(1L))));
-    }
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/OverloadedTimedMethodBeanTest.java`
-#### Snippet
-```java
-
-        // Make sure that all the timers haven't been called yet
-        assertThat("Timer counts are incorrect", registry.getTimers().values(),
-                hasItem(Matchers.<Timer>hasProperty("count", equalTo(0L))));
-    }
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/DefaultNameMetricMethodBeanTest.java`
-#### Snippet
-```java
-    @Test
-    public void metricMethodsWithDefaultNamingConvention() {
-        assertThat("Metrics are not registered correctly", registry.getMetricIDs(),
-                is(equalTo(MetricsUtil.createMetricIDs(metricNames()))));
-    }
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedClassBeanTest.java`
-#### Snippet
-```java
-    @InSequence(2)
-    public void callCountedMethodsOnce() {
-        assertThat("Counters are not registered correctly", registry.getCounters().keySet(), is(equalTo(counterMIDs)));
-
-        // Call the counted methods and assert they've been incremented
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedClassBeanTest.java`
-#### Snippet
-```java
-
-        // Make sure that the counters have been incremented
-        assertThat("Method counter counts are incorrect", registry.getCounters(METHOD_COUNTERS).values(),
-                everyItem(Matchers.<Counter>hasProperty("count", equalTo(1L))));
-
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedClassBeanTest.java`
-#### Snippet
-```java
-                everyItem(Matchers.<Counter>hasProperty("count", equalTo(1L))));
-
-        assertThat("Constructor's metric should be incremented at least once",
-                registry.getCounter(constructorMID).getCount(), is(greaterThanOrEqualTo(1L)));
-    }
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedClassBeanTest.java`
-#### Snippet
-```java
-    @InSequence(1)
-    public void countedMethodsNotCalledYet() {
-        assertThat("Counters are not registered correctly", registry.getCounters().keySet(), is(equalTo(counterMIDs)));
-
-        // Make sure that the counters haven't been incremented
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedClassBeanTest.java`
-#### Snippet
-```java
-
-        // Make sure that the counters haven't been incremented
-        assertThat("Method counter counts are incorrect", registry.getCounters(METHOD_COUNTERS).values(),
-                everyItem(Matchers.<Counter>hasProperty("count", equalTo(0L))));
-    }
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/HistogramFieldBeanTest.java`
-#### Snippet
-```java
-    @InSequence(1)
-    public void histogramFieldRegistered() {
-        assertThat("Histogram is not registered correctly", registry.getHistogram(histogramMID), notNullValue());
-    }
-
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/HistogramFieldBeanTest.java`
-#### Snippet
-```java
-    public void updateHistogramField() {
-        Histogram histogram = registry.getHistogram(histogramMID);
-        assertThat("Histogram is not registered correctly", histogram, notNullValue());
-
-        // Call the update method and assert the histogram is up-to-date
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/HistogramFieldBeanTest.java`
-#### Snippet
-```java
-
-        bean.update(value);
-        assertThat("Histogram count is incorrect", histogram.getCount(), is(equalTo(1L)));
-        assertThat("Histogram sum is incorrect", histogram.getSum(), is(equalTo(value)));
-        assertThat("Histogram size is incorrect", histogram.getSnapshot().size(), is(equalTo(1L)));
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/HistogramFieldBeanTest.java`
-#### Snippet
-```java
-        bean.update(value);
-        assertThat("Histogram count is incorrect", histogram.getCount(), is(equalTo(1L)));
-        assertThat("Histogram sum is incorrect", histogram.getSum(), is(equalTo(value)));
-        assertThat("Histogram size is incorrect", histogram.getSnapshot().size(), is(equalTo(1L)));
-        assertThat("Histogram max value is incorrect", histogram.getSnapshot().getMax(), is(equalTo((double) value)));
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/HistogramFieldBeanTest.java`
-#### Snippet
-```java
-        assertThat("Histogram count is incorrect", histogram.getCount(), is(equalTo(1L)));
-        assertThat("Histogram sum is incorrect", histogram.getSum(), is(equalTo(value)));
-        assertThat("Histogram size is incorrect", histogram.getSnapshot().size(), is(equalTo(1L)));
-        assertThat("Histogram max value is incorrect", histogram.getSnapshot().getMax(), is(equalTo((double) value)));
-    }
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/HistogramFieldBeanTest.java`
-#### Snippet
-```java
-        assertThat("Histogram sum is incorrect", histogram.getSum(), is(equalTo(value)));
-        assertThat("Histogram size is incorrect", histogram.getSnapshot().size(), is(equalTo(1L)));
-        assertThat("Histogram max value is incorrect", histogram.getSnapshot().getMax(), is(equalTo((double) value)));
-    }
-}
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricIDTest.java`
-#### Snippet
-```java
-
-        // check multi-dimensional metrics are registered
-        assertThat("Counter is not registered correctly", registry.getCounter(counterMID), notNullValue());
-        assertThat("Counter is not registered correctly", registry.getCounter(counterRedMID), notNullValue());
-        assertThat("Counter is not registered correctly", registry.getCounter(counterBlueMID), notNullValue());
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricIDTest.java`
-#### Snippet
-```java
-        // check multi-dimensional metrics are registered
-        assertThat("Counter is not registered correctly", registry.getCounter(counterMID), notNullValue());
-        assertThat("Counter is not registered correctly", registry.getCounter(counterRedMID), notNullValue());
-        assertThat("Counter is not registered correctly", registry.getCounter(counterBlueMID), notNullValue());
-
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricIDTest.java`
-#### Snippet
-```java
-        assertThat("Counter is not registered correctly", registry.getCounter(counterMID), notNullValue());
-        assertThat("Counter is not registered correctly", registry.getCounter(counterRedMID), notNullValue());
-        assertThat("Counter is not registered correctly", registry.getCounter(counterBlueMID), notNullValue());
-
-        // remove one metric
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricIDTest.java`
-#### Snippet
-```java
-        // remove one metric
-        registry.remove(counterMID);
-        assertThat("Registry did not remove metric", registry.getCounters().size(), equalTo(2));
-        assertThat("Counter is not registered correctly", registry.getCounter(counterMID), nullValue());
-
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricIDTest.java`
-#### Snippet
-```java
-        registry.remove(counterMID);
-        assertThat("Registry did not remove metric", registry.getCounters().size(), equalTo(2));
-        assertThat("Counter is not registered correctly", registry.getCounter(counterMID), nullValue());
-
-        // remove all metrics with the given name
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricIDTest.java`
-#### Snippet
-```java
-        // remove all metrics with the given name
-        registry.remove(counterName);
-        assertThat("Counter is not registered correctly", registry.getCounter(counterRedMID), nullValue());
-        assertThat("Counter is not registered correctly", registry.getCounter(counterBlueMID), nullValue());
-
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricIDTest.java`
-#### Snippet
-```java
-        registry.remove(counterName);
-        assertThat("Counter is not registered correctly", registry.getCounter(counterRedMID), nullValue());
-        assertThat("Counter is not registered correctly", registry.getCounter(counterBlueMID), nullValue());
-
-    }
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedConstructorBeanTest.java`
-#### Snippet
-```java
-
-        Timer timer = registry.getTimer(timerMID);
-        assertThat("Timer is not registered correctly", timer, notNullValue());
-
-        // Make sure that the timer has been called
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedConstructorBeanTest.java`
-#### Snippet
-```java
-
-        // Make sure that the timer has been called
-        assertThat("Timer count is incorrect", timer.getCount(), is(equalTo(count)));
-    }
-}
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/cdi/TimerInjectionBeanTest.java`
-#### Snippet
-```java
-    public void timedMethodNotCalledYet() {
-        // Make sure that the timer hasn't been called yet
-        assertThat("Timer count is incorrect", timer.getCount(), is(equalTo(0L)));
-    }
-
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/cdi/TimerInjectionBeanTest.java`
-#### Snippet
-```java
-
-        // Make sure that the timer has been called
-        assertThat("Timer count is incorrect", timer.getCount(), is(equalTo(1L)));
-    }
-}
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/MultipleMetricsConstructorBeanTest.java`
-#### Snippet
-```java
-
-        // Make sure that the metrics have been called
-        assertThat("Counter count is incorrect", registry.getCounter(
-                new MetricID(absoluteMetricName("counter"))).getCount(), is(equalTo(count)));
-        assertThat("Timer count is incorrect", registry.getTimer(
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/cdi/GaugeInjectionBeanTest.java`
-#### Snippet
-```java
-        bean.setGauge(value);
-
-        assertThat("Gauge value is incorrect", gauge.getValue(), is(equalTo(value)));
-    }
-}
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/cdi/GaugeInjectionBeanTest.java`
-#### Snippet
-```java
-    public void gaugeCalledWithDefaultValue() {
-        // Make sure that the gauge has the expected value
-        assertThat("Gauge value is incorrect", gauge.getValue(), is(equalTo(0L)));
-    }
-
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/MultipleMetricsConstructorBeanTest.java`
-#### Snippet
-```java
-        assertThat("Counter count is incorrect", registry.getCounter(
-                new MetricID(absoluteMetricName("counter"))).getCount(), is(equalTo(count)));
-        assertThat("Timer count is incorrect", registry.getTimer(
-                new MetricID(absoluteMetricName("timer"))).getCount(), is(equalTo(count)));
-    }
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/cdi/ApplicationScopedTimedMethodBeanTest.java`
-#### Snippet
-```java
-    public void callTimedMethodOnce() {
-        Timer timer = registry.getTimer(timerMID);
-        assertThat("Timer is not registered correctly", timer, notNullValue());
-
-        // Call the timed method and assert it's been timed
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/cdi/ApplicationScopedTimedMethodBeanTest.java`
-#### Snippet
-```java
-
-        // Make sure that the timer has been called
-        assertThat("Timer count is incorrect", timer.getCount(), is(equalTo(1L)));
-    }
-}
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/cdi/ApplicationScopedTimedMethodBeanTest.java`
-#### Snippet
-```java
-    public void timedMethodNotCalledYet() {
-        Timer timer = registry.getTimer(timerMID);
-        assertThat("Timer is not registered correctly", timer, notNullValue());
-
-        // Make sure that the timer hasn't been called yet
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/cdi/ApplicationScopedTimedMethodBeanTest.java`
-#### Snippet
-```java
-
-        // Make sure that the timer hasn't been called yet
-        assertThat("Timer count is incorrect", timer.getCount(), is(equalTo(0L)));
-    }
-
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CounterFieldBeanTest.java`
-#### Snippet
-```java
-    public void incrementCounterField() {
-        Counter counter = registry.getCounter(counterMID);
-        assertThat("Counter is not registered correctly", counter, notNullValue());
-
-        // Call the increment method and assert the counter is up-to-date
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CounterFieldBeanTest.java`
-#### Snippet
-```java
-        long value = Math.round(Math.random() * Long.MAX_VALUE);
-        bean.increment(value);
-        assertThat("Counter value is incorrect", counter.getCount(), is(equalTo(value)));
-    }
-}
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CounterFieldBeanTest.java`
-#### Snippet
-```java
-    @InSequence(1)
-    public void counterFieldRegistered() {
-        assertThat("Counter is not registered correctly", registry.getCounter(counterMID), notNullValue());
-    }
-
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/MultipleMetricsMethodBeanTest.java`
-#### Snippet
-```java
-    @InSequence(2)
-    public void callMetricsMethodOnce() {
-        assertThat("Metrics are not registered correctly", registry.getMetricIDs(),
-                is(equalTo(MetricsUtil.createMetricIDs(absoluteMetricNames()))));
-
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/MultipleMetricsMethodBeanTest.java`
-#### Snippet
-```java
-
-        // Make sure that the metrics have been called
-        assertThat("Counter count is incorrect", registry.getCounter(
-                new MetricID(absoluteMetricName("counter"))).getCount(), is(equalTo(1L)));
-        assertThat("Timer count is incorrect", registry.getTimer(
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/MultipleMetricsMethodBeanTest.java`
-#### Snippet
-```java
-        assertThat("Counter count is incorrect", registry.getCounter(
-                new MetricID(absoluteMetricName("counter"))).getCount(), is(equalTo(1L)));
-        assertThat("Timer count is incorrect", registry.getTimer(
-                new MetricID(absoluteMetricName("timer"))).getCount(), is(equalTo(1L)));
-        // Let's call the gauge at the end as Weld is intercepting the gauge
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/MultipleMetricsMethodBeanTest.java`
-#### Snippet
-```java
-        // Let's call the gauge at the end as Weld is intercepting the gauge
-        // invocation while OWB not
-        assertThat("Gauge value is incorrect", registry.getGauge(
-                new MetricID(absoluteMetricName("gauge"))).getValue(), is(equalTo(1234L)));
-    }
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/MultipleMetricsMethodBeanTest.java`
-#### Snippet
-```java
-    @InSequence(1)
-    public void metricsMethodNotCalledYet() {
-        assertThat("Metrics are not registered correctly", registry.getMetricIDs(),
-                is(equalTo(MetricsUtil.createMetricIDs(absoluteMetricNames()))));
-    }
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteTimedBeanTest.java`
-#### Snippet
-```java
-    public void callTimedMethodOnce(MetricRegistry registry) {
-        Timer timer = registry.getTimer(timerMID);
-        assertThat("Timer is not registered correctly", timer, notNullValue());
-
-        // Call the timed method and assert it's been timed
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteTimedBeanTest.java`
-#### Snippet
-```java
-
-        // Make sure that the timer has been called
-        assertThat("Timer count is incorrect", timer.getCount(), is(equalTo(1L)));
-    }
-
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteTimedBeanTest.java`
-#### Snippet
-```java
-    public void extendedTimedMethodNotCalledYet(MetricRegistry registry) {
-        Timer timer = registry.getTimer(extendedTimedMID);
-        assertThat("Timer is not registered correctly on the methods on the abstract class", timer, notNullValue());
-
-        // Make sure that the timer hasn't been called yet
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteTimedBeanTest.java`
-#### Snippet
-```java
-
-        // Make sure that the timer hasn't been called yet
-        assertThat("Timer count is incorrect", timer.getCount(), is(equalTo(0L)));
-    }
-
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteTimedBeanTest.java`
-#### Snippet
-```java
-    public void callExtendedTimedMethodOnce(MetricRegistry registry) {
-        Timer timer = registry.getTimer(extendedTimedMID);
-        assertThat("Timer is not registered correctly", timer, notNullValue());
-
-        // Call the timed method and assert it's been timed
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteTimedBeanTest.java`
-#### Snippet
-```java
-
-        // Make sure that the timer has been called
-        assertThat("Timer count is incorrect", timer.getCount(), is(equalTo(1L)));
-    }
-}
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteTimedBeanTest.java`
-#### Snippet
-```java
-    public void timedMethodNotCalledYet(MetricRegistry registry) {
-        Timer timer = registry.getTimer(timerMID);
-        assertThat("Timer is not registered correctly", timer, notNullValue());
-
-        // Make sure that the timer hasn't been called yet
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteTimedBeanTest.java`
-#### Snippet
-```java
-
-        // Make sure that the timer hasn't been called yet
-        assertThat("Timer count is incorrect", timer.getCount(), is(equalTo(0L)));
-    }
-
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/GaugeMethodBeanTest.java`
-#### Snippet
-```java
-        @SuppressWarnings("unchecked")
-        Gauge<Long> gauge = (Gauge<Long>) registry.getGauge(gaugeMID);
-        assertThat("Gauge is not registered correctly", gauge, notNullValue());
-
-        // Make sure that the gauge has the expected value
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/GaugeMethodBeanTest.java`
-#### Snippet
-```java
-
-        // Make sure that the gauge has the expected value
-        assertThat("Gauge value is incorrect", gauge.getValue(), is(equalTo(0L)));
-    }
-
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/GaugeMethodBeanTest.java`
-#### Snippet
-```java
-        @SuppressWarnings("unchecked")
-        Gauge<Long> gauge = (Gauge<Long>) registry.getGauge(gaugeMID);
-        assertThat("Gauge is not registered correctly", gauge, notNullValue());
-
-        // Call the setter method and assert the gauge is up-to-date
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/GaugeMethodBeanTest.java`
-#### Snippet
-```java
-        long value = Math.round(Math.random() * Long.MAX_VALUE);
-        bean.setGauge(value);
-        assertThat("Gauge value is incorrect", gauge.getValue(), is(equalTo(value)));
-    }
-}
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteExtendedTimedBeanTest.java`
-#### Snippet
-```java
-    public void timedMethodNotCalledYet(MetricRegistry registry) {
-        Timer timer = registry.getTimer(timedMID);
-        assertThat("Timer is not registered correctly", timer, notNullValue());
-
-        // Make sure that the timer hasn't been called yet
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteExtendedTimedBeanTest.java`
-#### Snippet
-```java
-
-        // Make sure that the timer hasn't been called yet
-        assertThat("Timer count is incorrect", timer.getCount(), is(equalTo(0L)));
-    }
-
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteExtendedTimedBeanTest.java`
-#### Snippet
-```java
-    public void callTimedMethodOnce(MetricRegistry registry) {
-        Timer timer = registry.getTimer(timedMID);
-        assertThat("Timer is not registered correctly", timer, notNullValue());
-
-        // Call the timed method and assert it's been timed
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteExtendedTimedBeanTest.java`
-#### Snippet
-```java
-
-        // Make sure that the timer has been called
-        assertThat("Timer count is incorrect", timer.getCount(), is(equalTo(1L)));
-    }
-
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteExtendedTimedBeanTest.java`
-#### Snippet
-```java
-    public void callExtendedTimedMethodOnce(MetricRegistry registry) {
-        Timer timer = registry.getTimer(extendedTimedMID);
-        assertThat("Timer is not registered correctly", timer, notNullValue());
-
-        // Call the timed method and assert it's been timed
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteExtendedTimedBeanTest.java`
-#### Snippet
-```java
-
-        // Make sure that the timer has been called
-        assertThat("Timer count is incorrect", timer.getCount(), is(equalTo(1L)));
-    }
-}
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteExtendedTimedBeanTest.java`
-#### Snippet
-```java
-    public void extendedTimedMethodNotCalledYet(MetricRegistry registry) {
-        Timer timer = registry.getTimer(extendedTimedMID);
-        assertThat("Timer is not registered correctly on the methods on the abstract class", timer, notNullValue());
-
-        // Make sure that the timer hasn't been called yet
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/ConcreteExtendedTimedBeanTest.java`
-#### Snippet
-```java
-
-        // Make sure that the timer hasn't been called yet
-        assertThat("Timer count is incorrect", timer.getCount(), is(equalTo(0L)));
-    }
-
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/inheritance/InheritedGaugeMethodBeanTest.java`
-#### Snippet
-```java
-        @SuppressWarnings("unchecked")
-        Gauge<Long> childGauge = (Gauge<Long>) registry.getGauge(childMID);
-        assertThat("Gauges are not registered correctly", parentGauge, notNullValue());
-        assertThat("Gauges are not registered correctly", childGauge, notNullValue());
-
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/inheritance/InheritedGaugeMethodBeanTest.java`
-#### Snippet
-```java
-        Gauge<Long> childGauge = (Gauge<Long>) registry.getGauge(childMID);
-        assertThat("Gauges are not registered correctly", parentGauge, notNullValue());
-        assertThat("Gauges are not registered correctly", childGauge, notNullValue());
-
-        // Make sure that the gauge has the expected value
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/inheritance/InheritedGaugeMethodBeanTest.java`
-#### Snippet
-```java
-
-        // Make sure that the gauge has the expected value
-        assertThat("Gauge values are incorrect", Arrays.asList(parentGauge.getValue(), childGauge.getValue()),
-                contains(0L, 0L));
-    }
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/inheritance/InheritedGaugeMethodBeanTest.java`
-#### Snippet
-```java
-        @SuppressWarnings("unchecked")
-        Gauge<Long> childGauge = (Gauge<Long>) registry.getGauge(childMID);
-        assertThat("Gauges are not registered correctly", parentGauge, notNullValue());
-        assertThat("Gauges are not registered correctly", childGauge, notNullValue());
-
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/inheritance/InheritedGaugeMethodBeanTest.java`
-#### Snippet
-```java
-        Gauge<Long> childGauge = (Gauge<Long>) registry.getGauge(childMID);
-        assertThat("Gauges are not registered correctly", parentGauge, notNullValue());
-        assertThat("Gauges are not registered correctly", childGauge, notNullValue());
-
-        // Call the setter methods and assert the gauges are up-to-date
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/inheritance/InheritedGaugeMethodBeanTest.java`
-#### Snippet
-```java
-        long childValue = Math.round(Math.random() * Long.MAX_VALUE);
-        bean.setChildGauge(childValue);
-        assertThat("Gauge values are incorrect", Arrays.asList(parentGauge.getValue(), childGauge.getValue()),
-                contains(parentValue, childValue));
-    }
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TimerTagFieldBeanTest.java`
-#### Snippet
-```java
-    @Test
-    public void timersTagFieldRegistered() {
-        assertThat("Timer is not registered correctly", registry.getTimer(timerOneMID), notNullValue());
-        assertThat("Timer is not registered correctly", registry.getTimer(timerTwoMID), notNullValue());
-    }
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TimerTagFieldBeanTest.java`
-#### Snippet
-```java
-    public void timersTagFieldRegistered() {
-        assertThat("Timer is not registered correctly", registry.getTimer(timerOneMID), notNullValue());
-        assertThat("Timer is not registered correctly", registry.getTimer(timerTwoMID), notNullValue());
-    }
-}
-```
-
-### Deprecation
-'org.eclipse.microprofile.metrics.annotation.RegistryType' is deprecated
-in `api/src/main/java/org/eclipse/microprofile/metrics/annotation/package-info.java`
-#### Snippet
-```java
- * <b> This is DEPRECATED. Please use {@link RegistryScope} instead. </b>
- *
- * The {@link org.eclipse.microprofile.metrics.annotation.RegistryType RegistryType} is used to identify which
- * <code>MetricRegistry</code> (Application, Base, or Vendor) should be injected. Injecting a
- * <code>MetricRegistry</code> without a <code>RegistryType</code> annotation gives the application-scoped
-```
-
-### Deprecation
-'org.eclipse.microprofile.metrics.annotation.RegistryType' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricRegistryTest.java`
-#### Snippet
-```java
-
-    @Inject
-    @RegistryType(type = MetricRegistry.Type.VENDOR)
-    private MetricRegistry vendorMetrics_RegistryType;
-
-```
-
-### Deprecation
-'org.eclipse.microprofile.metrics.MetricRegistry.Type' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricRegistryTest.java`
-#### Snippet
-```java
-
-    @Inject
-    @RegistryType(type = MetricRegistry.Type.VENDOR)
-    private MetricRegistry vendorMetrics_RegistryType;
-
-```
-
-### Deprecation
-'VENDOR' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricRegistryTest.java`
-#### Snippet
-```java
-
-    @Inject
-    @RegistryType(type = MetricRegistry.Type.VENDOR)
-    private MetricRegistry vendorMetrics_RegistryType;
-
-```
-
-### Deprecation
-'org.eclipse.microprofile.metrics.annotation.RegistryType' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricRegistryTest.java`
-#### Snippet
-```java
-
-    @Inject
-    @RegistryType(type = MetricRegistry.Type.BASE)
-    private MetricRegistry baseMetrics_RegistryType;
-
-```
-
-### Deprecation
-'org.eclipse.microprofile.metrics.MetricRegistry.Type' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricRegistryTest.java`
-#### Snippet
-```java
-
-    @Inject
-    @RegistryType(type = MetricRegistry.Type.BASE)
-    private MetricRegistry baseMetrics_RegistryType;
-
-```
-
-### Deprecation
-'BASE' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricRegistryTest.java`
-#### Snippet
-```java
-
-    @Inject
-    @RegistryType(type = MetricRegistry.Type.BASE)
-    private MetricRegistry baseMetrics_RegistryType;
-
-```
-
-### Deprecation
-'org.eclipse.microprofile.metrics.annotation.RegistryType' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricRegistryTest.java`
-#### Snippet
-```java
-
-    @Inject
-    @RegistryType(type = MetricRegistry.Type.APPLICATION)
-    private MetricRegistry applicationMetrics_RegistryType;
-
-```
-
-### Deprecation
-'org.eclipse.microprofile.metrics.MetricRegistry.Type' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricRegistryTest.java`
-#### Snippet
-```java
-
-    @Inject
-    @RegistryType(type = MetricRegistry.Type.APPLICATION)
-    private MetricRegistry applicationMetrics_RegistryType;
-
-```
-
-### Deprecation
-'APPLICATION' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricRegistryTest.java`
-#### Snippet
-```java
-
-    @Inject
-    @RegistryType(type = MetricRegistry.Type.APPLICATION)
-    private MetricRegistry applicationMetrics_RegistryType;
-
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/inheritance/InheritedTimedMethodBeanTest.java`
-#### Snippet
-```java
-    @InSequence(2)
-    public void callTimedMethodsOnce() {
-        assertThat("Timers are not registered correctly", registry.getTimers().keySet(),
-                is(equalTo(MetricsUtil.createMetricIDs(absoluteMetricNames()))));
-
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/inheritance/InheritedTimedMethodBeanTest.java`
-#### Snippet
-```java
-        bean.timedMethodPackagedPrivate();
-
-        assertThat("Timer counts are incorrect", registry.getTimers().values(),
-                everyItem(Matchers.<Timer>hasProperty("count", equalTo(1L))));
-    }
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/inheritance/InheritedTimedMethodBeanTest.java`
-#### Snippet
-```java
-    @InSequence(1)
-    public void timedMethodsNotCalledYet() {
-        assertThat("Timers are not registered correctly", registry.getTimers().keySet(),
-                is(equalTo(MetricsUtil.createMetricIDs(absoluteMetricNames()))));
-
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/inheritance/InheritedTimedMethodBeanTest.java`
-#### Snippet
-```java
-
-        // Make sure that all the timers haven't been called yet
-        assertThat("Timer counts are incorrect", registry.getTimers().values(),
-                everyItem(Matchers.<Timer>hasProperty("count", equalTo(0L))));
-    }
-```
-
-### Deprecation
-'assertThat(T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TagsTest.java`
-#### Snippet
-```java
-
-        } catch (Exception cause) {
-            assertThat(cause, is(Matchers.<Exception>instanceOf(IllegalArgumentException.class)));
-            return;
-        }
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TagsTest.java`
-#### Snippet
-```java
-
-        // check multi-dimensional metrics are registered
-        assertThat("Histogram is not registered correctly", registry.getHistogram(histogramColourMID), notNullValue());
-        assertThat("Histogram is not registered correctly", registry.getHistogram(histogramRedMID), notNullValue());
-        assertThat("Histogram is not registered correctly", registry.getHistogram(histogramBlueMID), notNullValue());
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TagsTest.java`
-#### Snippet
-```java
-        // check multi-dimensional metrics are registered
-        assertThat("Histogram is not registered correctly", registry.getHistogram(histogramColourMID), notNullValue());
-        assertThat("Histogram is not registered correctly", registry.getHistogram(histogramRedMID), notNullValue());
-        assertThat("Histogram is not registered correctly", registry.getHistogram(histogramBlueMID), notNullValue());
-    }
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TagsTest.java`
-#### Snippet
-```java
-        assertThat("Histogram is not registered correctly", registry.getHistogram(histogramColourMID), notNullValue());
-        assertThat("Histogram is not registered correctly", registry.getHistogram(histogramRedMID), notNullValue());
-        assertThat("Histogram is not registered correctly", registry.getHistogram(histogramBlueMID), notNullValue());
-    }
-
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TagsTest.java`
-#### Snippet
-```java
-
-        // check multi-dimensional metrics are registered
-        assertThat("Timer is not registered correctly", registry.getTimer(timerColourMID), notNullValue());
-        assertThat("Timer is not registered correctly", registry.getTimer(timerRedMID), notNullValue());
-        assertThat("Timer is not registered correctly", registry.getTimer(timerBlueMID), notNullValue());
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TagsTest.java`
-#### Snippet
-```java
-        // check multi-dimensional metrics are registered
-        assertThat("Timer is not registered correctly", registry.getTimer(timerColourMID), notNullValue());
-        assertThat("Timer is not registered correctly", registry.getTimer(timerRedMID), notNullValue());
-        assertThat("Timer is not registered correctly", registry.getTimer(timerBlueMID), notNullValue());
-    }
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TagsTest.java`
-#### Snippet
-```java
-        assertThat("Timer is not registered correctly", registry.getTimer(timerColourMID), notNullValue());
-        assertThat("Timer is not registered correctly", registry.getTimer(timerRedMID), notNullValue());
-        assertThat("Timer is not registered correctly", registry.getTimer(timerBlueMID), notNullValue());
-    }
-
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TagsTest.java`
-#### Snippet
-```java
-
-        // check multi-dimensional metrics are registered
-        assertThat("Counter is not registered correctly", registry.getCounter(counterColourMID), notNullValue());
-        assertThat("Counter is not registered correctly", registry.getCounter(counterRedMID), notNullValue());
-        assertThat("Counter is not registered correctly", registry.getCounter(counterBlueMID), notNullValue());
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TagsTest.java`
-#### Snippet
-```java
-        // check multi-dimensional metrics are registered
-        assertThat("Counter is not registered correctly", registry.getCounter(counterColourMID), notNullValue());
-        assertThat("Counter is not registered correctly", registry.getCounter(counterRedMID), notNullValue());
-        assertThat("Counter is not registered correctly", registry.getCounter(counterBlueMID), notNullValue());
-    }
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TagsTest.java`
-#### Snippet
-```java
-        assertThat("Counter is not registered correctly", registry.getCounter(counterColourMID), notNullValue());
-        assertThat("Counter is not registered correctly", registry.getCounter(counterRedMID), notNullValue());
-        assertThat("Counter is not registered correctly", registry.getCounter(counterBlueMID), notNullValue());
-    }
-
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TagsTest.java`
-#### Snippet
-```java
-
-        // check the metric is registered
-        assertThat("Counter is not registered correctly", registry.getCounter(counterMID), notNullValue());
-    }
-
-```
-
-### Deprecation
-'assertThat(T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TagsTest.java`
-#### Snippet
-```java
-
-        } catch (Exception cause) {
-            assertThat(cause, is(Matchers.<Exception>instanceOf(IllegalArgumentException.class)));
-            return;
-        }
-```
-
-### Deprecation
-'assertThat(T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TagsTest.java`
-#### Snippet
-```java
-        MetricID metricID = new MetricID("metricName", one, two);
-
-        assertThat(metricID.getTags(), hasKey("hello"));
-        assertThat(metricID.getTags(), hasValue("world"));
-
-```
-
-### Deprecation
-'assertThat(T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TagsTest.java`
-#### Snippet
-```java
-
-        assertThat(metricID.getTags(), hasKey("hello"));
-        assertThat(metricID.getTags(), hasValue("world"));
-
-        assertThat(metricID.getTags(), hasKey("goodbye"));
-```
-
-### Deprecation
-'assertThat(T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TagsTest.java`
-#### Snippet
-```java
-        assertThat(metricID.getTags(), hasValue("world"));
-
-        assertThat(metricID.getTags(), hasKey("goodbye"));
-        assertThat(metricID.getTags(), hasValue("friend"));
-    }
-```
-
-### Deprecation
-'assertThat(T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TagsTest.java`
-#### Snippet
-```java
-
-        assertThat(metricID.getTags(), hasKey("goodbye"));
-        assertThat(metricID.getTags(), hasValue("friend"));
-    }
-
-```
-
-### Deprecation
-'assertThat(T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TagsTest.java`
-#### Snippet
-```java
-
-        } catch (Exception cause) {
-            assertThat(cause, is(Matchers.<Exception>instanceOf(IllegalArgumentException.class)));
-            return;
-        }
-```
-
-### Deprecation
-'assertThat(T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TagsTest.java`
-#### Snippet
-```java
-
-        } catch (Exception cause) {
-            assertThat(cause, is(Matchers.<Exception>instanceOf(IllegalArgumentException.class)));
-            return;
-        }
-```
-
-### Deprecation
-'assertThat(T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TagsTest.java`
-#### Snippet
-```java
-
-        } catch (Exception cause) {
-            assertThat(cause, is(Matchers.<Exception>instanceOf(IllegalArgumentException.class)));
-            return;
-        }
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
 in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/HistogramTest.java`
 #### Snippet
 ```java
@@ -2784,49 +2328,97 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedMe
 
 ### Deprecation
 'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/inheritance/VisibilityTimedMethodBeanTest.java`
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/DefaultNameMetricMethodBeanTest.java`
 #### Snippet
 ```java
-    @InSequence(1)
-    public void timedMethodsNotCalledYet() {
-        assertThat("Timers are not registered correctly", registry.getTimers().keySet(),
-                is(equalTo(MetricsUtil.createMetricIDs(absoluteMetricNames()))));
-
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/inheritance/VisibilityTimedMethodBeanTest.java`
-#### Snippet
-```java
-
-        // Make sure that all the timers haven't been called yet
-        assertThat("Timer counts are incorrect", registry.getTimers().values(),
-                everyItem(Matchers.<Timer>hasProperty("count", equalTo(0L))));
+    @Test
+    public void metricMethodsWithDefaultNamingConvention() {
+        assertThat("Metrics are not registered correctly", registry.getMetricIDs(),
+                is(equalTo(MetricsUtil.createMetricIDs(metricNames()))));
     }
 ```
 
 ### Deprecation
 'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/inheritance/VisibilityTimedMethodBeanTest.java`
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricIDTest.java`
 #### Snippet
 ```java
-    @InSequence(2)
-    public void callTimedMethodsOnce() {
-        assertThat("Timers are not registered correctly", registry.getTimers().keySet(),
-                is(equalTo(MetricsUtil.createMetricIDs(absoluteMetricNames()))));
+
+        // check multi-dimensional metrics are registered
+        assertThat("Counter is not registered correctly", registry.getCounter(counterMID), notNullValue());
+        assertThat("Counter is not registered correctly", registry.getCounter(counterRedMID), notNullValue());
+        assertThat("Counter is not registered correctly", registry.getCounter(counterBlueMID), notNullValue());
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricIDTest.java`
+#### Snippet
+```java
+        // check multi-dimensional metrics are registered
+        assertThat("Counter is not registered correctly", registry.getCounter(counterMID), notNullValue());
+        assertThat("Counter is not registered correctly", registry.getCounter(counterRedMID), notNullValue());
+        assertThat("Counter is not registered correctly", registry.getCounter(counterBlueMID), notNullValue());
 
 ```
 
 ### Deprecation
 'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/inheritance/VisibilityTimedMethodBeanTest.java`
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricIDTest.java`
 #### Snippet
 ```java
-        bean.packagePrivateTimedMethod();
+        assertThat("Counter is not registered correctly", registry.getCounter(counterMID), notNullValue());
+        assertThat("Counter is not registered correctly", registry.getCounter(counterRedMID), notNullValue());
+        assertThat("Counter is not registered correctly", registry.getCounter(counterBlueMID), notNullValue());
 
-        assertThat("Timer counts are incorrect", registry.getTimers().values(),
-                everyItem(Matchers.<Timer>hasProperty("count", equalTo(1L))));
+        // remove one metric
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricIDTest.java`
+#### Snippet
+```java
+        // remove one metric
+        registry.remove(counterMID);
+        assertThat("Registry did not remove metric", registry.getCounters().size(), equalTo(2));
+        assertThat("Counter is not registered correctly", registry.getCounter(counterMID), nullValue());
+
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricIDTest.java`
+#### Snippet
+```java
+        registry.remove(counterMID);
+        assertThat("Registry did not remove metric", registry.getCounters().size(), equalTo(2));
+        assertThat("Counter is not registered correctly", registry.getCounter(counterMID), nullValue());
+
+        // remove all metrics with the given name
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricIDTest.java`
+#### Snippet
+```java
+        // remove all metrics with the given name
+        registry.remove(counterName);
+        assertThat("Counter is not registered correctly", registry.getCounter(counterRedMID), nullValue());
+        assertThat("Counter is not registered correctly", registry.getCounter(counterBlueMID), nullValue());
+
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricIDTest.java`
+#### Snippet
+```java
+        registry.remove(counterName);
+        assertThat("Counter is not registered correctly", registry.getCounter(counterRedMID), nullValue());
+        assertThat("Counter is not registered correctly", registry.getCounter(counterBlueMID), nullValue());
+
     }
 ```
 
@@ -2852,30 +2444,6 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedMeth
         assertThat("Timer count is incorrect", timer.getCount(), is(equalTo(TIMER_COUNT.get())));
     }
 
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedMethodBeanTest.java`
-#### Snippet
-```java
-    public void callTimedMethodOnce() throws InterruptedException {
-        Timer timer = registry.getTimer(timerMID);
-        assertThat("Timer is not registered correctly", timer, notNullValue());
-
-        // Call the timed method and assert it's been timed
-```
-
-### Deprecation
-'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedMethodBeanTest.java`
-#### Snippet
-```java
-
-        // Make sure that the timer has been called
-        assertThat("Timer count is incorrect", timer.getCount(), is(equalTo(TIMER_COUNT.incrementAndGet())));
-        TestUtils.assertEqualsWithTolerance(2000000000L, timer.getElapsedTime().toNanos());
-    }
 ```
 
 ### Deprecation
@@ -2916,6 +2484,66 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedMeth
 
 ### Deprecation
 'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedMethodBeanTest.java`
+#### Snippet
+```java
+    public void callTimedMethodOnce() throws InterruptedException {
+        Timer timer = registry.getTimer(timerMID);
+        assertThat("Timer is not registered correctly", timer, notNullValue());
+
+        // Call the timed method and assert it's been timed
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedMethodBeanTest.java`
+#### Snippet
+```java
+
+        // Make sure that the timer has been called
+        assertThat("Timer count is incorrect", timer.getCount(), is(equalTo(TIMER_COUNT.incrementAndGet())));
+        TestUtils.assertEqualsWithTolerance(2000000000L, timer.getElapsedTime().toNanos());
+    }
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/MultipleMetricsMethodBeanTest.java`
+#### Snippet
+```java
+    @InSequence(2)
+    public void callMetricsMethodOnce() {
+        assertThat("Metrics are not registered correctly", registry.getMetricIDs(),
+                is(equalTo(MetricsUtil.createMetricIDs(absoluteMetricNames()))));
+
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/MultipleMetricsMethodBeanTest.java`
+#### Snippet
+```java
+
+        // Make sure that the metrics have been called
+        assertThat("Counter count is incorrect", registry.getCounter(
+                new MetricID(absoluteMetricName("counter"))).getCount(), is(equalTo(1L)));
+        assertThat("Timer count is incorrect", registry.getTimer(
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/MultipleMetricsMethodBeanTest.java`
+#### Snippet
+```java
+        assertThat("Counter count is incorrect", registry.getCounter(
+                new MetricID(absoluteMetricName("counter"))).getCount(), is(equalTo(1L)));
+        assertThat("Timer count is incorrect", registry.getTimer(
+                new MetricID(absoluteMetricName("timer"))).getCount(), is(equalTo(1L)));
+        // Let's call the gauge at the end as Weld is intercepting the gauge
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
 in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedMethodBeanTest.java`
 #### Snippet
 ```java
@@ -2928,12 +2556,60 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedMe
 
 ### Deprecation
 'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/MultipleMetricsMethodBeanTest.java`
+#### Snippet
+```java
+        // Let's call the gauge at the end as Weld is intercepting the gauge
+        // invocation while OWB not
+        assertThat("Gauge value is incorrect", registry.getGauge(
+                new MetricID(absoluteMetricName("gauge"))).getValue(), is(equalTo(1234L)));
+    }
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/MultipleMetricsMethodBeanTest.java`
+#### Snippet
+```java
+    @InSequence(1)
+    public void metricsMethodNotCalledYet() {
+        assertThat("Metrics are not registered correctly", registry.getMetricIDs(),
+                is(equalTo(MetricsUtil.createMetricIDs(absoluteMetricNames()))));
+    }
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
 in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedMethodBeanTest.java`
 #### Snippet
 ```java
 
         // Make sure that the counter registered and the bean instance are the same
         assertThat("Counter and bean instance are not equal", instance, is(equalTo(counter)));
+    }
+
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedMethodBeanTest.java`
+#### Snippet
+```java
+    public void countedMethodNotCalledYet() {
+        Counter counter = registry.getCounter(counterMetricID);
+        assertThat("Counter is not registered correctly", counter, notNullValue());
+
+        // Make sure that the counter hasn't been called yet
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedMethodBeanTest.java`
+#### Snippet
+```java
+
+        // Make sure that the counter hasn't been called yet
+        assertThat("Counter count is incorrect", counter.getCount(), is(equalTo(COUNTER_COUNT.get())));
     }
 
 ```
@@ -3036,32 +2712,356 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedMe
 
 ### Deprecation
 'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedMethodBeanTest.java`
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/GaugeMethodBeanTest.java`
 #### Snippet
 ```java
-    public void countedMethodNotCalledYet() {
-        Counter counter = registry.getCounter(counterMetricID);
-        assertThat("Counter is not registered correctly", counter, notNullValue());
+        @SuppressWarnings("unchecked")
+        Gauge<Long> gauge = (Gauge<Long>) registry.getGauge(gaugeMID);
+        assertThat("Gauge is not registered correctly", gauge, notNullValue());
 
-        // Make sure that the counter hasn't been called yet
+        // Make sure that the gauge has the expected value
 ```
 
 ### Deprecation
 'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedMethodBeanTest.java`
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/GaugeMethodBeanTest.java`
 #### Snippet
 ```java
 
-        // Make sure that the counter hasn't been called yet
-        assertThat("Counter count is incorrect", counter.getCount(), is(equalTo(COUNTER_COUNT.get())));
+        // Make sure that the gauge has the expected value
+        assertThat("Gauge value is incorrect", gauge.getValue(), is(equalTo(0L)));
     }
 
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/GaugeMethodBeanTest.java`
+#### Snippet
+```java
+        @SuppressWarnings("unchecked")
+        Gauge<Long> gauge = (Gauge<Long>) registry.getGauge(gaugeMID);
+        assertThat("Gauge is not registered correctly", gauge, notNullValue());
+
+        // Call the setter method and assert the gauge is up-to-date
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/GaugeMethodBeanTest.java`
+#### Snippet
+```java
+        long value = Math.round(Math.random() * Long.MAX_VALUE);
+        bean.setGauge(value);
+        assertThat("Gauge value is incorrect", gauge.getValue(), is(equalTo(value)));
+    }
+}
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/inheritance/InheritedGaugeMethodBeanTest.java`
+#### Snippet
+```java
+        @SuppressWarnings("unchecked")
+        Gauge<Long> childGauge = (Gauge<Long>) registry.getGauge(childMID);
+        assertThat("Gauges are not registered correctly", parentGauge, notNullValue());
+        assertThat("Gauges are not registered correctly", childGauge, notNullValue());
+
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/inheritance/InheritedGaugeMethodBeanTest.java`
+#### Snippet
+```java
+        Gauge<Long> childGauge = (Gauge<Long>) registry.getGauge(childMID);
+        assertThat("Gauges are not registered correctly", parentGauge, notNullValue());
+        assertThat("Gauges are not registered correctly", childGauge, notNullValue());
+
+        // Make sure that the gauge has the expected value
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/inheritance/InheritedGaugeMethodBeanTest.java`
+#### Snippet
+```java
+
+        // Make sure that the gauge has the expected value
+        assertThat("Gauge values are incorrect", Arrays.asList(parentGauge.getValue(), childGauge.getValue()),
+                contains(0L, 0L));
+    }
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/inheritance/InheritedGaugeMethodBeanTest.java`
+#### Snippet
+```java
+        @SuppressWarnings("unchecked")
+        Gauge<Long> childGauge = (Gauge<Long>) registry.getGauge(childMID);
+        assertThat("Gauges are not registered correctly", parentGauge, notNullValue());
+        assertThat("Gauges are not registered correctly", childGauge, notNullValue());
+
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/inheritance/InheritedGaugeMethodBeanTest.java`
+#### Snippet
+```java
+        Gauge<Long> childGauge = (Gauge<Long>) registry.getGauge(childMID);
+        assertThat("Gauges are not registered correctly", parentGauge, notNullValue());
+        assertThat("Gauges are not registered correctly", childGauge, notNullValue());
+
+        // Call the setter methods and assert the gauges are up-to-date
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/inheritance/InheritedGaugeMethodBeanTest.java`
+#### Snippet
+```java
+        long childValue = Math.round(Math.random() * Long.MAX_VALUE);
+        bean.setChildGauge(childValue);
+        assertThat("Gauge values are incorrect", Arrays.asList(parentGauge.getValue(), childGauge.getValue()),
+                contains(parentValue, childValue));
+    }
+```
+
+### Deprecation
+'assertThat(T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TagsTest.java`
+#### Snippet
+```java
+
+        } catch (Exception cause) {
+            assertThat(cause, is(Matchers.<Exception>instanceOf(IllegalArgumentException.class)));
+            return;
+        }
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TagsTest.java`
+#### Snippet
+```java
+
+        // check multi-dimensional metrics are registered
+        assertThat("Timer is not registered correctly", registry.getTimer(timerColourMID), notNullValue());
+        assertThat("Timer is not registered correctly", registry.getTimer(timerRedMID), notNullValue());
+        assertThat("Timer is not registered correctly", registry.getTimer(timerBlueMID), notNullValue());
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TagsTest.java`
+#### Snippet
+```java
+        // check multi-dimensional metrics are registered
+        assertThat("Timer is not registered correctly", registry.getTimer(timerColourMID), notNullValue());
+        assertThat("Timer is not registered correctly", registry.getTimer(timerRedMID), notNullValue());
+        assertThat("Timer is not registered correctly", registry.getTimer(timerBlueMID), notNullValue());
+    }
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TagsTest.java`
+#### Snippet
+```java
+        assertThat("Timer is not registered correctly", registry.getTimer(timerColourMID), notNullValue());
+        assertThat("Timer is not registered correctly", registry.getTimer(timerRedMID), notNullValue());
+        assertThat("Timer is not registered correctly", registry.getTimer(timerBlueMID), notNullValue());
+    }
+
+```
+
+### Deprecation
+'assertThat(T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TagsTest.java`
+#### Snippet
+```java
+
+        } catch (Exception cause) {
+            assertThat(cause, is(Matchers.<Exception>instanceOf(IllegalArgumentException.class)));
+            return;
+        }
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TagsTest.java`
+#### Snippet
+```java
+
+        // check multi-dimensional metrics are registered
+        assertThat("Counter is not registered correctly", registry.getCounter(counterColourMID), notNullValue());
+        assertThat("Counter is not registered correctly", registry.getCounter(counterRedMID), notNullValue());
+        assertThat("Counter is not registered correctly", registry.getCounter(counterBlueMID), notNullValue());
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TagsTest.java`
+#### Snippet
+```java
+        // check multi-dimensional metrics are registered
+        assertThat("Counter is not registered correctly", registry.getCounter(counterColourMID), notNullValue());
+        assertThat("Counter is not registered correctly", registry.getCounter(counterRedMID), notNullValue());
+        assertThat("Counter is not registered correctly", registry.getCounter(counterBlueMID), notNullValue());
+    }
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TagsTest.java`
+#### Snippet
+```java
+        assertThat("Counter is not registered correctly", registry.getCounter(counterColourMID), notNullValue());
+        assertThat("Counter is not registered correctly", registry.getCounter(counterRedMID), notNullValue());
+        assertThat("Counter is not registered correctly", registry.getCounter(counterBlueMID), notNullValue());
+    }
+
+```
+
+### Deprecation
+'assertThat(T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TagsTest.java`
+#### Snippet
+```java
+
+        } catch (Exception cause) {
+            assertThat(cause, is(Matchers.<Exception>instanceOf(IllegalArgumentException.class)));
+            return;
+        }
+```
+
+### Deprecation
+'assertThat(T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TagsTest.java`
+#### Snippet
+```java
+
+        } catch (Exception cause) {
+            assertThat(cause, is(Matchers.<Exception>instanceOf(IllegalArgumentException.class)));
+            return;
+        }
+```
+
+### Deprecation
+'assertThat(T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TagsTest.java`
+#### Snippet
+```java
+        MetricID metricID = new MetricID("metricName", one, two);
+
+        assertThat(metricID.getTags(), hasKey("hello"));
+        assertThat(metricID.getTags(), hasValue("world"));
+
+```
+
+### Deprecation
+'assertThat(T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TagsTest.java`
+#### Snippet
+```java
+
+        assertThat(metricID.getTags(), hasKey("hello"));
+        assertThat(metricID.getTags(), hasValue("world"));
+
+        assertThat(metricID.getTags(), hasKey("goodbye"));
+```
+
+### Deprecation
+'assertThat(T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TagsTest.java`
+#### Snippet
+```java
+        assertThat(metricID.getTags(), hasValue("world"));
+
+        assertThat(metricID.getTags(), hasKey("goodbye"));
+        assertThat(metricID.getTags(), hasValue("friend"));
+    }
+```
+
+### Deprecation
+'assertThat(T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TagsTest.java`
+#### Snippet
+```java
+
+        assertThat(metricID.getTags(), hasKey("goodbye"));
+        assertThat(metricID.getTags(), hasValue("friend"));
+    }
+
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TagsTest.java`
+#### Snippet
+```java
+
+        // check multi-dimensional metrics are registered
+        assertThat("Histogram is not registered correctly", registry.getHistogram(histogramColourMID), notNullValue());
+        assertThat("Histogram is not registered correctly", registry.getHistogram(histogramRedMID), notNullValue());
+        assertThat("Histogram is not registered correctly", registry.getHistogram(histogramBlueMID), notNullValue());
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TagsTest.java`
+#### Snippet
+```java
+        // check multi-dimensional metrics are registered
+        assertThat("Histogram is not registered correctly", registry.getHistogram(histogramColourMID), notNullValue());
+        assertThat("Histogram is not registered correctly", registry.getHistogram(histogramRedMID), notNullValue());
+        assertThat("Histogram is not registered correctly", registry.getHistogram(histogramBlueMID), notNullValue());
+    }
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TagsTest.java`
+#### Snippet
+```java
+        assertThat("Histogram is not registered correctly", registry.getHistogram(histogramColourMID), notNullValue());
+        assertThat("Histogram is not registered correctly", registry.getHistogram(histogramRedMID), notNullValue());
+        assertThat("Histogram is not registered correctly", registry.getHistogram(histogramBlueMID), notNullValue());
+    }
+
+```
+
+### Deprecation
+'assertThat(java.lang.String, T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TagsTest.java`
+#### Snippet
+```java
+
+        // check the metric is registered
+        assertThat("Counter is not registered correctly", registry.getCounter(counterMID), notNullValue());
+    }
+
+```
+
+### Deprecation
+'assertThat(T, org.hamcrest.Matcher)' is deprecated
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TagsTest.java`
+#### Snippet
+```java
+
+        } catch (Exception cause) {
+            assertThat(cause, is(Matchers.<Exception>instanceOf(IllegalArgumentException.class)));
+            return;
+        }
 ```
 
 ## RuleId[id=CdiInjectionPointsInspection]
 ### CdiInjectionPointsInspection
 Unsatisfied dependency: no bean matches the injection point
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TimedTagMethodBeanTest.java`
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/MultipleMetricsConstructorBeanTest.java`
 #### Snippet
 ```java
 
@@ -3073,7 +3073,19 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TimedTagMeth
 
 ### CdiInjectionPointsInspection
 Unsatisfied dependency: no bean matches the injection point
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/CounterFieldTagBeanTest.java`
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CounterTest.java`
+#### Snippet
+```java
+
+    @Inject
+    private Counter count;
+
+    @Test
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/HistogramFieldBeanTest.java`
 #### Snippet
 ```java
 
@@ -3085,103 +3097,7 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/CounterField
 
 ### CdiInjectionPointsInspection
 Unsatisfied dependency: no bean matches the injection point
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/HistogramTagFieldBeanTest.java`
-#### Snippet
-```java
-
-    @Inject
-    private MetricRegistry registry;
-
-    @Inject
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/GaugeTagMethodBeanTest.java`
-#### Snippet
-```java
-
-    @Inject
-    private MetricRegistry registry;
-
-    @Inject
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedClassBeanTest.java`
-#### Snippet
-```java
-
-    @Inject
-    private MetricRegistry registry;
-
-    @Inject
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimerFieldBeanTest.java`
-#### Snippet
-```java
-
-    @Inject
-    private MetricRegistry registry;
-
-    @Inject
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedMethodBeanLookupTest.java`
-#### Snippet
-```java
-
-    @Inject
-    private MetricRegistry registry;
-
-    @Inject
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/GaugeTest.java`
-#### Snippet
-```java
-
-    @Inject
-    private MetricRegistry metrics;
-
-    private final AtomicInteger value = new AtomicInteger(0);
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `tck/rest/src/main/java/org/eclipse/microprofile/metrics/test/multipleinstances/MultipleBeanInstancesTest.java`
-#### Snippet
-```java
-
-    @Inject
-    private MetricRegistry registry;
-
-    @Inject
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/OverloadedTimedMethodBeanTest.java`
-#### Snippet
-```java
-
-    @Inject
-    private MetricRegistry registry;
-
-    @Inject
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/DefaultNameMetricMethodBeanTest.java`
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedConstructorBeanTest.java`
 #### Snippet
 ```java
 
@@ -3205,343 +3121,7 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimerFiel
 
 ### CdiInjectionPointsInspection
 Unsatisfied dependency: no bean matches the injection point
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/cdi/stereotype/StereotypeCountedClassBeanTest.java`
-#### Snippet
-```java
-
-    @Inject
-    private MetricRegistry metricRegistry;
-
-    @Inject
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedClassBeanTest.java`
-#### Snippet
-```java
-
-    @Inject
-    private MetricRegistry registry;
-
-    @Inject
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/HistogramFieldBeanTest.java`
-#### Snippet
-```java
-
-    @Inject
-    private MetricRegistry registry;
-
-    @Inject
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricIDTest.java`
-#### Snippet
-```java
-
-    @Inject
-    private MetricRegistry registry;
-
-    @Deployment
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CounterTest.java`
-#### Snippet
-```java
-
-    @Inject
-    private Counter count;
-
-    @Test
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedConstructorBeanTest.java`
-#### Snippet
-```java
-
-    @Inject
-    private MetricRegistry registry;
-
-    @Inject
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/MultipleMetricsConstructorBeanTest.java`
-#### Snippet
-```java
-
-    @Inject
-    private MetricRegistry registry;
-
-    @Inject
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/cdi/ApplicationScopedTimedMethodBeanTest.java`
-#### Snippet
-```java
-
-    @Inject
-    private MetricRegistry registry;
-
-    @Inject
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CounterFieldBeanTest.java`
-#### Snippet
-```java
-
-    @Inject
-    private MetricRegistry registry;
-
-    @Inject
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/MultipleMetricsMethodBeanTest.java`
-#### Snippet
-```java
-
-    @Inject
-    private MetricRegistry registry;
-
-    @Inject
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `tck/optional/src/main/java/org/eclipse/microprofile/metrics/test/optional/MetricAppBeanOptional.java`
-#### Snippet
-```java
-
-    @Inject
-    private MetricRegistry metrics;
-
-    @GET
-```
-
-### CdiInjectionPointsInspection
-Ambiguous dependency: there are multiple beans that match the injection point
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/GaugeMethodBeanTest.java`
-#### Snippet
-```java
-
-    @Inject
-    private GaugeMethodBean bean;
-
-    @Before
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/GaugeMethodBeanTest.java`
-#### Snippet
-```java
-
-    @Inject
-    private MetricRegistry registry;
-
-    @Inject
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/inheritance/InheritedGaugeMethodBeanTest.java`
-#### Snippet
-```java
-
-    @Inject
-    private MetricRegistry registry;
-
-    @Inject
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `tck/rest/src/main/java/org/eclipse/microprofile/metrics/test/MetricAppBean2.java`
-#### Snippet
-```java
-
-    @Inject
-    private MetricRegistry registry;
-
-    @Counted(name = "countMe2", absolute = true)
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `tck/rest/src/main/java/org/eclipse/microprofile/metrics/test/MetricAppBean.java`
-#### Snippet
-```java
-
-    @Inject
-    private MetricRegistry metrics;
-
-    public void countMe() {
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TimerTagFieldBeanTest.java`
-#### Snippet
-```java
-
-    @Inject
-    private MetricRegistry registry;
-
-    @Inject
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricRegistryTest.java`
-#### Snippet
-```java
-    @Inject
-    @RegistryScope(scope = MetricRegistry.BASE_SCOPE)
-    private MetricRegistry baseMetrics;
-
-    @Inject
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricRegistryTest.java`
-#### Snippet
-```java
-    @Inject
-    @RegistryType(type = MetricRegistry.Type.VENDOR)
-    private MetricRegistry vendorMetrics_RegistryType;
-
-    @Inject
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricRegistryTest.java`
-#### Snippet
-```java
-    @Inject
-    @RegistryType(type = MetricRegistry.Type.BASE)
-    private MetricRegistry baseMetrics_RegistryType;
-
-    @Inject
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricRegistryTest.java`
-#### Snippet
-```java
-    @Inject
-    @RegistryScope(scope = MetricRegistry.VENDOR_SCOPE)
-    private MetricRegistry vendorMetrics;
-
-    @Inject
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricRegistryTest.java`
-#### Snippet
-```java
-
-    @Inject
-    private MetricRegistry metrics;
-
-    @Inject
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricRegistryTest.java`
-#### Snippet
-```java
-    @Inject
-    @RegistryType(type = MetricRegistry.Type.APPLICATION)
-    private MetricRegistry applicationMetrics_RegistryType;
-
-    @Deployment
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricRegistryTest.java`
-#### Snippet
-```java
-    @Inject
-    @RegistryScope(scope = CUSTOM_SCOPE)
-    private MetricRegistry customScope;
-
-    @Inject
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
 in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/inheritance/InheritedTimedMethodBeanTest.java`
-#### Snippet
-```java
-
-    @Inject
-    private MetricRegistry registry;
-
-    @Inject
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TagsTest.java`
-#### Snippet
-```java
-
-    @Inject
-    private MetricRegistry registry;
-
-    @Deployment
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/HistogramTest.java`
-#### Snippet
-```java
-
-    @Inject
-    private Histogram histogramInt;
-
-    @Inject
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/HistogramTest.java`
-#### Snippet
-```java
-
-    @Inject
-    private MetricRegistry metrics;
-
-    private static Histogram histogramLong = null;
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedMethodTagBeanTest.java`
 #### Snippet
 ```java
 
@@ -3577,12 +3157,288 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/inheritance/Visib
 
 ### CdiInjectionPointsInspection
 Unsatisfied dependency: no bean matches the injection point
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedMethodBeanTest.java`
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedClassBeanTest.java`
 #### Snippet
 ```java
 
     @Inject
     private MetricRegistry registry;
+
+    @Inject
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricRegistryTest.java`
+#### Snippet
+```java
+    @Inject
+    @RegistryScope(scope = CUSTOM_SCOPE)
+    private MetricRegistry customScope;
+
+    @Inject
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricRegistryTest.java`
+#### Snippet
+```java
+    @Inject
+    @RegistryScope(scope = MetricRegistry.VENDOR_SCOPE)
+    private MetricRegistry vendorMetrics;
+
+    @Inject
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricRegistryTest.java`
+#### Snippet
+```java
+    @Inject
+    @RegistryType(type = MetricRegistry.Type.VENDOR)
+    private MetricRegistry vendorMetrics_RegistryType;
+
+    @Inject
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricRegistryTest.java`
+#### Snippet
+```java
+    @Inject
+    @RegistryType(type = MetricRegistry.Type.APPLICATION)
+    private MetricRegistry applicationMetrics_RegistryType;
+
+    @Deployment
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricRegistryTest.java`
+#### Snippet
+```java
+    @Inject
+    @RegistryType(type = MetricRegistry.Type.BASE)
+    private MetricRegistry baseMetrics_RegistryType;
+
+    @Inject
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricRegistryTest.java`
+#### Snippet
+```java
+
+    @Inject
+    private MetricRegistry metrics;
+
+    @Inject
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricRegistryTest.java`
+#### Snippet
+```java
+    @Inject
+    @RegistryScope(scope = MetricRegistry.BASE_SCOPE)
+    private MetricRegistry baseMetrics;
+
+    @Inject
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimerFieldBeanTest.java`
+#### Snippet
+```java
+
+    @Inject
+    private MetricRegistry registry;
+
+    @Inject
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TimerTagFieldBeanTest.java`
+#### Snippet
+```java
+
+    @Inject
+    private MetricRegistry registry;
+
+    @Inject
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CounterFieldBeanTest.java`
+#### Snippet
+```java
+
+    @Inject
+    private MetricRegistry registry;
+
+    @Inject
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `tck/rest/src/main/java/org/eclipse/microprofile/metrics/test/MetricAppBean2.java`
+#### Snippet
+```java
+
+    @Inject
+    private MetricRegistry registry;
+
+    @Counted(name = "countMe2", absolute = true)
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/cdi/stereotype/StereotypeCountedClassBeanTest.java`
+#### Snippet
+```java
+
+    @Inject
+    private MetricRegistry metricRegistry;
+
+    @Inject
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TimedTagMethodBeanTest.java`
+#### Snippet
+```java
+
+    @Inject
+    private MetricRegistry registry;
+
+    @Inject
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/cdi/ApplicationScopedTimedMethodBeanTest.java`
+#### Snippet
+```java
+
+    @Inject
+    private MetricRegistry registry;
+
+    @Inject
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/OverloadedTimedMethodBeanTest.java`
+#### Snippet
+```java
+
+    @Inject
+    private MetricRegistry registry;
+
+    @Inject
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/HistogramTagFieldBeanTest.java`
+#### Snippet
+```java
+
+    @Inject
+    private MetricRegistry registry;
+
+    @Inject
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/GaugeTest.java`
+#### Snippet
+```java
+
+    @Inject
+    private MetricRegistry metrics;
+
+    private final AtomicInteger value = new AtomicInteger(0);
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedClassBeanTest.java`
+#### Snippet
+```java
+
+    @Inject
+    private MetricRegistry registry;
+
+    @Inject
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedMethodBeanLookupTest.java`
+#### Snippet
+```java
+
+    @Inject
+    private MetricRegistry registry;
+
+    @Inject
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/GaugeTagMethodBeanTest.java`
+#### Snippet
+```java
+
+    @Inject
+    private MetricRegistry registry;
+
+    @Inject
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/CounterFieldTagBeanTest.java`
+#### Snippet
+```java
+
+    @Inject
+    private MetricRegistry registry;
+
+    @Inject
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/HistogramTest.java`
+#### Snippet
+```java
+
+    @Inject
+    private MetricRegistry metrics;
+
+    private static Histogram histogramLong = null;
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/HistogramTest.java`
+#### Snippet
+```java
+
+    @Inject
+    private Histogram histogramInt;
 
     @Inject
 ```
@@ -3601,6 +3457,66 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimerTest
 
 ### CdiInjectionPointsInspection
 Unsatisfied dependency: no bean matches the injection point
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedMethodTagBeanTest.java`
+#### Snippet
+```java
+
+    @Inject
+    private MetricRegistry registry;
+
+    @Inject
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/DefaultNameMetricMethodBeanTest.java`
+#### Snippet
+```java
+
+    @Inject
+    private MetricRegistry registry;
+
+    @Inject
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/MetricIDTest.java`
+#### Snippet
+```java
+
+    @Inject
+    private MetricRegistry registry;
+
+    @Deployment
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedMethodBeanTest.java`
+#### Snippet
+```java
+
+    @Inject
+    private MetricRegistry registry;
+
+    @Inject
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/MultipleMetricsMethodBeanTest.java`
+#### Snippet
+```java
+
+    @Inject
+    private MetricRegistry registry;
+
+    @Inject
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
 in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedMethodBeanTest.java`
 #### Snippet
 ```java
@@ -3609,6 +3525,90 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/CountedMe
     private MetricRegistry registry;
 
     @Inject
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `tck/rest/src/main/java/org/eclipse/microprofile/metrics/test/MetricAppBean.java`
+#### Snippet
+```java
+
+    @Inject
+    private MetricRegistry metrics;
+
+    public void countMe() {
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `tck/rest/src/main/java/org/eclipse/microprofile/metrics/test/multipleinstances/MultipleBeanInstancesTest.java`
+#### Snippet
+```java
+
+    @Inject
+    private MetricRegistry registry;
+
+    @Inject
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/GaugeMethodBeanTest.java`
+#### Snippet
+```java
+
+    @Inject
+    private MetricRegistry registry;
+
+    @Inject
+```
+
+### CdiInjectionPointsInspection
+Ambiguous dependency: there are multiple beans that match the injection point
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/GaugeMethodBeanTest.java`
+#### Snippet
+```java
+
+    @Inject
+    private GaugeMethodBean bean;
+
+    @Before
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/inheritance/InheritedGaugeMethodBeanTest.java`
+#### Snippet
+```java
+
+    @Inject
+    private MetricRegistry registry;
+
+    @Inject
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/TagsTest.java`
+#### Snippet
+```java
+
+    @Inject
+    private MetricRegistry registry;
+
+    @Deployment
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `tck/optional/src/main/java/org/eclipse/microprofile/metrics/test/optional/MetricAppBeanOptional.java`
+#### Snippet
+```java
+
+    @Inject
+    private MetricRegistry metrics;
+
+    @GET
 ```
 
 ## RuleId[id=UnnecessaryToStringCall]
@@ -3688,6 +3688,18 @@ in `tck/optional/src/main/java/org/eclipse/microprofile/metrics/test/optional/Mp
 ## RuleId[id=NullArgumentToVariableArgMethod]
 ### NullArgumentToVariableArgMethod
 Confusing argument `null`, unclear if a varargs or non-varargs call is desired
+in `api/src/main/java/org/eclipse/microprofile/metrics/MetricID.java`
+#### Snippet
+```java
+     */
+    public MetricID(String name) {
+        this(name, null);
+    }
+
+```
+
+### NullArgumentToVariableArgMethod
+Confusing argument `null`, unclear if a varargs or non-varargs call is desired
 in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/GaugeTest.java`
 #### Snippet
 ```java
@@ -3708,18 +3720,6 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/GaugeTest
                 }, null);
 
     }
-```
-
-### NullArgumentToVariableArgMethod
-Confusing argument `null`, unclear if a varargs or non-varargs call is desired
-in `api/src/main/java/org/eclipse/microprofile/metrics/MetricID.java`
-#### Snippet
-```java
-     */
-    public MetricID(String name) {
-        this(name, null);
-    }
-
 ```
 
 ## RuleId[id=ConstantValue]
@@ -3750,42 +3750,6 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedClas
 
 ## RuleId[id=IgnoreResultOfCall]
 ### IgnoreResultOfCall
-Result of `GaugeTagMethodBean.getGaugeOne()` is ignored
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/GaugeTagMethodBeanTest.java`
-#### Snippet
-```java
-        // Let's trigger the instantiation of the application scoped bean explicitly
-        // as only a proxy gets injected otherwise
-        bean.getGaugeOne();
-        bean.getGaugeTwo();
-        /*
-```
-
-### IgnoreResultOfCall
-Result of `GaugeTagMethodBean.getGaugeTwo()` is ignored
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/GaugeTagMethodBeanTest.java`
-#### Snippet
-```java
-        // as only a proxy gets injected otherwise
-        bean.getGaugeOne();
-        bean.getGaugeTwo();
-        /*
-         * The MetricID relies on the MicroProfile Config API. Running a managed arquillian container will result with
-```
-
-### IgnoreResultOfCall
-Result of `TimedClassBean.toString()` is ignored
-in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedClassBeanTest.java`
-#### Snippet
-```java
-        // explicitly
-        // as only a proxy gets injected otherwise
-        bean.toString();
-        /*
-         * The MetricID relies on the MicroProfile Config API. Running a managed arquillian container will result with
-```
-
-### IgnoreResultOfCall
 Result of `GaugeInjectionBean.getGauge()` is ignored
 in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/cdi/GaugeInjectionBeanTest.java`
 #### Snippet
@@ -3805,6 +3769,42 @@ in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/cdi/ApplicationSc
         // Let's trigger the instantiation of the application scoped bean explicitly
         // as only a proxy gets injected otherwise
         bean.toString();
+        /*
+         * The MetricID relies on the MicroProfile Config API. Running a managed arquillian container will result with
+```
+
+### IgnoreResultOfCall
+Result of `TimedClassBean.toString()` is ignored
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/metrics/TimedClassBeanTest.java`
+#### Snippet
+```java
+        // explicitly
+        // as only a proxy gets injected otherwise
+        bean.toString();
+        /*
+         * The MetricID relies on the MicroProfile Config API. Running a managed arquillian container will result with
+```
+
+### IgnoreResultOfCall
+Result of `GaugeTagMethodBean.getGaugeOne()` is ignored
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/GaugeTagMethodBeanTest.java`
+#### Snippet
+```java
+        // Let's trigger the instantiation of the application scoped bean explicitly
+        // as only a proxy gets injected otherwise
+        bean.getGaugeOne();
+        bean.getGaugeTwo();
+        /*
+```
+
+### IgnoreResultOfCall
+Result of `GaugeTagMethodBean.getGaugeTwo()` is ignored
+in `tck/api/src/main/java/org/eclipse/microprofile/metrics/tck/tags/GaugeTagMethodBeanTest.java`
+#### Snippet
+```java
+        // as only a proxy gets injected otherwise
+        bean.getGaugeOne();
+        bean.getGaugeTwo();
         /*
          * The MetricID relies on the MicroProfile Config API. Running a managed arquillian container will result with
 ```
