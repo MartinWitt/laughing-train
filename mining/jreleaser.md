@@ -1,15 +1,15 @@
 # jreleaser 
  
 # Bad smells
-I found 648 bad smells with 1 repairable:
+I found 653 bad smells with 1 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| UNCHECKED_WARNING | 157 | false |
-| DuplicatedCode | 144 | false |
+| UNCHECKED_WARNING | 158 | false |
+| DuplicatedCode | 146 | false |
 | Deprecation | 69 | false |
-| UnusedAssignment | 36 | false |
+| UnusedAssignment | 37 | false |
 | IOStreamConstructor | 32 | false |
-| NullableProblems | 27 | false |
+| NullableProblems | 28 | false |
 | AutoCloseableResource | 25 | false |
 | RegExpRedundantEscape | 21 | false |
 | DataFlowIssue | 15 | false |
@@ -123,6 +123,18 @@ in `api/jreleaser-model-api/src/main/java/org/jreleaser/mustache/TemplateContext
 #### Snippet
 ```java
 
+    public <V> V set(String key, V value, V defaultValue) {
+        V previousValue = (V) properties.get(key);
+        if (null != value && null != defaultValue) properties.put(key, value);
+        return previousValue;
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'V'
+in `api/jreleaser-model-api/src/main/java/org/jreleaser/mustache/TemplateContext.java`
+#### Snippet
+```java
+
     public <V> V remove(String key) {
         return (V) properties.remove(key);
     }
@@ -150,18 +162,6 @@ in `api/jreleaser-model-api/src/main/java/org/jreleaser/mustache/TemplateContext
     public <V> V set(String key, V value) {
         V previousValue = (V) properties.get(key);
         if (null != value) properties.put(key, value);
-        return previousValue;
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'V'
-in `api/jreleaser-model-api/src/main/java/org/jreleaser/mustache/TemplateContext.java`
-#### Snippet
-```java
-
-    public <V> V set(String key, V value, V defaultValue) {
-        V previousValue = (V) properties.get(key);
-        if (null != value && null != defaultValue) properties.put(key, value);
         return previousValue;
 ```
 
@@ -475,32 +475,6 @@ in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/release/Releasers.j
 
 ### UNCHECKED_WARNING
 Unchecked assignment: 'java.util.Map' to 'java.util.Map\>'
-in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/announce/Announcers.java`
-#### Snippet
-```java
-        JReleaserModel model = context.getModel();
-
-        Map<String, AnnouncerBuilder<?>> builders = StreamSupport.stream(ServiceLoader.load(AnnouncerBuilderFactory.class,
-                Announcers.class.getClassLoader()).spliterator(), false)
-            .collect(Collectors.toMap(AnnouncerBuilderFactory::getName, AnnouncerBuilderFactory::getBuilder));
-
-        Map<String, Announcer<?>> announcers = new TreeMap<>();
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.stream.Collector' to 'java.util.stream.Collector\>\>'
-in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/announce/Announcers.java`
-#### Snippet
-```java
-        Map<String, AnnouncerBuilder<?>> builders = StreamSupport.stream(ServiceLoader.load(AnnouncerBuilderFactory.class,
-                Announcers.class.getClassLoader()).spliterator(), false)
-            .collect(Collectors.toMap(AnnouncerBuilderFactory::getName, AnnouncerBuilderFactory::getBuilder));
-
-        Map<String, Announcer<?>> announcers = new TreeMap<>();
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Map' to 'java.util.Map\>'
 in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/assemble/AssemblerProcessors.java`
 #### Snippet
 ```java
@@ -547,6 +521,32 @@ in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/assemble/AssemblerP
             return assemblerProcessor;
         }
 
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Map' to 'java.util.Map\>'
+in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/announce/Announcers.java`
+#### Snippet
+```java
+        JReleaserModel model = context.getModel();
+
+        Map<String, AnnouncerBuilder<?>> builders = StreamSupport.stream(ServiceLoader.load(AnnouncerBuilderFactory.class,
+                Announcers.class.getClassLoader()).spliterator(), false)
+            .collect(Collectors.toMap(AnnouncerBuilderFactory::getName, AnnouncerBuilderFactory::getBuilder));
+
+        Map<String, Announcer<?>> announcers = new TreeMap<>();
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.stream.Collector' to 'java.util.stream.Collector\>\>'
+in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/announce/Announcers.java`
+#### Snippet
+```java
+        Map<String, AnnouncerBuilder<?>> builders = StreamSupport.stream(ServiceLoader.load(AnnouncerBuilderFactory.class,
+                Announcers.class.getClassLoader()).spliterator(), false)
+            .collect(Collectors.toMap(AnnouncerBuilderFactory::getName, AnnouncerBuilderFactory::getBuilder));
+
+        Map<String, Announcer<?>> announcers = new TreeMap<>();
 ```
 
 ### UNCHECKED_WARNING
@@ -650,21 +650,9 @@ Unchecked assignment: 'java.util.Map' to 'java.util.Map'
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserModelPrinter.java`
 #### Snippet
 ```java
-    private void doPrintMapEntry(String key, Object value, int offset) {
-        if (value instanceof Map) {
-            doPrintMap(key, (Map) value, offset);
-        } else if (value instanceof Collection) {
-            doPrintCollection(key, (Collection<?>) value, offset);
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Map' to 'java.util.Map'
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserModelPrinter.java`
-#### Snippet
-```java
-                if (value instanceof Map) {
                     if (!((Map) value).isEmpty()) {
-                        doPrintMap((Map) value, offset);
+                        out.println(multiply("    ", offset) + key + ":");
+                        doPrintMap((Map) value, offset + 1);
                     }
                 } else if (value instanceof Collection) {
 ```
@@ -686,9 +674,9 @@ Unchecked assignment: 'java.util.Map' to 'java.util.Map'
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserModelPrinter.java`
 #### Snippet
 ```java
+                if (value instanceof Map) {
                     if (!((Map) value).isEmpty()) {
-                        out.println(multiply("    ", offset) + key + ":");
-                        doPrintMap((Map) value, offset + 1);
+                        doPrintMap((Map) value, offset);
                     }
                 } else if (value instanceof Collection) {
 ```
@@ -703,6 +691,18 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleas
                         doPrintMap((Map) value, offset);
                     }
                 } else if (value instanceof Collection) {
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Map' to 'java.util.Map'
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserModelPrinter.java`
+#### Snippet
+```java
+    private void doPrintMapEntry(String key, Object value, int offset) {
+        if (value instanceof Map) {
+            doPrintMap(key, (Map) value, offset);
+        } else if (value instanceof Collection) {
+            doPrintCollection(key, (Collection<?>) value, offset);
 ```
 
 ### UNCHECKED_WARNING
@@ -790,78 +790,6 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/deploy/
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'java.util.List' to 'java.util.List'
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/deploy/maven/Maven.java`
-#### Snippet
-```java
-    public <A extends MavenDeployer<?>> List<A> findAllActiveMavenDeployers() {
-        List<A> deployers = new ArrayList<>();
-        deployers.addAll((List<A>) getActiveArtifactories());
-        deployers.addAll((List<A>) getActiveAzures());
-        deployers.addAll((List<A>) getActiveGiteas());
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.util.List' to 'java.util.List'
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/deploy/maven/Maven.java`
-#### Snippet
-```java
-        List<A> deployers = new ArrayList<>();
-        deployers.addAll((List<A>) getActiveArtifactories());
-        deployers.addAll((List<A>) getActiveAzures());
-        deployers.addAll((List<A>) getActiveGiteas());
-        deployers.addAll((List<A>) getActiveGithubs());
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.util.List' to 'java.util.List'
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/deploy/maven/Maven.java`
-#### Snippet
-```java
-        deployers.addAll((List<A>) getActiveArtifactories());
-        deployers.addAll((List<A>) getActiveAzures());
-        deployers.addAll((List<A>) getActiveGiteas());
-        deployers.addAll((List<A>) getActiveGithubs());
-        deployers.addAll((List<A>) getActiveGitlabs());
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.util.List' to 'java.util.List'
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/deploy/maven/Maven.java`
-#### Snippet
-```java
-        deployers.addAll((List<A>) getActiveAzures());
-        deployers.addAll((List<A>) getActiveGiteas());
-        deployers.addAll((List<A>) getActiveGithubs());
-        deployers.addAll((List<A>) getActiveGitlabs());
-        deployers.addAll((List<A>) getActiveNexus2s());
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.util.List' to 'java.util.List'
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/deploy/maven/Maven.java`
-#### Snippet
-```java
-        deployers.addAll((List<A>) getActiveGiteas());
-        deployers.addAll((List<A>) getActiveGithubs());
-        deployers.addAll((List<A>) getActiveGitlabs());
-        deployers.addAll((List<A>) getActiveNexus2s());
-        return deployers;
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.util.List' to 'java.util.List'
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/deploy/maven/Maven.java`
-#### Snippet
-```java
-        deployers.addAll((List<A>) getActiveGithubs());
-        deployers.addAll((List<A>) getActiveGitlabs());
-        deployers.addAll((List<A>) getActiveNexus2s());
-        return deployers;
-    }
-```
-
-### UNCHECKED_WARNING
 Unchecked call to 'addAll(Collection)' as a member of raw type 'java.util.List'
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/deploy/maven/Maven.java`
 #### Snippet
@@ -946,27 +874,75 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/deploy/
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'org.jreleaser.model.internal.catalog.sbom.CyclonedxSbomCataloger' to 'A'
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/catalog/sbom/Sbom.java`
+Unchecked cast: 'java.util.List' to 'java.util.List'
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/deploy/maven/Maven.java`
 #### Snippet
 ```java
-        switch (name.toLowerCase(Locale.ENGLISH).trim()) {
-            case org.jreleaser.model.api.catalog.sbom.CyclonedxSbomCataloger.TYPE:
-                return (A) getCyclonedx();
-            case org.jreleaser.model.api.catalog.sbom.SyftSbomCataloger.TYPE:
-                return (A) getSyft();
+    public <A extends MavenDeployer<?>> List<A> findAllActiveMavenDeployers() {
+        List<A> deployers = new ArrayList<>();
+        deployers.addAll((List<A>) getActiveArtifactories());
+        deployers.addAll((List<A>) getActiveAzures());
+        deployers.addAll((List<A>) getActiveGiteas());
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'org.jreleaser.model.internal.catalog.sbom.SyftSbomCataloger' to 'A'
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/catalog/sbom/Sbom.java`
+Unchecked cast: 'java.util.List' to 'java.util.List'
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/deploy/maven/Maven.java`
 #### Snippet
 ```java
-                return (A) getCyclonedx();
-            case org.jreleaser.model.api.catalog.sbom.SyftSbomCataloger.TYPE:
-                return (A) getSyft();
-            default:
-                throw new JReleaserException(RB.$("ERROR_unsupported_cataloger", name));
+        List<A> deployers = new ArrayList<>();
+        deployers.addAll((List<A>) getActiveArtifactories());
+        deployers.addAll((List<A>) getActiveAzures());
+        deployers.addAll((List<A>) getActiveGiteas());
+        deployers.addAll((List<A>) getActiveGithubs());
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.util.List' to 'java.util.List'
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/deploy/maven/Maven.java`
+#### Snippet
+```java
+        deployers.addAll((List<A>) getActiveArtifactories());
+        deployers.addAll((List<A>) getActiveAzures());
+        deployers.addAll((List<A>) getActiveGiteas());
+        deployers.addAll((List<A>) getActiveGithubs());
+        deployers.addAll((List<A>) getActiveGitlabs());
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.util.List' to 'java.util.List'
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/deploy/maven/Maven.java`
+#### Snippet
+```java
+        deployers.addAll((List<A>) getActiveAzures());
+        deployers.addAll((List<A>) getActiveGiteas());
+        deployers.addAll((List<A>) getActiveGithubs());
+        deployers.addAll((List<A>) getActiveGitlabs());
+        deployers.addAll((List<A>) getActiveNexus2s());
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.util.List' to 'java.util.List'
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/deploy/maven/Maven.java`
+#### Snippet
+```java
+        deployers.addAll((List<A>) getActiveGiteas());
+        deployers.addAll((List<A>) getActiveGithubs());
+        deployers.addAll((List<A>) getActiveGitlabs());
+        deployers.addAll((List<A>) getActiveNexus2s());
+        return deployers;
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.util.List' to 'java.util.List'
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/deploy/maven/Maven.java`
+#### Snippet
+```java
+        deployers.addAll((List<A>) getActiveGithubs());
+        deployers.addAll((List<A>) getActiveGitlabs());
+        deployers.addAll((List<A>) getActiveNexus2s());
+        return deployers;
+    }
 ```
 
 ### UNCHECKED_WARNING
@@ -1006,99 +982,27 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/catalog
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'java.util.List' to 'java.util.List'
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/upload/Upload.java`
+Unchecked cast: 'org.jreleaser.model.internal.catalog.sbom.CyclonedxSbomCataloger' to 'A'
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/catalog/sbom/Sbom.java`
 #### Snippet
 ```java
-    public <A extends Uploader<?>> List<A> findAllActiveUploaders() {
-        List<A> uploaders = new ArrayList<>();
-        uploaders.addAll((List<A>) getActiveArtifactories());
-        uploaders.addAll((List<A>) getActiveFtps());
-        uploaders.addAll((List<A>) getActiveGiteas());
+        switch (name.toLowerCase(Locale.ENGLISH).trim()) {
+            case org.jreleaser.model.api.catalog.sbom.CyclonedxSbomCataloger.TYPE:
+                return (A) getCyclonedx();
+            case org.jreleaser.model.api.catalog.sbom.SyftSbomCataloger.TYPE:
+                return (A) getSyft();
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'java.util.List' to 'java.util.List'
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/upload/Upload.java`
+Unchecked cast: 'org.jreleaser.model.internal.catalog.sbom.SyftSbomCataloger' to 'A'
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/catalog/sbom/Sbom.java`
 #### Snippet
 ```java
-        List<A> uploaders = new ArrayList<>();
-        uploaders.addAll((List<A>) getActiveArtifactories());
-        uploaders.addAll((List<A>) getActiveFtps());
-        uploaders.addAll((List<A>) getActiveGiteas());
-        uploaders.addAll((List<A>) getActiveGitlabs());
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.util.List' to 'java.util.List'
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/upload/Upload.java`
-#### Snippet
-```java
-        uploaders.addAll((List<A>) getActiveArtifactories());
-        uploaders.addAll((List<A>) getActiveFtps());
-        uploaders.addAll((List<A>) getActiveGiteas());
-        uploaders.addAll((List<A>) getActiveGitlabs());
-        uploaders.addAll((List<A>) getActiveHttps());
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.util.List' to 'java.util.List'
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/upload/Upload.java`
-#### Snippet
-```java
-        uploaders.addAll((List<A>) getActiveFtps());
-        uploaders.addAll((List<A>) getActiveGiteas());
-        uploaders.addAll((List<A>) getActiveGitlabs());
-        uploaders.addAll((List<A>) getActiveHttps());
-        uploaders.addAll((List<A>) getActiveS3s());
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.util.List' to 'java.util.List'
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/upload/Upload.java`
-#### Snippet
-```java
-        uploaders.addAll((List<A>) getActiveGiteas());
-        uploaders.addAll((List<A>) getActiveGitlabs());
-        uploaders.addAll((List<A>) getActiveHttps());
-        uploaders.addAll((List<A>) getActiveS3s());
-        uploaders.addAll((List<A>) getActiveScps());
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.util.List' to 'java.util.List'
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/upload/Upload.java`
-#### Snippet
-```java
-        uploaders.addAll((List<A>) getActiveGitlabs());
-        uploaders.addAll((List<A>) getActiveHttps());
-        uploaders.addAll((List<A>) getActiveS3s());
-        uploaders.addAll((List<A>) getActiveScps());
-        uploaders.addAll((List<A>) getActiveSftps());
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.util.List' to 'java.util.List'
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/upload/Upload.java`
-#### Snippet
-```java
-        uploaders.addAll((List<A>) getActiveHttps());
-        uploaders.addAll((List<A>) getActiveS3s());
-        uploaders.addAll((List<A>) getActiveScps());
-        uploaders.addAll((List<A>) getActiveSftps());
-        return uploaders;
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.util.List' to 'java.util.List'
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/upload/Upload.java`
-#### Snippet
-```java
-        uploaders.addAll((List<A>) getActiveS3s());
-        uploaders.addAll((List<A>) getActiveScps());
-        uploaders.addAll((List<A>) getActiveSftps());
-        return uploaders;
-    }
+                return (A) getCyclonedx();
+            case org.jreleaser.model.api.catalog.sbom.SyftSbomCataloger.TYPE:
+                return (A) getSyft();
+            default:
+                throw new JReleaserException(RB.$("ERROR_unsupported_cataloger", name));
 ```
 
 ### UNCHECKED_WARNING
@@ -1198,6 +1102,102 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/upload/
 ```
 
 ### UNCHECKED_WARNING
+Unchecked cast: 'java.util.List' to 'java.util.List'
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/upload/Upload.java`
+#### Snippet
+```java
+    public <A extends Uploader<?>> List<A> findAllActiveUploaders() {
+        List<A> uploaders = new ArrayList<>();
+        uploaders.addAll((List<A>) getActiveArtifactories());
+        uploaders.addAll((List<A>) getActiveFtps());
+        uploaders.addAll((List<A>) getActiveGiteas());
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.util.List' to 'java.util.List'
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/upload/Upload.java`
+#### Snippet
+```java
+        List<A> uploaders = new ArrayList<>();
+        uploaders.addAll((List<A>) getActiveArtifactories());
+        uploaders.addAll((List<A>) getActiveFtps());
+        uploaders.addAll((List<A>) getActiveGiteas());
+        uploaders.addAll((List<A>) getActiveGitlabs());
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.util.List' to 'java.util.List'
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/upload/Upload.java`
+#### Snippet
+```java
+        uploaders.addAll((List<A>) getActiveArtifactories());
+        uploaders.addAll((List<A>) getActiveFtps());
+        uploaders.addAll((List<A>) getActiveGiteas());
+        uploaders.addAll((List<A>) getActiveGitlabs());
+        uploaders.addAll((List<A>) getActiveHttps());
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.util.List' to 'java.util.List'
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/upload/Upload.java`
+#### Snippet
+```java
+        uploaders.addAll((List<A>) getActiveFtps());
+        uploaders.addAll((List<A>) getActiveGiteas());
+        uploaders.addAll((List<A>) getActiveGitlabs());
+        uploaders.addAll((List<A>) getActiveHttps());
+        uploaders.addAll((List<A>) getActiveS3s());
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.util.List' to 'java.util.List'
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/upload/Upload.java`
+#### Snippet
+```java
+        uploaders.addAll((List<A>) getActiveGiteas());
+        uploaders.addAll((List<A>) getActiveGitlabs());
+        uploaders.addAll((List<A>) getActiveHttps());
+        uploaders.addAll((List<A>) getActiveS3s());
+        uploaders.addAll((List<A>) getActiveScps());
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.util.List' to 'java.util.List'
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/upload/Upload.java`
+#### Snippet
+```java
+        uploaders.addAll((List<A>) getActiveGitlabs());
+        uploaders.addAll((List<A>) getActiveHttps());
+        uploaders.addAll((List<A>) getActiveS3s());
+        uploaders.addAll((List<A>) getActiveScps());
+        uploaders.addAll((List<A>) getActiveSftps());
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.util.List' to 'java.util.List'
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/upload/Upload.java`
+#### Snippet
+```java
+        uploaders.addAll((List<A>) getActiveHttps());
+        uploaders.addAll((List<A>) getActiveS3s());
+        uploaders.addAll((List<A>) getActiveScps());
+        uploaders.addAll((List<A>) getActiveSftps());
+        return uploaders;
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.util.List' to 'java.util.List'
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/upload/Upload.java`
+#### Snippet
+```java
+        uploaders.addAll((List<A>) getActiveS3s());
+        uploaders.addAll((List<A>) getActiveScps());
+        uploaders.addAll((List<A>) getActiveSftps());
+        return uploaders;
+    }
+```
+
+### UNCHECKED_WARNING
 Unchecked cast: 'org.jreleaser.model.internal.announce.ArticleAnnouncer' to 'A'
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/Announce.java`
 #### Snippet
@@ -1205,6 +1205,18 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announc
         switch (name.toLowerCase(Locale.ENGLISH).trim()) {
             case org.jreleaser.model.api.announce.ArticleAnnouncer.TYPE:
                 return (A) getArticle();
+            case org.jreleaser.model.api.announce.BlueskyAnnouncer.TYPE:
+                return (A) getBluesky();
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'org.jreleaser.model.internal.announce.BlueskyAnnouncer' to 'A'
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/Announce.java`
+#### Snippet
+```java
+                return (A) getArticle();
+            case org.jreleaser.model.api.announce.BlueskyAnnouncer.TYPE:
+                return (A) getBluesky();
             case org.jreleaser.model.api.announce.DiscordAnnouncer.TYPE:
                 return (A) getDiscord();
 ```
@@ -1214,7 +1226,7 @@ Unchecked cast: 'org.jreleaser.model.internal.announce.DiscordAnnouncer' to 'A'
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/Announce.java`
 #### Snippet
 ```java
-                return (A) getArticle();
+                return (A) getBluesky();
             case org.jreleaser.model.api.announce.DiscordAnnouncer.TYPE:
                 return (A) getDiscord();
             case org.jreleaser.model.api.announce.DiscourseAnnouncer.TYPE:
@@ -1426,66 +1438,6 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announc
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'java.util.Map' to 'java.util.Map'
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assemble/Assemble.java`
-#### Snippet
-```java
-        switch (assemblerName) {
-            case org.jreleaser.model.api.assemble.ArchiveAssembler.TYPE:
-                return (Map<String, A>) archive;
-            case org.jreleaser.model.api.assemble.JavaArchiveAssembler.TYPE:
-                return (Map<String, A>) javaArchive;
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.util.Map' to 'java.util.Map'
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assemble/Assemble.java`
-#### Snippet
-```java
-                return (Map<String, A>) archive;
-            case org.jreleaser.model.api.assemble.JavaArchiveAssembler.TYPE:
-                return (Map<String, A>) javaArchive;
-            case org.jreleaser.model.api.assemble.JlinkAssembler.TYPE:
-                return (Map<String, A>) jlink;
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.util.Map' to 'java.util.Map'
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assemble/Assemble.java`
-#### Snippet
-```java
-                return (Map<String, A>) javaArchive;
-            case org.jreleaser.model.api.assemble.JlinkAssembler.TYPE:
-                return (Map<String, A>) jlink;
-            case org.jreleaser.model.api.assemble.JpackageAssembler.TYPE:
-                return (Map<String, A>) jpackage;
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.util.Map' to 'java.util.Map'
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assemble/Assemble.java`
-#### Snippet
-```java
-                return (Map<String, A>) jlink;
-            case org.jreleaser.model.api.assemble.JpackageAssembler.TYPE:
-                return (Map<String, A>) jpackage;
-            case org.jreleaser.model.api.assemble.NativeImageAssembler.TYPE:
-                return (Map<String, A>) nativeImage;
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.util.Map' to 'java.util.Map'
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assemble/Assemble.java`
-#### Snippet
-```java
-                return (Map<String, A>) jpackage;
-            case org.jreleaser.model.api.assemble.NativeImageAssembler.TYPE:
-                return (Map<String, A>) nativeImage;
-            default:
-                return Collections.emptyMap();
-```
-
-### UNCHECKED_WARNING
 Unchecked cast: 'java.util.List' to 'java.util.List'
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assemble/Assemble.java`
 #### Snippet
@@ -1543,6 +1495,66 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assembl
         assemblers.addAll((List<A>) getActiveNativeImages());
         return assemblers;
     }
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.util.Map' to 'java.util.Map'
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assemble/Assemble.java`
+#### Snippet
+```java
+        switch (assemblerName) {
+            case org.jreleaser.model.api.assemble.ArchiveAssembler.TYPE:
+                return (Map<String, A>) archive;
+            case org.jreleaser.model.api.assemble.JavaArchiveAssembler.TYPE:
+                return (Map<String, A>) javaArchive;
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.util.Map' to 'java.util.Map'
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assemble/Assemble.java`
+#### Snippet
+```java
+                return (Map<String, A>) archive;
+            case org.jreleaser.model.api.assemble.JavaArchiveAssembler.TYPE:
+                return (Map<String, A>) javaArchive;
+            case org.jreleaser.model.api.assemble.JlinkAssembler.TYPE:
+                return (Map<String, A>) jlink;
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.util.Map' to 'java.util.Map'
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assemble/Assemble.java`
+#### Snippet
+```java
+                return (Map<String, A>) javaArchive;
+            case org.jreleaser.model.api.assemble.JlinkAssembler.TYPE:
+                return (Map<String, A>) jlink;
+            case org.jreleaser.model.api.assemble.JpackageAssembler.TYPE:
+                return (Map<String, A>) jpackage;
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.util.Map' to 'java.util.Map'
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assemble/Assemble.java`
+#### Snippet
+```java
+                return (Map<String, A>) jlink;
+            case org.jreleaser.model.api.assemble.JpackageAssembler.TYPE:
+                return (Map<String, A>) jpackage;
+            case org.jreleaser.model.api.assemble.NativeImageAssembler.TYPE:
+                return (Map<String, A>) nativeImage;
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.util.Map' to 'java.util.Map'
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/assemble/Assemble.java`
+#### Snippet
+```java
+                return (Map<String, A>) jpackage;
+            case org.jreleaser.model.api.assemble.NativeImageAssembler.TYPE:
+                return (Map<String, A>) nativeImage;
+            default:
+                return Collections.emptyMap();
 ```
 
 ### UNCHECKED_WARNING
@@ -1882,18 +1894,6 @@ in `sdks/jreleaser-git-java-sdk/src/main/java/org/jreleaser/sdk/git/ChangelogGen
 ```
 
 ### UNCHECKED_WARNING
-Unchecked call to 'compareTo(T)' as a member of raw type 'java.lang.Comparable'
-in `sdks/jreleaser-gitea-java-sdk/src/main/java/org/jreleaser/sdk/gitea/GiteaReleaser.java`
-#### Snippet
-```java
-        }
-
-        releases.sort((r1, r2) -> r2.getVersion().compareTo(r1.getVersion()));
-
-        return releases;
-```
-
-### UNCHECKED_WARNING
 Unchecked assignment: 'java.util.Map' to 'java.util.Map'
 in `sdks/jreleaser-gitea-java-sdk/src/main/java/org/jreleaser/sdk/gitea/Gitea.java`
 #### Snippet
@@ -1903,6 +1903,18 @@ in `sdks/jreleaser-gitea-java-sdk/src/main/java/org/jreleaser/sdk/gitea/Gitea.ja
         GtSearchUser search = api.searchUser(CollectionUtils.<String, String>mapOf("q", email));
         if (null != search.getData() && !search.getData().isEmpty()) {
             GtUser user = search.getData().get(0);
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'compareTo(T)' as a member of raw type 'java.lang.Comparable'
+in `sdks/jreleaser-gitea-java-sdk/src/main/java/org/jreleaser/sdk/gitea/GiteaReleaser.java`
+#### Snippet
+```java
+        }
+
+        releases.sort((r1, r2) -> r2.getVersion().compareTo(r1.getVersion()));
+
+        return releases;
 ```
 
 ### UNCHECKED_WARNING
@@ -1918,39 +1930,51 @@ in `sdks/jreleaser-github-java-sdk/src/main/java/org/jreleaser/sdk/github/Github
 ```
 
 ### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.List' to 'java.util.List'
+in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab.java`
+#### Snippet
+```java
+        logger.debug(RB.$("git.user.lookup"), name, email);
+
+        List<GlUser> users = api.searchUser(CollectionUtils.<String, String>mapOf("scope", "users", "search", email));
+        if (null != users && !users.isEmpty()) {
+            GlUser user = users.get(0);
+```
+
+### UNCHECKED_WARNING
 Unchecked assignment: 'java.util.Map' to 'java.util.Map'
-in `sdks/jreleaser-github-java-sdk/src/main/java/org/jreleaser/sdk/github/Github.java`
+in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab.java`
 #### Snippet
 ```java
-        }
+        logger.debug(RB.$("git.user.lookup"), name, email);
 
-        GhSearchUser search = api.searchUser(CollectionUtils.<String, String>mapOf("q", email));
-        if (search.getTotalCount() > 0) {
-            GhUser user = search.getItems().get(0);
+        List<GlUser> users = api.searchUser(CollectionUtils.<String, String>mapOf("scope", "users", "search", email));
+        if (null != users && !users.isEmpty()) {
+            GlUser user = users.get(0);
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'java.util.Collection\>' to 'java.util.List'
-in `sdks/jreleaser-twitter-java-sdk/src/main/java/org/jreleaser/sdk/twitter/UpdateStatusTwitterCommand.java`
+Unchecked assignment: 'java.util.List' to 'java.util.List'
+in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab.java`
 #### Snippet
 ```java
-
-        public Builder statuses(List<String> statuses) {
-            this.statuses = (List<String>) requireNonEmpty(statuses, "'statuses' must not be empty");
-            return this;
         }
+
+        users = api.searchUser(CollectionUtils.<String, String>mapOf("scope", "users", "search", name));
+        if (null != users && !users.isEmpty()) {
+            GlUser user = users.get(0);
 ```
 
 ### UNCHECKED_WARNING
-Unchecked call to 'compareTo(T)' as a member of raw type 'java.lang.Comparable'
-in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/GitlabReleaser.java`
+Unchecked assignment: 'java.util.Map' to 'java.util.Map'
+in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab.java`
 #### Snippet
 ```java
         }
 
-        releases.sort((r1, r2) -> r2.getVersion().compareTo(r1.getVersion()));
-
-        return releases;
+        users = api.searchUser(CollectionUtils.<String, String>mapOf("scope", "users", "search", name));
+        if (null != users && !users.isEmpty()) {
+            GlUser user = users.get(0);
 ```
 
 ### UNCHECKED_WARNING
@@ -1966,51 +1990,39 @@ in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.List' to 'java.util.List'
-in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab.java`
-#### Snippet
-```java
-        logger.debug(RB.$("git.user.lookup"), name, email);
-
-        List<GlUser> users = api.searchUser(CollectionUtils.<String, String>mapOf("scope", "users", "search", email));
-        if (null != users && !users.isEmpty()) {
-            GlUser user = users.get(0);
-```
-
-### UNCHECKED_WARNING
 Unchecked assignment: 'java.util.Map' to 'java.util.Map'
-in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab.java`
-#### Snippet
-```java
-        logger.debug(RB.$("git.user.lookup"), name, email);
-
-        List<GlUser> users = api.searchUser(CollectionUtils.<String, String>mapOf("scope", "users", "search", email));
-        if (null != users && !users.isEmpty()) {
-            GlUser user = users.get(0);
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.List' to 'java.util.List'
-in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab.java`
+in `sdks/jreleaser-github-java-sdk/src/main/java/org/jreleaser/sdk/github/Github.java`
 #### Snippet
 ```java
         }
 
-        users = api.searchUser(CollectionUtils.<String, String>mapOf("scope", "users", "search", name));
-        if (null != users && !users.isEmpty()) {
-            GlUser user = users.get(0);
+        GhSearchUser search = api.searchUser(CollectionUtils.<String, String>mapOf("q", email));
+        if (search.getTotalCount() > 0) {
+            GhUser user = search.getItems().get(0);
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Map' to 'java.util.Map'
-in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab.java`
+Unchecked call to 'compareTo(T)' as a member of raw type 'java.lang.Comparable'
+in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/GitlabReleaser.java`
 #### Snippet
 ```java
         }
 
-        users = api.searchUser(CollectionUtils.<String, String>mapOf("scope", "users", "search", name));
-        if (null != users && !users.isEmpty()) {
-            GlUser user = users.get(0);
+        releases.sort((r1, r2) -> r2.getVersion().compareTo(r1.getVersion()));
+
+        return releases;
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.util.Collection\>' to 'java.util.List'
+in `sdks/jreleaser-twitter-java-sdk/src/main/java/org/jreleaser/sdk/twitter/UpdateStatusTwitterCommand.java`
+#### Snippet
+```java
+
+        public Builder statuses(List<String> statuses) {
+            this.statuses = (List<String>) requireNonEmpty(statuses, "'statuses' must not be empty");
+            return this;
+        }
 ```
 
 ### UNCHECKED_WARNING
@@ -2060,7 +2072,7 @@ in `api/jreleaser-utils/src/main/java/org/jreleaser/util/FileUtils.java`
              InputStream bi = new BufferedInputStream(fi);
              InputStream gzi = resolveCompressorInputStream(fileType, bi);
              ArchiveInputStream in = new TarArchiveInputStream(gzi)) {
-            unpackArchive(removeRootEntry ? artifactFileName + "/" : "", destinationDir, in);
+            return resolveRootEntryName(in);
 ```
 
 ### DataFlowIssue
@@ -2072,7 +2084,7 @@ in `api/jreleaser-utils/src/main/java/org/jreleaser/util/FileUtils.java`
              InputStream bi = new BufferedInputStream(fi);
              InputStream gzi = resolveCompressorInputStream(fileType, bi);
              ArchiveInputStream in = new TarArchiveInputStream(gzi)) {
-            return resolveRootEntryName(in);
+            unpackArchive(removeRootEntry ? artifactFileName + "/" : "", destinationDir, in);
 ```
 
 ### DataFlowIssue
@@ -2136,18 +2148,6 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validat
 ```
 
 ### DataFlowIssue
-Dereference of `assets.toFile().listFiles()` may produce `NullPointerException`
-in `sdks/jreleaser-git-java-sdk/src/main/java/org/jreleaser/sdk/git/release/AbstractReleaserBuilder.java`
-#### Snippet
-```java
-    public ReleaserBuilder<R> addReleaseAssets(Path assets) {
-        if (assets.toFile().exists()) {
-            for (File asset : assets.toFile().listFiles()) {
-                addReleaseAsset(Asset.file(Artifact.of(asset.toPath().toAbsolutePath())));
-            }
-```
-
-### DataFlowIssue
 Method invocation `storeFile` may produce `NullPointerException`
 in `sdks/jreleaser-ftp-java-sdk/src/main/java/org/jreleaser/sdk/ftp/FtpArtifactUploader.java`
 #### Snippet
@@ -2157,6 +2157,30 @@ in `sdks/jreleaser-ftp-java-sdk/src/main/java/org/jreleaser/sdk/ftp/FtpArtifactU
                         ftp.storeFile(uploadPath, in);
                     } catch (IOException e) {
                         context.getLogger().trace(e);
+```
+
+### DataFlowIssue
+Argument `basedir` might be null
+in `sdks/jreleaser-git-java-sdk/src/main/java/org/jreleaser/sdk/git/GitSdk.java`
+#### Snippet
+```java
+        }
+
+        throw new RepositoryNotFoundException(basedir);
+    }
+
+```
+
+### DataFlowIssue
+Dereference of `assets.toFile().listFiles()` may produce `NullPointerException`
+in `sdks/jreleaser-git-java-sdk/src/main/java/org/jreleaser/sdk/git/release/AbstractReleaserBuilder.java`
+#### Snippet
+```java
+    public ReleaserBuilder<R> addReleaseAssets(Path assets) {
+        if (assets.toFile().exists()) {
+            for (File asset : assets.toFile().listFiles()) {
+                addReleaseAsset(Asset.file(Artifact.of(asset.toPath().toAbsolutePath())));
+            }
 ```
 
 ### DataFlowIssue
@@ -2196,18 +2220,6 @@ in `sdks/jreleaser-ssh-java-sdk/src/main/java/org/jreleaser/sdk/ssh/SftpArtifact
 ```
 
 ### DataFlowIssue
-Argument `basedir` might be null
-in `sdks/jreleaser-git-java-sdk/src/main/java/org/jreleaser/sdk/git/GitSdk.java`
-#### Snippet
-```java
-        }
-
-        throw new RepositoryNotFoundException(basedir);
-    }
-
-```
-
-### DataFlowIssue
 Method invocation `urn` may produce `NullPointerException`
 in `sdks/jreleaser-linkedin-java-sdk/src/main/java/org/jreleaser/sdk/linkedin/LinkedinSdk.java`
 #### Snippet
@@ -2234,18 +2246,6 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validat
 
 ## RuleId[id=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
-Deprecated member 'getWebsite' is still used
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/project/Project.java`
-#### Snippet
-```java
-    @Deprecated
-    @JsonPropertyDescription("project.website is deprecated since 1.2.0 and will be removed in 2.0.0. Use project.links.homepage instead")
-    public String getWebsite() {
-        return links.getHomepage();
-    }
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'getDocsUrl' is still used
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/project/Project.java`
 #### Snippet
@@ -2269,7 +2269,103 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/project
     }
 ```
 
+### DeprecatedIsStillUsed
+Deprecated member 'getWebsite' is still used
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/project/Project.java`
+#### Snippet
+```java
+    @Deprecated
+    @JsonPropertyDescription("project.website is deprecated since 1.2.0 and will be removed in 2.0.0. Use project.links.homepage instead")
+    public String getWebsite() {
+        return links.getHomepage();
+    }
+```
+
 ## RuleId[id=RegExpRedundantEscape]
+### RegExpRedundantEscape
+Redundant character escape `\\-` in RegExp
+in `api/jreleaser-model-api/src/main/java/org/jreleaser/version/JavaRuntimeVersion.java`
+#### Snippet
+```java
+public class JavaRuntimeVersion implements Version<JavaRuntimeVersion> {
+    private static final Pattern PBO = Pattern.compile("(?:\\-([a-zA-Z0-9]+))?\\+(0|[1-9]\\d*)(?:\\-([\\-a-zA-Z0-9\\.]+))?");
+    private static final Pattern PO = Pattern.compile("\\-([a-zA-Z0-9]+)(?:\\-([-a-zA-Z0-9.]+))?");
+    private static final Pattern O = Pattern.compile("\\+\\-([-a-zA-Z0-9.]+)");
+
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\-` in RegExp
+in `api/jreleaser-model-api/src/main/java/org/jreleaser/version/JavaRuntimeVersion.java`
+#### Snippet
+```java
+public class JavaRuntimeVersion implements Version<JavaRuntimeVersion> {
+    private static final Pattern PBO = Pattern.compile("(?:\\-([a-zA-Z0-9]+))?\\+(0|[1-9]\\d*)(?:\\-([\\-a-zA-Z0-9\\.]+))?");
+    private static final Pattern PO = Pattern.compile("\\-([a-zA-Z0-9]+)(?:\\-([-a-zA-Z0-9.]+))?");
+    private static final Pattern O = Pattern.compile("\\+\\-([-a-zA-Z0-9.]+)");
+
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\-` in RegExp
+in `api/jreleaser-model-api/src/main/java/org/jreleaser/version/JavaRuntimeVersion.java`
+#### Snippet
+```java
+    private static final Pattern PBO = Pattern.compile("(?:\\-([a-zA-Z0-9]+))?\\+(0|[1-9]\\d*)(?:\\-([\\-a-zA-Z0-9\\.]+))?");
+    private static final Pattern PO = Pattern.compile("\\-([a-zA-Z0-9]+)(?:\\-([-a-zA-Z0-9.]+))?");
+    private static final Pattern O = Pattern.compile("\\+\\-([-a-zA-Z0-9.]+)");
+
+    private final String version;
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\-` in RegExp
+in `api/jreleaser-model-api/src/main/java/org/jreleaser/version/JavaRuntimeVersion.java`
+#### Snippet
+```java
+ */
+public class JavaRuntimeVersion implements Version<JavaRuntimeVersion> {
+    private static final Pattern PBO = Pattern.compile("(?:\\-([a-zA-Z0-9]+))?\\+(0|[1-9]\\d*)(?:\\-([\\-a-zA-Z0-9\\.]+))?");
+    private static final Pattern PO = Pattern.compile("\\-([a-zA-Z0-9]+)(?:\\-([-a-zA-Z0-9.]+))?");
+    private static final Pattern O = Pattern.compile("\\+\\-([-a-zA-Z0-9.]+)");
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\-` in RegExp
+in `api/jreleaser-model-api/src/main/java/org/jreleaser/version/JavaRuntimeVersion.java`
+#### Snippet
+```java
+ */
+public class JavaRuntimeVersion implements Version<JavaRuntimeVersion> {
+    private static final Pattern PBO = Pattern.compile("(?:\\-([a-zA-Z0-9]+))?\\+(0|[1-9]\\d*)(?:\\-([\\-a-zA-Z0-9\\.]+))?");
+    private static final Pattern PO = Pattern.compile("\\-([a-zA-Z0-9]+)(?:\\-([-a-zA-Z0-9.]+))?");
+    private static final Pattern O = Pattern.compile("\\+\\-([-a-zA-Z0-9.]+)");
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\.` in RegExp
+in `api/jreleaser-model-api/src/main/java/org/jreleaser/version/JavaRuntimeVersion.java`
+#### Snippet
+```java
+ */
+public class JavaRuntimeVersion implements Version<JavaRuntimeVersion> {
+    private static final Pattern PBO = Pattern.compile("(?:\\-([a-zA-Z0-9]+))?\\+(0|[1-9]\\d*)(?:\\-([\\-a-zA-Z0-9\\.]+))?");
+    private static final Pattern PO = Pattern.compile("\\-([a-zA-Z0-9]+)(?:\\-([-a-zA-Z0-9.]+))?");
+    private static final Pattern O = Pattern.compile("\\+\\-([-a-zA-Z0-9.]+)");
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\.` in RegExp
+in `api/jreleaser-model-api/src/main/java/org/jreleaser/version/SemanticVersion.java`
+#### Snippet
+```java
+public class SemanticVersion implements Version<SemanticVersion> {
+    private static final Pattern FULL_SEMVER_PATTERN = Pattern.compile("^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:([\\.\\-])((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$");
+    private static final Pattern MAJOR_MINOR_PATTERN = Pattern.compile("^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:([\\.\\-])((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$");
+    private static final Pattern MAJOR_PATTERN = Pattern.compile("^(0|[1-9]\\d*)(?:([\\.\\-])((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$");
+
+```
+
 ### RegExpRedundantEscape
 Redundant character escape `\\.` in RegExp
 in `api/jreleaser-model-api/src/main/java/org/jreleaser/version/SemanticVersion.java`
@@ -2296,90 +2392,6 @@ in `api/jreleaser-model-api/src/main/java/org/jreleaser/version/SemanticVersion.
 
 ### RegExpRedundantEscape
 Redundant character escape `\\.` in RegExp
-in `api/jreleaser-model-api/src/main/java/org/jreleaser/version/SemanticVersion.java`
-#### Snippet
-```java
-public class SemanticVersion implements Version<SemanticVersion> {
-    private static final Pattern FULL_SEMVER_PATTERN = Pattern.compile("^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:([\\.\\-])((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$");
-    private static final Pattern MAJOR_MINOR_PATTERN = Pattern.compile("^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:([\\.\\-])((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$");
-    private static final Pattern MAJOR_PATTERN = Pattern.compile("^(0|[1-9]\\d*)(?:([\\.\\-])((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$");
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\-` in RegExp
-in `api/jreleaser-model-api/src/main/java/org/jreleaser/version/JavaRuntimeVersion.java`
-#### Snippet
-```java
-    private static final Pattern PBO = Pattern.compile("(?:\\-([a-zA-Z0-9]+))?\\+(0|[1-9]\\d*)(?:\\-([\\-a-zA-Z0-9\\.]+))?");
-    private static final Pattern PO = Pattern.compile("\\-([a-zA-Z0-9]+)(?:\\-([-a-zA-Z0-9.]+))?");
-    private static final Pattern O = Pattern.compile("\\+\\-([-a-zA-Z0-9.]+)");
-
-    private final String version;
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\-` in RegExp
-in `api/jreleaser-model-api/src/main/java/org/jreleaser/version/JavaRuntimeVersion.java`
-#### Snippet
-```java
-public class JavaRuntimeVersion implements Version<JavaRuntimeVersion> {
-    private static final Pattern PBO = Pattern.compile("(?:\\-([a-zA-Z0-9]+))?\\+(0|[1-9]\\d*)(?:\\-([\\-a-zA-Z0-9\\.]+))?");
-    private static final Pattern PO = Pattern.compile("\\-([a-zA-Z0-9]+)(?:\\-([-a-zA-Z0-9.]+))?");
-    private static final Pattern O = Pattern.compile("\\+\\-([-a-zA-Z0-9.]+)");
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\-` in RegExp
-in `api/jreleaser-model-api/src/main/java/org/jreleaser/version/JavaRuntimeVersion.java`
-#### Snippet
-```java
-public class JavaRuntimeVersion implements Version<JavaRuntimeVersion> {
-    private static final Pattern PBO = Pattern.compile("(?:\\-([a-zA-Z0-9]+))?\\+(0|[1-9]\\d*)(?:\\-([\\-a-zA-Z0-9\\.]+))?");
-    private static final Pattern PO = Pattern.compile("\\-([a-zA-Z0-9]+)(?:\\-([-a-zA-Z0-9.]+))?");
-    private static final Pattern O = Pattern.compile("\\+\\-([-a-zA-Z0-9.]+)");
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\-` in RegExp
-in `api/jreleaser-model-api/src/main/java/org/jreleaser/version/JavaRuntimeVersion.java`
-#### Snippet
-```java
- */
-public class JavaRuntimeVersion implements Version<JavaRuntimeVersion> {
-    private static final Pattern PBO = Pattern.compile("(?:\\-([a-zA-Z0-9]+))?\\+(0|[1-9]\\d*)(?:\\-([\\-a-zA-Z0-9\\.]+))?");
-    private static final Pattern PO = Pattern.compile("\\-([a-zA-Z0-9]+)(?:\\-([-a-zA-Z0-9.]+))?");
-    private static final Pattern O = Pattern.compile("\\+\\-([-a-zA-Z0-9.]+)");
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\-` in RegExp
-in `api/jreleaser-model-api/src/main/java/org/jreleaser/version/JavaRuntimeVersion.java`
-#### Snippet
-```java
- */
-public class JavaRuntimeVersion implements Version<JavaRuntimeVersion> {
-    private static final Pattern PBO = Pattern.compile("(?:\\-([a-zA-Z0-9]+))?\\+(0|[1-9]\\d*)(?:\\-([\\-a-zA-Z0-9\\.]+))?");
-    private static final Pattern PO = Pattern.compile("\\-([a-zA-Z0-9]+)(?:\\-([-a-zA-Z0-9.]+))?");
-    private static final Pattern O = Pattern.compile("\\+\\-([-a-zA-Z0-9.]+)");
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\.` in RegExp
-in `api/jreleaser-model-api/src/main/java/org/jreleaser/version/JavaRuntimeVersion.java`
-#### Snippet
-```java
- */
-public class JavaRuntimeVersion implements Version<JavaRuntimeVersion> {
-    private static final Pattern PBO = Pattern.compile("(?:\\-([a-zA-Z0-9]+))?\\+(0|[1-9]\\d*)(?:\\-([\\-a-zA-Z0-9\\.]+))?");
-    private static final Pattern PO = Pattern.compile("\\-([a-zA-Z0-9]+)(?:\\-([-a-zA-Z0-9.]+))?");
-    private static final Pattern O = Pattern.compile("\\+\\-([-a-zA-Z0-9.]+)");
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\.` in RegExp
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/assemble/JpackageAssemblerValidator.java`
 #### Snippet
 ```java
@@ -2391,6 +2403,42 @@ public final class JpackageAssemblerValidator {
 ```
 
 ### RegExpRedundantEscape
+Redundant character escape `\\*` in RegExp
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/packagers/WingetPackagerValidator.java`
+#### Snippet
+```java
+public final class WingetPackagerValidator {
+    private static final Pattern PATTERN_PACKAGE_IDENTIFIER = Pattern.compile("^[^\\.\\s\\\\/:\\*\\?\"<>\\|\\x01-\\x1f]{1,32}(\\.[^\\.\\s\\\\/:\\*\\?\"<>\\|\\x01-\\x1f]{1,32}){1,3}$");
+    private static final Pattern PATTERN_PACKAGE_VERSION = Pattern.compile("^[^\\\\/:\\*\\?\"<>\\|\\x01-\\x1f]+$");
+    private static final Pattern PATTERN_LOCALE = Pattern.compile("^([a-zA-Z]{2,3}|[iI]-[a-zA-Z]+|[xX]-[a-zA-Z]{1,8})(-[a-zA-Z]{1,8})*$");
+    private static final Pattern PATTERN_MINIMUM_OS_VERSION = Pattern.compile("^(0|[1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])(\\.(0|[1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])){0,3}$");
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\?` in RegExp
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/packagers/WingetPackagerValidator.java`
+#### Snippet
+```java
+public final class WingetPackagerValidator {
+    private static final Pattern PATTERN_PACKAGE_IDENTIFIER = Pattern.compile("^[^\\.\\s\\\\/:\\*\\?\"<>\\|\\x01-\\x1f]{1,32}(\\.[^\\.\\s\\\\/:\\*\\?\"<>\\|\\x01-\\x1f]{1,32}){1,3}$");
+    private static final Pattern PATTERN_PACKAGE_VERSION = Pattern.compile("^[^\\\\/:\\*\\?\"<>\\|\\x01-\\x1f]+$");
+    private static final Pattern PATTERN_LOCALE = Pattern.compile("^([a-zA-Z]{2,3}|[iI]-[a-zA-Z]+|[xX]-[a-zA-Z]{1,8})(-[a-zA-Z]{1,8})*$");
+    private static final Pattern PATTERN_MINIMUM_OS_VERSION = Pattern.compile("^(0|[1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])(\\.(0|[1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])){0,3}$");
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\|` in RegExp
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/packagers/WingetPackagerValidator.java`
+#### Snippet
+```java
+public final class WingetPackagerValidator {
+    private static final Pattern PATTERN_PACKAGE_IDENTIFIER = Pattern.compile("^[^\\.\\s\\\\/:\\*\\?\"<>\\|\\x01-\\x1f]{1,32}(\\.[^\\.\\s\\\\/:\\*\\?\"<>\\|\\x01-\\x1f]{1,32}){1,3}$");
+    private static final Pattern PATTERN_PACKAGE_VERSION = Pattern.compile("^[^\\\\/:\\*\\?\"<>\\|\\x01-\\x1f]+$");
+    private static final Pattern PATTERN_LOCALE = Pattern.compile("^([a-zA-Z]{2,3}|[iI]-[a-zA-Z]+|[xX]-[a-zA-Z]{1,8})(-[a-zA-Z]{1,8})*$");
+    private static final Pattern PATTERN_MINIMUM_OS_VERSION = Pattern.compile("^(0|[1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])(\\.(0|[1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])){0,3}$");
+```
+
+### RegExpRedundantEscape
 Redundant character escape `\\.` in RegExp
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/packagers/WingetPackagerValidator.java`
 #### Snippet
@@ -2484,42 +2532,6 @@ public final class WingetPackagerValidator {
     private static final Pattern PATTERN_PACKAGE_IDENTIFIER = Pattern.compile("^[^\\.\\s\\\\/:\\*\\?\"<>\\|\\x01-\\x1f]{1,32}(\\.[^\\.\\s\\\\/:\\*\\?\"<>\\|\\x01-\\x1f]{1,32}){1,3}$");
     private static final Pattern PATTERN_PACKAGE_VERSION = Pattern.compile("^[^\\\\/:\\*\\?\"<>\\|\\x01-\\x1f]+$");
     private static final Pattern PATTERN_LOCALE = Pattern.compile("^([a-zA-Z]{2,3}|[iI]-[a-zA-Z]+|[xX]-[a-zA-Z]{1,8})(-[a-zA-Z]{1,8})*$");
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\*` in RegExp
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/packagers/WingetPackagerValidator.java`
-#### Snippet
-```java
-public final class WingetPackagerValidator {
-    private static final Pattern PATTERN_PACKAGE_IDENTIFIER = Pattern.compile("^[^\\.\\s\\\\/:\\*\\?\"<>\\|\\x01-\\x1f]{1,32}(\\.[^\\.\\s\\\\/:\\*\\?\"<>\\|\\x01-\\x1f]{1,32}){1,3}$");
-    private static final Pattern PATTERN_PACKAGE_VERSION = Pattern.compile("^[^\\\\/:\\*\\?\"<>\\|\\x01-\\x1f]+$");
-    private static final Pattern PATTERN_LOCALE = Pattern.compile("^([a-zA-Z]{2,3}|[iI]-[a-zA-Z]+|[xX]-[a-zA-Z]{1,8})(-[a-zA-Z]{1,8})*$");
-    private static final Pattern PATTERN_MINIMUM_OS_VERSION = Pattern.compile("^(0|[1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])(\\.(0|[1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])){0,3}$");
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\?` in RegExp
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/packagers/WingetPackagerValidator.java`
-#### Snippet
-```java
-public final class WingetPackagerValidator {
-    private static final Pattern PATTERN_PACKAGE_IDENTIFIER = Pattern.compile("^[^\\.\\s\\\\/:\\*\\?\"<>\\|\\x01-\\x1f]{1,32}(\\.[^\\.\\s\\\\/:\\*\\?\"<>\\|\\x01-\\x1f]{1,32}){1,3}$");
-    private static final Pattern PATTERN_PACKAGE_VERSION = Pattern.compile("^[^\\\\/:\\*\\?\"<>\\|\\x01-\\x1f]+$");
-    private static final Pattern PATTERN_LOCALE = Pattern.compile("^([a-zA-Z]{2,3}|[iI]-[a-zA-Z]+|[xX]-[a-zA-Z]{1,8})(-[a-zA-Z]{1,8})*$");
-    private static final Pattern PATTERN_MINIMUM_OS_VERSION = Pattern.compile("^(0|[1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])(\\.(0|[1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])){0,3}$");
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\|` in RegExp
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validation/packagers/WingetPackagerValidator.java`
-#### Snippet
-```java
-public final class WingetPackagerValidator {
-    private static final Pattern PATTERN_PACKAGE_IDENTIFIER = Pattern.compile("^[^\\.\\s\\\\/:\\*\\?\"<>\\|\\x01-\\x1f]{1,32}(\\.[^\\.\\s\\\\/:\\*\\?\"<>\\|\\x01-\\x1f]{1,32}){1,3}$");
-    private static final Pattern PATTERN_PACKAGE_VERSION = Pattern.compile("^[^\\\\/:\\*\\?\"<>\\|\\x01-\\x1f]+$");
-    private static final Pattern PATTERN_LOCALE = Pattern.compile("^([a-zA-Z]{2,3}|[iI]-[a-zA-Z]+|[xX]-[a-zA-Z]{1,8})(-[a-zA-Z]{1,8})*$");
-    private static final Pattern PATTERN_MINIMUM_OS_VERSION = Pattern.compile("^(0|[1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])(\\.(0|[1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])){0,3}$");
 ```
 
 ## RuleId[id=RegExpRedundantClassElement]
@@ -3393,26 +3405,10 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announc
 
 ### DuplicatedCode
 Duplicated code
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/MastodonAnnouncer.java`
-#### Snippet
-```java
-        props.setAll(extraProps);
-
-        Path templatePath = context.getBasedir().resolve(statusTemplate);
-        try {
-            Reader reader = java.nio.file.Files.newBufferedReader(templatePath);
-            return applyTemplate(reader, props);
-        } catch (IOException e) {
-            throw new JReleaserException(RB.$("ERROR_unexpected_error_reading_template",
-                context.relativizeToBasedir(templatePath)));
-        }
-```
-
-### DuplicatedCode
-Duplicated code
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/Announce.java`
 #### Snippet
 ```java
+        map.putAll(discord.asMap(full));
         map.putAll(discourse.asMap(full));
         map.putAll(discussions.asMap(full));
         map.putAll(gitter.asMap(full));
@@ -3427,7 +3423,28 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announc
         map.putAll(slack.asMap(full));
         map.putAll(teams.asMap(full));
         map.putAll(telegram.asMap(full));
-        map.putAll(twitter.asMap(full));
+```
+
+### DuplicatedCode
+Duplicated code
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/BlueskyAnnouncer.java`
+#### Snippet
+```java
+        TemplateContext props = context.fullProps();
+        context.getChangelog().apply(props);
+        applyTemplates(props, resolvedExtraProperties());
+        props.set(KEY_TAG_NAME, context.getModel().getRelease().getReleaser().getEffectiveTagName(context.getModel()));
+        props.set(KEY_PREVIOUS_TAG_NAME, context.getModel().getRelease().getReleaser().getResolvedPreviousTagName(context.getModel()));
+        props.setAll(extraProps);
+
+        Path templatePath = context.getBasedir().resolve(statusTemplate);
+        try {
+            Reader reader = java.nio.file.Files.newBufferedReader(templatePath);
+            return applyTemplate(reader, props);
+        } catch (IOException e) {
+            throw new JReleaserException(RB.$("ERROR_unexpected_error_reading_template",
+                context.relativizeToBasedir(templatePath)));
+        }
 ```
 
 ### DuplicatedCode
@@ -4773,6 +4790,18 @@ in `plugins/jreleaser-maven-plugin/src/main/java/org/jreleaser/maven/plugin/JRel
 
 ### DuplicatedCode
 Duplicated code
+in `plugins/jreleaser/src/main/java/org/jreleaser/cli/Catalog.java`
+#### Snippet
+```java
+        super.collectCandidateDeprecatedArgs(args);
+        args.add(new DeprecatedArg("-y", "--deployer", "1.5.0"));
+        args.add(new DeprecatedArg("-yn", "--deployer-name", "1.5.0"));
+        args.add(new DeprecatedArg("-xy", "--exclude-deployer", "1.5.0"));
+        args.add(new DeprecatedArg("-xyn", "--exclude-deployer-name", "1.5.0"));
+```
+
+### DuplicatedCode
+Duplicated code
 in `plugins/jreleaser/src/main/java/org/jreleaser/cli/FullRelease.java`
 #### Snippet
 ```java
@@ -4826,6 +4855,45 @@ in `sdks/jreleaser-artifactory-java-sdk/src/main/java/org/jreleaser/sdk/artifact
         if (!baseUrl.endsWith("/")) {
             baseUrl += "/";
         }
+```
+
+### DuplicatedCode
+Duplicated code
+in `sdks/jreleaser-bluesky-java-sdk/src/main/java/org/jreleaser/sdk/bluesky/BlueskyAnnouncer.java`
+#### Snippet
+```java
+        List<String> statuses = new ArrayList<>();
+
+        if (isNotBlank(bluesky.getStatusTemplate())) {
+            TemplateContext props = new TemplateContext();
+            context.getModel().getRelease().getReleaser().fillProps(props, context.getModel());
+            Arrays.stream(bluesky.getResolvedStatusTemplate(context, props)
+                    .split(System.lineSeparator()))
+                .filter(StringUtils::isNotBlank)
+                .map(String::trim)
+                .forEach(statuses::add);
+        }
+        if (statuses.isEmpty() && !bluesky.getStatuses().isEmpty()) {
+            bluesky.getStatuses().stream()
+                .filter(StringUtils::isNotBlank)
+                .map(String::trim)
+                .forEach(statuses::add);
+        }
+        if (statuses.isEmpty()) {
+            statuses.add(bluesky.getStatus());
+        }
+```
+
+### DuplicatedCode
+Duplicated code
+in `sdks/jreleaser-bluesky-java-sdk/src/main/java/org/jreleaser/sdk/bluesky/BlueskyAnnouncer.java`
+#### Snippet
+```java
+        TemplateContext props = context.fullProps();
+        applyTemplates(props, context.getModel().getAnnounce().getTwitter().resolvedExtraProperties());
+        props.set(KEY_TAG_NAME, context.getModel().getRelease().getReleaser().getEffectiveTagName(context.getModel()));
+        props.set(KEY_PREVIOUS_TAG_NAME, context.getModel().getRelease().getReleaser().getResolvedPreviousTagName(context.getModel()));
+        return resolveTemplate(message, props);
 ```
 
 ### DuplicatedCode
@@ -5323,33 +5391,6 @@ in `sdks/jreleaser-java-sdk-commons/src/main/java/org/jreleaser/sdk/commons/Clie
 
 ### DuplicatedCode
 Duplicated code
-in `sdks/jreleaser-mastodon-java-sdk/src/main/java/org/jreleaser/sdk/mastodon/MastodonAnnouncer.java`
-#### Snippet
-```java
-        List<String> statuses = new ArrayList<>();
-
-        if (isNotBlank(mastodon.getStatusTemplate())) {
-            TemplateContext props = new TemplateContext();
-            context.getModel().getRelease().getReleaser().fillProps(props, context.getModel());
-            Arrays.stream(mastodon.getResolvedStatusTemplate(context, props)
-                    .split(System.lineSeparator()))
-                .filter(StringUtils::isNotBlank)
-                .map(String::trim)
-                .forEach(statuses::add);
-        }
-        if (statuses.isEmpty() && !mastodon.getStatuses().isEmpty()) {
-            mastodon.getStatuses().stream()
-                .filter(StringUtils::isNotBlank)
-                .map(String::trim)
-                .forEach(statuses::add);
-        }
-        if (statuses.isEmpty()) {
-            statuses.add(mastodon.getStatus());
-        }
-```
-
-### DuplicatedCode
-Duplicated code
 in `sdks/jreleaser-sdkman-java-sdk/src/main/java/org/jreleaser/sdk/sdkman/MajorReleaseSdkmanCommand.java`
 #### Snippet
 ```java
@@ -5402,18 +5443,6 @@ in `core/jreleaser-engine/src/main/java/org/jreleaser/packagers/AbstractPackager
 
 ## RuleId[id=OctalLiteral]
 ### OctalLiteral
-Octal integer `0100755`
-in `api/jreleaser-utils/src/main/java/org/jreleaser/util/FileUtils.java`
-#### Snippet
-```java
-                archiveEntry.setMethod(ZipOutputStream.DEFLATED);
-                if (inputFile.isFile() && Files.isExecutable(path)) {
-                    archiveEntry.setUnixMode(0100755);
-                }
-
-```
-
-### OctalLiteral
 Octal integer `0777`
 in `api/jreleaser-utils/src/main/java/org/jreleaser/util/FileUtils.java`
 #### Snippet
@@ -5459,6 +5488,18 @@ in `api/jreleaser-utils/src/main/java/org/jreleaser/util/FileUtils.java`
                 unixMode = 0644;
             }
         }
+```
+
+### OctalLiteral
+Octal integer `0100755`
+in `api/jreleaser-utils/src/main/java/org/jreleaser/util/FileUtils.java`
+#### Snippet
+```java
+                archiveEntry.setMethod(ZipOutputStream.DEFLATED);
+                if (inputFile.isFile() && Files.isExecutable(path)) {
+                    archiveEntry.setUnixMode(0100755);
+                }
+
 ```
 
 ### OctalLiteral
@@ -5657,18 +5698,6 @@ in `core/jreleaser-templates/src/main/java/org/jreleaser/templates/TemplateGener
 ```
 
 ### IOStreamConstructor
-'OutputStream' can be constructed using 'Files.newOutputStream()'
-in `sdks/jreleaser-signing-java-sdk/src/main/java/org/jreleaser/sdk/signing/SigningUtils.java`
-#### Snippet
-```java
-
-    private static OutputStream createOutputStream(JReleaserContext context, Path output) throws FileNotFoundException {
-        OutputStream out = new BufferedOutputStream(new FileOutputStream(output.toFile()));
-        if (context.getModel().getSigning().isArmored()) {
-            out = new ArmoredOutputStream(out);
-```
-
-### IOStreamConstructor
 'InputStream' can be constructed using 'Files.newInputStream()'
 in `sdks/jreleaser-signing-java-sdk/src/main/java/org/jreleaser/sdk/signing/SigningUtils.java`
 #### Snippet
@@ -5690,6 +5719,18 @@ in `sdks/jreleaser-signing-java-sdk/src/main/java/org/jreleaser/sdk/signing/Sign
             try (InputStream fileInputStream = new BufferedInputStream(new FileInputStream(filePair.inputFile.toFile()))) {
                 PGPPublicKey pubKey = keyring.readPublicKey();
                 sig.init(new JcaPGPContentVerifierBuilderProvider()
+```
+
+### IOStreamConstructor
+'OutputStream' can be constructed using 'Files.newOutputStream()'
+in `sdks/jreleaser-signing-java-sdk/src/main/java/org/jreleaser/sdk/signing/SigningUtils.java`
+#### Snippet
+```java
+
+    private static OutputStream createOutputStream(JReleaserContext context, Path output) throws FileNotFoundException {
+        OutputStream out = new BufferedOutputStream(new FileOutputStream(output.toFile()));
+        if (context.getModel().getSigning().isArmored()) {
+            out = new ArmoredOutputStream(out);
 ```
 
 ### IOStreamConstructor
@@ -5730,15 +5771,15 @@ in `plugins/jreleaser/src/main/java/org/jreleaser/cli/AbstractLoggingCommand.jav
 ```
 
 ### IOStreamConstructor
-'OutputStream' can be constructed using 'Files.newOutputStream()'
+'InputStream' can be constructed using 'Files.newInputStream()'
 in `plugins/jdks-maven-plugin/src/main/java/org/jreleaser/jdks/maven/plugin/Banner.java`
 #### Snippet
 ```java
-    private static void writeQuietly(File file, String text) {
-        try {
-            PrintStream out = newPrintStream(new FileOutputStream(file));
-            out.println(text);
-            out.close();
+
+    private static String readQuietly(File file) {
+        try (Scanner in = newScanner(new FileInputStream(file))) {
+            return in.next();
+        } catch (Exception ignored) {
 ```
 
 ### IOStreamConstructor
@@ -5754,15 +5795,27 @@ in `plugins/jdks-maven-plugin/src/main/java/org/jreleaser/jdks/maven/plugin/Bann
 ```
 
 ### IOStreamConstructor
-'InputStream' can be constructed using 'Files.newInputStream()'
+'OutputStream' can be constructed using 'Files.newOutputStream()'
 in `plugins/jdks-maven-plugin/src/main/java/org/jreleaser/jdks/maven/plugin/Banner.java`
 #### Snippet
 ```java
+    private static void writeQuietly(File file, String text) {
+        try {
+            PrintStream out = newPrintStream(new FileOutputStream(file));
+            out.println(text);
+            out.close();
+```
 
-    private static String readQuietly(File file) {
-        try (Scanner in = newScanner(new FileInputStream(file))) {
-            return in.next();
-        } catch (Exception ignored) {
+### IOStreamConstructor
+'OutputStream' can be constructed using 'Files.newOutputStream()'
+in `plugins/jdks-gradle-plugin/src/main/groovy/org/jreleaser/jdks/gradle/plugin/Banner.java`
+#### Snippet
+```java
+    private static void writeQuietly(File file, String text) {
+        try {
+            PrintStream out = newPrintStream(new FileOutputStream(file));
+            out.println(text);
+            out.close();
 ```
 
 ### IOStreamConstructor
@@ -5779,14 +5832,16 @@ in `plugins/jdks-gradle-plugin/src/main/groovy/org/jreleaser/jdks/gradle/plugin/
 
 ### IOStreamConstructor
 'OutputStream' can be constructed using 'Files.newOutputStream()'
-in `plugins/jdks-gradle-plugin/src/main/groovy/org/jreleaser/jdks/gradle/plugin/Banner.java`
+in `plugins/jreleaser-ant-tasks/src/main/java/org/jreleaser/ant/tasks/JReleaserTemplateGenerateTask.java`
 #### Snippet
 ```java
-    private static void writeQuietly(File file, String text) {
-        try {
-            PrintStream out = newPrintStream(new FileOutputStream(file));
-            out.println(text);
-            out.close();
+                .resolve("jreleaser");
+            Files.createDirectories(outputDirectory);
+            return newPrintWriter(new FileOutputStream(
+                outputDirectory
+                    .resolve("trace.log").toFile()));
+        } catch (IOException e) {
+            throw new IllegalStateException("Could not initialize trace file", e);
 ```
 
 ### IOStreamConstructor
@@ -5802,18 +5857,6 @@ in `plugins/jreleaser-ant-tasks/src/main/java/org/jreleaser/ant/tasks/Banner.jav
 ```
 
 ### IOStreamConstructor
-'InputStream' can be constructed using 'Files.newInputStream()'
-in `plugins/jreleaser-ant-tasks/src/main/java/org/jreleaser/ant/tasks/Banner.java`
-#### Snippet
-```java
-
-    private static String readQuietly(File file) {
-        try (Scanner in = newScanner(new FileInputStream(file))) {
-            return in.next();
-        } catch (Exception ignored) {
-```
-
-### IOStreamConstructor
 'OutputStream' can be constructed using 'Files.newOutputStream()'
 in `plugins/jreleaser-ant-tasks/src/main/java/org/jreleaser/ant/tasks/Banner.java`
 #### Snippet
@@ -5826,17 +5869,15 @@ in `plugins/jreleaser-ant-tasks/src/main/java/org/jreleaser/ant/tasks/Banner.jav
 ```
 
 ### IOStreamConstructor
-'OutputStream' can be constructed using 'Files.newOutputStream()'
-in `plugins/jreleaser-ant-tasks/src/main/java/org/jreleaser/ant/tasks/JReleaserTemplateGenerateTask.java`
+'InputStream' can be constructed using 'Files.newInputStream()'
+in `plugins/jreleaser-ant-tasks/src/main/java/org/jreleaser/ant/tasks/Banner.java`
 #### Snippet
 ```java
-                .resolve("jreleaser");
-            Files.createDirectories(outputDirectory);
-            return newPrintWriter(new FileOutputStream(
-                outputDirectory
-                    .resolve("trace.log").toFile()));
-        } catch (IOException e) {
-            throw new IllegalStateException("Could not initialize trace file", e);
+
+    private static String readQuietly(File file) {
+        try (Scanner in = newScanner(new FileInputStream(file))) {
+            return in.next();
+        } catch (Exception ignored) {
 ```
 
 ### IOStreamConstructor
@@ -5867,7 +5908,7 @@ in `plugins/jreleaser-ant-tasks/src/main/java/org/jreleaser/ant/tasks/AbstractJR
 
 ### IOStreamConstructor
 'OutputStream' can be constructed using 'Files.newOutputStream()'
-in `plugins/jreleaser-maven-plugin/src/main/java/org/jreleaser/maven/plugin/JReleaserInitMojo.java`
+in `plugins/jreleaser-maven-plugin/src/main/java/org/jreleaser/maven/plugin/JReleaserTemplateGenerateMojo.java`
 #### Snippet
 ```java
         try {
@@ -5879,15 +5920,14 @@ in `plugins/jreleaser-maven-plugin/src/main/java/org/jreleaser/maven/plugin/JRel
 
 ### IOStreamConstructor
 'OutputStream' can be constructed using 'Files.newOutputStream()'
-in `plugins/jreleaser-ant-tasks/src/main/java/org/jreleaser/ant/tasks/JReleaserAutoConfigReleaseTask.java`
+in `plugins/jreleaser-maven-plugin/src/main/java/org/jreleaser/maven/plugin/Banner.java`
 #### Snippet
 ```java
+    private static void writeQuietly(File file, String text) {
         try {
-            Files.createDirectories(getOutputDirectory());
-            return newPrintWriter(new FileOutputStream(
-                getOutputDirectory().resolve("trace.log").toFile()));
-        } catch (IOException e) {
-            throw new IllegalStateException("Could not initialize trace file", e);
+            PrintStream out = newPrintStream(new FileOutputStream(file));
+            out.println(text);
+            out.close();
 ```
 
 ### IOStreamConstructor
@@ -5916,19 +5956,20 @@ in `plugins/jreleaser-maven-plugin/src/main/java/org/jreleaser/maven/plugin/Bann
 
 ### IOStreamConstructor
 'OutputStream' can be constructed using 'Files.newOutputStream()'
-in `plugins/jreleaser-maven-plugin/src/main/java/org/jreleaser/maven/plugin/Banner.java`
+in `plugins/jreleaser-ant-tasks/src/main/java/org/jreleaser/ant/tasks/JReleaserAutoConfigReleaseTask.java`
 #### Snippet
 ```java
-    private static void writeQuietly(File file, String text) {
         try {
-            PrintStream out = newPrintStream(new FileOutputStream(file));
-            out.println(text);
-            out.close();
+            Files.createDirectories(getOutputDirectory());
+            return newPrintWriter(new FileOutputStream(
+                getOutputDirectory().resolve("trace.log").toFile()));
+        } catch (IOException e) {
+            throw new IllegalStateException("Could not initialize trace file", e);
 ```
 
 ### IOStreamConstructor
 'OutputStream' can be constructed using 'Files.newOutputStream()'
-in `plugins/jreleaser-maven-plugin/src/main/java/org/jreleaser/maven/plugin/JReleaserTemplateGenerateMojo.java`
+in `plugins/jreleaser-maven-plugin/src/main/java/org/jreleaser/maven/plugin/JReleaserInitMojo.java`
 #### Snippet
 ```java
         try {
@@ -5936,6 +5977,30 @@ in `plugins/jreleaser-maven-plugin/src/main/java/org/jreleaser/maven/plugin/JRel
             return newPrintWriter(new FileOutputStream(outputDirectory.toPath().resolve("trace.log").toFile()));
         } catch (IOException e) {
             throw new MojoExecutionException("Could not initialize trace file", e);
+```
+
+### IOStreamConstructor
+'InputStream' can be constructed using 'Files.newInputStream()'
+in `plugins/jreleaser-gradle-plugin/src/main/groovy/org/jreleaser/gradle/plugin/Banner.java`
+#### Snippet
+```java
+
+    private static String readQuietly(File file) {
+        try (Scanner in = newScanner(new FileInputStream(file))) {
+            return in.next();
+        } catch (Exception ignored) {
+```
+
+### IOStreamConstructor
+'OutputStream' can be constructed using 'Files.newOutputStream()'
+in `plugins/jreleaser-gradle-plugin/src/main/groovy/org/jreleaser/gradle/plugin/Banner.java`
+#### Snippet
+```java
+    private static void writeQuietly(File file, String text) {
+        try {
+            PrintStream out = newPrintStream(new FileOutputStream(file));
+            out.println(text);
+            out.close();
 ```
 
 ### IOStreamConstructor
@@ -5962,30 +6027,6 @@ in `plugins/jreleaser-maven-plugin/src/main/java/org/jreleaser/maven/plugin/Abst
                 outputDirectory.toPath().resolve("trace.log").toFile()));
         } catch (IOException e) {
             throw new MojoExecutionException("Could not initialize trace file", e);
-```
-
-### IOStreamConstructor
-'OutputStream' can be constructed using 'Files.newOutputStream()'
-in `plugins/jreleaser-gradle-plugin/src/main/groovy/org/jreleaser/gradle/plugin/Banner.java`
-#### Snippet
-```java
-    private static void writeQuietly(File file, String text) {
-        try {
-            PrintStream out = newPrintStream(new FileOutputStream(file));
-            out.println(text);
-            out.close();
-```
-
-### IOStreamConstructor
-'InputStream' can be constructed using 'Files.newInputStream()'
-in `plugins/jreleaser-gradle-plugin/src/main/groovy/org/jreleaser/gradle/plugin/Banner.java`
-#### Snippet
-```java
-
-    private static String readQuietly(File file) {
-        try (Scanner in = newScanner(new FileInputStream(file))) {
-            return in.next();
-        } catch (Exception ignored) {
 ```
 
 ### IOStreamConstructor
@@ -6028,12 +6069,12 @@ in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab
 
 ### CollectionAddAllCanBeReplacedWithConstructor
 'addAll()' call can be replaced with parametrized constructor call
-in `sdks/jreleaser-github-java-sdk/src/main/java/org/jreleaser/sdk/github/Github.java`
+in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab.java`
 #### Snippet
 ```java
-        List<GhPackageVersion> issues = new ArrayList<>();
-        Page<List<GhPackageVersion>> page = api.listPackageVersions0(packageType, packageName);
-        issues.addAll(page.getContent());
+        List<GlPackage> packages = new ArrayList<>();
+        Page<List<GlPackage>> page = api.listPackages0(projectIdentifier, params);
+        packages.addAll(page.getContent());
 
         if (page.hasLinks() && page.getLinks().hasNext()) {
 ```
@@ -6055,9 +6096,9 @@ in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab
 in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab.java`
 #### Snippet
 ```java
-        List<GlPackage> packages = new ArrayList<>();
-        Page<List<GlPackage>> page = api.listPackages0(projectIdentifier, params);
-        packages.addAll(page.getContent());
+        List<GlLink> links = new ArrayList<>();
+        Page<List<GlLink>> page = api.listLinks0(projectIdentifier, tagName);
+        links.addAll(page.getContent());
 
         if (page.hasLinks() && page.getLinks().hasNext()) {
 ```
@@ -6076,12 +6117,12 @@ in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab
 
 ### CollectionAddAllCanBeReplacedWithConstructor
 'addAll()' call can be replaced with parametrized constructor call
-in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab.java`
+in `sdks/jreleaser-github-java-sdk/src/main/java/org/jreleaser/sdk/github/Github.java`
 #### Snippet
 ```java
-        List<GlLink> links = new ArrayList<>();
-        Page<List<GlLink>> page = api.listLinks0(projectIdentifier, tagName);
-        links.addAll(page.getContent());
+        List<GhPackageVersion> issues = new ArrayList<>();
+        Page<List<GhPackageVersion>> page = api.listPackageVersions0(packageType, packageName);
+        issues.addAll(page.getContent());
 
         if (page.hasLinks() && page.getLinks().hasNext()) {
 ```
@@ -6140,10 +6181,10 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleas
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/Announce.java`
 #### Snippet
 ```java
-    }
 
-    public void setTeams(TeamsAnnouncer teams) {
-        this.teams.merge(teams);
+    @JsonPropertyDescription("announce.teams is deprecated since 1.4.0 and will be removed in 2.0.0")
+    public TeamsAnnouncer getTeams() {
+        return teams;
     }
 ```
 
@@ -6152,11 +6193,23 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announc
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/Announce.java`
 #### Snippet
 ```java
-    }
+    private final ArticleAnnouncer article = new ArticleAnnouncer();
+    private final BlueskyAnnouncer bluesky = new BlueskyAnnouncer();
+    private final DiscordAnnouncer discord = new DiscordAnnouncer();
+    private final DiscourseAnnouncer discourse = new DiscourseAnnouncer();
+    private final DiscussionsAnnouncer discussions = new DiscussionsAnnouncer();
+```
 
-    public void setDiscord(DiscordAnnouncer discord) {
-        this.discord.merge(discord);
-    }
+### Deprecation
+'org.jreleaser.model.internal.announce.DiscordAnnouncer' is deprecated
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/Announce.java`
+#### Snippet
+```java
+    private final ArticleAnnouncer article = new ArticleAnnouncer();
+    private final BlueskyAnnouncer bluesky = new BlueskyAnnouncer();
+    private final DiscordAnnouncer discord = new DiscordAnnouncer();
+    private final DiscourseAnnouncer discourse = new DiscourseAnnouncer();
+    private final DiscussionsAnnouncer discussions = new DiscussionsAnnouncer();
 ```
 
 ### Deprecation
@@ -6184,39 +6237,15 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announc
 ```
 
 ### Deprecation
-'org.jreleaser.model.internal.announce.GoogleChatAnnouncer' is deprecated
+'org.jreleaser.model.internal.announce.MattermostAnnouncer' is deprecated
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/Announce.java`
 #### Snippet
 ```java
 
-    @JsonPropertyDescription("announce.googleChat is deprecated since 1.4.0 and will be removed in 2.0.0")
-    public GoogleChatAnnouncer getGoogleChat() {
-        return googleChat;
+    @JsonPropertyDescription("announce.mattermost is deprecated since 1.4.0 and will be removed in 2.0.0")
+    public MattermostAnnouncer getMattermost() {
+        return mattermost;
     }
-```
-
-### Deprecation
-'org.jreleaser.model.internal.announce.MattermostAnnouncer' is deprecated
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/Announce.java`
-#### Snippet
-```java
-    private final SmtpAnnouncer smtp = new SmtpAnnouncer();
-    private final MastodonAnnouncer mastodon = new MastodonAnnouncer();
-    private final MattermostAnnouncer mattermost = new MattermostAnnouncer();
-    private final OpenCollectiveAnnouncer openCollective = new OpenCollectiveAnnouncer();
-    private final SdkmanAnnouncer sdkman = new SdkmanAnnouncer();
-```
-
-### Deprecation
-'org.jreleaser.model.internal.announce.MattermostAnnouncer' is deprecated
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/Announce.java`
-#### Snippet
-```java
-    private final SmtpAnnouncer smtp = new SmtpAnnouncer();
-    private final MastodonAnnouncer mastodon = new MastodonAnnouncer();
-    private final MattermostAnnouncer mattermost = new MattermostAnnouncer();
-    private final OpenCollectiveAnnouncer openCollective = new OpenCollectiveAnnouncer();
-    private final SdkmanAnnouncer sdkman = new SdkmanAnnouncer();
 ```
 
 ### Deprecation
@@ -6232,50 +6261,26 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announc
 ```
 
 ### Deprecation
-'org.jreleaser.model.internal.announce.GoogleChatAnnouncer' is deprecated
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/Announce.java`
-#### Snippet
-```java
-    private final DiscussionsAnnouncer discussions = new DiscussionsAnnouncer();
-    private final GitterAnnouncer gitter = new GitterAnnouncer();
-    private final GoogleChatAnnouncer googleChat = new GoogleChatAnnouncer();
-    private final LinkedinAnnouncer linkedin = new LinkedinAnnouncer();
-    private final SmtpAnnouncer smtp = new SmtpAnnouncer();
-```
-
-### Deprecation
-'org.jreleaser.model.internal.announce.GoogleChatAnnouncer' is deprecated
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/Announce.java`
-#### Snippet
-```java
-    private final DiscussionsAnnouncer discussions = new DiscussionsAnnouncer();
-    private final GitterAnnouncer gitter = new GitterAnnouncer();
-    private final GoogleChatAnnouncer googleChat = new GoogleChatAnnouncer();
-    private final LinkedinAnnouncer linkedin = new LinkedinAnnouncer();
-    private final SmtpAnnouncer smtp = new SmtpAnnouncer();
-```
-
-### Deprecation
-'org.jreleaser.model.internal.announce.GoogleChatAnnouncer' is deprecated
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/Announce.java`
-#### Snippet
-```java
-    }
-
-    public void setGoogleChat(GoogleChatAnnouncer googleChat) {
-        this.googleChat.merge(googleChat);
-    }
-```
-
-### Deprecation
 'org.jreleaser.model.internal.announce.TeamsAnnouncer' is deprecated
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/Announce.java`
 #### Snippet
 ```java
+    }
 
-    @JsonPropertyDescription("announce.teams is deprecated since 1.4.0 and will be removed in 2.0.0")
-    public TeamsAnnouncer getTeams() {
-        return teams;
+    public void setTeams(TeamsAnnouncer teams) {
+        this.teams.merge(teams);
+    }
+```
+
+### Deprecation
+'org.jreleaser.model.internal.announce.GoogleChatAnnouncer' is deprecated
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/Announce.java`
+#### Snippet
+```java
+
+    @JsonPropertyDescription("announce.googleChat is deprecated since 1.4.0 and will be removed in 2.0.0")
+    public GoogleChatAnnouncer getGoogleChat() {
+        return googleChat;
     }
 ```
 
@@ -6316,39 +6321,27 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announc
 ```
 
 ### Deprecation
-'org.jreleaser.model.internal.announce.GitterAnnouncer' is deprecated
+'org.jreleaser.model.internal.announce.GoogleChatAnnouncer' is deprecated
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/Announce.java`
 #### Snippet
 ```java
-    }
-
-    public void setGitter(GitterAnnouncer gitter) {
-        this.gitter.merge(gitter);
-    }
+    private final DiscussionsAnnouncer discussions = new DiscussionsAnnouncer();
+    private final GitterAnnouncer gitter = new GitterAnnouncer();
+    private final GoogleChatAnnouncer googleChat = new GoogleChatAnnouncer();
+    private final LinkedinAnnouncer linkedin = new LinkedinAnnouncer();
+    private final SmtpAnnouncer smtp = new SmtpAnnouncer();
 ```
 
 ### Deprecation
-'org.jreleaser.model.internal.announce.DiscordAnnouncer' is deprecated
+'org.jreleaser.model.internal.announce.GoogleChatAnnouncer' is deprecated
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/Announce.java`
 #### Snippet
 ```java
-
-    private final ArticleAnnouncer article = new ArticleAnnouncer();
-    private final DiscordAnnouncer discord = new DiscordAnnouncer();
-    private final DiscourseAnnouncer discourse = new DiscourseAnnouncer();
     private final DiscussionsAnnouncer discussions = new DiscussionsAnnouncer();
-```
-
-### Deprecation
-'org.jreleaser.model.internal.announce.DiscordAnnouncer' is deprecated
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/Announce.java`
-#### Snippet
-```java
-
-    private final ArticleAnnouncer article = new ArticleAnnouncer();
-    private final DiscordAnnouncer discord = new DiscordAnnouncer();
-    private final DiscourseAnnouncer discourse = new DiscourseAnnouncer();
-    private final DiscussionsAnnouncer discussions = new DiscussionsAnnouncer();
+    private final GitterAnnouncer gitter = new GitterAnnouncer();
+    private final GoogleChatAnnouncer googleChat = new GoogleChatAnnouncer();
+    private final LinkedinAnnouncer linkedin = new LinkedinAnnouncer();
+    private final SmtpAnnouncer smtp = new SmtpAnnouncer();
 ```
 
 ### Deprecation
@@ -6356,10 +6349,34 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announc
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/Announce.java`
 #### Snippet
 ```java
+    private final SmtpAnnouncer smtp = new SmtpAnnouncer();
+    private final MastodonAnnouncer mastodon = new MastodonAnnouncer();
+    private final MattermostAnnouncer mattermost = new MattermostAnnouncer();
+    private final OpenCollectiveAnnouncer openCollective = new OpenCollectiveAnnouncer();
+    private final SdkmanAnnouncer sdkman = new SdkmanAnnouncer();
+```
 
-    @JsonPropertyDescription("announce.mattermost is deprecated since 1.4.0 and will be removed in 2.0.0")
-    public MattermostAnnouncer getMattermost() {
-        return mattermost;
+### Deprecation
+'org.jreleaser.model.internal.announce.MattermostAnnouncer' is deprecated
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/Announce.java`
+#### Snippet
+```java
+    private final SmtpAnnouncer smtp = new SmtpAnnouncer();
+    private final MastodonAnnouncer mastodon = new MastodonAnnouncer();
+    private final MattermostAnnouncer mattermost = new MattermostAnnouncer();
+    private final OpenCollectiveAnnouncer openCollective = new OpenCollectiveAnnouncer();
+    private final SdkmanAnnouncer sdkman = new SdkmanAnnouncer();
+```
+
+### Deprecation
+'org.jreleaser.model.internal.announce.GoogleChatAnnouncer' is deprecated
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/Announce.java`
+#### Snippet
+```java
+    }
+
+    public void setGoogleChat(GoogleChatAnnouncer googleChat) {
+        this.googleChat.merge(googleChat);
     }
 ```
 
@@ -6376,15 +6393,27 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announc
 ```
 
 ### Deprecation
-'NATIVE_IMAGE' is deprecated
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/ScoopPackager.java`
+'org.jreleaser.model.internal.announce.GitterAnnouncer' is deprecated
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/Announce.java`
 #### Snippet
 ```java
-    static {
-        Set<String> extensions = setOf(ZIP.extension());
-        SUPPORTED.put(NATIVE_IMAGE, extensions);
-        SUPPORTED.put(BINARY, extensions);
-        SUPPORTED.put(JAVA_BINARY, extensions);
+    }
+
+    public void setGitter(GitterAnnouncer gitter) {
+        this.gitter.merge(gitter);
+    }
+```
+
+### Deprecation
+'org.jreleaser.model.internal.announce.DiscordAnnouncer' is deprecated
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/announce/Announce.java`
+#### Snippet
+```java
+    }
+
+    public void setDiscord(DiscordAnnouncer discord) {
+        this.discord.merge(discord);
+    }
 ```
 
 ### Deprecation
@@ -6401,31 +6430,7 @@ import static org.jreleaser.model.Distribution.DistributionType.SINGLE_JAR;
 
 ### Deprecation
 'NATIVE_IMAGE' is deprecated
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/AppImagePackager.java`
-#### Snippet
-```java
-            ZIP.extension());
-
-        SUPPORTED.put(NATIVE_IMAGE, extensions);
-        SUPPORTED.put(BINARY, extensions);
-        SUPPORTED.put(JAVA_BINARY, extensions);
-```
-
-### Deprecation
-'NATIVE_IMAGE' is deprecated
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/AppImagePackager.java`
-#### Snippet
-```java
-import static org.jreleaser.model.Distribution.DistributionType.JAVA_BINARY;
-import static org.jreleaser.model.Distribution.DistributionType.JLINK;
-import static org.jreleaser.model.Distribution.DistributionType.NATIVE_IMAGE;
-import static org.jreleaser.model.Distribution.DistributionType.SINGLE_JAR;
-import static org.jreleaser.model.api.packagers.AppImagePackager.SKIP_APPIMAGE;
-```
-
-### Deprecation
-'NATIVE_IMAGE' is deprecated
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/DockerPackager.java`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/ScoopPackager.java`
 #### Snippet
 ```java
     static {
@@ -6433,18 +6438,6 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/package
         SUPPORTED.put(NATIVE_IMAGE, extensions);
         SUPPORTED.put(BINARY, extensions);
         SUPPORTED.put(JAVA_BINARY, extensions);
-```
-
-### Deprecation
-'NATIVE_IMAGE' is deprecated
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/DockerPackager.java`
-#### Snippet
-```java
-import static org.jreleaser.model.Distribution.DistributionType.JAVA_BINARY;
-import static org.jreleaser.model.Distribution.DistributionType.JLINK;
-import static org.jreleaser.model.Distribution.DistributionType.NATIVE_IMAGE;
-import static org.jreleaser.model.Distribution.DistributionType.SINGLE_JAR;
-import static org.jreleaser.model.api.packagers.DockerPackager.SKIP_DOCKER;
 ```
 
 ### Deprecation
@@ -6473,6 +6466,54 @@ import static org.jreleaser.model.api.packagers.ChocolateyPackager.SKIP_CHOCOLAT
 
 ### Deprecation
 'NATIVE_IMAGE' is deprecated
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/AppImagePackager.java`
+#### Snippet
+```java
+            ZIP.extension());
+
+        SUPPORTED.put(NATIVE_IMAGE, extensions);
+        SUPPORTED.put(BINARY, extensions);
+        SUPPORTED.put(JAVA_BINARY, extensions);
+```
+
+### Deprecation
+'NATIVE_IMAGE' is deprecated
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/AppImagePackager.java`
+#### Snippet
+```java
+import static org.jreleaser.model.Distribution.DistributionType.JAVA_BINARY;
+import static org.jreleaser.model.Distribution.DistributionType.JLINK;
+import static org.jreleaser.model.Distribution.DistributionType.NATIVE_IMAGE;
+import static org.jreleaser.model.Distribution.DistributionType.SINGLE_JAR;
+import static org.jreleaser.model.api.packagers.AppImagePackager.SKIP_APPIMAGE;
+```
+
+### Deprecation
+'NATIVE_IMAGE' is deprecated
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/FlatpakPackager.java`
+#### Snippet
+```java
+            ZIP.extension());
+
+        SUPPORTED.put(NATIVE_IMAGE, extensions);
+        SUPPORTED.put(BINARY, extensions);
+        SUPPORTED.put(JAVA_BINARY, extensions);
+```
+
+### Deprecation
+'NATIVE_IMAGE' is deprecated
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/FlatpakPackager.java`
+#### Snippet
+```java
+import static org.jreleaser.model.Distribution.DistributionType.JAVA_BINARY;
+import static org.jreleaser.model.Distribution.DistributionType.JLINK;
+import static org.jreleaser.model.Distribution.DistributionType.NATIVE_IMAGE;
+import static org.jreleaser.model.api.packagers.FlatpakPackager.SKIP_FLATPAK;
+import static org.jreleaser.model.api.packagers.FlatpakPackager.TYPE;
+```
+
+### Deprecation
+'NATIVE_IMAGE' is deprecated
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/AsdfPackager.java`
 #### Snippet
 ```java
@@ -6496,27 +6537,15 @@ import static org.jreleaser.model.api.packagers.AsdfPackager.TYPE;
 ```
 
 ### Deprecation
-'NATIVE_IMAGE' is deprecated
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/FlatpakPackager.java`
+'org.jreleaser.model.api.packagers.GofishPackager' is deprecated
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/GofishPackager.java`
 #### Snippet
 ```java
-import static org.jreleaser.model.Distribution.DistributionType.JAVA_BINARY;
-import static org.jreleaser.model.Distribution.DistributionType.JLINK;
-import static org.jreleaser.model.Distribution.DistributionType.NATIVE_IMAGE;
-import static org.jreleaser.model.api.packagers.FlatpakPackager.SKIP_FLATPAK;
-import static org.jreleaser.model.api.packagers.FlatpakPackager.TYPE;
-```
 
-### Deprecation
-'NATIVE_IMAGE' is deprecated
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/FlatpakPackager.java`
-#### Snippet
-```java
-            ZIP.extension());
+    @JsonIgnore
+    private final org.jreleaser.model.api.packagers.GofishPackager immutable = new org.jreleaser.model.api.packagers.GofishPackager() {
+        private static final long serialVersionUID = 7575986906210858224L;
 
-        SUPPORTED.put(NATIVE_IMAGE, extensions);
-        SUPPORTED.put(BINARY, extensions);
-        SUPPORTED.put(JAVA_BINARY, extensions);
 ```
 
 ### Deprecation
@@ -6529,18 +6558,6 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/package
     public org.jreleaser.model.api.packagers.GofishPackager asImmutable() {
         return immutable;
     }
-```
-
-### Deprecation
-'org.jreleaser.model.api.packagers.GofishPackager' is deprecated
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/GofishPackager.java`
-#### Snippet
-```java
-
-    @JsonIgnore
-    private final org.jreleaser.model.api.packagers.GofishPackager immutable = new org.jreleaser.model.api.packagers.GofishPackager() {
-        private static final long serialVersionUID = 7575986906210858224L;
-
 ```
 
 ### Deprecation
@@ -6593,6 +6610,30 @@ public final class GofishPackager extends AbstractRepositoryPackager<org.jreleas
 
 ### Deprecation
 'NATIVE_IMAGE' is deprecated
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/DockerPackager.java`
+#### Snippet
+```java
+import static org.jreleaser.model.Distribution.DistributionType.JAVA_BINARY;
+import static org.jreleaser.model.Distribution.DistributionType.JLINK;
+import static org.jreleaser.model.Distribution.DistributionType.NATIVE_IMAGE;
+import static org.jreleaser.model.Distribution.DistributionType.SINGLE_JAR;
+import static org.jreleaser.model.api.packagers.DockerPackager.SKIP_DOCKER;
+```
+
+### Deprecation
+'NATIVE_IMAGE' is deprecated
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/DockerPackager.java`
+#### Snippet
+```java
+    static {
+        Set<String> extensions = setOf(ZIP.extension());
+        SUPPORTED.put(NATIVE_IMAGE, extensions);
+        SUPPORTED.put(BINARY, extensions);
+        SUPPORTED.put(JAVA_BINARY, extensions);
+```
+
+### Deprecation
+'NATIVE_IMAGE' is deprecated
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/MacportsPackager.java`
 #### Snippet
 ```java
@@ -6620,6 +6661,18 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/package
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/BrewPackager.java`
 #### Snippet
 ```java
+    static {
+        Set<String> extensions = setOf(ZIP.extension());
+        SUPPORTED.put(NATIVE_IMAGE, extensions);
+        SUPPORTED.put(BINARY, extensions);
+        SUPPORTED.put(JAVA_BINARY, extensions);
+```
+
+### Deprecation
+'NATIVE_IMAGE' is deprecated
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/BrewPackager.java`
+#### Snippet
+```java
 import static org.jreleaser.model.Distribution.DistributionType.JAVA_BINARY;
 import static org.jreleaser.model.Distribution.DistributionType.JLINK;
 import static org.jreleaser.model.Distribution.DistributionType.NATIVE_IMAGE;
@@ -6628,15 +6681,15 @@ import static org.jreleaser.model.Distribution.DistributionType.SINGLE_JAR;
 ```
 
 ### Deprecation
-'NATIVE_IMAGE' is deprecated
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/BrewPackager.java`
+'org.jreleaser.model.api.packagers.GofishPackager' is deprecated
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/Packagers.java`
 #### Snippet
 ```java
-    static {
-        Set<String> extensions = setOf(ZIP.extension());
-        SUPPORTED.put(NATIVE_IMAGE, extensions);
-        SUPPORTED.put(BINARY, extensions);
-        SUPPORTED.put(JAVA_BINARY, extensions);
+
+        @Override
+        public org.jreleaser.model.api.packagers.GofishPackager getGofish() {
+            return gofish.asImmutable();
+        }
 ```
 
 ### Deprecation
@@ -6664,15 +6717,15 @@ import static org.jreleaser.model.api.packagers.WingetPackager.SKIP_WINGET;
 ```
 
 ### Deprecation
-'org.jreleaser.model.api.packagers.GofishPackager' is deprecated
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/Packagers.java`
+'NATIVE_IMAGE' is deprecated
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/JibPackager.java`
 #### Snippet
 ```java
-
-        @Override
-        public org.jreleaser.model.api.packagers.GofishPackager getGofish() {
-            return gofish.asImmutable();
-        }
+    static {
+        Set<String> extensions = setOf(ZIP.extension());
+        SUPPORTED.put(NATIVE_IMAGE, extensions);
+        SUPPORTED.put(BINARY, extensions);
+        SUPPORTED.put(JAVA_BINARY, extensions);
 ```
 
 ### Deprecation
@@ -6689,11 +6742,11 @@ import static org.jreleaser.model.api.packagers.JibPackager.SKIP_JIB;
 
 ### Deprecation
 'NATIVE_IMAGE' is deprecated
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/JibPackager.java`
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/SpecPackager.java`
 #### Snippet
 ```java
-    static {
-        Set<String> extensions = setOf(ZIP.extension());
+            ZIP.extension());
+
         SUPPORTED.put(NATIVE_IMAGE, extensions);
         SUPPORTED.put(BINARY, extensions);
         SUPPORTED.put(JAVA_BINARY, extensions);
@@ -6709,18 +6762,6 @@ import static org.jreleaser.model.Distribution.DistributionType.JLINK;
 import static org.jreleaser.model.Distribution.DistributionType.NATIVE_IMAGE;
 import static org.jreleaser.model.api.packagers.SpecPackager.SKIP_SPEC;
 import static org.jreleaser.model.api.packagers.SpecPackager.TYPE;
-```
-
-### Deprecation
-'NATIVE_IMAGE' is deprecated
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/packagers/SpecPackager.java`
-#### Snippet
-```java
-            ZIP.extension());
-
-        SUPPORTED.put(NATIVE_IMAGE, extensions);
-        SUPPORTED.put(BINARY, extensions);
-        SUPPORTED.put(JAVA_BINARY, extensions);
 ```
 
 ### Deprecation
@@ -6820,18 +6861,6 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/validat
 ```
 
 ### Deprecation
-'org.jreleaser.model.api.packagers.GofishPackager' is deprecated
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/distributions/Distribution.java`
-#### Snippet
-```java
-
-        @Override
-        public org.jreleaser.model.api.packagers.GofishPackager getGofish() {
-            return gofish.asImmutable();
-        }
-```
-
-### Deprecation
 'NATIVE_IMAGE' is deprecated
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/distributions/Distribution.java`
 #### Snippet
@@ -6841,6 +6870,18 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/distrib
         if (type == org.jreleaser.model.Distribution.DistributionType.NATIVE_IMAGE) {
             nag("NATIVE_IMAGE is deprecated since 1.4.0 and will be removed in 2.0.0. Use BINARY instead");
             this.type = org.jreleaser.model.Distribution.DistributionType.BINARY;
+```
+
+### Deprecation
+'org.jreleaser.model.api.packagers.GofishPackager' is deprecated
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/distributions/Distribution.java`
+#### Snippet
+```java
+
+        @Override
+        public org.jreleaser.model.api.packagers.GofishPackager getGofish() {
+            return gofish.asImmutable();
+        }
 ```
 
 ### Deprecation
@@ -7079,18 +7120,6 @@ in `infra/jreleaser-nativeimage-processor/src/main/java/org/jreleaser/infra/nati
 #### Snippet
 ```java
 
-    private String formatClass(String name) {
-        return String.format("" +
-            "  {%n" +
-            "    \"name\": \"%s\",%n" +
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `infra/jreleaser-nativeimage-processor/src/main/java/org/jreleaser/infra/nativeimage/processor/ReflectConfigGenerator.java`
-#### Snippet
-```java
-
     private String formatEnum(String name) {
         return String.format("" +
             "  {%n" +
@@ -7104,6 +7133,18 @@ in `infra/jreleaser-nativeimage-processor/src/main/java/org/jreleaser/infra/nati
 ```java
 
     private String formatInterface(String name) {
+        return String.format("" +
+            "  {%n" +
+            "    \"name\": \"%s\",%n" +
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `infra/jreleaser-nativeimage-processor/src/main/java/org/jreleaser/infra/nativeimage/processor/ReflectConfigGenerator.java`
+#### Snippet
+```java
+
+    private String formatClass(String name) {
         return String.format("" +
             "  {%n" +
             "    \"name\": \"%s\",%n" +
@@ -7202,8 +7243,56 @@ in `api/jreleaser-utils/src/main/java/org/jreleaser/util/CollectionUtils.java`
 ```java
 
         @Override
+        public boolean containsAll(Collection<?> objects) {
+            return delegate.containsAll(objects);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `api/jreleaser-utils/src/main/java/org/jreleaser/util/CollectionUtils.java`
+#### Snippet
+```java
+
+        @Override
         public <T> T[] toArray(T[] ts) {
             return delegate.toArray(ts);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `api/jreleaser-utils/src/main/java/org/jreleaser/util/CollectionUtils.java`
+#### Snippet
+```java
+
+        @Override
+        public void putAll(Map<? extends K, ? extends V> map) {
+            delegate.putAll(map);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `api/jreleaser-utils/src/main/java/org/jreleaser/util/CollectionUtils.java`
+#### Snippet
+```java
+
+        @Override
+        public boolean addAll(Collection<? extends E> es) {
+            return delegate.addAll(es);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `api/jreleaser-utils/src/main/java/org/jreleaser/util/CollectionUtils.java`
+#### Snippet
+```java
+
+        @Override
+        public boolean addAll(int i, Collection<? extends E> es) {
+            return delegate.addAll(i, es);
         }
 ```
 
@@ -7220,38 +7309,14 @@ in `api/jreleaser-utils/src/main/java/org/jreleaser/util/CollectionUtils.java`
 ```
 
 ### NullableProblems
-Not annotated method overrides method annotated with @NotNull
-in `api/jreleaser-utils/src/main/java/org/jreleaser/util/CollectionUtils.java`
-#### Snippet
-```java
-
-        @Override
-        public Collection<Object> values() {
-            return map.values();
-        }
-```
-
-### NullableProblems
 Not annotated parameter overrides @NotNull parameter
 in `api/jreleaser-utils/src/main/java/org/jreleaser/util/CollectionUtils.java`
 #### Snippet
 ```java
 
         @Override
-        public boolean removeAll(Collection<?> objects) {
-            return delegate.removeAll(objects);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `api/jreleaser-utils/src/main/java/org/jreleaser/util/CollectionUtils.java`
-#### Snippet
-```java
-
-        @Override
-        public boolean removeAll(Collection<?> objects) {
-            return delegate.removeAll(objects);
+        public <T> T[] toArray(T[] ts) {
+            return delegate.toArray(ts);
         }
 ```
 
@@ -7264,6 +7329,66 @@ in `api/jreleaser-utils/src/main/java/org/jreleaser/util/CollectionUtils.java`
         @Override
         public boolean addAll(Collection<? extends E> es) {
             return delegate.addAll(es);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `api/jreleaser-utils/src/main/java/org/jreleaser/util/CollectionUtils.java`
+#### Snippet
+```java
+
+        @Override
+        public boolean retainAll(Collection<?> objects) {
+            return delegate.retainAll(objects);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `api/jreleaser-utils/src/main/java/org/jreleaser/util/CollectionUtils.java`
+#### Snippet
+```java
+
+        @Override
+        public boolean containsAll(Collection<?> objects) {
+            return delegate.containsAll(objects);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `api/jreleaser-utils/src/main/java/org/jreleaser/util/CollectionUtils.java`
+#### Snippet
+```java
+
+        @Override
+        public boolean removeAll(Collection<?> objects) {
+            return delegate.removeAll(objects);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `api/jreleaser-utils/src/main/java/org/jreleaser/util/CollectionUtils.java`
+#### Snippet
+```java
+
+        @Override
+        public boolean removeAll(Collection<?> objects) {
+            return delegate.removeAll(objects);
+        }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NotNull
+in `api/jreleaser-utils/src/main/java/org/jreleaser/util/CollectionUtils.java`
+#### Snippet
+```java
+
+        @Override
+        public Collection<Object> values() {
+            return map.values();
         }
 ```
 
@@ -7293,90 +7418,6 @@ in `api/jreleaser-utils/src/main/java/org/jreleaser/util/CollectionUtils.java`
 
 ### NullableProblems
 Not annotated parameter overrides @NotNull parameter
-in `api/jreleaser-utils/src/main/java/org/jreleaser/util/CollectionUtils.java`
-#### Snippet
-```java
-
-        @Override
-        public boolean containsAll(Collection<?> objects) {
-            return delegate.containsAll(objects);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `api/jreleaser-utils/src/main/java/org/jreleaser/util/CollectionUtils.java`
-#### Snippet
-```java
-
-        @Override
-        public boolean retainAll(Collection<?> objects) {
-            return delegate.retainAll(objects);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `api/jreleaser-utils/src/main/java/org/jreleaser/util/CollectionUtils.java`
-#### Snippet
-```java
-
-        @Override
-        public boolean addAll(Collection<? extends E> es) {
-            return delegate.addAll(es);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `api/jreleaser-utils/src/main/java/org/jreleaser/util/CollectionUtils.java`
-#### Snippet
-```java
-
-        @Override
-        public <T> T[] toArray(T[] ts) {
-            return delegate.toArray(ts);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `api/jreleaser-utils/src/main/java/org/jreleaser/util/CollectionUtils.java`
-#### Snippet
-```java
-
-        @Override
-        public boolean containsAll(Collection<?> objects) {
-            return delegate.containsAll(objects);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `api/jreleaser-utils/src/main/java/org/jreleaser/util/CollectionUtils.java`
-#### Snippet
-```java
-
-        @Override
-        public void putAll(Map<? extends K, ? extends V> map) {
-            delegate.putAll(map);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `api/jreleaser-utils/src/main/java/org/jreleaser/util/CollectionUtils.java`
-#### Snippet
-```java
-
-        @Override
-        public boolean addAll(int i, Collection<? extends E> es) {
-            return delegate.addAll(i, es);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
 in `api/jreleaser-model-api/src/main/java/org/jreleaser/version/ChronVer.java`
 #### Snippet
 ```java
@@ -7385,6 +7426,18 @@ in `api/jreleaser-model-api/src/main/java/org/jreleaser/version/ChronVer.java`
         public int compareTo(Changeset other) {
             if (null == other) return -1;
             if (isEmpty() && other.isEmpty()) return 0;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/catalog/Slsa.java`
+#### Snippet
+```java
+
+        @Override
+        public int compareTo(Subject o) {
+            if (null == o) return -1;
+            return this.name.compareTo(o.name);
 ```
 
 ### NullableProblems
@@ -7401,6 +7454,18 @@ in `core/jreleaser-templates/src/main/java/org/jreleaser/templates/VersionDecora
 
 ### NullableProblems
 Not annotated parameter overrides @NotNull parameter
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/spi/deploy/maven/Deployable.java`
+#### Snippet
+```java
+
+    @Override
+    public int compareTo(Deployable o) {
+        if (null == o) return -1;
+        return getFullDeployPath().compareTo(o.getFullDeployPath());
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
 in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/spi/release/Asset.java`
 #### Snippet
 ```java
@@ -7409,18 +7474,6 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/spi/release/Asse
     public int compareTo(Asset o) {
         if (null == o) return -1;
         return this.filename.compareTo(o.filename);
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NotNull
-in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserContext.java`
-#### Snippet
-```java
-        // Java 11 calls entrySet() when storing properties
-        @Override
-        public Set<Map.Entry<Object, Object>> entrySet() {
-            int javaMajorVersion = SemanticVersion.javaMajorVersion();
-            if (javaMajorVersion < 11) {
 ```
 
 ### NullableProblems
@@ -7433,6 +7486,18 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/common/
     public int compareTo(Artifact o) {
         if (null == o) return -1;
         return path.compareTo(o.path);
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NotNull
+in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleaserContext.java`
+#### Snippet
+```java
+        // Java 11 calls entrySet() when storing properties
+        @Override
+        public Set<Map.Entry<Object, Object>> entrySet() {
+            int javaMajorVersion = SemanticVersion.javaMajorVersion();
+            if (javaMajorVersion < 11) {
 ```
 
 ### NullableProblems
@@ -7497,18 +7562,6 @@ in `sdks/jreleaser-command-java-sdk/src/main/java/org/jreleaser/sdk/command/Comm
 
 ### NullableProblems
 Not annotated parameter overrides @NotNull parameter
-in `sdks/jreleaser-java-sdk-commons/src/main/java/org/jreleaser/sdk/commons/AbstractMavenDeployer.java`
-#### Snippet
-```java
-
-        @Override
-        public int compareTo(Deployable o) {
-            if (null == o) return -1;
-            return getFullDeployPath().compareTo(o.getFullDeployPath());
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
 in `plugins/jreleaser/src/main/java/org/jreleaser/cli/AbstractCommand.java`
 #### Snippet
 ```java
@@ -7522,7 +7575,7 @@ in `plugins/jreleaser/src/main/java/org/jreleaser/cli/AbstractCommand.java`
 ## RuleId[id=JavadocLinkAsPlainText]
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `sdks/jreleaser-sdkman-java-sdk/src/main/java/org/jreleaser/sdk/sdkman/MajorReleaseSdkmanCommand.java`
+in `sdks/jreleaser-sdkman-java-sdk/src/main/java/org/jreleaser/sdk/sdkman/ReleaseSdkmanCommand.java`
 #### Snippet
 ```java
          * Example:
@@ -7534,7 +7587,7 @@ in `sdks/jreleaser-sdkman-java-sdk/src/main/java/org/jreleaser/sdk/sdkman/MajorR
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `sdks/jreleaser-sdkman-java-sdk/src/main/java/org/jreleaser/sdk/sdkman/MajorReleaseSdkmanCommand.java`
+in `sdks/jreleaser-sdkman-java-sdk/src/main/java/org/jreleaser/sdk/sdkman/ReleaseSdkmanCommand.java`
 #### Snippet
 ```java
          * <pre>
@@ -7546,7 +7599,7 @@ in `sdks/jreleaser-sdkman-java-sdk/src/main/java/org/jreleaser/sdk/sdkman/MajorR
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `sdks/jreleaser-sdkman-java-sdk/src/main/java/org/jreleaser/sdk/sdkman/MajorReleaseSdkmanCommand.java`
+in `sdks/jreleaser-sdkman-java-sdk/src/main/java/org/jreleaser/sdk/sdkman/ReleaseSdkmanCommand.java`
 #### Snippet
 ```java
          *     "MAC_OSX"   :"https://host/micronaut-x.y.z-macosx.zip"
@@ -7558,7 +7611,7 @@ in `sdks/jreleaser-sdkman-java-sdk/src/main/java/org/jreleaser/sdk/sdkman/MajorR
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `sdks/jreleaser-sdkman-java-sdk/src/main/java/org/jreleaser/sdk/sdkman/ReleaseSdkmanCommand.java`
+in `sdks/jreleaser-sdkman-java-sdk/src/main/java/org/jreleaser/sdk/sdkman/MajorReleaseSdkmanCommand.java`
 #### Snippet
 ```java
          * Example:
@@ -7570,7 +7623,7 @@ in `sdks/jreleaser-sdkman-java-sdk/src/main/java/org/jreleaser/sdk/sdkman/Releas
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `sdks/jreleaser-sdkman-java-sdk/src/main/java/org/jreleaser/sdk/sdkman/ReleaseSdkmanCommand.java`
+in `sdks/jreleaser-sdkman-java-sdk/src/main/java/org/jreleaser/sdk/sdkman/MajorReleaseSdkmanCommand.java`
 #### Snippet
 ```java
          * <pre>
@@ -7582,7 +7635,7 @@ in `sdks/jreleaser-sdkman-java-sdk/src/main/java/org/jreleaser/sdk/sdkman/Releas
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `sdks/jreleaser-sdkman-java-sdk/src/main/java/org/jreleaser/sdk/sdkman/ReleaseSdkmanCommand.java`
+in `sdks/jreleaser-sdkman-java-sdk/src/main/java/org/jreleaser/sdk/sdkman/MajorReleaseSdkmanCommand.java`
 #### Snippet
 ```java
          *     "MAC_OSX"   :"https://host/micronaut-x.y.z-macosx.zip"
@@ -7678,6 +7731,18 @@ in `api/jreleaser-utils/src/main/java/org/jreleaser/util/FileUtils.java`
 ```
 
 ### IgnoreResultOfCall
+Result of `File.delete()` is ignored
+in `api/jreleaser-utils/src/main/java/org/jreleaser/util/FileUtils.java`
+#### Snippet
+```java
+                    .sorted(Comparator.reverseOrder())
+                    .map(Path::toFile)
+                    .forEach(File::delete);
+            }
+            if (!keepRoot) Files.deleteIfExists(path);
+```
+
+### IgnoreResultOfCall
 Result of `File.setReadable()` is ignored
 in `api/jreleaser-utils/src/main/java/org/jreleaser/util/FileUtils.java`
 #### Snippet
@@ -7711,18 +7776,6 @@ in `api/jreleaser-utils/src/main/java/org/jreleaser/util/FileUtils.java`
             d.setExecutable(s.canExecute());
         }
     }
-```
-
-### IgnoreResultOfCall
-Result of `File.delete()` is ignored
-in `api/jreleaser-utils/src/main/java/org/jreleaser/util/FileUtils.java`
-#### Snippet
-```java
-                    .sorted(Comparator.reverseOrder())
-                    .map(Path::toFile)
-                    .forEach(File::delete);
-            }
-            if (!keepRoot) Files.deleteIfExists(path);
 ```
 
 ### IgnoreResultOfCall
@@ -7960,18 +8013,6 @@ in `core/jreleaser-engine/src/main/java/org/jreleaser/announcers/ArticleAnnounce
 
 ### AutoCloseableResource
 'TemplateResource' used without 'try'-with-resources statement
-in `core/jreleaser-templates/src/main/java/org/jreleaser/templates/TemplateGenerator.java`
-#### Snippet
-```java
-        }
-
-        TemplateResource value = TemplateUtils.resolveTemplate(logger, "announcers/" + announcerName + ".tpl");
-
-        Path outputFile = outputDirectory.resolve(announcerName + ".tpl");
-```
-
-### AutoCloseableResource
-'TemplateResource' used without 'try'-with-resources statement
 in `core/jreleaser-engine/src/main/java/org/jreleaser/extensions/internal/DefaultExtensionManager.java`
 #### Snippet
 ```java
@@ -7983,51 +8024,15 @@ in `core/jreleaser-engine/src/main/java/org/jreleaser/extensions/internal/Defaul
 ```
 
 ### AutoCloseableResource
-'Reader' used without 'try'-with-resources statement
-in `sdks/jreleaser-http-java-sdk/src/main/java/org/jreleaser/sdk/http/HttpAnnouncer.java`
+'TemplateResource' used without 'try'-with-resources statement
+in `core/jreleaser-templates/src/main/java/org/jreleaser/templates/TemplateGenerator.java`
 #### Snippet
 ```java
+        }
 
-            if (announcer.getMethod() == Http.Method.POST) {
-                ClientUtils.postFile(context.getLogger(),
-                    resolvedUrl,
-                    announcer.getConnectTimeout(),
-```
+        TemplateResource value = TemplateUtils.resolveTemplate(logger, "announcers/" + announcerName + ".tpl");
 
-### AutoCloseableResource
-'Reader' used without 'try'-with-resources statement
-in `sdks/jreleaser-http-java-sdk/src/main/java/org/jreleaser/sdk/http/HttpAnnouncer.java`
-#### Snippet
-```java
-                    headers);
-            } else {
-                ClientUtils.putFile(context.getLogger(),
-                    resolvedUrl,
-                    announcer.getConnectTimeout(),
-```
-
-### AutoCloseableResource
-'Reader' used without 'try'-with-resources statement
-in `sdks/jreleaser-http-java-sdk/src/main/java/org/jreleaser/sdk/http/HttpArtifactUploader.java`
-#### Snippet
-```java
-
-                    if (uploader.getMethod() == Http.Method.POST) {
-                        ClientUtils.postFile(context.getLogger(),
-                            uploader.getResolvedUploadUrl(context, artifact),
-                            uploader.getConnectTimeout(),
-```
-
-### AutoCloseableResource
-'Reader' used without 'try'-with-resources statement
-in `sdks/jreleaser-http-java-sdk/src/main/java/org/jreleaser/sdk/http/HttpArtifactUploader.java`
-#### Snippet
-```java
-                            headers);
-                    } else {
-                        ClientUtils.putFile(context.getLogger(),
-                            uploader.getResolvedUploadUrl(context, artifact),
-                            uploader.getConnectTimeout(),
+        Path outputFile = outputDirectory.resolve(announcerName + ".tpl");
 ```
 
 ### AutoCloseableResource
@@ -8036,10 +8041,10 @@ in `sdks/jreleaser-git-java-sdk/src/main/java/org/jreleaser/sdk/git/GitSdk.java`
 #### Snippet
 ```java
 
-    public boolean findTag(String tagName) throws IOException {
+    public Repository getRemote() throws IOException {
         Git git = open();
 
-        try {
+        String remote = resolveDefaultGitRemoteName();
 ```
 
 ### AutoCloseableResource
@@ -8048,10 +8053,10 @@ in `sdks/jreleaser-git-java-sdk/src/main/java/org/jreleaser/sdk/git/GitSdk.java`
 #### Snippet
 ```java
 
-    public void tag(String tagName, boolean force, JReleaserContext context) throws IOException {
+    public Commit head() throws IOException {
         Git git = open();
 
-        try {
+        RevWalk walk = new RevWalk(git.getRepository());
 ```
 
 ### AutoCloseableResource
@@ -8084,10 +8089,10 @@ in `sdks/jreleaser-git-java-sdk/src/main/java/org/jreleaser/sdk/git/GitSdk.java`
 #### Snippet
 ```java
 
-    public Commit head() throws IOException {
+    public boolean findTag(String tagName) throws IOException {
         Git git = open();
 
-        RevWalk walk = new RevWalk(git.getRepository());
+        try {
 ```
 
 ### AutoCloseableResource
@@ -8096,10 +8101,10 @@ in `sdks/jreleaser-git-java-sdk/src/main/java/org/jreleaser/sdk/git/GitSdk.java`
 #### Snippet
 ```java
 
-    public Repository getRemote() throws IOException {
+    public void tag(String tagName, boolean force, JReleaserContext context) throws IOException {
         Git git = open();
 
-        String remote = resolveDefaultGitRemoteName();
+        try {
 ```
 
 ### AutoCloseableResource
@@ -8112,6 +8117,54 @@ in `sdks/jreleaser-git-java-sdk/src/main/java/org/jreleaser/sdk/git/GitSdk.java`
         Git git = open();
 
         try {
+```
+
+### AutoCloseableResource
+'Reader' used without 'try'-with-resources statement
+in `sdks/jreleaser-http-java-sdk/src/main/java/org/jreleaser/sdk/http/HttpArtifactUploader.java`
+#### Snippet
+```java
+
+                    if (uploader.getMethod() == Http.Method.POST) {
+                        ClientUtils.postFile(context.getLogger(),
+                            uploader.getResolvedUploadUrl(context, artifact),
+                            uploader.getConnectTimeout(),
+```
+
+### AutoCloseableResource
+'Reader' used without 'try'-with-resources statement
+in `sdks/jreleaser-http-java-sdk/src/main/java/org/jreleaser/sdk/http/HttpArtifactUploader.java`
+#### Snippet
+```java
+                            headers);
+                    } else {
+                        ClientUtils.putFile(context.getLogger(),
+                            uploader.getResolvedUploadUrl(context, artifact),
+                            uploader.getConnectTimeout(),
+```
+
+### AutoCloseableResource
+'Reader' used without 'try'-with-resources statement
+in `sdks/jreleaser-http-java-sdk/src/main/java/org/jreleaser/sdk/http/HttpAnnouncer.java`
+#### Snippet
+```java
+
+            if (announcer.getMethod() == Http.Method.POST) {
+                ClientUtils.postFile(context.getLogger(),
+                    resolvedUrl,
+                    announcer.getConnectTimeout(),
+```
+
+### AutoCloseableResource
+'Reader' used without 'try'-with-resources statement
+in `sdks/jreleaser-http-java-sdk/src/main/java/org/jreleaser/sdk/http/HttpAnnouncer.java`
+#### Snippet
+```java
+                    headers);
+            } else {
+                ClientUtils.putFile(context.getLogger(),
+                    resolvedUrl,
+                    announcer.getConnectTimeout(),
 ```
 
 ### AutoCloseableResource
@@ -8152,18 +8205,6 @@ in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab
 
 ### AutoCloseableResource
 'Reader' used without 'try'-with-resources statement
-in `sdks/jreleaser-nexus2-java-sdk/src/main/java/org/jreleaser/sdk/nexus2/Nexus2.java`
-#### Snippet
-```java
-                .append(filename);
-
-            ClientUtils.putFile(logger,
-                url.toString(),
-                connectTimeout,
-```
-
-### AutoCloseableResource
-'Reader' used without 'try'-with-resources statement
 in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab.java`
 #### Snippet
 ```java
@@ -8171,6 +8212,18 @@ in `sdks/jreleaser-gitlab-java-sdk/src/main/java/org/jreleaser/sdk/gitlab/Gitlab
 
             ClientUtils.postFile(logger,
                 graphQlEndpoint,
+                connectTimeout,
+```
+
+### AutoCloseableResource
+'Reader' used without 'try'-with-resources statement
+in `sdks/jreleaser-nexus2-java-sdk/src/main/java/org/jreleaser/sdk/nexus2/Nexus2.java`
+#### Snippet
+```java
+                .append(filename);
+
+            ClientUtils.putFile(logger,
+                url.toString(),
                 connectTimeout,
 ```
 
@@ -8294,7 +8347,7 @@ in `api/jreleaser-utils/src/main/java/org/jreleaser/util/FileUtils.java`
 #### Snippet
 ```java
 
-    private static String resolveRootEntryName(ArchiveInputStream in) throws IOException {
+    private static void unpackArchive(String basename, File destinationDir, ArchiveInputStream in) throws IOException {
         ArchiveEntry entry = null;
         while (null != (entry = in.getNextEntry())) {
             if (!in.canReadEntryData(entry)) {
@@ -8318,7 +8371,7 @@ in `api/jreleaser-utils/src/main/java/org/jreleaser/util/FileUtils.java`
 #### Snippet
 ```java
 
-    private static void unpackArchive(String basename, File destinationDir, ArchiveInputStream in) throws IOException {
+    private static String resolveRootEntryName(ArchiveInputStream in) throws IOException {
         ArchiveEntry entry = null;
         while (null != (entry = in.getNextEntry())) {
             if (!in.canReadEntryData(entry)) {
@@ -8361,18 +8414,6 @@ in `api/jreleaser-model-api/src/main/java/org/jreleaser/version/CalVer.java`
 ```
 
 ### UnusedAssignment
-Variable `scriptFile` initializer `null` is redundant
-in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/hooks/HookExecutor.java`
-#### Snippet
-```java
-        try {
-            for (ScriptHook hook : hooks) {
-                Path scriptFile = null;
-
-                try {
-```
-
-### UnusedAssignment
 Variable `commandLine` initializer `null` is redundant
 in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/hooks/HookExecutor.java`
 #### Snippet
@@ -8385,15 +8426,15 @@ in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/hooks/HookExecutor.
 ```
 
 ### UnusedAssignment
-Variable `fullChangelog` initializer `null` is redundant
-in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/release/ChangelogResolver.java`
+Variable `scriptFile` initializer `null` is redundant
+in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/hooks/HookExecutor.java`
 #### Snippet
 ```java
-
-        Path target = context.getBasedir().resolve(append.getTarget());
-        String fullChangelog = null;
         try {
-            fullChangelog = Files.exists(target) ? new String(Files.readAllBytes(target), UTF_8) : "";
+            for (ScriptHook hook : hooks) {
+                Path scriptFile = null;
+
+                try {
 ```
 
 ### UnusedAssignment
@@ -8406,6 +8447,30 @@ in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/sign/Signer.java`
             Iterable<?> pgpSigList = null;
 
             Object obj = pgpObjFactory.nextObject();
+```
+
+### UnusedAssignment
+Variable `newContent` initializer `null` is redundant
+in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/catalog/Slsa.java`
+#### Snippet
+```java
+        }
+
+        String newContent = null;
+        try {
+            Attestations attestations = new Attestations();
+```
+
+### UnusedAssignment
+Variable `fullChangelog` initializer `null` is redundant
+in `core/jreleaser-engine/src/main/java/org/jreleaser/engine/release/ChangelogResolver.java`
+#### Snippet
+```java
+
+        Path target = context.getBasedir().resolve(append.getTarget());
+        String fullChangelog = null;
+        try {
+            fullChangelog = Files.exists(target) ? new String(Files.readAllBytes(target), UTF_8) : "";
 ```
 
 ### UnusedAssignment
@@ -8469,6 +8534,18 @@ in `core/jreleaser-model-impl/src/main/java/org/jreleaser/model/internal/JReleas
 ```
 
 ### UnusedAssignment
+Variable `commit` initializer `null` is redundant
+in `sdks/jreleaser-git-java-sdk/src/main/java/org/jreleaser/sdk/git/GitSdk.java`
+#### Snippet
+```java
+        RevWalk walk = new RevWalk(git.getRepository());
+        ObjectId head = git.getRepository().resolve(Constants.HEAD);
+        RevCommit commit = null;
+
+        try {
+```
+
+### UnusedAssignment
 Variable `config` initializer `null` is redundant
 in `core/jreleaser-config-yaml/src/main/java/org/jreleaser/config/yaml/YamlJReleaserConfigParser.java`
 #### Snippet
@@ -8502,18 +8579,6 @@ in `sdks/jreleaser-http-java-sdk/src/main/java/org/jreleaser/sdk/http/HttpAnnoun
         String payload = "";
         if (isNotBlank(announcer.getPayload())) {
             payload = announcer.getResolvedPayload(context);
-```
-
-### UnusedAssignment
-Variable `commit` initializer `null` is redundant
-in `sdks/jreleaser-git-java-sdk/src/main/java/org/jreleaser/sdk/git/GitSdk.java`
-#### Snippet
-```java
-        RevWalk walk = new RevWalk(git.getRepository());
-        ObjectId head = git.getRepository().resolve(Constants.HEAD);
-        RevCommit commit = null;
-
-        try {
 ```
 
 ### UnusedAssignment
@@ -8625,15 +8690,15 @@ in `sdks/jreleaser-linkedin-java-sdk/src/main/java/org/jreleaser/sdk/linkedin/Li
 ```
 
 ### UnusedAssignment
-Variable `message` initializer `""` is redundant
-in `sdks/jreleaser-telegram-java-sdk/src/main/java/org/jreleaser/sdk/telegram/TelegramAnnouncer.java`
+Variable `length` initializer `0` is redundant
+in `sdks/jreleaser-signing-java-sdk/src/main/java/org/jreleaser/sdk/signing/SigningUtils.java`
 #### Snippet
 ```java
-    @Override
-    public void announce() throws AnnounceException {
-        String message = "";
-        if (isNotBlank(telegram.getMessage())) {
-            message = telegram.getResolvedMessage(context);
+
+            byte[] buffer = new byte[8192];
+            int length = 0;
+            while ((length = in.read(buffer)) >= 0) {
+                signatureGenerator.update(buffer, 0, length);
 ```
 
 ### UnusedAssignment
@@ -8649,27 +8714,15 @@ in `sdks/jreleaser-signing-java-sdk/src/main/java/org/jreleaser/sdk/signing/Sign
 ```
 
 ### UnusedAssignment
-Variable `length` initializer `0` is redundant
-in `sdks/jreleaser-signing-java-sdk/src/main/java/org/jreleaser/sdk/signing/SigningUtils.java`
-#### Snippet
-```java
-
-            byte[] buffer = new byte[8192];
-            int length = 0;
-            while ((length = in.read(buffer)) >= 0) {
-                signatureGenerator.update(buffer, 0, length);
-```
-
-### UnusedAssignment
 Variable `message` initializer `""` is redundant
-in `sdks/jreleaser-webhooks-java-sdk/src/main/java/org/jreleaser/sdk/webhooks/WebhooksAnnouncer.java`
+in `sdks/jreleaser-telegram-java-sdk/src/main/java/org/jreleaser/sdk/telegram/TelegramAnnouncer.java`
 #### Snippet
 ```java
-
-    public static void announce(JReleaserContext context, WebhookAnnouncer webhook, boolean discreet) throws AnnounceException {
+    @Override
+    public void announce() throws AnnounceException {
         String message = "";
-        if (isNotBlank(webhook.getMessage())) {
-            message = webhook.getResolvedMessage(context);
+        if (isNotBlank(telegram.getMessage())) {
+            message = telegram.getResolvedMessage(context);
 ```
 
 ### UnusedAssignment
@@ -8686,14 +8739,14 @@ in `sdks/jreleaser-discourse-java-sdk/src/main/java/org/jreleaser/sdk/discourse/
 
 ### UnusedAssignment
 Variable `message` initializer `""` is redundant
-in `sdks/jreleaser-opencollective-java-sdk/src/main/java/org/jreleaser/sdk/opencollective/OpenCollectiveAnnouncer.java`
+in `sdks/jreleaser-webhooks-java-sdk/src/main/java/org/jreleaser/sdk/webhooks/WebhooksAnnouncer.java`
 #### Snippet
 ```java
-    @Override
-    public void announce() throws AnnounceException {
+
+    public static void announce(JReleaserContext context, WebhookAnnouncer webhook, boolean discreet) throws AnnounceException {
         String message = "";
-        if (isNotBlank(openCollective.getMessage())) {
-            message = openCollective.getResolvedMessage(context);
+        if (isNotBlank(webhook.getMessage())) {
+            message = webhook.getResolvedMessage(context);
 ```
 
 ### UnusedAssignment
@@ -8718,6 +8771,18 @@ in `sdks/jreleaser-java-sdk-commons/src/main/java/org/jreleaser/sdk/commons/Abst
         Optional<String> publicKeyID = Optional.empty();
 
         try {
+```
+
+### UnusedAssignment
+Variable `message` initializer `""` is redundant
+in `sdks/jreleaser-opencollective-java-sdk/src/main/java/org/jreleaser/sdk/opencollective/OpenCollectiveAnnouncer.java`
+#### Snippet
+```java
+    @Override
+    public void announce() throws AnnounceException {
+        String message = "";
+        if (isNotBlank(openCollective.getMessage())) {
+            message = openCollective.getResolvedMessage(context);
 ```
 
 ## RuleId[id=EqualsWhichDoesntCheckParameterClass]
@@ -8916,18 +8981,6 @@ public abstract class Banner implements BuildService<Banner.Params> {
 ```
 
 ### UnstableApiUsage
-'org.gradle.api.services.BuildService' is declared in unstable package 'org.gradle.api.services' marked with @Incubating
-in `plugins/jreleaser-gradle-plugin/src/main/groovy/org/jreleaser/gradle/plugin/Banner.java`
-#### Snippet
-```java
- * @author Andres Almiray
- */
-public abstract class Banner implements BuildService<Banner.Params> {
-    private static final String ORG_JRELEASER_BANNER = "org.jreleaser.banner";
-
-```
-
-### UnstableApiUsage
 'org.gradle.api.services.BuildServiceParameters' is declared in unstable package 'org.gradle.api.services' marked with @Incubating
 in `plugins/jreleaser-gradle-plugin/src/main/groovy/org/jreleaser/gradle/plugin/Banner.java`
 #### Snippet
@@ -8936,6 +8989,18 @@ in `plugins/jreleaser-gradle-plugin/src/main/groovy/org/jreleaser/gradle/plugin/
 
     interface Params extends BuildServiceParameters {
     }
+
+```
+
+### UnstableApiUsage
+'org.gradle.api.services.BuildService' is declared in unstable package 'org.gradle.api.services' marked with @Incubating
+in `plugins/jreleaser-gradle-plugin/src/main/groovy/org/jreleaser/gradle/plugin/Banner.java`
+#### Snippet
+```java
+ * @author Andres Almiray
+ */
+public abstract class Banner implements BuildService<Banner.Params> {
+    private static final String ORG_JRELEASER_BANNER = "org.jreleaser.banner";
 
 ```
 
