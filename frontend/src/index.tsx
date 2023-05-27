@@ -16,12 +16,18 @@ import { ProjectConfigview } from './pages/ProjectConfigView';
 import { ReactKeycloakProvider } from '@react-keycloak/web';
 import keycloak from './Keycloak';
 import PrivateRoute from './PrivateRoute';
+import LandingPage from './pages/PageLayout';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
 
 const router = createBrowserRouter([
+  {
+    path: "/landingpage",
+    element: <LandingPage children={<DashBoard />} />,
+  },
+
   {
     path: "/",
     element: <DashBoard />,
@@ -100,12 +106,14 @@ const theme = createTheme(
 root.render(
   <ReactKeycloakProvider authClient={keycloak}>
     <React.StrictMode>
-      <ThemeProvider theme={theme} >
+      {// <ThemeProvider theme={theme} >
+      }
         <ApolloProvider client={client}>
           <RouterProvider router={router} />
           <CssBaseline />
         </ApolloProvider>
-      </ThemeProvider>
+      {///ThemeProvider>
+      }
     </React.StrictMode>
   </ReactKeycloakProvider>
 );
