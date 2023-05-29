@@ -33,6 +33,18 @@ StandardCharsets.UTF_8 can be used instead
 in `src/main/java/com/microsoft/jenkins/iotedge/util/Util.java`
 #### Snippet
 ```java
+            SecretKeySpec secret_key = new SecretKeySpec(secret, "HmacSHA256");
+            sha256_HMAC.init(secret_key);
+            bytes = sha256_HMAC.doFinal(message.getBytes(Constants.CHARSET_UTF_8));
+        } catch (Exception e) {
+            System.out.println("Error HmacSHA256 ===========" + e.getMessage());
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `src/main/java/com/microsoft/jenkins/iotedge/util/Util.java`
+#### Snippet
+```java
 
             connection.setRequestProperty("Content-Length",
                     Integer.toString(urlParameters.getBytes(Constants.CHARSET_UTF_8).length));
@@ -50,18 +62,6 @@ in `src/main/java/com/microsoft/jenkins/iotedge/util/Util.java`
             BufferedReader rd = new BufferedReader(new InputStreamReader(is, Constants.CHARSET_UTF_8));
             StringBuilder response = new StringBuilder(); // or StringBuffer if Java version 5+
             String line;
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `src/main/java/com/microsoft/jenkins/iotedge/util/Util.java`
-#### Snippet
-```java
-            SecretKeySpec secret_key = new SecretKeySpec(secret, "HmacSHA256");
-            sha256_HMAC.init(secret_key);
-            bytes = sha256_HMAC.doFinal(message.getBytes(Constants.CHARSET_UTF_8));
-        } catch (Exception e) {
-            System.out.println("Error HmacSHA256 ===========" + e.getMessage());
 ```
 
 ### CharsetObjectCanBeUsed
@@ -290,6 +290,18 @@ in `src/main/java/com/microsoft/jenkins/iotedge/ShellExecuter.java`
 
 ## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
+Variable `output` initializer `null` is redundant
+in `src/main/java/com/microsoft/jenkins/iotedge/BaseBuilder.java`
+#### Snippet
+```java
+            if (StringUtils.isNotBlank(azureCredentialsId)) {
+                AzureCredentials.ServicePrincipal servicePrincipal = AzureCredentials.getServicePrincipal(azureCredentialsId);
+                String output = null;
+
+                output = Util.executePost(String.format(Constants.REST_GET_TOKEN_URL, servicePrincipal.getTenant()),
+```
+
+### UnusedAssignment
 Variable `rootPath` initializer `DescriptorImpl.defaultRootPath` is redundant
 in `src/main/java/com/microsoft/jenkins/iotedge/BaseBuilder.java`
 #### Snippet
@@ -311,18 +323,6 @@ in `src/main/java/com/microsoft/jenkins/iotedge/BaseBuilder.java`
         PrintWriter writer = null;
         try {
             writer = new PrintWriter(path, Constants.CHARSET_UTF_8);
-```
-
-### UnusedAssignment
-Variable `output` initializer `null` is redundant
-in `src/main/java/com/microsoft/jenkins/iotedge/BaseBuilder.java`
-#### Snippet
-```java
-            if (StringUtils.isNotBlank(azureCredentialsId)) {
-                AzureCredentials.ServicePrincipal servicePrincipal = AzureCredentials.getServicePrincipal(azureCredentialsId);
-                String output = null;
-
-                output = Util.executePost(String.format(Constants.REST_GET_TOKEN_URL, servicePrincipal.getTenant()),
 ```
 
 ### UnusedAssignment
