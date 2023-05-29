@@ -10,18 +10,6 @@ I found 13 bad smells with 0 repairable:
 | ReplaceCallWithBinaryOperator | 1 | false |
 ## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
-Field `clientNodeId` may be 'final'
-in `src/main/java/org/eclipse/keyple/distributed/LocalServiceServerAdapter.java`
-#### Snippet
-```java
-  private static class ClientInfo {
-
-    private String clientNodeId;
-    private String sessionId;
-
-```
-
-### FieldMayBeFinal
 Field `sessionId` may be 'final'
 in `src/main/java/org/eclipse/keyple/distributed/LocalServiceServerAdapter.java`
 #### Snippet
@@ -31,6 +19,18 @@ in `src/main/java/org/eclipse/keyple/distributed/LocalServiceServerAdapter.java`
     private String sessionId;
 
     private ClientInfo(String clientNodeId, String sessionId) {
+```
+
+### FieldMayBeFinal
+Field `clientNodeId` may be 'final'
+in `src/main/java/org/eclipse/keyple/distributed/LocalServiceServerAdapter.java`
+#### Snippet
+```java
+  private static class ClientInfo {
+
+    private String clientNodeId;
+    private String sessionId;
+
 ```
 
 ## RuleId[id=ReplaceCallWithBinaryOperator]
@@ -74,62 +74,14 @@ in `build.gradle.kts`
 ## RuleId[id=IgnoreResultOfCall]
 ### IgnoreResultOfCall
 Result of `Assert.notEmpty()` is ignored
-in `src/main/java/org/eclipse/keyple/distributed/LocalServiceServerFactoryBuilder.java`
+in `src/main/java/org/eclipse/keyple/distributed/LocalServiceClientAdapter.java`
 #### Snippet
 ```java
+    Assert.getInstance()
+        .notEmpty(serviceId, "serviceId")
+        .notEmpty(localReaderName, "localReaderName");
 
-    private Builder(String localServiceName) {
-      Assert.getInstance().notEmpty(localServiceName, "localServiceName");
-      this.localServiceName = localServiceName;
-    }
-```
-
-### IgnoreResultOfCall
-Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/distributed/LocalServiceServerFactoryBuilder.java`
-#### Snippet
-```java
-    @Override
-    public BuilderStep withPoolPlugins(String... poolPluginNames) {
-      Assert.getInstance().notNull(poolPluginNames, "poolPluginNames");
-      for (String poolPluginName : poolPluginNames) {
-        Assert.getInstance().notEmpty(poolPluginName, "poolPluginName");
-```
-
-### IgnoreResultOfCall
-Result of `Assert.notEmpty()` is ignored
-in `src/main/java/org/eclipse/keyple/distributed/LocalServiceServerFactoryBuilder.java`
-#### Snippet
-```java
-      Assert.getInstance().notNull(poolPluginNames, "poolPluginNames");
-      for (String poolPluginName : poolPluginNames) {
-        Assert.getInstance().notEmpty(poolPluginName, "poolPluginName");
-      }
-      this.poolPluginNames = poolPluginNames;
-```
-
-### IgnoreResultOfCall
-Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/distributed/LocalServiceServerFactoryBuilder.java`
-#### Snippet
-```java
-    @Override
-    public BuilderStep withAsyncNode(AsyncEndpointServerSpi endpoint) {
-      Assert.getInstance().notNull(endpoint, "endpoint");
-      this.asyncEndpoint = endpoint;
-      return this;
-```
-
-### IgnoreResultOfCall
-Result of `Assert.greaterOrEqual()` is ignored
-in `src/main/java/org/eclipse/keyple/distributed/LocalServiceClientFactoryBuilder.java`
-#### Snippet
-```java
-      Assert.getInstance()
-          .notNull(endpoint, "endpoint")
-          .greaterOrEqual(timeoutSeconds, 1, "timeoutSeconds");
-      this.asyncEndpoint = endpoint;
-      this.timeoutSeconds = timeoutSeconds;
+    // Generate a new session ID.
 ```
 
 ### IgnoreResultOfCall
@@ -157,14 +109,62 @@ in `src/main/java/org/eclipse/keyple/distributed/LocalServiceClientFactoryBuilde
 ```
 
 ### IgnoreResultOfCall
-Result of `Assert.notEmpty()` is ignored
-in `src/main/java/org/eclipse/keyple/distributed/LocalServiceClientAdapter.java`
+Result of `Assert.greaterOrEqual()` is ignored
+in `src/main/java/org/eclipse/keyple/distributed/LocalServiceClientFactoryBuilder.java`
 #### Snippet
 ```java
-    Assert.getInstance()
-        .notEmpty(serviceId, "serviceId")
-        .notEmpty(localReaderName, "localReaderName");
+      Assert.getInstance()
+          .notNull(endpoint, "endpoint")
+          .greaterOrEqual(timeoutSeconds, 1, "timeoutSeconds");
+      this.asyncEndpoint = endpoint;
+      this.timeoutSeconds = timeoutSeconds;
+```
 
-    // Generate a new session ID.
+### IgnoreResultOfCall
+Result of `Assert.notNull()` is ignored
+in `src/main/java/org/eclipse/keyple/distributed/LocalServiceServerFactoryBuilder.java`
+#### Snippet
+```java
+    @Override
+    public BuilderStep withPoolPlugins(String... poolPluginNames) {
+      Assert.getInstance().notNull(poolPluginNames, "poolPluginNames");
+      for (String poolPluginName : poolPluginNames) {
+        Assert.getInstance().notEmpty(poolPluginName, "poolPluginName");
+```
+
+### IgnoreResultOfCall
+Result of `Assert.notEmpty()` is ignored
+in `src/main/java/org/eclipse/keyple/distributed/LocalServiceServerFactoryBuilder.java`
+#### Snippet
+```java
+      Assert.getInstance().notNull(poolPluginNames, "poolPluginNames");
+      for (String poolPluginName : poolPluginNames) {
+        Assert.getInstance().notEmpty(poolPluginName, "poolPluginName");
+      }
+      this.poolPluginNames = poolPluginNames;
+```
+
+### IgnoreResultOfCall
+Result of `Assert.notEmpty()` is ignored
+in `src/main/java/org/eclipse/keyple/distributed/LocalServiceServerFactoryBuilder.java`
+#### Snippet
+```java
+
+    private Builder(String localServiceName) {
+      Assert.getInstance().notEmpty(localServiceName, "localServiceName");
+      this.localServiceName = localServiceName;
+    }
+```
+
+### IgnoreResultOfCall
+Result of `Assert.notNull()` is ignored
+in `src/main/java/org/eclipse/keyple/distributed/LocalServiceServerFactoryBuilder.java`
+#### Snippet
+```java
+    @Override
+    public BuilderStep withAsyncNode(AsyncEndpointServerSpi endpoint) {
+      Assert.getInstance().notNull(endpoint, "endpoint");
+      this.asyncEndpoint = endpoint;
+      return this;
 ```
 
