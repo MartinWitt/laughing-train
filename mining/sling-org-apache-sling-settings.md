@@ -20,11 +20,11 @@ StandardCharsets.ISO_8859_1 can be used instead
 in `src/main/java/org/apache/sling/settings/impl/SlingIdUtil.java`
 #### Snippet
 ```java
-                dis = new DataInputStream(new FileInputStream(idFile));
-                dis.readFully(rawBytes);
-                final String rawString = new String(rawBytes, "ISO-8859-1");
-
-                // roundtrip to ensure correct format of UUID value
+        DataOutputStream dos = null;
+        try {
+            final byte[] rawBytes = id.getBytes("ISO-8859-1");
+            dos = new DataOutputStream(new FileOutputStream(idFile));
+            dos.write(rawBytes, 0, rawBytes.length);
 ```
 
 ### CharsetObjectCanBeUsed
@@ -32,11 +32,11 @@ StandardCharsets.ISO_8859_1 can be used instead
 in `src/main/java/org/apache/sling/settings/impl/SlingIdUtil.java`
 #### Snippet
 ```java
-        DataOutputStream dos = null;
-        try {
-            final byte[] rawBytes = id.getBytes("ISO-8859-1");
-            dos = new DataOutputStream(new FileOutputStream(idFile));
-            dos.write(rawBytes, 0, rawBytes.length);
+                dis = new DataInputStream(new FileInputStream(idFile));
+                dis.readFully(rawBytes);
+                final String rawString = new String(rawBytes, "ISO-8859-1");
+
+                // roundtrip to ensure correct format of UUID value
 ```
 
 ## RuleId[id=UnnecessaryModifier]
@@ -54,18 +54,6 @@ in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
 
 ## RuleId[id=IOStreamConstructor]
 ### IOStreamConstructor
-'InputStream' can be constructed using 'Files.newInputStream()'
-in `src/main/java/org/apache/sling/settings/impl/SlingIdUtil.java`
-#### Snippet
-```java
-            try {
-                final byte[] rawBytes = new byte[SLING_ID_LENGTH];
-                dis = new DataInputStream(new FileInputStream(idFile));
-                dis.readFully(rawBytes);
-                final String rawString = new String(rawBytes, "ISO-8859-1");
-```
-
-### IOStreamConstructor
 'OutputStream' can be constructed using 'Files.newOutputStream()'
 in `src/main/java/org/apache/sling/settings/impl/SlingIdUtil.java`
 #### Snippet
@@ -77,7 +65,139 @@ in `src/main/java/org/apache/sling/settings/impl/SlingIdUtil.java`
             dos.flush();
 ```
 
+### IOStreamConstructor
+'InputStream' can be constructed using 'Files.newInputStream()'
+in `src/main/java/org/apache/sling/settings/impl/SlingIdUtil.java`
+#### Snippet
+```java
+            try {
+                final byte[] rawBytes = new byte[SLING_ID_LENGTH];
+                dis = new DataInputStream(new FileInputStream(idFile));
+                dis.readFully(rawBytes);
+                final String rawString = new String(rawBytes, "ISO-8859-1");
+```
+
 ## RuleId[id=JavadocReference]
+### JavadocReference
+Cannot resolve symbol `org.apache.felix.webconsole.ConfigurationPrinter`
+in `src/main/java/org/apache/sling/settings/impl/SlingSettingsPrinter.java`
+#### Snippet
+```java
+    /**
+     * Print out the servlet filter chains.
+     * @see org.apache.felix.webconsole.ConfigurationPrinter#printConfiguration(java.io.PrintWriter)
+     */
+    public void printConfiguration(PrintWriter pw) {
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.felix.shell.Command`
+in `src/main/java/org/apache/sling/settings/impl/RunModeCommand.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.felix.shell.Command#execute(java.lang.String, java.io.PrintStream, java.io.PrintStream)
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `printConfiguration(java.io.PrintWriter)`
+in `src/main/java/org/apache/sling/settings/impl/SlingSettingsPrinter.java`
+#### Snippet
+```java
+    /**
+     * Print out the servlet filter chains.
+     * @see org.apache.felix.webconsole.ConfigurationPrinter#printConfiguration(java.io.PrintWriter)
+     */
+    public void printConfiguration(PrintWriter pw) {
+```
+
+### JavadocReference
+Cannot resolve symbol `execute(java.lang.String, java.io.PrintStream, java.io.PrintStream)`
+in `src/main/java/org/apache/sling/settings/impl/RunModeCommand.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.felix.shell.Command#execute(java.lang.String, java.io.PrintStream, java.io.PrintStream)
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.felix.shell.Command`
+in `src/main/java/org/apache/sling/settings/impl/RunModeCommand.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.felix.shell.Command#getShortDescription()
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `getShortDescription()`
+in `src/main/java/org/apache/sling/settings/impl/RunModeCommand.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.felix.shell.Command#getShortDescription()
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.felix.shell.Command`
+in `src/main/java/org/apache/sling/settings/impl/RunModeCommand.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.felix.shell.Command#getUsage()
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `getUsage()`
+in `src/main/java/org/apache/sling/settings/impl/RunModeCommand.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.felix.shell.Command#getUsage()
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.felix.shell.Command`
+in `src/main/java/org/apache/sling/settings/impl/RunModeCommand.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.felix.shell.Command#getName()
+     */
+    @Override
+```
+
+### JavadocReference
+Cannot resolve symbol `getName()`
+in `src/main/java/org/apache/sling/settings/impl/RunModeCommand.java`
+#### Snippet
+```java
+
+    /**
+     * @see org.apache.felix.shell.Command#getName()
+     */
+    @Override
+```
+
 ### JavadocReference
 Cannot resolve symbol `org.apache.felix.webconsole.ModeAwareConfigurationPrinter`
 in `src/main/java/org/apache/sling/settings/impl/SlingPropertiesPrinter.java`
@@ -126,126 +246,6 @@ in `src/main/java/org/apache/sling/settings/impl/SlingPropertiesPrinter.java`
     public void printConfiguration(PrintWriter pw) {
 ```
 
-### JavadocReference
-Cannot resolve symbol `org.apache.felix.shell.Command`
-in `src/main/java/org/apache/sling/settings/impl/RunModeCommand.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.felix.shell.Command#getName()
-     */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `getName()`
-in `src/main/java/org/apache/sling/settings/impl/RunModeCommand.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.felix.shell.Command#getName()
-     */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `org.apache.felix.shell.Command`
-in `src/main/java/org/apache/sling/settings/impl/RunModeCommand.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.felix.shell.Command#execute(java.lang.String, java.io.PrintStream, java.io.PrintStream)
-     */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `execute(java.lang.String, java.io.PrintStream, java.io.PrintStream)`
-in `src/main/java/org/apache/sling/settings/impl/RunModeCommand.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.felix.shell.Command#execute(java.lang.String, java.io.PrintStream, java.io.PrintStream)
-     */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `org.apache.felix.shell.Command`
-in `src/main/java/org/apache/sling/settings/impl/RunModeCommand.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.felix.shell.Command#getUsage()
-     */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `getUsage()`
-in `src/main/java/org/apache/sling/settings/impl/RunModeCommand.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.felix.shell.Command#getUsage()
-     */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `org.apache.felix.shell.Command`
-in `src/main/java/org/apache/sling/settings/impl/RunModeCommand.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.felix.shell.Command#getShortDescription()
-     */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `getShortDescription()`
-in `src/main/java/org/apache/sling/settings/impl/RunModeCommand.java`
-#### Snippet
-```java
-
-    /**
-     * @see org.apache.felix.shell.Command#getShortDescription()
-     */
-    @Override
-```
-
-### JavadocReference
-Cannot resolve symbol `org.apache.felix.webconsole.ConfigurationPrinter`
-in `src/main/java/org/apache/sling/settings/impl/SlingSettingsPrinter.java`
-#### Snippet
-```java
-    /**
-     * Print out the servlet filter chains.
-     * @see org.apache.felix.webconsole.ConfigurationPrinter#printConfiguration(java.io.PrintWriter)
-     */
-    public void printConfiguration(PrintWriter pw) {
-```
-
-### JavadocReference
-Cannot resolve symbol `printConfiguration(java.io.PrintWriter)`
-in `src/main/java/org/apache/sling/settings/impl/SlingSettingsPrinter.java`
-#### Snippet
-```java
-    /**
-     * Print out the servlet filter chains.
-     * @see org.apache.felix.webconsole.ConfigurationPrinter#printConfiguration(java.io.PrintWriter)
-     */
-    public void printConfiguration(PrintWriter pw) {
-```
-
 ## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
@@ -272,19 +272,20 @@ in `src/main/java/org/apache/sling/settings/impl/SlingSettingsServiceImpl.java`
     public SlingSettingsServiceImpl(String runModes) {
 ```
 
-## RuleId[id=FieldMayBeFinal]
-### FieldMayBeFinal
-Field `HEADLINE` may be 'final'
+## RuleId[id=UnusedAssignment]
+### UnusedAssignment
+Variable `contents` initializer `null` is redundant
 in `src/main/java/org/apache/sling/settings/impl/SlingPropertiesPrinter.java`
 #### Snippet
 ```java
-
-
-    private static String HEADLINE = "Apache Sling Launchpad Properties";
-
-    private final Properties props;
+        } else {
+            // write into byte array first
+            String contents = null;
+            try {
+                final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 ```
 
+## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
 Field `HEADLINE` may be 'final'
 in `src/main/java/org/apache/sling/settings/impl/SlingSettingsPrinter.java`
@@ -297,17 +298,16 @@ public class SlingSettingsPrinter {
     private final SlingSettingsService settings;
 ```
 
-## RuleId[id=UnusedAssignment]
-### UnusedAssignment
-Variable `contents` initializer `null` is redundant
+### FieldMayBeFinal
+Field `HEADLINE` may be 'final'
 in `src/main/java/org/apache/sling/settings/impl/SlingPropertiesPrinter.java`
 #### Snippet
 ```java
-        } else {
-            // write into byte array first
-            String contents = null;
-            try {
-                final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+
+    private static String HEADLINE = "Apache Sling Launchpad Properties";
+
+    private final Properties props;
 ```
 
 ## RuleId[id=FieldCanBeLocal]
