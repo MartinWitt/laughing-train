@@ -41,30 +41,6 @@ in `auto-parallelizable/src/main/java/com/palantir/gradle/autoparallelizable/Aut
 #### Snippet
 ```java
 
-    private static boolean isNested(Element element) {
-        return MoreElements.isAnnotationPresent(element, "org.gradle.api.tasks.Nested");
-    }
-
-```
-
-### UnstableApiUsage
-'isAnnotationPresent(javax.lang.model.element.Element, java.lang.String)' is declared in unstable class 'com.google.auto.common.MoreElements' marked with @Beta
-in `auto-parallelizable/src/main/java/com/palantir/gradle/autoparallelizable/AutoParallelizableProcessor.java`
-#### Snippet
-```java
-
-    private static boolean isNested(Element element) {
-        return MoreElements.isAnnotationPresent(element, "org.gradle.api.tasks.Nested");
-    }
-
-```
-
-### UnstableApiUsage
-'com.google.auto.common.MoreElements' is marked unstable with @Beta
-in `auto-parallelizable/src/main/java/com/palantir/gradle/autoparallelizable/AutoParallelizableProcessor.java`
-#### Snippet
-```java
-
     private static boolean isInjectable(VariableElement parameter) {
         return MoreElements.isAnnotationPresent(parameter, AutoParallelizable.Inject.class);
     }
@@ -79,6 +55,30 @@ in `auto-parallelizable/src/main/java/com/palantir/gradle/autoparallelizable/Aut
 
     private static boolean isInjectable(VariableElement parameter) {
         return MoreElements.isAnnotationPresent(parameter, AutoParallelizable.Inject.class);
+    }
+
+```
+
+### UnstableApiUsage
+'com.google.auto.common.MoreElements' is marked unstable with @Beta
+in `auto-parallelizable/src/main/java/com/palantir/gradle/autoparallelizable/AutoParallelizableProcessor.java`
+#### Snippet
+```java
+
+    private static boolean isNested(Element element) {
+        return MoreElements.isAnnotationPresent(element, "org.gradle.api.tasks.Nested");
+    }
+
+```
+
+### UnstableApiUsage
+'isAnnotationPresent(javax.lang.model.element.Element, java.lang.String)' is declared in unstable class 'com.google.auto.common.MoreElements' marked with @Beta
+in `auto-parallelizable/src/main/java/com/palantir/gradle/autoparallelizable/AutoParallelizableProcessor.java`
+#### Snippet
+```java
+
+    private static boolean isNested(Element element) {
+        return MoreElements.isAnnotationPresent(element, "org.gradle.api.tasks.Nested");
     }
 
 ```
