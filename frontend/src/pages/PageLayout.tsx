@@ -1,6 +1,7 @@
 import React from "react";
 import { Grid, AppBar, Toolbar, List, ListItem, ListItemText, Box } from "@mui/material";
 import { LoginButton } from "../component/LoginButton";
+import { useNavigate } from "react-router";
 
 interface LogoProps {
   src: string;
@@ -19,16 +20,14 @@ function Name({ name }: NameProps) {
   return <h1 style={{ fontSize: "20px", fontWeight: "bold", margin: "0 0 0 5px" }}>{name}</h1>;
 }
 
-interface NavigationProps {
-  items: string[];
-}
 
-function Navigation({ items }: NavigationProps) {
+function Navigation({ links }: NavigationProps) {
+  const navigate = useNavigate();
   return (
-    <List style={{ padding: 0 }}>
-      {items.map((item) => (
-        <ListItem button key={item}>
-          <ListItemText primary={item} />
+    <List>
+      {links.map((link) => (
+        <ListItem key={link.href} onClick={() => navigate(link.href, { replace: true })}>
+          <ListItemText primary={link.name} />
         </ListItem>
       ))}
     </List>
@@ -37,9 +36,20 @@ function Navigation({ items }: NavigationProps) {
 interface PageLayoutProps {
   children: React.ReactNode;
 }
+interface Link {
+  name: string;
+  href: string;
+
+}
+interface NavigationProps {
+  links: Link[];
+}
 
 export default function PageLayout({ children }: PageLayoutProps) {
-  const navigationItems = ["Home", "About", "Contact"];
+  const navigationItems: Link[] = [
+    { name: "Home", href: "/" },
+    { name: "Statistics", href: "/statistics" }
+  ];
   return (
     <div style={{ height: "100vh" }}>
       <AppBar position="static">
@@ -53,16 +63,16 @@ export default function PageLayout({ children }: PageLayoutProps) {
           <Box sx={{ height: "100%", width: "100%", bgcolor: "#f0f0f0", overflow: "hidden" }}>
             <AppBar position="static">
               <Toolbar>
-                <Navigation items={navigationItems} />
+                <Navigation links={navigationItems} />
               </Toolbar>
             </AppBar>
             <LoginButton />
           </Box>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={9}>
           {children}
         </Grid>
-        <Grid item xs={3}></Grid>
+        <Grid item xs={1}></Grid>
       </Grid>
     </div>
   );
