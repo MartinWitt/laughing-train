@@ -20,6 +20,27 @@ in `chemclipse/plugins/org.eclipse.chemclipse.rcp.app.ui/css/classic.css`
 ## RuleId[id=ReassignedToPlainText]
 ### ReassignedToPlainText
 This file was explicitly re-assigned to plain text
+in `chemclipse/tests/org.eclipse.chemclipse.msd.identifier.supplier.nist.fragment.test/testData/files/nist/SRCRESLT-2.TXT`
+#### Snippet
+```java
+Unknown:                                                             Compound in Library Factor = -760
+Hit 1  : <<9-Tetradecen-1-ol, (E)->>;<<C14H28O>>; MF: 572; RMF: 593; Prob: 63.70; CAS:52957-16-1; Mw: 212; Lib: <<mainlib>>; Id: 2155.
+Hit 2  : <<1,2-Benzenediol, 4-(2-amino-1-hydroxypropyl)->>;<<C9H13NO3>>; MF: 511; RMF: 511; Prob: 11.09; CAS:6539-57-7; Mw: 183; Lib: <<mainlib>>; Id: 536.
+Unknown:                                                             Compound in Library Factor = -483
+Hit 1  : <<9-Tetradecen-1-ol, (E)->>;<<C14H28O>>; MF: 609; RMF: 620; Prob: 62.31; CAS:52957-16-1; Mw: 212; Lib: <<mainlib>>; Id: 2155.
+Unknown:                                                             Compound in Library Factor = -1558
+Hit 1  : <<6-Methyl-6-hepten-4-yn-2-ol>>;<<C8H12O>>; MF: 473; RMF: 598; Prob: 13.06; CAS:20937-57-9; Mw: 124; Lib: <<mainlib>>; Id: 1002.
+Hit 2  : <<1,2-Benzenediol, 4-(2-amino-1-hydroxypropyl)->>;<<C9H13NO3>>; MF: 473; RMF: 477; Prob: 13.06; CAS:6539-57-7; Mw: 183; Lib: <<mainlib>>; Id: 536.
+Hit 1  : <<Hydrazinecarboxylic acid, phenylmethyl ester>>;<<C8H10N2O2>>; MF: 671; RMF: 686; Prob: 45.98; CAS:5331-43-1; Mw: 166; Lib: <<mainlib>>; Id: 2140.
+Hit 2  : <<Ethylbenzene>>;<<C8H10>>; MF: 662; RMF: 808; Prob: 33.38; CAS:100-41-4; Mw: 106; Lib: <<mainlib>>; Id: 576.
+Unknown:                                                             Compound in Library Factor = -830
+Hit 1  : <<9-Tetradecen-1-ol, (E)->>;<<C14H28O>>; MF: 623; RMF: 645; Prob: 47.31; CAS:52957-16-1; Mw: 212; Lib: <<mainlib>>; Id: 2155.
+Hit 2  : <<Cyclohexanol>>;<<C6H12O>>; MF: 574; RMF: 653; Prob: 9.71; CAS:108-93-0; Mw: 100; Lib: <<mainlib>>; Id: 1222.
+Hit 1  : <<9-Tetradecen-1-ol, (E)->>;<<C14H28O>>; MF: 599; RMF: 614; Prob: 21.48; CAS:52957-16-1; Mw: 212; Lib: <<mainlib>>
+```
+
+### ReassignedToPlainText
+This file was explicitly re-assigned to plain text
 in `chemclipse/tests/org.eclipse.chemclipse.msd.identifier.supplier.nist.fragment.test/testData/files/nist/SRCRESLT-3.TXT`
 #### Snippet
 ```java
@@ -39,27 +60,6 @@ Hit 12 : <<2-Butene>>;<<C4H8>>; MF: 591; RMF: 808; Prob: 0.00; CAS:107-01-7; Mw:
 Unknown: PEAK-V-NAME                                                 Compound in Library Factor = -830
 Hit 1  : <<9-Tetradecen-1-ol, (E)->>;<<C14H28O>>; MF: 623; RMF: 645; Prob: 47.31; CAS:52957-16-1; Mw: 212; Lib: <<mainlib>>; Id: 2155.
 Hit 2  : <<Cyclohexanol>>;<<C6H12O>>; MF: 574; RMF: 653; Prob: 9.71; CAS:108-93-0; Mw: 100; Lib: <<mainl
-```
-
-### ReassignedToPlainText
-This file was explicitly re-assigned to plain text
-in `chemclipse/tests/org.eclipse.chemclipse.msd.identifier.supplier.nist.fragment.test/testData/files/nist/SRCRESLT-2.TXT`
-#### Snippet
-```java
-Unknown:                                                             Compound in Library Factor = -760
-Hit 1  : <<9-Tetradecen-1-ol, (E)->>;<<C14H28O>>; MF: 572; RMF: 593; Prob: 63.70; CAS:52957-16-1; Mw: 212; Lib: <<mainlib>>; Id: 2155.
-Hit 2  : <<1,2-Benzenediol, 4-(2-amino-1-hydroxypropyl)->>;<<C9H13NO3>>; MF: 511; RMF: 511; Prob: 11.09; CAS:6539-57-7; Mw: 183; Lib: <<mainlib>>; Id: 536.
-Unknown:                                                             Compound in Library Factor = -483
-Hit 1  : <<9-Tetradecen-1-ol, (E)->>;<<C14H28O>>; MF: 609; RMF: 620; Prob: 62.31; CAS:52957-16-1; Mw: 212; Lib: <<mainlib>>; Id: 2155.
-Unknown:                                                             Compound in Library Factor = -1558
-Hit 1  : <<6-Methyl-6-hepten-4-yn-2-ol>>;<<C8H12O>>; MF: 473; RMF: 598; Prob: 13.06; CAS:20937-57-9; Mw: 124; Lib: <<mainlib>>; Id: 1002.
-Hit 2  : <<1,2-Benzenediol, 4-(2-amino-1-hydroxypropyl)->>;<<C9H13NO3>>; MF: 473; RMF: 477; Prob: 13.06; CAS:6539-57-7; Mw: 183; Lib: <<mainlib>>; Id: 536.
-Hit 1  : <<Hydrazinecarboxylic acid, phenylmethyl ester>>;<<C8H10N2O2>>; MF: 671; RMF: 686; Prob: 45.98; CAS:5331-43-1; Mw: 166; Lib: <<mainlib>>; Id: 2140.
-Hit 2  : <<Ethylbenzene>>;<<C8H10>>; MF: 662; RMF: 808; Prob: 33.38; CAS:100-41-4; Mw: 106; Lib: <<mainlib>>; Id: 576.
-Unknown:                                                             Compound in Library Factor = -830
-Hit 1  : <<9-Tetradecen-1-ol, (E)->>;<<C14H28O>>; MF: 623; RMF: 645; Prob: 47.31; CAS:52957-16-1; Mw: 212; Lib: <<mainlib>>; Id: 2155.
-Hit 2  : <<Cyclohexanol>>;<<C6H12O>>; MF: 574; RMF: 653; Prob: 9.71; CAS:108-93-0; Mw: 100; Lib: <<mainlib>>; Id: 1222.
-Hit 1  : <<9-Tetradecen-1-ol, (E)->>;<<C14H28O>>; MF: 599; RMF: 614; Prob: 21.48; CAS:52957-16-1; Mw: 212; Lib: <<mainlib>>
 ```
 
 ### ReassignedToPlainText
@@ -3456,6 +3456,14 @@ in `chemclipse/tests/org.eclipse.chemclipse.msd.identifier.supplier.nist.fragmen
 
 ### ReassignedToPlainText
 This file was explicitly re-assigned to plain text
+in `chemclipse/tests/org.eclipse.chemclipse.msd.identifier.supplier.nist.fragment.test/testData/files/wine/dosdevices/c/programs/nist/SRCREADY.TXT`
+#### Snippet
+```java
+
+```
+
+### ReassignedToPlainText
+This file was explicitly re-assigned to plain text
 in `chemclipse/tests/org.eclipse.chemclipse.msd.identifier.supplier.nist.fragment.test/testData/files/wine/dosdevices/c/programs/nist/SRCRESLT.TXT`
 #### Snippet
 ```java
@@ -3465,14 +3473,6 @@ in `chemclipse/tests/org.eclipse.chemclipse.msd.identifier.supplier.nist.fragmen
 ### ReassignedToPlainText
 This file was explicitly re-assigned to plain text
 in `chemclipse/tests/org.eclipse.chemclipse.msd.identifier.supplier.nist.fragment.test/testData/files/windows/programs/nist/NISTLOG.TXT`
-#### Snippet
-```java
-
-```
-
-### ReassignedToPlainText
-This file was explicitly re-assigned to plain text
-in `chemclipse/tests/org.eclipse.chemclipse.msd.identifier.supplier.nist.fragment.test/testData/files/wine/dosdevices/c/programs/nist/SRCREADY.TXT`
 #### Snippet
 ```java
 
