@@ -60,18 +60,6 @@ in `src/main/java/com/palantir/gradle/externalpublish/GpgSigningKey.java`
 ## RuleId[id=NullableProblems]
 ### NullableProblems
 Not annotated parameter overrides @NonNullApi parameter
-in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishDistPlugin.java`
-#### Snippet
-```java
-
-    @Override
-    public final void apply(Project project) {
-        ExternalPublishBasePlugin.applyTo(project).addPublication("dist", publication -> {
-            // Unfortunately need to use afterEvaluate here, since MavenPublication#artifact immediately tries to get
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNullApi parameter
 in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishCustomPlugin.java`
 #### Snippet
 ```java
@@ -84,26 +72,26 @@ public final class ExternalPublishCustomPlugin implements Plugin<Project> {
 
 ### NullableProblems
 Not annotated parameter overrides @NonNullApi parameter
-in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishRootPlugin.java`
+in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishDistPlugin.java`
 #### Snippet
 ```java
 
     @Override
-    public final void apply(Project rootProjectVal) {
-        this.rootProject = rootProjectVal;
-
+    public final void apply(Project project) {
+        ExternalPublishBasePlugin.applyTo(project).addPublication("dist", publication -> {
+            // Unfortunately need to use afterEvaluate here, since MavenPublication#artifact immediately tries to get
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNullApi parameter
-in `src/main/java/com/palantir/gradle/externalpublish/CircleCiContextDeadlineAvoidance.java`
+in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishJarPlugin.java`
 #### Snippet
 ```java
-        task.doLast(new Action<Task>() {
-            @Override
-            public void execute(Task _ignored) {
-                spammerTask.get().cancel(true);
-            }
+
+    @Override
+    public final void apply(Project project) {
+        configureJars(project);
+
 ```
 
 ### NullableProblems
@@ -120,13 +108,25 @@ in `src/main/java/com/palantir/gradle/externalpublish/CircleCiContextDeadlineAvo
 
 ### NullableProblems
 Not annotated parameter overrides @NonNullApi parameter
-in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishJarPlugin.java`
+in `src/main/java/com/palantir/gradle/externalpublish/CircleCiContextDeadlineAvoidance.java`
+#### Snippet
+```java
+        task.doLast(new Action<Task>() {
+            @Override
+            public void execute(Task _ignored) {
+                spammerTask.get().cancel(true);
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNullApi parameter
+in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishRootPlugin.java`
 #### Snippet
 ```java
 
     @Override
-    public final void apply(Project project) {
-        configureJars(project);
+    public final void apply(Project rootProjectVal) {
+        this.rootProject = rootProjectVal;
 
 ```
 
